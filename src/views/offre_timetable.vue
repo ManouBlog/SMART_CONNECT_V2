@@ -1,0 +1,596 @@
+<script>
+import instance from "../api/api";
+import Swal from "sweetalert2";
+ import VueMultiselect from 'vue-multiselect'
+export default {
+  name: "Offre_timetable",
+  components: { VueMultiselect },
+  data() {
+    return {
+      MylistOffre:[],
+      compte: 2,
+      longueur: null,
+      offre_id: null,
+      moneyFormat: new Intl.NumberFormat("de-DE"),
+      show_button:true,
+      searchLieu:"",
+      searchName:"",
+      list_categorie:"",
+      length:3,
+      categorie:"",
+      listOffre:[],
+      newTableau:[],
+      FilterLieu:null,
+      MylistsOffres:[],
+      lengthOfMylistOffre:"",
+      hideButtons:false,
+      spinner:false,
+      showEndResearch:false,
+      moreExist:false,
+      nextPage:0,
+      user:this.$store.state.user,
+      dayOfday:"",
+    };
+  },
+  computed:{
+     list_offre(){
+       return this.filtreOffre()
+     }
+  },
+  methods: {
+     selectCategorie(cat){
+      this.MylistOffre = [];
+      this.hideButtons = true;
+      this.MylistsOffres.find(element=>{
+        if(element.categorie.categorie === cat){
+          this.MylistOffre.push(element)
+        }
+      })
+    },
+    filtreOffre(){
+    if(this.searchLieu !== ""){
+         return this.MylistOffre.filter((item)=>{
+          let lieu = item.lieu.toLowerCase().includes(this.searchLieu.toLowerCase())
+          let offre = item.nom_offre.toLowerCase().includes(this.searchName.toLowerCase())
+          if(lieu && offre){
+          return item
+          }
+          })
+      }
+      else if(this.searchName !== ""){
+       
+          return this.MylistOffre.filter((item)=>{
+           
+            return item.nom_offre.toLowerCase().includes(this.searchName.toLowerCase())
+      })}
+
+      
+       
+      return this.MylistOffre.slice(0, this.length)
+    },
+    Myfiltre(){
+    this.compte+=1
+    let array = [];
+    for (let i = 0; i < this.compte; i++) {
+            let element = this.MylistsOffres[i];
+            array.push(element)
+          }
+  this.MylistOffre = array;
+
+ if(this.lengthOfMylistOffre === this.MylistOffre.length){
+  this.showEndResearch = true;
+  this.hideButtons = true;
+ }
+    },
+filtre(){
+ if(this.compte){
+  this.Myfiltre();
+ }
+},
+FiltreWithLoadMore(a,b,c){
+for (let i = 0; i < a; i++) {
+            const element = b[i];
+             c.push(element)
+          }
+},
+    findElement(){
+        this.list_offre = [];
+         this.MylistsOffres.find(element=>{
+          if(element.categorie == this.categorie && element.lieu == this.searchLieu && element.nom_offre == this.searchName){
+            this.MylistOffre.push(element);
+            }
+          })
+    },
+    get_list_offre() {
+      this.spinner = true
+      instance.get("list_offres")
+        .then((res) => {
+          console.log("list_offres",res);
+         
+          if(res.data.status){
+            this.MylistOffre = res.data.data;
+          this.MylistsOffres = res.data.data;
+          this.lengthOfMylistOffre = this.MylistsOffres.length;
+            this.spinner = false
+          }
+         
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+newLoadmore(){
+        if(this.length > this.MylistOffre.length) return;
+  this.length = this.length+3;
+    },
+    get_list_categorie(){
+    instance.get("seeCategorie")
+    .then((res) => {
+      console.log(res);
+      this.list_categorie = res.data.data;
+      console.log("CATEGORIE",this.list_categorie);
+    })
+    },
+    post(id) {
+      console.log("ID_OFFRE", id);
+      instance.post(
+          "postule_offre",
+          {
+            offre_id: id,
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            icon: "error",
+            title: err.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+    },
+    addTag(newTag){
+      console.log(newTag)     
+      this.Myarray = [];
+       this.MylistOffre=[];
+       this.MylistsOffres.forEach(element => {
+        newTag.forEach(e=>{
+       if (element.categorie.categorie.includes(e.categorie)) {
+          this.Myarray.push(element)
+           } 
+        })
+       });
+       this.MylistOffre = [...new Set(this.Myarray)]
+       if(!newTag.length){
+        this.MylistOffre = this.MylistsOffres
+       }
+    },
+
+  },
+  mounted() {
+    this.get_list_offre();
+    this.get_list_categorie();
+    this.dayOfday = JSON.stringify(new Date().toISOString().substring(0,10))
+      console.log("MADATE",JSON.stringify(new Date()));
+    }
+};
+</script>
+<template>
+
+  <section v-if="this.$store.state.translate === 'FR'">
+    <!-- <div class="container-fluid page-title bg-image">
+      <div class="row section-title">
+        <div class="container main-container">
+          <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
+            <n-carousel autoplay :interval="2000">
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg"
+              >
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg"
+              >
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg"
+              >
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg"
+              >
+            </n-carousel>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    
+  
+    
+    <div class="jobs_filters">
+      <div class="container">
+        <form>
+          
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 filter_width bgicon">
+            <div class="form-group">
+            <VueMultiselect
+                v-model="categorie"
+                :options="list_categorie"
+                 :multiple="true"
+                 :taggable="true"
+                 :tag="addTag"
+                 @update:model-value="addTag"
+                 label="categorie"
+                 track-by="categorie"
+                 placeholder="selectionne une categorie">
+              </VueMultiselect>
+            </div>
+          </div>
+          
+  
+        
+          <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12 filter_width bgicon">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="serveur,barman,jardinier"
+                 v-model="searchName"
+  
+              />
+              <span
+                class="glyphicon glyphicon-briefcase"
+                aria-hidden="true"
+              ></span>
+            </div>
+          </div>
+        
+  
+          <div
+            class="col-lg-3 col-md-3 col-sm-6
+             col-xs-12 filter_width bgicon location"
+          >
+            <div class="form-group">
+              <input type="text" class="form-control"
+               placeholder="ex: Angre" v-model="searchLieu" />
+              <span
+                class="glyphicon fa fa-location-arrow"
+                aria-hidden="true"
+              ></span>
+            </div>
+          </div>
+          
+          <div
+            class="col-lg-1 col-md-2
+             col-sm-6 col-xs-12 
+             filter_width bgicon submit"
+          >
+          </div>
+        </form>
+      </div>
+    </div>
+  
+  
+    <div class="container main-container" v-if="list_offre">
+    
+      <div class="col-lg-12" :class="spinner ? 'conteneur_offre':null">
+        <div class="offres_disponible d-flex justify-content-between align-items-center">
+          <h5 class="image-heading"><span class="list_offre">
+            {{lengthOfMylistOffre}}</span> Offres</h5>
+          <span class="text-secondary"
+            >Nous avons trouvé {{ lengthOfMylistOffre }}  Offres</span
+          >
+        </div>
+        <span v-if="spinner" class="h1 char">Chargements...</span>
+        <div
+          class="container_result col-lg-12 content"
+          v-for="(offre, index) in list_offre"
+          :key="index"
+        >
+          <section class="one conteneur_ecriteau">
+          <div class="logo_img_offre">
+           <strong>SmartConnect</strong>
+          </div>
+          <div class="informations_offres">
+          <span class="badge bg-danger badge_new" :class="JSON.stringify(new Date().toISOString().substring(0,10)) === JSON.stringify(new Date(offre.created_at).toISOString().substring(0,10)) ? '':'d-none'">New</span>
+          <h1>{{ offre.nom_offre }}</h1>
+          <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
+          <h1 class="badge  badge_categorie">{{offre.categorie.categorie}}</h1>
+          </div>
+          </section>
+          <div class="two">
+           <div>
+           <h6><em class="bi bi-calendar-date"></em> {{new Date(offre.debut).toLocaleDateString("fr")}} au {{new Date(offre.debut).toLocaleDateString("fr")}}</h6> 
+            <router-link  
+            :to="{name:'OffreDetail', params: { id: offre.id }}" >
+            <button  :class="JSON.stringify(new Date().toISOString().substring(0,10)) > JSON.stringify(new Date(offre.debut)) ? 'd-none':''" class="btn btn-Conex">
+             Voir les Détails <em class="bi bi-eye"></em>
+            </button>
+            </router-link>
+            <strong  class="text-danger" v-if="JSON.stringify(new Date().toISOString().substring(0,10)) > JSON.stringify(new Date(offre.debut).toISOString().slice(0,10))">Offre Expirée</strong>
+           </div>
+          </div>
+        </div>
+        <div>
+        <div class="col-lg-12 lgPlus" v-if="MylistOffre.length">
+              <button
+                @click="newLoadmore"
+                v-if="length < MylistOffre.length"
+                class="btn-lg bg-primary"
+              > Charger plus <em class="bi bi-chevron-down"></em>
+              </button>
+              <h2 v-if="length >= MylistOffre.length || length >= MylistsOffres.length">Vous avez atteint la fin</h2>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  </section>
+  <section v-if="this.$store.state.translate === 'EN'">
+    <div class="container-fluid page-title bg-image">
+      <div class="row section-title">
+        <div class="container main-container">
+          <div class="col-lg-8 col-md-8 col-sm-8">
+            <h5 class="image-heading"><span class="list_offre">
+              {{lengthOfMylistOffre}}</span> Offers</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  
+    
+    <div class="jobs_filters">
+      <div class="container">
+        <form>
+          
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 filter_width bgicon">
+            <div class="form-group">
+            <VueMultiselect
+                v-model="categorie"
+                :options="list_categorie"
+                 :multiple="true"
+                 :taggable="true"
+                 :tag="addTag"
+                 @update:model-value="addTag"
+                 label="categorie"
+                 track-by="categorie"
+                 placeholder="select a category">
+              </VueMultiselect>
+            </div>
+          </div>
+          
+  
+        
+          <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12 filter_width bgicon">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="waiter, bartender, gardener"
+                 v-model="searchName"
+  
+              />
+              <span
+                class="glyphicon glyphicon-briefcase"
+                aria-hidden="true"
+              ></span>
+            </div>
+          </div>
+        
+  
+          <div
+            class="col-lg-3 col-md-3 col-sm-6
+             col-xs-12 filter_width bgicon location"
+          >
+            <div class="form-group">
+              <input type="text" class="form-control" 
+              placeholder="eg: Angre" v-model="searchLieu" />
+              <span
+                class="glyphicon fa fa-location-arrow"
+                aria-hidden="true"
+              ></span>
+            </div>
+          </div>
+          
+          <div
+            class="col-lg-1 col-md-2
+             col-sm-6 col-xs-12 
+             filter_width bgicon submit"
+          >
+          </div>
+        </form>
+      </div>
+    </div>
+  
+  
+    <div class="container main-container" v-if="list_offre">
+    
+      <div class="col-lg-12" :class="spinner ? 'conteneur_offre':null">
+        <div class="offres_disponible">
+          <span class="text-secondary"
+            >
+           
+            We found {{ list_offre.length }} offers available</span
+          >
+        </div>
+        <span v-if="spinner" class="h1 char">Loading...</span>
+        <div
+          class="container_result col-lg-12 content"
+          v-for="(offre, index) in list_offre"
+          :key="index"
+        >
+          <section class="one conteneur_ecriteau">
+          <div class="logo_img_offre">
+           <strong>SmartConnect</strong>
+          </div>
+          <div class="informations_offres">
+          <span class="badge bg-danger badge_new" 
+          :class="JSON.stringify(new Date().toISOString().substring(0,10)) === JSON.stringify(new Date(offre.created_at).toISOString().substring(0,10)) ? '':'d-none'">New</span>
+          <h1>{{ offre.nom_offre }}</h1>
+          <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
+          <h1 class="badge  badge_categorie">{{offre.categorie.categorie}}</h1>
+          </div>
+          </section>
+          <div class="two">
+           <div>
+           <h6><em class="bi bi-calendar-date"></em> {{new Date(offre.debut).toLocaleDateString("fr")}} au {{new Date(offre.fin).toLocaleDateString("fr")}}</h6> 
+            <router-link  
+            :to="{name:'OffreDetail', params: { id: offre.id }}" >
+            <button  :class="JSON.stringify(new Date().toISOString().substring(0,10)) > JSON.stringify(new Date(offre.fin)) ? 'd-none':''" class="btn btn-Conex">
+              See the details <em class="bi bi-eye"></em>
+            </button>
+            </router-link>
+            <strong  class="text-danger" 
+            v-if="JSON.stringify(new Date().toISOString().substring(0,10)) > JSON.stringify(new Date(offre.fin).toISOString().slice(0,10))">Offre Expirée</strong>
+           </div>
+          </div>
+        </div>
+        <div>
+        <div class="col-lg-12 lgPlus" v-if="MylistOffre.length">
+              <button
+                @click="newLoadmore"
+                v-if="length < MylistOffre.length"
+                class="btn-lg bg-primary"
+              > Load more <em class="bi bi-chevron-down"></em>
+              </button>
+              <h2 v-if="length >= MylistOffre.length || length >= MylistsOffres.length">You have reached the end</h2>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</template>
+<style scoped>
+
+
+.content{
+  border:thin solid rgba(0, 0, 0, 0.301);
+}
+.one{
+  text-align: left;
+}
+.logo_img_offre{
+  width:auto;
+  height:auto;
+  padding:.5em;
+  text-align:center;
+  line-height: 80px;
+  border-radius:25px;
+  box-shadow:1px 1px 6px rgba(0, 0, 0, 0.068);
+  border:2px solid orange;
+}
+.informations_offres{
+  padding:0 1em;
+}
+.conteneur_ecriteau{
+  display:flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.d-none{
+  display:none !important;
+}
+.green-banner{
+  background:rgb(155, 184, 223);
+}
+.jobs_filters {
+  background: rgb(5, 35, 73) !important;
+  box-shadow: none;
+}
+.image-heading {
+  color: black !important;
+}
+#load_more,
+.filter-result:hover {
+  border: 2px solid rgb(5, 35, 73) !important;
+}
+.bg-info {
+  border: none !important;
+  position: absolute !important;
+  right: 0.5em;
+  bottom: -2em;
+}
+select {
+  height: inherit;
+  padding: 20px 28px 20px 20px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-family: OpenSansSemibold;
+  color: #333;
+  border: none;
+}
+.offres_disponible {
+  text-align: left;
+}
+.container_result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgb(255, 255, 255);
+  padding: 1em;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  margin:1em 0;
+}
+.container_result .two button {
+  margin: 0 1em !important;
+}
+.badge {
+  display: block;
+}
+.badge_categorie{
+  width:100px !important;
+  background: #F77F00 !important;
+}
+.badge_new{
+width:50px !important;
+position:absolute;
+right:1em;
+animation: move 1s ease-in-out infinite alternate;
+} 
+@keyframes move {
+  from {
+    transform: scale(1.2, 1.2);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+.two h5 {
+  text-align: right !important;
+}
+.bg-primary {
+  background: #F77F00 !important;
+  border: 1px solid rgb(1, 1, 1) !important;
+}
+.btn:hover{
+  border:1px solid rgb(0, 0, 0) !important;
+}
+.lgPlus{
+  margin-top:2em;
+}
+.list_offre{
+  color: #F77F00 !important;
+}
+.btn-Conex{
+  background: #F77F00 !important;
+  color:white;
+  border:1px solid black;
+}
+</style>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

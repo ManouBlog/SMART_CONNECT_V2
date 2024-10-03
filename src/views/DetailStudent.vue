@@ -1,0 +1,1125 @@
+<script>
+import instance from "../api/api";
+import Swal from "sweetalert2";
+import "v-calendar/dist/style.css";
+import { Calendar } from "v-calendar";
+import vue3starRatings from "vue3-star-ratings";
+// import { KCheckbox } from "@kong/kongponents";
+import "@kong/kongponents/dist/style.css";
+
+//DatePicker
+export default {
+  components: { Calendar, vue3starRatings },
+  data() {
+    return {
+      lieu: "",
+      datesChoice: [],
+      dateRendezVousStudentWithEntreprise: null,
+      MyDateRendezVous: [],
+      user: this.$store.state.user,
+      competences: "",
+      competence: "",
+      contacter: false,
+      jours: [],
+      dateDebut: "",
+      dateFin: "",
+      page: 1,
+      details_timetable: false,
+      id_detail_timetable: "",
+      timetable_for_student: null,
+      path: "",
+      schedule: "",
+      compte: 4,
+      hideButton: false,
+      MylistEmploi: null,
+      location: "",
+      list: [],
+      contrat: false,
+      NewListEmploi: "",
+      isLoading: false,
+      length: 5,
+      hideButtons: false,
+      isWhished: [],
+      lengthOfMylistEmploi: "",
+      spinner: false,
+      Myarray: [],
+      showEndResearch: false,
+      langage: [],
+      selected: null,
+      newlist: [],
+      color: false,
+      selectedService: [],
+      verfIfStudentExistInWishlist: [],
+      addColor: false,
+      Today: new Date().toJSON().slice(0, 10),
+      showCalender: false,
+      datesPickers: [],
+      selecteDatepickers: {},
+      checkboxDate: false,
+      checkbox: false,
+      option: "",
+      jourOfMois: [
+        { jour: "1" },
+        { jour: "2" },
+        { jour: "3" },
+        { jour: "4" },
+        { jour: "5" },
+        { jour: "6" },
+        { jour: "7" },
+        { jour: "8" },
+        { jour: "9" },
+        { jour: "10" },
+        { jour: "11" },
+        { jour: "12" },
+        { jour: "13" },
+        { jour: "14" },
+        { jour: "15" },
+        { jour: "16" },
+        { jour: "17" },
+        { jour: "18" },
+        { jour: "19" },
+        { jour: "20" },
+        { jour: "21" },
+        { jour: "22" },
+        { jour: "23" },
+        { jour: "24" },
+        { jour: "25" },
+        { jour: "26" },
+        { jour: "27" },
+        { jour: "28" },
+        { jour: "29" },
+        { jour: "30" },
+        { jour: "31" },
+      ],
+      MyJour: null,
+      moreExist: false,
+      nextPage: 0,
+      loadSpinner: false,
+      competencesPredefini: [],
+      range: {
+        start: new Date(),
+        end: new Date(),
+      },
+      rangeSearch: {
+        start: new Date(),
+        end: new Date(),
+      },
+      toogleExperience: false,
+      days: [],
+      showCalenderFilter: false,
+      selectedOffreWithDate: "",
+      selectedOffreWithPeriode: "",
+      perPage: 3,
+      currentPage: 1,
+      totalPages: "",
+      maxVisibleButtons: "2",
+      listAbonnement: [],
+    };
+  },
+  computed: {
+    paginatedData() {
+      let start = this.currentPage * this.perPage - this.perPage;
+      let end = start + this.perPage;
+      return this.timetable_for_student.etoiles.slice(start, end);
+    },
+    startPage() {
+      if (this.currentPage === 1) return 1;
+      if (this.currentPage === this.totalPages)
+        return (
+          this.totalPages -
+          this.maxVisibleButtons +
+          (this.maxVisibleButtons - 1)
+        );
+      return this.currentPage - 1;
+    },
+    endPage() {
+      return Math.min(
+        this.startPage + this.maxVisibleButtons - 1,
+        this.totalPages
+      );
+    },
+    pages() {
+      let range = [];
+      for (let i = this.startPage; i <= this.endPage; i++) {
+        range.push({ number: i, isDisabled: i === this.currentPage });
+      }
+      return range;
+    },
+    isInFirstPage() {
+      return this.currentPage === 1;
+    },
+    isInLastPage() {
+      return this.currentPage === this.totalPages;
+    },
+    list_emploi() {
+      if (this.location !== "") {
+        return this.list.filter((item) => {
+          return item.commune
+            .toLowerCase()
+            .includes(this.location.toLowerCase());
+        });
+      }
+      return this.list.slice(0, this.length);
+    },
+    jourOfMonth() {
+      let month = new Date().getMonth() + 1;
+      let year = new Date().getFullYear();
+      let nombre = "0";
+      if (month < 10 || month < 11 || month < 12) {
+        nombre = nombre + month;
+      }
+      return [
+        ...this.jourOfMois.map((element) => ({
+          jou: year + "-" + nombre + "-" + element.jour,
+        })),
+      ];
+    },
+    dates() {
+      return this.days.map((day) => day.date);
+    },
+    attribut() {
+      return this.dates.map((date) => ({
+        highlight: true,
+        dates: date,
+      }));
+    },
+
+    attributes() {
+      return [
+        ...this.schedule.map((time) => ({
+          dates: new Date(time.jour),
+          highlight: {
+            color: time.job == 3 ? "gray" : time.job == 1 ? "red" : "green",
+            fillMode: time.job == 3 ? "light" : "solid",
+          },
+          popover: {
+            label: {
+              one: time.First_horaire,
+              two: time.Second_horaire,
+            },
+            visibility: "hover",
+          },
+        })),
+      ];
+    },
+  },
+  methods: {
+    getDetailStudent() {
+      this.isLoading = true;
+      instance
+        .get("FiltreTimetable")
+        .then((res) => {
+          console.log(res);
+          this.NewListEmploi = res.data.data;
+          this.dateRendezVousStudentWithEntreprise = res.data.date;
+          let dateOfStudent = [];
+          this.dateRendezVousStudentWithEntreprise.forEach((element) => {
+            if (element.student_id === Number(this.$route.params.id)) {
+              dateOfStudent.push(element);
+            }
+          });
+
+          this.MyDateRendezVous = dateOfStudent;
+          console.log("this.NewListEmploi", this.NewListEmploi);
+          console.log("this.$route.params.id", this.$route.params.id);
+          this.timetable_for_student = this.NewListEmploi.find(
+            (item) => item.id === Number(this.$route.params.id)
+          );
+          console.log("this.timetable_for_student", this.timetable_for_student);
+          this.totalPages = Math.ceil(
+            this.timetable_for_student.etoiles.length / 2
+          );
+          this.schedule = this.timetable_for_student.jours;
+
+          this.schedule.forEach((item) => {
+            console.log("DATE", this.MyDateRendezVous);
+            this.MyDateRendezVous.forEach((date) => {
+              if (
+                item.jour === date.date_debut ||
+                item.jour === date.date_fin ||
+                item.jour === date.date ||
+                (item.jour > date.date_debut && item.jour < date.date_fin)
+              ) {
+                if (date.contrat === 1) item.job = 1;
+              }
+            });
+            item.jou = new Date(item.jour).getDate();
+            item.month = new Date(item.jour).getMonth() + 1;
+            item.year = new Date(item.jour).getFullYear();
+            console.log(JSON.stringify(new Date().toISOString().slice(0, 10)));
+            if (
+              JSON.stringify(new Date(item.jour)) <
+              JSON.stringify(new Date().toISOString().slice(0, 10))
+            ) {
+              item.job = 3;
+            }
+          });
+          // this.selectedService = this.timetable_for_student.competences;
+          // console.log("COMPETENCES", this.selectedService);
+
+          this.isLoading = false;
+
+          console.log("EMPLOI DU TEMPS", this.timetable_for_student);
+
+          console.log("TIMETBALE", this.schedule);
+          console.log("DateRendez-vous", this.MyDateRendezVous);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    onPageChange(page) {
+      this.currentPage = page;
+    },
+    onClickFirstPage() {
+      this.onPageChange(this.currentPage - 1);
+    },
+    onClickPreviousPage() {
+      this.onPageChange(this.currentPage - 1);
+    },
+    onClickPage(page) {
+      this.onPageChange(page);
+    },
+    onClickNextPage() {
+      this.onPageChange(this.currentPage + 1);
+    },
+    onClickLastPage() {
+      this.onPageChange(this.totalPages);
+    },
+    isPageActive(page) {
+      return this.currentPage === page;
+    },
+    async getAllCompetences() {
+      try {
+        const reponse = await instance.get("GetAllCompetences");
+        this.competences = reponse.data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    showCalenderDate() {
+      this.showCalenderFilter = !this.showCalenderFilter;
+    },
+    onDayClick(day) {
+      const idx = this.days.findIndex((d) => d.id === day.id);
+      console.log(new Date().toLocaleDateString());
+      if (idx >= 0) {
+        this.days.splice(idx, 1);
+      } else {
+        this.days.push({
+          id: day.id,
+          date: day.date,
+        });
+      }
+      if (this.Myarray.length) {
+        let filterArray = [];
+        this.Myarray.forEach((item) => {
+          this.days.forEach((arr) => {
+            if (item.days.includes(arr.id)) {
+              filterArray.push(item);
+            }
+          });
+        });
+        this.list = [...new Set(filterArray)];
+      }
+      this.MylistEmploi.forEach((element) => {
+        this.days.forEach((e) => {
+          if (element.days.includes(e.id)) {
+            this.Myarray.push(element);
+          }
+        });
+      });
+      this.list = [...new Set(this.Myarray)];
+      console.log("DATE", this.Myarray);
+      if (!this.days.length) {
+        this.list = this.MylistEmploi;
+        this.hideButtons = true;
+      }
+
+      this.showCalenderFilter = !this.showCalenderFilter;
+    },
+    showDate() {
+      this.checkboxDate = !this.checkboxDate;
+      if (this.checkbox === true) {
+        this.checkbox = !this.checkbox;
+      }
+      if (this.checkboxDate === true) {
+        this.opinion = "date";
+        this.dateDebut = "";
+        this.dateFin = "";
+      }
+    },
+    showPeriode() {
+      console.log(this.checkbox);
+      if (this.checkboxDate === true) {
+        this.checkboxDate = !this.checkboxDate;
+      }
+      this.checkbox = !this.checkbox;
+      if (this.checkbox === true) {
+        this.opinion = "periode";
+        this.datesChoice = [];
+      }
+    },
+    addTag(newTag) {
+      console.log(newTag);
+      this.Myarray = [];
+      // this.list = [];
+      this.MylistEmploi.forEach((element) => {
+        newTag.forEach((e) => {
+          element.jours.forEach((item) => {
+            if (item.jour === e.jou) {
+              console.log(element);
+              this.Myarray.push(element);
+            }
+          });
+        });
+      });
+      this.list = [...new Set(this.Myarray)];
+      console.log("LIST", this.list);
+      this.hideButtons = true;
+
+      if (!newTag.length) {
+        this.list = this.MylistEmploi;
+        this.hideButtons = true;
+      }
+    },
+    addComp(newTag) {
+      console.log(this.days.length);
+      if (this.Myarray.length > 0) {
+        let newArray = [];
+        this.Myarray.forEach((item) => {
+          newTag.forEach((e) => {
+            if (item.acquis.includes(e.competence)) {
+              newArray.push(item);
+              console.log("new Array", newArray);
+            }
+          });
+        });
+        this.list = [...new Set(newArray)];
+        if (!newTag.length) {
+          this.Myarray = [];
+          this.MylistEmploi.forEach((el) => {
+            this.days.forEach((item) => {
+              if (el.days.includes(item.id)) {
+                this.Myarray.push(el);
+              }
+            });
+          });
+          this.list = [...new Set(this.Myarray)];
+        }
+      }
+      if (!this.Myarray.length) {
+        this.Myarray = [];
+        this.MylistEmploi.forEach((element) => {
+          newTag.forEach((e) => {
+            if (element.acquis.includes(e.competence)) {
+              this.Myarray.push(element);
+            }
+          });
+        });
+        this.list = [...new Set(this.Myarray)];
+        console.log("list de competences", this.list);
+
+        console.log("list de jour", this.Myarray);
+        this.hideButtons = true;
+
+        if (!newTag.length) {
+          this.list = this.MylistEmploi;
+          this.hideButtons = false;
+        }
+      }
+    },
+    deleteDays(day) {
+      const idx = this.days.findIndex((d) => d.id === day.id);
+      console.log(day.id);
+      if (idx >= 0) {
+        this.days.splice(idx, 1);
+      }
+      this.Myarray = [];
+      this.MylistEmploi.forEach((elet) => {
+        this.days.forEach((item) => {
+          if (elet.days.includes(item.id)) {
+            this.Myarray.push(elet);
+          }
+        });
+      });
+      this.list = [...new Set(this.Myarray)];
+      if (!this.days.length) {
+        this.list = this.MylistEmploi;
+        this.hideButtons = true;
+      }
+    },
+    cleanArray() {
+      this.Myarray = [];
+      this.list = [];
+    },
+    selectJour(jour) {
+      this.Myarray = [];
+      this.list = [];
+      this.MylistEmploi.forEach((element) => {
+        jour.forEach((e) => {
+          if (element.days.includes(e)) {
+            this.Myarray.push(element);
+          }
+        });
+      });
+      this.list = [...new Set(this.Myarray)];
+    },
+    addPersonAtWishLit(person) {
+      this.$store.commit("addPersonAtWishLit", person);
+      this.isWhished[person.id] = !this.isWhished[person.id];
+    },
+    showMyCalender(id) {
+      console.log(id);
+    },
+    defineTotalHour(hour) {
+      if (hour.length > 0) {
+        return hour.reduce((a, b) => a + b);
+      }
+    },
+    loadMore() {
+      if (this.length > this.list.length) return;
+      this.length = this.length + 4;
+      if (this.length === this.list.length) {
+        this.showEndResearch = !this.showEndResearch;
+      }
+    },
+    get_list_emploi() {
+      this.spinner = false;
+      instance
+        .get("list_emplois_temps")
+        .then((res) => {
+          console.log("EMPLOI", res.data.data);
+          res.data.data.forEach((element) => {
+            let days = [];
+            let hours = [];
+            let competences = [];
+
+            element.jours.forEach((day) => {
+              days.push(day.jour);
+              hours.push(day.totalHour);
+            });
+            element.days = days;
+            element.hours = hours;
+            element.competences.forEach((comp) => {
+              competences.push(comp.competence);
+            });
+            element.acquis = competences;
+            this.isWhished[element.id] = false;
+            this.$store.state.whistListPerson.forEach((person) => {
+              if (element.id === person.id) {
+                this.isWhished[element.id] = true;
+              }
+            });
+          });
+          this.list = res.data.data;
+          this.MylistEmploi = res.data.data;
+          console.log("LIST", this.MylistEmploi);
+
+          this.lengthOfMylistEmploi = this.MylistEmploi.length;
+          console.log("EMPLOI DU TEMPS", this.list_emploi);
+          this.spinner = true;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    closeDetailTimetable() {
+      this.details_timetable = !this.details_timetable;
+      this.id_detail_timetable = "";
+      this.selectedOffreWithDate = "";
+      this.selectedOffreWithPeriode = "";
+      this.checkboxDate = false;
+      this.checkbox = false;
+    },
+    optionDate(studentId) {
+      this.loadSpinner = true;
+      console.log("datesChoice", this.datesChoice);
+      let date = [];
+
+      this.datesChoice.forEach((item) => {
+        date.push(new Date(item).toISOString().slice(0, 10));
+      });
+      let VerfDoublonInDate = [...new Set(date)];
+      console.log("date", date);
+      instance
+        .post("entreprise_student", {
+          student_id: studentId,
+          date: VerfDoublonInDate,
+          option: "date",
+          offre_id: this.selectedOffreWithDate,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            this.loadSpinner = false;
+            // setTimeout(() =>{
+            //   location.reload(true)
+            // },3000)
+          }
+          if (res.data.status === false) {
+            Swal.fire({
+              icon: "error",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            this.loadSpinner = false;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loadSpinner = false;
+          Swal.fire({
+            icon: "info",
+            title:
+              "Vérifier votre connexion ou les informations que vous envoyer.",
+            showConfirmButton: true,
+          });
+        });
+    },
+    optionPeriode(EntrepriseId) {
+      this.loadSpinner = true;
+      instance
+        .post("entreprise_student", {
+          student_id: EntrepriseId,
+          date_debut: this.dateDebut,
+          date_fin: this.dateFin,
+          option: "periode",
+          offre_id: this.selectedOffreWithPeriode,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            this.loadSpinner = false;
+            //setTimeout(() => {
+            //location.reload(true);
+            //}, 3000);
+          }
+          if (res.data.status === false) {
+            Swal.fire({
+              icon: "error",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            this.loadSpinner = false;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            icon: "info",
+            title:
+              "Vérifier votre connexion ou les informations que vous envoyer",
+            showConfirmButton: true,
+          });
+          this.loadSpinner = false;
+        });
+    },
+    getall() {
+      instance
+        .get("getAllWishlist")
+        .then((response) => {
+          console.log("WISHLIST", response.data.data.wishlists);
+          response.data.data.wishlists.forEach((item) => {
+            this.verfIfStudentExistInWishlist.push(item.user_id);
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    AllCompetencesPredf() {
+      instance
+        .get("GetAllCompetences")
+        .then((res) => {
+          console.log("competencesPredefini", res);
+          this.competencesPredefini = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    verfEnter() {
+      if (this.user && this.user.user.statut.statut === "etudiant") {
+        Swal.fire({
+          icon: "error",
+          title: "Vous n'êtes pas autorisé.",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        setTimeout(() => {
+          this.$router.push("/");
+        }, 3000);
+      }
+    },
+    async selectOffreEntreprise() {
+      try {
+        const response = await instance.get("get_offres_entreprise");
+        this.selectedService = response.data.data.filter(
+          (item) =>
+            JSON.stringify(new Date(item.fin)) >
+            JSON.stringify(new Date().toISOString().substring(0, 10))
+        );
+        console.log("this.selectedService", this.selectedService);
+      } catch (error) {
+        console.log("error", error);
+      }
+    },
+    removeDate(date, hide) {
+      this.datesPickers = this.datesPickers.filter((d) => d !== date);
+      hide();
+    },
+    dateSelected(e, date, toggle) {
+      this.selecteDatepickers = date;
+      toggle({ ref: e.target });
+    },
+    jourSelect() {
+      return this.jourOfMois.forEach((element) => {
+        let month = new Date().getMonth() + 1;
+        let year = new Date().getFullYear();
+        console.log(element.jour + "-" + month + "-" + year);
+        return element.jour + "-" + month + "-" + year;
+      });
+    },
+    async handleAbonnement() {
+      console.log("handleAbonnement");
+      try {
+        const response = await instance.get("abonnement_user");
+        console.log("responseHandleAbonnement", response);
+        this.listAbonnement = response.data.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  created() {
+    this.handleAbonnement();
+    this.get_list_emploi();
+    this.getAllCompetences();
+    this.getall();
+    this.AllCompetencesPredf();
+    this.verfEnter();
+    console.log(this.jourSelect());
+    this.path = window.location.pathname;
+    this.getDetailStudent();
+    this.selectOffreEntreprise();
+  },
+};
+</script>
+
+<template>
+  <div class="spinner-border" role="status" v-if="isLoading">
+    <span class="visually-hidden">Chargement...</span>
+  </div>
+  <div v-if="timetable_for_student">
+    <div class="conteneur_student">
+      <div class="info_student">
+        <h1 class="text-left my-3">
+          <em class="bi bi-person"></em>
+          {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
+        </h1>
+        <div
+          class="d-flex align-items-center"
+          v-if="timetable_for_student.average"
+        >
+          <!-- <h3 class="mx-1">{{ timetable_for_student.average }}</h3> -->
+          <n-rate readonly :default-value="timetable_for_student.average" />
+        </div>
+        <div class="text-left p-5 my-3">
+          <h3>
+            <em class="bi bi-geo-alt"></em> {{ timetable_for_student.commune }}
+          </h3>
+          <h3>
+            <em class="bi bi-mortarboard"></em>
+            {{ timetable_for_student.diplome }}
+          </h3>
+        </div>
+      </div>
+
+      <div
+        v-if="timetable_for_student.competences.length"
+        class="text-left conteneur_competences my-3"
+      >
+        <span
+          v-for="(item, index) in timetable_for_student.competences"
+          :key="index"
+          class="badge bg-dark"
+        >
+          <strong>{{ item.competence }}</strong>
+        </span>
+      </div>
+      <p
+        class="w-100 experience text-left"
+        v-if="timetable_for_student.experiences.length"
+        @click.prevent="toogleExperience = !toogleExperience"
+      >
+        Expériences
+        <em
+          class="bi bi-chevron-down"
+          v-if="toogleExperience == false"
+          :class="toogleExperience == true ? 'd-none' : ''"
+        >
+        </em>
+        <em class="bi bi-chevron-up" v-if="toogleExperience == true"></em>
+      </p>
+      <div v-if="toogleExperience">
+        <div class="conteneur_experience">
+          <div
+            class="experiences position-relative px-4"
+            v-for="(item, index) in timetable_for_student.experiences"
+            :key="index"
+          >
+            <div class="content_experience">
+              <div>
+                <h3 class="text-left font-weight-bold">
+                  {{ item.entreprise }}
+                </h3>
+                <p class="text-left ms-2 para">
+                  <em class="bi bi-calendar-date"></em>
+                  {{
+                    `${new Date(
+                      item.dateDebut
+                    ).toLocaleDateString()} au ${new Date(
+                      item.dateFin
+                    ).toLocaleDateString()}`
+                  }}
+                </p>
+                <p class="text-left ms-2 font-weight-bold para">
+                  Poste occupé : {{ item.poste }}
+                </p>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="jobs-result">
+          <div class="disponibilite">
+            <span>
+              <strong class="jou"></strong> Disponible
+              <strong class="notDispo"></strong> Occupé
+            </span>
+          </div>
+          <div class="container-fluid my-5 conteneur_timetable">
+            <Calendar
+              :attributes="attributes"
+              :min-date="new Date()"
+              class="myCalender"
+            >
+              <template #day-popover="{ attributes }">
+                <ul>
+                  <li
+                    v-for="(item, index) in attributes"
+                    :key="index"
+                    class="listeForHoraire"
+                  >
+                    <strong class="d-block">
+                      <span class="colorForFirstHoraire"></span>
+                      Horaire :
+                      {{ item.popover.label.one }}</strong
+                    >
+                    <strong v-if="item.popover.label.two != null"
+                      ><span class="colorForSecondHoraire"></span> Horaire :
+                      {{ item.popover.label.two }}</strong
+                    >
+                  </li>
+                </ul>
+              </template>
+            </Calendar>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="my-3">
+        <KCheckbox v-model="checkboxDate" @click="showDate" />
+        Choisir sur une Date
+      </div> -->
+      <div class="conteneur_date">
+        <div>
+          <label class="d-block">Choisir la date</label>
+          <PrimeCalendar
+            v-model="datesChoice"
+            selectionMode="multiple"
+            :manualInput="false"
+            dateFormat="dd/mm/yy"
+          />
+        </div>
+
+        <div class="selecte_service my-3">
+          <label class="d-block">Choisir une offre</label>
+          <select
+            name=""
+            id=""
+            v-model="selectedOffreWithDate"
+            class="w-50 my-3"
+          >
+            <option value="" disabled>Sélectionner une offre</option>
+            <option
+              :value="offre.id"
+              v-for="(offre, index) in selectedService"
+              :key="index"
+            >
+              {{ offre.nom_offre }} {{ `du ${offre.debut} au ${offre.fin}` }}
+            </option>
+            <option disabled v-if="!selectedService.length">
+              Pas d'offres
+            </option>
+          </select>
+        </div>
+
+        <div
+          class="conteneurInter"
+          v-if="
+            timetable_for_student.user.abonement.length && listAbonnement.length
+          "
+        >
+          <button
+            class="btn-lg bg-dark mb-5"
+            @click="optionDate(timetable_for_student.id)"
+          >
+            Envoyer
+          </button>
+        </div>
+        <div
+          v-else-if="!timetable_for_student.user.abonement.length"
+          class="text-center fw-bold"
+        >
+          Cette personne n'a pas encore fait un abonnement.
+        </div>
+        <div v-else-if="!listAbonnement.length" class="text-center fw-bold">
+          Vous devez faire un abonnement
+        </div>
+      </div>
+      <!-- <div class="my-3 choose_periode">
+        <KCheckbox v-model="checkbox" @click="showPeriode" />
+      Choisir sur une Période
+      </div>
+      <div v-if="checkbox">
+        <div class="d-flex justify-center items-center flex-periode">
+            <div>
+              <label class="d-block">Date début</label>
+              <input
+                v-model="dateDebut"
+                type="date"
+                :min="new Date().toISOString().slice(0, 10)"
+                class="w-50 border-input px-2 py-1 w-32 rounded"
+              />
+            </div>
+            <div>
+              <label class="d-block">Date fin</label>
+              <input
+              v-model="dateFin"
+              type="date"
+               :min="dateDebut"
+                class="w-50 border-input px-2 py-1 w-32 rounded"
+              />
+            </div>
+          </div>
+        
+       
+        <div class="selecte_service mt-4">
+        <label class="d-block">Choisir une offre</label>
+          <select
+            name=""
+            id=""
+            v-model="selectedOffreWithPeriode"
+            class="w-50 my-3"
+          >
+            <option value="" disabled>Sélectionner une offre</option>
+            <option
+              :value="offre.id"
+              v-for="(offre, index) in selectedService"
+              :key="index"
+            >
+              {{ offre.nom_offre }}
+            </option>
+            <option disabled v-if="!selectedService.length">Pas d'offres</option>
+          </select>
+        </div>
+        <div class="conteneurInter">
+          <button
+            class="btn-lg bg-dark mb-5"
+            @click="optionPeriode(timetable_for_student.id)"
+          >
+            Envoyer
+          </button>
+        </div>
+      </div> -->
+
+      <h5
+        class="text-left evaluation"
+        v-if="timetable_for_student?.etoiles.length"
+      >
+        <span> ( {{ timetable_for_student?.etoiles.length }} )</span>
+        Evaluations/avis
+      </h5>
+      <div class="commentaires">
+        <div
+          class="experiences position-relative px-4"
+          v-for="(item, index) in paginatedData"
+          :key="index"
+        >
+          <div class="content_commentaire">
+            <hr />
+            <div class="d-flex my-2">
+              <vue3starRatings
+                v-model="item.notes"
+                :showControl="false"
+                :starSize="13"
+                :disableClick="true"
+              />
+              <span class="mx-3"> Noté par : {{ item?.entreprise.nom }} </span>
+            </div>
+
+            <div class="conteneur_ecriteau">
+              <span v-if="item.offre" class="my-3"
+                >Poste occupé : {{ item.offre.nom_offre }}</span
+              >
+              <p class="avis_cont my-3">{{ item.avis }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul class="pagination justify-content-center conteneur_pagination">
+        <li class="fs-5">
+          <button @click="onClickFirstPage" :disabled="isInFirstPage">
+            &laquo;
+          </button>
+        </li>
+        <li class="fs-5">
+          <button
+            class="pagination_btn"
+            v-for="(page, index) in pages"
+            :key="index"
+            @click="onClickPage(page.number)"
+            :class="{ color: isPageActive(page.number) }"
+          >
+            {{ page.number }}
+          </button>
+        </li>
+        <li class="fs-5">
+          <button @click="onClickNextPage" :disabled="isInLastPage">
+            &raquo;
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.spinner-border {
+  height: 100vh !important;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  align-items: center;
+}
+.n-rate {
+  width: 100%;
+  margin-left: 1em;
+  font-size: 2em;
+}
+h1 {
+  font-size: 4em;
+}
+.choose_periode {
+  margin-left: 1.5em;
+}
+.experience {
+  cursor: pointer;
+  padding: 0.5em 0.5em;
+  font-size: 1.5em;
+}
+.conteneur_student {
+  margin-top: 6em;
+  padding: 0 2em;
+}
+
+select {
+  padding: 0.8em !important;
+}
+.pagination_btn {
+  margin: 0 0.1em;
+  border: 1px solid teal;
+  background: transparent;
+  border-radius: 5px;
+}
+.color {
+  border: 1px solid white;
+  background: #f77f00 !important;
+}
+.rond {
+  width: 45px;
+  height: 45px;
+  margin-left: 1em;
+  background: rgba(255, 255, 255, 0.232);
+  border-radius: 100%;
+  line-height: 45px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
+  text-align: center;
+}
+.content_commentaire {
+  text-align: left;
+}
+.vue3-star-ratings__wrapper {
+  display: block;
+  text-align: left;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.vue3-star-ratings {
+  display: none;
+}
+hr {
+  border-top: 1px solid #5050501a !important;
+}
+.notDispo,
+.red {
+  background: crimson !important;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+.button {
+  width: auto !important;
+  padding: 0.9em !important;
+  margin-left: 0.5em !important;
+  margin-bottom: 0.2em !important;
+  margin-top: 0.98em !important;
+  background: rgb(255, 255, 255) !important;
+  border-radius: 5px !important;
+  border: none !important;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.303);
+}
+.flex-periode {
+  flex-direction: column;
+}
+.jou {
+  background: linear-gradient(
+    10deg,
+    rgb(2, 123, 56),
+    rgb(0, 230, 31)
+  ) !important;
+  color: rgb(255, 255, 255) !important;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+</style>
