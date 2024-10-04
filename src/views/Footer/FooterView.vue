@@ -106,7 +106,5 @@ const LOGO_IMG = ref([
       >
     </div> -->
   </section>
-  <section class="py-2 background_main">
-    <p class="text-center">© SMART CONNECT 2024. Tous droits réservés</p>
-  </section>
+  
 </template>

@@ -32,8 +32,7 @@ const handleCreate = (id, price) => {
       <div class="px-5" v-html="item.description"></div>
       <hr />
       <div class="d-flex align-items-center gap-5 justify-content-center main-color">
-        
-        <h1 class="text-start" style="font-size:4em;">{{ item.prix }}F</h1>
+        <h1 class="text-start" style="font-size: 4em">{{ item.prix }}F</h1>
         <span class="mx-2">/</span>
         <span style="font-size: 2em">an</span>
       </div>

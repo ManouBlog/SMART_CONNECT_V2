@@ -17,7 +17,7 @@ export const useCinetpayStore = defineStore('cinetpay',()=>{
             amount: payload.price,
             currency: "XOF",
             notify_url:payload.notify_url,
-            return_url: payload.notify_url,
+            return_url: process.env.VUE_APP_RETURN_URL,
             cancel_url: payload.notify_url,
             close_after_response: true,
             alternative_currency: "XOF",

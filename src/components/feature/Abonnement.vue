@@ -38,7 +38,7 @@ const handleAbonement = async ()=>{
       }else{
         isChoose.value = true;
         const TRANSACTION_ID = Math.floor(Math.random() * 100000000).toString();
-        const NOTIFY_URL = "http://192.168.1.4:8000/api/cintepay/verification_paiement/"+TRANSACTION_ID
+        const NOTIFY_URL = `${instance}/cintepay/verification_paiement/${TRANSACTION_ID}`
          try {
         const response = await instance.post("cintepay/paiement", {
           abonement_id: idAbonnement,

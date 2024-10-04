@@ -196,10 +196,7 @@ input[type="submit"],
 nav.navbar.home {
   margin: 0;
 }
-.header_banner {
-  position: relative;
-  background: #f6c264 !important;
-}
+
 /*///////////////////*/
 .pages .navbar {
   background: #fff;

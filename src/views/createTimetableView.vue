@@ -2,7 +2,6 @@
 import instance from "../api/api";
 import $ from "jquery";
 
-
 export default {
   name: "CreateTimetableView",
   data() {
@@ -25,14 +24,11 @@ export default {
       this.id_timetable_update = null;
     },
     update_timetable() {
-      instance.put(
-          "modify_schedule/" +
-            this.id_timetable_update,
-          {
-            heure_start: this.timetable_show_id.heure_start,
-            heure_end: this.timetable_show_id.heure_end,
-          }
-        )
+      instance
+        .put("modify_schedule/" + this.id_timetable_update, {
+          heure_start: this.timetable_show_id.heure_start,
+          heure_end: this.timetable_show_id.heure_end,
+        })
         .then((res) => {
           console.log(res);
           // Swal.fire({
@@ -53,7 +49,8 @@ export default {
     },
     get_timetable() {
       this.spinner = true;
-      instance.get("get_schedule")
+      instance
+        .get("get_schedule")
         .then((res) => {
           console.log(res);
           this.timetables = res.data.data;
@@ -96,16 +93,14 @@ export default {
           console.log(err);
         });
     },
-  
+
     create_timetable() {
-      instance.post(
-          "create_schedule",
-          {
-            jour: this.jour,
-            heure_start: this.heure_start,
-            heure_end: this.heure_end,
-          }
-        )
+      instance
+        .post("create_schedule", {
+          jour: this.jour,
+          heure_start: this.heure_start,
+          heure_end: this.heure_end,
+        })
         .then((res) => {
           console.log(res);
           if (res.data.status == true) {
@@ -143,13 +138,12 @@ export default {
       this.id_timetable_update = id;
       this.spinner = true;
       console.log("ID_UPADTE", this.id_timetable_update);
-      instance.get("get_schedule")
+      instance
+        .get("get_schedule")
         .then((res) => {
           console.log(res);
           this.timetable = res.data.data;
-          this.timetable_show_id = this.timetable.find(
-            (item) => item.id === id
-          );
+          this.timetable_show_id = this.timetable.find((item) => item.id === id);
           this.spinner = false;
           console.log("ELEMENT", this.timetable_show_id);
         })
@@ -167,9 +161,8 @@ export default {
       this.id_for_delete = "";
     },
     delete_timetable() {
-      instance.delete(
-          "delete_schedule/" + this.id_for_delete
-        )
+      instance
+        .delete("delete_schedule/" + this.id_for_delete)
         .then((res) => {
           console.log(res);
           if (res.data.status == true) {
@@ -197,105 +190,96 @@ export default {
 </script>
 <template>
   <!-- v-if="this.$store.state.translate === 'Fr'" -->
-  <section >
-  <div class="Myspinner" v-show="spinner">
-    <div class="spinner-border text-primary" role="status"></div>
-  </div>
-  <div class="page-body position-relative">
-    <div
-      class="ecran_for_delete delete_article"
-      v-show="confirmation_for_delete"
-    >
-      <div class="card p-5">
-        <p class="h3 my-2">Voulez-vous vraiment supprimer?</p>
-        <div>
-          
-          <button class="btn-lg bg-warning" @click="delete_timetable">
-            Supprimer
-          </button>
-          <button class="btn-lg bg-danger mx-2" @click="not_delete">
-            Annuler
-          </button>
+  <section>
+    <div class="Myspinner" v-show="spinner">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+    <div class="page-body position-relative">
+      <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
+        <div class="card p-5">
+          <p class="h3 my-2">Voulez-vous vraiment supprimer?</p>
+          <div>
+            <button class="btn-lg bg-warning" @click="delete_timetable">Supprimer</button>
+            <button class="btn-lg bg-danger mx-2" @click="not_delete">Annuler</button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="ecran" v-if="modify_timetable">
-      <div class="modify_form plan-modify" v-if="timetable_show_id">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-10 modify-form">
-              <div class="card">
-                <div class="card-body">
-                  <h1 class="badge bg-warning h3">
-                    Modifier l'emploi du temps
-                  </h1>
-                  <div class="form theme-form projectcreate p-5">
-                    <form>
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label>Choisir un jour</label>
-                            <select
-                              class="form-select"
-                              v-model="timetable_show_id.jour"
-                              required
-                              disabled
+      <div class="ecran" v-if="modify_timetable">
+        <div class="modify_form plan-modify" v-if="timetable_show_id">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-10 modify-form">
+                <div class="card">
+                  <div class="card-body">
+                    <h1 class="badge bg-warning h3">Modifier l'emploi du temps</h1>
+                    <div class="form theme-form projectcreate p-5">
+                      <form>
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="mb-3">
+                              <label>Choisir un jour</label>
+                              <select
+                                class="form-select"
+                                v-model="timetable_show_id.jour"
+                                required
+                                disabled
+                              >
+                                <option value="lundi">lundi</option>
+                                <option value="mardi">Mardi</option>
+                                <option value="mercredi">Mercredi</option>
+                                <option value="jeudi">Jeudi</option>
+                                <option value="vendredi">Vendredi</option>
+                                <option value="samedi">Samedi</option>
+                                <option value="dimanche">Dimanche</option>
+                              </select>
+                            </div>
+                            <span class="text-danger"
+                              >nb:le jour ne peut pas être modifier</span
                             >
-                              <option value="lundi">lundi</option>
-                              <option value="mardi">Mardi</option>
-                              <option value="mercredi">Mercredi</option>
-                              <option value="jeudi">Jeudi</option>
-                              <option value="vendredi">Vendredi</option>
-                              <option value="samedi">Samedi</option>
-                              <option value="dimanche">Dimanche</option>
-                            </select>
                           </div>
-                          <span class="text-danger"
-                            >nb:le jour ne peut pas être modifier</span
-                          >
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="timetable_show_id.heure_start"
-                              required
-                            />
+                          <div class="col-lg-4">
+                            <div class="mb-3">
+                              <label>Heure de début</label>
+                              <input
+                                class="form-control"
+                                type="time"
+                                v-model="timetable_show_id.heure_start"
+                                required
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="timetable_show_id.heure_end"
-                              required
-                            />
+                          <div class="col-lg-4">
+                            <div class="mb-3">
+                              <label>Heure de fin</label>
+                              <input
+                                class="form-control"
+                                type="time"
+                                v-model="timetable_show_id.heure_end"
+                                required
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="text-end">
-                            <button
-                              class="btn btn-danger me-3"
-                              @click.prevent="show_modify"
-                            >
-                              Annuler
-                            </button>
-                            <button
-                              @click.prevent="update_timetable"
-                              class="btn btn-secondary"
-                            >
-                              Modifier
-                            </button>
+                        <div class="row">
+                          <div class="col">
+                            <div class="text-end">
+                              <button
+                                class="btn btn-danger me-3"
+                                @click.prevent="show_modify"
+                              >
+                                Annuler
+                              </button>
+                              <button
+                                @click.prevent="update_timetable"
+                                class="btn btn-secondary"
+                              >
+                                Modifier
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -303,52 +287,51 @@ export default {
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="container-fluid">
-      <div class="page-title">
-        <div class="row">
-          <div class="col-12 col-sm-6">
-            <!-- <h3>Créer un emploi du temps</h3> -->
-          </div>
-          <div class="col-12 col-sm-6">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">Emploi du temps</li>
-            </ol>
+      <div class="container-fluid">
+        <div class="page-title">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <!-- <h3>Créer un emploi du temps</h3> -->
+            </div>
+            <div class="col-12 col-sm-6">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">Emploi du temps</li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- Container-fluid starts-->
-    <div class="col-sm-12 box-col-12">
-      <div class="card timetable">
-        <div class="social-tab">
-          <ul class="nav nav-tabs" id="top-tab" role="tablist">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                id="top-timeline"
-                data-bs-toggle="tab"
-                href="#timetable"
-                role="tab"
-                aria-controls="timetable"
-                aria-selected="true"
-                ><i data-feather="clock"></i>Créer un emploi du temps</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="top-about"
-                data-bs-toggle="tab"
-                href="#voir_emploi_temps"
-                role="tab"
-                aria-controls="voir_emploi_temps"
-                aria-selected="false"
-                ><i data-feather="alert-circle"></i>Voir mon emploi du temps
-              </a>
-            </li>
-            <!-- <li class="nav-item">
+      <!-- Container-fluid starts-->
+      <div class="col-sm-12 box-col-12">
+        <div class="card timetable">
+          <div class="social-tab">
+            <ul class="nav nav-tabs" id="top-tab" role="tablist">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  id="top-timeline"
+                  data-bs-toggle="tab"
+                  href="#timetable"
+                  role="tab"
+                  aria-controls="timetable"
+                  aria-selected="true"
+                  ><i data-feather="clock"></i>Créer un emploi du temps</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="top-about"
+                  data-bs-toggle="tab"
+                  href="#voir_emploi_temps"
+                  role="tab"
+                  aria-controls="voir_emploi_temps"
+                  aria-selected="false"
+                  ><i data-feather="alert-circle"></i>Voir mon emploi du temps
+                </a>
+              </li>
+              <!-- <li class="nav-item">
               <a
                 class="nav-link"
                 id="top-friends"
@@ -360,7 +343,7 @@ export default {
                 ><i data-feather="users"></i>Friends</a
               >
             </li> -->
-            <!-- <li class="nav-item">
+              <!-- <li class="nav-item">
               <a
                 class="nav-link"
                 id="top-photos"
@@ -372,129 +355,121 @@ export default {
                 ><i data-feather="image"></i>Photos</a
               >
             </li> -->
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="tab-content" id="top-tabContent">
-      <div
-        class="tab-pane fade show active"
-        id="timetable"
-        role="tabpanel"
-        aria-labelledby="timetable"
-      >
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="form theme-form projectcreate">
-                    <form @submit.prevent="create_timetable">
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label>Choisir un jour</label>
-                            <select class="form-select" v-model="jour" required>
-                              <option value="lundi">lundi</option>
-                              <option value="mardi">Mardi</option>
-                              <option value="mercredi">Mecredi</option>
-                              <option value="jeudi">Jeudi</option>
-                              <option value="vendredi">Vendredi</option>
-                              <option value="samedi">Samedi</option>
-                              <option value="dimanche">Dimanche</option>
-                            </select>
+      <div class="tab-content" id="top-tabContent">
+        <div
+          class="tab-pane fade show active"
+          id="timetable"
+          role="tabpanel"
+          aria-labelledby="timetable"
+        >
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="form theme-form projectcreate">
+                      <form @submit.prevent="create_timetable">
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="mb-3">
+                              <label>Choisir un jour</label>
+                              <select class="form-select" v-model="jour" required>
+                                <option value="lundi">lundi</option>
+                                <option value="mardi">Mardi</option>
+                                <option value="mercredi">Mecredi</option>
+                                <option value="jeudi">Jeudi</option>
+                                <option value="vendredi">Vendredi</option>
+                                <option value="samedi">Samedi</option>
+                                <option value="dimanche">Dimanche</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="mb-3">
+                              <label>Heure de début</label>
+                              <input
+                                class="form-control"
+                                type="time"
+                                v-model="heure_start"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="mb-3">
+                              <label>Heure de fin</label>
+                              <input
+                                class="form-control"
+                                type="time"
+                                v-model="heure_end"
+                                required
+                              />
+                            </div>
                           </div>
                         </div>
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="heure_start"
-                              required
-                            />
+                        <div class="row">
+                          <div class="col">
+                            <div class="text-end">
+                              <button class="btn btn-secondary me-3" type="submit">
+                                Créer
+                              </button>
+                            </div>
                           </div>
                         </div>
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="heure_end"
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="text-end">
-                            <button
-                              class="btn btn-secondary me-3"
-                              type="submit"
-                            >
-                              Créer
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div
-        class="tab-pane fade"
-        id="voir_emploi_temps"
-        role="tabpanel"
-        aria-labelledby="voir_emploi_temps"
-      >
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-12 card py-3 px-2">
-              <table id="MyTableData" class="table">
-                <thead>
-                  <tr>
-                    <th class="bg-light">Jours</th>
-                    <th class="bg-light">Heure de début</th>
-                    <th class="bg-light">Heure de fin</th>
-                    <th class="bg-light">Details</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(item, index) in this.timetables" :key="index">
-                    <td>{{ item.jour }}</td>
-                    <td>{{ item.heure_start }}</td>
-                    <td>{{ item.heure_end }}</td>
-                    <td
-                      class="d-flex justify-content-center align-items-center"
-                    >
-                      <i
-                        class="bi bi-pencil"
-                        @click="show_timetable(item.id)"
-                      ></i>
-                      <i
-                        class="bi bi-trash"
-                        @click="show_box_confirmation_delete(item.id)"
-                      ></i>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        <div
+          class="tab-pane fade"
+          id="voir_emploi_temps"
+          role="tabpanel"
+          aria-labelledby="voir_emploi_temps"
+        >
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12 card py-3 px-2">
+                <table id="MyTableData" class="table">
+                  <thead>
+                    <tr>
+                      <th class="bg-light">Jours</th>
+                      <th class="bg-light">Heure de début</th>
+                      <th class="bg-light">Heure de fin</th>
+                      <th class="bg-light">Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(item, index) in this.timetables" :key="index">
+                      <td>{{ item.jour }}</td>
+                      <td>{{ item.heure_start }}</td>
+                      <td>{{ item.heure_end }}</td>
+                      <td class="d-flex justify-content-center align-items-center">
+                        <i class="bi bi-pencil" @click="show_timetable(item.id)"></i>
+                        <i
+                          class="bi bi-trash"
+                          @click="show_box_confirmation_delete(item.id)"
+                        ></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <!-- Container-fluid Ends-->
     </div>
-    <!-- Container-fluid Ends-->
-  </div>
-</section>
+  </section>
   <!-- <section v-if="this.$store.state.translate === 'EN'">
 
   </section> -->

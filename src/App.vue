@@ -7,11 +7,9 @@ export default {};
 </script>
 
 <style>
+
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
-:root {
-  --main-color: rgba(255, 153, 0, 1);
-  --secondary-color: rgba(179, 201, 255, 0.38);
-}
+@import "./Shared/styles/stylesShared.css";
 
 .main-color,
 .n-tabs-tab.n-tabs-tab--active {
@@ -33,9 +31,10 @@ export default {};
   gap: 1em;
 }
 .conteneur-image-logo {
-  width: 100%;
+  width: 250px;
   height: 150px;
   position: relative;
+  padding: 2em;
 }
 .conteneur-image-logo img {
   width: 100%;

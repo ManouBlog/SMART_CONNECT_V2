@@ -8,7 +8,7 @@ import InfoEntreprise from "./feature/header/Entreprise/InfoEntreprise.vue";
 import InfoStudent from "./feature/header/Student/InfoStudent.vue";
 import ListeFavoris from "./feature/header/ListeFavoris.vue";
 import { mapActions } from "pinia";
-import {useRegisterStore} from "../store-pinia/register/useRegisterStore"
+import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 export default {
   name: "Header",
   components: {
@@ -97,7 +97,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(useRegisterStore,["changeValueIsModal"]),
+    ...mapActions(useRegisterStore, ["changeValueIsModal"]),
     selectLanguageForWeb(e) {
       // this.$store.commit("CHANGE_LANGAGE_WEB", e.target.value);
       console.log();
@@ -482,7 +482,7 @@ export default {
 
               <div class="conteneur-favoris-name_user">
                 <a
-                 href="#"
+                  href="#"
                   v-if="!this.$store.state.user"
                   class="login_user mx-3"
                   @click.prevent="changeValueIsModal"
@@ -504,7 +504,6 @@ export default {
                       this.$store.state.user.user.statut.statut === 'etudiant'
                     "
                   />
-
                 </div>
               </div>
             </div>
@@ -951,7 +950,6 @@ export default {
 }
 .fw-bold {
   font-weight: bold !important;
-  text-align: left;
 }
 
 .listWhistPerson {
