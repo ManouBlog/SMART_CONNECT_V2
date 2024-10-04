@@ -602,9 +602,7 @@ export default {
   border: 1px solid white;
   background: #f77f00 !important;
 }
-.bi-person {
-  font-size: 3em !important;
-}
+
 .selecte_service select {
   width: 30%;
   margin: 0.5em 0;
