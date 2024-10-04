@@ -1,4 +1,9 @@
-export const Color={
-    'primary':rgba(255, 153, 0, 1),
-    'secondary':rgba(179, 201, 255, 0.38)
+export const configUtils={
+  verifDateWithDateToDay(value){
+   const response =  JSON.stringify(new Date().toISOString().substring(0, 10)) < JSON.stringify(new Date(value))
+   return response;
+  },
+  getFormatDateFr(value){
+    return new Date(value).toLocaleDateString("fr")
+  }
 }

@@ -1,15 +1,17 @@
 <script>
-import $ from "jquery";
-// import Editor from "./text-editor.vue";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
+import TableDatabaseView from "../../../Shared/Compoments/TableDatabaseView.vue";
+import { mapActions, mapState } from "pinia";
+import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 import Swal from "sweetalert2";
 import instance from "../../../api/api";
+import HeaderDashboardTable from "../../../Shared/Compoments/HeaderDashboardTable.vue";
+
 export default {
   name: "OffresView",
-  // components: {
-  //   Editor,
-  // },
+  components: {
+    TableDatabaseView,
+    HeaderDashboardTable,
+  },
   data() {
     return {
       offre: null,
@@ -43,61 +45,48 @@ export default {
         },
       ],
       pointage: "",
+      allColumns: [
+        {
+          title: "Offre",
+          dataIndex: "offre",
+          key: "offre",
+        },
+        {
+          title: "Lieu",
+          dataIndex: "lieu",
+          key: "lieu",
+        },
+        {
+          title: "Honoraire",
+          dataIndex: "honoraire",
+          key: "honoraire",
+        },
+        {
+          title: "Fin",
+          key: "fin",
+          dataIndex: "fin",
+        },
+        {
+          title: "Action",
+          key: "action",
+        },
+      ],
+      elmentsOfBtn: [
+        {
+          name_btn: "Créer une offre",
+          color_btn: "primary",
+        },
+      ],
     };
   },
+  computed: {
+    ...mapState(useOffreStore, ["offreCreatedByEntreprise"]),
+  },
   methods: {
+    ...mapActions(useOffreStore, ["getAllOffresCreatedByEntreprise"]),
     show_offre_modify() {
       this.modify_offre = !this.modify_offre;
       this.id_offre_update = "";
-    },
-    get_offres() {
-      this.spinner = true;
-      instance
-        .get("get_offres_entreprise")
-        .then((res) => {
-          console.log("TIMETABLE", res);
-          this.offres = res.data.data;
-          this.spinner = false;
-          setTimeout(function () {
-            if (!$.fn.dataTable.isDataTable("#MyTableData")) {
-              $("#MyTableData,#MyTableData1").DataTable({
-                pagingType: "full_numbers",
-                pageLength: 10,
-                processing: true,
-                order: [],
-                language: {
-                  décimal: "",
-                  emptyTable: "Aucune donnée disponible dans le tableau",
-                  infoEmpty: "Showing 0 to 0 of 0 entries",
-                  info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                  infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                  infoPostFix: "",
-                  thousands: ",",
-                  lengthMenu: "Afficher les entrées du _MENU_",
-                  loadingRecords: "Loading...",
-                  processing: "Processing...",
-                  search: "Chercher :",
-                  stateSave: true,
-                  zeroRecords: "Aucun enregistrement correspondant trouvé",
-                  paginate: {
-                    first: "Premier",
-                    last: "Dernier",
-                    next: "Suivant",
-                    previous: "Précédent",
-                  },
-                  aria: {
-                    sortAscending: ": activate to sort column ascending",
-                    sortDescending: ": activate to sort column descending",
-                  },
-                },
-              });
-            }
-          }, 10);
-        })
-        .catch((err) => {
-          console.log(err);
-          this.spinner = false;
-        });
     },
 
     create_offre() {
@@ -222,282 +211,29 @@ export default {
     },
   },
   created() {
-    this.get_offres();
+    this.getAllOffresCreatedByEntreprise();
     this.get_categorie();
   },
 };
 </script>
 <template>
-  <section v-show="this.$store.state.translate === 'FR'">
+  <section class="px-5">
     <div class="page-body position-relative">
-      <div
-        class="ecran_for_delete delete_article"
-        v-show="confirmation_for_delete"
-      >
+      <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
         <div class="card my_card p-5">
           <p class="h3 my-2">Voulez-vous vraiment supprimer?</p>
           <div>
             <button class="btn-lg bg-warning" @click="delete_offre">
-              <span
-                class="spinner-border w-20"
-                role="status"
-                v-show="loading"
-              ></span
+              <span class="spinner-border w-20" role="status" v-show="loading"></span
               ><span v-show="creer">Supprimer</span>
             </button>
-            <button class="btn-lg bg-danger mx-2" @click="not_delete">
-              Annuler
-            </button>
+            <button class="btn-lg bg-danger mx-2" @click="not_delete">Annuler</button>
           </div>
         </div>
       </div>
-      <div class="container-fluid mt-5">
-        <div class="page-title">
-          <ol class="breadcrumb">
-            <li>Offres</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="tab-content" id="top-tabContent">
-        <div>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-sm-12 card py-3 px-2">
-                <table id="MyTableData" class="table">
-                  <thead>
-                    <tr>
-                      <th>Nom de l'offre</th>
-                      <th>Lieu</th>
-                      <th>Honoraire (Fcfa)</th>
-                      <th>Date et heure début</th>
-                      <th>Date et heure fin</th>
-
-                      <th>Détails</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(item, index) in offres" :key="index">
-                      <td>
-                        {{ item.nom_offre }}
-                        <span
-                          v-if="
-                            JSON.stringify(
-                              new Date().toISOString().substring(0, 10)
-                            ) > JSON.stringify(new Date(item.fin))
-                          "
-                          class="badge bg-danger"
-                          >Expirée</span
-                        >
-                        <span
-                          v-else-if="new Date() == new Date(item.fin)"
-                        ></span>
-                      </td>
-                      <td>{{ item.lieu }}</td>
-                      <td>
-                        <span v-if="item.salaire != null">
-                          {{ moneyFormat.format(item.salaire) }}
-                          /
-                          {{ item.pointage }}
-                        </span>
-                        <span v-else> pas de prime </span>
-                      </td>
-
-                      <td>
-                        {{ item.debut }}
-                      </td>
-
-                      <td>
-                        {{ item.fin }}
-                      </td>
-
-                      <td class="details">
-                        <div
-                          class="d-flex justify-content-center align-items-center"
-                        >
-                          <span
-                            v-if="
-                              JSON.stringify(
-                                new Date().toISOString().substring(0, 10)
-                              ) < JSON.stringify(new Date(item.fin))
-                            "
-                            class="mx-2 text-dark"
-                          >
-                            <router-link
-                              :to="{
-                                name: 'detail_offre',
-                                params: {
-                                  id: item.id,
-                                },
-                              }"
-                              ><em class="bi bi-pencil"></em>
-                            </router-link>
-                          </span>
-                          <span
-                            class="bi bi-trash mx-2 text-dark"
-                            @click="show_box_confirmation_delete(item.id)"
-                          ></span>
-
-                          <span class="mx-2 text-dark">
-                            <router-link
-                              :to="{
-                                name: 'detailsOffreEntreprise',
-                                params: {
-                                  id: item.id,
-                                },
-                              }"
-                              ><em class="bi bi-eye"></em>
-                            </router-link>
-                          </span>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div v-if="spinner">
-                  <h1>Loading...</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section v-show="this.$store.state.translate === 'EN'">
-    <div class="page-body position-relative">
-      <div
-        class="ecran_for_delete delete_article"
-        v-show="confirmation_for_delete"
-      >
-        <div class="card my_card p-5">
-          <p class="h3 my-2">Are you sure you want to delete?</p>
-          <div>
-            <button class="btn-lg bg-warning" @click="delete_offre">
-              <span
-                class="spinner-border w-20"
-                role="status"
-                v-show="loading"
-              ></span
-              ><span v-show="creer">Delete</span>
-            </button>
-            <button class="btn-lg bg-danger mx-2" @click="not_delete">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="container-fluid mt-5">
-        <div class="page-title">
-          <ol class="breadcrumb">
-            <li>Offers</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="tab-content" id="top-tabContent">
-        <div>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-sm-12 card py-3 px-2">
-                <table id="MyTableData1" class="table">
-                  <thead>
-                    <tr>
-                      <th>Offer name</th>
-                      <th>City</th>
-                      <th>Honorary (xof)</th>
-                      <th>Start date and time</th>
-                      <th>End date and time</th>
-
-                      <th>Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(item, index) in offres" :key="index">
-                      <td>
-                        {{ item.nom_offre }}
-                        <span
-                          v-if="
-                            JSON.stringify(
-                              new Date().toISOString().substring(0, 10)
-                            ) > JSON.stringify(new Date(item.fin))
-                          "
-                          class="badge bg-danger"
-                          >Expirée</span
-                        >
-                        <span
-                          v-else-if="new Date() == new Date(item.fin)"
-                        ></span>
-                      </td>
-                      <td>{{ item.lieu }}</td>
-                      <td>
-                        <span v-if="item.salaire != null">
-                          {{ moneyFormat.format(item.salaire) }}
-                          /
-                          {{ item.pointage }}
-                        </span>
-                        <span v-else> pas de prime </span>
-                      </td>
-
-                      <td>
-                        {{ item.debut }}
-                      </td>
-
-                      <td>
-                        {{ item.fin }}
-                      </td>
-
-                      <td class="details">
-                        <div
-                          class="d-flex justify-content-center align-items-center"
-                        >
-                          <span
-                            v-if="
-                              JSON.stringify(
-                                new Date().toISOString().substring(0, 10)
-                              ) < JSON.stringify(new Date(item.fin))
-                            "
-                            class="mx-2 text-dark"
-                          >
-                            <router-link
-                              :to="{
-                                name: 'detail_offre',
-                                params: {
-                                  id: item.id,
-                                },
-                              }"
-                              ><em class="bi bi-pencil"></em>
-                            </router-link>
-                          </span>
-                          <span
-                            class="bi bi-trash mx-2 text-dark"
-                            @click="show_box_confirmation_delete(item.id)"
-                          ></span>
-
-                          <span class="mx-2 text-dark">
-                            <router-link
-                              :to="{
-                                name: 'detailsOffreEntreprise',
-                                params: {
-                                  id: item.id,
-                                },
-                              }"
-                              ><em class="bi bi-eye"></em>
-                            </router-link>
-                          </span>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div v-if="spinner">
-                  <h1>Loading...</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <HeaderDashboardTable :elmentsOfBtn="elmentsOfBtn" :titleHeader="'Listes des offres'" />
+    
+      <TableDatabaseView :columns="allColumns" :allData="offreCreatedByEntreprise" />
     </div>
   </section>
 </template>
@@ -597,9 +333,7 @@ th {
   margin: 0 0.5em;
   cursor: pointer;
 }
-.mt-5 {
-  margin-top: 101px !important;
-}
+
 .my_card {
   background: rgb(255 255 255) !important;
   padding: 1.5em;

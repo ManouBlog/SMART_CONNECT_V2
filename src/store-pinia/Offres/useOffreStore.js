@@ -5,6 +5,8 @@ export const useOffreStore = defineStore('offres', {
     state: () => ({
         offres: [],
         ListOffre:[],
+        offreCreatedByEntreprise:[],
+        ListeForFilterInOffreCreatedByEntreprise:[]
     }),
     actions: {
        async getOffres() {
@@ -26,6 +28,34 @@ export const useOffreStore = defineStore('offres', {
             }catch(error){
                 console.log(error)
             }
+          },
+          async getAllOffresCreatedByEntreprise(){
+            try{
+              const response = await instance.get("get_offres_entreprise");
+              if(response['status'] === 200){
+                console.log("response.data.data1",response.data.data)
+                const DATAResponse = response.data.data.map(item=>{
+                  return{
+                    id:item.id,
+                    offre:item.nom_offre,
+                    lieu:item.lieu,
+                    honoraire:item.salaire,
+                    fin:item.job_fin
+                  }
+                });
+                this.ListeForFilterInOffreCreatedByEntreprise = DATAResponse
+                this.offreCreatedByEntreprise = DATAResponse
+              }
+                
+            }catch(error){
+              console.log(error)
+            }
+          },
+          filterInArrayOffreCreatedByEntreprise(payload){
+            console.log("payload",payload)
+            this.ListeForFilterInOffreCreatedByEntreprise.filter(item=>item.offre.toLowerCase().includes(payload))
+              this.offreCreatedByEntreprise = this.ListeForFilterInOffreCreatedByEntreprise
+              console.log("this.offreCreatedByEntreprise",this.offreCreatedByEntreprise)
           }
     },
   })
