@@ -34,17 +34,17 @@ export const useOffreStore = defineStore('offres', {
               const response = await instance.get("get_offres_entreprise");
               if(response['status'] === 200){
                 console.log("response.data.data1",response.data.data)
-                const DATAResponse = response.data.data.map(item=>{
-                  return{
-                    id:item.id,
-                    offre:item.nom_offre,
-                    lieu:item.lieu,
-                    honoraire:item.salaire,
-                    fin:item.job_fin
-                  }
-                });
-                this.ListeForFilterInOffreCreatedByEntreprise = DATAResponse
-                this.offreCreatedByEntreprise = DATAResponse
+                // const DATAResponse = response.data.data.map(item=>{
+                //   return{
+                //     id:item.id,
+                //     offre:item.nom_offre,
+                //     lieu:item.lieu,
+                //     honoraire:item.salaire,
+                //     fin:item.job_fin
+                //   }
+                // });
+                this.ListeForFilterInOffreCreatedByEntreprise = response.data.data
+                this.offreCreatedByEntreprise = response.data.data
               }
                 
             }catch(error){

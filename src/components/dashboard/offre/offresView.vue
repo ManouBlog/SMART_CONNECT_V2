@@ -1,5 +1,7 @@
 <script>
-import TableDatabaseView from "../../../Shared/Compoments/TableDatabaseView.vue";
+// import TableDatabaseView from "../../../Shared/Compoments/TableDatabaseView.vue";
+import { FilterMatchMode } from "primevue/api";
+import DatatablePrimeVue from "../../../Shared/Compoments/DatatablePrimeVue.vue";
 import { mapActions, mapState } from "pinia";
 import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 import Swal from "sweetalert2";
@@ -9,7 +11,8 @@ import HeaderDashboardTable from "../../../Shared/Compoments/HeaderDashboardTabl
 export default {
   name: "OffresView",
   components: {
-    TableDatabaseView,
+    // TableDatabaseView,
+    DatatablePrimeVue,
     HeaderDashboardTable,
   },
   data() {
@@ -45,32 +48,21 @@ export default {
         },
       ],
       pointage: "",
-      allColumns: [
-        {
-          title: "Offre",
-          dataIndex: "offre",
-          key: "offre",
-        },
-        {
-          title: "Lieu",
-          dataIndex: "lieu",
-          key: "lieu",
-        },
-        {
-          title: "Honoraire",
-          dataIndex: "honoraire",
-          key: "honoraire",
-        },
-        {
-          title: "Fin",
-          key: "fin",
-          dataIndex: "fin",
-        },
-        {
-          title: "Action",
-          key: "action",
-        },
+      fieldsForFilter:['nom_offre', 'salaire'],
+      allColumnsData: [
+        { fieldName: "nom_offre", headerName: "Offre" },
+        { fieldName: "lieu", headerName: "Lieu" },
+        { fieldName: "salaire", headerName: "Honoraire" },
+        { fieldName: "fin", headerName: "Date limite" },
       ],
+        filters: {
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        nom_offre: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        "country.name": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        representative: { value: null, matchMode: FilterMatchMode.IN },
+        status: { value: null, matchMode: FilterMatchMode.EQUALS },
+        verified: { value: null, matchMode: FilterMatchMode.EQUALS },
+      },
       elmentsOfBtn: [
         {
           name_btn: "Créer une offre",
@@ -231,9 +223,19 @@ export default {
           </div>
         </div>
       </div>
-      <HeaderDashboardTable :elmentsOfBtn="elmentsOfBtn" :titleHeader="'Listes des offres'" />
-    
-      <TableDatabaseView :columns="allColumns" :allData="offreCreatedByEntreprise" />
+      <HeaderDashboardTable
+        :elmentsOfBtn="elmentsOfBtn"
+        :titleHeader="'Listes des offres'"
+      />
+      <DatatablePrimeVue
+        :DATAVALUE="offreCreatedByEntreprise"
+        :DATACOLUMN="allColumnsData"
+        :globalFilterFields="fieldsForFilter"
+        :DATAfORfILTER="filters"
+      />
+
+      <!-- <TableDatabaseView :columns="allColumns"
+       :allData="offreCreatedByEntreprise" /> -->
     </div>
   </section>
 </template>

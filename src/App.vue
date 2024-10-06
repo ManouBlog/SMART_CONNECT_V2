@@ -11,6 +11,9 @@ export default {};
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 @import "./Shared/styles/stylesShared.css";
 
+.p-paginator{
+  font-size: 1.8em !important;
+}
 .main-color,
 .n-tabs-tab.n-tabs-tab--active {
   color: var(--main-color) !important;
