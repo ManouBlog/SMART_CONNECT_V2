@@ -249,9 +249,9 @@ th {
     .label {
         border: 1px solid #000
     }
-    .table {
+    /* .table {
         border-collapse: collapse!important
-    }
+    } */
     .table td,
     .table th {
         background-color: #fff!important

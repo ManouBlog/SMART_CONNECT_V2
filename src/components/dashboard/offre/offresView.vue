@@ -48,14 +48,14 @@ export default {
         },
       ],
       pointage: "",
-      fieldsForFilter:['nom_offre', 'salaire'],
+      fieldsForFilter: ["nom_offre", "salaire"],
       allColumnsData: [
         { fieldName: "nom_offre", headerName: "Offre" },
         { fieldName: "lieu", headerName: "Lieu" },
         { fieldName: "salaire", headerName: "Honoraire" },
         { fieldName: "fin", headerName: "Date limite" },
       ],
-        filters: {
+      filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         nom_offre: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         "country.name": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -201,6 +201,10 @@ export default {
           console.log(err);
         });
     },
+    declencheRedirectionforGoOnRoute() {
+      console.log("declencheRedirectionforGoOnRoute");
+      this.$router.push("/dashboard/creation_offre");
+    },
   },
   created() {
     this.getAllOffresCreatedByEntreprise();
@@ -226,6 +230,7 @@ export default {
       <HeaderDashboardTable
         :elmentsOfBtn="elmentsOfBtn"
         :titleHeader="'Listes des offres'"
+        @redirectionsRoute="declencheRedirectionforGoOnRoute"
       />
       <DatatablePrimeVue
         :DATAVALUE="offreCreatedByEntreprise"
@@ -276,9 +281,7 @@ th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
-th {
-  text-align: center;
-}
+
 .Myspinner {
   position: fixed;
   left: 0;

@@ -2,6 +2,7 @@
 import Buttons from "./Buttons.vue";
 export default {
   name: "HeaderDashboardTable",
+  emits: ["redirectionsRoute"],
   props: { elmentsOfBtn: { type: Array }, titleHeader: String },
   components: {
     Buttons,
@@ -9,12 +10,21 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    redirectionsBtn() {
+      this.$emit("redirectionsRoute");
+    },
+  },
 };
 </script>
 <template>
   <div class="conteneur-header-table">
     <h1 class="fw-bold">{{ titleHeader }}</h1>
-    <Buttons :elmentsOfBtn="elmentsOfBtn" :shapeBtn="'round'" />
+    <Buttons
+      :elmentsOfBtn="elmentsOfBtn"
+      :shapeBtn="'round'"
+      @created="redirectionsBtn"
+    />
   </div>
 </template>
 <style scoped>

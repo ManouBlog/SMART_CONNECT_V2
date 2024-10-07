@@ -14842,10 +14842,10 @@ img,
 svg {
   vertical-align: middle;
 }
-table {
+/* table {
   caption-side: bottom;
   border-collapse: collapse;
-}
+} */
 caption {
   padding-top: 1rem;
   padding-bottom: 1rem;

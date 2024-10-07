@@ -245,13 +245,13 @@ img {
 a {
   color: inherit;
 }
-.w3-table,
+/* .w3-table,
 .w3-table-all {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
   display: table;
-}
+} */
 .w3-table-all {
   border: 1px solid #ccc;
 }

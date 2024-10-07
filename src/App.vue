@@ -7,12 +7,28 @@ export default {};
 </script>
 
 <style>
-
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 @import "./Shared/styles/stylesShared.css";
 
-.p-paginator{
-  font-size: 1.8em !important;
+.p-paginator {
+  font-size: 1.5em !important;
+}
+.p-datatable-thead {
+  background: gray !important;
+}
+.p-datatable .p-datatable-footer {
+  border: none;
+}
+th {
+  background: var(--secondary-color) !important;
+  color: rgb(56, 56, 56);
+}
+.p-datatable .p-column-header-content {
+  justify-content: center !important;
+}
+table {
+  border: 1px solid rgba(77, 77, 77, 0.615);
+  border-collapse: unset !important;
 }
 .main-color,
 .n-tabs-tab.n-tabs-tab--active {
