@@ -1,16 +1,15 @@
 <script>
 import DatatablePrimeVue from "../../../Shared/Compoments/DatatablePrimeVue.vue";
-// import DatatableForObject from "../../../Shared/Compoments/DatatableForObject.vue"
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue"
 import { FilterMatchMode } from "primevue/api";
 import { mapActions, mapState } from "pinia";
-// import DatatablePrimeObjectVue from "../../../Shared/Compoments/DatatablePrimeObjectVue.vue";
+
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
 export default {
   name: "entreprise_contacts_studentView",
   components: {
     DatatablePrimeVue,
-    // DatatablePrimeObjectVue,
-    // DatatableForObject
+    HeaderDashboard
   },
   data() {
     return {
@@ -57,7 +56,9 @@ export default {
 </script>
 <template>
   <section>
-    <div class="page-body position-relative mt-5">
+    <HeaderDashboard  :TitleHeader="'Liste du personnels'"
+     :subTitleHeader="'Liste du personnels'"/>
+    <div class="page-body position-relative">
       <div class="container-fluid">
         <div class="page-title d-flex">
           <ol

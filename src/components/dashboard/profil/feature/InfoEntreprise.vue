@@ -1,8 +1,12 @@
 <script>
 import Swal from "sweetalert2";
 import instance, { lienPhoto } from "../../../../api/api";
+import Buttons from "../../../../Shared/Compoments/Buttons.vue"
 export default {
   name: "InfoEntreprise",
+  components:{
+    Buttons
+  },
   props: {
     infoPersonellesEntreprise: {
       type: Array,
@@ -30,6 +34,12 @@ export default {
       cpassword: "",
       msgErr: false,
       formState: { username: "", password: "" },
+      elmentsOfBtn:[
+  {
+    name_btn: "Modifier",
+    color_btn: "primary",
+  },
+],
     };
   },
   methods: {
@@ -134,7 +144,7 @@ export default {
 </script>
 
 <template>
-  <section>
+  <section style="padding:2em 3em;">
     <a-card style="width: auto; background: rgba(179, 201, 255, 0.38)">
       <h1 class="fw-bold">Informations personnelles</h1>
       <section>
@@ -161,6 +171,10 @@ export default {
             <h6 class="fw-bold">{{ item.value }}</h6>
           </div>
         </div>
+      </section>
+      <section>
+        <Buttons :elmentsOfBtn="elmentsOfBtn" :shapeBtn="'round'" />
+        <!-- <button>Modifier</button> -->
       </section>
     </a-card>
 

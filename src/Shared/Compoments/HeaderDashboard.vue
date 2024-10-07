@@ -1,4 +1,5 @@
 <script>
+import { HomeOutlined, UserOutlined } from '@ant-design/icons-vue'
 export default {
     name:"HeaderDashboard",
     props:{
@@ -7,7 +8,8 @@ export default {
     },
     data() {
        return{
-
+        HomeOutlined:HomeOutlined,
+        UserOutlined:UserOutlined
        } 
     },
 }
@@ -16,21 +18,31 @@ export default {
     <div class="conteneur-titleHeader">
         <h1 class="fw-bold">{{ TitleHeader}}</h1>
         <div class="conteneur-span-ecriteau">
-            <span></span>
-            <span>Home</span>
-            <span> /{{ subTitleHeader }}</span>
+            <a-breadcrumb>
+                <a-breadcrumb-item class="fw-bold">
+                  <span>Home</span>
+                </a-breadcrumb-item>
+                <a-breadcrumb-item class="subTitleHeader">{{ subTitleHeader }}</a-breadcrumb-item>
+              </a-breadcrumb>
+    
         </div>
     </div>
 </template>
 <style scoped>
+@import "../../Shared/styles/stylesShared.css";
+
 .conteneur-span-ecriteau{
     display: flex;
     align-items: center;
     gap:1em;
 }
 .conteneur-titleHeader{
-    padding: 1em;
-    background: gray;
+    padding: 2em;
+    background: var(--secondary-color) !important;
+    margin:0 0 2em 0;
+}
+.subTitleHeader,h1{
+    color: var(--main-color) !important;
 }
 h1{
     font-size:3em;

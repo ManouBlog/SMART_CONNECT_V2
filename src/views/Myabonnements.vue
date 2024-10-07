@@ -1,18 +1,35 @@
 <script>
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import { FilterMatchMode } from "primevue/api";
 import { mapActions, mapState } from "pinia";
+import InputText from "primevue/inputtext";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
+import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue"
 import { useEntreprisesStore } from "../store-pinia/Entreprise/useEntreprisesStore";
 export default {
   name: "Myabonnements",
   components:{
     DataTable,
-    Column
+    Column,
+    HeaderDashboard,
+    IconField,
+    InputIcon,
+    InputText,
   },
   data() {
     return {
       offre: null,
       offres: null,
+      filters: {
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        formule: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        "country.name": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        representative: { value: null, matchMode: FilterMatchMode.IN },
+        status: { value: null, matchMode: FilterMatchMode.EQUALS },
+        verified: { value: null, matchMode: FilterMatchMode.EQUALS },
+      },
     };
   },
   computed: { ...mapState(useEntreprisesStore, ["list_abonnement"]) },
@@ -23,21 +40,18 @@ export default {
 };
 </script>
 <template>
-  <div class="page-body position-relative mt-5">
-    <div class="container-fluid">
-      <div class="page-title">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">Mes abonnements</li>
-        </ol>
-      </div>
-    </div>
+  <div class="page-body position-relative">
+    <HeaderDashboard  :TitleHeader="'Mes abonnements'"
+     :subTitleHeader="'Mes abonnements'"/>
 
     <div class="tab-content" id="top-tabContent">
       <DataTable
         paginator
         :rows="10"
+        :globalFilterFields="['formule']"
         :rowsPerPageOptions="[5, 10, 20, 50]"
         :value="list_abonnement"
+        v-model:filters="filters"
       >
         <template #paginatorstart>
           <div
@@ -49,6 +63,20 @@ export default {
             "
           >
             Affichage de 1 à 10 sur{{ list_abonnement.length }} entrées.
+          </div>
+        </template>
+        <template #header>
+          <div class="conteneur_search">
+            <IconField iconPosition="left">
+              <InputIcon>
+                <i class="pi pi-search" />
+              </InputIcon>
+              <InputText
+                style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                v-model="filters['global'].value"
+                placeholder="Recherche:"
+              />
+            </IconField>
           </div>
         </template>
         <Column

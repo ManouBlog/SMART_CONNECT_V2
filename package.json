@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@aksestani/vue3-pagination": "^1.0.1",
+    "@ant-design/icons-vue": "^7.0.1",
     "@egjs/vue3-flicking": "^4.9.3",
     "@growthbunker/vuetimeline": "^0.1.17",
     "@headlessui/vue": "^1.6.4",

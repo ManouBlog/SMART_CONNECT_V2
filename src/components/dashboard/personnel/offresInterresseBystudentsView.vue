@@ -1,19 +1,36 @@
 <script>
+import { FilterMatchMode } from "primevue/api";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { mapActions, mapState } from "pinia";
+import InputText from "primevue/inputtext";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue"
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
 export default {
   name: "Offres_postulerView",
   components: {
     DataTable,
     Column,
+    IconField,
+    InputIcon,
+    InputText,
+    HeaderDashboard
   },
   data() {
     return {
       offre: null,
       offres: null,
       spinner: false,
+      filters: {
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        nom_offre: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        "country.name": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        representative: { value: null, matchMode: FilterMatchMode.IN },
+        status: { value: null, matchMode: FilterMatchMode.EQUALS },
+        verified: { value: null, matchMode: FilterMatchMode.EQUALS },
+      },
       allColumnsPostulants: [
         { fieldName: "nom", headerName: "Nom" },
         { fieldName: "prenoms", headerName: "prénoms" },
@@ -40,21 +57,18 @@ export default {
 </script>
 <template>
   <section>
-    <div class="page-body position-relative mt-5">
-      <div class="container-fluid">
-        <div class="page-title">
-          <ol class="breadcrumb w-25">
-            <li class="breadcrumb-item">Postulants</li>
-          </ol>
-        </div>
-      </div>
+    <HeaderDashboard  :TitleHeader="'Postulants'"
+     :subTitleHeader="'Liste des postulants'"/>
+    <div class="page-body position-relative">
 
       <div class="tab-content" id="top-tabContent">
         <DataTable
           paginator
           :rows="10"
+          :globalFilterFields="['nom_offre']"
           :rowsPerPageOptions="[5, 10, 20, 50]"
           :value="offresInteressByStudents"
+          v-model:filters="filters"
         >
           <template #paginatorstart>
             <div
@@ -66,6 +80,20 @@ export default {
               "
             >
               Affichage de 1 à 10 sur{{ offresInteressByStudents.length }} entrées.
+            </div>
+          </template>
+          <template #header>
+            <div class="conteneur_search">
+              <IconField iconPosition="left">
+                <InputIcon>
+                  <i class="pi pi-search" />
+                </InputIcon>
+                <InputText
+                  style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                  v-model="filters['global'].value"
+                  placeholder="Recherche:"
+                />
+              </IconField>
             </div>
           </template>
           <Column
@@ -161,4 +189,5 @@ th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 </style>

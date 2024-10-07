@@ -727,7 +727,7 @@ export default {
   z-index: 99;
 }
 .login_user {
-  border: 1px solid orange !important;
+  border: 2px solid orange !important;
   padding: 0.3em;
   border-radius: 10px;
   font-size: 1em !important;

@@ -245,11 +245,10 @@ export default {
 </script>
 
 <template>
+  
   <section>
- 
-    <div class="page-body mt-5">
-      <HeaderDashboard  :TitleHeader="'Profil'" :subTitleHeader="'Profil'"/>
-
+    <HeaderDashboard  :TitleHeader="'Profil'" :subTitleHeader="'Profil'"/>
+    <div class="page-body">
       <div>
         <InfoEntreprise
           v-if="this.user.user.statut.statut === 'entreprise'"

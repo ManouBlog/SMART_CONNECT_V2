@@ -2,10 +2,14 @@
 import Editor from "./text-editor.vue";
 import Swal from "sweetalert2";
 import instance from "../../../api/api";
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+// import Buttons from "../../../Shared/Compoments/Buttons.vue";
 export default {
   name: "CreateOffre",
   components: {
     Editor,
+    HeaderDashboard,
+    // Buttons,
   },
   data() {
     return {
@@ -13,13 +17,13 @@ export default {
       salaire: null,
       lieu: null,
       debut: null,
-      competenceWithCategorie:[],
+      competenceWithCategorie: [],
       fin: null,
       description: null,
       offres: null,
       spinner: false,
       competences: [],
-      competence:"",
+      competence: "",
       offre_id: null,
       modify_offre: false,
       id_offre_update: null,
@@ -43,19 +47,24 @@ export default {
         },
       ],
       pointage: "",
-      nbre_person:1,
+      nbre_person: 1,
+      elmentsOfBtn: [
+        {
+          name_btn: "Enregistrer",
+          color_btn: "primary",
+        },
+      ],
     };
   },
   methods: {
     async getAllCompetences() {
-    try{
-      const reponse = await instance.get("GetAllCompetences")
-      this.competences = reponse.data.data;
-      console.log("GetAllCompetences",this.competences)
-    }
-    catch(e){
-      console.log(e);
-    }
+      try {
+        const reponse = await instance.get("GetAllCompetences");
+        this.competences = reponse.data.data;
+        console.log("GetAllCompetences", this.competences);
+      } catch (e) {
+        console.log(e);
+      }
     },
     show_offre_modify() {
       this.modify_offre = !this.modify_offre;
@@ -73,12 +82,12 @@ export default {
         salaire: this.salaire,
         description: this.description,
         debut: this.debut,
-        fin: this.fin, 
+        fin: this.fin,
         lieu: this.lieu,
         pointage: this.pointage,
         categorie_offre_id: this.categorie,
-        competence_id:this.competence,
-        nbre_person:this.nbre_person
+        competence_id: this.competence,
+        nbre_person: this.nbre_person,
       };
       instance
         .post("create_offre", data)
@@ -94,17 +103,17 @@ export default {
               timer: 1500,
             });
             this.spinner = false;
-            
-         this.salaire= null
-         this.description= null
-         this.debut= null
-         this.offre = null
-         this.fin= null
-         this.nbre_person=1
-         this.lieu= null
-         this.pointage=null
-         this.categorie=null
-       this.competence = null
+
+            this.salaire = null;
+            this.description = null;
+            this.debut = null;
+            this.offre = null;
+            this.fin = null;
+            this.nbre_person = 1;
+            this.lieu = null;
+            this.pointage = null;
+            this.categorie = null;
+            this.competence = null;
             this.creer = true;
           }
           if (res.data.status === false) {
@@ -191,11 +200,12 @@ export default {
           console.log(err);
         });
     },
-    selectCategorie(e){
-      console.log("selectCategorie",e.target.value)
-      this.competenceWithCategorie = this.competences.filter(item=>item.categorie.id === Number(e.target.value))
-    }
-    
+    selectCategorie(e) {
+      console.log("selectCategorie", e.target.value);
+      this.competenceWithCategorie = this.competences.filter(
+        (item) => item.categorie.id === Number(e.target.value)
+      );
+    },
   },
   created() {
     this.get_categorie();
@@ -204,424 +214,224 @@ export default {
 };
 </script>
 <template>
- <section v-if="this.$store.state.translate === 'FR'">
-  <div class="page-body position-relative">
-    <div class="Myspinner" v-show="spinner">
-      <div class="spinner-border text-primary" role="status"></div>
-    </div>
-    <div class="container-fluid mt-5">
-      <div class="page-title">
-        <ol class="breadcrumb">
-            <li>Offres</li>
-          </ol>
+  <section>
+    <div class="page-body position-relative">
+      <div class="Myspinner" v-show="spinner">
+        <div class="spinner-border text-primary" role="status"></div>
       </div>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="card timetable">
-            <div class="social-tab">
-              <div class="tab-content" id="top-tabContent">
-                <div>
-                  <div class="container-fluid">
-                    <div class="Myspinner" v-show="spinner">
-                      <div
-                        class="spinner-border text-primary"
-                        role="status"
-                      ></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="card-body">
+      <HeaderDashboard
+        :TitleHeader="'Enregistrer une Offre'"
+        :subTitleHeader="'Enregistrer une Offre'"
+      />
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card timetable">
+              <div class="social-tab">
+                <div class="tab-content" id="top-tabContent">
+                  <div>
+                    <div class="container-fluid">
+                      <div class="Myspinner" v-show="spinner">
+                        <div class="spinner-border text-primary" role="status"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="card-body">
                             <div class="form theme-form projectcreate">
                               <form @submit.prevent="create_offre">
                                 <div class="container">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label> Catégorie</label>
-                                            <select v-model="categorie"
-                                            @change="selectCategorie"
-                                            >
-                                              <option value="" disabled>
-                                                Sélectionner une catégorie
-                                              </option>
-                                              <option
-                                                :value="item.id"
-                                                v-for="(item, index) in categories"
-                                                :key="index"
-                                              >
-                                                {{ item.categorie }}
-                                              </option>
-                                            </select>
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12 text-left">
-                                          <label id="select_comp">Choisir les compétences</label>
-                                          <select  
-                                          v-model="competence" 
-                                          name="" id="select_comp"
-                                         
-                                          >
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="mb-3">
+                                        <label> Catégorie</label>
+                                        <select
+                                          v-model="categorie"
+                                          @change="selectCategorie"
+                                        >
                                           <option value="" disabled>
+                                            Sélectionner une catégorie
+                                          </option>
+                                          <option
+                                            :value="item.id"
+                                            v-for="(item, index) in categories"
+                                            :key="index"
+                                          >
+                                            {{ item.categorie }}
+                                          </option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-12 text-left">
+                                      <label id="select_comp"
+                                        >Choisir les compétences</label
+                                      >
+                                      <select
+                                        v-model="competence"
+                                        name=""
+                                        id="select_comp"
+                                      >
+                                        <option value="" disabled>
                                           Choisir une compétence
-                                          </option>
-                                          <option
-                    :value="item.id"
-                    v-for="(item, index) in competenceWithCategorie"
-                    :key="index"
-                  >
-                    {{ item.competence }}
-                  </option>
-                  <option v-if="!competenceWithCategorie.length && !categorie" 
-                  disabled>Veuillez choisir une catégorie</option>
-                  <option v-if="!competenceWithCategorie.length && categorie" disabled>Pas de donnée</option>
-                                          </select>
-                                         </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Nom de l'offre</label>
-                                            <input
-                                              class="form-control"
-                                              type="text"
-                                              v-model="offre"
-                                              placeholder="ex:serveuse,barman,pianiste"
-                                              required
-                                              pattern="[A-Za-zÀ-ȕ(),-_., ]*"
-                                            />
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Honoraire</label>
-                                            <input
-                                              class="form-control"
-                                              type="text"
-                                              v-model="salaire"
-                                              placeholder="ex:35.000 Fcfa"
-                                              pattern="[0-9]*"
-                                            />
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Termes de paiements</label>
-                                            <select v-model="pointage"  :disabled="salaire ? false:true">
-                                              <option value="" disabled>
-                                                Payer Par
-                                              </option>
-                                              <option
-                                                :value="item.libelle"
-                                                v-for="(
-                                                  item, index
-                                                ) in OptionsOfpointage"
-                                                :key="index"
-                                              >
-                                                {{ item.libelle }}
-                                              </option>
-                                            </select>
-                                          </div>
-                                        </div>
-      
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Lieu de l'emploi</label>
-                                            <input
-                                              class="form-control"
-                                              type="text"
-                                              v-model="lieu"
-                                              placeholder="ex:Angré"
-                                              required
-                                              pattern="[A-Za-zÀ-ȕ(),-_., ]*"
-                                            />
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Nombre de postulants</label>
-                                            <input
-                                              class="form-control"
-                                              type="number"
-                                              v-model="nbre_person"
-                                              placeholder="ex:5 ou 10"
-                                              required
-                                              min="1"
-                                            />
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label for="calendar-12h d-block" 
-                                            class="date_heure"
-                                             >Date et heure début</label>
-                                             <input
-                                             class="form-control"
-                                             type="datetime-local"
-                                            
-                                             v-model="debut"
-                                             required
-                                             :min="new Date().toISOString().slice(0, 16)"
-                                           />
-                                            
-                                           
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label for="calendar-12" 
-                                            class="date_heure"> Date et heure  fin</label>
-                                            <input
-                                              class="form-control"
-                                              type="datetime-local"
-                                              :disabled="debut != null ? false:true"
-                                              v-model="fin"
-                                              required
-                                              :min="debut"
-                                            />
-                                           
-                                          </div>
-                                        </div>
-      
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Description</label>
-                                            <div class="conteneur_editor">
-                                              <editor v-model="description" />
-                                            </div>
-                                          </div>
-                                        </div>
+                                        </option>
+                                        <option
+                                          :value="item.id"
+                                          v-for="(item, index) in competenceWithCategorie"
+                                          :key="index"
+                                        >
+                                          {{ item.competence }}
+                                        </option>
+                                        <option
+                                          v-if="
+                                            !competenceWithCategorie.length && !categorie
+                                          "
+                                          disabled
+                                        >
+                                          Veuillez choisir une catégorie
+                                        </option>
+                                        <option
+                                          v-if="
+                                            !competenceWithCategorie.length && categorie
+                                          "
+                                          disabled
+                                        >
+                                          Pas de donnée
+                                        </option>
+                                      </select>
+                                    </div>
+                                    <div class="col-lg-12">
+                                      <div class="mb-3">
+                                        <label>Nom de l'offre</label>
+                                        <input
+                                          class="form-control"
+                                          type="text"
+                                          v-model="offre"
+                                          placeholder="ex:serveuse,barman,pianiste"
+                                          required
+                                          pattern="[A-Za-zÀ-ȕ(),-_., ]*"
+                                        />
                                       </div>
-                                      <div class="row">
-                                        <div class="col">
-                                          <div class="text-end">
-                                            <button
-                                              class="btn btn-secondary btn-designer me-3"
-                                              type="submit"
-                                              :disabled="loading ? true:false"
-                                            >
-                  
-                                              {{ loading ? 'Loading...':'Créer'}}
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </div></div>                              </form>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
- </section>
- <section v-if="this.$store.state.translate === 'EN'">
-  <div class="page-body position-relative">
-    <div class="Myspinner" v-show="spinner">
-      <div class="spinner-border text-primary" role="status"></div>
-    </div>
-    <div class="container-fluid mt-5">
-      <div class="page-title">
-        <ol class="breadcrumb">
-            <li>Offers</li>
-          </ol>
-      </div>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="card timetable">
-            <div class="social-tab">
-              <div class="tab-content" id="top-tabContent">
-                <div>
-                  <div class="container-fluid">
-                    <div class="Myspinner" v-show="spinner">
-                      <div
-                        class="spinner-border text-primary"
-                        role="status"
-                      ></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="card-body">
-                            <div class="form theme-form projectcreate">
-                              <form @submit.prevent="create_offre">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label> Category</label>
-                                            <select v-model="categorie"
-                                            @change="selectCategorie"
-                                            >
-                                              <option value="" disabled>
-                                                Select a category
-                                              </option>
-                                              <option
-                                                :value="item.id"
-                                                v-for="(item, index) in categories"
-                                                :key="index"
-                                              >
-                                                {{ item.categorie }}
-                                              </option>
-                                            </select>
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12 text-left">
-                                          <label id="select_comp">Choose skills</label>
-                                          <select  
-                                          v-model="competence" 
-                                          name="" id="select_comp"
-                                         
+                                    </div>
+                                    <div class="col-lg-12">
+                                      <div class="mb-3">
+                                        <label>Honoraire</label>
+                                        <input
+                                          class="form-control"
+                                          type="text"
+                                          v-model="salaire"
+                                          placeholder="ex:35.000 Fcfa"
+                                          pattern="[0-9]*"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                      <div class="mb-3">
+                                        <label>Termes de paiements</label>
+                                        <select
+                                          v-model="pointage"
+                                          :disabled="salaire ? false : true"
+                                        >
+                                          <option value="" disabled>Payer Par</option>
+                                          <option
+                                            :value="item.libelle"
+                                            v-for="(item, index) in OptionsOfpointage"
+                                            :key="index"
                                           >
-                                          <option value="" disabled>
-                                            Choose skills
+                                            {{ item.libelle }}
                                           </option>
-                                          <option
-                    :value="item.id"
-                    v-for="(item, index) in competenceWithCategorie"
-                    :key="index"
-                  >
-                    {{ item.competence }}
-                  </option>
-                  <option v-if="!competenceWithCategorie.length && !categorie" 
-                  disabled>Please choose a category</option>
-                  <option v-if="!competenceWithCategorie.length && categorie" disabled>Pas de donnée</option>
-                                          </select>
-                                         </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Offer name</label>
-                                            <input
-                                              class="form-control"
-                                              type="text"
-                                              v-model="offre"
-                                              placeholder="ex:serveuse,barman,pianiste"
-                                              required
-                                              pattern="[A-Za-zÀ-ȕ(),-_., ]*"
-                                            />
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Honorary</label>
-                                            <input
-                                              class="form-control"
-                                              type="text"
-                                              v-model="salaire"
+                                        </select>
+                                      </div>
+                                    </div>
 
-                                              pattern="[0-9]*"
-                                            />
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Payment terms</label>
-                                            <select v-model="pointage"  :disabled="salaire ? false:true">
-                                              <option value="" disabled>
-                                                Pay By
-                                              </option>
-                                              <option
-                                                :value="item.libelle"
-                                                v-for="(
-                                                  item, index
-                                                ) in OptionsOfpointage"
-                                                :key="index"
-                                              >
-                                                {{ item.libelle }}
-                                              </option>
-                                            </select>
-                                          </div>
-                                        </div>
-      
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Location of employment</label>
-                                            <input
-                                              class="form-control"
-                                              type="text"
-                                              v-model="lieu"
-                                              placeholder="ex:Angré"
-                                              required
-                                              pattern="[A-Za-zÀ-ȕ(),-_., ]*"
-                                            />
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Number of applicants</label>
-                                            <input
-                                              class="form-control"
-                                              type="number"
-                                              v-model="nbre_person"
-                                              placeholder="ex:5 ou 10"
-                                              required
-                                              min="1"
-                                            />
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label for="calendar-12h d-block" 
-                                            class="date_heure"
-                                             >Start date and time</label>
-                                             <input
-                                             class="form-control"
-                                             type="datetime-local"
-                                            
-                                             v-model="debut"
-                                             required
-                                             :min="new Date().toISOString().slice(0, 16)"
-                                           />
-                                            
-                                           
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label for="calendar-12" 
-                                            class="date_heure">End date and time</label>
-                                            <input
-                                              class="form-control"
-                                              type="datetime-local"
-                                              :disabled="debut != null ? false:true"
-                                              v-model="fin"
-                                              required
-                                              :min="debut"
-                                            />
-                                           
-                                          </div>
-                                        </div>
-      
-                                        <div class="col-lg-12">
-                                          <div class="mb-3">
-                                            <label>Description</label>
-                                            <div class="conteneur_editor">
-                                              <editor v-model="description" />
-                                            </div>
-                                          </div>
+                                    <div class="col-lg-12">
+                                      <div class="mb-3">
+                                        <label>Lieu de l'emploi</label>
+                                        <input
+                                          class="form-control"
+                                          type="text"
+                                          v-model="lieu"
+                                          placeholder="ex:Angré"
+                                          required
+                                          pattern="[A-Za-zÀ-ȕ(),-_., ]*"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                      <div class="mb-3">
+                                        <label>Nombre de postulants</label>
+                                        <input
+                                          class="form-control"
+                                          type="number"
+                                          v-model="nbre_person"
+                                          placeholder="ex:5 ou 10"
+                                          required
+                                          min="1"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                      <div class="mb-3">
+                                        <label
+                                          for="calendar-12h d-block"
+                                          class="date_heure"
+                                          >Date et heure début</label
+                                        >
+                                        <input
+                                          class="form-control"
+                                          type="datetime-local"
+                                          v-model="debut"
+                                          required
+                                          :min="new Date().toISOString().slice(0, 16)"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                      <div class="mb-3">
+                                        <label for="calendar-12" class="date_heure">
+                                          Date et heure fin</label
+                                        >
+                                        <input
+                                          class="form-control"
+                                          type="datetime-local"
+                                          :disabled="debut != null ? false : true"
+                                          v-model="fin"
+                                          required
+                                          :min="debut"
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                      <div class="mb-3">
+                                        <label>Description</label>
+                                        <div class="conteneur_editor">
+                                          <editor v-model="description" />
                                         </div>
                                       </div>
-                                      <div class="row">
-                                        <div class="col">
-                                          <div class="text-end">
-                                            <button
-                                              class="btn btn-secondary btn-designer me-3"
-                                              type="submit"
-                                              :disabled="loading ? true:false"
-                                            >
-                  
-                                              {{ loading ? 'Loading...':'Create'}}
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </div></div>                              </form>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <div class="text-end">
+                                        <!-- <Buttons
+                                          :elmentsOfBtn="elmentsOfBtn"
+                                          :shapeBtn="'round'"
+                                          @created=""
+                                        /> -->
+                                        <button
+                                          class="btn btn-warning btn-designer me-3"
+                                          type="submit"
+                                          :disabled="loading ? true : false"
+                                        >
+                                          {{ loading ? "Loading..." : "Enregistrer" }}
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
                             </div>
                           </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -632,22 +442,20 @@ export default {
         </div>
       </div>
     </div>
-  </div>
- </section>
+  </section>
 </template>
 <style scoped>
-.date_heure{
+.date_heure {
   display: block !important;
 }
-.theme-form input[type="text"]{
-  border-color:black !important;
-}
-#calendar-12h{
+
+#calendar-12h {
   width: 100% !important;
 }
 
-form label,form select option{
-  font-size:1.5em;
+form label,
+form select option {
+  font-size: 1.5em;
 }
 
 .mb-3 {
@@ -670,7 +478,7 @@ label {
 input,
 textarea,
 select {
-  border: 2px solid rgb(86, 86, 86) !important;
+  border: 2px solid orange !important;
 }
 select {
   border-radius: 5px !important;

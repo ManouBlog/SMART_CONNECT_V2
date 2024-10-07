@@ -6,14 +6,16 @@ import { mapActions, mapState } from "pinia";
 import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 import Swal from "sweetalert2";
 import instance from "../../../api/api";
-import HeaderDashboardTable from "../../../Shared/Compoments/HeaderDashboardTable.vue";
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+// import HeaderDashboardTable from "../../../Shared/Compoments/HeaderDashboardTable.vue";
 
 export default {
   name: "OffresView",
   components: {
     // TableDatabaseView,
     DatatablePrimeVue,
-    HeaderDashboardTable,
+    HeaderDashboard,
+    // HeaderDashboardTable,
   },
   data() {
     return {
@@ -213,7 +215,11 @@ export default {
 };
 </script>
 <template>
-  <section class="px-5">
+  <section>
+    <HeaderDashboard
+      :TitleHeader="'Liste des offres'"
+      :subTitleHeader="'Liste des offres'"
+    />
     <div class="page-body position-relative">
       <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
         <div class="card my_card p-5">
@@ -227,11 +233,11 @@ export default {
           </div>
         </div>
       </div>
-      <HeaderDashboardTable
+      <!-- <HeaderDashboardTable
         :elmentsOfBtn="elmentsOfBtn"
         :titleHeader="'Listes des offres'"
         @redirectionsRoute="declencheRedirectionforGoOnRoute"
-      />
+      /> -->
       <DatatablePrimeVue
         :DATAVALUE="offreCreatedByEntreprise"
         :DATACOLUMN="allColumnsData"
@@ -265,11 +271,7 @@ label {
   background: rgb(5, 35, 73) !important;
   border: 1px solid rgb(5, 35, 73) !important;
 }
-input,
-textarea,
-select {
-  border: 2px solid rgb(86, 86, 86) !important;
-}
+
 select {
   border-radius: 5px !important;
   width: 100%;

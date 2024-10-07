@@ -30,7 +30,7 @@ export default {
       categories: null,
       Today: new Date().toJSON().slice(0, 10),
       spinnerModify: false,
-      isLoading:false,
+      isLoading: false,
       OptionsOfpointage: [
         {
           id: 1,
@@ -65,7 +65,6 @@ export default {
             icon: "success",
             title: res.data.message,
             showConfirmButton: true,
-          
           });
           this.isLoading = false;
         })
@@ -86,9 +85,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.offres = res.data.data;
-          this.offre_id = this.offres.find(
-            (offre) => offre.id == this.$route.params.id
-          );
+          this.offre_id = this.offres.find((offre) => offre.id == this.$route.params.id);
           this.spinnerModify = false;
           console.log("OFFRE_ID", this.offre_id);
         })
@@ -112,94 +109,81 @@ export default {
         </ol>
       </div>
     </div>
-    <div  v-if="offre_id">
+    <div v-if="offre_id">
       <div class="form theme-form projectcreate">
         <form v-if="offre_id" class="container">
           <div>
             <div class="text-left">
-                <label>Nom de l'offre</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  v-model="offre_id.nom_offre"
-                  placeholder="ex:serveuse,barman,pianiste"
-                  required
-                />
-            
+              <label>Nom de l'offre</label>
+              <input
+                class="form-control"
+                type="text"
+                v-model="offre_id.nom_offre"
+                placeholder="ex:serveuse,barman,pianiste"
+                required
+              />
             </div>
             <div class="text-left">
-           
-                <label>Honoraire (Fcfa)</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  v-model.number="offre_id.salaire"
-                  placeholder="ex:35.000 Fcfa"
-                  required
-                />
-           
+              <label>Honoraire (Fcfa)</label>
+              <input
+                class="form-control"
+                type="text"
+                v-model.number="offre_id.salaire"
+                placeholder="ex:35.000 Fcfa"
+                required
+              />
             </div>
             <div class="text-left">
-             
-                <label>Termes de paiements</label>
-                <select v-model="offre_id.pointage">
-                  <option value="" disabled>Payer Par</option>
-                  <option
-                    :value="item.libelle"
-                    v-for="(item, index) in OptionsOfpointage"
-                    :key="index"
-                  >
-                    {{ item.libelle }}
-                  </option>
-                </select>
-            
+              <label>Termes de paiements</label>
+              <select v-model="offre_id.pointage">
+                <option value="" disabled>Payer Par</option>
+                <option
+                  :value="item.libelle"
+                  v-for="(item, index) in OptionsOfpointage"
+                  :key="index"
+                >
+                  {{ item.libelle }}
+                </option>
+              </select>
             </div>
 
             <div class="text-left">
-           
-                <label>Lieu de l'emploi</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  v-model="offre_id.lieu"
-                  placeholder="ex:Angré"
-                  required
-                />
-            
+              <label>Lieu de l'emploi</label>
+              <input
+                class="form-control"
+                type="text"
+                v-model="offre_id.lieu"
+                placeholder="ex:Angré"
+                required
+              />
             </div>
             <div class="text-left">
-             
-                <label>Date et heure début</label>
-                <input
-                  class="form-control"
-                  type="datetime-local"
-                  v-model="offre_id.debut"
-                  :min="new Date().toJSON().slice(0, 16)"
-                  required
-                />
-             
+              <label>Date et heure début</label>
+              <input
+                class="form-control"
+                type="datetime-local"
+                v-model="offre_id.debut"
+                :min="new Date().toJSON().slice(0, 16)"
+                required
+              />
             </div>
             <div class="text-left">
-             
-                <label>Date et heure fin</label>
-                <input
-                  class="form-control"
-                  type="datetime-local"
-                  v-model="offre_id.fin"
-                  :min="offre_id.debut"
-                  required
-                />
-              
+              <label>Date et heure fin</label>
+              <input
+                class="form-control"
+                type="datetime-local"
+                v-model="offre_id.fin"
+                :min="offre_id.debut"
+                required
+              />
             </div>
             <div class="text-left">
-             
-                <label>Description</label>
-                <div class="conteneur_editor">
-                  <editor
-                    :modelValue="offre_id.description"
-                    v-model="offre_id.description"
-                  />
-                
+              <label>Description</label>
+              <div class="conteneur_editor">
+                <editor
+                  :modelValue="offre_id.description"
+                  v-model="offre_id.description"
+                />
               </div>
             </div>
           </div>
@@ -207,10 +191,11 @@ export default {
             <div class="col">
               <div class="text-end">
                 <button
-                :disabled="isLoading ? true:false"
-                 class="btn p-5 mt-4 btn-designer
-                 fw-bold btn-secondary" @click.prevent="update_offre">
-                  {{isLoading ? 'Loading...':'Modifier'}}
+                  :disabled="isLoading ? true : false"
+                  class="btn p-5 mt-4 btn-designer fw-bold btn-secondary"
+                  @click.prevent="update_offre"
+                >
+                  {{ isLoading ? "Loading..." : "Modifier" }}
                 </button>
               </div>
             </div>
@@ -218,16 +203,16 @@ export default {
         </form>
       </div>
     </div>
-     <div  v-else>
+    <div v-else>
       <h1>Loading...</h1>
     </div>
   </div>
 </template>
 
 <style scoped>
-form label,form select option{
-  font-size:1.5em;
- 
+form label,
+form select option {
+  font-size: 1.5em;
 }
 .mt-5 {
   margin-top: 101px !important;
@@ -252,13 +237,9 @@ label {
 .btn-secondary {
   background: rgb(5, 35, 73) !important;
   border: 1px solid rgb(5, 35, 73) !important;
-  color:rgb(255, 255, 255) !important;
+  color: rgb(255, 255, 255) !important;
 }
-input,
-textarea,
-select {
-  border: 2px solid rgb(86, 86, 86) !important;
-}
+
 select {
   border-radius: 5px !important;
   width: 100%;
@@ -329,7 +310,7 @@ th {
   margin: 0 0.5em;
   cursor: pointer;
 }
-a{
-  color:black !important;
+a {
+  color: black !important;
 }
 </style>

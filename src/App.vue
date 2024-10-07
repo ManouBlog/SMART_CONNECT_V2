@@ -13,6 +13,10 @@ export default {};
 .p-paginator {
   font-size: 1.5em !important;
 }
+.conteneur_search {
+  display: flex;
+  justify-content: flex-end;
+}
 .p-datatable-thead {
   background: gray !important;
 }
@@ -86,7 +90,7 @@ table {
 .p-button,
 .multiselect__option--highlight {
   background: orange !important;
-  border: 1px solid orange !important;
+  border: 2px solid orange !important;
 }
 .multiselect__tags {
   border: 0.5px solid black !important;
@@ -95,10 +99,14 @@ table {
   color: white !important;
   font-weight: bold !important;
   font-size: 1.5em !important;
-  padding: 1em !important;
+  padding: 0.5em !important;
 }
 option {
   color: black !important;
+}
+input,
+select {
+  border: 2px solid orange !important;
 }
 .d-block {
   display: block;
@@ -213,7 +221,7 @@ input[type="checkbox"] {
 }
 .card,
 .page-body {
-  margin-bottom: 190px !important;
+  padding: 0 0 5em 0;
 }
 input {
   height: 49px !important;

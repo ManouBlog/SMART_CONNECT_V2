@@ -51,7 +51,8 @@ export default {
   >
     <template #paginatorstart>
       <div
-        style="display: flex; justify-content: flex-start; font-size: 1em; border: none"
+        style="display: flex; justify-content: flex-start; font-size: 1em; 
+        border: none"
       >
         Affichage de 1 à 10 sur{{ DATAVALUE.length }} entrées.
       </div>
@@ -63,7 +64,7 @@ export default {
             <i class="pi pi-search" />
           </InputIcon>
           <InputText
-            style="width: 300px; font-size: 1.5em; border: 1px solid orange"
+            style="width: 300px; font-size: 1.5em; border: 2px solid orange"
             v-model="filters['global'].value"
             placeholder="Recherche:"
           />
@@ -133,9 +134,3 @@ export default {
     </Column>
   </DataTable>
 </template>
-<style scoped>
-.conteneur_search {
-  display: flex;
-  justify-content: flex-end;
-}
-</style>
