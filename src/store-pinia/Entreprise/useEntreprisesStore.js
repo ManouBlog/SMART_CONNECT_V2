@@ -1,10 +1,15 @@
 import { defineStore } from 'pinia'
 import instance from "../../api/api";
+// import {Help} from "../../utils"
 
 export const useEntreprisesStore = defineStore('entreprise', {
     state: () => ({
         entreprises: [],
         timetable:[],
+        list_students:[],
+        student:[],
+        studentRecruit:[],
+        offresInteressByStudents:[]
     }),
     actions: {
        async getEntreprise() {
@@ -18,6 +23,55 @@ export const useEntreprisesStore = defineStore('entreprise', {
             }catch(error){
                 console.log(error)
             }
-          }
+          },
+          async get_students_contact() {
+            try{
+           const listStudent = await instance.get("list_students_contact_by_entreprise");
+           const studentRecruit = await instance.get("getStudentRecruit");
+           
+           console.log("studentRecruit",studentRecruit)
+           console.log("listStudent",listStudent)
+           if(listStudent['status'] === 200 && studentRecruit['status'] === 200 ){
+            this.list_students = listStudent.data.data;
+            this.student = this.list_students.students;
+            this.studentRecruit = studentRecruit.data;
+
+            console.log('this.list_students',this.list_students)
+            console.log("this.student",this.student)
+           }
+            }catch(error){
+                console.log(error)
+            }
+          },
+          async get_offres_interess_by_student() {
+            try{
+             const response = await instance.get("list_offres_interess_by_students")
+             console.log("response",response.data)
+             if(response['status'] === 200){
+                // this.offresInteressByStudents = Help.groupBy(response.data)
+                const groupedData = response.data.reduce((acc, curr) => {
+                    // Check if there's already an entry for the current `nom_offre`
+                    const existingEntry = acc.find(entry => entry.nom_offre === curr.nom_offre);
+                
+                    // If it exists, push the current item into the `value` array
+                    if (existingEntry) {
+                        existingEntry.nbre.push(curr);
+                    } else {
+                        // If it doesn't exist, create a new entry
+                        acc.push({
+                            nom_offre: curr.nom_offre,
+                            nbre: [curr]
+                        });
+                    }
+                
+                    return acc;
+                }, []);
+                this.offresInteressByStudents = groupedData
+                console.log("this.offresInteressByStudents",this.offresInteressByStudents)
+             }
+            }catch(error){
+                console.log(error)
+            }
+          },
     },
   })

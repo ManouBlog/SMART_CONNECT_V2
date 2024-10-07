@@ -6,10 +6,12 @@ import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
 import { configUtils } from "../Utils";
 import { Help } from "../../utils";
+import StatutForDatatable from "./features/StatutForDatatable.vue";
+
 export default {
   name: "DatatablePrimeVue",
   props: {
-    DATAVALUE: { type: Array, required: true },
+    DATAVALUE: { type: Array },
     DATACOLUMN: { type: Array, required: true },
     globalFilterFields: { type: Array, required: true },
     DATAfORfILTER: { type: Object },
@@ -20,6 +22,7 @@ export default {
     InputText,
     IconField,
     InputIcon,
+    StatutForDatatable,
   },
   data() {
     return { configUtils: configUtils, Help: Help };
@@ -67,6 +70,7 @@ export default {
         </IconField>
       </div>
     </template>
+
     <Column
       v-for="(item, index) in DATACOLUMN"
       :key="index"
@@ -80,6 +84,15 @@ export default {
         </span>
         <span v-else-if="item.fieldName === 'salaire'">
           {{ Help.convertInMoney(slotProps.data.salaire) }}/{{ slotProps.data.pointage }}
+        </span>
+        <span v-else-if="item.fieldName === 'statut'">
+          <StatutForDatatable :dataStatut="slotProps.data" />
+        </span>
+        <span v-else-if="item.fieldName === 'offre'">
+          {{ slotProps.data.pivot.offre.nom_offre }}
+        </span>
+        <span v-else-if="item.headerName === 'Etudiant'">
+          {{ slotProps.data.nom }}  {{ slotProps.data.prenoms }}
         </span>
         <span v-else>
           {{ slotProps.data[item.fieldName] }}

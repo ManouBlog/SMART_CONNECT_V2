@@ -11,6 +11,7 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
 import Calendar from 'primevue/calendar';
 import Rating from 'primevue/rating';
 import Dialog from 'primevue/dialog';
+
 import PanelMenu from 'primevue/panelmenu';
 import Multiselect from 'vue-multiselect'
 import Paginator from 'primevue/paginator';
