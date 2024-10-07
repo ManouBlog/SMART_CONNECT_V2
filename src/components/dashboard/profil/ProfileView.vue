@@ -1,19 +1,22 @@
 <script>
 import Swal from "sweetalert2";
-import instance,{lienPhoto} from "../../../api/api";
+import instance, { lienPhoto } from "../../../api/api";
 import InfoEntreprise from "./feature/InfoEntreprise.vue";
-import InfoParticulier from "./feature/InfoParticulier.vue"
+// import InfoParticulier from "./feature/InfoParticulier.vue"
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue"
+
 export default {
   name: "ProfileView",
-  components:{ 
-    InfoEntreprise,InfoParticulier
+  components: {
+    InfoEntreprise,
+    HeaderDashboard
   },
   data() {
     return {
       user: this.$store.state.user,
       nom: "",
       prenoms: "",
-      lienPhoto:lienPhoto,
+      lienPhoto: lienPhoto,
       password: null,
       commune: "",
       quartier: "",
@@ -23,8 +26,8 @@ export default {
       registre_commerce: "",
       oldPassword: "",
       photo: {},
-      cpassword:"",
-      msgErr:false
+      cpassword: "",
+      msgErr: false,
     };
   },
   methods: {
@@ -55,59 +58,54 @@ export default {
         oldPassword: this.oldPassword,
         password: this.password,
       };
-      this.routeForLaunch(info)
-     
-      
+      this.routeForLaunch(info);
     },
     modifyPasswordOfEntreprise() {
       let Entreprise = {
         oldPassword: this.oldPassword,
         password: this.password,
       };
-      this.routeForLaunch(Entreprise)
-    
-      
+      this.routeForLaunch(Entreprise);
     },
-   
+
     modifyPasswordOfAdmin() {
       let admin = {
         oldPassword: this.oldPassword,
         password: this.password,
       };
-      this.routeForLaunch(admin)
-     
+      this.routeForLaunch(admin);
     },
-    routeForLaunch(data){
+    routeForLaunch(data) {
       if (this.cpassword !== this.password) {
-        this.msgErr = true
-      }else{
+        this.msgErr = true;
+      } else {
         instance
-        .post("passwordModify", data)
-        .then((resp) => {
-          console.log(resp);
-          if (resp.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: "Mot de passe changé",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            //setTimeout(() => {
+          .post("passwordModify", data)
+          .then((resp) => {
+            console.log(resp);
+            if (resp.data.status === true) {
+              Swal.fire({
+                icon: "success",
+                title: "Mot de passe changé",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              //setTimeout(() => {
               //location.reload(true);
-            //}, 1500);
-          }
-          if (resp.data.status === false) {
-            Swal.fire({
-              icon: "error",
-              title: resp.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+              //}, 1500);
+            }
+            if (resp.data.status === false) {
+              Swal.fire({
+                icon: "error",
+                title: resp.data.message,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
     update_compte_entreprise() {
@@ -131,7 +129,7 @@ export default {
             localStorage.setItem("user", JSON.stringify(res.data.user));
             this.$store.state.user = res.data.user;
             //setTimeout(() => {
-              //location.reload(true);
+            //location.reload(true);
             //}, 1500);
           }
           if (res.data.status === false) {
@@ -175,7 +173,7 @@ export default {
               timer: 1500,
             });
             //setTimeout(() => {
-              //location.reload(true);
+            //location.reload(true);
             //}, 1500);
           }
           if (res.data.status === false) {
@@ -216,7 +214,7 @@ export default {
             localStorage.setItem("user", JSON.stringify(reponse.data.user));
             this.$store.state.user = reponse.data.user;
             //setTimeout(() => {
-              //location.reload(true);
+            //location.reload(true);
             //}, 1500);
           }
           if (reponse.data.status === false) {
@@ -247,18 +245,33 @@ export default {
 </script>
 
 <template>
-  <section v-show="this.$store.state.translate === 'FR'">
+  <section>
+ 
     <div class="page-body mt-5">
-      <div class="container-fluid">
-        <div class="page-title">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">Compte</li>
-          </ol>
-        </div>
-      </div>
-     
-      <div class="container-fluid">
-        <div class="edit-profile">
+      <HeaderDashboard  :TitleHeader="'Profil'" :subTitleHeader="'Profil'"/>
+
+      <div>
+        <InfoEntreprise
+          v-if="this.user.user.statut.statut === 'entreprise'"
+          :infoPersonellesEntreprise="[
+            { libelle: 'Nom :', value: 'Adjobi' },
+            { libelle: 'Email :', value: 'Adjobi' },
+            { libelle: 'Matricule/cc :', value: 'Adjobi' },
+            { libelle: 'Contact :', value: 'Adjobi' },
+            { libelle: 'Ville :', value: 'Adjobi' },
+            { libelle: 'Commune :', value: 'Adjobi' },
+            { libelle: 'Quatier :', value: 'Adjobi' },
+            { libelle: 'Télephone :', value: 'Adjobi' },
+            { libelle: 'Document :', value: 'Adjobi' },
+          ]"
+          :infoPersonellesGerant="[
+            { libelle: 'Nom & Prénom :', value: 'Adjobi' },
+            { libelle: 'Contact :', value: 'Adjobi' },
+            { libelle: 'Pièce d’identité :', value: 'Adjobi' },
+          ]"
+        />
+        <!-- <CadreProfilView /> -->
+        <!-- <div class="edit-profile">
           <div class="row">
             <div class="col-lg-5">
               <form class="card">
@@ -375,37 +388,7 @@ export default {
                 </div>
                 <InfoEntreprise />
                 <InfoParticulier />
-                <div
-                  class="card-body text-left"
-                  v-if="this.user.user.statut.statut === 'admin'"
-                >
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="mb-3">
-                        <label class="form-label">Nom</label>
-                        <input
-                          v-model="user.nom"
-                          class="form-control"
-                          type="text"
-                          disabled
-                        />
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input
-                          v-model="user.email"
-                          class="form-control"
-                          type="email"
-                          disabled
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </form>
-             
             </div>
             <div class="col-lg-7">
               <form
@@ -569,337 +552,10 @@ export default {
               
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
-<section v-show="this.$store.state.translate === 'EN'">
-  <div class="page-body mt-5">
-    <div class="container-fluid">
-      <div class="page-title">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">Account</li>
-        </ol>
-      </div>
-    </div>
-   
-    <div class="container-fluid">
-      <div class="edit-profile">
-        <div class="row">
-          <div class="col-lg-5">
-            <form class="card">
-              <div class="card-header pb-0">
-                <h4>My personal information</h4>
-              </div>
-              <div
-                class="card-body text-left"
-                v-if="this.user.user.statut.statut === 'etudiant'"
-              >
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">Last name</label>
-                      <input
-                        v-model="user.nom"
-                        class="form-control"
-                        type="text"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">First name</label>
-                      <input
-                        v-model="user.prenoms"
-                        class="form-control"
-                        type="text"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">Email</label>
-                      <input
-                        v-model="user.email"
-                        class="form-control"
-                        type="email"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">Phone</label>
-                      <input
-                        v-model="user.phone"
-                        class="form-control"
-                        type="text"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">City</label>
-                      <input
-                        v-model="user.ville"
-                        class="form-control"
-                        type="text"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">Municipality</label>
-                      <input
-                        v-model="user.commune"
-                        class="form-control"
-                        type="text"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">Headquarter</label>
-                      <input
-                        v-model="user.quartier"
-                        class="form-control"
-                        type="text"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">Diploma</label>
-                      <input
-                        v-model="user.diplome"
-                        class="form-control"
-                        type="text"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12 ">
-                    <label class="form-label d-block">Pièce</label>
-                    <div class="text-center">
-                      <img
-                      :src="
-                      lienPhoto + user.photo
-                      "
-                      :alt="user.photo"
-                      class="w-50 "
-                    />
-                    </div>
-                   
-                  </div>
-                </div>
-              </div>
-              <InfoEntreprise />
-              <InfoParticulier />
-              <div
-                class="card-body text-left"
-                v-if="this.user.user.statut.statut === 'admin'"
-              >
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">Last name</label>
-                      <input
-                        v-model="user.nom"
-                        class="form-control"
-                        type="text"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">Email</label>
-                      <input
-                        v-model="user.email"
-                        class="form-control"
-                        type="email"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-           
-          </div>
-          <div class="col-lg-7">
-            <form
-              class="card"
-              v-if="statut === 'etudiant' || statut === 'admin'"
-            >
-              <div class="card-header pb-0">
-                <h4>Edit my profile</h4>
-                <span>Manage your profile settings</span>
-              </div>
-              <div
-                class="card-body text-left"
-                v-if="this.user.user.statut.statut === 'etudiant'"
-              >
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="mb-3">
-                      <label class="form-label">Last name</label>
-                      <input v-model="nom" class="form-control" type="text" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-3">
-                    <div class="mb-3">
-                      <label class="form-label">First name</label>
-                      <input
-                        v-model="prenoms"
-                        class="form-control"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-3">
-                    <div class="mb-3">
-                      <label class="form-label">Phone</label>
-                      <input v-model="phone" class="form-control" type="text" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-3">
-                    <div class="mb-3">
-                      <label class="form-label">City</label>
-                      <input v-model="ville" class="form-control" type="text" />
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="mb-3">
-                      <label class="form-label">Municipality</label>
-                      <input
-                        v-model="commune"
-                        class="form-control"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-3">
-                    <div class="mb-3">
-                      <label class="form-label">Headquarter</label>
-                      <input
-                        v-model="quartier"
-                        class="form-control"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-3">
-                    <div class="mb-3">
-                      <label class="form-label">Diploma</label>
-                      <input
-                        v-model="diplome"
-                        class="form-control"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-sm-12 col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">Student card</label>
-                      <input
-                        @change="see"
-                        class="form-control"
-                        type="file"
-                        accept="*"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="card-body"
-                v-if="this.user.user.statut.statut === 'admin'"
-              >
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <label class="form-label">Last name</label>
-                      <input v-model="nom" class="form-control" type="text" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer text-end">
-                <button
-                  class="btn btn-primary updateProfil"
-                  @click.prevent="update_offre"
-                >
-                Update profile
-                </button>
-              </div>
-            </form>
-            <form class="card p-5" @submit.prevent="modifyPassword">
-              <div class="pb-0 card-header">
-                <h4>Change my password</h4>
-              </div>
-              
-              <div class="col-sm-12 col-md-12 text-left card-body">
-                <div class="mb-3">
-                  <label class="form-label"
-                    >Enter your current password</label
-                  >
-                  <input
-                    v-model="oldPassword"
-                    class="form-control"
-                    type="password"
-                    placeholder="xxxxxxx"
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">New Password</label>
-                  <input
-                    v-model="password"
-                    class="form-control"
-                    type="password"
-                    placeholder="xxxxxxx"
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Confirm the new password</label>
-                  <input
-                    v-model="cpassword"
-                    class="form-control"
-                    type="password"
-                    placeholder="xxxxxxx"
-                    required
-                  />
-                </div>
-                <span class="text-danger">{{ msgErr ? 
-                  "Passwords do not match":null }}</span>
-              </div>
-             
-              <div class="card-footer text-end">
-                <button
-                  class="btn-lg bg-warning  updateProfil"
-                  type="submit"
-                  
-                >
-                  Edit
-                </button>
-              </div>
-            </form>
-            
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 </template>
 
 <style scoped>
@@ -914,7 +570,7 @@ img {
   border: 5px solid black;
 }
 
-.mb-3{
-  margin-bottom:1em !important;
+.mb-3 {
+  margin-bottom: 1em !important;
 }
 </style>

@@ -1,68 +1,22 @@
 <script>
-import $ from "jquery";
-import instance from "../api/api";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+import { mapActions, mapState } from "pinia";
+import { useEntreprisesStore } from "../store-pinia/Entreprise/useEntreprisesStore";
 export default {
   name: "Myabonnements",
+  components:{
+    DataTable,
+    Column
+  },
   data() {
     return {
-      list_abonnement: [],
       offre: null,
       offres: null,
-      spinner: false,
-      moneyFormat: new Intl.NumberFormat("de-DE"),
     };
   },
-  methods: {
-    get_all_student() {
-      this.spinner = true;
-      instance
-        .get("abonnement_user")
-        .then((res) => {
-          console.log("abonnement_user", res);
-          this.list_abonnement = res.data.data;
-          console.log("this.list_abonnement", this.list_abonnement);
-          this.spinner = false;
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
+  computed: { ...mapState(useEntreprisesStore, ["list_abonnement"]) },
+  methods: { ...mapActions(useEntreprisesStore, ["get_all_student"]) },
   created() {
     this.get_all_student();
   },
@@ -79,49 +33,52 @@ export default {
     </div>
 
     <div class="tab-content" id="top-tabContent">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Date</th>
-
-                  <th class="bg-light">Formule</th>
-
-                  <th class="bg-light">Prix (Fcfa)</th>
-                  <th class="bg-light">Echéance</th>
-                  <th class="bg-light">Statut</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in list_abonnement" :key="index">
-                  <td>{{ item.created_at }}</td>
-                  <td>
-                    {{ item.abonement.libelle }}
-                  </td>
-
-                  <td>
-                    {{ item.abonement.prix }}
-                  </td>
-                  <td>{{ item.echeance }} {{ item.heure_echeance }}</td>
-                  <td
-                    class="fw-bold badge"
-                    :class="
-                      item.statut === 'ACTIVE' ? 'bg-success' : 'bg-danger'
-                    "
-                  >
-                    {{ item.statut }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div v-if="spinner">
-              <h1>loading...</h1>
-            </div>
+      <DataTable
+        paginator
+        :rows="10"
+        :rowsPerPageOptions="[5, 10, 20, 50]"
+        :value="list_abonnement"
+      >
+        <template #paginatorstart>
+          <div
+            style="
+              display: flex;
+              justify-content: flex-start;
+              font-size: 1em;
+              border: none;
+            "
+          >
+            Affichage de 1 à 10 sur{{ list_abonnement.length }} entrées.
           </div>
-        </div>
-      </div>
+        </template>
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="nom_offre"
+          header="Date"
+        ></Column>
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="nbre.length"
+          header="Formule"
+        ></Column>
+        <Column
+        style="font-size: 1.8em; padding: 1em; text-align: center"
+        field="nbre.length"
+        header="Prix (Fcfa)"
+      ></Column>
+      <Column
+        style="font-size: 1.8em; padding: 1em; text-align: center"
+        field="nbre.length"
+        header="Echéance"
+      ></Column>
+      <Column
+      style="font-size: 1.8em; padding: 1em; text-align: center"
+      field="nbre.length"
+      header="Statut"
+    ></Column>
+        
+      </DataTable>
+
     </div>
   </div>
 </template>

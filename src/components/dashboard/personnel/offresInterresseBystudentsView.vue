@@ -1,9 +1,4 @@
 <script>
-// import $ from "jquery";
-// import instance from "../../../api/api";
-// import "datatables.net-dt/js/dataTables.dataTables";
-// import "datatables.net-dt/css/jquery.dataTables.min.css";
-// import { Help } from "../../../utils";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { mapActions, mapState } from "pinia";

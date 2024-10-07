@@ -9,7 +9,8 @@ export const useEntreprisesStore = defineStore('entreprise', {
         list_students:[],
         student:[],
         studentRecruit:[],
-        offresInteressByStudents:[]
+        offresInteressByStudents:[],
+        list_abonnement:[]
     }),
     actions: {
        async getEntreprise() {
@@ -72,6 +73,18 @@ export const useEntreprisesStore = defineStore('entreprise', {
             }catch(error){
                 console.log(error)
             }
+          },
+          async get_all_student() {
+           try{
+           const response = await instance.get("abonnement_user")
+           console.log("response",response)
+           if(response["status"] === 200){
+            this.list_abonnement = response.data.data;
+            console.log("this.list_abonnement",this.list_abonnement)
+           }
+           }catch(error){
+            console.log(error)
+           }
           },
     },
   })
