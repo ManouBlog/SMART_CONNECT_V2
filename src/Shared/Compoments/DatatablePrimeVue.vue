@@ -7,6 +7,8 @@ import InputIcon from "primevue/inputicon";
 import { configUtils } from "../Utils";
 import { Help } from "../../utils";
 import StatutForDatatable from "./features/StatutForDatatable.vue";
+import ContactesDetailDatatable from "./features/Personnels/ContactesDetailDatatable.vue";
+import DetailsListeOffresDatatables from "./features/Offres/DetailsListeOffresDatatables.vue";
 
 export default {
   name: "DatatablePrimeVue",
@@ -15,6 +17,7 @@ export default {
     DATACOLUMN: { type: Array, required: true },
     globalFilterFields: { type: Array, required: true },
     DATAfORfILTER: { type: Object },
+    nameDatatable: { type: String },
   },
   components: {
     DataTable,
@@ -23,6 +26,8 @@ export default {
     IconField,
     InputIcon,
     StatutForDatatable,
+    DetailsListeOffresDatatables,
+    ContactesDetailDatatable,
   },
   data() {
     return { configUtils: configUtils, Help: Help };
@@ -51,8 +56,7 @@ export default {
   >
     <template #paginatorstart>
       <div
-        style="display: flex; justify-content: flex-start; font-size: 1em; 
-        border: none"
+        style="display: flex; justify-content: flex-start; font-size: 1em; border: none"
       >
         Affichage de 1 à 10 sur{{ DATAVALUE.length }} entrées.
       </div>
@@ -93,7 +97,7 @@ export default {
           {{ slotProps.data.pivot.offre.nom_offre }}
         </span>
         <span v-else-if="item.headerName === 'Etudiant'">
-          {{ slotProps.data.nom }}  {{ slotProps.data.prenoms }}
+          {{ slotProps.data.nom }} {{ slotProps.data.prenoms }}
         </span>
         <span v-else>
           {{ slotProps.data[item.fieldName] }}
@@ -101,35 +105,19 @@ export default {
       </template>
     </Column>
     <Column header="Détails" style="font-size: 1.8em; padding: 1em; text-align: center">
-      <template #body="{ data: { id, fin } }">
-        <div class="d-flex justify-content-center align-items-center">
-          <span v-if="configUtils.verifDateWithDateToDay(fin)" class="mx-2 text-dark">
-            <router-link
-              :to="{
-                name: 'detail_offre',
-                params: {
-                  id: id,
-                },
-              }"
-              ><em class="bi bi-pencil"></em>
-            </router-link>
-          </span>
-          <span class="mx-2 text-dark">
-            <router-link
-              :to="{
-                name: 'detailsOffreEntreprise',
-                params: {
-                  id: id,
-                },
-              }"
-              ><em class="bi bi-eye"></em>
-            </router-link>
-          </span>
-          <span
-            class="bi bi-trash mx-2 text-dark"
-            @click="show_box_confirmation_delete(id)"
-          ></span>
-        </div>
+      <template #body="{ data }">
+        <DetailsListeOffresDatatables
+          :donnees="data"
+          v-if="nameDatatable === 'liste des offres'"
+        />
+        <ContactesDetailDatatable
+          :donnees="data"
+          v-if="nameDatatable === 'Personnels contactés'"
+        />
+        <SelectionnesDetailDatatable
+          :donnees="data"
+          v-if="nameDatatable === 'Personnels sélectionnés'"
+        />
       </template>
     </Column>
   </DataTable>

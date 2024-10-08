@@ -243,10 +243,8 @@ export default {
         :DATACOLUMN="allColumnsData"
         :globalFilterFields="fieldsForFilter"
         :DATAfORfILTER="filters"
+        :nameDatatable="'liste des offres'"
       />
-
-      <!-- <TableDatabaseView :columns="allColumns"
-       :allData="offreCreatedByEntreprise" /> -->
     </div>
   </section>
 </template>

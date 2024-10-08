@@ -1,6 +1,6 @@
 <script>
 import DatatablePrimeVue from "../../../Shared/Compoments/DatatablePrimeVue.vue";
-import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue"
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { FilterMatchMode } from "primevue/api";
 import { mapActions, mapState } from "pinia";
 
@@ -9,7 +9,7 @@ export default {
   name: "entreprise_contacts_studentView",
   components: {
     DatatablePrimeVue,
-    HeaderDashboard
+    HeaderDashboard,
   },
   data() {
     return {
@@ -56,8 +56,10 @@ export default {
 </script>
 <template>
   <section>
-    <HeaderDashboard  :TitleHeader="'Liste du personnels'"
-     :subTitleHeader="'Liste du personnels'"/>
+    <HeaderDashboard
+      :TitleHeader="'Liste du personnels'"
+      :subTitleHeader="'Liste du personnels'"
+    />
     <div class="page-body position-relative">
       <div class="container-fluid">
         <div class="page-title d-flex">
@@ -83,6 +85,7 @@ export default {
           :DATACOLUMN="allColumnsDataContacter"
           :globalFilterFields="fieldsForFilter"
           :DATAfORfILTER="filters"
+          :nameDatatable="'Personnels contactés'"
         />
       </div>
       <div class="tab-content" id="top-tabContent" v-show="tab">
@@ -91,6 +94,7 @@ export default {
           :DATACOLUMN="allColumnsDataStudentRecruit"
           :globalFilterFields="fieldsForFilter"
           :DATAfORfILTER="filters"
+          :nameDatatable="'Personnels sélectionnés'"
         />
       </div>
     </div>
