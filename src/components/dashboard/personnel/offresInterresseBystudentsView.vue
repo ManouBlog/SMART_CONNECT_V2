@@ -6,7 +6,7 @@ import { mapActions, mapState } from "pinia";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
-import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue"
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
 export default {
   name: "Offres_postulerView",
@@ -16,7 +16,7 @@ export default {
     IconField,
     InputIcon,
     InputText,
-    HeaderDashboard
+    HeaderDashboard,
   },
   data() {
     return {
@@ -57,10 +57,11 @@ export default {
 </script>
 <template>
   <section>
-    <HeaderDashboard  :TitleHeader="'Postulants'"
-     :subTitleHeader="'Liste des postulants'"/>
+    <HeaderDashboard
+      :TitleHeader="'Postulants'"
+      :subTitleHeader="'Liste des postulants'"
+    />
     <div class="page-body position-relative">
-
       <div class="tab-content" id="top-tabContent">
         <DataTable
           paginator
@@ -125,58 +126,6 @@ export default {
             </template>
           </Column>
         </DataTable>
-        <!-- <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-12 card py-3 px-2">
-              <table id="MyTableData" class="table">
-                <thead>
-                  <tr>
-                    <th class="bg-light">Nom de l'offre</th>
-                    <th class="bg-light">Lieu du travail</th>
-                    <th class="bg-light">Nombre de Postulant</th>
-                    <th class="bg-light">Détail</th>
-                  </tr>
-                </thead>
-                <tbody >
-                  <tr
-                    v-for="(item, index) in offresInteressByStudents"
-                    :key="index"
-                  >
-                    <td>
-                      {{ index }}
-                      <span
-                        v-if="new Date() > new Date(item[0].fin)"
-                        class="badge bg-danger"
-                        >Expirée</span>
-                    </td>
-                    <td>
-                      {{ item[0].lieu }}
-                    </td>
-                    <td>{{ item.length }}</td>
-                    <td>
-                      <div
-                        class="d-flex justify-content-center align-items-center"
-                      >
-                        <router-link
-                          :to="{
-                            name: 'detailsPostulants',
-                            params: {
-                              offre: index,
-                            },
-                          }"
-                          ><em class="bi bi-eye"></em
-                        ></router-link>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div v-if="spinner">
-                <h1>Loading...</h1>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </section>
@@ -189,5 +138,4 @@ th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
-
 </style>

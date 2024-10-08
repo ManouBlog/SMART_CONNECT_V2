@@ -2163,7 +2163,7 @@ h6,
   font-weight: 400;
 }
 p {
-  font-size: 13px;
+  font-size: 18px;
   line-height: 1.7;
   letter-spacing: 0.7px;
   text-align: left;
@@ -2378,7 +2378,7 @@ pre{
 }
 .clipboaard-container h6 {
   line-height: 1.6;
-  font-size: 13px;
+  font-size: 18px;
 }
 fieldset .bootstrap-touchspin-postfix,
 fieldset .bootstrap-touchspin-prefix {
@@ -4284,8 +4284,9 @@ strong ~ p {
   transition: all 0.3s ease;
   letter-spacing: 0.5px;
   border-radius: 15px;
-  -webkit-box-shadow: 0px 4px 30px rgba(95, 94, 231, 0.07);
-  box-shadow: 0px 4px 30px rgba(95, 94, 231, 0.07);
+  -webkit-box-shadow: 1px 6px 6px 6px rgb(28 28 28 / 7%);
+  box-shadow: 1px 6px 6px 6px rgb(28 28 28 / 7%);
+  padding:2em 3em;
 }
 .card:hover {
   -webkit-box-shadow: 0 0 40px rgba(8, 21, 66, 0.05);
@@ -4357,7 +4358,7 @@ strong ~ p {
   line-height: 20px;
 }
 .card .card-header .card-header-right i.icofont-refresh {
-  font-size: 13px;
+  font-size: 18px;
 }
 .card .card-body {
   padding: 5px;
@@ -4536,7 +4537,7 @@ strong ~ p {
   font-size: 24px;
 }
 .custom-card .card-footer > div h6 {
-  font-size: 13px;
+  font-size: 18px;
   color: rgba(43, 43, 43, 0.54);
 }
 .custom-card .card-footer > div h5 {
@@ -4570,7 +4571,7 @@ strong ~ p {
 .colors-palette-section > .card-body .card .card-body div.color-name h6 {
   padding: 4px;
   margin: 0;
-  font-size: 13px;
+  font-size: 18px;
   color: #1e2f65;
 }
 .color-box {
@@ -9276,7 +9277,7 @@ table.dataTable.display tbody tr.odd > .sorting_1 {
   z-index: 8;
 }
 .daterangepicker.ltr tr {
-  font-size: 13px;
+  font-size: 18px;
 }
 .daterangepicker.ltr tr td {
   height: 34px;
@@ -16076,7 +16077,7 @@ th {
 }
 .comment-box .media h6 span {
   padding-left: 10px;
-  font-size: 13px;
+  font-size: 18px;
   color: #999;
   font-weight: 400;
 }
@@ -16124,7 +16125,7 @@ th {
     padding: 15px;
   }
   .blog-box .blog-details-second p {
-    font-size: 13px;
+font-size: 18px;
   }
   .blog-box .blog-details-second h6 {
     font-size: 16px;
@@ -16251,7 +16252,7 @@ th {
   }
   .blog-box .blog-details .blog-social li,
   .blog-box .blog-details .comment-social li {
-    font-size: 13px;
+font-size: 18px;
   }
 }
 @media (max-width: 575px) {
@@ -18074,7 +18075,7 @@ p.data-attributes svg {
   display: inline-block;
 }
 .list-persons .profile-mail .media .media-body ul li a {
-  font-size: 13px;
+  font-size: 18px;
 }
 .list-persons .profile-mail .media .media-body ul li + li {
   padding-left: 10px;
@@ -18933,7 +18934,7 @@ p.data-attributes svg {
   margin-top: 35px;
   line-height: 1;
   padding: 13px 17px;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 600;
 }
 .profile-greeting .greeting-user .btn i {
@@ -19095,7 +19096,7 @@ p.data-attributes svg {
   font-weight: 500;
   color: rgba(30, 47, 101, 0.8);
   margin-bottom: 5px;
-  font-size: 13px;
+  font-size: 18px;
 }
 .ongoing-project table tbody tr td span {
   font-size: 12px;
@@ -19171,7 +19172,7 @@ p.data-attributes svg {
 .recent-activity table tr td .media .media-body .activity-msg {
   background-color: #f4f6fd;
   border-radius: 5px;
-  font-size: 13px;
+  font-size: 18px;
   color: #8f97b2;
   padding: 10px;
   width: 90%;
@@ -20540,7 +20541,7 @@ span.twitter-typeahead .tt-menu {
 span.twitter-typeahead .tt-suggestion {
   color: #2b2b2b;
   opacity: 0.6;
-  font-size: 13px;
+  font-size: 18px;
   padding: 6px 12px;
   border-top: 1px solid #efefef;
   background: #fff;
@@ -21063,7 +21064,7 @@ footer.blockquote-footer {
   margin-right: 15px;
 }
 .cripto-notification table tr td .media .media-body h5 {
-  font-size: 13px;
+  font-size: 18px;
   color: rgba(30, 47, 101, 0.8);
 }
 .cripto-notification table tr td .media .media-body p {
@@ -22421,7 +22422,7 @@ ul.pro-services li:nth-child(n + 2) {
     padding: 15px;
   }
   .learning-box .details-main p {
-    font-size: 13px;
+font-size: 18px;
   }
   .blog-box.blog-list .blog-details hr {
     margin-top: 5px;
@@ -24233,7 +24234,7 @@ ul.pro-services li:nth-child(n + 2) {
 .dropdown .dropdown-menu .dropdown-item {
   color: #2b2b2b;
   opacity: 0.6;
-  font-size: 13px;
+  font-size: 18px;
   padding: 6px 12px;
   border-top: 1px solid #efefef;
   background-color: #f4f6fd;
@@ -24280,7 +24281,7 @@ ul.pro-services li:nth-child(n + 2) {
   color: #999;
   line-height: 1.6;
   letter-spacing: 0.02em;
-  font-size: 13px;
+  font-size: 18px;
 }
 .filter-cards-view .filter-view-group {
   margin-bottom: 10px;
@@ -24315,7 +24316,7 @@ ul.pro-services li:nth-child(n + 2) {
   font-size: 16px;
 }
 .job-search .media .media-body h6 span {
-  font-size: 13px;
+  font-size: 18px;
   font-weight: normal;
 }
 .job-search .media .media-body h6 span.badge {
@@ -24483,7 +24484,7 @@ ul.pro-services li:nth-child(n + 2) {
   .job-search p {
     margin-top: 10px;
     text-align: center;
-    font-size: 13px;
+font-size: 18px;
   }
   .job-search .media {
     display: block;
@@ -24670,7 +24671,7 @@ ul.pro-services li:nth-child(n + 2) {
   margin-bottom: 20px;
 }
 .kanban-item p {
-  font-size: 13px;
+  font-size: 18px;
 }
 .kanban-item:last-child {
   margin-bottom: 0;
@@ -24723,7 +24724,7 @@ ul.pro-services li:nth-child(n + 2) {
   top: 20px;
 }
 .kanban-item .kanban-box .dropdown .dropdown-item {
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 500;
   padding: 5px 10px;
   text-align: left;
@@ -26466,7 +26467,7 @@ ul.pro-services li:nth-child(n + 2) {
   margin-bottom: 0;
 }
 .learning-section .categories ul li a {
-  font-size: 13px;
+  font-size: 18px;
 }
 @media screen and (min-width: 1200px) and (max-width: 1366px) {
   .learning-comment {
@@ -26493,7 +26494,7 @@ ul.pro-services li:nth-child(n + 2) {
 }
 @media only screen and (max-width: 767px) {
   .categories ul li a {
-    font-size: 13px;
+font-size: 18px;
   }
   .comment-box h4 {
     margin-bottom: 20px;
@@ -26525,7 +26526,7 @@ ul.pro-services li:nth-child(n + 2) {
 }
 .show-hide span {
   cursor: pointer;
-  font-size: 13px;
+  font-size: 18px;
   color: #6362e7;
 }
 .show-hide span .show-hide span:before {
@@ -26930,7 +26931,7 @@ ul.pro-services li:nth-child(n + 2) {
   color: #898989;
 }
 .order-history table tbody tr td .product-name .order-process {
-  font-size: 13px;
+  font-size: 18px;
   padding-left: 15px;
 }
 .order-history
@@ -28365,7 +28366,7 @@ ul.pro-services li:nth-child(n + 2) {
 }
 .social-status .media .media-body p {
   color: #999;
-  font-size: 13px;
+  font-size: 18px;
   margin-bottom: 5px;
 }
 .social-status .media .media-body span + span {
@@ -28647,10 +28648,10 @@ ul.pro-services li:nth-child(n + 2) {
     font-size: 14px;
   }
   .invoice p {
-    font-size: 13px;
+font-size: 18px;
   }
   .invoice #project h6 {
-    font-size: 13px;
+font-size: 18px;
   }
   .invoice .invo-header .media-body {
     text-align: right;
@@ -29042,7 +29043,7 @@ ul.pro-services li:nth-child(n + 2) {
 }
 .cd-timeline-content .cd-date {
   font-weight: 700;
-  font-size: 13px;
+  font-size: 18px;
   display: inline-block;
   float: left;
   padding: 0.8em 0 0;
@@ -30108,7 +30109,7 @@ ul.pro-services li:nth-child(n + 2) {
     font-size: 12px;
   }
   .u-pearl-title {
-    font-size: 13px;
+font-size: 18px;
     font-weight: 500;
   }
   .u-pearls-sm .u-pearl:before {
@@ -30118,7 +30119,7 @@ ul.pro-services li:nth-child(n + 2) {
     top: 12px;
   }
   .u-pearls-sm .u-pearl-title {
-    font-size: 13px;
+font-size: 18px;
     font-weight: 500;
   }
   .u-pearls-xs .u-pearl:before {
@@ -30128,7 +30129,7 @@ ul.pro-services li:nth-child(n + 2) {
     top: 12px;
   }
   .u-pearls-xs .u-pearl-title {
-    font-size: 13px;
+font-size: 18px;
     font-weight: 500;
   }
   .u-pearls-lg .u-pearl:before {
@@ -30138,7 +30139,7 @@ ul.pro-services li:nth-child(n + 2) {
     top: 12px;
   }
   .u-pearls-lg .u-pearl-title {
-    font-size: 13px;
+font-size: 18px;
     font-weight: 500;
   }
   .u-pearl:before {
@@ -44451,7 +44452,7 @@ body .for-dark {
   padding: 6px 16px;
   color: #2b2b2b;
   opacity: 0.6;
-  font-size: 13px;
+  font-size: 18px;
   border-top: 1px solid #efefef;
   background: #fff;
 }
@@ -44462,7 +44463,7 @@ body .for-dark {
   padding: 8px 16px;
   font-weight: 400;
   color: #2c323f;
-  font-size: 13px;
+  font-size: 18px;
 }
 .dropdown-basic .dropup .dropup-content {
   top: auto;
@@ -44504,7 +44505,7 @@ body .for-dark {
 .default-according .card .card-body {
   padding: 15px 20px;
   line-height: 22px;
-  font-size: 13px;
+  font-size: 18px;
   border-color: #efefef;
   border-radius: 0;
   border-bottom-left-radius: 5px;
@@ -44538,7 +44539,7 @@ body .for-dark {
 .dropdown-menu .dropdown-item {
   color: #2b2b2b;
   opacity: 0.6;
-  font-size: 13px;
+  font-size: 18px;
   padding: 6px 12px;
   border-top: 1px solid #efefef;
   background: #fff;
@@ -45474,7 +45475,7 @@ body .for-dark {
 }
 .page-wrapper .page-header .header-wrapper .nav-right > ul > li span ul li a i {
   margin-left: 10px;
-  font-size: 13px;
+  font-size: 18px;
   color: #2c323f;
 }
 .page-wrapper .page-header .header-wrapper .nav-right > ul .flag-icon {
@@ -45582,7 +45583,7 @@ body .for-dark {
   .bookmark-content
   span {
   font-family: "Roboto", sans-serif;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 400;
   letter-spacing: 0.5px;
 }
@@ -45938,7 +45939,7 @@ body .for-dark {
   .media
   .media-body
   > span {
-  font-size: 13px;
+  font-size: 18px;
   color: gray;
   float: right;
   margin-top: -25px;
@@ -47088,7 +47089,7 @@ body .for-dark {
   border-radius: 0 !important;
   text-transform: capitalize;
   padding: 3px 0;
-  font-size: 13px;
+  font-size: 18px;
   display: block;
   letter-spacing: 0.07em;
   line-height: 1.9;
@@ -48821,7 +48822,7 @@ body .for-dark {
   font-family: Roboto;
   text-transform: capitalize;
   color: #2c323f;
-  font-size: 13px;
+  font-size: 18px;
 }
 .page-wrapper.compact-sidebar
   .page-body-wrapper

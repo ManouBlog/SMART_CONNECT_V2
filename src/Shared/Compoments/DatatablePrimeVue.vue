@@ -7,6 +7,7 @@ import InputIcon from "primevue/inputicon";
 import { configUtils } from "../Utils";
 import { Help } from "../../utils";
 import StatutForDatatable from "./features/StatutForDatatable.vue";
+import SelectionnesDetailDatatable from "./features/Personnels/SelectionnesDetailDatatable.vue";
 import ContactesDetailDatatable from "./features/Personnels/ContactesDetailDatatable.vue";
 import DetailsListeOffresDatatables from "./features/Offres/DetailsListeOffresDatatables.vue";
 
@@ -28,6 +29,7 @@ export default {
     StatutForDatatable,
     DetailsListeOffresDatatables,
     ContactesDetailDatatable,
+    SelectionnesDetailDatatable,
   },
   data() {
     return { configUtils: configUtils, Help: Help };

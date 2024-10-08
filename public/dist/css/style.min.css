@@ -37648,7 +37648,7 @@ html body .navbar-dark .mailbox .message-center a .mail-contnet .time {
 }
 .fc th.fc-widget-header {
   color: #212529;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 300;
   line-height: 20px;
   padding: 7px 0;
@@ -37707,7 +37707,7 @@ html body .navbar-dark .mailbox .message-center a .mail-contnet .time {
   border: none;
   cursor: move;
   color: #fff !important;
-  font-size: 13px;
+  font-size: 18px;
   margin: 1px -1px 0 -1px;
   padding: 5px 5px;
   text-align: center;

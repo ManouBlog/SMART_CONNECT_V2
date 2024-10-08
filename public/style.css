@@ -101,7 +101,7 @@ body.modal-open {
   border-radius: 26px;
   color: #232323;
   font-family: OpenSansBold;
-  font-size: 13px;
+  font-size: 18px;
   margin-right: 0;
   padding: 12px 30px;
   width: auto;
@@ -455,7 +455,7 @@ ul.dropdown-menu li:last-child a {
 .jobs_filters .filter_width > span {
   color: #fff;
   display: flex;
-  font-size: 13px;
+  font-size: 18px;
   margin-bottom: 2px;
   margin-top: 8px;
   padding-left: 21px;
@@ -483,7 +483,7 @@ ul.dropdown-menu li:last-child a {
 .tab_filters ul.nav li a {
   border: 1px solid #d0d0d0;
   font-family: LatoRegular;
-  font-size: 13px;
+  font-size: 18px;
   color: #333;
   border-radius: 9px;
   text-transform: none;
@@ -557,7 +557,7 @@ ul.dropdown-menu li:last-child a {
 }
 
 .filter-result .desig h4 {
-  font-size: 13px;
+  font-size: 18px;
   color: #909090;
 }
 .label {
@@ -565,7 +565,7 @@ ul.dropdown-menu li:last-child a {
   border-radius: 0;
   float: left;
   font-family: OpenSansBold;
-  font-size: 11px;
+  font-size: 15px;
   line-height: normal;
   padding: 5px 11px;
 }
@@ -899,7 +899,7 @@ priceing_tables .startup {
 .posts-list .post-meta p {
   color: #333;
   font-family: LatoRegular;
-  font-size: 13px;
+  font-size: 18px;
   line-height: 29px;
   margin-bottom: 19px;
 }
@@ -1054,7 +1054,7 @@ priceing_tables .startup {
 .main-container .list-group a::before {
   content: "";
   font-family: "FontAwesome";
-  font-size: 13px;
+  font-size: 18px;
   left: 15px;
   position: absolute;
 }
@@ -1062,7 +1062,7 @@ priceing_tables .startup {
 .main-container-home .list-group a::before {
   content: "";
   font-family: "FontAwesome";
-  font-size: 13px;
+  font-size: 18px;
   left: 15px;
   position: absolute;
 }
@@ -1364,7 +1364,7 @@ ul.simple li {
 }
 .widget ul.social li a {
   color: #2a2a2a;
-  font-size: 13px;
+  font-size: 18px;
   position: relative;
   float: left;
   padding-bottom: 20px;
@@ -1411,7 +1411,7 @@ ul.simple li {
   width: 100%;
   text-align: center;
   font-family: OpenSansBold;
-  font-size: 13px;
+  font-size: 18px;
   text-transform: uppercase;
   padding: 16px 0;
   border: none;
@@ -1435,7 +1435,7 @@ ul.simple li {
 .subscribe a {
   color: #2a2a2a;
   font-family: LatoRegular;
-  font-size: 13px;
+  font-size: 18px;
 }
 .subscribe i {
   margin-right: 5px;
@@ -1474,7 +1474,7 @@ ul.simple li {
   width: 100%;
   font-family: LatoRegular;
   color: #858585;
-  font-size: 13px;
+  font-size: 18px;
   line-height: normal;
   margin: 21px 0 22px;
 }
@@ -2486,7 +2486,7 @@ body ul.select2-results li {
   cursor: pointer;
   display: inline-block;
   font-family: OpenSansSemibold;
-  font-size: 13px;
+  font-size: 18px;
   margin-right: 35px;
   padding: 15px 17px;
   z-index: -1;
@@ -2594,7 +2594,7 @@ ul.skills li {
   padding: 13px 29px;
   line-height: normal;
   margin-right: 9px;
-  font-size: 13px;
+  font-size: 18px;
   color: #333;
 }
 ul.education li {
@@ -3027,7 +3027,7 @@ ul.order-table li span.mobile {
   float: none;
   margin: 0px auto;
   display: block;
-  font-size: 13px;
+  font-size: 18px;
 }
 .modal-dialog .modal-footer a {
   width: 100%;
@@ -3239,7 +3239,7 @@ span.login-ins {
   border: medium none;
   border-radius: 32px;
   color: #ffffff;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
 }

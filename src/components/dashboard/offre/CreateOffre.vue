@@ -478,7 +478,7 @@ label {
 input,
 textarea,
 select {
-  border: 2px solid orange !important;
+  border: 2px solid orange;
 }
 select {
   border-radius: 5px !important;

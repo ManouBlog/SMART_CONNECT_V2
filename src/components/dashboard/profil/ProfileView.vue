@@ -3,13 +3,15 @@ import Swal from "sweetalert2";
 import instance, { lienPhoto } from "../../../api/api";
 import InfoEntreprise from "./feature/InfoEntreprise.vue";
 // import InfoParticulier from "./feature/InfoParticulier.vue"
-import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue"
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import ModalForModifyInfo from "./feature/ModalForModifyInfo.vue";
 
 export default {
   name: "ProfileView",
   components: {
     InfoEntreprise,
-    HeaderDashboard
+    HeaderDashboard,
+    ModalForModifyInfo,
   },
   data() {
     return {
@@ -108,43 +110,43 @@ export default {
           });
       }
     },
-    update_compte_entreprise() {
-      let compte_entreprise = {
-        nom: this.nom,
-        registre_commerce: this.registre_commerce,
-        password: this.password,
-        oldPassword: this.oldPassword,
-      };
-      instance
-        .put("modifier_profil", compte_entreprise)
-        .then((res) => {
-          console.log(res);
-          if (res.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            localStorage.setItem("user", JSON.stringify(res.data.user));
-            this.$store.state.user = res.data.user;
-            //setTimeout(() => {
-            //location.reload(true);
-            //}, 1500);
-          }
-          if (res.data.status === false) {
-            Swal.fire({
-              icon: "error",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // update_compte_entreprise() {
+    //   let compte_entreprise = {
+    //     nom: this.nom,
+    //     registre_commerce: this.registre_commerce,
+    //     password: this.password,
+    //     oldPassword: this.oldPassword,
+    //   };
+    //   instance
+    //     .put("modifier_profil", compte_entreprise)
+    //     .then((res) => {
+    //       console.log(res);
+    //       if (res.data.status === true) {
+    //         Swal.fire({
+    //           icon: "success",
+    //           title: res.data.message,
+    //           showConfirmButton: false,
+    //           timer: 1500,
+    //         });
+    //         localStorage.setItem("user", JSON.stringify(res.data.user));
+    //         this.$store.state.user = res.data.user;
+    //         //setTimeout(() => {
+    //         //location.reload(true);
+    //         //}, 1500);
+    //       }
+    //       if (res.data.status === false) {
+    //         Swal.fire({
+    //           icon: "error",
+    //           title: res.data.message,
+    //           showConfirmButton: false,
+    //           timer: 1500,
+    //         });
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
     update_compte_etudiant() {
       let data = new FormData();
       data.append("nom", this.nom);
@@ -245,28 +247,28 @@ export default {
 </script>
 
 <template>
-  
   <section>
-    <HeaderDashboard  :TitleHeader="'Profil'" :subTitleHeader="'Profil'"/>
+    <ModalForModifyInfo />
+    <HeaderDashboard :TitleHeader="'Profil'" :subTitleHeader="'Profil'" />
     <div class="page-body">
       <div>
         <InfoEntreprise
           v-if="this.user.user.statut.statut === 'entreprise'"
           :infoPersonellesEntreprise="[
-            { libelle: 'Nom :', value: 'Adjobi' },
-            { libelle: 'Email :', value: 'Adjobi' },
-            { libelle: 'Matricule/cc :', value: 'Adjobi' },
-            { libelle: 'Contact :', value: 'Adjobi' },
-            { libelle: 'Ville :', value: 'Adjobi' },
-            { libelle: 'Commune :', value: 'Adjobi' },
-            { libelle: 'Quatier :', value: 'Adjobi' },
-            { libelle: 'Télephone :', value: 'Adjobi' },
-            { libelle: 'Document :', value: 'Adjobi' },
+            { libelle: 'Nom :', value: user.nom },
+            { libelle: 'Email :', value: user.email },
+            { libelle: 'Matricule/cc :', value: user.matricule_cc },
+            { libelle: 'Contact :', value: user.contact },
+            { libelle: 'Ville :', value: user.ville },
+            { libelle: 'Commune :', value: user.commune },
+            { libelle: 'Quatier :', value: user.quartier },
+            { libelle: 'Document :', value: user.registre },
+            { libelle: 'Forme juridique :', value: user.forme_juridique },
           ]"
           :infoPersonellesGerant="[
-            { libelle: 'Nom & Prénom :', value: 'Adjobi' },
-            { libelle: 'Contact :', value: 'Adjobi' },
-            { libelle: 'Pièce d’identité :', value: 'Adjobi' },
+            { libelle: 'Nom & Prénoms :', value: user.gerant },
+            { libelle: 'Contact :', value: user.numero_gerant },
+            { libelle: 'Pièce d identite :', value: user.piece_gerant },
           ]"
         />
         <!-- <CadreProfilView /> -->

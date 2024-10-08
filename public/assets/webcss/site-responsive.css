@@ -639,9 +639,9 @@
 	.filter-result .location {margin-top: 25px;}
 	.filter-result .location p {font-size: 20px;  margin-left: 87px;}
 	.jobs_filters {padding: 35px 0 31px;}
-	.filter-result .location p, .data-job {text-align: left; font-size: 13px;}
+	.filter-result .location p, .data-job {text-align: left; font-size: 18px;}
 	.filter-result .desig h3 {font-size: 14px;}
-	.filter-result .desig h4 {color: #919199;   font-size: 13px;}
+	.filter-result .desig h4 {color: #919199;   font-size: 18px;}
 	.filter-result { padding: 18px 0; border: 1px solid #e4e4e4;}
 	.data-job {float: left;width: 100%; margin-left: 86px;}
 	.page-title .white-heading {text-align: center;  font-size: 38px; margin-top: 25px;}
@@ -652,7 +652,7 @@
 	.footer ul li {padding-bottom: 7px;}
 	.priceing_tables .purchase-now a {margin: 0 27px;}
 	.container.slogan {top: 81px;}
-	.slogan a {font-size: 13px; margin-top: 12px;}
+	.slogan a {font-size: 18px; margin-top: 12px;}
 	.slider_items {height: 303px;}
 	.parallax-window {min-height: 0;}
 	ul.top_filters li {width: 50%;}
@@ -692,9 +692,9 @@
 		.jobs-result .desig,.filter-result .location {
 			width: 100%;
 		}
-	.filter-result .location p, .data-job {text-align: center; font-size: 13px;}
+	.filter-result .location p, .data-job {text-align: center; font-size: 18px;}
 	.filter-result .desig h3 {font-size: 14px;}
-	.filter-result .desig h4 {color: #919199;   font-size: 13px;}
+	.filter-result .desig h4 {color: #919199;   font-size: 18px;}
 	.filter-result { padding: 18px 0; border: 1px solid #e4e4e4;}
 	.data-job {float: left;width: 100%; margin-left: 0px;}
 	.filter-result .location p { margin-left: 0px;}
@@ -705,7 +705,7 @@
 	.footer ul li {padding-bottom: 7px;}
 	.priceing_tables .purchase-now a {margin: 0 27px;}
 	.container.slogan {top: 81px;}
-	.slogan a {font-size: 13px; margin-top: 12px; padding: 4px 15px;}
+	.slogan a {font-size: 18px; margin-top: 12px; padding: 4px 15px;}
 	.slider_items {height: 303px;}
 	.parallax-window {min-height: 0;}
 	ul.top_filters li {width: 50%;}

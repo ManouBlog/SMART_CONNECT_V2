@@ -456,7 +456,7 @@
     margin: 0;
   }
   .email-wrap .media-body p {
-    font-size: 13px;
+font-size: 18px;
   }
   .call-chat-sidebar {
     max-width: 262px;
@@ -542,7 +542,7 @@
   .chat-box .chat-menu .user-profile .image .icon-wrapper {
     width: 30px;
     height: 30px;
-    font-size: 13px;
+font-size: 18px;
   }
   .chat-left-aside .people-list {
     height: 420px;
@@ -718,7 +718,7 @@
     padding: 10px;
     width: 30px;
     height: 30px;
-    font-size: 13px;
+font-size: 18px;
   }
   .map-chart .chart-container {
     height: 300px;
@@ -830,7 +830,7 @@
   .chat-box .chat-menu .user-profile .image .icon-wrapper {
     width: 30px;
     height: 30px;
-    font-size: 13px;
+font-size: 18px;
   }
   .chat-box .chat-menu .user-profile .user-content p {
     font-size: 14px;
@@ -1982,7 +1982,7 @@
   }
   h6,
   .h6 {
-    font-size: 12px;
+    font-size: 18px;
   }
   .card-absolute .card-header {
     padding: 10px 15px !important;
@@ -2225,7 +2225,7 @@
     font-size: 12px;
   }
   .product-page-main .product-social li a {
-    font-size: 13px;
+font-size: 18px;
     width: 30px;
     height: 30px;
   }
@@ -3056,7 +3056,7 @@
     font-size: 14px;
   }
   ul.pro-services li p {
-    font-size: 13px;
+font-size: 18px;
   }
   .form-builder .form-builder-column .form-builder-2-header .navbar select {
     margin-bottom: 10px;
@@ -3153,7 +3153,7 @@
   }
   .user-profile .profile-post .post-body .post-react h6 {
     margin-left: 10px;
-    font-size: 13px;
+font-size: 18px;
   }
   .user-profile .profile-header {
     padding: 0;
@@ -3714,7 +3714,7 @@
   .product-social li a {
     width: 30px;
     height: 30px;
-    font-size: 13px;
+font-size: 18px;
   }
   .product-social li:nth-child(n + 2) {
     margin-left: 5px;
@@ -4651,7 +4651,7 @@
     .media
     .media-body
     h6 {
-    font-size: 12px;
+    font-size: 18px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;

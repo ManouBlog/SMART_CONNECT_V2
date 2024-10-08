@@ -106,7 +106,7 @@ option {
 }
 input,
 select {
-  border: 2px solid orange !important;
+  border: 2px solid orange;
 }
 .d-block {
   display: block;
@@ -219,13 +219,12 @@ input[type="checkbox"] {
   background-color: #cacaca !important;
   color: black !important;
 }
-.card,
 .page-body {
   padding: 0 0 5em 0;
 }
 input {
-  height: 49px !important;
-  border: 2px solid black;
+  height: 39px !important;
+  border: 1px solid orange;
 }
 textarea {
   padding: 0 1em;
