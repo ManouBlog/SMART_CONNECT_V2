@@ -13,7 +13,6 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
        },
       async update_compte_entreprise(payload) {
-        console.log(payload.matricule_cc)
         let data = new FormData();
         data.append("nom", payload.nom);
         data.append("email", payload.email);
@@ -61,6 +60,48 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
       },
       addAnPieceDoc(payload){
         this.pieceIdentiteGerant = payload.target.files[0]
+      },
+      verifIfPasswordIsExact(payload){
+        console.log(payload)
+        if (payload.confirmation_password !== payload.password) {
+          Swal.fire({
+            icon: "info",
+            title: "la confirmation du mot de passe et le nouveau mot de passe ne correspond pas",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }else{
+          this.routeForLaunchModifyPassword({
+            oldPassword: payload.oldPassword,
+            password: payload.password,
+          })
+        }
+      },
+      async routeForLaunchModifyPassword(data) {
+        console.log(data)
+        try{
+        const response = await instance.post("passwordModify",data)
+        console.log("routeForLaunchModifyPassword",response)
+        if(response["status"] === 200){
+          Swal.fire({
+            icon: "success",
+            title: "Mot de passe changé",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }else{
+          Swal.fire({
+            icon: "info",
+            title: response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+        }catch(error){
+          console.log(error)
+        }
+
       }
+
     },
   })

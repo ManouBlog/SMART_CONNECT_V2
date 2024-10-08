@@ -108,6 +108,15 @@ input,
 select {
   border: 2px solid orange;
 }
+
+@media screen and (min-width:1200px) {
+  :where(.css-dev-only-do-not-override-17yhhjv).ant-drawer{
+   display: none;
+  }
+  :where(.css-dev-only-do-not-override-17yhhjv).ant-drawer.ant-drawer-header-title{
+    justify-content: flex-end !important;
+  }
+}
 .d-block {
   display: block;
   margin: 0.5em 0;

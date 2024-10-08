@@ -77,11 +77,6 @@ export default {
         </div>
       </div>
       <div class="col-md-12">
-        <!-- <div class="mb-3">
-          <label class="form-label d-block">Registre</label>
-          <i class="bi bi-filetype-pdf"></i>
-          <a :href="lienPhoto + user.registre" download>Download</a>
-        </div> -->
         <div class="my-3">
           <label for="add_file">Registre</label>
           <input

@@ -9,9 +9,12 @@ import InfoStudent from "./feature/header/Student/InfoStudent.vue";
 import ListeFavoris from "./feature/header/ListeFavoris.vue";
 import { mapActions } from "pinia";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
+import MenuMobile from "./MenuMobile.vue";
+import { useMenuMobile } from "../store-pinia/MenuMobile/useMenuMobileStore";
 export default {
   name: "Header",
   components: {
+    MenuMobile,
     SelectLanguage,
     LiensNavBar,
     InfoEntreprise,
@@ -98,6 +101,7 @@ export default {
   },
   methods: {
     ...mapActions(useRegisterStore, ["changeValueIsModal"]),
+    ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
     selectLanguageForWeb(e) {
       // this.$store.commit("CHANGE_LANGAGE_WEB", e.target.value);
       console.log();
@@ -293,6 +297,7 @@ export default {
 
 <template>
   <section>
+    <MenuMobile />
     <div id="header" class="container-fluid home">
       <div class="row">
         <div class="top_header">
@@ -305,11 +310,8 @@ export default {
                 <button
                   type="button"
                   class="navbar-toggle collapsed"
-                  data-toggle="collapse"
-                  data-target="#bs-example-navbar-collapse-1"
-                  aria-expanded="false"
+                  @click="changeValueForshowMenuMobile"
                 >
-                  <span class="sr-only">Toggle navigation</span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
@@ -359,125 +361,6 @@ export default {
                     </router-link>
                   </li>
                 </ul>
-
-                <div class="position-relative">
-                  <a
-                    href="#"
-                    v-if="this.$store.state.user"
-                    class="text-primary h3 sub_compte"
-                    @click.prevent="profileSub = !profileSub"
-                    >{{ this.$store.state.user.nom }}</a
-                  >
-                  <em
-                    v-if="this.$store.state.user"
-                    @click.prevent="profileSub = !profileSub"
-                    class="bi bi-person-workspace text-primary h3 p-5 compteSub"
-                  ></em>
-                  <em
-                    class="bi bi-caret-down-fill compteSub"
-                    v-if="this.$store.state.user"
-                    :class="profile == true ? 'd-none' : ''"
-                  ></em>
-                  <em
-                    class="bi bi-caret-up-fill compteSub"
-                    v-if="this.$store.state.user && profile == true"
-                  ></em>
-                  <div
-                    v-if="this.$store.state.user"
-                    class="compte compteSub"
-                    v-show="profileSub"
-                  >
-                    <ul class="list_profit_user">
-                      <li v-if="this.$store.state.user.user.statut.statut == 'etudiant'">
-                        <router-link to="/dashboard/accueil">
-                          Tableau de bord
-                        </router-link>
-                      </li>
-                      <li v-if="this.$store.state.user.user.statut.statut == 'etudiant'">
-                        <n-collapse arrow-placement="right">
-                          <n-collapse-item title="Offres" name="1">
-                            <router-link to="/dashboard/offre_postule" class="d-block">
-                              Postulées
-                            </router-link>
-                            <router-link to="/dashboard/contrat" class="d-block">
-                              Contrat
-                              <span
-                                class="badge bg-danger"
-                                v-if="this.$store.state.contratStudent > 0"
-                              >
-                                {{ this.$store.state.contratStudent }}
-                              </span>
-                            </router-link>
-                          </n-collapse-item>
-                        </n-collapse>
-                      </li>
-                      <li v-if="this.$store.state.user.user.statut.statut == 'etudiant'">
-                        <n-collapse arrow-placement="right">
-                          <n-collapse-item title="Calendrier" name="1">
-                            <router-link to="/dashboard/emploi_du_temps" class="d-block">
-                              Liste
-                            </router-link>
-                            <router-link to="/dashboard/disponibilite" class="d-block">
-                              Enregistrer
-                            </router-link>
-                          </n-collapse-item>
-                        </n-collapse>
-                      </li>
-                      <li
-                        v-if="this.$store.state.user.user.statut.statut == 'entreprise'"
-                      >
-                        <n-collapse arrow-placement="right">
-                          <n-collapse-item title="Offre" name="1">
-                            <router-link to="/dashboard/offre" class="d-block">
-                              Liste
-                            </router-link>
-                            <router-link to="/dashboard/creation_offre" class="d-block">
-                              Enregistrer
-                            </router-link>
-                          </n-collapse-item>
-                        </n-collapse>
-                      </li>
-                      <li
-                        v-if="this.$store.state.user.user.statut.statut == 'entreprise'"
-                      >
-                        <router-link to="/dashboard/personnel" class="d-block">
-                          Personnels
-                        </router-link>
-                      </li>
-                      <li
-                        v-if="this.$store.state.user.user.statut.statut == 'entreprise'"
-                      >
-                        <router-link to="/dashboard/postulants" class="d-block">
-                          Postulants
-                        </router-link>
-                      </li>
-                      <li>
-                        <router-link to="/dashboard/profil" class="d-block">
-                          Mon profil
-                        </router-link>
-                      </li>
-                      <li>
-                        <router-link to="/dashboard/abonnements" class="d-block">
-                          Mes abonnements
-                        </router-link>
-                      </li>
-
-                      <li class="position-absolute deconnex">
-                        <a href="#" @click.prevent="deconnexUser" class="fw-bold">
-                          Déconnexion</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <router-link
-                  v-if="!this.$store.state.user"
-                  to="/registre"
-                  class="loginSub"
-                >
-                  se connecter
-                </router-link>
               </div>
 
               <div class="conteneur-favoris-name_user">
@@ -726,12 +609,18 @@ export default {
   place-items: center;
   z-index: 99;
 }
-.login_user {
+.login_user,
+.login_user_mobile {
   border: 2px solid orange;
   padding: 0.3em;
   border-radius: 10px;
   font-size: 1em !important;
   color: rgb(0, 0, 0) !important;
+}
+@media screen and (max-width: 1200px) {
+  .login_user {
+    display: none;
+  }
 }
 
 .see_details_emploi {
@@ -1005,8 +894,7 @@ h4 {
 }
 .navbar-toggle {
   background: rgb(5, 35, 73) !important;
-  margin-top: 20px !important;
-  top: 5px;
+  top: 10px;
   position: absolute !important;
   right: 1em !important;
 }

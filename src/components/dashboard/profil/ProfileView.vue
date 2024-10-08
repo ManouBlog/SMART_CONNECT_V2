@@ -92,9 +92,6 @@ export default {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              //setTimeout(() => {
-              //location.reload(true);
-              //}, 1500);
             }
             if (resp.data.status === false) {
               Swal.fire({

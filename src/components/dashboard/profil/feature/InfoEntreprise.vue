@@ -33,7 +33,9 @@ export default {
       registre_commerce: "",
       oldPassword: "",
       photo: {},
-      cpassword: "",
+
+      confirmation_password: "",
+      nouveau_password: "",
       msgErr: false,
       formState: { username: "", password: "" },
       elmentsOfBtn: [
@@ -45,7 +47,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useInfoPersonnel, ["changeValueForToogleModalInfoPersonnelle"]),
+    ...mapActions(useInfoPersonnel, [
+      "changeValueForToogleModalInfoPersonnelle",
+      "verifIfPasswordIsExact",
+    ]),
     handleModalInfo() {
       this.changeValueForToogleModalInfoPersonnelle();
     },
@@ -102,7 +107,7 @@ export default {
 <template>
   <section style="padding: 2em 3em">
     <a-card style="width: auto; background: rgba(179, 201, 255, 0.38)">
-      <h1 class="fw-bold text-warning">Informations personnelles</h1>
+      <h1 class="fw-bold">Informations personnelles</h1>
       <section>
         <div class="row">
           <div
@@ -133,7 +138,7 @@ export default {
           </div>
         </div>
       </section>
-      <h1 class="fw-bold text-warning">Gérant</h1>
+      <h1 class="fw-bold">Gérant</h1>
       <section>
         <div class="row">
           <div
@@ -166,14 +171,14 @@ export default {
     </a-card>
 
     <a-card style="width: auto; background: rgba(179, 201, 255, 0.38); margin: 2em 0">
-      <h1 class="fw-bold text-warning">Modifier mot de passe</h1>
+      <h1 class="fw-bold">Modifier mot de passe</h1>
       <section>
         <div class="card-body text-left py-4">
           <div class="row">
             <div class="col-lg-4 col-sm-6">
               <div class="mb-3">
                 <label class="form-label">Ancien mot de passe</label>
-                <input v-model="Password" class="form-control" type="password" />
+                <input v-model="password" class="form-control" type="password" />
               </div>
             </div>
 
@@ -196,7 +201,19 @@ export default {
             </div>
           </div>
           <div class="text-right">
-            <button class="btn-lg bg-warning" style="border: none">Modifier</button>
+            <button
+              class="btn-lg bg-warning"
+              style="border: none"
+              @click.prevent="
+                verifIfPasswordIsExact({
+                  confirmation_password: confirmation_password,
+                  password: nouveau_password,
+                  oldPassword: password,
+                })
+              "
+            >
+              Modifier
+            </button>
           </div>
         </div>
       </section>
