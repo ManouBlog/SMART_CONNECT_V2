@@ -3,13 +3,13 @@ import Editor from "./text-editor.vue";
 import Swal from "sweetalert2";
 import instance from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
-// import Buttons from "../../../Shared/Compoments/Buttons.vue";
+import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
+import { mapActions, mapState } from "pinia";
 export default {
   name: "CreateOffre",
   components: {
     Editor,
     HeaderDashboard,
-    // Buttons,
   },
   data() {
     return {
@@ -48,6 +48,8 @@ export default {
       ],
       pointage: "",
       nbre_person: 1,
+      job_fin:"",
+      job_debut:"",
       elmentsOfBtn: [
         {
           name_btn: "Enregistrer",
@@ -56,16 +58,11 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState(useOffreStore, ["categoriesOffres", "allCompetences"]),
+  },
   methods: {
-    async getAllCompetences() {
-      try {
-        const reponse = await instance.get("GetAllCompetences");
-        this.competences = reponse.data.data;
-        console.log("GetAllCompetences", this.competences);
-      } catch (e) {
-        console.log(e);
-      }
-    },
+    ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
     show_offre_modify() {
       this.modify_offre = !this.modify_offre;
       this.id_offre_update = "";
@@ -88,6 +85,8 @@ export default {
         categorie_offre_id: this.categorie,
         competence_id: this.competence,
         nbre_person: this.nbre_person,
+        job_fin:this.job_fin,
+        job_debut:this.job_debut
       };
       instance
         .post("create_offre", data)
@@ -185,24 +184,10 @@ export default {
           }
         });
     },
-    get_categorie() {
-      this.spinner = true;
-      instance
-        .get("seeCategorie")
 
-        .then((res) => {
-          console.log("TIMETABLE", res);
-          this.categories = res.data.data;
-          console.log("CATEGORIE", this.categories);
-          this.spinner = false;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     selectCategorie(e) {
       console.log("selectCategorie", e.target.value);
-      this.competenceWithCategorie = this.competences.filter(
+      this.competenceWithCategorie = this.allCompetences.filter(
         (item) => item.categorie.id === Number(e.target.value)
       );
     },
@@ -235,13 +220,13 @@ export default {
                         <div class="spinner-border text-primary" role="status"></div>
                       </div>
                       <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-12 my-2">
                           <div class="card-body">
                             <div class="form theme-form projectcreate">
                               <form @submit.prevent="create_offre">
                                 <div class="container">
                                   <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 my-2">
                                       <div class="mb-3">
                                         <label> Catégorie</label>
                                         <select
@@ -253,7 +238,7 @@ export default {
                                           </option>
                                           <option
                                             :value="item.id"
-                                            v-for="(item, index) in categories"
+                                            v-for="(item, index) in categoriesOffres"
                                             :key="index"
                                           >
                                             {{ item.categorie }}
@@ -261,7 +246,7 @@ export default {
                                         </select>
                                       </div>
                                     </div>
-                                    <div class="col-lg-12 text-left">
+                                    <div class="col-lg-12 my-2 text-left">
                                       <label id="select_comp"
                                         >Choisir les compétences</label
                                       >
@@ -298,7 +283,7 @@ export default {
                                         </option>
                                       </select>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 my-2">
                                       <div class="mb-3">
                                         <label>Nom de l'offre</label>
                                         <input
@@ -311,7 +296,7 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 my-2">
                                       <div class="mb-3">
                                         <label>Honoraire</label>
                                         <input
@@ -323,9 +308,9 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 my-2">
                                       <div class="mb-3">
-                                        <label>Termes de paiements</label>
+                                        <label>Termes de paiements </label>
                                         <select
                                           v-model="pointage"
                                           :disabled="salaire ? false : true"
@@ -339,10 +324,13 @@ export default {
                                             {{ item.libelle }}
                                           </option>
                                         </select>
+                                        <span class="text-danger"
+                                        :class="!salaire ? 'd-block':'d-none'"
+                                        >*Veuillez définir l'honoraire</span>
                                       </div>
                                     </div>
 
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 my-2">
                                       <div class="mb-3">
                                         <label>Lieu de l'emploi</label>
                                         <input
@@ -355,9 +343,9 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 my-2">
                                       <div class="mb-3">
-                                        <label>Nombre de postulants</label>
+                                        <label>Nombre de postes disponibles</label>
                                         <input
                                           class="form-control"
                                           type="number"
@@ -368,12 +356,12 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 my-2">
                                       <div class="mb-3">
                                         <label
                                           for="calendar-12h d-block"
                                           class="date_heure"
-                                          >Date et heure début</label
+                                          >Date et heure de début de l'offre</label
                                         >
                                         <input
                                           class="form-control"
@@ -384,10 +372,10 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 my-2">
                                       <div class="mb-3">
                                         <label for="calendar-12" class="date_heure">
-                                          Date et heure fin</label
+                                          Date et heure d'expiration de l'offre</label
                                         >
                                         <input
                                           class="form-control"
@@ -399,8 +387,26 @@ export default {
                                         />
                                       </div>
                                     </div>
+                                    <div class="col-lg-12 my-2 text-left">
+                                      <label>Date d'entrée en fonction</label>
+                                      <input
+                                        class="form-control"
+                                        type="date"
+                                        v-model="job_debut"
+                                        required
+                                      />
+                                    </div>
+                                    <div class="col-lg-12 my-2 text-left">
+                                      <label>Date de fin d'activité</label>
+                                      <input
+                                        class="form-control"
+                                        type="date"
+                                        v-model="job_fin"
+                                        required
+                                      />
+                                    </div>
 
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 my-2">
                                       <div class="mb-3">
                                         <label>Description</label>
                                         <div class="conteneur_editor">
@@ -412,11 +418,7 @@ export default {
                                   <div class="row">
                                     <div class="col">
                                       <div class="text-end">
-                                        <!-- <Buttons
-                                          :elmentsOfBtn="elmentsOfBtn"
-                                          :shapeBtn="'round'"
-                                          @created=""
-                                        /> -->
+                                
                                         <button
                                           class="btn btn-warning btn-designer me-3"
                                           type="submit"

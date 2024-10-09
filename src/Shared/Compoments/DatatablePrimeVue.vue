@@ -53,6 +53,7 @@ export default {
     :value="DATAVALUE"
     paginator
     :rows="10"
+    lazy
     v-model:filters="filters"
     :rowsPerPageOptions="[5, 10, 20, 50]"
   >

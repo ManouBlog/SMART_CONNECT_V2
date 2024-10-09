@@ -1,12 +1,11 @@
 <script>
 import instance,{lienPhoto} from "../../../api/api";
-import $ from "jquery";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { Help } from "../../../utils";
 import Swal from "sweetalert2";
 export default {
   name: "DetailPostulantsView",
+  components: { HeaderDashboard },
   data() {
     return {
       studentRecruit: null,
@@ -37,40 +36,6 @@ export default {
        }
        }
           this.spinner = false;
-          
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
         })
         .catch((err) => {
           console.log(err);
@@ -118,15 +83,12 @@ export default {
 </script>
 
 <template>
-  <section v-if="this.$store.state.translate === 'FR'">
-    <div class="page-body position-relative mt-5">
-      <div class="container-fluid">
-        <div class="page-title">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">Détail/ offre : {{this.$route.params.offre}}</li>
-          </ol>
-        </div>
-      </div>
+  <section>
+    <HeaderDashboard
+      :TitleHeader="`Détail/ offre : ${this.$route.params.offre}`"
+      :subTitleHeader="'Détail-offre'"
+    />
+    <div class="page-body position-relative">
       <div  v-if="tableauRecruit != null" 
       class="conteneur-detail">
   
@@ -167,12 +129,19 @@ export default {
        
           </n-card>
         </n-modal>
-  
-        <div class="details_entreprise  px-3 mx-3 w-100"
-         v-for="(item,index) in tableauRecruit" :key="item.id">
-          <h1 class="badge bg-primary w-25">Etudiant {{index+1}}</h1>
-          <h4> <span>Nom</span> {{ item.nom }}</h4>
-          <h4><span>Prénoms</span> {{ item.prenoms }}</h4>
+
+        <div  class="d-flex align-items-center justify-content-center flex-wrap">
+          <a-card 
+          v-for="(item,index) in tableauRecruit" :key="item.id"
+          style="width: 400px; background: rgba(179, 201, 255, 0.38)" >
+          <h1 class="badge bg-warning w-25">Etudiant {{index+1}}</h1>
+
+            <div class="d-flex justify-content-between align-items-center">
+            <h1><em class="bi bi-person h1"></em></h1>
+            <h2 class="text-warning">{{ item.nom }}
+               {{ item.prenoms }}</h2>
+            </div>
+          <section class="text-left">
           <h4><span>Email</span> {{ item.email }}</h4>
           <h4><span>Ville</span> {{ item.ville }}</h4>
           <h4><span>Quartier</span> {{ item.quartier }}</h4>
@@ -180,108 +149,26 @@ export default {
           <h4><span>Télephone</span> {{ item.phone }}</h4>
           <h4><span>Diplome</span> {{ item.diplome }}</h4>
           <h4><span>Galerie</span> 
-            
           <img :src="lienPhoto+item.photo"
-           class="w-50 border-2 rounded" :alt="item.photo">
-          
+           class="w-25 border-2 rounded" :alt="item.photo">
           </h4>
-          <button class="btn-lg bg-dark mt-3"
+          <button style="border:none" class="btn-lg bg-warning mt-3"
           @click="rateStudent(item.id)"
           >Evaluer</button>
-        </div>
-        
-      </div>
-      <div v-else>
-        <h1>Loading...</h1>
+            </section>
+           </a-card>
+        </div>  
       </div>
   
     </div>
   </section>
-  <section v-if="this.$store.state.translate === 'EN'">
-    <div class="page-body position-relative mt-5">
-      <div class="container-fluid">
-        <div class="page-title">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">Detail/offer : {{this.$route.params.offre}}</li>
-          </ol>
-        </div>
-      </div>
-      <div  v-if="tableauRecruit != null" 
-      class="conteneur-detail">
-  
-      <n-modal v-model:show="showModal">
-          <n-card
-            style="width: 600px"
-            :bordered="false"
-            size="huge"
-            role="dialog"
-            aria-modal="true"
-          >
-            
-           <h1>
-            Evaluate staff
-           </h1>
-           <h2 class="text-center my-3">{{this.identifiant.nom}} {{this.identifiant.prenoms}}</h2>
-          <div class="text-center my-3">
-              <n-rate size="large" :value="numberRate" 
-              :on-update:value="getNumber"
-              />
-          </div>
-             <div v-if="numberRate >= 3">
-              <label for="comment">Comment</label>
-              <textarea v-model="avis" name="" id="" 
-              cols="30" rows="10" class="w-100">
-              </textarea>
-             </div>
-  
-              <div class="text-center">
-                  <button v-if="numberRate" class="btn-lg bg-dark mx-3"
-                  @click="sendAppreciation"
-                  >Send</button>
-                  <button class="btn-lg mx-3"
-                   @click="showModal = !showModal"
-                   >Later</button>
-                  
-              </div>
-       
-          </n-card>
-        </n-modal>
-  
-        <div class="details_entreprise  px-3 mx-3 w-100"
-         v-for="(item,index) in tableauRecruit" :key="item.id">
-          <h1 class="badge bg-primary w-25">Etudiant {{index+1}}</h1>
-          <h4> <span>Last name</span> {{ item.nom }}</h4>
-          <h4><span>First name</span> {{ item.prenoms }}</h4>
-          <h4><span>Email</span> {{ item.email }}</h4>
-          <h4><span>City</span> {{ item.ville }}</h4>
-          <h4><span>Headquarter</span> {{ item.quartier }}</h4>
-          <h4><span>Municipality</span> {{ item.commune }}</h4>
-          <h4><span>Phone</span> {{ item.phone }}</h4>
-          <h4><span>Diploma</span> {{ item.diplome }}</h4>
-          <h4><span>Gallery</span> 
-            
-          <img :src="lienPhoto+item.photo"
-           class="w-50 border-2 rounded" :alt="item.photo">
-          
-          </h4>
-          <button class="btn-lg bg-dark mt-3"
-          @click="rateStudent(item.id)"
-          >Rate</button>
-        </div>
-        
-      </div>
-      <div v-else>
-        <h1>Loading...</h1>
-      </div>
-  
-    </div>
-  </section>
+
 </template>
 
 <style scoped>
 
-.mt-5 {
-  margin-top: 101px !important;
+.bi-person {
+  font-size:3em;
 }
 .badge {
   width: 300px !important;
