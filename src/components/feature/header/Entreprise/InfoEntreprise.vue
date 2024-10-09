@@ -2,6 +2,8 @@
 import instance from "../../../../api/api";
 import Swal from "sweetalert2";
 import LiensNavBar from "../../../feature/header/LiensNavBar.vue";
+import { mapActions } from "pinia";
+import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 export default {
   name: "InfoEntreprise",
   components: {
@@ -36,7 +38,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useLoadingSpinner, ["launchLoading"]),
     deconnexUser() {
+      this.launchLoading(true);
       instance
         .get("auth_logout")
         .then((response) => {
@@ -56,12 +60,12 @@ export default {
               timer: 1500,
             });
             this.$router.push("/");
-            this.profile = false;
-            this.showLoader = false;
+            this.launchLoading(false);
           }
         })
         .catch((err) => {
           console.log(err);
+          this.launchLoading(false);
         });
     },
   },

@@ -6,6 +6,7 @@ import { useMenuMobile } from "../store-pinia/MenuMobile/useMenuMobileStore";
 import SelectLanguage from "./feature/header/SelectLanguage.vue";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import MenuMobileEntreprise from "./feature/header/Entreprise/MenuMobileEntreprise";
+import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
 
 export default {
   name: "MenuMobile",
@@ -22,7 +23,9 @@ export default {
   methods: {
     ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
     ...mapActions(useRegisterStore, ["changeValueIsModal"]),
+    ...mapActions(useLoadingSpinner, ["launchLoading"]),
     async deconnexUser() {
+      this.launchLoading(true);
       await instance
         .get("auth_logout")
         .then((response) => {
@@ -36,13 +39,16 @@ export default {
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             this.changeValueForshowMenuMobile();
+
             Swal.fire({
               icon: "success",
               title: response.data.message,
               showConfirmButton: false,
               timer: 1500,
             });
+
             this.$router.push("/");
+            this.launchLoading(false);
           }
         })
         .catch((err) => {
@@ -53,6 +59,7 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
+          this.launchLoading(false);
         });
     },
   },

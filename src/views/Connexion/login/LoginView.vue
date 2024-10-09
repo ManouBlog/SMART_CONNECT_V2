@@ -1,20 +1,83 @@
 <script>
+import instance from "../../../api/api"
+import Swal from "sweetalert2";
+import {mapActions} from "pinia"
+import {useRegisterStore} from "../../../store-pinia/register/useRegisterStore"
+import {useLoadingSpinner} from "../../../store-pinia/LoadingSpinner/useLoadingSpinner"
 export default {
     name:'LoginView',
    data(){
     return{
         open :true,
         formState:{
-  username: '',
+  email: '',
   password: '',
-  remember: true,
 },
     }
    },
    methods:{
+    ...mapActions(useRegisterStore,{
+     toogleModal:"changeValueIsModal"
+    }),
+    ...mapActions(useLoadingSpinner,["launchLoading"]),
      onFinish(values) {
   console.log('Success:', values);
+  this.connexionUser(values)
 },
+connexionUser(dataValue) {
+  this.launchLoading(true)
+      instance
+        .post("auth_login",dataValue)
+        .then((response) => {
+          console.log("reponse", response.data);
+          console.log("token", response.data.access_token);
+
+          if (response.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: response.data.message,
+              showConfirmButton: true,
+            });
+            this.$store.commit("ADD_ITEM")
+            window.localStorage.setItem(
+              "user",
+              JSON.stringify(response.data.user)
+            );
+            window.localStorage.setItem(
+              "token",
+              JSON.stringify(response.data.access_token)
+            );
+            this.$store.state.user = response.data.user;
+            console.log("essai", this.$store.state.charte);
+            this.$store.state.token = response.data.access_token;
+           this.toogleModal()
+            this.$router.push({
+              path: "/",
+              query: { redirect: this.path },
+            });
+            this.launchLoading(false)
+          }
+          if (response.data.status === false) {
+          
+            Swal.fire({
+              icon: "info",
+              title: response.data.message,
+              showConfirmButton: true,
+            });
+            this.launchLoading(false)
+          }
+        })
+        .catch((response) => {
+        
+          Swal.fire({
+            icon: "info",
+            title: response.message,
+            showConfirmButton: true,
+          });
+          this.launchLoading(false)
+          console.log(response.message);
+        });
+    },
  onFinishFailed(errorInfo){
   console.log('Failed:', errorInfo);
 }
@@ -26,7 +89,7 @@ export default {
     :layout="'vertical'"
     :model="formState"
     name="basic"
-    autocomplete="off"
+    autocomplete="on"
     @finish="onFinish"
     @finishFailed="onFinishFailed"
   >
@@ -35,12 +98,12 @@ export default {
       name="email"
       :rules="[{ required: true, message: 'Veuillez renseigner votre email!' }]"
     >
-      <a-input v-model:value="formState.username" />
+      <a-input v-model:value="formState.email" />
     </a-form-item>
 
     <a-form-item
       label="Mot de passe"
-      name="mot de passe"
+      name="password"
       :rules="[{ required: true, message: 'Veuillez renseigner votre mot de passe!' }]"
     >
       <a-input-password v-model:value="formState.password" />

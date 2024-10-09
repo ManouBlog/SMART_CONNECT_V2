@@ -20,7 +20,10 @@ export default {
    methods:{
     ...mapActions(useRegisterStore,{
      toogleModal:"changeValueIsModal"
-    })
+    }),
+    seeTabsChange(value){
+        this.tabsActive = value
+    }
    }
 }
 </script>
