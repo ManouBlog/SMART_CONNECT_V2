@@ -11,7 +11,6 @@ export default {
       type: Boolean,
       default: false,
     },
-
   },
   data() {
     return {
@@ -24,24 +23,20 @@ export default {
       return this.texte;
     },
     route() {
-    return this.route_lien;
+      return this.route_lien;
+    },
+    isUserConected() {
+      return this.isNeedConnection;
+    },
+    chooseLangue() {
+      return this.chooseConteneurLanguage;
+    },
   },
-  isUserConected() {
-    return this.isNeedConnection;
-  },
-  chooseLangue(){
-    return this.chooseConteneurLanguage
-  },
-  },
-  
 };
 </script>
 <template>
   <li
-    v-if="
-      this.$store.state.user &&
-      StatutUser[this.$store.state.user.user.statut.statut]
-    "
+    v-if="this.$store.state.user && StatutUser[this.$store.state.user.user.statut.statut]"
   >
     <router-link :to="{ name: route_lien }" class="d-block lien">
       {{ texte_lien }}
@@ -53,7 +48,10 @@ export default {
       {{ texte_lien }}
     </router-link>
   </li>
-
-
-  
 </template>
+<style scoped>
+li a {
+  font-weight: bold;
+  color: black;
+}
+</style>

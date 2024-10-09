@@ -116,36 +116,6 @@ export default {
     all() {
       this.$store.commit("getall");
     },
-
-    deconnexUser() {
-      this.showLoader = true;
-      instance
-        .get("auth_logout")
-        .then((response) => {
-          console.log(response);
-          if (response.data.status) {
-            console.log("RESPONSE", response.data);
-            this.$store.state.user = null;
-            this.$store.state.token = null;
-            console.log("this.$store.state.user", this.$store.state.user);
-            console.log("this.$store.state.token", this.$store.state.token);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            Swal.fire({
-              icon: "success",
-              title: response.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            this.$router.push("/");
-            this.profile = false;
-            this.showLoader = false;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     // voirDetailTimetable(id) {
     //   if (
     //     (this.$store.state.user &&
