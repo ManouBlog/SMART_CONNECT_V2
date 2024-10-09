@@ -693,7 +693,7 @@ export default {
 };
 </script>
 <template>
-  <section v-if="this.$store.state.translate === 'FR'">
+  <section>
     <div class="container-fluid page-title bg-image">
       <div class="row section-title">
         <div class="container main-container">
@@ -749,7 +749,7 @@ export default {
     </div>
 
     <div
-      class="container timetableSchedule"
+      class="container-fluid timetableSchedule"
       :class="spinner ? 'conteneur_offre' : null"
     >
       <div class="timetable_disponible" v-if="list_emploi">
@@ -795,19 +795,7 @@ export default {
               </div>
 
               <span class="biStar">
-                <!-- <em :class="emploi.etoiles.length >= 1 ? 
-                'color_star':''" class="fa fa-star" aria-hidden="true"></em>  -->
-                <!-- <vue3starRatings
-                v-model="emploi.average"
-                :showControl="false"
-                :starSize="13"
-                :disableClick="true"
-              /> -->
                 <Rating v-model="emploi.average" readonly :cancel="false" />
-                <!-- <strong class="mx-1" 
-              v-if="emploi.etoiles.length >= 1">
-                 {{emploi.average}} / 5 
-              </strong> -->
               </span>
 
               <button
@@ -833,138 +821,6 @@ export default {
       </button>
       <h2 v-if="length >= list.length" class="endResearch">
         Vous avez atteint la fin
-      </h2>
-    </div>
-  </section>
-
-  <section v-if="this.$store.state.translate === 'EN'">
-    <div class="container-fluid page-title bg-image">
-      <div class="row section-title">
-        <div class="container main-container">
-          <div class="col-lg-8 col-md-8 col-sm-8">
-            <h5 class="image-heading">
-              <span class="list_personnel">{{ lengthOfMylistEmploi }}</span>
-              Available talent
-            </h5>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="jobs_filters">
-      <div>
-        <form class="d-flex flex-wrap align-items-center">
-          <div class="w-100 mx-3">
-            <PrimeCalendar
-              v-model="datesSelect"
-              :minDate="new Date()"
-              selectionMode="multiple"
-              dateFormat="dd/mm/yy"
-              :manualInput="false"
-              :showIcon="true"
-              @update:modelValue="selectDate"
-              placeholder="Select days"
-            />
-          </div>
-          <div class="w-100 mx-3">
-            <multiselect
-              v-model="competence"
-              :options="competences"
-              :multiple="true"
-              :taggable="true"
-              :tag="addComp"
-              @update:model-value="addComp"
-              label="competence"
-              track-by="competence"
-              placeholder="Skills"
-            >
-            </multiselect>
-          </div>
-
-          <div class="w-100 mx-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Commune"
-              v-model="location"
-            />
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div
-      class="container timetableSchedule"
-      :class="spinner ? 'conteneur_offre' : null"
-    >
-      <div class="timetable_disponible" v-if="list_emploi">
-        <h6>
-          We have found
-          {{ datesSelect.length ? list.length : lengthOfMylistEmploi }}
-          availability.
-        </h6>
-      </div>
-
-      <div>
-        <span v-if="spinner" class="h1 char">Loading...</span>
-
-        <div class="container d-grid">
-          <div
-            v-for="(emploi, index) in list_emploi"
-            :key="index"
-            class="card Mycard-body"
-          >
-            <div class="icons_interesse">
-              <em
-                v-if="
-                  (user && user.user.statut.statut == 'entreprise') ||
-                  (user && user.user.statut.statut === 'particulier')
-                "
-                @click="addPersonAtWishLit(emploi)"
-                :class="isWhished[emploi.id] ? 'text-danger' : 'null'"
-                class="fa-solid fa-heart"
-              ></em>
-              <em v-else class="fa-solid fa-heart"></em>
-            </div>
-            <em class="bi bi-person"></em>
-            <div class="card-body">
-              <h3 class="name">
-                {{ emploi.nom }}
-                {{ emploi.prenoms }}
-              </h3>
-
-              <div class="jour">
-                <span v-for="(item, index) in emploi.competences" :key="index">
-                  <strong class="bg-teal cpt">{{ item.competence }}</strong>
-                </span>
-              </div>
-
-              <span class="biStar">
-                <Rating v-model="emploi.average" readonly :cancel="false" />
-              </span>
-
-              <button
-                class="btn bg-primary voirPlus"
-                @click="voirDetailTimetable(emploi.id)"
-              >
-                See more
-
-                <em class="bi bi-eye"></em>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="list.length">
-      <button
-        @click="loadMore"
-        v-if="length < list.length"
-        class="btn-lg bg-primary loadPlus"
-      >
-        Load more <em class="bi bi-chevron-down"></em>
-      </button>
-      <h2 v-if="length >= list.length" class="endResearch">
-        You have reached the end
       </h2>
     </div>
   </section>
