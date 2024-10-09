@@ -101,6 +101,18 @@ table {
   font-size: 1.5em !important;
   padding: 0.5em !important;
 }
+
+:where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper 
+.ant-upload-list.ant-upload-list-picture .ant-upload-list-item-error, 
+:where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper 
+.ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-error {
+  border-color: #9be79b !important;
+ 
+}
+:where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper .ant-upload-list .ant-upload-list-item-error .ant-upload-list-item-name, :where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper .ant-upload-list .ant-upload-list-item-error .ant-upload-icon .anticon {
+  color:#000000 !important;
+}
+
 option {
   color: black !important;
 }
@@ -109,11 +121,11 @@ select {
   border: 2px solid orange;
 }
 
-@media screen and (min-width:1200px) {
-  :where(.css-dev-only-do-not-override-17yhhjv).ant-drawer{
-   display: none;
+@media screen and (min-width: 1200px) {
+  :where(.css-dev-only-do-not-override-17yhhjv).ant-drawer {
+    display: none;
   }
-  :where(.css-dev-only-do-not-override-17yhhjv).ant-drawer.ant-drawer-header-title{
+  :where(.css-dev-only-do-not-override-17yhhjv).ant-drawer.ant-drawer-header-title {
     justify-content: flex-end !important;
   }
 }

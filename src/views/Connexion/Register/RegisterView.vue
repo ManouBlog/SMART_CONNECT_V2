@@ -1,14 +1,14 @@
 <script>
-import RegsiterStudents from "./features/students/RegsiterStudents.vue"
+import RegsiterStudents from "./features/students/RegsiterStudents.vue";
 export default {
   name: "RegisterView",
-  components:{
-    RegsiterStudents
+  components: {
+    RegsiterStudents,
   },
   data() {
     return {
       open: true,
-      value1:'student',
+      value1: "student",
     };
   },
   methods: {
@@ -22,7 +22,7 @@ export default {
 };
 </script>
 <template>
-    <a-form
+  <a-form
     :layout="'vertical'"
     :model="formState"
     name="basic"
@@ -30,22 +30,21 @@ export default {
     @finish="onFinish"
     @finishFailed="onFinishFailed"
   >
-  <div>
-    <span class="fw-bold">Sélectionner un statut</span>
-    <a-select
-  ref="select"
-  v-model:value="value1"
-  style="width: 100%;padding:0;margin-top:0.5em;margin-bottom:0.5em;"
-   :size="'large'"
-  @focus="focus"
-  @change="handleChange"
->
-  <a-select-option value="student">Etudiant</a-select-option>
-  <a-select-option value="entreprise">Entreprise</a-select-option>
-  <a-select-option value="particulier">Particulier</a-select-option>
-</a-select>
-  </div>
-  <RegsiterStudents v-if="value1 === 'student' || value1 === 'particulier'" />
- 
+    <div>
+      <span class="fw-bold">Sélectionner un statut</span>
+      <a-select
+        ref="select"
+        v-model:value="value1"
+        style="width: 100%; padding: 0; margin-top: 0.5em; margin-bottom: 0.5em"
+        :size="'large'"
+        @focus="focus"
+        @change="handleChange"
+      >
+        <a-select-option value="student">Etudiant</a-select-option>
+        <a-select-option value="entreprise">Entreprise</a-select-option>
+        <a-select-option value="particulier">Particulier</a-select-option>
+      </a-select>
+    </div>
+    <RegsiterStudents v-if="value1 === 'student' || value1 === 'particulier'" />
   </a-form>
 </template>
