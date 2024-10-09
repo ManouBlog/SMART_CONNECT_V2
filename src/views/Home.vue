@@ -1,34 +1,33 @@
 <script>
-import {useLoadingSpinner} from '../store-pinia/LoadingSpinner/useLoadingSpinner'
-import Header from "@/components/header"
-import FooterView from "@/components/footer"
+import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
+import Header from "@/components/header";
+import FooterView from "@/components/footer";
 import Banniere from "../Banner/Banniere.vue";
 import LoadingSpinner from "../Shared/Compoments/LoadingSpinner.vue";
-import Connexion from "./Connexion/Connexion.vue"
+import Connexion from "./Connexion/Connexion.vue";
 import { mapActions, mapState } from "pinia";
-import {useRegisterStore} from "../store-pinia/register/useRegisterStore"
+import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
+
 export default {
   name: "Home",
-  components:{
+  components: {
     Header,
     FooterView,
     Banniere,
     LoadingSpinner,
-    Connexion
+    Connexion,
   },
   data() {
-    return {
-    };
+    return {};
   },
-  computed:{
-   ...mapState(useRegisterStore,["isModal"]),
-   ...mapState(useLoadingSpinner,["isLoadingVisible"])
+  computed: {
+    ...mapState(useRegisterStore, ["isModal"]),
+    ...mapState(useLoadingSpinner, ["isLoadingVisible"]),
   },
   methods: {
-    ...mapActions(useRegisterStore,{
-     toogleModal:"changeValueIsModal"
-    })
-    
+    ...mapActions(useRegisterStore, {
+      toogleModal: "changeValueIsModal",
+    }),
   },
 };
 </script>

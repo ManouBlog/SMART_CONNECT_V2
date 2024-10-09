@@ -1,12 +1,15 @@
 import { defineStore } from 'pinia'
 import instance from "../../api/api";
-
+import Swal from "sweetalert2";
+import {useModalSuppressionStore} from "../ModalSuppession/useModalSuppressionStore"
+const Modal = useModalSuppressionStore();
 export const useOffreStore = defineStore('offres', {
     state: () => ({
         offres: [],
         ListOffre:[],
         offreCreatedByEntreprise:[],
-        ListeForFilterInOffreCreatedByEntreprise:[]
+        ListeForFilterInOffreCreatedByEntreprise:[],
+        idItemDelete:null
     }),
     actions: {
        async getOffres() {
@@ -34,15 +37,6 @@ export const useOffreStore = defineStore('offres', {
               const response = await instance.get("get_offres_entreprise");
               if(response['status'] === 200){
                 console.log("response.data.data1",response.data.data)
-                // const DATAResponse = response.data.data.map(item=>{
-                //   return{
-                //     id:item.id,
-                //     offre:item.nom_offre,
-                //     lieu:item.lieu,
-                //     honoraire:item.salaire,
-                //     fin:item.job_fin
-                //   }
-                // });
                 this.ListeForFilterInOffreCreatedByEntreprise = response.data.data
                 this.offreCreatedByEntreprise = response.data.data
               }
@@ -56,6 +50,42 @@ export const useOffreStore = defineStore('offres', {
             this.ListeForFilterInOffreCreatedByEntreprise.filter(item=>item.offre.toLowerCase().includes(payload))
               this.offreCreatedByEntreprise = this.ListeForFilterInOffreCreatedByEntreprise
               console.log("this.offreCreatedByEntreprise",this.offreCreatedByEntreprise)
-          }
+          },
+          handleIdItemDelete(payload){
+            this.idItemDelete = payload
+          },
+          handleDeleteOffre() {
+            console.log("idItemDelete",this.idItemDelete)
+            instance
+              .delete("delete_offre_entreprise/" + this.idItemDelete)
+      
+              .then((res) => {
+                console.log(res);
+      
+                if (res.data.status === true) {
+                  Modal.changeValueForShowModalSuppression()
+                  Swal.fire({
+                    icon: "success",
+                    title: res.data.message,
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  const index = this.offreCreatedByEntreprise.findIndex(
+                    (objet) => objet.id === this.idItemDelete
+                  );
+                  this.offreCreatedByEntreprise.splice(index, 1);
+                }
+              })
+              .catch((err) => {
+                if (err) {
+                  Swal.fire({
+                    icon: "error",
+                    title: err,
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                }
+              });
+          },
     },
   })

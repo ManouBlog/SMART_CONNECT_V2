@@ -68,17 +68,17 @@ export default {
       :TitleHeader="'Détails de l’offre'"
       :subTitleHeader="'Détails de l’offre'"
     />
-    <div class="container-fluid container-detail px-5" v-if="entreprise != null">
-      <div class="details_entreprise card py-5">
-        <div>
-          <h1 class="px-3">{{ entreprise.nom_offre }}</h1>
-          <h4 class="px-3">
-            <strong>Lieu : {{ entreprise.lieu }}</strong>
+    <div class="container px-5" v-if="entreprise != null">
+      <div class="details_entreprise card p-5">
+        <div class="px-5">
+          <h1>{{ entreprise.nom_offre }}</h1>
+          <h4>
+            Lieu :<strong style="color: orange"> {{ entreprise.lieu }}</strong>
           </h4>
 
           <span
             v-if="entreprise.salaire != null"
-            class="d-block text-light badge bg-primary h5 px-3"
+            class="d-block text-light badge bg-warning h5 px-3"
           >
             {{ moneyFormat.format(entreprise.salaire) }} Fcfa
             <b v-if="entreprise.pointage"> / {{ entreprise.pointage }}</b></span
@@ -91,20 +91,21 @@ export default {
           >
         </div>
         <hr />
+        <div class="px-5">
+          <h3 class="fw-bold">Description complète de l'offre</h3>
+          <div class="description_html" v-html="entreprise.description"></div>
+        </div>
 
-        <h3 class="fw-bold">Description complète de l'offre</h3>
-        <div class="description_html" v-html="entreprise.description"></div>
         <hr />
-        <span class="d-block px-3">Date et heure début : {{ entreprise.debut }}</span>
-        <span class="px-3">Date et heure fin : {{ entreprise.fin }}</span>
-        <span class="d-block px-3"
-          >Publiée il y a:
-          {{ diffForHumans(new Date(entreprise.created_at).toISOString()) }}</span
-        >
+        <div class="px-5">
+          <span class="d-block px-3">Date et heure début : {{ entreprise.debut }}</span>
+          <span class="px-3">Date et heure fin : {{ entreprise.fin }}</span>
+          <span class="d-block px-3"
+            >Publiée il y a:
+            {{ diffForHumans(new Date(entreprise.created_at).toISOString()) }}</span
+          >
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <h1>Loading...</h1>
     </div>
   </div>
 </template>
@@ -149,7 +150,7 @@ td {
   text-align: left;
   padding: 3em 0 !important;
   align-self: flex-start;
-  box-shadow: 6px 6px 6px 6px rgba(0, 0, 0, 0.28);
+  box-shadow: 6px 6px 6px 6px rgba(0, 0, 0, 0.151);
 }
 .details_entreprise span {
   color: gray;

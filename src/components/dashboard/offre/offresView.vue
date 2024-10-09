@@ -7,6 +7,8 @@ import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 import Swal from "sweetalert2";
 import instance from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import ModalSuppression from "../../../Shared/Compoments/ModalSuppression.vue";
+import { useModalSuppressionStore } from "../../../store-pinia/ModalSuppession/useModalSuppressionStore";
 // import HeaderDashboardTable from "../../../Shared/Compoments/HeaderDashboardTable.vue";
 
 export default {
@@ -15,6 +17,7 @@ export default {
     // TableDatabaseView,
     DatatablePrimeVue,
     HeaderDashboard,
+    ModalSuppression,
     // HeaderDashboardTable,
   },
   data() {
@@ -75,9 +78,13 @@ export default {
   },
   computed: {
     ...mapState(useOffreStore, ["offreCreatedByEntreprise"]),
+    ...mapState(useModalSuppressionStore, ["showModalSuppression"]),
   },
   methods: {
-    ...mapActions(useOffreStore, ["getAllOffresCreatedByEntreprise"]),
+    ...mapActions(useOffreStore, [
+      "getAllOffresCreatedByEntreprise",
+      "handleDeleteOffre",
+    ]),
     show_offre_modify() {
       this.modify_offre = !this.modify_offre;
       this.id_offre_update = "";
@@ -149,45 +156,7 @@ export default {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = "";
     },
-    delete_offre() {
-      this.loading = true;
-      this.creer = false;
-      instance
-        .delete("delete_offre_entreprise/" + this.id_for_delete)
 
-        .then((res) => {
-          console.log(res);
-
-          if (res.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            this.confirmation_for_delete = !this.confirmation_for_delete;
-            const index = this.offres.findIndex(
-              (objet) => objet.id === this.id_for_delete
-            );
-            this.offres.splice(index, 1);
-            this.loading = false;
-            this.creer = true;
-          }
-        })
-        .catch((err) => {
-          if (err) {
-            this.confirmation_for_delete = !this.confirmation_for_delete;
-            Swal.fire({
-              icon: "error",
-              title: "Contacter votre service informatique",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            this.loading = false;
-            this.creer = true;
-          }
-        });
-    },
     get_categorie() {
       this.spinner = true;
       instance
@@ -207,6 +176,9 @@ export default {
       console.log("declencheRedirectionforGoOnRoute");
       this.$router.push("/dashboard/creation_offre");
     },
+    handleDeleteItem(idItem) {
+      this.handleDeleteOffre(idItem);
+    },
   },
   created() {
     this.getAllOffresCreatedByEntreprise();
@@ -216,28 +188,12 @@ export default {
 </script>
 <template>
   <section>
+    <ModalSuppression v-if="showModalSuppression" @handleDeleteItem="handleDeleteItem" />
     <HeaderDashboard
       :TitleHeader="'Liste des offres'"
       :subTitleHeader="'Liste des offres'"
     />
     <div class="page-body position-relative">
-      <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
-        <div class="card my_card p-5">
-          <p class="h3 my-2">Voulez-vous vraiment supprimer?</p>
-          <div>
-            <button class="btn-lg bg-warning" @click="delete_offre">
-              <span class="spinner-border w-20" role="status" v-show="loading"></span
-              ><span v-show="creer">Supprimer</span>
-            </button>
-            <button class="btn-lg bg-danger mx-2" @click="not_delete">Annuler</button>
-          </div>
-        </div>
-      </div>
-      <!-- <HeaderDashboardTable
-        :elmentsOfBtn="elmentsOfBtn"
-        :titleHeader="'Listes des offres'"
-        @redirectionsRoute="declencheRedirectionforGoOnRoute"
-      /> -->
       <DatatablePrimeVue
         :DATAVALUE="offreCreatedByEntreprise"
         :DATACOLUMN="allColumnsData"
