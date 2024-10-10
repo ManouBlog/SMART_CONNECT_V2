@@ -49,7 +49,7 @@ const routes = [
       {
         path: '/timetable',
         name: 'timetable',
-        component: () => import(/* webpackChunkName: "about" */ '../views/timetable.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../views/timetable/timetable.vue')
       },
      
       {

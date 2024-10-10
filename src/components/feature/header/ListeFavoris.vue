@@ -1,4 +1,6 @@
 <script>
+import { mapState } from "pinia";
+import { useListeFavoris } from "../../../store-pinia/ListeFavoris/useListeFavoris";
 export default {
   name: "ListeFavoris",
   props: {
@@ -15,14 +17,15 @@ export default {
       showWishList: false,
     };
   },
-  methods:{
+  computed: {...mapState(useListeFavoris,["myListOfFavoris"])},
+  methods: {
     voirDetailTimetable(id) {
-        this.$router.push({
-          name: "detailStudent",
-          params: { id: id },
-        });
+      this.$router.push({
+        name: "detailStudent",
+        params: { id: id },
+      });
     },
-  }
+  },
 };
 </script>
 <template>
@@ -33,10 +36,10 @@ export default {
     </a>
     <template #overlay>
       <a-menu>
-        <h6 class="text-center">Personnels favoris</h6>
-        <div v-if="$store.state.whistListPerson.length > 0" class="cont px-3">
+        <h6 class="text-center">Liste de favoris</h6>
+        <div v-if="myListOfFavoris > 0" class="cont px-3">
           <div
-            v-for="(item, index) in this.$store.state.whistListPerson"
+            v-for="(item, index) in myListOfFavoris"
             :key="index"
             class="listWhistPerson"
           >

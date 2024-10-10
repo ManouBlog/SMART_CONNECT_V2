@@ -81,21 +81,26 @@ export default createStore({
       console.log("state.translate",state.translate)
      },
      ADD_ITEM(state){
-      instance
-      .get("get_who_contact_student",{
-        headers: {
-          Authorization: "Bearer " + state.token,
-        },
-      })
-      .then((response) => {
-        console.log("get_who_contact_student",response.data.entreprises.filter(item=>item.pivot.alarm === 1).length);
-          const element =  response.data.entreprises.filter(item=>item.pivot.alarm === 1).length
-          state.contratStudent = element;
-          localStorage.setItem("alarm", element);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      if(state.token){
+        instance
+        .get("get_who_contact_student",{
+          headers: {
+            Authorization: "Bearer " + state.token,
+          },
+        })
+        .then((response) => {
+          console.log("get_who_contact_student",response.data.entreprises.filter(item=>item.pivot.alarm === 1).length);
+            const element =  response.data.entreprises.filter(item=>item.pivot.alarm === 1).length
+            state.contratStudent = element;
+            localStorage.setItem("alarm", element);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      }else{
+        return;
+      }
+      
      },
      DECREASE_ALARM(state){
       state.contratStudent--;

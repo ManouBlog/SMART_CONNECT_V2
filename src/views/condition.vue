@@ -241,6 +241,7 @@ p{
 }
 .card {
   border-radius: 5px !important;
+ 
 }
 .spinner-border {
   position: absolute;

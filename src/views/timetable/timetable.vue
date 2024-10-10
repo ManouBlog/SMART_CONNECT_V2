@@ -1,6 +1,7 @@
 <script>
-import instance from "../api/api";
+import instance from "../../api/api";
 import Swal from "sweetalert2";
+import "primeicons/primeicons.css";
 // import Multiselect from 'vue-multiselect'
 // import { Calendar} from "v-calendar";
 
@@ -38,7 +39,7 @@ export default {
       list: [],
       contrat: false,
       NewListEmploi: "",
-      length: 5,
+      length: 8,
       hideButtons: false,
       isWhished: [],
       lengthOfMylistEmploi: "",
@@ -127,18 +128,11 @@ export default {
     startPage() {
       if (this.currentPage === 1) return 1;
       if (this.currentPage === this.totalPages)
-        return (
-          this.totalPages -
-          this.maxVisibleButtons +
-          (this.maxVisibleButtons - 1)
-        );
+        return this.totalPages - this.maxVisibleButtons + (this.maxVisibleButtons - 1);
       return this.currentPage - 1;
     },
     endPage() {
-      return Math.min(
-        this.startPage + this.maxVisibleButtons - 1,
-        this.totalPages
-      );
+      return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
     },
     pages() {
       let range = [];
@@ -156,9 +150,7 @@ export default {
     list_emploi() {
       if (this.location !== "") {
         return this.list.filter((item) => {
-          return item.commune
-            .toLowerCase()
-            .includes(this.location.toLowerCase());
+          return item.commune.toLowerCase().includes(this.location.toLowerCase());
         });
       }
       return this.list.slice(0, this.length);
@@ -448,7 +440,7 @@ export default {
     },
     loadMore() {
       if (this.length > this.list.length) return;
-      this.length = this.length + 4;
+      this.length = this.length + 8;
       if (this.length === this.list.length) {
         this.showEndResearch = !this.showEndResearch;
       }
@@ -566,8 +558,7 @@ export default {
           this.loadSpinner = false;
           Swal.fire({
             icon: "info",
-            title:
-              "Vérifier votre connexion ou les informations que vous envoyer.",
+            title: "Vérifier votre connexion ou les informations que vous envoyer.",
             showConfirmButton: true,
           });
         });
@@ -610,25 +601,32 @@ export default {
           console.log(err);
           Swal.fire({
             icon: "info",
-            title:
-              "Vérifier votre connexion ou les informations que vous envoyer",
+            title: "Vérifier votre connexion ou les informations que vous envoyer",
             showConfirmButton: true,
           });
           this.loadSpinner = false;
         });
     },
-    getall() {
-      instance
-        .get("getAllWishlist")
-        .then((response) => {
-          console.log("WISHLIST", response.data.data.wishlists);
-          response.data.data.wishlists.forEach((item) => {
-            this.verfIfStudentExistInWishlist.push(item.user_id);
+    async handleListeFavoris() {
+      if (this.$store.state.token) {
+        await instance
+          .get("getAllWishlist")
+          .then((response) => {
+            console.log("WISHLIST", response.data.data.wishlists);
+            response.data.data.wishlists.forEach((item) => {
+              this.verfIfStudentExistInWishlist.push(item.user_id);
+            });
+            console.log(
+              "verfIfStudentExistInWishlist",
+              this.verfIfStudentExistInWishlist
+            );
+          })
+          .catch((error) => {
+            console.log(error);
           });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      } else {
+        return;
+      }
     },
     AllCompetencesPredf() {
       instance
@@ -684,7 +682,7 @@ export default {
   created() {
     this.get_list_emploi();
     this.getAllCompetences();
-    this.getall();
+    this.handleListeFavoris();
     this.AllCompetencesPredf();
     this.verfEnter();
     console.log(this.jourSelect());
@@ -694,58 +692,51 @@ export default {
 </script>
 <template>
   <section>
-    <div class="container-fluid page-title bg-image">
-      <div class="row section-title">
-        <div class="container main-container">
-          <div class="col-lg-8 col-md-8 col-sm-8">
-            <h5 class="image-heading">
-              <span class="list_personnel">{{ lengthOfMylistEmploi }}</span>
-              Talents disponibles
-            </h5>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="jobs_filters">
-      <div>
-        <form class="d-flex flex-wrap align-items-center">
-          <div class="w-100 mx-3">
-            <PrimeCalendar
-              v-model="datesSelect"
-              :minDate="new Date()"
-              selectionMode="multiple"
-              dateFormat="dd/mm/yy"
-              :manualInput="false"
-              :showIcon="true"
-              @update:modelValue="selectDate"
-              placeholder="Sélectionne les jours"
-            />
-          </div>
-          <div class="w-100 mx-3">
-            <multiselect
-              v-model="competence"
-              :options="competences"
-              :multiple="true"
-              :taggable="true"
-              :tag="addComp"
-              @update:model-value="addComp"
-              label="competence"
-              track-by="competence"
-              placeholder="competence"
-            >
-            </multiselect>
-          </div>
+      <h3 class="fw-bold ecriteau text-left">Vous rechercher un talent ?</h3>
 
-          <div class="w-100 mx-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Commune"
-              v-model="location"
-            />
-          </div>
-        </form>
-      </div>
+      <form class="d-flex flex-wrap align-items-center">
+        <div class="w-100 mx-3">
+          <PrimeCalendar
+            v-model="datesSelect"
+            :minDate="new Date()"
+            selectionMode="multiple"
+            dateFormat="dd/mm/yy"
+            :manualInput="false"
+            :showIcon="true"
+            @update:modelValue="selectDate"
+            placeholder="Sélectionne les jours"
+          />
+        </div>
+        <div class="w-100 mx-3">
+          <multiselect
+            v-model="competence"
+            :options="competences"
+            :multiple="true"
+            :taggable="true"
+            :tag="addComp"
+            @update:model-value="addComp"
+            label="competence"
+            track-by="competence"
+            placeholder="competence"
+          >
+          </multiselect>
+        </div>
+
+        <div class="w-100 mx-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Commune"
+            v-model="location"
+          />
+        </div>
+      </form>
+    </div>
+    <div>
+      <h2 class="fw-bold ecriteau text-left px-3">
+        {{ list.length }} Talents disponibles
+      </h2>
     </div>
 
     <div
@@ -763,7 +754,7 @@ export default {
       <div>
         <span v-if="spinner" class="h1 char">Chargements...</span>
 
-        <div class="container d-grid">
+        <div class="container-fuid d-grid px-3">
           <div
             v-for="(emploi, index) in list_emploi"
             :key="index"
@@ -777,9 +768,9 @@ export default {
                 "
                 @click="addPersonAtWishLit(emploi)"
                 :class="isWhished[emploi.id] ? 'text-danger' : 'null'"
-                class="fa-solid fa-heart"
+                class="bi bi-heart-fill"
               ></em>
-              <em v-else class="fa-solid fa-heart"></em>
+              <em v-else class="bi bi-heart-fill"></em>
             </div>
             <em class="bi bi-person"></em>
             <div class="card-body">
@@ -819,13 +810,18 @@ export default {
       >
         Charger plus <em class="bi bi-chevron-down"></em>
       </button>
-      <h2 v-if="length >= list.length" class="endResearch">
-        Vous avez atteint la fin
-      </h2>
+      <h2 v-if="length >= list.length" class="endResearch">Vous avez atteint la fin</h2>
     </div>
   </section>
 </template>
 <style scoped>
+.ecriteau {
+  color: orange;
+}
+.jobs_filters {
+  padding: 2em;
+  margin: 2em 0;
+}
 .conteneur_timetable {
   padding: 1em;
 }
@@ -1048,11 +1044,7 @@ export default {
   color: rgb(68, 68, 68);
 }
 .jou {
-  background: linear-gradient(
-    10deg,
-    rgb(2, 123, 56),
-    rgb(0, 230, 31)
-  ) !important;
+  background: linear-gradient(10deg, rgb(2, 123, 56), rgb(0, 230, 31)) !important;
   color: rgb(255, 255, 255) !important;
 }
 .multiselect__tag {
@@ -1091,7 +1083,7 @@ export default {
 }
 .biStar {
   position: absolute !important;
-  top: 3.1em;
+  top: 3.3em;
   left: 1.25em;
   font-size: 1em;
 }
@@ -1145,7 +1137,8 @@ export default {
 }
 .card {
   border-radius: 5px !important;
-  border: 2px solid;
+  border: 1px solid;
+  background: rgba(179, 201, 255, 0.38);
 }
 .spinner-border {
   position: absolute;
@@ -1164,7 +1157,7 @@ export default {
 .d-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 0.5em;
+  grid-gap: 1em;
   justify-content: center;
 }
 .see_details_emploi {

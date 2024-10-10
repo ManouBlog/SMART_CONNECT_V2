@@ -9,6 +9,9 @@ export default {};
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 @import "./Shared/styles/stylesShared.css";
+.p-icon .p-rating-icon {
+  font-size: 2em !important;
+}
 
 .p-paginator {
   font-size: 1.5em !important;
@@ -102,15 +105,24 @@ table {
   padding: 0.5em !important;
 }
 
-:where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper 
-.ant-upload-list.ant-upload-list-picture .ant-upload-list-item-error, 
-:where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper 
-.ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-error {
+:where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper
+  .ant-upload-list.ant-upload-list-picture
+  .ant-upload-list-item-error,
+:where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper
+  .ant-upload-list.ant-upload-list-picture-card
+  .ant-upload-list-item-error {
   border-color: #9be79b !important;
- 
 }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper .ant-upload-list .ant-upload-list-item-error .ant-upload-list-item-name, :where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper .ant-upload-list .ant-upload-list-item-error .ant-upload-icon .anticon {
-  color:#000000 !important;
+:where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper
+  .ant-upload-list
+  .ant-upload-list-item-error
+  .ant-upload-list-item-name,
+:where(.css-dev-only-do-not-override-17yhhjv).ant-upload-wrapper
+  .ant-upload-list
+  .ant-upload-list-item-error
+  .ant-upload-icon
+  .anticon {
+  color: #000000 !important;
 }
 
 option {
@@ -237,7 +249,7 @@ input[type="checkbox"] {
 
 .multiselect__tag,
 .multiselect__option--highlight {
-  background-color: #cacaca !important;
+  background-color: orange !important;
   color: black !important;
 }
 .page-body {

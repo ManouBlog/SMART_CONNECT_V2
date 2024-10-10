@@ -7,6 +7,7 @@ import LoadingSpinner from "../Shared/Compoments/LoadingSpinner.vue";
 import Connexion from "./Connexion/Connexion.vue";
 import { mapActions, mapState } from "pinia";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
+import { useListeFavoris } from "../store-pinia/ListeFavoris/useListeFavoris";
 
 export default {
   name: "Home",
@@ -28,7 +29,11 @@ export default {
     ...mapActions(useRegisterStore, {
       toogleModal: "changeValueIsModal",
     }),
+    ...mapActions(useListeFavoris,["handleListeFavoris"])
   },
+  created(){
+    this.handleListeFavoris(this.$store.state.token)
+  }
 };
 </script>
 <template>

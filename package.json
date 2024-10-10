@@ -35,6 +35,7 @@
     "pinia": "^2.2.1",
     "popper.js": "^1.14.3",
     "postcss": "^8",
+    "primeicons": "^7.0.0",
     "primevue": "^3.48.1",
     "select2": "*",
     "select2-selectall": "*",
