@@ -26,7 +26,7 @@ export default {
       caractereSpecial: false,
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       status: "",
-      formeJuridique:"",
+      formeJuridique: "",
       status_connex: "",
       numero_gerant: "",
       gerant: "",
@@ -138,7 +138,7 @@ export default {
       data.append("numero_gerant", this.numero_gerant);
       data.append("piece_gerant", this.fileForPieceGerant);
       data.append("commune", this.commune);
-      data.append("forme_juridique",this.formeJuridique);
+      data.append("forme_juridique", this.formeJuridique);
       data.append("quartier", this.quartier);
       data.append("contact", this.phone);
       data.append("ville", this.ville);
@@ -175,7 +175,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log("ERROR",err);
+          console.log("ERROR", err);
           // Swal.fire({
           //   icon: "error",
           //   title: "l'email existe déjà",
@@ -259,11 +259,8 @@ export default {
               title: response.data.message,
               showConfirmButton: true,
             });
-            this.$store.commit("ADD_ITEM")
-            window.localStorage.setItem(
-              "user",
-              JSON.stringify(response.data.user)
-            );
+            this.$store.commit("ADD_ITEM");
+            window.localStorage.setItem("user", JSON.stringify(response.data.user));
             window.localStorage.setItem(
               "token",
               JSON.stringify(response.data.access_token)
@@ -323,7 +320,6 @@ export default {
       ) {
         let isCorrectPassword = this.verifPassword(this.password);
         if (isCorrectPassword) {
-         
           this.isAcceptPolitic = true;
         } else {
           Swal.fire({
@@ -426,7 +422,6 @@ Un caractère spécial
       if (this.status === "student") {
         console.log("competence", this.competence);
         this.middlewareStudent();
-        
       }
       if (this.status == "entreprise") {
         this.middlewareEntreprise();
@@ -456,16 +451,15 @@ Un caractère spécial
       });
       console.log("THIS.comp", this.comp);
     },
-    authGoogle(){
-      instance.get("google/redirect")
-      .then((response)=>{
-        console.log("response",response.data.url)
-        window.open(response.data.url,"example",{
-      default: 'width=300,height=300,scrollbars=yes'
-    })
-      })
-      console.log("authGoogle")
-    }
+    authGoogle() {
+      instance.get("google/redirect").then((response) => {
+        console.log("response", response.data.url);
+        window.open(response.data.url, "example", {
+          default: "width=300,height=300,scrollbars=yes",
+        });
+      });
+      console.log("authGoogle");
+    },
   },
   created() {
     this.getAllCompetences();
@@ -480,7 +474,6 @@ Un caractère spécial
   <div id="header" class="container-fluid pages">
     <div class="row"></div>
   </div>
-     
 
   <section v-if="this.$store.state.translate === 'FR'">
     <div class="conteneur-flex" v-if="this.$store.state.abonnement">
@@ -492,35 +485,25 @@ Un caractère spécial
           <div class="col-lg-offset-1 col-lg-11 col-md-12 col-sm-12 col-xs-12">
             <ul class="nav nav-pills registre_login_connex">
               <li class="active">
-                <a data-toggle="tab" 
-                href="#login">Connexion</a>
+                <a data-toggle="tab" href="#login">Connexion</a>
               </li>
               <li>
-                <a data-toggle="tab"
-                 href="#register-account">Inscription</a>
+                <a data-toggle="tab" href="#register-account">Inscription</a>
               </li>
             </ul>
 
             <div class="tab-content">
-              <div id="register-account"
-               class="tab-pane fade in white-text">
-                <div
-                  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 zero-padding-left"
-                >
+              <div id="register-account" class="tab-pane fade in white-text">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 zero-padding-left">
                   <form
                     name="contact_us"
                     class="contact_us"
                     @submit.prevent="registerUser"
                   >
                     <div class="w-100 my-2 text-left">
-                      <Span
-                        :name="'Sélectionner un statut'"
-                        :isFacultatif="false"
-                      />
+                      <Span :name="'Sélectionner un statut'" :isFacultatif="false" />
                       <select v-model="status" class="select">
-                        <option disabled value="">
-                          Sélectionner un statut
-                        </option>
+                        <option disabled value="">Sélectionner un statut</option>
                         <option value="student">Etudiant</option>
                         <option value="entreprise">Entreprise</option>
                         <option value="particulier">Particulier</option>
@@ -528,34 +511,29 @@ Un caractère spécial
                     </div>
 
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
-                      <Span :name="'Raison social(Nom de l\'entreprise)'" :isFacultatif="false" />
-
-                      <input
-                        class="w-100 my-3"
-                        type="text"
-                        v-model="nom_entreprise"
-                      />
-                    </div>
-                    <div class="w-100 text-left" v-if="status == 'entreprise'">
-                      <Span :name="'Matricule/CC (Compte contribuable)'" :isFacultatif="false" />
-
-                      <input
-                        type="text"
-                        class="w-100 my-3"
-                        v-model="matriculeCC"
-                      />
-                    </div>
-                    <div class="w-100 my-2 text-left"  v-if="status == 'entreprise'">
                       <Span
-                        :name="'Forme juridique'"
+                        :name="'Raison social(Nom de l\'entreprise)'"
                         :isFacultatif="false"
                       />
+
+                      <input class="w-100 my-3" type="text" v-model="nom_entreprise" />
+                    </div>
+                    <div class="w-100 text-left" v-if="status == 'entreprise'">
+                      <Span
+                        :name="'Matricule/CC (Compte contribuable)'"
+                        :isFacultatif="false"
+                      />
+
+                      <input type="text" class="w-100 my-3" v-model="matriculeCC" />
+                    </div>
+                    <div class="w-100 my-2 text-left" v-if="status == 'entreprise'">
+                      <Span :name="'Forme juridique'" :isFacultatif="false" />
                       <select v-model="formeJuridique" class="select">
-                        <option disabled value="">
-                          Forme juridique
+                        <option disabled value="">Forme juridique</option>
+                        <option value="SARL">
+                          Société à Responsabilité Limitée (SARL)
                         </option>
-                        <option value="SARL">Société à Responsabilité Limitée (SARL)</option>
-                        <option value="SA"> Société Anonyme (SA)</option>
+                        <option value="SA">Société Anonyme (SA)</option>
                       </select>
                     </div>
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
@@ -589,8 +567,8 @@ Un caractère spécial
                         pattern="[0-9]{10}"
                       />
                       <strong v-if="phone && !isPhoneCi(this.phone)"
-                        >Le numéro doit être un numéro valide 10 chiffres(ex:**
-                        ** ** ** **)</strong
+                        >Le numéro doit être un numéro valide 10 chiffres(ex:** ** ** **
+                        **)</strong
                       >
                     </div>
                     <div class="w-100 text-left" v-if="status">
@@ -603,11 +581,7 @@ Un caractère spécial
                     </div>
                     <div class="w-100 text-left" v-if="status">
                       <Span :name="'Quartier'" :isFacultatif="true" />
-                      <input
-                        type="text"
-                        class="w-100 my-3"
-                        v-model="quartier"
-                      />
+                      <input type="text" class="w-100 my-3" v-model="quartier" />
                     </div>
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
                       <Span :name="'Nom du Gérant'" :isFacultatif="false" />
@@ -615,11 +589,7 @@ Un caractère spécial
                     </div>
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
                       <Span :name="'Numéro du Gérant'" :isFacultatif="false" />
-                      <input
-                        type="text"
-                        class="w-100 my-3"
-                        v-model="numero_gerant"
-                      />
+                      <input type="text" class="w-100 my-3" v-model="numero_gerant" />
                     </div>
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
                       <Span
@@ -638,17 +608,9 @@ Un caractère spécial
                     </div>
                     <div class="w-100 text-left" v-if="status == 'student'">
                       <Span :name="'Carte étudiante'" :isFacultatif="false" />
-                      <input
-                        type="file"
-                        @change="see"
-                        class="w-100 my-3"
-                        accept="*"
-                      />
+                      <input type="file" @change="see" class="w-100 my-3" accept="*" />
                     </div>
-                    <div
-                      class="w-100 my-2 text-left"
-                      v-if="status == 'student'"
-                    >
+                    <div class="w-100 my-2 text-left" v-if="status == 'student'">
                       <Span :name="'Compétence'" :isFacultatif="false" />
                       <VueMultiselect
                         v-model="competence"
@@ -667,9 +629,7 @@ Un caractère spécial
                     <div class="w-100 text-left" v-if="status">
                       <Span
                         :name="
-                          status === 'entreprise'
-                            ? 'Email de l\'Entreprise'
-                            : 'Email'
+                          status === 'entreprise' ? 'Email de l\'Entreprise' : 'Email'
                         "
                         :isFacultatif="false"
                       />
@@ -715,8 +675,7 @@ Un caractère spécial
                         </span>
                         <span class="d-block m-0 password_length"
                           >Un chiffre
-                          <i v-if="/\d/.test(password)" class="bi bi-check-lg">
-                          </i>
+                          <i v-if="/\d/.test(password)" class="bi bi-check-lg"> </i>
                         </span>
 
                         <span class="d-block m-0 password_length"
@@ -731,10 +690,7 @@ Un caractère spécial
 
                     <div class="form-group condition">
                       <div v-if="isAcceptPolitic">
-                        <Politics
-                          :registreUser="inscriptionUser"
-                          :status="status"
-                        />
+                        <Politics :registreUser="inscriptionUser" :status="status" />
                       </div>
                     </div>
 
@@ -759,23 +715,19 @@ Un caractère spécial
                     </div>
                   </form>
                 </div>
-                <div
-                  class="col-lg-4 col-md-5 col-sm-6 col-xs-12 pull-right sidebar"
-                >
+                <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 pull-right sidebar">
                   <div class="widget">
                     <h3>POURQUOI AVOIR UN COMPTE DANS SMART-CONNECT?</h3>
                     <ul>
                       <li>
                         <p class="listes">
-                          <em class="fa fa-clock-o"></em>Demande rapide
-                          d'offres, les documents nécessaires sont toujours à
-                          portée de main
+                          <em class="fa fa-clock-o"></em>Demande rapide d'offres, les
+                          documents nécessaires sont toujours à portée de main
                         </p>
                       </li>
                       <li>
                         <p class="listes">
-                          <em class="fa fa-child"></em>Ciblez efficacement les
-                          employeurs.
+                          <em class="fa fa-child"></em>Ciblez efficacement les employeurs.
                         </p>
                       </li>
                     </ul>
@@ -783,9 +735,7 @@ Un caractère spécial
                 </div>
               </div>
               <div id="login" class="tab-pane fade active in white-text">
-                <div
-                  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 zero-padding-left"
-                >
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 zero-padding-left">
                   <form
                     name="contact_us"
                     class="contact_us"
@@ -814,9 +764,7 @@ Un caractère spécial
 
                     <div>
                       <button type="submit" class="bg-lg bg-second">
-                        <em
-                          class="bi bi-box-arrow-in-right w3-margin-right"
-                        ></em>
+                        <em class="bi bi-box-arrow-in-right w3-margin-right"></em>
                         Se connecter
                       </button>
                       <router-link to="/reset_password" class="lost_password"
@@ -825,24 +773,20 @@ Un caractère spécial
                     </div>
                   </form>
                 </div>
-                <div
-                  class="col-lg-4 col-md-5 col-sm-6 col-xs-12 pull-right sidebar"
-                >
+                <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 pull-right sidebar">
                   <div class="widget">
                     <h3>VOUS N'AVEZ PAS DE COMPTE ?</h3>
                     <ul>
                       <li>
                         <p class="listes">
                           Si vous souhaitez en savoir plus sur la manière dont
-                          MySmartConnect peut vous aider dans vos besoins de
-                          recrutement, veuillez remplir ce formulaire de
-                          demande.
+                          MySmartConnect peut vous aider dans vos besoins de recrutement,
+                          veuillez remplir ce formulaire de demande.
                         </p>
                       </li>
                       <li>
                         <p class="listes">
-                          Un membre de notre équipe commerciale vous contactera
-                          sous peu.
+                          Un membre de notre équipe commerciale vous contactera sous peu.
                         </p>
                       </li>
                     </ul>
@@ -872,9 +816,7 @@ Un caractère spécial
 
             <div class="tab-content">
               <div id="register-account" class="tab-pane fade in white-text">
-                <div
-                  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 zero-padding-left"
-                >
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 zero-padding-left">
                   <form
                     name="contact_us"
                     class="contact_us"
@@ -893,23 +835,12 @@ Un caractère spécial
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
                       <Span :name="'Name of companie'" :isFacultatif="false" />
 
-                      <input
-                        class="w-100 my-3"
-                        type="text"
-                        v-model="nom_entreprise"
-                      />
+                      <input class="w-100 my-3" type="text" v-model="nom_entreprise" />
                     </div>
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
-                      <Span
-                        :name="'Registration number/CC'"
-                        :isFacultatif="false"
-                      />
+                      <Span :name="'Registration number/CC'" :isFacultatif="false" />
 
-                      <input
-                        type="text"
-                        class="w-100 my-3"
-                        v-model="matriculeCC"
-                      />
+                      <input type="text" class="w-100 my-3" v-model="matriculeCC" />
                     </div>
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
                       <Span :name="'Register'" :isFacultatif="false" />
@@ -942,8 +873,8 @@ Un caractère spécial
                         pattern="[0-9]{10}"
                       />
                       <strong v-if="phone && !isPhoneCi(this.phone)"
-                        >Le numéro doit être un numéro valide 10 chiffres(ex:**
-                        ** ** ** **)</strong
+                        >Le numéro doit être un numéro valide 10 chiffres(ex:** ** ** **
+                        **)</strong
                       >
                     </div>
                     <div class="w-100 text-left" v-if="status">
@@ -956,11 +887,7 @@ Un caractère spécial
                     </div>
                     <div class="w-100 text-left" v-if="status">
                       <Span :name="'Headquarter'" :isFacultatif="true" />
-                      <input
-                        type="text"
-                        class="w-100 my-3"
-                        v-model="quartier"
-                      />
+                      <input type="text" class="w-100 my-3" v-model="quartier" />
                     </div>
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
                       <Span :name="'Name of Manager'" :isFacultatif="false" />
@@ -968,11 +895,7 @@ Un caractère spécial
                     </div>
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
                       <Span :name="'Phone of Manager'" :isFacultatif="false" />
-                      <input
-                        type="text"
-                        class="w-100 my-3"
-                        v-model="numero_gerant"
-                      />
+                      <input type="text" class="w-100 my-3" v-model="numero_gerant" />
                     </div>
                     <div class="w-100 text-left" v-if="status == 'entreprise'">
                       <Span
@@ -991,17 +914,9 @@ Un caractère spécial
                     </div>
                     <div class="w-100 text-left" v-if="status == 'student'">
                       <Span :name="'Student card'" :isFacultatif="false" />
-                      <input
-                        type="file"
-                        @change="see"
-                        class="w-100 my-3"
-                        accept="*"
-                      />
+                      <input type="file" @change="see" class="w-100 my-3" accept="*" />
                     </div>
-                    <div
-                      class="w-100 my-2 text-left"
-                      v-if="status == 'student'"
-                    >
+                    <div class="w-100 my-2 text-left" v-if="status == 'student'">
                       <Span :name="'Skill'" :isFacultatif="false" />
                       <VueMultiselect
                         v-model="competence"
@@ -1020,9 +935,7 @@ Un caractère spécial
                     <div class="w-100 text-left" v-if="status">
                       <Span
                         :name="
-                          status === 'entreprise'
-                            ? 'Email de l\'Entreprise'
-                            : 'Email'
+                          status === 'entreprise' ? 'Email de l\'Entreprise' : 'Email'
                         "
                         :isFacultatif="false"
                       />
@@ -1068,8 +981,7 @@ Un caractère spécial
                         </span>
                         <span class="d-block m-0 password_length"
                           >A number
-                          <i v-if="/\d/.test(password)" class="bi bi-check-lg">
-                          </i>
+                          <i v-if="/\d/.test(password)" class="bi bi-check-lg"> </i>
                         </span>
 
                         <span class="d-block m-0 password_length"
@@ -1084,10 +996,7 @@ Un caractère spécial
 
                     <div class="form-group condition">
                       <div v-if="isAcceptPolitic">
-                        <Politics
-                          :registreUser="inscriptionUser"
-                          :status="status"
-                        />
+                        <Politics :registreUser="inscriptionUser" :status="status" />
                       </div>
                     </div>
 
@@ -1109,22 +1018,19 @@ Un caractère spécial
                     </div>
                   </form>
                 </div>
-                <div
-                  class="col-lg-4 col-md-5 col-sm-6 col-xs-12 pull-right sidebar"
-                >
+                <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 pull-right sidebar">
                   <div class="widget">
                     <h3>WHY HAVE AN ACCOUNT IN SMART-CONNECT?</h3>
                     <ul>
                       <li>
                         <p class="listes">
-                          <em class="fa fa-clock-o"></em>Quick request for
-                          offers, the necessary documents are always at hand
+                          <em class="fa fa-clock-o"></em>Quick request for offers, the
+                          necessary documents are always at hand
                         </p>
                       </li>
                       <li>
                         <p class="listes">
-                          <em class="fa fa-child"></em>Effectively target
-                          employers.
+                          <em class="fa fa-child"></em>Effectively target employers.
                         </p>
                       </li>
                     </ul>
@@ -1132,9 +1038,7 @@ Un caractère spécial
                 </div>
               </div>
               <div id="login" class="tab-pane fade active in white-text">
-                <div
-                  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 zero-padding-left"
-                >
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 zero-padding-left">
                   <form
                     name="contact_us"
                     class="contact_us"
@@ -1163,9 +1067,7 @@ Un caractère spécial
 
                     <div>
                       <button type="submit" class="bg-lg bg-second">
-                        <em
-                          class="bi bi-box-arrow-in-right w3-margin-right"
-                        ></em>
+                        <em class="bi bi-box-arrow-in-right w3-margin-right"></em>
                         Sign in
                       </button>
                       <router-link to="/reset_password" class="lost_password"
@@ -1174,17 +1076,15 @@ Un caractère spécial
                     </div>
                   </form>
                 </div>
-                <div
-                  class="col-lg-4 col-md-5 col-sm-6 col-xs-12 pull-right sidebar"
-                >
+                <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 pull-right sidebar">
                   <div class="widget">
                     <h3>YOU DO NOT HAVE AN ACCOUNT?</h3>
                     <ul>
                       <li>
                         <p class="listes">
-                          If you would like to know more about how
-                          MySmartConnect can help you with your needs
-                          recruitment, please complete this application form.
+                          If you would like to know more about how MySmartConnect can help
+                          you with your needs recruitment, please complete this
+                          application form.
                         </p>
                       </li>
                       <li>
@@ -1205,19 +1105,19 @@ Un caractère spécial
 </template>
 
 <style scoped>
-.conteneur-flex{
+.conteneur-flex {
   position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right:0;
-    width: 100%;
-    z-index: 9999999999;
-    display:flex;
-    place-items:center;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.452);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 9999999999;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.452);
 }
 .password_length {
   font-size: 0.7em !important;
@@ -1366,6 +1266,4 @@ textarea {
   }
 }
 </style>
-<style
-  src="../../node_modules/vue-multiselect/dist/vue-multiselect.css"
-></style>
+<style src="../../node_modules/vue-multiselect/dist/vue-multiselect.css"></style>

@@ -2,6 +2,7 @@
 import Swal from "sweetalert2";
 import instance, { lienPhoto } from "../../../api/api";
 import InfoEntreprise from "./feature/InfoEntreprise.vue";
+import InfoStudents from "./feature/InfoStudents.vue";
 // import InfoParticulier from "./feature/InfoParticulier.vue"
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import ModalForModifyInfo from "./feature/ModalForModifyInfo.vue";
@@ -12,6 +13,7 @@ export default {
     InfoEntreprise,
     HeaderDashboard,
     ModalForModifyInfo,
+    InfoStudents,
   },
   data() {
     return {
@@ -258,7 +260,7 @@ export default {
             { libelle: 'Contact :', value: user.contact },
             { libelle: 'Ville :', value: user.ville },
             { libelle: 'Commune :', value: user.commune },
-            { libelle: 'Quatier :', value: user.quartier },
+            { libelle: 'Quartier :', value: user.quartier },
             { libelle: 'Document :', value: user.registre },
             { libelle: 'Forme juridique :', value: user.forme_juridique },
           ]"
@@ -267,6 +269,21 @@ export default {
             { libelle: 'Contact :', value: user.numero_gerant },
             { libelle: 'Pièce d identite :', value: user.piece_gerant },
           ]"
+        />
+        <InfoStudents
+          :infoPersonellesStudents="[
+            { libelle: 'Nom :', value: user.nom },
+            { libelle: 'Prénoms :', value: user.prenoms },
+            { libelle: 'Email :', value: user.email },
+            { libelle: 'Ville :', value: user.ville },
+            { libelle: 'Commune :', value: user.commune },
+            { libelle: 'Quartier :', value: user.quartier },
+            { libelle: 'Contact :', value: user.phone },
+            { libelle: 'diplome :', value: user.diplome },
+            { libelle: 'Pièce d identite :', value: user.photo },
+          ]"
+          :infoPersonellesCompetences="user.competences"
+          v-if="this.user.user.statut.statut === 'etudiant'"
         />
         <!-- <CadreProfilView /> -->
         <!-- <div class="edit-profile">

@@ -5,15 +5,15 @@ import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { mapActions } from "pinia";
 export default {
-  name: "InfoEntreprise",
+  name: "InfoStudents",
   components: {
     Buttons,
   },
   props: {
-    infoPersonellesEntreprise: {
+    infoPersonellesStudents: {
       type: Array,
     },
-    infoPersonellesGerant: {
+    infoPersonellesCompetences: {
       type: Array,
     },
   },
@@ -107,11 +107,11 @@ export default {
 <template>
   <section style="padding: 2em 3em">
     <a-card style="width: auto; background: rgba(179, 201, 255, 0.38)">
-      <h1 class="fw-bold">Informations personnelles</h1>
+      <h1 class="fw-bold" style="color: orange">Informations personnelles</h1>
       <section>
         <div class="row">
           <div
-            v-for="(item, index) in infoPersonellesEntreprise"
+            v-for="(item, index) in infoPersonellesStudents"
             :key="index"
             class="col-lg-4 col-sm-6"
           >
@@ -121,33 +121,10 @@ export default {
                 item.value !== null &&
                 item.value !== 'null' &&
                 item.value !== 'undefined' &&
-                item.libelle !== 'Document :'
+                item.libelle !== 'Pièce d identite :'
               "
               class="fw-bold"
             >
-              {{ item.value }}
-            </h6>
-            <div style="display: flex; justify-content: flex-start">
-              <img
-                v-if="item.libelle === 'Document :'"
-                :src="lienPhoto + item.value"
-                :alt="item.value"
-                class="w-25"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-      <h1 class="fw-bold" style="color:orange">Gérant</h1>
-      <section>
-        <div class="row">
-          <div
-            v-for="(item, index) in infoPersonellesGerant"
-            :key="index"
-            class="col-lg-4 col-sm-6"
-          >
-            <p>{{ item.libelle }}</p>
-            <h6 class="fw-bold" v-if="item.libelle !== 'Pièce d identite :'">
               {{ item.value }}
             </h6>
             <div style="display: flex; justify-content: flex-start">
@@ -161,6 +138,19 @@ export default {
           </div>
         </div>
       </section>
+      <h1 class="fw-bold" style="color: orange">Compétences</h1>
+      <section>
+        <div
+          v-for="(item, index) in infoPersonellesCompetences"
+          :key="index"
+          style="display: flex; justify-content: flex-start"
+        >
+          <h6 class="fw-bold">
+            -{{ item.competence }}
+          </h6>
+        </div>
+      </section>
+
       <section>
         <Buttons
           :elmentsOfBtn="elmentsOfBtn"
@@ -171,7 +161,7 @@ export default {
     </a-card>
 
     <a-card style="width: auto; background: rgba(179, 201, 255, 0.38); margin: 2em 0">
-      <h1 class="fw-bold" style="color:orange">Modifier mot de passe</h1>
+      <h1 class="fw-bold" style="color: orange">Modifier mot de passe</h1>
       <section>
         <div class="card-body text-left py-4">
           <div class="row">
