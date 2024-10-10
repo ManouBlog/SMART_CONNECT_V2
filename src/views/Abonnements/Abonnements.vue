@@ -4,6 +4,7 @@ import { ref, onMounted } from "vue";
 import instance from "../../api/api";
 
 import i18n from "../../plugins/i18n";
+import Swal from "sweetalert2";
 
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 const { t } = i18n.global;
@@ -31,9 +32,22 @@ const verifIfAbonnementIsSuccess = async () => {
       const response = await instance.post(
         "cintepay/verification_paiement/" + TRANSACTION_ID
       );
+      if(response['status'] === 200){
+        Swal.fire({
+          icon: "info",
+          title: response.data.message,
+          showConfirmButton: true,
+        });
+      }
+      
       console.log(response);
     } catch (error) {
       console.log(error);
+          Swal.fire({
+          icon: "info",
+          title: error.response.data.message,
+          showConfirmButton: true,
+        });
     }
     localStorage.removeItem("transaction_id");
   }

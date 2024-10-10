@@ -229,17 +229,18 @@ onMounted(async ()=>{
 }
 ul,
 .abonnement-classique {
-  padding: 1em;
+  padding: 1.5em;
 }
 .abonnement-classique {
   width: 300px;
-  height: 500px;
+  height: 450px;
   margin-bottom: 2em;
   text-align: left;
   border-radius: 10px;
   box-shadow: 3px 3px 6px 6px rgba(0, 0, 0, 0.126);
   transition: all 1s ease-in-out;
   position: relative;
+  padding: 1.5em;
 }
 
 .hidden {

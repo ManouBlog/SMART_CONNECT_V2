@@ -4,7 +4,12 @@ import $ from "jquery";
 import Swal from "sweetalert2";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 export default {
+  name: "see_who_interresse_by_profil_studentView",
+  components: {
+    HeaderDashboard,
+  },
   data() {
     return {
       list_entreprise_contact: [],
@@ -153,16 +158,12 @@ export default {
 };
 </script>
 <template>
-  <div class="page-body position-relative mt-5">
-    
-    <div class="container-fluid">
-      <div class="page-title">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">Contrat</li>
-        </ol>
-      </div>
-    </div>
-   
+  <div class="page-body position-relative">
+
+    <HeaderDashboard
+    :TitleHeader="'Contrats'"
+    :subTitleHeader="'Contrats'"
+  />
     <div
       class="tab-content"
       id="top-tabContent"

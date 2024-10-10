@@ -7,11 +7,13 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "v-calendar/dist/style.css";
 import { DatePicker } from "v-calendar";
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 
 export default {
   name: "CreateTimetableView",
   components: {
     DatePicker,
+    HeaderDashboard
   },
   data() {
     return {
@@ -569,16 +571,19 @@ export default {
 };
 </script>
 <template>
-  <div class="page-body position-relative mt-5">
-   
+  <div class="page-body position-relative">
+    <HeaderDashboard
+    :TitleHeader="'Planifier une disponibilité'"
+    :subTitleHeader="'Planifier une disponibilité'"
+  />
 
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
       <div class="page-title">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Enregistrer une disponibilité</li>
         </ol>
       </div>
-    </div>
+    </div> -->
    
 
     <div class="tab-content" id="top-tabContent">

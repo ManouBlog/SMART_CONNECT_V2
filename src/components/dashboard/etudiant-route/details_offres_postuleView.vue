@@ -3,8 +3,12 @@ import instance from "../../../api/api";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Swal from "sweetalert2";
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 export default {
   name: "Détails_entreprise_view",
+  components: {
+    HeaderDashboard
+  },
   data() {
     return {
       entreprise: null,
@@ -89,19 +93,13 @@ export default {
 </script>
 
 <template>
-  <div class="page-body position-relative mt-5">
-    <!-- <i class="bi bi-arrow-left-circle" @click="$router.go(-1)"></i> -->
+  <div class="page-body position-relative">
+
     <section v-if="this.details_offre != null">
-      <div class="container-fluid">
-        <div class="page-title">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              Détails de l' Offres postulé :
-              {{ details_offre.nom_offre }}
-            </li>
-          </ol>
-        </div>
-      </div>
+      <HeaderDashboard
+      :TitleHeader="`Détails de l' Offres postulé`"
+      :subTitleHeader="`Détails de l' Offres postulé`"
+    />
       <n-modal v-model:show="showModal">
         <n-card
           style="width: 600px"

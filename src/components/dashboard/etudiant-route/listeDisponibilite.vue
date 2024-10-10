@@ -7,12 +7,14 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "v-calendar/dist/style.css";
 import { DatePicker } from "v-calendar";
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 
 export default {
   name: "listeDisponibilite",
   components: {
     VueMultiselect,
     DatePicker,
+    HeaderDashboard
   },
   data() {
     return {
@@ -610,7 +612,11 @@ export default {
 };
 </script>
 <template>
-  <div class="page-body position-relative mt-5">
+  <div class="page-body position-relative">
+    <HeaderDashboard
+    :TitleHeader="'Emploi du temps'"
+    :subTitleHeader="'Emploi du temps'"
+  />
     <div
       class="ecran_for_delete delete_article"
       v-show="confirmation_for_delete"
@@ -799,13 +805,13 @@ export default {
       </div>
     </div>
 
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
       <div class="page-title">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Emploi du temps</li>
         </ol>
       </div>
-    </div>
+    </div> -->
 
     <div class="tab-content" id="top-tabContent">
       <div>

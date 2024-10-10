@@ -1,6 +1,11 @@
 <script>
 import instance from "../../../api/api";
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 export default {
+  name:"imprimeContratView",
+  components: {
+    HeaderDashboard
+  },
   data() {
     return {
       offreDetail:"",
@@ -55,22 +60,18 @@ export default {
 };
 </script>
 <template>
-  <div class="page-body position-relative mt-5">
+  <div class="page-body position-relative">
+    <HeaderDashboard
+      :TitleHeader="`Attestation d'admission`"
+      :subTitleHeader="`Attestation d'admission`"
+    />
     
-    <div class="container-fluid">
-      <div class="page-title">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">Contrat</li>
-        </ol>
-      </div>
-    </div>
-    
+  
     <div class="tab-content" id="top-tabContent">
       <div id="printDetail">
         
           <div class="text-left px-5" v-if="this.myOffre && this.entreprise">
             <div class="conteneur-img">
-              <!-- <img src="../../assets/lce.png" alt="image" /> -->
             </div>
             <h1 class="text-center">ATTESTATION D'ADMISSION</h1>
             <h2>
@@ -96,7 +97,7 @@ export default {
             </strong> 
           </div>
       </div>
-      <button class="btn-lg p-5 bg-warning" @click="printDiv" v-if="this.myOffre && this.entreprise">Imprimer</button>
+      <button class="btn-lg p-5 bg-warning" style="border:none" @click="printDiv" v-if="this.myOffre && this.entreprise">Imprimer</button>
     </div>
   </div>
 </template>

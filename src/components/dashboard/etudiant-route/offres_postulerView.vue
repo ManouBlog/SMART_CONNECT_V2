@@ -3,8 +3,12 @@ import $ from "jquery";
 import instance from "../../../api/api";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 export default {
   name: "Offres_postulerView",
+  components: {
+    HeaderDashboard,
+  },
   data() {
     return {
       list_offre: [],
@@ -73,15 +77,19 @@ export default {
 };
 </script>
 <template>
-  <div class="page-body position-relative mt-5">
+  <div class="page-body position-relative">
+    <HeaderDashboard
+    :TitleHeader="'Mes postulations'"
+    :subTitleHeader="'offres postulés'"
+  />
    
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
       <div class="page-title">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Offres postulés</li>
+          <li class="breadcrumb-item">Mes postulations</li>
         </ol>
       </div>
-    </div>
+    </div> -->
    
     <div class="tab-content" id="top-tabContent">
       <div class="container-fluid">
