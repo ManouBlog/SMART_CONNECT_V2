@@ -46,7 +46,6 @@ export default {
     <router-link to="/dashboard/postulants" class="d-block"> Postulants </router-link>
   </li>
   <LiensNavBar :texte="`Mes abonnements`" :route_lien="'dashboard-abonnements'" />
- 
 </template>
 <style scoped>
 li {

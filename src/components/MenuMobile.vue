@@ -6,6 +6,7 @@ import { useMenuMobile } from "../store-pinia/MenuMobile/useMenuMobileStore";
 import SelectLanguage from "./feature/header/SelectLanguage.vue";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import MenuMobileEntreprise from "./feature/header/Entreprise/MenuMobileEntreprise";
+import MenuMobileStudent from "./feature/header/Student/MenuMobileStudent.vue"
 import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
 
 export default {
@@ -13,6 +14,7 @@ export default {
   components: {
     SelectLanguage,
     MenuMobileEntreprise,
+    MenuMobileStudent
   },
   data() {
     return {};
@@ -103,6 +105,10 @@ export default {
           this.$store.state.user.user.statut.statut === 'entreprise'
         "
       />
+      <MenuMobileStudent  v-if="
+      this.$store.state.user &&
+      this.$store.state.user.user.statut.statut === 'etudiant'
+    " />
       <li
         v-if="
           this.$store.state.user &&

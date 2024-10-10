@@ -3,11 +3,13 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { FilterMatchMode } from "primevue/api";
 import { mapActions, mapState } from "pinia";
+import { configUtils } from "../Shared/Utils";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
 import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue"
 import { useEntreprisesStore } from "../store-pinia/Entreprise/useEntreprisesStore";
+
 export default {
   name: "Myabonnements",
   components:{
@@ -20,6 +22,7 @@ export default {
   },
   data() {
     return {
+      configUtils:configUtils,
       offre: null,
       offres: null,
       filters: {
@@ -81,29 +84,41 @@ export default {
         </template>
         <Column
           style="font-size: 1.8em; padding: 1em; text-align: center"
-          field="nom_offre"
-          header="Date"
-        ></Column>
+          field="created_at"
+          header="Date d'enregistrement"
+        >
+      <template #body="slotProps">
+        <span>
+          {{ configUtils.getFormatDateFr(slotProps.data.created_at) }}
+        </span>
+      </template>
+      </Column>
         <Column
           style="font-size: 1.8em; padding: 1em; text-align: center"
-          field="nbre.length"
+          field="abonement.libelle"
           header="Formule"
         ></Column>
         <Column
         style="font-size: 1.8em; padding: 1em; text-align: center"
-        field="nbre.length"
+        field="montant"
         header="Prix (Fcfa)"
       ></Column>
       <Column
         style="font-size: 1.8em; padding: 1em; text-align: center"
-        field="nbre.length"
+        field="echeance"
         header="Echéance"
       ></Column>
       <Column
       style="font-size: 1.8em; padding: 1em; text-align: center"
-      field="nbre.length"
+      field="statut"
       header="Statut"
-    ></Column>
+    >
+    <template #body="slotProps">
+      <span class="px-2" :class="slotProps.data.statut === 'ACCEPTED' ? 'bg-success':'bg-danger'">
+        {{ slotProps.data.statut }}
+      </span>
+    </template>
+  </Column>
         
       </DataTable>
 
