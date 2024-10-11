@@ -82,14 +82,7 @@ export default {
     :TitleHeader="'Mes postulations'"
     :subTitleHeader="'offres postulés'"
   />
-   
-    <!-- <div class="container-fluid">
-      <div class="page-title">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">Mes postulations</li>
-        </ol>
-      </div>
-    </div> -->
+  
    
     <div class="tab-content" id="top-tabContent">
       <div class="container-fluid">

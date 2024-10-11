@@ -19,6 +19,7 @@ export default {};
 .conteneur_search {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 .p-datatable-thead {
   background: gray !important;
@@ -89,6 +90,14 @@ table {
 }
 .p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
   color: orange;
+}
+.p-tabview-nav{
+  justify-content: center !important;
+}
+.p-tabview-nav li{
+  list-style: none;
+  list-style-type: none;
+  font-weight: bold;
 }
 .p-button,
 .multiselect__option--highlight {
@@ -199,9 +208,8 @@ input[type="checkbox"] {
   width: 5rem;
   height: 5rem;
 }
-.p-calendar {
-  width: 50%;
-  font-size: 1em;
+#pv_id_1_panel{
+  font-size:1.5em;
 }
 .swal2-container {
   z-index: 999999 !important;

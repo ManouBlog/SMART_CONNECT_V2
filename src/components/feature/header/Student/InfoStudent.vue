@@ -114,13 +114,13 @@ export default {
             </router-link>
           </li>
         </a-menu-item>
-        <a-menu-item>
+        <!-- <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/disponibilite" class="d-block">
               Planifier une disponibilité
             </router-link>
           </li>
-        </a-menu-item>
+        </a-menu-item> -->
         <a-menu-item>
           <LiensNavBar :texte="`Mes abonnements`" :route_lien="'dashboard-abonnements'" />
         </a-menu-item>

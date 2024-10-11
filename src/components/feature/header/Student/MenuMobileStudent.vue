@@ -43,11 +43,11 @@ export default {
       Mes disponibilités
     </router-link>
   </li>
-  <li class="position-absolute deconnex">
+  <!-- <li class="position-absolute deconnex">
     <router-link to="/dashboard/disponibilite" class="d-block">
       Planifier une disponibilité
     </router-link>
-  </li>
+  </li> -->
   <LiensNavBar :texte="`Mes abonnements`" :route_lien="'dashboard-abonnements'" />
   <li class="position-absolute deconnex">
     <a href="#" @click.prevent="deconnexUser" class="fw-bold"> Déconnexion</a>

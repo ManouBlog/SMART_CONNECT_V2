@@ -11,7 +11,8 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
 import Calendar from 'primevue/calendar';
 import Rating from 'primevue/rating';
 import Dialog from 'primevue/dialog';
-
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
 import PanelMenu from 'primevue/panelmenu';
 import Multiselect from 'vue-multiselect'
 import Paginator from 'primevue/paginator';
@@ -33,7 +34,8 @@ app.component('PrimeCalendar', Calendar);
 app.component('multiselect', Multiselect);
 app.component('PanelMenu', PanelMenu);
 app.component('Paginator', Paginator);
-
+app.component('DataTable', DataTable);
+app.component('Column', Column);
 app.component('Rating',Rating)
 app.component('Dialog',Dialog)
 app.mount('#app');

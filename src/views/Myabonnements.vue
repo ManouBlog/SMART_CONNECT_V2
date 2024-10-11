@@ -36,7 +36,10 @@ export default {
     };
   },
   computed: { ...mapState(useEntreprisesStore, ["list_abonnement"]) },
-  methods: { ...mapActions(useEntreprisesStore, ["get_all_student"]) },
+  methods: { ...mapActions(useEntreprisesStore, ["get_all_student"]),
+  handleNouvelAbonnement(){
+    this.$router.push({name:"abonnements"})
+  } },
   created() {
     this.get_all_student();
   },
@@ -70,6 +73,9 @@ export default {
         </template>
         <template #header>
           <div class="conteneur_search">
+            <div class="mx-3">
+              <button class="btn bg-warning py-2" @click="handleNouvelAbonnement">Nouvel Abonnement</button>
+            </div>
             <IconField iconPosition="left">
               <InputIcon>
                 <i class="pi pi-search" />
@@ -108,7 +114,7 @@ export default {
         field="echeance"
         header="Echéance"
       ></Column>
-      <Column
+      <!-- <Column
       style="font-size: 1.8em; padding: 1em; text-align: center"
       field="statut"
       header="Statut"
@@ -118,7 +124,7 @@ export default {
         {{ slotProps.data.statut }}
       </span>
     </template>
-  </Column>
+  </Column> -->
         
       </DataTable>
 

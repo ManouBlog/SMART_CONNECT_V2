@@ -1,10 +1,12 @@
 <script>
 import instance from "../../../api/api";
 import Swal from "sweetalert2";
+import { FilterMatchMode } from "primevue/api";
 import VueMultiselect from "vue-multiselect";
-import $ from "jquery";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
+import { configUtils } from "../../../Shared/Utils";
+import InputText from "primevue/inputtext";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
 import "v-calendar/dist/style.css";
 import { DatePicker } from "v-calendar";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
@@ -14,10 +16,22 @@ export default {
   components: {
     VueMultiselect,
     DatePicker,
-    HeaderDashboard
+    HeaderDashboard,
+    IconField,
+    InputIcon,
+    InputText,
   },
   data() {
     return {
+      filters: {
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        formule: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        "country.name": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        representative: { value: null, matchMode: FilterMatchMode.IN },
+        status: { value: null, matchMode: FilterMatchMode.EQUALS },
+        verified: { value: null, matchMode: FilterMatchMode.EQUALS },
+      },
+      configUtils:configUtils,
       jour: "",
       firstHoraire: "",
       secondHoraire: "",
@@ -269,46 +283,11 @@ export default {
       }
     },
     get_timetable() {
-      this.spinner = true;
       instance
         .get("get_schedule")
         .then((res) => {
           console.log(res);
           this.timetables = res.data.data;
-          this.spinner = false;
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
         })
         .catch((err) => {
           console.log(err);
@@ -600,6 +579,9 @@ export default {
       });
       console.log("THIS.days", this.comp);
     },
+    handleNewCalendar(){
+      this.$router.push('/dashboard/disponibilite')
+    }
   },
   created() {
     this.get_timetable();
@@ -612,10 +594,10 @@ export default {
 };
 </script>
 <template>
-  <div class="page-body position-relative">
+  <div class="page-body position-relative mt-3">
     <HeaderDashboard
-    :TitleHeader="'Emploi du temps'"
-    :subTitleHeader="'Emploi du temps'"
+    :TitleHeader="'Disponibilités'"
+    :subTitleHeader="'Disponibilités'"
   />
     <div
       class="ecran_for_delete delete_article"
@@ -805,16 +787,102 @@ export default {
       </div>
     </div>
 
-    <!-- <div class="container-fluid">
-      <div class="page-title">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">Emploi du temps</li>
-        </ol>
-      </div>
-    </div> -->
-
     <div class="tab-content" id="top-tabContent">
-      <div>
+      <DataTable
+      paginator
+      :rows="10"
+      :globalFilterFields="['formule']"
+      :rowsPerPageOptions="[5, 10, 20, 50]"
+      :value="timetables"
+      v-model:filters="filters"
+    >
+      <template #paginatorstart>
+        <div
+          style="
+            display: flex;
+            justify-content: flex-start;
+            font-size: 1em;
+            border: none;
+          "
+        >
+          Affichage de 1 à 10 sur{{ timetables.length }} entrées.
+        </div>
+      </template>
+      <template #header>
+        <div class="conteneur_search">
+          <div class="mx-3">
+            <button class="btn bg-warning py-2" 
+            @click="handleNewCalendar">Nouvelle disponibilitée</button>
+          </div>
+          <IconField iconPosition="left">
+            <InputIcon>
+              <i class="pi pi-search" />
+            </InputIcon>
+            <InputText
+              style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+              v-model="filters['global'].value"
+              placeholder="Recherche:"
+            />
+          </IconField>
+        </div>
+      </template>
+      <Column
+        style="font-size: 1.8em; padding: 1em; text-align: center"
+        field="jour"
+        header="Jours"
+      >
+    <template #body="slotProps">
+      <span>
+        {{ configUtils.getFormatDateFr(slotProps.data.jour) }}
+      </span>
+    </template>
+    </Column>
+      <Column
+        style="font-size: 1.8em; padding: 1em; text-align: center"
+        field="First_horaire"
+        header="Premiere Plage Horaire"
+      >
+      <template #body="slotProps">
+       <span>
+        {{configUtils.formatedDisponibilite(slotProps.data.First_horaire) }}
+       </span>
+      </template>
+    </Column>
+      <Column
+      style="font-size: 1.8em; padding: 1em; text-align: center"
+      field="Second_horaire"
+      header="Seconde Plage Horaire"
+    >
+    <template #body="slotProps">
+      <span v-if="slotProps.data.Second_horaire">
+       {{ configUtils.formatedDisponibilite(slotProps.data.Second_horaire) }}
+      </span>
+      <span v-else>Néant</span>
+     </template>
+  </Column>
+    <Column
+    style="font-size: 1.8em; padding: 1em; text-align: center"
+    field="statut"
+    header="Actions"
+  >
+  <template #body="slotProps">
+    <div
+    class="d-flex justify-content-center align-items-center"
+  >
+    <em
+      class="bi bi-pencil"
+      @click="show_timetable(slotProps.data.id)"
+    ></em>
+    <em
+      class="bi bi-trash"
+      @click="show_box_confirmation_delete(slotProps.data.id)"
+    ></em>
+  </div>
+  </template>
+</Column>
+      
+    </DataTable>
+      <!-- <div>
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12 card py-3 px-2">
@@ -860,7 +928,7 @@ export default {
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div
         class="tab-pane fade show"
         id="competence"

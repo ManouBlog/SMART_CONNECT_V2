@@ -1,22 +1,28 @@
 <script>
 import instance from "../../../api/api";
+import { useDisponibiliteStore } from "../../../store-pinia/Disponibilite/useDisponibiliteStore";
 import Swal from "sweetalert2";
-
-import $ from "jquery";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
-import "v-calendar/dist/style.css";
-import { DatePicker } from "v-calendar";
+import { mapActions } from "pinia";
+import Calendar from "primevue/calendar";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import { configUtils } from "../../../Shared/Utils";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import updateLocale from "dayjs/plugin/updateLocale";
+dayjs.extend(relativeTime);
+dayjs.extend(updateLocale);
 
 export default {
   name: "CreateTimetableView",
   components: {
-    DatePicker,
-    HeaderDashboard
+    Calendar,
+    HeaderDashboard,
   },
   data() {
     return {
+      datesFormatedOfCalendar: [],
+      configUtils: configUtils,
+      datesOfCalendar: [],
       jour: "",
       firstHoraire: "",
       secondHoraire: "",
@@ -56,13 +62,14 @@ export default {
       newDatePickerForUpdate: [],
       selecteDatepickers: {},
       selecteDatepickersupdate: {},
-      isLoading:false,
+      isLoading: false,
       getJourInMonth: "",
       dates: [],
       selectedJourForUpadte: {},
     };
   },
   methods: {
+    ...mapActions(useDisponibiliteStore, ["createdDisponiblite"]),
     show_modify() {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = null;
@@ -95,7 +102,7 @@ export default {
         btn.click();
       });
     },
-  
+
     removeDate(date, hide) {
       this.datesPickers = this.datesPickers.filter((d) => d !== date);
       hide();
@@ -112,10 +119,7 @@ export default {
         this.SecondPlageHoraire = this.Horaire_Second.toString();
         SecondHour = this.Horaire_Second;
       } else {
-        if (
-          this.Second_heure_start_from != null &&
-          this.Second_heure_end_to != null
-        ) {
+        if (this.Second_heure_start_from != null && this.Second_heure_end_to != null) {
           this.SecondPlageHoraire = this.Second_heure_start_from.concat(
             "-",
             this.Second_heure_end_to
@@ -142,23 +146,18 @@ export default {
         let SecondHoraireFirstHoraire = SecondHour[0].split(":");
         SecondHoraireHour = Number(SecondHoraireFirstHoraire[0]);
         let SecondHoraireMinute = Number(SecondHoraireFirstHoraire[1]);
-        let convertSecondHoraireminuteInHour = Math.ceil(
-          SecondHoraireMinute / 60
-        );
+        let convertSecondHoraireminuteInHour = Math.ceil(SecondHoraireMinute / 60);
         let totalHourSecondHoraireOne =
           SecondHoraireHour + convertSecondHoraireminuteInHour;
 
         let SecondHoraireSecondHoraire = SecondHour[1].split(":");
         SecondHoraireHourSecondHoraire = Number(SecondHoraireSecondHoraire[0]);
-        let SecondHoraireMinuteSecondHoraire = Number(
-          SecondHoraireSecondHoraire[1]
-        );
+        let SecondHoraireMinuteSecondHoraire = Number(SecondHoraireSecondHoraire[1]);
         let convertSecondHoraireminuteInHourSecondHoraire = Math.ceil(
           SecondHoraireMinuteSecondHoraire / 60
         );
         let totalHourSecondHoraireTwo =
-          SecondHoraireHourSecondHoraire +
-          convertSecondHoraireminuteInHourSecondHoraire;
+          SecondHoraireHourSecondHoraire + convertSecondHoraireminuteInHourSecondHoraire;
 
         let totalGlobalSecondHoraire =
           totalHourSecondHoraireTwo - totalHourSecondHoraireOne;
@@ -223,176 +222,154 @@ export default {
       }
     },
     get_timetable() {
-      this.spinner = true;
       instance
         .get("get_schedule")
         .then((res) => {
           console.log(res);
           this.timetables = res.data.data;
-          this.spinner = false;
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
         })
         .catch((err) => {
           console.log(err);
         });
     },
     create_timetable() {
-      this.isLoading = true;
-      this.firstHoraire = this.First_heure_start_from.concat(
-        "-",
+      const datesOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
+      console.log("datesOfCalendar", datesOfCalendar);
+      const HourFirstHoraire = this.configUtils.getHourInDate(
+        this.First_heure_start_from,
         this.First_heure_end_to
       );
-      if (
-        this.Second_heure_start_from != null &&
-        this.Second_heure_end_to != !null
-      ) {
-        this.secondHoraire = this.Second_heure_start_from.concat(
-          "-",
-          this.Second_heure_end_to
-        );
-      }
-      let oneHoraire = this.First_heure_end_to.split(":");
-      this.hour = Number(oneHoraire[0].split(":").toString());
-      let minute = Number(oneHoraire[1].split(":").toString());
-      let minuteTohour = Math.ceil(minute / 60);
-      let totalOneHoraire = this.hour + minuteTohour;
+      const HourSecondHoraire = this.configUtils.getHourInDate(
+        this.Second_heure_start_from,
+        this.Second_heure_end_to
+      );
+      const TOTALHOURHORAIRE = HourFirstHoraire + HourSecondHoraire;
+      const HEURE_FROM_OF_FIRSTHORRAIRE = this.configUtils.handleHeureOfDate(this.First_heure_start_from)
+      const HEURE_TO_OF_FIRSTHORRAIRE = this.configUtils.handleHeureOfDate(this.First_heure_end_to)
 
-      let twoHoraire = this.First_heure_start_from.split(":");
-      this.twoHoraireHour = Number(twoHoraire[0].split(":").toString());
-      let minuteTwoHoraire = Number(twoHoraire[1].split(":").toString());
-      let minuteTohourTwo = Math.ceil(minuteTwoHoraire / 60);
-      let totalTwoHoraire = this.twoHoraireHour + minuteTohourTwo;
+      const FIRST_HORRAIRE= HEURE_FROM_OF_FIRSTHORRAIRE +'-'+HEURE_TO_OF_FIRSTHORRAIRE
 
-      let totalOneSecondHoraireTwoEnd, totalOneSecondHoraireFrom;
-      if (
-        this.Second_heure_start_from != null &&
-        this.Second_heure_end_to != !null
-      ) {
-        let secondHoraire = this.Second_heure_start_from.split(":");
-        let TwoSecondHoraire = Number(secondHoraire[0].split(":").toString());
-        let minuteTwoSecondHoraire = Number(
-          secondHoraire[1].split(":").toString()
-        );
+      let SECOND_HORRAIRE;
+      const HEURE_FROM_OF_SECONDHORRAIRE = this.configUtils.handleHeureOfDate(this.Second_heure_start_from)
+      const HEURE_TO_OF_SECONDHORRAIRE = this.configUtils.handleHeureOfDate(this.Second_heure_end_to)
+   if(HEURE_FROM_OF_SECONDHORRAIRE === null || HEURE_TO_OF_SECONDHORRAIRE === null){
+    SECOND_HORRAIRE = null
+   }else{
+    SECOND_HORRAIRE = HEURE_FROM_OF_SECONDHORRAIRE +'-'+HEURE_TO_OF_SECONDHORRAIRE
+   }
+  
+      this.createdDisponiblite({
+        DateRendezVous: datesOfCalendar,
+        firstHoraire:FIRST_HORRAIRE,
+        secondHoraire: SECOND_HORRAIRE,
+        TotalHourDisponi: TOTALHOURHORAIRE,
+      });
+      // this.isLoading = true;
+      // this.firstHoraire = this.First_heure_start_from.concat(
+      //   "-",
+      //   this.First_heure_end_to
+      // );
+      // if (this.Second_heure_start_from != null && this.Second_heure_end_to != !null) {
+      //   this.secondHoraire = this.Second_heure_start_from.concat(
+      //     "-",
+      //     this.Second_heure_end_to
+      //   );
+      // }
+      // let oneHoraire = this.First_heure_end_to.split(":");
+      // this.hour = Number(oneHoraire[0].split(":").toString());
+      // let minute = Number(oneHoraire[1].split(":").toString());
+      // let minuteTohour = Math.ceil(minute / 60);
+      // let totalOneHoraire = this.hour + minuteTohour;
 
-        let minuteTohourOneSecondHoraire = Math.ceil(
-          minuteTwoSecondHoraire / 60
-        );
-        totalOneSecondHoraireFrom =
-          TwoSecondHoraire + minuteTohourOneSecondHoraire;
+      // let twoHoraire = this.First_heure_start_from.split(":");
+      // this.twoHoraireHour = Number(twoHoraire[0].split(":").toString());
+      // let minuteTwoHoraire = Number(twoHoraire[1].split(":").toString());
+      // let minuteTohourTwo = Math.ceil(minuteTwoHoraire / 60);
+      // let totalTwoHoraire = this.twoHoraireHour + minuteTohourTwo;
 
-        this.secondHoraireTwo = this.Second_heure_end_to.split(":");
-        this.TwoSecondHoraireTwo = Number(
-          this.secondHoraireTwo[0].split(":").toString()
-        );
-        let minuteTwoSecondHoraireTwo = Number(
-          this.secondHoraireTwo[1].split(":").toString()
-        );
-        let minuteTohourOneSecondHoraireEnd = Math.ceil(
-          minuteTwoSecondHoraireTwo / 60
-        );
-        totalOneSecondHoraireTwoEnd =
-          this.TwoSecondHoraireTwo + minuteTohourOneSecondHoraireEnd;
-      } else {
-        totalOneSecondHoraireTwoEnd = 0;
-        totalOneSecondHoraireFrom = 0;
-      }
+      // let totalOneSecondHoraireTwoEnd, totalOneSecondHoraireFrom;
+      // if (this.Second_heure_start_from != null && this.Second_heure_end_to != !null) {
+      //   let secondHoraire = this.Second_heure_start_from.split(":");
+      //   let TwoSecondHoraire = Number(secondHoraire[0].split(":").toString());
+      //   let minuteTwoSecondHoraire = Number(secondHoraire[1].split(":").toString());
 
-      let globalHourFirstHoraire =
-        totalOneSecondHoraireTwoEnd - totalOneSecondHoraireFrom;
-      let globalHourSecondHoraire = totalOneHoraire - totalTwoHoraire;
+      //   let minuteTohourOneSecondHoraire = Math.ceil(minuteTwoSecondHoraire / 60);
+      //   totalOneSecondHoraireFrom = TwoSecondHoraire + minuteTohourOneSecondHoraire;
 
-      let TotalHourDisponi = globalHourFirstHoraire + globalHourSecondHoraire;
-      console.log("TotalHourDisponi", TotalHourDisponi);
-      if (
-        this.twoHoraireHour > this.hour ||
-        this.TwoSecondHoraire > this.secondHoraireTwo
-      ) {
-        Swal.fire({
-          icon: "error",
-          title: "l'heure de fin doit être supérieur a l'heure de départ",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.isLoading = false;
-      } else {
-        let DateRendezVous = [];
-        this.datesPickers.forEach((date) => {
-          DateRendezVous.push(date.date.toISOString().slice(0, 10));
-        });
-        instance
-          .post("create_schedule", {
-            jour: DateRendezVous,
-            First_horaire: this.firstHoraire,
-            Second_horaire: this.secondHoraire,
-            totalHour: TotalHourDisponi,
-          })
-          .then((res) => {
-            console.log(res);
-            if (res.data.status === true) {
-              Swal.fire({
-                icon: "success",
-                title: res.data.message,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              this.isLoading = false;
-              // setTimeout(function () {
-              //   location.reload(true);
-              // }, 1500);
-            }
-            if (res.data.status === false) {
-              Swal.fire({
-                icon: "error",
-                title: res.data.message,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              this.isLoading = false;
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-            Swal.fire({
-              icon: "error",
-              title: "Le jour a déjà été pris",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            this.isLoading = false;
-          });
-      }
+      //   this.secondHoraireTwo = this.Second_heure_end_to.split(":");
+      //   this.TwoSecondHoraireTwo = Number(this.secondHoraireTwo[0].split(":").toString());
+      //   let minuteTwoSecondHoraireTwo = Number(
+      //     this.secondHoraireTwo[1].split(":").toString()
+      //   );
+      //   let minuteTohourOneSecondHoraireEnd = Math.ceil(minuteTwoSecondHoraireTwo / 60);
+      //   totalOneSecondHoraireTwoEnd =
+      //     this.TwoSecondHoraireTwo + minuteTohourOneSecondHoraireEnd;
+      // } else {
+      //   totalOneSecondHoraireTwoEnd = 0;
+      //   totalOneSecondHoraireFrom = 0;
+      // }
+
+      // let globalHourFirstHoraire =
+      //   totalOneSecondHoraireTwoEnd - totalOneSecondHoraireFrom;
+      // let globalHourSecondHoraire = totalOneHoraire - totalTwoHoraire;
+
+      // let TotalHourDisponi = globalHourFirstHoraire + globalHourSecondHoraire;
+      // console.log("TotalHourDisponi", TotalHourDisponi);
+      // if (
+      //   this.twoHoraireHour > this.hour ||
+      //   this.TwoSecondHoraire > this.secondHoraireTwo
+      // ) {
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "l'heure de fin doit être supérieur a l'heure de départ",
+      //     showConfirmButton: false,
+      //     timer: 1500,
+      //   });
+      //   this.isLoading = false;
+      // } else {
+      //   let DateRendezVous = [];
+      //   this.datesPickers.forEach((date) => {
+      //     DateRendezVous.push(date.date.toISOString().slice(0, 10));
+      //   });
+      //   instance
+      //     .post("create_schedule", {
+      //       jour: DateRendezVous,
+      //       First_horaire: this.firstHoraire,
+      //       Second_horaire: this.secondHoraire,
+      //       totalHour: TotalHourDisponi,
+      //     })
+      //     .then((res) => {
+      //       console.log(res);
+      //       if (res.data.status === true) {
+      //         Swal.fire({
+      //           icon: "success",
+      //           title: res.data.message,
+      //           showConfirmButton: false,
+      //           timer: 1500,
+      //         });
+      //         this.isLoading = false;
+      //       }
+      //       if (res.data.status === false) {
+      //         Swal.fire({
+      //           icon: "error",
+      //           title: res.data.message,
+      //           showConfirmButton: false,
+      //           timer: 1500,
+      //         });
+      //         this.isLoading = false;
+      //       }
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //       Swal.fire({
+      //         icon: "error",
+      //         title: "Le jour a déjà été pris",
+      //         showConfirmButton: false,
+      //         timer: 1500,
+      //       });
+      //       this.isLoading = false;
+      //     });
+      // }
     },
     show_timetable(id) {
       this.modify_timetable = !this.modify_timetable;
@@ -404,9 +381,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.timetable = res.data.data;
-          this.timetable_show_id = this.timetable.find(
-            (item) => item.id === id
-          );
+          this.timetable_show_id = this.timetable.find((item) => item.id === id);
 
           let newdate = [];
           newdate.push(this.timetable_show_id.jour);
@@ -416,8 +391,7 @@ export default {
             this.timetable_show_id != null &&
             this.timetable_show_id.Second_horaire != null
           ) {
-            this.Horaire_Second =
-              this.timetable_show_id.Second_horaire.split("-");
+            this.Horaire_Second = this.timetable_show_id.Second_horaire.split("-");
           } else {
             this.Horaire_Second = null;
           }
@@ -465,8 +439,7 @@ export default {
         });
     },
     showBoxConfirmationDeleteCompetences(id) {
-      this.comfirmationForDeleteCompetence =
-        !this.comfirmationForDeleteCompetence;
+      this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
       this.id_for_delete = id;
     },
     not_delete() {
@@ -474,8 +447,7 @@ export default {
       this.id_for_delete = "";
     },
     notDeleteCompetence() {
-      this.comfirmationForDeleteCompetence =
-        !this.comfirmationForDeleteCompetence;
+      this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
       this.id_for_delete = "";
     },
     delete_timetable() {
@@ -559,6 +531,20 @@ export default {
       });
       console.log("THIS.days", this.comp);
     },
+    resetData() {
+      this.First_heure_start_from = "";
+      this.First_heure_end_to = "";
+      this.Second_heure_start_from = "";
+      this.Second_heure_end_to = "";
+    },
+    handleValueDate() {
+      console.log("handleValueDate", this.datesOfCalendar);
+      if (!this.datesOfCalendar.length) {
+        this.resetData();
+      }
+      this.datesFormatedOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
+      console.log("this.datesFormatedOfCalendar", this.datesFormatedOfCalendar);
+    },
   },
   created() {
     this.get_timetable();
@@ -573,153 +559,134 @@ export default {
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-    :TitleHeader="'Planifier une disponibilité'"
-    :subTitleHeader="'Planifier une disponibilité'"
-  />
-
-    <!-- <div class="container-fluid">
-      <div class="page-title">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">Enregistrer une disponibilité</li>
-        </ol>
-      </div>
-    </div> -->
-   
+      :TitleHeader="'Planifier une disponibilité'"
+      :subTitleHeader="'Planifier une disponibilité'"
+    />
 
     <div class="tab-content" id="top-tabContent">
-      <div
-    
-    
-      >
+      <div>
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="form theme-form projectcreate">
-                    <form @submit.prevent="create_timetable">
-                      <div class="row">
-                        <h5 class="text-left fw-bold mx-4 my-3">Veuillez ajouter une date</h5>
-                        <div class="position-relative datepickrs">
-                          
-                          <DatePicker
-                            v-model="selecteDatepickers.date"
-                            class="datePicker"
-                            :min-date="new Date()"
-                          >
-                            <template #default="{ togglePopover, hidePopover }">
-                              <div
-                                class="flex d-flex flex-wrap justify-content-start ps-4"
-                              >
-                                <button
-                                  v-for="date in datesPickers"
-                                  :key="date.date"
-                                  @click.prevent="
-                                    dateSelected($event, date, togglePopover)
-                                  "
-                                  ref="button"
-                                  class="button"
-                                >
-                                  {{ date.date.toLocaleDateString() }}
-                                  <em
-                                    href="#"
-                                    class="bi bi-x text-danger"
-                                    @click.prevent="
-                                      removeDate(date, hidePopover)
-                                    "
-                                  ></em>
-                                </button>
-                              </div>
-                            </template>
-                          </DatePicker>
-                          <button class="btn btnAdd" @click.prevent="addDate">
-                            + Ajouter une date
-                          </button>
-                        </div>
-                        <h5 class="text-start"
-                          >Premier plage horaire</h5
-                        >
-                        <div class="col-lg-6">
-                          <div class="mb-3">
-                            <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="First_heure_start_from"
-                              required
-                              min="06:00"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="mb-3">
-                            <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="First_heure_end_to"
-                              required
-                              max="23:59"
-                              min="06:00"
-                            />
-                          </div>
-                        </div>
-                        <h5 class="text-start"
-                          >Deuxieme plage horaire</h5
-                        >
-                        <div class="col-lg-6">
-                          <div class="mb-3">
-                            <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Second_heure_start_from"
-                              min="06:00"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="mb-3">
-                            <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Second_heure_end_to"
-                              max="23:00"
-                              min="06:00"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                     
-                        
-                          <div class="text-right p-3">
-                            <button
-                              class="btn btn-secondary me-3"
-                              type="submit"
-                              :disabled="isLoading ? true:false"
-                            >
-                              {{isLoading ? 'Loading...':'Créer'}}
-                            </button>
-                          </div>
-                       
-                   
-                    </form>
+          <div>
+            <div class="form theme-form projectcreate">
+              <div style="flex: 1 1 100px">
+                <Calendar
+                  :minDate="new Date()"
+                  v-model="datesOfCalendar"
+                  selectionMode="multiple"
+                  @update:modelValue="handleValueDate"
+                  inline
+                  :manualInput="false"
+                />
+              </div>
+              <div style="flex: 1 1 200px">
+                <h5 class="text-start">Première plage horaire</h5>
+                <div class="col-lg-12">
+                  <div class="mb-3 conteneur-horaire">
+                    <label class="d-block">Heure de début</label>
+                    <div class="conteneur-plage">
+                      <Calendar
+                        id="datepicker-timeonly_1"
+                        :disabled="datesOfCalendar.length > 0 ? false : true"
+                        v-model="First_heure_start_from"
+                        showIcon
+                        iconDisplay="input"
+                        timeOnly
+                        inputId="templatedisplay"
+                      />
+                    </div>
                   </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="mb-3 conteneur-horaire">
+                    <label class="d-block">Heure de fin</label>
+                    <div class="conteneur-plage">
+                      <Calendar
+                        id="datepicker-timeonly_2"
+                        :minDate="First_heure_start_from"
+                        :disabled="datesOfCalendar.length > 0 ? false : true"
+                        v-model="First_heure_end_to"
+                        showIcon
+                        iconDisplay="input"
+                        timeOnly
+                        inputId="templatedisplay"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <h5 class="text-start">Deuxieme plage horaire</h5>
+                <div class="col-lg-12">
+                  <div class="mb-3 conteneur-horaire">
+                    <label class="d-block">Heure de début</label>
+                    <div class="conteneur-plage">
+                      <Calendar
+                        id="datepicker-timeonly_3"
+                        :minDate="First_heure_start_from"
+                        v-model="Second_heure_start_from"
+                        :disabled="datesOfCalendar.length > 0 ? false : true"
+                        showIcon
+                        iconDisplay="input"
+                        timeOnly
+                        inputId="templatedisplay"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="mb-3 conteneur-horaire">
+                    <label class="d-block">Heure de fin</label>
+                    <div class="conteneur-plage">
+                      <Calendar
+                        id="datepicker-timeonly_4"
+                        :minDate="Second_heure_start_from"
+                        v-model="Second_heure_end_to"
+                        :disabled="datesOfCalendar.length > 0 ? false : true"
+                        showIcon
+                        iconDisplay="input"
+                        timeOnly
+                        inputId="templatedisplay"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <h6 v-if="!datesOfCalendar.length" class="text-danger d-block text-start">
+                  Veuillez sélectionner une date
+                </h6>
+                <div class="col-lg-12">
+                  <button
+                    class="btn bg-warning p-3"
+                    type="submit"
+                    @click="create_timetable"
+                  >
+                    Enregistrer
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
-  
   </div>
 </template>
 <style scoped>
-.text-start{
+.conteneur-plage {
+  display: flex;
+  justify-content: flex-start;
+}
+#datepicker-timeonly_1,
+#datepicker-timeonly_2,
+#datepicker-timeonly_3,
+#datepicker-timeonly_4 {
+  width: 100%;
+}
+
+.projectcreate {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+.text-start {
   text-align: left;
   margin-left: 1em;
 }
@@ -735,10 +702,11 @@ h3 {
 label {
   text-align: left !important;
 }
-.btn-secondary,.btn-secondary:hover {
+.btn-secondary,
+.btn-secondary:hover {
   background: rgb(5, 35, 73) !important;
   border: 1px solid rgb(5, 35, 73) !important;
-  color:white !important;
+  color: white !important;
 }
 
 .table {
@@ -812,8 +780,8 @@ td {
   background: #052349;
   color: white;
 }
-.btnAdd:hover{
-  color:rgb(255, 255, 255);
+.btnAdd:hover {
+  color: rgb(255, 255, 255);
 }
 .datepickrs {
   padding: 1em 0;
@@ -832,4 +800,3 @@ td {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.303);
 }
 </style>
-

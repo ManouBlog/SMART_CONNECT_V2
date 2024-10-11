@@ -46,7 +46,7 @@ export default {
           />
           <CardPerformance
             :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Ressource(s)'"
+            :texte="'Talent(s)'"
             :nbre="timetable.length"
           />
         </div>
