@@ -1296,6 +1296,7 @@ ul.skills li {
   padding-left: 25px;
   position: relative;
 }
+
 .content ul li:before {
   content: "";
   position: absolute;

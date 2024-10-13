@@ -40,12 +40,12 @@ export default {
     </div>
   </section>
   <section class="py-2 background_main">
-    <p class="text-center">© SMART CONNECT 2024. Tous droits réservés</p>
+    <p class="text-center">SMART CONNECT ©2024. Tous droits réservés</p>
   </section>
 </template>
 <style scoped>
 @import "../Shared/styles/stylesShared.css";
-.conteneur-footer{
+.conteneur-footer {
   background: var(--secondary-color) !important;
 }
 .main-container-footer {

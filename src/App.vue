@@ -12,6 +12,12 @@ export default {};
 .p-icon .p-rating-icon {
   font-size: 2em !important;
 }
+.ellipse_text {
+  width: 100%;            /* Définit une largeur fixe */ 
+  overflow: hidden;          /* Cache le texte qui déborde du conteneur */
+  text-overflow: ellipsis; 
+   max-height: 11em;   /* Affiche "..." lorsque le texte dépasse */
+}
 
 .p-paginator {
   font-size: 1.5em !important;

@@ -241,7 +241,7 @@ export default {
       </div>
     </div>
 
-    <div class="container main-container" v-if="list_offre">
+    <div class="container-fluid main-container" v-if="list_offre">
       <div class="col-lg-12" :class="spinner ? 'conteneur_offre' : null">
         <div class="offres_disponible d-flex justify-content-between align-items-center">
           <h5 class="image-heading">
@@ -265,19 +265,15 @@ export default {
             <div class="informations_offres">
               <span
                 class="badge bg-danger badge_new"
-                :class="
-                  JSON.stringify(new Date().toISOString().substring(0, 10)) ===
-                  JSON.stringify(
-                    new Date(offre.created_at).toISOString().substring(0, 10)
-                  )
-                    ? ''
-                    : 'd-none'
+                :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'
                 "
                 >New</span
               >
               <h1>{{ offre.nom_offre }}</h1>
               <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
               <h1 class="badge badge_categorie">{{ offre.categorie.categorie }}</h1>
+              <div v-html="offre.description" id="conteneur-description" class="ellipse_text">
+              </div>
             </div>
           </section>
           <div class="two my-3">
@@ -323,6 +319,9 @@ export default {
   </section>
 </template>
 <style scoped>
+.main-container{
+  padding:0 2em;
+}
 .conteneur-image-logo_jobs {
   width: 100px;
   height:50px;
@@ -376,7 +375,7 @@ form{
 .conteneur_ecriteau {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   gap:1em;
   flex-wrap: wrap;
 }
@@ -460,7 +459,7 @@ select {
   border: 1px solid rgb(0, 0, 0) !important;
 }
 .lgPlus {
-  margin-top: 2em;
+  margin: 5em 0;
 }
 .list_offre {
   color: #f77f00 !important;

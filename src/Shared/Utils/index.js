@@ -43,5 +43,11 @@ const differenceInHours = dayjsDateTo.diff(dayjsDateFrom, 'hour');
   ifJobIsEnd(value){
    return JSON.stringify(new Date().toISOString().substring(0, 10)) >
    JSON.stringify(new Date(value).toISOString().slice(0, 10))
+  },
+  showJobNew(value){
+    return JSON.stringify(new Date().toISOString().substring(0, 10)) ===
+    JSON.stringify(
+      new Date(value).toISOString().substring(0, 10)
+    )
   }
 }

@@ -1,10 +1,8 @@
 <script>
 import instance from "../api/api";
 import Swal from "sweetalert2";
-// import RotateLoader from "vue-spinner/src/RotateLoader.vue";
 export default {
   name: "OffreDetails",
-  // components: { RotateLoader },
   data() {
     return {
       Offre: "",
@@ -19,13 +17,12 @@ export default {
   methods: {
     get_list_offre() {
       this.loadSpinner = true;
-      instance.get("list_offres")
+      instance
+        .get("list_offres")
         .then((res) => {
-          console.log("list_offres",res);
+          console.log("list_offres", res);
           this.list_offre = res.data.data;
-          this.Offre = this.list_offre.find(
-            (item) => item.id == this.$route.params.id
-          );
+          this.Offre = this.list_offre.find((item) => item.id == this.$route.params.id);
           this.list_offre.forEach((el) => {
             if (el.entreprise.nom === this.Offre.entreprise.nom) {
               this.listEntrepriseOffre.push(el);
@@ -42,12 +39,10 @@ export default {
     },
     sendDataPost(id) {
       this.loadSpinner = true;
-      instance.post(
-          "postule_offre",
-          {
-            offre_id: id,
-          }
-        )
+      instance
+        .post("postule_offre", {
+          offre_id: id,
+        })
         .then((res) => {
           console.log(res);
           if (res.data.status === true) {
@@ -106,86 +101,71 @@ export default {
 };
 </script>
 <template>
-  <!-- <div class="loading" v-show="loadSpinner">
-    <RotateLoader :loading="true"></RotateLoader>
-  </div> -->
-
-  <div class="container-fluid page-title bg-image">
-   
-  </div>
-
   <div class="position-relative">
-    
-    <div class="jobs_filters">
-      <div class="container blueprint p-5">
-        <h1>{{ Offre.nom_offre }}</h1>
-      </div>
-    </div>
     <div class="container main-container" v-if="Offre">
       <div class="col-lg-12">
         <div class="offres_disponible row container">
-          <div class="col-md-3 col-sm-12">
-            <h4 class="detail_offre">Détails de l'offre</h4>
-            <h2 class="fw-bold nom_offre">{{ Offre.nom_offre }}</h2>
-            <hr />
-            <h2><em class="bi bi-geo-alt"></em> {{ Offre.lieu }}</h2>
-            <hr />
-            <h5 v-if="Offre.salaire != null">
-              <em class="bi bi-cash-stack"></em>
-              {{ moneyFormat.format(Offre.salaire) }} Fcfa /
-              {{ Offre.pointage }}
-            </h5>
-            <h5 v-else><em class="bi bi-cash-stack"></em> Prime pas fixée</h5>
-            <hr />
-            <h5><em class="bi bi-building"></em> {{ Offre.entreprise.nom }}</h5>
-            <br />
-            <br />
-
-            <div>
-             <p class="text-danger" v-if="Offre.nbre_person">
-              Recherche : {{Offre.nbre_person}} Personnes</p>
-              <button
-               :disabled="loadSpinner ? true:false"
-               class="btn-lg bg-dark"
-               @click="sendDataPost(Offre.id)">
-                {{loadSpinner ? 'Loading...':'Postuler'}} <em class="bi bi-send"></em>
-              </button>
+          <div class="col-md-12 col-sm-12 entreprise">
+            <div class="card">
+              <section>
+                <h1 class="my-3 nom_offre">{{ Offre.nom_offre }}</h1>
+                <h4 class="my-3">
+                  <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
+                </h4>
+                <h4 class="my-3" v-if="Offre.nbre_person">
+                  Nombre de poste : {{ Offre.nbre_person }}
+                </h4>
+                <div>
+                  <h4 class="my-3" v-if="Offre.salaire != null">
+                    <em class="bi bi-cash-stack"></em>
+                    {{ moneyFormat.format(Offre.salaire) }} Fcfa /
+                    {{ Offre.pointage }}
+                  </h4>
+                  <h4 class="my-3" v-else>
+                    <em class="bi bi-cash-stack"></em> Prime pas fixée
+                  </h4>
+                </div>
+              </section>
+              <section>
+                <h3 class="d-flex my-4 fw-bold">Présentations</h3>
+                <div v-html="Offre.description" id="conteneur_description"></div>
+              </section>
+              <section class="px-5">
+                <!-- <span class="my-2">Date et heure début : {{ Offre.debut }}</span> -->
+                <span class="my-2 text-danger">Postuler avant le : {{ Offre.fin }}</span>
+              </section>
+              <section>
+                <button
+                  class="btn-lg bg-warning"
+                  @click="sendDataPost(Offre.id)"
+                  style="width: 200px !important"
+                >
+                  Postuler
+                  <em class="bi bi-send"></em>
+                </button>
+              </section>
             </div>
-          </div>
-          <div class="col-md-9 col-sm-12 entreprise">
-            <h1>Description</h1>
-            <div v-html="Offre.description" id="conteneur_description">
-            </div>
-            <h1>Entreprise</h1>
-            <span>
-              <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}</span
-            >
-            <span>
-              <em class="bi bi-envelope"></em>
-              {{ Offre.entreprise.email }}</span
-            >
-            <br />
-            <br />
-            <span
-              >Date et heure début  :
-              {{ Offre.debut }}</span
-            >
-            <span
-              >Date et heure fin  :
-              {{ Offre.fin }}</span
-            >
           </div>
         </div>
       </div>
     </div>
-    <div class="conteneur-chargement" v-else>
-      <h1>Chargements....</h1>
-    </div>
-
   </div>
 </template>
 <style scoped>
-.conteneur-chargement{
+#conteneur_description {
+  padding: 0 2em;
+}
+.nom_offre {
+  font-size: 8em;
+}
+span {
+  font-weight: 200 !important;
+}
+.card {
+  padding: 1em !important;
+  background: rgba(179, 201, 255, 0.38) !important;
+}
+.conteneur-chargement {
   height: 80vh;
   width: 100%;
   display: flex;
@@ -193,7 +173,6 @@ export default {
   justify-items: stretch;
   text-align: center;
 }
-
 
 .loading {
   position: fixed;
