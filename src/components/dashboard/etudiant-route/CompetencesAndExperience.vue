@@ -67,6 +67,7 @@ export default {
         .then((response) => {
           console.log(response);
           if (response.data.status === true) {
+            this.getAllCompetences();
             Swal.fire({
               icon: "success",
               title: response.data.message,
@@ -74,9 +75,6 @@ export default {
               timer: 1500,
             });
             this.spinnerCompetence = false;
-            // setTimeout(() => {
-            //   location.reload(true);
-            // }, 1500);
           }
           if (response.data.status === false) {
             this.spinner = false;
@@ -99,19 +97,15 @@ export default {
         });
     },
     getAllCompetences() {
-      this.spinner = true;
-
       instance
         .get("GetAllCompetences")
 
         .then((res) => {
           console.log("COMPETENCE", res.data.data);
           this.competencesPredf = res.data.data;
-          this.spinner = false;
         })
         .catch((err) => {
           console.log(err);
-          this.spinner = false;
         });
     },
     addTag(newTag) {
@@ -139,6 +133,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.status === true) {
+            this.getAllCompetences();
             Swal.fire({
               icon: "success",
               title: res.data.message,
@@ -146,10 +141,7 @@ export default {
               timer: 1500,
             });
             this.spinner = false;
-            //setTimeout(() => {
-            //location.reload(true);
-            //}, 1500);
-            this.confirmation_for_delete = !this.confirmation_for_delete;
+            this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
           }
         })
         .catch((err) => {
@@ -478,66 +470,66 @@ export default {
             <div class="profile-greeting" id="content_competences">
               <div class="card-body position-relative">
                 <h1 class="fw-bold text-start" style="color: orange">Mes compétences</h1>
+                <div>
+                  <VueMultiselect
+                    v-model="competence"
+                    :options="competencesPredf"
+                    :multiple="true"
+                    :taggable="true"
+                    :tag="addTag"
+                    @update:model-value="addTag"
+                    label="competence"
+                    track-by="competence"
+                    placeholder="selectionne une competence"
+                    class="vuemulti"
+                  >
+                  </VueMultiselect>
+                  <div class="d-flex justify-content-start my-2">
+                    <button
+                      class="btn bg-warning addCompetences"
+                      @click="addCompetences"
+                      v-if="comp.length"
+                    >
+                      <span v-if="this.spinnerCompetence">
+                        <n-spin size="small" />
+                      </span>
+                      <span v-else>Ajouter</span>
+                    </button>
+                  </div>
+                </div>
+
                 <div class="media">
                   <div class="media-body">
                     <div class="greeting-user">
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="position-relative">
-                            <VueMultiselect
-                              v-model="competence"
-                              :options="competencesPredf"
-                              :multiple="true"
-                              :taggable="true"
-                              :tag="addTag"
-                              @update:model-value="addTag"
-                              label="competence"
-                              track-by="competence"
-                              placeholder="selectionne une competence"
-                              class="vuemulti"
-                            >
-                            </VueMultiselect>
-                            <button
-                              class="btn bg-warning addCompetences"
-                              @click="addCompetences"
-                              v-if="comp.length"
-                            >
-                              <span v-if="this.spinnerCompetence">
-                                <n-spin size="small" />
-                              </span>
-                              <span v-else>Ajouter</span>
-                            </button>
-                          </div>
-
-                          <div class="col-sm-12 px-2 mb-5" id="cont_table_competence">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th class="bg-light">Compétences</th>
-                                  <th class="bg-light">Action</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr v-for="(item, index) in competences" :key="index">
-                                  <td>
-                                    {{ item.competence }}
-                                  </td>
-                                  <td
-                                    class="d-flex justify-content-center align-items-center"
-                                  >
-                                    <em
-                                      class="bi bi-trash"
-                                      @click="
-                                        showBoxConfirmationDeleteCompetences(
-                                          item.pivot.competence_id
-                                        )
-                                      "
-                                    ></em>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                      <div>
+                        <div class="col-sm-12 px-2 mb-5" id="cont_table_competence">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th class="bg-light">Compétences</th>
+                                <th class="bg-light">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(item, index) in competences" :key="index">
+                                <td>
+                                  {{ item.competence }}
+                                </td>
+                                <td
+                                  class="d-flex justify-content-center align-items-center"
+                                >
+                                  <em
+                                    class="bi bi-trash"
+                                    @click="
+                                      showBoxConfirmationDeleteCompetences(
+                                        item.pivot.competence_id
+                                      )
+                                    "
+                                  ></em>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>

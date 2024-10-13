@@ -244,23 +244,32 @@ export default {
         this.Second_heure_end_to
       );
       const TOTALHOURHORAIRE = HourFirstHoraire + HourSecondHoraire;
-      const HEURE_FROM_OF_FIRSTHORRAIRE = this.configUtils.handleHeureOfDate(this.First_heure_start_from)
-      const HEURE_TO_OF_FIRSTHORRAIRE = this.configUtils.handleHeureOfDate(this.First_heure_end_to)
+      const HEURE_FROM_OF_FIRSTHORRAIRE = this.configUtils.handleHeureOfDate(
+        this.First_heure_start_from
+      );
+      const HEURE_TO_OF_FIRSTHORRAIRE = this.configUtils.handleHeureOfDate(
+        this.First_heure_end_to
+      );
 
-      const FIRST_HORRAIRE= HEURE_FROM_OF_FIRSTHORRAIRE +'-'+HEURE_TO_OF_FIRSTHORRAIRE
+      const FIRST_HORRAIRE =
+        HEURE_FROM_OF_FIRSTHORRAIRE + "-" + HEURE_TO_OF_FIRSTHORRAIRE;
 
       let SECOND_HORRAIRE;
-      const HEURE_FROM_OF_SECONDHORRAIRE = this.configUtils.handleHeureOfDate(this.Second_heure_start_from)
-      const HEURE_TO_OF_SECONDHORRAIRE = this.configUtils.handleHeureOfDate(this.Second_heure_end_to)
-   if(HEURE_FROM_OF_SECONDHORRAIRE === null || HEURE_TO_OF_SECONDHORRAIRE === null){
-    SECOND_HORRAIRE = null
-   }else{
-    SECOND_HORRAIRE = HEURE_FROM_OF_SECONDHORRAIRE +'-'+HEURE_TO_OF_SECONDHORRAIRE
-   }
-  
+      const HEURE_FROM_OF_SECONDHORRAIRE = this.configUtils.handleHeureOfDate(
+        this.Second_heure_start_from
+      );
+      const HEURE_TO_OF_SECONDHORRAIRE = this.configUtils.handleHeureOfDate(
+        this.Second_heure_end_to
+      );
+      if (HEURE_FROM_OF_SECONDHORRAIRE === null || HEURE_TO_OF_SECONDHORRAIRE === null) {
+        SECOND_HORRAIRE = null;
+      } else {
+        SECOND_HORRAIRE = HEURE_FROM_OF_SECONDHORRAIRE + "-" + HEURE_TO_OF_SECONDHORRAIRE;
+      }
+
       this.createdDisponiblite({
         DateRendezVous: datesOfCalendar,
-        firstHoraire:FIRST_HORRAIRE,
+        firstHoraire: FIRST_HORRAIRE,
         secondHoraire: SECOND_HORRAIRE,
         TotalHourDisponi: TOTALHOURHORAIRE,
       });

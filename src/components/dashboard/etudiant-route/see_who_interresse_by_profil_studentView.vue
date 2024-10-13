@@ -1,14 +1,22 @@
 <script>
 import instance from "../../../api/api";
-import $ from "jquery";
+
 import Swal from "sweetalert2";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
+import InputText from "primevue/inputtext";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
+
+import { FilterMatchMode } from "primevue/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
+const  loadingSpinner = useLoadingSpinner()
 export default {
   name: "see_who_interresse_by_profil_studentView",
   components: {
     HeaderDashboard,
+    IconField,
+    InputIcon,
+    InputText,
   },
   data() {
     return {
@@ -20,11 +28,19 @@ export default {
       showMsgAcceptoffre: false,
       showMsgRejectoffre: false,
       user: this.$store.state.user,
+      filters: {
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        formule: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        "country.name": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        representative: { value: null, matchMode: FilterMatchMode.IN },
+        status: { value: null, matchMode: FilterMatchMode.EQUALS },
+        verified: { value: null, matchMode: FilterMatchMode.EQUALS },
+      },
     };
   },
   methods: {
     get_entreprise_who_contact_student() {
-      this.spinner = true;
+      loadingSpinner.launchLoading(true);
       instance
         .get("get_who_contact_student")
         .then((res) => {
@@ -35,43 +51,12 @@ export default {
           // this.$store.commit("ADD_ITEM",this.student.entreprises)
           localStorage.setItem("length", this.list_entreprise_contact.length);
           console.log("LISTS_ENTREPRISES", this.list_entreprise_contact);
-          this.spinner = false;
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
+          loadingSpinner.launchLoading(false);
+          
         })
         .catch((err) => {
           console.log(err);
+          loadingSpinner.launchLoading(false);
         });
     },
     showIdForAccept(id) {
@@ -194,7 +179,160 @@ export default {
                 </button>
               </div>
             </div>
-            <table id="MyTableData" class="table">
+            <DataTable
+              paginator
+              :rows="10"
+              :globalFilterFields="['formule']"
+              :rowsPerPageOptions="[5, 10, 20, 50]"
+              :value="list_entreprise_contact"
+              v-model:filters="filters"
+            >
+              <template #paginatorstart>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: flex-start;
+                    font-size: 1em;
+                    border: none;
+                  "
+                >
+                  Affichage de 1 à 10 sur{{ list_entreprise_contact.length }} entrées.
+                </div>
+              </template>
+              <template #header>
+                <div class="conteneur_search">
+                  <IconField iconPosition="left">
+                    <InputIcon>
+                      <i class="pi pi-search" />
+                    </InputIcon>
+                    <InputText
+                      style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                      v-model="filters['global'].value"
+                      placeholder="Recherche:"
+                    />
+                  </IconField>
+                </div>
+              </template>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="nom"
+                header="Nom de l'entreprise"
+              >
+            
+              </Column>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="email"
+                header="Email de l'entreprise"
+              ></Column>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="id"
+                header="Date de l'emploi"
+              >
+                <template #body="slotProps">
+                  <div>
+                    <span v-if="slotProps.data.pivot.date_debut !== null"
+                      >{{
+                        slotProps.data.pivot.date_debut
+                      }}
+                      au
+                    </span>
+
+                    <span v-if="slotProps.data.pivot.date_fin !== null">{{
+                      slotProps.data.pivot.date_fin
+                    }}</span>
+                    <span v-if="slotProps.data.pivot.date !== null">{{
+                      slotProps.data.pivot.date
+                    }}</span>
+                  </div>
+                </template>
+              </Column>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="id"
+                header="Statut"
+              >
+                <template #body="slotProps">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <span v-if="slotProps.data.pivot.contrat === 1" 
+                    class="badge bg-info"
+                      >accepter</span
+                    >
+                    <span
+                      v-else-if="slotProps.data.pivot.contrat === 2"
+                      class="badge bg-danger"
+                      >refuser</span
+                    >
+                    <span v-else class="badge bg-warning">
+                      En attente de reponse
+                    </span>
+                  </div>
+                </template>
+              </Column>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="id"
+                header="Actions"
+              >
+                <template #body="slotProps">
+                  <div>
+                    <div v-if="slotProps.data.pivot.contrat === 0">
+                      <a
+                      href="#"
+                      class="text-danger d-block"
+                      @click.prevent="rejetJob(slotProps.data.pivot.id)"
+                      >Rejeter</a
+                    >
+                    <a 
+                      href="#"
+                      class="text-primary"
+                      @click.prevent="showIdForAccept(slotProps.data.pivot.id)"
+                      >Accepter</a
+                    >
+                    <span
+                      class="mx-2"
+                      v-if=" slotProps.data.pivot.contrat === 0 && 
+                      (JSON.stringify(new Date().toISOString().substring(0,10)) >=
+                       JSON.stringify(new Date(slotProps.data.pivot.offre.debut).toISOString().slice(0,10)))"
+                      >Expirée</span>
+                    </div>
+                    
+                    <em 
+                    v-else
+                    class="bi bi-dash-circle text-danger"
+                  ></em>
+                  </div>
+                </template>
+              </Column>
+              <Column
+              style="font-size: 1.8em; padding: 1em; text-align: center"
+              field="id"
+              header="Détails"
+            >
+              <template #body="slotProps">
+                <div>
+                <em
+                  class="bi bi-dash-circle text-danger"
+                  v-if="slotProps.data.pivot.contrat === 0 || 
+                  slotProps.data.pivot.contrat === 2"
+                ></em>
+                <router-link
+                @click="seeDetailOffre(slotProps.data.pivot.id)"
+                :to="{
+                  name: 'imprimeLeContrat',
+                  params: { id: slotProps.data.pivot.id },
+                }"
+                v-if="slotProps.data.pivot.contrat === 1"
+                ><em class="bi bi-eye"></em
+              ></router-link>
+              <span v-if="slotProps.data.pivot.alarm === 1"
+               class="badge bg-danger mx-3">New</span>
+              </div>
+              </template>
+            </Column>
+            </DataTable>
+            <!-- <table id="MyTableData" class="table">
               <thead>
                 <tr>
                   <th class="bg-light">Nom de l'entreprise</th>
@@ -286,10 +424,8 @@ export default {
                   </td>
                 </tr>
               </tbody>
-            </table>
-            <div v-if="spinner">
-              <h1>Loading...</h1>
-            </div>
+            </table> -->
+           
           </div>
         </div>
       </div>

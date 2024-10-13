@@ -1,73 +1,56 @@
 <script>
-import $ from "jquery";
 import instance from "../../../api/api";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import { FilterMatchMode } from "primevue/api";
+import { configUtils } from "../../../Shared/Utils";
+import InputText from "primevue/inputtext";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
+const  loadingSpinner = useLoadingSpinner()
 export default {
   name: "Offres_postulerView",
   components: {
     HeaderDashboard,
+    IconField,
+    InputIcon,
+    InputText,
   },
   data() {
     return {
+      configUtils: configUtils,
       list_offre: [],
       offre: null,
       offres: null,
       spinner: false,
       moneyFormat: new Intl.NumberFormat("de-DE"),
+      filters: {
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        formule: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        "country.name": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        representative: { value: null, matchMode: FilterMatchMode.IN },
+        status: { value: null, matchMode: FilterMatchMode.EQUALS },
+        verified: { value: null, matchMode: FilterMatchMode.EQUALS },
+      },
     };
   },
   methods: {
-    get_all_student() {
-      this.spinner = true;
-      instance
+    async get_all_student() {
+      loadingSpinner.launchLoading(true);
+      await instance
         .get("get_offres_postule")
         .then((res) => {
           console.log(res);
           this.offres = res.data;
-
           const { offres } = res.data.data;
           console.log("OFFRES", offres);
           this.list_offre = offres;
           console.log("this.list_offre", this.list_offre);
-          this.spinner = false;
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
+          loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
           console.log(err);
+          loadingSpinner.launchLoading(false);
         });
     },
   },
@@ -79,53 +62,109 @@ export default {
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-    :TitleHeader="'Mes postulations'"
-    :subTitleHeader="'offres postulés'"
-  />
-  
-   
+      :TitleHeader="'Mes postulations'"
+      :subTitleHeader="'offres postulés'"
+    />
+
     <div class="tab-content" id="top-tabContent">
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Nom de l'offre</th>
-                  <th class="bg-light">Lieu du travail</th>
-                  <th class="bg-light">Honoraire (Fcfa)</th>
-                  <th class="bg-light">Sélectionné</th>
-                  <th class="bg-light">Détails</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in list_offre" :key="index">
-                  <td>{{ item.nom_offre }}</td>
-                  <td>
-                    {{ item.lieu }}
-                  </td>
-                  <td >
-                    {{ item.salaire != null ? moneyFormat.format(item.salaire):"Prime pas fixée." }}
-                   
-                  </td>
-                  <td>
-                    {{ item.pivot.recruit === 1 ? "Oui":"En attente"  }}
-                  </td>
-                  <td class="d-flex justify-content-center align-items-center">
+            <DataTable
+              paginator
+              :rows="10"
+              :globalFilterFields="['formule']"
+              :rowsPerPageOptions="[5, 10, 20, 50]"
+              :value="list_offre"
+              v-model:filters="filters"
+            >
+              <template #paginatorstart>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: flex-start;
+                    font-size: 1em;
+                    border: none;
+                  "
+                >
+                  Affichage de 1 à 10 sur{{ list_offre.length }} entrées.
+                </div>
+              </template>
+              <template #header>
+                <div class="conteneur_search">
+                  <IconField iconPosition="left">
+                    <InputIcon>
+                      <i class="pi pi-search" />
+                    </InputIcon>
+                    <InputText
+                      style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                      v-model="filters['global'].value"
+                      placeholder="Recherche:"
+                    />
+                  </IconField>
+                </div>
+              </template>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="nom_offre"
+                header="Nom de l'offre"
+              >
+                <template #body="slotProps">
+                  <span>
+                    {{ configUtils.getFormatDateFr(slotProps.data.created_at) }}
+                  </span>
+                </template>
+              </Column>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="lieu"
+                header="Lieu du travail"
+              ></Column>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="salaire"
+                header="Honoraire (Fcfa)"
+              >
+                <template #body="slotProps">
+                  <span>
+                    {{
+                      slotProps.data.salaire != null
+                        ? moneyFormat.format(slotProps.data.salaire)
+                        : "Prime pas fixée."
+                    }}</span
+                  >
+                </template>
+              </Column>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="pivot.recruit"
+                header="Sélectionné"
+              >
+                <template #body="slotProps">
+                  <span>{{
+                    slotProps.data.pivot.recruit === 1 ? "Oui" : "En attente"
+                  }}</span>
+                </template>
+              </Column>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="statut"
+                header="Détails"
+              >
+                <template #body="slotProps">
+                  <div class="d-flex justify-content-center align-items-center">
                     <router-link
                       :to="{
                         name: 'details_offres_postuler',
-                        params: { id: item.id },
+                        params: { id: slotProps.data.id },
                       }"
                       ><i class="bi bi-eye"></i
                     ></router-link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div v-if="spinner">
-              <h1>loading...</h1>
-            </div>
+                  </div>
+                </template>
+              </Column>
+            </DataTable>
+            
           </div>
         </div>
       </div>
