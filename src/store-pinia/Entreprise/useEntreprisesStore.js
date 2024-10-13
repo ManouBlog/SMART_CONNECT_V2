@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import instance from "../../api/api";
 // import {Help} from "../../utils"
-
+import { useLoadingSpinner } from "../LoadingSpinner/useLoadingSpinner";
+const loadingSpinner = useLoadingSpinner()
 export const useEntreprisesStore = defineStore('entreprise', {
     state: () => ({
         entreprises: [],
@@ -26,6 +27,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             }
           },
           async get_students_contact() {
+            loadingSpinner.launchLoading(true)
             try{
            const listStudent = await instance.get("list_students_contact_by_entreprise");
            const studentRecruit = await instance.get("getStudentRecruit");
@@ -36,7 +38,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             this.list_students = listStudent.data.data;
             this.student = this.list_students.students;
             this.studentRecruit = studentRecruit.data;
-
+            loadingSpinner.launchLoading(false)
             console.log('this.list_students',this.list_students)
             console.log("this.student",this.student)
            }
@@ -75,6 +77,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             }
           },
           async get_all_student() {
+            loadingSpinner.launchLoading(true)
            try{
            const response = await instance.get("abonnement_user")
            console.log("response",response)
@@ -82,9 +85,11 @@ export const useEntreprisesStore = defineStore('entreprise', {
             this.list_abonnement = response.data.data.filter(item=>item.statut === 'ACCEPTED');
             console.log("this.list_abonnement",this.list_abonnement.filter(item=>item.statut === 'ACCEPTED'))
            }
+           
            }catch(error){
             console.log(error)
            }
+           loadingSpinner.launchLoading(false)
           },
     },
   })

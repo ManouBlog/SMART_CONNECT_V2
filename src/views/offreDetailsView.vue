@@ -1,10 +1,13 @@
 <script>
 import instance from "../api/api";
 import Swal from "sweetalert2";
+import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
+const loadingSpinner = useLoadingSpinner()
 export default {
   name: "OffreDetails",
   data() {
     return {
+      spinnerText:loadingSpinner.isLoadingVisible,
       Offre: "",
       list_offre: "",
       moneyFormat: new Intl.NumberFormat("de-DE"),
@@ -16,7 +19,7 @@ export default {
   },
   methods: {
     get_list_offre() {
-      this.loadSpinner = true;
+      loadingSpinner.launchLoading(true);
       instance
         .get("list_offres")
         .then((res) => {
@@ -28,17 +31,18 @@ export default {
               this.listEntrepriseOffre.push(el);
             }
           });
-          this.loadSpinner = false;
+
           console.log("OFFRES", this.list_offre);
           console.log("OFFRE", this.Offre);
           console.log("LIST ENTREPRISE", this.listEntrepriseOffre);
+          loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
           console.log(err);
         });
     },
     sendDataPost(id) {
-      this.loadSpinner = true;
+      loadingSpinner.launchLoading(true);
       instance
         .post("postule_offre", {
           offre_id: id,
@@ -51,7 +55,7 @@ export default {
               title: res.data.message,
               showConfirmButton: true,
             });
-            this.loadSpinner = false;
+            loadingSpinner.launchLoading(false);
           }
           if (res.data.status === false) {
             Swal.fire({
@@ -59,11 +63,17 @@ export default {
               title: res.data.message,
               showConfirmButton: true,
             });
-            this.loadSpinner = false;
+            loadingSpinner.launchLoading(false);
           }
         })
         .catch((err) => {
           console.log(err);
+          Swal.fire({
+              icon: "info",
+              title: err.response.data.message,
+              showConfirmButton: true,
+            });
+            loadingSpinner.launchLoading(false);
           // Swal.fire({
           //   icon: "error",
           //   title: "Veuillez-vous connecter",
@@ -76,7 +86,7 @@ export default {
           //      query: { redirect: this.path }
           //   })
           // })
-          this.loadSpinner = false;
+          loadingSpinner.launchLoading(false);
         });
     },
     verfEnter() {
@@ -101,11 +111,13 @@ export default {
 };
 </script>
 <template>
+  
   <div class="position-relative">
     <div class="container main-container" v-if="Offre">
       <div class="col-lg-12">
         <div class="offres_disponible row container">
           <div class="col-md-12 col-sm-12 entreprise">
+           
             <div class="card">
               <section>
                 <h1 class="my-3 nom_offre">{{ Offre.nom_offre }}</h1>
@@ -150,6 +162,7 @@ export default {
       </div>
     </div>
   </div>
+  
 </template>
 <style scoped>
 #conteneur_description {

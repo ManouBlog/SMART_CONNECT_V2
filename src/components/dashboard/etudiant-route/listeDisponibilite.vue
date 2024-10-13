@@ -10,6 +10,8 @@ import InputIcon from "primevue/inputicon";
 import "v-calendar/dist/style.css";
 import { DatePicker } from "v-calendar";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
+const loadingSpinner = useLoadingSpinner()
 
 export default {
   name: "listeDisponibilite",
@@ -71,51 +73,6 @@ export default {
       newDatePickerForUpdate: [],
       selecteDatepickers: {},
       selecteDatepickersupdate: {},
-      jourOfMois: [
-        { jour: 1 },
-        { jour: 2 },
-        { jour: 3 },
-        { jour: 4 },
-        { jour: 5 },
-        { jour: 6 },
-        { jour: 7 },
-        { jour: 8 },
-        { jour: 9 },
-        { jour: 10 },
-        { jour: 11 },
-        { jour: 12 },
-        { jour: 13 },
-        { jour: 14 },
-        { jour: 15 },
-        { jour: 16 },
-        { jour: 17 },
-        { jour: 18 },
-        { jour: 19 },
-        { jour: 20 },
-        { jour: 21 },
-        { jour: 22 },
-        { jour: 23 },
-        { jour: 24 },
-        { jour: 25 },
-        { jour: 26 },
-        { jour: 27 },
-        { jour: 28 },
-        { jour: 29 },
-        { jour: 30 },
-        { jour: 31 },
-      ],
-      OtherMonth: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-      ],
-      OneOtherMonth: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29,
-      ],
-      tw0therMonth: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28,
-      ],
       getJourInMonth: "",
       dates: [],
       selectedJourForUpadte: {},
@@ -282,12 +239,14 @@ export default {
           });
       }
     },
-    get_timetable() {
-      instance
+    async get_timetable() {
+      loadingSpinner.launchLoading(true);
+      await instance
         .get("get_schedule")
         .then((res) => {
           console.log(res);
           this.timetables = res.data.data;
+          loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
           console.log(err);

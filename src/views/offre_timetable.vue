@@ -2,7 +2,9 @@
 import instance from "../api/api";
 import Swal from "sweetalert2";
 import VueMultiselect from "vue-multiselect";
-import {configUtils} from "../Shared/Utils"
+import {configUtils} from "../Shared/Utils";
+import {useLoadingSpinner} from "../store-pinia/LoadingSpinner/useLoadingSpinner";
+const loadingSpinner = useLoadingSpinner()
 export default {
   name: "Offre_timetable",
   components: { VueMultiselect },
@@ -105,9 +107,9 @@ export default {
         }
       });
     },
-    get_list_offre() {
-   
-      instance
+    async get_list_offre() {
+   loadingSpinner.launchLoading(true)
+      await instance
         .get("list_offres")
         .then((res) => {
           console.log("list_offres", res);
@@ -122,8 +124,9 @@ export default {
    JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
             });
             this.lengthOfMylistOffre = this.MylistsOffres.length;
-           
+         
           }
+          loadingSpinner.launchLoading(false)
         })
         .catch((err) => {
           console.log(err);

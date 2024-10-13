@@ -1,9 +1,9 @@
 <script>
 import instance from "../../../api/api";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Swal from "sweetalert2";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
+const loadingSpinner = useLoadingSpinner()
 export default {
   name: "Détails_entreprise_view",
   components: {
@@ -22,17 +22,9 @@ export default {
     };
   },
   methods: {
-    // async getall(){
-    //   try {
-    //     const reposne = await instance.get("detail_offre/"+this.$route.params.id)
-    //   console.log("reposne",reposne)
-    //   }catch(error){
-    //     console.log(error)
-    //   }
-     
-    // },
+
     get_details_offres_postule() {
-      this.spinner = true;
+      loadingSpinner.launchLoading(true);
     
       instance.get("get_offres_postule").then((res) => {
         console.log("DETAILS", res);
@@ -46,8 +38,8 @@ export default {
         ){
           this.showModal = true;
         }
+        loadingSpinner.launchLoading(false);
         console.log("DETAILS_OFFRES", this.details_offre);
-        this.spinner = false;
       });
     },
     getNumber(e){
