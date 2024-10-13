@@ -258,7 +258,9 @@ export default {
         >
           <section class="one conteneur_ecriteau">
             <div class="logo_img_offre">
-              <strong>SmartConnect</strong>
+              <div class="conteneur-image-logo_jobs">
+                <img src="/smart-connect.png" alt="smart-connect" >
+            </div>
             </div>
             <div class="informations_offres">
               <span
@@ -321,6 +323,21 @@ export default {
   </section>
 </template>
 <style scoped>
+.conteneur-image-logo_jobs {
+  width: 100px;
+  height:50px;
+  position: relative;
+}
+.conteneur-image-logo_jobs img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
 form{
   display: flex;
   align-items: center;
@@ -349,9 +366,9 @@ form{
   padding: 0.5em;
   text-align: center;
   line-height: 80px;
-  border-radius: 25px;
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.068);
-  border: 2px solid orange;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.053);
+  background: white;
 }
 .informations_offres {
   padding: 0 1em;
