@@ -97,8 +97,8 @@ export default {
 
     <section v-if="this.details_offre != null">
       <HeaderDashboard
-      :TitleHeader="`Détails de l' Offres postulé`"
-      :subTitleHeader="`Détails de l' Offres postulé`"
+      :TitleHeader="`Détails de l' Offre`"
+      :subTitleHeader="`Détails de l'Offre`"
     />
       <n-modal v-model:show="showModal">
         <n-card

@@ -39,5 +39,9 @@ const differenceInHours = dayjsDateTo.diff(dayjsDateFrom, 'hour');
   return 0;
  }
 
+  },
+  ifJobIsEnd(value){
+   return JSON.stringify(new Date().toISOString().substring(0, 10)) >
+   JSON.stringify(new Date(value).toISOString().slice(0, 10))
   }
 }

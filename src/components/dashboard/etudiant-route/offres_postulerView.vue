@@ -69,7 +69,7 @@ export default {
     <div class="tab-content" id="top-tabContent">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-12 card py-3 px-2">
+          <div class="col-sm-12 py-3 px-2">
             <DataTable
               paginator
               :rows="10"
@@ -109,11 +109,6 @@ export default {
                 field="nom_offre"
                 header="Nom de l'offre"
               >
-                <template #body="slotProps">
-                  <span>
-                    {{ configUtils.getFormatDateFr(slotProps.data.created_at) }}
-                  </span>
-                </template>
               </Column>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"

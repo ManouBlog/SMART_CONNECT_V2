@@ -84,6 +84,11 @@ table {
 .lien {
   transition: all 1s ease-in-out;
 }
+.ant-card-head{
+  background: orange !important;
+  font-weight:bold !important;
+  font-size:1.4em !important;
+}
 
 .p-icon {
   font-size: 1.5em !important;

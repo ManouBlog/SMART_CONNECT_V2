@@ -156,7 +156,7 @@ export default {
     >
       <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-12 card py-3 px-2">
+          <div class="col-sm-12 py-3 px-2">
             <div class="verfAccept" v-if="showMsgAcceptoffre">
               <div class="msgForAccept">
                 <h5>Voulez-vous accepter l'offre ?</h5>

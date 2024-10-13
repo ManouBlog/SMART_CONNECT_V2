@@ -16,12 +16,13 @@ export default {
 };
 </script>
 <template>
-    <LiensNavBar :texte="'Mon profil'" :route_lien="'profil'" />
+   
     <li class="position-absolute deconnex">
         <router-link to="/dashboard/accueil" class="d-block">
           Tableau de bord
         </router-link>
       </li>
+      <LiensNavBar :texte="'Mon profil'" :route_lien="'profil'" />
   <li>
     <a href="#" @click.prevent="changeValueForshowMenuMobile" class="d-block lien">
       Liste des favoris

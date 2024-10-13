@@ -83,15 +83,16 @@ export default {
     </a>
     <template #overlay>
       <a-menu>
-        <a-menu-item>
-          <LiensNavBar :texte="'Mon profil'" :route_lien="'profil'" />
-        </a-menu-item>
+        
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/accueil" class="d-block">
               Tableau de bord
             </router-link>
           </li>
+        </a-menu-item>
+        <a-menu-item>
+          <LiensNavBar :texte="'Mon profil'" :route_lien="'profil'" />
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
