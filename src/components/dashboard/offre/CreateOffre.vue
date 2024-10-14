@@ -388,19 +388,19 @@ export default {
                                       </div>
                                     </div>
                                     <div class="col-lg-12 my-2 text-left">
-                                      <label>Date d'entrée en fonction</label>
+                                      <label>Date et heure d'entrée en fonction</label>
                                       <input
                                         class="form-control"
-                                        type="date"
+                                        type="datetime-local"
                                         v-model="job_debut"
                                         required
                                       />
                                     </div>
                                     <div class="col-lg-12 my-2 text-left">
-                                      <label>Date de fin d'activité</label>
+                                      <label>Date et heure de fin d'activité</label>
                                       <input
                                         class="form-control"
-                                        type="date"
+                                        type="datetime-local"
                                         v-model="job_fin"
                                         required
                                       />

@@ -1137,8 +1137,8 @@ export default {
 }
 .card {
   border-radius: 5px !important;
-  border: 1px solid;
   background: rgba(179, 201, 255, 0.38);
+  box-shadow: 3px 3px 3px 3px #00000033;
 }
 .spinner-border {
   position: absolute;

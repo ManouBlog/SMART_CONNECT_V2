@@ -142,7 +142,7 @@ export default {
                 <h3 class="d-flex my-4 fw-bold">Présentations</h3>
                 <div v-html="Offre.description" id="conteneur_description"></div>
               </section>
-              <section class="px-5">
+              <section class="px-1">
                 <!-- <span class="my-2">Date et heure début : {{ Offre.debut }}</span> -->
                 <span class="my-2 text-danger">Postuler avant le : {{ Offre.fin }}</span>
               </section>
@@ -169,7 +169,9 @@ export default {
   padding: 0 2em;
 }
 .nom_offre {
-  font-size: 8em;
+  font-size: 5em;
+  color: black !important;
+  font-weight: bold;
 }
 span {
   font-weight: 200 !important;

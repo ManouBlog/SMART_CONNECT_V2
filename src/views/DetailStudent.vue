@@ -906,62 +906,6 @@ export default {
           Vous devez faire un abonnement
         </div>
       </div>
-      <!-- <div class="my-3 choose_periode">
-        <KCheckbox v-model="checkbox" @click="showPeriode" />
-      Choisir sur une Période
-      </div>
-      <div v-if="checkbox">
-        <div class="d-flex justify-center items-center flex-periode">
-            <div>
-              <label class="d-block">Date début</label>
-              <input
-                v-model="dateDebut"
-                type="date"
-                :min="new Date().toISOString().slice(0, 10)"
-                class="w-50 border-input px-2 py-1 w-32 rounded"
-              />
-            </div>
-            <div>
-              <label class="d-block">Date fin</label>
-              <input
-              v-model="dateFin"
-              type="date"
-               :min="dateDebut"
-                class="w-50 border-input px-2 py-1 w-32 rounded"
-              />
-            </div>
-          </div>
-        
-       
-        <div class="selecte_service mt-4">
-        <label class="d-block">Choisir une offre</label>
-          <select
-            name=""
-            id=""
-            v-model="selectedOffreWithPeriode"
-            class="w-50 my-3"
-          >
-            <option value="" disabled>Sélectionner une offre</option>
-            <option
-              :value="offre.id"
-              v-for="(offre, index) in selectedService"
-              :key="index"
-            >
-              {{ offre.nom_offre }}
-            </option>
-            <option disabled v-if="!selectedService.length">Pas d'offres</option>
-          </select>
-        </div>
-        <div class="conteneurInter">
-          <button
-            class="btn-lg bg-dark mb-5"
-            @click="optionPeriode(timetable_for_student.id)"
-          >
-            Envoyer
-          </button>
-        </div>
-      </div> -->
-
       <h5
         class="text-left evaluation"
         v-if="timetable_for_student?.etoiles.length"
