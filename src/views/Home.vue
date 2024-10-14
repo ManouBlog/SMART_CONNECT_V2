@@ -8,6 +8,7 @@ import Connexion from "./Connexion/Connexion.vue";
 import { mapActions, mapState } from "pinia";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import { useListeFavoris } from "../store-pinia/ListeFavoris/useListeFavoris";
+import {useVerificationStore} from "../store-pinia/Verification/useVerificationStore";
 
 export default {
   name: "Home",
@@ -19,7 +20,7 @@ export default {
     Connexion,
   },
   data() {
-    return {};
+    return {dateActive:null};
   },
   computed: {
     ...mapState(useRegisterStore, ["isModal"]),
@@ -29,10 +30,23 @@ export default {
     ...mapActions(useRegisterStore, {
       toogleModal: "changeValueIsModal",
     }),
-    ...mapActions(useListeFavoris,["handleListeFavoris"])
+    ...mapActions(useVerificationStore,["verifIfAbonementIsExpied"]),
+    ...mapActions(useListeFavoris,["handleListeFavoris"]),
+    getDateAbonementActive(){
+      this.$store.state.user.user.abonement.forEach(item=>{
+        if(item.statut  === 'ACCEPTED'){
+          this.dateActive = item.echeance
+        }
+      })
+    }
   },
   created(){
     this.handleListeFavoris(this.$store.state.token)
+    this.getDateAbonementActive()
+  },
+  mounted(){
+    console.log(this.dateActive)
+    this.verifIfAbonementIsExpied(this.dateActive)
   }
 };
 </script>

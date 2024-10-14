@@ -5,6 +5,7 @@ import {useCinetpayStore} from '../useCinetpayStore'
 import {useSwalPopup} from "../SwalPopup/useSwalPopup"
 import {useLoadingSpinner} from "../LoadingSpinner/useLoadingSpinner"
 import instance from "../../api/api";
+
 const isHolding={
     'entreprise':true
   }
@@ -15,13 +16,14 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
     const router = useRouter()
     const store = useStore();
 
+
    const createAbonement = async (idAbonnement,priceAbonnement)=>{
       if(!store.state.token){
         router.push('/registre');
       }else{
         loadingSpinner.launchLoading(true)
         const TRANSACTION_ID = Math.floor(Math.random() * 100000000).toString();
-        const NOTIFY_URL = "http://192.168.1.4:8000/api/cintepay/verification_paiement/"+TRANSACTION_ID
+        const NOTIFY_URL = "https://lce-ci.com/"
          try {
         const response = await instance.post("cintepay/paiement", {
           abonement_id: idAbonnement,
@@ -56,7 +58,9 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
       }
       
     };
+
+   
     return{
-        createAbonement
+        createAbonement,
     }
 })

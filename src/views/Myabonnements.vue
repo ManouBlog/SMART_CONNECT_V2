@@ -36,12 +36,12 @@ export default {
     };
   },
   computed: { ...mapState(useEntreprisesStore, ["list_abonnement"]) },
-  methods: { ...mapActions(useEntreprisesStore, ["get_all_student"]),
+  methods: { ...mapActions(useEntreprisesStore, ["get_all_abonnement"]),
   handleNouvelAbonnement(){
     this.$router.push({name:"abonnements"})
   } },
   created() {
-    this.get_all_student();
+    this.get_all_abonnement();
   },
 };
 </script>
@@ -114,7 +114,7 @@ export default {
         field="echeance"
         header="Echéance"
       ></Column>
-      <!-- <Column
+      <Column
       style="font-size: 1.8em; padding: 1em; text-align: center"
       field="statut"
       header="Statut"
@@ -124,7 +124,7 @@ export default {
         {{ slotProps.data.statut }}
       </span>
     </template>
-  </Column> -->
+  </Column>
         
       </DataTable>
 
