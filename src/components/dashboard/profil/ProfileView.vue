@@ -7,7 +7,7 @@ import InfoStudents from "./feature/InfoStudents.vue";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import ModalForModifyInfo from "./feature/ModalForModifyInfo.vue";
 import CompetencesAndExperience from "../etudiant-route/CompetencesAndExperience.vue"
-
+import MonPlanAbonnement from "./feature/MonPlanAbonnement.vue"
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 
@@ -20,7 +20,8 @@ export default {
     CompetencesAndExperience,
     InfoStudents,
     TabView,
-    TabPanel
+    TabPanel,
+    MonPlanAbonnement
   },
   data() {
     return {
@@ -116,43 +117,6 @@ export default {
           });
       }
     },
-    // update_compte_entreprise() {
-    //   let compte_entreprise = {
-    //     nom: this.nom,
-    //     registre_commerce: this.registre_commerce,
-    //     password: this.password,
-    //     oldPassword: this.oldPassword,
-    //   };
-    //   instance
-    //     .put("modifier_profil", compte_entreprise)
-    //     .then((res) => {
-    //       console.log(res);
-    //       if (res.data.status === true) {
-    //         Swal.fire({
-    //           icon: "success",
-    //           title: res.data.message,
-    //           showConfirmButton: false,
-    //           timer: 1500,
-    //         });
-    //         localStorage.setItem("user", JSON.stringify(res.data.user));
-    //         this.$store.state.user = res.data.user;
-    //         //setTimeout(() => {
-    //         //location.reload(true);
-    //         //}, 1500);
-    //       }
-    //       if (res.data.status === false) {
-    //         Swal.fire({
-    //           icon: "error",
-    //           title: res.data.message,
-    //           showConfirmButton: false,
-    //           timer: 1500,
-    //         });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
     update_compte_etudiant() {
       let data = new FormData();
       data.append("nom", this.nom);
@@ -180,9 +144,6 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-            //setTimeout(() => {
-            //location.reload(true);
-            //}, 1500);
           }
           if (res.data.status === false) {
             Swal.fire({
@@ -298,6 +259,9 @@ export default {
         </TabPanel>
         <TabPanel header="Compétences et Expériences">
           <CompetencesAndExperience />
+        </TabPanel>
+        <TabPanel header="Mon Abonnement">
+          <MonPlanAbonnement />
         </TabPanel>
     </TabView>
       

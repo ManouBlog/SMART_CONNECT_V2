@@ -1,55 +1,63 @@
 <script setup>
+import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { ref, onMounted } from "vue";
 
 import instance from "../../api/api";
 
-import i18n from "../../plugins/i18n";
+// import i18n from "../../plugins/i18n";
 import Swal from "sweetalert2";
 
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
-const { t } = i18n.global;
+// const { t } = i18n.global;
 
 const abonnements = ref([]);
-
-const isLoading = ref(true);
+const loadingSpinner = useLoadingSpinner();
+// const isLoading = ref(true);
 
 const handleAbonement = async () => {
+  loadingSpinner.launchLoading(true);
   try {
     const response = await instance.get("getAbonnement");
     abonnements.value = response.data.data;
     console.log("RESPONSE_getAbonnement", response.data);
-    isLoading.value = false;
+    loadingSpinner.launchLoading(false);
+    // isLoading.value = false;
   } catch (error) {
     console.log(error);
-    isLoading.value = false;
+    loadingSpinner.launchLoading(false);
+    // isLoading.value = false;
   }
 };
 
 const verifIfAbonnementIsSuccess = async () => {
   const TRANSACTION_ID = localStorage.getItem("transaction_id");
   if (TRANSACTION_ID) {
+    loadingSpinner.launchLoading(true);
     try {
       const response = await instance.post(
         "cintepay/verification_paiement/" + TRANSACTION_ID
       );
-      if(response['status'] === 200){
+      if (response["status"] === 200) {
         Swal.fire({
           icon: "info",
           title: response.data.message,
           showConfirmButton: true,
         });
       }
-      
+
       console.log(response);
     } catch (error) {
       console.log(error);
-          Swal.fire({
-          icon: "info",
-          title: error.response.data.message,
-          showConfirmButton: true,
-        });
+      Swal.fire({
+        icon: "info",
+        title: error.response.data.message,
+        showConfirmButton: true,
+      });
     }
     localStorage.removeItem("transaction_id");
+    loadingSpinner.launchLoading(false);
+  } else {
+    return;
   }
 };
 
@@ -61,11 +69,11 @@ onMounted(async () => {
 
 <template>
   <div class="wrapped">
-    <h1 class="text-center main-color">Choisissez votre formule</h1>
+    <h1 class="text-center main-color">Choisissez votre plan</h1>
     <n-card>
       <n-tabs type="line" size="large" animated justify-content="center">
         <n-tab-pane name="Etudiant" tab="Etudiant">
-          <h1 v-if="isLoading">{{ t("spinnerText") }}</h1>
+          <!-- <h1 v-if="isLoading">{{ t("spinnerText") }}</h1> -->
           <ContainerAbonnements
             :abonnements="abonnements"
             :type_abonnements="'Etudiant'"

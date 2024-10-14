@@ -338,7 +338,7 @@ export default {
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>Description</label>
-              <textarea name="" id="" cols="20" v-model="experience" rows="10"></textarea>
+              <textarea name="expereience" id="experience" cols="20" v-model="experience" rows="10"></textarea>
             </div>
           </div>
           <div class="mx-auto">
@@ -415,8 +415,8 @@ export default {
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>Description (facultatif)</label>
               <textarea
-                name=""
-                id=""
+                name="description"
+                id="description"
                 cols="20"
                 v-model="updateExperience.experience"
                 rows="10"

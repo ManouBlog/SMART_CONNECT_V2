@@ -43,12 +43,13 @@ export default {
     
   </section>
 </template>
-<style scoped>
+<style>
 .conteneur_tableau_de_bord{
  display:flex;
  align-items:center;
  flex-wrap: wrap;
  place-content: center;
+ justify-content: center;
  gap:1em;
  padding:5em 0;
 }
