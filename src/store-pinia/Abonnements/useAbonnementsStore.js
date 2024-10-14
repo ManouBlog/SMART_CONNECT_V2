@@ -1,25 +1,29 @@
 import { defineStore } from 'pinia'
-import { useRouter} from 'vue-router';
+// import { useRouter} from 'vue-router';
 import { useStore } from 'vuex';
 import {useCinetpayStore} from '../useCinetpayStore'
 import {useSwalPopup} from "../SwalPopup/useSwalPopup"
 import {useLoadingSpinner} from "../LoadingSpinner/useLoadingSpinner"
+import { useRegisterStore } from "../register/useRegisterStore";
 import instance from "../../api/api";
 
 const isHolding={
     'entreprise':true
   }
+const RegisterStore = useRegisterStore();
+
 export const useAbonnementsStore =defineStore('abonnements',()=>{
      const cinetpayStore = useCinetpayStore()
      const loadingSpinner = useLoadingSpinner()
      const SWALPOPUP = useSwalPopup(); 
-    const router = useRouter()
+    // const router = useRouter()
     const store = useStore();
 
 
    const createAbonement = async (idAbonnement,priceAbonnement)=>{
       if(!store.state.token){
-        router.push('/registre');
+        RegisterStore.changeValueIsModal()
+        // router.push('/registre');
       }else{
         loadingSpinner.launchLoading(true)
         const TRANSACTION_ID = Math.floor(Math.random() * 100000000).toString();

@@ -30,9 +30,9 @@ const handleAbonement = async () => {
 };
 
 const verifIfAbonnementIsSuccess = async () => {
+  loadingSpinner.launchLoading(true);
   const TRANSACTION_ID = localStorage.getItem("transaction_id");
   if (TRANSACTION_ID) {
-    loadingSpinner.launchLoading(true);
     try {
       const response = await instance.post(
         "cintepay/verification_paiement/" + TRANSACTION_ID
@@ -55,10 +55,10 @@ const verifIfAbonnementIsSuccess = async () => {
       });
     }
     localStorage.removeItem("transaction_id");
-    loadingSpinner.launchLoading(false);
   } else {
     return;
   }
+  loadingSpinner.launchLoading(false);
 };
 
 onMounted(async () => {
