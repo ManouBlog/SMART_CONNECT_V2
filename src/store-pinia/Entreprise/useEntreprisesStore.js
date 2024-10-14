@@ -47,6 +47,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             }
           },
           async get_offres_interess_by_student() {
+            loadingSpinner.launchLoading(true)
             try{
              const response = await instance.get("list_offres_interess_by_students")
              console.log("response",response.data)
@@ -70,6 +71,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
                     return acc;
                 }, []);
                 this.offresInteressByStudents = groupedData
+                loadingSpinner.launchLoading(false)
                 console.log("this.offresInteressByStudents",this.offresInteressByStudents)
              }
             }catch(error){

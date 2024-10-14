@@ -30,7 +30,6 @@ const handleAbonement = async () => {
 };
 
 const verifIfAbonnementIsSuccess = async () => {
-  loadingSpinner.launchLoading(true);
   const TRANSACTION_ID = localStorage.getItem("transaction_id");
   if (TRANSACTION_ID) {
     try {
@@ -58,12 +57,11 @@ const verifIfAbonnementIsSuccess = async () => {
   } else {
     return;
   }
-  loadingSpinner.launchLoading(false);
 };
 
-onMounted(async () => {
-  await verifIfAbonnementIsSuccess();
-  await handleAbonement();
+onMounted(() => {
+  verifIfAbonnementIsSuccess();
+  handleAbonement();
 });
 </script>
 

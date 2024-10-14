@@ -1,120 +1,119 @@
 <script setup>
-import { ref, onMounted} from 'vue';
-import { useRouter} from 'vue-router';
-import { useStore } from 'vuex'
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import instance from "../../api/api";
 import Swal from "sweetalert2";
-import i18n from '../../plugins/i18n';
-import {useCinetpayStore} from '../../store-pinia/useCinetpayStore'
-const { t } = i18n.global
-const isHolding={
-  'entreprise':true
-}
-const router = useRouter()
+import i18n from "../../plugins/i18n";
+import { useCinetpayStore } from "../../store-pinia/useCinetpayStore";
+const { t } = i18n.global;
+const isHolding = {
+  entreprise: true,
+};
+const router = useRouter();
 const store = useStore();
-const abonnements=ref([]);
+const abonnements = ref([]);
 const cinetpayStore = useCinetpayStore();
 const isLoading = ref(true);
 
-      const offreBasic = ref(false);
+const offreBasic = ref(false);
 
-      const isChoose=ref(false);
-const handleAbonement = async ()=>{
-      try {
-        const response = await instance.get("getAbonnement");
-        abonnements.value = response.data.data;
-        console.log("RESPONSE_getAbonnement", response.data);
-        isLoading.value = false;
-      } catch (error) {
-        console.log(error);
-        isLoading.value = false;
-      }
-    }; 
+const isChoose = ref(false);
+const handleAbonement = async () => {
+  try {
+    const response = await instance.get("getAbonnement");
+    abonnements.value = response.data.data;
+    console.log("RESPONSE_getAbonnement", response.data);
+    isLoading.value = false;
+  } catch (error) {
+    console.log(error);
+    isLoading.value = false;
+  }
+};
 
-    const createAbonement = async (idAbonnement,priceAbonnement)=>{
-      
-      if(!store.state.token){
-        router.push('/registre');
-      }else{
-        isChoose.value = true;
-        const TRANSACTION_ID = Math.floor(Math.random() * 100000000).toString();
-        const NOTIFY_URL = `${instance}/cintepay/verification_paiement/${TRANSACTION_ID}`
-         try {
-        const response = await instance.post("cintepay/paiement", {
-          abonement_id: idAbonnement,
-          channels: "MTN",
-          transaction_id:TRANSACTION_ID
-        });
+const createAbonement = async (idAbonnement, priceAbonnement) => {
+  if (!store.state.token) {
+    router.push("/registre");
+  } else {
+    isChoose.value = true;
+    const TRANSACTION_ID = Math.floor(Math.random() * 100000000).toString();
+    const NOTIFY_URL = `${instance}/cintepay/verification_paiement/${TRANSACTION_ID}`;
+    try {
+      const response = await instance.post("cintepay/paiement", {
+        abonement_id: idAbonnement,
+        channels: "MTN",
+        transaction_id: TRANSACTION_ID,
+      });
 
-        Swal.fire({
-          icon: "success",
-          title: response.data.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log("RESPONSE_getAbonnement", response.data);
-        isChoose.value = false;
-      } catch (error) {
-        console.log(error);
-        Swal.fire({
-          icon: "info",
-          title: error.response.data.message,
-          showConfirmButton: true,
-        });
-        isChoose.value = false;
-      }
-        const payload = {
-          price:priceAbonnement,
-          transaction_id:TRANSACTION_ID,
-          notify_url:NOTIFY_URL,
-          user:{
-            id:store.state.user.id,
-            name:store.state.user.user.nom,
-            surname:isHolding[store.state.user.user.statut.statut] ? "Entreprise":store.state.user.user.prenoms,
-            email:store.state.user.email
-          }
-        }
-        console.log("payload",payload)
-        cinetpayStore.paymentCinetpay(payload);
-     
-      }
-      
-    };
-
-    const verifIfAbonnementIsSuccess = async()=>{
-      const TRANSACTION_ID = localStorage.getItem('transaction_id')
-      if(TRANSACTION_ID){
-        try {
-        const response = await instance.post("cintepay/verification_paiement/"+TRANSACTION_ID);
-         console.log(response)
-        // Swal.fire({
-        //   icon: "success",
-        //   title: response.data.message,
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        // });
-        // console.log("RESPONSE_getAbonnement", response.data);
-        // isChoose.value = false;
-      } catch (error) {
-        console.log(error);
-        // Swal.fire({
-        //   icon: "info",
-        //   title: error.response.data.message,
-        //   showConfirmButton: true,
-        // });
-        // isChoose.value = false;
-      }
-      localStorage.removeItem("transaction_id")
-      }
-      
+      Swal.fire({
+        icon: "success",
+        title: response.data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      console.log("RESPONSE_getAbonnement", response.data);
+      isChoose.value = false;
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: "info",
+        title: error.response.data.message,
+        showConfirmButton: true,
+      });
+      isChoose.value = false;
     }
+    const payload = {
+      price: priceAbonnement,
+      transaction_id: TRANSACTION_ID,
+      notify_url: NOTIFY_URL,
+      user: {
+        id: store.state.user.id,
+        name: store.state.user.user.nom,
+        surname: isHolding[store.state.user.user.statut.statut]
+          ? "Entreprise"
+          : store.state.user.user.prenoms,
+        email: store.state.user.email,
+      },
+    };
+    console.log("payload", payload);
+    cinetpayStore.paymentCinetpay(payload);
+  }
+};
 
-onMounted(async ()=>{
-  await verifIfAbonnementIsSuccess()
-  await handleAbonement()
-})
+const verifIfAbonnementIsSuccess = async () => {
+  const TRANSACTION_ID = localStorage.getItem("transaction_id");
+  if (TRANSACTION_ID) {
+    try {
+      const response = await instance.post(
+        "cintepay/verification_paiement/" + TRANSACTION_ID
+      );
+      console.log(response);
+      // Swal.fire({
+      //   icon: "success",
+      //   title: response.data.message,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
+      // console.log("RESPONSE_getAbonnement", response.data);
+      // isChoose.value = false;
+    } catch (error) {
+      console.log(error);
+      // Swal.fire({
+      //   icon: "info",
+      //   title: error.response.data.message,
+      //   showConfirmButton: true,
+      // });
+      // isChoose.value = false;
+    }
+    localStorage.removeItem("transaction_id");
+  }
+};
+
+onMounted(async () => {
+  await verifIfAbonnementIsSuccess();
+  await handleAbonement();
+});
 </script>
-
 
 <template>
   <div class="wrapped">
@@ -130,7 +129,7 @@ onMounted(async ()=>{
     <n-card>
       <n-tabs type="line" size="large" animated justify-content="center">
         <n-tab-pane name="Etudiant" tab="Etudiant">
-          <h1 v-if="isLoading">{{ t('spinnerText') }}</h1>
+          <h1 v-if="isLoading">{{ t("spinnerText") }}</h1>
           <div class="conteneur-flex">
             <div
               v-for="item in abonnements.filter(
@@ -147,7 +146,7 @@ onMounted(async ()=>{
               <div class="text-center conteneur-btn">
                 <button
                   class="btn-lg bg-dark"
-                  @click.prevent="createAbonement(item.id,item.prix)"
+                  @click.prevent="createAbonement(item.id, item.prix)"
                 >
                   Je choisi
                 </button>
@@ -177,7 +176,7 @@ onMounted(async ()=>{
               >
                 <button
                   class="btn-lg bg-dark"
-                  @click.prevent="createAbonement(item.id,item.prix)"
+                  @click.prevent="createAbonement(item.id, item.prix)"
                 >
                   Je choisi
                 </button>
@@ -185,9 +184,8 @@ onMounted(async ()=>{
             </div>
             <div
               v-if="
-                !abonnements.filter(
-                  (item) => item.categorie.categorie === 'Entreprise'
-                ).length
+                !abonnements.filter((item) => item.categorie.categorie === 'Entreprise')
+                  .length
               "
             >
               Pas de formules
