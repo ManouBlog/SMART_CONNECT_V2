@@ -129,7 +129,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/DetailStudent.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../views/DetailStudents/DetailStudent.vue')
         
       },
       

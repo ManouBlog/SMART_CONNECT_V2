@@ -1,15 +1,17 @@
 <script>
-import instance from "../api/api";
+import instance from "../../api/api";
 import Swal from "sweetalert2";
 import "v-calendar/dist/style.css";
 import { Calendar } from "v-calendar";
-import vue3starRatings from "vue3-star-ratings";
+// import vue3starRatings from "vue3-star-ratings";
 // import { KCheckbox } from "@kong/kongponents";
 import "@kong/kongponents/dist/style.css";
+import HeaderDetailStudent from "./features/HeaderDetailStudent.vue";
+import BodyExperience from "./features/BodyExperience.vue";
 
 //DatePicker
 export default {
-  components: { Calendar, vue3starRatings },
+  components: { Calendar,  HeaderDetailStudent, BodyExperience },
   data() {
     return {
       lieu: "",
@@ -27,7 +29,6 @@ export default {
       details_timetable: false,
       id_detail_timetable: "",
       timetable_for_student: null,
-      path: "",
       schedule: "",
       compte: 4,
       hideButton: false,
@@ -104,7 +105,7 @@ export default {
         start: new Date(),
         end: new Date(),
       },
-      toogleExperience: false,
+
       days: [],
       showCalenderFilter: false,
       selectedOffreWithDate: "",
@@ -125,18 +126,11 @@ export default {
     startPage() {
       if (this.currentPage === 1) return 1;
       if (this.currentPage === this.totalPages)
-        return (
-          this.totalPages -
-          this.maxVisibleButtons +
-          (this.maxVisibleButtons - 1)
-        );
+        return this.totalPages - this.maxVisibleButtons + (this.maxVisibleButtons - 1);
       return this.currentPage - 1;
     },
     endPage() {
-      return Math.min(
-        this.startPage + this.maxVisibleButtons - 1,
-        this.totalPages
-      );
+      return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
     },
     pages() {
       let range = [];
@@ -154,9 +148,7 @@ export default {
     list_emploi() {
       if (this.location !== "") {
         return this.list.filter((item) => {
-          return item.commune
-            .toLowerCase()
-            .includes(this.location.toLowerCase());
+          return item.commune.toLowerCase().includes(this.location.toLowerCase());
         });
       }
       return this.list.slice(0, this.length);
@@ -226,9 +218,7 @@ export default {
             (item) => item.id === Number(this.$route.params.id)
           );
           console.log("this.timetable_for_student", this.timetable_for_student);
-          this.totalPages = Math.ceil(
-            this.timetable_for_student.etoiles.length / 2
-          );
+          this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
           this.schedule = this.timetable_for_student.jours;
 
           this.schedule.forEach((item) => {
@@ -578,8 +568,7 @@ export default {
           this.loadSpinner = false;
           Swal.fire({
             icon: "info",
-            title:
-              "Vérifier votre connexion ou les informations que vous envoyer.",
+            title: "Vérifier votre connexion ou les informations que vous envoyer.",
             showConfirmButton: true,
           });
         });
@@ -622,8 +611,7 @@ export default {
           console.log(err);
           Swal.fire({
             icon: "info",
-            title:
-              "Vérifier votre connexion ou les informations que vous envoyer",
+            title: "Vérifier votre connexion ou les informations que vous envoyer",
             showConfirmButton: true,
           });
           this.loadSpinner = false;
@@ -714,7 +702,6 @@ export default {
     this.AllCompetencesPredf();
     this.verfEnter();
     console.log(this.jourSelect());
-    this.path = window.location.pathname;
     this.getDetailStudent();
     this.selectOffreEntreprise();
   },
@@ -722,91 +709,11 @@ export default {
 </script>
 
 <template>
-  <div class="spinner-border" role="status" v-if="isLoading">
-    <span class="visually-hidden">Chargement...</span>
-  </div>
   <div v-if="timetable_for_student">
     <div class="conteneur_student">
-      <div class="info_student">
-        <h1 class="text-left my-3">
-          <em class="bi bi-person"></em>
-          {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
-        </h1>
-        <div
-          class="d-flex align-items-center"
-          v-if="timetable_for_student.average"
-        >
-          <!-- <h3 class="mx-1">{{ timetable_for_student.average }}</h3> -->
-          <n-rate readonly :default-value="timetable_for_student.average" />
-        </div>
-        <div class="text-left p-5 my-3">
-          <h3>
-            <em class="bi bi-geo-alt"></em> {{ timetable_for_student.commune }}
-          </h3>
-          <h3>
-            <em class="bi bi-mortarboard"></em>
-            {{ timetable_for_student.diplome }}
-          </h3>
-        </div>
-      </div>
+      <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
 
-      <div
-        v-if="timetable_for_student.competences.length"
-        class="text-left conteneur_competences my-3"
-      >
-        <span
-          v-for="(item, index) in timetable_for_student.competences"
-          :key="index"
-          class="badge bg-dark"
-        >
-          <strong>{{ item.competence }}</strong>
-        </span>
-      </div>
-      <p
-        class="w-100 experience text-left"
-        v-if="timetable_for_student.experiences.length"
-        @click.prevent="toogleExperience = !toogleExperience"
-      >
-        Expériences
-        <em
-          class="bi bi-chevron-down"
-          v-if="toogleExperience == false"
-          :class="toogleExperience == true ? 'd-none' : ''"
-        >
-        </em>
-        <em class="bi bi-chevron-up" v-if="toogleExperience == true"></em>
-      </p>
-      <div v-if="toogleExperience">
-        <div class="conteneur_experience">
-          <div
-            class="experiences position-relative px-4"
-            v-for="(item, index) in timetable_for_student.experiences"
-            :key="index"
-          >
-            <div class="content_experience">
-              <div>
-                <h3 class="text-left font-weight-bold">
-                  {{ item.entreprise }}
-                </h3>
-                <p class="text-left ms-2 para">
-                  <em class="bi bi-calendar-date"></em>
-                  {{
-                    `${new Date(
-                      item.dateDebut
-                    ).toLocaleDateString()} au ${new Date(
-                      item.dateFin
-                    ).toLocaleDateString()}`
-                  }}
-                </p>
-                <p class="text-left ms-2 font-weight-bold para">
-                  Poste occupé : {{ item.poste }}
-                </p>
-              </div>
-              <hr />
-            </div>
-          </div>
-        </div>
-      </div>
+      <BodyExperience :timetable_for_student="timetable_for_student" />
 
       <div class="col-lg-12">
         <div class="jobs-result">
@@ -817,11 +724,7 @@ export default {
             </span>
           </div>
           <div class="container-fluid my-5 conteneur_timetable">
-            <Calendar
-              :attributes="attributes"
-              :min-date="new Date()"
-              class="myCalender"
-            >
+            <Calendar :attributes="attributes" :min-date="new Date()" class="myCalender">
               <template #day-popover="{ attributes }">
                 <ul>
                   <li
@@ -845,11 +748,6 @@ export default {
           </div>
         </div>
       </div>
-
-      <!-- <div class="my-3">
-        <KCheckbox v-model="checkboxDate" @click="showDate" />
-        Choisir sur une Date
-      </div> -->
       <div class="conteneur_date">
         <div>
           <label class="d-block">Choisir la date</label>
@@ -863,12 +761,7 @@ export default {
 
         <div class="selecte_service my-3">
           <label class="d-block">Choisir une offre</label>
-          <select
-            name=""
-            id=""
-            v-model="selectedOffreWithDate"
-            class="w-50 my-3"
-          >
+          <select name="" id="" v-model="selectedOffreWithDate" class="w-50 my-3">
             <option value="" disabled>Sélectionner une offre</option>
             <option
               :value="offre.id"
@@ -877,17 +770,13 @@ export default {
             >
               {{ offre.nom_offre }} {{ `du ${offre.debut} au ${offre.fin}` }}
             </option>
-            <option disabled v-if="!selectedService.length">
-              Pas d'offres
-            </option>
+            <option disabled v-if="!selectedService.length">Pas d'offres</option>
           </select>
         </div>
 
         <div
           class="conteneurInter"
-          v-if="
-            timetable_for_student.user.abonement.length && listAbonnement.length
-          "
+          v-if="timetable_for_student.user.abonement.length && listAbonnement.length"
         >
           <button
             class="btn-lg bg-dark mb-5"
@@ -906,63 +795,6 @@ export default {
           Vous devez faire un abonnement
         </div>
       </div>
-      <h5
-        class="text-left evaluation"
-        v-if="timetable_for_student?.etoiles.length"
-      >
-        <span> ( {{ timetable_for_student?.etoiles.length }} )</span>
-        Evaluations/avis
-      </h5>
-      <div class="commentaires">
-        <div
-          class="experiences position-relative px-4"
-          v-for="(item, index) in paginatedData"
-          :key="index"
-        >
-          <div class="content_commentaire">
-            <hr />
-            <div class="d-flex my-2">
-              <vue3starRatings
-                v-model="item.notes"
-                :showControl="false"
-                :starSize="13"
-                :disableClick="true"
-              />
-              <span class="mx-3"> Noté par : {{ item?.entreprise.nom }} </span>
-            </div>
-
-            <div class="conteneur_ecriteau">
-              <span v-if="item.offre" class="my-3"
-                >Poste occupé : {{ item.offre.nom_offre }}</span
-              >
-              <p class="avis_cont my-3">{{ item.avis }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul class="pagination justify-content-center conteneur_pagination">
-        <li class="fs-5">
-          <button @click="onClickFirstPage" :disabled="isInFirstPage">
-            &laquo;
-          </button>
-        </li>
-        <li class="fs-5">
-          <button
-            class="pagination_btn"
-            v-for="(page, index) in pages"
-            :key="index"
-            @click="onClickPage(page.number)"
-            :class="{ color: isPageActive(page.number) }"
-          >
-            {{ page.number }}
-          </button>
-        </li>
-        <li class="fs-5">
-          <button @click="onClickNextPage" :disabled="isInLastPage">
-            &raquo;
-          </button>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
@@ -1056,11 +888,7 @@ hr {
   flex-direction: column;
 }
 .jou {
-  background: linear-gradient(
-    10deg,
-    rgb(2, 123, 56),
-    rgb(0, 230, 31)
-  ) !important;
+  background: linear-gradient(10deg, rgb(2, 123, 56), rgb(0, 230, 31)) !important;
   color: rgb(255, 255, 255) !important;
   width: 10px;
   height: 10px;
