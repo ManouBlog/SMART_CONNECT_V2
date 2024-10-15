@@ -66,15 +66,20 @@ export default createStore({
       })
      },
      getall(state){
-      instance.get("getAllWishlist")
-    .then((response) => {
-      console.log("whistListPerson",response.data.data);
-      state.whistListPerson = response.data.data.wishlists;
+      if(state.token){
+        instance.get("getAllWishlist")
+        .then((response) => {
+          console.log("whistListPerson",response.data.data);
+          state.whistListPerson = response.data.data.wishlists;
+         
+        })
+        .catch((error) => {
+          console.log("error1",error);
+        })
+      }else{
+        return;
+      }
      
-    })
-    .catch((error) => {
-      console.log(error);
-    })
      },
      CHANGE_LANGAGE_WEB(state,langue){
       state.translate = langue;

@@ -11,7 +11,7 @@ import BodyExperience from "./features/BodyExperience.vue";
 
 //DatePicker
 export default {
-  components: { Calendar,  HeaderDetailStudent, BodyExperience },
+  components: { Calendar, HeaderDetailStudent, BodyExperience },
   data() {
     return {
       lieu: "",
@@ -627,7 +627,7 @@ export default {
           });
         })
         .catch((error) => {
-          console.log(error);
+          console.log("error3", error);
         });
     },
     AllCompetencesPredf() {
@@ -825,7 +825,7 @@ h1 {
 }
 .conteneur_student {
   margin-top: 6em;
-  padding: 0 2em;
+  padding: 0 5em;
 }
 
 select {
@@ -854,12 +854,7 @@ select {
 .content_commentaire {
   text-align: left;
 }
-.vue3-star-ratings__wrapper {
-  display: block;
-  text-align: left;
-  padding: 0 !important;
-  margin: 0 !important;
-}
+
 .vue3-star-ratings {
   display: none;
 }

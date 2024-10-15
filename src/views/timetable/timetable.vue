@@ -2,7 +2,7 @@
 import instance from "../../api/api";
 import Swal from "sweetalert2";
 import "primeicons/primeicons.css";
-import {useLoadingSpinner} from "../../store-pinia/LoadingSpinner/useLoadingSpinner"
+import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 // import Multiselect from 'vue-multiselect'
 // import { Calendar} from "v-calendar";
 
@@ -11,7 +11,7 @@ import {useLoadingSpinner} from "../../store-pinia/LoadingSpinner/useLoadingSpin
 // import vue3starRatings from "vue3-star-ratings";
 // import { KCheckbox } from '@kong/kongponents'
 // import '@kong/kongponents/dist/style.css'
-const loadingSpinner = useLoadingSpinner()
+const loadingSpinner = useLoadingSpinner();
 export default {
   // compoments:{
   //   vue3starRatings
@@ -447,7 +447,7 @@ export default {
       }
     },
     get_list_emploi() {
-      loadingSpinner.launchLoading(true)
+      loadingSpinner.launchLoading(true);
       instance
         .get("list_emplois_temps")
         .then((res) => {
@@ -479,11 +479,11 @@ export default {
           console.log("LIST", this.MylistEmploi);
           this.lengthOfMylistEmploi = this.MylistEmploi.length;
           console.log("EMPLOI DU TEMPS", this.list_emploi);
-          loadingSpinner.launchLoading(false)
+          loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
           console.log(err);
-          loadingSpinner.launchLoading(false)
+          loadingSpinner.launchLoading(false);
         });
     },
     closeDetailTimetable() {
@@ -623,7 +623,7 @@ export default {
             );
           })
           .catch((error) => {
-            console.log(error);
+            console.log("error", error);
           });
       } else {
         return;

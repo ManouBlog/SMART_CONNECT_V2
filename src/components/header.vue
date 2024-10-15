@@ -464,9 +464,7 @@ export default {
 }
 .vue3-star-ratings__wrapper[data-v-76dea496] {
   display: block;
-  margin: 15px auto;
   text-align: center;
-  padding: 2px;
 }
 .conteneur_competences {
   margin-left: 1em;
@@ -501,8 +499,8 @@ export default {
   width: 160px;
   padding: 0.5em;
   border-radius: 5px;
-  background: #f77f00 !important;
-  color: wheat;
+  font-size:1.3em;
+  color: orange;
 }
 .content_experience {
   padding: 1em;

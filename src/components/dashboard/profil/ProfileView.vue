@@ -219,7 +219,7 @@ export default {
     <HeaderDashboard :TitleHeader="'Profil'" :subTitleHeader="'Profil'" />
     <div class="page-body">
       <TabView>
-        <TabPanel header="Info personnelles">
+        <TabPanel header="Infos personnelles">
           <div>
             <InfoEntreprise
               v-if="this.user.user.statut.statut === 'entreprise'"
@@ -257,7 +257,7 @@ export default {
             />
           </div>
         </TabPanel>
-        <TabPanel header="Compétences et Expériences">
+        <TabPanel v-if="this.user.user.statut.statut === 'etudiant'" header="Compétences et Expériences">
           <CompetencesAndExperience />
         </TabPanel>
         <TabPanel header="Mon Abonnement">

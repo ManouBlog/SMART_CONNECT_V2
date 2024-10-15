@@ -1,202 +1,199 @@
 <script>
-// import vue3starRatings from "vue3-star-ratings";
+import vue3starRatings from "vue3-star-ratings";
 export default {
   name: "BodyExperience",
   props: {
     timetable_for_student: { type: Object },
   },
-  components:{
-    // vue3starRatings,
+  components: {
+    vue3starRatings,
   },
   data() {
-    return { toogleExperience: false };
+    return { toogleExperience: true };
   },
 };
 </script>
 <template>
   <section class="section_experience_evaluation">
     <div class="conteneur_section_experience">
-        <p
-          class="w-100 experience text-left fw-bold"
-          style="color: orange;cursor:pointer;"
-          v-if="timetable_for_student.experiences.length"
-          @click.prevent="toogleExperience = !toogleExperience"
+      <p
+        class="w-100 experience text-left fw-bold"
+        style="color: orange; cursor: pointer"
+        v-if="timetable_for_student.experiences.length"
+        @click.prevent="toogleExperience = !toogleExperience"
+      >
+        Expériences
+        <em
+          class="bi bi-chevron-down"
+          v-if="toogleExperience == false"
+          :class="toogleExperience == true ? 'd-none' : ''"
         >
-          Expériences
-          <em
-            class="bi bi-chevron-down"
-            v-if="toogleExperience == false"
-            :class="toogleExperience == true ? 'd-none' : ''"
-          >
-          </em>
-          <em class="bi bi-chevron-up" v-if="toogleExperience == true"></em>
-        </p>
-        <div v-if="toogleExperience">
-          <div class="conteneur_experience">
-            <div
-              class="experiences position-relative px-4"
-              v-for="(item, index) in timetable_for_student.experiences.slice(0, 1)"
-              :key="index"
-            >
-              <div class="content_experience">
-                <div>
-                  <h3 class="text-left font-weight-bold">
-                    {{ item.entreprise }}
-                  </h3>
-                  <p class="text-left ms-2 para">
-                    <em class="bi bi-calendar-date"></em>
-                    {{
-                      `${new Date(item.dateDebut).toLocaleDateString()} au ${new Date(
-                        item.dateFin
-                      ).toLocaleDateString()}`
-                    }}
-                  </p>
-                  <p class="text-left ms-2 font-weight-bold para">
-                    Poste occupé : {{ item.poste }}
-                  </p>
-                </div>
-                <hr />
-              </div>
-            </div>
-            <button class="btn bg-warning">Voir plus</button>
-          </div>
-        </div>
-      </div>
-    <div class="conteneur_evaluation_experience">
-      <h5 class="text-left evaluation" v-if="timetable_for_student?.etoiles.length">
-        <span> ( {{ timetable_for_student?.etoiles.length }} )</span>
-        Evaluations/avis
-      </h5>
-      <div class="container-testominal">
-        <div class="carrousel_container_testominal">
-            <a-carousel arrows>
-                <template #prevArrow>
-                  <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
-                    <left-circle-outlined />
-                  </div>
-                </template>
-                <template #nextArrow>
-                  <div class="custom-slick-arrow" style="right: 10px">
-                    <right-circle-outlined />
-                  </div>
-                </template>
-                <div><h3>1</h3></div>
-                <div><h3>2</h3></div>
-                <div><h3>3</h3></div>
-                <div><h3>4</h3></div>
-              </a-carousel>
-        </div>
-      </div>
-      
-     
-      <!-- <div class="commentaires">
+        </em>
+        <em class="bi bi-chevron-up" v-if="toogleExperience == true"></em>
+      </p>
+      <div
+        v-if="toogleExperience && timetable_for_student.experiences.length"
+      >
         <div
-          class="experiences position-relative px-4"
-          v-for="(item, index) in paginatedData"
+          class="experiences position-relative px-4 pb-5 my-4"
+          v-for="(item, index) in timetable_for_student.experiences.slice(0, 1)"
           :key="index"
         >
-          <div class="content_commentaire">
-            <hr />
-            <div class="d-flex my-2">
-              <vue3starRatings
-                v-model="item.notes"
-                :showControl="false"
-                :starSize="13"
-                :disableClick="true"
-              />
-              <span class="mx-3"> Noté par : {{ item?.entreprise.nom }} </span>
+          <div class="rond position-absolute"></div>
+          <div class="contenteur_experience">
+            <div class="proof_experience" v-if="item.proof">
+              <n-image width="100" :src="lienPhoto + item.proof" />
             </div>
-
-            <div class="conteneur_ecriteau">
-              <span v-if="item.offre" class="my-3"
-                >Poste occupé : {{ item.offre.nom_offre }}</span
-              >
-              <p class="avis_cont my-3">{{ item.avis }}</p>
-            </div>
+            <h3 class="text-start">
+              {{ item.entreprise }}
+            </h3>
+            <h6 class="text-start ms-2 fw-bold">
+              <span class="badge bg-warning text-light fw-bold">{{ item.poste }}</span>
+            </h6>
+            <p>
+              <em class="bi bi-geo-alt"></em>
+              {{ item.lieu }}
+            </p>
+            <h6 class="text-start ms-2">
+              <em class="bi bi-calendar-date"></em>
+              {{
+                `${new Date(item.dateDebut).toLocaleDateString()} au ${new Date(
+                  item.dateFin
+                ).toLocaleDateString()}`
+              }}
+            </h6>
+            <p class="text-start ms-2" v-if="item.experience">
+              {{ item.experience }}
+            </p>
           </div>
         </div>
+        <div class="d-flex">
+          <button class="btn bg-warning">Voir plus</button>
+        </div>
       </div>
-      <ul class="pagination justify-content-center conteneur_pagination">
-        <li class="fs-5">
-          <button @click="onClickFirstPage" :disabled="isInFirstPage">&laquo;</button>
-        </li>
-        <li class="fs-5">
-          <button
-            class="pagination_btn"
-            v-for="(page, index) in pages"
-            :key="index"
-            @click="onClickPage(page.number)"
-            :class="{ color: isPageActive(page.number) }"
-          >
-            {{ page.number }}
-          </button>
-        </li>
-        <li class="fs-5">
-          <button @click="onClickNextPage" :disabled="isInLastPage">&raquo;</button>
-        </li>
-      </ul> -->
     </div>
-    
+    <div
+      class="conteneur_evaluation_experience"
+      v-if="timetable_for_student?.etoiles.length"
+    >
+      <p class="text-left evaluation_avis">
+        <span> ( {{ timetable_for_student?.etoiles.length }} )Evaluations/avis</span>
+      </p>
+      <div class="container-testominal">
+        <div class="carrousel_container_testominal">
+          <a-carousel arrows autoplay :dots="false">
+            <template #prevArrow>
+              <div class="custom-slick-arrow" style="left: 10px; z-index: 9999">
+                <em class="bi bi-caret-left-fill"></em>
+              </div>
+            </template>
+            <template #nextArrow>
+              <div class="custom-slick-arrow" style="right: 10px">
+                <em class="bi bi-caret-right-fill"></em>
+              </div>
+            </template>
+
+            <div v-for="(item, index) in timetable_for_student?.etoiles" :key="index">
+              <div class="conteneur-stars_avis">
+                <span style="font-weight: bold; font-size: 1.2em">
+                  {{ item?.entreprise.nom }}</span
+                >
+
+                <vue3starRatings
+                  v-model="item.notes"
+                  :showControl="false"
+                  :starSize="13"
+                  :disableClick="true"
+                />
+              </div>
+
+              <p class="my-3 text-center">{{ item.avis }}</p>
+            </div>
+          </a-carousel>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 <style scoped>
-.carrousel_container_testominal{
-    position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    width:100%;
-    height:100%;
+@import "../../../Shared/styles/stylesExperience.css";
+.conteneur-stars_avis {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  align-items: center;
+  padding: 1em;
 }
-.container-testominal{
-    width:100%;
-    position: relative;
-    height: 200px;
-    border-radius:20px;
+.evaluation_avis {
+  margin-left: 0.5em;
+  /* width: 160px; */
+  padding: 0.5em;
+  border-radius: 5px;
+  font-size: 1.3em;
+  color: orange;
+}
+.evaluation_contenaire {
+  margin-left: 0.5em;
+  padding: 0.5em;
+  border-radius: 5px;
+  font-size: 1.3em;
+  color: orange;
+}
+.carrousel_container_testominal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+.container-testominal {
+  width: 100%;
+  position: relative;
+  height: 200px;
 }
 :deep(.slick-slide) {
-    text-align: center;
-    height: 200px;
-    border-radius:20px;
-    line-height: 200px;
-    background: #364d79;
-    overflow: hidden;
-  }
-  
-  :deep(.slick-arrow.custom-slick-arrow) {
-    width: 25px;
-    height: 25px;
-    font-size: 25px;
-    color: #fff;
-    background-color: rgba(31, 45, 61, 0.11);
-    transition: ease all 0.3s;
-    opacity: 0.3;
-    z-index: 1000;
-  }
-  :deep(.slick-arrow.custom-slick-arrow:before) {
-    display: none;
-  }
-  :deep(.slick-arrow.custom-slick-arrow:hover) {
-    color: #fff;
-    opacity: 0.5;
-  }
-  
-  :deep(.slick-slide h3) {
-    color: #fff;
-  }
+  text-align: center;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 1em;
+  background: rgba(179, 201, 255, 0.38);
+}
 
-.section_experience_evaluation{
-    display: flex;
-    align-content: center;
-    gap:1em;
-    justify-content: space-between;
-    flex-wrap: wrap;
+:deep(.slick-arrow.custom-slick-arrow) {
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+  color: #000000;
+  transition: ease all 0.3s;
+  opacity: 1;
+  z-index: 1000;
 }
-.section_experience_evaluation .conteneur_section_experience{
-    flex:2 2 300px;
+:deep(.slick-arrow.custom-slick-arrow:before) {
+  display: none;
 }
-.section_experience_evaluation .conteneur_evaluation_experience{
-    flex:1 1 300px;
+:deep(.slick-arrow.custom-slick-arrow:hover) {
+  color: #000000;
+  opacity: 0.5;
+}
+
+:deep(.slick-slide h3) {
+  color: #010101;
+}
+
+.section_experience_evaluation {
+  display: flex;
+  align-content: center;
+  gap: 1em;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.section_experience_evaluation .conteneur_section_experience {
+  flex: 2 2 300px;
+}
+.section_experience_evaluation .conteneur_evaluation_experience {
+  flex: 1 1 300px;
 }
 .info_student_detail {
   text-transform: capitalize;

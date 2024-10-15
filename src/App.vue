@@ -9,8 +9,16 @@ export default {};
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 @import "./Shared/styles/stylesShared.css";
+
+
 .p-icon .p-rating-icon {
   font-size: 2em !important;
+}
+.vue3-star-ratings__wrapper {
+  display: block;
+  text-align: left;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .ellipse_text {
   width: 100%;            /* Définit une largeur fixe */ 

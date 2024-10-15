@@ -20,7 +20,7 @@ export const useListeFavoris = defineStore('liste_favoris', {
                   });
                 })
                 .catch((error) => {
-                  console.log(error);
+                  console.log("error2",error);
                 });
             } else {
               return;
