@@ -10,7 +10,9 @@ export default {};
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 @import "./Shared/styles/stylesShared.css";
 
-
+.p-calendar {
+  display: block;
+}
 .p-icon .p-rating-icon {
   font-size: 2em !important;
 }

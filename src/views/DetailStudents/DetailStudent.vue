@@ -3,6 +3,7 @@ import instance from "../../api/api";
 import Swal from "sweetalert2";
 import "v-calendar/dist/style.css";
 import { Calendar } from "v-calendar";
+import { configUtils } from "../../Shared/Utils";
 // import vue3starRatings from "vue3-star-ratings";
 // import { KCheckbox } from "@kong/kongponents";
 import "@kong/kongponents/dist/style.css";
@@ -14,6 +15,7 @@ export default {
   components: { Calendar, HeaderDetailStudent, BodyExperience },
   data() {
     return {
+      configUtils: configUtils,
       lieu: "",
       datesChoice: [],
       dateRendezVousStudentWithEntreprise: null,
@@ -715,7 +717,7 @@ export default {
 
       <BodyExperience :timetable_for_student="timetable_for_student" />
 
-      <div class="col-lg-12">
+      <section class="conteneur_calendar_student">
         <div class="jobs-result">
           <div class="disponibilite">
             <span>
@@ -747,59 +749,85 @@ export default {
             </Calendar>
           </div>
         </div>
-      </div>
-      <div class="conteneur_date">
-        <div>
+        <div class="conteneur_date">
           <label class="d-block">Choisir la date</label>
           <PrimeCalendar
             v-model="datesChoice"
+            :minDate="new Date()"
+            inputClass="prime_calendar"
             selectionMode="multiple"
             :manualInput="false"
             dateFormat="dd/mm/yy"
           />
-        </div>
 
-        <div class="selecte_service my-3">
-          <label class="d-block">Choisir une offre</label>
-          <select name="" id="" v-model="selectedOffreWithDate" class="w-50 my-3">
-            <option value="" disabled>Sélectionner une offre</option>
-            <option
-              :value="offre.id"
-              v-for="(offre, index) in selectedService"
-              :key="index"
+          <div class="selecte_service my-3">
+            <label class="d-block">Choisir une offre</label>
+            <select
+              name="select_offre"
+              id="select_offre"
+              v-model="selectedOffreWithDate"
+              class="my-3"
             >
-              {{ offre.nom_offre }} {{ `du ${offre.debut} au ${offre.fin}` }}
-            </option>
-            <option disabled v-if="!selectedService.length">Pas d'offres</option>
-          </select>
-        </div>
+              <option value="" disabled>Sélectionner une offre</option>
+              <option
+                :value="offre.id"
+                v-for="(offre, index) in selectedService"
+                :key="index"
+              >
+                {{ offre.nom_offre }} {{ `du ${offre.debut} au ${offre.fin}` }}
+              </option>
+              <option disabled v-if="!selectedService.length">Pas d'offres</option>
+            </select>
+          </div>
 
-        <div
-          class="conteneurInter"
-          v-if="timetable_for_student.user.abonement.length && listAbonnement.length"
-        >
-          <button
-            class="btn-lg bg-dark mb-5"
-            @click="optionDate(timetable_for_student.id)"
+          <div
+            class="conteneurInter"
+            v-if="
+              configUtils.isAbonnementActif(timetable_for_student.user.abonement) &&
+              configUtils.isAbonnementActif(listAbonnement)
+            "
           >
-            Envoyer
-          </button>
+            <button
+              class="btn-lg bg-warning mb-5"
+              style="border: none"
+              @click="optionDate(timetable_for_student.id)"
+            >
+              Envoyer
+            </button>
+          </div>
+          <div class="text-center fw-bold">
+            <h5 class="text-danger"
+              v-if="!configUtils.isAbonnementActif(timetable_for_student.user.abonement)"
+            >
+              Cet étudiant n'a pas encore fait un abonnement.
+            </h5>
+            <h5 class="text-danger" v-if="!configUtils.isAbonnementActif(listAbonnement)">
+              Vous devez faire un abonnement
+            </h5>
+          </div>
         </div>
-        <div
-          v-else-if="!timetable_for_student.user.abonement.length"
-          class="text-center fw-bold"
-        >
-          Cette personne n'a pas encore fait un abonnement.
-        </div>
-        <div v-else-if="!listAbonnement.length" class="text-center fw-bold">
-          Vous devez faire un abonnement
-        </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
 
 <style scoped>
+.selecte_service select {
+  width: 100% !important;
+}
+.conteneur_calendar_student {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+.conteneur_calendar_student .jobs-result {
+  flex: 1 1 200px;
+}
+.conteneur_calendar_student .conteneur_date {
+  flex: 2 2 200px;
+}
 .spinner-border {
   height: 100vh !important;
   display: flex;

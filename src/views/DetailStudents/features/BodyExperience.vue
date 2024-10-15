@@ -113,7 +113,7 @@ export default {
                 <vue3starRatings
                   v-model="item.notes"
                   :showControl="false"
-                  :starSize="13"
+                  :starSize="'13'"
                   :disableClick="true"
                 />
               </div>

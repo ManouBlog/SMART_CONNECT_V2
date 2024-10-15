@@ -49,5 +49,8 @@ const differenceInHours = dayjsDateTo.diff(dayjsDateFrom, 'hour');
     JSON.stringify(
       new Date(value).toISOString().substring(0, 10)
     )
+  },
+  isAbonnementActif(value){
+    return value.some(item=>item.statut === "ACCEPTED")
   }
 }
