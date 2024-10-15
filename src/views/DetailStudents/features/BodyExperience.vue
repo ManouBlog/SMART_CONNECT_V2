@@ -1,5 +1,8 @@
 <script>
 import vue3starRatings from "vue3-star-ratings";
+import CardOtherExperience from "./CardOtherExperience.vue";
+import { mapActions } from "pinia";
+import { useModalExperienceStore } from "../../../store-pinia/ModalExperience/useModalExperienceStore";
 export default {
   name: "BodyExperience",
   props: {
@@ -7,13 +10,21 @@ export default {
   },
   components: {
     vue3starRatings,
+    CardOtherExperience,
   },
   data() {
     return { toogleExperience: true };
   },
+  methods: {
+    ...mapActions(useModalExperienceStore, ["changeValueForshowModalExperience"]),
+  },
 };
 </script>
 <template>
+  <CardOtherExperience
+    v-if="timetable_for_student.experiences.length"
+    :experiences="timetable_for_student.experiences"
+  />
   <section class="section_experience_evaluation">
     <div class="conteneur_section_experience">
       <p
@@ -31,9 +42,7 @@ export default {
         </em>
         <em class="bi bi-chevron-up" v-if="toogleExperience == true"></em>
       </p>
-      <div
-        v-if="toogleExperience && timetable_for_student.experiences.length"
-      >
+      <div v-if="toogleExperience && timetable_for_student.experiences.length">
         <div
           class="experiences position-relative px-4 pb-5 my-4"
           v-for="(item, index) in timetable_for_student.experiences.slice(0, 1)"
@@ -68,7 +77,9 @@ export default {
           </div>
         </div>
         <div class="d-flex">
-          <button class="btn bg-warning">Voir plus</button>
+          <button class="btn bg-warning" @click="changeValueForshowModalExperience">
+            Voir plus
+          </button>
         </div>
       </div>
     </div>
@@ -83,7 +94,7 @@ export default {
         <div class="carrousel_container_testominal">
           <a-carousel arrows autoplay :dots="false">
             <template #prevArrow>
-              <div class="custom-slick-arrow" style="left: 10px; z-index: 9999">
+              <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
                 <em class="bi bi-caret-left-fill"></em>
               </div>
             </template>

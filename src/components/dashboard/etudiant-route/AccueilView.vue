@@ -10,18 +10,11 @@ export default {
     HeaderDashboard,
   },
   data() {
-    return {
-      
-    };
+    return {};
   },
-  methods: {
-
-  },
-  computed: {
-    
-  },
-  created() {
-  },
+  methods: {},
+  computed: {},
+  created() {},
 };
 </script>
 
@@ -33,24 +26,22 @@ export default {
     />
     <div class="conteneur_tableau_de_bord">
       <a-card title="Postulations" :bordered="false" style="width: 300px">
-       <h1>20</h1>
+        <h1>20</h1>
       </a-card>
       <a-card title="Contrats" :bordered="false" style="width: 300px">
         <h1>30</h1>
       </a-card>
     </div>
-  
-    
   </section>
 </template>
 <style>
-.conteneur_tableau_de_bord{
- display:flex;
- align-items:center;
- flex-wrap: wrap;
- place-content: center;
- justify-content: center;
- gap:1em;
- padding:5em 0;
+.conteneur_tableau_de_bord {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  place-content: center;
+  justify-content: center;
+  gap: 1em;
+  padding: 5em 0;
 }
 </style>
