@@ -2,8 +2,9 @@
 import instance, { lienPhoto } from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { Help } from "../../../utils";
-
-import CardPostulants from "./features/CardPostulants.vue"
+import {useLoadingSpinner} from "../../../store-pinia/LoadingSpinner/useLoadingSpinner"
+import CardPostulants from "./features/CardPostulants.vue";
+const spinnerLoading = useLoadingSpinner();
 export default {
   name: "DetailPostulantsView",
   components: { HeaderDashboard,CardPostulants },
@@ -19,9 +20,9 @@ export default {
     };
   },
   methods: {
-    get_offres_interess_by_student() {
-      this.spinner = true;
-      instance
+    async get_offres_interess_by_student() {
+      spinnerLoading.launchLoading(true)
+      await instance
         .get("list_offres_interess_by_students")
         .then((res) => {
           console.log(res);
@@ -32,13 +33,15 @@ export default {
               this.detailStudents = this.offresInteressByStudents[item];
             }
           }
-
-          this.spinner = false;
+          spinnerLoading.launchLoading(false)
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    chooseStudent(){
+     this.get_offres_interess_by_student()
+    }
     
   },
   created() {
@@ -64,6 +67,7 @@ export default {
       v-for="(item,index) in detailStudents" 
       :key="index"
       :InfoPostulant="item"
+      @handleListe="chooseStudent"
       />
       </div>
     </div>

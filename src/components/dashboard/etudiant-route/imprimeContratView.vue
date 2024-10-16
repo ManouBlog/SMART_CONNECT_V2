@@ -1,6 +1,8 @@
 <script>
 import instance from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner.js";
+const loadingSpinner = useLoadingSpinner();
 export default {
   name: "imprimeContratView",
   components: {
@@ -32,8 +34,9 @@ export default {
         a.close();
       }, 300);
     },
-    getDetail() {
-      instance
+    async getDetail() {
+      loadingSpinner.launchLoading(true);
+      await instance
         .get("get_who_contact_student")
         .then((res) => {
           console.log("get_who_contact_student", res);
@@ -47,10 +50,11 @@ export default {
           console.log("this.myOffre", this.myOffre);
           this.created_at = this.entreprise.pivot.created_at;
           console.log("this.entreprise", this.entreprise);
-          this.spinner = false;
+          loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
           console.log(err);
+          loadingSpinner.launchLoading(false);
         });
     },
   },
@@ -65,39 +69,62 @@ export default {
       :TitleHeader="`Attestation d'admission`"
       :subTitleHeader="`Attestation d'admission`"
     />
-    <section>
+    <section
+      class="section_card_conteneur"
+      id="printDetail"
+      v-if="this.myOffre && this.entreprise"
+    >
       <div class="attestation_logo">
-         <img src="" alt="">
-         <img src="" alt="">
-         <img src="" alt="">
-      </div>
-
-    </section>
-
-    <div class="tab-content" id="top-tabContent">
-      <div id="printDetail">
-        <div class="text-left px-5" v-if="this.myOffre && this.entreprise">
-          <div class="conteneur-img"></div>
-          <h1 class="text-center">ATTESTATION D'ADMISSION</h1>
-          <h2>Offre : {{ this.myOffre.nom_offre }}</h2>
-          <h5 class="text-left">
-            L'entreprise
-            <strong>{{ this.entreprise.nom }}</strong> vous a contacté Mr(Mme)
-            <strong>{{ user.nom }} {{ user.prenoms }}</strong>
-            pour un poste au sein de son entreprise pour effectuer un travail vu votre
-            disponibilité.Merci de contacter l'entreprise pour plus de détail.
-          </h5>
-          <div>
-            <h4>Honoraire : {{ myOffre.salaire }} Fcfa</h4>
-            <h4>Contact du gérant : {{ entreprise.contact }}</h4>
-            <h4>Lieu : {{ myOffre.lieu }}</h4>
-          </div>
-          <strong v-if="this.entreprise" class="date">
-            Abidjan le :
-            {{ new Date(this.created_at).toISOString().slice(0, 16) }}
-          </strong>
+        <div class="img_card">
+          <img src="/smart-connect.png" alt="smart-connect" >
+        </div>
+        <div class="img_card">
+          <img src="/smart-connect.png" alt="smart-connect" >
+        </div>
+        <div class="img_card">
+          <img src="/img/lce.c9a1a7c1.png" alt="smart-connect" >
+  
         </div>
       </div>
+      <div class="attestation_infos">
+        <p>
+          <span class="span_info">Adresse :</span>
+          <span>{{ this.entreprise.nom }}</span>
+        </p>
+        <p>
+          <span class="span_info">Téléphone :</span>
+          <span>{{ this.entreprise.contact }}</span>
+        </p>
+      </div>
+      <div>
+        <h2 class="text-center">ATTESTATION D'ADMISSION</h2>
+      </div>
+      <div class="d-flex">
+        <h3>Offre : {{ this.myOffre.nom_offre }}</h3>
+      </div>
+
+      <p>
+        L'entreprise
+        <span class="mx-2">"{{ this.entreprise.nom }}"</span
+        >vous a contacté Mr(Mme)
+        <span class="mx-2">"{{ user.nom }} {{ user.prenoms }}"</span>
+        pour un poste au sein de son entreprise pour effectuer un travail vu votre
+        disponibilité.Merci de contacter l'entreprise pour plus de détail.
+      </p>
+      <div>
+        <h5 class="my-5">Honoraire : {{ myOffre.salaire }} Fcfa</h5>
+        <h5>Contact du gérant : {{ entreprise.contact }}</h5>
+        <h5 class="my-5">Lieu : {{ myOffre.lieu }}</h5>
+      </div>
+
+      <div class="conteneur_abidjan_sign">
+        <strong v-if="this.entreprise" class="date">
+          Abidjan le :
+          {{ new Date(this.created_at).toISOString().slice(0, 16) }}
+        </strong>
+      </div>
+    </section>
+    <section class="conteneur_abidjan_sign my-5">
       <button
         class="btn-lg p-5 bg-warning"
         style="border: none"
@@ -106,21 +133,51 @@ export default {
       >
         Imprimer
       </button>
-    </div>
+    </section>
   </div>
 </template>
 <style scoped>
+.attestation_logo .img_card{
+  width:200px;
+  height:100px;
+  position:relative;
+}
+.attestation_logo .img_card img{
+  position:absolute;
+  top:0;
+  right:0;
+  left:0;
+  bottom:0;
+  width:100%;
+  height: 100%;
+  object-fit: cover;
+}
+h5 {
+  text-align: left;
+}
+.section_card_conteneur {
+  padding: 0 5em;
+}
+.conteneur_abidjan_sign {
+  display: flex;
+  justify-content: flex-end;
+}
+.attestation_infos p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
 
-.attestation_logo{
-  display:flex;
+.attestation_logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .mt-5 {
   margin-top: 101px !important;
 }
-th,
-td {
-  border: thin solid rgba(141, 140, 140, 0.692) !important;
-}
+
 .Myspinner {
   position: fixed;
   left: 0;

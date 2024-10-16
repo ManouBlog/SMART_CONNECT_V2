@@ -1,12 +1,15 @@
 <script>
 import instance, { lienPhoto } from "../../../../api/api";
 import Swal from "sweetalert2";
+import {useLoadingSpinner} from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner"
+const spinnerLoading = useLoadingSpinner();
 export default {
     name:"CardPostulants",
+    emits:['handleListe'],
     props:{
         InfoPostulant:{
             type:Object
-        }
+        },
     },
     data() {
       return{
@@ -14,20 +17,20 @@ export default {
       }  
     },
     methods:{
-        async chooseStudent(id, idStud) {
+        async chooseStudent(id,valueRecruit) {
       console.log(id);
+    
+      console.log(this.InfoPostulant)
+      spinnerLoading.launchLoading(true)
       try {
         const data = {
           id: id,
-          recruit: 1,
+          recruit: valueRecruit,
         };
         const reponse = await instance.post("recruitStudent", data);
         if (reponse.data.status) {
-          this.detailStudents.forEach((item) => {
-            if (item.students_id === idStud) {
-              item.recruit = 1;
-            }
-          });
+          
+          this.$emit('handleListe')
           Swal.fire({
             icon: "success",
             title: reponse.data.message,
@@ -35,6 +38,7 @@ export default {
           });
         }
         console.log(reponse);
+        spinnerLoading.launchLoading(false)
       } catch (error) {
         console.log(error);
         Swal.fire({
@@ -42,6 +46,7 @@ export default {
           title: error.response.data.message,
           showConfirmButton: true,
         });
+        spinnerLoading.launchLoading(false)
       }
     },
     }
@@ -65,17 +70,30 @@ export default {
           <n-image width="100" :src="lienPhoto + InfoPostulant.photo"
             :alt="InfoPostulant.photo" />
         </div>
+        <div>
+          <section  v-if="InfoPostulant.recruit === 0">
+            <button
+          class="btn-lg bg-warning mt-3 rounded-5"
+          style="border:none"
+          @click="chooseStudent(InfoPostulant.id,1)"
+        >
+          Sélectionner
+        </button>
         <button
-        v-if="InfoPostulant.recruit === 0"
-        class="btn-lg bg-warning mt-3 rounded-5"
-        @click="chooseStudent(InfoPostulant.id, InfoPostulant.students_id)"
-      >
-        Sélectionner
-      </button>
-      <h3 v-else class="text-success">
-        <i class="bi bi-check-lg"></i>
-        Sélectionné
-      </h3>
+        class="btn-lg bg-danger mt-3 rounded-5"
+        style="border:none"
+        @click="chooseStudent(InfoPostulant.id,2)">
+          Rejeter
+        </button>
+          </section>
+        <h3 v-if="InfoPostulant.recruit === 1" class="text-success">
+          <i class="bi bi-check-lg"></i>
+          Sélectionné
+        </h3>
+        <h3 v-if="InfoPostulant.recruit === 2" class="text-danger">
+          Rejeté
+        </h3>
+        </div>
        </section>
       </a-card>
 </template>

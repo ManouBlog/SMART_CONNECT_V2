@@ -40,7 +40,7 @@ export default {
 </script>
 <template>
   <div class="container main-container-home">
-    <h1 class="step_suivre">Etapes à suivreEtapes à suivre</h1>
+    <h1 class="step_suivre">Etapes à suivre</h1>
     <h5 class="text-secondary my-3">
       Les instructions à suivre pour contacter du personnel ou postuler à une offre.
     </h5>
