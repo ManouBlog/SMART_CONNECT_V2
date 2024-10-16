@@ -7,17 +7,17 @@ import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
-const  loadingSpinner = useLoadingSpinner()
+const loadingSpinner = useLoadingSpinner();
 const statut = {
-  0:"En attente",
+  0: "En attente",
   1: "Séléctionné",
-  2: "Rejeté"
-}
+  2: "Rejeté",
+};
 const colorStatut = {
-  0:'text-info',
-  1:'text-success',
-  2:'text-danger'
-}
+  0: "bg-info",
+  1: "bg-success",
+  2: "bg-danger",
+};
 export default {
   name: "Offres_postulerView",
   components: {
@@ -28,8 +28,8 @@ export default {
   },
   data() {
     return {
-      colorStatut:colorStatut,
-      statut:statut,
+      colorStatut: colorStatut,
+      statut: statut,
       configUtils: configUtils,
       list_offre: [],
       offre: null,
@@ -148,9 +148,11 @@ export default {
                 header="Sélectionné"
               >
                 <template #body="slotProps">
-                  <span :class="colorStatut[slotProps.data.pivot.recruit]">{{
-                    statut[slotProps.data.pivot.recruit]
-                  }}</span>
+                  <span
+                    :class="colorStatut[slotProps.data.pivot.recruit]"
+                    class="badge"
+                    >{{ statut[slotProps.data.pivot.recruit] }}</span
+                  >
                 </template>
               </Column>
               <Column
@@ -171,7 +173,6 @@ export default {
                 </template>
               </Column>
             </DataTable>
-            
           </div>
         </div>
       </div>

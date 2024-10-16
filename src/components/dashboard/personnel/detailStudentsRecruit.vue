@@ -1,65 +1,67 @@
 <script>
-import instance,{lienPhoto} from "../../../api/api";
+import instance, { lienPhoto } from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { Help } from "../../../utils";
 import Swal from "sweetalert2";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
+const spinnerLoading = useLoadingSpinner();
 export default {
   name: "DetailPostulantsView",
   components: { HeaderDashboard },
   data() {
     return {
       studentRecruit: null,
-      lienPhoto:lienPhoto,
+      lienPhoto: lienPhoto,
       offre: null,
       offres: null,
       spinner: false,
       tableauRecruit: null,
       moneyFormat: new Intl.NumberFormat("de-DE"),
-      showModal:false,
-      numberRate:0,
-      identifiant:{},
-      avis:"",
+      showModal: false,
+      numberRate: 0,
+      identifiant: {},
+      avis: "",
     };
   },
   methods: {
-    get_offres_interess_by_student() {
-      this.spinner = true;
-      instance
+    async get_offres_interess_by_student() {
+      spinnerLoading.launchLoading(true);
+      await instance
         .get("getStudentRecruit")
         .then((res) => {
-          console.log("getStudentRecruit",res);
+          console.log("getStudentRecruit", res);
           this.studentRecruit = Help.groupBy(res.data);
 
-          for (let item in this.studentRecruit){
-      if(item === this.$route.params.offre){
-       this.tableauRecruit = this.studentRecruit[item]
-       }
-       }
-          this.spinner = false;
+          for (let item in this.studentRecruit) {
+            if (item === this.$route.params.offre) {
+              this.tableauRecruit = this.studentRecruit[item];
+            }
+          }
+          spinnerLoading.launchLoading(false);
         })
         .catch((err) => {
           console.log(err);
+          spinnerLoading.launchLoading(false);
         });
     },
-    getNumber(e){
-        this.numberRate = e
+    getNumber(e) {
+      this.numberRate = e;
     },
-    rateStudent(id){
-    this.showModal = true
-    this.tableauRecruit.forEach(item=>{
-        if(item.id === id){
-            this.identifiant = item
+    rateStudent(id) {
+      this.showModal = true;
+      this.tableauRecruit.forEach((item) => {
+        if (item.id === id) {
+          this.identifiant = item;
         }
-    })
+      });
     },
-    sendAppreciation() {
-        // console.log(this.identifiant)
-      instance
+    async sendAppreciation() {
+      await instance
         .post("giveAvis", {
           notes: this.numberRate,
           student_id: this.identifiant.student_id,
           avis: this.avis,
-          offre_id:this.identifiant.offre_id
+          offre_id: this.identifiant.offre_id,
         })
         .then((res) => {
           console.log(res);
@@ -89,10 +91,8 @@ export default {
       :subTitleHeader="'Détail-offre'"
     />
     <div class="page-body position-relative">
-      <div  v-if="tableauRecruit != null" 
-      class="conteneur-detail">
-  
-      <n-modal v-model:show="showModal">
+      <div v-if="tableauRecruit != null" class="conteneur-detail">
+        <n-modal v-model:show="showModal">
           <n-card
             style="width: 600px"
             :bordered="false"
@@ -100,79 +100,92 @@ export default {
             role="dialog"
             aria-modal="true"
           >
-            
-           <h1>
-              Evaluer le personnel
-           </h1>
-           <h2 class="text-center my-3">{{this.identifiant.nom}} {{this.identifiant.prenoms}}</h2>
-          <div class="text-center my-3">
-              <n-rate size="large" :value="numberRate" 
-              :on-update:value="getNumber"
-              />
-          </div>
-             <div v-if="numberRate >= 3">
+            <h1>Evaluer le personnel</h1>
+            <h2 class="text-center my-3">
+              {{ this.identifiant.nom }} {{ this.identifiant.prenoms }}
+            </h2>
+            <div class="text-center my-3">
+              <n-rate size="large" :value="numberRate" :on-update:value="getNumber" />
+            </div>
+            <div v-if="numberRate >= 3">
               <label for="comment">Commentaire</label>
-              <textarea v-model="avis" name="" id="" 
-              cols="30" rows="10" class="w-100">
+              <textarea v-model="avis" name="" id="" cols="30" rows="10" class="w-100">
               </textarea>
-             </div>
-  
-              <div class="text-center">
-                  <button v-if="numberRate" class="btn-lg bg-dark mx-3"
-                  @click="sendAppreciation"
-                  >Envoyer</button>
-                  <button class="btn-lg mx-3"
-                   @click="showModal = !showModal"
-                   >Plus tard</button>
-                  
-              </div>
-       
+            </div>
+
+            <div class="text-center">
+              <button
+                v-if="numberRate"
+                class="btn-lg bg-dark mx-3"
+                @click="sendAppreciation"
+              >
+                Envoyer
+              </button>
+              <button class="btn-lg mx-3" @click="showModal = !showModal">
+                Plus tard
+              </button>
+            </div>
           </n-card>
         </n-modal>
 
-        <div  class="d-flex align-items-center justify-content-center flex-wrap">
-          <a-card 
-          v-for="(item,index) in tableauRecruit" :key="item.id"
-          style="width: 400px; background: rgba(179, 201, 255, 0.38)" >
-          <h1 class="badge bg-warning w-25">Etudiant {{index+1}}</h1>
+        <div class="conteneur-evaluation-offre">
+          <a-card
+            v-for="(item, index) in tableauRecruit"
+            :key="item.id"
+            style="width: 400px; background: rgba(179, 201, 255, 0.38)"
+          >
+            <h1 class="badge bg-warning w-25">Etudiant {{ index + 1 }}</h1>
 
             <div class="d-flex justify-content-between align-items-center">
-            <h1><em class="bi bi-person h1"></em></h1>
-            <h2 class="text-warning">{{ item.nom }}
-               {{ item.prenoms }}</h2>
+              <h1><em class="bi bi-person h1"></em></h1>
+              <h2 class="text-warning">{{ item.nom }} {{ item.prenoms }}</h2>
             </div>
-          <section class="text-left">
-          <h4><span>Email</span> {{ item.email }}</h4>
-          <h4><span>Ville</span> {{ item.ville }}</h4>
-          <h4><span>Quartier</span> {{ item.quartier }}</h4>
-          <h4><span>Commune</span> {{ item.commune }}</h4>
-          <h4><span>Télephone</span> {{ item.phone }}</h4>
-          <h4><span>Diplome</span> {{ item.diplome }}</h4>
-          <h4><span>Galerie</span> 
-          <img :src="lienPhoto+item.photo"
-           class="w-25 border-2 rounded" :alt="item.photo">
-          </h4>
-          <button style="border:none" class="btn-lg bg-warning mt-3"
-          @click="rateStudent(item.id)"
-          >Evaluer</button>
+            <section class="text-left">
+              <h4><span>Email</span> {{ item.email }}</h4>
+              <h4><span>Ville</span> {{ item.ville }}</h4>
+              <h4><span>Quartier</span> {{ item.quartier }}</h4>
+              <h4><span>Commune</span> {{ item.commune }}</h4>
+              <h4><span>Télephone</span> {{ item.phone }}</h4>
+              <h4><span>Diplome</span> {{ item.diplome }}</h4>
+              <h4>
+                <span>Galerie</span>
+                <img
+                  :src="lienPhoto + item.photo"
+                  class="w-25 border-2 rounded"
+                  :alt="item.photo"
+                />
+              </h4>
+              <button
+                style="border: none"
+                class="btn-lg bg-warning mt-3"
+                @click="rateStudent(item.id)"
+              >
+                Evaluer
+              </button>
             </section>
-           </a-card>
-        </div>  
+          </a-card>
+        </div>
       </div>
-  
     </div>
   </section>
-
 </template>
 
 <style scoped>
+.conteneur-evaluation-offre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  place-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
 
 .bi-person {
-  font-size:3em;
+  font-size: 3em;
 }
 .badge {
   width: 300px !important;
-  font-weight:bold !important;
+  font-weight: bold !important;
   color: white !important;
 }
 
