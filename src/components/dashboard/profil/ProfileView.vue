@@ -6,10 +6,10 @@ import InfoStudents from "./feature/InfoStudents.vue";
 // import InfoParticulier from "./feature/InfoParticulier.vue"
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import ModalForModifyInfo from "./feature/ModalForModifyInfo.vue";
-import CompetencesAndExperience from "../etudiant-route/CompetencesAndExperience.vue"
-import MonPlanAbonnement from "./feature/MonPlanAbonnement.vue"
-import TabView from 'primevue/tabview';
-import TabPanel from 'primevue/tabpanel';
+import CompetencesAndExperience from "../etudiant-route/CompetencesAndExperience.vue";
+import MonPlanAbonnement from "./feature/MonPlanAbonnement.vue";
+import TabView from "primevue/tabview";
+import TabPanel from "primevue/tabpanel";
 
 export default {
   name: "ProfileView",
@@ -21,7 +21,7 @@ export default {
     InfoStudents,
     TabView,
     TabPanel,
-    MonPlanAbonnement
+    MonPlanAbonnement,
   },
   data() {
     return {
@@ -257,14 +257,16 @@ export default {
             />
           </div>
         </TabPanel>
-        <TabPanel v-if="this.user.user.statut.statut === 'etudiant'" header="Compétences et Expériences">
+        <TabPanel
+          v-if="this.user.user.statut.statut === 'etudiant'"
+          header="Compétences et Expériences"
+        >
           <CompetencesAndExperience />
         </TabPanel>
         <TabPanel header="Mon Abonnement">
           <MonPlanAbonnement />
         </TabPanel>
-    </TabView>
-      
+      </TabView>
     </div>
   </section>
 </template>

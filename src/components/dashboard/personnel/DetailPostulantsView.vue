@@ -58,7 +58,7 @@ export default {
       
       <div
         v-if="detailStudents != null"
-        class="d-flex align-items-center justify-content-center flex-wrap"
+        class="d-flex align-items-center conteneur_postulants justify-content-center"
       >
       <CardPostulants 
       v-for="(item,index) in detailStudents" 
@@ -69,5 +69,12 @@ export default {
     </div>
   </section>
 </template>
+<style scoped>
+.conteneur_postulants{
+  gap:1.5em;
+  place-content: center;
+  flex-wrap: wrap;
+}
+</style>
 
 

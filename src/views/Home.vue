@@ -33,7 +33,7 @@ export default {
     ...mapActions(useVerificationStore,["verifIfAbonementIsExpied"]),
     ...mapActions(useListeFavoris,["handleListeFavoris"]),
     getDateAbonementActive(){
-      if(this.$store.state.user){
+      if(this.$store.state.user && this.$store.state.user.user.abonement){
         this.$store.state.user.user.abonement.forEach(item=>{
         if(item.statut  === 'ACCEPTED'){
           this.dateActive = item.echeance

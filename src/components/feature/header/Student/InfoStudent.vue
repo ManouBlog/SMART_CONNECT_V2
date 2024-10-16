@@ -83,7 +83,6 @@ export default {
     </a>
     <template #overlay>
       <a-menu>
-        
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/accueil" class="d-block">

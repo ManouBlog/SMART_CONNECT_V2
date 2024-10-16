@@ -2,18 +2,18 @@
 import instance from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 export default {
-  name:"imprimeContratView",
+  name: "imprimeContratView",
   components: {
-    HeaderDashboard
+    HeaderDashboard,
   },
   data() {
     return {
-      offreDetail:"",
+      offreDetail: "",
       list_entreprise_contact: "",
-      entreprise:null,
+      entreprise: null,
       user: this.$store.state.user,
-      myOffre:null,
-      created_at:"",
+      myOffre: null,
+      created_at: "",
     };
   },
   methods: {
@@ -32,30 +32,30 @@ export default {
         a.close();
       }, 300);
     },
-    getDetail(){
+    getDetail() {
       instance
-      .get("get_who_contact_student")
-      .then((res) => {
-        console.log("get_who_contact_student",res);
-        this.offreDetail = res.data;
-        console.log("this.$route.params.id",this.$route.params.id)
-        console.log("ENTREPRISES", this.list_entreprise_contact);
-        this.entreprise = this.offreDetail.entreprises.find(
-          (item) => Number(item.pivot.id) === Number(this.$route.params.id)
-        );
-        this.myOffre = this.entreprise.pivot.offre
-        console.log("this.myOffre",this.myOffre)
-        this.created_at = this.entreprise.pivot.created_at
-        console.log("this.entreprise",this.entreprise);
-        this.spinner = false;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    }
+        .get("get_who_contact_student")
+        .then((res) => {
+          console.log("get_who_contact_student", res);
+          this.offreDetail = res.data;
+          console.log("this.$route.params.id", this.$route.params.id);
+          console.log("ENTREPRISES", this.list_entreprise_contact);
+          this.entreprise = this.offreDetail.entreprises.find(
+            (item) => Number(item.pivot.id) === Number(this.$route.params.id)
+          );
+          this.myOffre = this.entreprise.pivot.offre;
+          console.log("this.myOffre", this.myOffre);
+          this.created_at = this.entreprise.pivot.created_at;
+          console.log("this.entreprise", this.entreprise);
+          this.spinner = false;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
-   this.getDetail()
+    this.getDetail();
   },
 };
 </script>
@@ -65,43 +65,55 @@ export default {
       :TitleHeader="`Attestation d'admission`"
       :subTitleHeader="`Attestation d'admission`"
     />
-    
-  
+    <section>
+      <div class="attestation_logo">
+         <img src="" alt="">
+         <img src="" alt="">
+         <img src="" alt="">
+      </div>
+
+    </section>
+
     <div class="tab-content" id="top-tabContent">
       <div id="printDetail">
-        
-          <div class="text-left px-5" v-if="this.myOffre && this.entreprise">
-            <div class="conteneur-img">
-            </div>
-            <h1 class="text-center">ATTESTATION D'ADMISSION</h1>
-            <h2>
-              Offre : {{this.myOffre.nom_offre}}
-            
-            </h2>
-            <h5 class="text-left">
-              L'entreprise
-              <strong>{{ this.entreprise.nom }}</strong> vous a contacté Mr(Mme)
-              <strong>{{ user.nom }} {{ user.prenoms }}</strong>
-              pour un poste au sein de son entreprise pour effectuer un travail
-              vu votre disponibilité.Merci de contacter l'entreprise pour plus de détail.
-              
-            </h5>
-            <div>
-              <h4>Honoraire : {{myOffre.salaire}} Fcfa</h4>
-              <h4>Contact du gérant : {{entreprise.contact}}</h4>
-              <h4>Lieu : {{myOffre.lieu}}</h4>
-            </div>
-            <strong v-if="this.entreprise" class="date">
-              Abidjan le :
-              {{ new Date(this.created_at).toISOString().slice(0,16) }}
-            </strong> 
+        <div class="text-left px-5" v-if="this.myOffre && this.entreprise">
+          <div class="conteneur-img"></div>
+          <h1 class="text-center">ATTESTATION D'ADMISSION</h1>
+          <h2>Offre : {{ this.myOffre.nom_offre }}</h2>
+          <h5 class="text-left">
+            L'entreprise
+            <strong>{{ this.entreprise.nom }}</strong> vous a contacté Mr(Mme)
+            <strong>{{ user.nom }} {{ user.prenoms }}</strong>
+            pour un poste au sein de son entreprise pour effectuer un travail vu votre
+            disponibilité.Merci de contacter l'entreprise pour plus de détail.
+          </h5>
+          <div>
+            <h4>Honoraire : {{ myOffre.salaire }} Fcfa</h4>
+            <h4>Contact du gérant : {{ entreprise.contact }}</h4>
+            <h4>Lieu : {{ myOffre.lieu }}</h4>
           </div>
+          <strong v-if="this.entreprise" class="date">
+            Abidjan le :
+            {{ new Date(this.created_at).toISOString().slice(0, 16) }}
+          </strong>
+        </div>
       </div>
-      <button class="btn-lg p-5 bg-warning" style="border:none" @click="printDiv" v-if="this.myOffre && this.entreprise">Imprimer</button>
+      <button
+        class="btn-lg p-5 bg-warning"
+        style="border: none"
+        @click="printDiv"
+        v-if="this.myOffre && this.entreprise"
+      >
+        Imprimer
+      </button>
     </div>
   </div>
 </template>
 <style scoped>
+
+.attestation_logo{
+  display:flex;
+}
 .mt-5 {
   margin-top: 101px !important;
 }

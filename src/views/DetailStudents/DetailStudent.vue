@@ -6,10 +6,11 @@ import { Calendar } from "v-calendar";
 import { configUtils } from "../../Shared/Utils";
 // import vue3starRatings from "vue3-star-ratings";
 // import { KCheckbox } from "@kong/kongponents";
+import {useLoadingSpinner} from "../../store-pinia/LoadingSpinner/useLoadingSpinner"
 import "@kong/kongponents/dist/style.css";
 import HeaderDetailStudent from "./features/HeaderDetailStudent.vue";
 import BodyExperience from "./features/BodyExperience.vue";
-
+const loadingSpinner = useLoadingSpinner()
 //DatePicker
 export default {
   components: { Calendar, HeaderDetailStudent, BodyExperience },
@@ -107,10 +108,9 @@ export default {
         start: new Date(),
         end: new Date(),
       },
-
       days: [],
       showCalenderFilter: false,
-      selectedOffreWithDate: "",
+      selectedOffreWithDate:null,
       selectedOffreWithPeriode: "",
       perPage: 3,
       currentPage: 1,
@@ -199,7 +199,8 @@ export default {
   },
   methods: {
     getDetailStudent() {
-      this.isLoading = true;
+      loadingSpinner.launchLoading(true)
+      // this.isLoading = true;
       instance
         .get("FiltreTimetable")
         .then((res) => {
@@ -249,7 +250,7 @@ export default {
           // this.selectedService = this.timetable_for_student.competences;
           // console.log("COMPETENCES", this.selectedService);
 
-          this.isLoading = false;
+          loadingSpinner.launchLoading(false)
 
           console.log("EMPLOI DU TEMPS", this.timetable_for_student);
 
@@ -476,9 +477,9 @@ export default {
         this.showEndResearch = !this.showEndResearch;
       }
     },
-    get_list_emploi() {
-      this.spinner = false;
-      instance
+    async get_list_emploi() {
+      loadingSpinner.launchLoading(true)
+      await instance
         .get("list_emplois_temps")
         .then((res) => {
           console.log("EMPLOI", res.data.data);
@@ -510,11 +511,12 @@ export default {
 
           this.lengthOfMylistEmploi = this.MylistEmploi.length;
           console.log("EMPLOI DU TEMPS", this.list_emploi);
-          this.spinner = true;
+          
         })
         .catch((err) => {
           console.log(err);
         });
+        loadingSpinner.launchLoading(false)
     },
     closeDetailTimetable() {
       this.details_timetable = !this.details_timetable;
@@ -575,9 +577,9 @@ export default {
           });
         });
     },
-    optionPeriode(EntrepriseId) {
-      this.loadSpinner = true;
-      instance
+    async optionPeriode(EntrepriseId) {
+      loadingSpinner.launchLoading(true)
+     await instance
         .post("entreprise_student", {
           student_id: EntrepriseId,
           date_debut: this.dateDebut,
@@ -594,7 +596,7 @@ export default {
               showConfirmButton: false,
               timer: 3000,
             });
-            this.loadSpinner = false;
+            // this.loadSpinner = false;
             //setTimeout(() => {
             //location.reload(true);
             //}, 3000);
@@ -606,7 +608,7 @@ export default {
               showConfirmButton: false,
               timer: 2000,
             });
-            this.loadSpinner = false;
+            // this.loadSpinner = false;
           }
         })
         .catch((err) => {
@@ -616,11 +618,13 @@ export default {
             title: "Vérifier votre connexion ou les informations que vous envoyer",
             showConfirmButton: true,
           });
-          this.loadSpinner = false;
+          // this.loadSpinner = false;
         });
+        loadingSpinner.launchLoading(false)
     },
-    getall() {
-      instance
+    async getall() {
+      loadingSpinner.launchLoading(true)
+     await instance
         .get("getAllWishlist")
         .then((response) => {
           console.log("WISHLIST", response.data.data.wishlists);
@@ -631,6 +635,7 @@ export default {
         .catch((error) => {
           console.log("error3", error);
         });
+        loadingSpinner.launchLoading(false)
     },
     AllCompetencesPredf() {
       instance
@@ -695,6 +700,9 @@ export default {
         console.log(error);
       }
     },
+//     filterOption(input, option){
+//   return option.nom_offre.toUpperCase().indexOf(input.toUpperCase()) >= 0;
+// }
   },
   created() {
     this.handleAbonnement();
@@ -762,6 +770,13 @@ export default {
 
           <div class="selecte_service my-3">
             <label class="d-block">Choisir une offre</label>
+            <!-- <a-auto-complete
+            v-model:value="selectedOffreWithDate"
+            :options="selectedService"
+            style="width: 100%"
+            placeholder="input here"
+            :filter-option="filterOption"
+          /> -->
             <select
               name="select_offre"
               id="select_offre"
@@ -774,7 +789,7 @@ export default {
                 v-for="(offre, index) in selectedService"
                 :key="index"
               >
-                {{ offre.nom_offre }} {{ `du ${offre.debut} au ${offre.fin}` }}
+                {{ offre.nom_offre }}
               </option>
               <option disabled v-if="!selectedService.length">Pas d'offres</option>
             </select>
@@ -812,6 +827,7 @@ export default {
 </template>
 
 <style scoped>
+
 .selecte_service select {
   width: 100% !important;
 }
