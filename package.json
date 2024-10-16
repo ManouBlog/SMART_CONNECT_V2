@@ -29,6 +29,7 @@
     "datatables.net": "^1.12.1",
     "datatables.net-dt": "^1.12.1",
     "dayjs": "^1.11.3",
+    "html2pdf.js": "^0.10.2",
     "jquery": "^3.6.0",
     "laravel-vue-pagination": "^3.0.0",
     "naive-ui": "^2.35.0",
