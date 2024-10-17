@@ -1,13 +1,15 @@
 <script>
 import instance from "../api/api";
+import {configUtils} from "../Shared/Utils"
 import Swal from "sweetalert2";
 import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
-const loadingSpinner = useLoadingSpinner()
+const loadingSpinner = useLoadingSpinner();
 export default {
   name: "OffreDetails",
   data() {
     return {
-      spinnerText:loadingSpinner.isLoadingVisible,
+      configUtils:configUtils,
+      spinnerText: loadingSpinner.isLoadingVisible,
       Offre: "",
       list_offre: "",
       moneyFormat: new Intl.NumberFormat("de-DE"),
@@ -15,6 +17,7 @@ export default {
       loadSpinner: false,
       path: "",
       listEntrepriseOffre: [],
+      abonnements:this.$store.state.user.user.abonement
     };
   },
   methods: {
@@ -69,11 +72,11 @@ export default {
         .catch((err) => {
           console.log(err);
           Swal.fire({
-              icon: "info",
-              title: err.response.data.message,
-              showConfirmButton: true,
-            });
-            loadingSpinner.launchLoading(false);
+            icon: "info",
+            title: err.response.data.message,
+            showConfirmButton: true,
+          });
+          loadingSpinner.launchLoading(false);
           // Swal.fire({
           //   icon: "error",
           //   title: "Veuillez-vous connecter",
@@ -102,6 +105,9 @@ export default {
         }, 3000);
       }
     },
+    handleNouvelAbonnement() {
+      this.$router.push({ name: "abonnements" });
+    },
   },
   created() {
     this.get_list_offre();
@@ -111,50 +117,67 @@ export default {
 };
 </script>
 <template>
-  
   <div class="position-relative">
     <div class="container main-container" v-if="Offre">
       <div class="col-lg-12">
         <div class="offres_disponible row container">
           <div class="col-md-12 col-sm-12 entreprise">
-           
             <div class="card">
               <section>
-                <h1 class="my-3 nom_offre">{{ Offre.nom_offre }}</h1>
-                <h4 class="my-3">
+                <h1 class="my-5 nom_offre">{{ Offre.nom_offre }}</h1>
+                <h4 class="my-5">
                   <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
                 </h4>
-                <h4 class="my-3" v-if="Offre.nbre_person">
-                  Nombre de poste : {{ Offre.nbre_person }}
-                </h4>
                 <div>
-                  <h4 class="my-3" v-if="Offre.salaire != null">
+                  <h4 class="my-5" v-if="Offre.salaire != null">
                     <em class="bi bi-cash-stack"></em>
                     {{ moneyFormat.format(Offre.salaire) }} Fcfa /
                     {{ Offre.pointage }}
                   </h4>
-                  <h4 class="my-3" v-else>
+                  <h4 class="my-5" v-else>
                     <em class="bi bi-cash-stack"></em> Prime pas fixée
                   </h4>
                 </div>
+                <h4 class="my-5" v-if="Offre.nbre_person">
+                  Nombre de postes : {{ Offre.nbre_person }}
+                </h4>
+                <h4 class="my-5">
+                  Date et heure d'entrée en fonction : {{ 
+                    configUtils.getFormatDateFr(Offre.job_debut) }}
+                </h4>
+                <h4 class="my-5">
+                  Date et heure de fin d'activité : {{ 
+                    configUtils.getFormatDateFr(Offre.job_fin) }}
+                </h4>
+             
               </section>
               <section>
-                <h3 class="d-flex my-4 fw-bold">Présentations</h3>
+                <h4 class="d-flex my-4">Présentations</h4>
                 <div v-html="Offre.description" id="conteneur_description"></div>
               </section>
-              <section class="px-1">
-                <!-- <span class="my-2">Date et heure début : {{ Offre.debut }}</span> -->
-                <span class="my-2 text-danger">Postuler avant le : {{ Offre.fin }}</span>
-              </section>
               <section>
+                <span class="my-2 text-danger">Postuler avant le : {{ 
+                  configUtils.getFormatDateFr(Offre.fin) }}</span>
+              </section>
+              <section v-if="abonnements.some(item=>item.statut === 'ACCEPTED')">
                 <button
                   class="btn-lg bg-warning"
                   @click="sendDataPost(Offre.id)"
-                  style="width: 200px !important"
+                  style="width: auto !important"
                 >
                   Postuler
                   <em class="bi bi-send"></em>
                 </button>
+              </section>
+              <section v-else>
+               <h5 class="text-danger d-flex justify-content-center my-5">
+                Veuillez faire un abonnement avant de postuler à cette offre
+              </h5>
+              <div>
+                <button class="btn bg-warning"  style="width: auto !important;padding:1em;" @click="handleNouvelAbonnement">
+                  Souscrire à un abonnement
+                </button>
+              </div>
               </section>
             </div>
           </div>
@@ -162,11 +185,10 @@ export default {
       </div>
     </div>
   </div>
-  
 </template>
 <style scoped>
 #conteneur_description {
-  padding: 0 2em;
+  text-align: justify;
 }
 .nom_offre {
   font-size: 5em;
