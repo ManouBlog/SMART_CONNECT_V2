@@ -832,9 +832,12 @@ export default {
 </template>
 
 <style scoped>
+:deep(.p-inputwrapper){
+  width:500px !important;
+}
 
 .selecte_service select {
-  width: 100% !important;
+  width: 500px !important;
 }
 .conteneur_calendar_student {
   display: flex;
