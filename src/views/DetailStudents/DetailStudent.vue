@@ -117,6 +117,7 @@ export default {
       totalPages: "",
       maxVisibleButtons: "2",
       listAbonnement: [],
+
     };
   },
   computed: {
@@ -196,12 +197,24 @@ export default {
         })),
       ];
     },
+    idParamsItem(){
+      return this.$route.params.id;
+    }
+  },
+  watch: {
+    idParamsItem(newValue, oldValue) {
+       console.log("oldValue",oldValue)
+       console.log("newValue",newValue)
+       if(newValue){
+        this.getDetailStudent()
+       }
+    }
   },
   methods: {
-    getDetailStudent() {
+    async getDetailStudent() {
       loadingSpinner.launchLoading(true)
       // this.isLoading = true;
-      instance
+      await instance
         .get("FiltreTimetable")
         .then((res) => {
           console.log(res);
@@ -209,16 +222,16 @@ export default {
           this.dateRendezVousStudentWithEntreprise = res.data.date;
           let dateOfStudent = [];
           this.dateRendezVousStudentWithEntreprise.forEach((element) => {
-            if (element.student_id === Number(this.$route.params.id)) {
+            if (element.student_id === Number(this.idParamsItem)) {
               dateOfStudent.push(element);
             }
           });
 
           this.MyDateRendezVous = dateOfStudent;
           console.log("this.NewListEmploi", this.NewListEmploi);
-          console.log("this.$route.params.id", this.$route.params.id);
+          console.log("this.$route.params.id", this.idParamsItem);
           this.timetable_for_student = this.NewListEmploi.find(
-            (item) => item.id === Number(this.$route.params.id)
+            (item) => item.id === Number(this.idParamsItem)
           );
           console.log("this.timetable_for_student", this.timetable_for_student);
           this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
@@ -596,10 +609,6 @@ export default {
               showConfirmButton: false,
               timer: 3000,
             });
-            // this.loadSpinner = false;
-            //setTimeout(() => {
-            //location.reload(true);
-            //}, 3000);
           }
           if (res.data.status === false) {
             Swal.fire({
@@ -608,7 +617,7 @@ export default {
               showConfirmButton: false,
               timer: 2000,
             });
-            // this.loadSpinner = false;
+         
           }
         })
         .catch((err) => {
@@ -618,7 +627,7 @@ export default {
             title: "Vérifier votre connexion ou les informations que vous envoyer",
             showConfirmButton: true,
           });
-          // this.loadSpinner = false;
+       
         });
         loadingSpinner.launchLoading(false)
     },
@@ -700,18 +709,14 @@ export default {
         console.log(error);
       }
     },
-//     filterOption(input, option){
-//   return option.nom_offre.toUpperCase().indexOf(input.toUpperCase()) >= 0;
-// }
+
   },
   created() {
     this.handleAbonnement();
     this.get_list_emploi();
     this.getAllCompetences();
-    this.getall();
     this.AllCompetencesPredf();
     this.verfEnter();
-    console.log(this.jourSelect());
     this.getDetailStudent();
     this.selectOffreEntreprise();
   },

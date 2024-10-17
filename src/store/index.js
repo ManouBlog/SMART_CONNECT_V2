@@ -16,35 +16,6 @@ export default createStore({
     abonnement:false,
   },
   mutations: {
-    addPersonAtWishLit(state,person){
-        instance.post("saveWishlist",{
-          student_id: person.id,
-        }, {
-          headers: {
-            Authorization: "Bearer " + state.token,
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-          if(response.data.status === true){
-            state.colorHeart = true;
-            state.whistListPerson.push(person)
-            console.log("COLOR",state.colorHeart);
-            console.log(state.whistListPerson);
-          }
-          if(response.data.status === false){
-            state.colorHeart = false;
-            const Deleteperson = state.whistListPerson.findIndex(p=>p.id === person.id)
-            state.whistListPerson.splice(Deleteperson,1)
-            console.log("COLOR",state.colorHeart);
-            console.log(state.whistListPerson);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-      
-     },
      deletePersonAtWishList(state,idPerson){
       instance.delete("deletePersonInMyWishlist/"+idPerson)
       .then((res) => {
@@ -65,21 +36,9 @@ export default createStore({
         console.log(error);
       })
      },
-     getall(state){
-      if(state.token){
-        instance.get("getAllWishlist")
-        .then((response) => {
-          console.log("whistListPerson",response.data.data);
-          state.whistListPerson = response.data.data.wishlists;
-         
-        })
-        .catch((error) => {
-          console.log("error1",error);
-        })
-      }else{
-        return;
-      }
-     
+     GET_ALL_WISH_LIST(state,payload){
+      state.whistListPerson = payload
+      console.log("GET_ALL_WISH_LIST",state.whistListPerson)
      },
      CHANGE_LANGAGE_WEB(state,langue){
       state.translate = langue;
@@ -116,7 +75,48 @@ export default createStore({
      }
   },
   actions: {   
-
+   async addListFavoris({commit,state},payload){
+    console.log("addListFavoris",payload)
+      await instance.post("saveWishlist",{
+        student_id: payload.id,
+      }, {
+        headers: {
+          Authorization: "Bearer " + state.token,
+        },
+      })
+      .then((response) => {
+        if(response.data.status === true){
+          // state.colorHeart = true;
+          state.whistListPerson.push(payload)
+          commit("GET_ALL_WISH_LIST",state.whistListPerson)
+        }
+        if(response.data.status === false){
+          // state.colorHeart = false;
+          const Deleteperson = state.whistListPerson.findIndex(p=>p.id === payload.id)
+          state.whistListPerson.splice(Deleteperson,1)
+          commit("GET_ALL_WISH_LIST",state.whistListPerson)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    
+   },
+   async handleListeFavoris({commit,state}) {
+    if (state.token) {
+      await instance
+        .get("getAllWishlist")
+        .then((response) => {
+          console.log("WISHLIST", response.data.data.wishlists);
+          commit('GET_ALL_WISH_LIST',response.data.data.wishlists)
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    } else {
+      return;
+    }
+  },
   },
   modules: {
   }

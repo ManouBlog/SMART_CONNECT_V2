@@ -261,6 +261,7 @@ export default {
   },
   created() {
     this.all();
+    this.$store.dispatch("handleListeFavoris")
   },
 };
 </script>

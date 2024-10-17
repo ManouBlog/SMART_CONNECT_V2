@@ -37,9 +37,9 @@ export default {
     <template #overlay>
       <a-menu>
         <h6 class="text-center">Liste de favoris</h6>
-        <div v-if="myListOfFavoris > 0" class="cont px-3">
+        <div class="cont px-3">
           <div
-            v-for="(item, index) in myListOfFavoris"
+            v-for="(item, index) in this.$store.state.whistListPerson"
             :key="index"
             class="listWhistPerson"
           >

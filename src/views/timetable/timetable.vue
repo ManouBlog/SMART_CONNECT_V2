@@ -428,7 +428,8 @@ export default {
       this.list = [...new Set(this.Myarray)];
     },
     addPersonAtWishLit(person) {
-      this.$store.commit("addPersonAtWishLit", person);
+      console.log("addPersonAtWishLit chooter")
+      this.$store.dispatch("addListFavoris", person);
       this.isWhished[person.id] = !this.isWhished[person.id];
     },
     showMyCalender(id) {
@@ -446,9 +447,9 @@ export default {
         this.showEndResearch = !this.showEndResearch;
       }
     },
-    get_list_emploi() {
+    async get_list_emploi() {
       loadingSpinner.launchLoading(true);
-      instance
+      await instance
         .get("list_emplois_temps")
         .then((res) => {
           console.log("EMPLOI", res.data.data);
@@ -608,27 +609,7 @@ export default {
           this.loadSpinner = false;
         });
     },
-    async handleListeFavoris() {
-      if (this.$store.state.token) {
-        await instance
-          .get("getAllWishlist")
-          .then((response) => {
-            console.log("WISHLIST", response.data.data.wishlists);
-            response.data.data.wishlists.forEach((item) => {
-              this.verfIfStudentExistInWishlist.push(item.user_id);
-            });
-            console.log(
-              "verfIfStudentExistInWishlist",
-              this.verfIfStudentExistInWishlist
-            );
-          })
-          .catch((error) => {
-            console.log("error", error);
-          });
-      } else {
-        return;
-      }
-    },
+    
     AllCompetencesPredf() {
       instance
         .get("GetAllCompetences")
@@ -681,12 +662,13 @@ export default {
     },
   },
   created() {
+    this.$store.dispatch("handleListeFavoris")
     this.get_list_emploi();
     this.getAllCompetences();
-    this.handleListeFavoris();
+    // this.handleListeFavoris();
     this.AllCompetencesPredf();
     this.verfEnter();
-    console.log(this.jourSelect());
+    // console.log(this.jourSelect());
     this.path = window.location.pathname;
   },
 };
@@ -763,15 +745,11 @@ export default {
           >
             <div class="icons_interesse">
               <em
-                v-if="
-                  (user && user.user.statut.statut == 'entreprise') ||
-                  (user && user.user.statut.statut === 'particulier')
-                "
                 @click="addPersonAtWishLit(emploi)"
                 :class="isWhished[emploi.id] ? 'text-danger' : 'null'"
                 class="bi bi-heart-fill"
               ></em>
-              <em v-else class="bi bi-heart-fill"></em>
+              <!-- <em class="bi bi-heart-fill"></em> -->
             </div>
             <em class="bi bi-person"></em>
             <div class="card-body">
