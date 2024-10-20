@@ -20,8 +20,8 @@ export default {
   <div class="header_banner">
     <div class="ecriteau">
       <h1>
-        Mon emploi <br />
-        en un clic
+        {{$t("Home.headline.emploi")}} <br />
+        {{$t("Home.headline.oneClick")}}
       </h1>
       <h5 class="my-5">
         Nous vous accompagnons pour <br />
