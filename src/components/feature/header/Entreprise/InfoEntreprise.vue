@@ -96,39 +96,42 @@ export default {
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/offre" class="d-block">
-              {{$t('Header.Menu.Entreprise.Liste_des_offres')}}
+              {{ $t("Header.Menu.Entreprise.Liste_des_offres") }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/creation_offre" class="d-block">
-              {{$t('Header.Menu.Entreprise.creer_une_offre')}}
-              
+              {{ $t("Header.Menu.Entreprise.creer_une_offre") }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/personnel" class="d-block">
-              {{$t('Header.Menu.Entreprise.Personnels')}}
+              {{ $t("Header.Menu.Entreprise.Personnels") }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/postulants" class="d-block">
-              {{$t('Header.Menu.Entreprise.Postulants')}}
+              {{ $t("Header.Menu.Entreprise.Postulants") }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
-          <LiensNavBar :texte="$t('Header.Menu.Mes_abonnements')" :route_lien="'dashboard-abonnements'" />
+          <LiensNavBar
+            :texte="$t('Header.Menu.Mes_abonnements')"
+            :route_lien="'dashboard-abonnements'"
+          />
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{
-              $t('Header.Menu.Deconnexion')}}</a>
+              $t("Header.Menu.Deconnexion")
+            }}</a>
           </li>
         </a-menu-item>
       </a-menu>

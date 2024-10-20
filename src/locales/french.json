@@ -11,7 +11,10 @@
              "Mes_abonnements":"Mes abonnements",
              "Deconnexion":"Deconnexion",
             "Student":{
-                "Offre_emploi":"Offre d'emploi"
+                "Offre_emploi":"Offre d'emploi",
+                "Postulations":"Mes Postulations",
+                "Contrats":"Mes Contrats",
+                 "Disponibilite":"Mes disponibilités"
             },
             "Entreprise":{
                 "Talents":"Talents",

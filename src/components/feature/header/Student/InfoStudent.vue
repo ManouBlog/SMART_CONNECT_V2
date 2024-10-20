@@ -1,13 +1,13 @@
 <script>
 import instance from "../../../../api/api";
-import LiensNavBar from "../LiensNavBar.vue"
+import LiensNavBar from "../LiensNavBar.vue";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 export default {
   name: "InfoStudent",
-  components:{
-    LiensNavBar
+  components: {
+    LiensNavBar,
   },
   props: {
     texte: String,
@@ -86,7 +86,7 @@ export default {
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/accueil" class="d-block">
-              Tableau de bord
+              {{ $t("Header.Menu.Tableau_bord") }}
             </router-link>
           </li>
         </a-menu-item>
@@ -96,21 +96,21 @@ export default {
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/offre_postule" class="d-block">
-              Mes postulations
+              {{ $t("Header.Menu.Student.Postulations") }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/contrat" class="d-block">
-              Mes Contrats
+              {{ $t("Header.Menu.Student.Contrats") }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/emploi_du_temps" class="d-block">
-              Mes disponibilités
+              {{ $t("Header.Menu.Student.Disponibilite") }}
             </router-link>
           </li>
         </a-menu-item>
@@ -122,11 +122,16 @@ export default {
           </li>
         </a-menu-item> -->
         <a-menu-item>
-          <LiensNavBar :texte="`Mes abonnements`" :route_lien="'dashboard-abonnements'" />
+          <LiensNavBar
+            :texte="$t('Header.Menu.Mes_abonnements')"
+            :route_lien="'dashboard-abonnements'"
+          />
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
-            <a href="#" @click.prevent="deconnexUser" class="fw-bold"> Déconnexion</a>
+            <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{
+              $t("Header.Menu.Deconnexion")
+            }}</a>
           </li>
         </a-menu-item>
       </a-menu>
