@@ -23,7 +23,6 @@ export default {
     },
   },
   created() {
-    console.log("abaon", this.list_abonnement);
     this.get_all_abonnement();
     this.handlePlanAbonnement();
   },

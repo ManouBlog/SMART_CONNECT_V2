@@ -1,3 +1,27 @@
 {
-    "spinnerText":"Chargement..."
+    "spinnerText":"Chargement...",
+    "Header":{
+        "Menu":{
+            "Accueil":"Accueil",
+            "Abonnement":"Abonnement",
+            "aboutUs":"Contactez-nous",
+            "Connexion":"Connexion",
+             "Tableau_bord":"Tableau de bord",
+             "Profil":"Mon profil",
+             "Mes_abonnements":"Mes abonnements",
+             "Deconnexion":"Deconnexion",
+            "Student":{
+                "Offre_emploi":"Offre d'emploi"
+            },
+            "Entreprise":{
+                "Talents":"Talents",
+                "Liste_des_offres":"Liste des offres",
+                "creer_une_offre":"Créer une offre",
+                "Personnels":"Personnels",
+                "Postulants":"Postulants"
+               
+            }
+        }
+        
+    }
 }

@@ -4,8 +4,10 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import instance from "../../api/api";
 import Swal from "sweetalert2";
-import i18n from "../../plugins/i18n";
+
 import { useCinetpayStore } from "../../store-pinia/useCinetpayStore";
+
+import i18n from "../../plugins/i18n";
 const { t } = i18n.global;
 const isHolding = {
   entreprise: true,
@@ -118,7 +120,10 @@ onMounted(async () => {
 <template>
   <div class="wrapped">
     <div class="d-flex justify-content-between px-3">
-      <h1>Abonnements</h1>
+      <h1>
+        {{ $t("Header.Menu.Abonnement") }}
+        <!-- Abonnements -->
+      </h1>
     </div>
     <div class="spinner" v-show="isChoose">
       <span class="fw-bold text-light">chargement</span>

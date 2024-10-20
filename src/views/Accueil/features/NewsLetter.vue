@@ -6,7 +6,7 @@ import instance from "../../../api/api";
 export default {
   name: "NewsLetter",
   data() {
-    return { spinnerAlert: false };
+    return { spinnerAlert: false,emailForNewsletter:"" };
   },
   computed: {
     // ...mapState(useOffreStore, ["ListOffre"]),
@@ -70,7 +70,7 @@ export default {
           class="btn btn_send_mail"
           :disabled="spinnerAlert ? true : false"
           @click="SendMailBienvenueNewsletter"
-          v-if="emailForNewsletter"
+          v-if="this.emailForNewsletter"
         >
           {{ spinnerAlert ? "Loading..." : "Envoyer" }}
         </button>

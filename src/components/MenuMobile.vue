@@ -81,13 +81,13 @@ export default {
         <a href="#" v-if="this.$store.state.user">
           {{ this.$store.state.user.nom }}
           <em class="bi bi-person-workspace text-primary h3"></em>
-          <DownOutlined />
+          <!-- <DownOutlined /> -->
         </a>
         <SelectLanguage />
       </li>
       <li v-if="!this.$store.state.user">
         <a href="#" class="login_user_mobile" @click.prevent="changeValueIsModal">
-          Connexion
+          {{ $t('Header.Menu.Connexion') }}
         </a>
       </li>
       <li>
@@ -96,7 +96,7 @@ export default {
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          Accueil
+          {{ $t('Header.Menu.Accueil') }}
         </router-link>
       </li>
       <MenuMobileEntreprise
@@ -129,7 +129,8 @@ export default {
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          Abonnements
+        {{ $t("Header.Menu.Abonnement") }}
+          <!-- Abonnements -->
         </router-link>
       </li>
       <li>
@@ -138,7 +139,7 @@ export default {
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          Contactez-nous
+          {{ $t('Header.Menu.aboutUs') }}
         </router-link>
       </li>
       <li v-if="this.$store.state.user">

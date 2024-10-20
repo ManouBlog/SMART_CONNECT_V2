@@ -1,3 +1,26 @@
 {
-    "spinnerText":"Loading..."
+    "spinnerText":"Loading...",
+    "Header":{
+        "Menu":{
+            "Accueil":"Home",
+            "Abonnement":"Subscription",
+            "aboutUs":"Contact us",
+            "Connexion":"Login",
+            "Tableau_bord":"Dashboard",
+            "Profil":"My profile",
+            "Mes_abonnements":"My subscriptions",
+            "Deconnexion":"Logout",
+            "Student":{
+                "Offre_emploi":"Jobs"
+            },
+            "Entreprise":{
+                "Talents":"Talents",
+                "Liste_des_offres":"List of offers",
+                "creer_une_offre":"Create an offer",
+                "Personnels":"Employees",
+                "Postulants":"Candidates"
+            }
+        }
+        
+    }
 }

@@ -16,6 +16,27 @@ export default {
   },
   methods: {
     ...mapActions(useOffreStore, ["getOffres"]),
+    voirDetailTimetable() {
+      if (this.user) {
+        this.$router.push({
+          name: "jobs",
+        });
+      } else {
+        return;
+        // Swal.fire({
+        //   icon: "info",
+        //   title: "Veuillez-vous connecter!",
+        //   showConfirmButton: false,
+        //   timer: 2000,
+        // });
+        // setTimeout(() => {
+        //   this.$router.push({
+        //     path: "/registre",
+        //     query: { redirect: this.path },
+        //   });
+        // }, 2000);
+      }
+    },
   },
   created() {
     this.getOffres();

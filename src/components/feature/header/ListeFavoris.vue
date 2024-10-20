@@ -32,7 +32,7 @@ export default {
   <a-dropdown>
     <a class="ant-dropdown-link" @click.prevent>
       <em class="bi bi-balloon-heart" @click="showWishList = !showWishList"></em>
-      <DownOutlined />
+      <!-- <DownOutlined /> -->
     </a>
     <template #overlay>
       <a-menu>

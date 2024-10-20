@@ -1,13 +1,14 @@
 <script>
-import instance from "../../../api/api";
+// import instance from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { FilterMatchMode } from "primevue/api";
 import { configUtils } from "../../../Shared/Utils";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
-import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
-const loadingSpinner = useLoadingSpinner();
+import { mapActions, mapState } from "pinia";
+import { useInfoStudentStore } from "../../../store-pinia/InfoStudent/useInfoStudentStore";
+// const loadingSpinner = useLoadingSpinner();
 const statut = {
   0: "En attente",
   1: "Séléctionné",
@@ -31,9 +32,6 @@ export default {
       colorStatut: colorStatut,
       statut: statut,
       configUtils: configUtils,
-      list_offre: [],
-      offre: null,
-      offres: null,
       spinner: false,
       moneyFormat: new Intl.NumberFormat("de-DE"),
       filters: {
@@ -46,25 +44,9 @@ export default {
       },
     };
   },
+  computed: { ...mapState(useInfoStudentStore, ["list_offre"]) },
   methods: {
-    async get_all_student() {
-      loadingSpinner.launchLoading(true);
-      await instance
-        .get("get_offres_postule")
-        .then((res) => {
-          console.log(res);
-          this.offres = res.data;
-          const { offres } = res.data.data;
-          console.log("OFFRES", offres);
-          this.list_offre = offres;
-          console.log("this.list_offre", this.list_offre);
-          loadingSpinner.launchLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          loadingSpinner.launchLoading(false);
-        });
-    },
+    ...mapActions(useInfoStudentStore, ["get_all_student"]),
   },
   created() {
     this.get_all_student();

@@ -33,9 +33,11 @@ export default {
   methods: {
     onFinish(values) {
       console.log("Success:", values);
+      console.log("formState",this.formState)
     },
     onFinishFailed(errorInfo) {
       console.log("Failed:", errorInfo);
+      console.log("formState",this.formState)
     },
     handleChangeCardStudent(value) {
       console.log(value.file.originFileObj);
@@ -82,25 +84,13 @@ export default {
     >
       <a-input v-model:value="formState.nom" />
     </a-form-item>
-    <a-form-item
-      label="Ville"
-      name="ville"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Ville!' }]"
-    >
+    <a-form-item label="Ville" name="ville">
       <a-input v-model:value="formState.nom" />
     </a-form-item>
-    <a-form-item
-      label="Commune"
-      name="commune"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Commune!' }]"
-    >
+    <a-form-item label="Commune" name="commune">
       <a-input v-model:value="formState.nom" />
     </a-form-item>
-    <a-form-item
-      label="Quartier"
-      name="quartier"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Quartier!' }]"
-    >
+    <a-form-item label="Quartier" name="quartier">
       <a-input v-model:value="formState.nom" />
     </a-form-item>
 

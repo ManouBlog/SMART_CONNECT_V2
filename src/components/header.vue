@@ -102,101 +102,12 @@ export default {
   methods: {
     ...mapActions(useRegisterStore, ["changeValueIsModal"]),
     ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
-    selectLanguageForWeb(e) {
-      // this.$store.commit("CHANGE_LANGAGE_WEB", e.target.value);
-      console.log();
-      this.$i18n.locale = e.target.value;
-      // console.log("e.target.value.toUpperCase()",e.target.value.toLowerCase())
-      // const element = useChangeLanguageStore();
-      // element.changeLocaleDefaultLanguage(e.target.value.toLowerCase())
-    },
     deletePersonAtWishList(person) {
       this.$store.commit("addPersonAtWishLit", person);
     },
     all() {
       this.$store.commit("getall");
     },
-    // voirDetailTimetable(id) {
-    //   if (
-    //     (this.$store.state.user &&
-    //       this.$store.state.user.user.statut.statut == "entreprise") ||
-    //     (this.$store.state.user &&
-    //       this.$store.state.user.user.statut.statut === "particulier")
-    //   ) {
-    //     this.details_timetable = !this.details_timetable;
-    //     this.id_detail_timetable = id;
-    //     this.loadSpinner = true;
-    //     instance
-    //       .get("FiltreTimetable")
-    //       .then(async (res) => {
-    //         console.log(res);
-    //         this.NewListEmploi = await res.data.data;
-    //         this.dateRendezVousStudentWithEntreprise = res.data.date;
-    //         let dateOfStudent = [];
-    //         this.dateRendezVousStudentWithEntreprise.forEach((element) => {
-    //           if (element.student_id === id) {
-    //             dateOfStudent.push(element);
-    //           }
-    //         });
-
-    //         this.MyDateRendezVous = dateOfStudent;
-    //         this.timetable_for_student = this.NewListEmploi.find(
-    //           (item) => item.id === id
-    //         );
-    //         this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
-
-    //         this.schedule = this.timetable_for_student.jours;
-
-    //         this.schedule.forEach((item) => {
-    //           console.log("DATE", this.MyDateRendezVous);
-    //           this.MyDateRendezVous.forEach((date) => {
-    //             if (
-    //               item.jour === date.date_debut ||
-    //               item.jour === date.date_fin ||
-    //               item.jour === date.date ||
-    //               (item.jour > date.date_debut && item.jour < date.date_fin)
-    //             ) {
-    //               if (date.contrat === 1) item.job = 1;
-    //             }
-    //           });
-    //           item.jou = new Date(item.jour).getDate();
-    //           item.month = new Date(item.jour).getMonth() + 1;
-    //           item.year = new Date(item.jour).getFullYear();
-    //           console.log(JSON.stringify(new Date().toISOString().slice(0, 10)));
-    //           if (
-    //             JSON.stringify(new Date(item.jour)) <
-    //             JSON.stringify(new Date().toISOString().slice(0, 10))
-    //           ) {
-    //             item.job = 3;
-    //           }
-    //         });
-    //         this.selectedService = this.timetable_for_student.competences;
-    //         console.log("COMPETENCES", this.selectedService);
-
-    //         this.loadSpinner = false;
-    //         console.log("EMPLOI DU TEMPS", this.timetable_for_student);
-
-    //         console.log("TIMETBALE", this.schedule);
-    //         console.log("DateRendez-vous", this.MyDateRendezVous);
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //       });
-    //   } else {
-    //     Swal.fire({
-    //       icon: "info",
-    //       title: "Veuillez-vous connecter!",
-    //       showConfirmButton: false,
-    //       timer: 2000,
-    //     });
-    //     setTimeout(() => {
-    //       this.$router.push({
-    //         path: "/registre",
-    //         query: { redirect: this.path },
-    //       });
-    //     }, 2000);
-    //   }
-    // },
     closeDetailTimetable() {
       this.details_timetable = !this.details_timetable;
       this.id_detail_timetable = "";
@@ -261,7 +172,7 @@ export default {
   },
   created() {
     this.all();
-    this.$store.dispatch("handleListeFavoris")
+  
   },
 };
 </script>
@@ -291,14 +202,15 @@ export default {
 
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav_lien_nav_bar">
-                  <LiensNavBar :texte="'Accueil'" :route_lien="'Bienvenue'" />
+                  <LiensNavBar :texte="$t('Header.Menu.Accueil')" 
+                  :route_lien="'Bienvenue'" />
 
                   <LiensNavBar
                     v-if="
                       this.$store.state.user &&
                       this.$store.state.user.user.statut.statut === 'etudiant'
                     "
-                    :texte="`Offre d'emploi`"
+                    :texte="$t('Header.Menu.Student.Offre_emploi')"
                     :route_lien="'jobs'"
                     :statut_user="'etudiant'"
                     :isNeedConnection="true"
@@ -308,13 +220,13 @@ export default {
                       this.$store.state.user &&
                       this.$store.state.user.user.statut.statut === 'entreprise'
                     "
-                    :texte="`Talents`"
+                    :texte="$t('Header.Menu.Entreprise.Talents')"
                     :route_lien="'timetable'"
                     :statut_user="'entreprise'"
                     :isNeedConnection="true"
                   />
-                  <LiensNavBar :texte="`Abonnements`" :route_lien="'abonnements'" />
-                  <LiensNavBar :texte="`Contactez-nous`" :route_lien="'contact'" />
+                  <LiensNavBar :texte="$t('Header.Menu.Abonnement')" :route_lien="'abonnements'" />
+                  <LiensNavBar :texte="$t('Header.Menu.aboutUs')" :route_lien="'contact'" />
                   <li>
                     <SelectLanguage />
                   </li>
@@ -341,7 +253,8 @@ export default {
                   class="login_user mx-3"
                   @click.prevent="changeValueIsModal"
                 >
-                  Connexion
+                {{ $t('Header.Menu.Connexion') }}
+                 
                 </a>
                 <ListeFavoris v-if="this.$store.state.user" />
                 <div>

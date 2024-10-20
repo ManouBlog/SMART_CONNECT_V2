@@ -79,7 +79,7 @@ export default {
         v-if="this.$store.state.user"
         class="bi bi-person-workspace text-primary h3 compte_sup"
       ></em>
-      <DownOutlined />
+      <!-- <DownOutlined /> -->
     </a>
     <template #overlay>
       <a-menu>

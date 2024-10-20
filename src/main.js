@@ -18,6 +18,7 @@ import Multiselect from 'vue-multiselect'
 import Paginator from 'primevue/paginator';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
+import i18n from "./plugins/i18n"
 
 
 const pinia = createPinia()
@@ -31,6 +32,7 @@ app.use(naive);
 app.use(PrimeVue);
 app.use(pinia);
 app.use(Antd);
+app.use(i18n);
 app.component('PrimeCalendar', Calendar);
 app.component('multiselect', Multiselect);
 app.component('PanelMenu', PanelMenu);

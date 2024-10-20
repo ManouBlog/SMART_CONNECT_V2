@@ -98,7 +98,7 @@ table {
   transition: all 1s ease-in-out;
 }
 .ant-card-head{
-  background: orange !important;
+  background: orange;
   font-weight:bold !important;
   font-size:1.4em !important;
 }

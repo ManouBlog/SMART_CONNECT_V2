@@ -48,6 +48,7 @@ export default {
   created(){
     this.handleListeFavoris(this.$store.state.token)
     this.getDateAbonementActive()
+    this.$store.dispatch("handleListeFavoris")
   },
   mounted(){
     console.log(this.dateActive)

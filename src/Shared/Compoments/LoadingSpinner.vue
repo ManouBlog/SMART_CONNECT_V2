@@ -1,6 +1,18 @@
+<script>
+import i18n from "../../plugins/i18n";
+const { t } = i18n.global;
+export default {
+  name: "LoadingSpinner",
+  data(){
+    return{
+      I8N:t
+    }
+  }
+}
+</script>
 <template>
   <div class="spinner_loading">
-    <a-spin size="large" tip="Chargement..." wrapperClassName="style-spinner" />
+    <a-spin size="large" :tip="I8N('spinnerText')" wrapperClassName="style-spinner" />
   </div>
 </template>
 <style>
