@@ -55,5 +55,15 @@ const differenceInHours = dayjsDateTo.diff(dayjsDateFrom, 'hour');
   },
   statistiqueEntreprise(value,nbre){
     return value.filter(item=>Number(item.pivot.contrat || item.pivot.recruit) === Number(nbre)).length
+  },
+  isValidEmail(email) {
+    // Expression régulière pour valider l'email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  },
+  isValidPhoneNumber(phoneNumber) {
+    // Vérifier si le numéro contient exactement 10 chiffres
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phoneNumber);
   }
 }

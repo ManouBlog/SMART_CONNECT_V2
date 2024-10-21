@@ -3,6 +3,7 @@ import Flicking from "@egjs/vue3-flicking";
 import "@egjs/vue3-flicking/dist/flicking.css";
 import { mapActions, mapState } from "pinia";
 import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
+import { useRegisterStore } from "../../../store-pinia/register/useRegisterStore";
 export default {
   name: "OffresRecentes",
   components: {
@@ -16,13 +17,16 @@ export default {
   },
   methods: {
     ...mapActions(useOffreStore, ["getOffres"]),
+    ...mapActions(useRegisterStore, {
+      toogleModal: "changeValueIsModal",
+    }),
     voirDetailTimetable() {
-      if (this.user) {
+      if (this.$store.state.user) {
         this.$router.push({
           name: "jobs",
         });
       } else {
-        return;
+        this.toogleModal()
         // Swal.fire({
         //   icon: "info",
         //   title: "Veuillez-vous connecter!",
@@ -73,17 +77,24 @@ export default {
             >Publié le:{{ new Date(item.created_at).toLocaleDateString("fr") }}</span
           >
         </div>
-      </Flicking>
-    </div>
-    <a
-      href="#"
-      class="h5 plusOffre"
-      v-if="
+        <div
+        style="width:auto;display:flex;
+        justify-content:center;
+        place-content:center;
+        align-items:center;" >
+        <a
+        href="#"
+        class="h5 plusOffre"
+        style="font-size: 2em;"
+        @click.prevent="voirDetailTimetable"
+        v-if="
         this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant'
       "
-      @click.prevent="voirDetailTimetable"
-      >Plus d'offres <em class="bi bi-arrow-right"></em>
-    </a>
+        >Plus d'offres <em class="bi bi-arrow-right"></em>
+      </a>
+        </div>
+      </Flicking>
+    </div>
   </section>
 </template>
 <style scoped>

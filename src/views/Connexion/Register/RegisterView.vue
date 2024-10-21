@@ -1,9 +1,11 @@
 <script>
 import RegsiterStudents from "./features/students/RegsiterStudents.vue";
+import RegsiterEntreprise from "./features/Entreprises/RegsiterEntreprise.vue";
 export default {
   name: "RegisterView",
   components: {
     RegsiterStudents,
+    RegsiterEntreprise
   },
   data() {
     return {
@@ -18,6 +20,9 @@ export default {
     onFinishFailed(errorInfo) {
       console.log("Failed:", errorInfo);
     },
+    handleChange(value){
+      console.log(value)
+    }
   },
 };
 </script>
@@ -42,9 +47,10 @@ export default {
       >
         <a-select-option value="student">Etudiant</a-select-option>
         <a-select-option value="entreprise">Entreprise</a-select-option>
-        <a-select-option value="particulier">Particulier</a-select-option>
+        <!-- <a-select-option value="particulier">Particulier</a-select-option> -->
       </a-select>
     </div>
-    <RegsiterStudents v-if="value1 === 'student' || value1 === 'particulier'" />
+    <RegsiterStudents v-if="value1 === 'student'" />
+    <RegsiterEntreprise v-if="value1 === 'entreprise'" />
   </a-form>
 </template>

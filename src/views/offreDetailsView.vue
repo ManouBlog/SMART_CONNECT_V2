@@ -191,7 +191,7 @@ export default {
   text-align: justify;
 }
 .nom_offre {
-  font-size: 5em;
+  font-size: 3em;
   color: black !important;
   font-weight: bold;
 }
