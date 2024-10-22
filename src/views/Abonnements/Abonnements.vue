@@ -70,14 +70,27 @@ onMounted(() => {
     <h1 class="text-center main-color">Choisissez votre plan</h1>
     <n-card>
       <n-tabs type="line" size="large" animated justify-content="center">
-        <n-tab-pane name="Etudiant" tab="Etudiant">
-          <!-- <h1 v-if="isLoading">{{ t("spinnerText") }}</h1> -->
+        <n-tab-pane
+          v-if="
+            !this.$store.state.user ||
+            this.$store.state.user.user.statut.statut === 'etudiant'
+          "
+          name="Etudiant"
+          tab="Etudiant"
+        >
           <ContainerAbonnements
             :abonnements="abonnements"
             :type_abonnements="'Etudiant'"
           />
         </n-tab-pane>
-        <n-tab-pane name="Entreprise" tab="Entreprise">
+        <n-tab-pane
+          v-if="
+            !this.$store.state.user ||
+            this.$store.state.user.user.statut.statut === 'entreprise'
+          "
+          name="Entreprise"
+          tab="Entreprise"
+        >
           <ContainerAbonnements
             :abonnements="abonnements"
             :type_abonnements="'Entreprise'"
