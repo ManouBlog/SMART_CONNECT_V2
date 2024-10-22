@@ -91,10 +91,10 @@ h1 {
   text-align: left;
 }
 .conteneur_message {
-  flex: 1 1 200px;
+  flex: 2 2 200px;
 }
 .conteneur_formulaire {
-  flex: 2 2 200px;
+  flex: 1 1 200px;
 }
 .conteneur_message_formulaire {
   display: flex;
