@@ -9,6 +9,11 @@ import TableauDeBord from "../../../Shared/Compoments/TableauDeBord.vue";
 // import Editor from "../components/text-editor.vue";
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
 import { useInfoStudentStore } from "../../../store-pinia/InfoStudent/useInfoStudentStore";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import updateLocale from "dayjs/plugin/updateLocale";
+dayjs.extend(relativeTime);
+dayjs.extend(updateLocale);
 export default {
   name: "AccueilView",
   components: {
@@ -16,15 +21,23 @@ export default {
     TableauDeBord,
   },
   data() {
-    return { configUtils: configUtils };
+    return { configUtils: configUtils,date_filter:dayjs('2024', 'YYYY') };
   },
   methods: {
-    ...mapActions(useOffreStore, ["getAllOffresCreatedByEntreprise"]),
+    ...mapActions(useOffreStore, ["getAllOffresCreatedByEntreprise","filterOffreWithYear"]),
     ...mapActions(useEntreprisesStore, [
       "get_students_contact",
       "get_offres_interess_by_student",
     ]),
-    ...mapActions(useInfoStudentStore, ["get_all_student"]),
+    ...mapActions(useInfoStudentStore, ["get_all_student","filterDataWithYear"]),
+    handleData(year){
+      console.log(year)
+      if(this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant'){
+        this.filterDataWithYear(year)
+      }else{
+        this.filterOffreWithYear(year)
+      }
+    }
   },
   computed: {
     ...mapState(useInfoStudentStore, ["list_offre"]),
@@ -53,6 +66,9 @@ export default {
       :TitleHeader="'Tableau de bord'"
       :subTitleHeader="'Tableau de bord'"
     />
+    <div class="conteneur_filter">
+      <a-date-picker v-model:value="date_filter" @change="handleData" picker="year"  />
+    </div>
     <TableauDeBord
       v-if="
         this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant'
@@ -99,3 +115,14 @@ export default {
     />
   </section>
 </template>
+<style scoped>
+.conteneur_filter{
+  display:flex;
+  justify-content: flex-end;
+  padding:0 10em;
+}
+:where(.css-dev-only-do-not-override-17yhhjv).ant-picker {
+  width:200px;
+  border:1px solid black !important;
+}
+</style>

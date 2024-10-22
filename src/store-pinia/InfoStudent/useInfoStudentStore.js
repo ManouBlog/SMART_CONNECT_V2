@@ -2,11 +2,19 @@ import { defineStore } from 'pinia'
 // import Swal from "sweetalert2";
 import instance from "../../api/api";
 import { useLoadingSpinner } from "../LoadingSpinner/useLoadingSpinner";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import updateLocale from "dayjs/plugin/updateLocale";
+
+dayjs.extend(relativeTime);
+dayjs.extend(updateLocale);
 const loadingSpinner = useLoadingSpinner();
+
 export const useInfoStudentStore = defineStore('studentsInfo', {
     state: () => ({
         offres:null,
-        list_offre:[]
+        list_offre:[],
+        data_offre_filter:[]
     }),
     actions: {
         async get_all_student() {
@@ -19,6 +27,7 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
                 const { offres } = res.data.data;
                 console.log("OFFRES", offres);
                 this.list_offre = offres;
+                this.data_offre_filter = offres
                 console.log("this.list_offre", this.list_offre);
                 loadingSpinner.launchLoading(false);
               })
@@ -27,6 +36,9 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
                 loadingSpinner.launchLoading(false);
               });
           },
+         filterDataWithYear(payload){
+          this.list_offre = this.data_offre_filter.filter(item=>dayjs(item.created_at,'YYYY').isSame(dayjs(payload)))
+         }
       
      
 

@@ -22,7 +22,7 @@ export default {
         </a-card>
       </div>
 </template>
-<style>
+<style scoped>
 .conteneur_tableau_de_bord {
   display: flex;
   align-items: center;

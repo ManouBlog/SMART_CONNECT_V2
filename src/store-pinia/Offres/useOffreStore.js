@@ -3,6 +3,12 @@ import instance from "../../api/api";
 import Swal from "sweetalert2";
 import {useModalSuppressionStore} from "../ModalSuppession/useModalSuppressionStore"
 import { useLoadingSpinner } from "../LoadingSpinner/useLoadingSpinner";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import updateLocale from "dayjs/plugin/updateLocale";
+
+dayjs.extend(relativeTime);
+dayjs.extend(updateLocale);
 const Modal = useModalSuppressionStore();
 const Spinner = useLoadingSpinner()
 export const useOffreStore = defineStore('offres', {
@@ -10,12 +16,17 @@ export const useOffreStore = defineStore('offres', {
         offres: [],
         ListOffre:[],
         offreCreatedByEntreprise:[],
+        filterOffreCreatedByEntreprise:[],
         ListeForFilterInOffreCreatedByEntreprise:[],
         idItemDelete:null,
         categoriesOffres:[],
         allCompetences:[]
     }),
     actions: {
+      filterOffreWithYear(payload){
+        console.log("offreCreatedByEntreprise",this.offreCreatedByEntreprise)
+        this.offreCreatedByEntreprise = this.filterOffreCreatedByEntreprise.filter(item=>dayjs(item.created_at,'YYYY').isSame(dayjs(payload)))
+       },
        async getOffres() {
             try{
            const response = await instance.get("list_offres");
@@ -44,7 +55,7 @@ export const useOffreStore = defineStore('offres', {
                 console.log("response.data.data1",response.data.data)
                 this.ListeForFilterInOffreCreatedByEntreprise = response.data.data
                 this.offreCreatedByEntreprise = response.data.data
-               
+                this.filterOffreCreatedByEntreprise = response.data.data
               }
               Spinner.launchLoading(false)
             }catch(error){
@@ -56,6 +67,7 @@ export const useOffreStore = defineStore('offres', {
             console.log("payload",payload)
             this.ListeForFilterInOffreCreatedByEntreprise.filter(item=>item.offre.toLowerCase().includes(payload))
               this.offreCreatedByEntreprise = this.ListeForFilterInOffreCreatedByEntreprise
+           
               console.log("this.offreCreatedByEntreprise",this.offreCreatedByEntreprise)
           },
           handleIdItemDelete(payload){
