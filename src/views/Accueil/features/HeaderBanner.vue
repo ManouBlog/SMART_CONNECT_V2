@@ -24,13 +24,13 @@ export default {
         {{$t("Home.headline.oneClick")}}
       </h1>
       <h5 class="my-5">
-        Nous vous accompagnons pour <br />
-        trouver votre prochaine opportunité.
+        {{$t("Home.headline.Text_one")}} <br />
+        {{$t("Home.headline.Text_two")}}
       </h5>
       <ButtonsHeader
         @handleBtn="changeValueIsModal"
         v-if="!this.$store.state.user"
-        :title="'Connexion'"
+        :title="$t('Home.headline.Button_Connexion')"
       />
       <ButtonsHeader
         v-if="
@@ -38,7 +38,7 @@ export default {
           this.$store.state.user.user.statut.statut == 'etudiant'
         "
         @handleBtn="goToRoute('/jobs')"
-        :title="'Offres'"
+        :title="$t('Home.headline.Offres')"
       />
       <ButtonsHeader
         v-if="
@@ -48,7 +48,7 @@ export default {
             this.$store.state.user.user.statut.statut === 'particulier')
         "
         @handleBtn="goToRoute('/timetable')"
-        :title="'Talents disponibles'"
+        :title="$t('Home.headline.Talents')"
       />
     </div>
     <div class="ecriteau_image">

@@ -30,8 +30,11 @@
         "headline":{
             "emploi":"My job",
             "oneClick":"in one click",
-            "Text":"Nous vous accompagnons pour trouver votre prochaine opportunité",
-            "Button_Connexion":"Connexion"
+            "Text_one":"We can help you",
+            "Text_two":"find your next opportunity",
+            "Button_Connexion":"Login",
+            "Offres":"Jobs",
+            "Talents":"Available talents"
         } 
     }
 }
