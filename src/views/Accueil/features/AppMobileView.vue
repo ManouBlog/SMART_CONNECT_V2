@@ -26,11 +26,11 @@ export default {
   <div class="header_banner py-3">
     <div class="ecriteau">
       <h1>
-        Télécharger notre <br />
-        application mobile
+        {{ $t("Home.Appli_mobile.title_one") }} <br />
+        {{ $t("Home.Appli_mobile.title_two") }}
       </h1>
       <h6 class="my-5 text-center">
-        Trouver des offres, ressources partout ou vous êtes
+        {{ $t("Home.Appli_mobile.title_three") }}
       </h6>
       <div class="conteneur_logo_app_telechargement">
         <ImageView

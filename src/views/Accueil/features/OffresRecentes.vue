@@ -49,7 +49,7 @@ export default {
 </script>
 <template>
   <section>
-    <h1 class="fw-bold">Offres récentes</h1>
+    <h1 class="fw-bold">{{$t("Home.OFFRE_RECENT.title")}}</h1>
     <br />
     <br />
     <div class="wrapper">

@@ -53,11 +53,12 @@ export default {
 };
 </script>
 <template>
-  <h1 class="fw-bold">Alertes Offres</h1>
+  <h1 class="fw-bold">{{$t("Home.ALERTES.title")}}</h1>
   <div class="alerte_emploi">
     <div class="ecriteau_alerte_emploi">
       <h4>
-        Vous voulez reçevoir les offres d'emploi<br />Inscrivez-vous à la newsletter
+        {{$t("Home.ALERTES.description1")}}<br />
+        {{$t("Home.ALERTES.description2")}}
       </h4>
       <div class="inputSendmail">
         <input
@@ -72,7 +73,7 @@ export default {
           @click="SendMailBienvenueNewsletter"
           v-if="this.emailForNewsletter"
         >
-          {{ spinnerAlert ? "Loading..." : "Envoyer" }}
+          {{ spinnerAlert ? $t("Home.ALERTES.description4") : $t("Home.ALERTES.description3") }}
         </button>
       </div>
     </div>

@@ -46,7 +46,7 @@ export default {
 </script>
 <template>
   <div class="container">
-    <h1 class="fw-bold">Nos Partenaires.</h1>
+    <h1 class="fw-bold">{{$t("Home.PARTENAIRE.title")}}</h1>
     <br />
     <vueper-slides
       autoplay

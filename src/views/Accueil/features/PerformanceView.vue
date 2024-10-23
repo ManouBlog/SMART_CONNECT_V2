@@ -31,22 +31,22 @@ export default {
     <div class="row">
       <div class="container">
         <div>
-          <h1 class="fw-bold">Nos performances</h1>
+          <h1 class="fw-bold">{{$t("Home.Performance.title")}}</h1>
         </div>
         <div class="conteneur-card-performance">
           <CardPerformance
             :icone_name="'bi bi-building icon'"
-            :texte="'Partenaire(s)'"
+            :texte="$t('Home.Performance.one')"
             :nbre="entreprises.length"
           />
           <CardPerformance
             :icone_name="'bi bi-briefcase-fill'"
-            :texte="'Offre(s)'"
+            :texte="$t('Home.Performance.two')"
             :nbre="offres.length"
           />
           <CardPerformance
             :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Talent(s)'"
+            :texte="$t('Home.Performance.three')"
             :nbre="timetable.length"
           />
         </div>

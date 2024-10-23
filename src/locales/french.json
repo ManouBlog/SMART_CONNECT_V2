@@ -44,6 +44,53 @@
             "ONE":"Créer un compte",
             "TEXT_ONE":"Remplissez le formulaire"
         }
+        },
+        "rechercheOffre":{
+            "title":"Recherchez une offre",
+            "description1":"Trouvez votre prochain emploi sur notre",
+             "description2":"moteur de recherche ou gagnez du temps en recevant",
+             "description3":"des alertes d'emploi en vous inscrivant à la newsletter."
+        },
+        "Performance":{
+            "title":"Nos performances",
+            "one":"Partenaire(s)",
+            "two":"Offre(s)",
+            "three":"Talent(s)"
+        },
+        "Appli_mobile":{
+            "title_one":"Télécharger notre",
+            "title_two":"application mobile",
+            "title_three":"Trouver des offres, ressources partout ou vous êtes"
+        },
+        "OFFRE_RECENT":{
+            "title":"Offres récentes"
+        },
+        "PARTENAIRE":{
+            "title":"Nos Partenaires"
+        },
+        "ALERTES":{
+            "title":"Alertes Offres",
+            "description1":"Vous voulez reçevoir les offres d'emploi",
+            "description2":"Inscrivez-vous à la newsletter",
+            "description3":"Envoyer",
+            "description4":"Chargement..."
         }
-    }
+    },
+    "FOOTER":{
+        "Adresse":{
+          "title":"Adresse"
+        },
+        "ACCES":{
+         "title":"Accès rapide",
+         "one":"Recherche d’offre",
+         "two":"Abonnements",
+         "three":"Contact"
+        },
+        "CONTACT":{
+          "title":"Contactez-nous"
+        },
+        "COPYRIGHT":{
+            "title":"Tous droits réservés"
+        }
+    } 
 }

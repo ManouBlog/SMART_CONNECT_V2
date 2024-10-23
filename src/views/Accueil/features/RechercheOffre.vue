@@ -25,11 +25,11 @@ export default {
       />
     </div>
     <div class="ecriteau">
-      <h1 class="fw-bold">Recherchez une offre</h1>
+      <h1 class="fw-bold">{{$t("Home.rechercheOffre.title")}}</h1>
       <h5 class="my-5 text-center">
-        Trouvez votre prochain emploi sur notre <br />
-        moteur de recherche ou gagnez du temps en recevant <br />
-        des alertes d'emploi en vous inscrivant à la newsletter.
+        {{$t("Home.rechercheOffre.description1")}} <br />
+        {{$t("Home.rechercheOffre.description2")}} <br />
+        {{$t("Home.rechercheOffre.description3")}}
       </h5>
       <Buttons :elmentsOfBtn="elmentsOfBtn" :shapeBtn="'round'" />
     </div>

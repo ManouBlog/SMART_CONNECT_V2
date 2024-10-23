@@ -69,9 +69,9 @@ const LOGO_IMG = ref([
 
 <template>
   <section class="conteneur-flex background_secondary py-5">
-    <ListeCadre :titleListe="'Adresse'" :array_liste="ADRESSE" />
-    <ListeCadre :titleListe="'Accès rapide'" :array_liste="ACCESS_RAPIDE" />
-    <ListeCadre :titleListe="'Contactez-nous'" :array_liste="ABOUTUS" />
+    <ListeCadre :titleListe="$t('FOOTER.Adresse.title')" :array_liste="ADRESSE" />
+    <ListeCadre :titleListe="$t('FOOTER.ACCES.title')" :array_liste="ACCESS_RAPIDE" />
+    <ListeCadre :titleListe="$t('FOOTER.CONTACT.title')" :array_liste="ABOUTUS" />
     <ListeCadre :array_liste="LOGO_IMG" />
     <!-- <div class="cadre">
       <ul>
