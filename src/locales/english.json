@@ -35,6 +35,14 @@
             "Button_Connexion":"Login",
             "Offres":"Jobs",
             "Talents":"Available talents"
-        } 
+        },
+        "Etape":{
+        "etapes":"Steps to follow",
+        "instructions":"Les instructions à suivre pour contacter du personnel ou postuler à une offre.",
+        "data":{
+            "ONE":"Create an account",
+            "TEXT_ONE":"Remplissez le formulaire"
+        }
+        }
     }
 }
