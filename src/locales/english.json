@@ -91,5 +91,10 @@
         "COPYRIGHT":{
             "title":"All rights reserved"
         }
+    },
+    "ABONNEMENTS":{
+        "title":"Choose your formula",
+        "one":"Student",
+        "two":"Company"
     } 
 }

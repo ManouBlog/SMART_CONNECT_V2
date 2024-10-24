@@ -4,11 +4,11 @@ import { ref, onMounted } from "vue";
 
 import instance from "../../api/api";
 
-// import i18n from "../../plugins/i18n";
+import i18n from "../../plugins/i18n";
 import Swal from "sweetalert2";
 
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
-// const { t } = i18n.global;
+const { t } = i18n.global;
 
 const abonnements = ref([]);
 const loadingSpinner = useLoadingSpinner();
@@ -59,6 +59,8 @@ const verifIfAbonnementIsSuccess = async () => {
   }
 };
 
+
+
 onMounted(() => {
   verifIfAbonnementIsSuccess();
   handleAbonement();
@@ -67,7 +69,7 @@ onMounted(() => {
 
 <template>
   <div class="wrapped">
-    <h1 class="text-center main-color">Choisissez votre plan</h1>
+    <h1 class="text-center main-color">{{$t("ABONNEMENTS.title")}}</h1>
     <n-card>
       <n-tabs type="line" size="large" animated justify-content="center">
         <n-tab-pane
@@ -75,12 +77,12 @@ onMounted(() => {
             !this.$store.state.user ||
             this.$store.state.user.user.statut.statut === 'etudiant'
           "
-          name="Etudiant"
-          tab="Etudiant"
+          :name="t('ABONNEMENTS.one')"
+          :tab="t('ABONNEMENTS.one')"
         >
           <ContainerAbonnements
             :abonnements="abonnements"
-            :type_abonnements="'Etudiant'"
+            :type_abonnements="t('ABONNEMENTS.one')"
           />
         </n-tab-pane>
         <n-tab-pane
@@ -88,12 +90,12 @@ onMounted(() => {
             !this.$store.state.user ||
             this.$store.state.user.user.statut.statut === 'entreprise'
           "
-          name="Entreprise"
-          tab="Entreprise"
+          :name="t('ABONNEMENTS.two')"
+          :tab="t('ABONNEMENTS.two')"
         >
           <ContainerAbonnements
             :abonnements="abonnements"
-            :type_abonnements="'Entreprise'"
+            :type_abonnements="t('ABONNEMENTS.two')"
           />
         </n-tab-pane>
       </n-tabs>

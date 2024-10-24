@@ -92,5 +92,10 @@
         "COPYRIGHT":{
             "title":"Tous droits réservés"
         }
-    } 
+    },
+    "ABONNEMENTS":{
+        "title":"Choisissez votre formule",
+        "one":"Etudiant",
+        "two":"Entreprise"
+    }
 }

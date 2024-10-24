@@ -1,4 +1,6 @@
 <script>
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import { mapActions } from "pinia";
 export default {
   name: "FormulaireView",
   data() {
@@ -9,7 +11,52 @@ export default {
         remember: true,
         desc: "",
       },
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte4: "",
+      texte5: "",
+      text6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      text13: "",
+      text14: "",
+      text15: "",
+      texte16: "",
     };
+  },
+  methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
+  },
+
+  async created() {
+    this.texte4 = await this.handleTranslate("Soumettre");
+    this.texte3 = await this.handleTranslate("Envoyez-nous un message");
+    this.texte2 = await this.handleTranslate(
+      "Contactez-nous et faites-nous savoir comment nous pouvons vous aider à simplifier votre recherche d'emploi. Notre équipe sera ravie de vous lire et de répondre à toutes vos questions.."
+    );
+    this.texte = await this.handleTranslate(
+      "Vous avez pris la décision de vous lancer à la recherche d'un nouvel emploi.Nous sommes là pour vous accompagner dans cette belle aventure en vous facilitant l'accès à de nouvelles opportunités."
+    );
+    this.texte5 = await this.handleTranslate("Entrez votre nom");
+    this.text6 = await this.handleTranslate("Entrez votre adresse e-mail");
+    this.texte7 = await this.handleTranslate("Sélectionnez la raison de votre contact");
+    this.texte8 = await this.handleTranslate(
+      "Dites-nous comment pouvons nous vous aider."
+    );
+    this.texte9 = await this.handleTranslate("Nous");
+    this.texte10 = await this.handleTranslate("sommes");
+    this.texte11 = await this.handleTranslate("là pour vous");
+    this.texte12 = await this.handleTranslate("aider.");
+    this.text13 = await this.handleTranslate("Nom");
+    this.text14 = await this.handleTranslate("Adresse e-mail");
+    this.text15 = await this.handleTranslate("Raison du contact");
+    this.texte16 = await this.handleTranslate("Message");
+    console.log(this.texte);
   },
 };
 </script>
@@ -18,19 +65,15 @@ export default {
     <div class="conteneur_message">
       <div>
         <h1 class="fw-bold">
-          Nous <br />
-          sommes <br />là pour vous <br />
-          aider.
+          {{ texte9 }} <br />
+          {{ texte10 }}<br />{{ texte11 }} <br />
+          {{ texte12 }}
         </h1>
         <p>
-          Vous avez pris la décision de vous lancer à la recherche d'un nouvel emploi.
-          Nous sommes là pour vous accompagner dans cette belle aventure en vous
-          facilitant l'accès à de nouvelles opportunités.
+          {{ this.texte }}
         </p>
         <p>
-          Contactez-nous et faites-nous savoir comment nous pouvons vous aider à
-          simplifier votre recherche d'emploi. Notre équipe sera ravie de vous lire et de
-          répondre à toutes vos questions.
+          {{ texte2 }}
         </p>
       </div>
       <div>
@@ -39,7 +82,7 @@ export default {
     </div>
     <div class="conteneur_formulaire">
       <a-card style="width: auto; background: rgba(179, 201, 255, 0.38)">
-        <h6 class="fw-bold">Envoyez-nous un message</h6>
+        <h6 class="fw-bold">{{ texte3 }}</h6>
         <a-form
           :layout="'vertical'"
           :model="formState"
@@ -48,34 +91,25 @@ export default {
           @finish="onFinish"
           @finishFailed="onFinishFailed"
         >
-          <a-form-item label="Nom" name="nom">
-            <a-input placeholder="Entrez votre nom" v-model:value="formState.username" />
+          <a-form-item :label="text13" name="nom">
+            <a-input :placeholder="texte5" v-model:value="formState.username" />
           </a-form-item>
 
-          <a-form-item label="Adresse e-mail" name="Adresse e-mail">
-            <a-input
-              placeholder="Entrez votre adresse e-mail"
-              v-model:value="formState.password"
-            />
+          <a-form-item :label="text14" name="Adresse e-mail">
+            <a-input :placeholder="text6" v-model:value="formState.password" />
           </a-form-item>
-          <a-form-item label="Raison du contact" name="Raison du contact">
-            <a-input
-              placeholder="Sélectionnez la raison de votre contact"
-              v-model:value="formState.password"
-            />
+          <a-form-item :label="text15" name="Raison du contact">
+            <a-input :placeholder="texte7" v-model:value="formState.password" />
           </a-form-item>
 
-          <a-form-item label="Message">
-            <a-textarea
-              placeholder="Dites-nous comment pouvons nous vous aider."
-              v-model:value="formState.desc"
-            />
+          <a-form-item :label="texte16">
+            <a-textarea :placeholder="texte8" v-model:value="formState.desc" />
           </a-form-item>
 
           <a-form-item>
             <div class="d-flex justify-content-center">
               <a-button type="primary" shape="round" :size="'large'" html-type="submit">
-                Soumettre</a-button
+                {{ texte4 }}</a-button
               >
             </div>
           </a-form-item>

@@ -1,5 +1,6 @@
 <script>
-
+import {useTranslateStore} from "../../../store-pinia/Translate/useTranslateStore"
+import {mapActions, mapState} from "pinia"
 export default {
   name: "SelectLanguage",
   data() {
@@ -7,12 +8,18 @@ export default {
       data: null,
     };
   },
+  computed:{
+   ...mapState(useTranslateStore,["defaultLocale"])
+  },
   methods:{
     selectLanguageForWeb(e){
       console.log(e.target.value.toLowerCase())
-      this.$i18n.locale = e.target.value.toLowerCase();
-      console.log("this.$i18n.locale",this.$i18n.locale);
-    }
+      this.changeLanguageForTranslate(e.target.value.toLowerCase())
+     
+      // this.$i18n.locale = e.target.value.toLowerCase();
+      // console.log("this.$i18n.locale",this.$i18n.locale);
+    },
+    ...mapActions(useTranslateStore,["changeLanguageForTranslate"])
   }
 };
 </script>
@@ -20,10 +27,10 @@ export default {
   <select
     name="selector-langue"
     id="selector-langue"
-    v-model="this.$store.state.translate"
+    v-model="defaultLocale"
     @change="selectLanguageForWeb"
   >
-    <option value="FR">FR</option>
-    <option value="EN">EN</option>
+    <option value="fr">FR</option>
+    <option value="en">EN</option>
   </select>
 </template>

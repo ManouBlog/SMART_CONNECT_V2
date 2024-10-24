@@ -1,4 +1,5 @@
 <script>
+
 import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
 import Header from "@/components/header";
 import FooterView from "@/components/footer";
@@ -9,6 +10,7 @@ import { mapActions, mapState } from "pinia";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import { useListeFavoris } from "../store-pinia/ListeFavoris/useListeFavoris";
 import {useVerificationStore} from "../store-pinia/Verification/useVerificationStore";
+import {useTranslateStore} from "../store-pinia/Translate/useTranslateStore"
 
 export default {
   name: "Home",
@@ -25,6 +27,7 @@ export default {
   computed: {
     ...mapState(useRegisterStore, ["isModal"]),
     ...mapState(useLoadingSpinner, ["isLoadingVisible"]),
+   ...mapState(useTranslateStore,["defaultLocale"])
   },
   methods: {
     ...mapActions(useRegisterStore, {
@@ -43,9 +46,10 @@ export default {
         return;
       }
       
-    }
+    },
   },
   created(){
+    localStorage.setItem("translate",this.defaultLocale)
     this.handleListeFavoris(this.$store.state.token)
     this.getDateAbonementActive()
     this.$store.dispatch("handleListeFavoris")
