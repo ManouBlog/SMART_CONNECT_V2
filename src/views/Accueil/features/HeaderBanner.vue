@@ -2,17 +2,37 @@
 import ButtonsHeader from "../../../Shared/Compoments/ButtonsHeader.vue";
 import { mapActions } from "pinia";
 import { useRegisterStore } from "../../../store-pinia/register/useRegisterStore";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 export default {
   name: "HeaderBanner",
   components: { ButtonsHeader },
   data() {
-    return {};
+    return {
+      texte: "",
+      texte1: "",
+      texte2: "",
+      texte3: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+    };
   },
   methods: {
     ...mapActions(useRegisterStore, ["changeValueIsModal"]),
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     goToRoute(payload) {
       this.$router.push(payload);
     },
+  },
+  async created() {
+    this.texte = await this.handleTranslate("Mon emploi");
+    this.texte2 = await this.handleTranslate("en un clic");
+    this.texte3 = await this.handleTranslate("Nous vous accompagnons pour");
+    this.texte4 = await this.handleTranslate("trouver votre prochaine opportunité");
+    this.texte5 = await this.handleTranslate("Connexion");
+    this.texte6 = await this.handleTranslate("Offres");
+    this.texte7 = await this.handleTranslate("Talents disponibles");
   },
 };
 </script>
@@ -20,17 +40,17 @@ export default {
   <div class="header_banner">
     <div class="ecriteau">
       <h1>
-        {{$t("Home.headline.emploi")}} <br />
-        {{$t("Home.headline.oneClick")}}
+        {{ texte }}<br />
+        {{ texte2 }}
       </h1>
       <h5 class="my-5">
-        {{$t("Home.headline.Text_one")}} <br />
-        {{$t("Home.headline.Text_two")}}
+        {{ texte3 }} <br />
+        {{ texte4 }}
       </h5>
       <ButtonsHeader
         @handleBtn="changeValueIsModal"
         v-if="!this.$store.state.user"
-        :title="$t('Home.headline.Button_Connexion')"
+        :title="texte5"
       />
       <ButtonsHeader
         v-if="
@@ -38,7 +58,7 @@ export default {
           this.$store.state.user.user.statut.statut == 'etudiant'
         "
         @handleBtn="goToRoute('/jobs')"
-        :title="$t('Home.headline.Offres')"
+        :title="texte6"
       />
       <ButtonsHeader
         v-if="
@@ -48,7 +68,7 @@ export default {
             this.$store.state.user.user.statut.statut === 'particulier')
         "
         @handleBtn="goToRoute('/timetable')"
-        :title="$t('Home.headline.Talents')"
+        :title="texte7"
       />
     </div>
     <div class="ecriteau_image">

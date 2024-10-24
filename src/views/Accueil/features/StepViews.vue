@@ -2,8 +2,9 @@
 import { mapActions } from "pinia";
 import { useRegisterStore } from "../../../store-pinia/register/useRegisterStore";
 import CardView from "../../../Shared/Compoments/CardView.vue";
-import i18n from "../../../plugins/i18n";
-const { t } = i18n.global;
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+// import i18n from "../../../plugins/i18n";
+// const { t } = i18n.global;
 export default {
   name: "StepViews",
   components: {
@@ -11,10 +12,12 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
       dataCard: [
         {
           id: 1,
-          title: t("Home.Etape.data.ONE"),
+          title: "Créer un compte",
           text_one: "Remplissez le formulaire",
         },
         {
@@ -34,18 +37,23 @@ export default {
   },
   methods: {
     ...mapActions(useRegisterStore, ["changeValueIsModal"]),
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     goToRoute(payload) {
       this.$router.push(payload);
     },
+  },
+  async created() {
+    this.texte = await this.handleTranslate("Etapes à suivre");
+    this.texte2 = await this.handleTranslate(
+      "Les instructions à suivre pour contacter du personnel ou postuler à une offre."
+    );
   },
 };
 </script>
 <template>
   <div class="container main-container-home">
-    <h1 class="step_suivre">{{ $t("Home.Etape.etapes") }}</h1>
-    <h5 class="text-secondary my-3">
-      {{ $t("Home.Etape.instructions") }}
-    </h5>
+    <h1 class="step_suivre">{{ texte }}</h1>
+    <h5 class="text-secondary my-3">{{ texte2 }}</h5>
     <div class="conteneur-card">
       <CardView v-for="(item, index) in dataCard" :key="index" :item="item" />
     </div>

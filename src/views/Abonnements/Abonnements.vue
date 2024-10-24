@@ -1,14 +1,20 @@
 <script setup>
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { ref, onMounted } from "vue";
-
+import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
+// import {mapActions} from "pinia"
 import instance from "../../api/api";
 
-import i18n from "../../plugins/i18n";
+// import i18n from "../../plugins/i18n";
 import Swal from "sweetalert2";
 
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
-const { t } = i18n.global;
+// const { t } = i18n.global;
+const text = ref("")
+// const 'Etudiant' = ref("")
+// const text3 = ref("") 
+
+const translateStore = useTranslateStore();
 
 const abonnements = ref([]);
 const loadingSpinner = useLoadingSpinner();
@@ -59,17 +65,18 @@ const verifIfAbonnementIsSuccess = async () => {
   }
 };
 
-
-
-onMounted(() => {
+onMounted(async () => {
   verifIfAbonnementIsSuccess();
   handleAbonement();
+  text.value = await translateStore.handleTranslate("Choisissez votre formule")
+  // 'Etudiant'.value = await translateStore.handleTranslate("Etudiant")
+  // text3.value = await translateStore.handleTranslate("Entreprise")
 });
 </script>
 
 <template>
   <div class="wrapped">
-    <h1 class="text-center main-color">{{$t("ABONNEMENTS.title")}}</h1>
+    <h1 class="text-center main-color">{{text}}</h1>
     <n-card>
       <n-tabs type="line" size="large" animated justify-content="center">
         <n-tab-pane
@@ -77,12 +84,12 @@ onMounted(() => {
             !this.$store.state.user ||
             this.$store.state.user.user.statut.statut === 'etudiant'
           "
-          :name="t('ABONNEMENTS.one')"
-          :tab="t('ABONNEMENTS.one')"
+          :name="'Etudiant'"
+          :tab="'Etudiant'"
         >
           <ContainerAbonnements
             :abonnements="abonnements"
-            :type_abonnements="t('ABONNEMENTS.one')"
+            :type_abonnements="'Etudiant'"
           />
         </n-tab-pane>
         <n-tab-pane
@@ -90,12 +97,12 @@ onMounted(() => {
             !this.$store.state.user ||
             this.$store.state.user.user.statut.statut === 'entreprise'
           "
-          :name="t('ABONNEMENTS.two')"
-          :tab="t('ABONNEMENTS.two')"
+          :name="'Entreprise'"
+          :tab="'Entreprise'"
         >
           <ContainerAbonnements
             :abonnements="abonnements"
-            :type_abonnements="t('ABONNEMENTS.two')"
+            :type_abonnements="'Entreprise'"
           />
         </n-tab-pane>
       </n-tabs>

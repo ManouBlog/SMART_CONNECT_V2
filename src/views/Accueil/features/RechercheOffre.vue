@@ -1,10 +1,16 @@
 <script>
 import Buttons from "../../../Shared/Compoments/Buttons.vue";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import { mapActions } from "pinia";
 export default {
   name: "RechercheOffre",
   components: { Buttons },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
       elmentsOfBtn: [
         {
           name_btn: "En savoir plus",
@@ -12,6 +18,19 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
+  },
+  async created() {
+    this.texte = await this.handleTranslate("Recherchez une offre");
+    this.texte1 = await this.handleTranslate("Trouvez votre prochain emploi sur notre");
+    this.texte2 = await this.handleTranslate(
+      "moteur de recherche ou gagnez du temps en recevant"
+    );
+    this.texte3 = await this.handleTranslate(
+      "des alertes d'emploi en vous inscrivant à la newsletter."
+    );
   },
 };
 </script>
@@ -25,11 +44,11 @@ export default {
       />
     </div>
     <div class="ecriteau">
-      <h1 class="fw-bold">{{$t("Home.rechercheOffre.title")}}</h1>
+      <h1 class="fw-bold">{{ texte }}</h1>
       <h5 class="my-5 text-center">
-        {{$t("Home.rechercheOffre.description1")}} <br />
-        {{$t("Home.rechercheOffre.description2")}} <br />
-        {{$t("Home.rechercheOffre.description3")}}
+        {{ texte1 }} <br />
+        {{ texte2 }} <br />
+        {{ texte3 }}
       </h5>
       <Buttons :elmentsOfBtn="elmentsOfBtn" :shapeBtn="'round'" />
     </div>
