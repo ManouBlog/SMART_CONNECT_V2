@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { mapActions } from "pinia";
 import ForgotPassword from "./ForgotPassword.vue";
 import { useRegisterStore } from "../../../store-pinia/register/useRegisterStore";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 export default {
   name: "LoginView",
@@ -12,6 +13,17 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
       isModalForgotPassword: false,
       formState: {
         email: "",
@@ -20,6 +32,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useRegisterStore, {
       toogleModal: "changeValueIsModal",
     }),
@@ -85,6 +98,22 @@ export default {
       console.log("Failed:", errorInfo);
     },
   },
+  async created() {
+    this.texte = await this.handleTranslate("Réinitialiser votre mot de passe");
+    this.texte1 = await this.handleTranslate(
+      "Entrez votre adresse email et nous vous enverrons"
+    );
+    this.texte2 = await this.handleTranslate(
+      "un lien de réinitialisation de mot de passe"
+    );
+    this.texte3 = await this.handleTranslate("Email");
+    this.texte4 = await this.handleTranslate("Mot de passe");
+    this.texte5 = await this.handleTranslate("Mot de passe oublié");
+    this.texte6 = await this.handleTranslate("Se connecter");
+    this.texte7 = await this.handleTranslate('Veuillez renseigner votre email!');
+    this.texte8 = await this.handleTranslate('Veuillez renseigner votre mot de passe!');
+   
+  },
 };
 </script>
 <template>
@@ -95,11 +124,11 @@ export default {
     @ok="toogleForgotPassword"
   >
     <h2 class="text-center fw-bold" style="color: orange">
-      Réinitialiser votre mot de passe
+      {{ texte }}
     </h2>
     <h6 class="text-center fw-bold">
-      Entrez votre adresse email et nous vous enverrons <br />
-      un lien de réinitialisation de mot de passe
+      {{ texte1 }} <br />
+      {{ texte2 }}
     </h6>
     <ForgotPassword />
   </a-modal>
@@ -112,17 +141,17 @@ export default {
     @finishFailed="onFinishFailed"
   >
     <a-form-item
-      label="Email"
+      :label="texte3"
       name="email"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre email!' }]"
+      :rules="[{ required: true, message: texte7 }]"
     >
       <a-input v-model:value="formState.email" />
     </a-form-item>
 
     <a-form-item
-      label="Mot de passe"
+      :label="texte4"
       name="password"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre mot de passe!' }]"
+      :rules="[{ required: true, message: texte8 }]"
     >
       <a-input-password v-model:value="formState.password" />
     </a-form-item>
@@ -132,14 +161,14 @@ export default {
           class="login-form-forgot text-danger"
           href="#"
           @click.prevent="toogleForgotPassword"
-          >Mot de passe oublié</a
+          >{{ texte5 }}</a
         >
       </div>
     </a-form-item>
     <a-form-item>
       <div class="d-flex justify-content-center">
         <a-button type="primary" shape="round" :size="'large'" html-type="submit">
-          Se connecter</a-button
+          {{ texte6 }}</a-button
         >
       </div>
     </a-form-item>

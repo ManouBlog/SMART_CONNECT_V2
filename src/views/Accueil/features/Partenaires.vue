@@ -1,7 +1,8 @@
 <script>
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
-// import { mapActions, mapState } from "pinia";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import { mapActions } from "pinia";
 // import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 export default {
   name: "Partenaires",
@@ -11,6 +12,7 @@ export default {
   },
   data() {
     return {
+      texte: "", texte2: "", texte3: "", texte1: "" ,
       slides: [
         {
           id: 1,
@@ -40,13 +42,17 @@ export default {
   },
   methods: {
     // ...mapActions(useOffreStore, ["getOffres"]),
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
+    
   },
-  created() {},
+  async created() {
+    this.texte = await this.handleTranslate("Nos Partenaires");
+  },
 };
 </script>
 <template>
   <div class="container">
-    <h1 class="fw-bold">{{$t("Home.PARTENAIRE.title")}}</h1>
+    <h1 class="fw-bold">{{texte}}</h1>
     <br />
     <vueper-slides
       autoplay

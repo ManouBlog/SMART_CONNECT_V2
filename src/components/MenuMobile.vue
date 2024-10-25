@@ -6,18 +6,31 @@ import { useMenuMobile } from "../store-pinia/MenuMobile/useMenuMobileStore";
 import SelectLanguage from "./feature/header/SelectLanguage.vue";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import MenuMobileEntreprise from "./feature/header/Entreprise/MenuMobileEntreprise";
-import MenuMobileStudent from "./feature/header/Student/MenuMobileStudent.vue"
+import MenuMobileStudent from "./feature/header/Student/MenuMobileStudent.vue";
 import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
+import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
 
 export default {
   name: "MenuMobile",
   components: {
     SelectLanguage,
     MenuMobileEntreprise,
-    MenuMobileStudent
+    MenuMobileStudent,
   },
   data() {
-    return {};
+    return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+    };
   },
   computed: {
     ...mapState(useMenuMobile, ["showMenuMobile"]),
@@ -26,6 +39,7 @@ export default {
     ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
     ...mapActions(useRegisterStore, ["changeValueIsModal"]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     async deconnexUser() {
       this.launchLoading(true);
       await instance
@@ -65,6 +79,14 @@ export default {
         });
     },
   },
+  async created() {
+    this.texte = await this.handleTranslate("Connexion");
+    this.texte1 = await this.handleTranslate("Accueil");
+    this.texte2 = await this.handleTranslate("Offre d'emploi");
+    this.texte3 = await this.handleTranslate("Abonnement");
+    this.texte4 = await this.handleTranslate("Contactez-nous");
+    this.texte5 = await this.handleTranslate("Déconnexion");
+  },
 };
 </script>
 <template>
@@ -87,7 +109,7 @@ export default {
       </li>
       <li v-if="!this.$store.state.user">
         <a href="#" class="login_user_mobile" @click.prevent="changeValueIsModal">
-          {{ $t('Header.Menu.Connexion') }}
+          {{ texte }}
         </a>
       </li>
       <li>
@@ -96,7 +118,7 @@ export default {
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          {{ $t('Header.Menu.Accueil') }}
+          {{ texte1 }}
         </router-link>
       </li>
       <MenuMobileEntreprise
@@ -105,10 +127,12 @@ export default {
           this.$store.state.user.user.statut.statut === 'entreprise'
         "
       />
-      <MenuMobileStudent  v-if="
-      this.$store.state.user &&
-      this.$store.state.user.user.statut.statut === 'etudiant'
-    " />
+      <MenuMobileStudent
+        v-if="
+          this.$store.state.user &&
+          this.$store.state.user.user.statut.statut === 'etudiant'
+        "
+      />
       <li
         v-if="
           this.$store.state.user &&
@@ -120,7 +144,7 @@ export default {
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          Offre d'emploi
+          {{ texte2 }}
         </router-link>
       </li>
       <li>
@@ -129,8 +153,7 @@ export default {
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-        {{ $t("Header.Menu.Abonnement") }}
-          <!-- Abonnements -->
+          {{ texte3 }}
         </router-link>
       </li>
       <li>
@@ -139,11 +162,11 @@ export default {
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          {{ $t('Header.Menu.aboutUs') }}
+          {{ texte4 }}
         </router-link>
       </li>
       <li v-if="this.$store.state.user">
-        <a href="#" @click="deconnexUser" class="fw-bold"> Déconnexion</a>
+        <a href="#" @click="deconnexUser" class="fw-bold"> {{ texte5 }}</a>
       </li>
     </ul>
   </a-drawer>

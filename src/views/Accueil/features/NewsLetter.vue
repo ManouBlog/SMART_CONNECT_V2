@@ -1,12 +1,14 @@
 <script>
 // import { mapActions, mapState } from "pinia";
 // import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import { mapActions } from "pinia";
 import Swal from "sweetalert2";
 import instance from "../../../api/api";
 export default {
   name: "NewsLetter",
   data() {
-    return { spinnerAlert: false,emailForNewsletter:"" };
+    return { spinnerAlert: false,emailForNewsletter:"",texte: "", texte4: "", texte2: "", texte3: "", texte1: "" , };
   },
   computed: {
     // ...mapState(useOffreStore, ["ListOffre"]),
@@ -48,17 +50,24 @@ export default {
           this.spinnerAlert = false;
         });
     },
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
   },
-  created() {},
+  async created() {
+    this.texte = await this.handleTranslate("Alertes Offres");
+    this.texte1 = await this.handleTranslate("Vous voulez reçevoir les offres d'emploi");
+    this.texte2 = await this.handleTranslate("Inscrivez-vous à la newsletter");
+    this.texte3 = await this.handleTranslate("Chargement...");
+    this.texte4 = await this.handleTranslate("Envoyer");
+  },
 };
 </script>
 <template>
-  <h1 class="fw-bold">{{$t("Home.ALERTES.title")}}</h1>
+  <h1 class="fw-bold">{{texte}}</h1>
   <div class="alerte_emploi">
     <div class="ecriteau_alerte_emploi">
       <h4>
-        {{$t("Home.ALERTES.description1")}}<br />
-        {{$t("Home.ALERTES.description2")}}
+        {{texte1}}<br />
+        {{texte2}}
       </h4>
       <div class="inputSendmail">
         <input
@@ -73,7 +82,7 @@ export default {
           @click="SendMailBienvenueNewsletter"
           v-if="this.emailForNewsletter"
         >
-          {{ spinnerAlert ? $t("Home.ALERTES.description4") : $t("Home.ALERTES.description3") }}
+          {{ spinnerAlert ? texte3 : texte4 }}
         </button>
       </div>
     </div>

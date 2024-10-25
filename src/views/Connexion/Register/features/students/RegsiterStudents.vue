@@ -3,6 +3,7 @@ import VueMultiselect from "vue-multiselect";
 import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
 import { configUtils } from "../../../../../Shared/Utils";
+import { useTranslateStore } from "../../../../../store-pinia/Translate/useTranslateStore";
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 
@@ -14,6 +15,25 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11:"",
+      texte12:"",
+      texte13:"",
+      texte14:"",
+      texte15:"",
+      texte16:"",
+      texte17:"",
+      texte18:"",
       open: true,
       configUtils: configUtils,
       SWALPOPUP: useSwalPopup(),
@@ -38,6 +58,7 @@ export default {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     onFinish(values) {
       console.log("Success:", values);
       console.log("formState", this.formState);
@@ -73,9 +94,30 @@ export default {
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
   },
-  created() {
+  async created() {
     this.getCompetences();
-  },
+    this.texte = await this.handleTranslate("Nom");
+    this.texte1 = await this.handleTranslate(
+      "Prénoms"
+    );
+    this.texte2 = await this.handleTranslate("Contact");
+    this.texte3 = await this.handleTranslate("Ville");
+    this.texte4 = await this.handleTranslate("Commune");
+    this.texte5 = await this.handleTranslate("Quartier");
+    this.texte6 = await this.handleTranslate("Email");
+    this.texte7 = await this.handleTranslate("Compétences");
+    this.texte8 = await this.handleTranslate("Diplôme");
+    this.texte9 = await this.handleTranslate("Carte étudiante");
+    this.texte10 = await this.handleTranslate("Mot de passe"); 
+    this.texte11 = await this.handleTranslate("S'inscrire"); 
+    this.texte12 = await this.handleTranslate('Veuillez renseigner votre mot de passe!');
+    this.texte13 = await this.handleTranslate('Veuillez renseigner votre Diplôme!');
+    this.texte14 = await this.handleTranslate('Veuillez renseigner votre email!');
+    this.texte15 = await this.handleTranslate('Veuillez renseigner votre Contact!');
+    this.texte16 = await this.handleTranslate('Veuillez renseigner vos Prénoms!');
+    this.texte17 = await this.handleTranslate('Veuillez renseigner votre nom!');
+
+  }
 };
 </script>
 <template>
@@ -89,45 +131,45 @@ export default {
     @finishFailed="onFinishFailed"
   >
     <a-form-item
-      label="Nom"
+      :label="texte"
       name="nom"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre nom!' }]"
+      :rules="[{ required: true, message: texte17 }]"
     >
       <a-input v-model:value="formState.nom" />
     </a-form-item>
     <a-form-item
-      label="Prénoms"
+      :label="texte1"
       name="prenoms"
-      :rules="[{ required: true, message: 'Veuillez renseigner vos Prénoms!' }]"
+      :rules="[{ required: true, message: texte16 }]"
     >
       <a-input v-model:value="formState.prenoms" />
     </a-form-item>
 
     <a-form-item
-      label="Contact"
+      :label="texte2"
       name="phone"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Contact!' }]"
+      :rules="[{ required: true, message: texte15 }]"
     >
       <a-input type="number" :maxlength="10" v-model:value="formState.phone" />
     </a-form-item>
-    <a-form-item label="Ville" name="ville">
+    <a-form-item :label="texte3" name="ville">
       <a-input v-model:value="formState.ville" />
     </a-form-item>
-    <a-form-item label="Commune" name="commune">
+    <a-form-item :label="texte4" name="commune">
       <a-input v-model:value="formState.commune" />
     </a-form-item>
-    <a-form-item label="Quartier" name="quartier">
+    <a-form-item :label="texte5" name="quartier">
       <a-input v-model:value="formState.quartier" />
     </a-form-item>
 
     <a-form-item
-      label="Email"
+      :label="texte6"
       name="email"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre email!' }]"
+      :rules="[{ required: true, message: texte14 }]"
     >
       <a-input v-model:value="formState.email" />
     </a-form-item>
-    <a-form-item label="Compétences" name="Compétences">
+    <a-form-item :label="texte7" name="Compétences">
       <VueMultiselect
         v-model="formState.myCompetence"
         :options="allCompetences"
@@ -142,13 +184,13 @@ export default {
       </VueMultiselect>
     </a-form-item>
     <a-form-item
-      label="Diplôme"
+      :label="texte8"
       name="diplome"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Diplôme!' }]"
+      :rules="[{ required: true, message: texte13 }]"
     >
       <a-input type="text" v-model:value="formState.diplome" />
     </a-form-item>
-    <a-form-item name="Carte étudiante" label="Carte étudiante">
+    <a-form-item name="Carte étudiante" :label="texte9">
       <a-upload
         @change="handleChangeCardStudent"
         v-model:fileList="formState.upload"
@@ -160,9 +202,9 @@ export default {
     </a-form-item>
 
     <a-form-item
-      label="Mot de passe"
+      :label="texte10"
       name="password"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre mot de passe!' }]"
+      :rules="[{ required: true, message: texte12 }]"
     >
       <a-input-password v-model:value="formState.password" />
     </a-form-item>
@@ -216,7 +258,7 @@ export default {
     <a-form-item>
       <div class="d-flex justify-content-center">
         <a-button type="primary" shape="round" :size="'large'" html-type="submit">
-          S'inscrire</a-button
+          {{texte11}}</a-button
         >
       </div>
     </a-form-item>

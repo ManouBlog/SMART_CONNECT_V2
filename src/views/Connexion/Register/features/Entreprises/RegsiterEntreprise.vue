@@ -1,6 +1,7 @@
 <script>
 import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
+import { useTranslateStore } from "../../../../../store-pinia/Translate/useTranslateStore";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 export default {
   name: "RegsiterEntreprise",
@@ -9,6 +10,33 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11:"",
+      texte12:"",
+      texte13:"",
+      texte14:"",
+      texte15:"",
+      texte16:"",
+      texte17:"",
+      texte18:"",
+      texte19:"",
+      texte20:"",
+      texte21:"",
+      texte22:"",
+      texte23:"",
+      texte24:"",
+      texte25:"",
+      texte26:"",
       open: true,
       formState: {
         nom: "",
@@ -29,6 +57,7 @@ export default {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     onFinish(values) {
       console.log("Success:", values);
     },
@@ -43,8 +72,36 @@ export default {
       getCompetences: "getAllCompetences",
     }),
   },
-  created() {
+  async created() {
     this.getCompetences();
+    this.texte = await this.handleTranslate("Entreprise");
+    this.texte1 = await this.handleTranslate(
+      "Matricule cc"
+    );
+    this.texte2 = await this.handleTranslate("Numéro de l'entreprise");
+    this.texte3 = await this.handleTranslate("Ville");
+    this.texte4 = await this.handleTranslate("Commune");
+    this.texte5 = await this.handleTranslate("Quartier");
+    this.texte6 = await this.handleTranslate("Email de l'entreprise");
+    this.texte7 = await this.handleTranslate("Forme juridique");
+    this.texte8 = await this.handleTranslate("Gérant");
+    this.texte9 = await this.handleTranslate("Numéro du Gérant");
+    this.texte10 = await this.handleTranslate("Pièce du gérant"); 
+    this.texte11 = await this.handleTranslate("Registre"); 
+    this.texte12 = await this.handleTranslate('Mot de passe');
+    this.texte13 = await this.handleTranslate("Inscription");
+    this.texte14 = await this.handleTranslate('Veuillez renseigner votre mot de passe!');
+    this.texte15 = await this.handleTranslate('Veuillez renseigner le numéro votre Gérant!');
+    this.texte16 = await this.handleTranslate('Veuillez renseigner votre Gérant!');
+    this.texte17 = await this.handleTranslate('Veuillez renseigner votre Forme juridique!');
+    this.texte18 = await this.handleTranslate('Veuillez renseigner votre email!');
+    this.texte19 = await this.handleTranslate('Veuillez renseigner votre Quartier!');
+    this.texte20 = await this.handleTranslate('Veuillez renseigner votre Commune!');
+    this.texte21 = await this.handleTranslate('Veuillez renseigner votre Ville!');
+    this.texte22 = await this.handleTranslate('Veuillez renseigner votre Contact!');
+    this.texte23 =  await this.handleTranslate('Veuillez renseigner votre Matricule!');
+    this.texte24 = await this.handleTranslate('Veuillez renseigner votre nom!');
+    
   },
 };
 </script>
@@ -59,81 +116,81 @@ export default {
     @finishFailed="onFinishFailed"
   >
     <a-form-item
-      label="Entreprise"
+      :label="texte"
       name="nom"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre nom!' }]"
+      :rules="[{ required: true, message: texte24 }]"
     >
       <a-input v-model:value="formState.nom" />
     </a-form-item>
     <a-form-item
-      label="Matricule cc"
+      :label="texte1"
       name="matricule_cc"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Matricule!' }]"
+      :rules="[{ required: true, message: texte23 }]"
     >
       <a-input v-model:value="formState.matricule_cc" />
     </a-form-item>
     
 
     <a-form-item
-      label="Numéro de l'entreprise"
+      :label="texte2"
       name="contact"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Contact!' }]"
+      :rules="[{ required: true, message: texte22 }]"
     >
       <a-input v-model:value="formState.nom" />
     </a-form-item>
     <a-form-item
-      label="Ville"
+      :label="texte3"
       name="ville"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Ville!' }]"
+      :rules="[{ required: true, message: texte21 }]"
     >
       <a-input v-model:value="formState.nom" />
     </a-form-item>
     <a-form-item
-      label="Commune"
+      :label="texte4"
       name="commune"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Commune!' }]"
+      :rules="[{ required: true, message: texte20 }]"
     >
       <a-input v-model:value="formState.nom" />
     </a-form-item>
     <a-form-item
-      label="Quartier"
+      :label="texte5"
       name="quartier"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Quartier!' }]"
+      :rules="[{ required: true, message: texte19 }]"
     >
       <a-input v-model:value="formState.nom" />
     </a-form-item>
 
     <a-form-item
-      label="Email de l'entreprise"
+      :label="texte6"
       name="email"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre email!' }]"
+      :rules="[{ required: true, message: texte18 }]"
     >
       <a-input v-model:value="formState.nom" />
     </a-form-item>
   
     <a-form-item
-      label="Forme juridique"
+      :label="texte7"
       name="juridique"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Forme juridique!' }]"
+      :rules="[{ required: true, message: texte17 }]"
     >
       <a-input v-model:value="formState.juridique" />
     </a-form-item>
     <a-form-item
-      label="Gérant"
+      :label="texte8"
       name="gerant"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre Gérant!' }]"
+      :rules="[{ required: true, message: texte16 }]"
     >
       <a-input v-model:value="formState.gerant" />
     </a-form-item>
 
     <a-form-item
-      label="Numéro du Gérant"
+      :label="texte9"
       name="Phonegerant"
-      :rules="[{ required: true, message: 'Veuillez renseigner le numéro votre Gérant!' }]"
+      :rules="[{ required: true, message: texte15 }]"
     >
       <a-input v-model:value="formState.Phonegerant" />
     </a-form-item>
-    <a-form-item name="Pièce du gérant" label="piece_gerant">
+    <a-form-item name="piece_gerant" :label="texte10">
         <a-upload
           @change="handleChangeCardStudent"
           v-model:fileList="formState.piece_gerant"
@@ -143,7 +200,7 @@ export default {
           <a-button> Click to upload </a-button>
         </a-upload>
       </a-form-item>
-    <a-form-item name="Registre" label="Registre">
+    <a-form-item name="Registre" :label="texte11">
         <a-upload
           @change="handleChangeCardStudent"
           v-model:fileList="formState.Registre"
@@ -155,9 +212,9 @@ export default {
       </a-form-item>
 
     <a-form-item
-      label="Mot de passe"
+      :label="texte12"
       name="mot de passe"
-      :rules="[{ required: true, message: 'Veuillez renseigner votre mot de passe!' }]"
+      :rules="[{ required: true, message: texte14 }]"
     >
       <a-input-password v-model:value="formState.password" />
     </a-form-item>
@@ -165,7 +222,7 @@ export default {
     <a-form-item>
       <div class="d-flex justify-content-center">
         <a-button type="primary" shape="round" :size="'large'" html-type="submit">
-          S'inscrire</a-button
+          {{texte13}}</a-button
         >
       </div>
     </a-form-item>

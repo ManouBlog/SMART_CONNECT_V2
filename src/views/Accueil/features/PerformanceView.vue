@@ -2,6 +2,7 @@
 import { mapActions, mapState } from "pinia";
 import CardPerformance from "../../../Shared/Compoments/CardPerformance.vue";
 import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
 export default {
   name: "PerformanceView",
@@ -10,7 +11,7 @@ export default {
     CardPerformance,
   },
   data() {
-    return {};
+    return { texte: "",texte2:"",texte3:"",texte1:"" };
   },
   computed: {
     ...mapState(useEntreprisesStore, ["entreprises", "timetable"]),
@@ -19,10 +20,15 @@ export default {
   methods: {
     ...mapActions(useEntreprisesStore, ["getEntreprise"]),
     ...mapActions(useOffreStore, ["getOffres"]),
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
   },
-  created() {
+  async created() {
     this.getEntreprise();
     this.getOffres();
+    this.texte = await this.handleTranslate("Nos performances");
+    this.texte1 = await this.handleTranslate("Partenaire(s)");
+    this.texte2 = await this.handleTranslate("Offre(s)");
+    this.texte3 = await this.handleTranslate("Talent(s)");
   },
 };
 </script>
@@ -31,22 +37,22 @@ export default {
     <div class="row">
       <div class="container">
         <div>
-          <h1 class="fw-bold">Nos performances</h1>
+          <h1 class="fw-bold">{{ texte }}</h1>
         </div>
         <div class="conteneur-card-performance">
           <CardPerformance
             :icone_name="'bi bi-building icon'"
-            :texte="'Partenaire(s)'"
+            :texte="texte1"
             :nbre="entreprises.length"
           />
           <CardPerformance
             :icone_name="'bi bi-briefcase-fill'"
-            :texte="'Offre(s)'"
+            :texte="texte2"
             :nbre="offres.length"
           />
           <CardPerformance
             :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Talent(s)'"
+            :texte="texte3"
             :nbre="timetable.length"
           />
         </div>

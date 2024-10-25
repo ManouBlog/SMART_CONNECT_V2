@@ -11,6 +11,8 @@ import { mapActions } from "pinia";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import MenuMobile from "./MenuMobile.vue";
 import { useMenuMobile } from "../store-pinia/MenuMobile/useMenuMobileStore";
+import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
+
 export default {
   name: "Header",
   components: {
@@ -23,6 +25,17 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
       datesPickers: [],
       selecteDatepickers: {},
       days: [],
@@ -100,6 +113,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useRegisterStore, ["changeValueIsModal"]),
     ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
     deletePersonAtWishList(person) {
@@ -170,9 +184,14 @@ export default {
       }
     },
   },
-  created() {
+  async created() {
     this.all();
-  
+    this.texte = await this.handleTranslate("Abonnements");
+    this.texte1 = await this.handleTranslate("Accueil");
+    this.texte2 = await this.handleTranslate("Offre d'emploi");
+    this.texte3 = await this.handleTranslate("Talents");
+    this.texte4 = await this.handleTranslate("Contactez-nous");
+    this.texte5 = await this.handleTranslate("Connexion");
   },
 };
 </script>
@@ -202,15 +221,14 @@ export default {
 
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav_lien_nav_bar">
-                  <LiensNavBar :texte="$t('Header.Menu.Accueil')" 
-                  :route_lien="'Bienvenue'" />
+                  <LiensNavBar :texte="texte1" :route_lien="'Bienvenue'" />
 
                   <LiensNavBar
                     v-if="
                       this.$store.state.user &&
                       this.$store.state.user.user.statut.statut === 'etudiant'
                     "
-                    :texte="$t('Header.Menu.Student.Offre_emploi')"
+                    :texte="texte2"
                     :route_lien="'jobs'"
                     :statut_user="'etudiant'"
                     :isNeedConnection="true"
@@ -220,13 +238,13 @@ export default {
                       this.$store.state.user &&
                       this.$store.state.user.user.statut.statut === 'entreprise'
                     "
-                    :texte="$t('Header.Menu.Entreprise.Talents')"
+                    :texte="texte3"
                     :route_lien="'timetable'"
                     :statut_user="'entreprise'"
                     :isNeedConnection="true"
                   />
-                  <LiensNavBar :texte="$t('Header.Menu.Abonnement')" :route_lien="'abonnements'" />
-                  <LiensNavBar :texte="$t('Header.Menu.aboutUs')" :route_lien="'contact'" />
+                  <LiensNavBar :texte="texte" :route_lien="'abonnements'" />
+                  <LiensNavBar :texte="texte4" :route_lien="'contact'" />
                   <li>
                     <SelectLanguage />
                   </li>
@@ -253,8 +271,7 @@ export default {
                   class="login_user mx-3"
                   @click.prevent="changeValueIsModal"
                 >
-                {{ $t('Header.Menu.Connexion') }}
-                 
+                  {{ texte5 }}
                 </a>
                 <ListeFavoris v-if="this.$store.state.user" />
                 <div>
@@ -413,7 +430,7 @@ export default {
   width: 160px;
   padding: 0.5em;
   border-radius: 5px;
-  font-size:1.3em;
+  font-size: 1.3em;
   color: orange;
 }
 .content_experience {

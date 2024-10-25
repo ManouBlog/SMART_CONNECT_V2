@@ -3,6 +3,7 @@ import Flicking from "@egjs/vue3-flicking";
 import "@egjs/vue3-flicking/dist/flicking.css";
 import { mapActions, mapState } from "pinia";
 import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useRegisterStore } from "../../../store-pinia/register/useRegisterStore";
 export default {
   name: "OffresRecentes",
@@ -10,7 +11,7 @@ export default {
     Flicking,
   },
   data() {
-    return {};
+    return { texte: "", texte2: "", texte3: "", texte1: "" };
   },
   computed: {
     ...mapState(useOffreStore, ["ListOffre"]),
@@ -20,13 +21,14 @@ export default {
     ...mapActions(useRegisterStore, {
       toogleModal: "changeValueIsModal",
     }),
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     voirDetailTimetable() {
       if (this.$store.state.user) {
         this.$router.push({
           name: "jobs",
         });
       } else {
-        this.toogleModal()
+        this.toogleModal();
         // Swal.fire({
         //   icon: "info",
         //   title: "Veuillez-vous connecter!",
@@ -42,14 +44,17 @@ export default {
       }
     },
   },
-  created() {
+  async created() {
     this.getOffres();
+    this.texte = await this.handleTranslate("Offres récentes");
+    this.texte1 = await this.handleTranslate("Description");
+    this.texte2 = await this.handleTranslate("Publié le:")
   },
 };
 </script>
 <template>
   <section>
-    <h1 class="fw-bold">{{$t("Home.OFFRE_RECENT.title")}}</h1>
+    <h1 class="fw-bold">{{ texte }}</h1>
     <br />
     <br />
     <div class="wrapper">
@@ -69,29 +74,34 @@ export default {
           <br />
           <br />
           <div class="desc_crop">
-            <span class="fw-bold">Description</span>
+            <span class="fw-bold">{{ texte1 }}</span>
             <div class="desc" v-html="item.description"></div>
             <p class="lire"></p>
           </div>
           <span class="publie_offre"
-            >Publié le:{{ new Date(item.created_at).toLocaleDateString("fr") }}</span
+            >{{ texte2 }}{{ new Date(item.created_at).toLocaleDateString("fr") }}</span
           >
         </div>
         <div
-        style="width:auto;display:flex;
-        justify-content:center;
-        place-content:center;
-        align-items:center;" >
-        <a
-        href="#"
-        class="h5 plusOffre"
-        style="font-size: 2em;"
-        @click.prevent="voirDetailTimetable"
-        v-if="
-        this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant'
-      "
-        >Plus d'offres <em class="bi bi-arrow-right"></em>
-      </a>
+          style="
+            width: auto;
+            display: flex;
+            justify-content: center;
+            place-content: center;
+            align-items: center;
+          "
+        >
+          <a
+            href="#"
+            class="h5 plusOffre"
+            style="font-size: 2em"
+            @click.prevent="voirDetailTimetable"
+            v-if="
+              this.$store.state.user &&
+              this.$store.state.user.user.statut.statut === 'etudiant'
+            "
+            >Plus d'offres <em class="bi bi-arrow-right"></em>
+          </a>
         </div>
       </Flicking>
     </div>

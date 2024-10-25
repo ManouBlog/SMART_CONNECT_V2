@@ -1,5 +1,7 @@
 <script>
 import ImageView from "./ImageView.vue";
+import { mapActions } from "pinia";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 export default {
   name: "AppMobileView",
   components: {
@@ -7,6 +9,10 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
       illustrationData: [
         {
           lien: require("../../../assets/googleplay.png"),
@@ -20,17 +26,27 @@ export default {
       illustrationApp: require("../../../assets/illustration_app.png"),
     };
   },
+  methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
+  },
+  async created() {
+    this.texte = await this.handleTranslate("Télécharger notre");
+    this.texte1 = await this.handleTranslate("application mobile");
+    this.texte2 = await this.handleTranslate(
+      "Trouver des offres, ressources partout ou vous êtes"
+    );
+  },
 };
 </script>
 <template>
   <div class="header_banner py-3">
     <div class="ecriteau">
       <h1>
-        {{ $t("Home.Appli_mobile.title_one") }} <br />
-        {{ $t("Home.Appli_mobile.title_two") }}
+        {{ texte }} <br />
+        {{ texte1 }}
       </h1>
       <h6 class="my-5 text-center">
-        {{ $t("Home.Appli_mobile.title_three") }}
+        {{ texte2 }}
       </h6>
       <div class="conteneur_logo_app_telechargement">
         <ImageView
