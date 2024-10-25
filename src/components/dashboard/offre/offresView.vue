@@ -3,6 +3,9 @@
 import { FilterMatchMode } from "primevue/api";
 import DatatablePrimeVue from "../../../Shared/Compoments/DatatablePrimeVue.vue";
 import { mapActions, mapState } from "pinia";
+
+
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 import Swal from "sweetalert2";
 import instance from "../../../api/api";
@@ -22,6 +25,34 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"",
       offre: null,
       salaire: null,
       lieu: null,
@@ -42,24 +73,10 @@ export default {
       categories: null,
       Today: new Date().toJSON().slice(0, 10),
       spinnerModify: false,
-      OptionsOfpointage: [
-        {
-          id: 1,
-          libelle: "Jour",
-        },
-        {
-          id: 2,
-          libelle: "Heure",
-        },
-      ],
+      OptionsOfpointage: [],
       pointage: "",
       fieldsForFilter: ["nom_offre", "salaire"],
-      allColumnsData: [
-        { fieldName: "nom_offre", headerName: "Offre" },
-        { fieldName: "lieu", headerName: "Lieu" },
-        { fieldName: "salaire", headerName: "Honoraire" },
-        { fieldName: "fin", headerName: "Date limite" },
-      ],
+      allColumnsData: [],
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         nom_offre: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -81,6 +98,10 @@ export default {
     ...mapState(useModalSuppressionStore, ["showModalSuppression"]),
   },
   methods: {
+    handleListAllColumnsData(){
+      
+    },
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, [
       "getAllOffresCreatedByEntreprise",
       "handleDeleteOffre",
@@ -180,9 +201,32 @@ export default {
       this.handleDeleteOffre(idItem);
     },
   },
-  created() {
+  async created() {
     this.getAllOffresCreatedByEntreprise();
     this.get_categorie();
+    const nom_offre = await this.handleTranslate('Offre')
+    const Lieu = await this.handleTranslate('Lieu')
+    const Honoraire= await this.handleTranslate('Honoraire')
+    const Date_limite = await this.handleTranslate('Date limite')
+    const JOUR = await this.handleTranslate('Jour')
+    const Heure = await this.handleTranslate('Heure')
+    this.allColumnsData = [
+        { fieldName: "nom_offre", headerName: nom_offre },
+        { fieldName: "lieu", headerName: Lieu },
+        { fieldName: "salaire", headerName: Honoraire },
+        { fieldName: "fin", headerName: Date_limite },
+      ]
+      this.OptionsOfpointage = [
+        {
+          id: 1,
+          libelle: JOUR,
+        },
+        {
+          id: 2,
+          libelle: Heure,
+        },
+      ]
+    this.texte = await this.handleTranslate('Liste des offres');
   },
 };
 </script>
@@ -190,8 +234,8 @@ export default {
   <section>
     <ModalSuppression v-if="showModalSuppression" @handleDeleteItem="handleDeleteItem" />
     <HeaderDashboard
-      :TitleHeader="'Liste des offres'"
-      :subTitleHeader="'Liste des offres'"
+      :TitleHeader="texte"
+      :subTitleHeader="texte"
     />
     <div class="page-body position-relative">
       <DatatablePrimeVue

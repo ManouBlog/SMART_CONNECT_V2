@@ -10,7 +10,9 @@ import StatutForDatatable from "./features/StatutForDatatable.vue";
 import SelectionnesDetailDatatable from "./features/Personnels/SelectionnesDetailDatatable.vue";
 import ContactesDetailDatatable from "./features/Personnels/ContactesDetailDatatable.vue";
 import DetailsListeOffresDatatables from "./features/Offres/DetailsListeOffresDatatables.vue";
+import { mapActions } from "pinia";
 
+import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 export default {
   name: "DatatablePrimeVue",
   props: {
@@ -32,9 +34,37 @@ export default {
     SelectionnesDetailDatatable,
   },
   data() {
-    return { configUtils: configUtils, Help: Help };
+    return { configUtils: configUtils, Help: Help,texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"", };
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     toggleLock(data) {
       console.log("data", data);
     },
@@ -43,6 +73,11 @@ export default {
     filters() {
       return this.DATAfORfILTER;
     },
+  },
+  async created() {
+    this.texte = await this.handleTranslate('Affichage de 1 à 10 sur');
+    this.texte1 = await this.handleTranslate(`entrées.`);
+    this.texte2 = await this.handleTranslate(`Détails`);
   },
 };
 </script>
@@ -61,7 +96,7 @@ export default {
       <div
         style="display: flex; justify-content: flex-start; font-size: 1em; border: none"
       >
-        Affichage de 1 à 10 sur{{ DATAVALUE.length }} entrées.
+        {{texte}}{{ DATAVALUE.length }} {{texte1}}
       </div>
     </template>
     <template #header>
@@ -107,7 +142,7 @@ export default {
         </span>
       </template>
     </Column>
-    <Column header="Détails" style="font-size: 1.8em; padding: 1em; text-align: center">
+    <Column :header="texte2" style="font-size: 1.8em; padding: 1em; text-align: center">
       <template #body="{ data }">
         <DetailsListeOffresDatatables
           :donnees="data"
