@@ -1,6 +1,7 @@
 <script>
 import instance,{lienPhoto} from "../../../api/api";
-
+import { mapActions } from "pinia";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import Swal from "sweetalert2";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 export default {
@@ -10,6 +11,34 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"",
       list_students: null,
       student: null,
       lienPhoto:lienPhoto,
@@ -26,6 +55,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     get_students_contact() {
       this.spinner = false;
       instance
@@ -188,9 +218,20 @@ export default {
         });
     },
   },
-  created() {
+ async created() {
     this.get_students_contact();
     this.get_all_timetables();
+    this.texte = await this.handleTranslate('Etudiant contacté');
+    this.texte1 = await this.handleTranslate(`Contacté pour le`);
+    this.texte2 = await this.handleTranslate("Email");
+    this.texte3 = await this.handleTranslate('Ville');
+    this.texte4 = await this.handleTranslate('Quartier');
+    this.texte5 = await this.handleTranslate('Commune');
+    this.texte6 = await this.handleTranslate('Télephone');
+    this.texte7 = await this.handleTranslate('Diplome');
+    this.texte8 = await this.handleTranslate('Carte étudiante');
+    this.texte9 = await this.handleTranslate("Compétences");
+    this.texte10 = await this.handleTranslate(' Rejeté');
   },
 };
 </script>
@@ -199,8 +240,8 @@ export default {
   <section>
     <div class="page-body position-relative">
       <HeaderDashboard
-      :TitleHeader="'Etudiant contacté'"
-      :subTitleHeader="'Etudiant contacté'"
+      :TitleHeader="texte"
+      :subTitleHeader="texte"
     />
     <div  class="d-flex align-items-center justify-content-center flex-wrap" v-if="detailsStudents">
       <a-card style="width: 400px; background: rgba(179, 201, 255, 0.38)" >
@@ -209,7 +250,7 @@ export default {
          <h2 class="text-warning">{{ detailsStudents.nom }} {{ detailsStudents.prenoms }}</h2>
         </div>
         <div>
-          <h1 class="badge bg-primary w-25">Contacté pour le</h1>
+          <h1 class="badge bg-primary w-25">{{texte1}}</h1>
           <br />
           <div
             v-if="
@@ -233,20 +274,20 @@ export default {
           </div>
         </div>
         <section class="text-left my-3">
-         <h4><span>Email</span> {{ detailsStudents.email }}</h4>
-         <h4><span>Ville</span> {{ detailsStudents.ville }}</h4>
-         <h4><span>Quartier</span> {{ detailsStudents.quartier }}</h4>
-         <h4><span>Commune</span> {{ detailsStudents.commune }}</h4>
-         <h4><span>Télephone</span> {{ detailsStudents.phone }}</h4>
-         <h4><span>Diplome</span> {{ detailsStudents.diplome }}</h4>
+         <h4><span>{{texte2}}</span> {{ detailsStudents.email }}</h4>
+         <h4><span>{{texte3}}</span> {{ detailsStudents.ville }}</h4>
+         <h4><span>{{texte4}}</span> {{ detailsStudents.quartier }}</h4>
+         <h4><span>{{texte5}}</span> {{ detailsStudents.commune }}</h4>
+         <h4><span>{{texte6}}</span> {{ detailsStudents.phone }}</h4>
+         <h4><span>{{texte7}}</span> {{ detailsStudents.diplome }}</h4>
          <div style="text-align:left;">
-           <h4><span>Carte étudiante</span></h4>
+           <h4><span>{{texte8}}</span></h4>
            <n-image width="100" :src="lienPhoto + detailsStudents.photo"
              :alt="detailsStudents.photo" />
          </div>
         </section>
         <section>
-          <h1 class="badge bg-dark w-25">Compétences</h1>
+          <h1 class="badge bg-dark w-25">{{texte9}}</h1>
           <div
             v-for="(competence, index) in detailsStudents.competences"
             :key="index"

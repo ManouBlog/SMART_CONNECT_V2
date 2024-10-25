@@ -7,6 +7,7 @@ import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
 export default {
   name: "Offres_postulerView",
@@ -20,6 +21,18 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
       offre: null,
       offres: null,
       spinner: false,
@@ -31,35 +44,49 @@ export default {
         status: { value: null, matchMode: FilterMatchMode.EQUALS },
         verified: { value: null, matchMode: FilterMatchMode.EQUALS },
       },
-      allColumnsPostulants: [
-        { fieldName: "nom", headerName: "Nom" },
-        { fieldName: "prenoms", headerName: "prénoms" },
-        { fieldName: "email", headerName: "Email" },
-        { fieldName: "phone", headerName: "Télephone" },
-        { fieldName: "statut", headerName: "Statut" },
-        { fieldName: "offre", headerName: "Offre" },
-      ],
+      allColumnsPostulants: [],
     };
   },
   computed: {
     ...mapState(useEntreprisesStore, ["offresInteressByStudents"]),
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useEntreprisesStore, ["get_offres_interess_by_student"]),
     seeData(value) {
       console.log(value);
     },
   },
-  created() {
+  async created() {
     this.get_offres_interess_by_student();
+    const Nom = await this.handleTranslate('Nom');
+    const prenoms = await this.handleTranslate('prénoms');
+    const Email = await this.handleTranslate('Email');
+    const Telephone = await this.handleTranslate('Télephone');
+    const Statut = await this.handleTranslate('Statut');
+    const Offre = await this.handleTranslate('Offre');
+    this.allColumnsPostulants = [
+        { fieldName: "nom", headerName: Nom },
+        { fieldName: "prenoms", headerName: prenoms },
+        { fieldName: "email", headerName: Email },
+        { fieldName: "phone", headerName: Telephone },
+        { fieldName: "statut", headerName: Statut },
+        { fieldName: "offre", headerName: Offre },
+      ]
+    this.texte = await this.handleTranslate('Postulants');
+    this.texte1 = await this.handleTranslate("Affichage de 1 à 10 sur");
+    this.texte2 = await this.handleTranslate('entrées.');
+    this.texte3 = await this.handleTranslate("Offre");
+    this.texte4 = await this.handleTranslate('Nombre de Postulant');
+
   },
 };
 </script>
 <template>
   <section>
     <HeaderDashboard
-      :TitleHeader="'Postulants'"
-      :subTitleHeader="'Liste des postulants'"
+      :TitleHeader="texte"
+      :subTitleHeader="texte"
     />
     <div class="page-body position-relative">
       <div class="tab-content" id="top-tabContent">
@@ -80,7 +107,7 @@ export default {
                 border: none;
               "
             >
-              Affichage de 1 à 10 sur{{ offresInteressByStudents.length }} entrées.
+              {{texte1}}{{ offresInteressByStudents.length }} {{texte2}}
             </div>
           </template>
           <template #header>
@@ -100,12 +127,12 @@ export default {
           <Column
             style="font-size: 1.8em; padding: 1em; text-align: center"
             field="nom_offre"
-            header="Offre"
+            :header="texte3"
           ></Column>
           <Column
             style="font-size: 1.8em; padding: 1em; text-align: center"
             field="nbre.length"
-            header="Nombre de Postulant"
+            :header="texte4"
           ></Column>
           <Column
             header="Détails"

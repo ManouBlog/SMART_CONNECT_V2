@@ -3,6 +3,10 @@ import instance from "../../../../api/api";
 import LiensNavBar from "../LiensNavBar.vue";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
+
+
+
+import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 export default {
   name: "InfoStudent",
@@ -20,6 +24,33 @@ export default {
   },
   data() {
     return {
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"",
       data: null,
     };
   },
@@ -39,6 +70,7 @@ export default {
   },
   methods: {
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     deconnexUser() {
       this.launchLoading(true);
       instance
@@ -69,6 +101,16 @@ export default {
         });
     },
   },
+  async created() {
+     
+    this.texte1 = await this.handleTranslate(`Tableau de bord`);
+    this.texte2 = await this.handleTranslate("Mes postulations");
+    this.texte3 = await this.handleTranslate('Mes Contrats');
+    this.texte4 = await this.handleTranslate('Mes disponibilités');
+    this.texte5 = await this.handleTranslate('Mes abonnements');
+    this.texte6 = await this.handleTranslate('Deconnexion');
+   
+  },
 };
 </script>
 <template>
@@ -86,7 +128,7 @@ export default {
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/accueil" class="d-block">
-              {{ $t("Header.Menu.Tableau_bord") }}
+              {{texte1}}
             </router-link>
           </li>
         </a-menu-item>
@@ -96,21 +138,21 @@ export default {
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/offre_postule" class="d-block">
-              {{ $t("Header.Menu.Student.Postulations") }}
+              {{texte2}}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/contrat" class="d-block">
-              {{ $t("Header.Menu.Student.Contrats") }}
+              {{texte3}}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/emploi_du_temps" class="d-block">
-              {{ $t("Header.Menu.Student.Disponibilite") }}
+              {{texte4}}
             </router-link>
           </li>
         </a-menu-item>
@@ -123,15 +165,13 @@ export default {
         </a-menu-item> -->
         <a-menu-item>
           <LiensNavBar
-            :texte="$t('Header.Menu.Mes_abonnements')"
+            :texte="texte5"
             :route_lien="'dashboard-abonnements'"
           />
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
-            <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{
-              $t("Header.Menu.Deconnexion")
-            }}</a>
+            <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{texte6}}</a>
           </li>
         </a-menu-item>
       </a-menu>

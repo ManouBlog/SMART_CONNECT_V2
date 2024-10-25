@@ -4,12 +4,42 @@ import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { Help } from "../../../utils";
 import {useLoadingSpinner} from "../../../store-pinia/LoadingSpinner/useLoadingSpinner"
 import CardPostulants from "./features/CardPostulants.vue";
+import { mapActions} from "pinia";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 const spinnerLoading = useLoadingSpinner();
 export default {
   name: "DetailPostulantsView",
   components: { HeaderDashboard,CardPostulants },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"",
       offresInteressByStudents: null,
       lienPhoto: lienPhoto,
       offre: null,
@@ -20,6 +50,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     async get_offres_interess_by_student() {
       spinnerLoading.launchLoading(true)
       await instance
@@ -44,8 +75,11 @@ export default {
     }
     
   },
-  created() {
+ async created() {
     this.get_offres_interess_by_student();
+    this.texte = await this.handleTranslate('Détails des postulants');
+    this.texte1 = await this.handleTranslate('étudiant');
+  
   },
 };
 </script>
@@ -53,11 +87,11 @@ export default {
 <template>
   <section>
     <HeaderDashboard
-      :TitleHeader="'Détails des postulants'"
-      :subTitleHeader="'Détails des postulants'"
+      :TitleHeader="texte"
+      :subTitleHeader="texte"
     />
     <div class="page-body position-relative">
-      <h2 class="text-left my-5 mx-5">{{ detailStudents.length }} étudiant{{ detailStudents.length>1?"s":null }}</h2>
+      <h2 class="text-left my-5 mx-5">{{ detailStudents.length }}{{texte1}}{{ detailStudents.length>1?"s":null }}</h2>
       
       <div
         v-if="detailStudents != null"

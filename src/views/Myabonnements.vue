@@ -10,6 +10,7 @@ import InputIcon from "primevue/inputicon";
 import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue"
 import { useEntreprisesStore } from "../store-pinia/Entreprise/useEntreprisesStore";
 
+import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
 export default {
   name: "Myabonnements",
   components:{
@@ -22,6 +23,34 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"",
       configUtils:configUtils,
       offre: null,
       offres: null,
@@ -37,18 +66,30 @@ export default {
   },
   computed: { ...mapState(useEntreprisesStore, ["list_abonnement"]) },
   methods: { ...mapActions(useEntreprisesStore, ["get_all_abonnement"]),
+  ...mapActions(useTranslateStore, ["handleTranslate"]),
   handleNouvelAbonnement(){
     this.$router.push({name:"abonnements"})
   } },
-  created() {
+ async created() {
     this.get_all_abonnement();
+    this.texte = await this.handleTranslate('Mes abonnements');
+    this.texte1 = await this.handleTranslate(`Affichage de 1 à 10 sur`);
+    this.texte2 = await this.handleTranslate("Nouvel Abonnement");
+    this.texte3 = await this.handleTranslate('entrées.');
+    this.texte4 = await this.handleTranslate('Formule');
+    this.texte5 = await this.handleTranslate('Prix (Fcfa)');
+    this.texte6 = await this.handleTranslate('Echéance');
+    this.texte7 = await this.handleTranslate(' Statut');
+    this.texte8 = await this.handleTranslate(' Rejeter');
+    this.texte9 = await this.handleTranslate("Sélectionné");
+    this.texte10 = await this.handleTranslate(' Rejeté');
   },
 };
 </script>
 <template>
   <div class="page-body position-relative">
-    <HeaderDashboard  :TitleHeader="'Mes abonnements'"
-     :subTitleHeader="'Mes abonnements'"/>
+    <HeaderDashboard  :TitleHeader="texte"
+     :subTitleHeader="texte"/>
 
     <div class="tab-content" id="top-tabContent">
       <DataTable
@@ -68,13 +109,14 @@ export default {
               border: none;
             "
           >
-            Affichage de 1 à 10 sur{{ list_abonnement.length }} entrées.
+            {{texte1}}{{ list_abonnement.length }} {{texte3}}
           </div>
         </template>
         <template #header>
           <div class="conteneur_search">
             <div class="mx-3">
-              <button class="btn bg-warning py-2" @click="handleNouvelAbonnement">Nouvel Abonnement</button>
+              <button class="btn bg-warning py-2" @click="handleNouvelAbonnement">
+                {{texte2}}</button>
             </div>
             <IconField iconPosition="left">
               <InputIcon>
@@ -102,22 +144,22 @@ export default {
         <Column
           style="font-size: 1.8em; padding: 1em; text-align: center"
           field="abonement.libelle"
-          header="Formule"
+          :header="texte4"
         ></Column>
         <Column
         style="font-size: 1.8em; padding: 1em; text-align: center"
         field="montant"
-        header="Prix (Fcfa)"
+        :header="texte5"
       ></Column>
       <Column
         style="font-size: 1.8em; padding: 1em; text-align: center"
         field="echeance"
-        header="Echéance"
+        :header="texte6"
       ></Column>
       <Column
       style="font-size: 1.8em; padding: 1em; text-align: center"
       field="statut"
-      header="Statut"
+      :header="texte7"
     >
     <template #body="slotProps">
       <span class="px-2" :class="slotProps.data.statut === 'ACCEPTED' ? 'bg-success':'bg-danger'">

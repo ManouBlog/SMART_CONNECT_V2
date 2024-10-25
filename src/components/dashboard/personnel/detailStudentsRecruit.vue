@@ -3,6 +3,8 @@ import instance, { lienPhoto } from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { Help } from "../../../utils";
 import Swal from "sweetalert2";
+import { mapActions } from "pinia";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 const spinnerLoading = useLoadingSpinner();
 export default {
@@ -10,6 +12,34 @@ export default {
   components: { HeaderDashboard },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"",
       studentRecruit: null,
       lienPhoto: lienPhoto,
       offre: null,
@@ -24,6 +54,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     async get_offres_interess_by_student() {
       spinnerLoading.launchLoading(true);
       await instance
@@ -78,8 +109,26 @@ export default {
         });
     },
   },
-  created() {
+  async created() {
     this.get_offres_interess_by_student();
+    this.texte = await this.handleTranslate('Détail/ offre :');
+    this.texte1 = await this.handleTranslate(`Evaluer le personnel`);
+    this.texte2 = await this.handleTranslate("Commentaire");
+    this.texte3 = await this.handleTranslate('Envoyer');
+    this.texte4 = await this.handleTranslate('Plus tard');
+    this.texte5 = await this.handleTranslate('Etudiant');
+    this.texte6 = await this.handleTranslate('Email');
+    this.texte7 = await this.handleTranslate('Ville');
+    this.texte8 = await this.handleTranslate('Quartier');
+    this.texte9 = await this.handleTranslate("Commune");
+    this.texte10 = await this.handleTranslate('Télephone');
+    this.texte11 = await this.handleTranslate('Diplome');
+    this.texte12 = await this.handleTranslate(`Galerie`);
+    this.texte13 = await this.handleTranslate("Evaluer");
+ 
+    this.texte14 = await this.handleTranslate('Plus tard');
+    this.texte15 = await this.handleTranslate('Etudiant');
+
   },
 };
 </script>
@@ -87,8 +136,8 @@ export default {
 <template>
   <section>
     <HeaderDashboard
-      :TitleHeader="`Détail/ offre : ${this.$route.params.offre}`"
-      :subTitleHeader="'Détail-offre'"
+      :TitleHeader="`${texte} ${this.$route.params.offre}`"
+      :subTitleHeader="texte"
     />
     <div class="page-body position-relative">
       <div v-if="tableauRecruit != null" class="conteneur-detail">
@@ -100,7 +149,7 @@ export default {
             role="dialog"
             aria-modal="true"
           >
-            <h1>Evaluer le personnel</h1>
+            <h1>{{texte1}}</h1>
             <h2 class="text-center my-3">
               {{ this.identifiant.nom }} {{ this.identifiant.prenoms }}
             </h2>
@@ -108,7 +157,7 @@ export default {
               <n-rate size="large" :value="numberRate" :on-update:value="getNumber" />
             </div>
             <div v-if="numberRate >= 3">
-              <label for="comment">Commentaire</label>
+              <label for="comment">{{texte2}}</label>
               <textarea v-model="avis" name="" id="" cols="30" rows="10" class="w-100">
               </textarea>
             </div>
@@ -119,10 +168,10 @@ export default {
                 class="btn-lg bg-dark mx-3"
                 @click="sendAppreciation"
               >
-                Envoyer
+                {{texte3}}
               </button>
               <button class="btn-lg mx-3" @click="showModal = !showModal">
-                Plus tard
+                {{texte4}}
               </button>
             </div>
           </n-card>
@@ -134,21 +183,21 @@ export default {
             :key="item.id"
             style="width: 400px; background: rgba(179, 201, 255, 0.38)"
           >
-            <h1 class="badge bg-warning w-25">Etudiant {{ index + 1 }}</h1>
+            <h1 class="badge bg-warning w-25">{{texte5}} {{ index + 1 }}</h1>
 
             <div class="d-flex justify-content-between align-items-center">
               <h1><em class="bi bi-person h1"></em></h1>
               <h2 class="text-warning">{{ item.nom }} {{ item.prenoms }}</h2>
             </div>
             <section class="text-left">
-              <h4><span>Email</span> {{ item.email }}</h4>
-              <h4><span>Ville</span> {{ item.ville }}</h4>
-              <h4><span>Quartier</span> {{ item.quartier }}</h4>
-              <h4><span>Commune</span> {{ item.commune }}</h4>
-              <h4><span>Télephone</span> {{ item.phone }}</h4>
-              <h4><span>Diplome</span> {{ item.diplome }}</h4>
+              <h4><span>{{texte6}}</span> {{ item.email }}</h4>
+              <h4><span>{{texte7}}</span> {{ item.ville }}</h4>
+              <h4><span>{{texte8}}</span> {{ item.quartier }}</h4>
+              <h4><span>{{texte9}}</span> {{ item.commune }}</h4>
+              <h4><span>{{texte10}}</span> {{ item.phone }}</h4>
+              <h4><span>{{texte11}}</span> {{ item.diplome }}</h4>
               <h4>
-                <span>Galerie</span>
+                <span>{{texte12}}</span>
                 <img
                   :src="lienPhoto + item.photo"
                   class="w-25 border-2 rounded"
@@ -160,7 +209,7 @@ export default {
                 class="btn-lg bg-warning mt-3"
                 @click="rateStudent(item.id)"
               >
-                Evaluer
+                {{texte13}}
               </button>
             </section>
           </a-card>

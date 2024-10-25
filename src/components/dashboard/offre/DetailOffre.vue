@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { mapActions, mapState } from "pinia";
 import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 export default {
   name: "DetailOffre",
   components: {
@@ -13,6 +14,34 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"",
       offresInteressByStudents: null,
       offre: null,
       salaire: null,
@@ -52,6 +81,7 @@ export default {
     ...mapState(useOffreStore, ["categoriesOffres", "allCompetences"]),
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
     update_offre() {
       console.log("this.offre_id.competence_id",this.offre_id.competence_id)
@@ -109,10 +139,31 @@ export default {
       );
     },
   },
-  created() {
+  async created() {
     this.show_offre_id();
     this.get_categorie();
     this.getAllCompetences();
+    this.texte = await this.handleTranslate('Modifier Mon offre');
+    this.texte1 = await this.handleTranslate("Catégorie de l'offre");
+    this.texte2 = await this.handleTranslate('Sélectionner une catégorie');
+    this.texte3 = await this.handleTranslate("Choisir les compétences");
+    this.texte4 = await this.handleTranslate('Choisir une compétence');
+    this.texte5 = await this.handleTranslate('Veuillez choisir une catégorie');
+    this.texte6 = await this.handleTranslate('Pas de donnée');
+    this.texte7 = await this.handleTranslate("Nom de l'offre");
+    this.texte8 = await this.handleTranslate('Honoraire (Fcfa)');
+    this.texte9 = await this.handleTranslate("Termes de paiements");
+    this.texte10 = await this.handleTranslate('Payer Par');
+    this.texte11 = await this.handleTranslate('Nombre de postes disponibles');
+    this.texte12 = await this.handleTranslate("Lieu de l'emploi");
+    this.texte13 = await this.handleTranslate("Date et heure de début de l'offre");
+    this.texte14 = await this.handleTranslate("Date et heure d'expiration de l'offre");
+    this.texte15 = await this.handleTranslate("Date d'entrée en fonction");
+    this.texte16 = await this.handleTranslate("Date de fin d'activité");
+    this.texte17 = await this.handleTranslate("Description");
+    this.texte18 = await this.handleTranslate("Modifier");
+   
+    
   },
 };
 </script>
@@ -120,16 +171,16 @@ export default {
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-      :TitleHeader="'Modifier Mon offre'"
-      :subTitleHeader="'Modifier Mon offre'"
+      :TitleHeader="texte"
+      :subTitleHeader="texte"
     />
     <div class="form theme-form projectcreate">
       <form v-if="offre_id" class="container">
         <div>
           <div class="text-left my-3">
-            <label>Catégorie de l'offre</label>
+            <label>{{texte1}}</label>
             <select class="form-control" v-model="offre_id.categorie_offre_id" @change="selectCategorie">
-              <option value="" disabled>Sélectionner une catégorie</option>
+              <option value="" disabled>{{texte2}}</option>
               <option
                 :value="item.id"
                 v-for="(item, index) in categoriesOffres"
@@ -140,9 +191,9 @@ export default {
             </select>
           </div>
           <div class="text-left my-3">
-            <label>Choisir les compétences</label>
+            <label>{{texte3}}</label>
             <select class="form-control" v-model="offre_id.competence_id" name="" id="select_comp">
-              <option value="" disabled>Choisir une compétence</option>
+              <option value="" disabled>{{texte4}}</option>
               <option
                 :value="item.id"
                 v-for="(item, index) in competenceWithCategorie"
@@ -151,15 +202,15 @@ export default {
                 {{ item.competence }}
               </option>
               <option v-if="!competenceWithCategorie.length && !categorie" disabled>
-                Veuillez choisir une catégorie
+                {{texte5}}
               </option>
               <option v-if="!competenceWithCategorie.length && categorie" disabled>
-                Pas de donnée
+                {{texte6}}
               </option>
             </select>
           </div>
           <div class="text-left my-3">
-            <label>Nom de l'offre</label>
+            <label>{{texte7}}</label>
             <input
               class="form-control"
               type="text"
@@ -169,7 +220,7 @@ export default {
             />
           </div>
           <div class="text-left my-3">
-            <label>Honoraire (Fcfa)</label>
+            <label>{{texte8}}</label>
             <input
               class="form-control"
               type="text"
@@ -179,9 +230,9 @@ export default {
             />
           </div>
           <div class="text-left my-3">
-            <label>Termes de paiements</label>
+            <label>{{texte9}}</label>
             <select class="form-control" v-model="offre_id.pointage">
-              <option value="" disabled>Payer Par</option>
+              <option value="" disabled>{{texte10}}</option>
               <option
                 :value="item.libelle"
                 v-for="(item, index) in OptionsOfpointage"
@@ -192,7 +243,7 @@ export default {
             </select>
           </div>
           <div class="text-left my-3">
-            <label>Nombre de postes disponibles</label>
+            <label>{{texte11}}</label>
             <input
               class="form-control"
               type="number"
@@ -203,7 +254,7 @@ export default {
             />
           </div>
           <div class="text-left my-3">
-            <label>Lieu de l'emploi</label>
+            <label>{{texte12}}</label>
             <input
               class="form-control"
               type="text"
@@ -213,7 +264,7 @@ export default {
             />
           </div>
           <div class="text-left my-3">
-            <label>Date et heure de début de l'offre</label>
+            <label>{{texte13}}</label>
             <input
               class="form-control"
               type="datetime-local"
@@ -223,7 +274,7 @@ export default {
             />
           </div>
           <div class="text-left my-3">
-            <label>Date et heure d'expiration de l'offre</label>
+            <label>{{texte14}}</label>
             <input
               class="form-control"
               type="datetime-local"
@@ -233,7 +284,7 @@ export default {
             />
           </div>
           <div class="text-left my-3">
-            <label>Date d'entrée en fonction</label>
+            <label>{{texte15}}</label>
             <input
               class="form-control"
               type="date"
@@ -242,7 +293,7 @@ export default {
             />
           </div>
           <div class="text-left my-3">
-            <label>Date de fin d'activité</label>
+            <label>{{texte16}}</label>
             <input
               class="form-control"
               type="date"
@@ -251,7 +302,7 @@ export default {
             />
           </div>
           <div class="text-left my-3">
-            <label>Description</label>
+            <label>{{texte17}}</label>
             <div class="conteneur_editor">
               <editor :modelValue="offre_id.description" v-model="offre_id.description" />
             </div>
@@ -264,7 +315,7 @@ export default {
                 class="btn p-5 mt-4 btn-designer fw-bold bg-warning"
                 @click.prevent="update_offre"
               >
-                Modifier
+                {{texte18}}
               </button>
             </div>
           </div>
