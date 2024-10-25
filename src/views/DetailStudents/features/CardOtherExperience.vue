@@ -1,16 +1,51 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import { lienPhoto } from "../../../api/api";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useModalExperienceStore } from "../../../store-pinia/ModalExperience/useModalExperienceStore";
 export default {
   name: "CardOtherExperience",
-  props:{experiences:{type:Array}},
+  props: { experiences: { type: Array } },
   data() {
-    return {lienPhoto:lienPhoto};
+    return {
+      lienPhoto: lienPhoto,
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+    };
   },
   computed: { ...mapState(useModalExperienceStore, ["showModalExperience"]) },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useModalExperienceStore, ["changeValueForshowModalExperience"]),
+  },
+  async created() {
+    this.texte = await this.handleTranslate("Expériences");
+
   },
 };
 </script>
@@ -21,7 +56,7 @@ export default {
     @cancel="changeValueForshowModalExperience"
     @ok="changeValueForshowModalExperience"
   >
-  <h1 class="text-center" style="color:orange;">Expériences</h1>
+    <h1 class="text-center" style="color: orange">{{texte}}</h1>
     <div
       class="experiences position-relative px-4 pb-5 my-4"
       v-for="(item, index) in experiences"

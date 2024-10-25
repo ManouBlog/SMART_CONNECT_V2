@@ -59,11 +59,6 @@ export default {
 <template>
   <!-- Page Title-->
   <div class="container-fluid page-title bg-image">
-    <!-- <div class="charg" v-show="spinner"> 
-      <div>
-        <h1>Chargement....</h1>
-      </div>
-    </div> -->
     <div class="row section-title">
       <div class="container main-container">
         <div class="col-lg-8 col-md-8 col-sm-8">

@@ -2,6 +2,7 @@
 import vue3starRatings from "vue3-star-ratings";
 import CardOtherExperience from "./CardOtherExperience.vue";
 import { mapActions } from "pinia";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useModalExperienceStore } from "../../../store-pinia/ModalExperience/useModalExperienceStore";
 export default {
   name: "BodyExperience",
@@ -13,10 +14,45 @@ export default {
     CardOtherExperience,
   },
   data() {
-    return { toogleExperience: true };
+    return {
+      toogleExperience: true,
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+    };
   },
   methods: {
     ...mapActions(useModalExperienceStore, ["changeValueForshowModalExperience"]),
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
+  },
+  async created() {
+    this.texte = await this.handleTranslate("Expériences");
+    this.texte1 = await this.handleTranslate("Voir plus");
+    this.texte2 = await this.handleTranslate("Evaluations/avis");
   },
 };
 </script>
@@ -33,7 +69,7 @@ export default {
         v-if="timetable_for_student.experiences.length"
         @click.prevent="toogleExperience = !toogleExperience"
       >
-        Expériences
+        {{ texte }}
         <em
           class="bi bi-chevron-down"
           v-if="toogleExperience == false"
@@ -78,7 +114,7 @@ export default {
         </div>
         <div class="d-flex">
           <button class="btn bg-warning" @click="changeValueForshowModalExperience">
-            Voir plus
+            {{ texte1 }}
           </button>
         </div>
       </div>
@@ -88,7 +124,7 @@ export default {
       v-if="timetable_for_student?.etoiles.length"
     >
       <p class="text-left evaluation_avis">
-        <span> ( {{ timetable_for_student?.etoiles.length }} )Evaluations/avis</span>
+        <span> ( {{ timetable_for_student?.etoiles.length }} ){{ texte2 }}</span>
       </p>
       <div class="container-testominal">
         <div class="carrousel_container_testominal">
@@ -322,7 +358,6 @@ td {
 p {
   font-size: 1em !important;
 }
-
 
 .conteneur-stars_avis {
   display: flex;

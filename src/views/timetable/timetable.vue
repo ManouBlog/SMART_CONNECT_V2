@@ -2,6 +2,8 @@
 import instance from "../../api/api";
 import Swal from "sweetalert2";
 import "primeicons/primeicons.css";
+import { mapActions} from "pinia";
+import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 // import Multiselect from 'vue-multiselect'
 // import { Calendar} from "v-calendar";
@@ -18,6 +20,33 @@ export default {
   // },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11:"",
+      texte12:"",
+      texte13:"",
+      texte14:"",
+      texte15:"",
+      texte16:"",
+      texte17:"",
+      texte18:"",
+      texte19:"",
+      texte20:"",
+      texte21:"",
+      texte22:"",
+      texte23:"",
+      texte24:"",
+      texte25:"",
+      texte26:"",
       lieu: "",
       dateRendezVousStudentWithEntreprise: null,
       MyDateRendezVous: [],
@@ -199,6 +228,7 @@ export default {
     // },
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     onPageChange(page) {
       this.currentPage = page;
     },
@@ -661,7 +691,7 @@ export default {
       });
     },
   },
-  created() {
+  async created() {
     this.$store.dispatch("handleListeFavoris")
     this.get_list_emploi();
     this.getAllCompetences();
@@ -670,13 +700,27 @@ export default {
     this.verfEnter();
     // console.log(this.jourSelect());
     this.path = window.location.pathname;
+    this.texte = await this.handleTranslate("Vous rechercher un talent ?");
+    this.texte1 = await this.handleTranslate(
+      "Talents disponibles"
+    );
+    this.texte2 = await this.handleTranslate(" Nous avons trouvé");
+    this.texte3 = await this.handleTranslate("disponibilité(s).");
+    this.texte4 = await this.handleTranslate("Chargements...");
+    this.texte5 = await this.handleTranslate("Voir plus");
+    this.texte6 = await this.handleTranslate("Charger plus");
+    this.texte7 = await this.handleTranslate("Vous avez atteint la fin");
+    this.texte8 = await this.handleTranslate("Sélectionne les jours");
+    this.texte9 = await this.handleTranslate("Compétence");
+    this.texte10 = await this.handleTranslate("Commune"); 
+    
   },
 };
 </script>
 <template>
   <section>
     <div class="jobs_filters">
-      <h3 class="fw-bold ecriteau text-left">Vous rechercher un talent ?</h3>
+      <h3 class="fw-bold ecriteau text-left">{{texte}}</h3>
 
       <form class="d-flex flex-wrap align-items-center">
         <div class="w-100 mx-3">
@@ -688,7 +732,7 @@ export default {
             :manualInput="false"
             :showIcon="true"
             @update:modelValue="selectDate"
-            placeholder="Sélectionne les jours"
+            :placeholder="texte8"
           />
         </div>
         <div class="w-100 mx-3">
@@ -701,7 +745,7 @@ export default {
             @update:model-value="addComp"
             label="competence"
             track-by="competence"
-            placeholder="competence"
+            :placeholder="texte9"
           >
           </multiselect>
         </div>
@@ -710,7 +754,7 @@ export default {
           <input
             type="text"
             class="form-control"
-            placeholder="Commune"
+            :placeholder="texte10"
             v-model="location"
           />
         </div>
@@ -718,7 +762,7 @@ export default {
     </div>
     <div>
       <h2 class="fw-bold ecriteau text-left px-3">
-        {{ list.length }} Talents disponibles
+        {{ list.length }} {{texte1}}
       </h2>
     </div>
 
@@ -728,14 +772,14 @@ export default {
     >
       <div class="timetable_disponible" v-if="list_emploi">
         <h6>
-          Nous avons trouvé
+         {{texte2}}
           {{ datesSelect.length ? list.length : lengthOfMylistEmploi }}
-          disponibilité(s).
+          {{texte3}}
         </h6>
       </div>
 
       <div>
-        <span v-if="spinner" class="h1 char">Chargements...</span>
+        <span v-if="spinner" class="h1 char">{{texte4}}</span>
 
         <div class="container-fuid d-grid px-3">
           <div
@@ -772,7 +816,7 @@ export default {
                 class="btn bg-primary voirPlus"
                 @click="voirDetailTimetable(emploi.id)"
               >
-                Voir plus
+                {{texte5}}
 
                 <em class="bi bi-eye"></em>
               </button>
@@ -787,9 +831,9 @@ export default {
         v-if="length < list.length"
         class="btn-lg bg-primary loadPlus"
       >
-        Charger plus <em class="bi bi-chevron-down"></em>
+        {{texte6}} <em class="bi bi-chevron-down"></em>
       </button>
-      <h2 v-if="length >= list.length" class="endResearch">Vous avez atteint la fin</h2>
+      <h2 v-if="length >= list.length" class="endResearch">{{texte7}}</h2>
     </div>
   </section>
 </template>

@@ -6,6 +6,8 @@ import { Calendar } from "v-calendar";
 import { configUtils } from "../../Shared/Utils";
 // import vue3starRatings from "vue3-star-ratings";
 // import { KCheckbox } from "@kong/kongponents";
+import { mapActions } from "pinia";
+import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 import {useLoadingSpinner} from "../../store-pinia/LoadingSpinner/useLoadingSpinner"
 import "@kong/kongponents/dist/style.css";
 import HeaderDetailStudent from "./features/HeaderDetailStudent.vue";
@@ -16,6 +18,33 @@ export default {
   components: { Calendar, HeaderDetailStudent, BodyExperience },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
       configUtils: configUtils,
       lieu: "",
       datesChoice: [],
@@ -211,6 +240,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     async getDetailStudent() {
       loadingSpinner.launchLoading(true)
       // this.isLoading = true;
@@ -711,7 +741,7 @@ export default {
     },
 
   },
-  created() {
+  async created() {
     this.handleAbonnement();
     this.get_list_emploi();
     this.getAllCompetences();
@@ -719,6 +749,16 @@ export default {
     this.verfEnter();
     this.getDetailStudent();
     this.selectOffreEntreprise();
+    this.texte = await this.handleTranslate("Disponible");
+    this.texte1 = await this.handleTranslate("Occupé");
+    this.texte2 = await this.handleTranslate("Horaire");
+    this.texte3 = await this.handleTranslate("Choisir la date");
+    this.texte4 = await this.handleTranslate("Choisir une offre");
+    this.texte5 = await this.handleTranslate("Sélectionner une offre");
+    this.texte6 = await this.handleTranslate("Pas d'offres");
+    this.texte7 = await this.handleTranslate("Envoyer");
+    this.texte8 = await this.handleTranslate("Cet étudiant n'a pas encore fait un abonnement.");
+    this.texte9 = await this.handleTranslate("Vous devez faire un abonnement");
   },
 };
 </script>
@@ -734,8 +774,8 @@ export default {
         <div class="jobs-result">
           <div class="disponibilite">
             <span>
-              <strong class="jou"></strong> Disponible
-              <strong class="notDispo"></strong> Occupé
+              <strong class="jou"></strong> {{texte}}
+              <strong class="notDispo"></strong>{{texte1}}
             </span>
           </div>
           <div class="container-fluid my-5 conteneur_timetable">
@@ -749,11 +789,11 @@ export default {
                   >
                     <strong class="d-block">
                       <span class="colorForFirstHoraire"></span>
-                      Horaire :
+                      {{texte2}} :
                       {{ item.popover.label.one }}</strong
                     >
                     <strong v-if="item.popover.label.two != null"
-                      ><span class="colorForSecondHoraire"></span> Horaire :
+                      ><span class="colorForSecondHoraire"></span> {{texte2}} :
                       {{ item.popover.label.two }}</strong
                     >
                   </li>
@@ -763,7 +803,7 @@ export default {
           </div>
         </div>
         <div class="conteneur_date">
-          <label class="d-block">Choisir la date</label>
+          <label class="d-block">{{texte3}}</label>
           <PrimeCalendar
             v-model="datesChoice"
             :minDate="new Date()"
@@ -774,7 +814,7 @@ export default {
           />
 
           <div class="selecte_service my-3">
-            <label class="d-block">Choisir une offre</label>
+            <label class="d-block">{{texte4}}</label>
             <!-- <a-auto-complete
             v-model:value="selectedOffreWithDate"
             :options="selectedService"
@@ -788,7 +828,7 @@ export default {
               v-model="selectedOffreWithDate"
               class="my-3"
             >
-              <option value="" disabled>Sélectionner une offre</option>
+              <option value="" disabled>{{texte5}}</option>
               <option
                 :value="offre.id"
                 v-for="(offre, index) in selectedService"
@@ -796,7 +836,7 @@ export default {
               >
                 {{ offre.nom_offre }}
               </option>
-              <option disabled v-if="!selectedService.length">Pas d'offres</option>
+              <option disabled v-if="!selectedService.length">{{texte6}}</option>
             </select>
           </div>
 
@@ -812,17 +852,17 @@ export default {
               style="border: none"
               @click="optionDate(timetable_for_student.id)"
             >
-              Envoyer
+              {{texte7}}
             </button>
           </div>
           <div class="text-center fw-bold">
             <h5 class="text-danger"
               v-if="!configUtils.isAbonnementActif(timetable_for_student.user.abonement)"
             >
-              Cet étudiant n'a pas encore fait un abonnement.
+              {{texte8}}
             </h5>
             <h5 class="text-danger" v-if="!configUtils.isAbonnementActif(listAbonnement)">
-              Vous devez faire un abonnement
+              {{texte9}}
             </h5>
           </div>
         </div>
