@@ -10,6 +10,8 @@ import CompetencesAndExperience from "../etudiant-route/CompetencesAndExperience
 import MonPlanAbonnement from "./feature/MonPlanAbonnement.vue";
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
+import { mapActions } from "pinia";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 
 export default {
   name: "ProfileView",
@@ -25,6 +27,33 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
       user: this.$store.state.user,
       nom: "",
       prenoms: "",
@@ -43,6 +72,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     update_offre() {
       if (this.user.user.statut.statut === "entreprise") {
         this.update_compte_entreprise();
@@ -210,47 +240,67 @@ export default {
       console.log(this.photo);
     },
   },
+  async created() {
+    this.texte = await this.handleTranslate('Profil');
+    this.texte1 = await this.handleTranslate(`Infos personnelles`);
+    this.texte2 = await this.handleTranslate('Nom :');
+    this.texte3 = await this.handleTranslate('Email :');
+    this.texte4 = await this.handleTranslate('Matricule/cc :');
+    this.texte5 = await this.handleTranslate('Contact :');
+    this.texte6 = await this.handleTranslate('Ville :');
+    this.texte7 = await this.handleTranslate('Commune :');
+    this.texte8 = await this.handleTranslate('Quartier :');
+    this.texte9 = await this.handleTranslate('Document :');
+    this.texte10 = await this.handleTranslate('Forme juridique :');
+    this.texte11 = await this.handleTranslate('Nom & Prénoms :');
+    this.texte12 = await this.handleTranslate('Pièce d identite :');
+    this.texte13 = await this.handleTranslate('diplome :');
+    this.texte14 = await this.handleTranslate('Prénoms :');
+    this.texte15 = await this.handleTranslate('Mon Abonnement');
+   
+    
+  },
 };
 </script>
 
 <template>
   <section>
     <ModalForModifyInfo />
-    <HeaderDashboard :TitleHeader="'Profil'" :subTitleHeader="'Profil'" />
+    <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="page-body">
       <TabView>
-        <TabPanel header="Infos personnelles">
+        <TabPanel :header="texte1">
           <div>
             <InfoEntreprise
               v-if="this.user.user.statut.statut === 'entreprise'"
               :infoPersonellesEntreprise="[
-                { libelle: 'Nom :', value: user.nom },
-                { libelle: 'Email :', value: user.email },
-                { libelle: 'Matricule/cc :', value: user.matricule_cc },
-                { libelle: 'Contact :', value: user.contact },
-                { libelle: 'Ville :', value: user.ville },
-                { libelle: 'Commune :', value: user.commune },
-                { libelle: 'Quartier :', value: user.quartier },
-                { libelle: 'Document :', value: user.registre },
-                { libelle: 'Forme juridique :', value: user.forme_juridique },
+                { libelle: texte2, value: user.nom },
+                { libelle: texte3, value: user.email },
+                { libelle: texte4, value: user.matricule_cc },
+                { libelle: texte5, value: user.contact },
+                { libelle: texte6, value: user.ville },
+                { libelle: texte7, value: user.commune },
+                { libelle: texte8, value: user.quartier },
+                { libelle: texte9, value: user.registre },
+                { libelle: texte10, value: user.forme_juridique },
               ]"
               :infoPersonellesGerant="[
-                { libelle: 'Nom & Prénoms :', value: user.gerant },
-                { libelle: 'Contact :', value: user.numero_gerant },
-                { libelle: 'Pièce d identite :', value: user.piece_gerant },
+                { libelle: texte11, value: user.gerant },
+                { libelle: texte5, value: user.numero_gerant },
+                { libelle: texte12, value: user.piece_gerant },
               ]"
             />
             <InfoStudents
               :infoPersonellesStudents="[
-                { libelle: 'Nom :', value: user.nom },
-                { libelle: 'Prénoms :', value: user.prenoms },
-                { libelle: 'Email :', value: user.email },
-                { libelle: 'Ville :', value: user.ville },
-                { libelle: 'Commune :', value: user.commune },
-                { libelle: 'Quartier :', value: user.quartier },
-                { libelle: 'Contact :', value: user.phone },
-                { libelle: 'diplome :', value: user.diplome },
-                { libelle: 'Pièce d identite :', value: user.photo },
+                { libelle: texte2, value: user.nom },
+                { libelle: texte14, value: user.prenoms },
+                { libelle: texte3, value: user.email },
+                { libelle: texte6, value: user.ville },
+                { libelle: texte7, value: user.commune },
+                { libelle: texte8, value: user.quartier },
+                { libelle: texte5, value: user.phone },
+                { libelle: texte13, value: user.diplome },
+                { libelle: texte12, value: user.photo },
               ]"
               :infoPersonellesCompetences="user.competences"
               v-if="this.user.user.statut.statut === 'etudiant'"
@@ -263,7 +313,7 @@ export default {
         >
           <CompetencesAndExperience />
         </TabPanel>
-        <TabPanel header="Mon Abonnement">
+        <TabPanel :header="texte15">
           <MonPlanAbonnement />
         </TabPanel>
       </TabView>

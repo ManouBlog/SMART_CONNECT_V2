@@ -2,6 +2,8 @@
 import instance, { lienPhoto } from "../../../api/api";
 import Swal from "sweetalert2";
 import VueMultiselect from "vue-multiselect";
+import { mapActions } from "pinia";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 // import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 // import Editor from "../components/text-editor.vue";
 export default {
@@ -12,6 +14,34 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"",
       currentPage: 1,
       rows: 2,
       user: this.$store.state.user,
@@ -43,6 +73,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     onFileProof(e) {
       this.fileProofAttestation = e.target.files[0];
     },
@@ -295,10 +326,39 @@ export default {
       return this.MyExperiences.slice(startIndex, endIndex);
     },
   },
-  created() {
+  async created() {
     this.getAllExperiences();
     this.getAllCompetences();
     this.getAllCompetencesByStudents();
+    this.texte = await this.handleTranslate('Ajouter une nouvelle experience');
+    this.texte1 = await this.handleTranslate(`Poste`);
+    this.texte2 = await this.handleTranslate("Nom de l'entreprise");
+    this.texte3 = await this.handleTranslate('Lieu');
+    this.texte4 = await this.handleTranslate('Date début');
+    this.texte5 = await this.handleTranslate('Date fin');
+    this.texte6 = await this.handleTranslate('Fichier');
+    this.texte7 = await this.handleTranslate('Description');
+    this.texte8 = await this.handleTranslate('Enregistrer');
+    this.texte9 = await this.handleTranslate("Modifier l'experience");
+    this.texte10 = await this.handleTranslate('Poste');
+    this.texte11 = await this.handleTranslate("Nom de l'entreprise");
+    this.texte12 = await this.handleTranslate('Lieu');
+    this.texte13 = await this.handleTranslate('Document');
+    this.texte14 = await this.handleTranslate('Ajouter un fichier');
+    this.texte15 = await this.handleTranslate('Description (facultatif)');
+    this.texte16 = await this.handleTranslate('Voulez-vous vraiment supprimer la compétence?');
+    this.texte17 = await this.handleTranslate('Supprimer'); 
+    this.texte18 = await this.handleTranslate('Annuler'); 
+    this.texte19 = await this.handleTranslate("Voulez-vous vraiment supprimer l'expérience ?"); 
+    this.texte20 = await this.handleTranslate('Mes compétences'); 
+    this.texte21 = await this.handleTranslate('Ajouter'); 
+    this.texte22 = await this.handleTranslate('Compétences'); 
+    this.texte23 = await this.handleTranslate('Action'); 
+    this.texte24 = await this.handleTranslate('Mes expériences'); 
+    this.texte25 = await this.handleTranslate('Nouvelle expérience'); 
+    this.texte26 = await this.handleTranslate('Chargement...'); 
+    this.texte27 = await this.handleTranslate("Pas d'expérience"); 
+   
   },
 };
 </script>
@@ -313,42 +373,42 @@ export default {
             @click="toogleNouvelleExperience = !toogleNouvelleExperience"
           ></em>
           <div class="p-3">
-            <h1>Ajouter une nouvelle experience</h1>
+            <h1>{{texte}}</h1>
           </div>
         </div>
         <form @submit.prevent="saveExperience">
           <div class="row p-2">
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>*Poste</label>
+              <label>*{{texte1}}</label>
               <input type="text" v-model="poste" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>*Nom de l'entreprise</label>
+              <label>*{{texte2}}</label>
               <input type="text" v-model="entreprise" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>*Lieu</label>
+              <label>*{{texte3}}</label>
               <input type="text" v-model="lieu" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>*Date début</label>
+              <label>*{{texte4}}</label>
               <input type="date" v-model="dateDebut" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>Date fin</label>
+              <label>{{texte5}}</label>
               <input type="date" v-model="dateFin" :min="dateDebut" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>Fichier</label>
+              <label>{{texte6}}</label>
               <input type="file" accept="image/*" @change="onFileProof" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>Description</label>
+              <label>{{texte7}}</label>
               <textarea name="expereience" id="experience" cols="20" v-model="experience" rows="10"></textarea>
             </div>
           </div>
           <div class="mx-auto">
-            <button type="submit" class="btn-lg btn-warning">Enregistrer</button>
+            <button type="submit" class="btn-lg btn-warning">{{texte8}}</button>
           </div>
         </form>
       </div>
@@ -358,13 +418,13 @@ export default {
         <div class="conteneur-experience">
           <em class="bi bi-x-lg" @click="toogleExperience"></em>
           <div class="h1">
-            <h1 class="fw-bold">Modifier l'experience</h1>
+            <h1 class="fw-bold">{{texte9}}</h1>
           </div>
         </div>
         <form @submit.prevent="changeExperience">
           <div class="row p-2">
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>Poste</label>
+              <label>{{texte10}}</label>
               <input
                 type="text"
                 v-model="updateExperience.poste"
@@ -373,7 +433,7 @@ export default {
               />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>Nom de l'entreprise</label>
+              <label>{{texte11}}</label>
               <input
                 type="text"
                 v-model="updateExperience.entreprise"
@@ -382,7 +442,7 @@ export default {
               />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>Lieu</label>
+              <label>{{texte12}}</label>
               <input
                 type="text"
                 v-model="updateExperience.lieu"
@@ -391,11 +451,11 @@ export default {
               />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>Date début</label>
+              <label>{{texte4}}</label>
               <input type="date" v-model="updateExperience.dateDebut" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>Date fin</label>
+              <label>{{texte5}}</label>
               <input
                 type="date"
                 v-model="updateExperience.dateFin"
@@ -406,10 +466,10 @@ export default {
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <div v-if="updateExperience.proof">
-                <label class="d-block">Document</label>
+                <label class="d-block">{{texte13}}</label>
                 <n-image width="200" :src="lienPhoto + updateExperience.proof" />
               </div>
-              <label class="d-block">Ajouter un fichier</label>
+              <label class="d-block">{{texte14}}</label>
               <input
                 type="file"
                 accept="image/*"
@@ -419,7 +479,7 @@ export default {
               />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>Description (facultatif)</label>
+              <label>{{texte15}}</label>
               <textarea
                 name="description"
                 id="description"
@@ -447,13 +507,13 @@ export default {
         v-show="comfirmationForDeleteCompetence"
       >
         <div class="card p-5">
-          <p class="h3 my-2">Voulez-vous vraiment supprimer la compétence?</p>
+          <p class="h3 my-2">{{texte16}}</p>
           <div>
             <button class="btn-lg bg-warning" @click="deleteMyCompetence">
-              Supprimer
+              {{texte17}}
             </button>
             <button class="btn-lg bg-danger mx-2" @click="notDeleteCompetence">
-              Annuler
+              {{texte18}}
             </button>
           </div>
         </div>
@@ -461,11 +521,11 @@ export default {
 
       <div class="ecran_for_delete delete_article" v-show="toogleScreenYouWantDelete">
         <div class="card p-5">
-          <p class="h3 my-2">Voulez-vous vraiment supprimer l'expérience ?</p>
+          <p class="h3 my-2">{{texte19}}</p>
           <div>
-            <button class="btn-lg bg-warning" @click="deleteExperience">Supprimer</button>
+            <button class="btn-lg bg-warning" @click="deleteExperience"> {{texte17}}</button>
             <button class="btn-lg bg-danger mx-2" @click="notDeleteExperience">
-              Annuler
+              {{texte18}}
             </button>
           </div>
         </div>
@@ -475,7 +535,7 @@ export default {
           <div class="col-xl-5 col-md-6 dash-xl-50 my-5">
             <div class="profile-greeting" id="content_competences">
               <div class="card-body position-relative">
-                <h1 class="fw-bold text-start" style="color: orange">Mes compétences</h1>
+                <h1 class="fw-bold text-start" style="color: orange">{{texte20}}</h1>
                 <div>
                   <VueMultiselect
                     v-model="competence"
@@ -499,7 +559,7 @@ export default {
                       <span v-if="this.spinnerCompetence">
                         <n-spin size="small" />
                       </span>
-                      <span v-else>Ajouter</span>
+                      <span v-else>{{texte21}}</span>
                     </button>
                   </div>
                 </div>
@@ -512,8 +572,8 @@ export default {
                           <table class="table">
                             <thead>
                               <tr>
-                                <th class="bg-light">Compétences</th>
-                                <th class="bg-light">Action</th>
+                                <th class="bg-light">{{texte22}}</th>
+                                <th class="bg-light">{{texte23}}</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -550,13 +610,13 @@ export default {
                 <div id="weekly-chart">
                   <div class="d-flex justify-content-between align-items-center">
                     <h1 class="fw-bold text-start" style="color: orange; margin: 0">
-                      Mes expériences
+                      {{texte24}}
                     </h1>
                     <button
                       style="background: orange; color: white; border: none"
                       @click="addNouvelExperience"
                     >
-                      Nouvelle expérience
+                      {{texte25}}
                       <em class="bi bi-plus-lg"></em>
                     </button>
                   </div>
@@ -616,10 +676,10 @@ export default {
                     </div>
 
                     <div v-if="spinner">
-                      <h4 class="text-center">Chargement...</h4>
+                      <h4 class="text-center">{{texte26}}</h4>
                     </div>
                     <div v-else-if="!MyExperiences.length && !spinner">
-                      <h4 class="text-center">Pas d'expérience</h4>
+                      <h4 class="text-center">{{texte27}}</h4>
                     </div>
                   </div>
                 </div>
