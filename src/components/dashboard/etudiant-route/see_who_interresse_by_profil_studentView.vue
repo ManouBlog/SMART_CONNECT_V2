@@ -5,9 +5,10 @@ import Swal from "sweetalert2";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
-
+import {mapActions} from "pinia";
 import { FilterMatchMode } from "primevue/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 const  loadingSpinner = useLoadingSpinner()
 export default {
@@ -20,6 +21,25 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11:"",
+      texte12:"",
+      texte13:"",
+      texte14:"",
+      texte15:"",
+      texte16:"",
+      texte17:"",
+      texte18:"",
       list_entreprise_contact: [],
       student: null,
       spinner: false,
@@ -39,6 +59,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     get_entreprise_who_contact_student() {
       loadingSpinner.launchLoading(true);
       instance
@@ -137,8 +158,25 @@ export default {
         });
     }
   },
-  created() {
+  async created() {
     this.get_entreprise_who_contact_student();
+    this.texte = await this.handleTranslate('Contrats');
+    this.texte1 = await this.handleTranslate(`Voulez-vous accepter l'offre ?`);
+     this.texte2 = await this.handleTranslate("Accepter");
+     this.texte3 = await this.handleTranslate(` Annuler`);
+     this.texte4 = await this.handleTranslate("Voulez-vous rejeter l'offre ?");
+     this.texte5 = await this.handleTranslate('Rejeter');
+     this.texte6 = await this.handleTranslate('Recherche:');
+     this.texte7 =  await this.handleTranslate(`Nom de l'entreprise`);
+     this.texte8 =  await this.handleTranslate(`Email de l'entreprise`);
+     this.texte9 = await this.handleTranslate(`Date de l'emploi`);
+     this.texte10 = await this.handleTranslate("accepter");
+     this.texte11 = await this.handleTranslate('refuser');
+     this.texte12 = await this.handleTranslate('En attente de reponse');
+     this.texte13 = await this.handleTranslate('Rejeter');
+     this.texte14 = await this.handleTranslate('Accepter');
+     this.texte15 =  await this.handleTranslate('Expirée');
+     this.texte16 =  await this.handleTranslate('Détails');
   },
 };
 </script>
@@ -146,8 +184,8 @@ export default {
   <div class="page-body position-relative">
 
     <HeaderDashboard
-    :TitleHeader="'Contrats'"
-    :subTitleHeader="'Contrats'"
+    :TitleHeader="texte"
+    :subTitleHeader="texte"
   />
     <div
       class="tab-content"
@@ -159,23 +197,23 @@ export default {
           <div class="col-sm-12 py-3 px-2">
             <div class="verfAccept" v-if="showMsgAcceptoffre">
               <div class="msgForAccept">
-                <h5>Voulez-vous accepter l'offre ?</h5>
+                <h5>{{texte1}}</h5>
                 <button class="btn-lg bg-primary" @click="acceptJob">
-                  Accepter
+                  {{texte2}}
                 </button>
                 <button class="btn-lg bg-danger mx-2" @click="annuleContrat">
-                  Annuler
+                 {{texte3}}
                 </button>
               </div>
             </div>
             <div class="verfAccept" v-if="showMsgRejectoffre">
               <div class="msgForAccept">
-                <h5>Voulez-vous rejeter l'offre ?</h5>
+                <h5>{{texte4}}</h5>
                 <button class="btn-lg bg-primary" @click="rejectJob">
-                  Rejeter
+                  {{texte5}}
                 </button>
                 <button class="btn-lg bg-danger mx-2" @click="annuleRejetContrat">
-                  Annuler
+                  {{texte3}}
                 </button>
               </div>
             </div>
@@ -208,7 +246,7 @@ export default {
                     <InputText
                       style="width: 300px; font-size: 1.5em; border: 2px solid orange"
                       v-model="filters['global'].value"
-                      placeholder="Recherche:"
+                      :placeholder="texte6"
                     />
                   </IconField>
                 </div>
@@ -216,19 +254,19 @@ export default {
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="nom"
-                header="Nom de l'entreprise"
+                :header="texte7"
               >
             
               </Column>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="email"
-                header="Email de l'entreprise"
+                :header="texte8"
               ></Column>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="id"
-                header="Date de l'emploi"
+                :header="texte9"
               >
                 <template #body="slotProps">
                   <div>
@@ -257,15 +295,15 @@ export default {
                   <div class="d-flex align-items-center justify-content-center">
                     <span v-if="slotProps.data.pivot.contrat === 1" 
                     class="badge bg-info"
-                      >accepter</span
+                      >{{texte10}}</span
                     >
                     <span
                       v-else-if="slotProps.data.pivot.contrat === 2"
                       class="badge bg-danger"
-                      >refuser</span
+                      >{{texte11}}</span
                     >
                     <span v-else class="badge bg-warning">
-                      En attente de reponse
+                      {{texte12}}
                     </span>
                   </div>
                 </template>
@@ -282,20 +320,20 @@ export default {
                       href="#"
                       class="text-danger d-block"
                       @click.prevent="rejetJob(slotProps.data.pivot.id)"
-                      >Rejeter</a
+                      >{{texte13}}</a
                     >
                     <a 
                       href="#"
                       class="text-primary"
                       @click.prevent="showIdForAccept(slotProps.data.pivot.id)"
-                      >Accepter</a
+                      >{{texte14}}</a
                     >
                     <span
                       class="mx-2"
                       v-if=" slotProps.data.pivot.contrat === 0 && 
                       (JSON.stringify(new Date().toISOString().substring(0,10)) >=
                        JSON.stringify(new Date(slotProps.data.pivot.offre.debut).toISOString().slice(0,10)))"
-                      >Expirée</span>
+                      >{{texte15}}</span>
                     </div>
                     
                     <em 
@@ -308,7 +346,7 @@ export default {
               <Column
               style="font-size: 1.8em; padding: 1em; text-align: center"
               field="id"
-              header="Détails"
+              :header="texte16"
             >
               <template #body="slotProps">
                 <div>

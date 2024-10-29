@@ -6,8 +6,8 @@ translate.engine = "deepl";
 translate.key = process.env.VUE_APP_DEELP_LOCAL;
 
 export const useTranslateStore =defineStore('translate',()=>{
-    const defaultLocale = null || ref(localStorage.getItem("translate"))
-
+    const defaultLocale = ref(localStorage.getItem("translate"))
+    
    const handleTranslate = async (texte)=>{
         return await translate(texte,{from:"fr",to:defaultLocale.value})
       };

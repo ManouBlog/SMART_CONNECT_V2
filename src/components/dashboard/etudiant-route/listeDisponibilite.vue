@@ -8,7 +8,10 @@ import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
 import "v-calendar/dist/style.css";
-import { DatePicker } from "v-calendar";
+import {mapActions} from "pinia";
+// import { DatePicker } from "v-calendar";
+import Calendar from "primevue/calendar";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 const loadingSpinner = useLoadingSpinner()
@@ -17,7 +20,7 @@ export default {
   name: "listeDisponibilite",
   components: {
     VueMultiselect,
-    DatePicker,
+    Calendar,
     HeaderDashboard,
     IconField,
     InputIcon,
@@ -25,6 +28,31 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11:"",
+      texte12:"",
+      texte13:"",
+      texte14:"",
+      texte15:"",
+      texte16:"",
+      texte17:"",
+      texte18:"",
+      texte19:"",
+      texte20:"",
+      texte21:"",
+      texte22:"",
+      texte23:"",
+      texte24:"",
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         formule: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -79,6 +107,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     show_modify() {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = null;
@@ -542,34 +571,61 @@ export default {
       this.$router.push('/dashboard/disponibilite')
     }
   },
-  created() {
+  async created() {
     this.get_timetable();
     this.getAllCompetences();
     this.getAllCompetencesByStudents();
     const now = new Date();
     let date = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     this.getJourInMonth = date;
+    this.texte = await this.handleTranslate('Disponibilités');
+    this.texte1 = await this.handleTranslate(`Voulez-vous vraiment supprimer?`);
+     this.texte2 = await this.handleTranslate("Supprimer");
+     this.texte3 = await this.handleTranslate(`Annuler`);
+     this.texte4 = await this.handleTranslate("Modifier l'emploi du temps");
+     this.texte5 = await this.handleTranslate('+ Ajouter une date');
+     this.texte6 = await this.handleTranslate('Premier plage horaire');
+     this.texte7 =  await this.handleTranslate(`Heure de début`);
+     this.texte8 =  await this.handleTranslate(`Heure de fin`);
+     this.texte9 = await this.handleTranslate(`Deuxieme plage horaire`);
+     this.texte10 = await this.handleTranslate("Heure de début");
+     this.texte11 = await this.handleTranslate('Heure de début');
+     this.texte12 = await this.handleTranslate('Heure de fin');
+     this.texte13 = await this.handleTranslate('Modifier');
+     this.texte14 = await this.handleTranslate('Nouvelle disponibilitée');
+     this.texte15 =  await this.handleTranslate('Premiere Plage Horaire');
+     this.texte16 =  await this.handleTranslate('Seconde Plage Horaire');
+     this.texte17 =  await this.handleTranslate('Néant');
+     this.texte18 =  await this.handleTranslate('Actions');
+     this.texte19 =  await this.handleTranslate('Détails');
+     this.texte20 =  await this.handleTranslate('Ajouter');
+     this.texte21 =  await this.handleTranslate('Compétences');
+     this.texte22 =  await this.handleTranslate('Détails');
+     this.texte23 =  await this.handleTranslate('Ajouter');
+     this.texte24 =  await this.handleTranslate('Jours');
+     
+     
   },
 };
 </script>
 <template>
   <div class="page-body position-relative mt-3">
     <HeaderDashboard
-    :TitleHeader="'Disponibilités'"
-    :subTitleHeader="'Disponibilités'"
+    :TitleHeader="texte"
+    :subTitleHeader="texte"
   />
     <div
       class="ecran_for_delete delete_article"
       v-show="confirmation_for_delete"
     >
       <div class="card p-5">
-        <p class="h3 my-2">Voulez-vous vraiment supprimer?</p>
+        <p class="h3 my-2">{{texte1}}</p>
         <div>
           <button class="btn-lg bg-warning" @click="delete_timetable">
-            Supprimer
+            {{texte2}}
           </button>
           <button class="btn-lg bg-danger mx-2" @click="not_delete">
-            Annuler
+            {{texte3}}
           </button>
         </div>
       </div>
@@ -582,138 +638,129 @@ export default {
               <div class="card">
                 <div class="card-body">
                   <h1 class="badge bg-warning h3">
-                    Modifier l'emploi du temps
+                    {{texte4}}
                   </h1>
                   <div class="form theme-form projectcreate p-5">
                     <form>
                       <div class="row">
-                        <div class="col-lg-12">
-                          <div class="mb-3">
-                            <button
-                              v-for="date in newDatePickerForUpdate"
-                              :key="date"
-                              class="button"
-                              disabled
-                            >
-                              {{ date }}
-                            </button>
-                            <div class="position-relative datepickrs">
-                              <DatePicker
-                                v-model="selectedJourForUpadte.date"
-                                class="datePicker"
-                                :min-date="new Date()"
-                              >
-                                <template
-                                  #default="{ togglePopover, hidePopover }"
-                                >
-                                  <div
-                                    class="flex d-flex flex-wrap justify-content-start ps-4"
-                                  >
-                                    <button
-                                      v-for="date in dates"
-                                      :key="date.date"
-                                      @click.prevent="
-                                        dateSelectedForUpadte(
-                                          $event,
-                                          date,
-                                          togglePopover
-                                        )
-                                      "
-                                      ref="button"
-                                      class="button"
-                                    >
-                                      {{ date.date.toLocaleDateString("fr") }}
-                                      <em
-                                        href="#"
-                                        class="bi bi-x text-danger"
-                                        @click.prevent="
-                                          removeDateForUpdate(date, hidePopover)
-                                        "
-                                      ></em>
-                                    </button>
-                                  </div>
-                                </template>
-                              </DatePicker>
-                              <button
-                                class="btn btnAdd"
-                                :class="dates.length === 1 ? 'd-none' : ''"
-                                @click.prevent="addDateForUpdate"
-                              >
-                                + Ajouter une date
-                              </button>
-                            </div>
-                          </div>
-                        </div>
                         <h5 class="text-start"
-                          >Premier plage horaire</h5
+                          >{{texte6}}</h5
                         >
                         <div class="col-lg-6" v-if="Horaire_Fisrt != null">
                           <div class="mb-3">
-                            <label>Heure de début</label>
-                            <input
+                            <label>{{texte7}}</label>
+                            <Calendar
+                          id="datepicker-timeonly_3"
+                          v-model="Horaire_Fisrt[0]"
+                          showIcon
+                          iconDisplay="input"
+                          timeOnly
+                          inputId="templatedisplay"
+                        />
+                            <!-- <input
                               class="form-control"
                               type="time"
                               v-model="Horaire_Fisrt[0]"
                               required
-                            />
+                            /> -->
                           </div>
                         </div>
                         <div class="col-lg-6" v-if="Horaire_Fisrt != null">
                           <div class="mb-3">
-                            <label>Heure de fin</label>
-                            <input
+                            <label>{{texte8}}</label>
+                            <Calendar
+                            id="datepicker-timeonly_3"
+                            v-model="Horaire_Fisrt[1]"
+                            showIcon
+                            iconDisplay="input"
+                            timeOnly
+                            inputId="templatedisplay"
+                          />
+                            <!-- <input
                               class="form-control"
                               type="time"
                               v-model="Horaire_Fisrt[1]"
                               required
-                            />
+                            /> -->
                           </div>
                         </div>
                         <h5 class="text-start"
-                          >Deuxieme plage horaire</h5
+                          >{{texte9}}</h5
                         >
                         <div class="col-lg-6" v-if="Horaire_Second != null">
                           <div class="mb-3">
-                            <label>Heure de début</label>
-                            <input
+                            <label>{{texte10}}</label>
+                            <!-- <input
                               class="form-control"
                               type="time"
                               v-model="Horaire_Second[0]"
                               required
-                            />
+                            /> -->
+                            <Calendar
+                            id="datepicker-timeonly_3"
+                            v-model="Horaire_Second[0]"
+                            showIcon
+                            iconDisplay="input"
+                            timeOnly
+                            inputId="templatedisplay"
+                          />
                           </div>
                         </div>
                         <div class="col-lg-6" v-else>
                           <div class="mb-3">
-                            <label>Heure de début</label>
-                            <input
+                            <label>{{texte11}}</label>
+                            <Calendar
+                            id="datepicker-timeonly_3"
+                            v-model="Second_heure_start_from"
+                            showIcon
+                            iconDisplay="input"
+                            timeOnly
+                            inputId="templatedisplay"
+                          />
+                            <!-- <input
                               class="form-control"
                               type="time"
                               v-model="Second_heure_start_from"
                               required
-                            />
+                            /> -->
                           </div>
                         </div>
                         <div class="col-lg-6" v-if="Horaire_Second != null">
                           <div class="mb-3">
-                            <label>Heure de fin</label>
-                            <input
+                            <label>{{texte12}}</label>
+                            <Calendar
+                            id="datepicker-timeonly_3"
+                            v-model="Horaire_Second[1]"
+                            showIcon
+                            iconDisplay="input"
+                            timeOnly
+                            inputId="templatedisplay"
+                          />
+                            <!-- <input
                               class="form-control"
                               type="time"
                               v-model="Horaire_Second[1]"
                               required
-                            />
+                            /> -->
                           </div>
                         </div>
                         <div class="col-lg-6" v-else>
                           <div class="mb-3">
-                            <label>Heure de fin</label>
-                            <input
+                            <label>{{texte12}}</label>
+                            <Calendar
+                            id="datepicker-timeonly_3"
+                            v-model="Second_heure_end_to"
+                            showIcon
+                            iconDisplay="input"
+                            timeOnly
+                            inputId="templatedisplay"
+                          />
+                            <!-- <input
                               class="form-control"
                               type="time"
                               v-model="Second_heure_end_to"
                               required
-                            />
+                            /> -->
                           </div>
                         </div>
                       </div>
@@ -724,13 +771,13 @@ export default {
                               @click.prevent="update_timetable"
                               class="btn-lg btn-warning mx-1"
                             >
-                              Modifier
+                              {{texte13}}
                             </button>
                             <button
                               class="btn-lg btn-danger mx-1"
                               @click.prevent="show_modify"
                             >
-                              Annuler
+                             {{texte3}}
                             </button>
                             
                           </div>
@@ -771,7 +818,7 @@ export default {
         <div class="conteneur_search">
           <div class="mx-3">
             <button class="btn bg-warning py-2" 
-            @click="handleNewCalendar">Nouvelle disponibilitée</button>
+            @click="handleNewCalendar">{{texte14}}</button>
           </div>
           <IconField iconPosition="left">
             <InputIcon>
@@ -788,7 +835,7 @@ export default {
       <Column
         style="font-size: 1.8em; padding: 1em; text-align: center"
         field="jour"
-        header="Jours"
+        :header="texte24"
       >
     <template #body="slotProps">
       <span>
@@ -799,7 +846,7 @@ export default {
       <Column
         style="font-size: 1.8em; padding: 1em; text-align: center"
         field="First_horaire"
-        header="Premiere Plage Horaire"
+        :header="texte15"
       >
       <template #body="slotProps">
        <span>
@@ -810,19 +857,19 @@ export default {
       <Column
       style="font-size: 1.8em; padding: 1em; text-align: center"
       field="Second_horaire"
-      header="Seconde Plage Horaire"
+      :header="texte16"
     >
     <template #body="slotProps">
       <span v-if="slotProps.data.Second_horaire">
        {{ configUtils.formatedDisponibilite(slotProps.data.Second_horaire) }}
       </span>
-      <span v-else>Néant</span>
+      <span v-else>{{texte17}}</span>
      </template>
   </Column>
     <Column
     style="font-size: 1.8em; padding: 1em; text-align: center"
     field="statut"
-    header="Actions"
+    :header="texte18"
   >
   <template #body="slotProps">
     <div
@@ -911,15 +958,15 @@ export default {
               >
               </VueMultiselect>
               <button class="btn-lg bg-primary" @click="addCompetences">
-                Ajouter
+                {{texte20}}
               </button>
             </div>
             <div class="col-sm-12 card py-3 px-2">
               <table id="MyTableData" class="table">
                 <thead>
                   <tr>
-                    <th class="bg-light">Compétences</th>
-                    <th class="bg-light">Details</th>
+                    <th class="bg-light">{{texte21}}</th>
+                    <th class="bg-light">{{texte19}}</th>
                   </tr>
                 </thead>
                 <tbody>

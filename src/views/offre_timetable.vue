@@ -3,13 +3,43 @@ import instance from "../api/api";
 import Swal from "sweetalert2";
 import VueMultiselect from "vue-multiselect";
 import {configUtils} from "../Shared/Utils";
+import { mapActions } from "pinia";
 import {useLoadingSpinner} from "../store-pinia/LoadingSpinner/useLoadingSpinner";
+import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
 const loadingSpinner = useLoadingSpinner()
 export default {
   name: "Offre_timetable",
   components: { VueMultiselect },
   data() {
     return {
+      texte:"",
+      texte1:"",
+      texte2: "",
+      texte3: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"",
       configUtils:configUtils,
       MylistOffre: [],
       compte: 2,
@@ -42,6 +72,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     selectCategorie(cat) {
       this.MylistOffre = [];
       this.hideButtons = true;
@@ -187,6 +218,26 @@ export default {
       }
     },
   },
+  async created() {
+    this.texte = await this.handleTranslate(`selectionne une categorie`);
+    this.texte1 = await this.handleTranslate(`serveur,barman,jardinier`);
+     this.texte2 = await this.handleTranslate("ex: Angre");
+     this.texte3 = await this.handleTranslate('Offres');
+     this.texte4 = await this.handleTranslate('Nous avons trouvé');
+     this.texte5 = await this.handleTranslate('Nouveauté');
+     this.texte6 = await this.handleTranslate('Voir les Détails');
+     this.texte7 =  await this.handleTranslate('Offre Expirée');
+     this.texte8 =  await this.handleTranslate('Charger plus');
+     this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);
+     this.texte10 = await this.handleTranslate("ex: Angre");
+     this.texte11 = await this.handleTranslate('Offres');
+     this.texte12 = await this.handleTranslate('Nous avons trouvé');
+     this.texte13 = await this.handleTranslate('Nouveauté');
+     this.texte14 = await this.handleTranslate('Voir les Détails');
+     this.texte15 =  await this.handleTranslate('Offre Expirée');
+     this.texte16 =  await this.handleTranslate('Charger plus');
+     
+  },
   mounted() {
     this.get_list_offre();
     this.get_list_categorie();
@@ -211,7 +262,7 @@ export default {
                 @update:model-value="addTag"
                 label="categorie"
                 track-by="categorie"
-                placeholder="selectionne une categorie"
+                :placeholder="texte"
               >
               </VueMultiselect>
             </div>
@@ -222,7 +273,7 @@ export default {
               <input
                 type="text"
                 class="form-control"
-                placeholder="serveur,barman,jardinier"
+                :placeholder="texte1"
                 v-model="searchName"
               />
               <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
@@ -234,7 +285,7 @@ export default {
               <input
                 type="text"
                 class="form-control"
-                placeholder="ex: Angre"
+                :placeholder="texte2"
                 v-model="searchLieu"
               />
               <span class="glyphicon fa fa-location-arrow" aria-hidden="true"></span>
@@ -248,10 +299,10 @@ export default {
       <div class="col-lg-12" :class="spinner ? 'conteneur_offre' : null">
         <div class="offres_disponible d-flex justify-content-between align-items-center">
           <h5 class="image-heading">
-            <span class="list_offre"> {{ lengthOfMylistOffre }}</span> Offres
+            <span class="list_offre"> {{ lengthOfMylistOffre }}</span> {{texte3}}
           </h5>
           <span class="text-secondary"
-            >Nous avons trouvé {{ lengthOfMylistOffre }} Offres</span
+            >{{texte4}}{{ lengthOfMylistOffre }} {{texte3}}</span
           >
         </div>
         <div
@@ -270,12 +321,13 @@ export default {
                 class="badge bg-danger badge_new"
                 :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'
                 "
-                >New</span
+                >{{texte5}}</span
               >
               <h1>{{ offre.nom_offre }}</h1>
               <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
               <h1 class="badge badge_categorie">{{ offre.categorie.categorie }}</h1>
-              <div v-html="offre.description" id="conteneur-description" class="ellipse_text">
+              <div v-html="offre.description" 
+              id="conteneur-description" class="ellipse_text">
               </div>
             </div>
           </section>
@@ -292,13 +344,13 @@ export default {
                   "
                   class="btn btn-Conex"
                 >
-                  Voir les Détails <em class="bi bi-eye"></em>
+                  {{texte6}} <em class="bi bi-eye"></em>
                 </button>
               </router-link>
               <strong
                 class="text-danger"
                 v-if="configUtils.ifJobIsEnd(offre.fin)"
-                >Offre Expirée</strong
+                >{{texte7}}</strong
               >
             </div>
           </div>
@@ -310,10 +362,10 @@ export default {
               v-if="length < MylistOffre.length"
               class="btn-lg bg-primary"
             >
-              Charger plus <em class="bi bi-chevron-down"></em>
+              {{texte8}} <em class="bi bi-chevron-down"></em>
             </button>
             <h2 v-if="length >= MylistOffre.length || length >= MylistsOffres.length">
-              Vous avez atteint la fin
+             {{texte9}}
             </h2>
           </div>
         </div>

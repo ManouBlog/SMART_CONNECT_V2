@@ -2,6 +2,8 @@
 import instance from "../../../api/api";
 import html2pdf from "html2pdf.js";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import { mapActions } from "pinia";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner.js";
 const loadingSpinner = useLoadingSpinner();
 export default {
@@ -11,6 +13,34 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      texte27:"",
       offreDetail: "",
       list_entreprise_contact: "",
       entreprise: null,
@@ -20,6 +50,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     generatePDF() {
       const element = this.$refs.printSection; // Référence à la div à imprimer
 
@@ -193,16 +224,30 @@ h5 {
         });
     },
   },
-  created() {
+  async created() {
     this.getDetail();
+    this.texte = await this.handleTranslate(`Attestation d'admission`);
+    this.texte1 = await this.handleTranslate(`Adresse :`);
+     this.texte2 = await this.handleTranslate("Téléphone :");
+     this.texte3 = await this.handleTranslate(`ATTESTATION D'ADMISSION`);
+     this.texte4 = await this.handleTranslate('Offre :');
+     this.texte5 = await this.handleTranslate("L'entreprise");
+     this.texte6 = await this.handleTranslate('vous a contacté Mr(Mme)');
+     this.texte7 =  await this.handleTranslate("pour un poste au sein de son entreprise pour effectuer un travail vu votre disponibilité.Merci de contacter l'entreprise pour plus de détail.");
+     this.texte8 =  await this.handleTranslate('Honoraire :');
+     this.texte9 = await this.handleTranslate(`Contact du gérant :`);
+     this.texte10 = await this.handleTranslate("Lieu :");
+     this.texte11 = await this.handleTranslate('Abidjan le :');
+     this.texte12 = await this.handleTranslate('Télécharger PDF');
+     this.texte13 = await this.handleTranslate('Imprimer');
   },
 };
 </script>
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-      :TitleHeader="`Attestation d'admission`"
-      :subTitleHeader="`Attestation d'admission`"
+      :TitleHeader="texte"
+      :subTitleHeader="texte"
     />
     <section
       ref="printSection"
@@ -223,44 +268,43 @@ h5 {
       </div>
       <div class="attestation_infos">
         <p>
-          <span class="span_info">Adresse :</span>
+          <span class="span_info">{{texte1}}</span>
           <span>{{ this.entreprise.nom }}</span>
         </p>
         <p>
-          <span class="span_info">Téléphone :</span>
+          <span class="span_info">{{texte2}}</span>
           <span>{{ this.entreprise.contact }}</span>
         </p>
       </div>
       <div class="my-5">
-        <h2 class="text-center">ATTESTATION D'ADMISSION</h2>
+        <h2 class="text-center">{{texte3}}</h2>
       </div>
       <div class="d-flex">
-        <h3>Offre : {{ this.myOffre.nom_offre }}</h3>
+        <h3>{{texte4}} {{ this.myOffre.nom_offre }}</h3>
       </div>
 
       <p>
-        L'entreprise
-        <span class="mx-2">"{{ this.entreprise.nom }}"</span>vous a contacté Mr(Mme)
+        {{texte5}}
+        <span class="mx-2">"{{ this.entreprise.nom }}"</span>{{texte6}}
         <span class="mx-2">"{{ user.nom }} {{ user.prenoms }}"</span>
-        pour un poste au sein de son entreprise pour effectuer un travail vu votre
-        disponibilité.Merci de contacter l'entreprise pour plus de détail.
+        {{texte7}}
       </p>
       <div>
-        <h5 class="my-5">Honoraire : {{ myOffre.salaire }} Fcfa</h5>
-        <h5>Contact du gérant : {{ entreprise.contact }}</h5>
-        <h5 class="my-5">Lieu : {{ myOffre.lieu }}</h5>
+        <h5 class="my-5">{{texte8}} {{ myOffre.salaire }} Fcfa</h5>
+        <h5>{{texte9}} {{ entreprise.contact }}</h5>
+        <h5 class="my-5">{{texte10}} {{ myOffre.lieu }}</h5>
       </div>
 
       <div class="conteneur_abidjan_sign">
         <strong v-if="this.entreprise" class="date">
-          Abidjan le :
+          {{texte11}}
           {{ new Date(this.created_at).toISOString().slice(0, 16) }}
         </strong>
       </div>
     </section>
     <section class="conteneur_abidjan_sign my-5">
       <button class="btn-lg p-5 bg-dark" style="border: none" @click="generatePDF">
-        Télécharger PDF
+        {{texte12}}
       </button>
       <button
         class="btn-lg p-5 bg-warning"
@@ -268,7 +312,7 @@ h5 {
         @click="printDiv"
         v-if="this.myOffre && this.entreprise"
       >
-        Imprimer
+        {{texte13}}
       </button>
     </section>
   </div>

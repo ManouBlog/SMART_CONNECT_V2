@@ -81,8 +81,8 @@ export default {
     this.texte6 = await this.handleTranslate('Echéance');
     this.texte7 = await this.handleTranslate(' Statut');
     this.texte8 = await this.handleTranslate(' Rejeter');
-    this.texte9 = await this.handleTranslate("Sélectionné");
-    this.texte10 = await this.handleTranslate(' Rejeté');
+    this.texte9 = await this.handleTranslate("Recherche:");
+    this.texte10 = await this.handleTranslate("Date d'enregistrement");
   },
 };
 </script>
@@ -125,7 +125,7 @@ export default {
               <InputText
                 style="width: 300px; font-size: 1.5em; border: 2px solid orange"
                 v-model="filters['global'].value"
-                placeholder="Recherche:"
+                :placeholder="texte9"
               />
             </IconField>
           </div>
@@ -133,7 +133,7 @@ export default {
         <Column
           style="font-size: 1.8em; padding: 1em; text-align: center"
           field="created_at"
-          header="Date d'enregistrement"
+          :header="texte10"
         >
       <template #body="slotProps">
         <span>

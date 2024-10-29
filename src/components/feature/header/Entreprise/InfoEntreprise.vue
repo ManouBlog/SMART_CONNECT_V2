@@ -100,7 +100,6 @@ export default {
     },
   },
   async created() {
-     
      this.texte1 = await this.handleTranslate(`Tableau de bord`);
      this.texte2 = await this.handleTranslate("Liste des offres");
      this.texte3 = await this.handleTranslate('Créer une offre');

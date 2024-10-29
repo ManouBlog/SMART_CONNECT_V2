@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { mapActions } from "pinia";
 import Calendar from "primevue/calendar";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { configUtils } from "../../../Shared/Utils";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -20,6 +21,31 @@ export default {
   },
   data() {
     return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11:"",
+      texte12:"",
+      texte13:"",
+      texte14:"",
+      texte15:"",
+      texte16:"",
+      texte17:"",
+      texte18:"",
+      texte19:"",
+      texte20:"",
+      texte21:"",
+      texte22:"",
+      texte23:"",
+      texte24:"",
       datesFormatedOfCalendar: [],
       configUtils: configUtils,
       datesOfCalendar: [],
@@ -70,6 +96,7 @@ export default {
   },
   methods: {
     ...mapActions(useDisponibiliteStore, ["createdDisponiblite"]),
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
     show_modify() {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = null;
@@ -555,21 +582,45 @@ export default {
       console.log("this.datesFormatedOfCalendar", this.datesFormatedOfCalendar);
     },
   },
-  created() {
+  async created() {
     this.get_timetable();
     this.getAllCompetences();
     this.getAllCompetencesByStudents();
     const now = new Date();
     let date = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     this.getJourInMonth = date;
+    this.texte = await this.handleTranslate('Planifier une disponibilité');
+    this.texte1 = await this.handleTranslate(`Première plage horaire`);
+     this.texte2 = await this.handleTranslate("Heure de début");
+     this.texte3 = await this.handleTranslate(`Heure de fin`);
+     this.texte4 = await this.handleTranslate("Deuxieme plage horaire");
+     this.texte5 = await this.handleTranslate('Heure de début');
+     this.texte6 = await this.handleTranslate('Heure de fin');
+     this.texte7 =  await this.handleTranslate(`Veuillez sélectionner une date`);
+     this.texte8 =  await this.handleTranslate(`Enregistrer`);
+     this.texte9 = await this.handleTranslate(`Deuxieme plage horaire`);
+     this.texte10 = await this.handleTranslate("Heure de début");
+     this.texte11 = await this.handleTranslate('Heure de début');
+     this.texte12 = await this.handleTranslate('Heure de fin');
+     this.texte13 = await this.handleTranslate('Modifier');
+     this.texte14 = await this.handleTranslate('Nouvelle disponibilitée');
+     this.texte15 =  await this.handleTranslate('Premiere Plage Horaire');
+     this.texte16 =  await this.handleTranslate('Seconde Plage Horaire');
+     this.texte17 =  await this.handleTranslate('Néant');
+     this.texte18 =  await this.handleTranslate('Actions');
+     this.texte19 =  await this.handleTranslate('Détails');
+     this.texte20 =  await this.handleTranslate('Ajouter');
+     this.texte21 =  await this.handleTranslate('Compétences');
+     this.texte22 =  await this.handleTranslate('Détails');
+     this.texte23 =  await this.handleTranslate('Ajouter');
   },
 };
 </script>
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-      :TitleHeader="'Planifier une disponibilité'"
-      :subTitleHeader="'Planifier une disponibilité'"
+      :TitleHeader="texte"
+      :subTitleHeader="texte"
     />
 
     <div class="tab-content" id="top-tabContent">
@@ -588,10 +639,10 @@ export default {
                 />
               </div>
               <div style="flex: 1 1 200px">
-                <h5 class="text-start">Première plage horaire</h5>
+                <h5 class="text-start">{{texte1}}</h5>
                 <div class="col-lg-12">
                   <div class="mb-3 conteneur-horaire">
-                    <label class="d-block">Heure de début</label>
+                    <label class="d-block">{{texte2}}</label>
                     <div class="conteneur-plage">
                       <Calendar
                         id="datepicker-timeonly_1"
@@ -607,7 +658,7 @@ export default {
                 </div>
                 <div class="col-lg-12">
                   <div class="mb-3 conteneur-horaire">
-                    <label class="d-block">Heure de fin</label>
+                    <label class="d-block">{{texte3}}</label>
                     <div class="conteneur-plage">
                       <Calendar
                         id="datepicker-timeonly_2"
@@ -622,10 +673,10 @@ export default {
                     </div>
                   </div>
                 </div>
-                <h5 class="text-start">Deuxieme plage horaire</h5>
+                <h5 class="text-start">{{texte4}}</h5>
                 <div class="col-lg-12">
                   <div class="mb-3 conteneur-horaire">
-                    <label class="d-block">Heure de début</label>
+                    <label class="d-block">{{texte5}}</label>
                     <div class="conteneur-plage">
                       <Calendar
                         id="datepicker-timeonly_3"
@@ -642,7 +693,7 @@ export default {
                 </div>
                 <div class="col-lg-12">
                   <div class="mb-3 conteneur-horaire">
-                    <label class="d-block">Heure de fin</label>
+                    <label class="d-block">{{texte6}}</label>
                     <div class="conteneur-plage">
                       <Calendar
                         id="datepicker-timeonly_4"
@@ -658,7 +709,7 @@ export default {
                   </div>
                 </div>
                 <h6 v-if="!datesOfCalendar.length" class="text-danger d-block text-start">
-                  Veuillez sélectionner une date
+                  {{texte7}}
                 </h6>
                 <div class="col-lg-12">
                   <button
@@ -666,7 +717,7 @@ export default {
                     type="submit"
                     @click="create_timetable"
                   >
-                    Enregistrer
+                    {{texte8}}
                   </button>
                 </div>
               </div>
