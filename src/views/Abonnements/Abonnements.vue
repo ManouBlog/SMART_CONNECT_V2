@@ -11,12 +11,16 @@ import Swal from "sweetalert2";
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 // const { t } = i18n.global;
 const text = ref("")
+
 // const 'Etudiant' = ref("")
 // const text3 = ref("") 
 
 const translateStore = useTranslateStore();
-
+const defaulValueTranslate = ref(translateStore.defaultLocale);
+console.log("defaulValueTranslate",defaulValueTranslate.value)
 const abonnements = ref([]);
+// const texteStudent = ref(null);
+// const texteEntreprise = ref(null);
 const loadingSpinner = useLoadingSpinner();
 // const isLoading = ref(true);
 
@@ -69,6 +73,8 @@ onMounted(async () => {
   verifIfAbonnementIsSuccess();
   handleAbonement();
   text.value = await translateStore.handleTranslate("Choisissez votre formule")
+  // texteStudent.value = await translateStore.handleTranslate('Etudiant')
+  // texteEntreprise.value = await translateStore.handleTranslate('Entreprise')
   // 'Etudiant'.value = await translateStore.handleTranslate("Etudiant")
   // text3.value = await translateStore.handleTranslate("Entreprise")
 });
@@ -84,8 +90,8 @@ onMounted(async () => {
             !this.$store.state.user ||
             this.$store.state.user.user.statut.statut === 'etudiant'
           "
-          :name="'Etudiant'"
-          :tab="'Etudiant'"
+          :name="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
+          :tab="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
         >
           <ContainerAbonnements
             :abonnements="abonnements"
@@ -97,8 +103,8 @@ onMounted(async () => {
             !this.$store.state.user ||
             this.$store.state.user.user.statut.statut === 'entreprise'
           "
-          :name="'Entreprise'"
-          :tab="'Entreprise'"
+          :name="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
+          :tab="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
         >
           <ContainerAbonnements
             :abonnements="abonnements"

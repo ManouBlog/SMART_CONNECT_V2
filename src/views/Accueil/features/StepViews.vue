@@ -14,25 +14,32 @@ export default {
     return {
       texte: "",
       texte2: "",
-      dataCard: [
-        {
-          id: 1,
-          title: "Créer un compte",
-          text_one: "Remplissez le formulaire",
-        },
-        {
-          id: 2,
-          title: "Choisir une option",
-          text_one: "Etudiant : Obtenir un emploi à temps partiel",
-          text_two: "Employeur : Besoin d'employés à temps partiel.",
-        },
-        {
-          id: 3,
-          title: "Vivez une expérience unique",
-          text_one: "Etudiant : Choisir le meilleur profil.",
-          text_two: "Employeur :Démarrer une nouvelle expérience Pro..",
-        },
-      ],
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      dataCard:[],
     };
   },
   methods: {
@@ -47,6 +54,25 @@ export default {
     this.texte2 = await this.handleTranslate(
       "Les instructions à suivre pour contacter du personnel ou postuler à une offre."
     );
+    this.dataCard = [
+        {
+          id: 1,
+          title: await this.handleTranslate("Créer un compte"),
+          text_one: await this.handleTranslate("Remplissez le formulaire"),
+        },
+        {
+          id: 2,
+          title: await this.handleTranslate("Choisir une option"),
+          text_one: await this.handleTranslate("Etudiant : Obtenir un emploi à temps partiel"),
+          text_two: await this.handleTranslate("Employeur : Besoin d'employés à temps partiel."),
+        },
+        {
+          id: 3,
+          title: await this.handleTranslate("Vivez une expérience unique"),
+          text_one: await this.handleTranslate("Etudiant : Choisir le meilleur profil."),
+          text_two: await this.handleTranslate("Employeur :Démarrer une nouvelle expérience Pro.."),
+        },
+      ]
   },
 };
 </script>

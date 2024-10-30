@@ -210,6 +210,7 @@ export default {
           <a-button> Click to upload </a-button>
         </a-upload>
       </a-form-item>
+      
 
     <a-form-item
       :label="texte12"

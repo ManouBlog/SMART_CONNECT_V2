@@ -11,12 +11,7 @@ export default {
       texte2: "",
       texte3: "",
       texte1: "",
-      elmentsOfBtn: [
-        {
-          name_btn: "En savoir plus",
-          color_btn: "primary",
-        },
-      ],
+      elmentsOfBtn: [],
     };
   },
   methods: {
@@ -31,6 +26,12 @@ export default {
     this.texte3 = await this.handleTranslate(
       "des alertes d'emploi en vous inscrivant à la newsletter."
     );
+    this.elmentsOfBtn = [
+        {
+          name_btn: await this.handleTranslate("En savoir plus"),
+          color_btn: "primary",
+        },
+      ]
   },
 };
 </script>

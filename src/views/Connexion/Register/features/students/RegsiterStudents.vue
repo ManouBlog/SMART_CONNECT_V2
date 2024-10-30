@@ -34,6 +34,7 @@ export default {
       texte16:"",
       texte17:"",
       texte18:"",
+      texte19:"",
       open: true,
       configUtils: configUtils,
       SWALPOPUP: useSwalPopup(),
@@ -116,7 +117,8 @@ export default {
     this.texte15 = await this.handleTranslate('Veuillez renseigner votre Contact!');
     this.texte16 = await this.handleTranslate('Veuillez renseigner vos Prénoms!');
     this.texte17 = await this.handleTranslate('Veuillez renseigner votre nom!');
-
+    this.texte18 = await this.handleTranslate('Veuillez renseigner la ville');
+    this.texte19 = await this.handleTranslate('Veuillez renseigner la commune');
   }
 };
 </script>
@@ -152,10 +154,14 @@ export default {
     >
       <a-input type="number" :maxlength="10" v-model:value="formState.phone" />
     </a-form-item>
-    <a-form-item :label="texte3" name="ville">
+    <a-form-item :label="texte3" 
+    :rules="[{ required: true, message: texte18 }]" 
+    name="ville">
       <a-input v-model:value="formState.ville" />
     </a-form-item>
-    <a-form-item :label="texte4" name="commune">
+    <a-form-item :label="texte4"  
+    :rules="[{ required: true, message: texte19 }]" 
+     name="commune">
       <a-input v-model:value="formState.commune" />
     </a-form-item>
     <a-form-item :label="texte5" name="quartier">

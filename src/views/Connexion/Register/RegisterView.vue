@@ -55,11 +55,7 @@ export default {
 <template>
   <a-form
     :layout="'vertical'"
-    :model="formState"
     name="basic"
-    autocomplete="off"
-    @finish="onFinish"
-    @finishFailed="onFinishFailed"
   >
     <div>
       <span class="fw-bold">{{texte}}</span>
@@ -68,7 +64,6 @@ export default {
         v-model:value="value1"
         style="width: 100%; padding: 0; margin-top: 0.5em; margin-bottom: 0.5em"
         :size="'large'"
-        @focus="focus"
         @change="handleChange"
       >
         <a-select-option value="student">{{texte1}}</a-select-option>

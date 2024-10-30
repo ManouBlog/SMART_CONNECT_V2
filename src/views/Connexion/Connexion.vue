@@ -31,12 +31,11 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-    ...mapActions(useRegisterStore, {
-      toogleModal: "changeValueIsModal",
-    }),
+    ...mapActions(useRegisterStore,["changeValueIsModal"]),
     seeTabsChange(value) {
       this.tabsActive = value;
     },
+
   },
   async created() {
     this.texte = await this.handleTranslate("Saisissez votre e-mail");
@@ -53,7 +52,7 @@ export default {
 };
 </script>
 <template>
-  <a-modal :footer="null" v-model:open="isModal" @cancel="toogleModal" @ok="toogleModal">
+  <a-modal :footer="null" v-model:open="isModal" @cancel="changeValueIsModal" @ok="changeValueIsModal">
     <div v-if="Number(tabsActive) === 1">
       <h2 class="text-center" style="color: orange">{{ texte }}</h2>
       <span>{{ texte1 }}</span>

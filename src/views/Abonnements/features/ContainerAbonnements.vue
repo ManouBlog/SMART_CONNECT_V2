@@ -1,22 +1,28 @@
 <script setup>
-import { defineProps, ref } from "vue";
+import { defineProps, ref,onMounted } from "vue";
 import Buttons from "../../../Shared/Compoments/Buttons.vue";
-
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../store-pinia/Abonnements/useAbonnementsStore";
 defineProps({
   abonnements: Array,
   type_abonnements: String,
 });
+const transalteStore = useTranslateStore();
 const storeAbonnement = useAbonnementsStore();
-const elmentsOfBtn = ref([
-  {
-    name_btn: "Choisir ce plan",
-    color_btn: "primary",
-  },
-]);
+const elmentsOfBtn = ref(null);
+const texte = ref(null)
 const handleCreate = (id, price) => {
   storeAbonnement.createAbonement(id, price);
 };
+onMounted(async () => {
+  elmentsOfBtn.value = [
+  {
+    name_btn: await transalteStore.handleTranslate("Choisir ce plan"),
+    color_btn: "primary",
+  },
+]
+texte.value = await transalteStore.handleTranslate("année")
+});
 </script>
 <template>
   <div class="conteneur-flex">
@@ -28,7 +34,7 @@ const handleCreate = (id, price) => {
       class="abonnement-classique"
     >
       <h1 class="text-center main-color">{{ item.libelle }}</h1>
-      <p class="text-start">{{ item.periode }} année</p>
+      <p class="text-start">{{ item.periode }} {{texte}}</p>
       <div class="px-5" v-html="item.description"></div>
       <hr />
       <div class="d-flex align-items-center gap-5 justify-content-center main-color">
