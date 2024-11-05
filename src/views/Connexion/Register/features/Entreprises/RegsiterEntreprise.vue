@@ -48,6 +48,10 @@ export default {
         diplome: "",
         carte_student: "",
         myCompetence: [],
+        Logo:[],
+        password:"",
+        myRegister:"",
+        myLogo:"",
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -136,28 +140,28 @@ export default {
       name="contact"
       :rules="[{ required: true, message: texte22 }]"
     >
-      <a-input v-model:value="formState.nom" />
+      <a-input v-model:value="formState.contact" />
     </a-form-item>
     <a-form-item
       :label="texte3"
       name="ville"
       :rules="[{ required: true, message: texte21 }]"
     >
-      <a-input v-model:value="formState.nom" />
+      <a-input v-model:value="formState.ville" />
     </a-form-item>
     <a-form-item
       :label="texte4"
       name="commune"
       :rules="[{ required: true, message: texte20 }]"
     >
-      <a-input v-model:value="formState.nom" />
+      <a-input v-model:value="formState.commune" />
     </a-form-item>
     <a-form-item
       :label="texte5"
       name="quartier"
       :rules="[{ required: true, message: texte19 }]"
     >
-      <a-input v-model:value="formState.nom" />
+      <a-input v-model:value="formState.quartier" />
     </a-form-item>
 
     <a-form-item
@@ -165,7 +169,7 @@ export default {
       name="email"
       :rules="[{ required: true, message: texte18 }]"
     >
-      <a-input v-model:value="formState.nom" />
+      <a-input v-model:value="formState.email" />
     </a-form-item>
   
     <a-form-item
@@ -197,7 +201,7 @@ export default {
           name="logo"
           list-type="picture"
         >
-          <a-button> Click to upload </a-button>
+          <a-button> Clique pour télécharger </a-button>
         </a-upload>
       </a-form-item>
     <a-form-item name="Registre" :label="texte11">
@@ -207,14 +211,24 @@ export default {
           name="logo"
           list-type="picture"
         >
-          <a-button> Click to upload </a-button>
+          <a-button> Clique pour télécharger </a-button>
+        </a-upload>
+      </a-form-item>
+      <a-form-item name="Logo" :label="'Logo'">
+        <a-upload
+          @change="handleChangeCardStudent"
+          v-model:fileList="formState.Logo"
+          name="logo"
+          list-type="picture"
+        >
+          <a-button> Clique pour télécharger </a-button>
         </a-upload>
       </a-form-item>
       
 
     <a-form-item
       :label="texte12"
-      name="mot de passe"
+      name="password"
       :rules="[{ required: true, message: texte14 }]"
     >
       <a-input-password v-model:value="formState.password" />
