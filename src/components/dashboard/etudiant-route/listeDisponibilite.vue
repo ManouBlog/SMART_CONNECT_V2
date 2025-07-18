@@ -8,13 +8,13 @@ import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
 import "v-calendar/dist/style.css";
-import {mapActions} from "pinia";
+import { mapActions } from "pinia";
 // import { DatePicker } from "v-calendar";
 import Calendar from "primevue/calendar";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
-const loadingSpinner = useLoadingSpinner()
+const loadingSpinner = useLoadingSpinner();
 
 export default {
   name: "listeDisponibilite",
@@ -39,20 +39,20 @@ export default {
       texte8: "",
       texte9: "",
       texte10: "",
-      texte11:"",
-      texte12:"",
-      texte13:"",
-      texte14:"",
-      texte15:"",
-      texte16:"",
-      texte17:"",
-      texte18:"",
-      texte19:"",
-      texte20:"",
-      texte21:"",
-      texte22:"",
-      texte23:"",
-      texte24:"",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         formule: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -61,7 +61,7 @@ export default {
         status: { value: null, matchMode: FilterMatchMode.EQUALS },
         verified: { value: null, matchMode: FilterMatchMode.EQUALS },
       },
-      configUtils:configUtils,
+      configUtils: configUtils,
       jour: "",
       firstHoraire: "",
       secondHoraire: "",
@@ -140,12 +140,12 @@ export default {
         btn.click();
       });
     },
-  
+
     removeDate(date, hide) {
       this.datesPickers = this.datesPickers.filter((d) => d !== date);
       hide();
     },
-  
+
     dateSelected(e, date, toggle) {
       this.selecteDatepickers = date;
       toggle({ ref: e.target });
@@ -158,10 +158,7 @@ export default {
         this.SecondPlageHoraire = this.Horaire_Second.toString();
         SecondHour = this.Horaire_Second;
       } else {
-        if (
-          this.Second_heure_start_from != null &&
-          this.Second_heure_end_to != null
-        ) {
+        if (this.Second_heure_start_from != null && this.Second_heure_end_to != null) {
           this.SecondPlageHoraire = this.Second_heure_start_from.concat(
             "-",
             this.Second_heure_end_to
@@ -188,23 +185,18 @@ export default {
         let SecondHoraireFirstHoraire = SecondHour[0].split(":");
         SecondHoraireHour = Number(SecondHoraireFirstHoraire[0]);
         let SecondHoraireMinute = Number(SecondHoraireFirstHoraire[1]);
-        let convertSecondHoraireminuteInHour = Math.ceil(
-          SecondHoraireMinute / 60
-        );
+        let convertSecondHoraireminuteInHour = Math.ceil(SecondHoraireMinute / 60);
         let totalHourSecondHoraireOne =
           SecondHoraireHour + convertSecondHoraireminuteInHour;
 
         let SecondHoraireSecondHoraire = SecondHour[1].split(":");
         SecondHoraireHourSecondHoraire = Number(SecondHoraireSecondHoraire[0]);
-        let SecondHoraireMinuteSecondHoraire = Number(
-          SecondHoraireSecondHoraire[1]
-        );
+        let SecondHoraireMinuteSecondHoraire = Number(SecondHoraireSecondHoraire[1]);
         let convertSecondHoraireminuteInHourSecondHoraire = Math.ceil(
           SecondHoraireMinuteSecondHoraire / 60
         );
         let totalHourSecondHoraireTwo =
-          SecondHoraireHourSecondHoraire +
-          convertSecondHoraireminuteInHourSecondHoraire;
+          SecondHoraireHourSecondHoraire + convertSecondHoraireminuteInHourSecondHoraire;
 
         let totalGlobalSecondHoraire =
           totalHourSecondHoraireTwo - totalHourSecondHoraireOne;
@@ -286,10 +278,7 @@ export default {
         "-",
         this.First_heure_end_to
       );
-      if (
-        this.Second_heure_start_from != null &&
-        this.Second_heure_end_to != !null
-      ) {
+      if (this.Second_heure_start_from != null && this.Second_heure_end_to != !null) {
         this.secondHoraire = this.Second_heure_start_from.concat(
           "-",
           this.Second_heure_end_to
@@ -308,32 +297,20 @@ export default {
       let totalTwoHoraire = this.twoHoraireHour + minuteTohourTwo;
 
       let totalOneSecondHoraireTwoEnd, totalOneSecondHoraireFrom;
-      if (
-        this.Second_heure_start_from != null &&
-        this.Second_heure_end_to != !null
-      ) {
+      if (this.Second_heure_start_from != null && this.Second_heure_end_to != !null) {
         let secondHoraire = this.Second_heure_start_from.split(":");
         let TwoSecondHoraire = Number(secondHoraire[0].split(":").toString());
-        let minuteTwoSecondHoraire = Number(
-          secondHoraire[1].split(":").toString()
-        );
+        let minuteTwoSecondHoraire = Number(secondHoraire[1].split(":").toString());
 
-        let minuteTohourOneSecondHoraire = Math.ceil(
-          minuteTwoSecondHoraire / 60
-        );
-        totalOneSecondHoraireFrom =
-          TwoSecondHoraire + minuteTohourOneSecondHoraire;
+        let minuteTohourOneSecondHoraire = Math.ceil(minuteTwoSecondHoraire / 60);
+        totalOneSecondHoraireFrom = TwoSecondHoraire + minuteTohourOneSecondHoraire;
 
         this.secondHoraireTwo = this.Second_heure_end_to.split(":");
-        this.TwoSecondHoraireTwo = Number(
-          this.secondHoraireTwo[0].split(":").toString()
-        );
+        this.TwoSecondHoraireTwo = Number(this.secondHoraireTwo[0].split(":").toString());
         let minuteTwoSecondHoraireTwo = Number(
           this.secondHoraireTwo[1].split(":").toString()
         );
-        let minuteTohourOneSecondHoraireEnd = Math.ceil(
-          minuteTwoSecondHoraireTwo / 60
-        );
+        let minuteTohourOneSecondHoraireEnd = Math.ceil(minuteTwoSecondHoraireTwo / 60);
         totalOneSecondHoraireTwoEnd =
           this.TwoSecondHoraireTwo + minuteTohourOneSecondHoraireEnd;
       } else {
@@ -412,9 +389,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.timetable = res.data.data;
-          this.timetable_show_id = this.timetable.find(
-            (item) => item.id === id
-          );
+          this.timetable_show_id = this.timetable.find((item) => item.id === id);
 
           let newdate = [];
           newdate.push(this.timetable_show_id.jour);
@@ -424,8 +399,7 @@ export default {
             this.timetable_show_id != null &&
             this.timetable_show_id.Second_horaire != null
           ) {
-            this.Horaire_Second =
-              this.timetable_show_id.Second_horaire.split("-");
+            this.Horaire_Second = this.timetable_show_id.Second_horaire.split("-");
           } else {
             this.Horaire_Second = null;
           }
@@ -473,8 +447,7 @@ export default {
         });
     },
     showBoxConfirmationDeleteCompetences(id) {
-      this.comfirmationForDeleteCompetence =
-        !this.comfirmationForDeleteCompetence;
+      this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
       this.id_for_delete = id;
     },
     not_delete() {
@@ -482,8 +455,7 @@ export default {
       this.id_for_delete = "";
     },
     notDeleteCompetence() {
-      this.comfirmationForDeleteCompetence =
-        !this.comfirmationForDeleteCompetence;
+      this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
       this.id_for_delete = "";
     },
     delete_timetable() {
@@ -567,9 +539,9 @@ export default {
       });
       console.log("THIS.days", this.comp);
     },
-    handleNewCalendar(){
-      this.$router.push('/dashboard/disponibilite')
-    }
+    handleNewCalendar() {
+      this.$router.push("/dashboard/disponibilite");
+    },
   },
   async created() {
     this.get_timetable();
@@ -578,54 +550,46 @@ export default {
     const now = new Date();
     let date = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     this.getJourInMonth = date;
-    this.texte = await this.handleTranslate('Disponibilités');
+    this.texte = await this.handleTranslate("Disponibilités");
     this.texte1 = await this.handleTranslate(`Voulez-vous vraiment supprimer?`);
-     this.texte2 = await this.handleTranslate("Supprimer");
-     this.texte3 = await this.handleTranslate(`Annuler`);
-     this.texte4 = await this.handleTranslate("Modifier l'emploi du temps");
-     this.texte5 = await this.handleTranslate('+ Ajouter une date');
-     this.texte6 = await this.handleTranslate('Premier plage horaire');
-     this.texte7 =  await this.handleTranslate(`Heure de début`);
-     this.texte8 =  await this.handleTranslate(`Heure de fin`);
-     this.texte9 = await this.handleTranslate(`Deuxieme plage horaire`);
-     this.texte10 = await this.handleTranslate("Heure de début");
-     this.texte11 = await this.handleTranslate('Heure de début');
-     this.texte12 = await this.handleTranslate('Heure de fin');
-     this.texte13 = await this.handleTranslate('Modifier');
-     this.texte14 = await this.handleTranslate('Nouvelle disponibilitée');
-     this.texte15 =  await this.handleTranslate('Premiere Plage Horaire');
-     this.texte16 =  await this.handleTranslate('Seconde Plage Horaire');
-     this.texte17 =  await this.handleTranslate('Néant');
-     this.texte18 =  await this.handleTranslate('Actions');
-     this.texte19 =  await this.handleTranslate('Détails');
-     this.texte20 =  await this.handleTranslate('Ajouter');
-     this.texte21 =  await this.handleTranslate('Compétences');
-     this.texte22 =  await this.handleTranslate('Détails');
-     this.texte23 =  await this.handleTranslate('Ajouter');
-     this.texte24 =  await this.handleTranslate('Jours');
-     
-     
+    this.texte2 = await this.handleTranslate("Supprimer");
+    this.texte3 = await this.handleTranslate(`Annuler`);
+    this.texte4 = await this.handleTranslate("Modifier l'emploi du temps");
+    this.texte5 = await this.handleTranslate("+ Ajouter une date");
+    this.texte6 = await this.handleTranslate("Premier plage horaire");
+    this.texte7 = await this.handleTranslate(`Heure de début`);
+    this.texte8 = await this.handleTranslate(`Heure de fin`);
+    this.texte9 = await this.handleTranslate(`Deuxieme plage horaire`);
+    this.texte10 = await this.handleTranslate("Heure de début");
+    this.texte11 = await this.handleTranslate("Heure de début");
+    this.texte12 = await this.handleTranslate("Heure de fin");
+    this.texte13 = await this.handleTranslate("Modifier");
+    this.texte14 = await this.handleTranslate("Nouvelle disponibilitée");
+    this.texte15 = await this.handleTranslate("Premiere Plage Horaire");
+    this.texte16 = await this.handleTranslate("Seconde Plage Horaire");
+    this.texte17 = await this.handleTranslate("Néant");
+    this.texte18 = await this.handleTranslate("Actions");
+    this.texte19 = await this.handleTranslate("Détails");
+    this.texte20 = await this.handleTranslate("Ajouter");
+    this.texte21 = await this.handleTranslate("Compétences");
+    this.texte22 = await this.handleTranslate("Détails");
+    this.texte23 = await this.handleTranslate("Ajouter");
+    this.texte24 = await this.handleTranslate("Jours");
   },
 };
 </script>
 <template>
   <div class="page-body position-relative mt-3">
-    <HeaderDashboard
-    :TitleHeader="texte"
-    :subTitleHeader="texte"
-  />
-    <div
-      class="ecran_for_delete delete_article"
-      v-show="confirmation_for_delete"
-    >
+    <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
+    <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
       <div class="card p-5">
-        <p class="h3 my-2">{{texte1}}</p>
+        <p class="h3 my-2">{{ texte1 }}</p>
         <div>
           <button class="btn-lg bg-warning" @click="delete_timetable">
-            {{texte2}}
+            {{ texte2 }}
           </button>
           <button class="btn-lg bg-danger mx-2" @click="not_delete">
-            {{texte3}}
+            {{ texte3 }}
           </button>
         </div>
       </div>
@@ -638,25 +602,23 @@ export default {
               <div class="card">
                 <div class="card-body">
                   <h1 class="badge bg-warning h3">
-                    {{texte4}}
+                    {{ texte4 }}
                   </h1>
                   <div class="form theme-form projectcreate p-5">
                     <form>
                       <div class="row">
-                        <h5 class="text-start"
-                          >{{texte6}}</h5
-                        >
+                        <h5 class="text-start">{{ texte6 }}</h5>
                         <div class="col-lg-6" v-if="Horaire_Fisrt != null">
                           <div class="mb-3">
-                            <label>{{texte7}}</label>
+                            <label>{{ texte7 }}</label>
                             <Calendar
-                          id="datepicker-timeonly_3"
-                          v-model="Horaire_Fisrt[0]"
-                          showIcon
-                          iconDisplay="input"
-                          timeOnly
-                          inputId="templatedisplay"
-                        />
+                              id="datepicker-timeonly_3"
+                              v-model="Horaire_Fisrt[0]"
+                              showIcon
+                              iconDisplay="input"
+                              timeOnly
+                              inputId="templatedisplay"
+                            />
                             <!-- <input
                               class="form-control"
                               type="time"
@@ -667,15 +629,15 @@ export default {
                         </div>
                         <div class="col-lg-6" v-if="Horaire_Fisrt != null">
                           <div class="mb-3">
-                            <label>{{texte8}}</label>
+                            <label>{{ texte8 }}</label>
                             <Calendar
-                            id="datepicker-timeonly_3"
-                            v-model="Horaire_Fisrt[1]"
-                            showIcon
-                            iconDisplay="input"
-                            timeOnly
-                            inputId="templatedisplay"
-                          />
+                              id="datepicker-timeonly_3"
+                              v-model="Horaire_Fisrt[1]"
+                              showIcon
+                              iconDisplay="input"
+                              timeOnly
+                              inputId="templatedisplay"
+                            />
                             <!-- <input
                               class="form-control"
                               type="time"
@@ -684,12 +646,10 @@ export default {
                             /> -->
                           </div>
                         </div>
-                        <h5 class="text-start"
-                          >{{texte9}}</h5
-                        >
+                        <h5 class="text-start">{{ texte9 }}</h5>
                         <div class="col-lg-6" v-if="Horaire_Second != null">
                           <div class="mb-3">
-                            <label>{{texte10}}</label>
+                            <label>{{ texte10 }}</label>
                             <!-- <input
                               class="form-control"
                               type="time"
@@ -697,26 +657,26 @@ export default {
                               required
                             /> -->
                             <Calendar
-                            id="datepicker-timeonly_3"
-                            v-model="Horaire_Second[0]"
-                            showIcon
-                            iconDisplay="input"
-                            timeOnly
-                            inputId="templatedisplay"
-                          />
+                              id="datepicker-timeonly_3"
+                              v-model="Horaire_Second[0]"
+                              showIcon
+                              iconDisplay="input"
+                              timeOnly
+                              inputId="templatedisplay"
+                            />
                           </div>
                         </div>
                         <div class="col-lg-6" v-else>
                           <div class="mb-3">
-                            <label>{{texte11}}</label>
+                            <label>{{ texte11 }}</label>
                             <Calendar
-                            id="datepicker-timeonly_3"
-                            v-model="Second_heure_start_from"
-                            showIcon
-                            iconDisplay="input"
-                            timeOnly
-                            inputId="templatedisplay"
-                          />
+                              id="datepicker-timeonly_3"
+                              v-model="Second_heure_start_from"
+                              showIcon
+                              iconDisplay="input"
+                              timeOnly
+                              inputId="templatedisplay"
+                            />
                             <!-- <input
                               class="form-control"
                               type="time"
@@ -727,15 +687,15 @@ export default {
                         </div>
                         <div class="col-lg-6" v-if="Horaire_Second != null">
                           <div class="mb-3">
-                            <label>{{texte12}}</label>
+                            <label>{{ texte12 }}</label>
                             <Calendar
-                            id="datepicker-timeonly_3"
-                            v-model="Horaire_Second[1]"
-                            showIcon
-                            iconDisplay="input"
-                            timeOnly
-                            inputId="templatedisplay"
-                          />
+                              id="datepicker-timeonly_3"
+                              v-model="Horaire_Second[1]"
+                              showIcon
+                              iconDisplay="input"
+                              timeOnly
+                              inputId="templatedisplay"
+                            />
                             <!-- <input
                               class="form-control"
                               type="time"
@@ -746,15 +706,15 @@ export default {
                         </div>
                         <div class="col-lg-6" v-else>
                           <div class="mb-3">
-                            <label>{{texte12}}</label>
+                            <label>{{ texte12 }}</label>
                             <Calendar
-                            id="datepicker-timeonly_3"
-                            v-model="Second_heure_end_to"
-                            showIcon
-                            iconDisplay="input"
-                            timeOnly
-                            inputId="templatedisplay"
-                          />
+                              id="datepicker-timeonly_3"
+                              v-model="Second_heure_end_to"
+                              showIcon
+                              iconDisplay="input"
+                              timeOnly
+                              inputId="templatedisplay"
+                            />
                             <!-- <input
                               class="form-control"
                               type="time"
@@ -771,15 +731,14 @@ export default {
                               @click.prevent="update_timetable"
                               class="btn-lg btn-warning mx-1"
                             >
-                              {{texte13}}
+                              {{ texte13 }}
                             </button>
                             <button
                               class="btn-lg btn-danger mx-1"
                               @click.prevent="show_modify"
                             >
-                             {{texte3}}
+                              {{ texte3 }}
                             </button>
-                            
                           </div>
                         </div>
                       </div>
@@ -795,99 +754,103 @@ export default {
 
     <div class="tab-content" id="top-tabContent">
       <DataTable
-      paginator
-      :rows="10"
-      :globalFilterFields="['formule']"
-      :rowsPerPageOptions="[5, 10, 20, 50]"
-      :value="timetables"
-      v-model:filters="filters"
-    >
-      <template #paginatorstart>
-        <div
-          style="
-            display: flex;
-            justify-content: flex-start;
-            font-size: 1em;
-            border: none;
-          "
-        >
-          Affichage de 1 à 10 sur{{ timetables.length }} entrées.
-        </div>
-      </template>
-      <template #header>
-        <div class="conteneur_search">
-          <div class="mx-3">
-            <button class="btn bg-warning py-2" 
-            @click="handleNewCalendar">{{texte14}}</button>
+        paginator
+        :rows="10"
+        :globalFilterFields="['formule']"
+        :rowsPerPageOptions="[5, 10, 20, 50]"
+        :value="timetables"
+        v-model:filters="filters"
+      >
+        <template #paginatorstart>
+          <div
+            style="
+              display: flex;
+              justify-content: flex-start;
+              font-size: 1em;
+              border: none;
+            "
+          >
+            Affichage de 1 à 10 sur{{ timetables.length }} entrées.
           </div>
-          <IconField iconPosition="left">
-            <InputIcon>
-              <i class="pi pi-search" />
-            </InputIcon>
-            <InputText
-              style="width: 300px; font-size: 1.5em; border: 2px solid orange"
-              v-model="filters['global'].value"
-              placeholder="Recherche:"
-            />
-          </IconField>
-        </div>
-      </template>
-      <Column
-        style="font-size: 1.8em; padding: 1em; text-align: center"
-        field="jour"
-        :header="texte24"
-      >
-    <template #body="slotProps">
-      <span>
-        {{ configUtils.getFormatDateFr(slotProps.data.jour) }}
-      </span>
-    </template>
-    </Column>
-      <Column
-        style="font-size: 1.8em; padding: 1em; text-align: center"
-        field="First_horaire"
-        :header="texte15"
-      >
-      <template #body="slotProps">
-       <span>
-        {{configUtils.formatedDisponibilite(slotProps.data.First_horaire) }}
-       </span>
-      </template>
-    </Column>
-      <Column
-      style="font-size: 1.8em; padding: 1em; text-align: center"
-      field="Second_horaire"
-      :header="texte16"
-    >
-    <template #body="slotProps">
-      <span v-if="slotProps.data.Second_horaire">
-       {{ configUtils.formatedDisponibilite(slotProps.data.Second_horaire) }}
-      </span>
-      <span v-else>{{texte17}}</span>
-     </template>
-  </Column>
-    <Column
-    style="font-size: 1.8em; padding: 1em; text-align: center"
-    field="statut"
-    :header="texte18"
-  >
-  <template #body="slotProps">
-    <div
-    class="d-flex justify-content-center align-items-center"
-  >
-    <em
-      class="bi bi-pencil"
-      @click="show_timetable(slotProps.data.id)"
-    ></em>
-    <em
-      class="bi bi-trash"
-      @click="show_box_confirmation_delete(slotProps.data.id)"
-    ></em>
-  </div>
-  </template>
-</Column>
-      
-    </DataTable>
+        </template>
+        <template #header>
+          <div class="conteneur_search">
+            <div class="mx-3">
+              <button class="btn bg-warning py-2" @click="handleNewCalendar">
+                {{ texte14 }}
+              </button>
+            </div>
+            <IconField iconPosition="left">
+              <InputIcon>
+                <i class="pi pi-search" />
+              </InputIcon>
+              <InputText
+                style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                v-model="filters['global'].value"
+                placeholder="Recherche:"
+              />
+            </IconField>
+          </div>
+        </template>
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="jour"
+          :header="texte24"
+        >
+          <template #body="slotProps">
+            <span v-if="!slotProps.data.periode">
+              {{ configUtils.getFormatDateFr(slotProps.data.jour) }}
+            </span>
+            <span v-else>
+              {{ slotProps.data.jour }}
+            </span>
+          </template>
+        </Column>
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="First_horaire"
+          :header="texte15"
+        >
+          <template #body="slotProps">
+            <span v-if="!slotProps.data.periode">
+              {{ configUtils.formatedDisponibilite(slotProps.data.First_horaire) }}
+            </span>
+            <span v-else>
+              Du {{ configUtils.getFormatDateFr(slotProps.data.periode_debut) }} à
+              {{ slotProps.data.hour_periode_debut }} au
+              {{ configUtils.getFormatDateFr(slotProps.data.periode_fin) }} à
+              {{ slotProps.data.hour_periode_fin }}
+            </span>
+          </template>
+        </Column>
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="Second_horaire"
+          :header="texte16"
+        >
+          <template #body="slotProps">
+            <span v-if="slotProps.data.Second_horaire">
+              {{ configUtils.formatedDisponibilite(slotProps.data.Second_horaire) }}
+            </span>
+            <span v-else>{{ texte17 }}</span>
+          </template>
+        </Column>
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="statut"
+          :header="texte18"
+        >
+          <template #body="slotProps">
+            <div class="d-flex justify-content-center align-items-center">
+              <em class="bi bi-pencil" @click="show_timetable(slotProps.data.id)"></em>
+              <em
+                class="bi bi-trash"
+                @click="show_box_confirmation_delete(slotProps.data.id)"
+              ></em>
+            </div>
+          </template>
+        </Column>
+      </DataTable>
       <!-- <div>
         <div class="container-fluid">
           <div class="row">
@@ -958,31 +921,29 @@ export default {
               >
               </VueMultiselect>
               <button class="btn-lg bg-primary" @click="addCompetences">
-                {{texte20}}
+                {{ texte20 }}
               </button>
             </div>
             <div class="col-sm-12 card py-3 px-2">
               <table id="MyTableData" class="table">
                 <thead>
                   <tr>
-                    <th class="bg-light">{{texte21}}</th>
-                    <th class="bg-light">{{texte19}}</th>
+                    <th class="bg-light">{{ texte21 }}</th>
+                    <th class="bg-light">{{ texte19 }}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(item, index) in competences" :key="index">
                     <td>{{ item.competence }}</td>
-                    <td
-                      class="d-flex justify-content-center align-items-center"
-                    >
-                      <em
-                        class="bi bi-trash"
-                        @click="
-                          showBoxConfirmationDeleteCompetences(
-                            item.pivot.competence_id
-                          )
-                        "
-                      ></em>
+                    <td>
+                      <p class="d-flex justify-content-center align-items-center">
+                        <em
+                          class="bi bi-trash"
+                          @click="
+                            showBoxConfirmationDeleteCompetences(item.pivot.competence_id)
+                          "
+                        ></em>
+                      </p>
                     </td>
                   </tr>
                 </tbody>
@@ -995,13 +956,13 @@ export default {
   </div>
 </template>
 <style scoped>
-.card{
-    background-color:white !important;
-    padding:2em !important;
+.card {
+  background-color: white !important;
+  padding: 2em !important;
 }
 .mt-5 {
-    margin-top: 101px !important;
-  }
+  margin-top: 101px !important;
+}
 .flex {
   padding: 1em 0;
 }
@@ -1011,10 +972,11 @@ h3 {
 label {
   text-align: left !important;
 }
-.btn-secondary,.btn-secondary:hover {
+.btn-secondary,
+.btn-secondary:hover {
   background: rgb(5, 35, 73) !important;
   border: 1px solid rgb(5, 35, 73) !important;
-  color:white !important;
+  color: white !important;
 }
 
 .table {
@@ -1087,7 +1049,7 @@ td {
 .datepickrs {
   padding: 1em 0;
   background: rgba(98, 98, 231, 0.108);
-  margin:2em;
+  margin: 2em;
   border-radius: 5px;
 }
 .button {
@@ -1100,9 +1062,9 @@ td {
   border: none !important;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.303);
 }
-.text-start{
-    text-align:left !important;
-    margin-left:1.5em !important;
+.text-start {
+  text-align: left !important;
+  margin-left: 1.5em !important;
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

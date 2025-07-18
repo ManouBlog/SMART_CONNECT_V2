@@ -37,7 +37,7 @@ export default {
   color: var(--main-color) !important;
 }
 .conteneur_card_footer {
-  padding: 0.5em 2em;
+  padding: 0.5em;
 }
 h3 {
   text-transform: uppercase;

@@ -59,7 +59,7 @@ export default {
     <div class="container-fluid footer">
       <div class="row conteneur-footer">
         <div class="container main-container-footer">
-          <CardFooter :title="texte6" :listLien="['Cocody angré nouveau chu']" />
+          <CardFooter :title="texte6" :listLien="['CHU angré,Immeuble Bissié 1er Etage Porte D']" />
           <CardFooter
             :title="texte"
             :listLien="[

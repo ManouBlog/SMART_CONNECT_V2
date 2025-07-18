@@ -37,7 +37,6 @@ texte.value = await transalteStore.handleTranslate("année")
       <p class="text-start">{{ item.periode }} {{texte}}</p>
       <div style="height:310px;position:relative;">
      <div class="px-5" v-html="item.description"></div>
-      <hr />
        <div style="position:absolute;bottom:0;">
 <div class="d-flex align-items-center gap-5 justify-content-center main-color">
         <h1  style="font-size: 4em">{{ item.prix }}F</h1>
