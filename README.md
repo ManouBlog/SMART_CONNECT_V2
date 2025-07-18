@@ -1,10 +1,11 @@
 # jobs
-z@gmail.com (password:0812)
+
 ## Project setup
 ```
 npm install
 ```
 entreprise : yvesfofana4@gmail.com,123456789
+talents : z@gmail.com (password:0812),adjobikadjopierre27@gmail.com(123456789)
 
 ### INFO PROJET
 - Folder views for screen projets
