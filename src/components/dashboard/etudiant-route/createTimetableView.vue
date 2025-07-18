@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -589,7 +589,7 @@ export default {
     const now = new Date();
     let date = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     this.getJourInMonth = date;
-    this.texte = await this.handleTranslate('Planifier une disponibilité');
+    this.texte0 = await this.handleTranslate('Planifier une disponibilité');
     this.texte1 = await this.handleTranslate(`Première plage horaire`);
      this.texte2 = await this.handleTranslate("Heure de début");
      this.texte3 = await this.handleTranslate(`Heure de fin`);
@@ -619,8 +619,8 @@ export default {
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-      :TitleHeader="texte"
-      :subTitleHeader="texte"
+      :TitleHeader="texte0"
+      :subTitleHeader="texte0"
     />
 
     <div class="tab-content" id="top-tabContent">
@@ -628,7 +628,13 @@ export default {
         <div class="container-fluid">
           <div>
             <div class="form theme-form projectcreate">
+              
               <div style="flex: 1 1 100px">
+                <h6 v-if="!datesOfCalendar.length" 
+                class="text-danger d-block text-center"
+                 style="font-weight:bold;font-size:1.4em;padding:0.5em 0;">
+                  {{texte7}}
+                </h6>
                 <Calendar
                   :minDate="new Date()"
                   v-model="datesOfCalendar"
@@ -638,7 +644,7 @@ export default {
                   :manualInput="false"
                 />
               </div>
-              <div style="flex: 1 1 200px">
+              <div style="flex: 1 1 200px" v-if="datesOfCalendar.length">
                 <h5 class="text-start">{{texte1}}</h5>
                 <div class="col-lg-12">
                   <div class="mb-3 conteneur-horaire">
@@ -713,7 +719,7 @@ export default {
                 </h6>
                 <div class="col-lg-12">
                   <button
-                    class="btn bg-warning p-3"
+                    class="btn bg-warning p-5"
                     type="submit"
                     @click="create_timetable"
                   >
