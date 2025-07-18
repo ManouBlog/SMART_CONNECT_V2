@@ -150,11 +150,11 @@ export default {
         />
         <ContactesDetailDatatable
           :donnees="data"
-          v-if="nameDatatable === 'Personnels contactés'"
+          v-if="nameDatatable === 'Talents contactés'"
         />
         <SelectionnesDetailDatatable
           :donnees="data"
-          v-if="nameDatatable === 'Personnels sélectionnés'"
+          v-if="nameDatatable === 'Talents sélectionnés'"
         />
       </template>
     </Column>

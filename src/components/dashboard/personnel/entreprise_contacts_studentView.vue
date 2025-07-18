@@ -89,9 +89,9 @@ export default {
         { fieldName: "statut", headerName: Statut },
         { fieldName: "offre", headerName: Offre },
       ]
-    this.texte = await this.handleTranslate('Liste du personnels');
-    this.texte1 = await this.handleTranslate(`Personnels contactés`);
-    this.texte2 = await this.handleTranslate("Personnels sélectionnés");
+    this.texte = await this.handleTranslate('Liste des talents');
+    this.texte1 = await this.handleTranslate(`Talents contactés`);
+    this.texte2 = await this.handleTranslate("Talents sélectionnés");
     this.texte3 = await this.handleTranslate('Commune');
     this.texte4 = await this.handleTranslate('Télephone');
     this.texte5 = await this.handleTranslate('Diplome');
@@ -134,7 +134,7 @@ export default {
           :DATACOLUMN="allColumnsDataContacter"
           :globalFilterFields="fieldsForFilter"
           :DATAfORfILTER="filters"
-          :nameDatatable="'Personnels contactés'"
+          :nameDatatable="'Talents contactés'"
         />
       </div>
       <div class="tab-content" id="top-tabContent" v-show="tab">
@@ -143,7 +143,7 @@ export default {
           :DATACOLUMN="allColumnsDataStudentRecruit"
           :globalFilterFields="fieldsForFilter"
           :DATAfORfILTER="filters"
-          :nameDatatable="'Personnels sélectionnés'"
+          :nameDatatable="'Talents sélectionnés'"
         />
       </div>
     </div>

@@ -40,7 +40,7 @@ export default {
     </router-link>
   </li>
   <li>
-    <router-link to="/dashboard/personnel" class="d-block"> Personnels </router-link>
+    <router-link to="/dashboard/personnel" class="d-block"> Talents </router-link>
   </li>
   <li>
     <router-link to="/dashboard/postulants" class="d-block"> Postulants </router-link>
