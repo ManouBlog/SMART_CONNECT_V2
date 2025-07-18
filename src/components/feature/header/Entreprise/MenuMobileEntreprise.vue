@@ -27,7 +27,7 @@ export default {
   </li>
   <li>
     <a href="#" @click.prevent="changeValueForshowMenuMobile" class="d-block lien">
-      Liste des favoris
+      Mes favoris
     </a>
   </li>
   <LiensNavBar :texte="'Mon profil'" :route_lien="'profil'" />

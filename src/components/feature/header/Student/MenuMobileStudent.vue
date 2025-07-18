@@ -46,7 +46,7 @@ export default {
 
     this.texte = await this.handleTranslate(' Tableau de bord');
     this.texte1 = await this.handleTranslate('Mon profil');
-    this.texte2 = await this.handleTranslate("Liste des favoris");
+    this.texte2 = await this.handleTranslate("Mes favoris");
     this.texte3 = await this.handleTranslate('Mes postulations');
     this.texte4 = await this.handleTranslate('Mes Contrats');
     this.texte5 = await this.handleTranslate(' Mes disponibilités');
