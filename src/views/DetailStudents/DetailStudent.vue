@@ -218,7 +218,7 @@ export default {
           },
           popover: {
             label: {
-              one: time.First_horaire,
+              one: this.ifPeriodeDate(time),
               two: time.Second_horaire,
             },
             visibility: "hover",
@@ -241,6 +241,70 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+    splitDateRanges(dateArray) {
+  const result = [];
+  
+  for (const dateStr of dateArray) {
+    if (dateStr.includes(' A ')) {
+      // Séparer les dates pour les éléments avec plage
+      const [startDate, endDate] = dateStr.split(' A ');
+      result.push(startDate, endDate);
+    } else {
+      // Ajouter les dates simples telles quelles
+      result.push(dateStr);
+    }
+  }
+  
+  return result;
+},
+    splitDateRangeObjects(data) {
+  const result = [];
+  
+  for (const item of data) {
+    if (item.jour.includes(' A ')) {
+      // Séparer les dates pour les éléments avec plage
+      const [startDate, endDate] = item.jour.split(' A ');
+      
+      // Créer un objet pour la date de début
+      result.push({
+        ...item,
+        id: item.id * 10 + 1, // Nouvel ID dérivé pour éviter les conflits
+        jour: startDate,
+        periode: 1,
+        periode_debut: startDate,
+        periode_fin: endDate
+      });
+      
+      // Créer un objet pour la date de fin
+      result.push({
+        ...item,
+        id: item.id * 10 + 2, // Nouvel ID dérivé
+        jour: endDate,
+        periode: 1,
+        periode_debut: startDate,
+        periode_fin: endDate
+      });
+    } else {
+      // Garder les éléments sans plage tels quels
+      result.push({...item});
+    }
+  }
+  
+  return result;
+},
+     ifPeriodeDate(periode) {
+      console.log("PERIODE25", periode);
+      if (periode.periode) {
+        console.log("periode254",periode)
+        return `Du ${new Date(periode.periode_debut).toLocaleDateString("fr")} à ${
+          periode.hour_periode_debut
+        } au ${new Date(periode.periode_fin).toLocaleDateString("fr")} à ${
+          periode.hour_periode_fin
+        }`;
+      } else {
+        return periode.First_horaire;
+      }
+    },
     async getDetailStudent() {
       loadingSpinner.launchLoading(true)
       // this.isLoading = true;
@@ -265,7 +329,8 @@ export default {
           );
           console.log("this.timetable_for_student", this.timetable_for_student);
           this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
-          this.schedule = this.timetable_for_student.jours;
+          // this.schedule = this.timetable_for_student.jours;
+           this.schedule = this.splitDateRangeObjects(this.timetable_for_student.jours);
 
           this.schedule.forEach((item) => {
             console.log("DATE", this.MyDateRendezVous);
