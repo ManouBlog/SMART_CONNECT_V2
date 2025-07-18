@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -89,10 +89,14 @@ export default {
   },
   computed: {
     ...mapState(useOffreStore, ["categoriesOffres", "allCompetences"]),
+     verifIfAllField(){
+     return this.salaire && this.description && this.debut && this.fin && this.lieu && this.pointage && this.competence;
+    },
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
+   
     show_offre_modify() {
       this.modify_offre = !this.modify_offre;
       this.id_offre_update = "";
@@ -225,7 +229,7 @@ export default {
   async created() {
     this.get_categorie();
     this.getAllCompetences();
-    this.texte = await this.handleTranslate('Enregistrer une Offre');
+    this.texte0 = await this.handleTranslate('Enregistrer une Offre');
     this.texte1 = await this.handleTranslate('Catégorie');
     this.texte2 = await this.handleTranslate('Sélectionner une catégorie');
     this.texte3 = await this.handleTranslate("Choisir les compétences");
@@ -257,8 +261,8 @@ export default {
         <div class="spinner-border text-primary" role="status"></div>
       </div>
       <HeaderDashboard
-        :TitleHeader="texte"
-        :subTitleHeader="texte"
+        :TitleHeader="texte0"
+        :subTitleHeader="texte0"
       />
       <div class="container-fluid">
         <div class="row">
@@ -474,7 +478,7 @@ export default {
                                         <button
                                           class="btn btn-warning btn-designer me-3"
                                           type="submit"
-                                          :disabled="loading ? true : false"
+                                          :disabled="loading  ? true : false"
                                         >
                                           {{ loading ? texte20 :texte19 }}
                                         </button>

@@ -822,7 +822,7 @@ export default {
     this.texte5 = await this.handleTranslate("Sélectionner une offre");
     this.texte6 = await this.handleTranslate("Pas d'offres");
     this.texte7 = await this.handleTranslate("Envoyer");
-    this.texte8 = await this.handleTranslate("Cet étudiant n'a pas encore fait un abonnement.");
+    this.texte8 = await this.handleTranslate("Ce talent n'a pas encore fait un abonnement.");
     this.texte9 = await this.handleTranslate("Vous devez faire un abonnement");
   },
 };
