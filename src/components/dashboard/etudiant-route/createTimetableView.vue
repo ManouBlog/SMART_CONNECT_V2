@@ -895,6 +895,7 @@ export default {
 
                 <div class="col-lg-12" v-if="handleHoraire === 'Horaire'">
                   <button
+                  :disabled="!First_heure_start_from && !First_heure_end_to"
                     class="btn bg-warning p-5"
                     @click="create_timetable"
                   >
@@ -903,6 +904,7 @@ export default {
                 </div>
                 <div class="col-lg-12" v-if="handleHoraire === 'Periode'">
                   <button
+                  :disabled="!this.dateTime_fin"
                     class="btn bg-warning p-5"
                      @click="addToSchedule"
                   >
