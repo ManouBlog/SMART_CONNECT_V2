@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps, ref,onMounted } from "vue";
+import { Help } from "../../../utils";
 import Buttons from "../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../store-pinia/Abonnements/useAbonnementsStore";
@@ -39,7 +40,7 @@ texte.value = await transalteStore.handleTranslate("année")
      <div class="px-5" v-html="item.description"></div>
        <div style="position:absolute;bottom:0;">
 <div class="d-flex align-items-center gap-5 justify-content-center main-color">
-        <h1  style="font-size: 4em">{{ item.prix }}F</h1>
+        <h1  style="font-size: 2em;">{{ Help.convertInMoney(item.prix) }}F</h1>
         <span class="mx-2">/</span>
         <span style="font-size: 2em">an</span>
       </div>

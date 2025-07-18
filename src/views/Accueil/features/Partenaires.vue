@@ -14,26 +14,26 @@ export default {
     return {
       texte: "", texte2: "", texte3: "", texte1: "" ,
       slides: [
-        {
-          id: 1,
-          photo: require("../../../assets/logo-jumia-mall-2114415253.jpg"),
-        },
-        {
-          id: 2,
-          photo: require("../../../assets/KFC-Logo-362893771.jpg"),
-        },
-        {
-          id: 3,
-          photo: require("../../../assets/41715b307038cad1018232d2f01f326b-1154425032.jpg"),
-        },
-        {
-          id: 4,
-          photo: require("../../../assets/Radisson_SAS-3112560756.jpg"),
-        },
-        {
-          id: 5,
-          photo: require("../../../assets/deliv.png"),
-        },
+        // {
+        //   id: 1,
+        //   photo: require("../../../assets/logo-jumia-mall-2114415253.jpg"),
+        // },
+        // {
+        //   id: 2,
+        //   photo: require("../../../assets/KFC-Logo-362893771.jpg"),
+        // },
+        // {
+        //   id: 3,
+        //   photo: require("../../../assets/41715b307038cad1018232d2f01f326b-1154425032.jpg"),
+        // },
+        // {
+        //   id: 4,
+        //   photo: require("../../../assets/Radisson_SAS-3112560756.jpg"),
+        // },
+        // {
+        //   id: 5,
+        //   photo: require("../../../assets/deliv.png"),
+        // },
       ],
     };
   },
@@ -52,7 +52,7 @@ export default {
 </script>
 <template>
   <div class="container">
-    <h1 class="fw-bold">{{texte}}</h1>
+    <h1 class="fw-bold" v-if="slides.length">{{texte}}</h1>
     <br />
     <vueper-slides
       autoplay

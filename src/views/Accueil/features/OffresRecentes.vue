@@ -11,7 +11,7 @@ export default {
     Flicking,
   },
   data() {
-    return { texte: "", texte2: "", texte3: "", texte1: "" };
+    return { texte0: "", texte2: "", texte3: "", texte1: "" };
   },
   computed: {
     ...mapState(useOffreStore, ["ListOffre"]),
@@ -46,7 +46,7 @@ export default {
   },
   async created() {
     this.getOffres();
-    this.texte = await this.handleTranslate("Offres récentes");
+    this.texte0 = await this.handleTranslate("Offres récentes");
     this.texte1 = await this.handleTranslate("Description");
     this.texte2 = await this.handleTranslate("Publié le:")
   },
@@ -54,7 +54,7 @@ export default {
 </script>
 <template>
   <section>
-    <h1 class="fw-bold">{{ texte }}</h1>
+    <h1 class="fw-bold" v-if="ListOffre.length">{{ texte0 }}</h1>
     <br />
     <br />
     <div class="wrapper">
