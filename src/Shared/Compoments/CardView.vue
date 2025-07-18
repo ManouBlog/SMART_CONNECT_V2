@@ -12,7 +12,7 @@ export default {
 };
 </script>
 <template>
-  <a-card style="width: auto; background: rgba(179, 201, 255, 0.38)">
+  <a-card style="width: 300px; background: rgba(179, 201, 255, 0.38)">
     <div class="div_conteneur">
       <h6>{{ item.id }}</h6>
     </div>

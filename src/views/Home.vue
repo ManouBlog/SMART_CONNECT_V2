@@ -49,7 +49,7 @@ export default {
     },
   },
   created(){
-    localStorage.setItem("translate",this.defaultLocale)
+    localStorage.setItem("translate","fr")
     this.handleListeFavoris(this.$store.state.token)
     this.getDateAbonementActive()
     this.$store.dispatch("handleListeFavoris")
