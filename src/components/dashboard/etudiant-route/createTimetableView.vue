@@ -32,20 +32,23 @@ export default {
       texte8: "",
       texte9: "",
       texte10: "",
-      texte11:"",
-      texte12:"",
-      texte13:"",
-      texte14:"",
-      texte15:"",
-      texte16:"",
-      texte17:"",
-      texte18:"",
-      texte19:"",
-      texte20:"",
-      texte21:"",
-      texte22:"",
-      texte23:"",
-      texte24:"",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      dateTime_debut: "",
+      dateTime_fin: "",
+      handleHoraire: "",
       datesFormatedOfCalendar: [],
       configUtils: configUtils,
       datesOfCalendar: [],
@@ -581,6 +584,140 @@ export default {
       this.datesFormatedOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
       console.log("this.datesFormatedOfCalendar", this.datesFormatedOfCalendar);
     },
+    chooseDateTime_debut() {
+      this.dateTime_fin = null;
+    },
+    validateDates() {
+      this.error = null;
+
+      if (this.dateTime_debut && this.dateTime_fin) {
+        const start = new Date(this.dateTime_debut);
+        const end = new Date(this.dateTime_fin);
+
+        if (end <= start) {
+          Swal.fire({
+            icon: "info",
+            title: "La date de fin doit être postérieure à la date de début",
+            showConfirmButton: true,
+          });
+          this.dateTime_fin = null;
+        }
+      }
+    },
+    addToSchedule() {
+      // this.isLoading = true;
+      this.schedule = [];
+      const scheduleItem_debut = {
+        jour: this.dateTime_debut.substring(0, 10), // Extrait YYYY-MM-DD
+        first_horaire: `${this.dateTime_debut.substring(
+          11,
+          16
+        )}-${this.dateTime_fin.substring(11, 16)}`,
+      };
+      const scheduleItem_fin = {
+        jour: this.dateTime_fin.substring(0, 10), // Extrait YYYY-MM-DD
+        first_horaire: `${this.dateTime_debut.substring(
+          11,
+          16
+        )}-${this.dateTime_fin.substring(11, 16)}`,
+      };
+
+      this.schedule.push(scheduleItem_debut, scheduleItem_fin);
+      this.schedule.sort((a, b) => new Date(a.jour) - new Date(b.jour));
+      console.log("this.schedule", this.schedule);
+      const dataSend = {
+        jour: [
+          this.schedule.map((item) => {
+            return item.jour;
+          })[0] +
+            " A " +
+            this.schedule.map((item) => {
+              return item.jour;
+            })[1],
+        ],
+        First_horaire: this.schedule.map((item) => {
+          return item.first_horaire;
+        })[0],
+        Second_horaire: null,
+        totalHour: 0,
+        hour_periode_debut: this.schedule
+          .map((item) => {
+            return item.first_horaire;
+          })[0]
+          .split("-")[0],
+        hour_periode_fin: this.schedule
+          .map((item) => {
+            return item.first_horaire;
+          })[0]
+          .split("-")[1],
+        periode_debut: this.schedule.map((item) => {
+          return item.jour;
+        })[0],
+        periode_fin: this.schedule.map((item) => {
+          return item.jour;
+        })[1],
+        periode: 1,
+      };
+      console.log("DATETIME", dataSend);
+      instance
+        .post("create_schedule", {
+          jour: this.schedule.map((item) => {
+            return item.jour;
+          }),
+          First_horaire: this.schedule.map((item) => {
+            return item.first_horaire;
+          })[0],
+          Second_horaire: null,
+          totalHour: 0,
+          hour_periode_debut: this.schedule
+            .map((item) => {
+              return item.first_horaire;
+            })[0]
+            .split("-")[0],
+          hour_periode_fin: this.schedule
+            .map((item) => {
+              return item.first_horaire;
+            })[0]
+            .split("-")[1],
+          periode_debut: this.schedule.map((item) => {
+            return item.jour;
+          })[0],
+          periode_fin: this.schedule.map((item) => {
+            return item.jour;
+          })[1],
+          periode: 1,
+        })
+        .then((response) => {
+          console.log("ADD DATETIME PERIODE", response.data.status);
+          if (!response.data.status) {
+            Swal.fire({
+              icon: "info",
+              title: response.data.message,
+              showConfirmButton: true,
+            });
+          }
+          if (response.data.status) {
+            Swal.fire({
+              icon: "success",
+              title: response.data.message,
+              showConfirmButton: true,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          Swal.fire({
+            icon: "info",
+            title: error,
+            showConfirmButton: true,
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
+          this.dateTime_fin = null;
+          this.dateTime_debut = null;
+        });
+    },
   },
   async created() {
     this.get_timetable();
@@ -589,51 +726,49 @@ export default {
     const now = new Date();
     let date = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     this.getJourInMonth = date;
-    this.texte0 = await this.handleTranslate('Planifier une disponibilité');
+    this.texte0 = await this.handleTranslate("Planifier une disponibilité");
     this.texte1 = await this.handleTranslate(`Première plage horaire`);
-     this.texte2 = await this.handleTranslate("Heure de début");
-     this.texte3 = await this.handleTranslate(`Heure de fin`);
-     this.texte4 = await this.handleTranslate("Deuxieme plage horaire");
-     this.texte5 = await this.handleTranslate('Heure de début');
-     this.texte6 = await this.handleTranslate('Heure de fin');
-     this.texte7 =  await this.handleTranslate(`Veuillez sélectionner une date`);
-     this.texte8 =  await this.handleTranslate(`Enregistrer`);
-     this.texte9 = await this.handleTranslate(`Deuxieme plage horaire`);
-     this.texte10 = await this.handleTranslate("Heure de début");
-     this.texte11 = await this.handleTranslate('Heure de début');
-     this.texte12 = await this.handleTranslate('Heure de fin');
-     this.texte13 = await this.handleTranslate('Modifier');
-     this.texte14 = await this.handleTranslate('Nouvelle disponibilitée');
-     this.texte15 =  await this.handleTranslate('Premiere Plage Horaire');
-     this.texte16 =  await this.handleTranslate('Seconde Plage Horaire');
-     this.texte17 =  await this.handleTranslate('Néant');
-     this.texte18 =  await this.handleTranslate('Actions');
-     this.texte19 =  await this.handleTranslate('Détails');
-     this.texte20 =  await this.handleTranslate('Ajouter');
-     this.texte21 =  await this.handleTranslate('Compétences');
-     this.texte22 =  await this.handleTranslate('Détails');
-     this.texte23 =  await this.handleTranslate('Ajouter');
+    this.texte2 = await this.handleTranslate("Heure de début");
+    this.texte3 = await this.handleTranslate(`Heure de fin`);
+    this.texte4 = await this.handleTranslate("Deuxieme plage horaire");
+    this.texte5 = await this.handleTranslate("Heure de début");
+    this.texte6 = await this.handleTranslate("Heure de fin");
+    this.texte7 = await this.handleTranslate(`Veuillez sélectionner une date`);
+    this.texte8 = await this.handleTranslate(`Enregistrer`);
+    this.texte9 = await this.handleTranslate(`Deuxieme plage horaire`);
+    this.texte10 = await this.handleTranslate("Heure de début");
+    this.texte11 = await this.handleTranslate("Heure de début");
+    this.texte12 = await this.handleTranslate("Heure de fin");
+    this.texte13 = await this.handleTranslate("Modifier");
+    this.texte14 = await this.handleTranslate("Nouvelle disponibilitée");
+    this.texte15 = await this.handleTranslate("Premiere Plage Horaire");
+    this.texte16 = await this.handleTranslate("Seconde Plage Horaire");
+    this.texte17 = await this.handleTranslate("Néant");
+    this.texte18 = await this.handleTranslate("Actions");
+    this.texte19 = await this.handleTranslate("Détails");
+    this.texte20 = await this.handleTranslate("Ajouter");
+    this.texte21 = await this.handleTranslate("Compétences");
+    this.texte22 = await this.handleTranslate("Détails");
+    this.texte23 = await this.handleTranslate("Ajouter");
   },
 };
 </script>
 <template>
   <div class="page-body position-relative">
-    <HeaderDashboard
-      :TitleHeader="texte0"
-      :subTitleHeader="texte0"
-    />
+    <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
 
     <div class="tab-content" id="top-tabContent">
       <div>
         <div class="container-fluid">
           <div>
             <div class="form theme-form projectcreate">
-              
               <div style="flex: 1 1 100px">
-                <h6 v-if="!datesOfCalendar.length" 
-                class="text-danger d-block text-center"
-                 style="font-weight:bold;font-size:1.4em;padding:0.5em 0;">
-                  {{texte7}}
+                <h6
+                  v-if="!datesOfCalendar.length"
+                  class="text-danger d-block text-center"
+                  style="font-weight: bold; font-size: 1.4em; padding: 0.5em 0"
+                >
+                  {{ texte7 }}
                 </h6>
                 <Calendar
                   :minDate="new Date()"
@@ -645,85 +780,133 @@ export default {
                 />
               </div>
               <div style="flex: 1 1 200px" v-if="datesOfCalendar.length">
-                <h5 class="text-start">{{texte1}}</h5>
-                <div class="col-lg-12">
-                  <div class="mb-3 conteneur-horaire">
-                    <label class="d-block">{{texte2}}</label>
-                    <div class="conteneur-plage">
-                      <Calendar
-                        id="datepicker-timeonly_1"
-                        :disabled="datesOfCalendar.length > 0 ? false : true"
-                        v-model="First_heure_start_from"
-                        showIcon
-                        iconDisplay="input"
-                        timeOnly
-                        inputId="templatedisplay"
-                      />
+                <section>
+                  <select class="w-100 my-5" name="select" id="select" v-model="handleHoraire">
+                    <option value="" disabled>Type de plage</option>
+                    <option value="Horaire">Plage Horaire</option>
+                    <option value="Periode">Période</option>
+                  </select>
+                </section>
+                <section class="d-flex my-5" v-if="handleHoraire === 'Periode'">
+                  <div class="w-100 mx-3">
+                    <h5 class="text-start">Date et Heure de début</h5>
+                    <input
+                      v-model="dateTime_debut"
+                      type="datetime-local"
+                      :min="new Date().toISOString().substring(0, 16)"
+                      class="w-100"
+                      @change="chooseDateTime_debut"
+                    />
+                  </div>
+
+                  <div class="w-100">
+                    <h5 class="text-start">Date et Heure de fin</h5>
+                    <input
+                      v-model="dateTime_fin"
+                      :min="
+                        dateTime_debut
+                          ? new Date(
+                              new Date(dateTime_debut).setDate(
+                                new Date(dateTime_debut).getDate() + 1
+                              )
+                            )
+                              .toISOString()
+                              .substring(0, 16)
+                          : null
+                      "
+                      :disabled="!dateTime_debut"
+                      type="datetime-local"
+                      class="w-100"
+                      @change="validateDates"
+                    />
+                  </div>
+                </section>
+                <section v-if="handleHoraire === 'Horaire'">
+                  <h5 class="text-start text-warning">{{ texte1 }}</h5>
+                  <div class="col-lg-6">
+                    <div class="mb-3 conteneur-horaire">
+                      <label class="d-block">{{ texte2 }}</label>
+                      <div class="conteneur-plage">
+                        <Calendar
+                          id="datepicker-timeonly_1"
+                          :disabled="datesOfCalendar.length > 0 ? false : true"
+                          v-model="First_heure_start_from"
+                          showIcon
+                          iconDisplay="input"
+                          timeOnly
+                          inputId="templatedisplay"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="mb-3 conteneur-horaire">
-                    <label class="d-block">{{texte3}}</label>
-                    <div class="conteneur-plage">
-                      <Calendar
-                        id="datepicker-timeonly_2"
-                        :minDate="First_heure_start_from"
-                        :disabled="datesOfCalendar.length > 0 ? false : true"
-                        v-model="First_heure_end_to"
-                        showIcon
-                        iconDisplay="input"
-                        timeOnly
-                        inputId="templatedisplay"
-                      />
+                  <div class="col-lg-6">
+                    <div class="mb-3 conteneur-horaire">
+                      <label class="d-block">{{ texte3 }}</label>
+                      <div class="conteneur-plage">
+                        <Calendar
+                          id="datepicker-timeonly_2"
+                          :minDate="First_heure_start_from"
+                          :disabled="datesOfCalendar.length > 0 ? false : true"
+                          v-model="First_heure_end_to"
+                          showIcon
+                          iconDisplay="input"
+                          timeOnly
+                          inputId="templatedisplay"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <h5 class="text-start">{{texte4}}</h5>
-                <div class="col-lg-12">
-                  <div class="mb-3 conteneur-horaire">
-                    <label class="d-block">{{texte5}}</label>
-                    <div class="conteneur-plage">
-                      <Calendar
-                        id="datepicker-timeonly_3"
-                        :minDate="First_heure_start_from"
-                        v-model="Second_heure_start_from"
-                        :disabled="datesOfCalendar.length > 0 ? false : true"
-                        showIcon
-                        iconDisplay="input"
-                        timeOnly
-                        inputId="templatedisplay"
-                      />
+                  <h5 class="text-start mt-5 text-warning">{{ texte4 }}</h5>
+                  <div class="col-lg-6">
+                    <div class="mb-3 conteneur-horaire">
+                      <label class="d-block">{{ texte5 }}</label>
+                      <div class="conteneur-plage">
+                        <Calendar
+                          id="datepicker-timeonly_3"
+                          :minDate="First_heure_start_from"
+                          v-model="Second_heure_start_from"
+                          :disabled="datesOfCalendar.length > 0 ? false : true"
+                          showIcon
+                          iconDisplay="input"
+                          timeOnly
+                          inputId="templatedisplay"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="mb-3 conteneur-horaire">
-                    <label class="d-block">{{texte6}}</label>
-                    <div class="conteneur-plage">
-                      <Calendar
-                        id="datepicker-timeonly_4"
-                        :minDate="Second_heure_start_from"
-                        v-model="Second_heure_end_to"
-                        :disabled="datesOfCalendar.length > 0 ? false : true"
-                        showIcon
-                        iconDisplay="input"
-                        timeOnly
-                        inputId="templatedisplay"
-                      />
+                  <div class="col-lg-6">
+                    <div class="mb-3 conteneur-horaire">
+                      <label class="d-block">{{ texte6 }}</label>
+                      <div class="conteneur-plage">
+                        <Calendar
+                          id="datepicker-timeonly_4"
+                          :minDate="Second_heure_start_from"
+                          v-model="Second_heure_end_to"
+                          :disabled="datesOfCalendar.length > 0 ? false : true"
+                          showIcon
+                          iconDisplay="input"
+                          timeOnly
+                          inputId="templatedisplay"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <h6 v-if="!datesOfCalendar.length" class="text-danger d-block text-start">
-                  {{texte7}}
-                </h6>
-                <div class="col-lg-12">
+                </section>
+
+                <div class="col-lg-12" v-if="handleHoraire === 'Horaire'">
                   <button
                     class="btn bg-warning p-5"
-                    type="submit"
                     @click="create_timetable"
                   >
-                    {{texte8}}
+                    {{ texte8 }}
+                  </button>
+                </div>
+                <div class="col-lg-12" v-if="handleHoraire === 'Periode'">
+                  <button
+                    class="btn bg-warning p-5"
+                     @click="addToSchedule"
+                  >
+                    {{ texte8 }}
                   </button>
                 </div>
               </div>
