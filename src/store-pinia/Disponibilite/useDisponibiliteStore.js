@@ -9,7 +9,7 @@ export const useDisponibiliteStore = defineStore('disponibilite', {
     }),
     actions: {
        async createdDisponiblite(payload) {
-        console.log("createdDisponiblite",payload)
+        loadingSpinner.launchLoading(true)
               await instance.post("create_schedule", {
             jour: payload.DateRendezVous,
             First_horaire: payload.firstHoraire,
@@ -17,7 +17,6 @@ export const useDisponibiliteStore = defineStore('disponibilite', {
             totalHour: payload.TotalHourDisponi,
           })
           .then((res) => {
-            loadingSpinner.launchLoading(true)
             console.log(res);
             if (res.data.status === true) {
               Swal.fire({
@@ -26,7 +25,7 @@ export const useDisponibiliteStore = defineStore('disponibilite', {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              loadingSpinner.launchLoading(false)
+             
             }
             if (res.data.status === false) {
               Swal.fire({
@@ -35,7 +34,7 @@ export const useDisponibiliteStore = defineStore('disponibilite', {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              loadingSpinner.launchLoading(false)
+             
             }
           })
           .catch((err) => {
@@ -46,8 +45,11 @@ export const useDisponibiliteStore = defineStore('disponibilite', {
               showConfirmButton: false,
               timer: 1500,
             });
+           
+          })
+          .finally(()=>{
             loadingSpinner.launchLoading(false)
-          });
+          })
           },
        
     },

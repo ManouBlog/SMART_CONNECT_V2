@@ -6,6 +6,7 @@ import { mapActions } from "pinia";
 import Calendar from "primevue/calendar";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { configUtils } from "../../../Shared/Utils";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -100,6 +101,7 @@ export default {
   methods: {
     ...mapActions(useDisponibiliteStore, ["createdDisponiblite"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+     ...mapActions(useLoadingSpinner, ["launchLoading"]),
     show_modify() {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = null;
@@ -263,6 +265,7 @@ export default {
         });
     },
     create_timetable() {
+      
       const datesOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
       console.log("datesOfCalendar", datesOfCalendar);
       const HourFirstHoraire = this.configUtils.getHourInDate(
@@ -605,7 +608,7 @@ export default {
       }
     },
     addToSchedule() {
-      // this.isLoading = true;
+     this.launchLoading(true);
       this.schedule = [];
       const scheduleItem_debut = {
         jour: this.dateTime_debut.substring(0, 10), // Extrait YYYY-MM-DD
@@ -713,7 +716,7 @@ export default {
           });
         })
         .finally(() => {
-          this.isLoading = false;
+         this.launchLoading(false);
           this.dateTime_fin = null;
           this.dateTime_debut = null;
         });
