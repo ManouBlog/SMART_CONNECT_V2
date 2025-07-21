@@ -98,7 +98,7 @@ export default {
           <li v-if="statut == 'admin'">
             <i class="bi bi-person"></i>
             <router-link :to="{ name: 'students' }">
-              <strong>Etudiants</strong></router-link
+              <strong>Talents</strong></router-link
             >
           </li>
           <li v-if="statut == 'admin'">

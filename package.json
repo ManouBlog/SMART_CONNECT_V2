@@ -20,6 +20,7 @@
     "dayjs": "^1.11.3",
     "jquery": "^3.6.0",
     "jspdf": "^2.5.1",
+    "primevue": "^4.3.6",
     "sweetalert2": "^11.4.17",
     "v-calendar": "^3.0.0-alpha.8",
     "vue": "^3.2.13",

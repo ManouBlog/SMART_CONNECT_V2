@@ -109,6 +109,7 @@ export default {
                 <th class="bg-light">Commune</th>
                 <th class="bg-light">Ville</th>
                 <th class="bg-light">Contacter le</th>
+                <th class="bg-light">Statut</th>
               </tr>
             </thead>
             <tbody>
@@ -122,6 +123,29 @@ export default {
                 <td>{{ item.ville }}</td>
                 <td>
                   {{ new Date(item.pivot.created_at).toLocaleDateString("fr") }}
+                </td>
+                <td>
+                  <p
+                    class="font-bold"
+                    :class="
+                      'text-' +
+                      `${
+                        item.pivot.contrat === 1
+                          ? 'success'
+                          : item.pivot.contrat === 2
+                          ? 'danger'
+                          : 'primary'
+                      }`
+                    "
+                  >
+                    {{
+                      item.pivot.contrat === 1
+                        ? "Accepté"
+                        : item.pivot.contrat === 2
+                        ? "Réfusé"
+                        : "En attente de réponse"
+                    }}
+                  </p>
                 </td>
               </tr>
             </tbody>

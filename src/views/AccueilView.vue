@@ -521,21 +521,11 @@ export default {
             <div class="card-body">
               <div class="media">
                 <div class="media-body">
-                  <div class="greeting-user">
+                  <div class="greeting-user text-start">
                     <h1 v-if="user">Hello, {{ this.user.nom }}</h1>
                     <h1>Bienvenue, votre tableau de bord est prêt!</h1>
-                    <a class="btn btn-outline-white_color" href="#"
-                      >Commencez</a
-                    >
                   </div>
                 </div>
-              </div>
-              <div class="cartoon-img">
-                <img
-                  class="img-fluid"
-                  src="http://admin.pixelstrap.com/zeta/asset/images/images.svg"
-                  alt=""
-                />
               </div>
             </div>
           </div>
