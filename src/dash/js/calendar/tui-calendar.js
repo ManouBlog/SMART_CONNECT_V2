@@ -19691,7 +19691,7 @@
                         styles.titleBorderBottom = theme.month.moreViewTitle.borderBottom;
                         styles.titlePadding = theme.month.moreViewTitle.padding;
                         styles.listPadding = theme.month.moreViewList.padding;
-                        listHeight = 'calc(100%';
+                        listHeight = 'calc(100%)';
 
                         if (parseInt(styles.titleHeight, 10)) {
                             listHeight += ' - ' + styles.titleHeight;
@@ -23833,7 +23833,7 @@
                             + alias4(((helper = (helper = lookupProperty(helpers, "CSS_PREFIX") || (depth0 != null ? lookupProperty(depth0, "CSS_PREFIX") : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, { "name": "CSS_PREFIX", "hash": {}, "data": data, "loc": { "start": { "line": 11, "column": 28 }, "end": { "line": 11, "column": 42 } } }) : helper)))
                             + "timegrid-hourmarker\" style=\"top:"
                             + alias4(alias5(((stack1 = (data && lookupProperty(data, "root"))) && lookupProperty(stack1, "hourmarkerTop")), depth0))
-                            + "%; margin-top: calc(6px - "
+                            + "%; margin-top: calc(6px)"
                             + alias4(alias5(((stack1 = ((stack1 = (data && lookupProperty(data, "root"))) && lookupProperty(stack1, "styles"))) && lookupProperty(stack1, "halfHourHeight")), depth0))
                             + "); height: "
                             + alias4(alias5(((stack1 = ((stack1 = (data && lookupProperty(data, "root"))) && lookupProperty(stack1, "styles"))) && lookupProperty(stack1, "halfHourHeight")), depth0))
@@ -23891,7 +23891,7 @@
                             + alias4(((helper = (helper = lookupProperty(helpers, "CSS_PREFIX") || (depth0 != null ? lookupProperty(depth0, "CSS_PREFIX") : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, { "name": "CSS_PREFIX", "hash": {}, "data": data, "loc": { "start": { "line": 22, "column": 28 }, "end": { "line": 22, "column": 42 } } }) : helper)))
                             + "timegrid-hourmarker\" style=\"top:"
                             + alias4(alias5(((stack1 = (data && lookupProperty(data, "root"))) && lookupProperty(stack1, "hourmarkerTop")), depth0))
-                            + "%; margin-top: calc(6px - "
+                            + "%; margin-top: calc(6px)"
                             + alias4(alias5(((stack1 = ((stack1 = (data && lookupProperty(data, "root"))) && lookupProperty(stack1, "styles"))) && lookupProperty(stack1, "halfHourHeight")), depth0))
                             + "); height: "
                             + alias4(alias5(((stack1 = ((stack1 = (data && lookupProperty(data, "root"))) && lookupProperty(stack1, "styles"))) && lookupProperty(stack1, "halfHourHeight")), depth0))
@@ -24196,9 +24196,9 @@
 
                         return "            <div class=\""
                             + alias4(((helper = (helper = lookupProperty(helpers, "CSS_PREFIX") || (depth0 != null ? lookupProperty(depth0, "CSS_PREFIX") : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, { "name": "CSS_PREFIX", "hash": {}, "data": data, "loc": { "start": { "line": 5, "column": 24 }, "end": { "line": 5, "column": 38 } } }) : helper)))
-                            + "timegrid-timezone-close-btn\" style=\"border: 1px solid #ddd; top:2px; bottom: 2px; width: 10px; border-left: none;\">\n                <span style=\"color: #777; height: calc("
+                            + "timegrid-timezone-close-btn\" style=\"border: 1px solid #ddd; top:2px; bottom: 2px; width: 10px; border-left: none;\">\n                <span style=\"color: #777;"
                             + alias4(alias5(((stack1 = ((stack1 = (data && lookupProperty(data, "root"))) && lookupProperty(stack1, "styles"))) && lookupProperty(stack1, "displayTimezoneLabelHeight")), depth0))
-                            + " - 6px); line-height: calc("
+                            + " - 6px);"
                             + alias4(alias5(((stack1 = ((stack1 = (data && lookupProperty(data, "root"))) && lookupProperty(stack1, "styles"))) && lookupProperty(stack1, "displayTimezoneLabelHeight")), depth0))
                             + " - 6px);\">\n                    <span class=\""
                             + alias4(((helper = (helper = lookupProperty(helpers, "CSS_PREFIX") || (depth0 != null ? lookupProperty(depth0, "CSS_PREFIX") : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, { "name": "CSS_PREFIX", "hash": {}, "data": data, "loc": { "start": { "line": 7, "column": 33 }, "end": { "line": 7, "column": 47 } } }) : helper)))

@@ -50199,9 +50199,9 @@ body .for-dark {
     .sidebar-links {
     height: calc(100vh);
   }
-  .simplebar-content-wrapper {
+  /* .simplebar-content-wrapper {
     height: calc();
-  }
+  } */
 }
 @media screen and (max-width: 767px) {
   .sidebar-wrapper .menu .brand-logo img {
