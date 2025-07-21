@@ -1,6 +1,7 @@
 <script setup>
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { ref, onMounted } from "vue";
+import { useStore } from 'vuex';
 import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
 // import {mapActions} from "pinia"
 import instance from "../../api/api";
@@ -11,6 +12,7 @@ import Swal from "sweetalert2";
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 // const { t } = i18n.global;
 const text = ref("")
+const store = useStore();
 
 // const 'Etudiant' = ref("")
 // const text3 = ref("") 
@@ -87,8 +89,8 @@ onMounted(async () => {
       <n-tabs type="line" size="large" animated justify-content="center">
         <n-tab-pane
           v-if="
-            !this.$store.state.user ||
-            this.$store.state.user.user.statut.statut === 'etudiant'
+            !store.state.user ||
+            store.state.user.user.statut.statut === 'etudiant'
           "
           :name="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
           :tab="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
@@ -100,8 +102,8 @@ onMounted(async () => {
         </n-tab-pane>
         <n-tab-pane
           v-if="
-            !this.$store.state.user ||
-            this.$store.state.user.user.statut.statut === 'entreprise'
+            !store.state.user ||
+            store.state.user.user.statut.statut === 'entreprise'
           "
           :name="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
           :tab="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
