@@ -532,13 +532,13 @@ export default {
           </div>
         </div>
         <div
-          class="d-flex col-lg-12"
           style="
+            display: flex;
             gap: 1.5em;
             align-items: 'center';
             flex-wrap: wrap;
-            place-content: 'center';
-            justify-content: 'center';
+            place-content: 'center !important';
+            justify-content: 'center !important';
           "
         >
           <Statistique_Comp
