@@ -15,6 +15,14 @@ const PERIODE = [
     value: "monthly",
     libelle: "Mois",
   },
+  {
+    value: "annually",
+    libelle: "Année",
+  },
+  {
+    value: "periodly",
+    libelle: "Personnaliser",
+  },
 ];
 
 // import ProgressSpinner from "primevue/progressspinner";
@@ -46,6 +54,7 @@ export default {
       chooseAnOption: "",
       PERIODE: PERIODE,
       categories: [],
+      valueSubmit: "",
     };
   },
   methods: {
@@ -133,6 +142,9 @@ export default {
     handleCategorieSelect(e) {
       console.log("handleCategorieSelect", e);
     },
+    submitStatistiques() {
+      console.log("submitStatistiques", this.valueSubmit);
+    },
   },
   mounted() {
     this.chartData = this.setChartData();
@@ -142,10 +154,13 @@ export default {
 };
 </script>
 <template>
-  <div class="card w-100 p-4">
+  <div class="card py-4" style="flex: 1">
     <h1 class="text-start p-1">{{ this.title }}</h1>
-    <div class="chart-loading d-flex gap-2 align-items-center px-2 py-3">
+    <div
+      class="chart-loading d-flex gap-2 flex-wrap align-items-center px-2 py-3"
+    >
       <MySelect
+        v-if="this.title === 'Categories'"
         :allItems="
           categories.length
             ? categories.map((item) => {
@@ -160,15 +175,49 @@ export default {
       />
       <MySelect :allItems="PERIODE" @handleSelect="handleSelect" />
       <div>
-        <input v-if="chooseAnOption === 'daily'" type="date" />
-        <input v-if="chooseAnOption === 'weekly'" type="week" />
-        <input v-if="chooseAnOption === 'monthly'" type="month" />
+        <input
+          class="w-100"
+          v-model="valueSubmit"
+          v-if="chooseAnOption === 'daily'"
+          @change="submitStatistiques"
+          type="date"
+        />
+        <input
+          class="w-100"
+          v-if="chooseAnOption === 'weekly'"
+          v-model="valueSubmit"
+          @change="submitStatistiques"
+          type="week"
+        />
+        <input
+          class="w-100"
+          v-if="chooseAnOption === 'monthly'"
+          v-model="valueSubmit"
+          @change="submitStatistiques"
+          type="month"
+        />
+
+        <input
+          class="w-100"
+          v-if="chooseAnOption === 'annually'"
+          v-model="valueSubmit"
+          @change="submitStatistiques"
+          type="number"
+        />
+        <div
+          v-if="chooseAnOption === 'periodly'"
+          class="d-flex align-items-center gap-2 px-2 w-100"
+        >
+          <input type="date" />
+          <input type="date" />
+        </div>
       </div>
     </div>
     <Chart
       @loaded="onChartLoaded"
       type="bar"
       :height="300"
+      :width="500"
       :data="chartData"
       :options="chartOptions"
     />
