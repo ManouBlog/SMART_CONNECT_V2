@@ -1,12 +1,13 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-import VueMultiselect from "vue-multiselect";
+// import VueMultiselect from "vue-multiselect";
+import Statistique_Comp from "@/components/Statistique_Comp.vue";
 // import Editor from "../components/text-editor.vue";
 export default {
   name: "AccueilView",
   components: {
-    VueMultiselect,
+    Statistique_Comp,
   },
   data() {
     return {
@@ -176,24 +177,24 @@ export default {
       console.log(infoExperience);
       this.$store.commit("addExperiences", infoExperience);
     },
-    getAllExperiences() {
-      this.spinnerExperience = true;
-      axios
-        .get("http://127.0.0.1:8000/api/GetMyExperiences", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log("Experiences", res.data.data);
-          this.MyExperiences = res.data.data;
-          this.spinnerExperience = false;
-        })
-        .catch((err) => {
-          console.log(err);
-          this.spinnerExperience = false;
-        });
-    },
+    // getAllExperiences() {
+    //   this.spinnerExperience = true;
+    //   axios
+    //     .get("http://127.0.0.1:8000/api/GetMyExperiences", {
+    //       headers: {
+    //         Authorization: "Bearer " + this.$store.state.token,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log("Experiences", res.data.data);
+    //       this.MyExperiences = res.data.data;
+    //       this.spinnerExperience = false;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       this.spinnerExperience = false;
+    //     });
+    // },
     chosenOneExperience(id) {
       this.spinnerModifyExperience = true;
       this.toogleModifyExperience = !this.toogleModifyExperience;
@@ -306,7 +307,7 @@ export default {
   created() {
     console.log("user", this.$store.state.user);
     // console.log("compte", this.$store.state.compte);
-    this.getAllExperiences();
+    // this.getAllExperiences();
     this.getAllCompetences();
     this.getAllCompetencesByStudents();
   },
@@ -516,7 +517,7 @@ export default {
     <!-- Container-fluid starts-->
     <div class="container-fluid default-dash">
       <div class="row">
-        <div class="col-xl-6 col-md-6 dash-xl-50">
+        <div class="col-md-12">
           <div class="card profile-greeting">
             <div class="card-body">
               <div class="media">
@@ -530,149 +531,8 @@ export default {
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-md-6 dash-xl-50">
-          <div class="card weekly-column">
-            <div class="card-body p-0">
-              <div id="weekly-chart"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" v-if="statut == 'etudiant'">
-        <div class="col-xl-6 col-md-6 dash-xl-50">
-          <div class="card profile-greeting" id="content_competences">
-            <div class="card-body position-relative">
-              <div class="Myspinner" v-show="spinner">
-                <div class="spinner-border text-primary" role="status"></div>
-              </div>
-              <h4 class="text-secondary fw-bold">Mes competences</h4>
-              <div class="media">
-                <div class="media-body">
-                  <div class="greeting-user">
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="position-relative">
-                          <VueMultiselect
-                            v-model="competence"
-                            :options="competencesPredf"
-                            :multiple="true"
-                            :taggable="true"
-                            :tag="addTag"
-                            @update:model-value="addTag"
-                            label="competence"
-                            track-by="competence"
-                            placeholder="selectionne une competence"
-                            class="vuemulti"
-                          >
-                          </VueMultiselect>
-                          <button
-                            class="btn bg-primary addCompetences"
-                            @click="addCompetences"
-                            v-if="comp.length"
-                          >
-                            Ajouter
-                          </button>
-                        </div>
-                        <div
-                          class="col-sm-12 card px-2 mb-5"
-                          id="cont_table_competence"
-                        >
-                          <table id="MyTableData" class="table">
-                            <thead>
-                              <tr>
-                                <th class="bg-light">Compétences</th>
-                                <th class="bg-light">Details</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr
-                                v-for="(item, index) in competences"
-                                :key="index"
-                              >
-                                <td>{{ item.competence }}</td>
-                                <td
-                                  class="d-flex justify-content-center align-items-center"
-                                >
-                                  <em
-                                    class="bi bi-trash"
-                                    @click="
-                                      showBoxConfirmationDeleteCompetences(
-                                        item.pivot.competence_id
-                                      )
-                                    "
-                                  ></em>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6 dash-xl-50">
-          <div class="card weekly-column">
-            <div class="card-body position-relative">
-              <div class="Myspinner" v-show="spinnerExperience">
-                <div class="spinner-border text-primary" role="status"></div>
-              </div>
-              <div id="weekly-chart">
-                <div class="position-relative">
-                  <h4 class="text-secondary fw-bold">Mes expériences</h4>
-                  <em
-                    class="bi bi-plus-lg position-absolute"
-                    @click="addNouvelExperience"
-                  ></em>
-                </div>
-                <div class="conteneur_experience">
-                  <div
-                    class="experiences position-relative px-4"
-                    v-for="(item, index) in MyExperiences"
-                    :key="index"
-                  >
-                    <em
-                      class="bi bi-trash3 position-absolute"
-                      @click="ToogleShowDelete(item.id)"
-                    ></em>
-                    <em
-                      class="bi bi-pencil position-absolute"
-                      @click="chosenOneExperience(item.id)"
-                    ></em>
-                    <div class="rond position-absolute"></div>
-                    <div class="content_experience">
-                      <h4 class="text-start fw-bold">
-                        {{ item.entreprise }}
-                      </h4>
-                      <h6 class="text-start ms-2 fw-bold">
-                        <span class="badge bg-primary">{{ item.poste }}</span>
-                      </h6>
-                      <p class="text-start ms-2">
-                        <em class="bi bi-geo-alt"></em>
-                        {{ item.lieu }}
-                      </p>
-                      <p class="text-start ms-2">
-                        <em class="bi bi-calendar-date"></em>
-                        {{
-                          `${new Date(
-                            item.dateDebut
-                          ).toLocaleDateString()} au ${new Date(
-                            item.dateFin
-                          ).toLocaleDateString()}`
-                        }}
-                      </p>
-                      <p class="text-start ms-2 fw-bold" v-if="item.experience">
-                        {{ item.experience }}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="col-md-12">
+          <Statistique_Comp />
         </div>
       </div>
     </div>

@@ -62,7 +62,17 @@ export default {
           }
         })
         .catch((response) => {
-          console.log(response);
+          console.log(response.response.data.message);
+          Swal.fire({
+            icon: "info",
+            title: response.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .finally(() => {
+          this.loading = false;
+          this.acces = true;
         });
     },
   },

@@ -1,5 +1,6 @@
 # dashboard
-
+## IDENTIFIANTS
+- admin@gmail.com (123456789)
 ## Project setup
 ```
 npm install
