@@ -1,6 +1,6 @@
 <script>
 import Chart from "primevue/chart";
-import ProgressSpinner from "primevue/progressspinner";
+// import ProgressSpinner from "primevue/progressspinner";
 export default {
   name: "Statistique_Comp",
   props: {
@@ -19,12 +19,13 @@ export default {
   },
   components: {
     Chart,
-    ProgressSpinner,
+    // ProgressSpinner,
   },
   data() {
     return {
       chartData: null,
       chartOptions: null,
+      chooseAnOption: "",
     };
   },
   mounted() {
@@ -96,20 +97,21 @@ export default {
 </script>
 <template>
   <div class="card">
-    <h1>{{ this.title }}</h1>
-    <div v-if="isLoading" class="chart-loading">
-      <div class="card flex justify-center">
-        <ProgressSpinner
-          style="width: 50px; height: 50px"
-          strokeWidth="8"
-          fill="transparent"
-          animationDuration=".5s"
-          aria-label="Custom ProgressSpinner"
-        />
+    <h1 class="text-start p-1">{{ this.title }}</h1>
+    <div class="chart-loading d-flex gap-2 align-items-center px-2 py-3">
+      <select name="options" id="options" v-model="chooseAnOption">
+        <option value="" disabled>Séléctionne une option</option>
+        <option value="daily">Jour</option>
+        <option value="weekly">Semaine</option>
+        <option value="monthly">Mois</option>
+      </select>
+      <div>
+        <input v-if="chooseAnOption === 'daily'" type="date" />
+        <input v-if="chooseAnOption === 'weekly'" type="week" />
+        <input v-if="chooseAnOption === 'monthly'" type="month" />
       </div>
     </div>
     <Chart
-      v-else
       @loaded="onChartLoaded"
       type="bar"
       :height="300"

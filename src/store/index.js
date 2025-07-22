@@ -6,9 +6,6 @@ export default createStore({
   state: {
     user: JSON.parse(localStorage.getItem("user")),
     token: JSON.parse(localStorage.getItem("token")),
-    // compte: JSON.parse(localStorage.getItem("compte")),
-    // statut: localStorage.getItem("statut"),
-    // length: localStorage.getItem("length"),
   },
   getters: {},
   mutations: {
