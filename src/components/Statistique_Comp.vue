@@ -55,6 +55,7 @@ export default {
       PERIODE: PERIODE,
       categories: [],
       valueSubmit: "",
+      categorieSelected: "",
     };
   },
   methods: {
@@ -141,9 +142,45 @@ export default {
     },
     handleCategorieSelect(e) {
       console.log("handleCategorieSelect", e);
+      this.categorieSelected = e;
     },
-    submitStatistiques() {
+    async submitStatistiques() {
       console.log("submitStatistiques", this.valueSubmit);
+      const data = {
+        categorie_id: Number(this.categorieSelected),
+        options: "Offres",
+      };
+      console.log("DATA", data);
+      axios
+        .post(
+          "http://127.0.0.1:8000/api/statistiques/launchStatistiques",
+          data,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          // if (res.data.status === true) {
+          // Swal.fire({
+          //   icon: "success",
+          //   title: res.data.message,
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          // });
+          // this.spinner = false;
+          // setTimeout(() => {
+          //   location.reload(true);
+          // }, 1500);
+          // this.confirmation_for_delete = !this.confirmation_for_delete;
+          // }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.spinner = false;
+        });
     },
   },
   mounted() {
