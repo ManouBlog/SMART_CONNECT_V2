@@ -544,15 +544,21 @@ export default {
           <Statistique_Comp
             :dataSetsStatistics="[
               {
-                label: 'My First dataset',
+                label: 'Comptes crées',
                 backgroundColor: 'blue',
                 borderColor: 'blue',
                 data: [65, 59, 80, 81, 56, 55, 40],
               },
               {
-                label: 'My Second dataset',
+                label: 'Offres',
                 backgroundColor: 'orange',
                 borderColor: 'orange',
+                data: [28, 48, 40, 19, 86, 27, 90],
+              },
+              {
+                label: 'Candidatures',
+                backgroundColor: 'red',
+                borderColor: 'red',
                 data: [28, 48, 40, 19, 86, 27, 90],
               },
             ]"
