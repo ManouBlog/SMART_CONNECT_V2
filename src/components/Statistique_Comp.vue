@@ -1,5 +1,22 @@
 <script>
+import axios from "axios";
 import Chart from "primevue/chart";
+import MySelect from "./MySelect.vue";
+const PERIODE = [
+  {
+    value: "daily",
+    libelle: "Jour",
+  },
+  {
+    value: "weekly",
+    libelle: "Semaine",
+  },
+  {
+    value: "monthly",
+    libelle: "Mois",
+  },
+];
+
 // import ProgressSpinner from "primevue/progressspinner";
 export default {
   name: "Statistique_Comp",
@@ -19,6 +36,7 @@ export default {
   },
   components: {
     Chart,
+    MySelect,
     // ProgressSpinner,
   },
   data() {
@@ -26,13 +44,29 @@ export default {
       chartData: null,
       chartOptions: null,
       chooseAnOption: "",
+      PERIODE: PERIODE,
+      categories: [],
     };
   },
-  mounted() {
-    this.chartData = this.setChartData();
-    this.chartOptions = this.setChartOptions();
-  },
   methods: {
+    get_categorie() {
+      // this.spinner = true;
+      axios
+        .get("http://127.0.0.1:8000/api/seeCategorie", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("TIMETABLE", res);
+          this.categories = res.data.data;
+          console.log("CATEGORIE", this.categories);
+          // this.spinner = false;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     setChartData() {
       // const documentStyle = getComputedStyle(document.documentElement);
 
@@ -92,19 +126,39 @@ export default {
       this.isLoading = false;
       // Vous pouvez ici interagir avec le graphique
     },
+    handleSelect(e) {
+      console.log("handleSelect", e);
+      this.chooseAnOption = e;
+    },
+    handleCategorieSelect(e) {
+      console.log("handleCategorieSelect", e);
+    },
+  },
+  mounted() {
+    this.chartData = this.setChartData();
+    this.chartOptions = this.setChartOptions();
+    this.get_categorie();
   },
 };
 </script>
 <template>
-  <div class="card">
+  <div class="card w-100 p-4">
     <h1 class="text-start p-1">{{ this.title }}</h1>
     <div class="chart-loading d-flex gap-2 align-items-center px-2 py-3">
-      <select name="options" id="options" v-model="chooseAnOption">
-        <option value="" disabled>Séléctionne une option</option>
-        <option value="daily">Jour</option>
-        <option value="weekly">Semaine</option>
-        <option value="monthly">Mois</option>
-      </select>
+      <MySelect
+        :allItems="
+          categories.length
+            ? categories.map((item) => {
+                return {
+                  value: item.id,
+                  libelle: item.categorie,
+                };
+              })
+            : []
+        "
+        @handleSelect="handleCategorieSelect"
+      />
+      <MySelect :allItems="PERIODE" @handleSelect="handleSelect" />
       <div>
         <input v-if="chooseAnOption === 'daily'" type="date" />
         <input v-if="chooseAnOption === 'weekly'" type="week" />
@@ -115,7 +169,6 @@ export default {
       @loaded="onChartLoaded"
       type="bar"
       :height="300"
-      :width="500"
       :data="chartData"
       :options="chartOptions"
     />

@@ -556,7 +556,7 @@ export default {
                 data: [28, 48, 40, 19, 86, 27, 90],
               },
             ]"
-            :title="'Candidature'"
+            :title="'Statistiques'"
             :myLabelsStatics="[
               'January',
               'February',
@@ -567,7 +567,7 @@ export default {
               'July',
             ]"
           />
-          <Statistique_Comp
+          <!-- <Statistique_Comp
             :dataSetsStatistics="[
               {
                 label: 'My First dataset',
@@ -596,8 +596,8 @@ export default {
               'October',
               'December',
             ]"
-          />
-          <Statistique_Comp
+          /> -->
+          <!-- <Statistique_Comp
             :dataSetsStatistics="[
               {
                 label: 'My First dataset',
@@ -625,7 +625,7 @@ export default {
               'June',
               'July',
             ]"
-          />
+          /> -->
         </div>
       </div>
     </div>
