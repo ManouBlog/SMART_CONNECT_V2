@@ -51,7 +51,7 @@ export default {
     return {
       chartData: null,
       chartOptions: null,
-      chooseAnOption: "",
+      chooseAnOptionPeriode: "",
       PERIODE: PERIODE,
       categories: [],
       valueSubmit: "",
@@ -138,7 +138,7 @@ export default {
     },
     handleSelect(e) {
       console.log("handleSelect", e);
-      this.chooseAnOption = e;
+      this.chooseAnOptionPeriode = e;
     },
     handleCategorieSelect(e) {
       console.log("handleCategorieSelect", e);
@@ -149,6 +149,8 @@ export default {
       const data = {
         categorie_id: Number(this.categorieSelected),
         options: "Offres",
+        value_periode: this.valueSubmit,
+        periode: this.chooseAnOptionPeriode,
       };
       console.log("DATA", data);
       axios
@@ -215,20 +217,20 @@ export default {
         <input
           class="w-100"
           v-model="valueSubmit"
-          v-if="chooseAnOption === 'daily'"
+          v-if="chooseAnOptionPeriode === 'daily'"
           @change="submitStatistiques"
           type="date"
         />
         <input
           class="w-100"
-          v-if="chooseAnOption === 'weekly'"
+          v-if="chooseAnOptionPeriode === 'weekly'"
           v-model="valueSubmit"
           @change="submitStatistiques"
           type="week"
         />
         <input
           class="w-100"
-          v-if="chooseAnOption === 'monthly'"
+          v-if="chooseAnOptionPeriode === 'monthly'"
           v-model="valueSubmit"
           @change="submitStatistiques"
           type="month"
@@ -236,13 +238,13 @@ export default {
 
         <input
           class="w-100"
-          v-if="chooseAnOption === 'annually'"
+          v-if="chooseAnOptionPeriode === 'annually'"
           v-model="valueSubmit"
           @change="submitStatistiques"
           type="number"
         />
         <div
-          v-if="chooseAnOption === 'periodly'"
+          v-if="chooseAnOptionPeriode === 'periodly'"
           class="d-flex align-items-center gap-2 px-2 w-100"
         >
           <input type="date" />
