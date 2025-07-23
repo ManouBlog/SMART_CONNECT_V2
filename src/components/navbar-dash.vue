@@ -26,7 +26,7 @@ export default {
           <li>
             <i class="bi bi-house-door position-absolute"></i
             ><router-link :to="{ name: 'Accueil' }">
-              <strong>Mon espace</strong></router-link
+              <strong>Tableau de bord</strong></router-link
             >
           </li>
           <li v-if="statut == 'admin'">

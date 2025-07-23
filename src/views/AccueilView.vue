@@ -363,8 +363,8 @@ export default {
             justify-content: 'center !important';
           "
         >
-          <Statistique_Comp :title="'Categories'" />
-          <Statistiques_Account :title="'Comptes'" />
+          <Statistique_Comp :title="'Offres & Candidatures'" />
+          <Statistiques_Account :title="'Entreprise & Talents'" />
         </div>
       </div>
     </div>

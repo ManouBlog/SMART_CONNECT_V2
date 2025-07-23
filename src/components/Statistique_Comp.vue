@@ -234,12 +234,12 @@ export default {
 </script>
 <template>
   <div class="card py-4" style="flex: 1">
-    <h1 class="text-start p-1">{{ this.title }}</h1>
+    <h3 class="text-start p-1">{{ this.title }}</h3>
     <div
       class="chart-loading d-flex gap-2 flex-wrap align-items-center px-2 py-3"
     >
       <MySelect
-        v-if="categories.length && this.title === 'Categories'"
+        v-if="categories.length && this.title === 'Offres & Candidatures'"
         :allItems="
           categories.length
             ? categories.map((item) => {
