@@ -6,6 +6,8 @@ export default createStore({
   state: {
     user: JSON.parse(localStorage.getItem("user")),
     token: JSON.parse(localStorage.getItem("token")),
+    categoriesStatistiquesChoosen: null,
+    periodeStatistiquesChoosen: null,
   },
   getters: {},
   mutations: {
@@ -59,7 +61,20 @@ export default createStore({
           console.log(error);
         });
     },
+    FIRSTCATEGORIE(state, payload) {
+      state.categoriesStatistiquesChoosen = payload;
+    },
+    FIRSTPERIODE(state, payload) {
+      state.periodeStatistiquesChoosen = payload;
+    },
   },
-  actions: {},
+  actions: {
+    addFirstItemForCategorieStatistique(context) {
+      context.commit("FIRSTCATEGORIE");
+    },
+    addFirstItemForPeriodeStatistique(context) {
+      context.commit("FIRSTPERIODE");
+    },
+  },
   modules: {},
 });

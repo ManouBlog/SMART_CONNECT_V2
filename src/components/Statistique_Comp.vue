@@ -4,20 +4,20 @@ import Chart from "primevue/chart";
 import MySelect from "./MySelect.vue";
 const PERIODE = [
   {
-    value: "daily",
-    libelle: "Jour",
-  },
-  {
-    value: "weekly",
-    libelle: "Semaine",
+    value: "annually",
+    libelle: "Année",
   },
   {
     value: "monthly",
     libelle: "Mois",
   },
   {
-    value: "annually",
-    libelle: "Année",
+    value: "weekly",
+    libelle: "Semaine",
+  },
+  {
+    value: "daily",
+    libelle: "Jour",
   },
   {
     value: "periodly",
@@ -51,11 +51,12 @@ export default {
     return {
       chartData: null,
       chartOptions: null,
-      chooseAnOptionPeriode: "",
+      chooseAnOptionPeriode: "annually",
       PERIODE: PERIODE,
       categories: [],
-      valueSubmit: "",
+      valueSubmit: new Date().getFullYear(),
       categorieSelected: "",
+      currentYear: new Date().getFullYear(),
     };
   },
   methods: {
@@ -70,6 +71,7 @@ export default {
         .then((res) => {
           console.log("TIMETABLE", res);
           this.categories = res.data.data;
+          this.submitStatistiques(this.valueSubmit, this.categories);
           console.log("CATEGORIE", this.categories);
           // this.spinner = false;
         })
@@ -144,45 +146,53 @@ export default {
       console.log("handleCategorieSelect", e);
       this.categorieSelected = e;
     },
-    async submitStatistiques() {
+    async submitStatistiques(year = null, categories) {
       console.log("submitStatistiques", this.valueSubmit);
       const data = {
-        categorie_id: Number(this.categorieSelected),
+        categorie_id:
+          year && categories
+            ? categories[0].id
+            : Number(
+                this.categorieSelected
+                  ? this.categorieSelected
+                  : categories[0].id
+              ),
         options: "Offres",
-        value_periode: this.valueSubmit,
-        periode: this.chooseAnOptionPeriode,
+        value_periode: year && categories ? this.currentYear : this.valueSubmit,
+        periode:
+          year && categories ? PERIODE[0].value : this.chooseAnOptionPeriode,
       };
       console.log("DATA", data);
-      axios
-        .post(
-          "http://127.0.0.1:8000/api/statistiques/launchStatistiques",
-          data,
-          {
-            headers: {
-              Authorization: "Bearer " + this.$store.state.token,
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res);
-          // if (res.data.status === true) {
-          // Swal.fire({
-          //   icon: "success",
-          //   title: res.data.message,
-          //   showConfirmButton: false,
-          //   timer: 1500,
-          // });
-          // this.spinner = false;
-          // setTimeout(() => {
-          //   location.reload(true);
-          // }, 1500);
-          // this.confirmation_for_delete = !this.confirmation_for_delete;
-          // }
-        })
-        .catch((err) => {
-          console.log(err);
-          this.spinner = false;
-        });
+      // axios
+      //   .post(
+      //     "http://127.0.0.1:8000/api/statistiques/launchStatistiques",
+      //     data,
+      //     {
+      //       headers: {
+      //         Authorization: "Bearer " + this.$store.state.token,
+      //       },
+      //     }
+      //   )
+      //   .then((res) => {
+      //     console.log(res);
+      //     // if (res.data.status === true) {
+      //     // Swal.fire({
+      //     //   icon: "success",
+      //     //   title: res.data.message,
+      //     //   showConfirmButton: false,
+      //     //   timer: 1500,
+      //     // });
+      //     // this.spinner = false;
+      //     // setTimeout(() => {
+      //     //   location.reload(true);
+      //     // }, 1500);
+      //     // this.confirmation_for_delete = !this.confirmation_for_delete;
+      //     // }
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     this.spinner = false;
+      //   });
     },
   },
   mounted() {
@@ -199,7 +209,7 @@ export default {
       class="chart-loading d-flex gap-2 flex-wrap align-items-center px-2 py-3"
     >
       <MySelect
-        v-if="this.title === 'Categories'"
+        v-if="categories.length && this.title === 'Categories'"
         :allItems="
           categories.length
             ? categories.map((item) => {
@@ -218,21 +228,21 @@ export default {
           class="w-100"
           v-model="valueSubmit"
           v-if="chooseAnOptionPeriode === 'daily'"
-          @change="submitStatistiques"
+          @change="submitStatistiques(null, categories)"
           type="date"
         />
         <input
           class="w-100"
           v-if="chooseAnOptionPeriode === 'weekly'"
           v-model="valueSubmit"
-          @change="submitStatistiques"
+          @change="submitStatistiques(null, categories)"
           type="week"
         />
         <input
           class="w-100"
           v-if="chooseAnOptionPeriode === 'monthly'"
           v-model="valueSubmit"
-          @change="submitStatistiques"
+          @change="submitStatistiques(null, categories)"
           type="month"
         />
 
@@ -240,7 +250,7 @@ export default {
           class="w-100"
           v-if="chooseAnOptionPeriode === 'annually'"
           v-model="valueSubmit"
-          @change="submitStatistiques"
+          @change="submitStatistiques(null, categories)"
           type="number"
         />
         <div

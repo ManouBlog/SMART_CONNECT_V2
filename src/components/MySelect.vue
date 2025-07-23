@@ -21,6 +21,9 @@ export default {
       this.$emit("handleSelect", event.target.value);
     },
   },
+  mounted(){
+    this.chooseAnOption = this.allItems[0].value
+  }
 };
 </script>
 <template>
