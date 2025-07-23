@@ -45,6 +45,7 @@ export default {
       weekDay: null,
       PERIODE: PERIODE,
       categories: [],
+      isDisabled: true,
       valueSubmit: new Date().getFullYear(),
       categorieSelected: "",
       currentYear: new Date().getFullYear(),
@@ -71,7 +72,6 @@ export default {
       console.log("finweek", dateWeekFin);
     },
     get_categorie() {
-      // this.spinner = true;
       axios
         .get("http://127.0.0.1:8000/api/seeCategorie", {
           headers: {
@@ -83,10 +83,12 @@ export default {
           this.categories = res.data.data;
           this.submitStatistiques(this.valueSubmit, this.categories);
           console.log("CATEGORIE", this.categories);
-          // this.spinner = false;
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          this.isDisabled = false;
         });
     },
     setChartData(offres, candidatures, labels) {
@@ -285,6 +287,7 @@ export default {
     </div>
     <div class="text-end mb-4 mx-3">
       <button
+        :disabled="isDisabled || !valueSubmit"
         class="btn bg-primary"
         @click="submitStatistiques(null, categories)"
       >
