@@ -541,56 +541,8 @@ export default {
             justify-content: 'center !important';
           "
         >
-          <Statistique_Comp
-            :dataSetsStatistics="[
-              {
-                label: 'Offres',
-                backgroundColor: 'orange',
-                borderColor: 'orange',
-                data: [28, 48, 40, 19, 86, 27, 90],
-              },
-              {
-                label: 'Candidatures',
-                backgroundColor: 'red',
-                borderColor: 'red',
-                data: [28, 48, 40, 19, 86, 27, 90],
-              },
-            ]"
-            :title="'Categories'"
-            :myLabelsStatics="[
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-              'July',
-            ]"
-          />
-          <Statistique_Comp
-            :dataSetsStatistics="[
-              {
-                label: 'Comptes crées',
-                backgroundColor: 'blue',
-                borderColor: 'blue',
-                data: [28, 48, 40, 19, 86, 27, 90, 45, 36, 96, 69, 58],
-              },
-            ]"
-            :title="'Comptes'"
-            :myLabelsStatics="[
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-              'July',
-              'August',
-              'September',
-              'October',
-              'December',
-            ]"
-          />
+          <Statistique_Comp :title="'Categories'" />
+          <Statistique_Comp :title="'Comptes'" />
           <!-- <Statistique_Comp
             :dataSetsStatistics="[
               {

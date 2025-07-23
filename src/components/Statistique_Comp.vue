@@ -24,8 +24,6 @@ const PERIODE = [
     libelle: "Personnaliser",
   },
 ];
-
-// import ProgressSpinner from "primevue/progressspinner";
 export default {
   name: "Statistique_Comp",
   props: {
@@ -33,25 +31,18 @@ export default {
       type: String,
       required: true,
     },
-    myLabelsStatics: {
-      type: Array,
-      require: true,
-    },
-    dataSetsStatistics: {
-      type: Array,
-      require: true,
-    },
   },
   components: {
     Chart,
     MySelect,
-    // ProgressSpinner,
   },
   data() {
     return {
+      isLoading: false,
       chartData: null,
       chartOptions: null,
       chooseAnOptionPeriode: "annually",
+      weekDay: null,
       PERIODE: PERIODE,
       categories: [],
       valueSubmit: new Date().getFullYear(),
@@ -60,6 +51,25 @@ export default {
     };
   },
   methods: {
+    getDayOfWeek(e) {
+      console.log(e.target.value);
+      let year = parseInt(e.target.value.slice(0, 4), 10);
+      let week = parseInt(e.target.value.slice(6), 10);
+      let day = 1 + (week - 1) * 7;
+      let dayOffset = new Date(year, 0, 1).getDay();
+      dayOffset--;
+      let days = [];
+      for (let i = 0; i < 7; i++) {
+        days.push(
+          new Date(year, 0, day - dayOffset + i).toISOString().substring(0, 10)
+        );
+      }
+      const dateWeekDebut = days[0];
+      const dateWeekFin = days[days.length - 1];
+      this.weekDay = { start: dateWeekDebut, end: dateWeekFin };
+      console.log("debutweek", dateWeekDebut);
+      console.log("finweek", dateWeekFin);
+    },
     get_categorie() {
       // this.spinner = true;
       axios
@@ -79,12 +89,23 @@ export default {
           console.log(err);
         });
     },
-    setChartData() {
-      // const documentStyle = getComputedStyle(document.documentElement);
-
+    setChartData(offres, candidatures, labels) {
       return {
-        labels: this.myLabelsStatics,
-        datasets: this.dataSetsStatistics,
+        labels: labels,
+        datasets: [
+          {
+            label: "Offres",
+            backgroundColor: "orange",
+            borderColor: "orange",
+            data: offres,
+          },
+          {
+            label: "Candidatures",
+            backgroundColor: "red",
+            borderColor: "red",
+            data: candidatures,
+          },
+        ],
       };
     },
     setChartOptions() {
@@ -132,12 +153,6 @@ export default {
         },
       };
     },
-    onChartLoaded(chartInstance) {
-      // chartInstance est l'objet chart passé en paramètre
-      console.log("Graphique chargé", chartInstance);
-      this.isLoading = false;
-      // Vous pouvez ici interagir avec le graphique
-    },
     handleSelect(e) {
       console.log("handleSelect", e);
       this.chooseAnOptionPeriode = e;
@@ -148,24 +163,44 @@ export default {
     },
     async submitStatistiques(year = null, categories) {
       console.log("submitStatistiques", this.valueSubmit);
-      const data = {
-        categorie_id:
-          year && categories
-            ? categories[0].id
-            : Number(
-                this.categorieSelected
-                  ? this.categorieSelected
-                  : categories[0].id
-              ),
-        options: "Offres",
-        value_periode: year && categories ? this.currentYear : this.valueSubmit,
-        periode:
-          year && categories ? PERIODE[0].value : this.chooseAnOptionPeriode,
-      };
+      this.isLoading = true;
+      const data =
+        this.chooseAnOptionPeriode !== "weekly"
+          ? {
+              categorie_id:
+                year && categories
+                  ? categories[0].id
+                  : Number(
+                      this.categorieSelected
+                        ? this.categorieSelected
+                        : categories[0].id
+                    ),
+              value_periode:
+                year && categories ? this.currentYear : this.valueSubmit,
+              periode:
+                year && categories
+                  ? PERIODE[0].value
+                  : this.chooseAnOptionPeriode,
+            }
+          : {
+              categorie_id:
+                year && categories
+                  ? categories[0].id
+                  : Number(
+                      this.categorieSelected
+                        ? this.categorieSelected
+                        : categories[0].id
+                    ),
+              value_periode: this.weekDay,
+              periode:
+                year && categories
+                  ? PERIODE[0].value
+                  : this.chooseAnOptionPeriode,
+            };
       console.log("DATA", data);
       axios
         .post(
-          "http://127.0.0.1:8000/api/statistiques/launchStatistiques",
+          "http://127.0.0.1:8000/api/statistiques/statistiqueCategorie",
           data,
           {
             headers: {
@@ -173,32 +208,27 @@ export default {
             },
           }
         )
-        .then((res) => {
-          console.log(res);
-          // if (res.data.status === true) {
-          // Swal.fire({
-          //   icon: "success",
-          //   title: res.data.message,
-          //   showConfirmButton: false,
-          //   timer: 1500,
-          // });
-          // this.spinner = false;
-          // setTimeout(() => {
-          //   location.reload(true);
-          // }, 1500);
-          // this.confirmation_for_delete = !this.confirmation_for_delete;
-          // }
+        .then((response) => {
+          console.log("statistique_response", response);
+
+          this.chartData = this.setChartData(
+            response.data.offre,
+            response.data.candidature,
+            response.data.absicsse
+          );
         })
         .catch((err) => {
           console.log(err);
-          this.spinner = false;
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
   },
   mounted() {
-    this.chartData = this.setChartData();
-    this.chartOptions = this.setChartOptions();
     this.get_categorie();
+
+    this.chartOptions = this.setChartOptions();
   },
 };
 </script>
@@ -232,6 +262,7 @@ export default {
         <input
           v-if="chooseAnOptionPeriode === 'weekly'"
           v-model="valueSubmit"
+          @change="getDayOfWeek"
           type="week"
         />
         <input
@@ -262,8 +293,9 @@ export default {
         Filtrer
       </button>
     </div>
+    <div v-if="isLoading" style="height: 300px">Chargement...</div>
     <Chart
-      @loaded="onChartLoaded"
+      v-else
       type="bar"
       :height="300"
       :width="500"
