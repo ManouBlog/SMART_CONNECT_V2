@@ -19,10 +19,10 @@ const PERIODE = [
     value: "daily",
     libelle: "Jour",
   },
-  {
-    value: "periodly",
-    libelle: "Personnaliser",
-  },
+  // {
+  //   value: "periodly",
+  //   libelle: "Personnaliser",
+  // },
 ];
 export default {
   name: "Statistique_Comp",
@@ -274,13 +274,13 @@ export default {
           v-model="valueSubmit"
           type="number"
         />
-        <div
+        <!-- <div
           v-if="chooseAnOptionPeriode === 'periodly'"
           class="d-flex align-items-center gap-2 px-2 w-100"
         >
           <input type="date" />
           <input type="date" />
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="text-end mb-4 mx-3">
