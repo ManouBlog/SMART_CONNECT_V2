@@ -158,6 +158,7 @@ export default {
     handleSelect(e) {
       console.log("handleSelect", e);
       this.chooseAnOptionPeriode = e;
+      this.valueSubmit = null;
     },
     handleCategorieSelect(e) {
       console.log("handleCategorieSelect", e);
