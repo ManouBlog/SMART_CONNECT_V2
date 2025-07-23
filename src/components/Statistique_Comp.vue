@@ -163,36 +163,36 @@ export default {
           year && categories ? PERIODE[0].value : this.chooseAnOptionPeriode,
       };
       console.log("DATA", data);
-      // axios
-      //   .post(
-      //     "http://127.0.0.1:8000/api/statistiques/launchStatistiques",
-      //     data,
-      //     {
-      //       headers: {
-      //         Authorization: "Bearer " + this.$store.state.token,
-      //       },
-      //     }
-      //   )
-      //   .then((res) => {
-      //     console.log(res);
-      //     // if (res.data.status === true) {
-      //     // Swal.fire({
-      //     //   icon: "success",
-      //     //   title: res.data.message,
-      //     //   showConfirmButton: false,
-      //     //   timer: 1500,
-      //     // });
-      //     // this.spinner = false;
-      //     // setTimeout(() => {
-      //     //   location.reload(true);
-      //     // }, 1500);
-      //     // this.confirmation_for_delete = !this.confirmation_for_delete;
-      //     // }
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     this.spinner = false;
-      //   });
+      axios
+        .post(
+          "http://127.0.0.1:8000/api/statistiques/launchStatistiques",
+          data,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          // if (res.data.status === true) {
+          // Swal.fire({
+          //   icon: "success",
+          //   title: res.data.message,
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          // });
+          // this.spinner = false;
+          // setTimeout(() => {
+          //   location.reload(true);
+          // }, 1500);
+          // this.confirmation_for_delete = !this.confirmation_for_delete;
+          // }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.spinner = false;
+        });
     },
   },
   mounted() {
@@ -225,32 +225,24 @@ export default {
       <MySelect :allItems="PERIODE" @handleSelect="handleSelect" />
       <div>
         <input
-          class="w-100"
           v-model="valueSubmit"
           v-if="chooseAnOptionPeriode === 'daily'"
-          @change="submitStatistiques(null, categories)"
           type="date"
         />
         <input
-          class="w-100"
           v-if="chooseAnOptionPeriode === 'weekly'"
           v-model="valueSubmit"
-          @change="submitStatistiques(null, categories)"
           type="week"
         />
         <input
-          class="w-100"
           v-if="chooseAnOptionPeriode === 'monthly'"
           v-model="valueSubmit"
-          @change="submitStatistiques(null, categories)"
           type="month"
         />
 
         <input
-          class="w-100"
           v-if="chooseAnOptionPeriode === 'annually'"
           v-model="valueSubmit"
-          @change="submitStatistiques(null, categories)"
           type="number"
         />
         <div
@@ -262,6 +254,14 @@ export default {
         </div>
       </div>
     </div>
+    <div class="text-end mb-4 mx-3">
+      <button
+        class="btn bg-primary"
+        @click="submitStatistiques(null, categories)"
+      >
+        Filtrer
+      </button>
+    </div>
     <Chart
       @loaded="onChartLoaded"
       type="bar"
@@ -272,3 +272,8 @@ export default {
     />
   </div>
 </template>
+<style scoped>
+input {
+  width: auto;
+}
+</style>

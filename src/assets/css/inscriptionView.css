@@ -51,6 +51,7 @@ input,select{
     border-radius: 5px;
     height:40px;
     border: 2px solid rgb(83, 83, 83);
+    width: auto;
 }
 label{
     text-transform: none !important;
