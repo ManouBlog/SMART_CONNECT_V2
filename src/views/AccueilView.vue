@@ -3,11 +3,13 @@ import axios from "axios";
 import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
 import Statistique_Comp from "@/components/Statistique_Comp.vue";
+import Statistiques_Account from "@/components/Statistiques_Account.vue";
 // import Editor from "../components/text-editor.vue";
 export default {
   name: "AccueilView",
   components: {
     Statistique_Comp,
+    Statistiques_Account,
   },
   data() {
     return {
@@ -542,36 +544,7 @@ export default {
           "
         >
           <Statistique_Comp :title="'Categories'" />
-          <Statistique_Comp :title="'Comptes'" />
-          <!-- <Statistique_Comp
-            :dataSetsStatistics="[
-              {
-                label: 'My First dataset',
-                backgroundColor: 'orange',
-                borderColor: 'orange',
-                data: [65, 59, 80, 81, 56, 55, 40],
-              },
-              {
-                label: 'My Second dataset',
-                backgroundColor: 'blue',
-                borderColor: 'blue',
-                data: [28, 48, 40, 19, 86, 27, 90],
-              },
-            ]"
-            :title="'Créations de compte'"
-            :myLabelsStatics="[
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-              'July',
-              'May',
-              'June',
-              'July',
-            ]"
-          /> -->
+          <Statistiques_Account :title="'Comptes'" />
         </div>
       </div>
     </div>

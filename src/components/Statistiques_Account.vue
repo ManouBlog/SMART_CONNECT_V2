@@ -25,7 +25,7 @@ const PERIODE = [
   },
 ];
 export default {
-  name: "Statistique_Comp",
+  name: "Statistique_Account",
   props: {
     title: {
       type: String,
@@ -89,21 +89,21 @@ export default {
           console.log(err);
         });
     },
-    setChartData(offres, candidatures, labels) {
+    setChartData(Entreprises, Talents, labels) {
       return {
         labels: labels,
         datasets: [
           {
-            label: "Offres",
-            backgroundColor: "orange",
-            borderColor: "orange",
-            data: offres,
+            label: "Entreprises",
+            backgroundColor: "teal",
+            borderColor: "teal",
+            data: Entreprises,
           },
           {
-            label: "Candidatures",
-            backgroundColor: "red",
-            borderColor: "red",
-            data: candidatures,
+            label: "Talents",
+            backgroundColor: "brown",
+            borderColor: "brown",
+            data: Talents,
           },
         ],
       };
@@ -156,6 +156,7 @@ export default {
     handleSelect(e) {
       console.log("handleSelect", e);
       this.chooseAnOptionPeriode = e;
+      this.valueSubmit = null;
     },
     handleCategorieSelect(e) {
       console.log("handleCategorieSelect", e);
@@ -167,14 +168,6 @@ export default {
       const data =
         this.chooseAnOptionPeriode !== "weekly"
           ? {
-              categorie_id:
-                year && categories
-                  ? categories[0].id
-                  : Number(
-                      this.categorieSelected
-                        ? this.categorieSelected
-                        : categories[0].id
-                    ),
               value_periode:
                 year && categories ? this.currentYear : this.valueSubmit,
               periode:
@@ -183,14 +176,6 @@ export default {
                   : this.chooseAnOptionPeriode,
             }
           : {
-              categorie_id:
-                year && categories
-                  ? categories[0].id
-                  : Number(
-                      this.categorieSelected
-                        ? this.categorieSelected
-                        : categories[0].id
-                    ),
               value_periode: this.weekDay,
               periode:
                 year && categories
@@ -200,7 +185,7 @@ export default {
       console.log("DATA", data);
       axios
         .post(
-          "http://127.0.0.1:8000/api/statistiques/statistiqueCategorie",
+          "http://127.0.0.1:8000/api/statistiques/statistiqueAccount",
           data,
           {
             headers: {
@@ -211,8 +196,8 @@ export default {
         .then((response) => {
           console.log("statistique_response", response);
           this.chartData = this.setChartData(
-            response.data.offre,
-            response.data.candidature,
+            response.data.entreprises,
+            response.data.talents,
             response.data.absicsse
           );
         })
@@ -236,20 +221,6 @@ export default {
     <div
       class="chart-loading d-flex gap-2 flex-wrap align-items-center px-2 py-3"
     >
-      <MySelect
-        v-if="categories.length && this.title === 'Categories'"
-        :allItems="
-          categories.length
-            ? categories.map((item) => {
-                return {
-                  value: item.id,
-                  libelle: item.categorie,
-                };
-              })
-            : []
-        "
-        @handleSelect="handleCategorieSelect"
-      />
       <MySelect :allItems="PERIODE" @handleSelect="handleSelect" />
       <div>
         <input
@@ -285,6 +256,7 @@ export default {
     </div>
     <div class="text-end mb-4 mx-3">
       <button
+        :disabled="!valueSubmit"
         class="btn bg-primary"
         @click="submitStatistiques(null, categories)"
       >
