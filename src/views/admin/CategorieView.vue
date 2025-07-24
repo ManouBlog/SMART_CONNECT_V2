@@ -176,8 +176,10 @@ export default {
                     <form @submit.prevent="create_categorie">
                       <div class="row">
                         <div class="col-lg-12">
-                          <div class="mb-3">
-                            <label>Catégorie</label>
+                          <div class="mb-3 text-start font-bold">
+                            <p style="font-weight: bold; font-size: 1.5em">
+                              Catégorie
+                            </p>
                             <input
                               class="form-control"
                               type="text"
@@ -191,7 +193,11 @@ export default {
                       <div class="row">
                         <div class="col">
                           <div class="text-end">
-                            <button class="btn btn-primary me-3" type="submit">
+                            <button
+                              :disabled="!categorie"
+                              class="btn btn-primary me-3"
+                              type="submit"
+                            >
                               <span
                                 class="spinner-border w-20"
                                 role="status"
