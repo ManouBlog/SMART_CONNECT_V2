@@ -252,15 +252,15 @@ export default {
                       >
                         <router-link
                           :to="{
-                            name: 'detail_entreprise',
-                            params: { id: item.id },
+                            name: 'modifications',
+                            params: { id: item.id, name: 'categorie' },
                           }"
                           ><i class="bi bi-pencil"></i
                         ></router-link>
                         <router-link
                           :to="{
-                            name: 'detail_entreprise',
-                            params: { id: item.id },
+                            name: 'modifications',
+                            params: { id: item.id, name: 'categorie' },
                           }"
                           ><i class="bi bi-trash"></i
                         ></router-link>

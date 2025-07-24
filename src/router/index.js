@@ -6,6 +6,7 @@ import InscriptonView from "../views/inscriptionView.vue";
 // import timetableView from "../views/timetableView.vue";
 import createTimetableView from "../views/timetable/createTimetableView.vue";
 import offresView from "../views/offres/offresView.vue";
+import UpdateLibelle from "../shared/UpdateLibelle.vue";
 
 const routes = [
   {
@@ -59,6 +60,15 @@ const routes = [
         path: "/modifier_compte",
         name: "modify_profil",
         component: () => import("../views/profile/profileView.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "/modification/:name/:id",
+        name: "modifications",
+        component: UpdateLibelle,
         props: true,
         meta: {
           requiresAuth: true,
