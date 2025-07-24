@@ -1,6 +1,6 @@
 <script>
 import { FilterMatchMode } from "primevue/api";
-import LogoAnimations from "../../LogoAnimations.vue";
+// import LogoAnimations from "../../LogoAnimations.vue";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { mapActions, mapState } from "pinia";
@@ -19,7 +19,7 @@ export default {
     InputIcon,
     InputText,
     HeaderDashboard,
-    LogoAnimations
+    // LogoAnimations
   },
   data() {
     return {
@@ -157,7 +157,7 @@ export default {
         </DataTable>
       </div>
     </div>
-    <LogoAnimations />
+    <!-- <LogoAnimations /> -->
   </section>
 </template>
 <style scoped>

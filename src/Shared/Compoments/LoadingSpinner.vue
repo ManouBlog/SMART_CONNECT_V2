@@ -16,7 +16,7 @@ export default {
 </script>
 <template>
   <div class="spinner_loading">
-    <a-spin size="large" :tip="I8N('spinnerText')" wrapperClassName="style-spinner" />
+    <!-- <a-spin size="large" :tip="I8N('spinnerText')" wrapperClassName="style-spinner" /> -->
     <LogoAnimations />
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: rgba(214, 214, 214, 0.679);
+  background: rgba(148, 147, 147, 0.679);
   display: flex;
   justify-content: center;
   place-content: center;

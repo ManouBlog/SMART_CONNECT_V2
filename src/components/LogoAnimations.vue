@@ -73,7 +73,7 @@
       style="stroke: hsla(193, 44%, 26%, 1);stroke-width:6;"
       fill="orange"/> -->
         <circle cx="100" cy="28" r="40" style="stroke: hsla(193, 44%, 26%, 1); stroke-width:6;" fill="orange">
-     <animate attributeName="opacity" values="0; 0.2; 1" dur="1s" repeatCount="indefinite"/>
+     <animate attributeName="opacity" values="1; 0.2; 0" dur="1s" repeatCount="indefinite"/>
   </circle>
 
 
