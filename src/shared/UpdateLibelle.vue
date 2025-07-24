@@ -85,8 +85,32 @@ export default {
           this.spinner = false;
         });
     },
-    update_items() {
-      console.log("fhfj");
+    async update_items() {
+      this.spinner = true;
+      const data = {
+        categorie: this.detailItem,
+      };
+
+      axios
+        .put(
+          "http://127.0.0.1:8000/api/update_categorie/" + this.$route.params.id,
+          data,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("TIMETABLE", res);
+          alert(res.data.message);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.spinner = false;
+        });
     },
   },
   mounted() {
@@ -119,7 +143,7 @@ export default {
           <div class="Myspinner" v-show="spinner">
             <div class="spinner-border text-primary" role="status"></div>
           </div>
-          <div class="row" v-if="detailItem">
+          <div class="row">
             <div class="col-sm-12">
               <div class="card">
                 <div class="card-body">
