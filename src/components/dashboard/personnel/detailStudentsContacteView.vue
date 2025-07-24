@@ -244,7 +244,7 @@ export default {
       :subTitleHeader="texte"
     />
     <div  class="d-flex align-items-center justify-content-center flex-wrap" v-if="detailsStudents">
-      <a-card style="width: 400px; background: rgba(179, 201, 255, 0.38)" >
+      <a-card style="width: 400px; background: var(--secondary-color) !important;color: var(--third-color) !important;" >
         <div class="d-flex justify-content-between align-items-center">
          <h1><em class="bi bi-person h1"></em></h1>
          <h2 class="text-warning">{{ detailsStudents.nom }} {{ detailsStudents.prenoms }}</h2>

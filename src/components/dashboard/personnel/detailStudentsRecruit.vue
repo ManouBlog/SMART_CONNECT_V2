@@ -181,7 +181,7 @@ export default {
           <a-card
             v-for="(item, index) in tableauRecruit"
             :key="item.id"
-            style="width: 400px; background: rgba(179, 201, 255, 0.38)"
+            style="width: 400px; background: var(--secondary-color) !important;color: var(--third-color) !important;"
           >
             <h1 class="badge bg-warning w-25">{{texte5}} {{ index + 1 }}</h1>
 

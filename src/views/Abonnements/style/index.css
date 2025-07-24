@@ -36,7 +36,8 @@
     height: 500px;
     margin-bottom: 2em;
     text-align: left;
-    background-color: rgba(179, 201, 255, 0.38);
+    background-color: var(--secondary-color) !important;
+    color: var(--third-color) !important;
     border-radius: 10px;
     box-shadow: 3px 3px 6px 6px rgba(0, 0, 0, 0.126);
     transition: all 1s ease-in-out;

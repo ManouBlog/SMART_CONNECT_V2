@@ -1,4 +1,5 @@
 :root {
     --main-color: rgba(255, 153, 0, 1);
-    --secondary-color: rgba(179, 201, 255, 0.38);
+    --secondary-color: hsla(193, 44%, 26%, 1);
+    --third-color:white;
   }

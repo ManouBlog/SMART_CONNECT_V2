@@ -39,6 +39,7 @@ export default {
 .conteneur-titleHeader{
     padding: 2em;
     background: var(--secondary-color) !important;
+    color: var(--third-color) !important;
     margin:0 0 2em 0;
 }
 .subTitleHeader,h1{

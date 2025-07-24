@@ -133,6 +133,7 @@ export default {
 }
 .job-container {
   background-color: var(--secondary-color) !important;
+  color: var(--third-color) !important;
 }
 .job_div {
   background: rgb(255, 255, 255);

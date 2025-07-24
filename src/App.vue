@@ -42,7 +42,7 @@ export default {};
 }
 th {
   background: var(--secondary-color) !important;
-  color: rgb(56, 56, 56);
+  color: var(--third-color) !important;
 }
 .p-datatable .p-column-header-content {
   justify-content: center !important;
@@ -55,12 +55,15 @@ table {
 .n-tabs-tab.n-tabs-tab--active {
   color: var(--main-color) !important;
 }
-.n-tabs .n-tabs-bar,
-.background_main {
+.n-tabs .n-tabs-bar{
   background-color: var(--main-color) !important;
+}
+.background_main {
+  background-color: var(--third-color) !important;
 }
 .background_secondary {
   background-color: var(--secondary-color) !important;
+  color: var(--third-color) !important;
 }
 .conteneur-flex {
   display: flex;

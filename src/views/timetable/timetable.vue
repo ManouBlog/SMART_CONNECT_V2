@@ -1160,7 +1160,8 @@ export default {
 }
 .card {
   border-radius: 5px !important;
-  background: rgba(179, 201, 255, 0.38);
+  background: var(--secondary-color) !important;
+  color: var(--third-color) !important;
   box-shadow: 3px 3px 3px 3px #00000033;
 }
 .spinner-border {

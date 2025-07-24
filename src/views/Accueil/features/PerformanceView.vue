@@ -64,6 +64,7 @@ export default {
 @import "../../../Shared/styles/stylesShared.css";
 .stat {
   background-color: var(--secondary-color) !important;
+  color: var(--third-color) !important;
   padding: 3em 2em;
   color: rgb(0, 0, 0);
 }

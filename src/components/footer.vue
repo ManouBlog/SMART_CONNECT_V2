@@ -59,8 +59,9 @@ export default {
     <div class="container-fluid footer">
       <div class="row conteneur-footer">
         <div class="container main-container-footer">
-          <CardFooter :title="texte6" :listLien="['CHU angré,Immeuble Bissié 1er Etage Porte D']" />
+          <CardFooter  :isWhite="true" :title="texte6" :listLien="['CHU angré,Immeuble Bissié 1er Etage Porte D']" />
           <CardFooter
+           :isWhite="true"
             :title="texte"
             :listLien="[
               texte1,
@@ -69,6 +70,7 @@ export default {
             ]"
           />
           <CardFooter
+           :isWhite="true"
             :title="texte4"
             :listLien="[`+225 0707070707`, 'support@smartconnect.com']"
           />
@@ -78,13 +80,14 @@ export default {
     </div>
   </section>
   <section class="py-2 background_main">
-    <p class="text-center">SMART CONNECT ©2024.{{texte5}}</p>
+    <p class="text-center">mon brobroli ©2025.{{texte5}}</p>
   </section>
 </template>
 <style scoped>
 @import "../Shared/styles/stylesShared.css";
 .conteneur-footer {
   background: var(--secondary-color) !important;
+  color: var(--third-color) !important;
 }
 .main-container-footer {
   display: flex;

@@ -61,8 +61,8 @@ const ABOUTUS = ref([
 const LOGO_IMG = ref([
   {
     isVisible: true,
-    img: "/smart-connect.png",
-    alt_img: "smart-connect",
+    img: "/broboli_footer.png",
+    alt_img: "mon brobroli",
   },
 ]);
 </script>

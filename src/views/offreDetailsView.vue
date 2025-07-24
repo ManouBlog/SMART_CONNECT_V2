@@ -247,7 +247,8 @@ span {
 }
 .card {
   padding: 1em !important;
-  background: rgba(179, 201, 255, 0.38) !important;
+  background: var(--secondary-color) !important;
+  color: var(--third-color) !important;
 }
 .conteneur-chargement {
   height: 80vh;

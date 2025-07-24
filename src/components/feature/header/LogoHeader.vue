@@ -10,6 +10,6 @@ export default {
 </script>
 <template>
   <div class="conteneur-image-logo">
-    <img src="/smart-connect.png" alt="smart-connect" />
+    <img src="/brobroli.png" alt="smart-connect" />
   </div>
 </template>

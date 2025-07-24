@@ -313,7 +313,7 @@ export default {
           <section class="one conteneur_ecriteau">
             <div class="logo_img_offre">
               <div class="conteneur-image-logo_jobs">
-                <img src="/smart-connect.png" alt="smart-connect" >
+                <img src="/brobroli.png" alt="smart-connect" >
             </div>
             </div>
             <div class="informations_offres">
@@ -473,7 +473,8 @@ select {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background: rgba(179, 201, 255, 0.38);
+  background: var(--secondary-color) !important;
+  color: var(--third-color) !important;
   padding: 2em 1em;
   border-radius: 10px;
   flex-wrap: wrap;

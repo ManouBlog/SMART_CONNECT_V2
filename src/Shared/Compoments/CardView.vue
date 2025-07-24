@@ -12,11 +12,11 @@ export default {
 };
 </script>
 <template>
-  <a-card style="width: 300px; background: rgba(179, 201, 255, 0.38)">
+  <a-card style="width: 300px;color: var(--third-color) !important; background: var(--secondary-color) !important">
     <div class="div_conteneur">
       <h6>{{ item.id }}</h6>
     </div>
-    <h3 class="texte-center">{{ item.title }}</h3>
+    <h3 class="texte-center" style="color:var(--third-color) !important;">{{ item.title }}</h3>
     <div v-if="item.text_one || item.text_two">
       <p>{{ item.text_one }}</p>
       <p>{{ item.text_two }}</p>

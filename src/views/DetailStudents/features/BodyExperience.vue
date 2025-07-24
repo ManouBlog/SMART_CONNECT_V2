@@ -400,7 +400,8 @@ p {
   overflow: hidden;
   border-radius: 20px;
   padding: 1em;
-  background: rgba(179, 201, 255, 0.38);
+  background: var(--secondary-color) !important;
+  color: var(--third-color) !important;
 }
 
 :deep(.slick-arrow.custom-slick-arrow) {

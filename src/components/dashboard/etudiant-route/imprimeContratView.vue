@@ -257,10 +257,10 @@ h5 {
     >
       <div class="attestation_logo">
         <div class="img_card">
-          <img src="/smart-connect.png" alt="smart-connect" />
+          <img src="/brobroli.png" alt="smart-connect" />
         </div>
         <div class="img_card">
-          <img src="/smart-connect.png" alt="smart-connect" />
+          <img src="/brobroli.png" alt="smart-connect" />
         </div>
         <div class="img_card">
           <img src="/img/lce.c9a1a7c1.png" alt="smart-connect" />

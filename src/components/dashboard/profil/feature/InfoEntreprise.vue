@@ -147,7 +147,7 @@ export default {
 
 <template>
   <section style="padding: 2em 3em">
-    <a-card style="width: auto; background: rgba(179, 201, 255, 0.38)">
+    <a-card style="width: auto;color: var(--third-color) !important; background: var(--secondary-color) !important">
       <h1 class="fw-bold">{{texte}}</h1>
       <section>
         <div class="row">
@@ -211,7 +211,7 @@ export default {
       </section>
     </a-card>
 
-    <a-card style="width: auto; background: rgba(179, 201, 255, 0.38); margin: 2em 0">
+    <a-card style="width: auto;color: var(--third-color) !important; background: var(--secondary-color) !important; margin: 2em 0">
       <h1 class="fw-bold" style="color:orange">{{texte2}}</h1>
       <section>
         <div class="card-body text-left py-4">

@@ -81,7 +81,7 @@ export default {
       </div>
     </div>
     <div class="conteneur_formulaire">
-      <a-card style="width: auto; background: rgba(179, 201, 255, 0.38)">
+      <a-card style="width: auto;color: var(--third-color) !important; background: var(--secondary-color) !important">
         <h6 class="fw-bold">{{ texte3 }}</h6>
         <a-form
           :layout="'vertical'"
