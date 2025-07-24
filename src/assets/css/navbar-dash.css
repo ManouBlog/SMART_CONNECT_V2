@@ -24,7 +24,7 @@
   
 }
 .router-link-exact-active {
-    background: rgba(5, 34, 73, 0.616) !important;;
+    background: var(--theme-secondary) !important;;
   border-radius: 5px;
   color: white !important;
 }

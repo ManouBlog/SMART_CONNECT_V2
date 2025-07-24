@@ -1,5 +1,5 @@
 :root {
-    --color-of-page: rgb(5, 35, 73) !important;
+    --color-of-page: hsla(193, 44%, 26%, 1) !important;
   }
 .connex{
     color:grey !important;

@@ -2903,7 +2903,7 @@
     margin-left: 10px;
     border-radius: 5px;
     background-color: rgba(99, 98, 231, 0.05);
-    color: #6362e7;
+    color: var(--theme-deafult);
   }
   .feature-products span {
     font-size: 12px;

@@ -329,7 +329,7 @@ var options = {
       top: 0,
       left: 6,
       blur: 4,
-      color: "#6362e7",
+      color: "var(--theme-deafult)",
       opacity: 0.2,
     },
   },
