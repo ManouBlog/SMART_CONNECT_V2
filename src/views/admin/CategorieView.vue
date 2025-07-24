@@ -9,13 +9,13 @@ export default {
     return {
       categorie: null,
       categories: null,
-      spinner: false,
+      spinner: true,
       loading: false,
     };
   },
   methods: {
-    create_categorie() {
-      axios
+    async create_categorie() {
+      await axios
         .post(
           "http://127.0.0.1:8000/api/categorie",
           {
@@ -46,10 +46,18 @@ export default {
               timer: 1500,
             });
           }
+        })
+        .catch((error) => {
+          alert(error);
+        })
+        .finally(() => {
+          this.get_categorie(1);
         });
     },
-    get_categorie() {
-      this.spinner = true;
+    get_categorie(isLoading = null) {
+      if (isLoading === 1) {
+        this.spinner = false;
+      }
       axios
         .get("http://127.0.0.1:8000/api/seeCategorie", {
           headers: {
@@ -60,7 +68,6 @@ export default {
           console.log("TIMETABLE", res);
           this.categories = res.data.data;
           console.log("CATEGORIE", this.categories);
-          this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({
               pagingType: "full_numbers",
@@ -97,6 +104,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          this.spinner = false;
         });
     },
   },
@@ -229,14 +239,33 @@ export default {
               <table id="MyTableData" class="table" v-if="categories != null">
                 <thead>
                   <tr>
-                    <th class="bg-light">#</th>
                     <th class="bg-light">Catégorie</th>
+                    <th class="bg-light">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(item, index) in categories" :key="index">
-                    <td>{{ index + 1 }}</td>
                     <td>{{ item.categorie }}</td>
+                    <td>
+                      <div
+                        class="d-flex justify-content-center gap-5 align-items-center"
+                      >
+                        <router-link
+                          :to="{
+                            name: 'detail_entreprise',
+                            params: { id: item.id },
+                          }"
+                          ><i class="bi bi-pencil"></i
+                        ></router-link>
+                        <router-link
+                          :to="{
+                            name: 'detail_entreprise',
+                            params: { id: item.id },
+                          }"
+                          ><i class="bi bi-trash"></i
+                        ></router-link>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
