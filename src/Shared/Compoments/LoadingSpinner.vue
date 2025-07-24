@@ -1,8 +1,12 @@
 <script>
 import i18n from "../../plugins/i18n";
 const { t } = i18n.global;
+import LogoAnimations from "../../components/LogoAnimations.vue";
 export default {
   name: "LoadingSpinner",
+  components:{
+    LogoAnimations
+  },
   data(){
     return{
       I8N:t
@@ -13,6 +17,7 @@ export default {
 <template>
   <div class="spinner_loading">
     <a-spin size="large" :tip="I8N('spinnerText')" wrapperClassName="style-spinner" />
+    <LogoAnimations />
   </div>
 </template>
 <style>
