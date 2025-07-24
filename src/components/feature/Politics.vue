@@ -1,8 +1,10 @@
 <script>
 import { mapActions, mapState } from "pinia";
+import Dialog from 'primevue/dialog';
 import {useRegisterStore} from '../../store-pinia/register/useRegisterStore'
 export default {
   name: "Politics",
+  components:{Dialog},
   props:{
     payload:{type:Object}
   },
@@ -15,7 +17,6 @@ export default {
     console.log("this.payload",this.payload)
     this.changeValueIsPolitics(false)
     this.registerStudent(this.payload)
-   
    }
   },
   computed:{
@@ -32,6 +33,7 @@ export default {
       header="Conditions générales d’utilisation"
       :style="{ width: '60rem',zIndex:99999 }"
       :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+      @click="this.changeValueIsPolitics(false)"
     >
       <div>
         <section class="px-4 row">
