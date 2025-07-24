@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -133,7 +133,7 @@ export default {
     },
   },
   async created(){
-    this.texte = await this.handleTranslate('Informations personnelles');
+    this.texte0 = await this.handleTranslate('Informations personnelles');
     this.texte1 = await this.handleTranslate(`Gérant`);
     this.texte2 = await this.handleTranslate("Modifier mot de passe");
     this.texte3 = await this.handleTranslate('Ancien mot de passe');
@@ -147,8 +147,8 @@ export default {
 
 <template>
   <section style="padding: 2em 3em">
-    <a-card style="width: auto;color: var(--third-color) !important; background: var(--secondary-color) !important">
-      <h1 class="fw-bold">{{texte}}</h1>
+    <a-card style="width: auto;color: var(--third-color); background: var(--secondary-color) !important">
+      <h1 class="fw-bold" style="color:orange">{{texte0}}</h1>
       <section>
         <div class="row">
           <div

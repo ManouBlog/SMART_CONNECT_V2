@@ -311,7 +311,9 @@ export default {
                                         name=""
                                         id="select_comp"
                                       >
-                                        <option value="" disabled>
+                                        <option value="" disabled
+                                        style="color:brown;"
+                                        >
                                           {{texte4}}
                                         </option>
                                         <option
@@ -322,6 +324,7 @@ export default {
                                           {{ item.competence }}
                                         </option>
                                         <option
+                                        style="color:brown;"
                                           v-if="
                                             !competenceWithCategorie.length && !categorie
                                           "
@@ -330,6 +333,7 @@ export default {
                                           {{texte5}}
                                         </option>
                                         <option
+                                        style="color:brown;font-size:0.9em;"
                                           v-if="
                                             !competenceWithCategorie.length && categorie
                                           "

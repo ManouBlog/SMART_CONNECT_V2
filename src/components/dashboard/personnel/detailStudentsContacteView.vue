@@ -2,6 +2,7 @@
 import instance,{lienPhoto} from "../../../api/api";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import Swal from "sweetalert2";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 export default {
@@ -56,8 +57,9 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+    ...mapActions(useLoadingSpinner, ["launchLoading"]),
     get_students_contact() {
-      this.spinner = false;
+       this.launchLoading(true);
       instance
         .get("list_students_contact_by_entreprise")
         .then((res) => {
@@ -82,46 +84,14 @@ export default {
 
           console.log("DETAILSETUDIANT", this.detailsStudents);
           console.log("STUDENTS", this.student);
-          this.spinner = false;
-          // setTimeout(function () {
-          //   $("#MyTableData").DataTable({
-          //     pagingType: "full_numbers",
-          //     pageLength: 10,
-          //     processing: true,
-          //     order: [],
-          //     language: {
-          //       décimal: "",
-          //       emptyTable: "Aucune donnée disponible dans le tableau",
-          //       infoEmpty: "Showing 0 to 0 of 0 entries",
-          //       info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-          //       infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-          //       infoPostFix: "",
-          //       thousands: ",",
-          //       lengthMenu: "Afficher les entrées du _MENU_",
-          //       loadingRecords: "Loading...",
-          //       processing: "Processing...",
-          //       search: "Chercher :",
-          //       stateSave: true,
-          //       zeroRecords: "Aucun enregistrement correspondant trouvé",
-          //       paginate: {
-          //         first: "Premier",
-          //         last: "Dernier",
-          //         next: "Suivant",
-          //         previous: "Précédent",
-          //       },
-          //       aria: {
-          //         sortAscending: ": activate to sort column ascending",
-          //         sortDescending: ": activate to sort column descending",
-          //       },
-          //     },
-          //   });
-          // }, 10);
         })
         .catch((err) => {
           console.log(err);
           this.spinner = false;
-        });
-    },
+        }).finally(()=>{
+           this.launchLoading(false);
+        });  
+       },
     get_all_timetables() {
       this.spinner = true;
       instance
@@ -221,7 +191,7 @@ export default {
  async created() {
     this.get_students_contact();
     this.get_all_timetables();
-    this.texte = await this.handleTranslate('Etudiant contacté');
+    this.texte = await this.handleTranslate('Talent contacté');
     this.texte1 = await this.handleTranslate(`Contacté pour le`);
     this.texte2 = await this.handleTranslate("Email");
     this.texte3 = await this.handleTranslate('Ville');
