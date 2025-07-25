@@ -83,16 +83,14 @@
       />
      
   <!-- Flèche -->
-  <!-- <path id="arrow"  style="position:absolute;bottom:0;" d="M100,50 L120,70 L80,70 L100,50" fill="orange">
-    <animateTransform
-      attributeName="transform"
-      type="rotate"
-      from="0 100 100"
-      to="360 100 100"
-      dur="3s"
-      repeatCount="indefinite"
-    />
-  </path> -->
+  <!-- <line x1="20" y1="40" x2="150" y2="50" 
+        stroke="#000000" 
+        stroke-width="15" 
+        stroke-linecap="round"/> -->
+  
+  <!-- Pointe de la flèche -->
+  <!-- <polygon points="160,30 180,50 160,70" 
+           fill="#000000"/> -->
     </svg>
   </div>
 </template>
