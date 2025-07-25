@@ -51,7 +51,7 @@ export default {
           }
         });
     },
-    get_categorie() {
+    get_competences() {
       this.spinner = true;
       axios
         .get("http://127.0.0.1:8000/api/GetAllCompetences", {
@@ -104,7 +104,7 @@ export default {
     },
   },
   created() {
-    this.get_categorie();
+    this.get_competences();
   },
 };
 </script>
@@ -229,14 +229,32 @@ export default {
               <table id="MyTableData" class="table" v-if="competences != null">
                 <thead>
                   <tr>
-                    <th class="bg-light">#</th>
                     <th class="bg-light">Compétence</th>
+                    <th class="bg-light">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(item, index) in competences" :key="index">
-                    <td>{{ index + 1 }}</td>
                     <td>{{ item.competence }}</td>
+                    <td>
+                      <div
+                        class="d-flex justify-content-center gap-5 align-items-center"
+                      >
+                        <router-link
+                          :to="{
+                            name: 'modifications',
+                            params: { id: item.id, name: 'competences' },
+                          }"
+                          ><i class="bi bi-pencil"></i
+                        ></router-link>
+                        <button
+                          class="bg-danger border-0"
+                          @click="handleDeleteCompetences(item.id)"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>

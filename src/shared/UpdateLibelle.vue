@@ -56,7 +56,7 @@ export default {
       if (this.$route.params.name === "categorie") {
         this.get_categorie();
       } else {
-        return;
+        this.get_competence();
       }
     },
     get_categorie(isLoading = null) {
@@ -85,15 +85,49 @@ export default {
           this.spinner = false;
         });
     },
+    get_competence(isLoading = null) {
+      if (isLoading === 1) {
+        this.spinner = false;
+      }
+      axios
+        .get("http://127.0.0.1:8000/api/GetAllCompetences", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("TIMETABLE", res);
+          res.data.data.find((item) => {
+            if (item.id == this.$route.params.id) {
+              this.detailItem = item.competence;
+              console.log("this.detailItem", this.detailItem);
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.spinner = false;
+        });
+    },
     async update_items() {
       this.spinner = true;
-      const data = {
-        categorie: this.detailItem,
-      };
-
+      const data =
+        this.$route.params.name === "categorie"
+          ? {
+              categorie: this.detailItem,
+            }
+          : { competence: this.detailItem };
+      const route =
+        this.$route.params.name === "categorie"
+          ? "update_categorie"
+          : "update_competence";
       axios
         .put(
-          "http://127.0.0.1:8000/api/admin/update_categorie/" +
+          "http://127.0.0.1:8000/api/admin/" +
+            route +
+            "/" +
             this.$route.params.id,
           data,
           {
@@ -154,7 +188,11 @@ export default {
                         <div class="col-lg-12">
                           <div class="mb-3 text-start font-bold">
                             <p style="font-weight: bold; font-size: 1.5em">
-                              Catégorie
+                              {{
+                                this.$route.params.name === "categorie"
+                                  ? "Catégorie"
+                                  : "Compétence"
+                              }}
                             </p>
                             <input
                               class="form-control"
