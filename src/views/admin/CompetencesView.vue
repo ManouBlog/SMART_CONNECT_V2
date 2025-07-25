@@ -145,11 +145,11 @@ export default {
           console.log("TIMETABLE", res);
           alert(res.data.message);
           if (res.data.status) {
-            const index = this.categories.findIndex(
+            const index = this.competences.findIndex(
               (item) => item.id == idCompetence
             );
             if (index !== -1) {
-              this.categories.splice(index, 1);
+              this.competences.splice(index, 1);
             }
           }
         })
@@ -263,6 +263,7 @@ export default {
                           <div class="mb-3 test-start">
                             <p class="font-bold">Catégorie</p>
                             <select
+                              class="w-fluid"
                               name="categorie"
                               id="categorie"
                               v-model="selectCategorie"
