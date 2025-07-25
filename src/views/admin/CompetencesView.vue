@@ -11,15 +11,18 @@ export default {
       competences: null,
       spinner: false,
       loading: false,
+      AllCategorie: [],
+      selectCategorie: "",
     };
   },
   methods: {
-    create_categorie() {
+    create_competence() {
       axios
         .post(
           "http://127.0.0.1:8000/api/createCompetence",
           {
             competence: this.competence,
+            categorie_id: this.selectCategorie,
           },
           {
             headers: {
@@ -36,10 +39,6 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-            this.categorie = "";
-            setTimeout(() => {
-              location.reload(true);
-            }, 1500);
           }
           if (res.data.status === false) {
             Swal.fire({
@@ -49,10 +48,39 @@ export default {
               timer: 1500,
             });
           }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        })
+        .finally(() => {
+          this.get_competences(1);
+          this.competence = null;
         });
     },
-    get_competences() {
-      this.spinner = true;
+    get_categorie() {
+      axios
+        .get("http://127.0.0.1:8000/api/seeCategorie", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("TIMETABLE", res);
+          this.AllCategorie = res.data.data;
+          this.selectCategorie = res.data.data[0].id;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.spinner = false;
+        });
+    },
+    get_competences(isLoading = null) {
+      if (!isLoading) {
+        this.spinner = true;
+      }
+
       axios
         .get("http://127.0.0.1:8000/api/GetAllCompetences", {
           headers: {
@@ -102,9 +130,50 @@ export default {
           console.log(err);
         });
     },
+    deleteCompetence(idCompetence) {
+      this.spinner = true;
+      axios
+        .delete(
+          "http://127.0.0.1:8000/api/admin/delete_competence/" + idCompetence,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("TIMETABLE", res);
+          alert(res.data.message);
+          if (res.data.status) {
+            const index = this.categories.findIndex(
+              (item) => item.id == idCompetence
+            );
+            if (index !== -1) {
+              this.categories.splice(index, 1);
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.spinner = false;
+        });
+    },
+    handleDeleteCompetences(id) {
+      if (confirm("Voulez-vous vraiment supprimer cette compétence ?")) {
+        // L'utilisateur a cliqué sur OK
+        console.log("Action confirmée", id);
+        this.deleteCompetence(id);
+      } else {
+        // L'utilisateur a cliqué sur Annuler
+        console.log("Action annulée");
+      }
+    },
   },
   created() {
     this.get_competences();
+    this.get_categorie();
   },
 };
 </script>
@@ -176,11 +245,11 @@ export default {
               <div class="card">
                 <div class="card-body">
                   <div class="form theme-form projectcreate">
-                    <form @submit.prevent="create_categorie">
+                    <form @submit.prevent="create_competence">
                       <div class="row">
-                        <div class="col-lg-12">
-                          <div class="mb-3">
-                            <label>Compétence</label>
+                        <div class="col-lg-6">
+                          <div class="mb-3 test-start">
+                            <p class="font-bold">Compétence</p>
                             <input
                               class="form-control"
                               type="text"
@@ -188,6 +257,27 @@ export default {
                               placeholder="ex:Serveur,Barman,Professeur,Fille de ménage."
                               required
                             />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="mb-3 test-start">
+                            <p class="font-bold">Catégorie</p>
+                            <select
+                              name="categorie"
+                              id="categorie"
+                              v-model="selectCategorie"
+                            >
+                              <option value="" disabled>
+                                Séléctionne la catégorie
+                              </option>
+                              <option
+                                :value="item.id"
+                                v-for="(item, index) in AllCategorie"
+                                :key="index"
+                              >
+                                {{ item.categorie }}
+                              </option>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -230,12 +320,14 @@ export default {
                 <thead>
                   <tr>
                     <th class="bg-light">Compétence</th>
+                    <th class="bg-light">Catégorie</th>
                     <th class="bg-light">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(item, index) in competences" :key="index">
                     <td>{{ item.competence }}</td>
+                    <td>{{ item?.categorie?.categorie }}</td>
                     <td>
                       <div
                         class="d-flex justify-content-center gap-5 align-items-center"
