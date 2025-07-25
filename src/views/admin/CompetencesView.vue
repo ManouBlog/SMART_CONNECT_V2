@@ -263,7 +263,7 @@ export default {
                           <div class="mb-3 test-start">
                             <p class="font-bold">Catégorie</p>
                             <select
-                              class="w-fluid"
+                              class="w-100"
                               name="categorie"
                               id="categorie"
                               v-model="selectCategorie"
