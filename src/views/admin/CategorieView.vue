@@ -109,6 +109,46 @@ export default {
           this.spinner = false;
         });
     },
+    deleteCategorie(idCategorie) {
+      this.spinner = true;
+      axios
+        .delete(
+          "http://127.0.0.1:8000/api/admin/delete_categorie/" + idCategorie,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("TIMETABLE", res);
+          alert(res.data.message);
+          if (res.data.status) {
+            const index = this.categories.findIndex(
+              (item) => item.id == idCategorie
+            );
+            if (index !== -1) {
+              this.categories.splice(index, 1);
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.spinner = false;
+        });
+    },
+    handleDeleteCategorie(id) {
+      if (confirm("Voulez-vous vraiment supprimer cette catégorie ?")) {
+        // L'utilisateur a cliqué sur OK
+        console.log("Action confirmée", id);
+        this.deleteCategorie(id);
+      } else {
+        // L'utilisateur a cliqué sur Annuler
+        console.log("Action annulée");
+      }
+    },
   },
   created() {
     this.get_categorie();
@@ -257,13 +297,12 @@ export default {
                           }"
                           ><i class="bi bi-pencil"></i
                         ></router-link>
-                        <router-link
-                          :to="{
-                            name: 'modifications',
-                            params: { id: item.id, name: 'categorie' },
-                          }"
-                          ><i class="bi bi-trash"></i
-                        ></router-link>
+                        <button
+                          class="bg-danger border-0"
+                          @click="handleDeleteCategorie(item.id)"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
                       </div>
                     </td>
                   </tr>

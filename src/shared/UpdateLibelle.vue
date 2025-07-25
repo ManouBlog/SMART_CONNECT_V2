@@ -93,7 +93,8 @@ export default {
 
       axios
         .put(
-          "http://127.0.0.1:8000/api/update_categorie/" + this.$route.params.id,
+          "http://127.0.0.1:8000/api/admin/update_categorie/" +
+            this.$route.params.id,
           data,
           {
             headers: {
