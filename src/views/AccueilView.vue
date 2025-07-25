@@ -4,12 +4,14 @@ import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
 import Statistique_Comp from "@/components/Statistique_Comp.vue";
 import Statistiques_Account from "@/components/Statistiques_Account.vue";
+import MyCardStatistique from "@/components/MyCardStatistique.vue";
 // import Editor from "../components/text-editor.vue";
 export default {
   name: "AccueilView",
   components: {
     Statistique_Comp,
     Statistiques_Account,
+    MyCardStatistique,
   },
   data() {
     return {
@@ -37,9 +39,33 @@ export default {
       idExperienceAtDelete: null,
       toogleScreenYouWantDelete: false,
       statut: this.$store.state.statut,
+      list_entreprise: "",
+      list_students: "",
+      list_offres: "",
+      see_entreprise_student: "",
     };
   },
   methods: {
+    getAllStatistique() {
+      axios
+        .get("http://127.0.0.1:8000/api/statistiques/statistiqueGlobal", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("statistique", res.data);
+          if (res.data.status === true) {
+            this.list_entreprise = Number(res.data.entreprise);
+            this.list_students = Number(res.data.talents);
+            this.list_offres = Number(res.data.offre);
+            this.see_entreprise_student = Number(res.data.contrat);
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
     getAllCompetencesByStudents() {
       axios
         .get("http://127.0.0.1:8000/api/getCompetenceByStudents", {
@@ -310,6 +336,7 @@ export default {
     console.log("user", this.$store.state.user);
     // console.log("compte", this.$store.state.compte);
     // this.getAllExperiences();
+    this.getAllStatistique();
     this.getAllCompetences();
     this.getAllCompetencesByStudents();
   },
@@ -352,6 +379,41 @@ export default {
               </div>
             </div>
           </div>
+        </div>
+        <div
+          class="d-flex"
+          style="
+            justify-content: space-around;
+            gap: 1em;
+            flex-wrap: wrap;
+            place-items: center;
+            align-items: center;
+          "
+        >
+          <MyCardStatistique
+            nameRouter="all_Offres"
+            :numberStatistic="list_offres"
+            icon_libelle="bi-tag"
+            title="Offres"
+          />
+          <MyCardStatistique
+            nameRouter="entreprises"
+            :numberStatistic="list_entreprise"
+            icon_libelle="bi-building"
+            title="Entreprise"
+          />
+          <MyCardStatistique
+            nameRouter="students"
+            :numberStatistic="list_students"
+            icon_libelle="bi-person-badge"
+            title="Talents"
+          />
+          <MyCardStatistique
+            nameRouter="Contrat"
+            :numberStatistic="see_entreprise_student"
+            icon_libelle="bi-file-earmark-text"
+            title="Contrat"
+          />
         </div>
         <div
           style="
