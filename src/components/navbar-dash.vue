@@ -10,7 +10,7 @@ export default {
 };
 </script>
 <template>
-  <div class="sidebar-wrapper">
+  <div class="sidebar-wrapper" style="overflow: auto">
     <div style="background: var(--theme-deafult)">
       <div class="logo-wrapper">
         <a href="#"
@@ -111,6 +111,12 @@ export default {
             <i class="bi bi-pencil-square"></i>
             <router-link :to="{ name: 'Contrat' }">
               <strong>Contrat</strong></router-link
+            >
+          </li>
+          <li style="color: white" v-if="statut == 'admin'">
+            <i class="bi bi-pencil-square"></i>
+            <router-link :to="{ name: 'abonnement' }">
+              <strong>Abonnements</strong></router-link
             >
           </li>
         </ul>
