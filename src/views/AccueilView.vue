@@ -23,6 +23,7 @@ export default {
       spinnerExperience: false,
       spinnerModifyExperience: false,
       comp: [],
+      isLoadingWallet: false,
       competence: null,
       comfirmationForDeleteCompetence: false,
       toogleNouvelleExperience: false,
@@ -48,6 +49,7 @@ export default {
   },
   methods: {
     getAllStatistique() {
+      this.isLoadingWallet = true;
       axios
         .get("http://127.0.0.1:8000/api/statistiques/statistiqueGlobal", {
           headers: {
@@ -66,6 +68,9 @@ export default {
         })
         .catch((error) => {
           console.log("error", error);
+        })
+        .finally(() => {
+          this.isLoadingWallet = false;
         });
     },
     getAllCompetencesByStudents() {
@@ -333,6 +338,35 @@ export default {
       this.idExperienceAtDelete = null;
       this.toogleScreenYouWantDelete = !this.toogleScreenYouWantDelete;
     },
+    filterWalletBalance(e) {
+      console.log(e.target.value);
+      this.isLoadingWallet = true;
+      const data = {
+        wallet: e.target.value,
+      };
+      axios
+        .post(
+          "http://127.0.0.1:8000/api/statistiques/filterStatistiqueWallet",
+          data,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("statistique_global", res.data);
+          if (res.data.status === true) {
+            this.wallet = res.data.wallet;
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        })
+        .finally(() => {
+          this.isLoadingWallet = false;
+        });
+    },
   },
   created() {
     console.log("user", this.$store.state.user);
@@ -403,7 +437,7 @@ export default {
                 { libelle: 'Non actives', value: list_offres.Offrespassees },
               ]"
               nameRouter="all_Offres"
-              :numberStatistic="list_offres.total"
+              :numberStatistic="Number(list_offres.total)"
               icon_libelle="bi-tag"
               title="Offres"
             />
@@ -413,7 +447,7 @@ export default {
                 { libelle: 'Non abonnées', value: list_entreprise.nonabonne },
               ]"
               nameRouter="entreprises"
-              :numberStatistic="list_entreprise.total"
+              :numberStatistic="Number(list_entreprise.total)"
               icon_libelle="bi-building"
               title="Entreprise"
             />
@@ -423,7 +457,7 @@ export default {
                 { libelle: 'Non abonnés', value: list_students.nonAbonne },
               ]"
               nameRouter="students"
-              :numberStatistic="list_students.total"
+              :numberStatistic="Number(list_students.total)"
               icon_libelle="bi-person-badge"
               title="Talents"
             />
@@ -440,23 +474,43 @@ export default {
               class="card p-2"
               style="width: 100%; height: auto; position: relative"
             >
-              <div
-                class="d-flex justify-content-center gap-1 align-items-center"
-              >
-                <h1>Total Revenu</h1>
-                /
-                <h5>
-                  {{ new Date().toLocaleString("fr-FR", { month: "long" }) }}
-                </h5>
+              <div>
+                <div
+                  class="d-flex justify-content-center gap-1 align-items-center"
+                >
+                  <h1>Total Revenu</h1>
+                  /
+                  <h5>
+                    {{
+                      periodeFilterStatisticBalance
+                        ? new Date(
+                            periodeFilterStatisticBalance
+                          ).toLocaleString("fr-FR", { month: "long" })
+                        : new Date().toLocaleString("fr-FR", { month: "long" })
+                    }}
+                  </h5>
+                </div>
+                <div class="text-end m-2">
+                  <input
+                    class="w-50"
+                    type="month"
+                    v-model="periodeFilterStatisticBalance"
+                    @change="filterWalletBalance"
+                  />
+                </div>
               </div>
               <div class="d-flex justify-content-center">
-                <h1 style="font-size: 5em">{{ wallet }}</h1>
-                <span>Fcfa</span>
+                <span v-if="isLoadingWallet">Chargement...</span>
+                <div v-else class="d-flex">
+                  <h1 style="font-size: 5em">
+                    {{ wallet }}
+                  </h1>
+                  <span>Fcfa</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
         <div
           style="
             display: flex;
