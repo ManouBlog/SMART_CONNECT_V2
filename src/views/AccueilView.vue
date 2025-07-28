@@ -54,11 +54,11 @@ export default {
           },
         })
         .then((res) => {
-          console.log("statistique", res.data);
+          console.log("statistique_global", res.data);
           if (res.data.status === true) {
-            this.list_entreprise = Number(res.data.entreprise);
-            this.list_students = Number(res.data.talents);
-            this.list_offres = Number(res.data.offre);
+            this.list_entreprise = res.data.entreprise;
+            this.list_students = res.data.talents;
+            this.list_offres = res.data.offre;
             this.see_entreprise_student = Number(res.data.contrat);
           }
         })
@@ -380,41 +380,59 @@ export default {
             </div>
           </div>
         </div>
-        <div
-          class="d-flex"
-          style="
-            justify-content: space-around;
-            gap: 1em;
-            flex-wrap: wrap;
-            place-items: center;
-            align-items: center;
-          "
-        >
-          <MyCardStatistique
-            nameRouter="all_Offres"
-            :numberStatistic="list_offres"
-            icon_libelle="bi-tag"
-            title="Offres"
-          />
-          <MyCardStatistique
-            nameRouter="entreprises"
-            :numberStatistic="list_entreprise"
-            icon_libelle="bi-building"
-            title="Entreprise"
-          />
-          <MyCardStatistique
-            nameRouter="students"
-            :numberStatistic="list_students"
-            icon_libelle="bi-person-badge"
-            title="Talents"
-          />
-          <MyCardStatistique
-            nameRouter="Contrat"
-            :numberStatistic="see_entreprise_student"
-            icon_libelle="bi-file-earmark-text"
-            title="Contrat"
-          />
+        <div class="d-flex">
+          <div
+            class="d-flex"
+            style="
+              flex: 2;
+              justify-content: center;
+              gap: 0.5em;
+              flex-wrap: wrap;
+              place-content: flex-start;
+              align-items: center;
+            "
+          >
+            <MyCardStatistique
+              :dataInfo="[
+                { libelle: 'Actives', value: list_offres.OffreActive },
+                { libelle: 'Non actives', value: list_offres.Offrespassees },
+              ]"
+              nameRouter="all_Offres"
+              :numberStatistic="list_offres.total"
+              icon_libelle="bi-tag"
+              title="Offres"
+            />
+            <MyCardStatistique
+              :dataInfo="[
+                { libelle: 'Abonnées', value: list_entreprise.abonne },
+                { libelle: 'Non abonnées', value: list_entreprise.nonabonne },
+              ]"
+              nameRouter="entreprises"
+              :numberStatistic="list_entreprise.total"
+              icon_libelle="bi-building"
+              title="Entreprise"
+            />
+            <MyCardStatistique
+              :dataInfo="[
+                { libelle: 'Abonnés', value: list_students.abonne },
+                { libelle: 'Non abonnés', value: list_students.nonAbonne },
+              ]"
+              nameRouter="students"
+              :numberStatistic="list_students.total"
+              icon_libelle="bi-person-badge"
+              title="Talents"
+            />
+            <MyCardStatistique
+              :dataInfo="[]"
+              nameRouter="Contrat"
+              :numberStatistic="see_entreprise_student"
+              icon_libelle="bi-file-earmark-text"
+              title="Contrat"
+            />
+          </div>
+          <div style="flex: 1">solde</div>
         </div>
+
         <div
           style="
             display: flex;

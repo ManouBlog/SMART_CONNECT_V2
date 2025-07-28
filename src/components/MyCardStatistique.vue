@@ -17,6 +17,10 @@ export default {
     nameRouter:{
         type: String,
        require: false,
+    },
+    dataInfo:{
+      type:Array,
+      require:false,
     }
   },
   data() {
@@ -29,12 +33,19 @@ export default {
 };
 </script>
 <template>
-  <div class="card p-2" style="width: 200px; position: relative">
-    <h3 class="text-start d-flex" style="justify-content: space-around">
+  <div class="card p-2" style="width: 300px; height: 150px; position: relative">
+    <h3 class="text-start d-flex gap-3">
       {{ title }}
       <i :class="`bi ${icon_libelle}`"></i>
     </h3>
-    <h1 v-if="numberStatistic">{{ numberStatistic }}</h1>
+    <div class="text-start" v-if="numberStatistic">
+      <h1>{{ numberStatistic }}</h1>
+      <ul v-if="dataInfo.length">
+        <li v-for="(item, index) in dataInfo" :key="index">
+          {{ item.libelle }} : {{ item.value }}
+        </li>
+      </ul>
+    </div>
     <h5 v-else>Chargement...</h5>
     <p
       v-if="numberStatistic"
