@@ -91,7 +91,7 @@ export default {
           this.isDisabled = false;
         });
     },
-    setChartData(Entreprises, Talents, labels) {
+    setChartData(Entreprises, Talents, Abonnements, labels) {
       return {
         labels: labels,
         datasets: [
@@ -106,6 +106,12 @@ export default {
             backgroundColor: "brown",
             borderColor: "brown",
             data: Talents,
+          },
+          {
+            label: "Abonnements",
+            backgroundColor: "black",
+            borderColor: "black",
+            data: Abonnements,
           },
         ],
       };
@@ -200,6 +206,7 @@ export default {
           this.chartData = this.setChartData(
             response.data.entreprises,
             response.data.talents,
+            response.data.Abonnements,
             response.data.absicsse
           );
         })

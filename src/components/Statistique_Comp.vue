@@ -130,6 +130,20 @@ export default {
         maintainAspectRatio: false,
         aspectRatio: 1,
         plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                let label = context.dataset.label || "";
+                if (label) {
+                  label += ":";
+                }
+                if (context.parsed.y !== null) {
+                  label += context.parsed.y;
+                }
+                return label;
+              },
+            },
+          },
           legend: {
             labels: {
               color: textColor,
