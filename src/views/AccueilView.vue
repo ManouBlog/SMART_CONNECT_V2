@@ -478,7 +478,7 @@ export default {
                 <div
                   class="d-flex justify-content-center gap-1 align-items-center"
                 >
-                  <h1>Total Revenu</h1>
+                  <h3>Total Revenu</h3>
                   /
                   <h5>
                     {{
