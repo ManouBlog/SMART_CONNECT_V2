@@ -521,7 +521,7 @@ export default {
             justify-content: 'center !important';
           "
         >
-          <Statistique_Comp :title="'Offres & Candidatures'" />
+          <Statistique_Comp :title="'Offres & Candidatures & contrat'" />
           <Statistiques_Account :title="'Entreprise & Talents'" />
         </div>
       </div>

@@ -91,7 +91,7 @@ export default {
           this.isDisabled = false;
         });
     },
-    setChartData(offres, candidatures, labels) {
+    setChartData(offres, candidatures, contrat, labels) {
       return {
         labels: labels,
         datasets: [
@@ -106,6 +106,12 @@ export default {
             backgroundColor: "red",
             borderColor: "red",
             data: candidatures,
+          },
+          {
+            label: "Contrat",
+            backgroundColor: "blue",
+            borderColor: "blue",
+            data: contrat,
           },
         ],
       };
@@ -216,6 +222,7 @@ export default {
           this.chartData = this.setChartData(
             response.data.offre,
             response.data.candidature,
+            response.data.contrat,
             response.data.absicsse
           );
         })
@@ -240,7 +247,9 @@ export default {
       class="chart-loading d-flex gap-2 flex-wrap align-items-center px-2 py-3"
     >
       <MySelect
-        v-if="categories.length && this.title === 'Offres & Candidatures'"
+        v-if="
+          categories.length && this.title === 'Offres & Candidatures & contrat'
+        "
         :allItems="
           categories.length
             ? categories.map((item) => {
