@@ -43,6 +43,7 @@ export default {
       list_students: "",
       list_offres: "",
       see_entreprise_student: "",
+      wallet: "",
     };
   },
   methods: {
@@ -60,6 +61,7 @@ export default {
             this.list_students = res.data.talents;
             this.list_offres = res.data.offre;
             this.see_entreprise_student = Number(res.data.contrat);
+            this.wallet = res.data.wallet;
           }
         })
         .catch((error) => {
@@ -380,7 +382,10 @@ export default {
             </div>
           </div>
         </div>
-        <div class="d-flex">
+        <div
+          class="d-flex"
+          style="place-content: flex-start; justify-content: center"
+        >
           <div
             class="d-flex"
             style="
@@ -388,7 +393,7 @@ export default {
               justify-content: center;
               gap: 0.5em;
               flex-wrap: wrap;
-              place-content: flex-start;
+              place-content: center;
               align-items: center;
             "
           >
@@ -430,7 +435,26 @@ export default {
               title="Contrat"
             />
           </div>
-          <div style="flex: 1">solde</div>
+          <div style="flex: 1">
+            <div
+              class="card p-2"
+              style="width: 100%; height: auto; position: relative"
+            >
+              <div
+                class="d-flex justify-content-center gap-1 align-items-center"
+              >
+                <h1>Total Revenu</h1>
+                /
+                <h5>
+                  {{ new Date().toLocaleString("fr-FR", { month: "long" }) }}
+                </h5>
+              </div>
+              <div class="d-flex justify-content-center">
+                <h1 style="font-size: 5em">{{ wallet }}</h1>
+                <span>Fcfa</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div
