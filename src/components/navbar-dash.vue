@@ -114,7 +114,7 @@ export default {
             >
           </li>
           <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-pencil-square"></i>
+            <i class="bi bi-credit-card-2-back"></i>
             <router-link :to="{ name: 'abonnement' }">
               <strong>Abonnements</strong></router-link
             >

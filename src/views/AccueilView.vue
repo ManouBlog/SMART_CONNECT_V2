@@ -45,6 +45,8 @@ export default {
       list_offres: "",
       see_entreprise_student: "",
       wallet: "",
+      valueSelectPeriod: "Global",
+      periodeFilterStatisticBalance: "",
     };
   },
   methods: {
@@ -342,6 +344,7 @@ export default {
       console.log(e.target.value);
       this.isLoadingWallet = true;
       const data = {
+        type: this.valueSelectPeriod,
         wallet: e.target.value,
       };
       axios
@@ -490,7 +493,18 @@ export default {
                     }}
                   </h5>
                 </div>
-                <div class="text-end m-2">
+                <div class="d-flex justify-content-between gap-2 m-2">
+                  <select
+                    name="stat"
+                    id="stat"
+                    class="w-50"
+                    v-model="valueSelectPeriod"
+                    @change="periodeFilterStatisticBalance = ''"
+                  >
+                    <option value="Global">Global</option>
+                    <option value="entreprise">Entreprise</option>
+                    <option value="etudiant">Talents</option>
+                  </select>
                   <input
                     class="w-50"
                     type="month"
