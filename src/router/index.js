@@ -149,6 +149,16 @@ const routes = [
         },
       },
       {
+        path: "/transactions",
+        name: "transactions",
+        component: () =>
+          import("../views/admin/transactions/HistoriqueTransactions.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "/detail_Categorie_Abonnement/:id",
         name: "detail_Categorie_Abonnement",
         component: () =>

@@ -119,6 +119,12 @@ export default {
               <strong>Abonnements</strong></router-link
             >
           </li>
+          <li style="color: white" v-if="statut == 'admin'">
+            <i class="bi bi-pencil-square"></i>
+            <router-link :to="{ name: 'transactions' }">
+              <strong>Transactions</strong></router-link
+            >
+          </li>
         </ul>
       </div>
       <nav class="sidebar-main">
