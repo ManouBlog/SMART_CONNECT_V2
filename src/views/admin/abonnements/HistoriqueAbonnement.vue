@@ -236,6 +236,45 @@ export default {
           this.spinner = false;
         });
     },
+    deleteCategorieAbonnement(idCategorie) {
+      this.spinner = true;
+      axios
+        .delete("http://127.0.0.1:8000/api/deleteCategorie/" + idCategorie, {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("TIMETABLE", res);
+          alert(res.data.message);
+          if (res.data.status) {
+            const index = this.AllCategorie.findIndex(
+              (item) => item.id == idCategorie
+            );
+            if (index !== -1) {
+              this.AllCategorie.splice(index, 1);
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.spinner = false;
+        });
+    },
+    handleDeleteAbonnementsCategorie(id) {
+      if (
+        confirm("Voulez-vous vraiment supprimer cette catégorie d'abonnement ?")
+      ) {
+        // L'utilisateur a cliqué sur OK
+        console.log("Action confirmée", id);
+        this.deleteCategorieAbonnement(id);
+      } else {
+        // L'utilisateur a cliqué sur Annuler
+        console.log("Action annulée");
+      }
+    },
     handleDeleteabonnements(id) {
       if (confirm("Voulez-vous vraiment supprimer cet abonnement ?")) {
         // L'utilisateur a cliqué sur OK
@@ -522,7 +561,7 @@ export default {
                         ></router-link>
                         <button
                           class="bg-danger border-0"
-                          @click="handleDeleteabonnements(item.id)"
+                          @click="handleDeleteAbonnementsCategorie(item.id)"
                         >
                           <i class="bi bi-trash"></i>
                         </button>
