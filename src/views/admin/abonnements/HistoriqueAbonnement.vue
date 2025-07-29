@@ -13,6 +13,13 @@ export default {
       loading: false,
       AllCategorie: [],
       selectCategorie: "",
+      data: {
+        categorie_id: "",
+        libelle: "",
+        periode: "",
+        prix: "",
+        description: "",
+      },
     };
   },
   methods: {
@@ -261,6 +268,41 @@ export default {
                         </div>
                         <div class="col-lg-6">
                           <div class="mb-3 test-start">
+                            <p class="font-bold">Libéllé</p>
+                            <input
+                              class="form-control"
+                              type="text"
+                              v-model="data.libelle"
+                              placeholder="ex:Serveur,Barman,Professeur,Fille de ménage."
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="mb-3 test-start">
+                            <p class="font-bold">Période</p>
+                            <input
+                              class="form-control"
+                              type="number"
+                              v-model="data.periode"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="mb-3 test-start">
+                            <p class="font-bold">Prix (Fcfa)</p>
+                            <input
+                              class="form-control"
+                              type="number"
+                              v-model="data.prix"
+                              placeholder="ex:Serveur,Barman,Professeur,Fille de ménage."
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="mb-3 test-start">
                             <p class="font-bold">Catégorie</p>
                             <select
                               class="w-100"
@@ -279,6 +321,15 @@ export default {
                                 {{ item.categorie }}
                               </option>
                             </select>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="mb-3 test-start">
+                            <p class="font-bold">Description</p>
+                            <editor
+                              @update:modelValue="handleDescription"
+                              :modelValue="data.description"
+                            />
                           </div>
                         </div>
                       </div>

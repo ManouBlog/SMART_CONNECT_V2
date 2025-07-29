@@ -24,6 +24,7 @@ export default {
         libelle: "",
         periode: "",
         prix: "",
+        description: "",
       },
       categories: [],
     };
