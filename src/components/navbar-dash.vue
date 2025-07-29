@@ -23,104 +23,156 @@ export default {
       </div>
       <div>
         <ul class="liste_liens">
-          <li style="color: white">
-            <i class="bi bi-house-door position-absolute"></i
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+          >
+            <i
+              class="bi bi-house-door position-absolute"
+              style="margin-left: -1.2em"
+            ></i
             ><router-link :to="{ name: 'Accueil' }">
               <strong>Tableau de bord</strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-grid-1x2"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-grid-1x2" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'Categorie' }"
-              ><strong> Catégorie </strong>
+              ><strong> Catégorie d'offre </strong>
             </router-link>
           </li>
-          <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-grid-1x2"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-grid-1x2" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'Competences' }"
-              ><strong> Compétences </strong>
+              ><strong> Compétences talents </strong>
             </router-link>
           </li>
-          <li style="color: white" v-if="statut == 'entreprise'">
-            <i class="bi bi-briefcase"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'entreprise'"
+          >
+            <i class="bi bi-briefcase" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'offres' }"
               ><strong> Mes offres </strong>
             </router-link>
           </li>
-          <li style="color: white" v-if="statut == 'entreprise'">
-            <i class="bi bi-people"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'entreprise'"
+          >
+            <i class="bi bi-people" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'student_contacts_by_entreprise' }">
               <strong> Personnels Contactés</strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'entreprise'">
-            <i class="bi bi-people"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'entreprise'"
+          >
+            <i class="bi bi-people" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'OffreInteressByStudents' }">
               <strong> Postulants à mon offre</strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'etudiant'">
-            <i class="bi bi-calendar-date"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'etudiant'"
+          >
+            <i class="bi bi-calendar-date" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'create_timetable' }">
               <strong> Mon calendrier </strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'etudiant'">
-            <i class="bi bi-briefcase"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'etudiant'"
+          >
+            <i class="bi bi-briefcase" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'see_offres_postuler' }">
               <strong> Offres postulées </strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'etudiant'">
-            <i class="bi bi-building"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'etudiant'"
+          >
+            <i class="bi bi-building" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'see_who_interesse_by_profil_student' }">
               <strong>Contrat-entreprises</strong></router-link
             >
           </li>
-          <li style="color: white">
-            <i class="bi bi-person-plus"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+          >
+            <i class="bi bi-person-plus" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'modify_profil' }">
               <strong> Mon compte</strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-people"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-people" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'users' }">
               <strong> Utilisateurs </strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-building"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-building" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'entreprises' }">
               <strong>Entreprises</strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-person"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-person" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'students' }">
               <strong>Talents</strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-briefcase"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-briefcase" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'all_Offres' }">
               <strong>Offres</strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-pencil-square"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-pencil-square" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'Contrat' }">
               <strong>Contrat</strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-credit-card-2-back"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-credit-card-2-back" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'abonnement' }">
               <strong>Abonnements</strong></router-link
             >
           </li>
-          <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-cash-stack"></i>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-cash-stack" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'transactions' }">
               <strong>Transactions</strong></router-link
             >
