@@ -25,11 +25,50 @@ export default {
         prix: "",
         description: "",
       },
+      abonnementCategorie: { libelle: "" },
     };
   },
   methods: {
     handleDescription(e) {
       this.data.description = e;
+    },
+    create_categorie() {
+      axios
+        .post(
+          "http://127.0.0.1:8000/api/create_categorie-abonnement",
+          this.abonnementCategorie,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+          if (res.data.status === false) {
+            Swal.fire({
+              icon: "error",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        })
+        .finally(() => {
+          this.get_categorie();
+          this.abonnementCategorie.libelle = "";
+        });
     },
     create_abonnement() {
       axios
@@ -72,6 +111,39 @@ export default {
           console.log("TIMETABLE", res);
           this.AllCategorie = res.data.data;
           this.selectCategorie = res.data.data[0].id;
+          setTimeout(function () {
+            $("#MyTableData2").DataTable({
+              pagingType: "full_numbers",
+              pageLength: 10,
+              processing: true,
+              order: [],
+              language: {
+                décimal: "",
+                emptyTable: "Aucune donnée disponible dans le tableau",
+                infoEmpty: "Showing 0 to 0 of 0 entries",
+                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+                infoPostFix: "",
+                thousands: ",",
+                lengthMenu: "Afficher les entrées du _MENU_",
+                loadingRecords: "Loading...",
+                processing: "Processing...",
+                search: "Chercher :",
+                stateSave: true,
+                zeroRecords: "Aucun enregistrement correspondant trouvé",
+                paginate: {
+                  first: "Premier",
+                  last: "Dernier",
+                  next: "Suivant",
+                  previous: "Précédent",
+                },
+                aria: {
+                  sortAscending: ": activate to sort column ascending",
+                  sortDescending: ": activate to sort column descending",
+                },
+              },
+            });
+          }, 10);
         })
         .catch((err) => {
           console.log(err);
@@ -220,6 +292,18 @@ export default {
             <li class="nav-item">
               <a
                 class="nav-link"
+                id="top-timeline"
+                data-bs-toggle="tab"
+                href="#listCategorieAbonnement"
+                role="tab"
+                aria-controls="listCategorieAbonnement"
+                aria-selected="true"
+                ><i data-feather="clock"></i>Catégorie d'abonnement</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
                 id="top-about"
                 data-bs-toggle="tab"
                 href="#timetable"
@@ -227,6 +311,19 @@ export default {
                 aria-controls="timetable"
                 aria-selected="false"
                 ><i data-feather="alert-circle"></i>Créer un abonnement
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="top-about"
+                data-bs-toggle="tab"
+                href="#createCategorieAbonnement"
+                role="tab"
+                aria-controls="createCategorieAbonnement"
+                aria-selected="false"
+                ><i data-feather="alert-circle"></i>Créer une catégorie
+                d'abonnement
               </a>
             </li>
           </ul>
@@ -388,6 +485,108 @@ export default {
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-pane fade show active"
+        id="listCategorieAbonnement"
+        role="tabpanel"
+        aria-labelledby="listCategorieAbonnement"
+      >
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 card py-3 px-2">
+              <table id="MyTableData2" class="table">
+                <thead>
+                  <tr>
+                    <th class="bg-light">Catégorie</th>
+                    <th class="bg-light">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, index) in AllCategorie" :key="index">
+                    <td>{{ item.categorie }}</td>
+                    <td>
+                      <div
+                        class="d-flex justify-content-center gap-5 align-items-center"
+                      >
+                        <router-link
+                          style="font-size: 1.2em"
+                          :to="{
+                            name: 'detail_abonnement',
+                            params: { id: item.id },
+                          }"
+                          ><i class="bi bi-eye"></i
+                        ></router-link>
+                        <button
+                          class="bg-danger border-0"
+                          @click="handleDeleteabonnements(item.id)"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="createCategorieAbonnement"
+        role="tabpanel"
+        aria-labelledby="createCategorieAbonnement"
+      >
+        <div class="container-fluid">
+          <div class="Myspinner" v-show="spinner">
+            <div class="spinner-border text-primary" role="status"></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="form theme-form projectcreate">
+                    <form @submit.prevent="create_categorie">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="mb-3 test-start">
+                            <p class="font-bold">Libellé</p>
+                            <input
+                              class="form-control"
+                              type="text"
+                              v-model="abonnementCategorie.libelle"
+                              placeholder="ex:Particulier"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="text-end">
+                            <button
+                              :disabled="!abonnementCategorie.libelle"
+                              class="btn btn-primary me-3"
+                              type="submit"
+                            >
+                              <span
+                                class="spinner-border w-20"
+                                role="status"
+                                v-show="loading"
+                              ></span
+                              ><span>Créer une catégorie</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

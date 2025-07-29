@@ -149,6 +149,16 @@ const routes = [
         },
       },
       {
+        path: "/detail_Categorie_Abonnement/:id",
+        name: "detail_Categorie_Abonnement",
+        component: () =>
+          import("../views/admin/abonnements/DetailCategorie.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "/details_entreprise/:id",
         name: "detail_entreprise",
         component: () => import("../views/admin/detailsEntrepriseView.vue"),
