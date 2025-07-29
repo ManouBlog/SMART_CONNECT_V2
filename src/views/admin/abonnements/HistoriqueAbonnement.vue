@@ -338,13 +338,7 @@ export default {
                         class="d-flex justify-content-center gap-5 align-items-center"
                       >
                         <router-link
-                          :to="{
-                            name: 'modifications',
-                            params: { id: item.id, name: 'abonnements' },
-                          }"
-                          ><i class="bi bi-pencil"></i
-                        ></router-link>
-                        <router-link
+                          style="font-size: 1.2em"
                           :to="{
                             name: 'detail_abonnement',
                             params: { id: item.id },

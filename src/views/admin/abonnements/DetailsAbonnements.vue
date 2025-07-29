@@ -220,11 +220,11 @@ export default {
             </button>
             <button
               :disabled="isLoading"
-              class="btn-lg bg-primary"
+              class="btn-lg bg-success"
               v-else
               @click="updateAbonnement"
             >
-              Modifier
+              Confirmer
             </button>
           </div>
         </div>
