@@ -28,20 +28,16 @@ export default {
     };
   },
   methods: {
+    handleDescription(e) {
+      this.data.description = e;
+    },
     create_abonnement() {
       axios
-        .post(
-          "http://127.0.0.1:8000/api/createCompetence",
-          {
-            competence: this.competence,
-            categorie_id: this.selectCategorie,
+        .post("http://127.0.0.1:8000/api/create-abonnement", this.data, {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
           },
-          {
-            headers: {
-              Authorization: "Bearer " + this.$store.state.token,
-            },
-          }
-        )
+        })
         .then((res) => {
           console.log(res);
           if (res.data.status === true) {
@@ -63,15 +59,11 @@ export default {
         })
         .catch((error) => {
           console.log("error", error);
-        })
-        .finally(() => {
-          this.get_abonnements(1);
-          this.competence = null;
         });
     },
     get_categorie() {
       axios
-        .get("http://127.0.0.1:8000/api/seeCategorie", {
+        .get("http://127.0.0.1:8000/api/getCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -261,24 +253,12 @@ export default {
                       <div class="row">
                         <div class="col-lg-6">
                           <div class="mb-3 test-start">
-                            <p class="font-bold">Compétence</p>
-                            <input
-                              class="form-control"
-                              type="text"
-                              v-model="competence"
-                              placeholder="ex:Serveur,Barman,Professeur,Fille de ménage."
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="mb-3 test-start">
-                            <p class="font-bold">Libéllé</p>
+                            <p class="font-bold">Libellé</p>
                             <input
                               class="form-control"
                               type="text"
                               v-model="data.libelle"
-                              placeholder="ex:Serveur,Barman,Professeur,Fille de ménage."
+                              placeholder="ex:STANDARD"
                               required
                             />
                           </div>
@@ -301,7 +281,6 @@ export default {
                               class="form-control"
                               type="number"
                               v-model="data.prix"
-                              placeholder="ex:Serveur,Barman,Professeur,Fille de ménage."
                               required
                             />
                           </div>
@@ -313,7 +292,7 @@ export default {
                               class="w-100"
                               name="categorie"
                               id="categorie"
-                              v-model="selectCategorie"
+                              v-model="data.categorie_id"
                             >
                               <option value="" disabled>
                                 Séléctionne la catégorie
@@ -341,10 +320,7 @@ export default {
                       <div class="row">
                         <div class="col">
                           <div class="text-end">
-                            <button
-                              class="btn btn-secondary me-3"
-                              type="submit"
-                            >
+                            <button class="btn btn-primary me-3" type="submit">
                               <span
                                 class="spinner-border w-20"
                                 role="status"
@@ -441,5 +417,9 @@ th {
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
+}
+.font-bold {
+  font-size: 1.2em !important;
+  font-weight: 900 !important;
 }
 </style>
