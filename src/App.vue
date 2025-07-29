@@ -33,4 +33,9 @@ input {
   color: #2c3e50 !important;
   font-weight: bold !important;
 }
+.font-bold,
+.form-label {
+  font-size: 1.2em !important;
+  font-weight: 900 !important;
+}
 </style>

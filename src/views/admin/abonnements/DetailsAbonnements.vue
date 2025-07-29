@@ -53,6 +53,7 @@ export default {
     },
     handleDescription(e) {
       console.log(e);
+      this.data.description = e;
     },
     updateAbonnement() {
       this.isLoading = true;
@@ -206,6 +207,7 @@ export default {
                 <editor
                   @update:modelValue="handleDescription"
                   :modelValue="data.description"
+                  v-model="data.description"
                 />
               </div>
             </div>

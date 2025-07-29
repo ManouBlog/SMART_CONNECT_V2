@@ -134,11 +134,11 @@ export default {
           console.log(err);
         });
     },
-    deleteCompetence(idCompetence) {
+    deleteAbonnement(idAbonnement) {
       this.spinner = true;
       axios
         .delete(
-          "http://127.0.0.1:8000/api/admin/delete_competence/" + idCompetence,
+          "http://127.0.0.1:8000/api/admin/deleteAbonnement/" + idAbonnement,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -150,7 +150,7 @@ export default {
           alert(res.data.message);
           if (res.data.status) {
             const index = this.abonnements.findIndex(
-              (item) => item.id == idCompetence
+              (item) => item.id == idAbonnement
             );
             if (index !== -1) {
               this.abonnements.splice(index, 1);
@@ -168,7 +168,7 @@ export default {
       if (confirm("Voulez-vous vraiment supprimer cet abonnement ?")) {
         // L'utilisateur a cliqué sur OK
         console.log("Action confirmée", id);
-        this.deleteCompetence(id);
+        this.deleteAbonnement(id);
       } else {
         // L'utilisateur a cliqué sur Annuler
         console.log("Action annulée");
@@ -417,9 +417,5 @@ th {
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
-}
-.font-bold {
-  font-size: 1.2em !important;
-  font-weight: 900 !important;
 }
 </style>
