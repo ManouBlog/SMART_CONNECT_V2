@@ -1,10 +1,15 @@
 <script>
 import $ from "jquery";
 import axios from "axios";
+import Editor from "@/components/text-editor.vue";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Swal from "sweetalert2";
 export default {
+  name: "HistoriqueAbonnement",
+  components: {
+    Editor,
+  },
   data() {
     return {
       competence: null,
