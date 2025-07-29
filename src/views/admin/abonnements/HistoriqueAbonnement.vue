@@ -515,7 +515,7 @@ export default {
                         <router-link
                           style="font-size: 1.2em"
                           :to="{
-                            name: 'detail_abonnement',
+                            name: 'detail_Categorie_Abonnement',
                             params: { id: item.id },
                           }"
                           ><i class="bi bi-eye"></i

@@ -38,7 +38,7 @@ export default {
             (item) => item.id == this.$route.params.id
           );
           console.log("detail_categorie", this.detail_categorie);
-          this.data.libelle = this.detail_categorie.libelle;
+          this.data.libelle = this.detail_categorie.categorie;
           this.spinner = false;
         });
     },
@@ -50,8 +50,7 @@ export default {
       this.isLoading = true;
       axios
         .put(
-          "http://127.0.0.1:8000/api/admin/updateCategorie/" +
-            this.$route.params.id,
+          "http://127.0.0.1:8000/api/editCategorie/" + this.$route.params.id,
           this.data,
           {
             headers: {
