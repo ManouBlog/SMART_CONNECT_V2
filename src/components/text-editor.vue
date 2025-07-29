@@ -1,10 +1,10 @@
 <script>
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
-import Document from "@tiptap/extension-document";
+// import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
-import Text from "@tiptap/extension-text";
-import Bold from "@tiptap/extension-bold";
+// import Text from "@tiptap/extension-text";
+// import Bold from "@tiptap/extension-bold";
 export default {
   name: "EditorVue",
   components: {
@@ -28,7 +28,6 @@ export default {
       if (isSame) {
         return;
       }
-
       this.editor.commands.setContent(value, false);
     },
   },
@@ -36,17 +35,17 @@ export default {
     this.editor = new Editor({
       extensions: [
         StarterKit,
-        Document,
-        Paragraph,
-        Text,
-        Bold,
+        // Document,
+        // Paragraph,
+        // Text,
+        // Bold,
         Paragraph.configure({
           HTMLAttributes: {
             class: "my-custom-paragraph",
           },
         }),
       ],
-
+      content: this.modelValue,
       detailOfExperience: this.modelValue,
       autofocus: true,
       editable: true,
@@ -59,6 +58,8 @@ export default {
         // this.$emit('update:modelValue', this.editor.getJSON())
       },
     });
+    // this.editor.chain().focus().toggleBulletList().run();
+    // console.log("this.modelValue", this.modelValue);
   },
 };
 </script>
@@ -85,49 +86,55 @@ export default {
     >
       <em class="bi bi-type-strikethrough"></em>
     </button>
-    <button
+    <!-- <button
       @click.prevent="editor.chain().focus().toggleCode().run()"
       :disabled="!editor.can().chain().focus().toggleCode().run()"
       :class="{ 'is-active': editor.isActive('code') }"
     >
       <em class="bi bi-code"></em>
-    </button>
+    </button> -->
+    <!-- <button
+      @click.prevent="editor.chain().focus().toggleBulletList().run()"
+      :class="{ 'is-active': editor.isActive('bulletList') }"
+    >
+      <em class="bi bi-list-task"></em>
+    </button> -->
     <button
       @click.prevent="editor.chain().focus().toggleBulletList().run()"
       :class="{ 'is-active': editor.isActive('bulletList') }"
     >
       <em class="bi bi-list-task"></em>
     </button>
-    <button
+    <!-- <button
       @click.prevent="editor.chain().focus().toggleOrderedList().run()"
       :class="{ 'is-active': editor.isActive('orderedList') }"
     >
       <em class="bi bi-list-task"></em>
-    </button>
-    <button
+    </button> -->
+    <!-- <button
       @click.prevent="editor.chain().focus().toggleCodeBlock().run()"
       :class="{ 'is-active': editor.isActive('codeBlock') }"
     >
       <em class="bi bi-code-square"></em>
-    </button>
-    <button
+    </button> -->
+    <!-- <button
       @click.prevent="editor.chain().focus().toggleBlockquote().run()"
       :class="{ 'is-active': editor.isActive('Blockquote') }"
     >
       <em class="bi bi-quote"></em>
-    </button>
-    <button
+    </button> -->
+    <!-- <button
       @click.prevent="editor.chain().focus().setHorizontalRule().run()"
       :class="{ 'is-active': editor.isActive('HorizontalRule') }"
     >
       <em class="bi bi-dash-lg"></em>
-    </button>
-    <button
+    </button> -->
+    <!-- <button
       @click.prevent="editor.chain().focus().setHardBreak().run()"
       :class="{ 'is-active': editor.isActive('HardBreak') }"
     >
       <em class="bi bi-paragraph"></em>
-    </button>
+    </button> -->
     <button
       @click.prevent="editor.chain().focus().undo().run()"
       :disabled="!editor.can().chain().focus().undo().run()"

@@ -630,6 +630,7 @@ ul {
 }
 .my-custom-paragraph {
   text-align: left !important;
+  padding: 1.5em !important;
 }
 .content_experience {
   padding: 0.5em 0;

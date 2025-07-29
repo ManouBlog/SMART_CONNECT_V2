@@ -1,11 +1,14 @@
 <script>
 import axios from "axios";
 // import Swal from "sweetalert2";
-import $ from "jquery";
+import Editor from "@/components/text-editor.vue";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 export default {
   name: "DetailsAbonnements",
+  components: {
+    Editor,
+  },
   data() {
     return {
       entreprise: null,
@@ -13,7 +16,16 @@ export default {
       detail_abonnement: null,
       offres: null,
       spinner: false,
+      isLoading: false,
       moneyFormat: new Intl.NumberFormat("de-DE"),
+      isDisabled: true,
+      data: {
+        categorie_id: "",
+        libelle: "",
+        periode: "",
+        prix: "",
+      },
+      categories: [],
     };
   },
   methods: {
@@ -30,46 +42,68 @@ export default {
             (item) => item.id == this.$route.params.id
           );
           console.log("detail_abonnement", this.detail_abonnement);
+          this.data.categorie_id = this.detail_abonnement.categorie.id;
+          this.data.libelle = this.detail_abonnement.libelle;
+          this.data.periode = this.detail_abonnement.periode;
+          this.data.prix = this.detail_abonnement.prix;
+          this.data.description = this.detail_abonnement.description;
           this.spinner = false;
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
-          console.log("ID_STUDENT", this.offres);
         });
+    },
+    handleDescription(e) {
+      console.log(e);
+    },
+    updateAbonnement() {
+      this.isLoading = true;
+      axios
+        .put(
+          "http://127.0.0.1:8000/api/admin/updateAbonnement/" +
+            this.$route.params.id,
+          this.data,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("TIMETABLE", res);
+          this.categories = res.data.data;
+          console.log("CATEGORIE", this.categories);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.isLoading = false;
+          this.get_details_abonnement();
+          this.get_categorie();
+          this.isDisabled = true;
+        });
+    },
+    get_categorie() {
+      axios
+        .get("http://127.0.0.1:8000/api/getCategorie", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("TIMETABLE", res);
+          this.categories = res.data.data;
+          console.log("CATEGORIE", this.categories);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // .finally(() => {
+      //   this.spinner = false;
+      // });
     },
   },
   created() {
     this.get_details_abonnement();
+    this.get_categorie();
   },
 };
 </script>
@@ -100,20 +134,29 @@ export default {
           <div class="col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Catégorie</label>
-              <input
-                disabled
-                v-model="detail_abonnement.categorie.categorie"
-                class="form-control"
-                type="text"
-              />
+              <select
+                name="categorie"
+                id="categorie"
+                v-model="data.categorie_id"
+                :disabled="isDisabled"
+              >
+                <option value="" disabled>Sélectionne une catégorie</option>
+                <option
+                  :value="item.id"
+                  v-for="(item, index) in this.categories"
+                  :key="index"
+                >
+                  {{ item.categorie }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Libelle</label>
               <input
-                disabled
-                v-model="detail_abonnement.libelle"
+                :disabled="isDisabled"
+                v-model="data.libelle"
                 class="form-control"
                 type="text"
               />
@@ -123,10 +166,11 @@ export default {
             <div class="mb-3 text-start">
               <label class="form-label">Période</label>
               <input
-                v-model="detail_abonnement.periode"
+                v-model="data.periode"
                 class="form-control"
-                type="email"
-                disabled
+                type="number"
+                min="0"
+                :disabled="isDisabled"
               />
             </div>
           </div>
@@ -134,12 +178,54 @@ export default {
             <div class="mb-3 text-start">
               <label class="form-label">Prix (Fcfa)</label>
               <input
-                disabled
-                v-model="detail_abonnement.prix"
+                :disabled="isDisabled"
+                v-model="data.prix"
                 class="form-control"
-                type="text"
+                type="number"
+                min="10"
               />
             </div>
+          </div>
+          <div class="col-sm-9 col-md-9 text-start p-2" v-if="isDisabled">
+            <label class="form-label">Description</label>
+            <div
+              style="
+                width: 100%;
+                background: #e9ecef;
+                border-radius: 10px;
+                padding: 0.5em;
+              "
+              v-html="data.description"
+            ></div>
+          </div>
+          <div class="col-lg-12" v-else>
+            <div class="mb-3 text-start">
+              <label>Description</label>
+              <div class="conteneur_editor">
+                <editor
+                  @update:modelValue="handleDescription"
+                  :modelValue="data.description"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="text-end">
+            <button
+              class="btn-lg bg-primary"
+              v-if="isDisabled"
+              @click="isDisabled = !isDisabled"
+            >
+              Modifier
+            </button>
+            <button
+              :disabled="isLoading"
+              class="btn-lg bg-primary"
+              v-else
+              @click="updateAbonnement"
+            >
+              Modifier
+            </button>
           </div>
         </div>
       </div>
