@@ -82,8 +82,7 @@ export default {
     <div class="container-fluid">
       <div class="page-title">
         <div class="row">
-          <div class="col-12 col-sm-6">
-          </div>
+          <div class="col-12 col-sm-6"></div>
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">Historique des transactions</li>
@@ -100,36 +99,36 @@ export default {
             <table id="MyTableData" class="table">
               <thead>
                 <tr>
-                  <th class="bg-light">Nom</th>
-                  <th class="bg-light">email</th>
+                  <th class="bg-light">Date d'enregistrement</th>
+                  <th class="bg-light">Identifiant</th>
+                  <th class="bg-light">Moyen de paiement</th>
+                  <th class="bg-light">Montant (Fcfa)</th>
+                  <th class="bg-light">Client</th>
+                  <th class="bg-light">Date d'écheance</th>
                   <th class="bg-light">Statut</th>
-                  <!-- <th class="bg-light">Télephone</th> -->
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(item, index) in Historique" :key="index">
-                  <td>{{ item.nom }}</td>
-                  <td>{{ item.email }}</td>
+                  <td>
+                    {{ new Date(item.created_at).toLocaleDateString("fr") }}
+                  </td>
+                  <td>{{ item.transaction_id }}</td>
+                  <td>{{ item.moyen_paiement }}</td>
+                  <td>{{ item.montant }}</td>
+                  <td>{{ `${item.user.nom}` }}</td>
+                  <td>{{ item.echeance }}</td>
                   <td>
                     <span
-                      v-if="item.statut.statut == 'entreprise'"
-                      class="badge bg-primary"
-                      >Entreprise</span
-                    >
-                    <span
-                      v-if="item.statut.statut == 'etudiant'"
-                      class="badge bg-warning"
-                      >Etudiant</span
-                    >
-                    <span
-                      v-if="item.statut.statut == 'admin'"
-                      class="badge bg-danger"
-                      >Admin</span
-                    >
-                    <span
-                      v-if="item.statut.statut == 'particulier'"
-                      class="badge bg-info"
-                      >Particulier</span
+                      class="badge"
+                      :class="
+                        item.statut === 'EN ATTENTE'
+                          ? 'bg-warning'
+                          : item.statut !== 'ACCEPTED'
+                          ? 'bg-danger'
+                          : 'bg-success'
+                      "
+                      >{{ item.statut }}</span
                     >
                   </td>
                   <!-- <td v-if="item.student.statut">

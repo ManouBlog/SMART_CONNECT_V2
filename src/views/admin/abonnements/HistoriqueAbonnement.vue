@@ -529,7 +529,7 @@ export default {
         </div>
       </div>
       <div
-        class="tab-pane fade show active"
+        class="tab-pane"
         id="listCategorieAbonnement"
         role="tabpanel"
         aria-labelledby="listCategorieAbonnement"
@@ -575,7 +575,7 @@ export default {
         </div>
       </div>
       <div
-        class="tab-pane fade"
+        class="tab-pane"
         id="createCategorieAbonnement"
         role="tabpanel"
         aria-labelledby="createCategorieAbonnement"

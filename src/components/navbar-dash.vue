@@ -120,7 +120,7 @@ export default {
             >
           </li>
           <li style="color: white" v-if="statut == 'admin'">
-            <i class="bi bi-pencil-square"></i>
+            <i class="bi bi-cash-stack"></i>
             <router-link :to="{ name: 'transactions' }">
               <strong>Transactions</strong></router-link
             >
