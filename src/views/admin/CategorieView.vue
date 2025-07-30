@@ -253,7 +253,7 @@ export default {
                                 role="status"
                                 v-show="loading"
                               ></span
-                              ><span>Créer une catégorie</span>
+                              ><span>Enregistrer une catégorie</span>
                             </button>
                           </div>
                         </div>

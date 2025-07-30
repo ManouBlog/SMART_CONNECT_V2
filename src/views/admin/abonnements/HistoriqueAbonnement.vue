@@ -349,7 +349,7 @@ export default {
                 role="tab"
                 aria-controls="timetable"
                 aria-selected="false"
-                ><i data-feather="alert-circle"></i>Créer un abonnement
+                ><i data-feather="alert-circle"></i>Enregistrer un abonnement
               </a>
             </li>
             <li class="nav-item">
@@ -361,7 +361,7 @@ export default {
                 role="tab"
                 aria-controls="createCategorieAbonnement"
                 aria-selected="false"
-                ><i data-feather="alert-circle"></i>Créer une catégorie
+                ><i data-feather="alert-circle"></i>Enregistrer une catégorie
                 d'abonnement
               </a>
             </li>
@@ -462,7 +462,7 @@ export default {
                                 role="status"
                                 v-show="loading"
                               ></span
-                              ><span>Créer un abonnement</span>
+                              ><span>Enregistrer un abonnement</span>
                             </button>
                           </div>
                         </div>
@@ -617,7 +617,7 @@ export default {
                                 role="status"
                                 v-show="loading"
                               ></span
-                              ><span>Créer une catégorie</span>
+                              ><span>Enregistrer une catégorie</span>
                             </button>
                           </div>
                         </div>

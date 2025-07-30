@@ -132,7 +132,11 @@ export default {
         <div class="text-start">
           <h4 class="badge bg-info">
             <b>Formule d'abonnement</b> :
-            {{ this.verifIfAbonnementCurrently(student?.user?.abonement) }}
+            {{
+              this.verifIfAbonnementCurrently(student?.user?.abonement)
+                ? this.verifIfAbonnementCurrently(student?.user?.abonement)
+                : "Pas d'abonnement"
+            }}
           </h4>
         </div>
         <div class="row">
