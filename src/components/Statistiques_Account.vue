@@ -247,38 +247,34 @@ export default {
     handleTypeSelect(e) {
       this.chooseTypesOfFilter = e;
       if (e === "nombre") {
-        this.submitStatistiques(this.valueSubmit, this.categories);
+        this.submitStatistiques(this.valueSubmit);
       } else {
         this.submitAbonnementStatistiques(this.valueSubmit);
       }
-      this.valueSubmit = null;
+      this.valueSubmit =
+        this.chooseAnOptionPeriode === "annually"
+          ? new Date().getFullYear()
+          : null;
+      // this.chooseAnOptionPeriode = "annually";
     },
     handleCategorieSelect(e) {
       console.log("handleCategorieSelect", e);
       this.categorieSelected = e;
     },
-    async submitStatistiques(year = null, categories) {
+    async submitStatistiques(year = null) {
       console.log("submitStatistiques", this.valueSubmit);
-      console.log("categories", categories);
       this.isLoading = true;
       const data =
         this.chooseAnOptionPeriode !== "weekly"
           ? {
               type: this.chooseTypesOfFilter,
-              value_periode:
-                year && categories ? this.currentYear : this.valueSubmit,
-              periode:
-                year && categories
-                  ? PERIODE[0].value
-                  : this.chooseAnOptionPeriode,
+              value_periode: year ? this.currentYear : this.valueSubmit,
+              periode: year ? PERIODE[0].value : this.chooseAnOptionPeriode,
             }
           : {
               type: this.chooseTypesOfFilter,
               value_periode: this.weekDay,
-              periode:
-                year && categories
-                  ? PERIODE[0].value
-                  : this.chooseAnOptionPeriode,
+              periode: year ? PERIODE[0].value : this.chooseAnOptionPeriode,
             };
       console.log("DATA", data);
       axios
@@ -309,7 +305,7 @@ export default {
 
     async submitAbonnementStatistiques(year = null) {
       console.log("submitAbonnementStatistiques lancer");
-      // this.isLoading = true;
+      this.isLoading = true;
       const data =
         this.chooseAnOptionPeriode !== "weekly"
           ? {
