@@ -89,8 +89,12 @@
         stroke-linecap="round"/> -->
   
   <!-- Pointe de la flèche -->
-  <!-- <polygon points="160,30 180,50 160,70" 
-           fill="#000000"/> -->
+ <path d="M450,170 L490,190 L450,220 Z"
+        fill="#FFA500"
+        stroke="hsla(193, 44%, 26%, 1)"
+        stroke-width="5"
+        stroke-linejoin="round"
+        transform="rotate(-130, 300, 270)"/>
     </svg>
   </div>
 </template>
@@ -100,4 +104,5 @@ export default {
   name: 'LogoAnimations'
 }
 </script>
+
 

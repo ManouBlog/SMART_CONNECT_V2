@@ -2,6 +2,7 @@
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { ref, onMounted } from "vue";
 import { useStore } from 'vuex';
+// import LoadingSpinner from "../../Shared/Compoments/LoadingSpinner.vue";
 import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
 // import {mapActions} from "pinia"
 import instance from "../../api/api";
@@ -115,6 +116,7 @@ onMounted(async () => {
         </n-tab-pane>
       </n-tabs>
     </n-card>
+<!-- <LoadingSpinner /> -->
   </div>
 </template>
 <style scoped>
