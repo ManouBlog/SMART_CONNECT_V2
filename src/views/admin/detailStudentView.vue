@@ -30,42 +30,105 @@ export default {
             (item) => item.id == this.$route.params.id
           );
           this.jours = this.student.jours;
-          this.spinner = false;
-          setTimeout(function () {
+          if ($.fn.DataTable.isDataTable("#MyTableData")) {
+            $("#MyTableData").DataTable().destroy();
+          }
+          if ($.fn.DataTable.isDataTable("#MyTableData2")) {
+            $("#MyTableData2").DataTable().destroy();
+          }
+          this.$nextTick(() => {
+            // Initialisation séparée pour chaque table
             $("#MyTableData").DataTable({
               pagingType: "full_numbers",
               pageLength: 10,
               processing: true,
               order: [],
+              responsive: true, // Ajout du responsive
               language: {
-                décimal: "",
+                decimal: "",
                 emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
                 info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
                 infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
+                lengthMenu: "Afficher _MENU_ entrées",
+                loadingRecords: "Chargement...",
+                processing: "Traitement...",
+                search: "Rechercher :",
+                zeroRecords: "Aucun résultat trouvé",
                 paginate: {
                   first: "Premier",
                   last: "Dernier",
                   next: "Suivant",
                   previous: "Précédent",
                 },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
               },
             });
-          }, 10);
-          console.log("ID_STUDENT", this.jours);
+
+            // Si vous avez une deuxième table
+            if ($("#MyTableData2").length) {
+              $("#MyTableData2").DataTable({
+                pagingType: "full_numbers",
+                pageLength: 10,
+                processing: true,
+                order: [],
+                responsive: true,
+                language: {
+                  // Même configuration de langue que ci-dessus
+                },
+              });
+            }
+
+            this.spinner = false;
+          });
+          // setTimeout(function () {
+          //   $("#MyTableData", "#MyTableData2").DataTable({
+          //     pagingType: "full_numbers",
+          //     pageLength: 10,
+          //     processing: true,
+          //     order: [],
+          //     language: {
+          //       décimal: "",
+          //       emptyTable: "Aucune donnée disponible dans le tableau",
+          //       infoEmpty: "Showing 0 to 0 of 0 entries",
+          //       info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+          //       infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+          //       infoPostFix: "",
+          //       thousands: ",",
+          //       lengthMenu: "Afficher les entrées du _MENU_",
+          //       loadingRecords: "Loading...",
+          //       processing: "Processing...",
+          //       search: "Chercher :",
+          //       stateSave: true,
+          //       zeroRecords: "Aucun enregistrement correspondant trouvé",
+          //       paginate: {
+          //         first: "Premier",
+          //         last: "Dernier",
+          //         next: "Suivant",
+          //         previous: "Précédent",
+          //       },
+          //       aria: {
+          //         sortAscending: ": activate to sort column ascending",
+          //         sortDescending: ": activate to sort column descending",
+          //       },
+          //     },
+          //   });
+          // }, 10);
+          // console.log("ID_STUDENT", this.jours);
         });
+    },
+    verifIfAbonnementCurrently(value) {
+      let valueAbonnementCurrently = null;
+      if (!value.length) {
+        return null;
+      }
+      value?.forEach((element) => {
+        if (element.statut === "ACCEPTED") {
+          valueAbonnementCurrently = element;
+        }
+      });
+      return valueAbonnementCurrently.abonement.libelle
+        ? valueAbonnementCurrently.abonement.libelle
+        : null;
     },
   },
   created() {
@@ -96,7 +159,12 @@ export default {
         <span v-if="student != null" class="badge bg-primary h3">{{
           `${student.nom}  ${student.prenoms}`
         }}</span>
-
+        <div class="text-start">
+          <h4 class="badge bg-info">
+            <b>Formule d'abonnement</b> :
+            {{ this.verifIfAbonnementCurrently(student?.user?.abonement) }}
+          </h4>
+        </div>
         <div class="row">
           <div class="col-md-3">
             <div class="mb-3 text-start">
@@ -245,6 +313,56 @@ export default {
               </tr>
             </tbody>
           </table> -->
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" v-if="student != null">
+      <h1 class="text-decoration-underline py-3">Abonnements</h1>
+      <div class="row">
+        <div class="col-sm-12 card py-3 px-2">
+          <table id="MyTableData2" class="table">
+            <thead>
+              <tr>
+                <th class="bg-light">Date de l'enregistrement</th>
+                <th class="bg-light">Identifiant</th>
+                <th class="bg-light">Formule d'abonnement</th>
+                <th class="bg-light">Moyen de paiement</th>
+                <th class="bg-light">Montant (Fcfa)</th>
+                <th class="bg-light">Echeance</th>
+                <th class="bg-light">Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in student.user.abonement" :key="index">
+                <td>
+                  {{ new Date(item.created_at).toLocaleDateString("fr") }}
+                </td>
+                <td>
+                  {{ item.transaction_id }}
+                </td>
+                <td>
+                  {{ item?.abonement?.libelle }}
+                </td>
+                <td>{{ item.moyen_paiement }}</td>
+                <td>
+                  {{ item.montant }}
+                </td>
+                <td>
+                  {{ item.echeance }}
+                </td>
+                <td>
+                  <p
+                    class="badge"
+                    :class="
+                      item.statut === 'ACCEPTED' ? 'bg-success' : 'bg-danger'
+                    "
+                  >
+                    {{ item.statut }}
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
