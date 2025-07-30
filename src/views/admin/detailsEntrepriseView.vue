@@ -100,6 +100,20 @@ export default {
           this.spinner = false;
         });
     },
+    verifIfAbonnementCurrently(value) {
+      let valueAbonnementCurrently = null;
+      if (!value.length) {
+        return null;
+      }
+      value?.forEach((element) => {
+        if (element.statut === "ACCEPTED") {
+          valueAbonnementCurrently = element;
+        }
+      });
+      return valueAbonnementCurrently.abonement.libelle
+        ? valueAbonnementCurrently.abonement.libelle
+        : null;
+    },
   },
   created() {
     this.get_details_entreprise();
@@ -132,12 +146,34 @@ export default {
         <span class="h3">Entreprise : </span
         ><span class="badge bg-primary h3">{{ `${entreprise.nom}` }}</span>
         <div>
+          <h4>
+            <b>Formule d'abonnement</b> :
+            {{ this.verifIfAbonnementCurrently(entreprise?.user?.abonement) }}
+          </h4>
           <h4><b>Email</b> : {{ entreprise.email }}</h4>
           <h4>
-            <b v-if="entreprise.registre_commerce"
-              >Registre de commerce : {{ entreprise.registre_commerce }}
+            <b>Commune</b> :
+            {{ entreprise.commune ? entreprise.commune : null }}
+          </h4>
+          <h4><b>Contact</b> : {{ entreprise.contact }}</h4>
+          <h4 v-if="entreprise.gerant">
+            <b>Gérant</b> : {{ entreprise.gerant }} ({{
+              entreprise.numero_gerant
+            }})
+          </h4>
+          <h4 v-if="entreprise.matricule_cc">
+            <b>Matricule_cc</b> :
+            {{ entreprise.matricule_cc ? entreprise.matricule_cc : null }}
+          </h4>
+          <h4>
+            <b
+              >Registre de commerce :
+              {{
+                entreprise.registre_commerce
+                  ? entreprise.registre_commerce
+                  : null
+              }}
             </b>
-            <b v-else>Registre de commerce : null</b>
           </h4>
         </div>
       </div>
@@ -226,6 +262,9 @@ export default {
 </template>
 
 <style scoped>
+h4 {
+  margin: 1em 0;
+}
 .bi-arrow-left-circle {
   cursor: pointer;
 }
