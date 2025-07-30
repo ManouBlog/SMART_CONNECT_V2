@@ -106,14 +106,14 @@ export default {
               <strong>Contrat-entreprises</strong></router-link
             >
           </li>
-          <li
+          <!-- <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
           >
             <i class="bi bi-person-plus" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'modify_profil' }">
               <strong> Mon compte</strong></router-link
             >
-          </li>
+          </li> -->
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"
