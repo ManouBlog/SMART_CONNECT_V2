@@ -24,6 +24,16 @@ const PERIODE = [
   //     libelle: "Personnaliser",
   //   },
 ];
+const TYPES = [
+  {
+    value: "nombre",
+    libelle: "Nbre total",
+  },
+  {
+    value: "abonnement",
+    libelle: "Abonnement",
+  },
+];
 export default {
   name: "Statistique_Account",
   props: {
@@ -42,9 +52,13 @@ export default {
       isLoading: false,
       chartData: null,
       chartOptions: null,
+      chartAbonnementData: null,
+      chartAbonnementOptions: null,
       chooseAnOptionPeriode: "annually",
+      chooseTypesOfFilter: "nombre",
       weekDay: null,
       PERIODE: PERIODE,
+      TYPES: TYPES,
       categories: [],
       valueSubmit: new Date().getFullYear(),
       categorieSelected: "",
@@ -91,7 +105,7 @@ export default {
           this.isDisabled = false;
         });
     },
-    setChartData(Entreprises, Talents, Abonnements, labels) {
+    setChartData(Entreprises, Talents, labels) {
       return {
         labels: labels,
         datasets: [
@@ -107,13 +121,77 @@ export default {
             borderColor: "brown",
             data: Talents,
           },
+          // {
+          //   label: "Abonnements",
+          //   backgroundColor: "black",
+          //   borderColor: "black",
+          //   data: Abonnements,
+          // },
+        ],
+      };
+    },
+    setChartAbonnementData(Entreprises, Talents, labels) {
+      return {
+        labels: labels,
+        datasets: [
           {
-            label: "Abonnements",
-            backgroundColor: "black",
-            borderColor: "black",
-            data: Abonnements,
+            label: "Entreprises",
+            backgroundColor: "teal",
+            borderColor: "teal",
+            data: Entreprises,
+          },
+          {
+            label: "Talents",
+            backgroundColor: "brown",
+            borderColor: "brown",
+            data: Talents,
           },
         ],
+      };
+    },
+    setChartAbonnementOptions() {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = documentStyle.getPropertyValue("--p-text-color");
+      const textColorSecondary = documentStyle.getPropertyValue(
+        "--p-text-muted-color"
+      );
+      const surfaceBorder = documentStyle.getPropertyValue(
+        "--p-content-border-color"
+      );
+
+      return {
+        maintainAspectRatio: false,
+        aspectRatio: 1,
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+              font: {
+                weight: 500,
+              },
+            },
+            grid: {
+              display: false,
+              drawBorder: false,
+            },
+          },
+          y: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+              drawBorder: false,
+            },
+          },
+        },
       };
     },
     setChartOptions() {
@@ -166,16 +244,27 @@ export default {
       this.chooseAnOptionPeriode = e;
       this.valueSubmit = null;
     },
+    handleTypeSelect(e) {
+      this.chooseTypesOfFilter = e;
+      if (e === "nombre") {
+        this.submitStatistiques(this.valueSubmit, this.categories);
+      } else {
+        this.submitAbonnementStatistiques(this.valueSubmit);
+      }
+      this.valueSubmit = null;
+    },
     handleCategorieSelect(e) {
       console.log("handleCategorieSelect", e);
       this.categorieSelected = e;
     },
     async submitStatistiques(year = null, categories) {
       console.log("submitStatistiques", this.valueSubmit);
+      console.log("categories", categories);
       this.isLoading = true;
       const data =
         this.chooseAnOptionPeriode !== "weekly"
           ? {
+              type: this.chooseTypesOfFilter,
               value_periode:
                 year && categories ? this.currentYear : this.valueSubmit,
               periode:
@@ -184,6 +273,7 @@ export default {
                   : this.chooseAnOptionPeriode,
             }
           : {
+              type: this.chooseTypesOfFilter,
               value_periode: this.weekDay,
               periode:
                 year && categories
@@ -206,9 +296,50 @@ export default {
           this.chartData = this.setChartData(
             response.data.entreprises,
             response.data.talents,
-            response.data.Abonnements,
             response.data.absicsse
           );
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+
+    async submitAbonnementStatistiques(year = null) {
+      console.log("submitAbonnementStatistiques lancer");
+      // this.isLoading = true;
+      const data =
+        this.chooseAnOptionPeriode !== "weekly"
+          ? {
+              value_periode: year ? this.currentYear : this.valueSubmit,
+              type: this.chooseTypesOfFilter,
+              periode: year ? PERIODE[0].value : this.chooseAnOptionPeriode,
+            }
+          : {
+              value_periode: this.weekDay,
+              type: this.chooseTypesOfFilter,
+              periode: year ? PERIODE[0].value : this.chooseAnOptionPeriode,
+            };
+      console.log("DATA2", data);
+      axios
+        .post(
+          "http://127.0.0.1:8000/api/statistiques/statistiqueAccount",
+          data,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
+        .then((response) => {
+          console.log("statistique_response", response);
+          // this.chartData = this.setChartAbonnementData(
+          //   response.data.entreprises,
+          //   response.data.talents,
+          //   response.data.absicsse
+          // );
         })
         .catch((err) => {
           console.log(err);
@@ -221,6 +352,7 @@ export default {
   mounted() {
     this.get_categorie();
     this.chartOptions = this.setChartOptions();
+    this.chartAbonnementOptions = this.setChartAbonnementOptions;
   },
 };
 </script>
@@ -230,6 +362,7 @@ export default {
     <div
       class="chart-loading d-flex gap-2 flex-wrap align-items-center px-2 py-3"
     >
+      <MySelect :allItems="TYPES" @handleSelect="handleTypeSelect" />
       <MySelect :allItems="PERIODE" @handleSelect="handleSelect" />
       <div>
         <input
@@ -267,20 +400,34 @@ export default {
       <button
         :disabled="!valueSubmit || isDisabled"
         class="btn bg-primary"
-        @click="submitStatistiques(null, categories)"
+        @click="
+          this.chooseTypesOfFilter === 'nombre'
+            ? submitStatistiques(null, categories)
+            : submitAbonnementStatistiques(null)
+        "
       >
         Filtrer
       </button>
     </div>
     <div v-if="isLoading" style="height: 300px">Chargement...</div>
-    <Chart
-      v-else
-      type="bar"
-      :height="300"
-      :width="500"
-      :data="chartData"
-      :options="chartOptions"
-    />
+    <div v-else>
+      <Chart
+        v-if="this.chooseTypesOfFilter === 'nombre'"
+        type="bar"
+        :height="300"
+        :width="500"
+        :data="chartData"
+        :options="chartOptions"
+      />
+      <Chart
+        v-if="this.chooseTypesOfFilter === 'abonnement'"
+        type="bar"
+        :height="300"
+        :width="500"
+        :data="chartAbonnementData"
+        :options="chartAbonnementOptions"
+      />
+    </div>
   </div>
 </template>
 <style scoped>
