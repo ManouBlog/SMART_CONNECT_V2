@@ -3,8 +3,12 @@ import axios from "axios";
 import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import Image from "primevue/image";
 export default {
   name: "DétailStudentView",
+  components: {
+    Image,
+  },
   data() {
     return {
       student: null,
@@ -80,40 +84,6 @@ export default {
 
             this.spinner = false;
           });
-          // setTimeout(function () {
-          //   $("#MyTableData", "#MyTableData2").DataTable({
-          //     pagingType: "full_numbers",
-          //     pageLength: 10,
-          //     processing: true,
-          //     order: [],
-          //     language: {
-          //       décimal: "",
-          //       emptyTable: "Aucune donnée disponible dans le tableau",
-          //       infoEmpty: "Showing 0 to 0 of 0 entries",
-          //       info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-          //       infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-          //       infoPostFix: "",
-          //       thousands: ",",
-          //       lengthMenu: "Afficher les entrées du _MENU_",
-          //       loadingRecords: "Loading...",
-          //       processing: "Processing...",
-          //       search: "Chercher :",
-          //       stateSave: true,
-          //       zeroRecords: "Aucun enregistrement correspondant trouvé",
-          //       paginate: {
-          //         first: "Premier",
-          //         last: "Dernier",
-          //         next: "Suivant",
-          //         previous: "Précédent",
-          //       },
-          //       aria: {
-          //         sortAscending: ": activate to sort column ascending",
-          //         sortDescending: ": activate to sort column descending",
-          //       },
-          //     },
-          //   });
-          // }, 10);
-          // console.log("ID_STUDENT", this.jours);
         });
     },
     verifIfAbonnementCurrently(value) {
@@ -252,6 +222,26 @@ export default {
                 class="form-control"
                 type="text"
               />
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="mb-3 text-start">
+              <label class="form-label">Carte étudiante</label>
+              <Image
+                :src="`${
+                  'http://127.0.0.1:8000/storage/images/' + student?.photo
+                }`"
+                :alt="student?.photo"
+                width="250"
+                preview
+              />
+              <!-- <img
+                :src="`${
+                  'http://127.0.0.1:8000/storage/images/' + student?.photo
+                }`"
+                :alt="student?.photo"
+                style="width: 50px; height: 50px; display: block"
+              /> -->
             </div>
           </div>
         </div>
