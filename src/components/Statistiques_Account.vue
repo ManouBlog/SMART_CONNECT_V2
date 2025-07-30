@@ -27,11 +27,11 @@ const PERIODE = [
 const TYPES = [
   {
     value: "nombre",
-    libelle: "Nbre total",
+    libelle: "Nbre de compte",
   },
   {
     value: "abonnement",
-    libelle: "Abonnement",
+    libelle: "Nbre d'abonnement",
   },
 ];
 export default {
@@ -335,11 +335,11 @@ export default {
         )
         .then((response) => {
           console.log("statistique_response", response);
-          // this.chartData = this.setChartAbonnementData(
-          //   response.data.entreprises,
-          //   response.data.talents,
-          //   response.data.absicsse
-          // );
+          this.chartAbonnementData = this.setChartAbonnementData(
+            response.data.entreprise_count_abonnement,
+            response.data.talents_count_abonnement,
+            response.data.absicsse
+          );
         })
         .catch((err) => {
           console.log(err);
