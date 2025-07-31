@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import Swal from "sweetalert2";
 import instance from "../../api/api";
+import { useLoadingSpinner } from "../LoadingSpinner/useLoadingSpinner";
+const Spinner = useLoadingSpinner()
 export const useInfoPersonnel = defineStore('infoPersonnelle', {
     state: () => ({
         toogleModalInfoPersonnelle:false,
@@ -13,6 +15,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
        },
       async update_compte_entreprise(payload) {
+        Spinner.launchLoading(true)
         let data = new FormData();
         data.append("nom", payload.nom);
         data.append("email", payload.email);
@@ -52,7 +55,10 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
   
           .catch((err) => {
             console.log(err);
-          });
+          })
+          .finally(()=>{
+            Spinner.launchLoading(false)
+          })
       },
       addAnRegistreDoc(payload){
         console.log(payload.target.files[0])

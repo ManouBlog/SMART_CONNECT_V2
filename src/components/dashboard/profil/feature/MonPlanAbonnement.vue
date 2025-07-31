@@ -6,7 +6,6 @@ export default {
   name: "MonPlanAbonnement",
   data() {
     return {
-      planAbonnement: null,
       texte: "",
       texte2: "",
       texte3: "",
@@ -37,26 +36,16 @@ export default {
       texte27:"",
     };
   },
-  computed: { ...mapState(useEntreprisesStore, ["list_abonnement"]) },
+  computed: { ...mapState(useEntreprisesStore, ["list_abonnement","planAbonnement"]) },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useEntreprisesStore, ["get_all_abonnement"]),
-    handlePlanAbonnement() {
-      console.log("this.list_abonnement",this.list_abonnement)
-      this.list_abonnement.forEach((item) => {
-        if (item.statut === "ACCEPTED") {
-          item.abonement.echeance = item.echeance
-          this.planAbonnement = item.abonement;
-        }
-      });
-    },
     handleNouvelAbonnement() {
       this.$router.push({ name: "abonnements" });
     },
   },
-  async created() {
-    this.get_all_abonnement();
-    this.handlePlanAbonnement();
+  async mounted() {
+     await this.get_all_abonnement();
     this.texte = await this.handleTranslate('année');
     this.texte1 = await this.handleTranslate('an');
     this.texte2 = await this.handleTranslate('Aucun abonnement');

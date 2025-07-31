@@ -107,7 +107,7 @@ export default createStore({
       await instance
         .get("getAllWishlist")
         .then((response) => {
-          console.log("WISHLIST", response.data.data.wishlists);
+          console.log("WISHLIST", response.data.data);
           commit('GET_ALL_WISH_LIST',response.data.data.wishlists)
         })
         .catch((error) => {

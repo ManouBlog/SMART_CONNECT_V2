@@ -35,20 +35,24 @@ export default {
       <!-- <DownOutlined /> -->
     </a>
     <template #overlay>
-      <a-menu>
-        <h6 class="text-center">Liste de favoris</h6>
+      <a-menu style="margin-left:-4.5em;">
+        <h6 class="text-center">Mes favoris</h6>
         <div class="cont px-3">
           <div
             v-for="(item, index) in this.$store.state.whistListPerson"
             :key="index"
             class="listWhistPerson"
           >
-            <div>
-              <h4 class="name">{{ item.nom }} {{ item.prenoms }}</h4>
+            <div class="p-2 d-flex align-items-center">
+              <em class="bi bi-person mx-2" style="font-size:1.8em;"></em>
+              <h4 class="name">
+                {{ item.nom }} {{ item.prenoms }}
+              </h4>
             </div>
             <div>
               <button
-                class="btn bg-primary btnForInteress"
+                style="background: var(--secondary-color) !important;color: var(--third-color) !important;"
+                class="btn btnForInteress"
                 @click="voirDetailTimetable(item.id)"
               >
                 Voir plus

@@ -11,7 +11,8 @@ export const useEntreprisesStore = defineStore('entreprise', {
         student:[],
         studentRecruit:[],
         offresInteressByStudents:[],
-        list_abonnement:[]
+        list_abonnement:[],
+        planAbonnement:null,
     }),
     actions: {
        async getEntreprise() {
@@ -78,13 +79,24 @@ export const useEntreprisesStore = defineStore('entreprise', {
                 console.log(error)
             }
           },
+          handlePlanAbonnement(payload) {
+    
+      payload.forEach((item) => {
+        if (item.statut === "ACCEPTED") {
+          item.abonement.echeance = item.echeance
+          this.planAbonnement = item.abonement;
+        }
+      });
+      console.log("STOREABONNEMENT",this.planAbonnement)
+    },
           async get_all_abonnement() {
             loadingSpinner.launchLoading(true)
            try{
            const response = await instance.get("abonnement_user")
            console.log("response",response)
            if(response["status"] === 200){
-            this.list_abonnement = response.data.data.filter(item=>item.statut === 'ACCEPTED' || item.statut === 'EXPIRED');
+            this.list_abonnement = response.data.data.filter(item=>item.statut === 'ACCEPTED' || item.statut === 'EXPIRED')
+           this.handlePlanAbonnement(this.list_abonnement)
             console.log("this.list_abonnement",this.list_abonnement.filter(item=>item.statut === 'ACCEPTED' || item.statut === 'EXPIRED'))
            }
            

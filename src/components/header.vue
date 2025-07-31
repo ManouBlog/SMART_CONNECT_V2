@@ -743,6 +743,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap:1em;
   text-align: left;
   margin-top: 0.5em;
   padding: 1em 0.4em;

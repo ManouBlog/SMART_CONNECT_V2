@@ -20,6 +20,7 @@ export default {
   // },
   data() {
     return {
+      texte01:"",
       texte: "",
       texte2: "",
       texte3: "",
@@ -704,6 +705,9 @@ export default {
     this.texte1 = await this.handleTranslate(
       "Talents disponibles"
     );
+    this.texte01 = await this.handleTranslate(
+      "Talent disponible"
+    );
     this.texte2 = await this.handleTranslate(" Nous avons trouvé");
     this.texte3 = await this.handleTranslate("disponibilité(s).");
     this.texte4 = await this.handleTranslate("Chargements...");
@@ -762,7 +766,7 @@ export default {
     </div>
     <div>
       <h2 class="fw-bold ecriteau text-left px-3">
-        {{ list.length }} {{texte1}}
+        {{ list.length }} {{ list.length > 1 ? texte1:texte01}}
       </h2>
     </div>
 
@@ -793,11 +797,10 @@ export default {
                 :class="isWhished[emploi.id] ? 'text-danger' : 'null'"
                 class="bi bi-heart-fill"
               ></em>
-              <!-- <em class="bi bi-heart-fill"></em> -->
             </div>
             <em class="bi bi-person"></em>
             <div class="card-body">
-              <h3 class="name">
+              <h3 class="name" style="color:white;font-weight:bold;">
                 {{ emploi.nom }}
                 {{ emploi.prenoms }}
               </h3>

@@ -371,7 +371,7 @@ ul.dropdown-menu li:last-child a {
   float: right;
 }
 .jobs_filters {
-  background: rgb(226 234 255);
+  background: var(--secondary-color) !important;
   padding: 24px 0 9px;
 }
 .jobs_filters .dropdown-menu {
