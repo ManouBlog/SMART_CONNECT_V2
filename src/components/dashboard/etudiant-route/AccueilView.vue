@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       configUtils: configUtils,
-      date_filter: dayjs("2024", "YYYY"),
+      date_filter: dayjs("2025", "YYYY"),
       texte: "",
       texte2: "",
       texte3: "",

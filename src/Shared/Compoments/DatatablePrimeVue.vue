@@ -86,7 +86,6 @@ export default {
     dataKey="id"
     :globalFilterFields="globalFilterFields"
     :value="DATAVALUE"
-    paginator
     :rows="10"
     lazy
     v-model:filters="filters"

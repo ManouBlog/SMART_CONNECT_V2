@@ -75,6 +75,7 @@ export const useOffreStore = defineStore('offres', {
           },
           handleDeleteOffre() {
             console.log("idItemDelete",this.idItemDelete)
+            Spinner.launchLoading(true)
             instance
               .delete("delete_offre_entreprise/" + this.idItemDelete)
       
@@ -96,15 +97,19 @@ export const useOffreStore = defineStore('offres', {
                 }
               })
               .catch((err) => {
+                console.log("ERR MSG",err)
                 if (err) {
                   Swal.fire({
-                    icon: "error",
-                    title: err,
+                    icon: "info",
+                    title: err.response.data.message,
                     showConfirmButton: false,
                     timer: 1500,
                   });
                 }
-              });
+              })
+              .finally(()=>{
+                Spinner.launchLoading(false)
+              })
           },
           async get_categorie() {
             Spinner.launchLoading(true)

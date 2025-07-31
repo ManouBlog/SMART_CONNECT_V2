@@ -3,7 +3,7 @@ import $ from "jquery";
 import instance from "../api/api";
 // import "datatables.net-dt/js/dataTables.dataTables";
 // import "datatables.net-dt/css/jquery.dataTables.min.css";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 export default {
   name: "OffresView",
   data() {
@@ -53,13 +53,13 @@ export default {
           // });
         })
         .catch((err) => {
-          console.log(err);
-          // Swal.fire({
-          //   icon: "error",
-          //   title: "erreur",
-          //   showConfirmButton: false,
-          //   timer: 1500,
-          // });
+          console.log("MSG ERROR", err);
+          Swal.fire({
+            icon: "info",
+            title: err.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     get_offres() {
@@ -195,7 +195,13 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.log("MSAERROR",err);
+          Swal.fire({
+              icon: "success",
+              title: err.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
         });
     },
   },

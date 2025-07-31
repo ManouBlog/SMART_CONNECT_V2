@@ -6,6 +6,7 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import dayjs from "dayjs";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import {useLoadingSpinner} from "../../../store-pinia/LoadingSpinner/useLoadingSpinner"
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocale from "dayjs/plugin/updateLocale";
 dayjs.extend(relativeTime);
@@ -18,7 +19,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -55,6 +56,7 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+    ...mapActions(useLoadingSpinner, ["launchLoading"]),
     diffForHumans(timestamp) {
       dayjs.updateLocale("en", {
         relativeTime: {
@@ -76,26 +78,35 @@ export default {
       return dayjs(timestamp).fromNow();
     },
     get_offres() {
-      this.spinner = true;
-      instance.get("get_offres_entreprise").then((res) => {
+     this.launchLoading(true);
+      instance
+      .get("get_offres_entreprise")
+      .then((res) => {
         console.log(res);
         this.offres = res.data.data;
-
         this.entreprise = this.offres.find((item) => item.id == this.$route.params.id);
         console.log("ENTREPRISE", this.entreprise);
         this.spinner = false;
-      });
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
+      .finally(()=>{
+        this.launchLoading(false);
+      })
     },
   },
   async created() {
     this.get_offres();
-    this.texte = await this.handleTranslate('Détails de l’offre');
+    this.texte0 = await this.handleTranslate('Détails de l’offre');
     this.texte1 = await this.handleTranslate('Lieu');
     this.texte2 = await this.handleTranslate('Prime pas fixée');
     this.texte3 = await this.handleTranslate("Description complète de l'offre");
     this.texte4 = await this.handleTranslate('Date et heure début ');
-    this.texte5 = await this.handleTranslate('Date et heure fin');
+    this.texte5 = await this.handleTranslate('Date limite de candidature');
     this.texte6 = await this.handleTranslate('Publiée il y a');
+    this.texte8 = await this.handleTranslate('Date et heure début du contrat');
+    this.texte9 = await this.handleTranslate('Date et heure fin du contrat');
   },
 };
 </script>
@@ -103,8 +114,8 @@ export default {
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-      :TitleHeader="texte"
-      :subTitleHeader="texte"
+      :TitleHeader="texte0"
+      :subTitleHeader="texte0"
     />
     <div class="container px-5" v-if="entreprise != null">
       <div class="details_entreprise card p-5">
@@ -130,14 +141,22 @@ export default {
         </div>
         <hr />
         <div class="px-5">
-          <h3 class="fw-bold">{{texte3}}</h3>
+          <h3 class="fw-bold" style="color:gray;">{{texte3}}</h3>
           <div class="description_html" v-html="entreprise.description"></div>
         </div>
 
         <hr />
         <div class="px-5">
-          <span class="d-block px-3">{{texte4}}: {{ entreprise.debut }}</span>
+          <!-- <span class="d-block px-3">{{texte4}}: {{ entreprise.debut }}</span> -->
           <span class="px-3">{{texte5}} : {{ entreprise.fin }}</span>
+          <!-- <span class="d-block px-3"
+            >{{texte6}}:
+            {{ diffForHumans(new Date(entreprise.created_at).toISOString()) }}</span
+          > -->
+        </div>
+        <div class="px-5">
+          <span class="d-block px-3">{{texte8}}: {{ entreprise.debut }}</span>
+          <span class="px-3">{{texte9}} : {{ entreprise.fin }}</span>
           <span class="d-block px-3"
             >{{texte6}}:
             {{ diffForHumans(new Date(entreprise.created_at).toISOString()) }}</span
@@ -154,9 +173,6 @@ export default {
   color: white !important;
 
   font-weight: bold !important;
-}
-.description_html {
-  padding: 0 3em;
 }
 
 .bi-arrow-left-circle {
