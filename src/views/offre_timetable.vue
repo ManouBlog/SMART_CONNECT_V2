@@ -72,6 +72,23 @@ export default {
     },
   },
   methods: {
+    searchOffres() {
+      const dataSearch = {
+        categorie: this.categorie.length
+          ? this.categorie?.map((item) => item?.id)
+          : [],
+        nom_offre: this.searchName,
+        lieu: this.searchLieu,
+      };
+      this.get_list_offre(dataSearch);
+      console.log("dataSearch", dataSearch);
+      console.log(
+        "categoreies",
+        this.categorie?.map((item) => item?.id)
+      );
+      console.log("searchLieu", this.searchLieu);
+      console.log("searchName", this.searchName);
+    },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     selectCategorie(cat) {
       this.MylistOffre = [];
@@ -81,6 +98,80 @@ export default {
           this.MylistOffre.push(element);
         }
       });
+    },
+     async handleListOffresWithoutSearch() {
+       loadingSpinner.launchLoading(true)
+      await instance
+        .get("list_offres")
+        .then((res) => {
+          console.log("list_offres", res);
+          if (res.data.status) {
+            this.MylistOffre = res.data.data.filter(item=>{
+              return JSON.stringify(new Date().toISOString().substring(0, 10)) <
+   JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+            });
+            this.MylistsOffres = res.data.data.filter(item=>{
+              return JSON.stringify(new Date().toISOString().substring(0, 10)) <
+   JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+            });
+            this.lengthOfMylistOffre = this.MylistsOffres.length;
+         
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(()=>{
+           loadingSpinner.launchLoading(false)
+        })
+      // this.loadingStore.launchLoading(true);
+      // instance
+      //   .get("list_offres")
+      //   .then((res) => {
+      //     console.log("list_offres", res);
+      //     if (res.data.status) {
+      //       this.listOffre = res.data.data;
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   })
+      //   .finally(()=>{
+      //     loadingSpinner.launchLoading(false)
+      //   })
+    },
+    handleListOffresWithSearch(data) {
+      loadingSpinner.launchLoading(true)
+      instance
+        .post("search_offres", data)
+        .then((res) => {
+          console.log("search_offres", res);
+          if (res.data.status) {
+            // this.listOffre = res.data.data;
+            this.MylistOffre = res.data.data.filter(item=>{
+              return JSON.stringify(new Date().toISOString().substring(0, 10)) <
+   JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+            });
+            this.MylistsOffres = res.data.data.filter(item=>{
+              return JSON.stringify(new Date().toISOString().substring(0, 10)) <
+   JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+            });
+            this.lengthOfMylistOffre = this.MylistsOffres.length;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(()=>{
+          loadingSpinner.launchLoading(false)
+        })
+    },
+    get_list_offre(search = null) {
+      if (!search) {
+        this.handleListOffresWithoutSearch();
+      } else {
+        this.handleListOffresWithSearch(search);
+      }
     },
     filtreOffre() {
       if (this.searchLieu !== "") {
@@ -138,31 +229,31 @@ export default {
         }
       });
     },
-    async get_list_offre() {
-   loadingSpinner.launchLoading(true)
-      await instance
-        .get("list_offres")
-        .then((res) => {
-          console.log("list_offres", res);
+  //   async get_list_offre() {
+  //  loadingSpinner.launchLoading(true)
+  //     await instance
+  //       .get("list_offres")
+  //       .then((res) => {
+  //         console.log("list_offres", res);
 
-          if (res.data.status) {
-            this.MylistOffre = res.data.data.filter(item=>{
-              return JSON.stringify(new Date().toISOString().substring(0, 10)) <
-   JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
-            });
-            this.MylistsOffres = res.data.data.filter(item=>{
-              return JSON.stringify(new Date().toISOString().substring(0, 10)) <
-   JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
-            });
-            this.lengthOfMylistOffre = this.MylistsOffres.length;
+  //         if (res.data.status) {
+  //           this.MylistOffre = res.data.data.filter(item=>{
+  //             return JSON.stringify(new Date().toISOString().substring(0, 10)) <
+  //  JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+  //           });
+  //           this.MylistsOffres = res.data.data.filter(item=>{
+  //             return JSON.stringify(new Date().toISOString().substring(0, 10)) <
+  //  JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+  //           });
+  //           this.lengthOfMylistOffre = this.MylistsOffres.length;
          
-          }
-          loadingSpinner.launchLoading(false)
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+  //         }
+  //         loadingSpinner.launchLoading(false)
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   },
     newLoadmore() {
       if (this.length > this.MylistOffre.length) return;
       this.length = this.length + 3;
@@ -290,6 +381,14 @@ export default {
               />
               <span class="glyphicon fa fa-location-arrow" aria-hidden="true"></span>
             </div>
+          </div>
+          <div style="margin-top:-0.8em;">
+            <button 
+            :disabled="!listOffre.length"
+            :class="!listOffre.length ? null:'bg-primary'"
+            class="btn-lg" @click.prevent="searchOffres">
+              Rechercher
+            </button>
           </div>
         </form>
       </div>
