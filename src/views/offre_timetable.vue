@@ -350,7 +350,6 @@ export default {
                 :multiple="true"
                 :taggable="true"
                 :tag="addTag"
-                @update:model-value="addTag"
                 label="categorie"
                 track-by="categorie"
                 :placeholder="texte"
