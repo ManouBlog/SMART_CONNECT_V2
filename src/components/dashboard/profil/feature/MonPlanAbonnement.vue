@@ -42,8 +42,10 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useEntreprisesStore, ["get_all_abonnement"]),
     handlePlanAbonnement() {
+      console.log("this.list_abonnement",this.list_abonnement)
       this.list_abonnement.forEach((item) => {
         if (item.statut === "ACCEPTED") {
+          item.abonement.echeance = item.echeance
           this.planAbonnement = item.abonement;
         }
       });
@@ -64,7 +66,7 @@ export default {
 </script>
 <template>
   <div class="conteneur_tableau_de_bord" v-if="planAbonnement">
-    <a-card :title="planAbonnement.libelle" :bordered="false" style="width: 300px">
+    <a-card :title="planAbonnement.libelle" :bordered="false" style="width: 400px">
       <p class="text-start">{{ planAbonnement.periode }} {{texte}}</p>
       <div class="px-5" v-html="planAbonnement.description"></div>
       <hr />
@@ -72,6 +74,10 @@ export default {
         <h1 class="text-start" style="font-size: 4em">{{ planAbonnement.prix }}F</h1>
         <span class="mx-2">/</span>
         <span style="font-size: 2em">{{texte1}}</span>
+      </div>
+      <div>
+        <p style="color:gray">Fin de l'abonnement:</p>
+        <span>{{planAbonnement.echeance}}</span>
       </div>
     </a-card>
   </div>
