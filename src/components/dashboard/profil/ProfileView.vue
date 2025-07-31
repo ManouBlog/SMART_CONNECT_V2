@@ -256,7 +256,7 @@ export default {
     this.texte12 = await this.handleTranslate('Pièce d identite :');
     this.texte13 = await this.handleTranslate('diplome :');
     this.texte14 = await this.handleTranslate('Prénoms :');
-    this.texte15 = await this.handleTranslate('Mon Abonnement');
+    this.texte15 = await this.handleTranslate('Formule d\'abonnement');
    
     
   },
