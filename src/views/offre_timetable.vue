@@ -355,6 +355,10 @@ export default {
             </div>
           </div>
         </div>
+         <div v-if="!list_offre.length" class="text-center font-bold py-5 my-5">
+      <h2 class="text-center">Pas d'Offres pour l'instant</h2>
+      <img src="/notOffers.png" alt="notOffers">
+    </div>
         <div>
           <div class="col-lg-12 lgPlus" v-if="MylistOffre.length">
             <button
