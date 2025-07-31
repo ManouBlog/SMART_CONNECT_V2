@@ -148,23 +148,34 @@ export default {
           >
           <hr />
       
-          <h3>Description complète de l'offre</h3>
+          <h3 style="color:gray">Description complète de l'offre</h3>
           <div class="p-5" v-html="details_offre.description">
           </div>
           <hr />
-          <h6
+          <!-- <h6
             >Date et heure début  :
             <b>{{
               details_offre.debut
             }}</b></h6
-          >
+          > -->
           <h6
-            >Date et heure fin  :
+            >Date limite de candidature  :
             <b>{{
               details_offre.fin
             }}</b></h6
           >
-          
+          <h6
+            >Date et heure début du contrat  :
+            <b>{{
+              details_offre.job_debut
+            }}</b></h6
+          >
+           <h6
+            >Date et heure début du contrat  :
+            <b>{{
+              details_offre.job_fin
+            }}</b></h6
+          >
             <button
             v-if="JSON.stringify(new Date().toISOString().substring(0,10)) 
             > JSON.stringify(new Date(this.details_offre.fin).toISOString().slice(0,10))"

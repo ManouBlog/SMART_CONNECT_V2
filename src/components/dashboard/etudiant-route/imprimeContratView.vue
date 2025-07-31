@@ -13,7 +13,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -226,7 +226,7 @@ h5 {
   },
   async created() {
     this.getDetail();
-    this.texte = await this.handleTranslate(`Attestation d'admission`);
+    this.texte0 = await this.handleTranslate(`Attestation d'admission`);
     this.texte1 = await this.handleTranslate(`Adresse :`);
      this.texte2 = await this.handleTranslate("Téléphone :");
      this.texte3 = await this.handleTranslate(`ATTESTATION D'ADMISSION`);
@@ -246,8 +246,8 @@ h5 {
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-      :TitleHeader="texte"
-      :subTitleHeader="texte"
+      :TitleHeader="texte0"
+      :subTitleHeader="texte0"
     />
     <section
       ref="printSection"
@@ -263,7 +263,7 @@ h5 {
           <img src="/brobroli.png" alt="smart-connect" />
         </div>
         <div class="img_card">
-          <img src="/img/lce.c9a1a7c1.png" alt="smart-connect" />
+          <img src="/brobroli.png" alt="smart-connect" />
         </div>
       </div>
       <div class="attestation_infos">
