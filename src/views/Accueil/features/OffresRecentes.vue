@@ -82,7 +82,7 @@ export default {
             >{{ texte2 }}{{ new Date(item.created_at).toLocaleDateString("fr") }}</span
           >
         </div>
-        <div
+        <!-- <div
           style="
             width: auto;
             display: flex;
@@ -102,7 +102,7 @@ export default {
             "
             >Plus d'offres <em class="bi bi-arrow-right"></em>
           </a>
-        </div>
+        </div> -->
       </Flicking>
     </div>
   </section>

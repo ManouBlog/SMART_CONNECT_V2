@@ -10,7 +10,7 @@ import InputIcon from "primevue/inputicon";
 import "v-calendar/dist/style.css";
 import { mapActions } from "pinia";
 // import { DatePicker } from "v-calendar";
-import Calendar from "primevue/calendar";
+// import Calendar from "primevue/calendar";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
@@ -20,7 +20,7 @@ export default {
   name: "listeDisponibilite",
   components: {
     VueMultiselect,
-    Calendar,
+    // Calendar,
     HeaderDashboard,
     IconField,
     InputIcon,
@@ -219,17 +219,17 @@ export default {
           timer: 1500,
         });
       } else {
-        let newDateForTimetable = [];
-        this.dates.forEach((date) => {
-          newDateForTimetable.push(date.date.toISOString().slice(0, 10));
-          console.log(newDateForTimetable);
-        });
+        // let newDateForTimetable = [];
+        // this.dates.forEach((date) => {
+        //   newDateForTimetable.push(date.date.toISOString().slice(0, 10));
+        //   console.log(newDateForTimetable);
+        // });
         instance
           .put("modify_schedule/" + this.id_timetable_update, {
             First_horaire: this.firstPlageHoraire.replace(",", "-"),
             Second_horaire: this.SecondPlageHoraire.replace(",", "-"),
             totalHour: this.totalHour,
-            day: newDateForTimetable,
+            day: this.newDatePickerForUpdate,
           })
           .then((res) => {
             console.log(res);
@@ -380,6 +380,7 @@ export default {
       }
     },
     show_timetable(id) {
+      console.log("SHOW_TIMETABLE",id)
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = id;
       this.spinner = true;
@@ -393,7 +394,9 @@ export default {
 
           let newdate = [];
           newdate.push(this.timetable_show_id.jour);
+          console.log('this.timetable_show_id.jour',this.timetable_show_id.jour)
           this.newDatePickerForUpdate = [...new Set(newdate)];
+          console.log('this.newDatePickerForUpdate',this.newDatePickerForUpdate)
           this.Horaire_Fisrt = this.timetable_show_id.First_horaire.split("-");
           if (
             this.timetable_show_id != null &&
@@ -611,116 +614,116 @@ export default {
                         <div class="col-lg-6" v-if="Horaire_Fisrt != null">
                           <div class="mb-3">
                             <label>{{ texte7 }}</label>
-                            <Calendar
+                            <!-- <Calendar
                               id="datepicker-timeonly_3"
                               v-model="Horaire_Fisrt[0]"
                               showIcon
                               iconDisplay="input"
                               timeOnly
                               inputId="templatedisplay"
-                            />
-                            <!-- <input
+                            /> -->
+                            <input
                               class="form-control"
                               type="time"
                               v-model="Horaire_Fisrt[0]"
                               required
-                            /> -->
+                            />
                           </div>
                         </div>
                         <div class="col-lg-6" v-if="Horaire_Fisrt != null">
                           <div class="mb-3">
                             <label>{{ texte8 }}</label>
-                            <Calendar
+                            <!-- <Calendar
                               id="datepicker-timeonly_3"
                               v-model="Horaire_Fisrt[1]"
                               showIcon
                               iconDisplay="input"
                               timeOnly
                               inputId="templatedisplay"
-                            />
-                            <!-- <input
+                            /> -->
+                            <input
                               class="form-control"
                               type="time"
                               v-model="Horaire_Fisrt[1]"
                               required
-                            /> -->
+                            />
                           </div>
                         </div>
                         <h5 class="text-start">{{ texte9 }}</h5>
                         <div class="col-lg-6" v-if="Horaire_Second != null">
                           <div class="mb-3">
                             <label>{{ texte10 }}</label>
-                            <!-- <input
+                            <input
                               class="form-control"
                               type="time"
                               v-model="Horaire_Second[0]"
                               required
-                            /> -->
-                            <Calendar
+                            />
+                            <!-- <Calendar
                               id="datepicker-timeonly_3"
                               v-model="Horaire_Second[0]"
                               showIcon
                               iconDisplay="input"
                               timeOnly
                               inputId="templatedisplay"
-                            />
+                            /> -->
                           </div>
                         </div>
                         <div class="col-lg-6" v-else>
                           <div class="mb-3">
                             <label>{{ texte11 }}</label>
-                            <Calendar
+                            <!-- <Calendar
                               id="datepicker-timeonly_3"
                               v-model="Second_heure_start_from"
                               showIcon
                               iconDisplay="input"
                               timeOnly
                               inputId="templatedisplay"
-                            />
-                            <!-- <input
+                            /> -->
+                            <input
                               class="form-control"
                               type="time"
                               v-model="Second_heure_start_from"
                               required
-                            /> -->
+                            />
                           </div>
                         </div>
                         <div class="col-lg-6" v-if="Horaire_Second != null">
                           <div class="mb-3">
                             <label>{{ texte12 }}</label>
-                            <Calendar
+                            <!-- <Calendar
                               id="datepicker-timeonly_3"
                               v-model="Horaire_Second[1]"
                               showIcon
                               iconDisplay="input"
                               timeOnly
                               inputId="templatedisplay"
-                            />
-                            <!-- <input
+                            /> -->
+                            <input
                               class="form-control"
                               type="time"
                               v-model="Horaire_Second[1]"
                               required
-                            /> -->
+                            />
                           </div>
                         </div>
                         <div class="col-lg-6" v-else>
                           <div class="mb-3">
                             <label>{{ texte12 }}</label>
-                            <Calendar
+                            <!-- <Calendar
                               id="datepicker-timeonly_3"
                               v-model="Second_heure_end_to"
                               showIcon
                               iconDisplay="input"
                               timeOnly
                               inputId="templatedisplay"
-                            />
-                            <!-- <input
+                            /> -->
+                            <input
                               class="form-control"
                               type="time"
                               v-model="Second_heure_end_to"
                               required
-                            /> -->
+                            />
                           </div>
                         </div>
                       </div>
