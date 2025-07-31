@@ -1,6 +1,8 @@
 <script>
 import instance from "../api/api";
 import Swal from "sweetalert2";
+import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
+const loadingSpinner = useLoadingSpinner();
 export default {
   name: "ChangePasswordView",
   data() {
@@ -26,7 +28,8 @@ export default {
         
       },
      sendPassword(){
-        this.spinner = true
+      this.spinner = true;
+       loadingSpinner.launchLoading(true);
         instance.post("password/reset",{
             email:this.$route.params.email,
             password:this.password,
@@ -34,7 +37,6 @@ export default {
         })
         .then((res) => {
             console.log(res);
-            this.spinner = false
              Swal.fire({
               icon: "success",
               title: res.data.message,
@@ -44,13 +46,16 @@ export default {
         })
         .catch((err) => {
             console.log(err);
-            this.spinner = false
             Swal.fire({
               icon: "error",
               title: err.response.data.message,
               showConfirmButton: false,
               timer: 1500,
             });
+        })
+        .finally(()=>{
+         loadingSpinner.launchLoading(false);
+         this.spinner = false;
         })
      }
   },
@@ -59,31 +64,28 @@ export default {
 <template>
   <!-- Page Title-->
   <div class="container-fluid page-title bg-image">
-    <div class="row section-title">
-      <div class="container main-container">
-        <div class="col-lg-8 col-md-8 col-sm-8">
-          <h5 class="image-heading">Nouveau mot de passe</h5>
-        </div>
-      </div>
-    </div>
-
-    <form  @submit.prevent="verificationMotdepasse">
-      <div class="row container-fluid">
+     <h1 class="py-4" style="text-align:left;color:orange;">Nouveau mot de passe</h1>
+    <form class="w-100 p-3"  @submit.prevent="verificationMotdepasse">
+      <div class="row container-fluid px-5">
        <div class="col-lg-12 text-left">
-    <label for="email" class="d-block">Entrez votre nouveau mot de passe</label>
+    <label for="email" class="d-block my-3">Entrez votre nouveau mot de passe</label>
 
       <input class="w-100 px-4" type="password" v-model="password" placeholder=" Entrez votre nouveau mot de passe" required>
        </div>
        <div class="col-lg-12 text-left">
-    <label for="email" class="d-block">Confirmation de mot de passe</label>
+    <label for="email" class="d-block my-3">Confirmation de mot de passe</label>
     
       <input class="w-100 px-4" type="password" v-model="cpassword" placeholder=" Entrez de nouveau votre mot de passe" required>
        </div>
       </div>
       <br>
       <div>
-      <button :disabled="spinner ? true:false" class="btn-lg bg-primary" type="submit">
-        {{ spinner ? "Loading...":"Envoyer"}}
+      <button
+      style="background: var(--secondary-color) !important;color: var(--third-color) !important;"
+      :disabled="spinner ? true:false" 
+      class="btn-lg my-5" 
+      type="submit">
+       Envoyer
         </button>
       </div>
         

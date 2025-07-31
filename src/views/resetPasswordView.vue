@@ -19,12 +19,10 @@ export default {
         })
         .then((res) => {
             console.log(res.data.message);
-            this.spinner = false;
              Swal.fire({
               icon: "success",
               title: res.data.message,
               showConfirmButton: true,
-            
             });
         })
         .catch((err) => {
@@ -34,8 +32,11 @@ export default {
               title: err.response.data.message,
               showConfirmButton: true,
             });
-            this.spinner = false;
+          
         })
+        .finally(()=>{
+          this.spinner = false;
+        });
      }
   },
 };

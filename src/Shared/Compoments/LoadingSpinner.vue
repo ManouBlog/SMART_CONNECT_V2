@@ -16,7 +16,7 @@ export default {
 </script>
 <template>
   <div class="spinner_loading">
-    <img src="/brobroli.png" alt="logo" style="width:280px;height:200px;">
+    <img src="/brobroli.png" alt="logo" style="width:250px;height:200px;">
     <a-spin size="large" wrapperClassName="style-spinner" />
     <!-- <LogoAnimations /> -->
   </div>
