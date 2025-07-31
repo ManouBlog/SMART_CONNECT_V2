@@ -307,7 +307,7 @@ h5 {
         {{texte12}}
       </button>
       <button
-        class="btn-lg p-5 bg-warning"
+        class="btn-lg p-5 bg-warning mx-3"
         style="border: none"
         @click="printDiv"
         v-if="this.myOffre && this.entreprise"
