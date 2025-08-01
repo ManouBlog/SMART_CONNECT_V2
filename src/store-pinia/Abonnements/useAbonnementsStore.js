@@ -26,9 +26,9 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
       }else{
         loadingSpinner.launchLoading(true)
         const TRANSACTION_ID = Math.floor(Math.random() * 100000000).toString();
-        const NOTIFY_URL = "https://lce-ci.com/"
+        // const NOTIFY_URL = "https://lce-ci.com/"
          try {
-        const response = await instance.post("cintepay/paiement", {
+        const response = await instance.post("payStack/paiement", {
           abonement_id: idAbonnement,
           channels: "MTN",
           transaction_id:TRANSACTION_ID
@@ -36,9 +36,9 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         SWALPOPUP.declencheSwalPopup("success",response.data.message)
         if(response['status'] === 200){
             const payload = {
-                price:priceAbonnement,
-                transaction_id:TRANSACTION_ID,
-                notify_url:NOTIFY_URL,
+                amount:priceAbonnement,
+                reference:TRANSACTION_ID,
+                // notify_url:NOTIFY_URL,
                 user:{
                   id:store.state.user.id,
                   name:store.state.user.user.nom,
