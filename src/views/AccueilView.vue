@@ -536,7 +536,7 @@ export default {
           "
         >
           <Statistique_Comp :title="'Offres & Candidatures & Contrat'" />
-          <Statistiques_Account :title="'Entreprise & Talents'" />
+          <Statistiques_Account :title="'Entreprises & Etudiants'" />
         </div>
       </div>
     </div>
