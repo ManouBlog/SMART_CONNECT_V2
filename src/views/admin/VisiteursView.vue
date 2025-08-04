@@ -240,7 +240,10 @@ export default {
                   </td>
                   <td>
                     <router-link
-                      :to="{ name: 'details', params: { id: item.id } }"
+                      :to="{
+                        name: 'details',
+                        params: { id: item.id, name: 'visiteur' },
+                      }"
                     >
                       <i class="bi bi-eye"></i
                     ></router-link>

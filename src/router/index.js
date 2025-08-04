@@ -111,7 +111,7 @@ const routes = [
         },
       },
       {
-        path: "/details/:id",
+        path: "/details/:id/:name",
         name: "details",
         component: () => import("../views/admin/detailStudentView.vue"),
         props: true,

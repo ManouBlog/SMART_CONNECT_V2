@@ -20,8 +20,13 @@ export default {
   methods: {
     get_details_students() {
       this.spinner = true;
+      console.log("this.$route", this.$route);
+      const myRoute =
+        this.$route.params.name === "visiteur"
+          ? "list_visiteurs"
+          : "list_students";
       axios
-        .get("http://127.0.0.1:8000/api/list_students", {
+        .get("http://127.0.0.1:8000/api/" + myRoute, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -33,7 +38,7 @@ export default {
           this.student = this.students.find(
             (item) => item.id == this.$route.params.id
           );
-          this.jours = this.student.jours;
+          this.jours = this.student?.jours;
           if ($.fn.DataTable.isDataTable("#MyTableData")) {
             $("#MyTableData").DataTable().destroy();
           }
