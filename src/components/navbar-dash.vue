@@ -137,6 +137,15 @@ export default {
             v-if="statut == 'admin'"
           >
             <i class="bi bi-person" style="margin-left: -1.2em"></i>
+            <router-link :to="{ name: 'students_visiteurs' }">
+              <strong>Visiteurs</strong></router-link
+            >
+          </li>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-person" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'students' }">
               <strong>Talents</strong></router-link
             >

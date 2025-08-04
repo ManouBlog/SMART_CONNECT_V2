@@ -96,8 +96,8 @@ export default {
           valueAbonnementCurrently = element;
         }
       });
-      return valueAbonnementCurrently.abonement.libelle
-        ? valueAbonnementCurrently.abonement.libelle
+      return valueAbonnementCurrently?.abonement?.libelle
+        ? valueAbonnementCurrently?.abonement?.libelle
         : null;
     },
   },
@@ -327,7 +327,10 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in student.user.abonement" :key="index">
+              <tr
+                v-for="(item, index) in student?.user?.abonement"
+                :key="index"
+              >
                 <td>
                   {{ new Date(item.created_at).toLocaleDateString("fr") }}
                 </td>
