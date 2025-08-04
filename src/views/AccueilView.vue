@@ -462,7 +462,7 @@ export default {
               nameRouter="students"
               :numberStatistic="Number(list_students.total)"
               icon_libelle="bi-person-badge"
-              title="Talents"
+              title="Etudiants"
             />
             <MyCardStatistique
               :dataInfo="[]"
