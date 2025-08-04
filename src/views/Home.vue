@@ -54,10 +54,10 @@ export default {
     this.getDateAbonementActive()
     this.$store.dispatch("handleListeFavoris")
   },
-  mounted(){
-    console.log(this.dateActive)
-    this.verifIfAbonementIsExpied(this.dateActive)
-  }
+  // mounted(){
+  //   console.log(this.dateActive)
+  //   this.verifIfAbonementIsExpied(this.dateActive)
+  // }
 };
 </script>
 <template>

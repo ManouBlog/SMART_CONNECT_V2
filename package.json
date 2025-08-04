@@ -15,6 +15,7 @@
     "@headlessui/vue": "^1.6.4",
     "@heroicons/vue": "^1.0.6",
     "@kong/kongponents": "^8.0.0-beta.38",
+    "@paystack/inline-js": "^2.22.7",
     "@tiptap/core": "*",
     "@tiptap/starter-kit": "*",
     "@tiptap/vue-3": "*",
