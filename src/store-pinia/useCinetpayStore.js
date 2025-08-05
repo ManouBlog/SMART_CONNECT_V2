@@ -41,7 +41,7 @@ export const useCinetpayStore = defineStore('cinetpay',()=>{
 //       console.log("payload",payload)
 //      const popup = new Paystack()
 //      popup.newTransaction({
-//      key: "pk_live_ebf0af6f96a5292efd4c484295b172e4da82c62b",
+//      key: "",
 //      email: payload.user.email,
 //      currency: "XOF",
 //      amount: payload.amount,
