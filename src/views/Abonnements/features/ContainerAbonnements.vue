@@ -37,7 +37,9 @@ texte.value = await transalteStore.handleTranslate("année")
       :key="item.id"
       class="abonnement-classique"
     >
-      <h1 class="text-center main-color">{{ item.libelle }}</h1>
+      <h1 class="text-center main-color">{{ item.libelle }} 
+        <span v-if="storeEntreprise?.planAbonnement?.id === item.id" class="badge bg-info">Formule</span>
+      </h1>
       <p class="text-start">{{ item.periode }} {{texte}}</p>
       <div style="height:310px;position:relative;">
      <div class="px-5" v-html="item.description"></div>

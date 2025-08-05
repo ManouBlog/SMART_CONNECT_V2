@@ -22,14 +22,16 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         RegisterStore.changeValueIsModal()
       }else{
         loadingSpinner.launchLoading(true)
+        const TRANSACTION_ID = Math.floor(Math.random() * 9000000000) + 1000000000;
          try {
           const response = await instance.post("payStack/paiement", {
           abonement_id: idAbonnement,
           channels: "undefined",
-          transaction_id:response?.id
+          transaction_id:TRANSACTION_ID
         });
-        console.log("RESPONSE DATA",response)
-        if(response.data.statut){
+        console.log("RESPONSEABONNEMENT",response)
+        if(response.data.status){
+          localStorage.setItem("@ID",JSON.stringify(TRANSACTION_ID))
        cinetpayStore.paymentCinetpay({idAbonnement:idAbonnement,priceAbonnement:priceAbonnement});
         }else{
            SWALPOPUP.declencheSwalPopup("info",response.data.message)
