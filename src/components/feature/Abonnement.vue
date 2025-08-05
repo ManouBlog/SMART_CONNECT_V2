@@ -1,21 +1,21 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
 import instance from "../../api/api";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
-import { useCinetpayStore } from "../../store-pinia/useCinetpayStore";
+// import { useCinetpayStore } from "../../store-pinia/useCinetpayStore";
 
 import i18n from "../../plugins/i18n";
 const { t } = i18n.global;
-const isHolding = {
-  entreprise: true,
-};
+// const isHolding = {
+//   entreprise: true,
+// };
 const router = useRouter();
-const store = useStore();
+// const store = useStore();
 const abonnements = ref([]);
-const cinetpayStore = useCinetpayStore();
+// const cinetpayStore = useCinetpayStore();
 const isLoading = ref(true);
 
 const offreBasic = ref(false);
@@ -33,86 +33,12 @@ const handleAbonement = async () => {
   }
 };
 
-const createAbonement = async (idAbonnement, priceAbonnement) => {
-  if (!store.state.token) {
-    router.push("/registre");
-  } else {
-    isChoose.value = true;
-    const TRANSACTION_ID = Math.floor(Math.random() * 100000000).toString();
-    const NOTIFY_URL = `${instance}/cintepay/verification_paiement/${TRANSACTION_ID}`;
-    try {
-      const response = await instance.post("cintepay/paiement", {
-        abonement_id: idAbonnement,
-        channels: "MTN",
-        transaction_id: TRANSACTION_ID,
-      });
-
-      Swal.fire({
-        icon: "success",
-        title: response.data.message,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      console.log("RESPONSE_getAbonnement", response.data);
-      isChoose.value = false;
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: "info",
-        title: error.response.data.message,
-        showConfirmButton: true,
-      });
-      isChoose.value = false;
-    }
-    const payload = {
-      price: priceAbonnement,
-      transaction_id: TRANSACTION_ID,
-      notify_url: NOTIFY_URL,
-      user: {
-        id: store.state.user.id,
-        name: store.state.user.user.nom,
-        surname: isHolding[store.state.user.user.statut.statut]
-          ? "Entreprise"
-          : store.state.user.user.prenoms,
-        email: store.state.user.email,
-      },
-    };
-    console.log("payload", payload);
-    cinetpayStore.paymentCinetpay(payload);
-  }
+const createAbonement = () => {
+   router.push("/registre"); 
 };
 
-const verifIfAbonnementIsSuccess = async () => {
-  const TRANSACTION_ID = localStorage.getItem("transaction_id");
-  if (TRANSACTION_ID) {
-    try {
-      const response = await instance.post(
-        "cintepay/verification_paiement/" + TRANSACTION_ID
-      );
-      console.log(response);
-      // Swal.fire({
-      //   icon: "success",
-      //   title: response.data.message,
-      //   showConfirmButton: false,
-      //   timer: 1500,
-      // });
-      // console.log("RESPONSE_getAbonnement", response.data);
-      // isChoose.value = false;
-    } catch (error) {
-      console.log(error);
-      // Swal.fire({
-      //   icon: "info",
-      //   title: error.response.data.message,
-      //   showConfirmButton: true,
-      // });
-      // isChoose.value = false;
-    }
-    localStorage.removeItem("transaction_id");
-  }
-};
 
 onMounted(async () => {
-  await verifIfAbonnementIsSuccess();
   await handleAbonement();
 });
 </script>
@@ -151,7 +77,7 @@ onMounted(async () => {
               <div class="text-center conteneur-btn">
                 <button
                   class="btn-lg bg-dark"
-                  @click.prevent="createAbonement(item.id, item.prix)"
+                  @click.prevent="createAbonement()"
                 >
                   Je choisi
                 </button>

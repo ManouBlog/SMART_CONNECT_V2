@@ -54,7 +54,7 @@ texte.value = await transalteStore.handleTranslate("année")
 
       <div class="text-center conteneur-btn">
         <Buttons
-          :isDisabled="storeEntreprise.planAbonnement.id === item.id"
+          :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
           :elmentsOfBtn="elmentsOfBtn"
           :shapeBtn="'round'"
           @created="handleCreate(item.id, item.prix)"

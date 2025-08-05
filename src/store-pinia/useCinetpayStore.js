@@ -29,11 +29,7 @@ const store = useStore();
      },
      onLoad: async (response) => {
      console.log("onLoad: ", response);
-      await instance.post("payStack/paiement", {
-          abonement_id: payload?.idAbonnement,
-          channels: "undefined",
-          transaction_id:response?.id
-        });
+      
        localStorage.setItem("@ID",JSON.stringify(response?.id))
      },
      onCancel: async() => {
