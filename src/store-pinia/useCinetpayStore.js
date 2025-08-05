@@ -1,64 +1,55 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-// import instance from "../api/api";
-import axios from 'axios'
-// import Paystack from '@paystack/inline-js';
+import { useStore } from 'vuex';
+import instance from "../api/api";
+// import axios from 'axios'
+import Paystack from '@paystack/inline-js';
 
 export const useCinetpayStore = defineStore('cinetpay',()=>{
+const store = useStore();
 
+    const PAYSTACK_PUBLIC_KEY = ref(process.env.VUE_APP_PAYSTACK_PUBLIC_KEY);
 
-    const PAYSTACK_SECRET_KEY = ref(process.env.VUE_APP_PAYSTACK_SECRET_KEY);
-
-
-    const paymentCinetpay = async(payload)=>{
-      try{
-     let data = JSON.stringify({
-        'email' : payload.user.email,
-        'amount' : payload.amount,
-        'reference' : payload.reference,
-        'callback_url' :'http://127.0.0.1:8000/api/payStack/payment/callback/'+payload.reference,
-          });
-
-      const response = await axios.post(
-      'https://api.paystack.co/transaction/initialize',data,
-      {
-        headers: {
-          'Authorization': `Bearer ${PAYSTACK_SECRET_KEY.value}`,
-          'Content-Type': 'application/json',
-        },
-      }
-        );
-          const lien = response.data.data.authorization_url;
-          console.log("MY LIEN",lien)
-          window.open(lien,"_self")
-      }catch(error){
-        console.log(error)
-      }
-        
+    const paymentCinetpay = (payload)=>{
+      console.log("payload",payload)
+     const popup = new Paystack()
+     popup.newTransaction({
+     key: PAYSTACK_PUBLIC_KEY.value,
+     email: store.state.user.email,
+     currency: "XOF",
+     amount: payload.priceAbonnement*100,
+     onSuccess: async(transaction) => {
+    console.log(transaction);
+    if(transaction.status === 'success'){
+     const response = await instance.get("payStack/payment/callback/success/"+JSON.parse(localStorage.getItem("@ID")));
+     if(response.data.status){
+      localStorage.removeItem("@ID")
+     }
     }
+     },
+     onLoad: async (response) => {
+     console.log("onLoad: ", response);
+      await instance.post("payStack/paiement", {
+          abonement_id: payload?.idAbonnement,
+          channels: "undefined",
+          transaction_id:response?.id
+        });
+       localStorage.setItem("@ID",JSON.stringify(response?.id))
+     },
+     onCancel: async() => {
+       console.log("onCancel");
+       const response = await instance.get("payStack/payment/callback/cancel/"+JSON.parse(localStorage.getItem("@ID")));
+       if(response.data.status){
+      localStorage.removeItem("@ID")
+     }
+      },
+      onError: (error) => {
+       console.log("Error: ", error.message);
+        localStorage.removeItem("@ID")
+       }
+})
 
-//     const paymentCinetpay = (payload)=>{
-//       console.log("payload",payload)
-//      const popup = new Paystack()
-//      popup.newTransaction({
-//      key: "",
-//      email: payload.user.email,
-//      currency: "XOF",
-//      amount: payload.amount,
-//   onSuccess: (transaction) => {
-//     console.log(transaction);
-//   },
-//   onLoad: (response) => {
-//     console.log("onLoad: ", response);
-//   },
-//   onCancel: () => {
-//     console.log("onCancel");
-//   },
-//   onError: (error) => {
-//     console.log("Error: ", error.message);
-//   }
-// })
-//     }
+    }
 
     return{
         paymentCinetpay

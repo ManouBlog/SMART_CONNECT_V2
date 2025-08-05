@@ -207,7 +207,7 @@ export default {
                 <span class="my-2 text-danger">{{texte5}} {{ 
                   configUtils.getFormatDateFr(Offre.fin) }}</span>
               </section>
-              <section v-if="abonnements.some(item=>item.statut === 'ACCEPTED')">
+              <section v-if="abonnements.some(item=>item.statut === 'success')">
                 <button
                   class="btn-lg bg-warning"
                   @click="sendDataPost(Offre.id)"

@@ -51,7 +51,7 @@ const differenceInHours = dayjsDateTo.diff(dayjsDateFrom, 'hour');
     )
   },
   isAbonnementActif(value){
-    return value.some(item=>item.statut === "ACCEPTED")
+    return value.some(item=>item.statut === "success")
   },
   statistiqueEntreprise(value,nbre){
     return value.filter(item=>Number(item.pivot.contrat || item.pivot.recruit) === Number(nbre)).length

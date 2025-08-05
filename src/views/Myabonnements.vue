@@ -162,7 +162,7 @@ export default {
       :header="texte7"
     >
     <template #body="slotProps">
-      <span class="px-2" :class="slotProps.data.statut === 'ACCEPTED' ? 'bg-success':'bg-danger'">
+      <span class="px-2" :class="slotProps.data.statut === 'success' ? 'bg-success':'bg-danger'">
         {{ slotProps.data.statut }}
       </span>
     </template>

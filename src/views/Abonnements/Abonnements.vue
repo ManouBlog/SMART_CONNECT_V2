@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 // const { t } = i18n.global;
-const text = ref("")
+const text0 = ref("")
 const store = useStore();
 
 // const 'Etudiant' = ref("")
@@ -75,7 +75,7 @@ const verifIfAbonnementIsSuccess = async () => {
 onMounted(async () => {
   verifIfAbonnementIsSuccess();
   handleAbonement();
-  text.value = await translateStore.handleTranslate("Choisissez votre formule")
+  text0.value = await translateStore.handleTranslate("Choisissez votre formule")
   // texteStudent.value = await translateStore.handleTranslate('Etudiant')
   // texteEntreprise.value = await translateStore.handleTranslate('Entreprise')
   // 'Etudiant'.value = await translateStore.handleTranslate("Etudiant")
@@ -85,7 +85,7 @@ onMounted(async () => {
 
 <template>
   <div class="wrapped">
-    <h1 class="text-center main-color">{{text}}</h1>
+    <h1 class="text-center main-color">{{text0}}</h1>
     <n-card>
       <n-tabs type="line" size="large" animated justify-content="center">
         <n-tab-pane

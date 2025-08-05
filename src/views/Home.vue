@@ -38,7 +38,7 @@ export default {
     getDateAbonementActive(){
       if(this.$store.state.user && this.$store.state.user.user.abonement){
         this.$store.state.user.user.abonement.forEach(item=>{
-        if(item.statut  === 'ACCEPTED'){
+        if(item.statut  === 'success'){
           this.dateActive = item.echeance
         }
       })

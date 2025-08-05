@@ -4,6 +4,10 @@ import { defineProps, defineEmits } from "vue";
 defineProps({
   elmentsOfBtn: Array,
   shapeBtn: String,
+  isDisabled:{
+    type:Boolean,
+    default:false
+  }
 });
 const emit = defineEmits(["created"]);
 const clickBtn = () => {
@@ -15,6 +19,7 @@ const clickBtn = () => {
     v-for="(item, index) in elmentsOfBtn"
     class="mx-2"
     :key="index"
+    :disabled="isDisabled"
     :type="item.color_btn"
     :shape="shapeBtn"
     @click.prevent="clickBtn"
