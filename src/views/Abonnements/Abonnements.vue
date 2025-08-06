@@ -4,28 +4,23 @@ import { ref, onMounted } from "vue";
 import { useStore } from 'vuex';
 // import LoadingSpinner from "../../Shared/Compoments/LoadingSpinner.vue";
 import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
+import { useEntreprisesStore } from "../../store-pinia/Entreprise/useEntreprisesStore";
 // import {mapActions} from "pinia"
 import instance from "../../api/api";
 
 // import i18n from "../../plugins/i18n";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 // const { t } = i18n.global;
 const text0 = ref("")
 const store = useStore();
-
-// const 'Etudiant' = ref("")
-// const text3 = ref("") 
-
+const storeEntreprise = useEntreprisesStore();
 const translateStore = useTranslateStore();
 const defaulValueTranslate = ref(translateStore.defaultLocale);
 console.log("defaulValueTranslate",defaulValueTranslate.value)
 const abonnements = ref([]);
-// const texteStudent = ref(null);
-// const texteEntreprise = ref(null);
 const loadingSpinner = useLoadingSpinner();
-// const isLoading = ref(true);
 
 const handleAbonement = async () => {
   loadingSpinner.launchLoading(true);
@@ -34,52 +29,30 @@ const handleAbonement = async () => {
     abonnements.value = response.data.data;
     console.log("RESPONSE_getAbonnement", response.data);
     loadingSpinner.launchLoading(false);
-    // isLoading.value = false;
   } catch (error) {
     console.log(error);
     loadingSpinner.launchLoading(false);
-    // isLoading.value = false;
-  }
-};
-
-const verifIfAbonnementIsSuccess = async () => {
-  const TRANSACTION_ID = localStorage.getItem("transaction_id");
-  if (TRANSACTION_ID) {
-    try {
-      const response = await instance.post(
-        "cintepay/verification_paiement/" + TRANSACTION_ID
-      );
-      if (response["status"] === 200) {
-        Swal.fire({
-          icon: "info",
-          title: response.data.message,
-          showConfirmButton: true,
-        });
-      }
-
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: "info",
-        title: error.response.data.message,
-        showConfirmButton: true,
-      });
-    }
-    localStorage.removeItem("transaction_id");
-  } else {
-    return;
   }
 };
 
 onMounted(async () => {
-  verifIfAbonnementIsSuccess();
-  handleAbonement();
+  await handleAbonement();
+  if(JSON.parse(localStorage.getItem('@reference'))){
+  try {
+    const response = await instance.get("payStack/payment/callback/"+JSON.parse(localStorage.getItem('@reference')));
+    console.log("responseVERIF",response)
+    if(response.data.status){
+      localStorage.removeItem('@reference')
+      console.log("VERIFICATION TERMINER")
+      await storeEntreprise.get_all_abonnement();
+    }
+  } catch (error) {
+    console.log(error);
+  }finally{
+    await handleAbonement();
+  }
+  }
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
-  // texteStudent.value = await translateStore.handleTranslate('Etudiant')
-  // texteEntreprise.value = await translateStore.handleTranslate('Entreprise')
-  // 'Etudiant'.value = await translateStore.handleTranslate("Etudiant")
-  // text3.value = await translateStore.handleTranslate("Entreprise")
 });
 </script>
 
