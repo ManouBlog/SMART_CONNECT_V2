@@ -60,6 +60,11 @@ onMounted(async () => {
   <div class="wrapped">
     <h1 class="text-center main-color">{{text0}}</h1>
     <n-card>
+       <div class="d-flex justify-content-center">
+     <p class="text-center w-50 p-3" style="background:#df3535;color:white;">
+      Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
+     </p>
+      </div>
       <n-tabs type="line" size="large" animated justify-content="center">
         <n-tab-pane
           v-if="
@@ -88,8 +93,6 @@ onMounted(async () => {
           />
         </n-tab-pane>
       </n-tabs>
-      <p class="text-center w-50" style="background:red;">
-      Tout abonnement existant sera automatiquement remplacé par votre nouveau choix</p>
     </n-card>
 <!-- <LoadingSpinner /> -->
   </div>
