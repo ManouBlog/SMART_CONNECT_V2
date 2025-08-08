@@ -183,7 +183,7 @@ export default {
           >
             <i class="bi bi-cash-stack" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'transactions' }">
-              <strong>Transactions</strong></router-link
+              <strong>Historique de paiement</strong></router-link
             >
           </li>
         </ul>

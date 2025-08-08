@@ -67,9 +67,22 @@ export default {
           this.spinner = false;
         });
     },
+    // async getPayStackHistorique() {
+    //   await axios
+    //     .get("http://127.0.0.1:8000/api/payStack/transactions", {
+    //       headers: {
+    //         Authorization: "Bearer " + this.$store.state.token,
+    //       },
+    //     })
+    //     .then((response) => {
+    //       console.log("RESPONSE_GetPayStackHistorique", response);
+    //       // this.get_Historique()
+    //     });
+    // },
   },
   created() {
     this.get_Historique();
+    // this.getPayStackHistorique();
   },
 };
 </script>
@@ -85,7 +98,7 @@ export default {
           <div class="col-12 col-sm-6"></div>
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">Historique des transactions</li>
+              <li class="breadcrumb-item">Historique de paiement</li>
             </ol>
           </div>
         </div>
@@ -101,11 +114,12 @@ export default {
                 <tr>
                   <th class="bg-light">Date d'enregistrement</th>
                   <th class="bg-light">Identifiant</th>
-                  <th class="bg-light">Moyen de paiement</th>
+                  <!-- <th class="bg-light">Moyen de paiement</th> -->
                   <th class="bg-light">Montant (Fcfa)</th>
                   <th class="bg-light">Client</th>
+                  <th class="bg-light">Statut du client</th>
                   <th class="bg-light">Date d'écheance</th>
-                  <th class="bg-light">Statut</th>
+                  <th class="bg-light">Statut du paiement</th>
                 </tr>
               </thead>
               <tbody>
@@ -114,9 +128,12 @@ export default {
                     {{ new Date(item.created_at).toLocaleDateString("fr") }}
                   </td>
                   <td>{{ item.transaction_id }}</td>
-                  <td>{{ item.moyen_paiement }}</td>
+                  <!-- <td>{{ item.moyen_paiement }}</td> -->
                   <td>{{ item.montant }}</td>
                   <td>{{ `${item.user.nom}` }}</td>
+                  <td>
+                    {{ item.status_user }}
+                  </td>
                   <td>{{ item.echeance }}</td>
                   <td>
                     <span
@@ -124,17 +141,13 @@ export default {
                       :class="
                         item.statut === 'EN ATTENTE'
                           ? 'bg-warning'
-                          : item.statut !== 'ACCEPTED'
+                          : item.statut !== 'success'
                           ? 'bg-danger'
                           : 'bg-success'
                       "
                       >{{ item.statut }}</span
                     >
                   </td>
-                  <!-- <td v-if="item.student.statut">
-                    {{item.statut.}}
-                    <i class="bi bi-eye"></i> 
-                  </td> -->
                 </tr>
               </tbody>
             </table>
