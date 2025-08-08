@@ -11,6 +11,10 @@ import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue"
 import { useEntreprisesStore } from "../store-pinia/Entreprise/useEntreprisesStore";
 
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
+const STATUTABONNEMENT = {
+  'success':'Actif',
+  'expired':'Non Actif'
+}
 export default {
   name: "Myabonnements",
   components:{
@@ -52,6 +56,7 @@ export default {
       texte26: "",
       texte27:"",
       configUtils:configUtils,
+      STATUTABONNEMENT:STATUTABONNEMENT,
       offre: null,
       offres: null,
       filters: {
@@ -163,7 +168,7 @@ export default {
     >
     <template #body="slotProps">
       <span class="px-2" :class="slotProps.data.statut === 'success' ? 'bg-success':'bg-danger'">
-        {{ slotProps.data.statut }}
+        {{ STATUTABONNEMENT[slotProps.data.statut] }}
       </span>
     </template>
   </Column>
