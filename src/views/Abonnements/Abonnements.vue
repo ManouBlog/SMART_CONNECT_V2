@@ -61,7 +61,7 @@ onMounted(async () => {
     <h1 class="text-center main-color">{{text0}}</h1>
     <n-card>
        <div class="d-flex justify-content-center">
-     <p class="text-center w-50 p-3" style="background:#df3535;color:white;">
+     <p class="w-50 p-3" style="background:#df3535;color:white;">
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
      </p>
       </div>
