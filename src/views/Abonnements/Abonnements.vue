@@ -89,7 +89,7 @@ onMounted(async () => {
         </n-tab-pane>
       </n-tabs>
       <p class="text-center w-50" style="background:red;">
- Tout abonnement existant sera automatiquement remplacé par votre nouveau choix</p>
+      Tout abonnement existant sera automatiquement remplacé par votre nouveau choix</p>
     </n-card>
 <!-- <LoadingSpinner /> -->
   </div>

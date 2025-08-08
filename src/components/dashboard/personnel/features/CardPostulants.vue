@@ -101,7 +101,7 @@ export default {
     <a-card style="width: 400px;color: var(--third-color) !important; background: var(--secondary-color) !important">
        <div class="d-flex justify-content-between align-items-center">
         <h1><em class="bi bi-person h1"></em></h1>
-        <h2 class="text-warning">{{ InfoPostulant.nom }} {{ InfoPostulant.prenoms }}</h2>
+        <h1 class="user_person" style="color:orange;">{{ InfoPostulant.nom }} {{ InfoPostulant.prenoms }}</h1>
        </div>
        <section>
         <h4><span>{{texte}}</span> {{ InfoPostulant.email }}</h4>
@@ -145,6 +145,11 @@ export default {
 <style scoped>
 .bi-person{
     font-size: 3em;
+}
+.user_person::first-letter{
+ font-size: 1.5em;
+ font-weight: bold;
+ text-transform: capitalize;
 }
 .text-success {
   color: green !important;

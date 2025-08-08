@@ -172,7 +172,12 @@ export default {
           <div class="col-md-12 col-sm-12 entreprise">
             <div class="card">
               <section>
-                <h1 class="my-5 nom_offre">{{ Offre.nom_offre }}</h1>
+                <h1 class="my-5 nom_offre">
+                {{ Offre.nom_offre }}
+                </h1>
+                <h4 class="my-5" style="color:orange;">
+                  <em class="bi bi-geo"></em> {{Offre.lieu}}
+                </h4>
                 <h4 class="my-5">
                   <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
                 </h4>
@@ -187,24 +192,29 @@ export default {
                   </h4>
                 </div>
                 <h4 class="my-5" v-if="Offre.nbre_person">
-                  {{texte1}} {{ Offre.nbre_person }}
+                  <span class="fw-bold">{{texte1}}</span> {{ Offre.nbre_person }}
                 </h4>
+              
+              </section>
+              <section>
+                <h4>
+                <span class="fw-bold my-3">{{texte4}}</span>  
+                </h4>
+                <div style="font-weight:300;" v-html="Offre.description" id="conteneur_description"></div>
+              </section>
+            
+              <section>
                 <h4 class="my-5">
-                  {{texte2}} {{ 
+                  <span class="fw-bold">{{texte2}}</span> {{ 
                     configUtils.getFormatDateFr(Offre.job_debut) }}
                 </h4>
                 <h4 class="my-5">
-                  {{texte3}} {{ 
+                  <span class="fw-bold">{{texte3}}</span> {{ 
                     configUtils.getFormatDateFr(Offre.job_fin) }}
                 </h4>
-             
               </section>
-              <section>
-                <h4 class="d-flex my-4">{{texte4}}</h4>
-                <div v-html="Offre.description" id="conteneur_description"></div>
-              </section>
-              <section>
-                <span class="my-2 text-danger">{{texte5}} {{ 
+                <section>
+                <span class="my-2 text-danger fw-bold">{{texte5}} {{ 
                   configUtils.getFormatDateFr(Offre.fin) }}</span>
               </section>
               <section v-if="abonnements.some(item=>item.statut === 'success')">
@@ -238,8 +248,8 @@ export default {
   text-align: justify;
 }
 .nom_offre {
-  font-size: 3em;
-  color: black !important;
+  font-size: 5em;
+  color: rgb(255, 255, 255) !important;
   font-weight: bold;
 }
 span {

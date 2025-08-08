@@ -593,9 +593,9 @@ select {
   background: #f77f00 !important;
 }
 .badge_new {
-  width: 50px !important;
+  width: auto;
   position: absolute;
-  right: 1em;
+  right: 2em;
   animation: move 1s ease-in-out infinite alternate;
 }
 @keyframes move {

@@ -12,34 +12,8 @@ export default {
   components: { HeaderDashboard,CardPostulants },
   data() {
     return {
-      texte: "",
-      texte2: "",
-      texte3: "",
+      texte0: "",
       texte1: "",
-      texte4: "",
-      texte5: "",
-      texte6: "",
-      texte7: "",
-      texte8: "",
-      texte9: "",
-      texte10: "",
-      texte11: "",
-      texte12: "",
-      texte13: "",
-      texte14: "",
-      texte15: "",
-      texte16: "",
-      texte17: "",
-      texte18: "",
-      texte19: "",
-      texte20: "",
-      texte21: "",
-      texte22: "",
-      texte23: "",
-      texte24: "",
-      texte25: "",
-      texte26: "",
-      texte27:"",
       offresInteressByStudents: null,
       lienPhoto: lienPhoto,
       offre: null,
@@ -77,7 +51,7 @@ export default {
   },
  async created() {
     this.get_offres_interess_by_student();
-    this.texte = await this.handleTranslate('Détails des postulants');
+    this.texte0 = await this.handleTranslate('Détails des postulants');
     this.texte1 = await this.handleTranslate('étudiant');
   
   },
@@ -87,8 +61,8 @@ export default {
 <template>
   <section>
     <HeaderDashboard
-      :TitleHeader="texte"
-      :subTitleHeader="texte"
+      :TitleHeader="texte0"
+      :subTitleHeader="texte0"
     />
     <div class="page-body position-relative">
       <h2 class="text-left my-5 mx-5">{{ detailStudents.length }}{{texte1}}{{ detailStudents.length>1?"s":null }}</h2>

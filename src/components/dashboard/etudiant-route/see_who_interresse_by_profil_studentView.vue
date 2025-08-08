@@ -66,14 +66,13 @@ export default {
         .get("get_who_contact_student")
         .then((res) => {
           console.log(res);
-          this.student = res.data;
-          console.log("STUDENTS_ENTREPRISES", this.student);
-          this.list_entreprise_contact = this.student.entreprises;
+          this.list_entreprise_contact = res.data;
+          console.log("STUDENTS_ENTREPRISES", this.list_entreprise_contact);
+          // this.list_entreprise_contact = this.student.entreprises;
           // this.$store.commit("ADD_ITEM",this.student.entreprises)
           localStorage.setItem("length", this.list_entreprise_contact.length);
           console.log("LISTS_ENTREPRISES", this.list_entreprise_contact);
           loadingSpinner.launchLoading(false);
-          
         })
         .catch((err) => {
           console.log(err);
@@ -169,7 +168,7 @@ export default {
      this.texte6 = await this.handleTranslate('Recherche:');
      this.texte7 =  await this.handleTranslate(`Nom de l'entreprise`);
      this.texte8 =  await this.handleTranslate(`Email de l'entreprise`);
-     this.texte9 = await this.handleTranslate(`Date de l'emploi`);
+     this.texte9 = await this.handleTranslate(`Echéance`);
      this.texte10 = await this.handleTranslate("accepter");
      this.texte11 = await this.handleTranslate('refuser');
      this.texte12 = await this.handleTranslate('En attente de reponse');
@@ -253,16 +252,28 @@ export default {
               </template>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
-                field="nom"
+                field="id"
                 :header="texte7"
               >
-            
+            <template #body="slotProps">
+                  <div>
+                    <span>{{ slotProps.data.offre.entreprise.nom }}
+                    </span>                    
+                  </div>
+                </template>
               </Column>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="email"
                 :header="texte8"
-              ></Column>
+              >
+            <template #body="slotProps">
+                  <div>
+                    <span>{{ slotProps.data.offre.entreprise.email }}
+                    </span>                    
+                  </div>
+                </template>
+            </Column>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="id"
@@ -270,19 +281,11 @@ export default {
               >
                 <template #body="slotProps">
                   <div>
-                    <span v-if="slotProps.data.pivot.date_debut !== null"
+                    <span
                       >{{
-                        slotProps.data.pivot.date_debut
+                        slotProps.data?.offre?.fin
                       }}
-                      au
                     </span>
-
-                    <span v-if="slotProps.data.pivot.date_fin !== null">{{
-                      slotProps.data.pivot.date_fin
-                    }}</span>
-                    <span v-if="slotProps.data.pivot.date !== null">{{
-                      slotProps.data.pivot.date
-                    }}</span>
                   </div>
                 </template>
               </Column>
@@ -293,12 +296,12 @@ export default {
               >
                 <template #body="slotProps">
                   <div class="d-flex align-items-center justify-content-center">
-                    <span v-if="slotProps.data.pivot.contrat === 1" 
+                    <span v-if="slotProps.data?.recruit === 1" 
                     class="badge bg-info"
                       >{{texte10}}</span
                     >
                     <span
-                      v-else-if="slotProps.data.pivot.contrat === 2"
+                      v-else-if="slotProps.data?.recruit === 2"
                       class="badge bg-danger"
                       >{{texte11}}</span
                     >
@@ -315,24 +318,24 @@ export default {
               >
                 <template #body="slotProps">
                   <div>
-                    <div v-if="slotProps.data.pivot.contrat === 0">
+                    <div v-if="slotProps.data?.recruit === 0">
                       <a
                       href="#"
                       class="text-danger d-block"
-                      @click.prevent="rejetJob(slotProps.data.pivot.id)"
+                      @click.prevent="rejetJob(slotProps.data?.id)"
                       >{{texte13}}</a
                     >
                     <a 
                       href="#"
                       class="text-primary"
-                      @click.prevent="showIdForAccept(slotProps.data.pivot.id)"
+                      @click.prevent="showIdForAccept(slotProps.data?.id)"
                       >{{texte14}}</a
                     >
                     <span
                       class="mx-2"
-                      v-if=" slotProps.data.pivot.contrat === 0 && 
+                      v-if=" slotProps.data?.recruit === 0 && 
                       (JSON.stringify(new Date().toISOString().substring(0,10)) >=
-                       JSON.stringify(new Date(slotProps.data.pivot.offre.debut).toISOString().slice(0,10)))"
+                       JSON.stringify(new Date(slotProps.data?.offre.debut).toISOString().slice(0,10)))"
                       >{{texte15}}</span>
                     </div>
                     
@@ -352,118 +355,24 @@ export default {
                 <div>
                 <em
                   class="bi bi-dash-circle text-danger"
-                  v-if="slotProps.data.pivot.contrat === 0 || 
-                  slotProps.data.pivot.contrat === 2"
+                  v-if="slotProps.data?.recruit === 0 || 
+                  slotProps.data?.recruit === 2"
                 ></em>
                 <router-link
-                @click="seeDetailOffre(slotProps.data.pivot.id)"
+                @click="seeDetailOffre(slotProps.data?.id)"
                 :to="{
                   name: 'imprimeLeContrat',
-                  params: { id: slotProps.data.pivot.id },
+                  params: { id: slotProps.data?.id },
                 }"
-                v-if="slotProps.data.pivot.contrat === 1"
+                v-if="slotProps.data?.recruit === 1"
                 ><em class="bi bi-eye"></em
               ></router-link>
-              <span v-if="slotProps.data.pivot.alarm === 1"
+              <span v-if="slotProps.data?.pivot?.alarm === 1"
                class="badge bg-danger mx-3">New</span>
               </div>
               </template>
             </Column>
             </DataTable>
-            <!-- <table id="MyTableData" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Nom de l'entreprise</th>
-                  <th class="bg-light">Email de l'entreprise</th>
-                  <th class="bg-light">Date de l'emploi</th>
-                  <th class="bg-light">Statut</th>
-                  <th class="bg-light">Action</th>
-                  <th class="bg-light">Détails</th>
-                </tr>
-              </thead>
-              <tbody >
-                <tr
-                  v-for="(item, index) in list_entreprise_contact"
-                  :key="index"
-                >
-                  <td>{{ item.nom }}</td>
-                  <td>{{ item.email }}</td>
-                  <td>
-                    <span v-if="item.pivot.date_debut !== null"
-                      >{{
-                        item.pivot.date_debut
-                      }}
-                      au
-                    </span>
-
-                    <span v-if="item.pivot.date_fin !== null">{{
-                      item.pivot.date_fin
-                    }}</span>
-                    <span v-if="item.pivot.date !== null">{{
-                      item.pivot.date
-                    }}</span>
-                  </td>
-                  <td>
-                    <span v-if="item.pivot.contrat === 1" class="badge bg-info"
-                      >accepter</span
-                    >
-                    <span
-                      v-else-if="item.pivot.contrat === 2"
-                      class="badge bg-danger"
-                      >refuser</span
-                    >
-                    
-                    <span v-else class="badge bg-warning">
-                      En attente de reponse
-                    </span>
-                  </td>
-                  <td>
-                    <div v-if="item.pivot.contrat === 0">
-                      <a
-                      href="#"
-                      class="text-danger d-block"
-                      @click.prevent="rejetJob(item.pivot.id)"
-                      >Rejeter</a
-                    >
-                    <a 
-                      href="#"
-                      class="text-primary"
-                      @click.prevent="showIdForAccept(item.pivot.id)"
-                      >Accepter</a
-                    >
-                    <span
-                      class="mx-2"
-                      v-if=" item.pivot.contrat === 0 && 
-                      (JSON.stringify(new Date().toISOString().substring(0,10)) >=
-                       JSON.stringify(new Date(item.pivot.offre.debut).toISOString().slice(0,10)))"
-                      >Expirée</span>
-                    </div>
-                    
-                    <em 
-                    v-else
-                    class="bi bi-dash-circle text-danger"
-                  ></em>
-                  </td>
-                  <td>
-                    <em
-                      class="bi bi-dash-circle text-danger"
-                      v-if="item.pivot.contrat === 0 || item.pivot.contrat === 2"
-                    ></em>
-                    <router-link
-                    @click="seeDetailOffre(item.pivot.id)"
-                    :to="{
-                      name: 'imprimeLeContrat',
-                      params: { id: item.pivot.id },
-                    }"
-                    v-if="item.pivot.contrat === 1"
-                    ><em class="bi bi-eye"></em
-                  ></router-link>
-                  <span v-if="item.pivot.alarm === 1" class="badge bg-danger mx-3">New</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table> -->
-           
           </div>
         </div>
       </div>
