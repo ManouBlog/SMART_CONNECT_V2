@@ -13,7 +13,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -89,7 +89,7 @@ export default {
         { fieldName: "statut", headerName: Statut },
         { fieldName: "offre", headerName: Offre },
       ]
-    this.texte = await this.handleTranslate('Liste des talents');
+    this.texte0 = await this.handleTranslate('Liste des talents');
     this.texte1 = await this.handleTranslate(`Talents contactés`);
     this.texte2 = await this.handleTranslate("Talents sélectionnés");
     this.texte3 = await this.handleTranslate('Commune');
@@ -106,8 +106,8 @@ export default {
 <template>
   <section>
     <HeaderDashboard
-      :TitleHeader="texte"
-      :subTitleHeader="texte"
+      :TitleHeader="texte0"
+      :subTitleHeader="texte0"
     />
     <div class="page-body position-relative">
       <div class="container-fluid">

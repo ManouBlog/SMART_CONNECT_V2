@@ -19,14 +19,14 @@ export default {
         <span v-if="dataStatut.pivot.contrat === 1" class="badge bg-success"
           >Accepter</span
         >
-        <span
+        <!-- <span
           class="mx-2"
           v-if="
             dataStatut.pivot.contrat === 0 &&
-            configUtils.getFormatDateFr(dataStatut.pivot.offre.debut)
+            configUtils.getFormatDateFr(dataStatut.pivot.offre.fin)
           "
           >Expirée</span
-        >
+        > -->
 
         <span v-if="dataStatut.pivot.contrat === 2" class="badge bg-danger"
           >Refuser</span
