@@ -7,8 +7,6 @@ export default {};
 </script>
 
 <style>
-@import "./Shared/styles/stylesShared.css";
-
 .p-icon .p-rating-icon {
   font-size: 2em !important;
 }

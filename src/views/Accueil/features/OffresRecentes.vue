@@ -63,8 +63,8 @@ export default {
         <div
           class="job_div"
           style="width: 35%"
-          v-for="(item, index) in ListOffre"
-          :key="index"
+          v-for="item in ListOffre"
+          :key="item.id"
         >
           <h1 class="fw-bold">{{ item.nom_offre }}</h1>
           <span><em class="bi bi-geo-alt"></em>{{ item.lieu }}</span>

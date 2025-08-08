@@ -179,11 +179,11 @@ export default {
       return this.currentPage === this.totalPages;
     },
     list_emploi() {
-      if (this.location !== "") {
-        return this.list.filter((item) => {
-          return item.commune.toLowerCase().includes(this.location.toLowerCase());
-        });
-      }
+      // if (this.location !== "") {
+      //   return this.list.filter((item) => {
+      //     return item.commune.toLowerCase().includes(this.location.toLowerCase());
+      //   });
+      // }
       return this.list.slice(0, this.length);
     },
     // jourOfMonth() {
@@ -508,9 +508,9 @@ export default {
           });
           this.list = res.data.data;
           this.MylistEmploi = res.data.data;
-          console.log("LIST", this.MylistEmploi);
+          console.log("this.MylistEmploi", this.MylistEmploi);
           this.lengthOfMylistEmploi = this.MylistEmploi.length;
-          console.log("EMPLOI DU TEMPS", this.list_emploi);
+          // console.log("EMPLOI DU TEMPS", this.list_emploi);
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {

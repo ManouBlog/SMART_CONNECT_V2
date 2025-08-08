@@ -82,7 +82,7 @@ export default {
     this.texte7 = await this.handleTranslate(' Statut');
     this.texte8 = await this.handleTranslate(' Rejeter');
     this.texte9 = await this.handleTranslate("Recherche:");
-    this.texte10 = await this.handleTranslate("Date d'enregistrement");
+    this.texte10 = await this.handleTranslate("Date de paiement");
   },
 };
 </script>

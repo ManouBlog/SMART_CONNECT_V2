@@ -8,11 +8,11 @@ import { configUtils } from "../../Shared/Utils";
 // import { KCheckbox } from "@kong/kongponents";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
-import {useLoadingSpinner} from "../../store-pinia/LoadingSpinner/useLoadingSpinner"
+import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import "@kong/kongponents/dist/style.css";
 import HeaderDetailStudent from "./features/HeaderDetailStudent.vue";
 import BodyExperience from "./features/BodyExperience.vue";
-const loadingSpinner = useLoadingSpinner()
+const loadingSpinner = useLoadingSpinner();
 //DatePicker
 export default {
   components: { Calendar, HeaderDetailStudent, BodyExperience },
@@ -139,14 +139,13 @@ export default {
       },
       days: [],
       showCalenderFilter: false,
-      selectedOffreWithDate:null,
+      selectedOffreWithDate: null,
       selectedOffreWithPeriode: "",
       perPage: 3,
       currentPage: 1,
       totalPages: "",
       maxVisibleButtons: "2",
       listAbonnement: [],
-
     };
   },
   computed: {
@@ -226,76 +225,76 @@ export default {
         })),
       ];
     },
-    idParamsItem(){
+    idParamsItem() {
       return this.$route.params.id;
-    }
+    },
   },
   watch: {
     idParamsItem(newValue, oldValue) {
-       console.log("oldValue",oldValue)
-       console.log("newValue",newValue)
-       if(newValue){
-        this.getDetailStudent()
-       }
-    }
+      console.log("oldValue", oldValue);
+      console.log("newValue", newValue);
+      if (newValue) {
+        this.getDetailStudent();
+      }
+    },
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     splitDateRanges(dateArray) {
-  const result = [];
-  
-  for (const dateStr of dateArray) {
-    if (dateStr.includes(' A ')) {
-      // Séparer les dates pour les éléments avec plage
-      const [startDate, endDate] = dateStr.split(' A ');
-      result.push(startDate, endDate);
-    } else {
-      // Ajouter les dates simples telles quelles
-      result.push(dateStr);
-    }
-  }
-  
-  return result;
-},
+      const result = [];
+
+      for (const dateStr of dateArray) {
+        if (dateStr.includes(" A ")) {
+          // Séparer les dates pour les éléments avec plage
+          const [startDate, endDate] = dateStr.split(" A ");
+          result.push(startDate, endDate);
+        } else {
+          // Ajouter les dates simples telles quelles
+          result.push(dateStr);
+        }
+      }
+
+      return result;
+    },
     splitDateRangeObjects(data) {
-  const result = [];
-  
-  for (const item of data) {
-    if (item.jour.includes(' A ')) {
-      // Séparer les dates pour les éléments avec plage
-      const [startDate, endDate] = item.jour.split(' A ');
-      
-      // Créer un objet pour la date de début
-      result.push({
-        ...item,
-        id: item.id * 10 + 1, // Nouvel ID dérivé pour éviter les conflits
-        jour: startDate,
-        periode: 1,
-        periode_debut: startDate,
-        periode_fin: endDate
-      });
-      
-      // Créer un objet pour la date de fin
-      result.push({
-        ...item,
-        id: item.id * 10 + 2, // Nouvel ID dérivé
-        jour: endDate,
-        periode: 1,
-        periode_debut: startDate,
-        periode_fin: endDate
-      });
-    } else {
-      // Garder les éléments sans plage tels quels
-      result.push({...item});
-    }
-  }
-  
-  return result;
-},
-     ifPeriodeDate(periode) {
+      const result = [];
+
+      for (const item of data) {
+        if (item.jour.includes(" A ")) {
+          // Séparer les dates pour les éléments avec plage
+          const [startDate, endDate] = item.jour.split(" A ");
+
+          // Créer un objet pour la date de début
+          result.push({
+            ...item,
+            id: item.id * 10 + 1, // Nouvel ID dérivé pour éviter les conflits
+            jour: startDate,
+            periode: 1,
+            periode_debut: startDate,
+            periode_fin: endDate,
+          });
+
+          // Créer un objet pour la date de fin
+          result.push({
+            ...item,
+            id: item.id * 10 + 2, // Nouvel ID dérivé
+            jour: endDate,
+            periode: 1,
+            periode_debut: startDate,
+            periode_fin: endDate,
+          });
+        } else {
+          // Garder les éléments sans plage tels quels
+          result.push({ ...item });
+        }
+      }
+
+      return result;
+    },
+    ifPeriodeDate(periode) {
       console.log("PERIODE25", periode);
       if (periode.periode) {
-        console.log("periode254",periode)
+        console.log("periode254", periode);
         return `Du ${new Date(periode.periode_debut).toLocaleDateString("fr")} à ${
           periode.hour_periode_debut
         } au ${new Date(periode.periode_fin).toLocaleDateString("fr")} à ${
@@ -306,7 +305,7 @@ export default {
       }
     },
     async getDetailStudent() {
-      loadingSpinner.launchLoading(true)
+      loadingSpinner.launchLoading(true);
       // this.isLoading = true;
       await instance
         .get("FiltreTimetable")
@@ -330,7 +329,7 @@ export default {
           console.log("this.timetable_for_student", this.timetable_for_student);
           this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
           // this.schedule = this.timetable_for_student.jours;
-           this.schedule = this.splitDateRangeObjects(this.timetable_for_student.jours);
+          this.schedule = this.splitDateRangeObjects(this.timetable_for_student.jours);
 
           this.schedule.forEach((item) => {
             console.log("DATE", this.MyDateRendezVous);
@@ -358,7 +357,7 @@ export default {
           // this.selectedService = this.timetable_for_student.competences;
           // console.log("COMPETENCES", this.selectedService);
 
-          loadingSpinner.launchLoading(false)
+          loadingSpinner.launchLoading(false);
 
           console.log("EMPLOI DU TEMPS", this.timetable_for_student);
 
@@ -586,7 +585,7 @@ export default {
       }
     },
     async get_list_emploi() {
-      loadingSpinner.launchLoading(true)
+      loadingSpinner.launchLoading(true);
       await instance
         .get("list_emplois_temps")
         .then((res) => {
@@ -619,12 +618,11 @@ export default {
 
           this.lengthOfMylistEmploi = this.MylistEmploi.length;
           console.log("EMPLOI DU TEMPS", this.list_emploi);
-          
         })
         .catch((err) => {
           console.log(err);
         });
-        loadingSpinner.launchLoading(false)
+      loadingSpinner.launchLoading(false);
     },
     closeDetailTimetable() {
       this.details_timetable = !this.details_timetable;
@@ -635,7 +633,7 @@ export default {
       this.checkbox = false;
     },
     optionDate(studentId) {
-       loadingSpinner.launchLoading(true)
+      loadingSpinner.launchLoading(true);
       // this.loadSpinner = true;
       console.log("datesChoice", this.datesChoice);
       let date = [];
@@ -685,13 +683,13 @@ export default {
             showConfirmButton: true,
           });
         })
-        .finally(()=>{
-          loadingSpinner.launchLoading(false)
-        })
+        .finally(() => {
+          loadingSpinner.launchLoading(false);
+        });
     },
     async optionPeriode(EntrepriseId) {
-      loadingSpinner.launchLoading(true)
-     await instance
+      loadingSpinner.launchLoading(true);
+      await instance
         .post("entreprise_student", {
           student_id: EntrepriseId,
           date_debut: this.dateDebut,
@@ -716,7 +714,6 @@ export default {
               showConfirmButton: false,
               timer: 2000,
             });
-         
           }
         })
         .catch((err) => {
@@ -726,13 +723,12 @@ export default {
             title: "Vérifier votre connexion ou les informations que vous envoyer",
             showConfirmButton: true,
           });
-       
         });
-        loadingSpinner.launchLoading(false)
+      loadingSpinner.launchLoading(false);
     },
     async getall() {
-      loadingSpinner.launchLoading(true)
-     await instance
+      loadingSpinner.launchLoading(true);
+      await instance
         .get("getAllWishlist")
         .then((response) => {
           console.log("WISHLIST", response.data.data.wishlists);
@@ -743,7 +739,7 @@ export default {
         .catch((error) => {
           console.log("error3", error);
         });
-        loadingSpinner.launchLoading(false)
+      loadingSpinner.launchLoading(false);
     },
     AllCompetencesPredf() {
       instance
@@ -808,7 +804,6 @@ export default {
         console.log(error);
       }
     },
-
   },
   async created() {
     this.handleAbonnement();
@@ -826,7 +821,9 @@ export default {
     this.texte5 = await this.handleTranslate("Sélectionner une offre");
     this.texte6 = await this.handleTranslate("Pas d'offres");
     this.texte7 = await this.handleTranslate("Envoyer");
-    this.texte8 = await this.handleTranslate("Ce talent n'a pas encore fait un abonnement.");
+    this.texte8 = await this.handleTranslate(
+      "Ce talent n'a pas encore fait un abonnement."
+    );
     this.texte9 = await this.handleTranslate("Vous devez faire un abonnement");
   },
 };
@@ -843,8 +840,8 @@ export default {
         <div class="jobs-result">
           <div class="disponibilite">
             <span>
-              <strong class="jou"></strong> {{texte}}
-              <strong class="notDispo"></strong>{{texte1}}
+              <strong class="jou"></strong> {{ texte }} <strong class="notDispo"></strong
+              >{{ texte1 }}
             </span>
           </div>
           <div class="container-fluid my-5 conteneur_timetable">
@@ -858,11 +855,10 @@ export default {
                   >
                     <strong class="d-block">
                       <span class="colorForFirstHoraire"></span>
-                      {{texte2}} :
-                      {{ item.popover.label.one }}</strong
+                      {{ texte2 }} : {{ item.popover.label.one }}</strong
                     >
                     <strong v-if="item.popover.label.two != null"
-                      ><span class="colorForSecondHoraire"></span> {{texte2}} :
+                      ><span class="colorForSecondHoraire"></span> {{ texte2 }} :
                       {{ item.popover.label.two }}</strong
                     >
                   </li>
@@ -872,7 +868,7 @@ export default {
           </div>
         </div>
         <div class="conteneur_date">
-          <label class="d-block">{{texte3}}</label>
+          <label class="d-block">{{ texte3 }}</label>
           <PrimeCalendar
             v-model="datesChoice"
             :minDate="new Date()"
@@ -883,7 +879,7 @@ export default {
           />
 
           <div class="selecte_service my-3">
-            <label class="d-block">{{texte4}}</label>
+            <label class="d-block">{{ texte4 }}</label>
             <!-- <a-auto-complete
             v-model:value="selectedOffreWithDate"
             :options="selectedService"
@@ -897,7 +893,7 @@ export default {
               v-model="selectedOffreWithDate"
               class="my-3"
             >
-              <option value="" disabled>{{texte5}}</option>
+              <option value="" disabled>{{ texte5 }}</option>
               <option
                 :value="offre.id"
                 v-for="(offre, index) in selectedService"
@@ -905,7 +901,7 @@ export default {
               >
                 {{ offre.nom_offre }}
               </option>
-              <option disabled v-if="!selectedService.length">{{texte6}}</option>
+              <option disabled v-if="!selectedService.length">{{ texte6 }}</option>
             </select>
           </div>
 
@@ -917,22 +913,23 @@ export default {
             "
           >
             <button
-              class="btn-lg bg-warning mb-5"
-              style="border: none"
-              :disabled="!this.selectedOffreWithDate && !datesChoice.length"
+              class="btn btn-warning btn-designer my-3"
+              type="submit"
+              :disabled="!this.selectedOffreWithDate || !this.datesChoice.length"
               @click="optionDate(timetable_for_student.id)"
             >
-              {{texte7}}
+              {{ texte7 }}
             </button>
           </div>
           <div class="text-center fw-bold">
-            <h5 class="text-danger"
+            <h5
+              class="text-danger"
               v-if="!configUtils.isAbonnementActif(timetable_for_student.user.abonement)"
             >
-              {{texte8}}
+              {{ texte8 }}
             </h5>
             <h5 class="text-danger" v-if="!configUtils.isAbonnementActif(listAbonnement)">
-              {{texte9}}
+              {{ texte9 }}
             </h5>
           </div>
         </div>
@@ -942,8 +939,8 @@ export default {
 </template>
 
 <style scoped>
-:deep(.p-inputwrapper){
-  width:500px !important;
+:deep(.p-inputwrapper) {
+  width: 500px !important;
 }
 
 .selecte_service select {

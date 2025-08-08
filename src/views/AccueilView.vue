@@ -19,7 +19,6 @@ export default {
       <div class="page-title">
         <div class="row">
           <div class="col-md-10 col-sm-10">
-            <!-- <h3>Default</h3> -->
           </div>
           <div class="col-md-2 col-sm-6">
             <ol class="breadcrumb">
@@ -63,29 +62,7 @@ export default {
             </div>
           </div>
         </div>
-        <!-- <div class="col-xl-3 col-md-6 dash-xl-50">
-          <div class="card weekly-column">
-            <div class="card-body p-0">
-              <div id="weekly-chart"></div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
-    <!-- <table class="table table-striped" id="MyTableData">
-      <thead>
-        <tr>
-          <th>jours</th>
-          <th>heure_start</th>
-          <th>heure_end</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr></tr>
-      </tbody>
-    </table> -->
   </div>
 </template>
-<style scoped>
-
-</style>
