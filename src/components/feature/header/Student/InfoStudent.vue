@@ -51,6 +51,7 @@ export default {
       texte25: "",
       texte26: "",
       texte27:"",
+      texte40:"",
       data: null,
     };
   },
@@ -106,6 +107,7 @@ export default {
     this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte2 = await this.handleTranslate("Mes postulations");
     this.texte3 = await this.handleTranslate('Mes Contrats');
+    this.texte40 = await this.handleTranslate('Entreprises intéressées');
     this.texte4 = await this.handleTranslate('Mes disponibilités');
     this.texte5 = await this.handleTranslate('Mes abonnements');
     this.texte6 = await this.handleTranslate('Deconnexion');
@@ -153,6 +155,13 @@ export default {
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/emploi_du_temps" class="d-block">
               {{texte4}}
+            </router-link>
+          </li>
+        </a-menu-item>
+        <a-menu-item>
+          <li class="position-absolute deconnex">
+            <router-link to="/dashboard/contrat_etudiants-entreprises" class="d-block">
+              {{texte40}}
             </router-link>
           </li>
         </a-menu-item>

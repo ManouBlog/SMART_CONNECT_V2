@@ -36,7 +36,9 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",};
+      texte27:"",
+      texte40:"",
+    };
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -49,6 +51,7 @@ export default {
     this.texte2 = await this.handleTranslate("Mes favoris");
     this.texte3 = await this.handleTranslate('Mes postulations');
     this.texte4 = await this.handleTranslate('Mes Contrats');
+    this.texte40 = await this.handleTranslate('Entreprises intéressées');
     this.texte5 = await this.handleTranslate(' Mes disponibilités');
     this.texte6 = await this.handleTranslate(`Mes abonnements`);
     this.texte7 = await this.handleTranslate('Déconnexion');
@@ -77,6 +80,11 @@ export default {
   <li class="position-absolute deconnex">
     <router-link to="/dashboard/contrat" class="d-block">
       {{texte4}}
+    </router-link>
+  </li>
+  <li class="position-absolute deconnex">
+    <router-link to="/dashboard/contrat_etudiants-entreprises" class="d-block">
+      {{texte40}}
     </router-link>
   </li>
   <li class="position-absolute deconnex">

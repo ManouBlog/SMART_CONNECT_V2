@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Frame from '../views/frame.vue'
-import Accueil from "../views/AccueilView.vue";
-import offresView from "../views/offresView.vue";
-import createTimetableView from "../views/createTimetableView.vue";
+// import Frame from '../views/frame.vue'
+// import Accueil from "../views/AccueilView.vue";
+// import offresView from "../views/offresView.vue";
+// import createTimetableView from "../views/createTimetableView.vue";
 
 const routes = [
   {
@@ -132,6 +132,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/DetailStudents/DetailStudent.vue')
         
       },
+      {
+        path: "/dashboard/contrat_etudiants-entreprises",
+        name: "Contrat",
+        component: () => import("../views/contratView.vue"),
+      },
       
       {
         path:"/dashboard/profil",
@@ -196,82 +201,78 @@ const routes = [
     name: "Not Found",
     component: () => import("../views/notFoundView.vue"),
   },
-  {
-    path: '/tableau_de_bord',
-    name: 'frame',
-    component: Frame,
-    children:[
-      {
-        path: "",
-        name: "Accueil",
-        component: Accueil,
-      },
-      {
-        path: "/creer_emploi_du_temps",
-        name: "create_timetable",
-        component: createTimetableView,
-      },
-      {
-        path: "/offres",
-        name: "offres",
-        component: offresView,
-      },
-      {
-        path: "/modifier_compte",
-        name: "modify_profil",
-        component: () => import("../views/profileView.vue"),
-      },
-      {
-        path: "/utilisateurs",
-        name: "users",
-        component: () => import("../views/userView.vue"),
-      },
-      {
-        path: "/list_des_entreprises",
-        name: "entreprises",
-        component: () => import("../views/ListeEntrepriseView.vue"),
-      },
-      {
-        path: "/list_des_etudiants",
-        name: "students",
-        component: () => import("../views/listStudentView.vue"),
-      },
-      {
-        path: "/details/:id",
-        name: "details",
-        component: () => import("../views/detailStudentView.vue"),
-      },
-      {
-        path: "/contrat_etudiants-entreprises",
-        name: "Contrat",
-        component: () => import("../views/contratView.vue"),
-      },
-      {
-        path: "/contrats/:id",
-        name: "detail_contrat",
-        component: () => import("../views/detailsContactView.vue"),
-      },
-      {
-        path: "/details_entreprise/:id",
-        name: "detail_entreprise",
-        component: () => import("../views/detailsEntrepriseView.vue"),
-      },
-      {
-        path: "/les_offres",
-        name: "all_Offres",
-        component: () => import("../views/all_offreView.vue"),
-      },
-      {
-        path: "/les_emplois_du_temps",
-        name: "all_Timetables",
-        component: () => import("../views/all_timetableView.vue"),
-      },
-    ]
-  },
- 
-
-
- 
+  // {
+  //   path: '/tableau_de_bord',
+  //   name: 'frame',
+  //   component: Frame,
+  //   children:[
+  //     {
+  //       path: "",
+  //       name: "Accueil",
+  //       component: Accueil,
+  //     },
+  //     {
+  //       path: "/creer_emploi_du_temps",
+  //       name: "create_timetable",
+  //       component: createTimetableView,
+  //     },
+  //     {
+  //       path: "/offres",
+  //       name: "offres",
+  //       component: offresView,
+  //     },
+  //     {
+  //       path: "/modifier_compte",
+  //       name: "modify_profil",
+  //       component: () => import("../views/profileView.vue"),
+  //     },
+  //     {
+  //       path: "/utilisateurs",
+  //       name: "users",
+  //       component: () => import("../views/userView.vue"),
+  //     },
+  //     {
+  //       path: "/list_des_entreprises",
+  //       name: "entreprises",
+  //       component: () => import("../views/ListeEntrepriseView.vue"),
+  //     },
+  //     {
+  //       path: "/list_des_etudiants",
+  //       name: "students",
+  //       component: () => import("../views/listStudentView.vue"),
+  //     },
+  //     {
+  //       path: "/details/:id",
+  //       name: "details",
+  //       component: () => import("../views/detailStudentView.vue"),
+  //     },
+  //     {
+  //       path: "/contrat_etudiants-entreprises",
+  //       name: "Contrat",
+  //       component: () => import("../views/contratView.vue"),
+  //     },
+  //     {
+  //       path: "/contrats/:id",
+  //       name: "detail_contrat",
+  //       component: () => import("../views/detailsContactView.vue"),
+  //     },
+  //     {
+  //       path: "/details_entreprise/:id",
+  //       name: "detail_entreprise",
+  //       component: () => import("../views/detailsEntrepriseView.vue"),
+  //     },
+  //     {
+  //       path: "/les_offres",
+  //       name: "all_Offres",
+  //       component: () => import("../views/all_offreView.vue"),
+  //     },
+  //     {
+  //       path: "/les_emplois_du_temps",
+  //       name: "all_Timetables",
+  //       component: () => import("../views/all_timetableView.vue"),
+  //     },
+  //   ]
+  // },
 ]
 
 const router = createRouter({
