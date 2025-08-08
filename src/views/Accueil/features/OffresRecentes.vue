@@ -57,6 +57,7 @@ export default {
     <h1 class="fw-bold" v-if="ListOffre.length">{{ texte0 }}</h1>
     <br />
     <br />
+    
     <div class="wrapper">
       <Flicking class="job-container" :defaultIndex="1">
         <div
@@ -66,11 +67,12 @@ export default {
           :key="index"
         >
           <h1 class="fw-bold">{{ item.nom_offre }}</h1>
-          <span><em class="bi bi-geo-alt"></em> {{ item.lieu }}</span>
+          <span><em class="bi bi-geo-alt"></em>{{ item.lieu }}</span>
           <br />
           <br />
-          <span><em class="bi bi-calendar-date"></em> Du {{ item.debut }}</span> au
-          <span>{{ item.fin }}</span>
+          <span>
+            <em class="bi bi-calendar-date"></em>Echéance :</span>
+          <span>{{ new Date(item.fin).toLocaleDateString('fr') }}</span>
           <br />
           <br />
           <div class="desc_crop">
@@ -82,7 +84,8 @@ export default {
             >{{ texte2 }}{{ new Date(item.created_at).toLocaleDateString("fr") }}</span
           >
         </div>
-        <!-- <div
+        <div
+        v-if="ListOffre.length > 0"
           style="
             width: auto;
             display: flex;
@@ -93,8 +96,8 @@ export default {
         >
           <a
             href="#"
-            class="h5 plusOffre"
-            style="font-size: 2em"
+            class="h5"
+            style="font-size: 2em;color:orange !important;"
             @click.prevent="voirDetailTimetable"
             v-if="
               this.$store.state.user &&
@@ -102,7 +105,7 @@ export default {
             "
             >Plus d'offres <em class="bi bi-arrow-right"></em>
           </a>
-        </div> -->
+        </div>
       </Flicking>
     </div>
   </section>
@@ -133,7 +136,7 @@ export default {
 }
 .job-container {
   background-color: var(--secondary-color) !important;
-  color: var(--third-color) !important;
+  color: black !important;
 }
 .job_div {
   background: rgb(255, 255, 255);

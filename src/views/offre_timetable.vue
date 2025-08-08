@@ -70,8 +70,14 @@ export default {
     list_offre() {
       return this.filtreOffre();
     },
+    fieldSearch(){
+      return !this.searchName || !this.categorie || !this.searchLieu
+    }
   },
   methods: {
+      handleSearchClick() {
+    this.list_offre.length > 0 ? this.searchOffres() : this.get_list_offre()
+  },
     searchOffres() {
       const dataSearch = {
         categorie: this.categorie.length
@@ -81,24 +87,17 @@ export default {
         lieu: this.searchLieu,
       };
       this.get_list_offre(dataSearch);
-      console.log("dataSearch", dataSearch);
-      console.log(
-        "categoreies",
-        this.categorie?.map((item) => item?.id)
-      );
-      console.log("searchLieu", this.searchLieu);
-      console.log("searchName", this.searchName);
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-    selectCategorie(cat) {
-      this.MylistOffre = [];
-      this.hideButtons = true;
-      this.MylistsOffres.find((element) => {
-        if (element.categorie.categorie === cat) {
-          this.MylistOffre.push(element);
-        }
-      });
-    },
+    // selectCategorie(cat) {
+    //   this.MylistOffre = [];
+    //   this.hideButtons = true;
+    //   this.MylistsOffres.find((element) => {
+    //     if (element.categorie.categorie === cat) {
+    //       this.MylistOffre.push(element);
+    //     }
+    //   });
+    // },
      async handleListOffresWithoutSearch() {
        loadingSpinner.launchLoading(true)
       await instance
@@ -124,23 +123,9 @@ export default {
         .finally(()=>{
            loadingSpinner.launchLoading(false)
         })
-      // this.loadingStore.launchLoading(true);
-      // instance
-      //   .get("list_offres")
-      //   .then((res) => {
-      //     console.log("list_offres", res);
-      //     if (res.data.status) {
-      //       this.listOffre = res.data.data;
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   })
-      //   .finally(()=>{
-      //     loadingSpinner.launchLoading(false)
-      //   })
     },
     handleListOffresWithSearch(data) {
+      console.log("handleListOffresWithSearch")
       loadingSpinner.launchLoading(true)
       instance
         .post("search_offres", data)
@@ -174,22 +159,6 @@ export default {
       }
     },
     filtreOffre() {
-      if (this.searchLieu !== "") {
-        return this.MylistOffre.filter((item) => {
-          let lieu = item.lieu.toLowerCase().includes(this.searchLieu.toLowerCase());
-          let offre = item.nom_offre
-            .toLowerCase()
-            .includes(this.searchName.toLowerCase());
-          if (lieu && offre) {
-            return item;
-          }
-        });
-      } else if (this.searchName !== "") {
-        return this.MylistOffre.filter((item) => {
-          return item.nom_offre.toLowerCase().includes(this.searchName.toLowerCase());
-        });
-      }
-
       return this.MylistOffre.slice(0, this.length);
     },
     Myfiltre() {
@@ -211,49 +180,25 @@ export default {
         this.Myfiltre();
       }
     },
-    FiltreWithLoadMore(a, b, c) {
-      for (let i = 0; i < a; i++) {
-        const element = b[i];
-        c.push(element);
-      }
-    },
-    findElement() {
-      this.list_offre = [];
-      this.MylistsOffres.find((element) => {
-        if (
-          element.categorie == this.categorie &&
-          element.lieu == this.searchLieu &&
-          element.nom_offre == this.searchName
-        ) {
-          this.MylistOffre.push(element);
-        }
-      });
-    },
-  //   async get_list_offre() {
-  //  loadingSpinner.launchLoading(true)
-  //     await instance
-  //       .get("list_offres")
-  //       .then((res) => {
-  //         console.log("list_offres", res);
-
-  //         if (res.data.status) {
-  //           this.MylistOffre = res.data.data.filter(item=>{
-  //             return JSON.stringify(new Date().toISOString().substring(0, 10)) <
-  //  JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
-  //           });
-  //           this.MylistsOffres = res.data.data.filter(item=>{
-  //             return JSON.stringify(new Date().toISOString().substring(0, 10)) <
-  //  JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
-  //           });
-  //           this.lengthOfMylistOffre = this.MylistsOffres.length;
-         
-  //         }
-  //         loadingSpinner.launchLoading(false)
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   },
+    // FiltreWithLoadMore(a, b, c) {
+    //   for (let i = 0; i < a; i++) {
+    //     const element = b[i];
+    //     c.push(element);
+    //   }
+    // },
+    // findElement() {
+    //   this.list_offre = [];
+    //   this.MylistsOffres.find((element) => {
+    //     if (
+    //       element.categorie == this.categorie &&
+    //       element.lieu == this.searchLieu &&
+    //       element.nom_offre == this.searchName
+    //     ) {
+    //       this.MylistOffre.push(element);
+    //     }
+    //   });
+    // },
+  
     newLoadmore() {
       if (this.length > this.MylistOffre.length) return;
       this.length = this.length + 3;
@@ -311,7 +256,7 @@ export default {
   },
   async created() {
     this.texte = await this.handleTranslate(`selectionne une categorie`);
-    this.texte1 = await this.handleTranslate(`serveur,barman,jardinier`);
+    this.texte1 = await this.handleTranslate(`Nom de l'offre`);
      this.texte2 = await this.handleTranslate("ex: Angre");
      this.texte3 = await this.handleTranslate('Offres');
      this.texte4 = await this.handleTranslate('Nous avons trouvé');
@@ -333,7 +278,6 @@ export default {
     this.get_list_offre();
     this.get_list_categorie();
     this.dayOfday = JSON.stringify(new Date().toISOString().substring(0, 10));
-    console.log("MADATE", JSON.stringify(new Date()));
   },
 };
 </script>
@@ -383,11 +327,19 @@ export default {
           </div>
           <div style="margin-top:-0.8em;">
             <button 
-            :disabled="!listOffre.length"
-            :class="!listOffre.length ? null:'bg-primary'"
-            class="btn-lg" @click.prevent="searchOffres">
+            :disabled="!fieldSearch"
+            :class="!fieldSearch  ? null:'bg-primary'"
+            class="btn-lg" 
+            @click.prevent="handleSearchClick">
               Rechercher
             </button>
+            <span v-if="!list_offre.length"
+             @click.prevent="handleSearchClick"
+             style="color:white;font-weight:bold;cursor:pointer;"
+            >
+             Rédemarrer
+            </span>
+            
           </div>
         </form>
       </div>

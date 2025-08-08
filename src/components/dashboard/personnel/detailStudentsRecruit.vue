@@ -12,7 +12,7 @@ export default {
   components: { HeaderDashboard },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -111,7 +111,7 @@ export default {
   },
   async created() {
     this.get_offres_interess_by_student();
-    this.texte = await this.handleTranslate('Détail/ offre :');
+    this.texte0 = await this.handleTranslate('Détail-offre :');
     this.texte1 = await this.handleTranslate(`Evaluer le personnel`);
     this.texte2 = await this.handleTranslate("Commentaire");
     this.texte3 = await this.handleTranslate('Envoyer');
@@ -136,8 +136,8 @@ export default {
 <template>
   <section>
     <HeaderDashboard
-      :TitleHeader="`${texte} ${this.$route.params.offre}`"
-      :subTitleHeader="texte"
+      :TitleHeader="`${texte0} ${this.$route.params.offre}`"
+      :subTitleHeader="texte0"
     />
     <div class="page-body position-relative">
       <div v-if="tableauRecruit != null" class="conteneur-detail">
@@ -150,7 +150,9 @@ export default {
             aria-modal="true"
           >
             <h1>{{texte1}}</h1>
-            <h2 class="text-center my-3">
+            <h2 class="text-center my-3"
+            style="text-transform:capitalize;"
+            >
               {{ this.identifiant.nom }} {{ this.identifiant.prenoms }}
             </h2>
             <div class="text-center my-3">
