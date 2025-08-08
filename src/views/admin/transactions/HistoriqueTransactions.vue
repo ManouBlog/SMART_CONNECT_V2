@@ -120,6 +120,7 @@ export default {
                   <th class="bg-light">Statut du client</th>
                   <th class="bg-light">Date d'écheance</th>
                   <th class="bg-light">Statut du paiement</th>
+                  <!-- <th class="bg-light">Détail</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -148,6 +149,9 @@ export default {
                       >{{ item.statut }}</span
                     >
                   </td>
+                  <!-- <td>
+                    <i class="bi bi-eye"></i>
+                  </td> -->
                 </tr>
               </tbody>
             </table>
