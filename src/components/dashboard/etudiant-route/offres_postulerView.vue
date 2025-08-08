@@ -181,7 +181,7 @@ export default {
                 :header="texte6"
               >
                 <template #body="slotProps">
-                  <div class="d-flex justify-content-center align-items-center">
+                  <div class="d-flex justify-content-center g-5 align-items-center">
                     <router-link
                       :to="{
                         name: 'details_offres_postuler',
@@ -189,6 +189,15 @@ export default {
                       }"
                       ><i class="bi bi-eye"></i
                     ></router-link>
+                    <!-- <router-link
+                    class="mx-3"
+                    v-if="slotProps.data.pivot.recruit === 1"
+                      :to="{
+                        name: 'imprimeLeContrat',
+                        params: { id: slotProps.data.id },
+                      }"
+                      ><i class="bi bi-file-earmark-text"></i
+                    ></router-link> -->
                   </div>
                 </template>
               </Column>

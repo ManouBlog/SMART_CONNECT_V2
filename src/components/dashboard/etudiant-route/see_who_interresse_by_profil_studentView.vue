@@ -32,6 +32,7 @@ export default {
       texte8: "",
       texte9: "",
       texte10: "",
+      texte90:"",
       texte11:"",
       texte12:"",
       texte13:"",
@@ -169,6 +170,7 @@ export default {
      this.texte7 =  await this.handleTranslate(`Nom de l'entreprise`);
      this.texte8 =  await this.handleTranslate(`Email de l'entreprise`);
      this.texte9 = await this.handleTranslate(`Echéance`);
+     this.texte90 = await this.handleTranslate(`Offre`);
      this.texte10 = await this.handleTranslate("accepter");
      this.texte11 = await this.handleTranslate('refuser');
      this.texte12 = await this.handleTranslate('En attente de reponse');
@@ -284,6 +286,21 @@ export default {
                     <span
                       >{{
                         slotProps.data?.offre?.fin
+                      }}
+                    </span>
+                  </div>
+                </template>
+              </Column>
+               <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="id"
+                :header="texte90"
+              >
+                <template #body="slotProps">
+                  <div>
+                    <span
+                      >{{
+                        slotProps.data?.offre?.nom_offre
                       }}
                     </span>
                   </div>

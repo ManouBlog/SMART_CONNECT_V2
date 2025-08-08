@@ -635,7 +635,8 @@ export default {
       this.checkbox = false;
     },
     optionDate(studentId) {
-      this.loadSpinner = true;
+       loadingSpinner.launchLoading(true)
+      // this.loadSpinner = true;
       console.log("datesChoice", this.datesChoice);
       let date = [];
 
@@ -660,7 +661,7 @@ export default {
               showConfirmButton: false,
               timer: 3000,
             });
-            this.loadSpinner = false;
+            // this.loadSpinner = false;
             // setTimeout(() =>{
             //   location.reload(true)
             // },3000)
@@ -672,18 +673,21 @@ export default {
               showConfirmButton: false,
               timer: 2000,
             });
-            this.loadSpinner = false;
+            // this.loadSpinner = false;
           }
         })
         .catch((err) => {
           console.log(err);
-          this.loadSpinner = false;
+          // this.loadSpinner = false;
           Swal.fire({
             icon: "info",
             title: "Vérifier votre connexion ou les informations que vous envoyer.",
             showConfirmButton: true,
           });
-        });
+        })
+        .finally(()=>{
+          loadingSpinner.launchLoading(false)
+        })
     },
     async optionPeriode(EntrepriseId) {
       loadingSpinner.launchLoading(true)
@@ -915,6 +919,7 @@ export default {
             <button
               class="btn-lg bg-warning mb-5"
               style="border: none"
+              :disabled="!this.selectedOffreWithDate && !datesChoice.length"
               @click="optionDate(timetable_for_student.id)"
             >
               {{texte7}}

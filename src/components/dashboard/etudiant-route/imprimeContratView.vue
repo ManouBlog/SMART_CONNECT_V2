@@ -185,21 +185,7 @@ h5 {
         // printWindow.close(); // Fermer la fenêtre après impression
       };
     },
-    // printDiv() {
-    //   let divContents = document.getElementById("printDetail");
-    //   let a = window.open("", "", "height=400,width=400");
-    //   a.document.write("<html><head>");
-    //   a.document.write("</head><body>");
-    //   a.document.write(`<div>
-    //   ${divContents.innerHTML}
-    //   </div>`);
-    //   a.document.write("</body></html>");
-    //   a.document.close();
-    //   setTimeout(() => {
-    //     a.print();
-    //     a.close();
-    //   }, 300);
-    // },
+    
     async getDetail() {
       loadingSpinner.launchLoading(true);
       await instance
@@ -209,12 +195,12 @@ h5 {
           this.offreDetail = res.data;
           console.log("this.$route.params.id", this.$route.params.id);
           console.log("ENTREPRISES", this.list_entreprise_contact);
-          this.entreprise = this.offreDetail.entreprises.find(
-            (item) => Number(item.pivot.id) === Number(this.$route.params.id)
+          this.entreprise = this.offreDetail.find(
+            (item) => Number(item.id) === Number(this.$route.params.id)
           );
-          this.myOffre = this.entreprise.pivot.offre;
+          this.myOffre = this.entreprise.offre;
           console.log("this.myOffre", this.myOffre);
-          this.created_at = this.entreprise.pivot.created_at;
+          this.created_at = this.entreprise.created_at;
           console.log("this.entreprise", this.entreprise);
           loadingSpinner.launchLoading(false);
         })
