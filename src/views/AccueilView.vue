@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
 import Statistique_Comp from "@/components/Statistique_Comp.vue";
 import Statistiques_Account from "@/components/Statistiques_Account.vue";
+import Statistique_visite from "@/components/Statistique_visite.vue";
 import MyCardStatistique from "@/components/MyCardStatistique.vue";
 // import Editor from "../components/text-editor.vue";
 export default {
@@ -13,6 +14,7 @@ export default {
     Statistique_Comp,
     Statistiques_Account,
     MyCardStatistique,
+    Statistique_visite
   },
   data() {
     return {
@@ -46,6 +48,7 @@ export default {
       list_offres: "",
       see_entreprise_student: null,
       wallet: "",
+      nbreVisit:"",
       valueSelectPeriod: "Global",
       periodeFilterStatisticBalance: "",
     };
@@ -60,14 +63,15 @@ export default {
           },
         })
         .then((res) => {
-          console.log("statistique_global", res.data);
-          if (res.data.status === true) {
-            this.list_entreprise = res.data.entreprise;
-            this.list_students = res.data.talents;
-            this.list_offres = res.data.offre;
-            this.see_entreprise_student = Number(res.data.contrat);
+          console.log("statistique_global", res?.data);
+          if (res?.data?.status === true) {
+            this.list_entreprise = res?.data?.entreprise;
+            this.list_students = res?.data?.talents;
+            this.list_offres = res?.data?.offre;
+            this.see_entreprise_student = Number(res?.data?.contrat);
             console.log("this.see_entreprise_student", this.see_entreprise_student);
-            this.wallet = res.data.wallet;
+            this.wallet = res?.data?.wallet;
+            this.nbreVisit = res?.data?.totalVisit
           }
         })
         .catch((error) => {
@@ -85,9 +89,9 @@ export default {
           },
         })
         .then((res) => {
-          console.log("AllCompetences", res.data.data);
-          if (res.data.status === true) {
-            this.competences = res.data.data.competences;
+          console.log("AllCompetences", res?.data?.data);
+          if (res?.data?.status === true) {
+            this.competences = res?.data?.data.competences;
           }
         });
     },
@@ -139,8 +143,8 @@ export default {
       axios
         .get("http://127.0.0.1:8000/api/GetAllCompetences")
         .then((res) => {
-          console.log("COMPETENCE", res.data.data);
-          this.competencesPredf = res.data.data;
+          console.log("COMPETENCE", res?.data?.data);
+          this.competencesPredf = res?.data?.data;
           this.spinner = false;
         })
         .catch((err) => {
@@ -179,10 +183,10 @@ export default {
         )
         .then((res) => {
           console.log(res);
-          if (res.data.status === true) {
+          if (res?.data?.status === true) {
             Swal.fire({
               icon: "success",
-              title: res.data.message,
+              title: res?.data?.message,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -222,8 +226,8 @@ export default {
     //       },
     //     })
     //     .then((res) => {
-    //       console.log("Experiences", res.data.data);
-    //       this.MyExperiences = res.data.data;
+    //       console.log("Experiences", res?.data?.data);
+    //       this.MyExperiences = res?.data?.data;
     //       this.spinnerExperience = false;
     //     })
     //     .catch((err) => {
@@ -243,7 +247,7 @@ export default {
           },
         })
         .then((res) => {
-          this.MyExperiences = res.data.data;
+          this.MyExperiences = res?.data?.data;
           this.updateExperience = this.MyExperiences.find((item) => item.id === id);
           this.spinnerModifyExperience = false;
           console.log("Experiences", this.updateExperience);
@@ -278,17 +282,17 @@ export default {
           }
         )
         .then((res) => {
-          if (res.data.status === true) {
+          if (res?.data?.status === true) {
             Swal.fire({
               icon: "success",
-              title: res.data.message,
+              title: res?.data?.message,
               showConfirmButton: false,
               timer: 1500,
             });
             this.toogleModifyExperience = !this.toogleModifyExperience;
             this.spinnerModifyExperience = false;
           }
-          if (res.data.status === false) {
+          if (res?.data?.status === false) {
             this.spinnerModifyExperience = false;
           }
 
@@ -310,10 +314,10 @@ export default {
           }
         )
         .then((res) => {
-          if (res.data.status === true) {
+          if (res?.data?.status === true) {
             Swal.fire({
               icon: "success",
-              title: res.data.message,
+              title: res?.data?.message,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -350,9 +354,9 @@ export default {
           },
         })
         .then((res) => {
-          console.log("statistique_global", res.data);
-          if (res.data.status === true) {
-            this.wallet = res.data.wallet;
+          console.log("statistique_global", res?.data);
+          if (res?.data?.status === true) {
+            this.wallet = res?.data?.wallet;
           }
         })
         .catch((error) => {
@@ -507,6 +511,22 @@ export default {
                 </div>
               </div>
             </div>
+             <div class="card p-2" style="width: 100%; height: auto; position: relative">
+              <div>
+                <div class="d-flex justify-content-center align-items-center">
+                  <h3>Nombre total de visite</h3>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <span v-if="isLoadingWallet">Chargement...</span>
+                <div v-else class="d-flex">
+                  <h1 style="font-size: 5em">
+                    {{ nbreVisit }}
+                  </h1>
+                </div>
+              </div>
+            </div>
+            
           </div>
         </div>
         <div
@@ -520,7 +540,7 @@ export default {
           "
         > 
           <Statistique_Comp :title="'Offres & Candidatures & Contrat'" />
-         
+          <Statistique_visite :title="'Visites'" />
         </div>
          <Statistiques_Account :title="'Entreprises & Etudiants'" />
       </div>
