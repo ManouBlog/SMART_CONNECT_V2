@@ -514,7 +514,7 @@ export default {
              <div class="card p-2" style="width: 100%; height: auto; position: relative">
               <div>
                 <div class="d-flex justify-content-center align-items-center">
-                  <h3>Nombre total de visite</h3>
+                  <h3>Nombre total de visiteur</h3>
                 </div>
               </div>
               <div class="d-flex justify-content-center">
@@ -540,7 +540,7 @@ export default {
           "
         > 
           <Statistique_Comp :title="'Offres & Candidatures & Contrat'" />
-          <Statistique_visite :title="'Visites'" />
+          <Statistique_visite :title="'Visiteur'" />
         </div>
          <Statistiques_Account :title="'Entreprises & Etudiants'" />
       </div>

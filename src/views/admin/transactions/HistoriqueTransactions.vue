@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
 import $ from "jquery";
@@ -112,12 +113,13 @@ export default {
             <table id="MyTableData" class="table">
               <thead>
                 <tr>
-                  <th class="bg-light">Date d'enregistrement</th>
+                  <th class="bg-light">Date de paiement</th>
                   <th class="bg-light">Identifiant</th>
                   <!-- <th class="bg-light">Moyen de paiement</th> -->
                   <th class="bg-light">Montant (Fcfa)</th>
                   <th class="bg-light">Client</th>
                   <th class="bg-light">Profil du client</th>
+                  <th class="bg-light">Formule</th>
                   <th class="bg-light">Date d'écheance</th>
                   <th class="bg-light">Statut du paiement</th>
                   <!-- <th class="bg-light">Détail</th> -->
@@ -135,6 +137,9 @@ export default {
                   <td>
                     {{ item.status_user }}
                   </td>
+                  <td>
+                    {{ item.abonement.libelle }}
+                  </td>
                   <td>{{ item.echeance }}</td>
                   <td>
                     <span
@@ -149,9 +154,7 @@ export default {
                       >{{ item.statut }}</span
                     >
                   </td>
-                  <!-- <td>
-                    <i class="bi bi-eye"></i>
-                  </td> -->
+                  
                 </tr>
               </tbody>
             </table>
