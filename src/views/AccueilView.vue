@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
@@ -65,6 +66,7 @@ export default {
             this.list_students = res.data.talents;
             this.list_offres = res.data.offre;
             this.see_entreprise_student = Number(res.data.contrat);
+            console.log("this.see_entreprise_student", this.see_entreprise_student);
             this.wallet = res.data.wallet;
           }
         })
@@ -157,21 +159,18 @@ export default {
       console.log("THIS.comp", this.comp);
     },
     showBoxConfirmationDeleteCompetences(id) {
-      this.comfirmationForDeleteCompetence =
-        !this.comfirmationForDeleteCompetence;
+      this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
       this.id_for_delete = id;
     },
     notDeleteCompetence() {
-      this.comfirmationForDeleteCompetence =
-        !this.comfirmationForDeleteCompetence;
+      this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
       this.id_for_delete = "";
     },
     deleteMyCompetence() {
       this.spinner = true;
       axios
         .delete(
-          "http://127.0.0.1:8000/api/deleteCompetencesOfStudents/" +
-            this.id_for_delete,
+          "http://127.0.0.1:8000/api/deleteCompetencesOfStudents/" + this.id_for_delete,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -245,9 +244,7 @@ export default {
         })
         .then((res) => {
           this.MyExperiences = res.data.data;
-          this.updateExperience = this.MyExperiences.find(
-            (item) => item.id === id
-          );
+          this.updateExperience = this.MyExperiences.find((item) => item.id === id);
           this.spinnerModifyExperience = false;
           console.log("Experiences", this.updateExperience);
         })
@@ -305,8 +302,7 @@ export default {
     deleteExperience() {
       axios
         .delete(
-          "http://127.0.0.1:8000/api/deleteMyExperience/" +
-            this.idExperienceAtDelete,
+          "http://127.0.0.1:8000/api/deleteMyExperience/" + this.idExperienceAtDelete,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -348,15 +344,11 @@ export default {
         wallet: e.target.value,
       };
       axios
-        .post(
-          "http://127.0.0.1:8000/api/statistiques/filterStatistiqueWallet",
-          data,
-          {
-            headers: {
-              Authorization: "Bearer " + this.$store.state.token,
-            },
-          }
-        )
+        .post("http://127.0.0.1:8000/api/statistiques/filterStatistiqueWallet", data, {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
         .then((res) => {
           console.log("statistique_global", res.data);
           if (res.data.status === true) {
@@ -391,9 +383,7 @@ export default {
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
-                <a class="home-item" href="index.html"
-                  ><em data-feather="home"></em
-                ></a>
+                <a class="home-item" href="index.html"><em data-feather="home"></em></a>
               </li>
               <li class="breadcrumb-item">Accueil</li>
             </ol>
@@ -419,10 +409,7 @@ export default {
             </div>
           </div>
         </div>
-        <div
-          class="d-flex"
-          style="place-content: flex-start; justify-content: center"
-        >
+        <div class="d-flex" style="place-content: flex-start; justify-content: center">
           <div
             class="d-flex"
             style="
@@ -473,22 +460,18 @@ export default {
             />
           </div>
           <div style="flex: 1">
-            <div
-              class="card p-2"
-              style="width: 100%; height: auto; position: relative"
-            >
+            <div class="card p-2" style="width: 100%; height: auto; position: relative">
               <div>
-                <div
-                  class="d-flex justify-content-center gap-1 align-items-center"
-                >
+                <div class="d-flex justify-content-center gap-1 align-items-center">
                   <h3>Total Revenu</h3>
                   /
                   <h5>
                     {{
                       periodeFilterStatisticBalance
-                        ? new Date(
-                            periodeFilterStatisticBalance
-                          ).toLocaleString("fr-FR", { month: "long" })
+                        ? new Date(periodeFilterStatisticBalance).toLocaleString(
+                            "fr-FR",
+                            { month: "long" }
+                          )
                         : new Date().toLocaleString("fr-FR", { month: "long" })
                     }}
                   </h5>
@@ -534,10 +517,11 @@ export default {
             place-content: 'center !important';
             justify-content: 'center !important';
           "
-        >
+        > 
           <Statistique_Comp :title="'Offres & Candidatures & Contrat'" />
-          <Statistiques_Account :title="'Entreprises & Etudiants'" />
+         
         </div>
+         <Statistiques_Account :title="'Entreprises & Etudiants'" />
       </div>
     </div>
   </div>

@@ -325,7 +325,7 @@ export default {
                 <th class="bg-light">Date de l'enregistrement</th>
                 <th class="bg-light">Identifiant</th>
                 <th class="bg-light">Formule d'abonnement</th>
-                <th class="bg-light">Moyen de paiement</th>
+                <!-- <th class="bg-light">Moyen de paiement</th> -->
                 <th class="bg-light">Montant (Fcfa)</th>
                 <th class="bg-light">Echeance</th>
                 <th class="bg-light">Statut</th>
@@ -345,7 +345,7 @@ export default {
                 <td>
                   {{ item?.abonement?.libelle }}
                 </td>
-                <td>{{ item.moyen_paiement }}</td>
+                <!-- <td>{{ item.moyen_paiement }}</td> -->
                 <td>
                   {{ item.montant }}
                 </td>
@@ -356,7 +356,7 @@ export default {
                   <p
                     class="badge"
                     :class="
-                      item.statut === 'ACCEPTED' ? 'bg-success' : 'bg-danger'
+                      item.statut === 'success' ? 'bg-success' : 'bg-danger'
                     "
                   >
                     {{ item.statut }}

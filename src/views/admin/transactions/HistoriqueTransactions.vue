@@ -117,7 +117,7 @@ export default {
                   <!-- <th class="bg-light">Moyen de paiement</th> -->
                   <th class="bg-light">Montant (Fcfa)</th>
                   <th class="bg-light">Client</th>
-                  <th class="bg-light">Statut du client</th>
+                  <th class="bg-light">Profil du client</th>
                   <th class="bg-light">Date d'écheance</th>
                   <th class="bg-light">Statut du paiement</th>
                   <!-- <th class="bg-light">Détail</th> -->
