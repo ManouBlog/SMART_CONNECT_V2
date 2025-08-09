@@ -38,7 +38,7 @@ export default {
       {{ title }}
       <i :class="`bi ${icon_libelle}`"></i>
     </h3>
-    <div class="text-start" v-if="numberStatistic">
+    <div class="text-start" v-if="numberStatistic || numberStatistic === 0">
       <h1>{{ numberStatistic }}</h1>
       <ul v-if="dataInfo.length">
         <li v-for="(item, index) in dataInfo" :key="index">

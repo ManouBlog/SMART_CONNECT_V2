@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
 import $ from "jquery";
@@ -119,31 +120,52 @@ export default {
             <table id="MyTableData" class="table">
               <thead>
                 <tr>
-                  <th class="bg-light">Nom de l'entreprise</th>
-                  <th class="bg-light">Email</th>
-                  <th class="bg-light">Nombre de personnes contacté</th>
-                  <th class="bg-light">Détails</th>
+                  <th class="bg-light">Date d'enregistrement</th>
+                  <th class="bg-light">Entreprise</th>
+                  <th class="bg-light">Talent</th>
+                  <th class="bg-light">Offre</th>
+                  <th class="bg-light">Statut du contrat</th>
+                  <!-- <th class="bg-light">Détails</th> -->
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(item, index) in contrats" :key="index">
-                  <td>{{ item.nom }}</td>
-                  <td>{{ item.email }}</td>
-                  <!-- <td v-if="item.offres">
-                    <span v-for="(offre, index) in item.offres" :key="index">
-                      <span>{{ offre.nom_offre }}</span>
-                    </span>
-                  </td> -->
-                  <td v-if="item.students">
-                    {{ item.students.length }}
+                  <td>{{ new Date(item.created_at).toLocaleDateString('fr') }}</td>
+                  <td>{{ item.offre.entreprise.nom }}</td>
+                  <td>{{ item.student.nom }} {{ item.student.prenoms }}</td>
+                  <td>
+                    {{ item.offre.nom_offre }}
                   </td>
-                  <td class="d-flex justify-content-center align-items-center">
+                  <td>
+                     <p
+                    class="font-bold"
+                    :class="
+                      'text-' +
+                      `${
+                        item.contrat === 1
+                          ? 'success'
+                          : item.contrat === 2
+                          ? 'danger'
+                          : 'dark'
+                      }`
+                    "
+                  >
+                    {{
+                      item.contrat === 1
+                        ? "Accepté"
+                        : item.contrat === 2
+                        ? "Réfusé"
+                        : "En attente de réponse"
+                    }}
+                  </p>
+                  </td>
+                  <!-- <td class="d-flex justify-content-center align-items-center">
                     <router-link
                       :to="{ name: 'detail_contrat', params: { id: item.id } }"
                     >
                       <i class="bi bi-eye"></i
                     ></router-link>
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>

@@ -44,7 +44,7 @@ export default {
       list_entreprise: "",
       list_students: "",
       list_offres: "",
-      see_entreprise_student: "",
+      see_entreprise_student: null,
       wallet: "",
       valueSelectPeriod: "Global",
       periodeFilterStatisticBalance: "",
@@ -452,7 +452,8 @@ export default {
               title="Etudiants"
             />
             <MyCardStatistique
-              :dataInfo="[]"
+              :dataInfo="[
+              ]"
               nameRouter="Contrat"
               :numberStatistic="see_entreprise_student"
               icon_libelle="bi-file-earmark-text"
