@@ -155,6 +155,9 @@ export default {
             </template>
           </Column>
         </DataTable>
+        <div v-if="!offresInteressByStudents.length">
+        <h1>Pas de donnée</h1>
+        </div>
       </div>
     </div>
     <!-- <LogoAnimations /> -->
