@@ -390,6 +390,9 @@ export default {
               </template>
             </Column>
             </DataTable>
+            <div v-if="!list_entreprise_contact.length">
+              <h1>Pas de donnée.</h1>
+            </div>
           </div>
         </div>
       </div>

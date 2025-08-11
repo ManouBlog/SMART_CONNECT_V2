@@ -854,6 +854,9 @@ export default {
           </template>
         </Column>
       </DataTable>
+      <div v-if="!timetables.length">
+              <h1>Pas de donnée.</h1>
+            </div>
       <!-- <div>
         <div class="container-fluid">
           <div class="row">

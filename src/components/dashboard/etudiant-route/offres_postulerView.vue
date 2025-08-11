@@ -202,6 +202,9 @@ export default {
                 </template>
               </Column>
             </DataTable>
+            <div v-if="!list_offre.length">
+              <h1>Pas de donnée.</h1>
+            </div>
           </div>
         </div>
       </div>
