@@ -1,10 +1,9 @@
 <script>
 import Swal from "sweetalert2";
-import instance, { lienPhoto } from "../../../../api/api";
+import instance, { lienPhoto,lienPDF } from "../../../../api/api";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { mapActions } from "pinia";
-
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 export default {
   name: "InfoEntreprise",
@@ -21,6 +20,8 @@ export default {
   },
   data() {
     return {
+      showModal:false,
+      lienPDF:lienPDF,
       texte0: "",
       texte2: "",
       texte3: "",
@@ -169,12 +170,23 @@ export default {
               {{ item.value }}
             </h6>
             <div style="display: flex; justify-content: flex-start">
-              <img
-                v-if="item.libelle === 'Document :'"
-                :src="lienPhoto + item.value"
-                :alt="item.value"
-                class="w-25"
-              />
+              
+            
+              <div v-if="item.libelle === 'Document :'">
+                <n-button type="warning" @click="showModal = true">
+    Voir le registre
+  </n-button>
+
+  <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px;">
+    <n-card title="Document PDF" closable @close="showModal = false">
+      <iframe
+        :src="lienPDF+item.value"
+        style="width: 100%; height: 600px; border: none;"
+      ></iframe>
+    </n-card>
+  </n-modal>
+              </div>
+             
             </div>
           </div>
         </div>
@@ -192,11 +204,17 @@ export default {
               {{ item.value }}
             </h6>
             <div style="display: flex; justify-content: flex-start">
-              <img
+              <!-- <img
                 v-if="item.libelle === 'Pièce d identite :'"
                 :src="lienPhoto + item.value"
                 :alt="item.value"
                 class="w-25"
+              /> -->
+              <n-image
+               :alt="item.value"
+              v-if="item.libelle === 'Pièce d identite :'"
+              width="100"
+              :src="lienPhoto + item.value"
               />
             </div>
           </div>
