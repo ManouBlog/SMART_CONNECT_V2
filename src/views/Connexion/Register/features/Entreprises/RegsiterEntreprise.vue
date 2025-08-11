@@ -208,6 +208,9 @@ export default {
           v-model:fileList="formState.piece_gerant"
           name="piece_gerant"
           list-type="picture"
+          :multiple="false"
+          :maxCount="1"
+          accept=".jpg,.jpeg,.png,.webp"
         >
           <a-button> Clique pour télécharger </a-button>
         </a-upload>
@@ -220,6 +223,9 @@ export default {
           v-model:fileList="formState.Registre"
           name="Registre"
           list-type="picture"
+          :multiple="false"
+          :maxCount="1"
+          accept=".pdf"
         >
           <a-button> Clique pour télécharger </a-button>
         </a-upload>
@@ -232,6 +238,9 @@ export default {
           @change="handleChangeCardStudent"
           v-model:fileList="formState.Logo"
           name="logo"
+          :multiple="false"
+          :maxCount="1"
+          accept=".jpg,.jpeg,.png,.webp"
           list-type="picture"
         >
           <a-button> Clique pour télécharger </a-button>
