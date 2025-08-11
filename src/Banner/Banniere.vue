@@ -14,7 +14,7 @@ export default {
 };
 </script>
 <template>
-    <div class="container-fluid page-title bg-image">
+    <div class="container-fluid page-title bg-image" style="margin:4em 0 0 0;">
         <div class="row section-title">
           <div class="main-container">
             <div class="col-lg-12 col-md-12 col-sm-12 mt-2">

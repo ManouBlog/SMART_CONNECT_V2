@@ -857,53 +857,6 @@ export default {
       <div v-if="!timetables.length">
               <h1>Pas de donnée.</h1>
             </div>
-      <!-- <div>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-12 card py-3 px-2">
-              <table id="MyTableData" class="table">
-                <thead>
-                  <tr>
-                    <th class="bg-light">Jours</th>
-                    <th class="bg-light">Premiere Plage Horaire</th>
-                    <th class="bg-light">Seconde Plage Horaire</th>
-                    <th class="bg-light">Details</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(item, index) in timetables" :key="index">
-                    <td>
-                      {{ new Date(item.jour).toLocaleDateString() }}
-                    </td>
-                    <td>
-                      {{ item.First_horaire.replace("-", " à ") }}
-                    </td>
-                    <td v-if="item.Second_horaire">
-                      {{ item.Second_horaire.replace("-", " à ") }}
-                    </td>
-                    <td v-else>Pas de plage horaire</td>
-                    <td
-                      class="d-flex justify-content-center align-items-center"
-                    >
-                      <em
-                        class="bi bi-pencil"
-                        @click="show_timetable(item.id)"
-                      ></em>
-                      <em
-                        class="bi bi-trash"
-                        @click="show_box_confirmation_delete(item.id)"
-                      ></em>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div v-if="spinner">
-                <h1>Loading...</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
       <div
         class="tab-pane fade show"
         id="competence"
