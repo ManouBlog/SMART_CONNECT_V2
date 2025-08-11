@@ -198,7 +198,11 @@ export default {
     >
       <a-input v-model:value="formState.Phonegerant" />
     </a-form-item>
-    <a-form-item name="piece_gerant" :label="texte10">
+    <a-form-item
+     name="piece_gerant"
+    :label="texte10"
+    :rules="[{ required: true, message: texte10 }]"
+    >
         <a-upload
           @change="handleChangeCardStudent"
           v-model:fileList="formState.piece_gerant"
@@ -208,7 +212,9 @@ export default {
           <a-button> Clique pour télécharger </a-button>
         </a-upload>
       </a-form-item>
-    <a-form-item name="Registre" :label="texte11">
+    <a-form-item 
+    :rules="[{ required: true, message: texte11 }]"
+    name="Registre" :label="texte11">
         <a-upload
           @change="handleChangeCardStudent"
           v-model:fileList="formState.Registre"
@@ -218,7 +224,10 @@ export default {
           <a-button> Clique pour télécharger </a-button>
         </a-upload>
       </a-form-item>
-      <a-form-item name="Logo" :label="'Logo(jpeg,jpg)'">
+      <a-form-item 
+      name="Logo" 
+      :label="'Logo(jpeg,jpg)'"
+      >
         <a-upload
           @change="handleChangeCardStudent"
           v-model:fileList="formState.Logo"
