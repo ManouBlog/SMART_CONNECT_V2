@@ -11,7 +11,7 @@ export default {
   },
   data() {
     return {
-      user: this.$store.state.user,
+      user: "",
       lienPhoto: lienPhoto,
     };
   },
@@ -40,6 +40,21 @@ export default {
           .catch((error) => {
             console.log(error);
           });
+    },
+    handleUpdate(user){
+      this.update_compte_entreprise({
+            nom: user.nom,
+            email: user.email,
+            gerant: user.gerant,
+            numero_gerant: user.numero_gerant,
+            commune: user.commune,
+            forme_juridique: user.forme_juridique,
+            quartier: user.quartier,
+            contact: user.contact,
+            ville: user.ville,
+            matricule_cc: user.matricule_cc,
+          })
+      this.getInfoUser()
     }
   },
   created() {
@@ -53,7 +68,7 @@ export default {
     <div class="row">
       <legend>
         Info personnelle
-        {{ this.user.user.statut.statut === "entreprise" ? "sur l'entreprise" : null }}
+        {{ this.user && this.user.user.statut.statut === "entreprise" ? "sur l'entreprise" : null }}
       </legend>
       <div class="col-md-12">
         <div class="mb-3">
@@ -92,7 +107,7 @@ export default {
           <input v-model="user.quartier" class="form-control" type="text" />
         </div>
       </div>
-      <section v-if="this.user.user.statut.statut === 'etudiant'">
+      <section v-if="this.user && this.user.user.statut.statut === 'etudiant'">
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Compétences</label>
@@ -111,7 +126,7 @@ export default {
           </div>
         </div>
       </section>
-      <section v-if="this.user.user.statut.statut === 'entreprise'">
+      <section v-if="this.user && this.user.user.statut.statut === 'entreprise'">
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Forme juridique</label>
@@ -161,20 +176,7 @@ export default {
       <button
         class="btn-lg bg-warning"
         style="border: none"
-        @click.prevent="
-          update_compte_entreprise({
-            nom: user.nom,
-            email: user.email,
-            gerant: user.gerant,
-            numero_gerant: user.numero_gerant,
-            commune: user.commune,
-            forme_juridique: user.forme_juridique,
-            quartier: user.quartier,
-            contact: user.contact,
-            ville: user.ville,
-            matricule_cc: user.matricule_cc,
-          })
-        "
+        @click.prevent="handleUpdate(user)"
       >
         Modifier
       </button>

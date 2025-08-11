@@ -92,8 +92,8 @@ export default {
     this.texte7 = await this.handleTranslate("Forme juridique");
     this.texte8 = await this.handleTranslate("Gérant");
     this.texte9 = await this.handleTranslate("Numéro du Gérant");
-    this.texte10 = await this.handleTranslate("Pièce du gérant"); 
-    this.texte11 = await this.handleTranslate("Registre"); 
+    this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,jpeg)"); 
+    this.texte11 = await this.handleTranslate("Registre (pdf)"); 
     this.texte12 = await this.handleTranslate('Mot de passe');
     this.texte13 = await this.handleTranslate("Inscription");
     this.texte14 = await this.handleTranslate('Veuillez renseigner votre mot de passe!');
@@ -202,7 +202,7 @@ export default {
         <a-upload
           @change="handleChangeCardStudent"
           v-model:fileList="formState.piece_gerant"
-          name="logo"
+          name="piece_gerant"
           list-type="picture"
         >
           <a-button> Clique pour télécharger </a-button>
@@ -212,13 +212,13 @@ export default {
         <a-upload
           @change="handleChangeCardStudent"
           v-model:fileList="formState.Registre"
-          name="logo"
+          name="Registre"
           list-type="picture"
         >
           <a-button> Clique pour télécharger </a-button>
         </a-upload>
       </a-form-item>
-      <a-form-item name="Logo" :label="'Logo'">
+      <a-form-item name="Logo" :label="'Logo(jpeg,jpg)'">
         <a-upload
           @change="handleChangeCardStudent"
           v-model:fileList="formState.Logo"

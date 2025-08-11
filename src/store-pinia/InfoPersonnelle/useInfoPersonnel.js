@@ -14,6 +14,19 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         console.log("this.toogleModalInfoPersonnelle",this.toogleModalInfoPersonnelle)
         this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
        },
+       async getInfoUser(){
+      await instance
+          .get("voirInfoUserConnect")
+          .then((resp) => {
+            console.log("voirInfoUserConnect",resp);
+            if (resp.data.status === true) {
+             this.user = resp.data.user
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
       async update_compte_entreprise(payload) {
         Spinner.launchLoading(true)
         let data = new FormData();
@@ -42,6 +55,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
                 showConfirmButton: false,
                 timer: 1500,
               });
+              return res.data.status;
             }
             if (res.data.status === false) {
               Swal.fire({
