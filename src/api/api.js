@@ -1,5 +1,6 @@
 import axios from "axios";
-export const lienPhoto = `${process.env.VUE_APP_LIENS_LOCAL}storage/app/public/images/`
+export const lienPhoto = `${process.env.VUE_APP_LIENS_LOCAL}storage/images/`
+export const lienPDF = `${process.env.VUE_APP_LIENS_LOCAL}storage/pdf/`
 const instance = axios.create({
   baseURL: `${process.env.VUE_APP_LIENS_LOCAL}api`,
 }); 

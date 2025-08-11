@@ -144,11 +144,12 @@ export default {
               {{ item.value }}
             </h6>
             <div style="display: flex; justify-content: flex-start">
-              <img
-                v-if="item.libelle === 'Pièce d identite :'"
-                :src="lienPhoto + item.value"
-                :alt="item.value"
-                class="w-25"
+             
+              <n-image
+               :alt="item.value"
+              v-if="item.libelle === 'Pièce d identite :'"
+              width="100"
+              :src="lienPhoto + item.value"
               />
             </div>
           </div>
