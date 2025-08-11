@@ -54,7 +54,7 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      user: this.$store.state.user,
+      user: "",
       nom: "",
       prenoms: "",
       lienPhoto: lienPhoto,
@@ -239,6 +239,19 @@ export default {
       this.photo = e.target.files[0];
       console.log(this.photo);
     },
+    async getInfoUser(){
+      await instance
+          .get("voirInfoUserConnect")
+          .then((resp) => {
+            console.log("voirInfoUserConnect",resp);
+            if (resp.data.status === true) {
+             this.user = resp.data.user
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
   },
   async created() {
     this.texte = await this.handleTranslate('Profil');
@@ -257,7 +270,7 @@ export default {
     this.texte13 = await this.handleTranslate('diplome :');
     this.texte14 = await this.handleTranslate('Prénoms :');
     this.texte15 = await this.handleTranslate('Formule d\'abonnement');
-   
+    this.getInfoUser()
     
   },
 };
@@ -267,12 +280,12 @@ export default {
   <section>
     <ModalForModifyInfo />
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
-    <div class="page-body">
+    <div class="page-body" >
       <TabView>
         <TabPanel :header="texte1">
           <div>
             <InfoEntreprise
-              v-if="this.user.user.statut.statut === 'entreprise'"
+              v-if=" this.user && this.user.user.statut.statut === 'entreprise'"
               :infoPersonellesEntreprise="[
                 { libelle: texte2, value: user.nom },
                 { libelle: texte3, value: user.email },
@@ -303,12 +316,12 @@ export default {
                 { libelle: texte12, value: user.photo },
               ]"
               :infoPersonellesCompetences="user.competences"
-              v-if="this.user.user.statut.statut === 'etudiant'"
+              v-if="this.user && this.user.user.statut.statut === 'etudiant'"
             />
           </div>
         </TabPanel>
         <TabPanel
-          v-if="this.user.user.statut.statut === 'etudiant'"
+          v-if="this.user && this.user.user.statut.statut === 'etudiant'"
           header="Compétences et Expériences"
         >
           <CompetencesAndExperience />

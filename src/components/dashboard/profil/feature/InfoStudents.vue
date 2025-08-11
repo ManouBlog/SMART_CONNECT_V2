@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      user: this.$store.state.user,
+      user: "",
       nom: "",
 
       prenoms: "",
@@ -51,6 +51,19 @@ export default {
       "changeValueForToogleModalInfoPersonnelle",
       "verifIfPasswordIsExact",
     ]),
+    async getInfoUser(){
+      await instance
+          .get("voirInfoUserConnect")
+          .then((resp) => {
+            console.log("voirInfoUserConnect",resp);
+            if (resp.data.status === true) {
+             this.user = resp.data.user
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
     handleModalInfo() {
       this.changeValueForToogleModalInfoPersonnelle();
     },
@@ -101,6 +114,9 @@ export default {
       console.log(this.photo);
     },
   },
+  created(){
+    this.getInfoUser()
+  }
 };
 </script>
 

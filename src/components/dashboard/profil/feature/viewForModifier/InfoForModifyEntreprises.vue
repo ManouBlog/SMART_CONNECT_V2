@@ -1,5 +1,5 @@
 <script>
-import { lienPhoto } from "../../../../../api/api";
+import instance,{ lienPhoto } from "../../../../../api/api";
 import VueMultiselect from "vue-multiselect";
 import { mapActions, mapState } from "pinia";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
@@ -28,10 +28,23 @@ export default {
       "addAnRegistreDoc",
       "addAnPieceDoc",
     ]),
+    async getInfoUser(){
+      await instance
+          .get("voirInfoUserConnect")
+          .then((resp) => {
+            console.log("voirInfoUserConnect",resp);
+            if (resp.data.status === true) {
+             this.user = resp.data.user
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    }
   },
   created() {
-    console.log("user", this.user);
     this.getCompetences();
+    this.getInfoUser()
   },
 };
 </script>

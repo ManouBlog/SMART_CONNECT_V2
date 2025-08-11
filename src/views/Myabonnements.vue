@@ -77,7 +77,7 @@ export default {
   } },
  async created() {
     this.get_all_abonnement();
-    this.texte = await this.handleTranslate('Mes abonnements');
+    this.texte0 = await this.handleTranslate('Mes abonnements');
     this.texte1 = await this.handleTranslate(`Affichage de 1 à 10 sur`);
     this.texte2 = await this.handleTranslate("Nouvel Abonnement");
     this.texte3 = await this.handleTranslate('entrées.');
@@ -93,8 +93,8 @@ export default {
 </script>
 <template>
   <div class="page-body position-relative">
-    <HeaderDashboard  :TitleHeader="texte"
-     :subTitleHeader="texte"/>
+    <HeaderDashboard  :TitleHeader="texte0"
+     :subTitleHeader="texte0"/>
 
     <div class="tab-content" id="top-tabContent">
       <DataTable
