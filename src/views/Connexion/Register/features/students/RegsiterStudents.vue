@@ -196,7 +196,8 @@ export default {
     >
       <a-input type="text" v-model:value="formState.diplome" />
     </a-form-item>
-    <a-form-item name="Carte étudiante" :label="texte9">
+    <a-form-item name="Carte étudiante" :label="texte9"
+    >
       <a-upload
         @change="handleChangeCardStudent"
         v-model:fileList="formState.upload"

@@ -38,9 +38,10 @@ export const useRegisterStore = defineStore('register', {
           this.isModal = !this.isModal
         },
         async registerStudent(payload) {
+          console.log("registerStudent",payload)
           let data = new FormData();
           payload.myCompetence.forEach((item) => {
-            data.append("competence[]", item);
+            data.append("competence[]", item.id);
           });
           data.append("nom", payload.nom);
           data.append("prenoms", payload.prenoms);
@@ -62,7 +63,6 @@ export const useRegisterStore = defineStore('register', {
               }
               if (response.data.status === false) {
                 this.SWALPOPUP.declencheSwalPopup("error",response.data.message)
-        
               }
             })
             .catch((error) => {

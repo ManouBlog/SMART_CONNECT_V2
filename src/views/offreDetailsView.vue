@@ -188,10 +188,14 @@ export default {
                 <h1 class="my-5 nom_offre">
                 {{ Offre.nom_offre }}
                 </h1>
-                <h4 class="my-5" style="color:orange;">
+                <h4 class="my-5" style="color:orange;"
+                v-if="abonnements.some(item=>item.statut === 'success')"
+                >
                   <em class="bi bi-geo"></em> {{Offre.lieu}}
                 </h4>
-                <h4 class="my-5">
+                <h4 class="my-5"
+                v-if="abonnements.some(item=>item.statut === 'success')"
+                >
                   <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
                 </h4>
                 <div>
