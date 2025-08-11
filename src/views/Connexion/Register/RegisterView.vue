@@ -39,7 +39,7 @@ export default {
       console.log("Failed:", errorInfo);
     },
     handleChange(value){
-      console.log(value)
+      console.log("HANDLECHANGE",value)
     }
   },
   async created() {

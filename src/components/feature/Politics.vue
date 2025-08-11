@@ -1,39 +1,36 @@
-<script>
-import { mapActions, mapState } from "pinia";
-import Dialog from 'primevue/dialog';
-import {useRegisterStore} from '../../store-pinia/register/useRegisterStore'
-export default {
-  name: "Politics",
-  components:{Dialog},
-  props:{
-    payload:{type:Object}
-  },
-  data() {
-    return {};
-  },
-  methods:{
-   ...mapActions(useRegisterStore,["changeValueIsPolitics","registerStudent"]),
-   registerUser(){
-    console.log("this.payload",this.payload)
-    this.changeValueIsPolitics(false)
-    this.registerStudent(this.payload)
-   }
-  },
-  computed:{
-    ...mapState(useRegisterStore,["isPolitics"])
-  }
+<script setup>
+import Dialog from "primevue/dialog";
+import { useRegisterStore } from "../../store-pinia/register/useRegisterStore";
+
+
+// Store Pinia
+const registerStore = useRegisterStore();
+
+// Méthodes
+const registerTalent = () => {
+  console.log("props.payload", registerStore.payload);
+  registerStore.registerStudent(registerStore.payload);
+};
+
+const registerEntreprise = () => {
+  console.log("props.payload", registerStore.payload);
+  registerStore.registerCompany(registerStore.payload);
+};
+
+const handleRegister = () => {
+  registerStore.infoUser !== "entreprise" ? registerTalent() : registerEntreprise();
 };
 </script>
 
 <template>
   <div class="conteneur">
     <Dialog
-      v-model:visible="isPolitics"
+      v-model:visible="registerStore.isPolitics"
       modal
+      closable
       header="Conditions générales d’utilisation"
       :style="{ width: '60rem',zIndex:99999 }"
       :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
-      @click="this.changeValueIsPolitics(false)"
     >
       <div>
         <section class="px-4 row">
@@ -235,8 +232,8 @@ export default {
         </section>
         <section class="text-right">
           <button class="btn-lg p-2 bg-warning" 
-          @click.prevent="registerUser">
-            Accepter
+          @click.prevent="handleRegister">
+            {{!registerStore.isLoading ? 'Accepter':'chargement'}}
           </button>
         </section>
       </div>

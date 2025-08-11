@@ -244,6 +244,7 @@ export default {
     },
 
     connexionUser() {
+      console.log("connex1")
       instance
         .post("auth_login", {
           email: this.email,

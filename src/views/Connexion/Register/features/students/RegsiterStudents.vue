@@ -53,6 +53,7 @@ export default {
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
+      isVisibleModal:false,
     };
   },
   computed: {
@@ -67,7 +68,7 @@ export default {
   if(this.configUtils.isValidEmail(this.formState.email)){
     if(this.formState.upload.length){
       this.formState.photo = this.formState.upload[0].originFileObj;
-      this.changeValueIsPolitics(true);
+      this.changeValueIsPolitics({value:true,infoUser:'talents',payload:this.formState});
     }else{
       this.SWALPOPUP.declencheSwalPopup("info", 
     "Ajouter votre carte etudiante ou une preuve");
@@ -123,7 +124,7 @@ export default {
 };
 </script>
 <template>
-  <Politics v-if="isPolitics" :payload="this.formState" />
+  <Politics v-if="isPolitics" />
   <a-form
     :layout="'vertical'"
     :model="formState"

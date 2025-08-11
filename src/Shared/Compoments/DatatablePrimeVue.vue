@@ -158,4 +158,7 @@ export default {
       </template>
     </Column>
   </DataTable>
+  <div v-if="DATAVALUE">
+    <h1>Pas de données</h1>
+  </div>
 </template>

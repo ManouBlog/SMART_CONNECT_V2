@@ -46,6 +46,7 @@ export default {
       this.connexionUser(values);
     },
     connexionUser(dataValue) {
+      console.log("connex2")
       this.launchLoading(true);
       instance
         .post("auth_login", dataValue)
@@ -87,11 +88,11 @@ export default {
         .catch((response) => {
           Swal.fire({
             icon: "info",
-            title: response.message,
+            title: response.response.data.message,
             showConfirmButton: true,
           });
           this.launchLoading(false);
-          console.log(response.message);
+          console.log("MESGA55",response);
         });
     },
     onFinishFailed(errorInfo) {

@@ -64,6 +64,7 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     onFinish(values) {
       console.log("Success:", values);
+      this.changeValueIsPolitics({value:true,infoUser:'entreprise',payload:this.formState});
     },
     onFinishFailed(errorInfo) {
       console.log("Failed:", errorInfo);
@@ -74,6 +75,7 @@ export default {
     ...mapActions(useRegisterStore, {
       handleCompetence: "addTag",
       getCompetences: "getAllCompetences",
+      changeValueIsPolitics: "changeValueIsPolitics",
     }),
   },
   async created() {
@@ -110,7 +112,9 @@ export default {
 };
 </script>
 <template>
-  <Politics v-if="isPolitics" :registreUser="inscriptionUser" :status="status" />
+  <Politics 
+  v-if="isPolitics" 
+  />
   <a-form
     :layout="'vertical'"
     :model="formState"
@@ -243,6 +247,4 @@ export default {
     </a-form-item>
   </a-form>
 </template>
-<style
-  src="../../../../../../node_modules/vue-multiselect/dist/vue-multiselect.css"
-></style>
+
