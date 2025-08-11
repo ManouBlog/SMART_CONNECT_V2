@@ -47,7 +47,7 @@ export default {
       loadSpinner: false,
       path: "",
       listEntrepriseOffre: [],
-      abonnements:this.$store.state.user.user.abonement
+      abonnements:""
     };
   },
   methods: {
@@ -139,6 +139,18 @@ export default {
     handleNouvelAbonnement() {
       this.$router.push({ name: "abonnements" });
     },
+    getAbonnementUser(){
+      instance
+        .get("seeMyAbonnement")
+        .then((res) => {
+          console.log("seeMyAbonnement", res);
+         this.abonnements = res.data.data;
+          loadingSpinner.launchLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   },
  async created() {
     this.get_list_offre();
@@ -148,7 +160,7 @@ export default {
     this.texte1 = await this.handleTranslate(`Nombre de postes :`);
      this.texte2 = await this.handleTranslate("Date et heure d'entrée en fonction :");
      this.texte3 = await this.handleTranslate(`Date et heure de fin d'activité :`);
-     this.texte4 = await this.handleTranslate('Présentations');
+     this.texte4 = await this.handleTranslate('Description');
      this.texte5 = await this.handleTranslate('Postuler avant le :');
      this.texte6 = await this.handleTranslate('Postuler');
      this.texte7 =  await this.handleTranslate('Veuillez faire un abonnement avant de postuler à cette offre');
@@ -161,6 +173,7 @@ export default {
      this.texte14 = await this.handleTranslate('Voir les Détails');
      this.texte15 =  await this.handleTranslate('Offre Expirée');
      this.texte16 =  await this.handleTranslate('Charger plus');
+     this.getAbonnementUser();
   },
 };
 </script>
@@ -240,6 +253,9 @@ export default {
           </div>
         </div>
       </div>
+    </div>
+    <div v-else class="container main-container" style="padding:8em;">
+      chargement...
     </div>
   </div>
 </template>
