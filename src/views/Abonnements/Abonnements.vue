@@ -9,7 +9,7 @@ import { useEntreprisesStore } from "../../store-pinia/Entreprise/useEntreprises
 import instance from "../../api/api";
 
 // import i18n from "../../plugins/i18n";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 // const { t } = i18n.global;
@@ -36,7 +36,7 @@ const handleAbonement = async () => {
 };
 
 onMounted(async () => {
-  await handleAbonement();
+  // await handleAbonement();
   if(JSON.parse(localStorage.getItem('@reference'))){
   try {
     const response = await instance.get("payStack/payment/callback/"+JSON.parse(localStorage.getItem('@reference')));
@@ -44,13 +44,30 @@ onMounted(async () => {
     if(response.data.status){
       localStorage.removeItem('@reference')
       console.log("VERIFICATION TERMINER")
-      await storeEntreprise.get_all_abonnement();
+      const response = await storeEntreprise.get_all_abonnement();
+      console.log("VERIFICATION PAIEMENT",response)
+       Swal.fire({
+              icon: "success",
+              title: "Paiement reussi.",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+    }
+    if(!response.data.status){
+      Swal.fire({
+              icon: "error",
+              title: "Paiement échoué.",
+              showConfirmButton: false,
+              timer: 1500,
+            });
     }
   } catch (error) {
     console.log(error);
   }finally{
     await handleAbonement();
   }
+  }else{
+    await handleAbonement();
   }
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
 });

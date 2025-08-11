@@ -14,8 +14,8 @@ const storeAbonnement = useAbonnementsStore();
 const storeEntreprise = useEntreprisesStore();
 const elmentsOfBtn = ref(null);
 const texte = ref(null)
-const handleCreate = (id, price) => {
-  storeAbonnement.createAbonement(id, price);
+const handleCreate = (id) => {
+  storeAbonnement.createAbonement(id);
 };
 onMounted(async () => {
   elmentsOfBtn.value = [
@@ -59,7 +59,7 @@ texte.value = await transalteStore.handleTranslate("année")
           :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
           :elmentsOfBtn="elmentsOfBtn"
           :shapeBtn="'round'"
-          @created="handleCreate(item.id, item.prix)"
+          @created="handleCreate(item.id)"
         />
       </div>
     </div>

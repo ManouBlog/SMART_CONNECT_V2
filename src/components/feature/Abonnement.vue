@@ -107,7 +107,7 @@ onMounted(async () => {
               >
                 <button
                   class="btn-lg bg-dark"
-                  @click.prevent="createAbonement(item.id, item.prix)"
+                  @click.prevent="createAbonement(item.id)"
                 >
                   Je choisi
                 </button>

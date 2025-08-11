@@ -1,33 +1,49 @@
 import { defineStore } from 'pinia'
 // import { ref } from 'vue'
 // import { useStore } from 'vuex';
+import Swal from "sweetalert2";
 import instance from "../api/api";
+import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
 // import axios from 'axios'
 // import Paystack from '@paystack/inline-js';
 // import { useEntreprisesStore } from "../store-pinia/Entreprise/useEntreprisesStore";
 
 export const useCinetpayStore = defineStore('cinetpay',()=>{
-// const store = useStore();
+const storeLoading = useLoadingSpinner();
 // const storeEntreprise = useEntreprisesStore();
     // const PAYSTACK_PUBLIC_KEY = ref(process.env.VUE_APP_PAYSTACK_PUBLIC_KEY);
 
     const paymentCinetpay = async (payload)=>{
+        storeLoading.launchLoading(true);
         const randomPart = Math.random().toString(36).substring(2);
         console.log("payload",payload)
-        
         const data = {
             abonement_id:payload.idAbonnement,
             channels:"undefined",
             transaction_id:randomPart
         }
         try{
-
            const RESPONSEINITALISATION = await instance.post("payStack/paiement",data);
              console.log("RESPONSEINITALISATION",RESPONSEINITALISATION)
+             if(RESPONSEINITALISATION.data.status){
+                Swal.fire({
+              icon: "success",
+              title: "Veuillez patienter...",
+              showConfirmButton: false,
+              timer: 1500,
+            });
              localStorage.setItem('@reference',JSON.stringify(randomPart))
              window.location.href = RESPONSEINITALISATION.data.data.authorization_url;
+             }
         }catch(error){
         console.log(error)
+          Swal.fire({
+              icon: "info",
+              title: error,
+              showConfirmButton: true,
+            });
+        }finally{
+            storeLoading.launchLoading(false);
         }
     }
 
