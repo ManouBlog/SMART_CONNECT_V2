@@ -3,8 +3,6 @@ import { useStore } from 'vuex';
 import {useCinetpayStore} from '../useCinetpayStore';
 import { useRegisterStore } from "../register/useRegisterStore";
 
-
-
 const RegisterStore = useRegisterStore();
 
 export const useAbonnementsStore =defineStore('abonnements',()=>{
