@@ -10,7 +10,7 @@ export default {
     icone_name: String,
     texte: String,
     nbre: Number,
-    myStyle:String
+    myStyle: String,
   },
   data() {
     return {};
@@ -18,11 +18,10 @@ export default {
 };
 </script>
 <template>
-  <section :class="myStyle" 
-  >
+  <section :class="myStyle">
     <div>
       <vue3-autocounter
-        class="counter animation-duration-1000 animation-ease-in-out"
+        class="counter"
         ref="counter"
         :startAmount="0"
         :endAmount="nbre"
@@ -30,7 +29,7 @@ export default {
         :autoinit="true"
       />
     </div>
-     <div class="my-3">
+    <div class="my-3">
       <em :class="icone_name" class="mx-3"></em>
       <span>{{ texte }} </span>
     </div>
@@ -38,9 +37,8 @@ export default {
 </template>
 <style scoped>
 @import "../styles/stylesShared.css";
-.counter{
-    font-size:5em;
-    color: var(--main-color) !important;
+.counter {
+  font-size: 5em;
+  color: var(--main-color) !important;
 }
-
 </style>

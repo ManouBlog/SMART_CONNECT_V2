@@ -11,7 +11,7 @@ export default {
     CardPerformance,
   },
   data() {
-    return { texte0: "",texte2:"",texte3:"",texte1:"" };
+    return { texte0: "", texte2: "", texte3: "", texte1: "", texte4: "" };
   },
   computed: {
     ...mapState(useEntreprisesStore, ["entreprises", "timetable"]),
@@ -29,6 +29,7 @@ export default {
     this.texte1 = await this.handleTranslate("Partenaire(s)");
     this.texte2 = await this.handleTranslate("Offre(s)");
     this.texte3 = await this.handleTranslate("Talent(s)");
+    this.texte4 = await this.handleTranslate("Viisteur(s)");
   },
 };
 </script>
@@ -41,24 +42,27 @@ export default {
         </div>
         <div class="conteneur-card-performance">
           <CardPerformance
-          v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 spin-in-45 slide-in-from-t-12 animate-duration-1000' }"
             :myStyle="'card_perfor_one'"
             :icone_name="'bi bi-building icon'"
             :texte="texte1"
             :nbre="entreprises.length"
           />
           <CardPerformance
-           v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-50 slide-in-from-t-20 animate-duration-500'}"
-          :myStyle="'card_perfor_three'"
+            :myStyle="'card_perfor_three'"
             :icone_name="'bi bi-briefcase-fill'"
             :texte="texte2"
             :nbre="offres.length"
           />
           <CardPerformance
-          v-animateonscroll="{ enterClass: 'fadeinright', leaveClass: 'fadeoutright' }"
-          :myStyle="'card_perfor_two'"
+            :myStyle="'card_perfor_two'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte3"
+            :nbre="timetable.length"
+          />
+          <CardPerformance
+            :myStyle="'card_perfor_two'"
+            :icone_name="'bi bi-person-lines-fill'"
+            :texte="texte4"
             :nbre="timetable.length"
           />
         </div>
@@ -81,47 +85,47 @@ export default {
   flex-wrap: wrap;
   align-items: center;
 }
-.card_perfor_one{
+.card_perfor_one {
   width: auto;
   height: auto;
   padding: 3.8em 5em;
-  color:white;
+  color: white;
   background: #334155;
   border-radius: 0px 100px 0px 100px;
 }
-.card_perfor_two{
+.card_perfor_two {
   width: auto;
   height: auto;
-  color:white;
+  color: white;
   padding: 3.8em 5em;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
 }
-.card_perfor_three{
+.card_perfor_three {
   width: auto;
   height: auto;
-  color:white;
+  color: white;
   padding: 3.8em 5em;
   background: rgb(75, 71, 71);
   border-radius: 100px 0px 100px 0px;
 }
 @keyframes slidedown-icon {
-    0% {
-        transform: translateY(0);
-    }
+  0% {
+    transform: translateY(0);
+  }
 
-    50% {
-        transform: translateY(20px);
-    }
+  50% {
+    transform: translateY(20px);
+  }
 
-    100% {
-        transform: translateY(0);
-    }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .slidedown-icon {
-    animation: slidedown-icon;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
+  animation: slidedown-icon;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
 }
 </style>

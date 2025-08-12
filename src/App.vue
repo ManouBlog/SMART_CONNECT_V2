@@ -3,7 +3,28 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  name: "AppView",
+  data() {
+    return {};
+  },
+  methods: {
+    visiteur() {},
+  },
+   async created() {
+    console.log("rejf");
+    if (sessionStorage.getItem("@visit") === null) {
+  try {
+    const response = await axios.get(`${process.env.VUE_APP_LIENS_LOCAL}api/visites`);
+    console.log("response", response);
+    sessionStorage.setItem("@visit", 1);
+  } catch (error) {
+    console.log(error);
+  }
+}
+  },
+};
 </script>
 
 <style>
@@ -17,10 +38,10 @@ export default {};
   margin: 0 !important;
 }
 .ellipse_text {
-  width: 100%;            /* Définit une largeur fixe */ 
-  overflow: hidden;          /* Cache le texte qui déborde du conteneur */
-  text-overflow: ellipsis; 
-   max-height: 11em;   /* Affiche "..." lorsque le texte dépasse */
+  width: 100%; /* Définit une largeur fixe */
+  overflow: hidden; /* Cache le texte qui déborde du conteneur */
+  text-overflow: ellipsis;
+  max-height: 11em; /* Affiche "..." lorsque le texte dépasse */
 }
 
 .p-paginator {
@@ -52,7 +73,7 @@ table {
 .n-tabs-tab.n-tabs-tab--active {
   color: var(--main-color) !important;
 }
-.n-tabs .n-tabs-bar{
+.n-tabs .n-tabs-bar {
   background-color: var(--main-color) !important;
 }
 .background_main {
@@ -97,10 +118,10 @@ table {
 .lien {
   transition: all 1s ease-in-out;
 }
-.ant-card-head{
+.ant-card-head {
   background: orange;
-  font-weight:bold !important;
-  font-size:1.4em !important;
+  font-weight: bold !important;
+  font-size: 1.4em !important;
 }
 
 .p-icon {
@@ -109,10 +130,10 @@ table {
 .p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
   color: orange;
 }
-.p-tabview-nav{
+.p-tabview-nav {
   justify-content: center !important;
 }
-.p-tabview-nav li{
+.p-tabview-nav li {
   list-style: none;
   list-style-type: none;
   font-weight: bold;
@@ -226,8 +247,8 @@ input[type="checkbox"] {
   width: 5rem;
   height: 5rem;
 }
-#pv_id_1_panel{
-  font-size:1.5em;
+#pv_id_1_panel {
+  font-size: 1.5em;
 }
 .swal2-container {
   z-index: 999999 !important;

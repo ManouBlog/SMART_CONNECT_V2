@@ -1,5 +1,6 @@
 import { createApp} from 'vue'
 import { createPinia } from 'pinia'
+import 'primevue/resources/themes/aura-light-blue/theme.css'
 import App from './App.vue'
 import router from './router'
 import VueAgile from 'vue-agile'
@@ -7,7 +8,6 @@ import store from './store'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import naive from 'naive-ui'
 import PrimeVue from 'primevue/config';
-import 'primevue/resources/themes/aura-light-green/theme.css'
 import Calendar from 'primevue/calendar';
 import Rating from 'primevue/rating';
 import Dialog from 'primevue/dialog';
@@ -18,7 +18,7 @@ import Multiselect from 'vue-multiselect'
 import Paginator from 'primevue/paginator';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
-import i18n from "./plugins/i18n"
+import i18n from "./plugins/i18n";
 
 
 const pinia = createPinia()
