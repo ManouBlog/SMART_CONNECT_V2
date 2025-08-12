@@ -27,6 +27,7 @@ export default {
   },
   data() {
     return {
+      texte88:"",
       texte: "",
       texte2: "",
       texte3: "",
@@ -265,6 +266,7 @@ export default {
     this.texte8 = await this.handleTranslate('Quartier :');
     this.texte9 = await this.handleTranslate('Document :');
     this.texte10 = await this.handleTranslate('Forme juridique :');
+    this.texte88 = await this.handleTranslate('Logo entreprise :');
     this.texte11 = await this.handleTranslate('Nom & Prénoms :');
     this.texte12 = await this.handleTranslate('Pièce d identite :');
     this.texte13 = await this.handleTranslate('diplome :');
@@ -294,6 +296,7 @@ export default {
                 { libelle: texte6, value: user.ville },
                 { libelle: texte7, value: user.commune },
                 { libelle: texte8, value: user.quartier },
+                { libelle: texte88, value: user.logo },
                 { libelle: texte9, value: user.registre ? user.registre:'néant'  },
                 { libelle: texte10, value: user.forme_juridique ? user.forme_juridique:'néant' },
               ]"

@@ -163,12 +163,22 @@ export default {
                 item.value !== null &&
                 item.value !== 'null' &&
                 item.value !== 'undefined' &&
-                item.libelle !== 'Document :'
+                item.libelle !== 'Document :' && 
+                item.libelle !== 'Logo entreprise :'
               "
               class="fw-bold"
             >
               {{ item.value }}
             </h6>
+              <div 
+            style="display: flex; justify-content: flex-start">
+              <n-image
+               :alt="item.value"
+              v-if="item.libelle === 'Logo entreprise :'"
+              width="100"
+              :src="lienPhoto + item.value"
+              />
+            </div>
             <div v-if="item.libelle === 'Document :' && item.value" style="display: flex; justify-content: flex-start">
               <div>
                 <n-button type="warning" @click="showModal = true">
@@ -186,6 +196,7 @@ export default {
               </div>
              
             </div>
+          
           </div>
         </div>
       </section>

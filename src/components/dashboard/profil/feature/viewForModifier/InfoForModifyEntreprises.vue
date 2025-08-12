@@ -2,6 +2,7 @@
 import instance,{ lienPhoto } from "../../../../../api/api";
 import VueMultiselect from "vue-multiselect";
 import { mapActions, mapState } from "pinia";
+import { useLoadingSpinner } from "../../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 import { useInfoPersonnel } from "../../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 export default {
@@ -13,6 +14,7 @@ export default {
     return {
       user: "",
       lienPhoto: lienPhoto,
+      StoreLoading:useLoadingSpinner()
     };
   },
   computed: {
@@ -27,8 +29,10 @@ export default {
       "update_compte_entreprise",
       "addAnRegistreDoc",
       "addAnPieceDoc",
+      "addAnLogo"
     ]),
     async getInfoUser(){
+      this.StoreLoading.launchLoading(true);
       await instance
           .get("voirInfoUserConnect")
           .then((resp) => {
@@ -39,7 +43,10 @@ export default {
           })
           .catch((error) => {
             console.log(error);
-          });
+          })
+          .finally(()=>{
+            this.StoreLoading.launchLoading(false);
+          })
     },
     handleUpdate(user){
       this.update_compte_entreprise({
@@ -68,7 +75,7 @@ export default {
     <div class="row">
       <legend>
         Info personnelle
-        {{ this.user && this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier" ? "sur l'entreprise" : null }}
+        {{ this.user && (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") ? "sur l'entreprise" : null }}
       </legend>
       <div class="col-md-12">
         <div class="mb-3">
@@ -140,6 +147,17 @@ export default {
               type="file"
               @input="addAnRegistreDoc"
               id="add_file_registre"
+              class="w-100"
+            />
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="my-3">
+            <label for="add_file_logo">Logo</label>
+            <input
+              type="file"
+              @input="addAnLogo"
+              id="add_file_logo"
               class="w-100"
             />
           </div>

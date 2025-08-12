@@ -7,7 +7,8 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
     state: () => ({
         toogleModalInfoPersonnelle:false,
         registre:null,
-        pieceIdentiteGerant:null
+        pieceIdentiteGerant:null,
+        logoEntreprise:""
     }),
     actions: {
        changeValueForToogleModalInfoPersonnelle(){
@@ -40,6 +41,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         data.append("quartier", payload.quartier);
         data.append("contact", payload.contact);
         data.append("ville", payload.ville);
+        data.append("logo",payload.logoEntreprise);
         data.append("matricule_cc", payload.matricule_cc);
         data.append("statut_id", 1);
         data.append("registre", this.registre);
@@ -80,6 +82,9 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
       },
       addAnPieceDoc(payload){
         this.pieceIdentiteGerant = payload.target.files[0]
+      },
+      addAnLogo(payload){
+        this.logoEntreprise = payload.target.files[0]
       },
       verifIfPasswordIsExact(payload){
         console.log(payload)
