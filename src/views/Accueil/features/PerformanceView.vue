@@ -11,7 +11,7 @@ export default {
     CardPerformance,
   },
   data() {
-    return { texte: "",texte2:"",texte3:"",texte1:"" };
+    return { texte0: "",texte2:"",texte3:"",texte1:"" };
   },
   computed: {
     ...mapState(useEntreprisesStore, ["entreprises", "timetable"]),
@@ -25,7 +25,7 @@ export default {
   async created() {
     this.getEntreprise();
     this.getOffres();
-    this.texte = await this.handleTranslate("Nos performances");
+    this.texte0 = await this.handleTranslate("Nos performances");
     this.texte1 = await this.handleTranslate("Partenaire(s)");
     this.texte2 = await this.handleTranslate("Offre(s)");
     this.texte3 = await this.handleTranslate("Talent(s)");
@@ -36,21 +36,27 @@ export default {
   <div class="container-fluid stat mt-5">
     <div class="row">
       <div class="container">
-        <div>
-          <h1 class="fw-bold">{{ texte }}</h1>
+        <div class="mb-5">
+          <h1 class="fw-bold">{{ texte0 }}</h1>
         </div>
         <div class="conteneur-card-performance">
           <CardPerformance
+          v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 spin-in-45 slide-in-from-t-12 animate-duration-1000' }"
+            :myStyle="'card_perfor_one'"
             :icone_name="'bi bi-building icon'"
             :texte="texte1"
             :nbre="entreprises.length"
           />
           <CardPerformance
+           v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-50 slide-in-from-t-20 animate-duration-500'}"
+          :myStyle="'card_perfor_three'"
             :icone_name="'bi bi-briefcase-fill'"
             :texte="texte2"
             :nbre="offres.length"
           />
           <CardPerformance
+          v-animateonscroll="{ enterClass: 'fadeinright', leaveClass: 'fadeoutright' }"
+          :myStyle="'card_perfor_two'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte3"
             :nbre="timetable.length"
@@ -74,5 +80,48 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+}
+.card_perfor_one{
+  width: auto;
+  height: auto;
+  padding: 3.8em 5em;
+  color:white;
+  background: #334155;
+  border-radius: 0px 100px 0px 100px;
+}
+.card_perfor_two{
+  width: auto;
+  height: auto;
+  color:white;
+  padding: 3.8em 5em;
+  background: rgba(4, 3, 1, 0.649);
+  border-radius: 100%;
+}
+.card_perfor_three{
+  width: auto;
+  height: auto;
+  color:white;
+  padding: 3.8em 5em;
+  background: rgb(75, 71, 71);
+  border-radius: 100px 0px 100px 0px;
+}
+@keyframes slidedown-icon {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(20px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.slidedown-icon {
+    animation: slidedown-icon;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
 }
 </style>

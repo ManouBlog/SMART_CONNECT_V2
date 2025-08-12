@@ -1,5 +1,6 @@
 <script>
 import Vue3autocounter from "vue3-autocounter";
+
 export default {
   name: "CardPerformance",
   components: {
@@ -9,6 +10,7 @@ export default {
     icone_name: String,
     texte: String,
     nbre: Number,
+    myStyle:String
   },
   data() {
     return {};
@@ -16,20 +18,21 @@ export default {
 };
 </script>
 <template>
-  <section>
-    <div class="my-3">
-      <em :class="icone_name" class="mx-3"></em>
-      <span>{{ texte }} </span>
-    </div>
+  <section :class="myStyle" 
+  >
     <div>
       <vue3-autocounter
-        class="counter"
+        class="counter animation-duration-1000 animation-ease-in-out"
         ref="counter"
         :startAmount="0"
         :endAmount="nbre"
         :duration="1"
         :autoinit="true"
       />
+    </div>
+     <div class="my-3">
+      <em :class="icone_name" class="mx-3"></em>
+      <span>{{ texte }} </span>
     </div>
   </section>
 </template>
@@ -39,4 +42,5 @@ export default {
     font-size:5em;
     color: var(--main-color) !important;
 }
+
 </style>
