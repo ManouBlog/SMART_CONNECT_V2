@@ -658,7 +658,7 @@ export default {
 }
 .navbar-fixed-top {
   background: #ffffff;
-  padding: 0 1em !important;
+  padding: 0 0.1em !important;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
   font-size: 14px;
 }
