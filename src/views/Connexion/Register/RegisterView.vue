@@ -1,13 +1,15 @@
 <script>
 import RegsiterStudents from "./features/students/RegsiterStudents.vue";
 import RegsiterEntreprise from "./features/Entreprises/RegsiterEntreprise.vue";
+import RegisterParticulier from './features/particulier/RegisterParticulier.vue'
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 export default {
   name: "RegisterView",
   components: {
     RegsiterStudents,
-    RegsiterEntreprise
+    RegsiterEntreprise,
+    RegisterParticulier
   },
   data() {
     return {
@@ -48,6 +50,7 @@ export default {
       "Etudiant"
     );
     this.texte2 = await this.handleTranslate("Entreprise");
+    this.texte3 = await this.handleTranslate("Particulier");
 
   },
 };
@@ -68,10 +71,11 @@ export default {
       >
         <a-select-option value="student">{{texte1}}</a-select-option>
         <a-select-option value="entreprise">{{texte2}}</a-select-option>
-        <!-- <a-select-option value="particulier">Particulier</a-select-option> -->
+        <a-select-option value="particulier">{{texte3}}</a-select-option>
       </a-select>
     </div>
     <RegsiterStudents v-if="value1 === 'student'" />
-    <RegsiterEntreprise v-if="value1 === 'entreprise'" />
+    <RegsiterEntreprise v-else-if="value1 === 'entreprise'" />
+    <RegisterParticulier v-else />
   </a-form>
 </template>

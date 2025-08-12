@@ -74,13 +74,13 @@ export default {
     },
     ...mapActions(useRegisterStore, {
       handleCompetence: "addTag",
-      // getCompetences: "getAllCompetences",
+    //   getCompetences: "getAllCompetences",
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
   },
   async created() {
     // this.getCompetences();
-    this.texte = await this.handleTranslate("Entreprise");
+    this.texte = await this.handleTranslate("Nom");
     this.texte1 = await this.handleTranslate(
       "Matricule cc"
     );
@@ -137,8 +137,6 @@ export default {
     >
       <a-input v-model:value="formState.matricule_cc" />
     </a-form-item>
-    
-
     <a-form-item
       :label="texte2"
       name="contact"
@@ -176,29 +174,29 @@ export default {
       <a-input v-model:value="formState.email" />
     </a-form-item>
   
-    <a-form-item
+    <!-- <a-form-item
       :label="texte7"
       name="juridique"
       :rules="[{ required: true, message: texte17 }]"
     >
       <a-input v-model:value="formState.juridique" />
-    </a-form-item>
-    <a-form-item
+    </a-form-item> -->
+    <!-- <a-form-item
       :label="texte8"
       name="gerant"
       :rules="[{ required: true, message: texte16 }]"
     >
       <a-input v-model:value="formState.gerant" />
-    </a-form-item>
+    </a-form-item> -->
 
-    <a-form-item
+    <!-- <a-form-item
       :label="texte9"
       name="Phonegerant"
       :rules="[{ required: true, message: texte15 }]"
     >
       <a-input v-model:value="formState.Phonegerant" />
-    </a-form-item>
-    <a-form-item
+    </a-form-item> -->
+    <!-- <a-form-item
      name="piece_gerant"
     :label="texte10"
     :rules="[{ required: true, message: texte10 }]"
@@ -246,7 +244,7 @@ export default {
           <a-button> Clique pour télécharger </a-button>
         </a-upload>
       </a-form-item>
-      
+       -->
 
     <a-form-item
       :label="texte12"
