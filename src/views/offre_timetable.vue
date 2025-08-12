@@ -1,5 +1,5 @@
 <script>
-import instance from "../api/api";
+import instance,{lienPhoto} from "../api/api";
 import Swal from "sweetalert2";
 import VueMultiselect from "vue-multiselect";
 import {configUtils} from "../Shared/Utils";
@@ -19,6 +19,7 @@ export default {
       texte4: "",
       texte5: "",
       texte6: "",
+      lienPhoto:lienPhoto,
       texte7: "",
       texte8: "",
       texte9: "",
@@ -363,7 +364,10 @@ export default {
           <section class="one conteneur_ecriteau">
             <div class="logo_img_offre">
               <div class="conteneur-image-logo_jobs">
-                <img src="/brobroli.png" alt="smart-connect" >
+                <img 
+                :src="offre.entreprise.logo ? lienPhoto+offre.entreprise.logo :'/brobroli.png'"
+                :alt="offre.entreprise.logo ? offre.entreprise.logo :'smart-connect'" 
+                >
             </div>
             </div>
             <div class="informations_offres">
