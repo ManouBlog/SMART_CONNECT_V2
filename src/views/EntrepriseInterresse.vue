@@ -63,13 +63,13 @@ export default {
       },
     };
   },
-  computed: { ...mapState(useInfoStudentStore, ["list_offre"]) },
+  computed: { ...mapState(useInfoStudentStore, ["list_entreprise_interesse"]) },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-    ...mapActions(useInfoStudentStore, ["get_all_student"]),
+    ...mapActions(useInfoStudentStore, ["get_entreprise_interesse"]),
   },
   async created() {
-    this.get_all_student();
+    await this.get_entreprise_interesse();
     this.texte0 = await this.handleTranslate(`Entreprises intéressés`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
      this.texte2 = await this.handleTranslate("Lieu du travail");
@@ -106,7 +106,7 @@ export default {
               :rows="10"
               :globalFilterFields="['formule']"
               :rowsPerPageOptions="[5, 10, 20, 50]"
-              :value="[]"
+              :value="list_entreprise_interesse"
               v-model:filters="filters"
             >
               <template #paginatorstart>
@@ -118,7 +118,7 @@ export default {
                     border: none;
                   "
                 >
-                  Affichage de 1 à 10 sur{{ list_offre.length }} entrées.
+                  Affichage de 1 à 10 sur{{ list_entreprise_interesse.length }} entrées.
                 </div>
               </template>
               <template #header>
@@ -140,12 +140,40 @@ export default {
                 field="nom_offre"
                 :header="texte1"
               >
+              <template #body="slotProps">
+                  <span>
+                    {{
+                      slotProps.data.offre.nom_offre
+                    }}</span
+                  >
+                </template>
               </Column>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="lieu"
                 :header="texte2"
-              ></Column>
+              >
+            <template #body="slotProps">
+                  <span>
+                    {{
+                      slotProps.data.offre.lieu
+                    }}</span
+                  >
+                </template>
+            </Column>
+            <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="lieu"
+                :header="'Entreprise'"
+              >
+            <template #body="slotProps">
+                  <span>
+                    {{
+                      slotProps.data.offre.entreprise.nom
+                    }}</span
+                  >
+                </template>
+            </Column>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="salaire"
@@ -154,9 +182,8 @@ export default {
                 <template #body="slotProps">
                   <span>
                     {{
-                      slotProps.data.salaire != null
-                        ? moneyFormat.format(slotProps.data.salaire)
-                        : texte4
+                       moneyFormat.format(slotProps.data.offre.salaire)
+                        
                     }}</span
                   >
                 </template>
@@ -168,9 +195,9 @@ export default {
               >
                 <template #body="slotProps">
                   <span
-                    :class="colorStatut[slotProps.data.pivot.recruit]"
+                    :class="colorStatut[slotProps.data.contrat]"
                     class="badge"
-                    >{{ statut[slotProps.data.pivot.recruit] }}</span
+                    >{{ statut[slotProps.data.contrat] }}</span
                   >
                 </template>
               </Column>
@@ -184,24 +211,16 @@ export default {
                     <router-link
                       :to="{
                         name: 'details_offres_postuler',
-                        params: { id: slotProps.data.id },
+                        params: { id: slotProps.data.offre.id },
                       }"
                       ><i class="bi bi-eye"></i
                     ></router-link>
-                    <!-- <router-link
-                    class="mx-3"
-                    v-if="slotProps.data.pivot.recruit === 1"
-                      :to="{
-                        name: 'imprimeLeContrat',
-                        params: { id: slotProps.data.id },
-                      }"
-                      ><i class="bi bi-file-earmark-text"></i
-                    ></router-link> -->
+
                   </div>
                 </template>
               </Column>
             </DataTable>
-            <div v-if="!list_offre.length">
+            <div v-if="!list_entreprise_interesse.length">
               <h1>Pas de donnée.</h1>
             </div>
           </div>

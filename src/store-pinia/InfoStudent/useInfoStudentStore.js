@@ -14,7 +14,8 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
     state: () => ({
         offres:null,
         list_offre:[],
-        data_offre_filter:[]
+        data_offre_filter:[],
+        list_entreprise_interesse:[]
     }),
     actions: {
         async get_all_student() {
@@ -35,6 +36,21 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
                 console.log(err);
                 loadingSpinner.launchLoading(false);
               });
+          },
+          async get_entreprise_interesse() {
+            loadingSpinner.launchLoading(true);
+            await instance
+              .get("entrepriseInteressee")
+              .then((res) => {
+                console.log("entrepriseInteressee",res);
+                this.list_entreprise_interesse = res.data.data;
+              })
+              .catch((err) => {
+                console.log(err);
+              })
+              .finally(()=>{
+                  loadingSpinner.launchLoading(false);
+              })
           },
          filterDataWithYear(payload){
           this.list_offre = this.data_offre_filter.filter(item=>dayjs(item.created_at,'YYYY').isSame(dayjs(payload)))

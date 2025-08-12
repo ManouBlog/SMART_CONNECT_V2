@@ -14,42 +14,42 @@ const routes = [
       {
         path:'/',
         name:'Bienvenue',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Accueil/Bienvenue.vue')
+        component: () => import( '../views/Accueil/Bienvenue.vue')
       },
       {
         path: '/registre',
         name: 'registre',
-        component: () => import(/* webpackChunkName: "about" */ '../views/registre.vue')
+        component: () => import( '../views/registre.vue')
       }, 
       {
         path: '/conditions-generales',
         name: 'condition',
-        component: () => import(/* webpackChunkName: "about" */ '../views/condition.vue')
+        component: () => import( '../views/condition.vue')
       },  
       {
         path: '/abonnements',
         name: 'abonnements',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Abonnements/Abonnements.vue')
+        component: () => import( '../views/Abonnements/Abonnements.vue')
       }, 
       
       {
         path: '/contact',
         name: 'contact',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Contacts/contact.vue')
+        component: () => import( '../views/Contacts/contact.vue')
       }, {
         path: '/about',
         name: 'About',
-        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+        component: () => import( '../views/About.vue')
       },
       {
         path: '/jobs',
         name: 'jobs',
-        component: () => import(/* webpackChunkName: "about" */ '../views/offre_timetable.vue')
+        component: () => import( '../views/offre_timetable.vue')
       },
       {
         path: '/timetable',
         name: 'timetable',
-        component: () => import(/* webpackChunkName: "about" */ '../views/timetable/timetable.vue')
+        component: () => import( '../views/timetable/timetable.vue')
       },
      
       {
@@ -58,17 +58,17 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/offreDetailsView.vue')
+        component: () => import( '../views/offreDetailsView.vue')
       },
       {
         path: '/reset_password',
         name: 'resetPassword',
-        component: () => import(/* webpackChunkName: "about" */ '../views/resetPasswordView.vue')
+        component: () => import( '../views/resetPasswordView.vue')
       },
       {
         path: '/change_password/:email/:token',
         name: 'ChangePassword',
-        component: () => import(/* webpackChunkName: "about" */ '../views/ChangePasswordView.vue')
+        component: () => import( '../views/ChangePasswordView.vue')
       },
       {
         path:"/dashboard/offre",
@@ -76,7 +76,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/offre/offresView.vue')
+        component: () => import( '../components/dashboard/offre/offresView.vue')
         
       },
       {
@@ -93,7 +93,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/offre/DetailsOffresEntrepriseView.vue')
+        component: () => import( '../components/dashboard/offre/DetailsOffresEntrepriseView.vue')
       },
       {
         path:"/modification/:id",
@@ -101,7 +101,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/offre/DetailOffre.vue')
+        component: () => import( '../components/dashboard/offre/DetailOffre.vue')
       },
       {
         path:"/dashboard/creation_offre",
@@ -109,14 +109,14 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/offre/CreateOffre.vue')
+        component: () => import( '../components/dashboard/offre/CreateOffre.vue')
       },{
         path:"/dashboard/personnel",
         name:'personnel',
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/personnel/entreprise_contacts_studentView.vue')
+        component: () => import( '../components/dashboard/personnel/entreprise_contacts_studentView.vue')
        
       },
       {
@@ -125,7 +125,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/personnel/detailStudentsContacteView.vue')
+        component: () => import( '../components/dashboard/personnel/detailStudentsContacteView.vue')
         
       },
       {
@@ -134,7 +134,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/personnel/detailStudentsRecruit.vue')
+        component: () => import( '../components/dashboard/personnel/detailStudentsRecruit.vue')
         
       }
       
@@ -146,7 +146,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/personnel/offresInterresseBystudentsView.vue')
+        component: () => import( '../components/dashboard/personnel/offresInterresseBystudentsView.vue')
         
       },
       {
@@ -155,7 +155,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/personnel/DetailPostulantsView.vue')
+        component: () => import( '../components/dashboard/personnel/DetailPostulantsView.vue')
         
       },
       {
@@ -164,7 +164,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/DetailStudents/DetailStudent.vue')
+        component: () => import( '../views/DetailStudents/DetailStudent.vue')
         
       },
       {
@@ -189,7 +189,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/profil/ProfileView.vue')
+        component: () => import( '../components/dashboard/profil/ProfileView.vue')
       },
       {
         path:"/dashboard/abonnements",
@@ -197,7 +197,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/Myabonnements.vue')
+        component: () => import( '../views/Myabonnements.vue')
       },
       
       {
@@ -207,7 +207,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/etudiant-route/AccueilView.vue')
+        component: () => import( '../components/dashboard/etudiant-route/AccueilView.vue')
       },
       {
        
@@ -216,7 +216,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/etudiant-route/createTimetableView.vue')
+        component: () => import( '../components/dashboard/etudiant-route/createTimetableView.vue')
       },
       {
         
@@ -225,7 +225,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/etudiant-route/listeDisponibilite.vue')
+        component: () => import( '../components/dashboard/etudiant-route/listeDisponibilite.vue')
       },
       {
         
@@ -234,7 +234,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/etudiant-route/offres_postulerView.vue')
+        component: () => import( '../components/dashboard/etudiant-route/offres_postulerView.vue')
       },
       {
         
@@ -243,7 +243,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/etudiant-route/details_offres_postuleView.vue')
+        component: () => import( '../components/dashboard/etudiant-route/details_offres_postuleView.vue')
       },
       {
         
@@ -252,7 +252,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/etudiant-route/see_who_interresse_by_profil_studentView.vue')
+        component: () => import( '../components/dashboard/etudiant-route/see_who_interresse_by_profil_studentView.vue')
       },
       {
         
@@ -261,7 +261,7 @@ const routes = [
         meta:{
           requiresAuth:true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../components/dashboard/etudiant-route/imprimeContratView.vue')
+        component: () => import( '../components/dashboard/etudiant-route/imprimeContratView.vue')
       },
    
       
