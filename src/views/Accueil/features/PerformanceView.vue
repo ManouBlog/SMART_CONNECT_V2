@@ -1,9 +1,9 @@
 <script>
-import { mapActions, mapState } from "pinia";
+import { mapActions } from "pinia";
 import CardPerformance from "../../../Shared/Compoments/CardPerformance.vue";
-import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
+import instance from "../../../api/api";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
-import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
+
 export default {
   name: "PerformanceView",
   components: {
@@ -11,25 +11,33 @@ export default {
     CardPerformance,
   },
   data() {
-    return { texte0: "", texte2: "", texte3: "", texte1: "", texte4: "" };
+    return { texte0: "",entreprises:"",offres:"",timetable:"",visiteur:"",texte2: "", texte3: "", texte1: "", texte4: "" };
   },
-  computed: {
-    ...mapState(useEntreprisesStore, ["entreprises", "timetable"]),
-    ...mapState(useOffreStore, ["offres"]),
-  },
+
   methods: {
-    ...mapActions(useEntreprisesStore, ["getEntreprise"]),
-    ...mapActions(useOffreStore, ["getOffres"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+   async seePerformanceNbre(){
+      try{
+       const response = await instance.get('seePerformance');
+       console.log("seePerformanceNbre",response)
+      if(response.data.status){
+        this.entreprises = response.data.partenairePerf
+        this.offres = response.data.offrePerf
+        this.timetable = response.data.talentPerf
+        this.visiteur = response.data.visiteurPerf
+      }
+      }catch(error){
+        console.log(error)
+      }
+    }
   },
   async created() {
-    this.getEntreprise();
-    this.getOffres();
     this.texte0 = await this.handleTranslate("Nos performances");
     this.texte1 = await this.handleTranslate("Partenaire(s)");
     this.texte2 = await this.handleTranslate("Offre(s)");
     this.texte3 = await this.handleTranslate("Talent(s)");
     this.texte4 = await this.handleTranslate("Viisteur(s)");
+    this.seePerformanceNbre();
   },
 };
 </script>
@@ -45,25 +53,25 @@ export default {
             :myStyle="'card_perfor_one'"
             :icone_name="'bi bi-building icon'"
             :texte="texte1"
-            :nbre="entreprises.length"
+            :nbre="entreprises"
           />
           <CardPerformance
             :myStyle="'card_perfor_three'"
             :icone_name="'bi bi-briefcase-fill'"
             :texte="texte2"
-            :nbre="offres.length"
+            :nbre="offres"
           />
           <CardPerformance
             :myStyle="'card_perfor_two'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte3"
-            :nbre="timetable.length"
+            :nbre="timetable"
           />
           <CardPerformance
             :myStyle="'card_perfor_two'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte4"
-            :nbre="timetable.length"
+            :nbre="visiteur"
           />
         </div>
       </div>

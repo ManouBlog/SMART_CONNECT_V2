@@ -10,19 +10,33 @@ export default {
     return {};
   },
   methods: {
-    visiteur() {},
-  },
-   async created() {
-    console.log("rejf");
-    if (sessionStorage.getItem("@visit") === null) {
+    getIpApparel(){
+      fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+    console.log('Adresse IP publique :', data.ip);
+    this.visiteur(data.ip)
+  })
+  .catch(error => {
+    console.error('Erreur lors de la récupération de l\'adresse IP:', error);
+  });
+    },
+    async visiteur(ipMachin) {
+      if(sessionStorage.getItem("@visit") === null) {
   try {
-    const response = await axios.get(`${process.env.VUE_APP_LIENS_LOCAL}api/visites`);
+    const response = await axios.post(`${process.env.VUE_APP_LIENS_LOCAL}api/visites`,{ip:ipMachin});
     console.log("response", response);
     sessionStorage.setItem("@visit", 1);
   } catch (error) {
     console.log(error);
   }
 }
+    },
+  },
+  created() {
+    console.log("rejf");
+    localStorage.setItem('translate','fr')
+    this.getIpApparel()
   },
 };
 </script>
