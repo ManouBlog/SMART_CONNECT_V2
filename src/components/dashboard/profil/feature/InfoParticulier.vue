@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     update_offre() {
-      if (this.user.user.statut.statut === "entreprise") {
+      if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
         this.update_compte_entreprise();
       }
       if (this.user.user.statut.statut === "etudiant") {
@@ -40,7 +40,7 @@ export default {
       if (this.user.user.statut.statut === "etudiant") {
         this.modifyPasswordOfStudent();
       }
-      if (this.user.user.statut.statut === "entreprise") {
+      if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
         this.modifyPasswordOfEntreprise();
       }
       if (this.user.user.statut.statut === "admin") {

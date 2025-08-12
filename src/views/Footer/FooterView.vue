@@ -42,7 +42,7 @@ const ACCESS_RAPIDE = ref([
     link: true,
     name_link: "timetable",
     img: false,
-    isVisible: Statut.value === "entreprise" ? true : false,
+    isVisible: Statut.value === "entreprise" || Statut.value === "particulier" ? true : false,
   },
 ]);
 const ABOUTUS = ref([

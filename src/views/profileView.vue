@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     update_offre() {
-      if (this.user.user.statut.statut === "entreprise") {
+      if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
         this.update_compte_entreprise();
       }
       if (this.user.user.statut.statut === "etudiant") {
@@ -213,7 +213,7 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="card-body" v-if="user.user.statut.statut == 'entreprise'">
+              <div class="card-body" v-if="user.user.statut.statut == 'entreprise' || user.user.statut.statut == 'particulier' ">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">

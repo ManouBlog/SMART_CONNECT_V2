@@ -74,7 +74,7 @@ export default {
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     update_offre() {
-      if (this.user.user.statut.statut === "entreprise") {
+      if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
         this.update_compte_entreprise();
       }
       if (this.user.user.statut.statut === "etudiant") {
@@ -88,7 +88,7 @@ export default {
       if (this.user.user.statut.statut === "etudiant") {
         this.modifyPasswordOfStudent();
       }
-      if (this.user.user.statut.statut === "entreprise") {
+      if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
         this.modifyPasswordOfEntreprise();
       }
       if (this.user.user.statut.statut === "admin") {
@@ -285,7 +285,7 @@ export default {
         <TabPanel :header="texte1">
           <div>
             <InfoEntreprise
-              v-if=" this.user && this.user.user.statut.statut === 'entreprise'"
+              v-if=" this.user && (this.user.user.statut.statut === 'entreprise' || this.user.user.statut.statut === 'particulier') "
               :infoPersonellesEntreprise="[
                 { libelle: texte2, value: user.nom },
                 { libelle: texte3, value: user.email },

@@ -124,7 +124,8 @@ export default {
       <MenuMobileEntreprise
         v-if="
           this.$store.state.user &&
-          this.$store.state.user.user.statut.statut === 'entreprise'
+          (this.$store.state.user.user.statut.statut === 'entreprise' 
+          || this.$store.state.user.user.statut.statut === 'particulier')
         "
       />
       <MenuMobileStudent

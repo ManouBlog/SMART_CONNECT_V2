@@ -124,7 +124,7 @@ export default {
         });
     },
     verfEnter() {
-      if (this.user && this.user.user.statut.statut === "entreprise") {
+      if (this.user && this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
         Swal.fire({
           icon: "error",
           title: "Vous n'êtes pas autorisé.",

@@ -236,7 +236,7 @@ export default {
                   <LiensNavBar
                     v-if="
                       this.$store.state.user &&
-                      this.$store.state.user.user.statut.statut === 'entreprise'
+                      (this.$store.state.user.user.statut.statut === 'entreprise' || this.$store.state.user.user.statut.statut === 'particulier')
                     "
                     :texte="texte3"
                     :route_lien="'timetable'"
@@ -278,7 +278,8 @@ export default {
                   <InfoEntreprise
                     v-if="
                       this.$store.state.user &&
-                      this.$store.state.user.user.statut.statut === 'entreprise'
+                      (this.$store.state.user.user.statut.statut === 'entreprise' ||
+                      this.$store.state.user.user.statut.statut === 'particulier') 
                     "
                   />
 

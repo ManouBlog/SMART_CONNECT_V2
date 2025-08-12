@@ -26,7 +26,7 @@ export default {
     return {
       configUtils: configUtils,
       date_filter: dayjs("2025", "YYYY"),
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -95,7 +95,7 @@ export default {
     );
     console.log("Personnels sélectionnés", this.offresInteressByStudents);
     console.log("list_students", this.list_students);
-    this.texte = await this.handleTranslate("Tableau de bord");
+    this.texte0 = await this.handleTranslate("Tableau de bord");
     this.texte1 = await this.handleTranslate(`Nombre d'offres postulées`);
     this.texte2 = await this.handleTranslate(`Offres en attente de réponse`);
     this.texte3 = await this.handleTranslate(`Offres acceptées`);
@@ -111,7 +111,7 @@ export default {
 
 <template>
   <section>
-    <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
+    <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
     <div class="conteneur_filter">
       <a-date-picker v-model:value="date_filter" @change="handleData" picker="year" />
     </div>
@@ -138,7 +138,8 @@ export default {
     <TableauDeBord
       v-if="
         this.$store.state.user &&
-        this.$store.state.user.user.statut.statut === 'entreprise'
+        (this.$store.state.user.user.statut.statut === 'entreprise' 
+        || this.$store.state.user.user.statut.statut === 'particulier') 
       "
       :infosArray="[
         {

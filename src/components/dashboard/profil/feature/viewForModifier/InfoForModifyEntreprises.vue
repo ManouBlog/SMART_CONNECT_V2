@@ -68,7 +68,7 @@ export default {
     <div class="row">
       <legend>
         Info personnelle
-        {{ this.user && this.user.user.statut.statut === "entreprise" ? "sur l'entreprise" : null }}
+        {{ this.user && this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier" ? "sur l'entreprise" : null }}
       </legend>
       <div class="col-md-12">
         <div class="mb-3">
