@@ -169,10 +169,8 @@ export default {
             >
               {{ item.value }}
             </h6>
-            <div style="display: flex; justify-content: flex-start">
-              
-            
-              <div v-if="item.libelle === 'Document :'">
+            <div v-if="item.libelle === 'Document :' && item.value" style="display: flex; justify-content: flex-start">
+              <div>
                 <n-button type="warning" @click="showModal = true">
     Voir le registre
   </n-button>
@@ -193,7 +191,7 @@ export default {
       </section>
       <h1 class="fw-bold" style="color:orange">{{texte1}}</h1>
       <section>
-        <div class="row">
+        <div class="row" v-if="infoPersonellesGerant.length">
           <div
             v-for="(item, index) in infoPersonellesGerant"
             :key="index"
@@ -204,12 +202,6 @@ export default {
               {{ item.value }}
             </h6>
             <div style="display: flex; justify-content: flex-start">
-              <!-- <img
-                v-if="item.libelle === 'Pièce d identite :'"
-                :src="lienPhoto + item.value"
-                :alt="item.value"
-                class="w-25"
-              /> -->
               <n-image
                :alt="item.value"
               v-if="item.libelle === 'Pièce d identite :'"

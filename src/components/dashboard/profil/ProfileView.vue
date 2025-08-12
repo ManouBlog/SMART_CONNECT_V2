@@ -289,17 +289,17 @@ export default {
               :infoPersonellesEntreprise="[
                 { libelle: texte2, value: user.nom },
                 { libelle: texte3, value: user.email },
-                { libelle: texte4, value: user.matricule_cc },
+                { libelle: texte4, value: user.matricule_cc ? user.matricule_cc:'néant' },
                 { libelle: texte5, value: user.contact },
                 { libelle: texte6, value: user.ville },
                 { libelle: texte7, value: user.commune },
                 { libelle: texte8, value: user.quartier },
-                { libelle: texte9, value: user.registre },
-                { libelle: texte10, value: user.forme_juridique },
+                { libelle: texte9, value: user.registre ? user.registre:'néant'  },
+                { libelle: texte10, value: user.forme_juridique ? user.forme_juridique:'néant' },
               ]"
               :infoPersonellesGerant="[
-                { libelle: texte11, value: user.gerant },
-                { libelle: texte5, value: user.numero_gerant },
+                { libelle: texte11, value: user.gerant ? user.gerant:user.nom },
+                { libelle: texte5, value: user.numero_gerant ? user.numero_gerant:user.contact },
                 { libelle: texte12, value: user.piece_gerant },
               ]"
             />
