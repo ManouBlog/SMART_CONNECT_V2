@@ -1,5 +1,5 @@
 <script>
-import instance from "../api/api";
+import instance,{lienPhoto} from "../api/api";
 import {configUtils} from "../Shared/Utils"
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
@@ -11,6 +11,7 @@ export default {
   data() {
     return {
       texte: "",
+      lienPhoto:lienPhoto,
       texte2: "",
       texte3: "",
       texte1: "",
@@ -183,11 +184,19 @@ export default {
       <div class="col-lg-12">
         <div class="offres_disponible row container">
           <div class="col-md-12 col-sm-12 entreprise">
-            <div class="card">
+            <div class="card px-5">
               <section>
+                <div class="d-flex">
+                  <img 
+                style="width:100px;height:100px;object-fit: cover;border:5px solid white;"
+                :src="Offre.entreprise.logo ? lienPhoto+Offre.entreprise.logo :'/brobroli.png'"
+                :alt="Offre.entreprise.logo ? Offre.entreprise.logo :'smart-connect'" 
+                >  
                 <h1 class="my-5 nom_offre">
                 {{ Offre.nom_offre }}
                 </h1>
+                </div>
+                
                 <h4 class="my-5" style="color:orange;"
                 v-if="abonnements.some(item=>item.statut === 'success')"
                 >
@@ -196,7 +205,7 @@ export default {
                 <h4 class="my-5"
                 v-if="abonnements.some(item=>item.statut === 'success')"
                 >
-                  <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
+                <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="Offre.salaire != null">
