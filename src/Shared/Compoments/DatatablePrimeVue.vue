@@ -158,7 +158,7 @@ export default {
       </template>
     </Column>
   </DataTable>
-  <div v-if="DATAVALUE.length">
+  <!-- <div v-if="DATAVALUE.length">
     <h1>Pas de données</h1>
-  </div>
+  </div> -->
 </template>
