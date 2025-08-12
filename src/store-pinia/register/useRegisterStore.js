@@ -123,5 +123,42 @@ export const useRegisterStore = defineStore('register', {
                this.LOADINGSPINNER.launchLoading(false);
             })
         },
+        async registerParticulier(payload) {
+          console.log("registerParticulier",payload)
+          this.isLoading = true;
+          this.LOADINGSPINNER.launchLoading(true);
+          let data = new FormData();
+          data.append("nom", payload?.nom);
+          data.append("particulier_prenoms", payload?.prenoms);
+          data.append("phone", payload?.contact);
+          data.append("ville", payload?.ville);
+          data.append("quartier", payload?.quartier);
+          data.append("email", payload?.email);
+          data.append("commune", payload?.commune);
+          data.append("password", payload?.password);
+          data.append("statut_id", 4);
+          data.append("piece_gerant", payload?.piece_gerant[0]?.originFileObj);
+         await instance
+            .post("list_users", data)
+            .then((response) => {
+              console.log(response);
+              if (response.data.status === true) {
+                this.SWALPOPUP.declencheSwalPopup("success",response.data.message)
+                this.changeValueIsPolitics({value:false,infoUser:"",payload:""})
+              }
+              if (response.data.status === false) {
+                this.SWALPOPUP.declencheSwalPopup("error",response.data.message)
+                
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              this.SWALPOPUP.declencheSwalPopup("info",error.response.data.message)              
+            })
+            .finally(()=>{
+               this.isLoading = false;
+               this.LOADINGSPINNER.launchLoading(false);
+            })
+        },
     },
   })

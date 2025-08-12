@@ -95,7 +95,7 @@ export default {
     this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,jpeg)"); 
     this.texte11 = await this.handleTranslate("Registre (pdf)"); 
     this.texte12 = await this.handleTranslate('Mot de passe');
-    this.texte13 = await this.handleTranslate("Inscription");
+    this.texte13 = await this.handleTranslate("S'inscrire");
     this.texte14 = await this.handleTranslate('Veuillez renseigner votre mot de passe!');
     this.texte15 = await this.handleTranslate('Veuillez renseigner le numéro votre Gérant!');
     this.texte16 = await this.handleTranslate('Veuillez renseigner votre Gérant!');

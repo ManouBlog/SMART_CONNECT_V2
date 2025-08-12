@@ -17,8 +17,23 @@ const registerEntreprise = () => {
   registerStore.registerCompany(registerStore.payload);
 };
 
+const registerParticulier = () => {
+  console.log("props.payload", registerStore.payload);
+  registerStore.registerParticulier(registerStore.payload);
+};
+
 const handleRegister = () => {
-  registerStore.infoUser !== "entreprise" ? registerTalent() : registerEntreprise();
+switch (registerStore.infoUser) {
+  case 'entreprise':
+    registerEntreprise();
+    break;
+  case 'particulier':
+    registerParticulier();
+    break;
+  default:
+    registerTalent();
+    break;
+}
 };
 </script>
 
