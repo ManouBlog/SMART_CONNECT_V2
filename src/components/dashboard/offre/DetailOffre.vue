@@ -300,7 +300,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-12">
             <label>{{texte17}}</label>
             <div class="conteneur_editor">
               <editor :modelValue="offre_id.description" v-model="offre_id.description" />
