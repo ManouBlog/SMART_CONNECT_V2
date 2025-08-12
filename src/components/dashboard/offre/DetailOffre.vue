@@ -176,8 +176,8 @@ export default {
     />
     <div class="form theme-form projectcreate">
       <form v-if="offre_id" class="container">
-        <div>
-          <div class="text-left my-3">
+        <div class="row">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte1}}</label>
             <select class="form-control" v-model="offre_id.categorie_offre_id" @change="selectCategorie">
               <option value="" disabled>{{texte2}}</option>
@@ -190,7 +190,7 @@ export default {
               </option>
             </select>
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte3}}</label>
             <select class="form-control" v-model="offre_id.competence_id" name="" id="select_comp">
               <option value="" disabled>{{texte4}}</option>
@@ -209,7 +209,7 @@ export default {
               </option>
             </select>
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte7}}</label>
             <input
               class="form-control"
@@ -219,7 +219,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte8}}</label>
             <input
               class="form-control"
@@ -229,7 +229,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte9}}</label>
             <select class="form-control" v-model="offre_id.pointage">
               <option value="" disabled>{{texte10}}</option>
@@ -242,7 +242,7 @@ export default {
               </option>
             </select>
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte11}}</label>
             <input
               class="form-control"
@@ -253,7 +253,7 @@ export default {
               min="1"
             />
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte12}}</label>
             <input
               class="form-control"
@@ -263,7 +263,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte13}}</label>
             <input
               class="form-control"
@@ -273,17 +273,16 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte14}}</label>
             <input
               class="form-control"
               type="datetime-local"
               v-model="offre_id.fin"
-              :min="offre_id.debut"
               required
             />
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte15}}</label>
             <input
               class="form-control"
@@ -292,7 +291,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte16}}</label>
             <input
               class="form-control"
@@ -301,7 +300,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3">
+          <div class="text-left my-3 col-lg-4">
             <label>{{texte17}}</label>
             <div class="conteneur_editor">
               <editor :modelValue="offre_id.description" v-model="offre_id.description" />

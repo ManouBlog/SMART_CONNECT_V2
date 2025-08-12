@@ -756,7 +756,7 @@ export default {
       if (this.user && this.user.user.statut.statut === "etudiant") {
         Swal.fire({
           icon: "error",
-          title: "Vous n'êtes pas autorisé.",
+          title: "Vous n'êtes pas autorisé26.",
           showConfirmButton: false,
           timer: 3000,
         });

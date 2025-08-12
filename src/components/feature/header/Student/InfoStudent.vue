@@ -160,7 +160,7 @@ export default {
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
-            <router-link to="/dashboard/contrat_etudiants-entreprises" class="d-block">
+            <router-link to="/dashboard/entreprises_interessees" class="d-block">
               {{texte40}}
             </router-link>
           </li>

@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -71,7 +71,7 @@ export default {
   },
   async created() {
     this.get_all_student();
-    this.texte = await this.handleTranslate(`Mes postulations`);
+    this.texte0 = await this.handleTranslate(`Mes postulations`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
      this.texte2 = await this.handleTranslate("Lieu du travail");
      this.texte3 = await this.handleTranslate(`Honoraire (Fcfa)`);
@@ -94,8 +94,8 @@ export default {
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-      :TitleHeader="texte"
-      :subTitleHeader="texte"
+      :TitleHeader="texte0"
+      :subTitleHeader="texte0"
     />
 
     <div class="tab-content" id="top-tabContent">

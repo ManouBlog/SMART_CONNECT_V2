@@ -5,6 +5,7 @@ import instance from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { mapActions, mapState } from "pinia";
 export default {
   name: "CreateOffre",
@@ -15,6 +16,7 @@ export default {
   data() {
     return {
       texte0: "",
+      StoreLoading:useLoadingSpinner(),
       texte2: "",
       texte3: "",
       texte1: "",
@@ -103,6 +105,7 @@ export default {
     },
 
     create_offre() {
+      this.StoreLoading.launchLoading(true)
       this.loading = true;
       this.creer = false;
       let capitalizeFirstLetterOffre = this.offre[0].toUpperCase();
@@ -168,7 +171,10 @@ export default {
           });
           this.loading = false;
           this.creer = true;
-        });
+        })
+        .finally(()=>{
+          this.StoreLoading.launchLoading(false)
+        })
     },
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -282,8 +288,8 @@ export default {
                               <form @submit.prevent="create_offre">
                                 <div class="container">
                                   <div class="row">
-                                    <div class="col-lg-12 my-2">
-                                      <div class="mb-3">
+                                    <div class="col-lg-6 my-2 text-left">
+                                      <div>
                                         <label> {{texte1}}</label>
                                         <select
                                           v-model="categorie"
@@ -302,7 +308,7 @@ export default {
                                         </select>
                                       </div>
                                     </div>
-                                    <div class="col-lg-12 my-2 text-left">
+                                    <div class="col-lg-6 my-2 text-left">
                                       <label id="select_comp"
                                         >{{texte3}}</label
                                       >
@@ -343,8 +349,8 @@ export default {
                                         </option>
                                       </select>
                                     </div>
-                                    <div class="col-lg-12 my-2">
-                                      <div class="mb-3">
+                                    <div class="col-lg-6 my-2 text-left">
+                                      <div>
                                         <label>{{texte7}}</label>
                                         <input
                                           class="form-control"
@@ -356,8 +362,8 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12 my-2">
-                                      <div class="mb-3">
+                                    <div class="col-lg-6 my-2 text-left">
+                                      <div>
                                         <label>{{texte8}}</label>
                                         <input
                                           class="form-control"
@@ -368,8 +374,8 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12 my-2">
-                                      <div class="mb-3">
+                                    <div class="col-lg-6 my-2 text-left">
+                                      <div>
                                         <label>{{texte9}} </label>
                                         <select
                                           v-model="pointage"
@@ -390,8 +396,8 @@ export default {
                                       </div>
                                     </div>
 
-                                    <div class="col-lg-12 my-2">
-                                      <div class="mb-3">
+                                    <div class="col-lg-6 my-2 text-left">
+                                      <div>
                                         <label>{{texte12}}</label>
                                         <input
                                           class="form-control"
@@ -403,8 +409,8 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12 my-2">
-                                      <div class="mb-3">
+                                    <div class="col-lg-6 my-2 text-left">
+                                      <div>
                                         <label>{{texte13}}</label>
                                         <input
                                           class="form-control"
@@ -416,8 +422,8 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12 my-2">
-                                      <div class="mb-3">
+                                    <div class="col-lg-6 my-2 text-left">
+                                      <div>
                                         <label
                                           for="calendar-12h d-block"
                                           class="date_heure"
@@ -432,8 +438,8 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12 my-2">
-                                      <div class="mb-3">
+                                    <div class="col-lg-6 my-2 text-left">
+                                      <div>
                                         <label for="calendar-12" class="date_heure">
                                           {{texte15}}</label
                                         >
@@ -447,7 +453,7 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-12 my-2 text-left">
+                                    <div class="col-lg-6 my-2 text-left">
                                       <label>{{texte16}}</label>
                                       <input
                                         class="form-control"
@@ -456,7 +462,7 @@ export default {
                                         required
                                       />
                                     </div>
-                                    <div class="col-lg-12 my-2 text-left">
+                                    <div class="col-lg-6 my-2 text-left">
                                       <label>{{texte17}}</label>
                                       <input
                                         class="form-control"
@@ -466,8 +472,8 @@ export default {
                                       />
                                     </div>
 
-                                    <div class="col-lg-12 my-2">
-                                      <div class="mb-3">
+                                    <div class="col-lg-12 my-2 text-left">
+                                      <div>
                                         <label>{{texte18}}</label>
                                         <div class="conteneur_editor">
                                           <editor v-model="description" />
