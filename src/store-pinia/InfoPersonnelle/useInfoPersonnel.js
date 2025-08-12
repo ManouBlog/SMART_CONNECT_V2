@@ -29,6 +29,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           });
     },
       async update_compte_entreprise(payload) {
+        console.log("update_compte_entreprise",payload)
         Spinner.launchLoading(true)
         let data = new FormData();
         data.append("nom", payload.nom);
@@ -41,7 +42,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         data.append("quartier", payload.quartier);
         data.append("contact", payload.contact);
         data.append("ville", payload.ville);
-        data.append("logo",payload.logoEntreprise);
+        data.append("logo",this.logoEntreprise);
         data.append("matricule_cc", payload.matricule_cc);
         data.append("statut_id", 1);
         data.append("registre", this.registre);
