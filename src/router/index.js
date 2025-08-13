@@ -184,6 +184,14 @@ const routes = [
         component: () => import("../views/EntrepriseInterresse.vue"),
       },
       {
+        path: "/dashboard/entreprises_interessees/:id",
+        name: "entreprise_interesse_detail",
+        meta:{
+          requiresAuth:true
+        },
+        component: () => import("../views/DetailsEntrepriseInteresse.vue"),
+      },
+      {
         path:"/dashboard/profil",
         name:'profil',
         meta:{

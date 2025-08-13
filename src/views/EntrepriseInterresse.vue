@@ -210,7 +210,7 @@ export default {
                   <div class="d-flex justify-content-center g-5 align-items-center">
                     <router-link
                       :to="{
-                        name: 'details_offres_postuler',
+                        name: 'entreprise_interesse_detail',
                         params: { id: slotProps.data.offre.id },
                       }"
                       ><i class="bi bi-eye"></i
