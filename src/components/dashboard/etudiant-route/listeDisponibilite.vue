@@ -2,7 +2,7 @@
 import instance from "../../../api/api";
 import Swal from "sweetalert2";
 import { FilterMatchMode } from "primevue/api";
-import VueMultiselect from "vue-multiselect";
+// import VueMultiselect from "vue-multiselect";
 import { configUtils } from "../../../Shared/Utils";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
@@ -19,7 +19,7 @@ const loadingSpinner = useLoadingSpinner();
 export default {
   name: "listeDisponibilite",
   components: {
-    VueMultiselect,
+    // VueMultiselect,
     // Calendar,
     HeaderDashboard,
     IconField,
@@ -28,6 +28,8 @@ export default {
   },
   data() {
     return {
+      isActive: false,
+      tab: false,
       texte: "",
       texte2: "",
       texte3: "",
@@ -545,6 +547,10 @@ export default {
     handleNewCalendar() {
       this.$router.push("/dashboard/disponibilite");
     },
+     getOtherTab() {
+      this.tab = !this.tab;
+      this.isActive = !this.isActive;
+    },
   },
   async created() {
     this.get_timetable();
@@ -755,13 +761,30 @@ export default {
       </div>
     </div>
 
-    <div class="tab-content" id="top-tabContent">
+     <div class="page-title d-flex">
+          <ol
+            :class="!isActive ? 'breadcrumb' : 'breadcrumb_two'"
+            class="mx-3"
+            @click="getOtherTab"
+          >
+            <li class="breadcrumb-item">Horaire</li>
+          </ol>
+          <ol
+            :class="isActive ? 'breadcrumb' : 'breadcrumb_two'"
+            class="mx-3"
+            @click="getOtherTab"
+          >
+            <li class="breadcrumb-item">Période</li>
+          </ol>
+        </div>
+
+    <div class="tab-content" id="top-tabContent" v-show="!tab">
       <DataTable
         paginator
         :rows="10"
         :globalFilterFields="['formule']"
         :rowsPerPageOptions="[5, 10, 20, 50]"
-        :value="timetables"
+        :value="timetables.filter(item=> !item.periode)"
         v-model:filters="filters"
       >
         <template #paginatorstart>
@@ -857,60 +880,109 @@ export default {
       <div v-if="!timetables.length">
               <h1>Pas de donnée.</h1>
             </div>
-      <div
-        class="tab-pane fade show"
-        id="competence"
-        role="tabpanel"
-        aria-labelledby="competence"
+    </div>
+    <div class="tab-content" id="top-tabContent" v-show="tab">
+      <DataTable
+        paginator
+        :rows="10"
+        :globalFilterFields="['formule']"
+        :rowsPerPageOptions="[5, 10, 20, 50]"
+        :value="timetables.filter(item=> item.periode === 1)"
+        v-model:filters="filters"
       >
-        <div class="container-fluid">
-          <div class="row">
-            <div>
-              <VueMultiselect
-                v-model="competence"
-                :options="competencesPredf"
-                :multiple="true"
-                :taggable="true"
-                :tag="addTag"
-                @update:model-value="addTag"
-                label="competence"
-                track-by="competence"
-                placeholder="selectionne une competence"
-                class="vuemulti"
-              >
-              </VueMultiselect>
-              <button class="btn-lg bg-primary" @click="addCompetences">
-                {{ texte20 }}
+        <template #paginatorstart>
+          <div
+            style="
+              display: flex;
+              justify-content: flex-start;
+              font-size: 1em;
+              border: none;
+            "
+          >
+            Affichage de 1 à 10 sur{{ timetables.length }} entrées.
+          </div>
+        </template>
+        <template #header>
+          <div class="conteneur_search">
+            <div class="mx-3">
+              <button class="btn bg-warning py-2" @click="handleNewCalendar">
+                {{ texte14 }}
               </button>
             </div>
-            <div class="col-sm-12 card py-3 px-2">
-              <table id="MyTableData" class="table">
-                <thead>
-                  <tr>
-                    <th class="bg-light">{{ texte21 }}</th>
-                    <th class="bg-light">{{ texte19 }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(item, index) in competences" :key="index">
-                    <td>{{ item.competence }}</td>
-                    <td>
-                      <p class="d-flex justify-content-center align-items-center">
-                        <em
-                          class="bi bi-trash"
-                          @click="
-                            showBoxConfirmationDeleteCompetences(item.pivot.competence_id)
-                          "
-                        ></em>
-                      </p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <IconField iconPosition="left">
+              <InputIcon>
+                <i class="pi pi-search" />
+              </InputIcon>
+              <InputText
+                style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                v-model="filters['global'].value"
+                placeholder="Recherche:"
+              />
+            </IconField>
           </div>
-        </div>
-      </div>
+        </template>
+        <!-- <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="jour"
+          :header="'Période'"
+        >
+          <template #body="slotProps">
+            <span v-if="!slotProps.data.periode">
+              {{ configUtils.getFormatDateFr(slotProps.data.jour) }}
+            </span>
+            <span v-else>
+              {{ slotProps.data.jour }}
+            </span>
+          </template>
+        </Column> -->
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="First_horaire"
+          :header="'Période'"
+        >
+          <template #body="slotProps">
+            <span v-if="!slotProps.data.periode">
+              {{ configUtils.formatedDisponibilite(slotProps.data.First_horaire) }}
+            </span>
+            <span v-else>
+              Du {{ configUtils.getFormatDateFr(slotProps.data.periode_debut) }} à
+              {{ slotProps.data.hour_periode_debut }} au
+              {{ configUtils.getFormatDateFr(slotProps.data.periode_fin) }} à
+              {{ slotProps.data.hour_periode_fin }}
+            </span>
+          </template>
+        </Column>
+        <!-- <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="Second_horaire"
+          :header="texte16"
+        >
+          <template #body="slotProps">
+            <span v-if="slotProps.data.Second_horaire">
+              {{ configUtils.formatedDisponibilite(slotProps.data.Second_horaire) }}
+            </span>
+            <span v-else>{{ texte17 }}</span>
+          </template>
+        </Column> -->
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="statut"
+          :header="texte18"
+        >
+          <template #body="slotProps">
+            <div class="d-flex justify-content-center align-items-center">
+              <em class="bi bi-pencil" @click="show_timetable(slotProps.data.id)"></em>
+              <em
+                class="bi bi-trash"
+                @click="show_box_confirmation_delete(slotProps.data.id)"
+              ></em>
+            </div>
+          </template>
+        </Column>
+      </DataTable>
+      <div v-if="!timetables.length">
+              <h1>Pas de donnée.</h1>
+            </div>
     </div>
   </div>
 </template>

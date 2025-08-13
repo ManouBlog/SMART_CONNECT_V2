@@ -643,7 +643,7 @@ export default {
                 </section>
                 <section class="d-flex justify-content-center align-items-center"
                 v-if="handleHoraire === 'Periode'">
-                  <div class="mx-1">
+                  <div class="mx-3">
                     <h5 class="text-start">Date et Heure de début</h5>
                     <input
                       v-model="dateTime_debut"
@@ -654,7 +654,7 @@ export default {
                     />
                   </div>
 
-                  <div class="mx-1">
+                  <div class="mx-3">
                     <h5 class="text-start">Date et Heure de fin</h5>
                     <input
                       v-model="dateTime_fin"
