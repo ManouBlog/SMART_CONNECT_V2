@@ -80,6 +80,8 @@ export default {
     this.allColumnsDataStudentRecruit= [
         { fieldName: "nom_offre", headerName: Offre },
         { fieldName: "nom", headerName: Etudiant },
+        { fieldName: "job_debut", headerName: 'Date début du job' },
+        { fieldName: "job_fin", headerName: 'Date fin du job' },
       ]
     this.allColumnsDataContacter = [
         { fieldName: "nom", headerName: Nom },
