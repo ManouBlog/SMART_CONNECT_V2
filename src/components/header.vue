@@ -233,10 +233,11 @@ export default {
                     :statut_user="'etudiant'"
                     :isNeedConnection="true"
                   />
+                  
                   <LiensNavBar
-                    v-if="
-                      this.$store.state.user &&
-                      (this.$store.state.user.user.statut.statut === 'entreprise' || this.$store.state.user.user.statut.statut === 'particulier')
+                    v-if="this.$store.state.user &&
+                      (this.$store.state.user.user.statut.statut === 'entreprise' 
+                      || this.$store.state.user.user.statut.statut === 'particulier')
                     "
                     :texte="texte3"
                     :route_lien="'timetable'"

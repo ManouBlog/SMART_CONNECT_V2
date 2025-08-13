@@ -1,4 +1,5 @@
 export const StatutUser = {
     entreprise:true,
-    etudiant:true
+    etudiant:true,
+    particulier:true
 }
