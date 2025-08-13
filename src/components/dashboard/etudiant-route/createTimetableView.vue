@@ -49,7 +49,7 @@ export default {
       texte24: "",
       dateTime_debut: "",
       dateTime_fin: "",
-      handleHoraire: "",
+      handleHoraire: "Horaire",
       datesFormatedOfCalendar: [],
       configUtils: configUtils,
       datesOfCalendar: [],
@@ -305,113 +305,7 @@ export default {
         firstHoraire: FIRST_HORRAIRE,
         secondHoraire: SECOND_HORRAIRE,
         TotalHourDisponi: TOTALHOURHORAIRE,
-      });
-      // this.isLoading = true;
-      // this.firstHoraire = this.First_heure_start_from.concat(
-      //   "-",
-      //   this.First_heure_end_to
-      // );
-      // if (this.Second_heure_start_from != null && this.Second_heure_end_to != !null) {
-      //   this.secondHoraire = this.Second_heure_start_from.concat(
-      //     "-",
-      //     this.Second_heure_end_to
-      //   );
-      // }
-      // let oneHoraire = this.First_heure_end_to.split(":");
-      // this.hour = Number(oneHoraire[0].split(":").toString());
-      // let minute = Number(oneHoraire[1].split(":").toString());
-      // let minuteTohour = Math.ceil(minute / 60);
-      // let totalOneHoraire = this.hour + minuteTohour;
-
-      // let twoHoraire = this.First_heure_start_from.split(":");
-      // this.twoHoraireHour = Number(twoHoraire[0].split(":").toString());
-      // let minuteTwoHoraire = Number(twoHoraire[1].split(":").toString());
-      // let minuteTohourTwo = Math.ceil(minuteTwoHoraire / 60);
-      // let totalTwoHoraire = this.twoHoraireHour + minuteTohourTwo;
-
-      // let totalOneSecondHoraireTwoEnd, totalOneSecondHoraireFrom;
-      // if (this.Second_heure_start_from != null && this.Second_heure_end_to != !null) {
-      //   let secondHoraire = this.Second_heure_start_from.split(":");
-      //   let TwoSecondHoraire = Number(secondHoraire[0].split(":").toString());
-      //   let minuteTwoSecondHoraire = Number(secondHoraire[1].split(":").toString());
-
-      //   let minuteTohourOneSecondHoraire = Math.ceil(minuteTwoSecondHoraire / 60);
-      //   totalOneSecondHoraireFrom = TwoSecondHoraire + minuteTohourOneSecondHoraire;
-
-      //   this.secondHoraireTwo = this.Second_heure_end_to.split(":");
-      //   this.TwoSecondHoraireTwo = Number(this.secondHoraireTwo[0].split(":").toString());
-      //   let minuteTwoSecondHoraireTwo = Number(
-      //     this.secondHoraireTwo[1].split(":").toString()
-      //   );
-      //   let minuteTohourOneSecondHoraireEnd = Math.ceil(minuteTwoSecondHoraireTwo / 60);
-      //   totalOneSecondHoraireTwoEnd =
-      //     this.TwoSecondHoraireTwo + minuteTohourOneSecondHoraireEnd;
-      // } else {
-      //   totalOneSecondHoraireTwoEnd = 0;
-      //   totalOneSecondHoraireFrom = 0;
-      // }
-
-      // let globalHourFirstHoraire =
-      //   totalOneSecondHoraireTwoEnd - totalOneSecondHoraireFrom;
-      // let globalHourSecondHoraire = totalOneHoraire - totalTwoHoraire;
-
-      // let TotalHourDisponi = globalHourFirstHoraire + globalHourSecondHoraire;
-      // console.log("TotalHourDisponi", TotalHourDisponi);
-      // if (
-      //   this.twoHoraireHour > this.hour ||
-      //   this.TwoSecondHoraire > this.secondHoraireTwo
-      // ) {
-      //   Swal.fire({
-      //     icon: "error",
-      //     title: "l'heure de fin doit être supérieur a l'heure de départ",
-      //     showConfirmButton: false,
-      //     timer: 1500,
-      //   });
-      //   this.isLoading = false;
-      // } else {
-      //   let DateRendezVous = [];
-      //   this.datesPickers.forEach((date) => {
-      //     DateRendezVous.push(date.date.toISOString().slice(0, 10));
-      //   });
-      //   instance
-      //     .post("create_schedule", {
-      //       jour: DateRendezVous,
-      //       First_horaire: this.firstHoraire,
-      //       Second_horaire: this.secondHoraire,
-      //       totalHour: TotalHourDisponi,
-      //     })
-      //     .then((res) => {
-      //       console.log(res);
-      //       if (res.data.status === true) {
-      //         Swal.fire({
-      //           icon: "success",
-      //           title: res.data.message,
-      //           showConfirmButton: false,
-      //           timer: 1500,
-      //         });
-      //         this.isLoading = false;
-      //       }
-      //       if (res.data.status === false) {
-      //         Swal.fire({
-      //           icon: "error",
-      //           title: res.data.message,
-      //           showConfirmButton: false,
-      //           timer: 1500,
-      //         });
-      //         this.isLoading = false;
-      //       }
-      //     })
-      //     .catch((err) => {
-      //       console.log(err);
-      //       Swal.fire({
-      //         icon: "error",
-      //         title: "Le jour a déjà été pris",
-      //         showConfirmButton: false,
-      //         timer: 1500,
-      //       });
-      //       this.isLoading = false;
-      //     });
-      // }
+      });   
     },
     show_timetable(id) {
       this.modify_timetable = !this.modify_timetable;
@@ -663,33 +557,7 @@ export default {
       };
       console.log("DATETIME", dataSend);
       instance
-        .post("create_schedule", {
-          jour: this.schedule.map((item) => {
-            return item.jour;
-          }),
-          First_horaire: this.schedule.map((item) => {
-            return item.first_horaire;
-          })[0],
-          Second_horaire: null,
-          totalHour: 0,
-          hour_periode_debut: this.schedule
-            .map((item) => {
-              return item.first_horaire;
-            })[0]
-            .split("-")[0],
-          hour_periode_fin: this.schedule
-            .map((item) => {
-              return item.first_horaire;
-            })[0]
-            .split("-")[1],
-          periode_debut: this.schedule.map((item) => {
-            return item.jour;
-          })[0],
-          periode_fin: this.schedule.map((item) => {
-            return item.jour;
-          })[1],
-          periode: 1,
-        })
+        .post("create_schedule",dataSend)
         .then((response) => {
           console.log("ADD DATETIME PERIODE", response.data.status);
           if (!response.data.status) {
@@ -764,34 +632,18 @@ export default {
       <div>
         <div class="container-fluid">
           <div>
-            <div class="form theme-form projectcreate">
-              <div style="flex: 1 1 100px">
-                <h6
-                  v-if="!datesOfCalendar.length"
-                  class="text-danger d-block text-center"
-                  style="font-weight: bold; font-size: 1.4em; padding: 0.5em 0"
-                >
-                  {{ texte7 }}
-                </h6>
-                <Calendar
-                  :minDate="new Date()"
-                  v-model="datesOfCalendar"
-                  selectionMode="multiple"
-                  @update:modelValue="handleValueDate"
-                  inline
-                  :manualInput="false"
-                />
-              </div>
-              <div style="flex: 1 1 200px" v-if="datesOfCalendar.length">
-                <section>
-                  <select class="w-100 my-5" name="select" id="select" v-model="handleHoraire">
+            <section>
+                  <select class="w-75 my-5"
+                  style="padding:1em;"
+                   name="select" id="select" v-model="handleHoraire">
                     <option value="" disabled>Type de plage</option>
                     <option value="Horaire">Plage Horaire</option>
                     <option value="Periode">Période</option>
                   </select>
                 </section>
-                <section class="d-flex my-5" v-if="handleHoraire === 'Periode'">
-                  <div class="w-100 mx-3">
+                <section class="d-flex justify-content-center align-items-center"
+                v-if="handleHoraire === 'Periode'">
+                  <div class="mx-1">
                     <h5 class="text-start">Date et Heure de début</h5>
                     <input
                       v-model="dateTime_debut"
@@ -802,7 +654,7 @@ export default {
                     />
                   </div>
 
-                  <div class="w-100">
+                  <div class="mx-1">
                     <h5 class="text-start">Date et Heure de fin</h5>
                     <input
                       v-model="dateTime_fin"
@@ -824,6 +676,27 @@ export default {
                     />
                   </div>
                 </section>
+            <div class="form theme-form projectcreate"
+            >
+              <div style="flex: 1 1 100px" v-if="handleHoraire !== 'Periode'">
+                <h6
+                  v-if="!datesOfCalendar.length"
+                  class="text-danger d-block text-center"
+                  style="font-weight: bold; font-size: 1.4em; padding: 0.5em 0"
+                >
+                  {{ texte7 }}
+                </h6>
+                <Calendar
+                  :minDate="new Date()"
+                  v-model="datesOfCalendar"
+                  selectionMode="multiple"
+                  @update:modelValue="handleValueDate"
+                  inline
+                  :manualInput="false"
+                />
+              </div>
+              <div style="flex: 1 1 200px">
+                
                 <section v-if="handleHoraire === 'Horaire'">
                   <h5 class="text-start text-warning">{{ texte1 }}</h5>
                   <div class="col-lg-6">
@@ -905,7 +778,7 @@ export default {
                     {{ texte8 }}
                   </button>
                 </div>
-                <div class="col-lg-12" v-if="handleHoraire === 'Periode'">
+                <div class="col-lg-12 my-5" v-if="handleHoraire === 'Periode'">
                   <button
                   :disabled="!this.dateTime_fin"
                     class="btn bg-warning p-5"
