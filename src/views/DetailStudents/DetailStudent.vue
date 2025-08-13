@@ -69,7 +69,7 @@ export default {
       list: [],
       contrat: false,
       NewListEmploi: "",
-      isLoading: false,
+      isLoading: true,
       length: 5,
       hideButtons: false,
       isWhished: [],
@@ -91,39 +91,6 @@ export default {
       checkboxDate: false,
       checkbox: false,
       option: "",
-      jourOfMois: [
-        { jour: "1" },
-        { jour: "2" },
-        { jour: "3" },
-        { jour: "4" },
-        { jour: "5" },
-        { jour: "6" },
-        { jour: "7" },
-        { jour: "8" },
-        { jour: "9" },
-        { jour: "10" },
-        { jour: "11" },
-        { jour: "12" },
-        { jour: "13" },
-        { jour: "14" },
-        { jour: "15" },
-        { jour: "16" },
-        { jour: "17" },
-        { jour: "18" },
-        { jour: "19" },
-        { jour: "20" },
-        { jour: "21" },
-        { jour: "22" },
-        { jour: "23" },
-        { jour: "24" },
-        { jour: "25" },
-        { jour: "26" },
-        { jour: "27" },
-        { jour: "28" },
-        { jour: "29" },
-        { jour: "30" },
-        { jour: "31" },
-      ],
       MyJour: null,
       moreExist: false,
       nextPage: 0,
@@ -277,18 +244,8 @@ export default {
         }); // Format YYYY-MM-DD
         currentDate.setDate(currentDate.getDate() + 1);
     }
-          // // Créer un objet pour la date de début
-          // dates.push({
-            
-          //   id: item.id * 10 + 1, // Nouvel ID dérivé pour éviter les conflits
-          //   jour: startDate,
-          //   periode: 1,
-          //   periode_debut: startDate,
-          //   periode_fin: endDate,
-          // });
-
+      
         } else {
-          // Garder les éléments sans plage tels quels
           dates.push({ ...item });
         }
       }
@@ -345,7 +302,6 @@ export default {
     },
     async getDetailStudent() {
       loadingSpinner.launchLoading(true);
-      // this.isLoading = true;
       await instance
         .get("FiltreTimetable")
         .then((res) => {
@@ -367,7 +323,6 @@ export default {
           );
           console.log("this.timetable_for_student", this.timetable_for_student);
           this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
-          // this.schedule = this.timetable_for_student.jours;
           this.schedule = this.getDatesBetween(this.timetable_for_student.jours)
           console.log("this.schedule",this.schedule)
         
@@ -394,10 +349,7 @@ export default {
               item.job = 3;
             }
           });
-          // this.selectedService = this.timetable_for_student.competences;
-          // console.log("COMPETENCES", this.selectedService);
-
-          loadingSpinner.launchLoading(false);
+      
 
           console.log("EMPLOI DU TEMPS", this.timetable_for_student);
 
@@ -406,7 +358,11 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        });
+        })
+        .finally(()=>{
+          loadingSpinner.launchLoading(false);
+          this.isLoading = false;
+        })
     },
     onPageChange(page) {
       this.currentPage = page;
@@ -873,8 +829,8 @@ export default {
 </script>
 
 <template>
-  <div v-if="timetable_for_student">
-    <div class="conteneur_student">
+  <div>
+    <div class="conteneur_student" v-if="timetable_for_student">
       <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
 
       <BodyExperience :timetable_for_student="timetable_for_student" />
@@ -977,6 +933,9 @@ export default {
           </div>
         </div>
       </section>
+    </div>
+    <div class="conteneur_student py-5" v-else>
+     <h6>Chargement...</h6>
     </div>
   </div>
 </template>
