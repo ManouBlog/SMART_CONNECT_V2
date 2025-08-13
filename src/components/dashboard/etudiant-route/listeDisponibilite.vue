@@ -259,7 +259,10 @@ export default {
           })
           .catch((err) => {
             console.log(err);
-          });
+          })
+          .finally(()=>{
+            this.get_timetable();
+          })
       }
     },
     async get_timetable() {
