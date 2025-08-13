@@ -256,11 +256,50 @@ export default {
 
       return result;
     },
+    getDatesBetween(data) {
+    const dates = [];
+
+     for (const item of data) {
+        if (item.periode) {
+          // Séparer les dates pour les éléments avec plage
+          const [startDate, endDate] = item.jour.split(" A ");
+          let currentDate = new Date(startDate);
+          const end = new Date(endDate);
+
+    // Incrémente jour par jour
+    while (currentDate <= end) {
+        dates.push({
+          ...item,
+          jour:new Date(currentDate).toISOString().split('T')[0],
+           periode: 1,
+            periode_debut: startDate,
+            periode_fin: endDate,
+        }); // Format YYYY-MM-DD
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+          // // Créer un objet pour la date de début
+          // dates.push({
+            
+          //   id: item.id * 10 + 1, // Nouvel ID dérivé pour éviter les conflits
+          //   jour: startDate,
+          //   periode: 1,
+          //   periode_debut: startDate,
+          //   periode_fin: endDate,
+          // });
+
+        } else {
+          // Garder les éléments sans plage tels quels
+          dates.push({ ...item });
+        }
+      }
+    
+    return dates;
+},
     splitDateRangeObjects(data) {
       const result = [];
 
       for (const item of data) {
-        if (item.jour.includes(" A ")) {
+        if (item.periode_debut) {
           // Séparer les dates pour les éléments avec plage
           const [startDate, endDate] = item.jour.split(" A ");
 
@@ -288,7 +327,7 @@ export default {
           result.push({ ...item });
         }
       }
-
+       console.log("RESULTA",result)
       return result;
     },
     ifPeriodeDate(periode) {
@@ -329,10 +368,11 @@ export default {
           console.log("this.timetable_for_student", this.timetable_for_student);
           this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
           // this.schedule = this.timetable_for_student.jours;
-          this.schedule = this.splitDateRangeObjects(this.timetable_for_student.jours);
-
+          this.schedule = this.getDatesBetween(this.timetable_for_student.jours)
+          console.log("this.schedule",this.schedule)
+        
           this.schedule.forEach((item) => {
-            console.log("DATE", this.MyDateRendezVous);
+            console.log("DATE_this_schedule", this.MyDateRendezVous);
             this.MyDateRendezVous.forEach((date) => {
               if (
                 item.jour === date.date_debut ||
@@ -621,8 +661,11 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        });
-      loadingSpinner.launchLoading(false);
+        })
+        .finally(()=>{
+         loadingSpinner.launchLoading(false);
+        })
+      
     },
     closeDetailTimetable() {
       this.details_timetable = !this.details_timetable;
