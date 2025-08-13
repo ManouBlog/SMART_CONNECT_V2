@@ -6,6 +6,7 @@ import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { mapActions, mapState } from "pinia";
 import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 export default {
   name: "DetailOffre",
   components: {
@@ -14,6 +15,7 @@ export default {
   },
   data() {
     return {
+      loadingSpinner:useLoadingSpinner(),
       texte: "",
       texte2: "",
       texte3: "",
@@ -62,7 +64,7 @@ export default {
       competenceWithCategorie: [],
       competence: "",
       Today: new Date().toJSON().slice(0, 10),
-      spinnerModify: false,
+      spinnerModify: true,
       categories: [],
       OptionsOfpointage: [
         {
@@ -118,19 +120,22 @@ export default {
         });
     },
     show_offre_id() {
-      this.spinnerModify = true;
+      this.loadingSpinner.launchLoading(true);
       instance
         .get("get_offres_entreprise")
         .then((res) => {
           console.log(res);
           this.offres = res.data.data;
           this.offre_id = this.offres.find((offre) => offre.id == this.$route.params.id);
-          this.spinnerModify = false;
           console.log("OFFRE_ID", this.offre_id);
         })
         .catch((err) => {
           console.log(err);
-        });
+        })
+        .finally(()=>{
+          this.spinnerModify = false;
+          this.loadingSpinner.launchLoading(false);
+        })
     },
     selectCategorie(e) {
       console.log("selectCategorie", e.target.value);
@@ -320,6 +325,9 @@ export default {
           </div>
         </div>
       </form>
+      <div v-if="spinnerModify" class="container">
+       <h6>Chargement...</h6>
+      </div>
     </div>
   </div>
 </template>

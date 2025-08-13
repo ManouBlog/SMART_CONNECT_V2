@@ -675,10 +675,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          // this.loadSpinner = false;
           Swal.fire({
             icon: "info",
-            title: "Vérifier votre connexion ou les informations que vous envoyer.",
+            title: err.response.data.message,
             showConfirmButton: true,
           });
         })
