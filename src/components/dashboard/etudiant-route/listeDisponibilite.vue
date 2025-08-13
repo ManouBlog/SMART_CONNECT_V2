@@ -279,6 +279,7 @@ export default {
         });
     },
     create_timetable() {
+      loadingSpinner.launchLoading(true);
       this.firstHoraire = this.First_heure_start_from.concat(
         "-",
         this.First_heure_end_to
@@ -381,11 +382,15 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-          });
+          })
+          .finally(()=>{
+            loadingSpinner.launchLoading(false);
+          })
       }
     },
     show_timetable(id) {
       console.log("SHOW_TIMETABLE",id)
+      loadingSpinner.launchLoading(true);
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = id;
       this.spinner = true;
@@ -419,7 +424,10 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        });
+        })
+        .finally(()=>{
+          loadingSpinner.launchLoading(false);
+        })
     },
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -623,14 +631,6 @@ export default {
                         <div class="col-lg-6" v-if="Horaire_Fisrt != null">
                           <div class="mb-3">
                             <label>{{ texte7 }}</label>
-                            <!-- <Calendar
-                              id="datepicker-timeonly_3"
-                              v-model="Horaire_Fisrt[0]"
-                              showIcon
-                              iconDisplay="input"
-                              timeOnly
-                              inputId="templatedisplay"
-                            /> -->
                             <input
                               class="form-control"
                               type="time"
@@ -658,7 +658,8 @@ export default {
                             />
                           </div>
                         </div>
-                        <h5 class="text-start">{{ texte9 }}</h5>
+                        <section v-if="timetable_show_id.periode === null">
+                           <h5 class="text-start">{{ texte9 }}</h5>
                         <div class="col-lg-6" v-if="Horaire_Second != null">
                           <div class="mb-3">
                             <label>{{ texte10 }}</label>
@@ -735,6 +736,7 @@ export default {
                             />
                           </div>
                         </div>
+                        </section>
                       </div>
                       <div class="row">
                         <div class="col">
