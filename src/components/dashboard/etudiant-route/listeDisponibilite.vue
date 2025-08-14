@@ -475,6 +475,7 @@ export default {
       this.id_for_delete = "";
     },
     delete_timetable() {
+      loadingSpinner.launchLoading(true);
       instance
         .delete("delete_schedule/" + this.id_for_delete)
         .then((res) => {
@@ -487,14 +488,22 @@ export default {
               timer: 1500,
             });
             this.confirmation_for_delete = !this.confirmation_for_delete;
-            setTimeout(function () {
-              //location.reload(true);
-            }, 1500);
+            
           }
         })
         .catch((err) => {
           console.log(err);
-        });
+          Swal.fire({
+              icon: "info",
+              title: err.response.data.message,
+              showConfirmButton: true,
+              // timer: 1500,
+            });
+        })
+         .finally(()=>{
+          this.get_timetable();
+          loadingSpinner.launchLoading(false);
+        })
     },
     deleteMyCompetence() {
       instance
