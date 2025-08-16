@@ -60,7 +60,33 @@
   <script src="./assets/js/webjs.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://kit.fontawesome.com/5f71de9baf.js" crossorigin="anonymous"></script>
-  
+  <script>
+  // Attendre que le DOM soit chargé
+  document.addEventListener('DOMContentLoaded', function() {
+    // Sélectionner l'élément par son ID (notez que vous utilisez 'cardPerf' mais observez 'box' plus bas)
+    const box = document.getElementById('cardPerf');
+    
+    if (box) { // Vérifier que l'élément existe
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            console.log("La boîte est visible");
+          } else {
+            console.log("La boîte n'est pas visible");
+          }
+        });
+      }, {
+        // Options optionnelles : seuil de visibilité, marges, etc.
+        threshold: 0.1 // Déclenché quand 10% de l'élément est visible
+      });
+      
+      // Observer l'élément box (corrigé : on observe box, pas la chaîne "box")
+      observer.observe(box);
+    } else {
+      console.error("L'élément avec l'ID 'cardPerf' n'a pas été trouvé");
+    }
+  });
+</script>
 </body>
 
 </html>

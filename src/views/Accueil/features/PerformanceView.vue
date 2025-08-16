@@ -1,46 +1,72 @@
-<script>
-import { mapActions } from "pinia";
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import CardPerformance from "../../../Shared/Compoments/CardPerformance.vue";
 import instance from "../../../api/api";
-import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 
-export default {
-  name: "PerformanceView",
-  components: {
-    // "vue3-autocounter": Vue3autocounter,
-    CardPerformance,
-  },
-  data() {
-    return { texte0: "",entreprises:"",offres:"",timetable:"",visiteur:"",texte2: "", texte3: "", texte1: "", texte4: "" };
-  },
+const translateStore = useTranslateStore();
 
-  methods: {
-    ...mapActions(useTranslateStore, ["handleTranslate"]),
-   async seePerformanceNbre(){
-      try{
-       const response = await instance.get('seePerformance');
-       console.log("seePerformanceNbre",response)
-      if(response.data.status){
-        this.entreprises = response.data.partenairePerf
-        this.offres = response.data.offrePerf
-        this.timetable = response.data.talentPerf
-        this.visiteur = response.data.visiteurPerf
-      }
-      }catch(error){
-        console.log(error)
-      }
+const texte0 = ref("");
+const texte1 = ref("");
+const texte2 = ref("");
+const texte3 = ref("");
+const texte4 = ref("");
+const entreprises = ref("");
+const offres = ref("");
+const timetable = ref("");
+const visiteur = ref("");
+const cardPerfVisible = ref(false);
+
+let observer = null;
+
+const seePerformanceNbre = async () => {
+  try {
+    const response = await instance.get('seePerformance');
+    console.log("seePerformanceNbre", response);
+    if(response.data.status) {
+      entreprises.value = response.data.partenairePerf;
+      offres.value = response.data.offrePerf;
+      timetable.value = response.data.talentPerf;
+      visiteur.value = response.data.visiteurPerf;
     }
-  },
-  async created() {
-    this.texte0 = await this.handleTranslate("Nos performances");
-    this.texte1 = await this.handleTranslate("Partenaire(s)");
-    this.texte2 = await this.handleTranslate("Offre(s)");
-    this.texte3 = await this.handleTranslate("Talent(s)");
-    this.texte4 = await this.handleTranslate("Viisteur(s)");
-    this.seePerformanceNbre();
-  },
+  } catch(error) {
+    console.log(error);
+  }
 };
+
+const initIntersectionObserver = () => {
+  const cardPerfElement = document.getElementById('cardPerf');
+  
+  if (cardPerfElement) {
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        cardPerfVisible.value = entry.isIntersecting;
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    observer.observe(cardPerfElement);
+  }
+};
+
+onMounted(async () => {
+  texte0.value = await translateStore.handleTranslate("Nos performances");
+  texte1.value = await translateStore.handleTranslate("Partenaire(s)");
+  texte2.value = await translateStore.handleTranslate("Offre(s)");
+  texte3.value = await translateStore.handleTranslate("Talent(s)");
+  texte4.value = await translateStore.handleTranslate("Viisteur(s)");
+  await seePerformanceNbre();
+  initIntersectionObserver();
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 </script>
+
 <template>
   <div class="container-fluid stat mt-5">
     <div class="row">
@@ -48,36 +74,48 @@ export default {
         <div class="mb-5">
           <h1 class="fw-bold">{{ texte0 }}</h1>
         </div>
-        <div class="conteneur-card-performance">
+        <div class="conteneur-card-performance" id="cardPerf">
+          <!-- Premier card - Animation depuis la gauche -->
           <CardPerformance
             :myStyle="'card_perfor_one'"
             :icone_name="'bi bi-building icon'"
             :texte="texte1"
-            :nbre="entreprises"
+            :nbre="Number(entreprises)"
+            :class="{ 'slide-from-left': cardPerfVisible }"
           />
-          <CardPerformance
-            :myStyle="'card_perfor_three'"
-            :icone_name="'bi bi-briefcase-fill'"
-            :texte="texte2"
-            :nbre="offres"
-          />
+          
+          <!-- Deuxième card - Animation de fondu -->
           <CardPerformance
             :myStyle="'card_perfor_two'"
+            :icone_name="'bi bi-briefcase-fill'"
+            :texte="texte2"
+            :nbre="Number(offres)"
+            :class="{ 'fade-in': cardPerfVisible }"
+          />
+          
+          <!-- Troisième card - Animation de fondu -->
+          <CardPerformance
+            :myStyle="'card_perfor_three'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte3"
-            :nbre="timetable"
+            :nbre="Number(timetable)"
+            :class="{ 'fade-in': cardPerfVisible }"
           />
+          
+          <!-- Quatrième card - Animation depuis la droite -->
           <CardPerformance
             :myStyle="'card_perfor_two'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte4"
-            :nbre="visiteur"
+            :nbre="Number(visiteur)"
+            :class="{ 'slide-from-right': cardPerfVisible }"
           />
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <style scoped>
 @import "../../../Shared/styles/stylesShared.css";
 .stat {
@@ -114,26 +152,54 @@ export default {
   height: auto;
   color: white;
   padding: 3.8em 5em;
-  background: rgb(75, 71, 71);
+ background: #334155;
   border-radius: 100px 0px 100px 0px;
 }
-@keyframes slidedown-icon {
-  0% {
-    transform: translateY(0);
-  }
 
-  50% {
-    transform: translateY(20px);
+/* Animation depuis la gauche */
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
   }
-
-  100% {
-    transform: translateY(0);
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
+.slide-from-left {
+  animation: slideFromLeft 0.8s ease-out forwards;
+}
 
-.slidedown-icon {
-  animation: slidedown-icon;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
+/* Animation de fondu */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.fade-in {
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 0.3s; /* Délai pour un effet séquentiel */
+}
+
+/* Animation depuis la droite */
+@keyframes slideFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.slide-from-right {
+  animation: slideFromRight 0.8s ease-out forwards;
+  animation-delay: 0.6s; /* Délai plus long pour le dernier élément */
 }
 </style>
