@@ -100,10 +100,10 @@ export default {
     verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
       if (!value.length) {
-        return null;
+        return "Pas d'abonnement";
       }
       value?.forEach((element) => {
-        if (element.statut === "ACCEPTED") {
+        if (element.statut === "success") {
           valueAbonnementCurrently = element;
         }
       });
@@ -144,11 +144,9 @@ export default {
         ><span class="badge bg-primary h3">{{ `${entreprise.nom}` }}</span>
         <div>
           <h4>
-            <b>Formule d'abonnement</b> :
+            <b>Formule d'abonnement actuelle</b> :
             {{
-              this.verifIfAbonnementCurrently(entreprise?.user?.abonement)
-                ? this.verifIfAbonnementCurrently(entreprise?.user?.abonement)
-                : "pas d'abonnement"
+             this.verifIfAbonnementCurrently(entreprise?.user?.abonement)
             }}
           </h4>
           <h4><b>Email</b> : {{ entreprise.email }}</h4>
@@ -156,14 +154,39 @@ export default {
             <b>Commune</b> :
             {{ entreprise.commune ? entreprise.commune : null }}
           </h4>
+          <h4>
+            <b>Quartier</b> :
+            {{ entreprise.quartier ? entreprise.quartier : null }}
+          </h4>
           <h4><b>Contact</b> : {{ entreprise.contact }}</h4>
           <h4 v-if="entreprise.gerant">
             <b>Gérant</b> : {{ entreprise.gerant }} ({{ entreprise.numero_gerant }})
+          </h4>
+          <h4 v-if="entreprise?.piece_gerant" style="display:flex;align-items:center;gap:1em;">
+            <b>Pièce du gérant</b> :
+            <n-image
+               :alt="entreprise?.piece_gerant"
+              width="100"
+              :src="'http://127.0.0.1:8000/storage/images/'+entreprise?.piece_gerant"
+              />
           </h4>
           <h4 v-if="entreprise.matricule_cc">
             <b>Matricule_cc</b> :
             {{ entreprise.matricule_cc ? entreprise.matricule_cc : null }}
           </h4>
+          <h4 v-if="entreprise.forme_juridique">
+            <b>Matricule_cc</b> :
+            {{ entreprise.forme_juridique ? entreprise.forme_juridique : null }}
+          </h4>
+          <h4 v-if="entreprise?.logo" style="display:flex;align-items:center;gap:1em;">
+            <b>Logo</b> :
+            <n-image
+               :alt="entreprise?.logo"
+              width="100"
+              :src="'http://127.0.0.1:8000/storage/images/'+entreprise?.logo"
+              />
+          </h4>
+          
           <h4>
             <b
               >Registre de commerce :
