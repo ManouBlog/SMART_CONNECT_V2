@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
 import $ from "jquery";
@@ -83,9 +84,7 @@ export default {
             <div class="col-sm-10 modify-form">
               <div class="card">
                 <div class="card-body">
-                  <h1 class="badge bg-primary h3">
-                    Modifier l'emploi du temps
-                  </h1>
+                  <h1 class="badge bg-primary h3">Modifier l'emploi du temps</h1>
                   <div class="form theme-form projectcreate p-5">
                     <form>
                       <div class="row">
@@ -186,7 +185,8 @@ export default {
                 <tr>
                   <th class="bg-light">Nom</th>
                   <th class="bg-light">email</th>
-                  <th class="bg-light">Registre de commerce</th>
+                  <th class="bg-light">Profil</th>
+
                   <th class="bg-light">Détails</th>
                 </tr>
               </thead>
@@ -195,12 +195,10 @@ export default {
                   <td>{{ item.nom }}</td>
                   <td>{{ item.email }}</td>
                   <td>
-                    <span v-if="item.registre_commerce">{{
-                      item.registre_commerce
-                    }}</span>
-                    <span v-else class="badge bg-info"
+                    <span>{{ item.user.statut.statut }}</span>
+                    <!-- <span v-else class="badge bg-info"
                       >pas de registre de commerce</span
-                    >
+                    > -->
                   </td>
 
                   <td class="d-flex justify-content-center align-items-center">

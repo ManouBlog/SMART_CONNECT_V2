@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
 import $ from "jquery";
@@ -14,6 +15,7 @@ export default {
       spinner: false,
       moneyFormat: new Intl.NumberFormat("de-DE"),
       abonnementsEntreprise: [],
+      showModal:false,
     };
   },
   methods: {
@@ -32,12 +34,7 @@ export default {
             (item) => item.id == this.$route.params.id
           );
 
-          if (!this.entreprise) {
-            console.error("Entreprise non trouvée");
-            this.spinner = false;
-            return;
-          }
-
+          console.log("responseDETAIL", this.entreprise);
           this.offres = this.entreprise.offre || [];
           this.abonnementsEntreprise = this.entreprise?.user?.abonement || [];
 
@@ -110,8 +107,8 @@ export default {
           valueAbonnementCurrently = element;
         }
       });
-      return valueAbonnementCurrently.abonement.libelle
-        ? valueAbonnementCurrently.abonement.libelle
+      return valueAbonnementCurrently?.abonement?.libelle
+        ? valueAbonnementCurrently?.abonement?.libelle
         : null;
     },
   },
@@ -161,9 +158,7 @@ export default {
           </h4>
           <h4><b>Contact</b> : {{ entreprise.contact }}</h4>
           <h4 v-if="entreprise.gerant">
-            <b>Gérant</b> : {{ entreprise.gerant }} ({{
-              entreprise.numero_gerant
-            }})
+            <b>Gérant</b> : {{ entreprise.gerant }} ({{ entreprise.numero_gerant }})
           </h4>
           <h4 v-if="entreprise.matricule_cc">
             <b>Matricule_cc</b> :
@@ -172,11 +167,17 @@ export default {
           <h4>
             <b
               >Registre de commerce :
-              {{
-                entreprise.registre_commerce
-                  ? entreprise.registre_commerce
-                  : null
-              }}
+                <n-button type="warning" @click="showModal = true">
+    Voir le registre
+  </n-button>
+               <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px;">
+    <n-card title="Document PDF" closable @close="showModal = false">
+      <iframe
+        :src="'http://127.0.0.1:8000/storage/pdf/'+entreprise?.registre"
+        style="width: 100%; height: 600px; border: none;"
+      ></iframe>
+    </n-card>
+  </n-modal>
             </b>
           </h4>
         </div>
@@ -193,6 +194,7 @@ export default {
                 <th class="bg-light">Prime</th>
                 <th class="bg-light">Lieu</th>
                 <th class="bg-light">Date de publication</th>
+                <th class="bg-light">Date limite</th>
               </tr>
             </thead>
             <tbody>
@@ -205,6 +207,9 @@ export default {
                 <td>{{ item.lieu }}</td>
                 <td>
                   {{ new Date(item.created_at).toLocaleDateString("fr") }}
+                </td>
+                <td>
+                  {{ new Date(item.fin).toLocaleDateString("fr") }}
                 </td>
               </tr>
             </tbody>
@@ -222,7 +227,7 @@ export default {
                 <th class="bg-light">Date de l'enregistrement</th>
                 <th class="bg-light">Identifiant</th>
                 <th class="bg-light">Formule d'abonnement</th>
-                <th class="bg-light">Moyen de paiement</th>
+                <!-- <th class="bg-light">Moyen de paiement</th> -->
                 <th class="bg-light">Montant (Fcfa)</th>
                 <th class="bg-light">Echeance</th>
                 <th class="bg-light">Statut</th>
@@ -239,7 +244,7 @@ export default {
                 <td>
                   {{ item?.abonement?.libelle }}
                 </td>
-                <td>{{ item.moyen_paiement }}</td>
+                <!-- <td>{{ item.moyen_paiement }}</td> -->
                 <td>
                   {{ item.montant }}
                 </td>
@@ -249,9 +254,7 @@ export default {
                 <td>
                   <p
                     class="badge"
-                    :class="
-                      item.statut === 'ACCEPTED' ? 'bg-success' : 'bg-danger'
-                    "
+                    :class="item.statut === 'success' ? 'bg-success' : 'bg-danger'"
                   >
                     {{ item.statut }}
                   </p>

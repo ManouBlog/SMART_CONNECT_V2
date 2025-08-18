@@ -306,7 +306,7 @@ export default {
           <li class="onhover-dropdown">
             <div class="notification-box">
               <svg
-                v-if="statut == 'etudiant'"
+                v-if="user.statut.statut == 'etudiant'"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
