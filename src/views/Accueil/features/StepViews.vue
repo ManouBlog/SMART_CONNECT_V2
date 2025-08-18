@@ -40,6 +40,8 @@ export default {
       texte25: "",
       texte26: "",
       dataCard:[],
+      cardPerfVisible:false,
+      observer:null
     };
   },
   methods: {
@@ -48,8 +50,24 @@ export default {
     goToRoute(payload) {
       this.$router.push(payload);
     },
+    initIntersectionObserver(){
+  const cardPerfElement = document.getElementById('divCard');
+  
+  if (cardPerfElement) {
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        this.cardPerfVisible = entry.isIntersecting;
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    this.observer.observe(cardPerfElement);
+  }
+}
   },
-  async created() {
+  async mounted() {
+    this.initIntersectionObserver()
     this.texte = await this.handleTranslate("Etapes à suivre");
     this.texte2 = await this.handleTranslate(
       "Les instructions à suivre pour contacter du personnel ou postuler à une offre."
@@ -59,29 +77,37 @@ export default {
           id: 1,
           title: await this.handleTranslate("Créer un compte"),
           text_one: await this.handleTranslate("Remplissez le formulaire"),
+          class:"slide-from-left"
         },
         {
           id: 2,
           title: await this.handleTranslate("Choisir une option"),
           text_one: await this.handleTranslate("Etudiant : Obtenir un emploi à temps partiel"),
           text_two: await this.handleTranslate("Employeur : Besoin d'employés à temps partiel."),
+          class:"fade-in"
         },
         {
           id: 3,
           title: await this.handleTranslate("Vivez une expérience unique"),
           text_one: await this.handleTranslate("Etudiant : Choisir le meilleur profil."),
           text_two: await this.handleTranslate("Employeur :Démarrer une nouvelle expérience Pro.."),
+          class:"slide-from-right"
         },
       ]
   },
+  unmounted(){
+     if (this.observer) {
+    this.observer.disconnect();
+  }
+  }
 };
 </script>
 <template>
   <div class="container main-container-home">
     <h1 class="step_suivre">{{ texte }}</h1>
     <h5 class="text-secondary my-3">{{ texte2 }}</h5>
-    <div class="conteneur-card">
-      <CardView v-for="(item, index) in dataCard" :key="index" :item="item" />
+    <div class="conteneur-card" id="divCard">
+      <CardView  v-for="(item, index) in dataCard" :key="index" :item="item" :cardPerfVisible="cardPerfVisible" />
     </div>
   </div>
 </template>
