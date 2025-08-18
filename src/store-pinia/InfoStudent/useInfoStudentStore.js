@@ -54,6 +54,21 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
           },
          filterDataWithYear(payload){
           this.list_offre = this.data_offre_filter.filter(item=>dayjs(item.created_at,'YYYY').isSame(dayjs(payload)))
+         },
+         async getStatistiqueDashboardStudent(payload){
+          loadingSpinner.launchLoading(true);
+            await instance
+              .post("statistiqueDashboard/student",payload)
+              .then((res) => {
+                console.log("statistiqueDashboard",res.data);
+                this.statistiqueDashboard = res.data;
+              })
+              .catch((err) => {
+                console.log(err);
+              })
+              .finally(()=>{
+                 loadingSpinner.launchLoading(false);
+              })
          }
       
      

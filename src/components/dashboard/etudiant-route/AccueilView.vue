@@ -65,27 +65,28 @@ export default {
       "get_students_contact",
       "get_offres_interess_by_student",
     ]),
-    ...mapActions(useInfoStudentStore, ["get_all_student", "filterDataWithYear"]),
+    ...mapActions(useInfoStudentStore, ["filterDataWithYear","getStatistiqueDashboardStudent"]),
     handleData(year) {
       console.log(year);
       if (
         this.$store.state.user &&
         this.$store.state.user.user.statut.statut === "etudiant"
       ) {
-        this.filterDataWithYear(year);
+        this.getStatistiqueDashboardStudent({annee:this.date_filter.$y});
       } else {
         this.filterOffreWithYear(year);
       }
     },
   },
   computed: {
-    ...mapState(useInfoStudentStore, ["list_offre"]),
+    ...mapState(useInfoStudentStore, ["statistiqueDashboard"]),
     ...mapState(useOffreStore, ["offreCreatedByEntreprise"]),
     ...mapState(useEntreprisesStore, ["offresInteressByStudents"]),
     ...mapState(useEntreprisesStore, ["student", "studentRecruit", "list_students"]),
   },
   async created() {
-    this.get_all_student();
+    // this.get_all_student();
+    this.getStatistiqueDashboardStudent({annee:this.date_filter.$y});
     this.get_students_contact();
     this.get_offres_interess_by_student();
     this.getAllOffresCreatedByEntreprise();
@@ -120,18 +121,18 @@ export default {
         this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant'
       "
       :infosArray="[
-        { libelle: texte1, nbre: list_offre.length },
+        { libelle: texte1, nbre: Number(statistiqueDashboard.offrePostule) },
         {
           libelle: texte2,
-          nbre: configUtils.statistiqueEntreprise(list_offre, 0),
+          nbre: statistiqueDashboard.offrePending,
         },
         {
           libelle: texte3,
-          nbre: configUtils.statistiqueEntreprise(list_offre, 1),
+          nbre: statistiqueDashboard.offreAccepted,
         },
         {
           libelle: texte4,
-          nbre: configUtils.statistiqueEntreprise(list_offre, 2),
+          nbre: statistiqueDashboard.offreCancel,
         },
       ]"
     />
