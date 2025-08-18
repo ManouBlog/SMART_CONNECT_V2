@@ -1,0 +1,1052 @@
+<script>
+import instance from "../../api/api";
+import Swal from "sweetalert2";
+import "v-calendar/dist/style.css";
+import { Calendar } from "v-calendar";
+import { configUtils } from "../../Shared/Utils";
+// import vue3starRatings from "vue3-star-ratings";
+// import { KCheckbox } from "@kong/kongponents";
+import { mapActions } from "pinia";
+import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
+import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
+import "@kong/kongponents/dist/style.css";
+import HeaderDetailStudent from "./features/HeaderDetailStudent.vue";
+import BodyExperience from "./features/BodyExperience.vue";
+const loadingSpinner = useLoadingSpinner();
+//DatePicker
+export default {
+  components: { Calendar, HeaderDetailStudent, BodyExperience },
+  data() {
+    return {
+      texte: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      texte4: "",
+      texte5: "",
+      texte6: "",
+      texte7: "",
+      texte8: "",
+      texte9: "",
+      texte10: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
+      configUtils: configUtils,
+      lieu: "",
+      datesChoice: [],
+      dateRendezVousStudentWithEntreprise: null,
+      MyDateRendezVous: [],
+      user: this.$store.state.user,
+      competences: "",
+      competence: "",
+      contacter: false,
+      jours: [],
+      dateDebut: "",
+      dateFin: "",
+      page: 1,
+      details_timetable: false,
+      id_detail_timetable: "",
+      timetable_for_student: null,
+      schedule: "",
+      compte: 4,
+      hideButton: false,
+      MylistEmploi: null,
+      location: "",
+      list: [],
+      contrat: false,
+      NewListEmploi: "",
+      isLoading: true,
+      length: 5,
+      hideButtons: false,
+      isWhished: [],
+      lengthOfMylistEmploi: "",
+      spinner: false,
+      Myarray: [],
+      showEndResearch: false,
+      langage: [],
+      selected: null,
+      newlist: [],
+      color: false,
+      selectedService: [],
+      verfIfStudentExistInWishlist: [],
+      addColor: false,
+      Today: new Date().toJSON().slice(0, 10),
+      showCalender: false,
+      datesPickers: [],
+      selecteDatepickers: {},
+      checkboxDate: false,
+      checkbox: false,
+      option: "",
+      MyJour: null,
+      moreExist: false,
+      nextPage: 0,
+      loadSpinner: false,
+      competencesPredefini: [],
+      range: {
+        start: new Date(),
+        end: new Date(),
+      },
+      rangeSearch: {
+        start: new Date(),
+        end: new Date(),
+      },
+      days: [],
+      showCalenderFilter: false,
+      selectedOffreWithDate: null,
+      selectedOffreWithPeriode: "",
+      perPage: 3,
+      currentPage: 1,
+      totalPages: "",
+      maxVisibleButtons: "2",
+      listAbonnement: [],
+    };
+  },
+  computed: {
+    paginatedData() {
+      let start = this.currentPage * this.perPage - this.perPage;
+      let end = start + this.perPage;
+      return this.timetable_for_student.etoiles.slice(start, end);
+    },
+    startPage() {
+      if (this.currentPage === 1) return 1;
+      if (this.currentPage === this.totalPages)
+        return this.totalPages - this.maxVisibleButtons + (this.maxVisibleButtons - 1);
+      return this.currentPage - 1;
+    },
+    endPage() {
+      return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
+    },
+    pages() {
+      let range = [];
+      for (let i = this.startPage; i <= this.endPage; i++) {
+        range.push({ number: i, isDisabled: i === this.currentPage });
+      }
+      return range;
+    },
+    isInFirstPage() {
+      return this.currentPage === 1;
+    },
+    isInLastPage() {
+      return this.currentPage === this.totalPages;
+    },
+    list_emploi() {
+      if (this.location !== "") {
+        return this.list.filter((item) => {
+          return item.commune.toLowerCase().includes(this.location.toLowerCase());
+        });
+      }
+      return this.list.slice(0, this.length);
+    },
+    jourOfMonth() {
+      let month = new Date().getMonth() + 1;
+      let year = new Date().getFullYear();
+      let nombre = "0";
+      if (month < 10 || month < 11 || month < 12) {
+        nombre = nombre + month;
+      }
+      return [
+        ...this.jourOfMois.map((element) => ({
+          jou: year + "-" + nombre + "-" + element.jour,
+        })),
+      ];
+    },
+    dates() {
+      return this.days.map((day) => day.date);
+    },
+    attribut() {
+      return this.dates.map((date) => ({
+        highlight: true,
+        dates: date,
+      }));
+    },
+
+    attributes() {
+      return [
+        ...this.schedule.map((time) => ({
+          dates: new Date(time.jour),
+          highlight: {
+            color: time.job == 3 ? "gray" : time.job == 1 ? "red" : "green",
+            fillMode: time.job == 3 ? "light" : "solid",
+          },
+          popover: {
+            label: {
+              one: this.ifPeriodeDate(time),
+              two: time.Second_horaire,
+            },
+            visibility: "hover",
+          },
+        })),
+      ];
+    },
+    idParamsItem() {
+      return this.$route.params.id;
+    },
+  },
+  watch: {
+    idParamsItem(newValue, oldValue) {
+      console.log("oldValue", oldValue);
+      console.log("newValue", newValue);
+      if (newValue) {
+        this.getDetailStudent();
+      }
+    },
+  },
+  methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
+    splitDateRanges(dateArray) {
+      const result = [];
+
+      for (const dateStr of dateArray) {
+        if (dateStr.includes(" A ")) {
+          // Séparer les dates pour les éléments avec plage
+          const [startDate, endDate] = dateStr.split(" A ");
+          result.push(startDate, endDate);
+        } else {
+          // Ajouter les dates simples telles quelles
+          result.push(dateStr);
+        }
+      }
+
+      return result;
+    },
+    getDatesBetween(data) {
+    const dates = [];
+
+     for (const item of data) {
+        if (item.periode) {
+          // Séparer les dates pour les éléments avec plage
+          const [startDate, endDate] = item.jour.split(" A ");
+          let currentDate = new Date(startDate);
+          const end = new Date(endDate);
+
+    // Incrémente jour par jour
+    while (currentDate <= end) {
+        dates.push({
+          ...item,
+          jour:new Date(currentDate).toISOString().split('T')[0],
+           periode: 1,
+            periode_debut: startDate,
+            periode_fin: endDate,
+        }); // Format YYYY-MM-DD
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+      
+        } else {
+          dates.push({ ...item });
+        }
+      }
+    
+    return dates;
+},
+    splitDateRangeObjects(data) {
+      const result = [];
+
+      for (const item of data) {
+        if (item.periode_debut) {
+          // Séparer les dates pour les éléments avec plage
+          const [startDate, endDate] = item.jour.split(" A ");
+
+          // Créer un objet pour la date de début
+          result.push({
+            ...item,
+            id: item.id * 10 + 1, // Nouvel ID dérivé pour éviter les conflits
+            jour: startDate,
+            periode: 1,
+            periode_debut: startDate,
+            periode_fin: endDate,
+          });
+
+          // Créer un objet pour la date de fin
+          result.push({
+            ...item,
+            id: item.id * 10 + 2, // Nouvel ID dérivé
+            jour: endDate,
+            periode: 1,
+            periode_debut: startDate,
+            periode_fin: endDate,
+          });
+        } else {
+          // Garder les éléments sans plage tels quels
+          result.push({ ...item });
+        }
+      }
+       console.log("RESULTA",result)
+      return result;
+    },
+    ifPeriodeDate(periode) {
+      console.log("PERIODE25", periode);
+      if (periode.periode) {
+        console.log("periode254", periode);
+        return `Du ${new Date(periode.periode_debut).toLocaleDateString("fr")} à ${
+          periode.hour_periode_debut
+        } au ${new Date(periode.periode_fin).toLocaleDateString("fr")} à ${
+          periode.hour_periode_fin
+        }`;
+      } else {
+        return periode.First_horaire;
+      }
+    },
+    async getDetailStudent() {
+      loadingSpinner.launchLoading(true);
+      await instance
+        .get("FiltreTimetable")
+        .then((res) => {
+          console.log(res);
+          this.NewListEmploi = res.data.data;
+          this.dateRendezVousStudentWithEntreprise = res.data.date;
+          let dateOfStudent = [];
+          this.dateRendezVousStudentWithEntreprise.forEach((element) => {
+            if (element.student_id === Number(this.idParamsItem)) {
+              dateOfStudent.push(element);
+            }
+          });
+
+          this.MyDateRendezVous = dateOfStudent;
+          console.log("this.NewListEmploi", this.NewListEmploi);
+          console.log("this.$route.params.id", this.idParamsItem);
+          this.timetable_for_student = this.NewListEmploi.find(
+            (item) => item.id === Number(this.idParamsItem)
+          );
+          console.log("this.timetable_for_student", this.timetable_for_student);
+          this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
+          this.schedule = this.getDatesBetween(this.timetable_for_student.jours)
+          console.log("this.schedule",this.schedule)
+        
+          this.schedule.forEach((item) => {
+            console.log("DATE_this_schedule", this.MyDateRendezVous);
+            this.MyDateRendezVous.forEach((date) => {
+              if (
+                item.jour === date.date_debut ||
+                item.jour === date.date_fin ||
+                item.jour === date.date ||
+                (item.jour > date.date_debut && item.jour < date.date_fin)
+              ) {
+                if (date.contrat === 1) item.job = 1;
+              }
+            });
+            item.jou = new Date(item.jour).getDate();
+            item.month = new Date(item.jour).getMonth() + 1;
+            item.year = new Date(item.jour).getFullYear();
+            console.log(JSON.stringify(new Date().toISOString().slice(0, 10)));
+            if (
+              JSON.stringify(new Date(item.jour)) <
+              JSON.stringify(new Date().toISOString().slice(0, 10))
+            ) {
+              item.job = 3;
+            }
+          });
+      
+
+          console.log("EMPLOI DU TEMPS", this.timetable_for_student);
+
+          console.log("TIMETBALE", this.schedule);
+          console.log("DateRendez-vous", this.MyDateRendezVous);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(()=>{
+          loadingSpinner.launchLoading(false);
+          this.isLoading = false;
+        })
+    },
+    onPageChange(page) {
+      this.currentPage = page;
+    },
+    onClickFirstPage() {
+      this.onPageChange(this.currentPage - 1);
+    },
+    onClickPreviousPage() {
+      this.onPageChange(this.currentPage - 1);
+    },
+    onClickPage(page) {
+      this.onPageChange(page);
+    },
+    onClickNextPage() {
+      this.onPageChange(this.currentPage + 1);
+    },
+    onClickLastPage() {
+      this.onPageChange(this.totalPages);
+    },
+    isPageActive(page) {
+      return this.currentPage === page;
+    },
+    async getAllCompetences() {
+      try {
+        const reponse = await instance.get("GetAllCompetences");
+        this.competences = reponse.data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    showCalenderDate() {
+      this.showCalenderFilter = !this.showCalenderFilter;
+    },
+    onDayClick(day) {
+      const idx = this.days.findIndex((d) => d.id === day.id);
+      console.log(new Date().toLocaleDateString());
+      if (idx >= 0) {
+        this.days.splice(idx, 1);
+      } else {
+        this.days.push({
+          id: day.id,
+          date: day.date,
+        });
+      }
+      if (this.Myarray.length) {
+        let filterArray = [];
+        this.Myarray.forEach((item) => {
+          this.days.forEach((arr) => {
+            if (item.days.includes(arr.id)) {
+              filterArray.push(item);
+            }
+          });
+        });
+        this.list = [...new Set(filterArray)];
+      }
+      this.MylistEmploi.forEach((element) => {
+        this.days.forEach((e) => {
+          if (element.days.includes(e.id)) {
+            this.Myarray.push(element);
+          }
+        });
+      });
+      this.list = [...new Set(this.Myarray)];
+      console.log("DATE", this.Myarray);
+      if (!this.days.length) {
+        this.list = this.MylistEmploi;
+        this.hideButtons = true;
+      }
+
+      this.showCalenderFilter = !this.showCalenderFilter;
+    },
+    showDate() {
+      this.checkboxDate = !this.checkboxDate;
+      if (this.checkbox === true) {
+        this.checkbox = !this.checkbox;
+      }
+      if (this.checkboxDate === true) {
+        this.opinion = "date";
+        this.dateDebut = "";
+        this.dateFin = "";
+      }
+    },
+    showPeriode() {
+      console.log(this.checkbox);
+      if (this.checkboxDate === true) {
+        this.checkboxDate = !this.checkboxDate;
+      }
+      this.checkbox = !this.checkbox;
+      if (this.checkbox === true) {
+        this.opinion = "periode";
+        this.datesChoice = [];
+      }
+    },
+    addTag(newTag) {
+      console.log(newTag);
+      this.Myarray = [];
+      // this.list = [];
+      this.MylistEmploi.forEach((element) => {
+        newTag.forEach((e) => {
+          element.jours.forEach((item) => {
+            if (item.jour === e.jou) {
+              console.log(element);
+              this.Myarray.push(element);
+            }
+          });
+        });
+      });
+      this.list = [...new Set(this.Myarray)];
+      console.log("LIST", this.list);
+      this.hideButtons = true;
+
+      if (!newTag.length) {
+        this.list = this.MylistEmploi;
+        this.hideButtons = true;
+      }
+    },
+    addComp(newTag) {
+      console.log(this.days.length);
+      if (this.Myarray.length > 0) {
+        let newArray = [];
+        this.Myarray.forEach((item) => {
+          newTag.forEach((e) => {
+            if (item.acquis.includes(e.competence)) {
+              newArray.push(item);
+              console.log("new Array", newArray);
+            }
+          });
+        });
+        this.list = [...new Set(newArray)];
+        if (!newTag.length) {
+          this.Myarray = [];
+          this.MylistEmploi.forEach((el) => {
+            this.days.forEach((item) => {
+              if (el.days.includes(item.id)) {
+                this.Myarray.push(el);
+              }
+            });
+          });
+          this.list = [...new Set(this.Myarray)];
+        }
+      }
+      if (!this.Myarray.length) {
+        this.Myarray = [];
+        this.MylistEmploi.forEach((element) => {
+          newTag.forEach((e) => {
+            if (element.acquis.includes(e.competence)) {
+              this.Myarray.push(element);
+            }
+          });
+        });
+        this.list = [...new Set(this.Myarray)];
+        console.log("list de competences", this.list);
+
+        console.log("list de jour", this.Myarray);
+        this.hideButtons = true;
+
+        if (!newTag.length) {
+          this.list = this.MylistEmploi;
+          this.hideButtons = false;
+        }
+      }
+    },
+    deleteDays(day) {
+      const idx = this.days.findIndex((d) => d.id === day.id);
+      console.log(day.id);
+      if (idx >= 0) {
+        this.days.splice(idx, 1);
+      }
+      this.Myarray = [];
+      this.MylistEmploi.forEach((elet) => {
+        this.days.forEach((item) => {
+          if (elet.days.includes(item.id)) {
+            this.Myarray.push(elet);
+          }
+        });
+      });
+      this.list = [...new Set(this.Myarray)];
+      if (!this.days.length) {
+        this.list = this.MylistEmploi;
+        this.hideButtons = true;
+      }
+    },
+    cleanArray() {
+      this.Myarray = [];
+      this.list = [];
+    },
+    selectJour(jour) {
+      this.Myarray = [];
+      this.list = [];
+      this.MylistEmploi.forEach((element) => {
+        jour.forEach((e) => {
+          if (element.days.includes(e)) {
+            this.Myarray.push(element);
+          }
+        });
+      });
+      this.list = [...new Set(this.Myarray)];
+    },
+    addPersonAtWishLit(person) {
+      this.$store.commit("addPersonAtWishLit", person);
+      this.isWhished[person.id] = !this.isWhished[person.id];
+    },
+    showMyCalender(id) {
+      console.log(id);
+    },
+    defineTotalHour(hour) {
+      if (hour.length > 0) {
+        return hour.reduce((a, b) => a + b);
+      }
+    },
+    loadMore() {
+      if (this.length > this.list.length) return;
+      this.length = this.length + 4;
+      if (this.length === this.list.length) {
+        this.showEndResearch = !this.showEndResearch;
+      }
+    },
+    async get_list_emploi() {
+      loadingSpinner.launchLoading(true);
+      await instance
+        .get("list_emplois_temps")
+        .then((res) => {
+          console.log("EMPLOI", res.data.data);
+          res.data.data.forEach((element) => {
+            let days = [];
+            let hours = [];
+            let competences = [];
+
+            element.jours.forEach((day) => {
+              days.push(day.jour);
+              hours.push(day.totalHour);
+            });
+            element.days = days;
+            element.hours = hours;
+            element.competences.forEach((comp) => {
+              competences.push(comp.competence);
+            });
+            element.acquis = competences;
+            this.isWhished[element.id] = false;
+            this.$store.state.whistListPerson.forEach((person) => {
+              if (element.id === person.id) {
+                this.isWhished[element.id] = true;
+              }
+            });
+          });
+          this.list = res.data.data;
+          this.MylistEmploi = res.data.data;
+          console.log("LIST", this.MylistEmploi);
+
+          this.lengthOfMylistEmploi = this.MylistEmploi.length;
+          console.log("EMPLOI DU TEMPS", this.list_emploi);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(()=>{
+         loadingSpinner.launchLoading(false);
+        })
+      
+    },
+    closeDetailTimetable() {
+      this.details_timetable = !this.details_timetable;
+      this.id_detail_timetable = "";
+      this.selectedOffreWithDate = "";
+      this.selectedOffreWithPeriode = "";
+      this.checkboxDate = false;
+      this.checkbox = false;
+    },
+    optionDate(studentId) {
+      loadingSpinner.launchLoading(true);
+      // this.loadSpinner = true;
+      console.log("datesChoice", this.datesChoice);
+      let date = [];
+
+      this.datesChoice.forEach((item) => {
+        date.push(new Date(item).toISOString().slice(0, 10));
+      });
+      let VerfDoublonInDate = [...new Set(date)];
+      console.log("date", date);
+      instance
+        .post("entreprise_student", {
+          student_id: studentId,
+          date: VerfDoublonInDate,
+          option: "date",
+          offre_id: this.selectedOffreWithDate,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            // this.loadSpinner = false;
+            // setTimeout(() =>{
+            //   location.reload(true)
+            // },3000)
+          }
+          if (res.data.status === false) {
+            Swal.fire({
+              icon: "error",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            // this.loadSpinner = false;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            icon: "info",
+            title: err.response.data.message,
+            showConfirmButton: true,
+          });
+        })
+        .finally(() => {
+          loadingSpinner.launchLoading(false);
+        });
+    },
+    async optionPeriode(EntrepriseId) {
+      loadingSpinner.launchLoading(true);
+      await instance
+        .post("entreprise_student", {
+          student_id: EntrepriseId,
+          date_debut: this.dateDebut,
+          date_fin: this.dateFin,
+          option: "periode",
+          offre_id: this.selectedOffreWithPeriode,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          }
+          if (res.data.status === false) {
+            Swal.fire({
+              icon: "error",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            icon: "info",
+            title: "Vérifier votre connexion ou les informations que vous envoyer",
+            showConfirmButton: true,
+          });
+        });
+      loadingSpinner.launchLoading(false);
+    },
+    async getall() {
+      loadingSpinner.launchLoading(true);
+      await instance
+        .get("getAllWishlist")
+        .then((response) => {
+          console.log("WISHLIST", response.data.data.wishlists);
+          response.data.data.wishlists.forEach((item) => {
+            this.verfIfStudentExistInWishlist.push(item.user_id);
+          });
+        })
+        .catch((error) => {
+          console.log("error3", error);
+        });
+      loadingSpinner.launchLoading(false);
+    },
+    AllCompetencesPredf() {
+      instance
+        .get("GetAllCompetences")
+        .then((res) => {
+          console.log("competencesPredefini", res);
+          this.competencesPredefini = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    verfEnter() {
+      if (this.user && this.user.user.statut.statut === "etudiant") {
+        Swal.fire({
+          icon: "error",
+          title: "Vous n'êtes pas autorisé26.",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        setTimeout(() => {
+          this.$router.push("/");
+        }, 3000);
+      }
+    },
+    async selectOffreEntreprise() {
+      try {
+        const response = await instance.get("get_offres_entreprise");
+        this.selectedService = response.data.data.filter(
+          (item) =>
+            JSON.stringify(new Date(item.fin)) >
+            JSON.stringify(new Date().toISOString().substring(0, 10))
+        );
+        console.log("this.selectedService", this.selectedService);
+      } catch (error) {
+        console.log("error", error);
+      }
+    },
+    removeDate(date, hide) {
+      this.datesPickers = this.datesPickers.filter((d) => d !== date);
+      hide();
+    },
+    dateSelected(e, date, toggle) {
+      this.selecteDatepickers = date;
+      toggle({ ref: e.target });
+    },
+    jourSelect() {
+      return this.jourOfMois.forEach((element) => {
+        let month = new Date().getMonth() + 1;
+        let year = new Date().getFullYear();
+        console.log(element.jour + "-" + month + "-" + year);
+        return element.jour + "-" + month + "-" + year;
+      });
+    },
+    async handleAbonnement() {
+      console.log("handleAbonnement");
+      try {
+        const response = await instance.get("abonnement_user");
+        console.log("responseHandleAbonnement", response);
+        this.listAbonnement = response.data.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  async created() {
+    this.handleAbonnement();
+    this.get_list_emploi();
+    this.getAllCompetences();
+    this.AllCompetencesPredf();
+    this.verfEnter();
+    this.getDetailStudent();
+    this.selectOffreEntreprise();
+    this.texte = await this.handleTranslate("Disponible");
+    this.texte1 = await this.handleTranslate("Occupé");
+    this.texte2 = await this.handleTranslate("Horaire");
+    this.texte3 = await this.handleTranslate("Choisir la date");
+    this.texte4 = await this.handleTranslate("Choisir une offre");
+    this.texte5 = await this.handleTranslate("Sélectionner une offre");
+    this.texte6 = await this.handleTranslate("Pas d'offres");
+    this.texte7 = await this.handleTranslate("Envoyer");
+    this.texte8 = await this.handleTranslate(
+      "Ce talent n'a pas encore fait un abonnement."
+    );
+    this.texte9 = await this.handleTranslate("Vous devez faire un abonnement");
+  },
+};
+</script>
+
+<template>
+  <div>
+    <div class="conteneur_student" v-if="timetable_for_student">
+      <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
+
+      <BodyExperience :timetable_for_student="timetable_for_student" />
+
+      <section class="conteneur_calendar_student">
+        <div class="jobs-result">
+          <div class="disponibilite">
+            <span>
+              <strong class="jou"></strong> {{ texte }} <strong class="notDispo"></strong
+              >{{ texte1 }}
+            </span>
+          </div>
+          <div class="container-fluid my-5 conteneur_timetable">
+            <Calendar :attributes="attributes" :min-date="new Date()" class="myCalender">
+              <template #day-popover="{ attributes }">
+                <ul>
+                  <li
+                    v-for="(item, index) in attributes"
+                    :key="index"
+                    class="listeForHoraire"
+                  >
+                    <strong class="d-block">
+                      <span class="colorForFirstHoraire"></span>
+                      {{ texte2 }} : {{ item.popover.label.one }}</strong
+                    >
+                    <strong v-if="item.popover.label.two != null"
+                      ><span class="colorForSecondHoraire"></span> {{ texte2 }} :
+                      {{ item.popover.label.two }}</strong
+                    >
+                  </li>
+                </ul>
+              </template>
+            </Calendar>
+          </div>
+        </div>
+        <div class="conteneur_date">
+          <label class="d-block">{{ texte3 }}</label>
+          <PrimeCalendar
+            v-model="datesChoice"
+            :minDate="new Date()"
+            inputClass="prime_calendar"
+            selectionMode="multiple"
+            :manualInput="false"
+            dateFormat="dd/mm/yy"
+          />
+
+          <div class="selecte_service my-3">
+            <label class="d-block">{{ texte4 }}</label>
+            <!-- <a-auto-complete
+            v-model:value="selectedOffreWithDate"
+            :options="selectedService"
+            style="width: 100%"
+            placeholder="input here"
+            :filter-option="filterOption"
+          /> -->
+            <select
+              name="select_offre"
+              id="select_offre"
+              v-model="selectedOffreWithDate"
+              class="my-3"
+            >
+              <option value="" disabled>{{ texte5 }}</option>
+              <option
+                :value="offre.id"
+                v-for="(offre, index) in selectedService"
+                :key="index"
+              >
+                {{ offre.nom_offre }}
+              </option>
+              <option disabled v-if="!selectedService.length">{{ texte6 }}</option>
+            </select>
+          </div>
+
+          <div
+            class="conteneurInter"
+            v-if="
+              configUtils.isAbonnementActif(timetable_for_student.user.abonement) &&
+              configUtils.isAbonnementActif(listAbonnement)
+            "
+          >
+            <button
+              class="btn btn-warning btn-designer my-3"
+              type="submit"
+              :disabled="!this.selectedOffreWithDate || !this.datesChoice.length"
+              @click="optionDate(timetable_for_student.id)"
+            >
+              {{ texte7 }}
+            </button>
+          </div>
+          <div class="text-center fw-bold">
+            <h5
+              class="text-danger"
+              v-if="!configUtils.isAbonnementActif(timetable_for_student.user.abonement)"
+            >
+              {{ texte8 }}
+            </h5>
+            <h5 class="text-danger" v-if="!configUtils.isAbonnementActif(listAbonnement)">
+              {{ texte9 }}
+            </h5>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="conteneur_student py-5" v-else>
+     <h6>Chargement...</h6>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+:deep(.p-inputwrapper) {
+  width: 500px !important;
+}
+
+.selecte_service select {
+  width: 500px !important;
+}
+.conteneur_calendar_student {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+.conteneur_calendar_student .jobs-result {
+  flex: 1 1 200px;
+}
+.conteneur_calendar_student .conteneur_date {
+  flex: 2 2 200px;
+}
+.spinner-border {
+  height: 100vh !important;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  align-items: center;
+}
+.n-rate {
+  width: 100%;
+  margin-left: 1em;
+  font-size: 2em;
+}
+h1 {
+  font-size: 4em;
+}
+.choose_periode {
+  margin-left: 1.5em;
+}
+.experience {
+  cursor: pointer;
+  padding: 0.5em 0.5em;
+  font-size: 1.5em;
+}
+.conteneur_student {
+  margin-top: 6em;
+  padding: 0 5em;
+}
+
+select {
+  padding: 0.8em !important;
+}
+.pagination_btn {
+  margin: 0 0.1em;
+  border: 1px solid teal;
+  background: transparent;
+  border-radius: 5px;
+}
+.color {
+  border: 1px solid white;
+  background: #f77f00 !important;
+}
+.rond {
+  width: 45px;
+  height: 45px;
+  margin-left: 1em;
+  background: rgba(255, 255, 255, 0.232);
+  border-radius: 100%;
+  line-height: 45px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
+  text-align: center;
+}
+.content_commentaire {
+  text-align: left;
+}
+
+.vue3-star-ratings {
+  display: none;
+}
+hr {
+  border-top: 1px solid #5050501a !important;
+}
+.notDispo,
+.red {
+  background: crimson !important;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+.button {
+  width: auto !important;
+  padding: 0.9em !important;
+  margin-left: 0.5em !important;
+  margin-bottom: 0.2em !important;
+  margin-top: 0.98em !important;
+  background: rgb(255, 255, 255) !important;
+  border-radius: 5px !important;
+  border: none !important;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.303);
+}
+.flex-periode {
+  flex-direction: column;
+}
+.jou {
+  background: linear-gradient(10deg, rgb(2, 123, 56), rgb(0, 230, 31)) !important;
+  color: rgb(255, 255, 255) !important;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+</style>
