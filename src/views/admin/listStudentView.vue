@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
 import $ from "jquery";
@@ -16,6 +17,20 @@ export default {
     };
   },
   methods: {
+     verifIfAbonnementCurrently(value) {
+      let valueAbonnementCurrently = null;
+      if (!value.length) {
+        return "Pas d'abonnement";
+      }
+      value?.forEach((element) => {
+        if (element.statut === "success") {
+          valueAbonnementCurrently = element;
+        }
+      });
+      return valueAbonnementCurrently?.abonement?.libelle
+        ? valueAbonnementCurrently?.abonement?.libelle
+        : null;
+    },
     see_details(id) {
       this.see_detail_students = !this.see_detail_students;
       this.id_student = id;
@@ -214,8 +229,9 @@ export default {
                   <th class="bg-light">Ville</th>
                   <th class="bg-light">Commune</th>
                   <th class="bg-light">Quartier</th>
-                  <th class="bg-light">Diplome</th>
+                  <!-- <th class="bg-light">Diplome</th> -->
                   <th class="bg-light">Télephone</th>
+                  <th class="bg-light">Formule d'abonnement</th>
                   <th class="bg-light">Détails</th>
                 </tr>
               </thead>
@@ -232,12 +248,13 @@ export default {
                   <td>
                     {{ item.quartier }}
                   </td>
-                  <td>
+                  <!-- <td>
                     {{ item.diplome }}
-                  </td>
+                  </td> -->
                   <td>
                     {{ item.phone }}
                   </td>
+                  <td>{{this.verifIfAbonnementCurrently(item?.user?.abonement)}}</td>
                   <td>
                     <router-link
                       :to="{

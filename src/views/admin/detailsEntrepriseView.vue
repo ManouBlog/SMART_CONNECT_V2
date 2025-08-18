@@ -187,7 +187,7 @@ export default {
               />
           </h4>
           
-          <h4>
+          <h4 v-if="entreprise?.registre">
             <b
               >Registre de commerce :
                 <n-button type="warning" @click="showModal = true">

@@ -66,6 +66,20 @@ export default {
           console.log(err);
         });
     },
+     verifIfAbonnementCurrently(value) {
+      let valueAbonnementCurrently = null;
+      if (!value.length) {
+        return "Pas d'abonnement";
+      }
+      value?.forEach((element) => {
+        if (element.statut === "success") {
+          valueAbonnementCurrently = element;
+        }
+      });
+      return valueAbonnementCurrently?.abonement?.libelle
+        ? valueAbonnementCurrently?.abonement?.libelle
+        : null;
+    },
   },
   created() {
     this.get_users();
@@ -186,7 +200,7 @@ export default {
                   <th class="bg-light">Nom</th>
                   <th class="bg-light">email</th>
                   <th class="bg-light">Profil</th>
-
+                   <th class="bg-light">Formule d'abonnement</th>
                   <th class="bg-light">Détails</th>
                 </tr>
               </thead>
@@ -199,6 +213,9 @@ export default {
                     <!-- <span v-else class="badge bg-info"
                       >pas de registre de commerce</span
                     > -->
+                  </td>
+                  <td>
+                    {{ this.verifIfAbonnementCurrently(item?.user?.abonement)}}
                   </td>
 
                   <td class="d-flex justify-content-center align-items-center">

@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -22,9 +23,7 @@ export default {
       this.spinner = true;
       console.log("this.$route", this.$route);
       const myRoute =
-        this.$route.params.name === "visiteur"
-          ? "list_visiteurs"
-          : "list_students";
+        this.$route.params.name === "visiteur" ? "list_visiteurs" : "list_students";
       axios
         .get("http://127.0.0.1:8000/api/" + myRoute, {
           headers: {
@@ -35,9 +34,7 @@ export default {
           console.log(res);
           this.students = res.data.data;
 
-          this.student = this.students.find(
-            (item) => item.id == this.$route.params.id
-          );
+          this.student = this.students.find((item) => item.id == this.$route.params.id);
           this.jours = this.student?.jours;
           if ($.fn.DataTable.isDataTable("#MyTableData")) {
             $("#MyTableData").DataTable().destroy();
@@ -94,10 +91,10 @@ export default {
     verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
       if (!value.length) {
-        return null;
+        return "Pas d'abonnement";
       }
       value?.forEach((element) => {
-        if (element.statut === "ACCEPTED") {
+        if (element.statut === "success") {
           valueAbonnementCurrently = element;
         }
       });
@@ -137,23 +134,14 @@ export default {
         <div class="text-start">
           <h4 class="badge bg-info">
             <b>Formule d'abonnement</b> :
-            {{
-              this.verifIfAbonnementCurrently(student?.user?.abonement)
-                ? this.verifIfAbonnementCurrently(student?.user?.abonement)
-                : "Pas d'abonnement"
-            }}
+            {{ this.verifIfAbonnementCurrently(student?.user?.abonement) }}
           </h4>
         </div>
         <div class="row">
           <div class="col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Nom</label>
-              <input
-                disabled
-                v-model="student.nom"
-                class="form-control"
-                type="text"
-              />
+              <input disabled v-model="student.nom" class="form-control" type="text" />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
@@ -170,34 +158,19 @@ export default {
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Email</label>
-              <input
-                v-model="student.email"
-                class="form-control"
-                type="email"
-                disabled
-              />
+              <input v-model="student.email" class="form-control" type="email" disabled />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Téléphone</label>
-              <input
-                disabled
-                v-model="student.phone"
-                class="form-control"
-                type="text"
-              />
+              <input disabled v-model="student.phone" class="form-control" type="text" />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">ville</label>
-              <input
-                disabled
-                v-model="student.ville"
-                class="form-control"
-                type="text"
-              />
+              <input disabled v-model="student.ville" class="form-control" type="text" />
             </div>
           </div>
           <div class="col-md-3">
@@ -237,9 +210,7 @@ export default {
             <div class="mb-3 text-start">
               <label class="form-label">Carte étudiante</label>
               <Image
-                :src="`${
-                  'http://127.0.0.1:8000/storage/images/' + student?.photo
-                }`"
+                :src="`${'http://127.0.0.1:8000/storage/images/' + student?.photo}`"
                 :alt="student?.photo"
                 width="250"
                 preview
@@ -332,10 +303,7 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(item, index) in student?.user?.abonement"
-                :key="index"
-              >
+              <tr v-for="(item, index) in student?.user?.abonement" :key="index">
                 <td>
                   {{ new Date(item.created_at).toLocaleDateString("fr") }}
                 </td>
@@ -355,9 +323,7 @@ export default {
                 <td>
                   <p
                     class="badge"
-                    :class="
-                      item.statut === 'success' ? 'bg-success' : 'bg-danger'
-                    "
+                    :class="item.statut === 'success' ? 'bg-success' : 'bg-danger'"
                   >
                     {{ item.statut }}
                   </p>
