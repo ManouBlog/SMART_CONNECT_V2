@@ -2,7 +2,7 @@
 import instance from "../api/api";
 import Swal from "sweetalert2";
 import "@kong/kongponents/dist/style.css";
-import SelectLanguage from "./feature/header/SelectLanguage.vue";
+// import SelectLanguage from "./feature/header/SelectLanguage.vue";
 import LiensNavBar from "./feature/header/LiensNavBar.vue";
 import InfoEntreprise from "./feature/header/Entreprise/InfoEntreprise.vue";
 import InfoStudent from "./feature/header/Student/InfoStudent.vue";
@@ -17,7 +17,7 @@ export default {
   name: "Header",
   components: {
     MenuMobile,
-    SelectLanguage,
+    // SelectLanguage,
     LiensNavBar,
     InfoEntreprise,
     InfoStudent,
@@ -246,9 +246,9 @@ export default {
                   />
                   <LiensNavBar :texte="texte" :route_lien="'abonnements'" />
                   <LiensNavBar :texte="texte4" :route_lien="'contact'" />
-                  <li>
+                  <!-- <li>
                     <SelectLanguage />
-                  </li>
+                  </li> -->
                   <li
                     v-if="
                       this.$store.state.user &&
