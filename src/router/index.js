@@ -102,6 +102,15 @@ const routes = [
         },
       },
       {
+        path: "/publicite",
+        name: "publicite",
+        component: () => import("../views/admin/Publicite/PubliciteView.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "/Visiteurs",
         name: "students_visiteurs",
         component: () => import("../views/admin/VisiteursView.vue"),

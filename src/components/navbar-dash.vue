@@ -186,6 +186,15 @@ export default {
               <strong>Historique de paiement</strong></router-link
             >
           </li>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-pencil-square" style="margin-left: -1.2em"></i>
+            <router-link :to="{ name: 'publicite' }">
+              <strong>Publicité</strong></router-link
+            >
+          </li>
         </ul>
       </div>
       <nav class="sidebar-main">
