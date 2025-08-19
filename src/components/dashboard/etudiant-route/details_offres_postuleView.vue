@@ -17,6 +17,16 @@ export default {
       details_offre: null,
       moneyFormat: new Intl.NumberFormat("de-DE"),
       showModal:false,
+      Statut:{
+        1:'Acceptée',
+        2:'Rejetée',
+        0:'En attente de reponse'
+      },
+      statutColor:{
+       1:'bg-success',
+       2:'bg-danger',
+       0:'bg-info'
+      },
       avis:"",
       numberRate:"",
     };
@@ -32,12 +42,12 @@ export default {
         this.details_offre = this.offres.find(
           (item) => item.id == this.$route.params.id
         );
-        if(this.details_offre.pivot.recruit === 1 && 
-        JSON.stringify(new Date().toISOString().substring(0,10)) 
-        > JSON.stringify(new Date(this.details_offre.fin).toISOString().slice(0,10))
-        ){
-          this.showModal = true;
-        }
+        // if(this.details_offre.pivot.recruit === 1 && 
+        // JSON.stringify(new Date().toISOString().substring(0,10)) 
+        // > JSON.stringify(new Date(this.details_offre.fin).toISOString().slice(0,10))
+        // ){
+        //   this.showModal = true;
+        // }
         loadingSpinner.launchLoading(false);
         console.log("DETAILS_OFFRES", this.details_offre);
       });
@@ -92,6 +102,7 @@ export default {
       :TitleHeader="`Détails de l' Offre`"
       :subTitleHeader="`Détails de l'Offre`"
     />
+    <!-- <pre>{{details_offre}}</pre> -->
       <n-modal v-model:show="showModal">
         <n-card
           style="width: 600px"
@@ -131,7 +142,9 @@ export default {
       </n-modal>
       <div class="container-fluid">
         <div class="details_entreprise card">
-          <h1>Offre : {{ details_offre.nom_offre }}</h1>
+          
+          <h1>Offre : {{ details_offre.nom_offre }} 
+            <span class="badge w-25" :class="statutColor[details_offre.pivot.recruit]">{{Statut[details_offre.pivot.recruit]}}</span></h1>
           <h4>
             Lieu : <b>{{ details_offre.lieu }}</b>
           </h4>
@@ -177,7 +190,7 @@ export default {
             }}</b></h6
           >
             <button
-            v-if="JSON.stringify(new Date().toISOString().substring(0,10)) 
+            v-if=" details_offre.pivot.recruit === 1 && JSON.stringify(new Date().toISOString().substring(0,10)) 
             > JSON.stringify(new Date(this.details_offre.fin).toISOString().slice(0,10))"
             class="btn-lg bg-warning mt-3" 
             @click="showModal = !showModal"

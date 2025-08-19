@@ -42,6 +42,10 @@ export default {
 </script>
 
 <style>
+html {
+    font-size: 0.7em !important;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+}
 .p-icon .p-rating-icon {
   font-size: 2em !important;
 }

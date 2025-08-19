@@ -6,6 +6,8 @@ import { mapActions } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 // import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 // import Editor from "../components/text-editor.vue";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
+const loadingSpinner = useLoadingSpinner()
 export default {
   name: "CompetencesAndExperience",
   components: {
@@ -80,7 +82,6 @@ export default {
     getAllCompetencesByStudents() {
       instance
         .get("getCompetenceByStudents")
-
         .then((res) => {
           console.log("AllCompetences", res.data.data);
           if (res.data.status === true) {
@@ -89,6 +90,7 @@ export default {
         });
     },
     addCompetences() {
+      loadingSpinner.launchLoading(true);
       this.spinnerCompetence = true;
       instance
         .post("addCompetences", {
@@ -127,7 +129,8 @@ export default {
           this.spinnerCompetence = false;
         })
         .finally(()=>{
-          this.getAllCompetences();
+          this.getAllCompetencesByStudents();
+          loadingSpinner.launchLoading(false);
         })
     },
     getAllCompetences() {
@@ -161,35 +164,34 @@ export default {
       this.id_for_delete = "";
     },
     deleteMyCompetence() {
-      this.spinner = true;
+      loadingSpinner.launchLoading(true);
       instance
         .delete("deleteCompetencesOfStudents/" + this.id_for_delete)
         .then((res) => {
           console.log(res);
           if (res.data.status === true) {
-            this.getAllCompetences();
             Swal.fire({
               icon: "success",
               title: res.data.message,
               showConfirmButton: false,
               timer: 1500,
             });
-            this.spinner = false;
-            this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
+            this.notDeleteCompetence()
           }
         })
         .catch((err) => {
           console.log(err);
-          this.spinner = false;
         })
         .finally(()=>{
-          this.getAllCompetences();
+          this.getAllCompetencesByStudents();
+          loadingSpinner.launchLoading(false);
         })
     },
     addNouvelExperience() {
       this.toogleNouvelleExperience = !this.toogleNouvelleExperience;
     },
     saveExperience() {
+      loadingSpinner.launchLoading(true);
       let formData = new FormData();
       formData.append("experience", this.experience);
       formData.append("lieu", this.lieu);
@@ -211,7 +213,10 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-        });
+        })
+        .finally(()=>{
+          loadingSpinner.launchLoading(false);
+        })
     },
     async getAllExperiences() {
       if(this.$store.state.token &&
@@ -406,7 +411,7 @@ export default {
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>{{texte6}}</label>
-              <input type="file" accept="image/*" @change="onFileProof" required />
+              <input type="file" accept="image/*" @change="onFileProof" />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>{{texte7}}</label>
@@ -699,9 +704,6 @@ export default {
 </template>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style scoped>
-*{
-  font-size:1em !important;
-}
 .card {
   margin-bottom: 0px;
   border: none;
