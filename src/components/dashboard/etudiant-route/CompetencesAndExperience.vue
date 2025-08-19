@@ -125,7 +125,10 @@ export default {
             showConfirmButton: true,
           });
           this.spinnerCompetence = false;
-        });
+        })
+        .finally(()=>{
+          this.getAllCompetences();
+        })
     },
     getAllCompetences() {
       instance
@@ -178,7 +181,10 @@ export default {
         .catch((err) => {
           console.log(err);
           this.spinner = false;
-        });
+        })
+        .finally(()=>{
+          this.getAllCompetences();
+        })
     },
     addNouvelExperience() {
       this.toogleNouvelleExperience = !this.toogleNouvelleExperience;
@@ -693,6 +699,9 @@ export default {
 </template>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style scoped>
+*{
+  font-size:1.1em !important;
+}
 .card {
   margin-bottom: 0px;
   border: none;

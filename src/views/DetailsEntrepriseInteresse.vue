@@ -56,7 +56,7 @@ export default {
         .get("see_entreprise_student")
         .then((res) => {
           console.log("see_entreprise_student", res);
-          this.DetailSeeEntreprise = res.data.data.find((item) => item.offre_id == this.$route.params.id);
+          this.DetailSeeEntreprise = res.data.data.find((item) => item.id == this.$route.params.id);
           console.log("this.DetailSeeEntreprise", this.DetailSeeEntreprise);
         })
         .catch((err) => {
@@ -98,6 +98,7 @@ export default {
           });
         })
         .finally(()=>{
+          this.get_offre_detail_interesse();
             loadingSpinner.launchLoading(false);
         })
     },
@@ -126,7 +127,7 @@ export default {
      this.texte14 = await this.handleTranslate('Voir les Détails');
      this.texte15 =  await this.handleTranslate('Offre Expirée');
      this.texte16 =  await this.handleTranslate('Charger plus');
-     this.texte66 = await this.handleTranslate('Refuser');
+     this.texte66 = await this.handleTranslate('Rejeter');
   },
 };
 </script>
@@ -211,11 +212,13 @@ export default {
                   
                 </button>
               </section>
+             
               <p 
               class="d-flex justify-content-center"
               style="color:#00ff04" 
               v-else-if="DetailSeeEntreprise.contrat === 1">Offre Acceptée</p>
               <p class="text-danger d-flex justify-content-center" v-else>Offre refusée</p>
+              <!-- <pre> {{ DetailSeeEntreprise.contrat }}</pre> -->
             </div>
           </div>
         </div>
