@@ -56,6 +56,7 @@ export default {
         .finally(() => {
           this.get_publicite(1);
           this.spinner = false;
+          this.lienAffiche = null;
         });
     },
     get_publicite(isLoading = null) {
