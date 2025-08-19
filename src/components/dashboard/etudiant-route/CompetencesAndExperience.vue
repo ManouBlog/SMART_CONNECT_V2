@@ -700,7 +700,7 @@ export default {
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style scoped>
 *{
-  font-size:1.1em !important;
+  font-size:1em !important;
 }
 .card {
   margin-bottom: 0px;
