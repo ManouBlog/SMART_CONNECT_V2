@@ -655,22 +655,15 @@ export default {
             Swal.fire({
               icon: "success",
               title: res.data.message,
-              showConfirmButton: false,
-              timer: 3000,
+              showConfirmButton: true,
             });
-            // this.loadSpinner = false;
-            // setTimeout(() =>{
-            //   location.reload(true)
-            // },3000)
           }
           if (res.data.status === false) {
             Swal.fire({
               icon: "error",
               title: res.data.message,
-              showConfirmButton: false,
-              timer: 2000,
+              showConfirmButton: true,
             });
-            // this.loadSpinner = false;
           }
         })
         .catch((err) => {
