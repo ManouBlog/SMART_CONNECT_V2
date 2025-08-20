@@ -255,11 +255,11 @@ h5 {
       <div class="attestation_infos">
         <p>
           <span class="span_info">{{texte1}}</span>
-          <span>{{ this.entreprise.nom }}</span>
+          <span>{{ this.entreprise.offre.entreprise.nom }}</span>
         </p>
         <p>
           <span class="span_info">{{texte2}}</span>
-          <span>{{ this.entreprise.contact }}</span>
+          <span>{{ this.entreprise.offre.entreprise.contact }}</span>
         </p>
       </div>
       <div class="my-5">
@@ -271,13 +271,13 @@ h5 {
 
       <p>
         {{texte5}}
-        <span class="mx-2">"{{ this.entreprise.nom }}"</span>{{texte6}}
+        <span class="mx-2">"{{ this.entreprise.offre.entreprise.nom }}"</span>{{texte6}}
         <span class="mx-2">"{{ user.nom }} {{ user.prenoms }}"</span>
         {{texte7}}
       </p>
       <div>
         <h5 class="my-5">{{texte8}} {{ myOffre.salaire }} Fcfa</h5>
-        <h5>{{texte9}} {{ entreprise.contact }}</h5>
+        <h5>{{texte9}} {{ entreprise.offre.entreprise.contact }}</h5>
         <h5 class="my-5">{{texte10}} {{ myOffre.lieu }}</h5>
       </div>
 

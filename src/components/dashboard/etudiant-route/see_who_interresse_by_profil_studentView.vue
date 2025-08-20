@@ -314,7 +314,7 @@ export default {
                 <template #body="slotProps">
                   <div class="d-flex align-items-center justify-content-center">
                     <span v-if="slotProps.data?.recruit === 1" 
-                    class="badge bg-info"
+                    class="badge bg-success"
                       >{{texte10}}</span
                     >
                     <span
