@@ -162,20 +162,20 @@ export default {
     this.get_entreprise_who_contact_student();
     this.texte = await this.handleTranslate('Contrats');
     this.texte1 = await this.handleTranslate(`Voulez-vous accepter l'offre ?`);
-     this.texte2 = await this.handleTranslate("Accepter");
+     this.texte2 = await this.handleTranslate("Sélectionner");
      this.texte3 = await this.handleTranslate(` Annuler`);
      this.texte4 = await this.handleTranslate("Voulez-vous rejeter l'offre ?");
      this.texte5 = await this.handleTranslate('Rejeter');
      this.texte6 = await this.handleTranslate('Recherche:');
      this.texte7 =  await this.handleTranslate(`Nom de l'entreprise`);
      this.texte8 =  await this.handleTranslate(`Email de l'entreprise`);
-     this.texte9 = await this.handleTranslate(`Echéance`);
+     this.texte9 = await this.handleTranslate(`Prise de poste`);
      this.texte90 = await this.handleTranslate(`Offre`);
-     this.texte10 = await this.handleTranslate("accepter");
+     this.texte10 = await this.handleTranslate("Sélectionné");
      this.texte11 = await this.handleTranslate('refuser');
      this.texte12 = await this.handleTranslate('En attente de reponse');
      this.texte13 = await this.handleTranslate('Rejeter');
-     this.texte14 = await this.handleTranslate('Accepter');
+     this.texte14 = await this.handleTranslate('Sélectionner');
      this.texte15 =  await this.handleTranslate('Expirée');
      this.texte16 =  await this.handleTranslate('Détails');
   },
@@ -285,7 +285,7 @@ export default {
                   <div>
                     <span
                       >{{
-                        slotProps.data?.offre?.fin
+                        slotProps.data?.offre?.job_debut
                       }}
                     </span>
                   </div>

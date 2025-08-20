@@ -116,7 +116,7 @@ export default {
      this.texte3 = await this.handleTranslate(`Date et heure de fin d'activité :`);
      this.texte4 = await this.handleTranslate('Description');
      this.texte5 = await this.handleTranslate('Postuler avant le :');
-     this.texte6 = await this.handleTranslate('Accepter');
+     this.texte6 = await this.handleTranslate('Sélectionner');
      this.texte7 =  await this.handleTranslate('Veuillez faire un abonnement avant de postuler à cette offre');
      this.texte8 =  await this.handleTranslate('Souscrire à un abonnement');
      this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);

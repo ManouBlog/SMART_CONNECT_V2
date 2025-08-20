@@ -248,7 +248,7 @@ switch (registerStore.infoUser) {
         <section class="text-right">
           <button class="btn-lg p-2 bg-warning" 
           @click.prevent="handleRegister">
-            {{!registerStore.isLoading ? 'Accepter':'chargement'}}
+            {{!registerStore.isLoading ? 'Sélectionner':'chargement'}}
           </button>
         </section>
       </div>

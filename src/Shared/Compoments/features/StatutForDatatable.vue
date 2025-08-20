@@ -17,7 +17,7 @@ export default {
 <template>
     <div>
         <span v-if="dataStatut.pivot.contrat === 1" class="badge bg-success"
-          >Accepter</span
+          >Sélectionner</span
         >
         <!-- <span
           class="mx-2"
