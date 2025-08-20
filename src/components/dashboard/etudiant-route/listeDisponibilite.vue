@@ -881,13 +881,20 @@ export default {
           :header="texte18"
         >
           <template #body="slotProps">
-            <div class="d-flex justify-content-center align-items-center">
-              <em class="bi bi-pencil" @click="show_timetable(slotProps.data.id)"></em>
+            <div 
+            v-if="new Date() < new Date(slotProps.data.jour)"
+            class="d-flex justify-content-center align-items-center">
+              <em class="bi bi-pencil" 
+              @click="show_timetable(slotProps.data.id)"></em>
               <em
                 class="bi bi-trash"
                 @click="show_box_confirmation_delete(slotProps.data.id)"
               ></em>
             </div>
+            <em 
+            v-else
+            class="bi bi-dash-circle text-danger" 
+            ></em>
           </template>
         </Column>
       </DataTable>
@@ -984,13 +991,19 @@ export default {
           :header="texte18"
         >
           <template #body="slotProps">
-            <div class="d-flex justify-content-center align-items-center">
+            <div 
+            v-if="new Date() < new Date(slotProps.data.periode_fin)"
+            class="d-flex justify-content-center align-items-center">
               <em class="bi bi-pencil" @click="show_timetable(slotProps.data.id)"></em>
               <em
                 class="bi bi-trash"
                 @click="show_box_confirmation_delete(slotProps.data.id)"
               ></em>
             </div>
+            <em 
+            v-else
+            class="bi bi-dash-circle text-danger" 
+            ></em>
           </template>
         </Column>
       </DataTable>

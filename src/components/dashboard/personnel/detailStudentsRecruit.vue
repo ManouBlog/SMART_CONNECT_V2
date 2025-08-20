@@ -123,7 +123,7 @@ export default {
     this.texte9 = await this.handleTranslate("Commune");
     this.texte10 = await this.handleTranslate('Télephone');
     this.texte11 = await this.handleTranslate('Diplome');
-    this.texte12 = await this.handleTranslate(`Galerie`);
+    this.texte12 = await this.handleTranslate(`Carte étudiante`);
     this.texte13 = await this.handleTranslate("Evaluer");
  
     this.texte14 = await this.handleTranslate('Plus tard');
@@ -222,6 +222,9 @@ export default {
 </template>
 
 <style scoped>
+h4{
+  margin:1.5em 0;
+}
 .conteneur-evaluation-offre {
   display: flex;
   justify-content: center;
