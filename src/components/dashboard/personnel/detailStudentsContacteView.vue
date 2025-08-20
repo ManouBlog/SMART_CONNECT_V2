@@ -277,11 +277,12 @@ export default {
 </template>
 
 <style scoped>
+
 .bi-person{
   font-size:3em;
 }
 h4 {
-  margin:1em 0;
+  margin:1.5em 0;
 }
 
 .bgExcellent {
