@@ -78,7 +78,7 @@ onMounted(async () => {
     <h1 class="text-center main-color">{{text0}}</h1>
     <n-card>
        <div class="d-flex justify-content-center">
-     <p class="w-50 p-3" style="background:#df3535;color:white;">
+     <p style="background:#df3535;color:white;">
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
      </p>
       </div>
@@ -99,10 +99,11 @@ onMounted(async () => {
         <n-tab-pane
           v-if="
             !store.state.user ||
-            store.state.user.user.statut.statut === 'entreprise'
+            store.state.user.user.statut.statut === 'entreprise' || 
+            store.state.user.user.statut.statut === 'particulier'
           "
-          :name="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
-          :tab="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
+          :name="defaulValueTranslate == 'fr' ? 'Entreprise/Particulier' :'Company'"
+          :tab="defaulValueTranslate == 'fr' ? 'Entreprise/Particulier' :'Company'"
         >
           <ContainerAbonnements
             :abonnements="abonnements"
@@ -111,7 +112,6 @@ onMounted(async () => {
         </n-tab-pane>
       </n-tabs>
     </n-card>
-<!-- <LoadingSpinner /> -->
   </div>
 </template>
 <style scoped>

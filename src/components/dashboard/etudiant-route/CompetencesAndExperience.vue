@@ -583,8 +583,8 @@ export default {
                           <table class="table">
                             <thead>
                               <tr>
-                                <th class="bg-light">{{texte22}}</th>
-                                <th class="bg-light">{{texte23}}</th>
+                                <th>{{texte22}}</th>
+                                <th>{{texte23}}</th>
                               </tr>
                             </thead>
                             <tbody>

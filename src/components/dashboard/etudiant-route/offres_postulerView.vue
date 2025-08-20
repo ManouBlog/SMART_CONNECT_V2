@@ -47,6 +47,7 @@ export default {
       texte14:"",
       texte15:"",
       texte16:"",
+      texte89:"",
       texte17:"",
       texte18:"",
       colorStatut: colorStatut,
@@ -88,6 +89,7 @@ export default {
      this.texte14 = await this.handleTranslate('Voir les Détails');
      this.texte15 =  await this.handleTranslate('Offre Expirée');
      this.texte16 =  await this.handleTranslate('Charger plus');
+     this.texte89 = await this.handleTranslate('Entreprise');
   },
 };
 </script>
@@ -136,6 +138,19 @@ export default {
                   </IconField>
                 </div>
               </template>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="nom_offre"
+                :header="texte89"
+              >
+              <template #body="slotProps">
+                  <span>
+                    {{
+                      slotProps.data.entreprise.nom
+                    }}</span
+                  >
+                </template>
+              </Column>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="nom_offre"

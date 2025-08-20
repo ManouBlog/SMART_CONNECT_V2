@@ -328,7 +328,7 @@ export default {
           </div>
           <div style="margin-top:-0.8em;">
             <button 
-            :disabled="!fieldSearch"
+            :disabled="!fieldSearch && !list_offre.length"
             :class="!fieldSearch  ? null:'bg-primary'"
             class="btn-lg" 
             @click.prevent="handleSearchClick">
