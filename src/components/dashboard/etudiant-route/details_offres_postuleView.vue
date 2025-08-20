@@ -152,16 +152,16 @@ export default {
             v-if="details_offre.salaire != null"
             class="d-block badge bg-warning"
           >
-            Prime : {{ moneyFormat.format(details_offre.salaire) }} Fcfa</span
+            Honoraire : {{ moneyFormat.format(details_offre.salaire) }} Fcfa</span
           >
           <span
             v-else
             class="d-block text-light badge bg-primary"
-            >Prime pas fixée</span
+            >Honoraire pas fixé</span
           >
           <hr />
       
-          <h3 style="color:gray">Description complète de l'offre</h3>
+          <h3 style="color:white;">Description complète de l'offre</h3>
           <div class="p-5" v-html="details_offre.description">
           </div>
           <hr />

@@ -42,6 +42,10 @@ export default {
 </script>
 
 <style>
+.card{
+  background: var(--secondary-color) !important;
+  color:var(--third-color) !important;
+}
 html {
     font-size: 0.7em !important;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0)

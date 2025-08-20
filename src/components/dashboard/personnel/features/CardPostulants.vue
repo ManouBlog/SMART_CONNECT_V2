@@ -125,7 +125,7 @@ export default {
          {{texte7}}
         </button>
         <button
-        class="btn-lg bg-danger mt-3 rounded-5"
+        class="btn-lg bg-danger mt-3 mx-3 rounded-5"
         style="border:none"
         @click="chooseStudent(InfoPostulant.id,2)">
          {{texte8}}

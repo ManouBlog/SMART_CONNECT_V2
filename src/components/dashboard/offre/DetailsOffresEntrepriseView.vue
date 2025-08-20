@@ -141,7 +141,7 @@ export default {
         </div>
         <hr />
         <div class="px-5">
-          <h3 class="fw-bold" style="color:gray;">{{texte3}}</h3>
+          <h3 class="fw-bold" style="color:white;">{{texte3}}</h3>
           <div class="description_html" v-html="entreprise.description"></div>
         </div>
 
