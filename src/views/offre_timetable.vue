@@ -6,6 +6,9 @@ import {configUtils} from "../Shared/Utils";
 import { mapActions } from "pinia";
 import {useLoadingSpinner} from "../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
+import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
+
+const RegisterStore = useRegisterStore();
 const loadingSpinner = useLoadingSpinner()
 export default {
   name: "Offre_timetable",
@@ -120,6 +123,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          RegisterStore.changeValueIsModal()
         })
         .finally(()=>{
            loadingSpinner.launchLoading(false)
