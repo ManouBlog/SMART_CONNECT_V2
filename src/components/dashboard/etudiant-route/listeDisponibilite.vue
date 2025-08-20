@@ -612,7 +612,7 @@ export default {
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
       <div class="card p-5">
-        <p class="h3 my-2">{{ texte1 }}</p>
+        <p class="h3 my-2" style="color:black;">{{ texte1 }}</p>
         <div>
           <button class="btn-lg bg-warning" @click="delete_timetable">
             {{ texte2 }}
@@ -881,8 +881,9 @@ export default {
           :header="texte18"
         >
           <template #body="slotProps">
+            
             <div 
-            v-if="new Date() < new Date(slotProps.data.jour)"
+            v-if="new Date(slotProps.data.jour).toLocaleDateString('fr') >= new Date().toLocaleDateString('fr')"
             class="d-flex justify-content-center align-items-center">
               <em class="bi bi-pencil" 
               @click="show_timetable(slotProps.data.id)"></em>
@@ -992,7 +993,7 @@ export default {
         >
           <template #body="slotProps">
             <div 
-            v-if="new Date() < new Date(slotProps.data.periode_fin)"
+            v-if="new Date(slotProps.data.periode_fin).toLocaleDateString('fr') >= new Date().toLocaleDateString('fr')"
             class="d-flex justify-content-center align-items-center">
               <em class="bi bi-pencil" @click="show_timetable(slotProps.data.id)"></em>
               <em

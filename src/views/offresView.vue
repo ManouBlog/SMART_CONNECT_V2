@@ -328,7 +328,7 @@ export default {
 
       <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
         <div class="card p-5">
-          <p class="h3 my-2">Voulez-vous vraiment supprimer?</p>
+          <p class="h3 my-2" style="color:black;">Voulez-vous vraiment supprimer?</p>
           <div>
             <button class="btn-lg bg-warning" @click="delete_offre">Supprimer</button>
             <button class="btn-lg bg-danger mx-2" @click="not_delete">Annuler</button>
