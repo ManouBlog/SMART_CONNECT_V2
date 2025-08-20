@@ -48,8 +48,9 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
+      texte27: "",
       data: null,
+      dataAlarm: 0,
     };
   },
   computed: {
@@ -98,17 +99,31 @@ export default {
           this.launchLoading(false);
         });
     },
+    async get_offres_interess_by_student() {
+      try {
+        const response = await instance.get("list_offres_interess_by_students");
+        console.log(
+          "get_offres_interess_by_student",
+          response.data.filter((item) => item.recruit === 0).length
+        );
+        if (response["status"] === 200) {
+          this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   async created() {
-     this.texte1 = await this.handleTranslate(`Tableau de bord`);
-     this.texte2 = await this.handleTranslate("Liste des offres");
-     this.texte3 = await this.handleTranslate('Créer une offre');
-     this.texte4 = await this.handleTranslate('Talents');
-     this.texte5 = await this.handleTranslate('Postulants');
-     this.texte6 = await this.handleTranslate('Mes abonnements');
-     this.texte7 =  await this.handleTranslate('Déconnexion');
-    
-   },
+    this.get_offres_interess_by_student();
+    this.texte1 = await this.handleTranslate(`Tableau de bord`);
+    this.texte2 = await this.handleTranslate("Liste des offres");
+    this.texte3 = await this.handleTranslate("Créer une offre");
+    this.texte4 = await this.handleTranslate("Talents");
+    this.texte5 = await this.handleTranslate("Postulants");
+    this.texte6 = await this.handleTranslate("Mes abonnements");
+    this.texte7 = await this.handleTranslate("Déconnexion");
+  },
 };
 </script>
 <template>
@@ -119,14 +134,14 @@ export default {
         v-if="this.$store.state.user"
         class="bi bi-person-workspace text-primary h3 compte_sup"
       ></em>
-      <!-- <DownOutlined /> -->
+      <span v-if="dataAlarm" class="badge bg-danger">{{ dataAlarm }}</span>
     </a>
     <template #overlay>
       <a-menu>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/accueil" class="d-block">
-              {{texte1}}
+              {{ texte1 }}
             </router-link>
           </li>
         </a-menu-item>
@@ -136,40 +151,37 @@ export default {
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/offre" class="d-block">
-              {{texte2}}
+              {{ texte2 }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/creation_offre" class="d-block">
-              {{texte3}}
+              {{ texte3 }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/personnel" class="d-block">
-             {{texte4}}
+              {{ texte4 }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/postulants" class="d-block">
-              {{texte5}}
+              {{ texte5 }} <span class="badge bg-danger" v-if="dataAlarm">{{dataAlarm}}</span>
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
-          <LiensNavBar
-            :texte="texte6"
-            :route_lien="'dashboard-abonnements'"
-          />
+          <LiensNavBar :texte="texte6" :route_lien="'dashboard-abonnements'" />
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
-            <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{texte7}}</a>
+            <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{ texte7 }}</a>
           </li>
         </a-menu-item>
       </a-menu>

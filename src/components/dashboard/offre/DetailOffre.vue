@@ -15,8 +15,9 @@ export default {
   },
   data() {
     return {
+      isLoading:false,
       loadingSpinner:useLoadingSpinner(),
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -86,7 +87,8 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
     update_offre() {
-      console.log("this.offre_id.competence_id",this.offre_id.competence_id)
+      this.loadingSpinner.launchLoading(true);
+      this.isLoading = true;
       instance
         .put("modify_offre_entreprise/" + this.$route.params.id, {
           nom_offre: this.offre_id.nom_offre,
@@ -117,7 +119,11 @@ export default {
             title: "erreur",
             showConfirmButton: true,
           });
-        });
+        })
+        .finally(()=>{
+          this.loadingSpinner.launchLoading(false);
+          this.isLoading = false;
+        })
     },
     show_offre_id() {
       this.loadingSpinner.launchLoading(true);
@@ -148,7 +154,7 @@ export default {
     this.show_offre_id();
     this.get_categorie();
     this.getAllCompetences();
-    this.texte = await this.handleTranslate('Modifier Mon offre');
+    this.texte0 = await this.handleTranslate('Modifier Mon offre');
     this.texte1 = await this.handleTranslate("Catégorie de l'offre");
     this.texte2 = await this.handleTranslate('Sélectionner une catégorie');
     this.texte3 = await this.handleTranslate("Choisir les compétences");
@@ -176,8 +182,8 @@ export default {
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-      :TitleHeader="texte"
-      :subTitleHeader="texte"
+      :TitleHeader="texte0"
+      :subTitleHeader="texte0"
     />
     <div class="form theme-form projectcreate">
       <form v-if="offre_id" class="container">
@@ -316,6 +322,7 @@ export default {
           <div class="col">
             <div class="text-end">
               <button
+              :disabled="isLoading"
                 class="btn p-5 mt-4 btn-designer fw-bold bg-warning"
                 @click.prevent="update_offre"
               >

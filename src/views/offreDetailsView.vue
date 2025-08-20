@@ -48,7 +48,7 @@ export default {
       loadSpinner: false,
       path: "",
       listEntrepriseOffre: [],
-      abonnements:""
+      abonnements:[]
     };
   },
   methods: {
