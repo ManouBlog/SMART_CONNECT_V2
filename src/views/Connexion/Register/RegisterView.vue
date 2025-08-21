@@ -13,7 +13,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -45,7 +45,7 @@ export default {
     }
   },
   async created() {
-    this.texte = await this.handleTranslate("Sélectionner un statut");
+    this.texte0 = await this.handleTranslate("Sélectionner un statut");
     this.texte1 = await this.handleTranslate(
       "Etudiant"
     );
@@ -61,7 +61,7 @@ export default {
     name="basic"
   >
     <div>
-      <span class="fw-bold">{{texte}}</span>
+      <span class="fw-bold">{{texte0}}</span>
       <a-select
         ref="select"
         v-model:value="value1"

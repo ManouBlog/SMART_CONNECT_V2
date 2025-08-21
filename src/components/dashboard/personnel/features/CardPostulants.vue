@@ -15,7 +15,7 @@ export default {
     },
     data() {
       return{
-        texte: "",
+      texte: "",
       texte2: "",
       texte3: "",
       texte1: "",

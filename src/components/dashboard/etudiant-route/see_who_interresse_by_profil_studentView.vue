@@ -177,7 +177,7 @@ export default {
      this.texte13 = await this.handleTranslate('Rejeter');
      this.texte14 = await this.handleTranslate('Sélectionner');
      this.texte15 =  await this.handleTranslate('Expirée');
-     this.texte16 =  await this.handleTranslate('Détails');
+     this.texte16 =  await this.handleTranslate('Action');
   },
 };
 </script>
@@ -328,7 +328,7 @@ export default {
                   </div>
                 </template>
               </Column>
-              <Column
+              <!-- <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="id"
                 header="Actions"
@@ -362,7 +362,7 @@ export default {
                   ></em>
                   </div>
                 </template>
-              </Column>
+              </Column> -->
               <Column
               style="font-size: 1.8em; padding: 1em; text-align: center"
               field="id"
@@ -382,10 +382,10 @@ export default {
                   params: { id: slotProps.data?.id },
                 }"
                 v-if="slotProps.data?.recruit === 1"
-                ><em class="bi bi-eye"></em
+                ><em class="bi bi-printer"></em
               ></router-link>
-              <span v-if="slotProps.data?.pivot?.alarm === 1"
-               class="badge bg-danger mx-3">New</span>
+              <!-- <span v-if="slotProps.data?.pivot?.alarm === 1"
+               class="badge bg-danger mx-3">New</span> -->
               </div>
               </template>
             </Column>

@@ -1,14 +1,8 @@
 import axios from "axios";
-export const lienPhoto = `${process.env.VUE_APP_LIENS_LOCAL}storage/images/`
-export const lienPDF = `${process.env.VUE_APP_LIENS_LOCAL}storage/pdf/`
+export const lienPhoto = `${process.env.VUE_APP_LIENS_BACKEND}storage/images/`
+export const lienPDF = `${process.env.VUE_APP_LIENS_BACKEND}storage/pdf/`
 const instance = axios.create({
-  baseURL: `${process.env.VUE_APP_LIENS_LOCAL}api`,
-  //  baseURL: "http://backend.smart-connect.online/api", // ton backend
-  // withCredentials: true, // ⚡️ important pour Sanctum & cookies cross-domain
-  // headers: {
-  //   "Accept": "application/json",
-  //   "Content-Type": "application/json",
-  // },
+  baseURL: `${process.env.VUE_APP_LIENS_BACKEND}api`,
 }); 
 
 instance.interceptors.request.use((config) => {

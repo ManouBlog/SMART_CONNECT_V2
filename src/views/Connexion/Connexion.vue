@@ -52,7 +52,8 @@ export default {
 };
 </script>
 <template>
-  <a-modal :footer="null" v-model:open="isModal" @cancel="changeValueIsModal" @ok="changeValueIsModal">
+  <a-modal :footer="null" 
+  v-model:open="isModal" @cancel="changeValueIsModal" @ok="changeValueIsModal">
     <div v-if="Number(tabsActive) === 1">
       <h2 class="text-center" style="color: orange">{{ texte }}</h2>
       <span>{{ texte1 }}</span>

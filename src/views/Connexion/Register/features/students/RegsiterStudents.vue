@@ -108,7 +108,7 @@ export default {
     this.texte5 = await this.handleTranslate("Quartier");
     this.texte6 = await this.handleTranslate("Email");
     this.texte7 = await this.handleTranslate("Compétences");
-    this.texte8 = await this.handleTranslate("Diplôme");
+    this.texte8 = await this.handleTranslate("Dernier diplôme");
     this.texte9 = await this.handleTranslate("Carte étudiante");
     this.texte10 = await this.handleTranslate("Mot de passe"); 
     this.texte11 = await this.handleTranslate("S'inscrire"); 
