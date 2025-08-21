@@ -191,6 +191,7 @@ export default {
     this.texte2 = await this.handleTranslate("Offre d'emploi");
     this.texte3 = await this.handleTranslate("Talents");
     this.texte4 = await this.handleTranslate("Contactez-nous");
+    this.texte6 = await this.handleTranslate("CGU");
     this.texte5 = await this.handleTranslate("Connexion");
   },
 };
@@ -246,6 +247,7 @@ export default {
                   />
                   <LiensNavBar :texte="texte" :route_lien="'abonnements'" />
                   <LiensNavBar :texte="texte4" :route_lien="'contact'" />
+                  <LiensNavBar :texte="texte6" :route_lien="'politiques'" />
                   <!-- <li>
                     <SelectLanguage />
                   </li> -->
@@ -274,6 +276,7 @@ export default {
                 >
                   {{ texte5 }}
                 </a>
+                 
                 <ListeFavoris v-if="this.$store.state.user" />
                 <div>
                   <InfoEntreprise

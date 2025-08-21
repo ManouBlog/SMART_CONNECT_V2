@@ -42,6 +42,11 @@ const routes = [
         component: () => import( '../views/About.vue')
       },
       {
+        path: '/CGU',
+        name: 'politiques',
+        component: () => import( '../views/politiquesView.vue')
+      },
+      {
         path: '/jobs',
         name: 'jobs',
         component: () => import( '../views/offre_timetable.vue')

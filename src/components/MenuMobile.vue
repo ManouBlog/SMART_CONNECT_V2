@@ -85,6 +85,7 @@ export default {
     this.texte2 = await this.handleTranslate("Offre d'emploi");
     this.texte3 = await this.handleTranslate("Abonnement");
     this.texte4 = await this.handleTranslate("Contactez-nous");
+      this.texte6 = await this.handleTranslate("CGU");
     this.texte5 = await this.handleTranslate("Déconnexion");
   },
 };
@@ -164,6 +165,15 @@ export default {
           class="d-block lien"
         >
           {{ texte4 }}
+        </router-link>
+      </li>
+      <li>
+        <router-link
+          :to="{ name: 'politiques' }"
+          @click.prevent="changeValueForshowMenuMobile"
+          class="d-block lien"
+        >
+          {{ texte6 }}
         </router-link>
       </li>
       <li v-if="this.$store.state.user">
