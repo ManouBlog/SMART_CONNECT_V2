@@ -39,13 +39,13 @@ export default {
   },
   async created() {
     this.texte = await this.handleTranslate("Saisissez votre e-mail");
-    this.texte1 = await this.handleTranslate(
-      "Nous vous aiderons à créer un compte si vous n'êtes pas encore inscrit"
-    );
+    // this.texte1 = await this.handleTranslate(
+    //   "Nous vous aiderons à créer un compte si vous n'êtes pas encore inscrit"
+    // );
     this.texte2 = await this.handleTranslate("Trouvez un emploi aujourd'hui");
-    this.texte3 = await this.handleTranslate(
-      "Nous vous aiderons à créer un compte si vous n'êtes pas encore inscrit"
-    );
+    // this.texte3 = await this.handleTranslate(
+    //   "Nous vous aiderons à créer un compte si vous n'êtes pas encore inscrit"
+    // );
     this.texte4 = await this.handleTranslate("CONNEXION");
     this.texte5 = await this.handleTranslate("INSCRIPTION");
   },
@@ -53,10 +53,12 @@ export default {
 </script>
 <template>
   <a-modal :footer="null" 
-  v-model:open="isModal" @cancel="changeValueIsModal" @ok="changeValueIsModal">
-    <div v-if="Number(tabsActive) === 1">
+  v-model:open="isModal" 
+  @cancel="changeValueIsModal" @ok="changeValueIsModal">
+    <div class="mycontent">
+      <div v-if="Number(tabsActive) === 1">
       <h2 class="text-center" style="color: orange">{{ texte }}</h2>
-      <span>{{ texte1 }}</span>
+      <!-- <span>{{ texte1 }}</span> -->
     </div>
     <div v-if="Number(tabsActive) === 2">
       <h2 class="text-center" style="color: orange">{{ texte2 }}</h2>
@@ -70,5 +72,12 @@ export default {
         <RegisterView />
       </a-tab-pane>
     </a-tabs>
+    </div>
   </a-modal>
 </template>
+<style scoped>
+.mycontent {
+  max-height: 80vh; /* 60% de la hauteur de l'écran (viewport) */
+  overflow-y: auto; /* Ajoute une barre de défilement verticale SI nécessaire */
+}
+</style>
