@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 // import Document from "@tiptap/extension-document";

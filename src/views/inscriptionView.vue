@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import Swal from "sweetalert2";
 import axios from "axios";
 export default {
@@ -32,13 +33,11 @@ export default {
       this.$router.push("/dashboard");
     },
     get_email_for_verif() {
-      axios.get("http://127.0.0.1:8000/api/list_users").then((res) => {
+      axios.get("https://backend.smart-connect.online/api/list_users").then((res) => {
         console.log(res);
         this.list_email = res.data.data;
 
-        this.My_email = this.list_email.find(
-          (item) => item.email == this.email
-        );
+        this.My_email = this.list_email.find((item) => item.email == this.email);
         console.log("EMAIL", this.My_email);
       });
     },
@@ -73,7 +72,7 @@ export default {
       this.get_email_for_verif();
       if (this.status == "student") {
         axios
-          .post("http://127.0.0.1:8000/api/list_users", {
+          .post("https://backend.smart-connect.online/api/list_users", {
             status: "student",
             nom: this.nom,
             prenoms: this.prenoms,
@@ -116,7 +115,7 @@ export default {
       }
       if (this.status == "entreprise") {
         axios
-          .post("http://127.0.0.1:8000/api/list_users", {
+          .post("https://backend.smart-connect.online/api/list_users", {
             status: "entreprise",
             nom: this.nom_entreprise,
             registre_commerce: this.registre_commerce,
@@ -172,43 +171,27 @@ export default {
               <i
                 class="bi bi-arrow-left-circle"
                 @click="back"
-                v-if="
-                  status_connex == 'etudiant' || status_connex == 'entreprise'
-                "
+                v-if="status_connex == 'etudiant' || status_connex == 'entreprise'"
               ></i>
               <h4>Créer un compte</h4>
               <h6>Entrer vos informations personnel pour créer votre compte</h6>
               <div class="row choose_statut" v-show="form">
-                <div
-                  class="col-md-6 col-sm-12 content mx-1"
-                  @click="connex_student"
-                >
+                <div class="col-md-6 col-sm-12 content mx-1" @click="connex_student">
                   <span class="h4">Etudiant</span>
                   <img :src="image1" alt="student" class="img" />
                 </div>
 
-                <div
-                  class="col-md-6 col-sm-12 content mx-1"
-                  @click="connex_entreprise"
-                >
+                <div class="col-md-6 col-sm-12 content mx-1" @click="connex_entreprise">
                   <span class="h4">Entreprise</span>
                   <img :src="image2" alt="company" class="img" />
                 </div>
               </div>
               <!--INSCRIPTION ETUDIANT-->
-              <form
-                @submit.prevent="inscription"
-                v-show="status_connex == 'etudiant'"
-              >
+              <form @submit.prevent="inscription" v-show="status_connex == 'etudiant'">
                 <div class="row">
                   <div class="form-group col-lg-6">
                     <label>Nom</label>
-                    <input
-                      type="text"
-                      v-model="nom"
-                      required
-                      placeholder="ex:Adjobi"
-                    />
+                    <input type="text" v-model="nom" required placeholder="ex:Adjobi" />
                   </div>
                   <div class="form-group col-lg-6">
                     <label>Prénoms</label>
@@ -304,10 +287,7 @@ export default {
                 </div>
               </form>
               <!--INSCRIPTION ENTREPRISE-->
-              <form
-                @submit.prevent="inscription"
-                v-show="status_connex == 'entreprise'"
-              >
+              <form @submit.prevent="inscription" v-show="status_connex == 'entreprise'">
                 <div class="row">
                   <div class="form-group col-md-6 col-sm-12">
                     <label>Entreprise</label>
@@ -320,13 +300,8 @@ export default {
                     <span
                       v-if="nom_entreprise"
                       class="d-block text-danger entreprise_caractere"
-                      ><b
-                        v-if="
-                          nom_entreprise.length == 2 ||
-                          nom_entreprise.length == 1
-                        "
-                        >*le nom de l'entreprise doit être plus de 3
-                        caractères</b
+                      ><b v-if="nom_entreprise.length == 2 || nom_entreprise.length == 1"
+                        >*le nom de l'entreprise doit être plus de 3 caractères</b
                       ></span
                     >
                   </div>

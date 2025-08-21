@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import $ from "jquery";
 import axios from "axios";
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -17,18 +18,18 @@ export default {
     get_offres_interess_by_student() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/list_offres_interess_by_students", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
+        .get(
+          "https://backend.smart-connect.online/api/list_offres_interess_by_students",
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
         .then((res) => {
           console.log(res);
           this.offresInteressByStudents = res.data;
-          console.log(
-            "OFFRESINTERESSBYSTUDENTS",
-            this.offresInteressByStudents
-          );
+          console.log("OFFRESINTERESSBYSTUDENTS", this.offresInteressByStudents);
           //   this.list_offre = this.offres.offres;
           this.spinner = false;
           setTimeout(function () {
@@ -110,15 +111,10 @@ export default {
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="(item, index) in offresInteressByStudents"
-                  :key="index"
-                >
+                <tr v-for="(item, index) in offresInteressByStudents" :key="index">
                   <td>
                     {{ item.nom_offre }}
-                    <span
-                      v-if="new Date() > new Date(item.fin)"
-                      class="badge bg-danger"
+                    <span v-if="new Date() > new Date(item.fin)" class="badge bg-danger"
                       >Expirée</span
                     >
                   </td>

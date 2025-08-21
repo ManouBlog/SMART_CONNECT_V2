@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 export default {
   name: "ModifierTimetable",
@@ -102,11 +103,8 @@ export default {
                 <div class="row">
                   <div class="col">
                     <div class="text-end">
-                      <button class="btn btn-secondary me-3" type="submit">
-                        Créer</button
-                      ><button class="btn btn-danger" type="submit">
-                        Annuler
-                      </button>
+                      <button class="btn btn-secondary me-3" type="submit">Créer</button
+                      ><button class="btn btn-danger" type="submit">Annuler</button>
                     </div>
                   </div>
                 </div>

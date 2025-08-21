@@ -25,7 +25,7 @@ export default {
       const myRoute =
         this.$route.params.name === "visiteur" ? "list_visiteurs" : "list_students";
       axios
-        .get("http://127.0.0.1:8000/api/" + myRoute, {
+        .get("https://backend.smart-connect.online/api/" + myRoute, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -210,14 +210,14 @@ export default {
             <div class="mb-3 text-start">
               <label class="form-label">Carte étudiante</label>
               <Image
-                :src="`${'http://127.0.0.1:8000/storage/images/' + student?.photo}`"
+                :src="`${'https://backend.smart-connect.online/storage/images/' + student?.photo}`"
                 :alt="student?.photo"
                 width="250"
                 preview
               />
               <!-- <img
                 :src="`${
-                  'http://127.0.0.1:8000/storage/images/' + student?.photo
+                  'https://backend.smart-connect.online/storage/images/' + student?.photo
                 }`"
                 :alt="student?.photo"
                 style="width: 50px; height: 50px; display: block"

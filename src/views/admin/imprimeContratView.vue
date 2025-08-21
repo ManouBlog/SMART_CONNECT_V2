@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 export default {
   data() {
@@ -28,7 +29,7 @@ export default {
   },
   created() {
     axios
-      .get("http://127.0.0.1:8000/api/get_who_contact_student", {
+      .get("https://backend.smart-connect.online/api/get_who_contact_student", {
         headers: {
           Authorization: "Bearer " + this.$store.state.token,
         },
@@ -78,11 +79,10 @@ export default {
             </div>
             <h1>ATTESTATION DE TRAVAIL</h1>
             <p v-if="user">
-              L'entreprise <strong>{{ this.entreprise.nom }}</strong> vous a
-              contacté Mr(Mme)
-              <strong>{{ user.nom }} {{ user.prenoms }}</strong> pour un poste
-              au sein de son entreprise pour effectuer un travail vu votre
-              disponibilité. <br />
+              L'entreprise <strong>{{ this.entreprise.nom }}</strong> vous a contacté
+              Mr(Mme) <strong>{{ user.nom }} {{ user.prenoms }}</strong> pour un poste au
+              sein de son entreprise pour effectuer un travail vu votre disponibilité.
+              <br />
               Merci de contacter l'entreprise pour plus de détail.
             </p>
             <strong v-if="this.entreprise" class="date">

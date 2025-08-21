@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
 import $ from "jquery";
@@ -16,11 +17,14 @@ export default {
     get_students_contact() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/list_students_contact_by_entreprise", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
+        .get(
+          "https://backend.smart-connect.online/api/list_students_contact_by_entreprise",
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
         .then((res) => {
           console.log(res);
           this.list_students = res.data.data;
@@ -121,14 +125,10 @@ export default {
                     <span v-if="item.pivot.contrat === 1" class="badge bg-teal"
                       >Accepter</span
                     >
-                    <span
-                      v-if="item.pivot.contrat === 0"
-                      class="badge bg-danger"
+                    <span v-if="item.pivot.contrat === 0" class="badge bg-danger"
                       >Refuser</span
                     >
-                    <span
-                      v-if="item.pivot.contrat === null"
-                      class="badge bg-primary"
+                    <span v-if="item.pivot.contrat === null" class="badge bg-primary"
                       >En attente de réponse</span
                     >
                   </td>
@@ -146,9 +146,7 @@ export default {
                     ></router-link>
                     <em
                       class="bi bi-dash-circle"
-                      v-if="
-                        item.pivot.contrat === 0 || item.pivot.contrat === null
-                      "
+                      v-if="item.pivot.contrat === 0 || item.pivot.contrat === null"
                     ></em>
                   </td>
                 </tr>

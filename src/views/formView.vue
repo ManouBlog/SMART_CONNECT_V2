@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import Swal from "sweetalert2";
 import axios from "axios";
 export default {
@@ -16,7 +17,7 @@ export default {
       this.acces = false;
       this.loading = true;
       axios
-        .post("http://127.0.0.1:8000/api/auth_login", {
+        .post("https://backend.smart-connect.online/api/auth_login", {
           email: this.email,
           password: this.password,
         })
@@ -33,10 +34,7 @@ export default {
             setTimeout(() => {
               this.$router.push("/dashboard");
             }, 1500);
-            localStorage.setItem(
-              "token",
-              JSON.stringify(response.data.access_token)
-            );
+            localStorage.setItem("token", JSON.stringify(response.data.access_token));
             localStorage.setItem("user", JSON.stringify(response.data.user));
             // localStorage.setItem(
             //   "compte",
@@ -84,18 +82,12 @@ export default {
       <div class="col-12">
         <div class="login-card">
           <form @submit.prevent="go_to_dash" class="theme-form login-form">
-            <img
-              class="w-25 for-light"
-              src="../assets/brobroli.png"
-              alt="broboli.png"
-            />
+            <img class="w-25 for-light" src="../assets/brobroli.png" alt="broboli.png" />
             <h4>Se Connecter</h4>
             <div class="form-group text-start">
               <label>Email Address</label>
               <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="bi bi-envelope"></i
-                ></span>
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                 <input
                   class="form-control"
                   type="email"
@@ -123,11 +115,7 @@ export default {
 
             <div class="form-group">
               <button class="btn btn-primary btn-block" type="submit">
-                <span
-                  v-show="loading"
-                  class="spinner-border"
-                  role="status"
-                ></span>
+                <span v-show="loading" class="spinner-border" role="status"></span>
                 <span v-show="acces"
                   >Se connecter<em class="bi bi-box-arrow-in-right ms-2"></em
                 ></span>

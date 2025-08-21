@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
@@ -18,7 +19,7 @@ export default {
       console.log("this.$store.state.token", this.$store.state.token);
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/list_offres", {
+        .get("https://backend.smart-connect.online/api/list_offres", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

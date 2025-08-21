@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 import dayjs from "dayjs";
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -43,7 +44,7 @@ export default {
     get_offres() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/get_offres_entreprise", {
+        .get("https://backend.smart-connect.online/api/get_offres_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 import Chart from "primevue/chart";
 import MySelect from "./MySelect.vue";
@@ -77,7 +78,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("http://127.0.0.1:8000/api/seeCategorie", {
+        .get("https://backend.smart-connect.online/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -259,7 +260,7 @@ export default {
       console.log("DATA", data);
       axios
         .post(
-          "http://127.0.0.1:8000/api/statistiques/statistiqueAccount",
+          "https://backend.smart-connect.online/api/statistiques/statistiqueAccount",
           data,
           {
             headers: {

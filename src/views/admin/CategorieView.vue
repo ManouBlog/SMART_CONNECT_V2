@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import $ from "jquery";
 import axios from "axios";
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -17,7 +18,7 @@ export default {
     async create_categorie() {
       await axios
         .post(
-          "http://127.0.0.1:8000/api/categorie",
+          "https://backend.smart-connect.online/api/categorie",
           {
             categorie: this.categorie,
           },
@@ -59,7 +60,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("http://127.0.0.1:8000/api/seeCategorie", {
+        .get("https://backend.smart-connect.online/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -113,7 +114,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "http://127.0.0.1:8000/api/admin/delete_categorie/" + idCategorie,
+          "https://backend.smart-connect.online/api/admin/delete_categorie/" + idCategorie,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,

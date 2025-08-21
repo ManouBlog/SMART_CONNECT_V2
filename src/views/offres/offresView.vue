@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import $ from "jquery";
 import Editor from "@/components/text-editor.vue";
 import axios from "axios";
@@ -53,7 +54,7 @@ export default {
     update_offre() {
       axios
         .put(
-          "http://127.0.0.1:8000/api/modify_offre_entreprise/" +
+          "https://backend.smart-connect.online/api/modify_offre_entreprise/" +
             this.id_offre_update,
           {
             nom_offre: this.offre_id.nom_offre,
@@ -94,7 +95,7 @@ export default {
     get_offres() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/get_offres_entreprise", {
+        .get("https://backend.smart-connect.online/api/get_offres_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -147,7 +148,7 @@ export default {
       console.log("ID", this.id_offre_update);
       this.spinnerModify = true;
       await axios
-        .get("http://127.0.0.1:8000/api/get_offres_entreprise", {
+        .get("https://backend.smart-connect.online/api/get_offres_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -171,7 +172,7 @@ export default {
       console.log(offreConcat);
       axios
         .post(
-          "http://127.0.0.1:8000/api/create_offre",
+          "https://backend.smart-connect.online/api/create_offre",
           {
             nom_offre: offreConcat,
             salaire: this.salaire,
@@ -239,7 +240,7 @@ export default {
     delete_offre() {
       axios
         .delete(
-          "http://127.0.0.1:8000/api/delete_offre_entreprise/" +
+          "https://backend.smart-connect.online/api/delete_offre_entreprise/" +
             this.id_for_delete,
           {
             headers: {
@@ -279,7 +280,7 @@ export default {
     get_categorie() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/seeCategorie", {
+        .get("https://backend.smart-connect.online/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

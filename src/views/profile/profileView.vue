@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import Swal from "sweetalert2";
 import axios from "axios";
 export default {
@@ -51,7 +52,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("http://127.0.0.1:8000/api/passwordModify", info, {
+        .post("https://backend.smart-connect.online/api/passwordModify", info, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -88,7 +89,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("http://127.0.0.1:8000/api/passwordModify", Entreprise, {
+        .post("https://backend.smart-connect.online/api/passwordModify", Entreprise, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -125,7 +126,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("http://127.0.0.1:8000/api/passwordModify", admin, {
+        .post("https://backend.smart-connect.online/api/passwordModify", admin, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -164,11 +165,15 @@ export default {
         oldPassword: this.oldPassword,
       };
       axios
-        .put("http://127.0.0.1:8000/api/modifier_profil", compte_entreprise, {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
+        .put(
+          "https://backend.smart-connect.online/api/modifier_profil",
+          compte_entreprise,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
         .then((res) => {
           console.log(res);
           if (res.data.status === true) {
@@ -209,7 +214,7 @@ export default {
       data.append("diplome", this.diplome);
       data.append("photo", this.photo);
       axios
-        .post("http://127.0.0.1:8000/api/modifier_profil", data, {
+        .post("https://backend.smart-connect.online/api/modifier_profil", data, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -254,7 +259,7 @@ export default {
     updateCompteAdmin() {
       axios
         .put(
-          "http://127.0.0.1:8000/api/modifier_profil",
+          "https://backend.smart-connect.online/api/modifier_profil",
           {
             nom: this.nom,
             password: this.password,
@@ -428,7 +433,8 @@ export default {
                     <label class="form-label">Document</label>
                     <img
                       :src="
-                        'http://127.0.0.1:8000/storage/images/' + user.photo
+                        'https://backend.smart-connect.online/storage/images/' +
+                        user.photo
                       "
                       :alt="user.photo"
                       class="w-75"
@@ -505,10 +511,7 @@ export default {
             <!-- Container-fluid Ends-->
           </div>
           <div class="col-lg-7">
-            <form
-              class="card"
-              v-if="statut === 'etudiant' || statut === 'admin'"
-            >
+            <form class="card" v-if="statut === 'etudiant' || statut === 'admin'">
               <div class="card-header pb-0">
                 <h4 class="card-title mb-0">Modifier mon profil</h4>
                 <span>Gérer les paramétres de votre profil</span>
@@ -524,11 +527,7 @@ export default {
                   <div class="col-sm-6 col-md-3">
                     <div class="mb-3 text-start">
                       <label class="form-label">Prénoms</label>
-                      <input
-                        v-model="prenoms"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="prenoms" class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-3">
@@ -546,43 +545,26 @@ export default {
                   <div class="col-md-3">
                     <div class="mb-3 text-start">
                       <label class="form-label">Commune</label>
-                      <input
-                        v-model="commune"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="commune" class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-3">
                     <div class="mb-3 text-start">
                       <label class="form-label">Quartier</label>
-                      <input
-                        v-model="quartier"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="quartier" class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-3">
                     <div class="mb-3 text-start">
                       <label class="form-label">Diplome</label>
-                      <input
-                        v-model="diplome"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="diplome" class="form-control" type="text" />
                     </div>
                   </div>
 
                   <div class="col-sm-12 col-md-12">
                     <div class="mb-3 text-start">
                       <label class="form-label">Diplôme / Carte étudiant</label>
-                      <input
-                        @change="see"
-                        class="form-control"
-                        type="file"
-                        accept="*"
-                      />
+                      <input @change="see" class="form-control" type="file" accept="*" />
                     </div>
                   </div>
                 </div>
@@ -618,9 +600,7 @@ export default {
               </div>
               <div class="col-sm-12 col-md-12">
                 <div class="mb-3 text-start">
-                  <label class="form-label"
-                    >Entrer votre mot de passe actuel</label
-                  >
+                  <label class="form-label">Entrer votre mot de passe actuel</label>
                   <input
                     v-model="oldPassword"
                     class="form-control"
@@ -641,10 +621,7 @@ export default {
                 </div>
               </div>
               <div class="card-footer text-end" v-if="password != null">
-                <button
-                  class="btn btn-primary updateProfil"
-                  @click="modifyPassword"
-                >
+                <button class="btn btn-primary updateProfil" @click="modifyPassword">
                   Modifier
                 </button>
               </div>

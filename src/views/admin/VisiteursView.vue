@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
 import $ from "jquery";
@@ -24,7 +25,7 @@ export default {
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
       axios
-        .get("http://127.0.0.1:8000/api/list_students", {
+        .get("https://backend.smart-connect.online/api/list_students", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -39,7 +40,7 @@ export default {
     get_students() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/list_visiteurs", {
+        .get("https://backend.smart-connect.online/api/list_visiteurs", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -114,11 +115,7 @@ export default {
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Prénoms</label>
-                <input
-                  v-model="student.prenoms"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.prenoms" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
@@ -135,51 +132,31 @@ export default {
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Télephone</label>
-                <input
-                  v-model="student.phone"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.phone" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">ville</label>
-                <input
-                  v-model="student.ville"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.ville" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-md-3">
               <div class="mb-3">
                 <label class="form-label">Commune</label>
-                <input
-                  v-model="student.commune"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.commune" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Quartier</label>
-                <input
-                  v-model="student.quartier"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.quartier" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Diplome</label>
-                <input
-                  v-model="student.diplome"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.diplome" class="form-control" type="text" />
               </div>
             </div>
           </div>

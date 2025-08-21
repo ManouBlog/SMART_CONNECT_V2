@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
 import $ from "jquery";
@@ -17,7 +18,7 @@ export default {
     get_users() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/list_users")
+        .get("https://backend.smart-connect.online/api/list_users")
         .then((res) => {
           console.log(res);
           this.users = res.data.data;
@@ -79,9 +80,7 @@ export default {
             <div class="col-sm-10 modify-form">
               <div class="card">
                 <div class="card-body">
-                  <h1 class="badge bg-primary h3">
-                    Modifier l'emploi du temps
-                  </h1>
+                  <h1 class="badge bg-primary h3">Modifier l'emploi du temps</h1>
                   <div class="form theme-form projectcreate p-5">
                     <form>
                       <div class="row">
@@ -196,19 +195,13 @@ export default {
                       class="badge bg-primary"
                       >Entreprise</span
                     >
-                    <span
-                      v-if="item.statut.statut == 'etudiant'"
-                      class="badge bg-warning"
+                    <span v-if="item.statut.statut == 'etudiant'" class="badge bg-warning"
                       >Etudiant</span
                     >
-                    <span
-                      v-if="item.statut.statut == 'admin'"
-                      class="badge bg-danger"
+                    <span v-if="item.statut.statut == 'admin'" class="badge bg-danger"
                       >Admin</span
                     >
-                    <span
-                      v-if="item.statut.statut == 'particulier'"
-                      class="badge bg-info"
+                    <span v-if="item.statut.statut == 'particulier'" class="badge bg-info"
                       >Particulier</span
                     >
                   </td>

@@ -24,7 +24,7 @@ export default {
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
       axios
-        .get("http://127.0.0.1:8000/api/list_students", {
+        .get("https://backend.smart-connect.online/api/list_students", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -39,15 +39,15 @@ export default {
     get_contrats() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/see_entreprise_student", {
+        .get("https://backend.smart-connect.online/api/admin/allContrats", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
         })
         .then((res) => {
-          console.log(res);
+          console.log("allContrats", res);
           this.contrats = res.data.data;
-          console.log("ENTRPRISES", this.contrats);
+          console.log("ENTRPRISES CONTRAT", this.contrats);
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({
@@ -130,42 +130,35 @@ export default {
               </thead>
               <tbody>
                 <tr v-for="(item, index) in contrats" :key="index">
-                  <td>{{ new Date(item.created_at).toLocaleDateString('fr') }}</td>
+                  <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
                   <td>{{ item.offre.entreprise.nom }}</td>
                   <td>{{ item.student.nom }} {{ item.student.prenoms }}</td>
                   <td>
                     {{ item.offre.nom_offre }}
                   </td>
                   <td>
-                     <p
-                    class="font-bold"
-                    :class="
-                      'text-' +
-                      `${
-                        item.contrat === 1
-                          ? 'success'
-                          : item.contrat === 2
-                          ? 'danger'
-                          : 'dark'
-                      }`
-                    "
-                  >
-                    {{
-                      item.contrat === 1
-                        ? "Accepté"
-                        : item.contrat === 2
-                        ? "Réfusé"
-                        : "En attente de réponse"
-                    }}
-                  </p>
-                  </td>
-                  <!-- <td class="d-flex justify-content-center align-items-center">
-                    <router-link
-                      :to="{ name: 'detail_contrat', params: { id: item.id } }"
+                    <p
+                      class="font-bold"
+                      :class="
+                        'text-' +
+                        `${
+                          item.recruit === 1
+                            ? 'success'
+                            : item.recruit === 2
+                            ? 'danger'
+                            : 'dark'
+                        }`
+                      "
                     >
-                      <i class="bi bi-eye"></i
-                    ></router-link>
-                  </td> -->
+                      {{
+                        item.recruit === 1
+                          ? "Accepté"
+                          : item.recruit === 2
+                          ? "Réfusé"
+                          : "En attente de réponse"
+                      }}
+                    </p>
+                  </td>
                 </tr>
               </tbody>
             </table>

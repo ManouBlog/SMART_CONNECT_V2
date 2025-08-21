@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 import Swal from "sweetalert2";
 export default {
@@ -23,10 +24,9 @@ export default {
     },
     deconnex() {
       axios
-        .get("http://127.0.0.1:8000/api/auth_logout", {
+        .get("https://backend.smart-connect.online/api/auth_logout", {
           headers: {
-            Authorization:
-              "Bearer " + JSON.parse(localStorage.getItem("token")),
+            Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
           },
         })
         .then((res) => {
@@ -59,7 +59,7 @@ export default {
     get_entreprise_who_contact_student() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/get_who_contact_student", {
+        .get("https://backend.smart-connect.online/api/get_who_contact_student", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

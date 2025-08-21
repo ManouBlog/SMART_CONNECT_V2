@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 import $ from "jquery";
 import Swal from "sweetalert2";
@@ -20,7 +21,7 @@ export default {
     get_entreprise_who_contact_student() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/get_who_contact_student", {
+        .get("https://backend.smart-connect.online/api/get_who_contact_student", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -94,7 +95,7 @@ export default {
     acceptJob() {
       axios
         .put(
-          "http://127.0.0.1:8000/api/changeStatutJob/" + this.idOffre,
+          "https://backend.smart-connect.online/api/changeStatutJob/" + this.idOffre,
           {
             contrat: 1,
           },
@@ -125,7 +126,7 @@ export default {
     rejectJob() {
       axios
         .put(
-          "http://127.0.0.1:8000/api/changeStatutJob/" + this.idOffre,
+          "https://backend.smart-connect.online/api/changeStatutJob/" + this.idOffre,
           {
             contrat: 0,
           },
@@ -177,31 +178,21 @@ export default {
       </div>
     </div>
     <!-- Container-fluid starts-->
-    <div
-      class="tab-content"
-      id="top-tabContent"
-      v-if="list_entreprise_contact != null"
-    >
+    <div class="tab-content" id="top-tabContent" v-if="list_entreprise_contact != null">
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12 card py-3 px-2">
             <div class="verfAccept" v-if="showMsgAcceptoffre">
               <div class="msgForAccept">
                 <h5>Voulez-vous accepter l'offre ?</h5>
-                <button class="btn bg-primary" @click="acceptJob">
-                  Accepter
-                </button>
-                <button class="btn bg-danger mx-2" @click="annuleContrat">
-                  Annuler
-                </button>
+                <button class="btn bg-primary" @click="acceptJob">Accepter</button>
+                <button class="btn bg-danger mx-2" @click="annuleContrat">Annuler</button>
               </div>
             </div>
             <div class="verfAccept" v-if="showMsgRejectoffre">
               <div class="msgForAccept">
                 <h5>Voulez-vous rejeter l'offre ?</h5>
-                <button class="btn bg-primary" @click="rejectJob">
-                  Rejeter
-                </button>
+                <button class="btn bg-primary" @click="rejectJob">Rejeter</button>
                 <button class="btn bg-danger mx-2" @click="annuleRejetContrat">
                   Annuler
                 </button>
@@ -219,17 +210,12 @@ export default {
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="(item, index) in list_entreprise_contact"
-                  :key="index"
-                >
+                <tr v-for="(item, index) in list_entreprise_contact" :key="index">
                   <td>{{ item.nom }}</td>
                   <td>{{ item.email }}</td>
                   <td>
                     <span v-if="item.pivot.date_debut !== null"
-                      >{{
-                        new Date(item.pivot.date_debut).toLocaleDateString()
-                      }}
+                      >{{ new Date(item.pivot.date_debut).toLocaleDateString() }}
                       au
                     </span>
 
@@ -245,14 +231,10 @@ export default {
                       >accepter</span
                     >
 
-                    <span
-                      v-else-if="item.pivot.contrat === 0"
-                      class="badge bg-danger"
+                    <span v-else-if="item.pivot.contrat === 0" class="badge bg-danger"
                       >refuser</span
                     >
-                    <span v-else class="badge bg-warning">
-                      En attente de reponse
-                    </span>
+                    <span v-else class="badge bg-warning"> En attente de reponse </span>
                   </td>
                   <td>
                     <a
@@ -268,9 +250,7 @@ export default {
                     >
                     <em
                       class="bi bi-dash-circle text-danger"
-                      v-if="
-                        item.pivot.contrat === 1 || item.pivot.contrat === 0
-                      "
+                      v-if="item.pivot.contrat === 1 || item.pivot.contrat === 0"
                     ></em>
                     <a
                       href="#"

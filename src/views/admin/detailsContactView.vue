@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
 import $ from "jquery";
@@ -18,7 +19,7 @@ export default {
     get_contrat_students() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/see_entreprise_student", {
+        .get("https://backend.smart-connect.online/api/see_entreprise_student", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
