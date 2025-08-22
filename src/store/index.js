@@ -9,7 +9,8 @@ export default createStore({
     token: JSON.parse(localStorage.getItem("token")),
     categoriesStatistiquesChoosen: null,
     periodeStatistiquesChoosen: null,
-    listEntreprise:[],
+    listEntrepriseAbonnee:[],
+    listEntreprisePasAbonnee:[],
     spinnerLoading:false,
     nbreBadgeEntreprise:0,
   },
@@ -71,8 +72,11 @@ export default createStore({
     FIRSTPERIODE(state, payload) {
       state.periodeStatistiquesChoosen = payload;
     },
-    LISTERCOMPANY(state,payload){
-      state.listEntreprise = payload; 
+    LISTER_COMPANY_ABONNEE(state,payload){
+      state.listEntrepriseAbonnee = payload; 
+    },
+    LISTER_COMPANY_NON_ABONNEE(state,payload){
+      state.listEntreprisePasAbonnee = payload; 
     },
     TOOGLESPINNER(state,payload){
     state.spinnerLoading = payload;
@@ -100,7 +104,8 @@ export default createStore({
         .then((res) => {
           console.log('get_users',res)
           if(res.data.status){
-          commit('LISTERCOMPANY',res.data.data)
+          commit('LISTER_COMPANY_ABONNEE',res.data.data.filter(item=> item.user?.abonement?.length > 0))
+          commit('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item.user?.abonement?.length))
           commit('HANDLEBADGE',res.data.data.filter(item=>item.view == 1).length)
           } 
         })
