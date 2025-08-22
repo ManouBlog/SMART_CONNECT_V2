@@ -111,6 +111,15 @@ const routes = [
         },
       },
       {
+        path: "/partenaires",
+        name: "partenaires",
+        component: () => import("../views/admin/partenaire/PartenaireView.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "/Visiteurs",
         name: "students_visiteurs",
         component: () => import("../views/admin/VisiteursView.vue"),

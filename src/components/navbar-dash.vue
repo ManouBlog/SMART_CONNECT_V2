@@ -1,13 +1,63 @@
 <script>
 /* eslint-disable */
+import BadgeCompVue from "./BadgeComp.vue";
+import $ from "jquery";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
 export default {
   name: "NavbarDash",
+  components: {
+    BadgeCompVue,
+  },
   data() {
     return {
       user: this.$store.state.user,
       statut: this.$store.state.user.statut.statut,
     };
   },
+  methods:{
+   get_users() {
+      this.$store.dispatch("get_users");
+
+      setTimeout(function () {
+        $("#MyTableData").DataTable({
+          pagingType: "full_numbers",
+          pageLength: 10,
+          processing: true,
+          order: [],
+          language: {
+            décimal: "",
+            emptyTable: "Aucune donnée disponible dans le tableau",
+            infoEmpty: "Showing 0 to 0 of 0 entries",
+            info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+            infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+            infoPostFix: "",
+            thousands: ",",
+            lengthMenu: "Afficher les entrées du _MENU_",
+            loadingRecords: "Loading...",
+            processing: "Processing...",
+            search: "Chercher :",
+            stateSave: true,
+            zeroRecords: "Aucun enregistrement correspondant trouvé",
+            paginate: {
+              first: "Premier",
+              last: "Dernier",
+              next: "Suivant",
+              previous: "Précédent",
+            },
+            aria: {
+              sortAscending: ": activate to sort column ascending",
+              sortDescending: ": activate to sort column descending",
+            },
+          },
+        });
+      }, 10);
+    },
+  },
+  created(){
+    this.get_users()
+    console.log('badgeEntreprise',this.$store.state.nbreBadgeEntreprise)
+  }
 };
 </script>
 <template>
@@ -24,13 +74,8 @@ export default {
       </div>
       <div>
         <ul class="liste_liens">
-          <li
-            style="display: flex; align-items: center; gap: 0.1em; color: white"
-          >
-            <i
-              class="bi bi-house-door position-absolute"
-              style="margin-left: -1.2em"
-            ></i
+          <li style="display: flex; align-items: center; gap: 0.1em; color: white">
+            <i class="bi bi-house-door position-absolute" style="margin-left: -1.2em"></i
             ><router-link :to="{ name: 'Accueil' }">
               <strong>Tableau de bord</strong></router-link
             >
@@ -130,8 +175,9 @@ export default {
           >
             <i class="bi bi-building" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'entreprises' }">
-              <strong>Entreprises</strong></router-link
-            >
+              <strong>Entreprises</strong>
+              <BadgeCompVue v-if="this.$store.state.nbreBadgeEntreprise > 0" :nbreTotal="this.$store.state.nbreBadgeEntreprise" />
+            </router-link>
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
@@ -165,9 +211,7 @@ export default {
             v-if="statut == 'admin'"
           >
             <i class="bi bi-pencil-square" style="margin-left: -1.2em"></i>
-            <router-link :to="{ name: 'Contrat' }">
-              <strong>Contrat</strong></router-link
-            >
+            <router-link :to="{ name: 'Contrat' }"> <strong>Contrat</strong></router-link>
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
@@ -185,6 +229,15 @@ export default {
             <i class="bi bi-cash-stack" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'transactions' }">
               <strong>Historique de paiement</strong></router-link
+            >
+          </li>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-pencil-square" style="margin-left: -1.2em"></i>
+            <router-link :to="{ name: 'partenaires' }">
+              <strong>Partenaires</strong></router-link
             >
           </li>
           <li

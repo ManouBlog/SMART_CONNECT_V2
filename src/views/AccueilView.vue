@@ -14,7 +14,7 @@ export default {
     Statistique_Comp,
     Statistiques_Account,
     MyCardStatistique,
-    Statistique_visite
+    Statistique_visite,
   },
   data() {
     return {
@@ -48,7 +48,7 @@ export default {
       list_offres: "",
       see_entreprise_student: null,
       wallet: "",
-      nbreVisit:"",
+      nbreVisit: "",
       valueSelectPeriod: "Global",
       periodeFilterStatisticBalance: "",
     };
@@ -71,7 +71,7 @@ export default {
             this.see_entreprise_student = Number(res?.data?.contrat);
             console.log("this.see_entreprise_student", this.see_entreprise_student);
             this.wallet = res?.data?.wallet;
-            this.nbreVisit = res?.data?.totalVisit
+            this.nbreVisit = res?.data?.totalVisit;
           }
         })
         .catch((error) => {
@@ -174,7 +174,8 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "https://backend.smart-connect.online/api/deleteCompetencesOfStudents/" + this.id_for_delete,
+          "https://backend.smart-connect.online/api/deleteCompetencesOfStudents/" +
+            this.id_for_delete,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -266,7 +267,8 @@ export default {
       console.log(this.updateExperience.experience);
       axios
         .post(
-          "https://backend.smart-connect.online/api/modifyExperience/" + this.idExperience,
+          "https://backend.smart-connect.online/api/modifyExperience/" +
+            this.idExperience,
           {
             experience: this.updateExperience.experience,
             lieu: this.updateExperience.lieu,
@@ -306,7 +308,8 @@ export default {
     deleteExperience() {
       axios
         .delete(
-          "https://backend.smart-connect.online/api/deleteMyExperience/" + this.idExperienceAtDelete,
+          "https://backend.smart-connect.online/api/deleteMyExperience/" +
+            this.idExperienceAtDelete,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -348,11 +351,15 @@ export default {
         wallet: e.target.value,
       };
       axios
-        .post("https://backend.smart-connect.online/api/statistiques/filterStatistiqueWallet", data, {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
+        .post(
+          "https://backend.smart-connect.online/api/statistiques/filterStatistiqueWallet",
+          data,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
         .then((res) => {
           console.log("statistique_global", res?.data);
           if (res?.data?.status === true) {
@@ -365,6 +372,43 @@ export default {
         .finally(() => {
           this.isLoadingWallet = false;
         });
+    },
+    get_users() {
+      this.$store.dispatch("get_users");
+
+      setTimeout(function () {
+        $("#MyTableData").DataTable({
+          pagingType: "full_numbers",
+          pageLength: 10,
+          processing: true,
+          order: [],
+          language: {
+            décimal: "",
+            emptyTable: "Aucune donnée disponible dans le tableau",
+            infoEmpty: "Showing 0 to 0 of 0 entries",
+            info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+            infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+            infoPostFix: "",
+            thousands: ",",
+            lengthMenu: "Afficher les entrées du _MENU_",
+            loadingRecords: "Loading...",
+            processing: "Processing...",
+            search: "Chercher :",
+            stateSave: true,
+            zeroRecords: "Aucun enregistrement correspondant trouvé",
+            paginate: {
+              first: "Premier",
+              last: "Dernier",
+              next: "Suivant",
+              previous: "Précédent",
+            },
+            aria: {
+              sortAscending: ": activate to sort column ascending",
+              sortDescending: ": activate to sort column descending",
+            },
+          },
+        });
+      }, 10);
     },
   },
   created() {
@@ -456,8 +500,7 @@ export default {
               title="Etudiants"
             />
             <MyCardStatistique
-              :dataInfo="[
-              ]"
+              :dataInfo="[]"
               nameRouter="Contrat"
               :numberStatistic="see_entreprise_student"
               icon_libelle="bi-file-earmark-text"
@@ -511,7 +554,7 @@ export default {
                 </div>
               </div>
             </div>
-             <div class="card p-2" style="width: 100%; height: auto; position: relative">
+            <div class="card p-2" style="width: 100%; height: auto; position: relative">
               <div>
                 <div class="d-flex justify-content-center align-items-center">
                   <h3>Nombre total de visiteur</h3>
@@ -526,7 +569,6 @@ export default {
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
         <div
@@ -538,11 +580,11 @@ export default {
             place-content: 'center !important';
             justify-content: 'center !important';
           "
-        > 
+        >
           <Statistique_Comp :title="'Offres & Candidatures & Contrat'" />
           <Statistique_visite :title="'Visiteur'" />
         </div>
-         <Statistiques_Account :title="'Entreprises & Etudiants'" />
+        <Statistiques_Account :title="'Entreprises & Etudiants'" />
       </div>
     </div>
   </div>

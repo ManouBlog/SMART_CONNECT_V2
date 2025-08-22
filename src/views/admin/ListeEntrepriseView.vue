@@ -2,9 +2,7 @@
 /* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
-import $ from "jquery";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
+
 export default {
   name: "UserView",
   data() {
@@ -15,58 +13,7 @@ export default {
     };
   },
   methods: {
-    get_users() {
-      this.spinner = true;
-      axios
-        .get("https://backend.smart-connect.online/api/list_entreprise", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.entreprises = res.data.data;
-          console.log("ENTRPRISES", this.entreprises);
-          this.spinner = false;
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-     verifIfAbonnementCurrently(value) {
+    verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
       if (!value.length) {
         return "Pas d'abonnement";
@@ -80,15 +27,38 @@ export default {
         ? valueAbonnementCurrently?.abonement?.libelle
         : null;
     },
-  },
-  created() {
-    this.get_users();
+    async getDetailRoute(id) {
+      this.$store.commit("TOOGLESPINNER", true);
+      await axios
+        .put("https://backend.smart-connect.online/api/updateBadgeEntreprise/" + id, {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("get_users", res);
+          if (res.data.status) {
+            this.$store.commit('UPDATEBADGEENTREPRISE')
+            this.$router.push({
+              name: "detail_entreprise",
+              params: { id: id },
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err.response.data.message);
+        })
+        .finally(() => {
+          this.$store.commit("TOOGLESPINNER", false);
+        });
+    },
   },
 };
 </script>
 <template>
   <div class="page-body position-relative">
-    <div class="Myspinner" v-show="spinner">
+    <div class="Myspinner" v-show="this.$store.state.spinnerLoading">
       <div class="spinner-border text-primary" role="status"></div>
     </div>
     <div class="ecran" v-if="modify_timetable">
@@ -197,15 +167,18 @@ export default {
             <table id="MyTableData" class="table">
               <thead>
                 <tr>
-                  <th class="bg-light">Nom</th>
-                  <th class="bg-light">email</th>
+                  <th class="bg-light">Entreprise</th>
+                  <th class="bg-light">Email</th>
                   <th class="bg-light">Profil</th>
-                   <th class="bg-light">Formule d'abonnement</th>
-                  <th class="bg-light">Détails</th>
+                  <th class="bg-light">Formule d'abonnement</th>
+                  <th class="bg-light">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in entreprises" :key="index">
+                <tr
+                  v-for="(item, index) in this.$store.state.listEntreprise"
+                  :key="index"
+                >
                   <td>{{ item.nom }}</td>
                   <td>{{ item.email }}</td>
                   <td>
@@ -215,17 +188,20 @@ export default {
                     > -->
                   </td>
                   <td>
-                    {{ this.verifIfAbonnementCurrently(item?.user?.abonement)}}
+                    {{ this.verifIfAbonnementCurrently(item?.user?.abonement) }}
                   </td>
 
                   <td class="d-flex justify-content-center align-items-center">
-                    <router-link
+                    <!-- <router-link
                       :to="{
                         name: 'detail_entreprise',
                         params: { id: item.id },
                       }"
                       ><i class="bi bi-eye"></i
-                    ></router-link>
+                    ></router-link> -->
+                    <a href="#" @click.prevent="getDetailRoute(item.id)">
+                      <i class="bi bi-eye"></i>
+                    </a>
                   </td>
                 </tr>
               </tbody>

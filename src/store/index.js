@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createStore } from "vuex";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -8,6 +9,9 @@ export default createStore({
     token: JSON.parse(localStorage.getItem("token")),
     categoriesStatistiquesChoosen: null,
     periodeStatistiquesChoosen: null,
+    listEntreprise:[],
+    spinnerLoading:false,
+    nbreBadgeEntreprise:0,
   },
   getters: {},
   mutations: {
@@ -67,8 +71,46 @@ export default createStore({
     FIRSTPERIODE(state, payload) {
       state.periodeStatistiquesChoosen = payload;
     },
+    LISTERCOMPANY(state,payload){
+      state.listEntreprise = payload; 
+    },
+    TOOGLESPINNER(state,payload){
+    state.spinnerLoading = payload;
+    },
+    HANDLEBADGE(state,payload){
+      state.nbreBadgeEntreprise = payload; 
+    },
+    UPDATEBADGEENTREPRISE(state){
+      state.nbreBadgeEntreprise--
+    }
   },
   actions: {
+    // updateBadgeEntreprise({commit,state}){
+    // const element =  state.nbreBadgeEntreprise-1;
+    // commit('HANDLEBADGE',element)
+    // },
+    get_users({ commit,state }) {
+      commit('TOOGLESPINNER',true)
+      axios
+        .get("https://backend.smart-connect.online/api/list_entreprise", {
+          headers: {
+            Authorization: "Bearer " + state.token,
+          },
+        })
+        .then((res) => {
+          console.log('get_users',res)
+          if(res.data.status){
+          commit('LISTERCOMPANY',res.data.data)
+          commit('HANDLEBADGE',res.data.data.filter(item=>item.view == 1).length)
+          } 
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(()=>{
+          commit('TOOGLESPINNER',false)
+        })
+    },
     addFirstItemForCategorieStatistique(context) {
       context.commit("FIRSTCATEGORIE");
     },

@@ -8,8 +8,8 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
-      afficheData: [],
-      allAffiches: [],
+      partenaireData: [],
+      allPartenaires: [],
       categories: null,
       spinner: true,
       loading: false,
@@ -17,15 +17,14 @@ export default {
     };
   },
   methods: {
-    async create_publicite() {
+    async save_partenaire() {
         this.spinner = true;
       const formData = new FormData();
-      this.afficheData.forEach((affiche) => {
-        formData.append("affiche[]", affiche);
+      this.partenaireData.forEach((partenaire) => {
+        formData.append("partenaire[]", partenaire);
       });
-      formData.append('lien',this.lienAffiche);
       await axios
-        .post("https://backend.smart-connect.online/api/admin/addAffiche", formData, {
+        .post("https://backend.smart-connect.online/api/admin/addPartenaire", formData, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -51,27 +50,26 @@ export default {
         })
         .catch((error) => {
           alert(error);
-          // console.log(error);
         })
         .finally(() => {
-          this.get_publicite(1);
+          this.get_partenaire(1);
           this.spinner = false;
           this.lienAffiche = null;
         });
     },
-    get_publicite(isLoading = null) {
+    get_partenaire(isLoading = null) {
       if (isLoading === 1) {
         this.spinner = false;
       }
       axios
-        .get("https://backend.smart-connect.online/api/showAffiche", {
+        .get("https://backend.smart-connect.online/api/admin/allPartenaire", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
         })
         .then((res) => {
-          this.allAffiches = res.data.data;
-          console.log("AFFICHES ALL", this.allAffiches);
+          this.allPartenaires = res.data.data;
+          console.log("partenaires ALL", this.allPartenaires);
           setTimeout(function () {
             $("#MyTableData").DataTable({
               pagingType: "full_numbers",
@@ -113,10 +111,10 @@ export default {
           this.spinner = false;
         });
     },
-    deletePublicite(idPublicite) {
+    deletePartenaire(idPartenaire) {
       this.spinner = true;
       axios
-        .delete("https://backend.smart-connect.online/api/admin/delete_pub/" + idPublicite, {
+        .delete("https://backend.smart-connect.online/api/admin/deletePartenaire/" + idPartenaire, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -125,9 +123,9 @@ export default {
           console.log("TIMETABLE", res);
           alert(res.data.message);
           if (res.data.status) {
-            const index = this.allAffiches.findIndex((item) => item.id == idPublicite);
+            const index = this.allPartenaires.findIndex((item) => item.id == idPartenaire);
             if (index !== -1) {
-              this.allAffiches.splice(index, 1);
+              this.allPartenaires.splice(index, 1);
             }
           }
         })
@@ -138,23 +136,23 @@ export default {
           this.spinner = false;
         });
     },
-    handleDeletePublicite(id) {
-      if (confirm("Voulez-vous vraiment supprimer cette affiche ?")) {
+    handleDeletePartenaire(id) {
+      if (confirm("Voulez-vous vraiment supprimer ce partenaire ?")) {
         // L'utilisateur a cliqué sur OK
         console.log("Action confirmée", id);
-        this.deletePublicite(id);
+        this.deletePartenaire(id);
       } else {
         // L'utilisateur a cliqué sur Annuler
         console.log("Action annulée");
       }
     },
     handleFile(e) {
-      console.log("This.afficheData", e.target.files);
-      this.afficheData = e.target.files;
+      console.log("This.partenaireData", e.target.files);
+      this.partenaireData = e.target.files;
     },
   },
   created() {
-    this.get_publicite();
+    this.get_partenaire();
   },
 };
 </script>
@@ -170,7 +168,7 @@ export default {
           <div class="col-12 col-sm-6"></div>
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">Publicité</li>
+              <li class="breadcrumb-item">Partenaires</li>
             </ol>
           </div>
         </div>
@@ -191,7 +189,7 @@ export default {
                 role="tab"
                 aria-controls="voir_emploi_temps"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Voir les affiches</a
+                ><i data-feather="clock"></i>Voir les partenaires</a
               >
             </li>
             <li class="nav-item">
@@ -203,7 +201,7 @@ export default {
                 role="tab"
                 aria-controls="timetable"
                 aria-selected="false"
-                ><i data-feather="alert-circle"></i>Ajouter une affiche
+                ><i data-feather="alert-circle"></i>Ajouter des partenaires
               </a>
             </li>
           </ul>
@@ -226,11 +224,11 @@ export default {
               <div class="card">
                 <div class="card-body">
                   <div class="form theme-form projectcreate">
-                    <form @submit.prevent="create_publicite">
+                    <form @submit.prevent="save_partenaire">
                       <div class="row">
                         <div class="col-lg-6">
                           <div class="mb-3 text-start font-bold">
-                            <p style="font-weight: bold; font-size: 1.5em">Ajouter une Affiche</p>
+                            <p style="font-weight: bold; font-size: 1.5em">Ajouter des partenaires</p>
 
                             <input
                               class="form-control"
@@ -242,23 +240,13 @@ export default {
                             />
                           </div>
                         </div>
-                          <div class="col-lg-6">
-                          <div class="mb-3 text-start font-bold">
-                            <p style="font-weight: bold; font-size: 1.5em">Ajouter un lien</p>
-                            <input
-                              class="form-control"
-                              type="text"
-                              v-model="lienAffiche"
-                              required
-                            />
-                          </div>
-                        </div>
+                          
                       </div>
                       <div class="row">
                         <div class="col">
                           <div class="text-end">
                             <button
-                              :disabled="!afficheData.length"
+                              :disabled="!partenaireData.length"
                               class="btn btn-primary me-3"
                               type="submit"
                             >
@@ -267,7 +255,7 @@ export default {
                                 role="status"
                                 v-show="loading"
                               ></span
-                              ><span>Enregistrer une affiche</span>
+                              ><span>Enregistrer</span>
                             </button>
                           </div>
                         </div>
@@ -293,21 +281,18 @@ export default {
               <table id="MyTableData" class="table">
                 <thead>
                   <tr>
-                    <th class="bg-light">Affiches</th>
-                     <th class="bg-light">Lien</th>
+                    <th class="bg-light">Partenaires</th>
                     <th class="bg-light">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, index) in allAffiches" :key="index">
+                  <tr v-for="(item, index) in allPartenaires" :key="index">
                     <td>
                       <n-image
                         width="100"
-                        :src="'https://backend.smart-connect.online/storage/images/'+item.affiche"
+                        :src="'https://backend.smart-connect.online/storage/images/'+item.partenaire"
+                        :alt="item.partenaire"
                       />
-                    </td>
-                    <td>
-                      {{ item.lien ? item.lien:'Pas de lien'}}
                     </td>
                     <td>
                       <div class="d-flex justify-content-center gap-5 align-items-center">
@@ -320,7 +305,7 @@ export default {
                         ></router-link> -->
                         <button
                           class="bg-danger border-0"
-                          @click="handleDeletePublicite(item.id)"
+                          @click="handleDeletePartenaire(item.id)"
                         >
                           <i class="bi bi-trash"></i>
                         </button>
