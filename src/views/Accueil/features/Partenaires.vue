@@ -56,7 +56,7 @@ export default {
     <h1 class="fw-bold" style="color:orange;" v-if="partenaires.length">{{texte}}</h1>
     <br />
     <vueper-slides
-      autoplay
+      :autoplay="partenaires.length >= 3"
       class="no-shadow"
       :visible-slides="3"
       :slide-ratio="1 / 5"
@@ -69,6 +69,7 @@ export default {
       v-for="(slide, i) in partenaires" 
       :key="i" 
       :image="lienPhoto+slide.partenaire" 
+      style="margin:0 1em;"
       />
       <template #pause>
         <em class="icon pause_circle_outline"></em>
@@ -76,3 +77,8 @@ export default {
     </vueper-slides>
   </div>
 </template>
+<style scoped>
+:deep(.vueperslides__track-inner){
+  justify-content: center;
+}
+</style>
