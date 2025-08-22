@@ -410,7 +410,7 @@ export default {
                     <router-link
                       :to="{
                         name: 'details',
-                        params: { id: item.id, name: 'talents' },
+                        params: { id: item.id, name: 'visiteur' },
                       }"
                     >
                       <i class="bi bi-eye"></i

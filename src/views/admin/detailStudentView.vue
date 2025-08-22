@@ -22,19 +22,15 @@ export default {
     get_details_students() {
       this.spinner = true;
       console.log("this.$route", this.$route);
-      const myRoute =
-        this.$route.params.name === "visiteur" ? "list_visiteurs" : "list_students";
       axios
-        .get("https://backend.smart-connect.online/api/" + myRoute, {
+        .get("https://backend.smart-connect.online/api/get_detail_user/" + this.$route.params.id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
         })
         .then((res) => {
           console.log(res);
-          this.students = res.data.data;
-
-          this.student = this.students.find((item) => item.id == this.$route.params.id);
+          this.student = res.data.data
           this.jours = this.student?.jours;
           if ($.fn.DataTable.isDataTable("#MyTableData")) {
             $("#MyTableData").DataTable().destroy();
@@ -90,7 +86,7 @@ export default {
     },
     verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
-      if (!value.length) {
+      if (value && !value.length) {
         return "Pas d'abonnement";
       }
       value?.forEach((element) => {

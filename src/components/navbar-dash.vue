@@ -191,7 +191,7 @@ export default {
           >
             <i class="bi bi-person" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'students' }">
-              <strong>Talents</strong></router-link
+              <strong>Etudiants</strong></router-link
             >
           </li>
           <li
