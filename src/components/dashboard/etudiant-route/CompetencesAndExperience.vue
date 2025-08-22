@@ -366,7 +366,7 @@ export default {
     this.texte22 = await this.handleTranslate('Compétences'); 
     this.texte23 = await this.handleTranslate('Action'); 
     this.texte24 = await this.handleTranslate('Mes expériences'); 
-    this.texte25 = await this.handleTranslate('Nouvelle expérience'); 
+    this.texte25 = await this.handleTranslate('Ajouter une expérience'); 
     this.texte26 = await this.handleTranslate('Chargement...'); 
     this.texte27 = await this.handleTranslate("Pas d'expérience"); 
    

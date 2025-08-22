@@ -258,6 +258,9 @@ export default {
         this.MylistOffre = this.MylistsOffres;
       }
     },
+    goDetailJob(id){
+      console.log('goDetailJob',id)
+    }
   },
   async created() {
     this.texte = await this.handleTranslate(`selectionne une categorie`);
@@ -364,8 +367,12 @@ export default {
           class="container_result content"
           v-for="(offre, index) in list_offre"
           :key="index"
+          
         >
-          <section class="one conteneur_ecriteau">
+        
+          <section class="one conteneur_ecriteau"
+        
+          >
             <div class="logo_img_offre">
               <div class="conteneur-image-logo_jobs">
                 <img 
@@ -384,12 +391,12 @@ export default {
               <h1>{{ offre.nom_offre }}</h1>
               <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
               <h1 class="badge badge_categorie">{{ offre.categorie.categorie }}</h1>
-              <div v-html="offre.description" 
+              <!-- <div v-html="offre.description" 
               id="conteneur-description" class="ellipse_text">
-              </div>
+              </div> -->
             </div>
           </section>
-          <div class="two my-3">
+          <div class="two my-1">
             <div>
               <h6>
                 <em class="bi bi-calendar-date"></em>

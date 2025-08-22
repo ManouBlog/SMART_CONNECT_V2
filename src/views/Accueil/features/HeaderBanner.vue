@@ -8,7 +8,7 @@ export default {
   components: { ButtonsHeader },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte1: "",
       texte2: "",
       texte3: "",
@@ -26,7 +26,7 @@ export default {
     },
   },
   async created() {
-    this.texte = await this.handleTranslate("Mon emploi");
+    this.texte0 = await this.handleTranslate("Mon emploi");
     this.texte2 = await this.handleTranslate("en un clic");
     this.texte3 = await this.handleTranslate("Nous vous accompagnons pour");
     this.texte4 = await this.handleTranslate("trouver votre prochaine opportunité");
@@ -39,14 +39,14 @@ export default {
 <template>
   <div class="header_banner">
     <div class="ecriteau">
-      <h1>
-        {{ texte }}<br />
+      <h1 style="font-size:4.5em;color:orange;">
+        {{ texte0 }}<br />
         {{ texte2 }}
       </h1>
-      <h5 class="my-5">
-        {{ texte3 }} <br />
-        {{ texte4 }}
-      </h5>
+      <div class="my-5" style="letter-spacing:0.2em;">
+        <h5>{{ texte3 }}</h5>
+       <h5>{{ texte4 }}</h5> 
+      </div>
       <ButtonsHeader
         @handleBtn="changeValueIsModal"
         v-if="!this.$store.state.user"

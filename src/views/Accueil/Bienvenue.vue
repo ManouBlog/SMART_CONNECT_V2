@@ -1,14 +1,15 @@
 <script>
-import Swal from "sweetalert2";
-import instance from "../../api/api";
+// import Swal from "sweetalert2";
+// import instance from "../../api/api";
 import HeaderBanner from "./features/HeaderBanner.vue";
 import StepViews from "./features/StepViews.vue";
 import RechercheOffre from "./features/RechercheOffre.vue";
 import PerformanceView from "./features/PerformanceView.vue";
 import OffresRecentes from "./features/OffresRecentes.vue";
 import Partenaires from "./features/Partenaires.vue";
-import NewsLetterView from "./features/NewsLetter.vue";
+// import NewsLetterView from "./features/NewsLetter.vue";
 import AppMobileView from "./features/AppMobileView.vue";
+import { usePartenaireStore } from "../../store-pinia/partenaire/usePartenaireStore";
 export default {
   name: "Bienvenue",
   components: {
@@ -18,7 +19,7 @@ export default {
     PerformanceView,
     OffresRecentes,
     Partenaires,
-    NewsLetterView,
+    // NewsLetterView,
     AppMobileView,
   },
   data() {
@@ -26,6 +27,7 @@ export default {
       offre_emploi_du_jour: "",
       user: this.$store.state.user,
       timetable: "",
+      STOREPARTENAIRE:usePartenaireStore(),
       offres: "",
       emailForNewsletter: "",
       charte: window.localStorage.getItem("charte"),
@@ -36,50 +38,50 @@ export default {
   },
 
   methods: {
-    closeCharte() {
-      this.charte = 0;
-      window.localStorage.setItem("charte", 0);
-    },
+    // closeCharte() {
+    //   this.charte = 0;
+    //   window.localStorage.setItem("charte", 0);
+    // },
 
-    voirDetailTimetable() {
-      if (this.user) {
-        this.$router.push({
-          name: "jobs",
-        });
-      } else {
-        Swal.fire({
-          icon: "info",
-          title: "Veuillez-vous connecter!",
-          showConfirmButton: false,
-          timer: 2000,
-        });
-        setTimeout(() => {
-          this.$router.push({
-            path: "/registre",
-            query: { redirect: this.path },
-          });
-        }, 2000);
-      }
-    },
-    async handleGoogleCallBack() {
-      const URL_PARAMS = new URLSearchParams(window.location.search);
-      const code = URL_PARAMS.get("code");
-      if (code) {
-        try {
-          const response = await instance.get(`auth/google/callback?code=${code}`);
-          const { token, user } = response.data;
-          localStorage.setItem("token", token);
-          localStorage.setItem("user", JSON.stringify(user));
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        return;
-      }
-    },
+    // voirDetailTimetable() {
+    //   if (this.user) {
+    //     this.$router.push({
+    //       name: "jobs",
+    //     });
+    //   } else {
+    //     Swal.fire({
+    //       icon: "info",
+    //       title: "Veuillez-vous connecter!",
+    //       showConfirmButton: false,
+    //       timer: 2000,
+    //     });
+    //     setTimeout(() => {
+    //       this.$router.push({
+    //         path: "/registre",
+    //         query: { redirect: this.path },
+    //       });
+    //     }, 2000);
+    //   }
+    // },
+    // async handleGoogleCallBack() {
+    //   const URL_PARAMS = new URLSearchParams(window.location.search);
+    //   const code = URL_PARAMS.get("code");
+    //   if (code) {
+    //     try {
+    //       const response = await instance.get(`auth/google/callback?code=${code}`);
+    //       const { token, user } = response.data;
+    //       localStorage.setItem("token", token);
+    //       localStorage.setItem("user", JSON.stringify(user));
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   } else {
+    //     return;
+    //   }
+    // },
   },
-  created() {
-    this.handleGoogleCallBack();
+ async mounted() {
+    await this.STOREPARTENAIRE.getAllPartenaires();
   },
 };
 </script>
@@ -92,10 +94,10 @@ export default {
     <PerformanceView />
     <AppMobileView />
     <OffresRecentes />
-   
-    <Partenaires />
+   <pre>{{this.STOREPARTENAIRE.partenaires}}</pre>
+    <Partenaires v-if="this.STOREPARTENAIRE.partenaires.length" />
 
-    <NewsLetterView />
+    <!-- <NewsLetterView /> -->
   </section>
 </template>
 

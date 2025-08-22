@@ -2,7 +2,8 @@
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
-import { mapActions } from "pinia";
+import { mapActions,mapState } from "pinia";
+import { usePartenaireStore } from "../../../store-pinia/partenaire/usePartenaireStore";
 // import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 export default {
   name: "Partenaires",
@@ -38,12 +39,10 @@ export default {
     };
   },
   computed: {
-    // ...mapState(useOffreStore, ["ListOffre"]),
+    ...mapState(usePartenaireStore, ["partenaires"]),
   },
   methods: {
-    // ...mapActions(useOffreStore, ["getOffres"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-    
   },
   async created() {
     this.texte = await this.handleTranslate("Nos Partenaires");
