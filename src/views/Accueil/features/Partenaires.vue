@@ -1,4 +1,5 @@
 <script>
+import { lienPhoto } from "../../../api/api";
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
@@ -14,6 +15,7 @@ export default {
   data() {
     return {
       texte: "", texte2: "", texte3: "", texte1: "" ,
+      lienPhoto:lienPhoto,
       slides: [
         // {
         //   id: 1,
@@ -51,19 +53,23 @@ export default {
 </script>
 <template>
   <div class="container">
-    <h1 class="fw-bold" v-if="slides.length">{{texte}}</h1>
+    <h1 class="fw-bold" style="color:orange;" v-if="partenaires.length">{{texte}}</h1>
     <br />
     <vueper-slides
       autoplay
       class="no-shadow"
       :visible-slides="3"
       :slide-ratio="1 / 5"
-      :dragging-distance="70"
+      :dragging-distance="170"
       :arrows="false"
       :bullets="false"
       :duration="1000"
     >
-      <vueper-slide v-for="(slide, i) in slides" :key="i" :image="slide.photo" />
+      <vueper-slide 
+      v-for="(slide, i) in partenaires" 
+      :key="i" 
+      :image="lienPhoto+slide.partenaire" 
+      />
       <template #pause>
         <em class="icon pause_circle_outline"></em>
       </template>

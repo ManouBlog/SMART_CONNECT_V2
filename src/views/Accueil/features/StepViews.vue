@@ -12,7 +12,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -68,7 +68,7 @@ export default {
   },
   async mounted() {
     this.initIntersectionObserver()
-    this.texte = await this.handleTranslate("Etapes à suivre");
+    this.texte0 = await this.handleTranslate("Etapes à suivre");
     this.texte2 = await this.handleTranslate(
       "Les instructions à suivre pour contacter du personnel ou postuler à une offre."
     );
@@ -104,7 +104,7 @@ export default {
 </script>
 <template>
   <div class="container main-container-home">
-    <h1 class="step_suivre">{{ texte }}</h1>
+    <h1 class="step_suivre">{{ texte0 }}</h1>
     <h5 class="text-secondary my-3">{{ texte2 }}</h5>
     <div class="conteneur-card" id="divCard">
       <CardView  v-for="(item, index) in dataCard" :key="index" :item="item" :cardPerfVisible="cardPerfVisible" />
@@ -124,6 +124,7 @@ export default {
   margin: 0;
   font-weight: bold;
   text-align: center;
+  color:orange;
 }
 .main-container-home {
   background: transparent;

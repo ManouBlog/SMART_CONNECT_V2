@@ -54,7 +54,7 @@ export default {
 </script>
 <template>
   <section>
-    <h1 class="fw-bold" v-if="ListOffre.length">{{ texte0 }}</h1>
+    <h1 class="fw-bold" style="color:orange;" v-if="ListOffre.length">{{ texte0 }}</h1>
     <br />
     <br />
     

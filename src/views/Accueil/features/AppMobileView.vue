@@ -9,7 +9,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -30,7 +30,7 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
   },
   async created() {
-    this.texte = await this.handleTranslate("Télécharger notre");
+    this.texte0 = await this.handleTranslate("Télécharger notre");
     this.texte1 = await this.handleTranslate("application mobile");
     this.texte2 = await this.handleTranslate(
       "Trouver des offres, ressources partout ou vous êtes"
@@ -41,8 +41,8 @@ export default {
 <template>
   <div class="header_banner py-3">
     <div class="ecriteau">
-      <h1>
-        {{ texte }} <br />
+      <h1 style="color:orange;">
+        {{ texte0 }} <br />
         {{ texte1 }}
       </h1>
       <h6 class="my-5 text-center">

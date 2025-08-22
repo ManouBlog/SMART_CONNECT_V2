@@ -7,7 +7,7 @@ export default {
   components: { Buttons },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -18,7 +18,7 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
   },
   async created() {
-    this.texte = await this.handleTranslate("Recherchez une offre");
+    this.texte0 = await this.handleTranslate("Recherchez une offre");
     this.texte1 = await this.handleTranslate("Trouvez votre prochain emploi sur notre");
     this.texte2 = await this.handleTranslate(
       "moteur de recherche ou gagnez du temps en recevant"
@@ -45,7 +45,7 @@ export default {
       />
     </div>
     <div class="ecriteau">
-      <h1 class="fw-bold">{{ texte }}</h1>
+      <h1 class="fw-bold" style="color:orange;">{{ texte0 }}</h1>
       <h5 class="my-5 text-center">
         {{ texte1 }} <br />
         {{ texte2 }} <br />

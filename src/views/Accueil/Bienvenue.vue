@@ -94,7 +94,6 @@ export default {
     <PerformanceView />
     <AppMobileView />
     <OffresRecentes />
-   <pre>{{this.STOREPARTENAIRE.partenaires}}</pre>
     <Partenaires v-if="this.STOREPARTENAIRE.partenaires.length" />
 
     <!-- <NewsLetterView /> -->

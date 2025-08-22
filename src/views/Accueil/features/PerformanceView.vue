@@ -72,7 +72,7 @@ onUnmounted(() => {
     <div class="row">
       <div class="container">
         <div class="mb-5">
-          <h1 class="fw-bold">{{ texte0 }}</h1>
+          <h1 class="fw-bold" style="color:orange;">{{ texte0 }}</h1>
         </div>
         <div class="conteneur-card-performance" id="cardPerf">
           <!-- Premier card - Animation depuis la gauche -->
