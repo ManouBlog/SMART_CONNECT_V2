@@ -103,9 +103,24 @@ export default {
                 processing: true,
                 order: [],
                 responsive: true,
-                language: {
-                  // Même configuration de langue que ci-dessus
+                 language: {
+                decimal: "",
+                emptyTable: "Aucune donnée disponible dans le tableau",
+                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
+                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+                lengthMenu: "Afficher _MENU_ entrées",
+                loadingRecords: "Chargement...",
+                processing: "Traitement...",
+                search: "Rechercher :",
+                zeroRecords: "Aucun résultat trouvé",
+                paginate: {
+                  first: "Premier",
+                  last: "Dernier",
+                  next: "Suivant",
+                  previous: "Précédent",
                 },
+              },
               });
             }
           });

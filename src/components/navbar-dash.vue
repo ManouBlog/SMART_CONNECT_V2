@@ -176,7 +176,7 @@ export default {
               <BadgeCompVue v-if="this.$store.state.nbreBadgeEntreprise > 0" :nbreTotal="this.$store.state.nbreBadgeEntreprise" />
             </router-link>
           </li>
-          <li
+          <!-- <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"
           >
@@ -184,7 +184,7 @@ export default {
             <router-link :to="{ name: 'students_visiteurs' }">
               <strong>Visiteurs</strong></router-link
             >
-          </li>
+          </li> -->
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"

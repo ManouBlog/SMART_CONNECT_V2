@@ -9,7 +9,8 @@ export default {
   name: "UserView",
   data() {
     return {
-      students: null,
+      students: [],
+      studentsNonAbonnee:[],
       see_detail_students: false,
       id_student: null,
       student: null,
@@ -102,9 +103,61 @@ export default {
           console.log(err);
         });
     },
+    get_Visiteurs() {
+      this.spinner = true;
+      axios
+        .get("https://backend.smart-connect.online/api/list_visiteurs", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.studentsNonAbonnee = res.data.data;
+          console.log("ENTRPRISES", this.students);
+          this.spinner = false;
+          setTimeout(function () {
+            $("#MyTableData2").DataTable({
+              pagingType: "full_numbers",
+              pageLength: 10,
+              processing: true,
+              order: [],
+              language: {
+                décimal: "",
+                emptyTable: "Aucune donnée disponible dans le tableau",
+                infoEmpty: "Showing 0 to 0 of 0 entries",
+                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+                infoPostFix: "",
+                thousands: ",",
+                lengthMenu: "Afficher les entrées du _MENU_",
+                loadingRecords: "Loading...",
+                processing: "Processing...",
+                search: "Chercher :",
+                stateSave: true,
+                zeroRecords: "Aucun enregistrement correspondant trouvé",
+                paginate: {
+                  first: "Premier",
+                  last: "Dernier",
+                  next: "Suivant",
+                  previous: "Précédent",
+                },
+                aria: {
+                  sortAscending: ": activate to sort column ascending",
+                  sortDescending: ": activate to sort column descending",
+                },
+              },
+            });
+          }, 10);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
     this.get_students();
+    this.get_Visiteurs();
   },
 };
 </script>
@@ -216,9 +269,47 @@ export default {
         </div>
       </div>
     </div>
+    <div class="col-sm-12 box-col-12">
+      <div class="card timetable">
+        <div class="social-tab">
+          <ul class="nav nav-tabs" id="top-tab" role="tablist">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                id="top-timeline"
+                data-bs-toggle="tab"
+                href="#abonnées"
+                role="tab"
+                aria-controls="abonnées"
+                aria-selected="true"
+                ><i data-feather="clock"></i>Abonnées</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="top-timeline"
+                data-bs-toggle="tab"
+                href="#nonAbonnees"
+                role="tab"
+                aria-controls="nonAbonnees"
+                aria-selected="true"
+                ><i data-feather="clock"></i>Pas abonnées</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <!-- Container-fluid starts-->
     <div class="tab-content" id="top-tabContent">
-      <div class="container-fluid">
+      <div
+      class="tab-pane fade show active"
+        id="abonnées"
+        role="tabpanel"
+        aria-labelledby="abonnées"
+      >
+ <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12 card py-3 px-2">
             <table id="MyTableData" class="table">
@@ -271,6 +362,68 @@ export default {
           </div>
         </div>
       </div>
+      </div>
+      <div
+      class="tab-pane"
+        id="nonAbonnees"
+        role="tabpanel"
+        aria-labelledby="nonAbonnees"
+      >
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12 card py-3 px-2">
+            <table id="MyTableData2" class="table">
+              <thead>
+                <tr>
+                  <th class="bg-light">Nom</th>
+                  <th class="bg-light">email</th>
+                  <th class="bg-light">Ville</th>
+                  <th class="bg-light">Commune</th>
+                  <th class="bg-light">Quartier</th>
+                  <!-- <th class="bg-light">Diplome</th> -->
+                  <th class="bg-light">Télephone</th>
+                  <th class="bg-light">Formule d'abonnement</th>
+                  <th class="bg-light">Détails</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in studentsNonAbonnee" :key="index">
+                  <td>{{ item.nom }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>
+                    {{ item.ville }}
+                  </td>
+                  <td>
+                    {{ item.commune }}
+                  </td>
+                  <td>
+                    {{ item.quartier }}
+                  </td>
+                  <!-- <td>
+                    {{ item.diplome }}
+                  </td> -->
+                  <td>
+                    {{ item.phone }}
+                  </td>
+                  <td>{{this.verifIfAbonnementCurrently(item?.user?.abonement)}}</td>
+                  <td>
+                    <router-link
+                      :to="{
+                        name: 'details',
+                        params: { id: item.id, name: 'talents' },
+                      }"
+                    >
+                      <i class="bi bi-eye"></i
+                    ></router-link>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </div>
+     
     </div>
   </div>
   <!-- Container-fluid Ends-->
