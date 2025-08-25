@@ -316,7 +316,7 @@ export default {
                 { libelle: texte8, value: user.quartier },
                 { libelle: texte5, value: user.phone },
                 { libelle: texte13, value: user.diplome },
-                { libelle: texte12, value: user.photo },
+                { libelle: texte12, value: user.user.photos },
               ]"
               :infoPersonellesCompetences="user.competences"
               v-if="this.user && this.user.user.statut.statut === 'etudiant'"

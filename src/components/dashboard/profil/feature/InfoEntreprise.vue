@@ -208,7 +208,7 @@ export default {
             :key="index"
             class="col-lg-4 col-sm-6"
           >
-            <p>{{ item.libelle }}</p>
+            <p style="color:orange;">{{ item.libelle }}</p>
             <h6 class="fw-bold" v-if="item.libelle !== 'Pièce d identite :'">
               {{ item.value }}
             </h6>
@@ -219,7 +219,7 @@ export default {
               v-for="(photo,index) in item.value"
               :key="index"
               :alt="photo.path"
-              width="100"
+              width="120"
               height="100"
               :src="lienPhoto + photo.path"
               />
