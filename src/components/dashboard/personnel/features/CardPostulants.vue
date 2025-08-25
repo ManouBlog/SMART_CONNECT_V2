@@ -71,7 +71,7 @@ export default {
         // console.log(reponse);
         spinnerLoading.launchLoading(false)
       } catch (error) {
-        alert(JSON.stringify(error,null,2));
+        console.log(error);
         Swal.fire({
           icon: "success",
           title: error.response.data.message,

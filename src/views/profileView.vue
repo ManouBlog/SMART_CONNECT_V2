@@ -43,7 +43,7 @@ export default {
        
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     update_compte_etudiant() {
@@ -77,7 +77,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           // Swal.fire({
           //   icon: "error",
           //   title: err.data.message,

@@ -249,7 +249,7 @@ export default {
             }
           })
           .catch((err) => {
-            alert(JSON.stringify(err,null,2))
+            console.log(err)
           });
       }
     },
@@ -261,7 +261,7 @@ export default {
           this.timetables = res.data.data;
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     create_timetable() {
@@ -338,7 +338,7 @@ export default {
           // // console.log("ELEMENT", this.timetable_show_id);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     show_box_confirmation_delete(id) {
@@ -372,7 +372,7 @@ export default {
         })
         .catch((err) => {
           // console.log(err.message);
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     showBoxConfirmationDeleteCompetences(id) {
@@ -406,7 +406,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     deleteMyCompetence() {
@@ -425,7 +425,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     getAllCompetencesByStudents() {
@@ -444,7 +444,7 @@ export default {
           this.competencesPredf = res.data.data;
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     addTag(newTag) {
@@ -577,7 +577,7 @@ export default {
           }
         })
         .catch((error) => {
-          alert(JSON.stringify(error,null,2));
+          console.log(error);
           Swal.fire({
             icon: "info",
             title: error,

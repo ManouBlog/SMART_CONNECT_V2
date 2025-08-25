@@ -76,7 +76,7 @@ export default {
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           loadingSpinner.launchLoading(false);
         });
     },
@@ -118,7 +118,7 @@ export default {
           }
         })
         .catch((error) => {
-          alert(JSON.stringify(error,null,2));
+          console.log(error);
         });
     },
     rejectJob() {
@@ -141,7 +141,7 @@ export default {
           }
         })
         .catch((error) => {
-          alert(JSON.stringify(error,null,2));
+          console.log(error);
         });
     },
     seeDetailOffre(idOffre){
@@ -154,7 +154,7 @@ export default {
           }
         })
         .catch((error) => {
-          alert(JSON.stringify(error,null,2));
+          console.log(error);
         });
     }
   },

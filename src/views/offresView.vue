@@ -57,7 +57,7 @@ export default {
         })
         .catch((err) => {
           // console.log("MSG ERROR", err);
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           Swal.fire({
             icon: "info",
             title: err.message,
@@ -109,7 +109,7 @@ export default {
           }, 10);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     show_offre_id(id) {
@@ -126,7 +126,7 @@ export default {
           // console.log("OFFRE_ID", this.offre_id);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     create_offre() {
@@ -162,7 +162,7 @@ export default {
           }
         })
         .catch((error) => {
-          alert(JSON.stringify(error,null,2))
+          console.log(error)
           // console.log(res);
           // Swal.fire({
           //   icon: "error",

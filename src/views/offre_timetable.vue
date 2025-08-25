@@ -122,7 +122,7 @@ export default {
           }
         })
         .catch((err) => {
-          // alert(JSON.stringify(err,null,2))
+          // console.log(err)
           console.log(err)
           RegisterStore.changeValueIsModal()
         })
@@ -151,7 +151,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         })
         .finally(()=>{
           loadingSpinner.launchLoading(false)
@@ -234,7 +234,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           Swal.fire({
             icon: "error",
             title: err.data.message,

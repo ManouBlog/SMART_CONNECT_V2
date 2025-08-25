@@ -121,7 +121,7 @@ export default {
           }
         })
         .catch((error) => {
-          alert(JSON.stringify(error,null,2));
+          console.log(error);
           Swal.fire({
             icon: "info",
             title: error.response.data.message,
@@ -176,7 +176,7 @@ export default {
         })
         .catch((err) => {
           // console.log("ERROR", err);
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           // Swal.fire({
           //   icon: "error",
           //   title: "l'email existe déjà",
@@ -224,7 +224,7 @@ export default {
         })
         .catch((error) => {
           // console.log(error.message);
-          alert(JSON.stringify(error,null,2))
+          console.log(error)
           Swal.fire({
             icon: "error",
             title: "l'email existe déjà",
@@ -441,7 +441,7 @@ Un caractère spécial
           this.competences = res.data.data;
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     addTag(newTag) {

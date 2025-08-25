@@ -103,7 +103,7 @@ export default {
           }
         })
         .catch((error) => {
-          alert(JSON.stringify(error,null,2));
+          console.log(error);
         });
       }
     },
@@ -141,7 +141,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           this.isLoading = false;
         });
     },

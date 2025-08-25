@@ -123,7 +123,7 @@ export default {
             }
           })
           .catch((error) => {
-            alert(JSON.stringify(error,null,2));
+            console.log(error);
           });
       }
     },

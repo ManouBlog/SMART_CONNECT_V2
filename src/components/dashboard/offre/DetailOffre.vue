@@ -113,7 +113,7 @@ export default {
           });
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           Swal.fire({
             icon: "info",
             title: "erreur",
@@ -136,7 +136,7 @@ export default {
           // console.log("OFFRE_ID", this.offre_id);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         })
         .finally(()=>{
           this.spinnerModify = false;

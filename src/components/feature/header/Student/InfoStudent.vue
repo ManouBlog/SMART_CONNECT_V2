@@ -97,7 +97,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           this.launchLoading(false);
         });
     },

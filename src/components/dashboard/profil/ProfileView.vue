@@ -144,7 +144,7 @@ export default {
             }
           })
           .catch((error) => {
-            alert(JSON.stringify(error,null,2));
+            console.log(error);
           });
       }
     },
@@ -186,7 +186,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           Swal.fire({
             icon: "error",
             title: err.data.message,
@@ -227,7 +227,7 @@ export default {
           }
         })
         .catch((error) => {
-          alert(JSON.stringify(error,null,2));
+          console.log(error);
           Swal.fire({
             icon: "error",
             title: error.data.message,
@@ -250,7 +250,7 @@ export default {
             }
           })
           .catch((error) => {
-            alert(JSON.stringify(error,null,2));
+            console.log(error);
           });
     },
   },

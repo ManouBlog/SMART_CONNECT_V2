@@ -357,7 +357,7 @@ export default {
           // console.log("DateRendez-vous", this.MyDateRendezVous);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         })
         .finally(()=>{
           loadingSpinner.launchLoading(false);
@@ -613,7 +613,7 @@ export default {
           // console.log("EMPLOI DU TEMPS", this.list_emploi);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         })
         .finally(()=>{
          loadingSpinner.launchLoading(false);
@@ -664,7 +664,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           Swal.fire({
             icon: "info",
             title: err.response.data.message,
@@ -705,7 +705,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           Swal.fire({
             icon: "info",
             title: "Vérifier votre connexion ou les informations que vous envoyer",
@@ -726,7 +726,7 @@ export default {
         })
         .catch((error) => {
           // console.log("error3", error);
-          alert(JSON.stringify(error,null,2))
+          console.log(error)
         });
       loadingSpinner.launchLoading(false);
     },
@@ -738,7 +738,7 @@ export default {
           this.competencesPredefini = res.data.data;
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     verfEnter() {
@@ -790,7 +790,7 @@ export default {
         // console.log("responseHandleAbonnement", response);
         this.listAbonnement = response.data.data;
       } catch (error) {
-        alert(JSON.stringify(error,null,2));
+        console.log(error);
       }
     },
   },

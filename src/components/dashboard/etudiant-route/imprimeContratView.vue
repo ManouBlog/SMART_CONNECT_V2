@@ -205,7 +205,7 @@ h5 {
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           loadingSpinner.launchLoading(false);
         });
     },

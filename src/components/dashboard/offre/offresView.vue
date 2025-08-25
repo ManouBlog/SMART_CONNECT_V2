@@ -190,7 +190,7 @@ export default {
           this.spinner = false;
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     declencheRedirectionforGoOnRoute() {

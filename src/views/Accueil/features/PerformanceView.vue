@@ -30,7 +30,7 @@ const seePerformanceNbre = async () => {
       visiteur.value = response.data.visiteurPerf;
     }
   } catch(error) {
-    alert(JSON.stringify(error,null,2));
+    console.log(error);
   }
 };
 

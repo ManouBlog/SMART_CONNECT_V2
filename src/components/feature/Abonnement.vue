@@ -28,7 +28,7 @@ const handleAbonement = async () => {
     // console.log("RESPONSE_getAbonnement", response.data);
     isLoading.value = false;
   } catch (error) {
-    alert(JSON.stringify(error,null,2));
+    console.log(error);
     isLoading.value = false;
   }
 };

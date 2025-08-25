@@ -30,7 +30,7 @@ const handleAbonement = async () => {
     // console.log("RESPONSE_getAbonnement", response.data);
     loadingSpinner.launchLoading(false);
   } catch (error) {
-    alert(JSON.stringify(error,null,2));
+    console.log(error);
     loadingSpinner.launchLoading(false);
   }
 };
@@ -62,7 +62,7 @@ onMounted(async () => {
             });
     }
   } catch (error) {
-    alert(JSON.stringify(error,null,2));
+    console.log(error);
   }finally{
     await handleAbonement();
   }

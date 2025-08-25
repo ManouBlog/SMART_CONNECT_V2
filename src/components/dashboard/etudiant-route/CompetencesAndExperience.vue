@@ -120,7 +120,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           Swal.fire({
             icon: "error",
             title: err.response.data.message,
@@ -142,7 +142,7 @@ export default {
           this.competencesPredf = res.data.data;
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     addTag(newTag) {
@@ -180,7 +180,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         })
         .finally(()=>{
           this.getAllCompetencesByStudents();
@@ -212,7 +212,7 @@ export default {
           }
         })
         .catch((error) => {
-          alert(JSON.stringify(error,null,2));
+          console.log(error);
         })
         .finally(()=>{
           loadingSpinner.launchLoading(false);
@@ -230,7 +230,7 @@ export default {
           this.spinnerExperience = false;
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           this.spinnerExperience = false;
         });
        }else{
@@ -252,7 +252,7 @@ export default {
           // // console.log("Experiences", this.updateExperience);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           this.spinnerModifyExperience = true;
         });
     },
@@ -293,7 +293,7 @@ export default {
         })
         .catch((err) => {
           this.spinnerModifyExperience = false;
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     deleteExperience() {
@@ -312,7 +312,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     ToogleShowDelete(id) {

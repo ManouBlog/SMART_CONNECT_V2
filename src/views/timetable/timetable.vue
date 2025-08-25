@@ -514,7 +514,7 @@ export default {
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           loadingSpinner.launchLoading(false);
         });
     },
@@ -587,7 +587,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           this.loadSpinner = false;
           Swal.fire({
             icon: "info",
@@ -631,7 +631,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           Swal.fire({
             icon: "info",
             title: "Vérifier votre connexion ou les informations que vous envoyer",
@@ -649,7 +649,7 @@ export default {
           this.competencesPredefini = res.data.data;
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     verfEnter() {

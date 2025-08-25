@@ -18,7 +18,7 @@ export default {
             this.afficheAll = res.data.data
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           this.afficheAll = []
         });
     },

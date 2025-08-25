@@ -95,7 +95,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           this.launchLoading(false);
         });
     },
@@ -110,7 +110,7 @@ export default {
           this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
         }
       } catch (error) {
-        alert(JSON.stringify(error,null,2));
+        console.log(error);
       }
     },
   },

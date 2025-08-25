@@ -60,7 +60,7 @@ export default {
           // console.log("this.DetailSeeEntreprise", this.DetailSeeEntreprise);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         })
         .finally(()=>{
          loadingSpinner.launchLoading(false);
@@ -90,7 +90,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           Swal.fire({
             icon: "info",
             title: err.response.data.message,

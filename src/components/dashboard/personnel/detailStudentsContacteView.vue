@@ -86,7 +86,7 @@ export default {
           // console.log("STUDENTS", this.student);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           this.spinner = false;
         }).finally(()=>{
            this.launchLoading(false);
@@ -146,7 +146,7 @@ export default {
           // }, 10);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     chooseVeryBad() {

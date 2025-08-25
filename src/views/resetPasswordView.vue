@@ -26,7 +26,7 @@ export default {
             });
         })
         .catch((err) => {
-            alert(JSON.stringify(err,null,2))
+            console.log(err)
             Swal.fire({
               icon: "error",
               title: err.response.data.message,

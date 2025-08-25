@@ -71,7 +71,7 @@ export default {
           spinnerLoading.launchLoading(false);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           spinnerLoading.launchLoading(false);
         });
     },

@@ -258,7 +258,7 @@ export default {
             }
           })
           .catch((err) => {
-            alert(JSON.stringify(err,null,2))
+            console.log(err)
           })
           .finally(()=>{
             this.get_timetable();
@@ -275,7 +275,7 @@ export default {
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     create_timetable() {
@@ -375,7 +375,7 @@ export default {
             }
           })
           .catch((err) => {
-            alert(JSON.stringify(err,null,2))
+            console.log(err)
             Swal.fire({
               icon: "error",
               title: "Le jour a déjà été pris",
@@ -423,7 +423,7 @@ export default {
           // // console.log("ELEMENT", this.timetable_show_id);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         })
         .finally(()=>{
           loadingSpinner.launchLoading(false);
@@ -460,7 +460,7 @@ export default {
         })
         .catch((err) => {
           // console.log(err.message);
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     showBoxConfirmationDeleteCompetences(id) {
@@ -493,7 +493,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
           Swal.fire({
               icon: "info",
               title: err.response.data.message,
@@ -522,7 +522,7 @@ export default {
           }
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     getAllCompetencesByStudents() {
@@ -541,7 +541,7 @@ export default {
           this.competencesPredf = res.data.data;
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     addTag(newTag) {
