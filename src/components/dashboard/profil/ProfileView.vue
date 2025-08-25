@@ -125,7 +125,7 @@ export default {
         instance
           .post("passwordModify", data)
           .then((resp) => {
-            console.log(resp);
+            // console.log(resp);
             if (resp.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -144,7 +144,7 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(error);
+            alert(JSON.stringify(error,null,2));
           });
       }
     },
@@ -162,8 +162,8 @@ export default {
       instance
         .post("modifier_profil", data)
         .then((res) => {
-          console.log(res.data.user);
-          console.log("COMPTE", res.data.compte);
+          // console.log(res.data.user);
+          // console.log("COMPTE", res.data.compte);
           if (res.data.status === true) {
             this.$store.state.user = res.data.user;
             this.$store.state.compte = res.data.compte;
@@ -186,7 +186,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           Swal.fire({
             icon: "error",
             title: err.data.message,
@@ -203,7 +203,7 @@ export default {
           oldPassword: this.oldPassword,
         })
         .then((reponse) => {
-          console.log(reponse);
+          // console.log(reponse);
           if (reponse.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -227,7 +227,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          alert(JSON.stringify(error,null,2));
           Swal.fire({
             icon: "error",
             title: error.data.message,
@@ -238,19 +238,19 @@ export default {
     },
     see(e) {
       this.photo = e.target.files[0];
-      console.log(this.photo);
+      // console.log(this.photo);
     },
     async getInfoUser(){
       await instance
           .get("voirInfoUserConnect")
           .then((resp) => {
-            console.log("voirInfoUserConnect",resp);
+            // console.log("voirInfoUserConnect",resp);
             if (resp.data.status === true) {
              this.user = resp.data.user
             }
           })
           .catch((error) => {
-            console.log(error);
+            alert(JSON.stringify(error,null,2));
           });
     },
   },

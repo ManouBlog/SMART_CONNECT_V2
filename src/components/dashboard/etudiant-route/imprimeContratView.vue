@@ -191,21 +191,21 @@ h5 {
       await instance
         .get("get_who_contact_student")
         .then((res) => {
-          console.log("get_who_contact_student", res);
+          // // console.log("get_who_contact_student", res);
           this.offreDetail = res.data;
-          console.log("this.$route.params.id", this.$route.params.id);
-          console.log("ENTREPRISES", this.list_entreprise_contact);
+          // // console.log("this.$route.params.id", this.$route.params.id);
+          // // console.log("ENTREPRISES", this.list_entreprise_contact);
           this.entreprise = this.offreDetail.find(
             (item) => Number(item.id) === Number(this.$route.params.id)
           );
           this.myOffre = this.entreprise.offre;
-          console.log("this.myOffre", this.myOffre);
+          // // console.log("this.myOffre", this.myOffre);
           this.created_at = this.entreprise.created_at;
-          console.log("this.entreprise", this.entreprise);
+          // // console.log("this.entreprise", this.entreprise);
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           loadingSpinner.launchLoading(false);
         });
     },

@@ -67,7 +67,7 @@ export default {
     ]),
     ...mapActions(useInfoStudentStore, ["filterDataWithYear","getStatistiqueDashboardStudent"]),
     handleData(year) {
-      console.log(year);
+      // // console.log(year);
       if (
         this.$store.state.user &&
         this.$store.state.user.user.statut.statut === "etudiant"
@@ -90,12 +90,12 @@ export default {
     this.get_students_contact();
     this.get_offres_interess_by_student();
     this.getAllOffresCreatedByEntreprise();
-    console.log(
-      "Personnels contactés",
-      configUtils.statistiqueEntreprise(this.student, 2)
-    );
-    console.log("Personnels sélectionnés", this.offresInteressByStudents);
-    console.log("list_students", this.list_students);
+    // // console.log(
+    //   "Personnels contactés",
+    //   configUtils.statistiqueEntreprise(this.student, 2)
+    // );
+    // // console.log("Personnels sélectionnés", this.offresInteressByStudents);
+    // // console.log("list_students", this.list_students);
     this.texte0 = await this.handleTranslate("Tableau de bord");
     this.texte1 = await this.handleTranslate(`Nombre d'offres postulées`);
     this.texte2 = await this.handleTranslate(`Offres en attente de réponse`);

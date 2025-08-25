@@ -107,7 +107,7 @@ export default {
       await instance
         .get("list_offres")
         .then((res) => {
-          console.log("list_offres", res);
+          // console.log("list_offres", res);
           if (res.data.status) {
             this.MylistOffre = res.data.data.filter(item=>{
               return JSON.stringify(new Date().toISOString().substring(0, 10)) <
@@ -122,7 +122,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           RegisterStore.changeValueIsModal()
         })
         .finally(()=>{
@@ -130,12 +130,12 @@ export default {
         })
     },
     handleListOffresWithSearch(data) {
-      console.log("handleListOffresWithSearch")
+      // console.log("handleListOffresWithSearch")
       loadingSpinner.launchLoading(true)
       instance
         .post("search_offres", data)
         .then((res) => {
-          console.log("search_offres", res);
+          // console.log("search_offres", res);
           if (res.data.status) {
             // this.listOffre = res.data.data;
             this.MylistOffre = res.data.data.filter(item=>{
@@ -150,7 +150,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         })
         .finally(()=>{
           loadingSpinner.launchLoading(false)
@@ -210,19 +210,19 @@ export default {
     },
     get_list_categorie() {
       instance.get("seeCategorie").then((res) => {
-        console.log(res);
+        // console.log(res);
         this.list_categorie = res.data.data;
-        console.log("CATEGORIE", this.list_categorie);
+        // console.log("CATEGORIE", this.list_categorie);
       });
     },
     post(id) {
-      console.log("ID_OFFRE", id);
+      // console.log("ID_OFFRE", id);
       instance
         .post("postule_offre", {
           offre_id: id,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -233,7 +233,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           Swal.fire({
             icon: "error",
             title: err.data.message,
@@ -243,7 +243,7 @@ export default {
         });
     },
     addTag(newTag) {
-      console.log(newTag);
+      // console.log(newTag);
       this.Myarray = [];
       this.MylistOffre = [];
       this.MylistsOffres.forEach((element) => {
@@ -258,9 +258,6 @@ export default {
         this.MylistOffre = this.MylistsOffres;
       }
     },
-    goDetailJob(id){
-      console.log('goDetailJob',id)
-    }
   },
   async created() {
     this.texte = await this.handleTranslate(`selectionne une categorie`);

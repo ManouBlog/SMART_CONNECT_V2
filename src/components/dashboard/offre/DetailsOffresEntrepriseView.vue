@@ -82,14 +82,14 @@ export default {
       instance
       .get("get_offres_entreprise")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.offres = res.data.data;
         this.entreprise = this.offres.find((item) => item.id == this.$route.params.id);
-        console.log("ENTREPRISE", this.entreprise);
+        // console.log("ENTREPRISE", this.entreprise);
         this.spinner = false;
       })
       .catch((error)=>{
-        console.log(error)
+        // console.log(error)
       })
       .finally(()=>{
         this.launchLoading(false);

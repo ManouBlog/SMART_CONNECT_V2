@@ -116,7 +116,7 @@ export default {
       this.creer = false;
       let capitalizeFirstLetterOffre = this.offre[0].toUpperCase();
       let offreConcat = capitalizeFirstLetterOffre + this.offre.substring(1);
-      console.log(offreConcat);
+      // console.log(offreConcat);
       let data = {
         nom_offre: offreConcat,
         salaire: this.salaire,
@@ -132,7 +132,7 @@ export default {
         .then((res) => {
           this.spinner = true;
           this.loading = false;
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -158,7 +158,7 @@ export default {
           }
         })
         .catch((res) => {
-          console.log(res.response.data.message);
+          // console.log(res.response.data.message);
           Swal.fire({
             icon: "error",
             title: res.response.data.message,
@@ -171,7 +171,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      console.log("ID_DELETE", this.id_for_delete);
+      // console.log("ID_DELETE", this.id_for_delete);
     },
     not_delete() {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -184,17 +184,17 @@ export default {
         .get("seeCategorie")
 
         .then((res) => {
-          console.log("TIMETABLE", res);
+          // console.log("TIMETABLE", res);
           this.categories = res.data.data;
-          console.log("CATEGORIE", this.categories);
+          // console.log("CATEGORIE", this.categories);
           this.spinner = false;
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     declencheRedirectionforGoOnRoute() {
-      console.log("declencheRedirectionforGoOnRoute");
+      // console.log("declencheRedirectionforGoOnRoute");
       this.$router.push("/dashboard/creation_offre");
     },
     handleDeleteItem(idItem) {

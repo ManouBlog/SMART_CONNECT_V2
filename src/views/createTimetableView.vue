@@ -30,21 +30,23 @@ export default {
           heure_end: this.timetable_show_id.heure_end,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           // Swal.fire({
           //   icon: "success",
           //   title: res.data.message,
           //   showConfirmButton: false,
           //   timer: 1500,
           // });
-          setTimeout(() => {
-            this.modify_timetable = false;
-            this.id_timetable_update = null;
-            // location.reload(true);
-          }, 1500);
+          if (res.data.status) {
+            setTimeout(() => {
+              this.modify_timetable = false;
+              this.id_timetable_update = null;
+              // location.reload(true);
+            }, 1500);
+          }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err, null, 2));
         });
     },
     get_timetable() {
@@ -52,7 +54,7 @@ export default {
       instance
         .get("get_schedule")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.timetables = res.data.data;
           this.spinner = false;
           setTimeout(function () {
@@ -90,7 +92,7 @@ export default {
           }, 10);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err, null, 2));
         });
     },
 
@@ -102,7 +104,7 @@ export default {
           heure_end: this.heure_end,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -124,7 +126,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err, null, 2));
           // Swal.fire({
           //   icon: "error",
           //   title: "Le jour a déjà été pris",
@@ -137,24 +139,24 @@ export default {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = id;
       this.spinner = true;
-      console.log("ID_UPADTE", this.id_timetable_update);
+      // console.log("ID_UPADTE", this.id_timetable_update);
       instance
         .get("get_schedule")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.timetable = res.data.data;
           this.timetable_show_id = this.timetable.find((item) => item.id === id);
           this.spinner = false;
-          console.log("ELEMENT", this.timetable_show_id);
+          // console.log("ELEMENT", this.timetable_show_id);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err, null, 2));
         });
     },
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      console.log("ID_DELETE", this.id_for_delete);
+      // console.log("ID_DELETE", this.id_for_delete);
     },
     not_delete() {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -164,7 +166,7 @@ export default {
       instance
         .delete("delete_schedule/" + this.id_for_delete)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -179,7 +181,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err, null, 2));
         });
     },
   },
@@ -197,7 +199,7 @@ export default {
     <div class="page-body position-relative">
       <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
         <div class="card p-5">
-          <p class="h3 my-2" style="color:black;">Voulez-vous vraiment supprimer?</p>
+          <p class="h3 my-2" style="color: black">Voulez-vous vraiment supprimer?</p>
           <div>
             <button class="btn-lg bg-warning" @click="delete_timetable">Supprimer</button>
             <button class="btn-lg bg-danger mx-2" @click="not_delete">Annuler</button>

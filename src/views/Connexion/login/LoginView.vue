@@ -38,21 +38,21 @@ export default {
     }),
     toogleForgotPassword() {
       this.isModalForgotPassword = !this.isModalForgotPassword;
-      console.log(this.isModalForgotPassword);
+      // console.log(this.isModalForgotPassword);
     },
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
     onFinish(values) {
-      console.log("Success:", values);
+      // console.log("Success:", values);
       this.connexionUser(values);
     },
     connexionUser(dataValue) {
-      console.log("connex2")
+      // console.log("connex2")
       this.launchLoading(true);
       instance
         .post("auth_login", dataValue)
         .then((response) => {
-          console.log("reponse", response.data);
-          console.log("token", response.data.access_token);
+          // console.log("reponse", response.data);
+          // console.log("token", response.data.access_token);
 
           if (response.data.status === true) {
             Swal.fire({
@@ -67,7 +67,7 @@ export default {
               JSON.stringify(response.data.access_token)
             );
             this.$store.state.user = response.data.user;
-            console.log("essai", this.$store.state.charte);
+            // console.log("essai", this.$store.state.charte);
             this.$store.state.token = response.data.access_token;
             this.toogleModal();
             this.$router.push({
@@ -92,7 +92,7 @@ export default {
             showConfirmButton: true,
           });
           this.launchLoading(false);
-          console.log("MESGA55",response);
+          // console.log("MESGA55",response);
         });
     },
     onFinishFailed(errorInfo) {

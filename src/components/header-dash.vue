@@ -14,7 +14,7 @@ export default {
       instance
         .get("auth_logout")
         .then((res) => {
-          console.log(res);
+          // // console.log(res);
           if (res) {
             localStorage.removeItem("token");
             localStorage.removeItem("user");
@@ -35,14 +35,14 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
   },
-  created() {
-    console.log(localStorage.getItem("token"));
-    console.log("store", this.$store.state.token);
-  },
+  // created() {
+  //   // // console.log(localStorage.getItem("token"));
+  //   // // console.log("store", this.$store.state.token);
+  // },
 };
 </script>
 <template>

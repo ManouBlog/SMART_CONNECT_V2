@@ -17,9 +17,9 @@ export default {
       this.spinner = true;
       instance.get("list_entreprise")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.entreprises = res.data.data;
-          console.log("ENTRPRISES", this.entreprises);
+          // console.log("ENTRPRISES", this.entreprises);
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({
@@ -56,7 +56,7 @@ export default {
           }, 10);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
   },

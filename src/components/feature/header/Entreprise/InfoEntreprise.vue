@@ -75,13 +75,13 @@ export default {
       instance
         .get("auth_logout")
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.data.status) {
-            console.log("RESPONSE", response.data);
+            // console.log("RESPONSE", response.data);
             this.$store.state.user = null;
             this.$store.state.token = null;
-            console.log("this.$store.state.user", this.$store.state.user);
-            console.log("this.$store.state.token", this.$store.state.token);
+            // console.log("this.$store.state.user", this.$store.state.user);
+            // console.log("this.$store.state.token", this.$store.state.token);
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             Swal.fire({
@@ -95,22 +95,22 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           this.launchLoading(false);
         });
     },
     async get_offres_interess_by_student() {
       try {
         const response = await instance.get("list_offres_interess_by_students");
-        console.log(
-          "get_offres_interess_by_student",
-          response.data.filter((item) => item.recruit === 0).length
-        );
+        // console.log(
+         // "get_offres_interess_by_student",
+         // response.data.filter((item) => item.recruit === 0).length
+        //);
         if (response["status"] === 200) {
           this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
         }
       } catch (error) {
-        console.log(error);
+        alert(JSON.stringify(error,null,2));
       }
     },
   },

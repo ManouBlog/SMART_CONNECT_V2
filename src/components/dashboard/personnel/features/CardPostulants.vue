@@ -49,9 +49,9 @@ export default {
     methods:{
       ...mapActions(useTranslateStore, ["handleTranslate"]),
         async chooseStudent(id,valueRecruit) {
-      console.log(id);
+      // console.log(id);
     
-      console.log(this.InfoPostulant)
+      // console.log(this.InfoPostulant)
       spinnerLoading.launchLoading(true)
       try {
         const data = {
@@ -68,10 +68,10 @@ export default {
             showConfirmButton: true,
           });
         }
-        console.log(reponse);
+        // console.log(reponse);
         spinnerLoading.launchLoading(false)
       } catch (error) {
-        console.log(error);
+        alert(JSON.stringify(error,null,2));
         Swal.fire({
           icon: "success",
           title: error.response.data.message,

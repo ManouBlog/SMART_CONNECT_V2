@@ -17,7 +17,7 @@ async created(){
 this.texte = await this.handleTranslate("Adresse");
 this.texte2 = await this.handleTranslate("Adresse email");
 this.texte3 = await this.handleTranslate("Contact")
-console.log(this.texte);
+// console.log(this.texte);
   }
 };
 </script>

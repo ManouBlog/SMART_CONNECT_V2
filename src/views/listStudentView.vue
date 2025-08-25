@@ -19,25 +19,25 @@ export default {
     see_details(id) {
       this.see_detail_students = !this.see_detail_students;
       this.id_student = id;
-      console.log("ID_STUDENT", this.id_student);
+      // console.log("ID_STUDENT", this.id_student);
     },
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
       instance.get("list_students")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.students = res.data.data;
           this.student = this.students.find((item) => item.id === id);
-          console.log("ID_STUDENT", this.student);
+          // console.log("ID_STUDENT", this.student);
         });
     },
     get_students() {
       this.spinner = true;
       instance.get("list_students")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.students = res.data.data;
-          console.log("ENTRPRISES", this.students);
+          // console.log("ENTRPRISES", this.students);
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({
@@ -74,7 +74,7 @@ export default {
           }, 10);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
   },

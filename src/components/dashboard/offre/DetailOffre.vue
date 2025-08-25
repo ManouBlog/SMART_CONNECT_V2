@@ -103,7 +103,7 @@ export default {
         })
 
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.modify_offre = false;
           this.id_offre_update = "";
           Swal.fire({
@@ -113,7 +113,7 @@ export default {
           });
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           Swal.fire({
             icon: "info",
             title: "erreur",
@@ -130,13 +130,13 @@ export default {
       instance
         .get("get_offres_entreprise")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.offres = res.data.data;
           this.offre_id = this.offres.find((offre) => offre.id == this.$route.params.id);
-          console.log("OFFRE_ID", this.offre_id);
+          // console.log("OFFRE_ID", this.offre_id);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         })
         .finally(()=>{
           this.spinnerModify = false;
@@ -144,7 +144,7 @@ export default {
         })
     },
     selectCategorie(e) {
-      console.log("selectCategorie", e.target.value);
+      // console.log("selectCategorie", e.target.value);
       this.competenceWithCategorie = this.allCompetences.filter(
         (item) => item.categorie.id === Number(e.target.value)
       );

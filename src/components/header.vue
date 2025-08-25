@@ -136,7 +136,7 @@ export default {
               dateFin_contrat: this.dateFin,
             })
             .then((res) => {
-              console.log(res);
+              // // console.log(res);
               if (res.data.status === true) {
                 Swal.fire({
                   icon: "success",
@@ -155,7 +155,7 @@ export default {
               }
             })
             .catch((err) => {
-              console.log(err);
+              alert(JSON.stringify(err,null,2))
               Swal.fire({
                 icon: "error",
                 title: "Veuillez-vous connecter",

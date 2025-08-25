@@ -13,11 +13,11 @@ export default {
   },
   methods:{
     selectLanguageForWeb(e){
-      console.log(e.target.value.toLowerCase())
+      // console.log(e.target.value.toLowerCase())
       this.changeLanguageForTranslate(e.target.value.toLowerCase())
      
       // this.$i18n.locale = e.target.value.toLowerCase();
-      // console.log("this.$i18n.locale",this.$i18n.locale);
+      // // console.log("this.$i18n.locale",this.$i18n.locale);
     },
     ...mapActions(useTranslateStore,["changeLanguageForTranslate"])
   }

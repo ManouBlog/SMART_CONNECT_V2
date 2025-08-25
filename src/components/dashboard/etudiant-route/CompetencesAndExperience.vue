@@ -83,7 +83,7 @@ export default {
       instance
         .get("getCompetenceByStudents")
         .then((res) => {
-          console.log("AllCompetences", res.data.data);
+          // // console.log("AllCompetences", res.data.data);
           if (res.data.status === true) {
             this.competences = res.data.data.competences;
           }
@@ -98,7 +98,7 @@ export default {
         })
 
         .then((response) => {
-          console.log(response);
+          // // console.log(response);
           if (response.data.status === true) {
             this.getAllCompetences();
             Swal.fire({
@@ -120,7 +120,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           Swal.fire({
             icon: "error",
             title: err.response.data.message,
@@ -138,22 +138,22 @@ export default {
         .get("GetAllCompetences")
 
         .then((res) => {
-          console.log("COMPETENCE", res.data.data);
+          // // console.log("COMPETENCE", res.data.data);
           this.competencesPredf = res.data.data;
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     addTag(newTag) {
-      console.log(newTag);
+      // // console.log(newTag);
       let brox = newTag;
       this.acquis = brox;
       this.comp = [];
       this.acquis.forEach((el) => {
         this.comp.push(el.id);
       });
-      console.log("THIS.comp", this.comp);
+      // // console.log("THIS.comp", this.comp);
     },
     showBoxConfirmationDeleteCompetences(id) {
       this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
@@ -168,7 +168,7 @@ export default {
       instance
         .delete("deleteCompetencesOfStudents/" + this.id_for_delete)
         .then((res) => {
-          console.log(res);
+          // // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -180,7 +180,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         })
         .finally(()=>{
           this.getAllCompetencesByStudents();
@@ -212,7 +212,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          alert(JSON.stringify(error,null,2));
         })
         .finally(()=>{
           loadingSpinner.launchLoading(false);
@@ -225,12 +225,12 @@ export default {
       await instance
         .get("GetMyExperiences")
         .then((res) => {
-          console.log("Experiences", res.data.data);
+          // // console.log("Experiences", res.data.data);
           this.MyExperiences = res.data.data;
           this.spinnerExperience = false;
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           this.spinnerExperience = false;
         });
        }else{
@@ -242,17 +242,17 @@ export default {
       this.spinnerModifyExperience = true;
       this.toogleModifyExperience = !this.toogleModifyExperience;
       this.idExperience = id;
-      console.log("IDEXPERIENCE", this.idExperience);
+      // // console.log("IDEXPERIENCE", this.idExperience);
       instance
         .get("GetMyExperiences")
         .then((res) => {
           this.MyExperiences = res.data.data;
           this.updateExperience = this.MyExperiences.find((item) => item.id === id);
           this.spinnerModifyExperience = false;
-          console.log("Experiences", this.updateExperience);
+          // // console.log("Experiences", this.updateExperience);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           this.spinnerModifyExperience = true;
         });
     },
@@ -270,7 +270,7 @@ export default {
       formData.append("entreprise", this.updateExperience.entreprise);
       formData.append("proof", this.fileProofAttestation);
       this.spinnerModifyExperience = true;
-      console.log(this.updateExperience.experience);
+      // // console.log(this.updateExperience.experience);
       instance
         .post("modifyExperience/" + this.idExperience, formData)
         .then((response) => {
@@ -289,11 +289,11 @@ export default {
             this.spinnerModifyExperience = false;
           }
 
-          console.log("Resultat modification", response);
+          // // console.log("Resultat modification", response);
         })
         .catch((err) => {
           this.spinnerModifyExperience = false;
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     deleteExperience() {
@@ -312,7 +312,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     ToogleShowDelete(id) {
@@ -324,16 +324,16 @@ export default {
       this.toogleScreenYouWantDelete = !this.toogleScreenYouWantDelete;
     },
     onPageChange(event) {
-      console.log("EVENT", event);
+      // // console.log("EVENT", event);
       this.currentPage = event.page + 1;
     },
   },
   computed: {
     paginatedExperiences() {
       const startIndex = (this.currentPage - 1) * this.rows;
-      console.log("startIndex", startIndex);
+      // // console.log("startIndex", startIndex);
       const endIndex = startIndex + this.rows;
-      console.log("endIndex", endIndex);
+      // // console.log("endIndex", endIndex);
       return this.MyExperiences.slice(startIndex, endIndex);
     },
   },

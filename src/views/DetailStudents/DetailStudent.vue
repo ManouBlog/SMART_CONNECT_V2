@@ -199,7 +199,7 @@ export default {
   watch: {
     idParamsItem(newValue, oldValue) {
       console.log("oldValue", oldValue);
-      console.log("newValue", newValue);
+      // console.log("newValue", newValue);
       if (newValue) {
         this.getDetailStudent();
       }
@@ -284,13 +284,13 @@ export default {
           result.push({ ...item });
         }
       }
-       console.log("RESULTA",result)
+       // console.log("RESULTA",result)
       return result;
     },
     ifPeriodeDate(periode) {
-      console.log("PERIODE25", periode);
+      // console.log("PERIODE25", periode);
       if (periode.periode) {
-        console.log("periode254", periode);
+        // console.log("periode254", periode);
         return `Du ${new Date(periode.periode_debut).toLocaleDateString("fr")} à ${
           periode.hour_periode_debut
         } au ${new Date(periode.periode_fin).toLocaleDateString("fr")} à ${
@@ -305,7 +305,7 @@ export default {
       await instance
         .get("FiltreTimetable")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.NewListEmploi = res.data.data;
           this.dateRendezVousStudentWithEntreprise = res.data.date;
           let dateOfStudent = [];
@@ -316,18 +316,18 @@ export default {
           });
 
           this.MyDateRendezVous = dateOfStudent;
-          console.log("this.NewListEmploi", this.NewListEmploi);
-          console.log("this.$route.params.id", this.idParamsItem);
+          // console.log("this.NewListEmploi", this.NewListEmploi);
+          // console.log("this.$route.params.id", this.idParamsItem);
           this.timetable_for_student = this.NewListEmploi.find(
             (item) => item.id === Number(this.idParamsItem)
           );
-          console.log("this.timetable_for_student", this.timetable_for_student);
+          // console.log("this.timetable_for_student", this.timetable_for_student);
           this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
           this.schedule = this.getDatesBetween(this.timetable_for_student.jours)
-          console.log("this.schedule",this.schedule)
+          // console.log("this.schedule",this.schedule)
         
           this.schedule.forEach((item) => {
-            console.log("DATE_this_schedule", this.MyDateRendezVous);
+            // console.log("DATE_this_schedule", this.MyDateRendezVous);
             this.MyDateRendezVous.forEach((date) => {
               if (
                 item.jour === date.date_debut ||
@@ -341,7 +341,7 @@ export default {
             item.jou = new Date(item.jour).getDate();
             item.month = new Date(item.jour).getMonth() + 1;
             item.year = new Date(item.jour).getFullYear();
-            console.log(JSON.stringify(new Date().toISOString().slice(0, 10)));
+            // console.log(JSON.stringify(new Date().toISOString().slice(0, 10)));
             if (
               JSON.stringify(new Date(item.jour)) <
               JSON.stringify(new Date().toISOString().slice(0, 10))
@@ -351,13 +351,13 @@ export default {
           });
       
 
-          console.log("EMPLOI DU TEMPS", this.timetable_for_student);
+          // console.log("EMPLOI DU TEMPS", this.timetable_for_student);
 
-          console.log("TIMETBALE", this.schedule);
-          console.log("DateRendez-vous", this.MyDateRendezVous);
+          // console.log("TIMETBALE", this.schedule);
+          // console.log("DateRendez-vous", this.MyDateRendezVous);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         })
         .finally(()=>{
           loadingSpinner.launchLoading(false);
@@ -390,7 +390,7 @@ export default {
         const reponse = await instance.get("GetAllCompetences");
         this.competences = reponse.data.data;
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     },
     showCalenderDate() {
@@ -398,7 +398,7 @@ export default {
     },
     onDayClick(day) {
       const idx = this.days.findIndex((d) => d.id === day.id);
-      console.log(new Date().toLocaleDateString());
+      // console.log(new Date().toLocaleDateString());
       if (idx >= 0) {
         this.days.splice(idx, 1);
       } else {
@@ -426,7 +426,7 @@ export default {
         });
       });
       this.list = [...new Set(this.Myarray)];
-      console.log("DATE", this.Myarray);
+      // console.log("DATE", this.Myarray);
       if (!this.days.length) {
         this.list = this.MylistEmploi;
         this.hideButtons = true;
@@ -446,7 +446,7 @@ export default {
       }
     },
     showPeriode() {
-      console.log(this.checkbox);
+      // console.log(this.checkbox);
       if (this.checkboxDate === true) {
         this.checkboxDate = !this.checkboxDate;
       }
@@ -457,21 +457,21 @@ export default {
       }
     },
     addTag(newTag) {
-      console.log(newTag);
+      // console.log(newTag);
       this.Myarray = [];
       // this.list = [];
       this.MylistEmploi.forEach((element) => {
         newTag.forEach((e) => {
           element.jours.forEach((item) => {
             if (item.jour === e.jou) {
-              console.log(element);
+              // console.log(element);
               this.Myarray.push(element);
             }
           });
         });
       });
       this.list = [...new Set(this.Myarray)];
-      console.log("LIST", this.list);
+      // console.log("LIST", this.list);
       this.hideButtons = true;
 
       if (!newTag.length) {
@@ -480,14 +480,14 @@ export default {
       }
     },
     addComp(newTag) {
-      console.log(this.days.length);
+      // console.log(this.days.length);
       if (this.Myarray.length > 0) {
         let newArray = [];
         this.Myarray.forEach((item) => {
           newTag.forEach((e) => {
             if (item.acquis.includes(e.competence)) {
               newArray.push(item);
-              console.log("new Array", newArray);
+              // console.log("new Array", newArray);
             }
           });
         });
@@ -514,9 +514,9 @@ export default {
           });
         });
         this.list = [...new Set(this.Myarray)];
-        console.log("list de competences", this.list);
+        // console.log("list de competences", this.list);
 
-        console.log("list de jour", this.Myarray);
+        // console.log("list de jour", this.Myarray);
         this.hideButtons = true;
 
         if (!newTag.length) {
@@ -527,7 +527,7 @@ export default {
     },
     deleteDays(day) {
       const idx = this.days.findIndex((d) => d.id === day.id);
-      console.log(day.id);
+      // console.log(day.id);
       if (idx >= 0) {
         this.days.splice(idx, 1);
       }
@@ -565,9 +565,6 @@ export default {
       this.$store.commit("addPersonAtWishLit", person);
       this.isWhished[person.id] = !this.isWhished[person.id];
     },
-    showMyCalender(id) {
-      console.log(id);
-    },
     defineTotalHour(hour) {
       if (hour.length > 0) {
         return hour.reduce((a, b) => a + b);
@@ -585,7 +582,7 @@ export default {
       await instance
         .get("list_emplois_temps")
         .then((res) => {
-          console.log("EMPLOI", res.data.data);
+          // console.log("EMPLOI", res.data.data);
           res.data.data.forEach((element) => {
             let days = [];
             let hours = [];
@@ -610,13 +607,13 @@ export default {
           });
           this.list = res.data.data;
           this.MylistEmploi = res.data.data;
-          console.log("LIST", this.MylistEmploi);
+          // console.log("LIST", this.MylistEmploi);
 
           this.lengthOfMylistEmploi = this.MylistEmploi.length;
-          console.log("EMPLOI DU TEMPS", this.list_emploi);
+          // console.log("EMPLOI DU TEMPS", this.list_emploi);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         })
         .finally(()=>{
          loadingSpinner.launchLoading(false);
@@ -634,14 +631,14 @@ export default {
     optionDate(studentId) {
       loadingSpinner.launchLoading(true);
       // this.loadSpinner = true;
-      console.log("datesChoice", this.datesChoice);
+      // console.log("datesChoice", this.datesChoice);
       let date = [];
 
       this.datesChoice.forEach((item) => {
         date.push(new Date(item).toISOString().slice(0, 10));
       });
       let VerfDoublonInDate = [...new Set(date)];
-      console.log("date", date);
+      // console.log("date", date);
       instance
         .post("entreprise_student", {
           student_id: studentId,
@@ -650,7 +647,7 @@ export default {
           offre_id: this.selectedOffreWithDate,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -667,7 +664,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           Swal.fire({
             icon: "info",
             title: err.response.data.message,
@@ -689,7 +686,7 @@ export default {
           offre_id: this.selectedOffreWithPeriode,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -708,7 +705,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           Swal.fire({
             icon: "info",
             title: "Vérifier votre connexion ou les informations que vous envoyer",
@@ -722,13 +719,14 @@ export default {
       await instance
         .get("getAllWishlist")
         .then((response) => {
-          console.log("WISHLIST", response.data.data.wishlists);
+          // console.log("WISHLIST", response.data.data.wishlists);
           response.data.data.wishlists.forEach((item) => {
             this.verfIfStudentExistInWishlist.push(item.user_id);
           });
         })
         .catch((error) => {
-          console.log("error3", error);
+          // console.log("error3", error);
+          alert(JSON.stringify(error,null,2))
         });
       loadingSpinner.launchLoading(false);
     },
@@ -736,11 +734,11 @@ export default {
       instance
         .get("GetAllCompetences")
         .then((res) => {
-          console.log("competencesPredefini", res);
+          // console.log("competencesPredefini", res);
           this.competencesPredefini = res.data.data;
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     verfEnter() {
@@ -764,9 +762,9 @@ export default {
             JSON.stringify(new Date(item.fin)) >
             JSON.stringify(new Date().toISOString().substring(0, 10))
         );
-        console.log("this.selectedService", this.selectedService);
+        // console.log("this.selectedService", this.selectedService);
       } catch (error) {
-        console.log("error", error);
+        // console.log("error", error);
       }
     },
     removeDate(date, hide) {
@@ -781,18 +779,18 @@ export default {
       return this.jourOfMois.forEach((element) => {
         let month = new Date().getMonth() + 1;
         let year = new Date().getFullYear();
-        console.log(element.jour + "-" + month + "-" + year);
+        // console.log(element.jour + "-" + month + "-" + year);
         return element.jour + "-" + month + "-" + year;
       });
     },
     async handleAbonnement() {
-      console.log("handleAbonnement");
+      // console.log("handleAbonnement");
       try {
         const response = await instance.get("abonnement_user");
-        console.log("responseHandleAbonnement", response);
+        // console.log("responseHandleAbonnement", response);
         this.listAbonnement = response.data.data;
       } catch (error) {
-        console.log(error);
+        alert(JSON.stringify(error,null,2));
       }
     },
   },

@@ -101,7 +101,7 @@ export default {
         instance
           .post("passwordModify", data)
           .then((resp) => {
-            console.log(resp);
+            // console.log(resp);
             if (resp.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -123,14 +123,14 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(error);
+            alert(JSON.stringify(error,null,2));
           });
       }
     },
 
     see(e) {
       this.photo = e.target.files[0];
-      console.log(this.photo);
+      // console.log(this.photo);
     },
   },
   async created(){

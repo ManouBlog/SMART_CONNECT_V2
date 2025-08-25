@@ -42,9 +42,12 @@ export default {
           ville: this.offre_id.ville,
         })
         .then((res) => {
-          console.log(res);
-          this.modify_offre = false;
+          // console.log(res);
+          if(res.data.status){
+         this.modify_offre = false;
           this.id_offre_update = "";
+          }
+         
           // Swal.fire({
           //   icon: "success",
           //   title: res.data.message,
@@ -53,7 +56,8 @@ export default {
           // });
         })
         .catch((err) => {
-          console.log("MSG ERROR", err);
+          // console.log("MSG ERROR", err);
+          alert(JSON.stringify(err,null,2))
           Swal.fire({
             icon: "info",
             title: err.message,
@@ -67,7 +71,7 @@ export default {
       instance
         .get("get_offres_entreprise")
         .then((res) => {
-          console.log("TIMETABLE", res);
+          // console.log("TIMETABLE", res);
           this.offres = res.data.data;
           this.spinner = false;
           setTimeout(function () {
@@ -105,30 +109,30 @@ export default {
           }, 10);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     show_offre_id(id) {
       this.modify_offre = !this.modify_offre;
       this.id_offre_update = id;
-      console.log("ID", this.id_offre_update);
+      // console.log("ID", this.id_offre_update);
 
       instance
         .get("get_offres_entreprise")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.offres = res.data.data;
           this.offre_id = this.offres.find((offre) => offre.offres_id === id);
-          console.log("OFFRE_ID", this.offre_id);
+          // console.log("OFFRE_ID", this.offre_id);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     create_offre() {
       this.loading = true;
       this.creer = false;
-      console.log("ville", this.ville);
+      // console.log("ville", this.ville);
       instance
         .post("create_offre", {
           nom_offre: this.offre,
@@ -141,7 +145,7 @@ export default {
         .then((res) => {
           this.spinner = true;
           this.loading = false;
-          console.log(res);
+          // console.log(res);
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -157,8 +161,9 @@ export default {
             //}, 1500);
           }
         })
-        .catch((res) => {
-          console.log(res);
+        .catch((error) => {
+          alert(JSON.stringify(error,null,2))
+          // console.log(res);
           // Swal.fire({
           //   icon: "error",
           //   title: res.data.message,
@@ -170,7 +175,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      console.log("ID_DELETE", this.id_for_delete);
+      // console.log("ID_DELETE", this.id_for_delete);
     },
     not_delete() {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -180,7 +185,7 @@ export default {
       instance
         .delete("delete_offre_entreprise/" + this.id_for_delete)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -195,7 +200,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log("MSAERROR",err);
+          // console.log("MSAERROR",err);
           Swal.fire({
               icon: "success",
               title: err.data.message,

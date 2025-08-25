@@ -63,9 +63,9 @@ export default {
       instance
         .get("list_students_contact_by_entreprise")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.list_students = res.data.data;
-          console.log("LIST", this.list_students);
+          // console.log("LIST", this.list_students);
           this.student = this.list_students.students;
           this.student.find((item) => {
             if (
@@ -80,13 +80,13 @@ export default {
               this.appreciationService = true;
             }
           });
-          console.log("ETOILES", this.detailsStudents.etoiles);
+          // console.log("ETOILES", this.detailsStudents.etoiles);
 
-          console.log("DETAILSETUDIANT", this.detailsStudents);
-          console.log("STUDENTS", this.student);
+          // console.log("DETAILSETUDIANT", this.detailsStudents);
+          // console.log("STUDENTS", this.student);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           this.spinner = false;
         }).finally(()=>{
            this.launchLoading(false);
@@ -97,16 +97,16 @@ export default {
       instance
         .get("list_emplois_temps")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.timetables = res.data.data;
-          console.log("timetables", this.timetables);
+          // console.log("timetables", this.timetables);
           this.MyTime = this.timetables.find(
             (item) => item.nom == this.$route.params.name
           );
 
           this.myJour = this.MyTime.jours;
 
-          console.log("MyJour", this.myJour);
+          // console.log("MyJour", this.myJour);
           this.spinner = false;
 
           // this.appreciationService = !this.appreciationService;
@@ -146,7 +146,7 @@ export default {
           // }, 10);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     chooseVeryBad() {
@@ -165,7 +165,7 @@ export default {
       this.notationService = 5;
     },
     sendAppreciation() {
-      console.log("NOTATION", this.detailsStudents.id);
+      // console.log("NOTATION", this.detailsStudents.id);
       instance
         .post("giveAvis", {
           notes: this.notationService,
@@ -173,7 +173,7 @@ export default {
           avis: this.avis,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",

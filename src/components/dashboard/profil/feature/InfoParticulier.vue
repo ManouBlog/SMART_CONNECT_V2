@@ -81,7 +81,7 @@ export default {
         instance
         .post("passwordModify", data)
         .then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           if (resp.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -103,7 +103,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          alert(JSON.stringify(error,null,2));
         });
       }
     },
@@ -118,7 +118,7 @@ export default {
       instance
         .put("modifier_profil", compte_entreprise)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -141,13 +141,13 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           this.isLoading = false;
         });
     },
     see(e) {
       this.photo = e.target.files[0];
-      console.log(this.photo);
+      // console.log(this.photo);
     },
   },
 };

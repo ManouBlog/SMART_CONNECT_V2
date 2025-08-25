@@ -56,7 +56,7 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useEntreprisesStore, ["get_offres_interess_by_student"]),
     seeData(value) {
-      console.log(value);
+      // console.log(value);
     },
   },
   async created() {

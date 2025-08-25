@@ -45,13 +45,13 @@ export default {
       await instance
         .get("auth_logout")
         .then((response) => {
-          console.log(response);
+          // // console.log(response);
           if (response.data.status) {
-            console.log("RESPONSE", response.data);
+            // // console.log("RESPONSE", response.data);
             this.$store.state.user = null;
             this.$store.state.token = null;
-            console.log("this.$store.state.user", this.$store.state.user);
-            console.log("this.$store.state.token", this.$store.state.token);
+            // // console.log("this.$store.state.user", this.$store.state.user);
+            // // console.log("this.$store.state.token", this.$store.state.token);
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             this.changeValueForshowMenuMobile();
@@ -68,7 +68,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           Swal.fire({
             icon: "info",
             title: err,

@@ -18,7 +18,7 @@ const store = useStore();
 const storeEntreprise = useEntreprisesStore();
 const translateStore = useTranslateStore();
 const defaulValueTranslate = ref(translateStore.defaultLocale);
-console.log("defaulValueTranslate",defaulValueTranslate.value)
+// console.log("defaulValueTranslate",defaulValueTranslate.value)
 const abonnements = ref([]);
 const loadingSpinner = useLoadingSpinner();
 
@@ -27,10 +27,10 @@ const handleAbonement = async () => {
   try {
     const response = await instance.get("getAbonnement");
     abonnements.value = response.data.data;
-    console.log("RESPONSE_getAbonnement", response.data);
+    // console.log("RESPONSE_getAbonnement", response.data);
     loadingSpinner.launchLoading(false);
   } catch (error) {
-    console.log(error);
+    alert(JSON.stringify(error,null,2));
     loadingSpinner.launchLoading(false);
   }
 };
@@ -40,10 +40,10 @@ onMounted(async () => {
   if(JSON.parse(localStorage.getItem('@reference'))){
   try {
     const response = await instance.get("payStack/payment/callback/"+JSON.parse(localStorage.getItem('@reference')));
-    console.log("responseVERIF",response)
+    // console.log("responseVERIF",response)
     if(response.data.status){
       localStorage.removeItem('@reference')
-      console.log("VERIFICATION TERMINER")
+      // console.log("VERIFICATION TERMINER")
       const response = await storeEntreprise.get_all_abonnement();
       console.log("VERIFICATION PAIEMENT",response)
        Swal.fire({
@@ -62,7 +62,7 @@ onMounted(async () => {
             });
     }
   } catch (error) {
-    console.log(error);
+    alert(JSON.stringify(error,null,2));
   }finally{
     await handleAbonement();
   }

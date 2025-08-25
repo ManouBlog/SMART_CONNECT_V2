@@ -8,7 +8,7 @@ export default {
     };
   },
   created() {
-    console.log("user", this.$store.state.user);
+    // console.log("user", this.$store.state.user);
   },
 };
 </script>

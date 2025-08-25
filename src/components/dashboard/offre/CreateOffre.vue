@@ -110,7 +110,7 @@ export default {
       this.creer = false;
       let capitalizeFirstLetterOffre = this.offre[0].toUpperCase();
       let offreConcat = capitalizeFirstLetterOffre + this.offre.substring(1);
-      console.log(offreConcat);
+      // console.log(offreConcat);
       let data = {
         nom_offre: offreConcat,
         salaire: this.salaire,
@@ -130,7 +130,7 @@ export default {
         .then((res) => {
           this.spinner = true;
           this.loading = false;
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -163,7 +163,7 @@ export default {
           }
         })
         .catch((res) => {
-          console.log(res.response.data.message);
+          // console.log(res.response.data.message);
           Swal.fire({
             icon: "error",
             title: res.response.data.message,
@@ -179,7 +179,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      console.log("ID_DELETE", this.id_for_delete);
+      // console.log("ID_DELETE", this.id_for_delete);
     },
     not_delete() {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -192,7 +192,7 @@ export default {
         .delete("delete_offre_entreprise/" + this.id_for_delete)
 
         .then((res) => {
-          console.log(res);
+          // console.log(res);
 
           if (res.data.status === true) {
             Swal.fire({
@@ -226,7 +226,7 @@ export default {
     },
 
     selectCategorie(e) {
-      console.log("selectCategorie", e.target.value);
+      // console.log("selectCategorie", e.target.value);
       this.competenceWithCategorie = this.allCompetences.filter(
         (item) => item.categorie.id === Number(e.target.value)
       );

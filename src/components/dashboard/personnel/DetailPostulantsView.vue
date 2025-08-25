@@ -30,9 +30,9 @@ export default {
       await instance
         .get("list_offres_interess_by_students")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.offresInteressByStudents = Help.groupBy(res.data);
-          console.log("OFFRESINTERESSBYSTUDENTS", this.offresInteressByStudents);
+          // console.log("OFFRESINTERESSBYSTUDENTS", this.offresInteressByStudents);
           for (let item in this.offresInteressByStudents) {
             if (item === this.$route.params.offre) {
               this.detailStudents = this.offresInteressByStudents[item];
@@ -41,7 +41,7 @@ export default {
           spinnerLoading.launchLoading(false)
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     chooseStudent(){

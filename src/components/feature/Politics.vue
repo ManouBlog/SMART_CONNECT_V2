@@ -8,17 +8,17 @@ const registerStore = useRegisterStore();
 
 // Méthodes
 const registerTalent = () => {
-  console.log("props.payload", registerStore.payload);
+  // console.log("props.payload", registerStore.payload);
   registerStore.registerStudent(registerStore.payload);
 };
 
 const registerEntreprise = () => {
-  console.log("props.payload", registerStore.payload);
+  // console.log("props.payload", registerStore.payload);
   registerStore.registerCompany(registerStore.payload);
 };
 
 const registerParticulier = () => {
-  console.log("props.payload", registerStore.payload);
+  // console.log("props.payload", registerStore.payload);
   registerStore.registerParticulier(registerStore.payload);
 };
 

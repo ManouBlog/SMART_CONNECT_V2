@@ -73,7 +73,7 @@ export default {
     //       localStorage.setItem("token", token);
     //       localStorage.setItem("user", JSON.stringify(user));
     //     } catch (error) {
-    //       console.log(error);
+    //       alert(JSON.stringify(error,null,2));
     //     }
     //   } else {
     //     return;

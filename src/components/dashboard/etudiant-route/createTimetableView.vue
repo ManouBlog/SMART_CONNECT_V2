@@ -110,7 +110,7 @@ export default {
       this.dates.push({
         date: new Date(),
       });
-      console.log("mes Nouvelle dates", this.dates);
+      // // console.log("mes Nouvelle dates", this.dates);
       this.$nextTick(() => {
         const btn = this.$refs.button[this.$refs.button.length - 1];
         btn.click();
@@ -128,7 +128,7 @@ export default {
       this.datesPickers.push({
         date: new Date(),
       });
-      console.log("mes Dates", this.datesPickers);
+      // // console.log("mes Dates", this.datesPickers);
       this.$nextTick(() => {
         const btn = this.$refs.button[this.$refs.button.length - 1];
         btn.click();
@@ -173,7 +173,7 @@ export default {
 
       let totalGlobalHoraire = totalHourTwoHoraire - totalHourOneHoraire;
       let SecondHoraireHour, SecondHoraireHourSecondHoraire;
-      console.log(totalGlobalHoraire);
+      // // console.log(totalGlobalHoraire);
       if (this.Horaire_Second != null) {
         let SecondHoraireFirstHoraire = SecondHour[0].split(":");
         SecondHoraireHour = Number(SecondHoraireFirstHoraire[0]);
@@ -198,8 +198,8 @@ export default {
         this.totalHour = totalGlobalHoraire;
       }
 
-      console.log("FIRSTHORAIRE", totalGlobalHoraire);
-      console.log("SECONDHORAIRE", this.totalHour);
+      // // console.log("FIRSTHORAIRE", totalGlobalHoraire);
+      // // console.log("SECONDHORAIRE", this.totalHour);
 
       if (
         oneHoraireHour > twoHoraireHour ||
@@ -215,7 +215,7 @@ export default {
         let newDateForTimetable = [];
         this.dates.forEach((date) => {
           newDateForTimetable.push(date.date.toISOString().slice(0, 10));
-          console.log(newDateForTimetable);
+          // // console.log(newDateForTimetable);
         });
         instance
           .put("modify_schedule/" + this.id_timetable_update, {
@@ -225,7 +225,7 @@ export default {
             day: newDateForTimetable,
           })
           .then((res) => {
-            console.log(res);
+            // // console.log(res);
             if (res.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -249,7 +249,7 @@ export default {
             }
           })
           .catch((err) => {
-            console.log(err);
+            alert(JSON.stringify(err,null,2))
           });
       }
     },
@@ -257,17 +257,17 @@ export default {
       instance
         .get("get_schedule")
         .then((res) => {
-          console.log(res);
+          // // console.log(res);
           this.timetables = res.data.data;
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     create_timetable() {
       
       const datesOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
-      console.log("datesOfCalendar", datesOfCalendar);
+      // // console.log("datesOfCalendar", datesOfCalendar);
       const HourFirstHoraire = this.configUtils.getHourInDate(
         this.First_heure_start_from,
         this.First_heure_end_to
@@ -311,11 +311,11 @@ export default {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = id;
       this.spinner = true;
-      console.log("ID_UPADTE", this.id_timetable_update);
+      // // console.log("ID_UPADTE", this.id_timetable_update);
       instance
         .get("get_schedule")
         .then((res) => {
-          console.log(res);
+          // // console.log(res);
           this.timetable = res.data.data;
           this.timetable_show_id = this.timetable.find((item) => item.id === id);
 
@@ -331,20 +331,20 @@ export default {
           } else {
             this.Horaire_Second = null;
           }
-          console.log("FIRST HORAIRE", this.Horaire_Fisrt);
-          console.log("SECOND HORAIRE", this.Horaire_Second);
+          // // console.log("FIRST HORAIRE", this.Horaire_Fisrt);
+          // // console.log("SECOND HORAIRE", this.Horaire_Second);
 
           this.spinner = false;
-          console.log("ELEMENT", this.timetable_show_id);
+          // // console.log("ELEMENT", this.timetable_show_id);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      console.log("ID_DELETE", this.id_for_delete);
+      // // console.log("ID_DELETE", this.id_for_delete);
     },
     addCompetences() {
       instance
@@ -352,7 +352,7 @@ export default {
           competence: this.comp,
         })
         .then((response) => {
-          console.log(response);
+          // // console.log(response);
           if (response.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -371,7 +371,8 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err.message);
+          // console.log(err.message);
+          alert(JSON.stringify(err,null,2))
         });
     },
     showBoxConfirmationDeleteCompetences(id) {
@@ -390,7 +391,7 @@ export default {
       instance
         .delete("delete_schedule/" + this.id_for_delete)
         .then((res) => {
-          console.log(res);
+          // // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -405,14 +406,14 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     deleteMyCompetence() {
       instance
         .delete("deleteCompetencesOfStudents/" + this.id_for_delete)
         .then((res) => {
-          console.log(res);
+          // // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -424,12 +425,12 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     getAllCompetencesByStudents() {
       instance.get("getCompetenceByStudents").then((res) => {
-        console.log("AllCompetences", res.data.data);
+        // // console.log("AllCompetences", res.data.data);
         if (res.data.status === true) {
           this.competences = res.data.data.competences;
         }
@@ -439,33 +440,33 @@ export default {
       instance
         .get("GetAllCompetences")
         .then((res) => {
-          console.log("COMPETENCE", res.data.data);
+          // // console.log("COMPETENCE", res.data.data);
           this.competencesPredf = res.data.data;
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     addTag(newTag) {
-      console.log(newTag);
+      // // console.log(newTag);
       let brox = newTag;
       this.acquis = brox;
       this.comp = [];
       this.acquis.forEach((el) => {
         this.comp.push(el.id);
       });
-      console.log("THIS.comp", this.comp);
+      // // console.log("THIS.comp", this.comp);
     },
     addJour(Tag) {
-      console.log(Tag);
+      // // console.log(Tag);
       let brox = Tag;
       this.acquis = brox;
       this.comp = [];
-      console.log("Tableau", this.comp);
+      // // console.log("Tableau", this.comp);
       this.acquis.forEach((el) => {
         this.comp.push(el.jour);
       });
-      console.log("THIS.days", this.comp);
+      // // console.log("THIS.days", this.comp);
     },
     resetData() {
       this.First_heure_start_from = "";
@@ -474,12 +475,12 @@ export default {
       this.Second_heure_end_to = "";
     },
     handleValueDate() {
-      console.log("handleValueDate", this.datesOfCalendar);
+      // // console.log("handleValueDate", this.datesOfCalendar);
       if (!this.datesOfCalendar.length) {
         this.resetData();
       }
       this.datesFormatedOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
-      console.log("this.datesFormatedOfCalendar", this.datesFormatedOfCalendar);
+      // // console.log("this.datesFormatedOfCalendar", this.datesFormatedOfCalendar);
     },
     chooseDateTime_debut() {
       this.dateTime_fin = null;
@@ -521,7 +522,7 @@ export default {
 
       this.schedule.push(scheduleItem_debut, scheduleItem_fin);
       this.schedule.sort((a, b) => new Date(a.jour) - new Date(b.jour));
-      console.log("this.schedule", this.schedule);
+      // // console.log("this.schedule", this.schedule);
       const dataSend = {
         jour: [
           this.schedule.map((item) => {
@@ -555,11 +556,11 @@ export default {
         })[1],
         periode: 1,
       };
-      console.log("DATETIME", dataSend);
+      // // console.log("DATETIME", dataSend);
       instance
         .post("create_schedule",dataSend)
         .then((response) => {
-          console.log("ADD DATETIME PERIODE", response.data.status);
+          // // console.log("ADD DATETIME PERIODE", response.data.status);
           if (!response.data.status) {
             Swal.fire({
               icon: "info",
@@ -576,7 +577,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          alert(JSON.stringify(error,null,2));
           Swal.fire({
             icon: "info",
             title: error,

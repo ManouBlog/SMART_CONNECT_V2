@@ -26,7 +26,7 @@ export default {
           email: this.formState.email,
         })
         .then((res) => {
-          console.log(res.data.message);
+          // console.log(res.data.message);
 
           Swal.fire({
             icon: "success",
@@ -36,7 +36,7 @@ export default {
           this.launchLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           Swal.fire({
             icon: "error",
             title: err.response.data.message,

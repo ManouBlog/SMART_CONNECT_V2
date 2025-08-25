@@ -22,7 +22,7 @@ export default {
           email: this.emailForNewsletter,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status) {
             Swal.fire({
               icon: "success",
@@ -41,7 +41,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          alert(JSON.stringify(error,null,2));
           Swal.fire({
             icon: "info",
             title: error.response.data.message,

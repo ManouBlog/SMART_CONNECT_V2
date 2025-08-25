@@ -60,7 +60,7 @@ export default {
       await instance
         .get("getStudentRecruit")
         .then((res) => {
-          console.log("getStudentRecruit", res);
+          // console.log("getStudentRecruit", res);
           this.studentRecruit = Help.groupBy(res.data);
 
           for (let item in this.studentRecruit) {
@@ -71,7 +71,7 @@ export default {
           spinnerLoading.launchLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           spinnerLoading.launchLoading(false);
         });
     },
@@ -95,7 +95,7 @@ export default {
           offre_id: this.identifiant.offre_id,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",

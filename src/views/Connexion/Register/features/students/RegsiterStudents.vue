@@ -71,7 +71,7 @@ export default {
     },
     onFinish(values) {
       console.log("Success:", values);
-      console.log("formState", this.formState);
+      // console.log("formState", this.formState);
       if (this.configUtils.isValidPhoneNumber(this.formState.phone)) {
   if(this.configUtils.isValidEmail(this.formState.email)){
     if(this.formState.upload.length){

@@ -25,10 +25,10 @@ const handleAbonement = async () => {
   try {
     const response = await instance.get("getAbonnement");
     abonnements.value = response.data.data;
-    console.log("RESPONSE_getAbonnement", response.data);
+    // console.log("RESPONSE_getAbonnement", response.data);
     isLoading.value = false;
   } catch (error) {
-    console.log(error);
+    alert(JSON.stringify(error,null,2));
     isLoading.value = false;
   }
 };

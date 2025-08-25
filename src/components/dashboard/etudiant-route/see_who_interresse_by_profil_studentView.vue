@@ -66,38 +66,38 @@ export default {
       instance
         .get("get_who_contact_student")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.list_entreprise_contact = res.data;
-          console.log("STUDENTS_ENTREPRISES", this.list_entreprise_contact);
+          // console.log("STUDENTS_ENTREPRISES", this.list_entreprise_contact);
           // this.list_entreprise_contact = this.student.entreprises;
           // this.$store.commit("ADD_ITEM",this.student.entreprises)
           localStorage.setItem("length", this.list_entreprise_contact.length);
-          console.log("LISTS_ENTREPRISES", this.list_entreprise_contact);
+          // console.log("LISTS_ENTREPRISES", this.list_entreprise_contact);
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           loadingSpinner.launchLoading(false);
         });
     },
     showIdForAccept(id) {
       this.idOffre = id;
-      console.log("ID", this.idOffre);
+      // console.log("ID", this.idOffre);
       this.showMsgAcceptoffre = !this.showMsgAcceptoffre;
     },
     annuleContrat() {
       this.idOffre = null;
-      console.log("ID", this.idOffre);
+      // console.log("ID", this.idOffre);
       this.showMsgAcceptoffre = !this.showMsgAcceptoffre;
     },
     annuleRejetContrat() {
       this.idOffre = null;
-      console.log("ID", this.idOffre);
+      // console.log("ID", this.idOffre);
       this.showMsgRejectoffre = !this.showMsgRejectoffre;
     },
     rejetJob(id) {
       this.idOffre = id;
-      console.log("ID", this.idOffre);
+      // console.log("ID", this.idOffre);
       this.showMsgRejectoffre = !this.showMsgRejectoffre;
     },
     acceptJob() {
@@ -106,7 +106,7 @@ export default {
           contrat: 1,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -118,7 +118,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          alert(JSON.stringify(error,null,2));
         });
     },
     rejectJob() {
@@ -127,7 +127,7 @@ export default {
           contrat: 2,
         })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -141,20 +141,20 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          alert(JSON.stringify(error,null,2));
         });
     },
     seeDetailOffre(idOffre){
       instance
         .put("confirmAlarm/" + idOffre)
         .then((response) => {
-          console.log("confirmAlarm",response);
+          // console.log("confirmAlarm",response);
           if (response.data.status === true) {
            this.$store.commit("DECREASE_ALARM")
           }
         })
         .catch((error) => {
-          console.log(error);
+          alert(JSON.stringify(error,null,2));
         });
     }
   },

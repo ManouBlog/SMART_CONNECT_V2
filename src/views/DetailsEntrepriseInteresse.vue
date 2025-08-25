@@ -55,12 +55,12 @@ export default {
       instance
         .get("see_entreprise_student")
         .then((res) => {
-          console.log("see_entreprise_student", res);
+          // console.log("see_entreprise_student", res);
           this.DetailSeeEntreprise = res.data.data.find((item) => item.id == this.$route.params.id);
-          console.log("this.DetailSeeEntreprise", this.DetailSeeEntreprise);
+          // console.log("this.DetailSeeEntreprise", this.DetailSeeEntreprise);
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         })
         .finally(()=>{
          loadingSpinner.launchLoading(false);
@@ -72,7 +72,7 @@ export default {
       instance
         .put("changeStatutJob/"+id,{contrat:payload})
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -90,7 +90,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           Swal.fire({
             icon: "info",
             title: err.response.data.message,

@@ -13,12 +13,12 @@ export default {
       instance
         .get("showAffiche")
         .then((res) => {
-          console.log(res);
-           console.log("this.afficheAll",res.data.data)
+          // // console.log(res);
+          //  // console.log("this.afficheAll",res.data.data)
             this.afficheAll = res.data.data
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           this.afficheAll = []
         });
     },

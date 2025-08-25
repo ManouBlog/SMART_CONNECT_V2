@@ -26,7 +26,7 @@ export default {
       };
       instance.put("modifier_profil", compte_entreprise)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             // Swal.fire({
             //   icon: "success",
@@ -43,7 +43,7 @@ export default {
        
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
         });
     },
     update_compte_etudiant() {
@@ -59,7 +59,7 @@ export default {
       };
       instance.put("modifier_profil", compte_student)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             // Swal.fire({
             //   icon: "success",
@@ -77,7 +77,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(JSON.stringify(err,null,2))
           // Swal.fire({
           //   icon: "error",
           //   title: err.data.message,

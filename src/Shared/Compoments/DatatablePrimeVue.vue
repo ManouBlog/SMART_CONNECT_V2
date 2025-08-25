@@ -66,7 +66,7 @@ export default {
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     toggleLock(data) {
-      console.log("data", data);
+      // console.log("data", data);
     },
   },
   computed: {

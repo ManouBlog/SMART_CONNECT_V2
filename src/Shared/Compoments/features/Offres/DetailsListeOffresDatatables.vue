@@ -21,7 +21,7 @@ export default {
     ...mapActions(useOffreStore,["handleIdItemDelete"]),
     show_box_confirmation_delete(value) {
       this.handleIdItemDelete(value)
-      console.log("this.idItemDelete",this.idItemDelete);
+      // console.log("this.idItemDelete",this.idItemDelete);
       this.changeValueForShowModalSuppression();
     },
   },

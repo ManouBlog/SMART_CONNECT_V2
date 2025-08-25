@@ -36,7 +36,7 @@ export default {
             token:this.$route.params.token
         })
         .then((res) => {
-            console.log(res);
+            // console.log(res);
              Swal.fire({
               icon: "success",
               title: res.data.message,
@@ -45,7 +45,7 @@ export default {
             });
         })
         .catch((err) => {
-            console.log(err);
+            alert(JSON.stringify(err,null,2))
             Swal.fire({
               icon: "error",
               title: err.response.data.message,

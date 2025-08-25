@@ -22,7 +22,7 @@ let observer = null;
 const seePerformanceNbre = async () => {
   try {
     const response = await instance.get('seePerformance');
-    console.log("seePerformanceNbre", response);
+    // console.log("seePerformanceNbre", response);
     if(response.data.status) {
       entreprises.value = response.data.partenairePerf;
       offres.value = response.data.offrePerf;
@@ -30,7 +30,7 @@ const seePerformanceNbre = async () => {
       visiteur.value = response.data.visiteurPerf;
     }
   } catch(error) {
-    console.log(error);
+    alert(JSON.stringify(error,null,2));
   }
 };
 

@@ -36,13 +36,13 @@ export default {
       await instance
           .get("voirInfoUserConnect")
           .then((resp) => {
-            console.log("voirInfoUserConnect",resp);
+            // console.log("voirInfoUserConnect",resp);
             if (resp.data.status === true) {
              this.user = resp.data.user
             }
           })
           .catch((error) => {
-            console.log(error);
+            alert(JSON.stringify(error,null,2));
           })
           .finally(()=>{
             this.StoreLoading.launchLoading(false);

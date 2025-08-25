@@ -19,7 +19,7 @@ export default {
       this.spinner = true;
       instance.get("list_entreprise")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.entreprises = res.data.data;
 
           this.entreprise = this.entreprises.find(
@@ -60,7 +60,7 @@ export default {
               },
             });
           }, 10);
-          console.log("ID_STUDENT", this.offres);
+          // console.log("ID_STUDENT", this.offres);
         });
     },
   },

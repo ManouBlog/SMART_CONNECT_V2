@@ -14,7 +14,7 @@ export default {
       fetch('https://api.ipify.org?format=json')
     .then(response => response.json())
     .then(data => {
-    console.log('Adresse IP publique :', data.ip);
+    // // console.log('Adresse IP publique :', data.ip);
     this.visiteur(data.ip)
   })
   .catch(error => {
@@ -25,16 +25,19 @@ export default {
       if(sessionStorage.getItem("@visit") === null) {
   try {
     const response = await axios.post(`${process.env.VUE_APP_LIENS_BACKEND}api/visites`,{ip:ipMachin});
-    console.log("response", response);
+    // // console.log("response", response);
+    if(response.data.status){
     sessionStorage.setItem("@visit", 1);
+    }
+   
   } catch (error) {
-    console.log(error);
+    alert(JSON.stringify(error,null,2));
   }
 }
     },
   },
   created() {
-    console.log("rejf");
+    // // console.log("rejf");
     localStorage.setItem('translate','fr')
     this.getIpApparel()
   },
