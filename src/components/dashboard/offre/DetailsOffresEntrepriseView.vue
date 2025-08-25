@@ -90,6 +90,7 @@ export default {
       })
       .catch((error)=>{
         // console.log(error)
+        alert(JSON.stringify(error,null,2))
       })
       .finally(()=>{
         this.launchLoading(false);

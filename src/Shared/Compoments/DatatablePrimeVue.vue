@@ -65,9 +65,9 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-    toggleLock(data) {
-      // console.log("data", data);
-    },
+    // toggleLock(data) {
+    //   // console.log("data", data);
+    // },
   },
   computed: {
     filters() {
