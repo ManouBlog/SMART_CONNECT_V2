@@ -56,7 +56,7 @@ export default {
           }, 10);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
   },

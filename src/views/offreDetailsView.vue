@@ -73,7 +73,8 @@ export default {
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          alert(JSON.stringify(err,null,2))
+          // alert(JSON.stringify(err,null,2))
+          console.log(err)
         });
     },
     sendDataPost(id) {
