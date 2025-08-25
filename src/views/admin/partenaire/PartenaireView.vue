@@ -62,7 +62,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("https://backend.smart-connect.online/api/admin/allPartenaire", {
+        .get("https://backend.smart-connect.online/api/allPartenaire", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
