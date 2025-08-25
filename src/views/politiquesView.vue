@@ -208,4 +208,7 @@
   justify-content: center;
   background: black;
 }
+p{
+  text-align:justify;
+}
 </style>
