@@ -3,7 +3,7 @@ import instance from "../api/api";
 import Swal from "sweetalert2";
 import { mapState, mapActions } from "pinia";
 import { useMenuMobile } from "../store-pinia/MenuMobile/useMenuMobileStore";
-import SelectLanguage from "./feature/header/SelectLanguage.vue";
+// import SelectLanguage from "./feature/header/SelectLanguage.vue";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import MenuMobileEntreprise from "./feature/header/Entreprise/MenuMobileEntreprise";
 import MenuMobileStudent from "./feature/header/Student/MenuMobileStudent.vue";
@@ -13,7 +13,7 @@ import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
 export default {
   name: "MenuMobile",
   components: {
-    SelectLanguage,
+    // SelectLanguage,
     MenuMobileEntreprise,
     MenuMobileStudent,
   },
@@ -101,12 +101,12 @@ export default {
   >
     <ul>
       <li style="display: flex; justify-content: space-between; gap: 1em">
-        <a href="#" v-if="this.$store.state.user">
+        <a style="text-transform:capitalize" href="#" v-if="this.$store.state.user">
           {{ this.$store.state.user.nom }}
           <em class="bi bi-person-workspace text-primary h3"></em>
           <!-- <DownOutlined /> -->
         </a>
-        <SelectLanguage />
+        <!-- <SelectLanguage /> -->
       </li>
       <li v-if="!this.$store.state.user">
         <a href="#" class="login_user_mobile" @click.prevent="changeValueIsModal">

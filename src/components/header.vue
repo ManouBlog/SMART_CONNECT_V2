@@ -269,6 +269,7 @@ export default {
 
               <div class="conteneur-favoris-name_user">
                 <a
+                
                   href="#"
                   v-if="!this.$store.state.user"
                   class="login_user mx-3"

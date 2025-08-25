@@ -117,7 +117,7 @@ export default {
 </script>
 <template>
   <a-dropdown>
-    <a class="ant-dropdown-link" @click.prevent>
+    <a style="text-transform:capitalize" class="ant-dropdown-link" @click.prevent>
       {{ this.$store.state.user.nom }}
       <em
         v-if="this.$store.state.user"
