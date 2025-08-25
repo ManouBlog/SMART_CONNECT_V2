@@ -30,8 +30,7 @@ export default {
 </script>
 <template>
     <div 
-    
-    class="container-fluid page-title bg-image" style="margin:3em 0 0 0;">
+    class="container-fluid page-title bg-image" style="margin:1em 0 0 0;">
         <div class="row section-title">
           <div class="main-container">
             <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
@@ -57,8 +56,8 @@ export default {
 <style scoped>
 .carousel-img {
     width: 100%;
-    height:225px;
-    object-fit:contain;
+    height:285px;
     cursor:pointer;
+    object-fit: cover;
   }
 </style>
