@@ -35,6 +35,7 @@ export default {
       texte17:"",
       texte18:"",
       texte19:"",
+      texte96:"",
       open: true,
       configUtils: configUtils,
       SWALPOPUP: useSwalPopup(),
@@ -61,13 +62,20 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+     addPhotoInArray(allPhotos){
+    const element = []
+    allPhotos.forEach(item=>{
+      element.push(item.originFileObj)
+    })
+    return element;
+    },
     onFinish(values) {
       console.log("Success:", values);
       console.log("formState", this.formState);
       if (this.configUtils.isValidPhoneNumber(this.formState.phone)) {
   if(this.configUtils.isValidEmail(this.formState.email)){
     if(this.formState.upload.length){
-      this.formState.photo = this.formState.upload[0].originFileObj;
+      this.formState.photo = this.addPhotoInArray(this.formState.upload);
       this.changeValueIsPolitics({value:true,infoUser:'talents',payload:this.formState});
     }else{
       this.SWALPOPUP.declencheSwalPopup("info", 
@@ -79,7 +87,7 @@ export default {
   }
       }else{
         this.SWALPOPUP.declencheSwalPopup("info", 
-        "Votre numéro de telephone doit etre de 10 chiffres");
+        "Votre numéro de téléphone doit contenir 10 chiffres");
       }
 
     },
@@ -120,6 +128,7 @@ export default {
     this.texte17 = await this.handleTranslate('Veuillez renseigner votre nom!');
     this.texte18 = await this.handleTranslate('Veuillez renseigner la ville');
     this.texte19 = await this.handleTranslate('Veuillez renseigner la commune');
+    this.texte96 = await this.handleTranslate('Veuillez ajouter une carte étudiante.');
   }
 };
 </script>
@@ -197,13 +206,19 @@ export default {
     >
       <a-input type="text" v-model:value="formState.diplome" />
     </a-form-item>
-    <a-form-item name="Carte étudiante" :label="texte9"
+    <a-form-item 
+    :rules="[{ required: true, message: texte96 }]"
+    name="Carte étudiante" 
+    :label="texte9"
     >
       <a-upload
         @change="handleChangeCardStudent"
         v-model:fileList="formState.upload"
         name="logo"
         list-type="picture"
+        :multiple="true"
+        :maxCount="2"
+        accept=".jpg,.jpeg,.png,.webp"
       >
         <a-button> Click to upload </a-button>
       </a-upload>

@@ -1,7 +1,9 @@
 <script>
 import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
+import { configUtils } from "../../../../../Shared/Utils";
 import { useTranslateStore } from "../../../../../store-pinia/Translate/useTranslateStore";
+import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 export default {
   name: "RegsiterEntreprise",
@@ -10,6 +12,8 @@ export default {
   },
   data() {
     return {
+      SWALPOPUP: useSwalPopup(),
+      configUtils:configUtils,
       texte: "",
       texte2: "",
       texte3: "",
@@ -52,6 +56,9 @@ export default {
         password:"",
         myRegister:"",
         myLogo:"",
+        upload: [],
+        photo:null,
+        Phonegerant:null,
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -62,9 +69,32 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+     addPhotoInArray(allPhotos){
+    const element = []
+    allPhotos.forEach(item=>{
+      element.push(item.originFileObj)
+    })
+    return element;
+    },
     onFinish(values) {
       console.log("Success:", values);
-      this.changeValueIsPolitics({value:true,infoUser:'entreprise',payload:this.formState});
+        if (this.configUtils.isValidPhoneNumber(this.formState.phone) 
+        && this.configUtils.isValidPhoneNumber(this.formState.Phonegerant)) {
+   if(this.formState.upload.length){
+      this.formState.photo = this.addPhotoInArray(this.formState.upload);
+      // console.log("this.formState",this.formState)
+      // alert(JSON.stringify(this.formState,null,2))
+     this.changeValueIsPolitics({value:true,infoUser:'entreprise',payload:this.formState});
+    }else{
+      this.SWALPOPUP.declencheSwalPopup("info", 
+    "Ajouter la Pièce du gérant");
+    }
+        }else{
+        this.SWALPOPUP.declencheSwalPopup("info", 
+        "Les numéros de téléphone doivent contenir 10 chiffres");
+      }
+   
+      
     },
     onFinishFailed(errorInfo) {
       console.log("Failed:", errorInfo);
@@ -201,15 +231,14 @@ export default {
     <a-form-item
      name="piece_gerant"
     :label="texte10"
-    :rules="[{ required: true, message: texte10 }]"
     >
         <a-upload
           @change="handleChangeCardStudent"
-          v-model:fileList="formState.piece_gerant"
+          v-model:fileList="formState.upload"
           name="piece_gerant"
           list-type="picture"
-          :multiple="false"
-          :maxCount="1"
+          :multiple="true"
+          :maxCount="2"
           accept=".jpg,.jpeg,.png,.webp"
         >
           <a-button> Clique pour télécharger </a-button>

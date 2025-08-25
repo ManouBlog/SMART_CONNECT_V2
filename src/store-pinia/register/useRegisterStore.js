@@ -50,6 +50,9 @@ export const useRegisterStore = defineStore('register', {
           payload.myCompetence.forEach((item) => {
             data.append("competence[]", item.id);
           });
+          payload.photo.forEach((item) => {
+            data.append("photo[]", item);
+          });
           data.append("nom", payload.nom);
           data.append("prenoms", payload.prenoms);
           data.append("email", payload.email);
@@ -60,7 +63,7 @@ export const useRegisterStore = defineStore('register', {
           data.append("diplome", payload.diplome);
           data.append("password", payload.password);
           data.append("statut_id", 2);
-          data.append("photo", payload.photo);
+          // data.append("photo", payload.photo);
          await instance
             .post("list_users", data)
             .then((response) => {
@@ -86,6 +89,9 @@ export const useRegisterStore = defineStore('register', {
           this.isLoading = true;
           this.LOADINGSPINNER.launchLoading(true);
           let data = new FormData();
+          payload.photo.forEach((item) => {
+            data.append("piece_gerant[]", item);
+          });
           data.append("registre", payload?.Registre[0]?.originFileObj);
           data.append("nom", payload?.nom);
           data.append("phone", payload?.contact);
@@ -99,7 +105,7 @@ export const useRegisterStore = defineStore('register', {
           data.append("matricule_cc", payload?.matricule_cc);
           data.append("password", payload?.password);
           data.append("statut_id", 1);
-          data.append("piece_gerant", payload?.piece_gerant[0]?.originFileObj);
+          // data.append("piece_gerant", payload?.piece_gerant[0]?.originFileObj);
           data.append("logo", payload?.Logo[0]?.originFileObj);
          await instance
             .post("list_users", data)
@@ -128,6 +134,9 @@ export const useRegisterStore = defineStore('register', {
           this.isLoading = true;
           this.LOADINGSPINNER.launchLoading(true);
           let data = new FormData();
+          payload.photo.forEach((item) => {
+            data.append("piece_gerant[]", item);
+          });
           data.append("nom", payload?.nom);
           data.append("particulier_prenoms", payload?.prenoms);
           data.append("phone", payload?.contact);
@@ -137,7 +146,7 @@ export const useRegisterStore = defineStore('register', {
           data.append("commune", payload?.commune);
           data.append("password", payload?.password);
           data.append("statut_id", 4);
-          data.append("piece_gerant", payload?.piece_gerant[0]?.originFileObj);
+          // data.append("piece_gerant", payload?.piece_gerant[0]?.originFileObj);
          await instance
             .post("list_users", data)
             .then((response) => {

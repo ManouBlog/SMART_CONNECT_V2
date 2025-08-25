@@ -212,12 +212,16 @@ export default {
             <h6 class="fw-bold" v-if="item.libelle !== 'Pièce d identite :'">
               {{ item.value }}
             </h6>
-            <div style="display: flex; justify-content: flex-start">
+            <div 
+            v-if="item.libelle === 'Pièce d identite :'"
+            style="display: flex; justify-content: flex-start;gap:1em;">
               <n-image
-               :alt="item.value"
-              v-if="item.libelle === 'Pièce d identite :'"
+              v-for="(photo,index) in item.value"
+              :key="index"
+              :alt="photo.path"
               width="100"
-              :src="lienPhoto + item.value"
+              height="100"
+              :src="lienPhoto + photo.path"
               />
             </div>
           </div>

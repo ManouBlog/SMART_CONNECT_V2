@@ -303,7 +303,7 @@ export default {
               :infoPersonellesGerant="[
                 { libelle: texte11, value: user.gerant ? user.gerant:user.nom },
                 { libelle: texte5, value: user.numero_gerant ? user.numero_gerant:user.contact },
-                { libelle: texte12, value: user.piece_gerant },
+                { libelle: texte12, value: user.user.photos },
               ]"
             />
             <InfoStudents

@@ -49,9 +49,11 @@ export default {
         carte_student: "",
         myCompetence: [],
         Logo:[],
+        upload: [],
         password:"",
         myRegister:"",
         myLogo:"",
+        photo:null,
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -62,9 +64,25 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+      addPhotoInArray(allPhotos){
+    const element = []
+    allPhotos.forEach(item=>{
+      element.push(item.originFileObj)
+    })
+    return element;
+    },
     onFinish(values) {
       console.log("Success:", values);
-      this.changeValueIsPolitics({value:true,infoUser:'particulier',payload:this.formState});
+       if(this.formState.upload.length){
+      this.formState.photo = this.addPhotoInArray(this.formState.upload);
+      // console.log("this.formState",this.formState)
+      // alert(JSON.stringify(this.formState,null,2))
+    this.changeValueIsPolitics({value:true,infoUser:'particulier',payload:this.formState});
+    }else{
+      this.SWALPOPUP.declencheSwalPopup("info", 
+    "Ajouter votre carte etudiante ou une preuve");
+    }
+      // this.changeValueIsPolitics({value:true,infoUser:'particulier',payload:this.formState});
     },
     onFinishFailed(errorInfo) {
       console.log("Failed:", errorInfo);
@@ -167,11 +185,11 @@ export default {
     >
         <a-upload
           @change="handleChangeCardStudent"
-          v-model:fileList="formState.piece_gerant"
+          v-model:fileList="formState.upload"
           name="piece_gerant"
           list-type="picture"
-          :multiple="false"
-          :maxCount="1"
+          :multiple="true"
+          :maxCount="2"
           accept=".jpg,.jpeg,.png,.webp"
         >
           <a-button> Clique pour télécharger </a-button>
