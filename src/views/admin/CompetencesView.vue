@@ -20,7 +20,7 @@ export default {
     create_competence() {
       axios
         .post(
-          "https://backend.smart-connect.online/api/createCompetence",
+          "http://127.0.0.1:8000/api/createCompetence",
           {
             competence: this.competence,
             categorie_id: this.selectCategorie,
@@ -60,7 +60,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("https://backend.smart-connect.online/api/seeCategorie", {
+        .get("http://127.0.0.1:8000/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -83,7 +83,7 @@ export default {
       }
 
       axios
-        .get("https://backend.smart-connect.online/api/GetAllCompetences", {
+        .get("http://127.0.0.1:8000/api/GetAllCompetences", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -135,7 +135,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "https://backend.smart-connect.online/api/admin/delete_competence/" + idCompetence,
+          "http://127.0.0.1:8000/api/admin/delete_competence/" + idCompetence,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,

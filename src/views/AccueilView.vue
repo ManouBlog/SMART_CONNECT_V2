@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
 import Statistique_Comp from "@/components/Statistique_Comp.vue";
 import Statistiques_Account from "@/components/Statistiques_Account.vue";
+import Statistique_revenu from '@/components/Statistique_revenu.vue';
 import Statistique_visite from "@/components/Statistique_visite.vue";
 import MyCardStatistique from "@/components/MyCardStatistique.vue";
 // import Editor from "../components/text-editor.vue";
@@ -15,6 +16,7 @@ export default {
     Statistiques_Account,
     MyCardStatistique,
     Statistique_visite,
+    Statistique_revenu
   },
   data() {
     return {
@@ -57,7 +59,7 @@ export default {
     getAllStatistique() {
       this.isLoadingWallet = true;
       axios
-        .get("https://backend.smart-connect.online/api/statistiques/statistiqueGlobal", {
+        .get("http://127.0.0.1:8000/api/statistiques/statistiqueGlobal", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -83,7 +85,7 @@ export default {
     },
     getAllCompetencesByStudents() {
       axios
-        .get("https://backend.smart-connect.online/api/getCompetenceByStudents", {
+        .get("http://127.0.0.1:8000/api/getCompetenceByStudents", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -99,7 +101,7 @@ export default {
       this.spinner = true;
       axios
         .post(
-          "https://backend.smart-connect.online/api/addCompetences",
+          "http://127.0.0.1:8000/api/addCompetences",
           {
             competence: this.comp,
           },
@@ -141,7 +143,7 @@ export default {
     getAllCompetences() {
       this.spinner = true;
       axios
-        .get("https://backend.smart-connect.online/api/GetAllCompetences")
+        .get("http://127.0.0.1:8000/api/GetAllCompetences")
         .then((res) => {
           console.log("COMPETENCE", res?.data?.data);
           this.competencesPredf = res?.data?.data;
@@ -174,7 +176,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "https://backend.smart-connect.online/api/deleteCompetencesOfStudents/" +
+          "http://127.0.0.1:8000/api/deleteCompetencesOfStudents/" +
             this.id_for_delete,
           {
             headers: {
@@ -221,7 +223,7 @@ export default {
     // getAllExperiences() {
     //   this.spinnerExperience = true;
     //   axios
-    //     .get("https://backend.smart-connect.online/api/GetMyExperiences", {
+    //     .get("http://127.0.0.1:8000/api/GetMyExperiences", {
     //       headers: {
     //         Authorization: "Bearer " + this.$store.state.token,
     //       },
@@ -242,7 +244,7 @@ export default {
       this.idExperience = id;
       console.log("IDEXPERIENCE", this.idExperience);
       axios
-        .get("https://backend.smart-connect.online/api/GetMyExperiences", {
+        .get("http://127.0.0.1:8000/api/GetMyExperiences", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -267,7 +269,7 @@ export default {
       console.log(this.updateExperience.experience);
       axios
         .post(
-          "https://backend.smart-connect.online/api/modifyExperience/" +
+          "http://127.0.0.1:8000/api/modifyExperience/" +
             this.idExperience,
           {
             experience: this.updateExperience.experience,
@@ -308,7 +310,7 @@ export default {
     deleteExperience() {
       axios
         .delete(
-          "https://backend.smart-connect.online/api/deleteMyExperience/" +
+          "http://127.0.0.1:8000/api/deleteMyExperience/" +
             this.idExperienceAtDelete,
           {
             headers: {
@@ -352,7 +354,7 @@ export default {
       };
       axios
         .post(
-          "https://backend.smart-connect.online/api/statistiques/filterStatistiqueWallet",
+          "http://127.0.0.1:8000/api/statistiques/filterStatistiqueWallet",
           data,
           {
             headers: {
@@ -584,7 +586,20 @@ export default {
           <Statistique_Comp :title="'Offres & Candidatures & Contrat'" />
           <Statistique_visite :title="'Visiteur'" />
         </div>
-        <Statistiques_Account :title="'Entreprises & Etudiants'" />
+        <div
+          style="
+            display: flex;
+            gap: 1.5em;
+            align-items: 'center';
+            flex-wrap: wrap;
+            place-content: 'center !important';
+            justify-content: 'center !important';
+          "
+        >
+         <Statistiques_Account :title="'Entreprises & Etudiants'" />
+         <Statistique_revenu :title="'Revenu'"/>
+        </div>
+        
       </div>
     </div>
   </div>

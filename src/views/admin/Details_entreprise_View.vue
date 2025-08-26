@@ -19,7 +19,7 @@ export default {
       console.log("this.$store.state.token", this.$store.state.token);
       this.spinner = true;
       axios
-        .get("https://backend.smart-connect.online/api/list_offres", {
+        .get("http://127.0.0.1:8000/api/list_offres", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

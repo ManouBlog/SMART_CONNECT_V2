@@ -16,7 +16,7 @@ export default {
     async create_categorie() {
       await axios
         .post(
-          "https://backend.smart-connect.online/api/categorie",
+          "http://127.0.0.1:8000/api/categorie",
           {
             categorie: this.categorie,
           },
@@ -65,7 +65,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("https://backend.smart-connect.online/api/seeCategorie", {
+        .get("http://127.0.0.1:8000/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -91,7 +91,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("https://backend.smart-connect.online/api/GetAllCompetences", {
+        .get("http://127.0.0.1:8000/api/GetAllCompetences", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -126,7 +126,7 @@ export default {
           : "update_competence";
       axios
         .put(
-          "https://backend.smart-connect.online/api/admin/" +
+          "http://127.0.0.1:8000/api/admin/" +
             route +
             "/" +
             this.$route.params.id,

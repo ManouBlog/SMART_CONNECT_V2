@@ -25,7 +25,7 @@ export default {
       });
       formData.append('lien',this.lienAffiche);
       await axios
-        .post("https://backend.smart-connect.online/api/admin/addAffiche", formData, {
+        .post("http://127.0.0.1:8000/api/admin/addAffiche", formData, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -64,7 +64,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("https://backend.smart-connect.online/api/showAffiche", {
+        .get("http://127.0.0.1:8000/api/showAffiche", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -116,7 +116,7 @@ export default {
     deletePublicite(idPublicite) {
       this.spinner = true;
       axios
-        .delete("https://backend.smart-connect.online/api/admin/delete_pub/" + idPublicite, {
+        .delete("http://127.0.0.1:8000/api/admin/delete_pub/" + idPublicite, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -303,7 +303,7 @@ export default {
                     <td>
                       <n-image
                         width="100"
-                        :src="'https://backend.smart-connect.online/storage/images/'+item.affiche"
+                        :src="'http://127.0.0.1:8000/storage/images/'+item.affiche"
                       />
                     </td>
                     <td>

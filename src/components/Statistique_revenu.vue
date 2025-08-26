@@ -20,13 +20,14 @@ const PERIODE = [
     value: "daily",
     libelle: "Jour",
   },
-  // {
-  //   value: "periodly",
-  //   libelle: "Personnaliser",
-  // },
+  //   {
+  //     value: "periodly",
+  //     libelle: "Personnaliser",
+  //   },
 ];
+
 export default {
-  name: "Statistique_Comp",
+  name: "Statistique_revenu",
   props: {
     title: {
       type: String,
@@ -39,14 +40,17 @@ export default {
   },
   data() {
     return {
+      isDisabled: true,
       isLoading: false,
       chartData: null,
       chartOptions: null,
+      chartAbonnementData: null,
+      chartAbonnementOptions: null,
       chooseAnOptionPeriode: "annually",
+      chooseTypesOfFilter: "nombre",
       weekDay: null,
       PERIODE: PERIODE,
       categories: [],
-      isDisabled: true,
       valueSubmit: new Date().getFullYear(),
       categorieSelected: "",
       currentYear: new Date().getFullYear(),
@@ -72,49 +76,105 @@ export default {
       console.log("debutweek", dateWeekDebut);
       console.log("finweek", dateWeekFin);
     },
-    get_categorie() {
-      axios
-        .get("http://127.0.0.1:8000/api/seeCategorie", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log("TIMETABLE", res);
-          this.categories = res.data.data;
-          this.submitStatistiques(this.valueSubmit, this.categories);
-          console.log("CATEGORIE", this.categories);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          this.isDisabled = false;
-        });
-    },
-    setChartData(offres, candidatures, contrat, labels) {
+    // get_categorie() {
+    //   axios
+    //     .get("http://127.0.0.1:8000/api/seeCategorie", {
+    //       headers: {
+    //         Authorization: "Bearer " + this.$store.state.token,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log("TIMETABLE", res);
+    //       this.categories = res.data.data;
+    //       this.submitStatistiques(this.valueSubmit);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     })
+    //     .finally(() => {
+    //       this.isDisabled = false;
+    //     });
+    // },
+    setChartData(
+      EntreprisesPremium,
+      EntreprisesStantard,
+      TalentsPremiunm,
+      TalentsStantard,
+      labels
+    ) {
       return {
         labels: labels,
         datasets: [
           {
-            label: "Offres",
+            label: "Entreprises premiun",
+            backgroundColor: "teal",
+            borderColor: "teal",
+            data: EntreprisesPremium,
+          },
+          {
+            label: "Entreprise stantard",
+            backgroundColor: "brown",
+            borderColor: "brown",
+            data: EntreprisesStantard,
+          },
+          {
+            label: "Talents premium",
+            backgroundColor: "black",
+            borderColor: "black",
+            data: TalentsPremiunm,
+          },
+          {
+            label: "Talents stantard",
             backgroundColor: "orange",
             borderColor: "orange",
-            data: offres,
-          },
-          {
-            label: "Candidatures",
-            backgroundColor: "red",
-            borderColor: "red",
-            data: candidatures,
-          },
-          {
-            label: "Contrat",
-            backgroundColor: "blue",
-            borderColor: "blue",
-            data: contrat,
+            data: TalentsStantard,
           },
         ],
+      };
+    },
+    setChartAbonnementOptions() {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = documentStyle.getPropertyValue("--p-text-color");
+      const textColorSecondary = documentStyle.getPropertyValue(
+        "--p-text-muted-color"
+      );
+      const surfaceBorder = documentStyle.getPropertyValue(
+        "--p-content-border-color"
+      );
+
+      return {
+        maintainAspectRatio: false,
+        aspectRatio: 1,
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+              font: {
+                weight: 500,
+              },
+            },
+            grid: {
+              display: false,
+              drawBorder: false,
+            },
+          },
+          y: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+              drawBorder: false,
+            },
+          },
+        },
       };
     },
     setChartOptions() {
@@ -131,20 +191,6 @@ export default {
         maintainAspectRatio: false,
         aspectRatio: 1,
         plugins: {
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                let label = context.dataset.label || "";
-                if (label) {
-                  label += ":";
-                }
-                if (context.parsed.y !== null) {
-                  label += context.parsed.y;
-                }
-                return label;
-              },
-            },
-          },
           legend: {
             labels: {
               color: textColor,
@@ -181,50 +227,40 @@ export default {
       this.chooseAnOptionPeriode = e;
       this.valueSubmit = null;
     },
+    handleTypeSelect(e) {
+      this.chooseTypesOfFilter = e;
+      if (e === "nombre") {
+        this.submitStatistiques(this.valueSubmit);
+      } else {
+        this.submitAbonnementStatistiques(this.valueSubmit);
+      }
+      this.valueSubmit =
+        this.chooseAnOptionPeriode === "annually"
+          ? new Date().getFullYear()
+          : null;
+      // this.chooseAnOptionPeriode = "annually";
+    },
     handleCategorieSelect(e) {
       console.log("handleCategorieSelect", e);
       this.categorieSelected = e;
     },
-    async submitStatistiques(year = null, categories) {
+    async submitStatistiques(year = null) {
       console.log("submitStatistiques", this.valueSubmit);
       this.isLoading = true;
       const data =
         this.chooseAnOptionPeriode !== "weekly"
           ? {
-              categorie_id:
-                year && categories
-                  ? categories[0].id
-                  : Number(
-                      this.categorieSelected
-                        ? this.categorieSelected
-                        : categories[0].id
-                    ),
-              value_periode:
-                year && categories ? this.currentYear : this.valueSubmit,
-              periode:
-                year && categories
-                  ? PERIODE[0].value
-                  : this.chooseAnOptionPeriode,
+              value_periode: year ? this.currentYear : this.valueSubmit,
+              periode: year ? PERIODE[0].value : this.chooseAnOptionPeriode,
             }
           : {
-              categorie_id:
-                year && categories
-                  ? categories[0].id
-                  : Number(
-                      this.categorieSelected
-                        ? this.categorieSelected
-                        : categories[0].id
-                    ),
               value_periode: this.weekDay,
-              periode:
-                year && categories
-                  ? PERIODE[0].value
-                  : this.chooseAnOptionPeriode,
+              periode: year ? PERIODE[0].value : this.chooseAnOptionPeriode,
             };
       console.log("DATA", data);
       axios
         .post(
-          "http://127.0.0.1:8000/api/statistiques/statistiqueCategorie",
+          "http://127.0.0.1:8000/api/statistiques/statistiqueRevenu",
           data,
           {
             headers: {
@@ -233,11 +269,12 @@ export default {
           }
         )
         .then((response) => {
-          console.log("statistique_response", response);
+          console.log("statistiqueRevenu", response);
           this.chartData = this.setChartData(
-            response.data.offre,
-            response.data.candidature,
-            response.data.contrat,
+            response.data.entreprises_premium,
+            response.data.entreprise_standard,
+            response.data.talents_premium,
+            response.data.talents_stantard,
             response.data.absicsse
           );
         })
@@ -246,11 +283,13 @@ export default {
         })
         .finally(() => {
           this.isLoading = false;
+           this.isDisabled = false;
         });
     },
   },
   mounted() {
-    this.get_categorie();
+    // this.get_categorie();
+    this.submitStatistiques(this.valueSubmit);
     this.chartOptions = this.setChartOptions();
   },
 };
@@ -261,22 +300,6 @@ export default {
     <div
       class="chart-loading d-flex gap-2 flex-wrap align-items-center px-2 py-3"
     >
-      <MySelect
-        v-if="
-          categories.length && this.title === 'Offres & Candidatures & Contrat'
-        "
-        :allItems="
-          categories.length
-            ? categories.map((item) => {
-                return {
-                  value: item.id,
-                  libelle: item.categorie,
-                };
-              })
-            : []
-        "
-        @handleSelect="handleCategorieSelect"
-      />
       <MySelect :allItems="PERIODE" @handleSelect="handleSelect" />
       <div>
         <input
@@ -312,22 +335,24 @@ export default {
     </div>
     <div class="text-end mb-4 mx-3">
       <button
-        :disabled="isDisabled || !valueSubmit"
+        :disabled="!valueSubmit || isDisabled"
         class="btn bg-primary"
-        @click="submitStatistiques(null, categories)"
+        @click="submitStatistiques(null)"
       >
         Filtrer
       </button>
     </div>
     <div v-if="isLoading" style="height: 300px">Chargement...</div>
-    <Chart
-      v-else
-      type="bar"
-      :height="300"
-      :width="500"
-      :data="chartData"
-      :options="chartOptions"
-    />
+    <div v-else>
+      <Chart
+        v-if="this.chooseTypesOfFilter === 'nombre'"
+        type="bar"
+        :height="300"
+        :width="500"
+        :data="chartData"
+        :options="chartOptions"
+      />
+    </div>
   </div>
 </template>
 <style scoped>
