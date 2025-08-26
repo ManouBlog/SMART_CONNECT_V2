@@ -40,7 +40,7 @@ export default {
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
       axios
-        .get("http://127.0.0.1:8000/api/list_students", {
+        .get("https://backend.smart-connect.online/api/list_students", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -55,7 +55,7 @@ export default {
     get_students() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/list_students", {
+        .get("https://backend.smart-connect.online/api/list_students", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -106,7 +106,7 @@ export default {
     get_Visiteurs() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/list_visiteurs", {
+        .get("https://backend.smart-connect.online/api/list_visiteurs", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

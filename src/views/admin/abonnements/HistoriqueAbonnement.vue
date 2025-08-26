@@ -36,7 +36,7 @@ export default {
     create_categorie() {
       axios
         .post(
-          "http://127.0.0.1:8000/api/create_categorie-abonnement",
+          "https://backend.smart-connect.online/api/create_categorie-abonnement",
           this.abonnementCategorie,
           {
             headers: {
@@ -73,7 +73,7 @@ export default {
     },
     create_abonnement() {
       axios
-        .post("http://127.0.0.1:8000/api/create-abonnement", this.data, {
+        .post("https://backend.smart-connect.online/api/create-abonnement", this.data, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -103,7 +103,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("http://127.0.0.1:8000/api/getCategorie", {
+        .get("https://backend.smart-connect.online/api/getCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -159,7 +159,7 @@ export default {
       }
 
       axios
-        .get("http://127.0.0.1:8000/api/getAbonnement", {
+        .get("https://backend.smart-connect.online/api/getAbonnement", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -211,7 +211,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "http://127.0.0.1:8000/api/admin/deleteAbonnement/" + idAbonnement,
+          "https://backend.smart-connect.online/api/admin/deleteAbonnement/" + idAbonnement,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -240,7 +240,7 @@ export default {
     deleteCategorieAbonnement(idCategorie) {
       this.spinner = true;
       axios
-        .delete("http://127.0.0.1:8000/api/deleteCategorie/" + idCategorie, {
+        .delete("https://backend.smart-connect.online/api/deleteCategorie/" + idCategorie, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

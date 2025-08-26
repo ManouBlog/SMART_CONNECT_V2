@@ -251,7 +251,7 @@ export default {
         });
         axios
           .put(
-            "http://127.0.0.1:8000/api/modify_schedule/" +
+            "https://backend.smart-connect.online/api/modify_schedule/" +
               this.id_timetable_update,
             {
               First_horaire: this.firstPlageHoraire.replace(",", "-"),
@@ -304,7 +304,7 @@ export default {
     get_timetable() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/get_schedule", {
+        .get("https://backend.smart-connect.online/api/get_schedule", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -434,7 +434,7 @@ export default {
         });
         axios
           .post(
-            "http://127.0.0.1:8000/api/create_schedule",
+            "https://backend.smart-connect.online/api/create_schedule",
             {
               jour: DateRendezVous,
               First_horaire: this.firstHoraire,
@@ -486,7 +486,7 @@ export default {
       this.spinner = true;
       console.log("ID_UPADTE", this.id_timetable_update);
       axios
-        .get("http://127.0.0.1:8000/api/get_schedule", {
+        .get("https://backend.smart-connect.online/api/get_schedule", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -529,7 +529,7 @@ export default {
     addCompetences() {
       axios
         .post(
-          "http://127.0.0.1:8000/api/addCompetences",
+          "https://backend.smart-connect.online/api/addCompetences",
           {
             competence: this.comp,
           },
@@ -579,7 +579,7 @@ export default {
     delete_timetable() {
       axios
         .delete(
-          "http://127.0.0.1:8000/api/delete_schedule/" + this.id_for_delete,
+          "https://backend.smart-connect.online/api/delete_schedule/" + this.id_for_delete,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -608,7 +608,7 @@ export default {
     deleteMyCompetence() {
       axios
         .delete(
-          "http://127.0.0.1:8000/api/deleteCompetencesOfStudents/" +
+          "https://backend.smart-connect.online/api/deleteCompetencesOfStudents/" +
             this.id_for_delete,
           {
             headers: {
@@ -634,7 +634,7 @@ export default {
     },
     getAllCompetencesByStudents() {
       axios
-        .get("http://127.0.0.1:8000/api/getCompetenceByStudents", {
+        .get("https://backend.smart-connect.online/api/getCompetenceByStudents", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -648,7 +648,7 @@ export default {
     },
     getAllCompetences() {
       axios
-        .get("http://127.0.0.1:8000/api/GetAllCompetences")
+        .get("https://backend.smart-connect.online/api/GetAllCompetences")
         .then((res) => {
           console.log("COMPETENCE", res.data.data);
           this.competencesPredf = res.data.data;

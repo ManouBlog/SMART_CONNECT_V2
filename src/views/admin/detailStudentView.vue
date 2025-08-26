@@ -23,7 +23,7 @@ export default {
       this.spinner = true;
       console.log("this.$route", this.$route);
       axios
-        .get("http://127.0.0.1:8000/api/get_detail_user/" + this.$route.params.id, {
+        .get("https://backend.smart-connect.online/api/get_detail_user/" + this.$route.params.id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -206,14 +206,14 @@ export default {
             <div class="mb-3 text-start">
               <label class="form-label">Carte étudiante</label>
               <Image
-                :src="`${'http://127.0.0.1:8000/storage/images/' + student?.photo}`"
+                :src="`${'https://backend.smart-connect.online/storage/images/' + student?.photo}`"
                 :alt="student?.photo"
                 width="250"
                 preview
               />
               <!-- <img
                 :src="`${
-                  'http://127.0.0.1:8000/storage/images/' + student?.photo
+                  'https://backend.smart-connect.online/storage/images/' + student?.photo
                 }`"
                 :alt="student?.photo"
                 style="width: 50px; height: 50px; display: block"

@@ -34,7 +34,7 @@ export default {
     get_details_abonnement() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/getAbonnement", {
+        .get("https://backend.smart-connect.online/api/getAbonnement", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -60,7 +60,7 @@ export default {
       this.isLoading = true;
       axios
         .put(
-          "http://127.0.0.1:8000/api/admin/updateAbonnement/" +
+          "https://backend.smart-connect.online/api/admin/updateAbonnement/" +
             this.$route.params.id,
           this.data,
           {
@@ -86,7 +86,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("http://127.0.0.1:8000/api/getCategorie", {
+        .get("https://backend.smart-connect.online/api/getCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

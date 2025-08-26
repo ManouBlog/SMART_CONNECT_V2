@@ -78,7 +78,7 @@ export default {
     },
     // get_categorie() {
     //   axios
-    //     .get("http://127.0.0.1:8000/api/seeCategorie", {
+    //     .get("https://backend.smart-connect.online/api/seeCategorie", {
     //       headers: {
     //         Authorization: "Bearer " + this.$store.state.token,
     //       },
@@ -260,7 +260,7 @@ export default {
       console.log("DATA", data);
       axios
         .post(
-          "http://127.0.0.1:8000/api/statistiques/statistiqueRevenu",
+          "https://backend.smart-connect.online/api/statistiques/statistiqueRevenu",
           data,
           {
             headers: {
