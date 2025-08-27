@@ -79,7 +79,7 @@ export default {
     onFinish(values) {
       console.log("Success:", values);
         if (this.configUtils.isValidPhoneNumber(this.formState.phone) 
-        && this.configUtils.isValidPhoneNumber(this.formState.Phonegerant)) {
+        || this.configUtils.isValidPhoneNumber(this.formState.Phonegerant)) {
    if(this.formState.upload.length){
       this.formState.photo = this.addPhotoInArray(this.formState.upload);
       // // console.log("this.formState",this.formState)

@@ -124,7 +124,10 @@ export default {
   <section style="padding: 2em 3em">
     <a-card style="width: auto;color: var(--third-color) !important; background: var(--secondary-color) !important">
       <h1 class="fw-bold my-3">Informations personnelles</h1>
-      <section>
+      <span class="badge"
+      :class="user.user.verif_email ? 'bg-success':'bg-danger'"
+      >Compte {{user.user.verif_email ? 'Activé':'Inactif'}}</span>
+      <section class="my-5">
         <div class="row">
           <div
             v-for="(item, index) in infoPersonellesStudents"

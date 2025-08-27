@@ -1,6 +1,6 @@
 <script>
-// import Swal from "sweetalert2";
-// import instance from "../../api/api";
+import Swal from "sweetalert2";
+import instance from "../../api/api";
 import HeaderBanner from "./features/HeaderBanner.vue";
 import StepViews from "./features/StepViews.vue";
 import RechercheOffre from "./features/RechercheOffre.vue";
@@ -34,51 +34,38 @@ export default {
       newletter: null,
       ListOffre: [],
       spinner: false,
+      email:"",
+      token:"",
     };
   },
 
   methods: {
-    // closeCharte() {
-    //   this.charte = 0;
-    //   window.localStorage.setItem("charte", 0);
-    // },
+    async doVerificationMail(email,token){
+      try{
+      const response = await instance.post('verificationEmail',{
+        email:email,
+        token:token
+      });
+      if(response.data.status){
+      Swal.fire({
+              icon: "success",
+              title: "Compte activé",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+      }
+      }catch(e){
+        console.log(e)
+      }
+    }
+  },
+  created(){
+ this.email = this.$route.params.email
+    this.token = this.$route.params.token
 
-    // voirDetailTimetable() {
-    //   if (this.user) {
-    //     this.$router.push({
-    //       name: "jobs",
-    //     });
-    //   } else {
-    //     Swal.fire({
-    //       icon: "info",
-    //       title: "Veuillez-vous connecter!",
-    //       showConfirmButton: false,
-    //       timer: 2000,
-    //     });
-    //     setTimeout(() => {
-    //       this.$router.push({
-    //         path: "/registre",
-    //         query: { redirect: this.path },
-    //       });
-    //     }, 2000);
-    //   }
-    // },
-    // async handleGoogleCallBack() {
-    //   const URL_PARAMS = new URLSearchParams(window.location.search);
-    //   const code = URL_PARAMS.get("code");
-    //   if (code) {
-    //     try {
-    //       const response = await instance.get(`auth/google/callback?code=${code}`);
-    //       const { token, user } = response.data;
-    //       localStorage.setItem("token", token);
-    //       localStorage.setItem("user", JSON.stringify(user));
-    //     } catch (error) {
-    //       console.log(err);
-    //     }
-    //   } else {
-    //     return;
-    //   }
-    // },
+    if(this.email && this.token){
+    this.doVerificationMail(this.email,this.token)
+    }
   },
  async mounted() {
     await this.STOREPARTENAIRE.getAllPartenaires();

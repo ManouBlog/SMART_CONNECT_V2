@@ -17,7 +17,7 @@
         <h1 class="badge bg-primary h1">404</h1>
         <p>OOPS</p>
         <h1>Desolé page pas trouvée.</h1>
-        <button class="btn-lg bg-primary" @click="$router.go(-1)">Retour</button>
+        <button class="btn-lg" style="background:orange;" @click="$router.push('/')">Retour</button>
       </div>
     </template>
     

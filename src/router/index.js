@@ -17,6 +17,11 @@ const routes = [
         component: () => import( '../views/Accueil/Bienvenue.vue')
       },
       {
+        path:'/:email/:token',
+        name:'Bienvenue-verification',
+        component: () => import( '../views/Accueil/Bienvenue.vue')
+      },
+      {
         path: '/registre',
         name: 'registre',
         component: () => import( '../views/registre.vue')
