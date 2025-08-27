@@ -19,9 +19,8 @@ export default {
   },
   data() {
     return {
-      user: "",
+      user: this.$store.state.user,
       nom: "",
-
       prenoms: "",
       lienPhoto: lienPhoto,
       password: null,

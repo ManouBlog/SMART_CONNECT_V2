@@ -39,7 +39,7 @@ const storeLoading = useLoadingSpinner();
         console.log(error)
           Swal.fire({
               icon: "info",
-              title: error,
+              title: error.response.data.message,
               showConfirmButton: true,
             });
         }finally{
