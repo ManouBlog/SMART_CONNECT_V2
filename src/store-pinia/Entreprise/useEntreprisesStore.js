@@ -18,7 +18,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
        async getEntreprise() {
             try{
            const response = await instance.get("AllEntrepriseWithTimetables");
-           console.log("AllEntrepriseWithTimetables",response)
+          //  console.log("AllEntrepriseWithTimetables",response)
            if(response['status'] === 200){
             this.entreprises = response.data.data
             this.timetable = response.data.timetable;
@@ -33,15 +33,15 @@ export const useEntreprisesStore = defineStore('entreprise', {
            const listStudent = await instance.get("list_students_contact_by_entreprise");
            const studentRecruit = await instance.get("getStudentRecruit");
            
-           console.log("studentRecruit",studentRecruit)
-           console.log("listStudent",listStudent)
+          //  console.log("studentRecruit",studentRecruit)
+          //  console.log("listStudent",listStudent)
            if(listStudent['status'] === 200 && studentRecruit['status'] === 200 ){
             this.list_students = listStudent.data.data;
             this.student = this.list_students.students;
             this.studentRecruit = studentRecruit.data;
             loadingSpinner.launchLoading(false)
-            console.log('this.list_students',this.list_students)
-            console.log("this.student",this.student)
+            // console.log('this.list_students',this.list_students)
+            // console.log("this.student",this.student)
            }
             }catch(error){
                 console.log(error)
@@ -51,7 +51,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             loadingSpinner.launchLoading(true)
             try{
              const response = await instance.get("list_offres_interess_by_students")
-             console.log("response",response.data)
+            //  console.log("response",response.data)
              if(response['status'] === 200){
                 // this.offresInteressByStudents = Help.groupBy(response.data)
                 const groupedData = response.data.reduce((acc, curr) => {
@@ -73,7 +73,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
                 }, []);
                 this.offresInteressByStudents = groupedData
                 loadingSpinner.launchLoading(false)
-                console.log("this.offresInteressByStudents",this.offresInteressByStudents)
+                // console.log("this.offresInteressByStudents",this.offresInteressByStudents)
              }
             }catch(error){
                 console.log(error)
@@ -87,17 +87,17 @@ export const useEntreprisesStore = defineStore('entreprise', {
           this.planAbonnement = item.abonement;
         }
       });
-      console.log("STOREABONNEMENT",this.planAbonnement)
+      // console.log("STOREABONNEMENT",this.planAbonnement)
     },
           async get_all_abonnement() {
             loadingSpinner.launchLoading(true)
            try{
            const response = await instance.get("abonnement_user")
-           console.log("response",response)
+          //  console.log("response",response)
            if(response["status"] === 200){
             this.list_abonnement = response.data.data.filter(item=>item.statut === 'success' || item.statut === 'expired')
            this.handlePlanAbonnement(this.list_abonnement)
-            console.log("this.list_abonnement",this.list_abonnement.filter(item=>item.statut === 'success'))
+            // console.log("this.list_abonnement",this.list_abonnement.filter(item=>item.statut === 'success'))
            }
            
            }catch(error){

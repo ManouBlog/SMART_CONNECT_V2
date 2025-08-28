@@ -24,13 +24,13 @@ export const useOffreStore = defineStore('offres', {
     }),
     actions: {
       filterOffreWithYear(payload){
-        console.log("offreCreatedByEntreprise",this.offreCreatedByEntreprise)
+        // console.log("offreCreatedByEntreprise",this.offreCreatedByEntreprise)
         this.offreCreatedByEntreprise = this.filterOffreCreatedByEntreprise.filter(item=>dayjs(item.created_at,'YYYY').isSame(dayjs(payload)))
        },
        async getOffres() {
             try{
            const response = await instance.get("list_offres");
-           console.log("list_offres",response)
+          //  console.log("list_offres",response)
            if(response['status'] === 200){
             this.offres = response.data.data
             let offresWithDateExpirationSupAtToday = [];
@@ -52,7 +52,7 @@ export const useOffreStore = defineStore('offres', {
             try{
               const response = await instance.get("get_offres_entreprise");
               if(response['status'] === 200){
-                console.log("response.data.data1",response.data.data)
+                // console.log("response.data.data1",response.data.data)
                 this.ListeForFilterInOffreCreatedByEntreprise = response.data.data
                 this.offreCreatedByEntreprise = response.data.data
                 this.filterOffreCreatedByEntreprise = response.data.data
@@ -64,23 +64,23 @@ export const useOffreStore = defineStore('offres', {
             }
           },
           filterInArrayOffreCreatedByEntreprise(payload){
-            console.log("payload",payload)
+            // console.log("payload",payload)
             this.ListeForFilterInOffreCreatedByEntreprise.filter(item=>item.offre.toLowerCase().includes(payload))
               this.offreCreatedByEntreprise = this.ListeForFilterInOffreCreatedByEntreprise
            
-              console.log("this.offreCreatedByEntreprise",this.offreCreatedByEntreprise)
+              // console.log("this.offreCreatedByEntreprise",this.offreCreatedByEntreprise)
           },
           handleIdItemDelete(payload){
             this.idItemDelete = payload
           },
           handleDeleteOffre() {
-            console.log("idItemDelete",this.idItemDelete)
+            // console.log("idItemDelete",this.idItemDelete)
             Spinner.launchLoading(true)
             instance
               .delete("delete_offre_entreprise/" + this.idItemDelete)
       
               .then((res) => {
-                console.log(res);
+                // console.log(res);
       
                 if (res.data.status === true) {
                   Modal.changeValueForShowModalSuppression()
@@ -97,7 +97,7 @@ export const useOffreStore = defineStore('offres', {
                 }
               })
               .catch((err) => {
-                console.log("ERR MSG",err)
+                // console.log("ERR MSG",err)
                 if (err) {
                   Swal.fire({
                     icon: "info",
@@ -116,9 +116,9 @@ export const useOffreStore = defineStore('offres', {
             await instance
               .get("seeCategorie")
               .then((res) => {
-                console.log("TIMETABLE", res);
+                // console.log("TIMETABLE", res);
                 this.categoriesOffres = res.data.data;
-                console.log("CATEGORIE", this.categories);
+                // console.log("CATEGORIE", this.categories);
                 Spinner.launchLoading(false)
               })
               .catch((err) => {
@@ -131,7 +131,7 @@ export const useOffreStore = defineStore('offres', {
             try {
               const reponse = await instance.get("GetAllCompetences");
               this.allCompetences = reponse.data.data;
-              console.log("GetAllCompetences", this.competences);
+              // console.log("GetAllCompetences", this.competences);
               Spinner.launchLoading(false)
             } catch (e) {
               console.log(e);

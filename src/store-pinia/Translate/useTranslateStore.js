@@ -12,12 +12,12 @@ export const useTranslateStore =defineStore('translate',()=>{
         return await translate(texte,{from:"fr",to:defaultLocale.value})
       };
       const changeLanguageForTranslate = (payload)=>{
-        console.log("changeLanguageForTranslate",payload)
+        // console.log("changeLanguageForTranslate",payload)
         defaultLocale.value = payload
         localStorage.setItem("translate",payload)
         window.location.reload(true);
       }
-     console.log("defaultLocale.value",defaultLocale)
+    //  console.log("defaultLocale.value",defaultLocale)
     return{
         handleTranslate,
         changeLanguageForTranslate,

@@ -23,13 +23,13 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
             await instance
               .get("get_offres_postule")
               .then((res) => {
-                console.log(res);
+                // console.log(res);
                 this.offres = res.data;
                 const { offres } = res.data.data;
-                console.log("OFFRES", offres);
+                // console.log("OFFRES", offres);
                 this.list_offre = offres;
                 this.data_offre_filter = offres
-                console.log("this.list_offre", this.list_offre);
+                // console.log("this.list_offre", this.list_offre);
                 loadingSpinner.launchLoading(false);
               })
               .catch((err) => {
@@ -42,7 +42,7 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
             await instance
               .get("entrepriseInteressee")
               .then((res) => {
-                console.log("entrepriseInteressee",res);
+                // console.log("entrepriseInteressee",res);
                 this.list_entreprise_interesse = res.data.data;
               })
               .catch((err) => {
@@ -60,7 +60,7 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
             await instance
               .post("statistiqueDashboard/student",payload)
               .then((res) => {
-                console.log("statistiqueDashboard",res.data);
+                // console.log("statistiqueDashboard",res.data);
                 this.statistiqueDashboard = res.data;
               })
               .catch((err) => {

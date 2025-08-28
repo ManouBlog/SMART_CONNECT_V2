@@ -12,14 +12,14 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
     }),
     actions: {
        changeValueForToogleModalInfoPersonnelle(){
-        console.log("this.toogleModalInfoPersonnelle",this.toogleModalInfoPersonnelle)
+        // console.log("this.toogleModalInfoPersonnelle",this.toogleModalInfoPersonnelle)
         this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
        },
        async getInfoUser(){
       await instance
           .get("voirInfoUserConnect")
           .then((resp) => {
-            console.log("voirInfoUserConnect",resp);
+            // console.log("voirInfoUserConnect",resp);
             if (resp.data.status === true) {
              this.user = resp.data.user
             }
@@ -29,7 +29,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           });
     },
       async update_compte_entreprise(payload) {
-        console.log("update_compte_entreprise",payload)
+        // console.log("update_compte_entreprise",payload)
         Spinner.launchLoading(true)
         let data = new FormData();
         data.append("nom", payload.nom);
@@ -50,7 +50,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
        await instance
           .post("modifier_profil", data)
           .then((res) => {
-            console.log(res);
+            // console.log(res);
             if (res.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -78,7 +78,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           })
       },
       addAnRegistreDoc(payload){
-        console.log(payload.target.files[0])
+        // console.log(payload.target.files[0])
        this.registre = payload.target.files[0]
       },
       addAnPieceDoc(payload){
@@ -88,7 +88,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         this.logoEntreprise = payload.target.files[0]
       },
       verifIfPasswordIsExact(payload){
-        console.log(payload)
+        // console.log(payload)
         if (payload.confirmation_password !== payload.password) {
           Swal.fire({
             icon: "info",
@@ -104,10 +104,10 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         }
       },
       async routeForLaunchModifyPassword(data) {
-        console.log(data)
+        // console.log(data)
         try{
         const response = await instance.post("passwordModify",data)
-        console.log("routeForLaunchModifyPassword",response)
+        // console.log("routeForLaunchModifyPassword",response)
         if(response["status"] === 200){
           Swal.fire({
             icon: "success",

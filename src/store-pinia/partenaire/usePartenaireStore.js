@@ -11,7 +11,7 @@ export const usePartenaireStore = defineStore('partenaires', {
        async getAllPartenaires() {
             try{
            const response = await instance.get("allPartenaire");
-           console.log("getAllPartenaires",response)
+        //    console.log("getAllPartenaires",response)
            if(response['status'] === 200){
             this.partenaires = response.data.data
            }

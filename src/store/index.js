@@ -19,7 +19,7 @@ export default createStore({
      deletePersonAtWishList(state,idPerson){
       instance.delete("deletePersonInMyWishlist/"+idPerson)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if(res.data.status === true){
           Swal.fire({
             icon: "success",
@@ -38,11 +38,11 @@ export default createStore({
      },
      GET_ALL_WISH_LIST(state,payload){
       state.whistListPerson = payload
-      console.log("GET_ALL_WISH_LIST",state.whistListPerson)
+      // console.log("GET_ALL_WISH_LIST",state.whistListPerson)
      },
      CHANGE_LANGAGE_WEB(state,langue){
       state.translate = langue;
-      console.log("state.translate",state.translate)
+      // console.log("state.translate",state.translate)
      },
      ADD_ITEM(state){
       if(state.token){
@@ -53,7 +53,7 @@ export default createStore({
           },
         })
         .then((response) => {
-          console.log("get_who_contact_student",response.data.entreprises.filter(item=>item.pivot.alarm === 1).length);
+          // console.log("get_who_contact_student",response.data.entreprises.filter(item=>item.pivot.alarm === 1).length);
             const element =  response.data.entreprises.filter(item=>item.pivot.alarm === 1).length
             state.contratStudent = element;
             localStorage.setItem("alarm", element);
@@ -76,7 +76,7 @@ export default createStore({
   },
   actions: {   
    async addListFavoris({commit,state},payload){
-    console.log("addListFavoris",payload)
+    // console.log("addListFavoris",payload)
       await instance.post("saveWishlist",{
         student_id: payload.id,
       }, {
@@ -107,7 +107,7 @@ export default createStore({
       await instance
         .get("getAllWishlist")
         .then((response) => {
-          console.log("WISHLIST", response.data.data);
+          // console.log("WISHLIST", response.data.data);
           commit('GET_ALL_WISH_LIST',response.data.data.wishlists)
         })
         .catch((error) => {

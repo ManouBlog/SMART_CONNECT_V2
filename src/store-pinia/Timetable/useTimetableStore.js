@@ -9,7 +9,7 @@ export const useTimetableStore = defineStore('timetable', {
        async getOffres() {
             try{
            const response = await instance.get("list_offres");
-           console.log("list_offres",response)
+          //  console.log("list_offres",response)
            if(response['status'] === 200){
             this.offres = response.data.data
             let offresWithDateExpirationSupAtToday = [];

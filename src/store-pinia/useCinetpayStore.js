@@ -16,7 +16,7 @@ const storeLoading = useLoadingSpinner();
     const paymentCinetpay = async (payload)=>{
         storeLoading.launchLoading(true);
         const randomPart = Math.random().toString(36).substring(2);
-        console.log("payload",payload)
+        // console.log("payload",payload)
         const data = {
             abonement_id:payload.idAbonnement,
             channels:"undefined",
@@ -24,7 +24,7 @@ const storeLoading = useLoadingSpinner();
         }
         try{
            const RESPONSEINITALISATION = await instance.post("payStack/paiement",data);
-             console.log("RESPONSEINITALISATION",RESPONSEINITALISATION)
+            //  console.log("RESPONSEINITALISATION",RESPONSEINITALISATION)
              if(RESPONSEINITALISATION.data.status){
                 Swal.fire({
               icon: "success",

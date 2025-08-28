@@ -19,7 +19,7 @@ export const useRegisterStore = defineStore('register', {
        async getAllCompetences() {
             try{
            const response = await instance.get("GetAllCompetences");
-           console.log("getAllCompetences",response)
+          //  console.log("getAllCompetences",response)
            if(response['status'] === 200){
             this.allCompetences = response.data.data
            }
@@ -28,7 +28,7 @@ export const useRegisterStore = defineStore('register', {
             }
           },
         addTag(payload) {
-            console.log(payload);
+            // console.log(payload);
             this.competencesChoosen = [];
             payload.forEach((el) => {
               this.competencesChoosen.push(el.id);
@@ -43,7 +43,7 @@ export const useRegisterStore = defineStore('register', {
           this.isModal = !this.isModal
         },
         async registerStudent(payload) {
-          console.log("registerStudent",payload)
+          // console.log("registerStudent",payload)
           this.LOADINGSPINNER.launchLoading(true)
           this.isLoading = true;
           let data = new FormData();
@@ -67,7 +67,7 @@ export const useRegisterStore = defineStore('register', {
          await instance
             .post("list_users", data)
             .then((response) => {
-              console.log(response);
+              // console.log(response);
               if (response.data.status === true) {
                 this.SWALPOPUP.declencheSwalPopup("success",response.data.message)
                 this.changeValueIsPolitics({value:false,infoUser:"",payload:""})
@@ -85,7 +85,7 @@ export const useRegisterStore = defineStore('register', {
             })
         },
         async registerCompany(payload) {
-          console.log("registerCompany",payload)
+          // console.log("registerCompany",payload)
           this.isLoading = true;
           this.LOADINGSPINNER.launchLoading(true);
           let data = new FormData();
@@ -110,7 +110,7 @@ export const useRegisterStore = defineStore('register', {
          await instance
             .post("list_users", data)
             .then((response) => {
-              console.log(response);
+              // console.log(response);
               if (response.data.status === true) {
                 this.SWALPOPUP.declencheSwalPopup("success",response.data.message)
                 this.changeValueIsPolitics({value:false,infoUser:"",payload:""})
@@ -130,7 +130,7 @@ export const useRegisterStore = defineStore('register', {
             })
         },
         async registerParticulier(payload) {
-          console.log("registerParticulier",payload)
+          // console.log("registerParticulier",payload)
           this.isLoading = true;
           this.LOADINGSPINNER.launchLoading(true);
           let data = new FormData();
@@ -150,7 +150,7 @@ export const useRegisterStore = defineStore('register', {
          await instance
             .post("list_users", data)
             .then((response) => {
-              console.log(response);
+              // console.log(response);
               if (response.data.status === true) {
                 this.SWALPOPUP.declencheSwalPopup("success",response.data.message)
                 this.changeValueIsPolitics({value:false,infoUser:"",payload:""})

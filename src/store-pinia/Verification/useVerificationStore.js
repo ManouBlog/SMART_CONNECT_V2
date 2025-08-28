@@ -17,7 +17,7 @@ export const useVerificationStore = defineStore('verification', {
           async handleAbonnementExpired(){
             try{
              const response = await instance.get("handleAbonnementExpired")
-             console.log("handleAbonnementExpired",response)
+            //  console.log("handleAbonnementExpired",response)
             }catch(error){
                 console.log(error)
             }

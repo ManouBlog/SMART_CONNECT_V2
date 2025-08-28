@@ -17,7 +17,7 @@ export const useDisponibiliteStore = defineStore('disponibilite', {
             totalHour: payload.TotalHourDisponi,
           })
           .then((res) => {
-            console.log(res);
+            // console.log(res);
             if (res.data.status === true) {
               Swal.fire({
                 icon: "success",
