@@ -113,7 +113,7 @@ export default {
     this.texte17 = await this.handleTranslate('Veuillez renseigner votre Forme juridique!');
     this.texte18 = await this.handleTranslate('Veuillez renseigner votre email!');
     this.texte19 = await this.handleTranslate('Veuillez renseigner votre Quartier!');
-    this.texte10 = await this.handleTranslate("Ajouter une pièce");
+    this.texte10 = await this.handleTranslate("Ajouter une pièce d'identité");
   },
 };
 </script>
@@ -179,14 +179,14 @@ export default {
       <a-input v-model:value="formState.email" />
     </a-form-item>
   <a-form-item
-     name="piece_gerant"
+     name="upload"
     :label="texte10"
     :rules="[{ required: true, message: texte10 }]"
     >
         <a-upload
           @change="handleChangeCardStudent"
           v-model:fileList="formState.upload"
-          name="piece_gerant"
+          name="upload"
           list-type="picture"
           :multiple="true"
           :maxCount="2"
