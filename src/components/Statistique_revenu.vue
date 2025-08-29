@@ -112,7 +112,7 @@ export default {
             data: EntreprisesPremium,
           },
           {
-            label: "Entreprise stantard",
+            label: "Entreprises stantard",
             backgroundColor: "brown",
             borderColor: "brown",
             data: EntreprisesStantard,

@@ -112,19 +112,19 @@ export default {
             data: Entreprises,
           },
           {
+            label: "Souscription entreprises",
+            backgroundColor: "black",
+            borderColor: "black",
+            data: souscriptionEntreprise,
+          },
+          {
             label: "Inscription talents",
             backgroundColor: "brown",
             borderColor: "brown",
             data: Talents,
           },
           {
-            label: "Souscription entreprise",
-            backgroundColor: "black",
-            borderColor: "black",
-            data: souscriptionEntreprise,
-          },
-          {
-            label: "Souscription talent",
+            label: "Souscription talents",
             backgroundColor: "orange",
             borderColor: "orange",
             data: souscriptionTalents,

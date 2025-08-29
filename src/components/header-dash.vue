@@ -23,6 +23,7 @@ export default {
       console.log(dark);
     },
     deconnex() {
+      this.$store.commit("TOOGLESPINNER", true);
       axios
         .get("https://backend.smart-connect.online/api/auth_logout", {
           headers: {
@@ -54,7 +55,10 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        });
+        })
+        .finally(()=>{
+          this.$store.commit("TOOGLESPINNER", false);
+        })
     },
     get_entreprise_who_contact_student() {
       this.spinner = true;
@@ -91,117 +95,10 @@ export default {
 };
 </script>
 <template>
-  <!-- <div class="profile" v-show="my_profile">
-    <div class="card">
-      <div class="card-body p-5">
-        <h1 class="badge bg-primary h3">Mon compte</h1>
-        <form @submit.prevent="inscription">
-          <div class="row">
-            <div class="form-group col-lg-6">
-              <label>Nom</label>
-              <input
-                type="text"
-                v-model="nom"
-                required
-                placeholder="ex:Adjobi"
-              />
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Prénoms</label>
-              <input
-                type="text"
-                v-model="prenoms"
-                required
-                placeholder="ex:kadjo pierre"
-              />
-            </div>
-
-            <div class="form-group col-lg-6">
-              <label>Télephone</label>
-              <input
-                type="text"
-                v-model.number="phone"
-                required
-                placeholder="ex:0545749741"
-                pattern="[0-9]*"
-              />
-              <span
-                class="d-block text-danger entreprise_caractere"
-                v-if="typeof this.phone === 'string'"
-                ><b>*le numéro doit être en chiffres</b></span
-              >
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Ville</label>
-              <input
-                type="text"
-                v-model="ville"
-                required
-                placeholder="ex:Abidjan"
-              />
-            </div>
-
-            <div class="form-group col-lg-6">
-              <label>Commune</label>
-              <input
-                type="text"
-                v-model="commune"
-                required
-                placeholder="ex:yopougon"
-              />
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Quartier</label>
-              <input
-                type="text"
-                v-model="quartier"
-                required
-                placeholder="ex:Maroc"
-              />
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Diplome</label>
-              <input
-                type="text"
-                v-model="diplome"
-                required
-                placeholder="ex:licence 3 informatique"
-              />
-            </div>
-            <div class="form-group col-lg-6">
-              <label>E-mail</label>
-              <input
-                type="email"
-                v-model="email"
-                required
-                placeholder="ex:adjobi@gmail.com"
-              />
-              <span v-if="My_email"
-                ><b class="text-danger">*l'email existe deja</b></span
-              >
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Password</label>
-              <input
-                type="password"
-                v-model="password"
-                placeholder="*********"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <button class="btn-lg bg-danger btn-block">Annuler</button>
-            <button class="btn-lg btn-primary btn-block" type="submit">
-              Modifier mon compte
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div> -->
   <div class="page-header">
+    <div class="Myspinner" v-show="this.$store.state.spinnerLoading">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
     <div class="header-wrapper row m-0">
       <div class="header-logo-wrapper col-auto p-0">
         <div class="logo-wrapper">
@@ -264,35 +161,7 @@ export default {
       </div>
       <div class="left-side-header col ps-0 d-none d-md-block">
         <div class="input-group">
-          <!-- <span class="input-group-text" id="basic-addon1">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g>
-                <g>
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M11.2753 2.71436C16.0029 2.71436 19.8363 6.54674 19.8363 11.2753C19.8363 16.0039 16.0029 19.8363 11.2753 19.8363C6.54674 19.8363 2.71436 16.0039 2.71436 11.2753C2.71436 6.54674 6.54674 2.71436 11.2753 2.71436Z"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M19.8987 18.4878C20.6778 18.4878 21.3092 19.1202 21.3092 19.8983C21.3092 20.6783 20.6778 21.3097 19.8987 21.3097C19.1197 21.3097 18.4873 20.6783 18.4873 19.8983C18.4873 19.1202 19.1197 18.4878 19.8987 18.4878Z"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </g>
-              </g></svg
-          ></span> -->
+         
         </div>
       </div>
       <div class="nav-right col-10 col-sm-6 pull-right right-header p-0">
@@ -403,6 +272,18 @@ export default {
   </div>
 </template>
 <style scoped>
+.Myspinner {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.625);
+  display: flex;
+  place-items: center;
+  justify-content: center;
+}
 .profile {
   position: fixed;
   left: 0;

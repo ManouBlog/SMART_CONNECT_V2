@@ -16,6 +16,15 @@ export default {
     };
   },
   methods: {
+    alertNummber(entreprise){
+    let count = 0;
+    entreprise?.forEach(item=>{
+      if(item.view === 1){
+        count = 1;
+      }
+    })
+    return count;
+    },
     verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
       if (!value.length) {
@@ -244,7 +253,11 @@ export default {
                 role="tab"
                 aria-controls="abonnées"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Abonnées</a
+                ><i data-feather="clock"></i>Abonnées
+                <span class="badge bg-danger" v-if="alertNummber(this.$store.state.listEntrepriseAbonnee)">
+                  {{alertNummber(this.$store.state.listEntrepriseAbonnee)}}
+                </span>
+                </a
               >
             </li>
             <li class="nav-item">
@@ -256,8 +269,11 @@ export default {
                 role="tab"
                 aria-controls="nonAbonnees"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Pas abonnées</a
-              >
+                ><i data-feather="clock"></i>Pas abonnées 
+                <span class="badge bg-danger" v-if="alertNummber(this.$store.state.listEntreprisePasAbonnee)">
+                  {{alertNummber(this.$store.state.listEntreprisePasAbonnee)}}
+                </span>
+                </a>
             </li>
           </ul>
         </div>
@@ -338,7 +354,9 @@ export default {
                   v-for="(item, index) in this.$store.state.listEntreprisePasAbonnee"
                   :key="index"
                 >
-                  <td>{{ item.nom }}</td>
+                  <td>{{ item.nom }}
+              <span class="badge bg-danger" v-if="item.view">New</span>
+                  </td>
                   <td>{{ item.email }}</td>
                   <td>
                     <span>{{ item.user.statut.statut }}</span>
