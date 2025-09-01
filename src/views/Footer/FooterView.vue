@@ -52,7 +52,7 @@ const ABOUTUS = ref([
     img: false,
   },
   {
-    libelle: "support@smartconnect.com",
+    libelle: "hotline@lce-ci.com",
     isVisible: true,
     img: false,
   },

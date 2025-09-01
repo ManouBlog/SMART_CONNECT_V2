@@ -1,4 +1,6 @@
 <script>
+import instance from "../../../api/api";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { mapActions } from "pinia";
 export default {
@@ -6,11 +8,13 @@ export default {
   data() {
     return {
       formState: {
-        username: "",
-        password: "",
-        remember: true,
-        desc: "",
+        nom: "",
+        email: "",
+        objet:"",
+        message: "",
+        prenoms:"",
       },
+      isMsgSend:false,
       texte: "",
       texte2: "",
       texte3: "",
@@ -30,7 +34,44 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useLoadingSpinner, ["launchLoading"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+     onFinish(values) {
+      console.log("Success:", values);
+      this.sendUsEmail();
+    },
+    onFinishFailed(errorInfo) {
+      console.log("Failed:", errorInfo);
+    },
+     sendUsEmail() {
+      this.launchLoading(true);
+      instance
+        .post("sendUsEmail", this.formState)
+        .then((res) => {
+          console.log(res);
+           this.isMsgSend = true;
+          // if (res.data.status === true) {
+          //   Swal.fire({
+          //     icon: "success",
+          //     title: res.data.message,
+          //     showConfirmButton: false,
+          //     timer: 3000,
+          //   });
+          // }
+        })
+        .catch((err) => {
+          console.log(JSON.stringify(err,null,2))
+          // Swal.fire({
+          //   icon: "error",
+          //   title: err.data.message,
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          // });
+        })
+        .finally(()=>{
+          this.launchLoading(false);
+        })
+    },
   },
 
   async created() {
@@ -44,7 +85,7 @@ export default {
     );
     this.texte5 = await this.handleTranslate("Entrez votre nom");
     this.text6 = await this.handleTranslate("Entrez votre adresse e-mail");
-    this.texte7 = await this.handleTranslate("Sélectionnez la raison de votre contact");
+    this.texte7 = await this.handleTranslate("Objet");
     this.texte8 = await this.handleTranslate(
       "Dites-nous comment pouvons nous vous aider."
     );
@@ -54,7 +95,7 @@ export default {
     this.texte12 = await this.handleTranslate("aider.");
     this.text13 = await this.handleTranslate("Nom");
     this.text14 = await this.handleTranslate("Adresse e-mail");
-    this.text15 = await this.handleTranslate("Raison du contact");
+    this.text15 = await this.handleTranslate("Objet");
     this.texte16 = await this.handleTranslate("Message");
     // console.log(this.texte);
   },
@@ -81,9 +122,10 @@ export default {
       </div>
     </div>
     <div class="conteneur_formulaire">
-      <a-card style="width: auto;color: var(--third-color) !important; background: var(--secondary-color) !important">
+      <a-card  style="color: var(--third-color) !important; background: var(--secondary-color) !important">
         <h6 class="fw-bold">{{ texte3 }}</h6>
         <a-form
+        v-if="!isMsgSend"
           :layout="'vertical'"
           :model="formState"
           name="basic"
@@ -91,35 +133,65 @@ export default {
           @finish="onFinish"
           @finishFailed="onFinishFailed"
         >
-          <a-form-item :label="text13" name="nom">
-            <a-input :placeholder="texte5" v-model:value="formState.username" />
+          <a-form-item 
+          :label="text13"
+          :rules="[{ required: true, message: 'Ajouter le nom' }]"
+          name="nom"
+          >
+            <a-input :placeholder="texte5" v-model:value="formState.nom" />
+          </a-form-item>
+          <a-form-item 
+          :label="'Prénoms'"
+          :rules="[{ required: true, message: 'Ajouter le prénoms' }]"
+          name="prenoms"
+          >
+            <a-input :placeholder="texte5" v-model:value="formState.prenoms" />
           </a-form-item>
 
-          <a-form-item :label="text14" name="Adresse e-mail">
-            <a-input :placeholder="text6" v-model:value="formState.password" />
+          <a-form-item 
+          :label="text14" 
+          name="email"
+          :rules="[{ required: true, message: 'Ajouter l\'adresse email' }]"
+          >
+            <a-input :placeholder="text6" v-model:value="formState.email" />
           </a-form-item>
-          <a-form-item :label="text15" name="Raison du contact">
-            <a-input :placeholder="texte7" v-model:value="formState.password" />
+          <a-form-item 
+          :label="text15"
+          name="objet"
+          :rules="[{ required: true, message: 'Ajouter un objet' }]"
+           >
+            <a-input :placeholder="texte7" v-model:value="formState.objet" />
           </a-form-item>
 
-          <a-form-item :label="texte16">
-            <a-textarea :placeholder="texte8" v-model:value="formState.desc" />
+          <a-form-item 
+          :label="texte16"
+          name="message"
+          :rules="[{ required: true, message: 'Ajouter un message' }]"
+          >
+            <a-textarea style="height:150px;" 
+            :placeholder="texte8" v-model:value="formState.message" />
           </a-form-item>
 
           <a-form-item>
             <div class="d-flex justify-content-center">
-              <a-button type="primary" shape="round" :size="'large'" html-type="submit">
+              <a-button type="primary" 
+              shape="round" :size="'large'" html-type="submit">
                 {{ texte4 }}</a-button
               >
             </div>
           </a-form-item>
         </a-form>
+        <div class="card" v-else>
+         Message envoyé
+        </div>
       </a-card>
+
     </div>
   </section>
 </template>
 <style scoped>
 @import "../../../Shared/styles/stylesShared.css";
+
 h1 {
   color: var(--main-color) !important;
   text-align: left;
