@@ -197,6 +197,9 @@ table {
   .anticon {
   color: #000000 !important;
 }
+:where(.css-dev-only-do-not-override-17yhhjv).ant-form-item .ant-form-item-label >label{
+color:white !important;
+}
 
 option {
   color: black !important;

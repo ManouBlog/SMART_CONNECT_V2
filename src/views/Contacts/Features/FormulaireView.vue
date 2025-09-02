@@ -142,10 +142,10 @@ export default {
           </a-form-item>
           <a-form-item 
           :label="'Prénoms'"
-          :rules="[{ required: true, message: 'Ajouter le prénoms' }]"
+          :rules="[{ required: true, message: 'Ajouter vos prénoms' }]"
           name="prenoms"
           >
-            <a-input :placeholder="texte5" v-model:value="formState.prenoms" />
+            <a-input :placeholder="'Entrer vos prénoms'" v-model:value="formState.prenoms" />
           </a-form-item>
 
           <a-form-item 
@@ -223,4 +223,5 @@ h1 {
 .conteneur_message div {
   flex: 1 1 200px;
 }
+
 </style>
