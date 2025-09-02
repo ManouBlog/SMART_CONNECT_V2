@@ -45,6 +45,9 @@ export default {
 </script>
 
 <style>
+.myconteneur{
+  margin:6em 0;
+}
 .card{
   background: var(--secondary-color) !important;
   color:var(--third-color) !important;
@@ -196,9 +199,6 @@ table {
   .ant-upload-icon
   .anticon {
   color: #000000 !important;
-}
-:where(.css-dev-only-do-not-override-17yhhjv).ant-form-item .ant-form-item-label >label{
-color:white !important;
 }
 
 option {

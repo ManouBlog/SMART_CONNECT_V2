@@ -40,7 +40,7 @@ export default {
     padding: 2em;
     background: var(--secondary-color) !important;
     color: var(--third-color) !important;
-    margin:0 0 2em 0;
+    margin:6.5em 0;
 }
 .subTitleHeader,h1{
     color: var(--main-color) !important;

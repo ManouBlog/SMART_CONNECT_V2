@@ -288,7 +288,7 @@ export default {
 };
 </script>
 <template>
-  <section>
+  <section class="myconteneur">
     <div class="jobs_filters">
       <div class="container-fluid">
         <form>

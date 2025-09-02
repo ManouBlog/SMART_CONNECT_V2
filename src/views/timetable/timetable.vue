@@ -515,6 +515,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          alert(err.response.data.message)
           loadingSpinner.launchLoading(false);
         });
     },
@@ -846,7 +847,7 @@ export default {
 }
 .jobs_filters {
   padding: 2em;
-  margin: 2em 0;
+  margin: 6.5em 0;
 }
 .conteneur_timetable {
   padding: 1em;

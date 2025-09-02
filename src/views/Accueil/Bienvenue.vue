@@ -2,6 +2,7 @@
 import Swal from "sweetalert2";
 import instance from "../../api/api";
 import HeaderBanner from "./features/HeaderBanner.vue";
+import Banniere from "../../Banner/Banniere.vue";
 import StepViews from "./features/StepViews.vue";
 import RechercheOffre from "./features/RechercheOffre.vue";
 import PerformanceView from "./features/PerformanceView.vue";
@@ -20,6 +21,7 @@ export default {
     OffresRecentes,
     Partenaires,
     // NewsLetterView,
+    Banniere,
     AppMobileView,
   },
   data() {
@@ -74,10 +76,10 @@ export default {
 </script>
 <template>
   <section>
+    <Banniere />
     <HeaderBanner />
     <StepViews />
     <RechercheOffre />
-
     <PerformanceView />
     <AppMobileView />
     <OffresRecentes />

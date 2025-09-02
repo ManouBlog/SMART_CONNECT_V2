@@ -74,7 +74,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="wrapped">
+  <div class="wrapped myconteneur">
     <h1 class="text-center main-color">{{text0}}</h1>
     <n-card>
        <div class="d-flex justify-content-center">

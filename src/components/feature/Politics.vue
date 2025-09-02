@@ -38,7 +38,7 @@ switch (registerStore.infoUser) {
 </script>
 
 <template>
-  <div class="conteneur">
+  <div class="conteneur myconteneur">
     <Dialog
       v-model:visible="registerStore.isPolitics"
       modal

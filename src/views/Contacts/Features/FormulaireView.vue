@@ -102,7 +102,7 @@ export default {
 };
 </script>
 <template>
-  <section class="conteneur_message_formulaire">
+  <section class="conteneur_message_formulaire myconteneur">
     <div class="conteneur_message">
       <div>
         <h1 class="fw-bold">

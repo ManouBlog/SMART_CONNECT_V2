@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-    <div>
+    <div class="myconteneur">
         <h1 style="text-align:center;font-size:3.5vh;padding:1em;color:orange;font-weight:bold;">CGU(conditions générale d'utilisation)</h1>
         <section class="p-4 row" style="padding:3.5em;">
           <h1 class="text-left">

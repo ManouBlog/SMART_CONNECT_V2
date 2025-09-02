@@ -5,7 +5,7 @@ import { useStore } from 'vuex';
 import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
 import Header from "@/components/header";
 import FooterView from "@/components/footer";
-import Banniere from "../Banner/Banniere.vue";
+// import Banniere from "../Banner/Banniere.vue";
 import LoadingSpinner from "../Shared/Compoments/LoadingSpinner.vue";
 import Connexion from "./Connexion/Connexion.vue";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
@@ -64,7 +64,9 @@ onMounted(() => {
     </div>
     <Connexion v-if="isModal" />
     <Header />
-    <Banniere />
+    <!-- <div style="margin:5em 0;">
+    </div> -->
+    <!-- <Banniere /> -->
     <router-view />
     <FooterView />
   </div>
