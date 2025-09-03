@@ -112,7 +112,7 @@ export default {
     // this.getCompetences();
     this.texte = await this.handleTranslate("Entreprise");
     this.texte1 = await this.handleTranslate(
-      "RCM"
+      "RCCM"
     );
     this.texte2 = await this.handleTranslate("Numéro de l'entreprise");
     this.texte3 = await this.handleTranslate("Ville");
@@ -229,14 +229,14 @@ export default {
       <a-input v-model:value="formState.Phonegerant" />
     </a-form-item>
     <a-form-item
-    name="piece_gerant"
+    name="upload"
     :rules="[{ required: true, message: `Ajouter une pièce d'identité.` }]"
     :label="texte10"
     >
         <a-upload
           @change="handleChangeCardStudent"
           v-model:fileList="formState.upload"
-          name="piece_gerant"
+          name="upload"
           list-type="picture"
           :multiple="true"
           :maxCount="2"

@@ -208,13 +208,13 @@ export default {
     </a-form-item>
     <a-form-item 
     :rules="[{ required: true, message: texte96 }]"
-    name="Carte étudiante" 
+    name="upload" 
     :label="texte9"
     >
       <a-upload
         @change="handleChangeCardStudent"
         v-model:fileList="formState.upload"
-        name="logo"
+        name="upload"
         list-type="picture"
         :multiple="true"
         :maxCount="2"
