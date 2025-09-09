@@ -96,7 +96,7 @@ export default createStore({
     get_users({ commit,state }) {
       commit('TOOGLESPINNER',true)
       axios
-        .get("https://backend.smart-connect.online/api/list_entreprise", {
+        .get("https://backend.monbrobroli.com/api/list_entreprise", {
           headers: {
             Authorization: "Bearer " + state.token,
           },
