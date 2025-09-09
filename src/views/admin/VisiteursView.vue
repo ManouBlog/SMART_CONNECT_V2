@@ -25,7 +25,7 @@ export default {
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
       axios
-        .get("https://backend.smart-connect.online/api/list_students", {
+        .get("https://backend.monbrobroli.com/api/list_students", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -40,7 +40,7 @@ export default {
     get_students() {
       this.spinner = true;
       axios
-        .get("https://backend.smart-connect.online/api/list_visiteurs", {
+        .get("https://backend.monbrobroli.com/api/list_visiteurs", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

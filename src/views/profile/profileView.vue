@@ -52,7 +52,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("https://backend.smart-connect.online/api/passwordModify", info, {
+        .post("https://backend.monbrobroli.com/api/passwordModify", info, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -89,7 +89,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("https://backend.smart-connect.online/api/passwordModify", Entreprise, {
+        .post("https://backend.monbrobroli.com/api/passwordModify", Entreprise, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -126,7 +126,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("https://backend.smart-connect.online/api/passwordModify", admin, {
+        .post("https://backend.monbrobroli.com/api/passwordModify", admin, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -166,7 +166,7 @@ export default {
       };
       axios
         .put(
-          "https://backend.smart-connect.online/api/modifier_profil",
+          "https://backend.monbrobroli.com/api/modifier_profil",
           compte_entreprise,
           {
             headers: {
@@ -214,7 +214,7 @@ export default {
       data.append("diplome", this.diplome);
       data.append("photo", this.photo);
       axios
-        .post("https://backend.smart-connect.online/api/modifier_profil", data, {
+        .post("https://backend.monbrobroli.com/api/modifier_profil", data, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -259,7 +259,7 @@ export default {
     updateCompteAdmin() {
       axios
         .put(
-          "https://backend.smart-connect.online/api/modifier_profil",
+          "https://backend.monbrobroli.com/api/modifier_profil",
           {
             nom: this.nom,
             password: this.password,
@@ -433,7 +433,7 @@ export default {
                     <label class="form-label">Document</label>
                     <img
                       :src="
-                        'https://backend.smart-connect.online/storage/images/' +
+                        'https://backend.monbrobroli.com/storage/images/' +
                         user.photo
                       "
                       :alt="user.photo"

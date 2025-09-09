@@ -25,7 +25,7 @@ export default {
     deconnex() {
       this.$store.commit("TOOGLESPINNER", true);
       axios
-        .get("https://backend.smart-connect.online/api/auth_logout", {
+        .get("https://backend.monbrobroli.com/api/auth_logout", {
           headers: {
             Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
           },
@@ -63,7 +63,7 @@ export default {
     get_entreprise_who_contact_student() {
       this.spinner = true;
       axios
-        .get("https://backend.smart-connect.online/api/get_who_contact_student", {
+        .get("https://backend.monbrobroli.com/api/get_who_contact_student", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

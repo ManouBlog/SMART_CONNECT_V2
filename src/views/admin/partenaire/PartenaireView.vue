@@ -24,7 +24,7 @@ export default {
         formData.append("partenaire[]", partenaire);
       });
       await axios
-        .post("https://backend.smart-connect.online/api/admin/addPartenaire", formData, {
+        .post("https://backend.monbrobroli.com/api/admin/addPartenaire", formData, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -62,7 +62,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("https://backend.smart-connect.online/api/allPartenaire", {
+        .get("https://backend.monbrobroli.com/api/allPartenaire", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -114,7 +114,7 @@ export default {
     deletePartenaire(idPartenaire) {
       this.spinner = true;
       axios
-        .delete("https://backend.smart-connect.online/api/admin/deletePartenaire/" + idPartenaire, {
+        .delete("https://backend.monbrobroli.com/api/admin/deletePartenaire/" + idPartenaire, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -290,7 +290,7 @@ export default {
                     <td>
                       <n-image
                         width="100"
-                        :src="'https://backend.smart-connect.online/storage/images/'+item.partenaire"
+                        :src="'https://backend.monbrobroli.com/storage/images/'+item.partenaire"
                         :alt="item.partenaire"
                       />
                     </td>

@@ -25,7 +25,7 @@ export default {
       });
       formData.append('lien',this.lienAffiche);
       await axios
-        .post("https://backend.smart-connect.online/api/admin/addAffiche", formData, {
+        .post("https://backend.monbrobroli.com/api/admin/addAffiche", formData, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -64,7 +64,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("https://backend.smart-connect.online/api/showAffiche", {
+        .get("https://backend.monbrobroli.com/api/showAffiche", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -116,7 +116,7 @@ export default {
     deletePublicite(idPublicite) {
       this.spinner = true;
       axios
-        .delete("https://backend.smart-connect.online/api/admin/delete_pub/" + idPublicite, {
+        .delete("https://backend.monbrobroli.com/api/admin/delete_pub/" + idPublicite, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -303,7 +303,7 @@ export default {
                     <td>
                       <n-image
                         width="100"
-                        :src="'https://backend.smart-connect.online/storage/images/'+item.affiche"
+                        :src="'https://backend.monbrobroli.com/storage/images/'+item.affiche"
                       />
                     </td>
                     <td>

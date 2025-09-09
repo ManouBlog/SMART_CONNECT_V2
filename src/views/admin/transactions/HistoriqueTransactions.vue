@@ -18,7 +18,7 @@ export default {
     get_Historique() {
       this.spinner = true;
       axios
-        .get("https://backend.smart-connect.online/api/admin/historiqueTransaction", {
+        .get("https://backend.monbrobroli.com/api/admin/historiqueTransaction", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -70,7 +70,7 @@ export default {
     },
     // async getPayStackHistorique() {
     //   await axios
-    //     .get("https://backend.smart-connect.online/api/payStack/transactions", {
+    //     .get("https://backend.monbrobroli.com/api/payStack/transactions", {
     //       headers: {
     //         Authorization: "Bearer " + this.$store.state.token,
     //       },

@@ -36,7 +36,7 @@ export default {
     create_categorie() {
       axios
         .post(
-          "https://backend.smart-connect.online/api/create_categorie-abonnement",
+          "https://backend.monbrobroli.com/api/create_categorie-abonnement",
           this.abonnementCategorie,
           {
             headers: {
@@ -73,7 +73,7 @@ export default {
     },
     create_abonnement() {
       axios
-        .post("https://backend.smart-connect.online/api/create-abonnement", this.data, {
+        .post("https://backend.monbrobroli.com/api/create-abonnement", this.data, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -103,7 +103,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("https://backend.smart-connect.online/api/getCategorie", {
+        .get("https://backend.monbrobroli.com/api/getCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -159,7 +159,7 @@ export default {
       }
 
       axios
-        .get("https://backend.smart-connect.online/api/getAbonnement", {
+        .get("https://backend.monbrobroli.com/api/getAbonnement", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -211,7 +211,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "https://backend.smart-connect.online/api/admin/deleteAbonnement/" + idAbonnement,
+          "https://backend.monbrobroli.com/api/admin/deleteAbonnement/" + idAbonnement,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -240,7 +240,7 @@ export default {
     deleteCategorieAbonnement(idCategorie) {
       this.spinner = true;
       axios
-        .delete("https://backend.smart-connect.online/api/deleteCategorie/" + idCategorie, {
+        .delete("https://backend.monbrobroli.com/api/deleteCategorie/" + idCategorie, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

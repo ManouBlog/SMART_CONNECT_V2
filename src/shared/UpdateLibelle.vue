@@ -16,7 +16,7 @@ export default {
     async create_categorie() {
       await axios
         .post(
-          "https://backend.smart-connect.online/api/categorie",
+          "https://backend.monbrobroli.com/api/categorie",
           {
             categorie: this.categorie,
           },
@@ -65,7 +65,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("https://backend.smart-connect.online/api/seeCategorie", {
+        .get("https://backend.monbrobroli.com/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -91,7 +91,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("https://backend.smart-connect.online/api/GetAllCompetences", {
+        .get("https://backend.monbrobroli.com/api/GetAllCompetences", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -126,7 +126,7 @@ export default {
           : "update_competence";
       axios
         .put(
-          "https://backend.smart-connect.online/api/admin/" +
+          "https://backend.monbrobroli.com/api/admin/" +
             route +
             "/" +
             this.$route.params.id,

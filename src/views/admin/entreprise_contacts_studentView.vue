@@ -18,7 +18,7 @@ export default {
       this.spinner = true;
       axios
         .get(
-          "https://backend.smart-connect.online/api/list_students_contact_by_entreprise",
+          "https://backend.monbrobroli.com/api/list_students_contact_by_entreprise",
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,

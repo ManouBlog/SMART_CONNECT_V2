@@ -19,7 +19,7 @@ export default {
     get_all_student() {
       this.spinner = true;
       axios
-        .get("https://backend.smart-connect.online/api/get_offres_postule", {
+        .get("https://backend.monbrobroli.com/api/get_offres_postule", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

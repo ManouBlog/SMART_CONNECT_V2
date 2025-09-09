@@ -33,7 +33,7 @@ export default {
       this.$router.push("/dashboard");
     },
     get_email_for_verif() {
-      axios.get("https://backend.smart-connect.online/api/list_users").then((res) => {
+      axios.get("https://backend.monbrobroli.com/api/list_users").then((res) => {
         console.log(res);
         this.list_email = res.data.data;
 
@@ -72,7 +72,7 @@ export default {
       this.get_email_for_verif();
       if (this.status == "student") {
         axios
-          .post("https://backend.smart-connect.online/api/list_users", {
+          .post("https://backend.monbrobroli.com/api/list_users", {
             status: "student",
             nom: this.nom,
             prenoms: this.prenoms,
@@ -115,7 +115,7 @@ export default {
       }
       if (this.status == "entreprise") {
         axios
-          .post("https://backend.smart-connect.online/api/list_users", {
+          .post("https://backend.monbrobroli.com/api/list_users", {
             status: "entreprise",
             nom: this.nom_entreprise,
             registre_commerce: this.registre_commerce,

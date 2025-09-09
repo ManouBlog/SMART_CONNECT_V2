@@ -27,7 +27,7 @@ export default {
     get_students_contact() {
       //this.spinner = false;
       axios
-        .get("https://backend.smart-connect.online/api/list_students_contact_by_entreprise", {
+        .get("https://backend.monbrobroli.com/api/list_students_contact_by_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -96,7 +96,7 @@ export default {
     get_all_timetables() {
       this.spinner = true;
       axios
-        .get("https://backend.smart-connect.online/api/list_emplois_temps")
+        .get("https://backend.monbrobroli.com/api/list_emplois_temps")
         .then((res) => {
           console.log(res);
           this.timetables = res.data.data;
@@ -169,7 +169,7 @@ export default {
       console.log("NOTATION", this.detailsStudents.id);
       axios
         .post(
-          "https://backend.smart-connect.online/api/giveAvis",
+          "https://backend.monbrobroli.com/api/giveAvis",
           {
             notes: this.notationService,
             student_id: this.detailsStudents.id,

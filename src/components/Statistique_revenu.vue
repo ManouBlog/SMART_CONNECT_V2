@@ -78,7 +78,7 @@ export default {
     },
     // get_categorie() {
     //   axios
-    //     .get("https://backend.smart-connect.online/api/seeCategorie", {
+    //     .get("https://backend.monbrobroli.com/api/seeCategorie", {
     //       headers: {
     //         Authorization: "Bearer " + this.$store.state.token,
     //       },
@@ -260,7 +260,7 @@ export default {
       console.log("DATA", data);
       axios
         .post(
-          "https://backend.smart-connect.online/api/statistiques/statistiqueRevenu",
+          "https://backend.monbrobroli.com/api/statistiques/statistiqueRevenu",
           data,
           {
             headers: {
