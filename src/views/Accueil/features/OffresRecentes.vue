@@ -53,7 +53,10 @@ export default {
 };
 </script>
 <template>
-  <section>
+  <section v-if="
+              this.$store.state.user &&
+              this.$store.state.user.user.statut.statut === 'etudiant'
+            ">
     <h1 class="fw-bold" style="color:orange;" v-if="ListOffre.length">{{ texte0 }}</h1>
     <br />
     <br />

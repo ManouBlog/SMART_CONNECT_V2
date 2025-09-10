@@ -180,7 +180,7 @@ export default {
 };
 </script>
 <template>
-  <div class="position-relative">
+  <div class="position-relative" style="margin-top:6em">
     <div class="container main-container" v-if="Offre">
       <div class="col-lg-12">
         <div class="offres_disponible row container">
