@@ -48,7 +48,272 @@ switch (registerStore.infoUser) {
       :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
     >
       <div>
-        <section class="px-4 row">
+         <div class="myconteneur">
+    <h1
+      style="
+        text-align: center;
+        font-size: 3.5vh;
+        padding: 1em;
+        color: orange;
+        font-weight: bold;
+      "
+    >
+      CGU(conditions générale d'utilisation)
+    </h1>
+    <p
+      class="p-4"
+      style="padding: 1.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;"
+    >
+      MonBrobroli est une plateforme en ligne qui a pour vocation principale de mettre en
+      relation de manière transparente et équilibrée les étudiants et les entreprises
+      ainsi que les particuliers. Cette plateforme facilite ainsi l’accès des étudiants à
+      des opportunités ponctuelles ou à temps partiel, tels que des emplois.
+      <br />
+      Elle offre en parallèle aux entreprises et aux particuliers la possibilité de
+      répondre à leurs besoins flexibles en s’appuyant sur des profils jeunes, compétents
+      et disponibles. Il est important de souligner que MonBrobroli se limite à cette
+      fonction de mise en relation.
+      <br />
+      Toute interaction, accord ou engagement contractuel intervenant entre les parties
+      après cette mise en relation relève exclusivement de leur responsabilité. La
+      plateforme ne saurait être tenue responsable du suivi, de la réalisation ou de
+      l’exécution des missions convenues.
+      <br />
+      Ainsi, MonBrobroli contribue à créer une valeur ajoutée sociale et économique, en
+      favorisant des échanges locaux, équitables et sécurisés entre étudiants et
+      entreprises potentiels.
+      <br />
+      La plateforme s’adresse à un public varié, réunissant des acteurs aux besoins
+      complémentaires, dans une dynamique de collaboration constructive et de valorisation
+      des compétences locales. Les étudiants, inscrits dans un établissement
+      d’enseignement supérieur reconnu en Côte d’Ivoire, y trouvent une opportunité
+      concrète de mettre en pratique leurs connaissances, de développer leurs compétences
+      professionnelles et de bénéficier d’un revenu complémentaire. La plateforme leur
+      permet de s’engager dans des expériences enrichissantes et formatrices. Les
+      entreprises tous secteurs confondus, peuvent accéder à un vivier de jeunes talents
+      disponibles, motivés. En recourant aux services proposés aux étudiants, elles
+      répondent efficacement à des besoins spécifiques, tout en contribuant au
+      développement professionnel de la jeunesse locale. Cette mise en relation repose sur
+      des valeurs de proximité, de confiance et de solidarité, offrant une solution
+      pratique et accessible tout en soutenant l’engagement des jeunes dans la vie active.
+      En facilitant ces interactions, la plateforme se positionne comme un véritable trait
+      d’union entre les aspirations des étudiants et les besoins ponctuels des entreprises
+      ou des particuliers, au service d’un impact social et économique durable.
+    </p>
+
+    <section
+      class="p-4 row"
+      style="padding: 3.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif"
+    >
+      <h1 class="text-left">
+        <code>1) PRINCIPES DE FONCTIONNEMENT DE LA PLATEFORME</code>
+      </h1>
+      <p>
+        Le fonctionnement de la plateforme repose sur un processus clair et sécurisé,
+        visant à assurer des échanges équitables et transparents entre les étudiants en
+        recherche d’un emploi à temps partiel et les entreprises ou particuliers en quête
+        de profils qualifiés. Afin de garantir la qualité des services proposés et
+        d'assurer le bon déroulement des missions, l’accès à certaines fonctionnalités de
+        la plateforme est soumis à un abonnement annuel obligatoire, selon deux formules
+        disponibles : Standard et Premium.
+      </p>
+      <code style="font-size: 2em">1.a)Création d’un profil personnel sécurisé</code>
+      <p style="margin: 1em 0">
+        Chaque utilisateur qu’il soit étudiant, entreprise ou particulier doit créer un
+        compte personnel sur la plateforme. Ce profil est soumis à une vérification
+        préalable pour garantir l’authenticité des informations fournies et sécuriser les
+        échanges entre les différentes parties.
+      </p>
+      <p>
+        Pour les étudiants, l’abonnement annuel est requis apres la création du compte
+        pour accéder aux offres et postuler :
+      </p>
+
+      <p>
+        -Formule Standard 5.000 F / an Offre un accès complet aux offres d'emploi
+        disponibles sur la plateforme.
+        <br />
+        <br />
+        -Formule Premium 15.000 F / an Inclut tous les avantages de la formule Standard,
+        avec en plus : La réception d'offres d’emploi ciblées par email, selon les
+        compétences renseignées dans le profil. Une mise en avant prioritaire du profil
+        lors des recherches effectuées par les entreprises, augmentant ainsi les chances
+        de sélection.
+      </p>
+      <p>
+        Pour les entreprises et particuliers, l’accès aux services de publication d’offres
+        et de consultation des profils est également conditionné par un abonnement annuel
+        :
+      </p>
+      <p>
+        -Formule Standard 10.000 F CFA / an Accès à la base de données des profils
+        étudiants qualifiés. Possibilité de publier des offres de mission.
+        <br />
+        <br />
+        -Formule Premium 25.000 F CFA / an Accès à la base de profils. Publication
+        illimitée d’offres. Positionnement prioritaire des annonces en tête de liste lors
+        des recherches effectuées sur la plateforme.
+      </p>
+      <code style="font-size: 2em"
+        >1.b)Publication d’une offre de mission ou de service</code
+      >
+      <p>
+        Les entreprises et particuliers peuvent publier librement des offres correspondant
+        à leurs besoins spécifiques (missions ponctuelles, projets ou services). Chaque
+        annonce doit être claire, précise et conforme aux conditions d’utilisation de la
+        plateforme.
+      </p>
+      <code style="font-size: 2em"
+        >1.c)Dépôt de candidature ou invitation à postuler</code
+      >
+      <p>
+        Les étudiants ayant souscrit un abonnement actif (Standard ou Premium) peuvent
+        consulter les offres disponibles et y postuler selon leurs compétences, intérêts
+        et disponibilités.
+      </p>
+      <p>
+        Par ailleurs, les entreprises ont la possibilité de sélectionner certains profils
+        à postuler, après consultation des informations présentes sur les profils
+        étudiants.
+      </p>
+      <p>
+        Les abonnés Premium bénéficient d’une visibilité accrue, ce qui augmente
+        significativement leurs chances d’être sélectionnés directement par les
+        recruteurs.
+      </p>
+      <code style="font-size: 2em">1.d)Accord mutuel et lancement de la mission</code>
+      <p>
+        Une fois la candidature acceptée et la mission validée par les deux parties, un
+        accord formel est établi. Celui-ci peut prendre la forme d’un contrat ou d’un
+        engagement encadré, selon la nature et la durée de la mission. La collaboration
+        peut ensuite débuter dans les conditions convenues entre l’étudiant et
+        l’employeur.
+      </p>
+      <h1 class="text-left">
+        <code>2)VALEUR CONTRACTUELLE DES ECHANGES </code>
+      </h1>
+      <p>
+        Apres la mise en relation entre étudiant et entreprise, le document généré a pour
+        seule fonction d’attester que l’étudiant a postulé à une offre via la plateforme
+        MonBrobroli.
+      </p>
+      <p>
+        Il ne constitue ni une preuve d’embauche, ni une confirmation de réalisation de
+        mission. Il peut néanmoins être utilisé par l’étudiant pour Justifier une démarche
+        de candidature auprès d’un recruteur.
+      </p>
+      <h1 class="text-left">
+        <code>3)OBLIGATIONS DES UTILISATEURS</code>
+      </h1>
+      <p>
+        Afin de garantir un environnement de confiance, respectueux et conforme aux
+        principes éthiques portés par la plateforme Mon Brobroli, chaque utilisateur qu’il
+        soit étudiant, entreprise ou particulier est tenu de respecter les obligations qui
+        lui incombent.
+      </p>
+      <code style="font-size: 2em">3.a)Obligations des étudiants</code>
+      <p>Les étudiants utilisant la plateforme s’engagent à :</p>
+      <p>
+        – Compléter un profil véridique, sincère et régulièrement mis à jour, incluant
+        notamment leurs informations personnelles, leurs compétences, leur parcours
+        académique ainsi que leur disponibilité <br />
+        – Faire preuve de sérieux, de ponctualité et d’engagement dans l’ensemble des
+        missions qu’ils acceptent, en respectant les conditions convenues avec l
+        entreprise <br />
+        – Respecter la confidentialité des informations échangées, qu’il s’agisse de
+        données professionnelles, personnelles ou sensibles, obtenues dans le cadre des
+        échanges ou de l’exécution d’une mission.
+      </p>
+      <code style="font-size: 2em"
+        >3.b)Obligations des entreprises et des particuliers</code
+      >
+      <p>
+        Les entreprises et les particuliers qui déposent des offres sur la plateforme ont
+        la responsabilité de :
+      </p>
+      <p>
+        – Proposer des offres claires, transparentes et conformes à la législation
+        ivoirienne en particulier en ce qui concerne les conditions de travail, la nature
+        des tâches et la rémunération éventuelle
+        <br />
+        – Garantir des conditions de travail dignes, sûres et adaptées à la mission
+        confiée en veillant au respect des droits et à la sécurité des étudiants mobilisés
+        <br />
+        – Adopter un comportement éthique et respectueux, en s’interdisant toute forme
+        d’exploitation, de harcèlement, de discrimination ou tout autre abus pouvant
+        porter atteinte à l’intégrité physique, morale ou professionnelle des étudiants.
+      </p>
+
+      <h1 class="text-left">
+        <code>4)SECURITE ET CONFIDENTIALITE</code>
+      </h1>
+      <p>
+        MonBrobroli accorde une importance fondamentale à la protection des données
+        personnelles de ses utilisateurs, ainsi qu’au respect de leur vie privée.
+      </p>
+      <p>La plateforme s’engage à garantir :</p>
+      <p>
+        – la confidentialité absolue des informations fournies par les utilisateurs lors
+        de leur inscription ou de l’utilisation des services
+        <br />
+        – le respect rigoureux de la vie privée conformément aux dispositions légales et
+        réglementaires applicables en matière de protection des données (loi n°2013-451 du
+        19 juin 2013 relative à la protection des données à caractère personnel).
+        <br />
+        En aucun cas, les données personnelles des utilisateurs ne seront communiquées à
+        des tiers sans avoir obtenu au préalable leur consentement explicite, libre et
+        éclairé.
+      </p>
+      <p>
+        MonBrobroli met en œuvre les mesures techniques et organisationnelles nécessaires
+        pour assurer un haut niveau de sécurité, prévenir tout accès non autorisé, et
+        protéger l’intégrité des informations confiées par ses utilisateurs.
+      </p>
+      <h1 class="text-left">
+        <code>5)SANCTIONS</code>
+      </h1>
+      <p>
+        Tout manquement aux présentes règles d’utilisation, qu’il soit le fait d’un
+        étudiant, d’une entreprise ou d’un particulier, est susceptible d’entraîner des
+        mesures disciplinaires prises par la plateforme MonBrobroli.
+      </p>
+      <p>
+        En cas de non-respect avéré du règlement, la plateforme se réserve expressément le
+        droit de :
+      </p>
+      <p>
+        – Suspendre temporairement ou définitivement le compte de l’utilisateur concerné
+        selon la gravité des faits constatés
+        <br />
+        – Restreindre l’accès à certaines fonctionnalités de la plateforme, notamment la
+        publication d’offres, la candidature à des missions.
+        <br />
+        – Signaler les comportements inappropriés, abusifs ou illégaux aux autorités
+        compétentes lorsque la situation l’exige, conformément aux obligations légales en
+        vigueur.
+        <br />
+        Ces sanctions visent à préserver un environnement sain, éthique et sécurisé pour
+        l’ensemble des utilisateurs, et à faire respecter les principes fondamentaux de
+        respect, d’équité et de responsabilité qui régissent la plateforme Mon Brobroli.
+      </p>
+
+      <h1 class="text-left">
+        <code>6)ACCESSIBILITE</code>
+      </h1>
+      <p>
+        La plateforme MonBrobroli est disponible en continu, 24 heures sur 24, et
+        accessible depuis tout type d’appareil connecté, qu’il s’agisse de smartphones, de
+        tablettes ou d’ordinateurs.
+      </p>
+      <p>
+        L’accès aux services proposés n’est toutefois pas gratuit pour l’ensemble des
+        utilisateurs. En effet, certaines prestations, notamment des services premium
+        destinés aux entreprises et aux particuliers, peuvent être proposées moyennant une
+        tarification adaptée à leurs besoins spécifiques.
+      </p>
+    </section>
+  </div>
+        <!-- <section class="px-4 row">
           <h1 class="text-left">
             <code>Réglement 1 : Donneés à caractère personnel</code>
           </h1>
@@ -244,7 +509,7 @@ switch (registerStore.infoUser) {
             at, pariatur cum reiciendis illum a culpa nobis ex, provident deleniti veniam
             dignissimos! Voluptatum fugiat tenetur repellat ad similique reprehenderit!
           </p>
-        </section>
+        </section> -->
         <section class="text-right">
           <button class="btn-lg p-2 bg-warning" 
           @click.prevent="handleRegister">
@@ -260,5 +525,8 @@ switch (registerStore.infoUser) {
   display: flex;
   justify-content: center;
   background: black;
+}
+code {
+  color: orange !important;
 }
 </style>
