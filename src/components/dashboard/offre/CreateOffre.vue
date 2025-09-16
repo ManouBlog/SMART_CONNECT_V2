@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       texte0: "",
-      StoreLoading:useLoadingSpinner(),
+      StoreLoading: useLoadingSpinner(),
       texte2: "",
       texte3: "",
       texte1: "",
@@ -43,7 +43,7 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
+      texte27: "",
       offre: null,
       salaire: null,
       lieu: null,
@@ -79,8 +79,8 @@ export default {
       ],
       pointage: "",
       nbre_person: 1,
-      job_fin:"",
-      job_debut:"",
+      job_fin: "",
+      job_debut: "",
       elmentsOfBtn: [
         {
           name_btn: "Enregistrer",
@@ -91,21 +91,29 @@ export default {
   },
   computed: {
     ...mapState(useOffreStore, ["categoriesOffres", "allCompetences"]),
-     verifIfAllField(){
-     return this.salaire && this.description && this.debut && this.fin && this.lieu && this.pointage && this.competence;
+    verifIfAllField() {
+      return (
+        this.salaire &&
+        this.description &&
+        this.debut &&
+        this.fin &&
+        this.lieu &&
+        this.pointage &&
+        this.competence
+      );
     },
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
-   
+
     show_offre_modify() {
       this.modify_offre = !this.modify_offre;
       this.id_offre_update = "";
     },
 
     create_offre() {
-      this.StoreLoading.launchLoading(true)
+      this.StoreLoading.launchLoading(true);
       this.loading = true;
       this.creer = false;
       let capitalizeFirstLetterOffre = this.offre[0].toUpperCase();
@@ -122,8 +130,8 @@ export default {
         categorie_offre_id: this.categorie,
         competence_id: this.competence,
         nbre_person: this.nbre_person,
-        job_fin:this.job_fin,
-        job_debut:this.job_debut
+        job_fin: this.job_fin,
+        job_debut: this.job_debut,
       };
       instance
         .post("create_offre", data)
@@ -172,9 +180,9 @@ export default {
           this.loading = false;
           this.creer = true;
         })
-        .finally(()=>{
-          this.StoreLoading.launchLoading(false)
-        })
+        .finally(() => {
+          this.StoreLoading.launchLoading(false);
+        });
     },
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -235,28 +243,27 @@ export default {
   async created() {
     this.get_categorie();
     this.getAllCompetences();
-    this.texte0 = await this.handleTranslate('Enregistrer une Offre');
-    this.texte1 = await this.handleTranslate('Catégorie');
-    this.texte2 = await this.handleTranslate('Sélectionner une catégorie');
+    this.texte0 = await this.handleTranslate("Enregistrer une Offre");
+    this.texte1 = await this.handleTranslate("Catégorie");
+    this.texte2 = await this.handleTranslate("Sélectionner une catégorie");
     this.texte3 = await this.handleTranslate("Choisir les compétences");
-    this.texte4 = await this.handleTranslate('Choisir une compétence');
-    this.texte5 = await this.handleTranslate('Veuillez choisir une catégorie');
-    this.texte6 = await this.handleTranslate(' Pas de donnée');
+    this.texte4 = await this.handleTranslate("Choisir une compétence");
+    this.texte5 = await this.handleTranslate("Veuillez choisir une catégorie");
+    this.texte6 = await this.handleTranslate(" Pas de donnée");
     this.texte7 = await this.handleTranslate("Nom de l'offre");
-    this.texte8 = await this.handleTranslate('Honoraire');
-    this.texte9 = await this.handleTranslate('Termes de paiements');
+    this.texte8 = await this.handleTranslate("Honoraire");
+    this.texte9 = await this.handleTranslate("Termes de paiements");
     this.texte10 = await this.handleTranslate("Payer Par");
     this.texte11 = await this.handleTranslate("Veuillez définir l'honoraire");
     this.texte12 = await this.handleTranslate("Lieu de l'emploi");
-    this.texte13 = await this.handleTranslate('Nombre de postes disponibles');
+    this.texte13 = await this.handleTranslate("Nombre de postes disponibles");
     this.texte14 = await this.handleTranslate("Date et heure de début de l'offre");
     this.texte15 = await this.handleTranslate("Date et heure d'expiration de l'offre");
     this.texte16 = await this.handleTranslate("Date et heure d'entrée en fonction");
     this.texte17 = await this.handleTranslate("Date et heure de fin d'activité");
-    this.texte18 = await this.handleTranslate('Description');
-    this.texte19 = await this.handleTranslate( "Enregistrer");
+    this.texte18 = await this.handleTranslate("Description");
+    this.texte19 = await this.handleTranslate("Enregistrer");
     this.texte20 = await this.handleTranslate("chargement...");
-    
   },
 };
 </script>
@@ -266,10 +273,7 @@ export default {
       <div class="Myspinner" v-show="spinner">
         <div class="spinner-border text-primary" role="status"></div>
       </div>
-      <HeaderDashboard
-        :TitleHeader="texte0"
-        :subTitleHeader="texte0"
-      />
+      <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12">
@@ -290,13 +294,13 @@ export default {
                                   <div class="row">
                                     <div class="col-lg-6 my-2 text-left">
                                       <div>
-                                        <label> {{texte1}}</label>
+                                        <label> {{ texte1 }}</label>
                                         <select
                                           v-model="categorie"
                                           @change="selectCategorie"
                                         >
                                           <option value="" disabled>
-                                            {{texte2}}
+                                            {{ texte2 }}
                                           </option>
                                           <option
                                             :value="item.id"
@@ -309,18 +313,14 @@ export default {
                                       </div>
                                     </div>
                                     <div class="col-lg-6 my-2 text-left">
-                                      <label id="select_comp"
-                                        >{{texte3}}</label
-                                      >
+                                      <label id="select_comp">{{ texte3 }}</label>
                                       <select
                                         v-model="competence"
                                         name=""
                                         id="select_comp"
                                       >
-                                        <option value="" disabled
-                                        style="color:brown;"
-                                        >
-                                          {{texte4}}
+                                        <option value="" disabled style="color: brown">
+                                          {{ texte4 }}
                                         </option>
                                         <option
                                           :value="item.id"
@@ -330,28 +330,28 @@ export default {
                                           {{ item.competence }}
                                         </option>
                                         <option
-                                        style="color:brown;"
+                                          style="color: brown"
                                           v-if="
                                             !competenceWithCategorie.length && !categorie
                                           "
                                           disabled
                                         >
-                                          {{texte5}}
+                                          {{ texte5 }}
                                         </option>
                                         <option
-                                        style="color:brown;font-size:0.9em;"
+                                          style="color: brown; font-size: 0.9em"
                                           v-if="
                                             !competenceWithCategorie.length && categorie
                                           "
                                           disabled
                                         >
-                                         {{texte6}}
+                                          {{ texte6 }}
                                         </option>
                                       </select>
                                     </div>
                                     <div class="col-lg-6 my-2 text-left">
                                       <div>
-                                        <label>{{texte7}}</label>
+                                        <label>{{ texte7 }}</label>
                                         <input
                                           class="form-control"
                                           type="text"
@@ -364,7 +364,7 @@ export default {
                                     </div>
                                     <div class="col-lg-6 my-2 text-left">
                                       <div>
-                                        <label>{{texte8}}</label>
+                                        <label>{{ texte8 }}</label>
                                         <input
                                           class="form-control"
                                           type="text"
@@ -376,12 +376,12 @@ export default {
                                     </div>
                                     <div class="col-lg-6 my-2 text-left">
                                       <div>
-                                        <label>{{texte9}} </label>
+                                        <label>{{ texte9 }} </label>
                                         <select
                                           v-model="pointage"
                                           :disabled="salaire ? false : true"
                                         >
-                                          <option value="" disabled>{{texte10}}</option>
+                                          <option value="" disabled>{{ texte10 }}</option>
                                           <option
                                             :value="item.libelle"
                                             v-for="(item, index) in OptionsOfpointage"
@@ -390,15 +390,17 @@ export default {
                                             {{ item.libelle }}
                                           </option>
                                         </select>
-                                        <span class="text-danger"
-                                        :class="!salaire ? 'd-block':'d-none'"
-                                        >*{{texte11}}</span>
+                                        <span
+                                          class="text-danger"
+                                          :class="!salaire ? 'd-block' : 'd-none'"
+                                          >*{{ texte11 }}</span
+                                        >
                                       </div>
                                     </div>
 
                                     <div class="col-lg-6 my-2 text-left">
                                       <div>
-                                        <label>{{texte12}}</label>
+                                        <label>{{ texte12 }}</label>
                                         <input
                                           class="form-control"
                                           type="text"
@@ -411,7 +413,7 @@ export default {
                                     </div>
                                     <div class="col-lg-6 my-2 text-left">
                                       <div>
-                                        <label>{{texte13}}</label>
+                                        <label>{{ texte13 }}</label>
                                         <input
                                           class="form-control"
                                           type="number"
@@ -427,7 +429,7 @@ export default {
                                         <label
                                           for="calendar-12h d-block"
                                           class="date_heure"
-                                          >{{texte14}}</label
+                                          >{{ texte14 }}</label
                                         >
                                         <input
                                           class="form-control"
@@ -441,7 +443,7 @@ export default {
                                     <div class="col-lg-6 my-2 text-left">
                                       <div>
                                         <label for="calendar-12" class="date_heure">
-                                          {{texte15}}</label
+                                          {{ texte15 }}</label
                                         >
                                         <input
                                           class="form-control"
@@ -454,7 +456,7 @@ export default {
                                       </div>
                                     </div>
                                     <div class="col-lg-6 my-2 text-left">
-                                      <label>{{texte16}}</label>
+                                      <label>{{ texte16 }}</label>
                                       <input
                                         class="form-control"
                                         type="datetime-local"
@@ -463,7 +465,7 @@ export default {
                                       />
                                     </div>
                                     <div class="col-lg-6 my-2 text-left">
-                                      <label>{{texte17}}</label>
+                                      <label>{{ texte17 }}</label>
                                       <input
                                         class="form-control"
                                         type="datetime-local"
@@ -474,7 +476,7 @@ export default {
 
                                     <div class="col-lg-12 my-2 text-left">
                                       <div>
-                                        <label>{{texte18}}</label>
+                                        <label>{{ texte18 }}</label>
                                         <div class="conteneur_editor">
                                           <editor v-model="description" />
                                         </div>
@@ -484,13 +486,12 @@ export default {
                                   <div class="row">
                                     <div class="col">
                                       <div class="text-end">
-                                
                                         <button
                                           class="btn btn-warning btn-designer me-3"
                                           type="submit"
-                                          :disabled="loading  ? true : false"
+                                          :disabled="loading ? true : false"
                                         >
-                                          {{ loading ? texte20 :texte19 }}
+                                          {{ loading ? texte20 : texte19 }}
                                         </button>
                                       </div>
                                     </div>
@@ -620,6 +621,10 @@ th {
 }
 .mt-5 {
   margin-top: 101px !important;
+}
+:deep(.card) {
+  background: transparent !important;
+  color: black !important;
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
