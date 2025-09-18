@@ -35,6 +35,11 @@ const routes = [
         path: '/abonnements',
         name: 'abonnements',
         component: () => import( '../views/Abonnements/Abonnements.vue')
+      },
+      {
+        path: '/verification/:reference',
+        name: 'abonnements-verification',
+        component: () => import( '../views/Abonnements/Abonnements.vue')
       }, 
       
       {

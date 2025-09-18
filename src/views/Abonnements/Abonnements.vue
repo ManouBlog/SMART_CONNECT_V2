@@ -2,23 +2,24 @@
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { ref, onMounted } from "vue";
 import { useStore } from 'vuex';
-// import LoadingSpinner from "../../Shared/Compoments/LoadingSpinner.vue";
 import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
 import { useEntreprisesStore } from "../../store-pinia/Entreprise/useEntreprisesStore";
-// import {mapActions} from "pinia"
+
 import instance from "../../api/api";
 
 // import i18n from "../../plugins/i18n";
 import Swal from "sweetalert2";
-
+import { useRoute } from 'vue-router'
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 // const { t } = i18n.global;
 const text0 = ref("")
 const store = useStore();
+const reference = ref(null);
+const route = useRoute()
 const storeEntreprise = useEntreprisesStore();
 const translateStore = useTranslateStore();
 const defaulValueTranslate = ref(translateStore.defaultLocale);
-// console.log("defaulValueTranslate",defaulValueTranslate.value)
+
 const abonnements = ref([]);
 const loadingSpinner = useLoadingSpinner();
 
@@ -26,8 +27,8 @@ const handleAbonement = async () => {
   loadingSpinner.launchLoading(true);
   try {
     const response = await instance.get("getAbonnement");
+    console.log("response",response)
     abonnements.value = response.data.data;
-    // console.log("RESPONSE_getAbonnement", response.data);
     loadingSpinner.launchLoading(false);
   } catch (error) {
     console.log(error);
@@ -35,14 +36,11 @@ const handleAbonement = async () => {
   }
 };
 
-onMounted(async () => {
-  // await handleAbonement();
-  if(JSON.parse(localStorage.getItem('@reference'))){
-  try {
-    const response = await instance.get("payStack/payment/callback/"+JSON.parse(localStorage.getItem('@reference')));
-    // console.log("responseVERIF",response)
+async function doVerificationAbonnement(payload){
+try {
+    const response = await instance.get("payStack/payment/callback/"+payload);
+    console.log("responseVERIF",response)
     if(response.data.status){
-      localStorage.removeItem('@reference')
       // console.log("VERIFICATION TERMINER")
       const response = await storeEntreprise.get_all_abonnement();
       console.log("VERIFICATION PAIEMENT",response)
@@ -66,10 +64,16 @@ onMounted(async () => {
   }finally{
     await handleAbonement();
   }
-  }else{
-    await handleAbonement();
-  }
+}
+
+onMounted(async () => {
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
+  reference.value = route.params.reference
+  console.log("route.params.reference",route.params.reference)
+    if(reference.value){
+    doVerificationAbonnement(reference.value)
+    } 
+  await handleAbonement();
 });
 </script>
 

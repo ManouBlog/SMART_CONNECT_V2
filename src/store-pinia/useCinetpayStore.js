@@ -32,7 +32,7 @@ const storeLoading = useLoadingSpinner();
               showConfirmButton: false,
               timer: 1500,
             });
-             localStorage.setItem('@reference',JSON.stringify(randomPart))
+            //  localStorage.setItem('@reference',JSON.stringify(randomPart))
              window.location.href = RESPONSEINITALISATION.data.data.authorization_url;
              }
         }catch(error){
