@@ -50,18 +50,18 @@ export default {
       "changeValueForToogleModalInfoPersonnelle",
       "verifIfPasswordIsExact",
     ]),
-    async getInfoUser(){
+    async getInfoUser() {
       await instance
-          .get("voirInfoUserConnect")
-          .then((resp) => {
-            // console.log("voirInfoUserConnect",resp);
-            if (resp.data.status === true) {
-             this.user = resp.data.user
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        .get("voirInfoUserConnect")
+        .then((resp) => {
+          // console.log("voirInfoUserConnect",resp);
+          if (resp.data.status === true) {
+            this.user = resp.data.user;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     handleModalInfo() {
       this.changeValueForToogleModalInfoPersonnelle();
@@ -113,19 +113,35 @@ export default {
       // console.log(this.photo);
     },
   },
-  created(){
-    this.getInfoUser()
-  }
+  created() {
+    this.getInfoUser();
+  },
 };
 </script>
 
 <template>
   <section style="padding: 2em 3em">
-    <a-card style="width: auto;color: var(--third-color) !important; background: var(--secondary-color) !important">
+    <a-card
+      style="
+        width: auto;
+        color: var(--third-color) !important;
+        background: var(--secondary-color) !important;
+      "
+    >
       <h1 class="fw-bold my-3">Informations personnelles</h1>
-      <span class="badge"
-      :class="user.user.verif_email ? 'bg-success':'bg-danger'"
-      >Compte {{user.user.verif_email ? 'Activé':'Inactif'}}</span>
+      <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
+        >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
+      >
+      <div class="d-flex" style="position: relative">
+        <a href="">
+          <n-avatar
+            round
+            :size="120"
+            src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+          />
+          <i class="bi bi-pencil"></i>
+        </a>
+      </div>
       <section class="my-5">
         <div class="row">
           <div
@@ -133,7 +149,7 @@ export default {
             :key="index"
             class="col-lg-4 col-sm-6"
           >
-            <p style="color:orange;font-weight:bold">{{ item.libelle }}</p>
+            <p style="color: orange; font-weight: bold">{{ item.libelle }}</p>
             <h6
               v-if="
                 item.value !== null &&
@@ -145,16 +161,17 @@ export default {
             >
               {{ item.value }}
             </h6>
-           <div 
-            v-if="item.libelle === 'Pièce d identite :'"
-            style="display: flex; justify-content: flex-start;gap:1em;">
+            <div
+              v-if="item.libelle === 'Pièce d identite :'"
+              style="display: flex; justify-content: flex-start; gap: 1em"
+            >
               <n-image
-              v-for="(photo,index) in item.value"
-              :key="index"
-              :alt="photo.path"
-              width="120"
-              height="100"
-              :src="lienPhoto + photo.path"
+                v-for="(photo, index) in item.value"
+                :key="index"
+                :alt="photo.path"
+                width="120"
+                height="100"
+                :src="lienPhoto + photo.path"
               />
             </div>
           </div>
@@ -167,9 +184,7 @@ export default {
           :key="index"
           style="display: flex; justify-content: flex-start"
         >
-          <h6 class="fw-bold">
-            -{{ item.competence }}
-          </h6>
+          <h6 class="fw-bold">-{{ item.competence }}</h6>
         </div>
       </section>
 
@@ -182,7 +197,14 @@ export default {
       </section>
     </a-card>
 
-    <a-card style="width: auto;color: var(--third-color) !important; background: var(--secondary-color) !important; margin: 2em 0">
+    <a-card
+      style="
+        width: auto;
+        color: var(--third-color) !important;
+        background: var(--secondary-color) !important;
+        margin: 2em 0;
+      "
+    >
       <h1 class="fw-bold">Modifier mot de passe</h1>
       <section>
         <div class="card-body text-left py-4">
@@ -215,7 +237,7 @@ export default {
           <div class="text-right">
             <button
               class="btn-lg bg-warning"
-              style="border: none;border-radius:10%;"
+              style="border: none; border-radius: 10%"
               @click.prevent="
                 verifIfPasswordIsExact({
                   confirmation_password: confirmation_password,
@@ -233,6 +255,16 @@ export default {
   </section>
 </template>
 <style scoped>
+.bi-pencil {
+  font-size: 1.5em !important;
+  position: absolute;
+  bottom: 0;
+  left: 4em;
+  z-index: 60;
+  color: orange;
+  font-weight: bold;
+  transform: rotate(300deg);
+}
 h6 {
   text-align: left;
   font-size: 1.5em;
