@@ -1,10 +1,10 @@
 <script setup>
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { ref, onMounted } from "vue";
-import { useStore } from 'vuex';
+import { useStore,useRouter  } from 'vuex';
 import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
-import { useEntreprisesStore } from "../../store-pinia/Entreprise/useEntreprisesStore";
-
+// import { useEntreprisesStore } from "../../store-pinia/Entreprise/useEntreprisesStore";
+import axios from "axios";
 import instance from "../../api/api";
 
 // import i18n from "../../plugins/i18n";
@@ -15,8 +15,11 @@ import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 const text0 = ref("")
 const store = useStore();
 const reference = ref(null);
+const router = useRouter();
 const route = useRoute()
-const storeEntreprise = useEntreprisesStore();
+const responsePay = ref(null);
+const responsePayError = ref(null);
+// const storeEntreprise = useEntreprisesStore();
 const translateStore = useTranslateStore();
 const defaulValueTranslate = ref(translateStore.defaultLocale);
 
@@ -38,18 +41,16 @@ const handleAbonement = async () => {
 
 async function doVerificationAbonnement(payload){
 try {
-    const response = await instance.get("payStack/payment/callback/"+payload);
+    const response = await axios.get("payStack/payment/callback/"+payload);
     console.log("responseVERIF",response)
+    responsePay.value = response
     if(response.data.status){
-      // console.log("VERIFICATION TERMINER")
-      const response = await storeEntreprise.get_all_abonnement();
-      console.log("VERIFICATION PAIEMENT",response)
        Swal.fire({
               icon: "success",
               title: "Paiement reussi.",
-              showConfirmButton: false,
-              timer: 1500,
+              showConfirmButton: true,
             });
+            router.push('/')
     }
     if(!response.data.status){
       Swal.fire({
@@ -61,6 +62,7 @@ try {
     }
   } catch (error) {
     console.log(error);
+    responsePayError.value = error;
   }finally{
     await handleAbonement();
   }
