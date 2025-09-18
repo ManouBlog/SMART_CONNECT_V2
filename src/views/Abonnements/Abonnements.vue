@@ -1,7 +1,8 @@
 <script setup>
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { ref, onMounted } from "vue";
-import { useStore,useRouter  } from 'vuex';
+import { useStore } from 'vuex'
+import { useRouter,useRoute} from 'vue-router'
 import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
 // import { useEntreprisesStore } from "../../store-pinia/Entreprise/useEntreprisesStore";
 import axios from "axios";
@@ -9,14 +10,14 @@ import instance from "../../api/api";
 
 // import i18n from "../../plugins/i18n";
 import Swal from "sweetalert2";
-import { useRoute } from 'vue-router'
+
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 // const { t } = i18n.global;
 const text0 = ref("")
 const store = useStore();
 const reference = ref(null);
 const router = useRouter();
-const route = useRoute()
+const route = useRoute();
 // const storeEntreprise = useEntreprisesStore();
 const translateStore = useTranslateStore();
 const defaulValueTranslate = ref(translateStore.defaultLocale);
