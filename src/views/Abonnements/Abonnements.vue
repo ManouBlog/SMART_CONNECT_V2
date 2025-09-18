@@ -17,8 +17,6 @@ const store = useStore();
 const reference = ref(null);
 const router = useRouter();
 const route = useRoute()
-const responsePay = ref(null);
-const responsePayError = ref(null);
 // const storeEntreprise = useEntreprisesStore();
 const translateStore = useTranslateStore();
 const defaulValueTranslate = ref(translateStore.defaultLocale);
@@ -43,7 +41,6 @@ async function doVerificationAbonnement(payload){
 try {
     const response = await axios.get("payStack/payment/callback/"+payload);
     console.log("responseVERIF",response)
-    responsePay.value = response
     if(response.data.status){
        Swal.fire({
               icon: "success",
@@ -62,7 +59,6 @@ try {
     }
   } catch (error) {
     console.log(error);
-    responsePayError.value = error;
   }finally{
     await handleAbonement();
   }
