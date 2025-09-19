@@ -36,6 +36,15 @@ calculeTotal(value) {
   }else{
    return "/requete_traite_gestionnaire";
   }
+ },
+ retirerIdIntoArrayCompetence(value){
+  const newArrayCompetenceWithId = [];
+  if(value.length>0){
+ value.forEach(element => {
+    newArrayCompetenceWithId.push(element.id)
+  });
+  }
+  return newArrayCompetenceWithId;
  }
 
   };

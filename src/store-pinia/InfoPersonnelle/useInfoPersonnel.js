@@ -29,7 +29,6 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           });
     },
       async update_compte_entreprise(payload) {
-        // console.log("update_compte_entreprise",payload)
         Spinner.launchLoading(true)
         let data = new FormData();
         data.append("nom", payload.nom);
@@ -44,9 +43,56 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         data.append("ville", payload.ville);
         data.append("logo",this.logoEntreprise);
         data.append("matricule_cc", payload.matricule_cc);
-        data.append("statut_id", 1);
+        // data.append("statut_id", 1);
         data.append("registre", this.registre);
   
+       await instance
+          .post("modifier_profil", data)
+          .then((res) => {
+            // console.log(res);
+            if (res.data.status === true) {
+              Swal.fire({
+                icon: "success",
+                title: res.data.message,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              return res.data.status;
+            }
+            if (res.data.status === false) {
+              Swal.fire({
+                icon: "error",
+                title: res.data.message,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+  
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(()=>{
+            Spinner.launchLoading(false)
+          })
+      },
+      async update_compte_student(payload) {
+        Spinner.launchLoading(true)
+        let data = new FormData();
+        payload.competences.forEach(element => {
+           data.append("competences[]",element);
+        });
+        data.append("nom", payload.nom);
+        data.append("prenoms", payload.prenoms);
+        data.append("email", payload.email);
+        data.append("photo_profil", payload.photo_profil);
+        data.append("bio", payload.bio);
+        data.append("diplome", payload.diplome);
+        data.append("commune", payload.commune);
+        data.append("quartier", payload.quartier);
+        data.append("contact", payload.contact);
+        data.append("ville", payload.ville);
+       
        await instance
           .post("modifier_profil", data)
           .then((res) => {

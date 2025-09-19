@@ -2,6 +2,7 @@
 import instance,{ lienPhoto } from "../../../../../api/api";
 import VueMultiselect from "vue-multiselect";
 import { mapActions, mapState } from "pinia";
+import { Help } from "../../../../../utils";
 import { useLoadingSpinner } from "../../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 import { useInfoPersonnel } from "../../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
@@ -27,6 +28,7 @@ export default {
     }),
     ...mapActions(useInfoPersonnel, [
       "update_compte_entreprise",
+      "update_compte_student",
       "addAnRegistreDoc",
       "addAnPieceDoc",
       "addAnLogo"
@@ -48,19 +50,44 @@ export default {
             this.StoreLoading.launchLoading(false);
           })
     },
-    handleUpdate(user){
-      this.update_compte_entreprise({
-            nom: user.nom,
-            email: user.email,
-            gerant: user.gerant,
-            numero_gerant: user.numero_gerant,
-            commune: user.commune,
-            forme_juridique: user.forme_juridique,
-            quartier: user.quartier,
-            contact: user.contact,
-            ville: user.ville,
-            matricule_cc: user.matricule_cc,
+
+    updateInfoEntreprise(company){
+  this.update_compte_entreprise({
+            nom: company.nom,
+            email: company.email,
+            gerant: company.gerant,
+            numero_gerant: company.numero_gerant,
+            commune: company.commune,
+            forme_juridique: company.forme_juridique,
+            quartier: company.quartier,
+            contact: company.contact,
+            ville: company.ville,
+            matricule_cc: company.matricule_cc,
           })
+    },
+    updateInfoStudent(Etudiants){
+      console.log("Etudiants",JSON.stringify(Etudiants,null,2))
+      const competenceWithId = Help.retirerIdIntoArrayCompetence(Etudiants.competences);
+      console.log("competenceWithId",competenceWithId)
+  this.update_compte_student({
+            nom: Etudiants.nom,
+            email: Etudiants.email,
+            prenoms:Etudiants.prenoms,
+            commune: Etudiants.commune,
+            quartier: Etudiants.quartier,
+            contact: Etudiants.contact,
+            ville: Etudiants.ville,
+            bio:Etudiants.bio,
+            diplome:Etudiants.diplome,
+            competences:Help.retirerIdIntoArrayCompetence(Etudiants.competences)
+          })
+    },
+    handleUpdate(user){
+      if(this.user.user.statut.statut === "entreprise"){
+    this.updateInfoEntreprise(user)
+      }else{
+        this.updateInfoStudent(user)
+      }
       this.getInfoUser()
     }
   },
@@ -81,6 +108,12 @@ export default {
         <div class="mb-3">
           <label class="form-label">Nom</label>
           <input v-model="user.nom" class="form-control" type="text" />
+        </div>
+      </div>
+      <div class="col-md-12" v-if="this.user && this.user.user.statut.statut === 'etudiant'">
+        <div class="mb-3">
+          <label class="form-label">Prénoms</label>
+          <input v-model="user.prenoms" class="form-control" type="text" />
         </div>
       </div>
 
@@ -130,6 +163,18 @@ export default {
               class="vuemulti"
             >
             </VueMultiselect>
+          </div>
+        </div>
+      </section>
+      <section v-if="this.user && this.user.user.statut.statut === 'etudiant'">
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label class="form-label">Bio (max 150 caractères)</label>
+            <textarea id="msg" name="msg" maxlength="150" 
+            style="width:100%;border-radius:5px;height:100px;" 
+            placeholder="Présentez-vous en quelques lignes..."
+            v-model="user.bio"
+            ></textarea>
           </div>
         </div>
       </section>
@@ -185,7 +230,8 @@ export default {
 
       <div class="col-md-12">
         <div class="my-3">
-          <label for="add_file">Nouvelle pièce d'identité</label>
+          <label for="add_file">
+            {{ this.user && this.user.user.statut.statut === 'etudiant' ? 'Nouvelle carte étudiante': 'Nouvelle pièce d\'identité' }}</label>
           <input type="file" @input="addAnPieceDoc" id="add_file_piece" class="w-100" />
         </div>
       </div>

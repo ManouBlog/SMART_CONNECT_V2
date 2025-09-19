@@ -10,6 +10,10 @@ export default {
     Buttons,
   },
   props: {
+    infoBioStudent: {
+      type: String,
+      require: false,
+    },
     infoPersonellesStudents: {
       type: Array,
     },
@@ -32,7 +36,7 @@ export default {
       registre_commerce: "",
       oldPassword: "",
       photo: {},
-      
+
       confirmation_password: "",
       nouveau_password: "",
       msgErr: false,
@@ -151,7 +155,7 @@ export default {
           onclick="document.getElementById('hiddenFile').click()"
         >
           <n-avatar
-          style="border:3px solid white;"
+            style="border: 3px solid white"
             round
             :size="120"
             src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
@@ -161,11 +165,29 @@ export default {
       </div>
       <div>
         <p style="color: orange; font-weight: bold">Bio</p>
-        <p style="text-align: justify; padding: 0.4em;font-weight:bold;background:#80808085;border-radius:10px;">
-          The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for
-          those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
-          Malorum" by Cicero are also reproduced in their exact original form, accompanied
-          by English versions from the 1914 translation by H. Rackham.
+        <p
+          v-if="infoBioStudent"
+          style="
+            text-align: justify;
+            padding: 0.4em;
+            font-weight: bold;
+            background: #80808085;
+            border-radius: 10px;
+          "
+        >
+          {{ infoBioStudent }}
+        </p>
+        <p
+          v-else
+          style="
+            text-align: justify;
+            padding: 0.4em;
+            font-weight: bold;
+            background: #80808085;
+            border-radius: 10px;
+          "
+        >
+          Écrivez quelques mots sur vous...
         </p>
       </div>
       <section class="my-5">
@@ -293,9 +315,9 @@ export default {
   z-index: 1;
   color: rgb(0, 0, 0);
   font-weight: bold;
-  background:rgb(255, 255, 255);
-  padding:0.5em;
-  border-radius:100%;
+  background: rgb(255, 255, 255);
+  padding: 0.5em;
+  border-radius: 100%;
 }
 h6 {
   text-align: left;
