@@ -32,7 +32,7 @@ export default {
       registre_commerce: "",
       oldPassword: "",
       photo: {},
-
+      
       confirmation_password: "",
       nouveau_password: "",
       msgErr: false,
@@ -50,13 +50,13 @@ export default {
       "changeValueForToogleModalInfoPersonnelle",
       "verifIfPasswordIsExact",
     ]),
-  handleFileChange(event) {
-  const file = event.target.files[0];
-  if (file) {
-    console.log("Fichier choisi :", file);
-    // 👉 ici tu peux uploader, convertir en base64, etc.
-  }
-},
+    handleFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        console.log("Fichier choisi :", file);
+        // 👉 ici tu peux uploader, convertir en base64, etc.
+      }
+    },
     async getInfoUser() {
       await instance
         .get("voirInfoUserConnect")
@@ -140,21 +140,32 @@ export default {
         >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
       >
       <div class="d-flex" style="position: relative">
-        <input id="hiddenFile" type="file" style="display:none"
-         @change="handleFileChange"
+        <input
+          id="hiddenFile"
+          type="file"
+          style="display: none"
+          @change="handleFileChange"
         />
-        <button 
-        class="btn_photo_profil" 
-        onclick="document.getElementById('hiddenFile').click()"
-        
+        <button
+          class="btn_photo_profil"
+          onclick="document.getElementById('hiddenFile').click()"
         >
-   <n-avatar
+          <n-avatar
             round
             :size="120"
             src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
           />
-</button>
-          <i class="bi bi-pencil"></i>
+        </button>
+        <i class="bi bi-pencil"></i>
+      </div>
+      <div>
+        <p style="color: orange; font-weight: bold">Bio</p>
+        <p style="text-align: justify; padding: 0.4em;font-weight:bold;background:#80808085;border-radius:10px;">
+          The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for
+          those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
+          Malorum" by Cicero are also reproduced in their exact original form, accompanied
+          by English versions from the 1914 translation by H. Rackham.
+        </p>
       </div>
       <section class="my-5">
         <div class="row">
@@ -269,16 +280,16 @@ export default {
   </section>
 </template>
 <style scoped>
-.btn_photo_profil{
-  background:transparent;
-  border:none;
+.btn_photo_profil {
+  background: transparent;
+  border: none;
 }
 .bi-pencil {
   font-size: 1.5em !important;
   position: absolute;
   bottom: 0;
   left: 4em;
-  z-index: 60;
+  z-index: 10;
   color: orange;
   font-weight: bold;
   transform: rotate(300deg);
