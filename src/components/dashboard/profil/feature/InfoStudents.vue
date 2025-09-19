@@ -12,7 +12,11 @@ export default {
   props: {
     infoBioStudent: {
       type: String,
-      require: false,
+      required: false,
+    },
+    photo_profil:{
+     type: String,
+      required: false,
     },
     infoPersonellesStudents: {
       type: Array,
@@ -53,12 +57,17 @@ export default {
     ...mapActions(useInfoPersonnel, [
       "changeValueForToogleModalInfoPersonnelle",
       "verifIfPasswordIsExact",
+      "update_compte_student",
     ]),
+    
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
         console.log("Fichier choisi :", file);
-        // 👉 ici tu peux uploader, convertir en base64, etc.
+        this.update_compte_student({
+            photo_profil:file
+          })
+          this.getInfoUser()
       }
     },
     async getInfoUser() {
@@ -158,7 +167,7 @@ export default {
             style="border: 3px solid white"
             round
             :size="120"
-            src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+             :src="lienPhoto + photo_profil"
           />
         </button>
         <i class="bi bi-camera-fill"></i>

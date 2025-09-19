@@ -79,20 +79,22 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
       async update_compte_student(payload) {
         Spinner.launchLoading(true)
         let data = new FormData();
-        payload.competences.forEach(element => {
+        if(payload.photo_profil){
+          data.append("photo_profil", payload?.photo_profil);
+        }else{
+        payload?.competences?.forEach(element => {
            data.append("competences[]",element);
         });
-        data.append("nom", payload.nom);
-        data.append("prenoms", payload.prenoms);
-        data.append("email", payload.email);
-        data.append("photo_profil", payload.photo_profil);
-        data.append("bio", payload.bio);
-        data.append("diplome", payload.diplome);
-        data.append("commune", payload.commune);
-        data.append("quartier", payload.quartier);
-        data.append("phone", payload.contact);
-        data.append("ville", payload.ville);
-       
+        data.append("nom", payload?.nom);
+        data.append("prenoms", payload?.prenoms);
+        data.append("email", payload?.email);
+        data.append("bio", payload?.bio);
+        data.append("diplome", payload?.diplome);
+        data.append("commune", payload?.commune);
+        data.append("quartier", payload?.quartier);
+        data.append("phone", payload?.contact);
+        data.append("ville", payload?.ville);
+        }
        await instance
           .post("modifier_profil", data)
           .then((res) => {

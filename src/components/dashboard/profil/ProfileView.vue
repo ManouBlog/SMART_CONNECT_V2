@@ -319,6 +319,7 @@ export default {
                 { libelle: texte12, value: user.user.photos }
               ]"
               :infoBioStudent="user.bio"
+              :photo_profil="user.photo_profil"
               :infoPersonellesCompetences="user.competences"
               v-if="this.user && this.user.user.statut.statut === 'etudiant'"
             />

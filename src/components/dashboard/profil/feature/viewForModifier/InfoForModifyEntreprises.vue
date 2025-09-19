@@ -75,7 +75,7 @@ export default {
             prenoms:Etudiants.prenoms,
             commune: Etudiants.commune,
             quartier: Etudiants.quartier,
-            contact: Etudiants.contact,
+            contact: Etudiants.phone,
             ville: Etudiants.ville,
             bio:Etudiants.bio,
             diplome:Etudiants.diplome,
@@ -126,7 +126,7 @@ export default {
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Contact</label>
-          <input v-model="user.phone" class="form-control" type="number" />
+          <input v-model="user.phone" class="form-control" type="text" />
         </div>
       </div>
       <div class="col-md-12">
@@ -165,6 +165,12 @@ export default {
             </VueMultiselect>
           </div>
         </div>
+        <div class="col-md-12">
+        <div class="mb-3">
+          <label class="form-label">Dernier diplome</label>
+          <input v-model="user.diplome" class="form-control" type="text" />
+        </div>
+      </div>
       </section>
       <section v-if="this.user && this.user.user.statut.statut === 'etudiant'">
         <div class="col-md-12">
