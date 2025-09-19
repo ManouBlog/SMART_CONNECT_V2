@@ -10,51 +10,53 @@ export default {
     return {};
   },
   methods: {
-    getIpApparel(){
-      fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-    // // console.log('Adresse IP publique :', data.ip);
-    this.visiteur(data.ip)
-  })
-  .catch(error => {
-    console.error('Erreur lors de la récupération de l\'adresse IP:', error);
-  });
+    getIpApparel() {
+      fetch("https://api.ipify.org?format=json")
+        .then((response) => response.json())
+        .then((data) => {
+          // // console.log('Adresse IP publique :', data.ip);
+          this.visiteur(data.ip);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération de l'adresse IP:", error);
+        });
     },
     async visiteur(ipMachin) {
-      if(sessionStorage.getItem("@visit") === null) {
-  try {
-    const response = await axios.post(`${process.env.VUE_APP_LIENS_BACKEND}api/visites`,{ip:ipMachin});
-    // // console.log("response", response);
-    if(response.data.status){
-    sessionStorage.setItem("@visit", 1);
-    }
-   
-  } catch (error) {
-    console.log(error);
-  }
-}
+      if (sessionStorage.getItem("@visit") === null) {
+        try {
+          const response = await axios.post(
+            `${process.env.VUE_APP_LIENS_LOCAL}api/visites`,
+            { ip: ipMachin }
+          );
+          // // console.log("response", response);
+          if (response.data.status) {
+            sessionStorage.setItem("@visit", 1);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
     },
   },
   created() {
     // // console.log("rejf");
-    localStorage.setItem('translate','fr')
-    this.getIpApparel()
+    localStorage.setItem("translate", "fr");
+    this.getIpApparel();
   },
 };
 </script>
 
 <style>
-.myconteneur{
-  margin:6em 0;
+.myconteneur {
+  margin: 6em 0;
 }
-.card{
+.card {
   background: var(--secondary-color) !important;
-  color:var(--third-color) !important;
+  color: var(--third-color) !important;
 }
 html {
-    font-size: 0.7em !important;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+  font-size: 0.7em !important;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .p-icon .p-rating-icon {
   font-size: 2em !important;

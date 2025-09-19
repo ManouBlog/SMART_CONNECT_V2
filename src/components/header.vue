@@ -155,7 +155,7 @@ export default {
               }
             })
             .catch((err) => {
-              console.log(err)
+              console.log(err);
               Swal.fire({
                 icon: "error",
                 title: "Veuillez-vous connecter",
@@ -206,7 +206,7 @@ export default {
           <nav class="navbar navbar-fixed-top">
             <div class="container conteneur-flex_nav">
               <div class="logo">
-                <img class="img-fluid w-100" src="../assets/brobroli.png" alt="Photo" />
+                <img class="img-fluid" src="../assets/brobroli.png" alt="Photo" />
               </div>
               <div class="navbar-header">
                 <button
@@ -234,11 +234,12 @@ export default {
                     :statut_user="'etudiant'"
                     :isNeedConnection="true"
                   />
-                  
+
                   <LiensNavBar
-                    v-if="this.$store.state.user &&
-                      (this.$store.state.user.user.statut.statut === 'entreprise' 
-                      || this.$store.state.user.user.statut.statut === 'particulier')
+                    v-if="
+                      this.$store.state.user &&
+                      (this.$store.state.user.user.statut.statut === 'entreprise' ||
+                        this.$store.state.user.user.statut.statut === 'particulier')
                     "
                     :texte="texte3"
                     :route_lien="'timetable'"
@@ -269,7 +270,6 @@ export default {
 
               <div class="conteneur-favoris-name_user">
                 <a
-                
                   href="#"
                   v-if="!this.$store.state.user"
                   class="login_user mx-3"
@@ -277,14 +277,14 @@ export default {
                 >
                   {{ texte5 }}
                 </a>
-                 
+
                 <ListeFavoris v-if="this.$store.state.user" />
                 <div>
                   <InfoEntreprise
                     v-if="
                       this.$store.state.user &&
                       (this.$store.state.user.user.statut.statut === 'entreprise' ||
-                      this.$store.state.user.user.statut.statut === 'particulier') 
+                        this.$store.state.user.user.statut.statut === 'particulier')
                     "
                   />
 
@@ -304,6 +304,9 @@ export default {
   </section>
 </template>
 <style>
+.navbar-header {
+ text-align:center;
+}
 .ant-dropdown-link {
   font-size: 1.2em;
 }
@@ -675,8 +678,7 @@ export default {
 }
 
 .logo img {
-  width: 75% !important;
-  margin-top: -1em;
+  width: 80% !important;
 }
 
 .logo {
@@ -749,7 +751,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  gap:1em;
+  gap: 1em;
   text-align: left;
   margin-top: 0.5em;
   padding: 1em 0.4em;
@@ -799,8 +801,8 @@ h4 {
   padding: 0;
 }
 .navbar-toggle {
-  background: rgb(5, 35, 73) !important;
-  top: 10px;
+  background: orange !important;
+  top: 25%;
   position: absolute !important;
   right: 1em !important;
 }
