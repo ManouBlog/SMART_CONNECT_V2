@@ -14,10 +14,6 @@ export default {
       type: String,
       required: false,
     },
-    photo_profil:{
-     type: String,
-      required: false,
-    },
     infoPersonellesStudents: {
       type: Array,
     },
@@ -167,7 +163,7 @@ export default {
             style="border: 3px solid white;object-fit:cover;"
             round
             :size="120"
-             :src="lienPhoto + photo_profil"
+             :src="lienPhoto + user.photo_profil"
           />
         </button>
         <i class="bi bi-camera-fill"></i>
