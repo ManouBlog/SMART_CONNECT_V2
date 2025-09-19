@@ -151,12 +151,13 @@ export default {
           onclick="document.getElementById('hiddenFile').click()"
         >
           <n-avatar
+          style="border:3px solid white;"
             round
             :size="120"
             src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
           />
         </button>
-        <i class="bi bi-pencil"></i>
+        <i class="bi bi-camera-fill"></i>
       </div>
       <div>
         <p style="color: orange; font-weight: bold">Bio</p>
@@ -284,15 +285,17 @@ export default {
   background: transparent;
   border: none;
 }
-.bi-pencil {
-  font-size: 1.5em !important;
+.bi-camera-fill {
+  font-size: 1.2em !important;
   position: absolute;
   bottom: 0;
-  left: 4em;
-  z-index: 10;
-  color: orange;
+  left: 5em;
+  z-index: 1;
+  color: rgb(0, 0, 0);
   font-weight: bold;
-  transform: rotate(300deg);
+  background:rgb(255, 255, 255);
+  padding:0.5em;
+  border-radius:100%;
 }
 h6 {
   text-align: left;
