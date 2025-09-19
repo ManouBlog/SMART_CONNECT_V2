@@ -164,7 +164,7 @@ export default {
           onclick="document.getElementById('hiddenFile').click()"
         >
           <n-avatar
-            style="border: 3px solid white"
+            style="border: 3px solid white;object-fit:cover;"
             round
             :size="120"
              :src="lienPhoto + photo_profil"
