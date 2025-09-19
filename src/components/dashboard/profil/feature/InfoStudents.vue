@@ -50,6 +50,13 @@ export default {
       "changeValueForToogleModalInfoPersonnelle",
       "verifIfPasswordIsExact",
     ]),
+  handleFileChange(event) {
+  const file = event.target.files[0];
+  if (file) {
+    console.log("Fichier choisi :", file);
+    // 👉 ici tu peux uploader, convertir en base64, etc.
+  }
+},
     async getInfoUser() {
       await instance
         .get("voirInfoUserConnect")
@@ -133,14 +140,21 @@ export default {
         >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
       >
       <div class="d-flex" style="position: relative">
-        <a href="">
-          <n-avatar
+        <input id="hiddenFile" type="file" style="display:none"
+         @change="handleFileChange"
+        />
+        <button 
+        class="btn_photo_profil" 
+        onclick="document.getElementById('hiddenFile').click()"
+        
+        >
+   <n-avatar
             round
             :size="120"
             src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
           />
+</button>
           <i class="bi bi-pencil"></i>
-        </a>
       </div>
       <section class="my-5">
         <div class="row">
@@ -255,6 +269,10 @@ export default {
   </section>
 </template>
 <style scoped>
+.btn_photo_profil{
+  background:transparent;
+  border:none;
+}
 .bi-pencil {
   font-size: 1.5em !important;
   position: absolute;
