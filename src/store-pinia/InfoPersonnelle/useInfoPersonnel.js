@@ -90,7 +90,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         data.append("diplome", payload.diplome);
         data.append("commune", payload.commune);
         data.append("quartier", payload.quartier);
-        data.append("contact", payload.contact);
+        data.append("phone", payload.contact);
         data.append("ville", payload.ville);
        
        await instance

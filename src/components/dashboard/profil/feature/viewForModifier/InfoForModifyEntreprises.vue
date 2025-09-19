@@ -126,7 +126,7 @@ export default {
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Contact</label>
-          <input v-model="user.contact" class="form-control" type="text" />
+          <input v-model="user.phone" class="form-control" type="number" />
         </div>
       </div>
       <div class="col-md-12">
