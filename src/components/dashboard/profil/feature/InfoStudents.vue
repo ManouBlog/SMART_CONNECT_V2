@@ -4,6 +4,7 @@ import instance, { lienPhoto } from "../../../../api/api";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { mapActions } from "pinia";
+import { Help } from "../../../../utils";
 export default {
   name: "InfoStudents",
   components: {
@@ -23,7 +24,8 @@ export default {
   },
   data() {
     return {
-      user: this.$store.state.user,
+      Help:Help,
+      user:"",
       nom: "",
       prenoms: "",
       lienPhoto: lienPhoto,
@@ -36,7 +38,7 @@ export default {
       registre_commerce: "",
       oldPassword: "",
       photo: {},
-
+isLoading:false,
       confirmation_password: "",
       nouveau_password: "",
       msgErr: false,
@@ -55,18 +57,19 @@ export default {
       "verifIfPasswordIsExact",
       "update_compte_student",
     ]),
-    
+
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
         console.log("Fichier choisi :", file);
         this.update_compte_student({
-            photo_profil:file
-          })
-          this.getInfoUser()
+          photo_profil: file,
+        });
+        this.getInfoUser(1);
       }
     },
-    async getInfoUser() {
+    async getInfoUser(value=null) {
+      this.isLoading = true;
       await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
@@ -77,7 +80,13 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-        });
+        })
+        .finally(()=>{
+          if(value){
+            location.reload(true)
+          }
+          this.isLoading = false
+        })
     },
     handleModalInfo() {
       this.changeValueForToogleModalInfoPersonnelle();
@@ -137,7 +146,11 @@ export default {
 
 <template>
   <section style="padding: 2em 3em">
+    <div v-if="isLoading">
+      <h1 style="text-align:center;">Chargement...</h1>
+    </div>
     <a-card
+    v-if="user"
       style="
         width: auto;
         color: var(--third-color) !important;
@@ -160,11 +173,28 @@ export default {
           onclick="document.getElementById('hiddenFile').click()"
         >
           <n-avatar
-            style="border: 3px solid white;object-fit:cover;"
+            v-if="user.photo_profil"
+            style="border: 3px solid white; object-fit: cover"
             round
             :size="120"
-             :src="lienPhoto + user.photo_profil"
+            :src="lienPhoto + user.photo_profil"
           />
+          <p
+            style="
+              border: 3px solid white;
+              object-fit: cover;
+              width: 120px;
+              height:120px;
+              line-height:120px;
+              text-align:center;
+              font-size:1em;
+              border-radius: 100%;
+              background: gray;
+            "
+            v-else
+          >
+           <span style="font-size:2.5em;">{{Help.toADfirstTwo(user.nom)}}</span>
+          </p>
         </button>
         <i class="bi bi-camera-fill"></i>
       </div>
@@ -249,8 +279,8 @@ export default {
         />
       </section>
     </a-card>
-
     <a-card
+    v-if="user"
       style="
         width: auto;
         color: var(--third-color) !important;

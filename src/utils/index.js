@@ -45,6 +45,10 @@ calculeTotal(value) {
   });
   }
   return newArrayCompetenceWithId;
- }
+ },
+toADfirstTwo(str) {
+  if (!str || str.length === 0) return '';
+  return str.slice(0, 2).toUpperCase();
+}
 
   };
