@@ -25,7 +25,7 @@ export default {
       if (sessionStorage.getItem("@visit") === null) {
         try {
           const response = await axios.post(
-            `${process.env.VUE_APP_LIENS_LOCAL}api/visites`,
+            `${process.env.VUE_APP_LIENS_BACKEND}api/visites`,
             { ip: ipMachin }
           );
           // // console.log("response", response);
