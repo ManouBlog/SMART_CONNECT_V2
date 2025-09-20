@@ -1,11 +1,9 @@
 <script>
-import instance from "../../../../api/api";
+import instance,{lienPhoto} from "../../../../api/api";
 import LiensNavBar from "../LiensNavBar.vue";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
-
-
-
+import { Help } from "../../../../utils";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 export default {
@@ -24,6 +22,8 @@ export default {
   },
   data() {
     return {
+      lienPhoto:lienPhoto,
+      Help:Help,
       texte2: "",
       texte3: "",
       texte1: "",
@@ -53,6 +53,7 @@ export default {
       texte27:"",
       texte40:"",
       data: null,
+      user:null,
     };
   },
   computed: {
@@ -101,9 +102,22 @@ export default {
           this.launchLoading(false);
         });
     },
+     async getInfoUser() {
+      await instance
+        .get("voirInfoUserConnect")
+        .then((resp) => {
+          // console.log("voirInfoUserConnect",resp);
+          if (resp.data.status === true) {
+            this.user = resp.data.user;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    },
   },
   async created() {
-     
+     this.getInfoUser();
     this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte2 = await this.handleTranslate("Mes postulations");
     this.texte3 = await this.handleTranslate('Mes Contrats');
@@ -116,14 +130,32 @@ export default {
 };
 </script>
 <template>
-  <a-dropdown>
-    <a style="text-transform:capitalize" class="ant-dropdown-link" @click.prevent>
-      {{ this.$store.state.user.nom }}
-      <em
-        v-if="this.$store.state.user"
-        class="bi bi-person-workspace text-primary h3 compte_sup"
-      ></em>
-      <!-- <DownOutlined /> -->
+  <a-dropdown v-if="user">
+    <a style="text-transform:capitalize;display:flex;align-items:center;gap:0.5em" class="ant-dropdown-link" @click.prevent>
+      <n-avatar
+            v-if="user.photo_profil"
+            style="border: 2px solid orange; object-fit: cover"
+            round
+            :size="55"
+            :src="lienPhoto + user.photo_profil"
+          />
+          <span
+            style="
+              border: 1px solid white;
+              object-fit: cover;
+              width: 50px;
+              height:50px;
+              line-height:50px;
+              text-align:center;
+              font-size:1em;
+              border-radius: 100%;
+              background: gray;
+            "
+            v-else
+          >
+           <span style="font-size:0.5em;">{{Help.toADfirstTwo(user.nom)}}</span>
+          </span>
+          <span>{{ user.nom }}</span>
     </a>
     <template #overlay>
       <a-menu>
@@ -165,13 +197,6 @@ export default {
             </router-link>
           </li>
         </a-menu-item>
-        <!-- <a-menu-item>
-          <li class="position-absolute deconnex">
-            <router-link to="/dashboard/disponibilite" class="d-block">
-              Planifier une disponibilité
-            </router-link>
-          </li>
-        </a-menu-item> -->
         <a-menu-item>
           <LiensNavBar
             :texte="texte5"
@@ -186,34 +211,5 @@ export default {
       </a-menu>
     </template>
   </a-dropdown>
-  <!-- <li v-if="this.$store.state.user.user.statut.statut == 'etudiant'">
-    <router-link to="/dashboard/accueil"> Tableau de bord </router-link>
-  </li>
-  <li v-if="this.$store.state.user.user.statut.statut == 'etudiant'">
-    <n-collapse arrow-placement="right">
-      <n-collapse-item title="Offres" name="1">
-        <router-link to="/dashboard/offre_postule" class="d-block">
-          Postulées
-        </router-link>
-        <router-link to="/dashboard/contrat" class="d-block">
-          Contrat
-          <span class="alarm-badge" v-if="this.$store.state.contratStudent > 0">
-            {{ this.$store.state.contratStudent }}
-          </span>
-        </router-link>
-      </n-collapse-item>
-    </n-collapse>
-  </li>
-  <li v-if="this.$store.state.user.user.statut.statut == 'etudiant'">
-    <n-collapse arrow-placement="right">
-      <n-collapse-item title="Calendrier" name="1">
-        <router-link to="/dashboard/emploi_du_temps" class="d-block">
-          Mes disponibilités
-        </router-link>
-        <router-link to="/dashboard/disponibilite" class="d-block">
-          Enregistrer
-        </router-link>
-      </n-collapse-item>
-    </n-collapse>
-  </li> -->
+ 
 </template>
