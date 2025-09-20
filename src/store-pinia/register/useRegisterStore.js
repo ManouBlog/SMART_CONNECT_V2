@@ -63,7 +63,8 @@ export const useRegisterStore = defineStore('register', {
           data.append("diplome", payload.diplome);
           data.append("password", payload.password);
           data.append("statut_id", 2);
-          // data.append("photo", payload.photo);
+          data.append("photo_profil", payload.photo_profil);
+          data.append("bio", payload.bio);
          await instance
             .post("list_users", data)
             .then((response) => {
