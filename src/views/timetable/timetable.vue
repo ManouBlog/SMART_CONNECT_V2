@@ -1,6 +1,7 @@
 <script>
-import instance from "../../api/api";
+import instance,{lienPhoto} from "../../api/api";
 import Swal from "sweetalert2";
+import { Help } from "../../utils";
 import "primeicons/primeicons.css";
 import { mapActions} from "pinia";
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
@@ -20,6 +21,8 @@ export default {
   // },
   data() {
     return {
+      lienPhoto:lienPhoto,
+      Help:Help,
       texte01:"",
       texte: "",
       texte2: "",
@@ -799,7 +802,28 @@ export default {
                 class="bi bi-heart-fill"
               ></em>
             </div>
-            <em class="bi bi-person"></em>
+            <!-- <em class="bi bi-person"></em> -->
+              <n-avatar
+            v-if="emploi.photo_profil"
+            style="border: 2px solid orange; object-fit: cover"
+            round
+            :size="50"
+            :src="lienPhoto + emploi.photo_profil"
+          />
+          <span
+            style="
+              border: 2px solid orange;
+              object-fit: cover;
+              padding:1em;
+              line-height:50px;
+              text-align:center;
+              border-radius: 100%;
+              background: gray;
+            "
+            v-else
+          >
+           <span style="font-size:1em;">{{Help.toADfirstTwo(emploi.nom)}}</span>
+          </span>
             <div class="card-body">
               <h3 class="name" style="color:white;font-weight:bold;">
                 {{ emploi.nom }}
