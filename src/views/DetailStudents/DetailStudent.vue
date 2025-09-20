@@ -819,7 +819,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div style="margin: 9.5em 0;">
     <div class="conteneur_student" v-if="timetable_for_student">
       <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
 
@@ -925,7 +925,7 @@ export default {
       </section>
     </div>
     <div class="conteneur_student py-5" v-else>
-     <h6>Chargement...</h6>
+     <h3>Chargement...</h3>
     </div>
   </div>
 </template>

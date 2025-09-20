@@ -871,7 +871,7 @@ export default {
 }
 .jobs_filters {
   padding: 2em;
-  margin: 6.5em 0;
+  margin: 9.5em 0;
 }
 .conteneur_timetable {
   padding: 1em;
