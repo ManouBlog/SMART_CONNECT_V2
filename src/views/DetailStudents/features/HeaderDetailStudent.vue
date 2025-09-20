@@ -43,6 +43,7 @@ export default {
         <h1 class="text-left my-3">
           {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
         </h1>
+       
         <n-rate
           v-if="timetable_for_student.average"
           readonly
@@ -50,6 +51,21 @@ export default {
         />
       </div>
     </section>
+     <div v-if="timetable_for_student.bio">
+        <!-- <p style="color: orange; font-weight: bold">Bio</p> -->
+        <p
+          style="
+            text-align: justify;
+            padding: 0.4em;
+            font-weight: bold;
+            background: #80808085;
+            border-radius: 5px;
+            margin:1em 0;
+          "
+        >
+          {{ timetable_for_student.bio }}
+        </p>
+      </div>
     <div class="text-left p-5">
       <h3 class="my-3">
         <em class="bi bi-geo-alt"></em> {{ timetable_for_student.commune }}
@@ -61,9 +77,10 @@ export default {
     </div>
     <div
       v-if="timetable_for_student.competences.length"
-      class="text-left conteneur_competences my-3"
+      class="text-left my-3"
       style="width:50%"
     >
+    <p style="color: orange; font-weight: bold">Compétences</p>
       <span
         v-for="(item, index) in timetable_for_student.competences"
         :key="index"

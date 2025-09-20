@@ -1,9 +1,9 @@
 <script>
-import instance,{lienPhoto} from "../../api/api";
+import instance, { lienPhoto } from "../../api/api";
 import Swal from "sweetalert2";
 import { Help } from "../../utils";
 import "primeicons/primeicons.css";
-import { mapActions} from "pinia";
+import { mapActions } from "pinia";
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 // import Multiselect from 'vue-multiselect'
@@ -21,9 +21,9 @@ export default {
   // },
   data() {
     return {
-      lienPhoto:lienPhoto,
-      Help:Help,
-      texte01:"",
+      lienPhoto: lienPhoto,
+      Help: Help,
+      texte01: "",
       texte: "",
       texte2: "",
       texte3: "",
@@ -35,22 +35,22 @@ export default {
       texte8: "",
       texte9: "",
       texte10: "",
-      texte11:"",
-      texte12:"",
-      texte13:"",
-      texte14:"",
-      texte15:"",
-      texte16:"",
-      texte17:"",
-      texte18:"",
-      texte19:"",
-      texte20:"",
-      texte21:"",
-      texte22:"",
-      texte23:"",
-      texte24:"",
-      texte25:"",
-      texte26:"",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
       lieu: "",
       dateRendezVousStudentWithEntreprise: null,
       MyDateRendezVous: [],
@@ -517,8 +517,8 @@ export default {
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          console.log(err)
-          alert(err.response.data.message)
+          console.log(err);
+          alert(err.response.data.message);
           loadingSpinner.launchLoading(false);
         });
     },
@@ -591,7 +591,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           this.loadSpinner = false;
           Swal.fire({
             icon: "info",
@@ -635,7 +635,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           Swal.fire({
             icon: "info",
             title: "Vérifier votre connexion ou les informations que vous envoyer",
@@ -644,7 +644,7 @@ export default {
           this.loadSpinner = false;
         });
     },
-    
+
     AllCompetencesPredf() {
       instance
         .get("GetAllCompetences")
@@ -653,7 +653,7 @@ export default {
           this.competencesPredefini = res.data.data;
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     verfEnter() {
@@ -697,7 +697,7 @@ export default {
     },
   },
   async created() {
-    this.$store.dispatch("handleListeFavoris")
+    this.$store.dispatch("handleListeFavoris");
     this.get_list_emploi();
     this.getAllCompetences();
     // this.handleListeFavoris();
@@ -706,12 +706,8 @@ export default {
     // // console.log(this.jourSelect());
     this.path = window.location.pathname;
     this.texte = await this.handleTranslate("Vous rechercher un talent ?");
-    this.texte1 = await this.handleTranslate(
-      "Talents disponibles"
-    );
-    this.texte01 = await this.handleTranslate(
-      "Talent disponible"
-    );
+    this.texte1 = await this.handleTranslate("Talents disponibles");
+    this.texte01 = await this.handleTranslate("Talent disponible");
     this.texte2 = await this.handleTranslate(" Nous avons trouvé");
     this.texte3 = await this.handleTranslate("disponibilité(s).");
     this.texte4 = await this.handleTranslate("Chargements...");
@@ -720,15 +716,14 @@ export default {
     this.texte7 = await this.handleTranslate("Vous avez atteint la fin");
     this.texte8 = await this.handleTranslate("Sélectionne les jours");
     this.texte9 = await this.handleTranslate("Compétence");
-    this.texte10 = await this.handleTranslate("Commune"); 
-    
+    this.texte10 = await this.handleTranslate("Commune");
   },
 };
 </script>
 <template>
   <section>
     <div class="jobs_filters">
-      <h3 class="fw-bold ecriteau text-left">{{texte}}</h3>
+      <h3 class="fw-bold ecriteau text-left">{{ texte }}</h3>
 
       <form class="d-flex flex-wrap align-items-center">
         <div class="w-100 mx-3">
@@ -770,7 +765,7 @@ export default {
     </div>
     <div>
       <h2 class="fw-bold ecriteau text-left px-3">
-        {{ list.length }} {{ list.length > 1 ? texte1:texte01}}
+        {{ list.length }} {{ list.length > 1 ? texte1 : texte01 }}
       </h2>
     </div>
 
@@ -780,14 +775,14 @@ export default {
     >
       <div class="timetable_disponible" v-if="list_emploi">
         <h6>
-         {{texte2}}
+          {{ texte2 }}
           {{ datesSelect.length ? list.length : lengthOfMylistEmploi }}
-          {{texte3}}
+          {{ texte3 }}
         </h6>
       </div>
 
       <div>
-        <span v-if="spinner" class="h1 char">{{texte4}}</span>
+        <span v-if="spinner" class="h1 char">{{ texte4 }}</span>
 
         <div class="container-fuid d-grid px-3">
           <div
@@ -803,37 +798,41 @@ export default {
               ></em>
             </div>
             <!-- <em class="bi bi-person"></em> -->
-              <n-avatar
-            v-if="emploi.photo_profil"
-            style="border: 2px solid orange; object-fit: cover"
-            round
-            :size="50"
-            :src="lienPhoto + emploi.photo_profil"
-          />
-          <span
-            style="
-              border: 2px solid orange;
-              object-fit: cover;
-              padding:1em;
-              line-height:50px;
-              text-align:center;
-              border-radius: 100%;
-              background: gray;
-            "
-            v-else
-          >
-           <span style="font-size:1em;">{{Help.toADfirstTwo(emploi.nom)}}</span>
-          </span>
+            <n-avatar
+              v-if="emploi.photo_profil"
+              style="border: 2px solid orange; object-fit: cover"
+              round
+              :size="50"
+              :src="lienPhoto + emploi.photo_profil"
+            />
+            <span
+              style="
+                border: 2px solid orange;
+                object-fit: cover;
+                padding: 1em;
+                line-height: 50px;
+                text-align: center;
+                border-radius: 100%;
+                background: gray;
+              "
+              v-else
+            >
+              <span style="font-size: 1em">{{ Help.toADfirstTwo(emploi.nom) }}</span>
+            </span>
             <div class="card-body">
-              <h3 class="name" style="color:white;font-weight:bold;">
+              <h3 class="name" style="color: white; font-weight: bold">
                 {{ emploi.nom }}
                 {{ emploi.prenoms }}
               </h3>
 
               <div class="jour">
-                <span v-for="(item, index) in emploi.competences" :key="index">
+                <span
+                  v-for="(item, index) in emploi.competences.slice(0, 3)"
+                  :key="index"
+                >
                   <strong class="bg-teal cpt">{{ item.competence }}</strong>
                 </span>
+                <span v-if="emploi.competences.length > 3"> ... </span>
               </div>
 
               <span class="biStar">
@@ -844,7 +843,7 @@ export default {
                 class="btn bg-primary voirPlus"
                 @click="voirDetailTimetable(emploi.id)"
               >
-                {{texte5}}
+                {{ texte5 }}
 
                 <em class="bi bi-eye"></em>
               </button>
@@ -859,9 +858,9 @@ export default {
         v-if="length < list.length"
         class="btn-lg bg-primary loadPlus"
       >
-        {{texte6}} <em class="bi bi-chevron-down"></em>
+        {{ texte6 }} <em class="bi bi-chevron-down"></em>
       </button>
-      <h2 v-if="length >= list.length" class="endResearch">{{texte7}}</h2>
+      <h2 v-if="length >= list.length" class="endResearch">{{ texte7 }}</h2>
     </div>
   </section>
 </template>
