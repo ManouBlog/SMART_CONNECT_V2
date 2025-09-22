@@ -12,6 +12,7 @@ export default {
   components: { HeaderDashboard },
   data() {
     return {
+      Help:Help,
       texte0: "",
       texte2: "",
       texte3: "",
@@ -187,9 +188,34 @@ export default {
           >
             <h1 class="badge bg-warning w-25">{{texte5}} {{ index + 1 }}</h1>
 
-            <div class="d-flex justify-content-between align-items-center">
-              <h1><em class="bi bi-person h1"></em></h1>
-              <h2 class="text-warning">{{ item.nom }} {{ item.prenoms }}</h2>
+            <div class="d-flex align-items-center">
+              <!-- <h1><em class="bi bi-person h1"></em></h1> -->
+              <n-avatar
+            v-if="item.photo_profil"
+            class="user-avatar"
+            style="border: 2px solid orange; object-fit: cover"
+            round
+            :size="40"
+            :src="lienPhoto + item.photo_profil"
+          />
+          <span
+          class="user-avatar"
+            style="
+              border: 2px solid orange;
+              object-fit: cover;
+              width: 40px;
+              height:40px;
+              line-height:40px;
+              text-align:center;
+              font-size:1em;
+              border-radius: 100%;
+              background: gray;
+            "
+            v-else
+          >
+           <span style="font-size:1em;color:white;">{{Help.toADfirstTwo(item.nom)}}</span>
+          </span>
+              <h1 style="color:white;font-weight:bold;">{{ item.nom }} {{ item.prenoms }}</h1>
             </div>
             <section class="text-left">
               <h4><span>{{texte6}}</span> {{ item.email }}</h4>

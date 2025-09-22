@@ -1,5 +1,6 @@
 <script>
 import instance, { lienPhoto } from "../../../../api/api";
+import { Help } from "../../../../utils";
 import Swal from "sweetalert2";
 import { mapActions} from "pinia";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
@@ -15,6 +16,7 @@ export default {
     },
     data() {
       return{
+      Help:Help,
       texte: "",
       texte2: "",
       texte3: "",
@@ -99,8 +101,33 @@ export default {
 </script>
 <template>
     <a-card style="width: 400px;color: var(--third-color) !important; background: var(--secondary-color) !important">
-       <div class="d-flex justify-content-between align-items-center">
-        <h1><em class="bi bi-person h1"></em></h1>
+       <div class="d-flex g-5 align-items-center">
+        <!-- <h1><em class="bi bi-person h1"></em></h1> -->
+        
+         <!-- <n-avatar
+            v-if="InfoPostulant.photo_profil"
+            class="user-avatar"
+            style="border: 2px solid orange; object-fit: cover"
+            round
+            :size="40"
+            :src="lienPhoto + InfoPostulant.photo_profil"
+          />
+           -->
+          <span
+            style="
+              border: 2px solid orange;
+              object-fit: cover;
+              width: 40px;
+              height:40px;
+              line-height:40px;
+              text-align:center;
+              font-size:1em;
+              border-radius: 100%;
+              background: gray;
+            "
+          >
+           <span style="font-size:1em;color:white;">{{Help.toADfirstTwo(InfoPostulant.nom)}}</span>
+          </span>
         <h1 class="user_person" style="color:orange;">{{ InfoPostulant.nom }} {{ InfoPostulant.prenoms }}</h1>
        </div>
        <section>
