@@ -34,9 +34,11 @@ export default {
 <template>
   <a-dropdown>
     <a class="ant-dropdown-link" @click.prevent>
-      <em class="bi bi-balloon-heart" 
-      style="font-size:1.2em"
+      <em class="bi bi-heart-fill" 
+      :class="this.$store.state.whistListPerson.length ? 'text-danger':null"
+      style="font-size:1.3em;"
        @click="showWishList = !showWishList"></em>
+       <span  v-if="this.$store.state.whistListPerson.length > 0" class="badge bg-dark">{{this.$store.state.whistListPerson.length}}</span>
       <!-- <DownOutlined /> -->
     </a>
     <template #overlay>

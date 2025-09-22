@@ -320,7 +320,6 @@ export default {
 .conteneur-favoris-name_user {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
   gap: 1.8em;
 }

@@ -24,6 +24,7 @@ export default {
   computed: {...mapState(useListeFavoris,["myListOfFavoris"])},
   methods: {
     voirDetailPostulants(nameOffre) {
+     this.get_offres_interess_by_student();
       this.$router.push({
         name: "detailsPostulants",
         params: { offre: nameOffre?.nom_offre },
@@ -32,12 +33,12 @@ export default {
      async get_offres_interess_by_student() {
       try {
         const response = await instance.get("list_offres_interess_by_students");
-        // console.log(
-        //  "get_offres_interess_by_student",
-        //  response.data.filter((item) => item.recruit === 1)
-        // );
+        console.log(
+         "get_offres_interess_by_student",
+         response.data.filter((item) => item.recruit === 1)
+        );
         if (response["status"] === 200) {
-          this.dataAlarm = response.data.filter((item) => item.recruit === 1);
+          this.dataAlarm = response.data.filter((item) => item.recruit === 0);
         }
       } catch (error) {
         console.log(error);
@@ -55,7 +56,7 @@ export default {
     <a class="ant-dropdown-link" @click.prevent>
       <em class="bi bi-bell" style="font-size:1.1em"
        @click="showWishList = !showWishList"></em>
-     <span  class="badge bg-danger">{{this.dataAlarm.length}}</span>
+     <span  v-if="this.dataAlarm.length > 0" class="badge bg-danger">{{this.dataAlarm.length}}</span>
     </a>
     <template #overlay>
       <a-menu style="margin-left:-4.5em;">
