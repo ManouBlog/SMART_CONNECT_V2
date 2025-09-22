@@ -1,8 +1,10 @@
 <script>
 import { mapState } from "pinia";
+import FavorisCard from "../../FavorisCard.vue";
 import { useListeFavoris } from "../../../store-pinia/ListeFavoris/useListeFavoris";
 export default {
   name: "ListeFavoris",
+  components:{FavorisCard},
   props: {
     texte: String,
     route_lien: String,
@@ -43,7 +45,11 @@ export default {
             :key="index"
             class="listWhistPerson"
           >
-            <div class="p-2 d-flex align-items-center">
+          <FavorisCard 
+           :favoris="item"
+           @accept="voirDetailTimetable"
+          />
+            <!-- <div class="p-2 d-flex align-items-center">
               <em class="bi bi-person mx-2" style="font-size:1.8em;"></em>
               <h4 class="name">
                 {{ item.nom }} {{ item.prenoms }}
@@ -57,7 +63,7 @@ export default {
               >
                 Voir plus
               </button>
-            </div>
+            </div> -->
           </div>
         </div>
       </a-menu>

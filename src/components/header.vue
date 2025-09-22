@@ -755,7 +755,6 @@ export default {
   text-align: left;
   margin-top: 0.5em;
   padding: 1em 0.4em;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.129);
   border-radius: 10px;
   position: relative;
 }
