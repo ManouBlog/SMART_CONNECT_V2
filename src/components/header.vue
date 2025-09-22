@@ -7,6 +7,7 @@ import LiensNavBar from "./feature/header/LiensNavBar.vue";
 import InfoEntreprise from "./feature/header/Entreprise/InfoEntreprise.vue";
 import InfoStudent from "./feature/header/Student/InfoStudent.vue";
 import ListeFavoris from "./feature/header/ListeFavoris.vue";
+import ListeNotifications from "./feature/header/ListeNotifications.vue";
 import { mapActions } from "pinia";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import MenuMobile from "./MenuMobile.vue";
@@ -22,6 +23,7 @@ export default {
     InfoEntreprise,
     InfoStudent,
     ListeFavoris,
+    ListeNotifications
   },
   data() {
     return {
@@ -279,6 +281,7 @@ export default {
                 </a>
 
                 <ListeFavoris v-if="this.$store.state.user" />
+                <ListeNotifications v-if="this.$store.state.user && this.$store.state.user.user.statut.statut === 'entreprise'" />
                 <div>
                   <InfoEntreprise
                     v-if="

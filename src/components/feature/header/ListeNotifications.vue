@@ -3,7 +3,7 @@ import { mapState } from "pinia";
 import FavorisCard from "../../FavorisCard.vue";
 import { useListeFavoris } from "../../../store-pinia/ListeFavoris/useListeFavoris";
 export default {
-  name: "ListeFavoris",
+  name: "ListeNotifications",
   components:{FavorisCard},
   props: {
     texte: String,
@@ -33,14 +33,13 @@ export default {
 <template>
   <a-dropdown>
     <a class="ant-dropdown-link" @click.prevent>
-      <em class="bi bi-balloon-heart" 
-      style="font-size:1.2em"
+      <em class="bi bi-bell" style="font-size:1.1em"
        @click="showWishList = !showWishList"></em>
-      <!-- <DownOutlined /> -->
+     <span  class="badge bg-danger">2</span>
     </a>
     <template #overlay>
       <a-menu style="margin-left:-4.5em;">
-        <h6 style="color:orange;font-weight:bold;">Mes favoris</h6>
+        <h6 style="color:orange;font-weight:bold;">Notifications</h6>
         <div class="cont px-3">
           <div
             v-for="(item, index) in this.$store.state.whistListPerson"
@@ -53,7 +52,7 @@ export default {
           />
           </div>
           <div  v-if="!this.$store.state.whistListPerson.length">
-            <h6 style="text-align:center;color:gray">Retrouvez en un clic ce que vous aimez le plus.</h6>
+            <h6 style="text-align:center;color:gray">Pas de messages</h6>
           </div>
         </div>
       </a-menu>
