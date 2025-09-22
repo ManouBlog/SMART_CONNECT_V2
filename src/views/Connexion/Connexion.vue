@@ -38,7 +38,7 @@ export default {
 
   },
   async created() {
-    this.texte = await this.handleTranslate("Saisissez votre e-mail");
+    this.texte = await this.handleTranslate("Saisissez vos identifiants");
     // this.texte1 = await this.handleTranslate(
     //   "Nous vous aiderons à créer un compte si vous n'êtes pas encore inscrit"
     // );
