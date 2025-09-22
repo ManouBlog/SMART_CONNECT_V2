@@ -280,7 +280,7 @@ export default {
                   {{ texte5 }}
                 </a>
 
-                <ListeFavoris v-if="this.$store.state.user" />
+                <ListeFavoris v-if="this.$store.state.user && this.$store.state.user.user.statut.statut === 'entreprise'" />
                 <ListeNotifications v-if="this.$store.state.user && this.$store.state.user.user.statut.statut === 'entreprise'" />
                 <div>
                   <InfoEntreprise
