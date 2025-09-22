@@ -6,7 +6,7 @@
             class="user-avatar"
             style="border: 2px solid orange; object-fit: cover"
             round
-            :size="55"
+            :size="40"
             :src="lienPhoto + favoris.photo_profil"
           />
           <span
@@ -14,9 +14,9 @@
             style="
               border: 2px solid orange;
               object-fit: cover;
-              width: 50px;
-              height:50px;
-              line-height:50px;
+              width: 40px;
+              height:40px;
+              line-height:40px;
               text-align:center;
               font-size:1em;
               border-radius: 100%;
@@ -28,8 +28,8 @@
           </span>
       <div class="favoris-info">
         <p class="user-name">{{ favoris.nom }} {{ favoris.prenoms }}</p>
-        <!-- <p class="event-name">vous a invité à {{ favoris.eventName }}</p> -->
-        <!-- <p class="timestamp">{{ formattedTimestamp }}</p> -->
+        <p class="event-name" v-if="favoris.nom_offre && isDetailPostulant">vient de postuler à l'offre:{{favoris.nom_offre}}</p>
+        <p class="timestamp" v-if="favoris.created_at && isDetailPostulant">{{ formattedTimestamp }}</p>
       </div>
     </div>
     <div class="favoris-actions">
@@ -65,19 +65,27 @@ export default {
       type: Object,
       required: false,
     },
+    isDetailPostulant:{
+        type:Boolean,
+        default:false
+    }
   },
   computed: {
     formattedTimestamp() {
-      return new Date(this.favoris.timestamp).toLocaleString('fr-FR', {
+        if(this.favoris.created_at){
+ return new Date(this.favoris.created_at).toLocaleString('fr-FR', {
         weekday: 'long',
         hour: '2-digit',
         minute: '2-digit',
       });
+        }else{
+            return new Date();
+        }
     },
   },
   methods: {
     handleAccept() {
-      this.$emit('accept', this.favoris.id);
+      this.$emit('accept', this.favoris);
     },
     // handleDecline() {
     //   this.$emit('decline', this.favori.id);
@@ -122,7 +130,7 @@ export default {
 }
 
 .event-name {
-  margin: 4px 0;
+  margin: 2px 0;
   color: #666;
 }
 

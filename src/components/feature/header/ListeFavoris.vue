@@ -21,10 +21,11 @@ export default {
   },
   computed: {...mapState(useListeFavoris,["myListOfFavoris"])},
   methods: {
-    voirDetailTimetable(id) {
+    voirDetailTimetable(payload) {
+      console.log("voirDetailTimetable",payload)
       this.$router.push({
         name: "detailStudent",
-        params: { id: id },
+        params: { id: payload.id },
       });
     },
   },
@@ -40,7 +41,7 @@ export default {
     </a>
     <template #overlay>
       <a-menu style="margin-left:-4.5em;">
-        <h6 style="color:orange;font-weight:bold;">Mes favoris</h6>
+        <h6 style="color:orange;font-weight:bold;padding:0 1em;">Mes favoris</h6>
         <div class="cont px-3">
           <div
             v-for="(item, index) in this.$store.state.whistListPerson"

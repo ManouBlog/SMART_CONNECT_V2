@@ -99,23 +99,23 @@ export default {
           this.launchLoading(false);
         });
     },
-    async get_offres_interess_by_student() {
-      try {
-        const response = await instance.get("list_offres_interess_by_students");
-        // console.log(
-         // "get_offres_interess_by_student",
-         // response.data.filter((item) => item.recruit === 0).length
-        //);
-        if (response["status"] === 200) {
-          this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    // async get_offres_interess_by_student() {
+    //   try {
+    //     const response = await instance.get("list_offres_interess_by_students");
+    //     // console.log(
+    //      // "get_offres_interess_by_student",
+    //      // response.data.filter((item) => item.recruit === 0).length
+    //     //);
+    //     if (response["status"] === 200) {
+    //       this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
   },
   async created() {
-    this.get_offres_interess_by_student();
+    // this.get_offres_interess_by_student();
     this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte2 = await this.handleTranslate("Liste des offres");
     this.texte3 = await this.handleTranslate("Créer une offre");
@@ -134,7 +134,7 @@ export default {
         v-if="this.$store.state.user"
         class="bi bi-person-workspace text-primary h3 compte_sup"
       ></em>
-      <span v-if="dataAlarm" class="badge bg-danger">{{ dataAlarm }}</span>
+      <!-- <span v-if="dataAlarm" class="badge bg-danger">{{ dataAlarm }}</span> -->
     </a>
     <template #overlay>
       <a-menu>

@@ -1,5 +1,6 @@
 <script>
 import { mapState } from "pinia";
+import instance from "../../../api/api";
 import FavorisCard from "../../FavorisCard.vue";
 import { useListeFavoris } from "../../../store-pinia/ListeFavoris/useListeFavoris";
 export default {
@@ -17,16 +18,35 @@ export default {
   data() {
     return {
       showWishList: false,
+      dataAlarm:[]
     };
   },
   computed: {...mapState(useListeFavoris,["myListOfFavoris"])},
   methods: {
-    voirDetailTimetable(id) {
+    voirDetailPostulants(nameOffre) {
       this.$router.push({
-        name: "detailStudent",
-        params: { id: id },
+        name: "detailsPostulants",
+        params: { offre: nameOffre?.nom_offre },
       });
     },
+     async get_offres_interess_by_student() {
+      try {
+        const response = await instance.get("list_offres_interess_by_students");
+        // console.log(
+        //  "get_offres_interess_by_student",
+        //  response.data.filter((item) => item.recruit === 1)
+        // );
+        if (response["status"] === 200) {
+          this.dataAlarm = response.data.filter((item) => item.recruit === 1);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+   async created() {
+    this.get_offres_interess_by_student();
+    // console.log("dataAlarmNOTIFICATIONS",this.dataAlarm)
   },
 };
 </script>
@@ -35,23 +55,24 @@ export default {
     <a class="ant-dropdown-link" @click.prevent>
       <em class="bi bi-bell" style="font-size:1.1em"
        @click="showWishList = !showWishList"></em>
-     <span  class="badge bg-danger">2</span>
+     <span  class="badge bg-danger">{{this.dataAlarm.length}}</span>
     </a>
     <template #overlay>
       <a-menu style="margin-left:-4.5em;">
-        <h6 style="color:orange;font-weight:bold;">Notifications</h6>
+        <h6 style="color:orange;font-weight:bold;padding:0 1em;">Notifications</h6>
         <div class="cont px-3">
           <div
-            v-for="(item, index) in this.$store.state.whistListPerson"
+            v-for="(item, index) in this.dataAlarm"
             :key="index"
             class="listWhistPerson"
           >
           <FavorisCard 
            :favoris="item"
-           @accept="voirDetailTimetable"
+           @accept="voirDetailPostulants"
+           :isDetailPostulant="true"
           />
           </div>
-          <div  v-if="!this.$store.state.whistListPerson.length">
+          <div  v-if="!this.dataAlarm.length">
             <h6 style="text-align:center;color:gray">Pas de messages</h6>
           </div>
         </div>

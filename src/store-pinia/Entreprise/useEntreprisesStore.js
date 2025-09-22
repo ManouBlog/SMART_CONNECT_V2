@@ -13,6 +13,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
         offresInteressByStudents:[],
         list_abonnement:[],
         planAbonnement:null,
+        dataAlarm:null,
     }),
     actions: {
        async getEntreprise() {
@@ -53,6 +54,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
              const response = await instance.get("list_offres_interess_by_students")
             //  console.log("response",response.data)
              if(response['status'] === 200){
+              this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
                 // this.offresInteressByStudents = Help.groupBy(response.data)
                 const groupedData = response.data.reduce((acc, curr) => {
                     // Check if there's already an entry for the current `nom_offre`
