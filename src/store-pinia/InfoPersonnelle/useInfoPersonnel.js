@@ -8,12 +8,14 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         toogleModalInfoPersonnelle:false,
         registre:null,
         pieceIdentiteGerant:null,
-        logoEntreprise:""
+        logoEntreprise:"",
+        isCv:null,
     }),
     actions: {
-       changeValueForToogleModalInfoPersonnelle(){
+       changeValueForToogleModalInfoPersonnelle(payload){
         // console.log("this.toogleModalInfoPersonnelle",this.toogleModalInfoPersonnelle)
         this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
+        this.isCv = payload.isCv
        },
        async getInfoUser(){
       await instance

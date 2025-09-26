@@ -88,8 +88,14 @@ isLoading:false,
           this.isLoading = false
         })
     },
-    handleModalInfo() {
-      this.changeValueForToogleModalInfoPersonnelle();
+    handleModalInfo(payload=null) {
+      console.log("handleModalInfo",payload)
+      if(payload){
+   this.changeValueForToogleModalInfoPersonnelle({isCv:true});
+      }else{
+        this.changeValueForToogleModalInfoPersonnelle({isCv:false});
+      }
+      
     },
     modifyPasswordOfEntreprise() {
       let Entreprise = {
@@ -277,6 +283,10 @@ isLoading:false,
           :shapeBtn="'round'"
           @created="handleModalInfo"
         />
+        <button
+        @click="handleModalInfo(1)">
+        Voir Mon CV
+        </button>
       </section>
     </a-card>
     <a-card
@@ -331,6 +341,7 @@ isLoading:false,
             >
               Modifier
             </button>
+            
           </div>
         </div>
       </section>
