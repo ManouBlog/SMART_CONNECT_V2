@@ -29,7 +29,7 @@ export default {
     @ok="changeValueForToogleModalInfoPersonnelle({isCv:false})"
   >
   <CvStudent v-if="isCv" />
-  <div>
+  <div v-else>
  <h5>Modifier ses informations personnelles</h5>
     <InfoForModifyEntreprises />
   </div>
