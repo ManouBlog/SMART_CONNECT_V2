@@ -6,7 +6,12 @@
     </template>
 
     <template #default="{ value }">
-      <div style="display: flex; align-items: center; width: 100%">
+      <div style="
+      display: flex; 
+      align-items: center; 
+      width: 100%;
+      gap:1em;
+      flex-direction:column;">
         <n-input
     pair
     separator="-"
@@ -15,7 +20,11 @@
     @change="handleInputChange"
     @update:value="handleInputInput"
      />
-        <n-input v-model:value="value.string" type="text" />
+     <textarea id="msg" name="msg" maxlength="150" 
+            style="width:100%;border-radius:5px;padding:1em" 
+            placeholder="Détails (max 150 caractères)"
+           v-model="value.string"
+            ></textarea>
       </div>
     </template>
   </n-dynamic-input>
@@ -53,4 +62,14 @@ function onCreate() {
   return { string: "A String" };
 }
 </script>
-```
+<style scoped>
+:deep(.n-button--default-type){
+    color:orange !important;
+}
+:deep(.n-button--default-type:hover){
+ color:orange !important;   
+}
+:deep(.n-input-wrapper:hover){
+    color:orange !important;
+}
+</style>

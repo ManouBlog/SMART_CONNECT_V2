@@ -18,8 +18,8 @@ export default {
       user: "",
       lienPhoto: lienPhoto,
       StoreLoading: useLoadingSpinner(),
-      itemsQualificationDynamicInput: [{ string: "Hello" }],
-      itemsExperienceProfessionnelleDynamicInput: [{ string: "Hello" }],
+      itemsQualificationDynamicInput: [{ string: "" }],
+      itemsExperienceProfessionnelleDynamicInput: [{ string: "" }],
     };
   },
   computed: {
