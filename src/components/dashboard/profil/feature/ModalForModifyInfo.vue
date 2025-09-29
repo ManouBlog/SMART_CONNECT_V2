@@ -3,6 +3,7 @@ import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInf
 import { mapActions, mapState } from "pinia";
 import InfoForModifyEntreprises from "./viewForModifier/InfoForModifyEntreprises.vue";
 import CvStudent from "./CvStudent.vue";
+import { lienPhoto } from "../../../../api/api";
 export default {
   name: "ModalForModifyInfo",
   components: {
@@ -10,7 +11,9 @@ export default {
     CvStudent,
   },
   data() {
-    return {};
+    return {
+      lienPhoto:lienPhoto
+    };
   },
   methods: {
     ...mapActions(useInfoPersonnel, 
@@ -31,8 +34,7 @@ export default {
   >
     <CvStudent
       :nom="this.infoUserConnected.user.nom"
-      titre="Homme de ménage / Agent d’entretien"
-      naissance="23/12/1998"
+      :photo="lienPhoto+this.infoUserConnected.photo_profil"
       :telephone="`+225${this.infoUserConnected.phone}`"
       :email="this.infoUserConnected.user.email"
       nationalite="Ivoirienne"
@@ -43,17 +45,10 @@ export default {
           detail: 'Caissier en pharmacie et super marché',
         },
       ]"
-      :experiences="[{ periode: 'Janvier 2023 - Présent', detail: 'Homme de ménage' }]"
+      :experiences="this.infoUserConnected.experiences"
       :competences="this.infoUserConnected.competences.map(item=>{
         return{comp:item.competence}
       })"
-      :langues="['Français']"
-      :interets="['Sport', 'Musique', 'Voyage']"
-      :atouts="[
-        'Volonté',
-        'Détermination et ponctualité',
-        'Disponibilité et bonne volonté',
-      ]"
       v-if="isCv"
     />
     <div v-else>

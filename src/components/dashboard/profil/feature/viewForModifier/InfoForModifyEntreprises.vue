@@ -2,7 +2,7 @@
 import instance, { lienPhoto } from "../../../../../api/api";
 import VueMultiselect from "vue-multiselect";
 import { mapActions, mapState } from "pinia";
-// import { Help } from "../../../../../utils";
+import { Help } from "../../../../../utils";
 import { useLoadingSpinner } from "../../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 import { useInfoPersonnel } from "../../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
@@ -17,7 +17,7 @@ export default {
       user: "",
       lienPhoto: lienPhoto,
       StoreLoading: useLoadingSpinner(),
-      itemsQualificationDynamicInput: [{ detail: "", periode: [] }],
+      itemsQualificationDynamicInput: [],
       placeholderDynamicInput: ["05-02-2020", "05-03-2025"],
     };
   },
@@ -71,21 +71,25 @@ export default {
     },
     updateInfoStudent(Etudiants) {
       console.log("Etudiants", JSON.stringify(Etudiants, null, 2));
-      console.log("this.itemsQualificationDynamicInput", this.itemsQualificationDynamicInput);
+      console.log(
+        "this.itemsQualificationDynamicInput",
+        this.itemsQualificationDynamicInput
+      );
       //     const competenceWithId = Help.retirerIdIntoArrayCompetence(Etudiants.competences);
       //     console.log("competenceWithId",competenceWithId)
-      // this.update_compte_student({
-      //           nom: Etudiants.nom,
-      //           email: Etudiants.email,
-      //           prenoms:Etudiants.prenoms,
-      //           commune: Etudiants.commune,
-      //           quartier: Etudiants.quartier,
-      //           contact: Etudiants.phone,
-      //           ville: Etudiants.ville,
-      //           bio:Etudiants.bio,
-      //           diplome:Etudiants.diplome,
-      //           competences:Help.retirerIdIntoArrayCompetence(Etudiants.competences)
-      //         })
+      this.update_compte_student({
+        nom: Etudiants.nom,
+        email: Etudiants.email,
+        prenoms: Etudiants.prenoms,
+        commune: Etudiants.commune,
+        quartier: Etudiants.quartier,
+        contact: Etudiants.phone,
+        ville: Etudiants.ville,
+        bio: Etudiants.bio,
+        diplome: Etudiants.diplome,
+        qualifications: this.itemsQualificationDynamicInput,
+        competences: Help.retirerIdIntoArrayCompetence(Etudiants.competences),
+      });
     },
     handleUpdate(user) {
       if (this.user.user.statut.statut === "entreprise") {
@@ -96,7 +100,7 @@ export default {
       this.getInfoUser();
     },
     onCreateQualification() {
-      return { detail: "", periode: [] };
+      return { detail: "", date_debut: new Date(), date_fin: new Date() };
     },
     handleInputInput(valueDate) {
       console.log("valueDate", valueDate);
@@ -268,15 +272,6 @@ export default {
           <input type="file" @input="addAnPieceDoc" id="add_file_piece" class="w-100" />
         </div>
       </div>
-    </div>
-    <div class="row" v-if="this.user && this.user.user.statut.statut === 'etudiant'">
-      <legend>Autres infos personnelles (ceci concerne plus votre cv personnelle)</legend>
-      <!-- <div class="col-md-12">
-        <div class="mb-3">
-          <label class="form-label">Date de naissance</label>
-          <input v-model="user.date_naissance" class="form-control" type="date" />
-        </div>
-      </div> -->
       <div class="col-md-12">
         <div class="my-3">
           <label class="form-label">Qualifications</label>
@@ -297,16 +292,24 @@ export default {
                   flex-direction: column;
                 "
               >
-                <n-input
-                  pair
-                  separator="-"
-                  :placeholder="placeholderDynamicInput"
-                  clearable
-                  @change="handleInputChange"
-                  @update:value="handleInputInput"
-                  v-model:value="value.periode"
-                  status="warning"
-                />
+                <div style="display: flex; width: 100%; gap: 1em">
+                  <n-date-picker
+                    style="width: 100%"
+                    v-model:value="value.date_debut"
+                    size="large"
+                    type="date"
+                    date-format="yyy-mm-dd"
+                  />
+                  <p>À</p>
+                  <n-date-picker
+                    style="width: 100%"
+                    v-model:value="value.date_fin"
+                    size="large"
+                    type="date"
+                    date-format="yyy-mm-dd"
+                  />
+                </div>
+
                 <textarea
                   id="msg"
                   name="msg"
@@ -318,6 +321,7 @@ export default {
               </div>
             </template>
           </n-dynamic-input>
+          {{ itemsQualificationDynamicInput }}
         </div>
       </div>
     </div>

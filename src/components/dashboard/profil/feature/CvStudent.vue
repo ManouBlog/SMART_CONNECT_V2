@@ -8,8 +8,8 @@
         </div>
         <div class="personal-info">
           <h1>{{ nom }}</h1>
-          <h2>{{ titre }}</h2>
-          <p><strong>Date et lieu de naissance :</strong> {{ naissance }}</p>
+          <!-- <h2>{{ titre }}</h2> -->
+          <!-- <p><strong>Date et lieu de naissance :</strong> {{ naissance }}</p> -->
         </div>
       </div>
       <!-- Coordonnées -->
@@ -45,7 +45,7 @@
         </ul>
       </div>
       <!-- Langues, centres d'intérêt et atouts -->
-      <div class="bottom-sections">
+      <!-- <div class="bottom-sections">
         <div class="bottom-section" v-if="langues.length">
           <h3>LANGUES</h3>
           <p v-for="(langue, i) in langues" :key="i">{{ langue }}</p>
@@ -62,7 +62,7 @@
             <li v-for="(atout, i) in atouts" :key="i">{{ atout }}</li>
           </ul>
         </div>
-      </div>
+      </div> -->
       <!-- Barre verticale teal -->
       <div class="teal-sidebar"></div>
     </div>

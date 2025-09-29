@@ -11,15 +11,6 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         logoEntreprise:"",
         isCv:null,
         infoUserConnected:null,
-        otherInfoPersonnelle:{
-          titre_cv:null,
-          date_naissance:null,
-          valueQualification:null,
-          valueExperiencePro:null,
-          langues:null,
-          centre_interet:null,
-          atouts:null
-        }
     }),
     actions: {
        changeValueForToogleModalInfoPersonnelle(payload){
@@ -192,19 +183,19 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         }
 
       },
-      updateOtherInfoPersonnelle(payloadOtherData){
-        console.log('payloadOtherData',payloadOtherData)
-        this.otherInfoPersonnelle.valueQualification = payloadOtherData 
-        // otherInfoPersonnelle:{
-        //   titre_cv:null,
-        //   date_naissance:null,
-        //   valueQualification:null,
-        //   valueExperiencePro:null,
-        //   langues:null,
-        //   centre_interet:null,
-        //   atouts:null
-        // }
-      }
+      // updateOtherInfoPersonnelle(payloadOtherData){
+      //   console.log('payloadOtherData',payloadOtherData)
+      //   this.otherInfoPersonnelle.valueQualification = payloadOtherData 
+      //   // otherInfoPersonnelle:{
+      //   //   titre_cv:null,
+      //   //   date_naissance:null,
+      //   //   valueQualification:null,
+      //   //   valueExperiencePro:null,
+      //   //   langues:null,
+      //   //   centre_interet:null,
+      //   //   atouts:null
+      //   // }
+      // }
 
     },
   })
