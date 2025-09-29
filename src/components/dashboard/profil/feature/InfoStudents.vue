@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      Help:Help,
-      user:"",
+      Help: Help,
+      user: "",
       nom: "",
       prenoms: "",
       lienPhoto: lienPhoto,
@@ -38,7 +38,7 @@ export default {
       registre_commerce: "",
       oldPassword: "",
       photo: {},
-isLoading:false,
+      isLoading: false,
       confirmation_password: "",
       nouveau_password: "",
       msgErr: false,
@@ -56,6 +56,7 @@ isLoading:false,
       "changeValueForToogleModalInfoPersonnelle",
       "verifIfPasswordIsExact",
       "update_compte_student",
+      "addInfoUserConnected",
     ]),
 
     handleFileChange(event) {
@@ -68,34 +69,34 @@ isLoading:false,
         this.getInfoUser(1);
       }
     },
-    async getInfoUser(value=null) {
+    async getInfoUser(value = null) {
       this.isLoading = true;
       await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
-          // console.log("voirInfoUserConnect",resp);
+          console.log("voirInfoUserConnect", resp);
           if (resp.data.status === true) {
             this.user = resp.data.user;
+            this.addInfoUserConnected(resp.data.user)
           }
         })
         .catch((error) => {
           console.log(error);
         })
-        .finally(()=>{
-          if(value){
-            location.reload(true)
+        .finally(() => {
+          if (value) {
+            location.reload(true);
           }
-          this.isLoading = false
-        })
+          this.isLoading = false;
+        });
     },
-    handleModalInfo(payload=null) {
-      console.log("handleModalInfo",payload)
-      if(payload){
-   this.changeValueForToogleModalInfoPersonnelle({isCv:true});
-      }else{
-        this.changeValueForToogleModalInfoPersonnelle({isCv:false});
+    handleModalInfo(payload = null) {
+      console.log("handleModalInfo", payload);
+      if (payload) {
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: true });
+      } else {
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: false });
       }
-      
     },
     modifyPasswordOfEntreprise() {
       let Entreprise = {
@@ -153,10 +154,10 @@ isLoading:false,
 <template>
   <section style="padding: 2em 3em">
     <div v-if="isLoading">
-      <h1 style="text-align:center;">Chargement...</h1>
+      <h1 style="text-align: center">Chargement...</h1>
     </div>
     <a-card
-    v-if="user"
+      v-if="user"
       style="
         width: auto;
         color: var(--third-color) !important;
@@ -190,16 +191,16 @@ isLoading:false,
               border: 3px solid white;
               object-fit: cover;
               width: 120px;
-              height:120px;
-              line-height:120px;
-              text-align:center;
-              font-size:1em;
+              height: 120px;
+              line-height: 120px;
+              text-align: center;
+              font-size: 1em;
               border-radius: 100%;
               background: gray;
             "
             v-else
           >
-           <span style="font-size:2.5em;">{{Help.toADfirstTwo(user.nom)}}</span>
+            <span style="font-size: 2.5em">{{ Help.toADfirstTwo(user.nom) }}</span>
           </p>
         </button>
         <i class="bi bi-camera-fill"></i>
@@ -283,14 +284,11 @@ isLoading:false,
           :shapeBtn="'round'"
           @created="handleModalInfo"
         />
-        <button
-        @click="handleModalInfo(1)">
-        Voir Mon CV
-        </button>
+        <button @click="handleModalInfo(1)">Voir Mon CV</button>
       </section>
     </a-card>
     <a-card
-    v-if="user"
+      v-if="user"
       style="
         width: auto;
         color: var(--third-color) !important;
@@ -341,7 +339,6 @@ isLoading:false,
             >
               Modifier
             </button>
-            
           </div>
         </div>
       </section>

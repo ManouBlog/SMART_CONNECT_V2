@@ -6,10 +6,11 @@ import { Help } from "../../../../../utils";
 import { useLoadingSpinner } from "../../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 import { useInfoPersonnel } from "../../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
+import OtherInfoStudent from "./OtherInfoStudent.vue";
 export default {
   name: "InfoForModifyEntreprises",
   components: {
-    VueMultiselect,
+    VueMultiselect,OtherInfoStudent
   },
   data() {
     return {
@@ -242,6 +243,7 @@ export default {
         </div>
       </div>
     </div>
+    <OtherInfoStudent v-if="this.user && this.user.user.statut.statut === 'etudiant'"/>
     <div class="text-right">
       <button
         class="btn-lg bg-warning"

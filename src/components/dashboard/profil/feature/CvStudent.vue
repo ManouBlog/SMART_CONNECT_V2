@@ -4,131 +4,106 @@
       <!-- En-tête avec photo et infos personnelles -->
       <div class="header">
         <div class="photo-placeholder">
-          <img
-            src="https://via.placeholder.com/150"
-            alt="Photo de profil"
-            class="profile-photo"
-          />
-       'hui
+          <img :src="photo" alt="Photo de profil" class="profile-photo" />
         </div>
         <div class="personal-info">
-          <h1>Jean beauchamp</h1>
-          <h2>Homme de ménage / Agent d’entretien</h2>
-          <p>
-            <strong>Date et lieu de naissance :</strong> 23/12/1998 à TANO
-            AKAKRO
-          </p>
+          <h1>{{ nom }}</h1>
+          <h2>{{ titre }}</h2>
+          <p><strong>Date et lieu de naissance :</strong> {{ naissance }}</p>
         </div>
       </div>
-
       <!-- Coordonnées -->
       <div class="contact-info">
-        <p>📞 +225 07 87 10 22 22</p>
-        <p>✉️ jeanbeauchamp@gmail.com</p>
-        <p>🇨🇮 Ivoirien</p>
+        <p>📞 {{ telephone }}</p>
+        <p>✉️ {{ email }}</p>
+        <p>🇨🇮 {{ nationalite }}</p>
       </div>
-
       <!-- Description -->
-      <div class="section">
+      <div class="section" v-if="description">
         <h3>DESCRIPTION</h3>
-        <p>
-          Agent d’entretien expérimenté, capable de maintenir des environnements
-          propres et sains. Efficace, organisé et respectueux des consignes de
-          sécurité.
+        <p>{{ description }}</p>
+      </div>
+      <!-- Qualifications -->
+      <div class="section" v-if="qualifications.length">
+        <h3>QUALIFICATIONS</h3>
+        <p v-for="(q, i) in qualifications" :key="i">
+          <strong>{{ q.periode }} :</strong> {{ q.detail }}
         </p>
       </div>
-
-      <!-- Qualifications -->
-      <div class="section">
-        <h3>QUALIFICATIONS</h3>
-        <p><strong>Octobre 2021 - Mars 2022 :</strong> Caissier en pharmacie et super marché</p>
-      </div>
-
       <!-- Expériences professionnelles -->
-      <div class="section">
+      <div class="section" v-if="experiences.length">
         <h3>EXPÉRIENCES PROFESSIONNELLES</h3>
-        <p><strong>Janvier 2023 - Présent :</strong> Homme de ménage</p>
+        <p v-for="(exp, i) in experiences" :key="i">
+          <strong>{{ exp.periode }} :</strong> {{ exp.detail }}
+        </p>
       </div>
-
       <!-- Compétences -->
-      <div class="section">
+      <div class="section" v-if="competences.length">
         <h3>COMPÉTENCES</h3>
-        <ul>
-          <li>Maîtrise des techniques de nettoyage et de désinfection</li>
-          <li>Gestion du temps et autonomie dans le travail</li>
-          <li>Connaissance des produits d’entretien et de leur utilisation sécurisée</li>
-          <li>Discrétion et respect de la vie privée des occupants</li>
-          <li>Capacité à réparer les besoins d’entretien et à s’adapter à différents environnements</li>
+        <ul style="padding:0 1.5em;">
+          <li v-for="(c, i) in competences" :key="i">{{ c.comp }}</li>
         </ul>
       </div>
-
       <!-- Langues, centres d'intérêt et atouts -->
       <div class="bottom-sections">
-        <div class="bottom-section">
+        <div class="bottom-section" v-if="langues.length">
           <h3>LANGUES</h3>
-          <p>Français</p>
+          <p v-for="(langue, i) in langues" :key="i">{{ langue }}</p>
         </div>
-        <div class="bottom-section">
-          <h3>Centre d’intérêt</h3>
+        <div class="bottom-section" v-if="interets.length">
+          <h3>Centres d’intérêt</h3>
           <ul>
-            <li>Sport</li>
-            <li>Musique</li>
-            <li>Voyage</li>
+            <li v-for="(interet, i) in interets" :key="i">{{ interet }}</li>
           </ul>
         </div>
-        <div class="bottom-section">
+        <div class="bottom-section" v-if="atouts.length">
           <h3>Atouts</h3>
           <ul>
-            <li>Volonté</li>
-            <li>Détermination et ponctualité</li>
-            <li>Disponibilité et bonne volonté</li>
+            <li v-for="(atout, i) in atouts" :key="i">{{ atout }}</li>
           </ul>
         </div>
       </div>
-
       <!-- Barre verticale teal -->
       <div class="teal-sidebar"></div>
     </div>
-
     <!-- Bouton de téléchargement -->
     <button @click="downloadCV" class="download-button">Télécharger le CV</button>
   </div>
 </template>
-
 <script setup>
-// import { ref } from "vue";
 import html2canvas from "html2canvas";
+import { defineProps } from "vue";
 // import { jsPDF } from "jspdf";
-
+const props = defineProps({
+  nom: { type: String, required: true },
+  titre: { type: String, required: true },
+  naissance: { type: String, required: true },
+  telephone: { type: String, required: true },
+  email: { type: String, required: true },
+  nationalite: { type: String, required: true },
+  photo: { type: String, default: "https://via.placeholder.com/150" },
+  description: { type: String, default: "" },
+  qualifications: { type: Array, default: () => [] },
+  experiences: { type: Array, default: () => [] },
+  competences: { type: Array, default: () => [] },
+  langues: { type: Array, default: () => [] },
+  interets: { type: Array, default: () => [] },
+  atouts: { type: Array, default: () => [] },
+});
 const downloadCV = async () => {
   const cvContent = document.getElementById("cv-content");
   const canvas = await html2canvas(cvContent, {
     scale: 2,
     logging: false,
     useCORS: true,
-    allowTaint: true,
   });
   const imgData = canvas.toDataURL("image/png");
-
-  // Téléchargement en image
   const link = document.createElement("a");
   link.href = imgData;
-  link.download = "CV_Jean_Beauchamp.png";
+  link.download = `CV_${props.nom.replace(/\s+/g, "_")}.png`;
   link.click();
-
-  // Option pour PDF (décommentez si vous préférez un PDF)
-  /*
-  const pdf = new jsPDF({
-    orientation: "portrait",
-    unit: "mm",
-    format: "a4",
-  });
-  pdf.addImage(imgData, "PNG", 0, 0, 210, 297);
-  pdf.save("CV_Jean_Beauchamp.pdf");
-  */
 };
 </script>
-
 <style scoped>
 .cv-container {
   display: flex;

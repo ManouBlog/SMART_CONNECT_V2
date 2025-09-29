@@ -10,6 +10,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         pieceIdentiteGerant:null,
         logoEntreprise:"",
         isCv:null,
+        infoUserConnected:null,
     }),
     actions: {
        changeValueForToogleModalInfoPersonnelle(payload){
@@ -126,6 +127,10 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           .finally(()=>{
             Spinner.launchLoading(false)
           })
+      },
+      addInfoUserConnected(payload){
+        this.infoUserConnected = payload;
+        console.log("addInfoUserConnected",payload)
       },
       addAnRegistreDoc(payload){
         // console.log(payload.target.files[0])
