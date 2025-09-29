@@ -76,8 +76,8 @@ import { defineProps } from "vue";
 // import { jsPDF } from "jspdf";
 const props = defineProps({
   nom: { type: String, required: true },
-  titre: { type: String, required: true },
-  naissance: { type: String, required: true },
+  // titre: { type: String, required: true },
+  // naissance: { type: String, required: true },
   telephone: { type: String, required: true },
   email: { type: String, required: true },
   nationalite: { type: String, required: true },
@@ -86,9 +86,9 @@ const props = defineProps({
   qualifications: { type: Array, default: () => [] },
   experiences: { type: Array, default: () => [] },
   competences: { type: Array, default: () => [] },
-  langues: { type: Array, default: () => [] },
-  interets: { type: Array, default: () => [] },
-  atouts: { type: Array, default: () => [] },
+  // langues: { type: Array, default: () => [] },
+  // interets: { type: Array, default: () => [] },
+  // atouts: { type: Array, default: () => [] },
 });
 const downloadCV = async () => {
   const cvContent = document.getElementById("cv-content");

@@ -48,7 +48,12 @@ export default {
         }
       })
       "
-      :experiences="this.infoUserConnected.experiences"
+      :experiences="this.infoUserConnected.experiences.map(experience=>{
+        return{
+          periode:`${Help.formatDateToMonthYear(experience.dateDebut)} - ${Help.formatDateToMonthYear(experience.dateFin)}`,
+          detail:experience.poste
+        }
+      })"
       :competences="this.infoUserConnected.competences.map(item=>{
         return{comp:item.competence}
       })"

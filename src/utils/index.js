@@ -54,7 +54,7 @@ formatDateToMonthYear(dateInput) {
   const date = new Date(dateInput);
   if (isNaN(date)) return ""; // vérifie si la date est valide
 
-  const options = { year: "numeric", month: "long" };
+   const options = { year: "numeric", month: "long", day: "2-digit" };
   const formatted = date.toLocaleDateString("fr-FR", options);
 
   // Met la première lettre en majuscule
