@@ -7,11 +7,14 @@
 
     <template #default="{ value }">
       <div style="display: flex; align-items: center; width: 100%">
-        <n-checkbox v-model:checked="value.isCheck" style="margin-right: 12px" />
-        <n-input-number
-          v-model:value="value.num"
-          style="margin-right: 12px; width: 160px"
-        />
+        <n-input
+    pair
+    separator="-"
+    :placeholder="placeholder"
+    clearable
+    @change="handleInputChange"
+    @update:value="handleInputInput"
+     />
         <n-input v-model:value="value.string" type="text" />
       </div>
     </template>
@@ -20,12 +23,13 @@
 
 <script setup>
 import { ref,defineProps,defineEmits } from "vue";
+const placeholder = ["De", "A"];
 
 // Props
 const props = defineProps({
   value: {
     type: Array,
-    default: () => [{ isCheck: true, num: 1, string: "A String" }],
+    default: () => [{ string: "A String" }],
   },
   TitleBtnName:{
     type:String,
@@ -38,10 +42,15 @@ defineEmits(["update:value"]);
 
 // Valeur locale pour édition
 const localValue = ref([...props.value]);
-
+function handleInputInput(valueDate){
+    console.log("valueDate",valueDate)
+}
+function handleInputChange(valueDate){
+    console.log("valueDate",valueDate)
+}
 // Fonction de création d’un nouvel élément
 function onCreate() {
-  return { isCheck: false, num: 1, string: "A String" };
+  return { string: "A String" };
 }
 </script>
 ```
