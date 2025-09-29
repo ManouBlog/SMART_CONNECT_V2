@@ -4,6 +4,7 @@ import { mapActions, mapState } from "pinia";
 import InfoForModifyEntreprises from "./viewForModifier/InfoForModifyEntreprises.vue";
 import CvStudent from "./CvStudent.vue";
 import { lienPhoto } from "../../../../api/api";
+import { Help } from "../../../../utils";
 export default {
   name: "ModalForModifyInfo",
   components: {
@@ -12,6 +13,7 @@ export default {
   },
   data() {
     return {
+      Help:Help,
       lienPhoto:lienPhoto
     };
   },
@@ -39,12 +41,13 @@ export default {
       :email="this.infoUserConnected.user.email"
       nationalite="Ivoirienne"
       :description="this.infoUserConnected.bio"
-      :qualifications="[
-        {
-          periode: 'Octobre 2025 - Mars 2022',
-          detail: 'Caissier en pharmacie et super marché',
-        },
-      ]"
+      :qualifications="this.infoUserConnected.qualifications.map(qualifi=>{
+        return{
+          periode:`${Help.formatDateToMonthYear(qualifi.date_debut)} - ${Help.formatDateToMonthYear(qualifi.date_fin)}`,
+          detail:qualifi.detail
+        }
+      })
+      "
       :experiences="this.infoUserConnected.experiences"
       :competences="this.infoUserConnected.competences.map(item=>{
         return{comp:item.competence}

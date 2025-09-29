@@ -293,21 +293,9 @@ export default {
                 "
               >
                 <div style="display: flex; width: 100%; gap: 1em">
-                  <n-date-picker
-                    style="width: 100%"
-                    v-model:value="value.date_debut"
-                    size="large"
-                    type="date"
-                    date-format="yyy-mm-dd"
-                  />
+                  <input style="width: 100%" type="date" v-model="value.date_debut">
                   <p>À</p>
-                  <n-date-picker
-                    style="width: 100%"
-                    v-model:value="value.date_fin"
-                    size="large"
-                    type="date"
-                    date-format="yyy-mm-dd"
-                  />
+                  <input style="width: 100%" type="date" v-model="value.date_fin">
                 </div>
 
                 <textarea
@@ -321,7 +309,6 @@ export default {
               </div>
             </template>
           </n-dynamic-input>
-          {{ itemsQualificationDynamicInput }}
         </div>
       </div>
     </div>

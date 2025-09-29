@@ -49,6 +49,16 @@ calculeTotal(value) {
 toADfirstTwo(str) {
   if (!str || str.length === 0) return '';
   return str.slice(0, 2).toUpperCase();
+},
+formatDateToMonthYear(dateInput) {
+  const date = new Date(dateInput);
+  if (isNaN(date)) return ""; // vérifie si la date est valide
+
+  const options = { year: "numeric", month: "long" };
+  const formatted = date.toLocaleDateString("fr-FR", options);
+
+  // Met la première lettre en majuscule
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 }
 
   };

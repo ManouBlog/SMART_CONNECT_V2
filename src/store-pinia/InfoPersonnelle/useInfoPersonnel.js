@@ -88,6 +88,9 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         payload?.competences?.forEach(element => {
            data.append("competences[]",element);
         });
+        payload?.qualifications?.forEach(element => {
+           data.append("qualifications[]",JSON.stringify(element));
+        });
         data.append("nom", payload?.nom);
         data.append("prenoms", payload?.prenoms);
         data.append("email", payload?.email);
