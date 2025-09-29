@@ -1,26 +1,29 @@
 <script>
-import instance,{ lienPhoto } from "../../../../../api/api";
+import instance, { lienPhoto } from "../../../../../api/api";
 import VueMultiselect from "vue-multiselect";
 import { mapActions, mapState } from "pinia";
-import { Help } from "../../../../../utils";
+// import { Help } from "../../../../../utils";
 import { useLoadingSpinner } from "../../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 import { useInfoPersonnel } from "../../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
-import OtherInfoStudent from "./OtherInfoStudent.vue";
+
 export default {
   name: "InfoForModifyEntreprises",
   components: {
-    VueMultiselect,OtherInfoStudent
+    VueMultiselect,
   },
   data() {
     return {
       user: "",
       lienPhoto: lienPhoto,
-      StoreLoading:useLoadingSpinner()
+      StoreLoading: useLoadingSpinner(),
+      itemsQualificationDynamicInput: [{ detail: "", periode: [] }],
+      placeholderDynamicInput: ["05-02-2020", "05-03-2025"],
     };
   },
   computed: {
     ...mapState(useRegisterStore, ["allCompetences"]),
+    ...mapState(useInfoPersonnel, ["otherInfoPersonnelle"]),
   },
   methods: {
     ...mapActions(useRegisterStore, {
@@ -32,69 +35,80 @@ export default {
       "update_compte_student",
       "addAnRegistreDoc",
       "addAnPieceDoc",
-      "addAnLogo"
+      "addAnLogo",
     ]),
-    async getInfoUser(){
+    async getInfoUser() {
       this.StoreLoading.launchLoading(true);
       await instance
-          .get("voirInfoUserConnect")
-          .then((resp) => {
-            // console.log("voirInfoUserConnect",resp);
-            if (resp.data.status === true) {
-             this.user = resp.data.user
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-          .finally(()=>{
-            this.StoreLoading.launchLoading(false);
-          })
+        .get("voirInfoUserConnect")
+        .then((resp) => {
+          // console.log("voirInfoUserConnect",resp);
+          if (resp.data.status === true) {
+            this.user = resp.data.user;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.StoreLoading.launchLoading(false);
+        });
     },
 
-    updateInfoEntreprise(company){
-  this.update_compte_entreprise({
-            nom: company.nom,
-            email: company.email,
-            gerant: company.gerant,
-            numero_gerant: company.numero_gerant,
-            commune: company.commune,
-            forme_juridique: company.forme_juridique,
-            quartier: company.quartier,
-            contact: company.contact,
-            ville: company.ville,
-            matricule_cc: company.matricule_cc,
-          })
+    updateInfoEntreprise(company) {
+      this.update_compte_entreprise({
+        nom: company.nom,
+        email: company.email,
+        gerant: company.gerant,
+        numero_gerant: company.numero_gerant,
+        commune: company.commune,
+        forme_juridique: company.forme_juridique,
+        quartier: company.quartier,
+        contact: company.contact,
+        ville: company.ville,
+        matricule_cc: company.matricule_cc,
+      });
     },
-    updateInfoStudent(Etudiants){
-      console.log("Etudiants",JSON.stringify(Etudiants,null,2))
-      const competenceWithId = Help.retirerIdIntoArrayCompetence(Etudiants.competences);
-      console.log("competenceWithId",competenceWithId)
-  this.update_compte_student({
-            nom: Etudiants.nom,
-            email: Etudiants.email,
-            prenoms:Etudiants.prenoms,
-            commune: Etudiants.commune,
-            quartier: Etudiants.quartier,
-            contact: Etudiants.phone,
-            ville: Etudiants.ville,
-            bio:Etudiants.bio,
-            diplome:Etudiants.diplome,
-            competences:Help.retirerIdIntoArrayCompetence(Etudiants.competences)
-          })
+    updateInfoStudent(Etudiants) {
+      console.log("Etudiants", JSON.stringify(Etudiants, null, 2));
+      console.log("this.itemsQualificationDynamicInput", this.itemsQualificationDynamicInput);
+      //     const competenceWithId = Help.retirerIdIntoArrayCompetence(Etudiants.competences);
+      //     console.log("competenceWithId",competenceWithId)
+      // this.update_compte_student({
+      //           nom: Etudiants.nom,
+      //           email: Etudiants.email,
+      //           prenoms:Etudiants.prenoms,
+      //           commune: Etudiants.commune,
+      //           quartier: Etudiants.quartier,
+      //           contact: Etudiants.phone,
+      //           ville: Etudiants.ville,
+      //           bio:Etudiants.bio,
+      //           diplome:Etudiants.diplome,
+      //           competences:Help.retirerIdIntoArrayCompetence(Etudiants.competences)
+      //         })
     },
-    handleUpdate(user){
-      if(this.user.user.statut.statut === "entreprise"){
-    this.updateInfoEntreprise(user)
-      }else{
-        this.updateInfoStudent(user)
+    handleUpdate(user) {
+      if (this.user.user.statut.statut === "entreprise") {
+        this.updateInfoEntreprise(user);
+      } else {
+        this.updateInfoStudent(user);
       }
-      this.getInfoUser()
-    }
+      this.getInfoUser();
+    },
+    onCreateQualification() {
+      return { detail: "", periode: [] };
+    },
+    handleInputInput(valueDate) {
+      console.log("valueDate", valueDate);
+      // console.log("itemsQualificationDynamicInput",this.itemsQualificationDynamicInput)
+    },
+    handleInputChange(valueDate) {
+      console.log("valueDate", valueDate);
+    },
   },
   created() {
     this.getCompetences();
-    this.getInfoUser()
+    this.getInfoUser();
   },
 };
 </script>
@@ -103,7 +117,13 @@ export default {
     <div class="row">
       <legend>
         Info personnelle
-        {{ this.user && (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") ? "sur l'entreprise" : null }}
+        {{
+          this.user &&
+          (this.user.user.statut.statut === "entreprise" ||
+            this.user.user.statut.statut === "particulier")
+            ? "sur l'entreprise"
+            : null
+        }}
       </legend>
       <div class="col-md-12">
         <div class="mb-3">
@@ -111,7 +131,10 @@ export default {
           <input v-model="user.nom" class="form-control" type="text" />
         </div>
       </div>
-      <div class="col-md-12" v-if="this.user && this.user.user.statut.statut === 'etudiant'">
+      <div
+        class="col-md-12"
+        v-if="this.user && this.user.user.statut.statut === 'etudiant'"
+      >
         <div class="mb-3">
           <label class="form-label">Prénoms</label>
           <input v-model="user.prenoms" class="form-control" type="text" />
@@ -167,20 +190,23 @@ export default {
           </div>
         </div>
         <div class="col-md-12">
-        <div class="mb-3">
-          <label class="form-label">Dernier diplome</label>
-          <input v-model="user.diplome" class="form-control" type="text" />
+          <div class="mb-3">
+            <label class="form-label">Dernier diplome</label>
+            <input v-model="user.diplome" class="form-control" type="text" />
+          </div>
         </div>
-      </div>
       </section>
       <section v-if="this.user && this.user.user.statut.statut === 'etudiant'">
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Bio (max 150 caractères)</label>
-            <textarea id="msg" name="msg" maxlength="150" 
-            style="width:100%;border-radius:5px;height:100px;" 
-            placeholder="Présentez-vous en quelques lignes..."
-            v-model="user.bio"
+            <textarea
+              id="msg"
+              name="msg"
+              maxlength="150"
+              style="width: 100%; border-radius: 5px; height: 100px"
+              placeholder="Présentez-vous en quelques lignes..."
+              v-model="user.bio"
             ></textarea>
           </div>
         </div>
@@ -206,12 +232,7 @@ export default {
         <div class="col-md-12">
           <div class="my-3">
             <label for="add_file_logo">Logo</label>
-            <input
-              type="file"
-              @input="addAnLogo"
-              id="add_file_logo"
-              class="w-100"
-            />
+            <input type="file" @input="addAnLogo" id="add_file_logo" class="w-100" />
           </div>
         </div>
         <div class="col-md-12">
@@ -238,12 +259,68 @@ export default {
       <div class="col-md-12">
         <div class="my-3">
           <label for="add_file">
-            {{ this.user && this.user.user.statut.statut === 'etudiant' ? 'Nouvelle carte étudiante': 'Nouvelle pièce d\'identité' }}</label>
+            {{
+              this.user && this.user.user.statut.statut === "etudiant"
+                ? "Nouvelle carte étudiante"
+                : "Nouvelle pièce d'identité"
+            }}</label
+          >
           <input type="file" @input="addAnPieceDoc" id="add_file_piece" class="w-100" />
         </div>
       </div>
     </div>
-    <OtherInfoStudent v-if="this.user && this.user.user.statut.statut === 'etudiant'"/>
+    <div class="row" v-if="this.user && this.user.user.statut.statut === 'etudiant'">
+      <legend>Autres infos personnelles (ceci concerne plus votre cv personnelle)</legend>
+      <!-- <div class="col-md-12">
+        <div class="mb-3">
+          <label class="form-label">Date de naissance</label>
+          <input v-model="user.date_naissance" class="form-control" type="date" />
+        </div>
+      </div> -->
+      <div class="col-md-12">
+        <div class="my-3">
+          <label class="form-label">Qualifications</label>
+          <n-dynamic-input
+            v-model:value="itemsQualificationDynamicInput"
+            :on-create="onCreateQualification"
+          >
+            <template #create-button-default>
+              <slot name="create-button">Ajouter des qualifications</slot>
+            </template>
+            <template #default="{ value }">
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  width: 100%;
+                  gap: 1em;
+                  flex-direction: column;
+                "
+              >
+                <n-input
+                  pair
+                  separator="-"
+                  :placeholder="placeholderDynamicInput"
+                  clearable
+                  @change="handleInputChange"
+                  @update:value="handleInputInput"
+                  v-model:value="value.periode"
+                  status="warning"
+                />
+                <textarea
+                  id="msg"
+                  name="msg"
+                  maxlength="150"
+                  style="width: 100%; border-radius: 5px; padding: 1em"
+                  placeholder="Détails (max 150 caractères)"
+                  v-model="value.detail"
+                ></textarea>
+              </div>
+            </template>
+          </n-dynamic-input>
+        </div>
+      </div>
+    </div>
     <div class="text-right">
       <button
         class="btn-lg bg-warning"
@@ -255,3 +332,8 @@ export default {
     </div>
   </div>
 </template>
+<style scoped>
+:deep(.n-input__input-el:hover) {
+  color: orange !important;
+}
+</style>
