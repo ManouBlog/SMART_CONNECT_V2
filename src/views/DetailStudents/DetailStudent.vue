@@ -224,34 +224,33 @@ export default {
       return result;
     },
     getDatesBetween(data) {
-    const dates = [];
+      const dates = [];
 
-     for (const item of data) {
+      for (const item of data) {
         if (item.periode) {
           // Séparer les dates pour les éléments avec plage
           const [startDate, endDate] = item.jour.split(" A ");
           let currentDate = new Date(startDate);
           const end = new Date(endDate);
 
-    // Incrémente jour par jour
-    while (currentDate <= end) {
-        dates.push({
-          ...item,
-          jour:new Date(currentDate).toISOString().split('T')[0],
-           periode: 1,
-            periode_debut: startDate,
-            periode_fin: endDate,
-        }); // Format YYYY-MM-DD
-        currentDate.setDate(currentDate.getDate() + 1);
-    }
-      
+          // Incrémente jour par jour
+          while (currentDate <= end) {
+            dates.push({
+              ...item,
+              jour: new Date(currentDate).toISOString().split("T")[0],
+              periode: 1,
+              periode_debut: startDate,
+              periode_fin: endDate,
+            }); // Format YYYY-MM-DD
+            currentDate.setDate(currentDate.getDate() + 1);
+          }
         } else {
           dates.push({ ...item });
         }
       }
-    
-    return dates;
-},
+
+      return dates;
+    },
     splitDateRangeObjects(data) {
       const result = [];
 
@@ -284,7 +283,7 @@ export default {
           result.push({ ...item });
         }
       }
-       // console.log("RESULTA",result)
+      // console.log("RESULTA",result)
       return result;
     },
     ifPeriodeDate(periode) {
@@ -323,9 +322,9 @@ export default {
           );
           // console.log("this.timetable_for_student", this.timetable_for_student);
           this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
-          this.schedule = this.getDatesBetween(this.timetable_for_student.jours)
+          this.schedule = this.getDatesBetween(this.timetable_for_student.jours);
           // console.log("this.schedule",this.schedule)
-        
+
           this.schedule.forEach((item) => {
             // console.log("DATE_this_schedule", this.MyDateRendezVous);
             this.MyDateRendezVous.forEach((date) => {
@@ -349,7 +348,6 @@ export default {
               item.job = 3;
             }
           });
-      
 
           // console.log("EMPLOI DU TEMPS", this.timetable_for_student);
 
@@ -357,12 +355,12 @@ export default {
           // console.log("DateRendez-vous", this.MyDateRendezVous);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         })
-        .finally(()=>{
+        .finally(() => {
           loadingSpinner.launchLoading(false);
           this.isLoading = false;
-        })
+        });
     },
     onPageChange(page) {
       this.currentPage = page;
@@ -613,12 +611,11 @@ export default {
           // console.log("EMPLOI DU TEMPS", this.list_emploi);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         })
-        .finally(()=>{
-         loadingSpinner.launchLoading(false);
-        })
-      
+        .finally(() => {
+          loadingSpinner.launchLoading(false);
+        });
     },
     closeDetailTimetable() {
       this.details_timetable = !this.details_timetable;
@@ -664,7 +661,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           Swal.fire({
             icon: "info",
             title: err.response.data.message,
@@ -705,7 +702,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           Swal.fire({
             icon: "info",
             title: "Vérifier votre connexion ou les informations que vous envoyer",
@@ -726,7 +723,7 @@ export default {
         })
         .catch((error) => {
           // console.log("error3", error);
-          console.log(error)
+          console.log(error);
         });
       loadingSpinner.launchLoading(false);
     },
@@ -738,7 +735,7 @@ export default {
           this.competencesPredefini = res.data.data;
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     verfEnter() {
@@ -819,7 +816,7 @@ export default {
 </script>
 
 <template>
-  <div style="margin: 9.5em 0;">
+  <div style="margin: 9.5em 0">
     <div class="conteneur_student" v-if="timetable_for_student">
       <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
 
@@ -925,7 +922,7 @@ export default {
       </section>
     </div>
     <div class="conteneur_student py-5" v-else>
-     <h3>Chargement...</h3>
+      <h3>Chargement...</h3>
     </div>
   </div>
 </template>

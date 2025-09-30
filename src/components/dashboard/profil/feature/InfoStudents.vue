@@ -77,7 +77,7 @@ export default {
           console.log("voirInfoUserConnect", resp);
           if (resp.data.status === true) {
             this.user = resp.data.user;
-            this.addInfoUserConnected(resp.data.user)
+            this.addInfoUserConnected(resp.data.user);
           }
         })
         .catch((error) => {
@@ -164,11 +164,23 @@ export default {
         background: var(--secondary-color) !important;
       "
     >
-    <div style="display:flex;justify-content:space-between">
-     <h1 class="fw-bold my-3">Informations personnelles</h1>
-      <button style="height:auto;width:auto;background:orange;color:white;font-weight:bold;border-radius:10%" @click="handleModalInfo(1)">Voir Mon CV</button>
-    </div>
-      
+      <div style="display: flex; justify-content: space-between">
+        <h1 class="fw-bold my-3">Informations personnelles</h1>
+        <button
+          style="
+            height: auto;
+            width: auto;
+            background: orange;
+            color: white;
+            font-weight: bold;
+            border-radius: 10%;
+          "
+          @click="handleModalInfo(1)"
+        >
+          Voir Mon CV
+        </button>
+      </div>
+
       <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
         >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
       >
@@ -288,7 +300,6 @@ export default {
           :shapeBtn="'round'"
           @created="handleModalInfo"
         />
-        
       </section>
     </a-card>
     <a-card
