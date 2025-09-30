@@ -34,7 +34,7 @@
     <CountdownTimer targetDate="2025-10-01T00:00:00" />
     <div class="auth-container">
       <EmailInput />
-      <AuthButton>S'inscrire</AuthButton>
+      <AuthButton>m’informer</AuthButton>
     </div>
 
     <footer>
@@ -132,7 +132,7 @@ const setActiveToggle = (index) => {
 
 .coming-soon {
   color: white;
-  font-size: 5.5em;
+  font-size: 8.5em;
   font-weight: bold;
   margin:0;
   padding:0;
