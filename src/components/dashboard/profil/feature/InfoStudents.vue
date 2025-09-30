@@ -164,7 +164,11 @@ export default {
         background: var(--secondary-color) !important;
       "
     >
-      <h1 class="fw-bold my-3">Informations personnelles</h1>
+    <div style="display:flex;justify-content:space-between">
+     <h1 class="fw-bold my-3">Informations personnelles</h1>
+      <button style="height:auto;width:auto;background:orange;color:white;font-weight:bold;border-radius:10%" @click="handleModalInfo(1)">Voir Mon CV</button>
+    </div>
+      
       <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
         >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
       >
@@ -284,7 +288,7 @@ export default {
           :shapeBtn="'round'"
           @created="handleModalInfo"
         />
-        <button @click="handleModalInfo(1)">Voir Mon CV</button>
+        
       </section>
     </a-card>
     <a-card
