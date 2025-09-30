@@ -32,12 +32,12 @@
       <p class="subtitle">autour d'opportunités réelles.</p>
     </header>
     <CountdownTimer targetDate="2025-10-01T00:00:00" />
-    <div class="auth-container" v-if="!spinnerAlert">
-      <EmailInput />
-      <AuthButton>m’informer</AuthButton>
+    <div class="auth-container" v-if="spinnerAlert">
+      
+      <EmailInput @notify="SendMailBienvenueNewsletter" />
     </div>
-    <p>Email stocké</p>
-
+    <p v-else style="color:white;">Email stocké</p>
+<p v-if="isloading" style="color:white;">Chargement...</p>
     <footer>
       <h2 class="coming-soon">Coming Soon</h2>
     </footer>
@@ -54,7 +54,7 @@
           object-fit: cover;
         "
         src="../assets/img_accueil.png"
-        alt=""
+        alt="image"
       />
     </div>
   </div>
@@ -63,24 +63,25 @@
 <script setup>
 import { ref } from "vue";
 import Swal from "sweetalert2";
-import instance from "../../api/api";
+import instance from "../api/api";
 import CountdownTimer from "../components/countDown/CountdownTimer.vue";
-import AuthButton from "../components/countDown/AuthButton.vue";
 import ToggleSwitch from "../components/countDown/ToggleSwitch.vue";
 import EmailInput from "../components/countDown/EmailInput.vue";
 
 const toggleItems = ["Étudiants", "Entreprises", "Particuliers"];
 const activeToggle = ref(1);
 const spinnerAlert = ref(true);
+const isloading = ref(false)
 
 const setActiveToggle = (index) => {
   activeToggle.value = index;
 };
 
-const SendMailBienvenueNewsletter = async () => {
+const SendMailBienvenueNewsletter = async (value) => {
+  isloading.value = true;
   await instance
     .post("SendMailAtEmailToNewsletter", {
-      email: this.emailForNewsletter,
+      email: value,
     })
     .then((res) => {
       // console.log(res);
@@ -98,7 +99,6 @@ const SendMailBienvenueNewsletter = async () => {
           title: res.data.message,
           showConfirmButton: true,
         });
-        spinnerAlert.value = false;
       }
     })
     .catch((error) => {
@@ -109,7 +109,10 @@ const SendMailBienvenueNewsletter = async () => {
         showConfirmButton: true,
       });
       spinnerAlert.value = false;
-    });
+    })
+    .finally(()=>{
+      isloading.value = false;
+    })
 };
 </script>
 
