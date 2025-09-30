@@ -1,12 +1,12 @@
 <template>
   <div class="countdown">
-    <span class="countdown-item">{{ days }}</span>
+    <span class="countdown-item">{{ days }} Jours</span>
     <span class="countdown-separator">:</span>
-    <span class="countdown-item">{{ hours }}</span>
+    <span class="countdown-item">{{ hours }} Heures</span>
     <span class="countdown-separator">:</span>
-    <span class="countdown-item">{{ minutes }}</span>
+    <span class="countdown-item">{{ minutes }} Minutes</span>
     <span class="countdown-separator">:</span>
-    <span class="countdown-item">{{ seconds }}</span>
+    <span class="countdown-item">{{ seconds }} Secondes</span>
   </div>
 </template>
 
@@ -66,10 +66,11 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   color: white;
   font-family: 'Poppins', sans-serif;
+  flex-wrap: wrap;
 }
 
 .countdown-item {

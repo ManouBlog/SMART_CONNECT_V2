@@ -3,21 +3,27 @@
     <header class="header">
       <div style="display: flex; justify-content: center">
         <img
-          style="width: 150px; height: 100px; margin: 0 !important;"
+          style="width: 150px; height: 100px; margin: 0 !important"
           src="../assets/logo_white.png"
           alt="Mon Brobroli Logo"
           class="logo"
         />
       </div>
       <h1 class="title">La nouvelle façon de connecter</h1>
-      
+
       <div class="toggle-container">
         <ToggleSwitch
           v-for="(item, index) in toggleItems"
           :key="index"
           :isActive="activeToggle === index"
           :isBoule="item === 'Entreprises' || item === 'Particuliers'"
-          :colorBoule="item === 'Entreprises' ? 'bg-danger':item === 'Particuliers'? 'bg-success':null"
+          :colorBoule="
+            item === 'Entreprises'
+              ? 'bg-danger'
+              : item === 'Particuliers'
+              ? 'bg-success'
+              : null
+          "
           @toggle="setActiveToggle(index)"
         >
           {{ item }}
@@ -34,6 +40,25 @@
     <footer>
       <h2 class="coming-soon">Coming Soon</h2>
     </footer>
+    <div
+        style="
+          width: 90%;
+          height: 300px;
+          position:relative;
+        "
+      >
+        <img style="
+        top:-10px;
+        left:0;
+        right:0;
+        bottom:0;
+        position:absolute;
+        width:100%;
+        height:100%;
+        object-fit:cover"
+        src="../assets/img_accueil.png"
+        alt="">
+      </div>
   </div>
 </template>
 
@@ -93,8 +118,12 @@ const setActiveToggle = (index) => {
 
 .auth-container {
   display: flex;
+  padding:1em;
+  justify-content:center;
+  width:100%;
   gap: 10px;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .footer {
@@ -103,8 +132,10 @@ const setActiveToggle = (index) => {
 
 .coming-soon {
   color: white;
-  font-size: 15vh;
+  font-size: 5.5em;
   font-weight: bold;
+  margin:0;
+  padding:0;
   font-family: "Poppins", sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.703);
 }

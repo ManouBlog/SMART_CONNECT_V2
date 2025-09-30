@@ -15,11 +15,11 @@ const email = ref('');
 
 <style scoped>
 .email-input {
-  padding: 12px 20px;
+  padding: 1em;
   border-radius: 25px;
   border: 1px solid #ccc;
-  font-size: 1rem;
-  width: 300px;
+  font-size: 1.5em;
+  min-width: 400px;
   outline: none;
   font-family: 'Poppins', sans-serif;
 }
