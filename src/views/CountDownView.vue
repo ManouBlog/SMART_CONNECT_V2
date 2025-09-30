@@ -32,38 +32,38 @@
       <p class="subtitle">autour d'opportunités réelles.</p>
     </header>
     <CountdownTimer targetDate="2025-10-01T00:00:00" />
-    <div class="auth-container">
+    <div class="auth-container" v-if="!spinnerAlert">
       <EmailInput />
       <AuthButton>m’informer</AuthButton>
     </div>
+    <p>Email stocké</p>
 
     <footer>
       <h2 class="coming-soon">Coming Soon</h2>
     </footer>
-    <div
+    <div style="width: 90%; height: 300px; position: relative">
+      <img
         style="
-          width: 90%;
-          height: 300px;
-          position:relative;
+          top: -10px;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         "
-      >
-        <img style="
-        top:-10px;
-        left:0;
-        right:0;
-        bottom:0;
-        position:absolute;
-        width:100%;
-        height:100%;
-        object-fit:cover"
         src="../assets/img_accueil.png"
-        alt="">
-      </div>
+        alt=""
+      />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import Swal from "sweetalert2";
+import instance from "../../api/api";
 import CountdownTimer from "../components/countDown/CountdownTimer.vue";
 import AuthButton from "../components/countDown/AuthButton.vue";
 import ToggleSwitch from "../components/countDown/ToggleSwitch.vue";
@@ -71,9 +71,45 @@ import EmailInput from "../components/countDown/EmailInput.vue";
 
 const toggleItems = ["Étudiants", "Entreprises", "Particuliers"];
 const activeToggle = ref(1);
+const spinnerAlert = ref(true);
 
 const setActiveToggle = (index) => {
   activeToggle.value = index;
+};
+
+const SendMailBienvenueNewsletter = async () => {
+  await instance
+    .post("SendMailAtEmailToNewsletter", {
+      email: this.emailForNewsletter,
+    })
+    .then((res) => {
+      // console.log(res);
+      if (res.data.status) {
+        Swal.fire({
+          icon: "success",
+          title: res.data.message,
+          showConfirmButton: true,
+        });
+        spinnerAlert.value = true;
+      }
+      if (!res.data.status) {
+        Swal.fire({
+          icon: "error",
+          title: res.data.message,
+          showConfirmButton: true,
+        });
+        spinnerAlert.value = false;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      Swal.fire({
+        icon: "info",
+        title: error.response.data.message,
+        showConfirmButton: true,
+      });
+      spinnerAlert.value = false;
+    });
 };
 </script>
 
@@ -118,9 +154,9 @@ const setActiveToggle = (index) => {
 
 .auth-container {
   display: flex;
-  padding:1em;
-  justify-content:center;
-  width:100%;
+  padding: 1em;
+  justify-content: center;
+  width: 100%;
   gap: 10px;
   margin-top: 20px;
   flex-wrap: wrap;
@@ -134,8 +170,8 @@ const setActiveToggle = (index) => {
   color: white;
   font-size: 8.5em;
   font-weight: bold;
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   font-family: "Poppins", sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.703);
 }
