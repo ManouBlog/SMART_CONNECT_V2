@@ -84,6 +84,15 @@ const routes = [
         },
       },
       {
+        path: "/newsletter-email",
+        name: "newsletter",
+        component: () => import("../views/admin/NewsLetter.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "/list_des_entreprises",
         name: "entreprises",
         component: () => import("../views/admin/ListeEntrepriseView.vue"),

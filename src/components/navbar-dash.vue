@@ -12,10 +12,10 @@ export default {
       statut: this.$store.state.user.statut.statut,
     };
   },
-  methods:{
-   get_users() {
+  methods: {
+    get_users() {
       this.$store.dispatch("get_users");
-    
+
       // setTimeout(function () {
       //   $("#MyTableData_entreprise","#MyTableData_entreprise2").DataTable({
       //     pagingType: "full_numbers",
@@ -51,10 +51,10 @@ export default {
       // }, 10);
     },
   },
-  created(){
-    this.get_users()
-    console.log('badgeEntreprise',this.$store.state.nbreBadgeEntreprise)
-  }
+  created() {
+    this.get_users();
+    console.log("badgeEntreprise", this.$store.state.nbreBadgeEntreprise);
+  },
 };
 </script>
 <template>
@@ -173,7 +173,10 @@ export default {
             <i class="bi bi-building" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'entreprises' }">
               <strong>Entreprises</strong>
-              <BadgeCompVue v-if="this.$store.state.nbreBadgeEntreprise > 0" :nbreTotal="this.$store.state.nbreBadgeEntreprise" />
+              <BadgeCompVue
+                v-if="this.$store.state.nbreBadgeEntreprise > 0"
+                :nbreTotal="this.$store.state.nbreBadgeEntreprise"
+              />
             </router-link>
           </li>
           <!-- <li
@@ -192,6 +195,15 @@ export default {
             <i class="bi bi-person" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'students' }">
               <strong>Etudiants</strong></router-link
+            >
+          </li>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-person" style="margin-left: -1.2em"></i>
+            <router-link :to="{ name: 'newsletter' }">
+              <strong>Newsletter</strong></router-link
             >
           </li>
           <li
