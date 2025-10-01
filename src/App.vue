@@ -1,16 +1,16 @@
 <template>
-  <router-view />
-   <!-- <CountDownView /> -->
+  <!-- <router-view /> -->
+   <CountDownView />
 </template>
 
 <script>
 import axios from "axios";
-// import CountDownView from "./views/CountDownView.vue";
+import CountDownView from "./views/CountDownView.vue";
 export default {
   name: "AppView",
-  // components:{
-  //  CountDownView
-  // },
+  components:{
+   CountDownView
+  },
   data() {
     return {};
   },

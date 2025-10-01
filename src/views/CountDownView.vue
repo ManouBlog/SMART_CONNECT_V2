@@ -41,10 +41,10 @@
     <footer>
       <h2 class="coming-soon">Coming Soon</h2>
     </footer>
-    <div style="width: 90%; height: 300px; position: relative">
+    <div style="width: 90%;height: 400px; position: relative">
       <img
         style="
-          top: -10px;
+          top:-90px;
           left: 0;
           right: 0;
           bottom: 0;
