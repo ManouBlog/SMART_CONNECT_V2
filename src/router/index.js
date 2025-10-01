@@ -93,6 +93,15 @@ const routes = [
         },
       },
       {
+        path: "/date-lancement",
+        name: "date_lancement",
+        component: () => import("../views/admin/DateLancement.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "/list_des_entreprises",
         name: "entreprises",
         component: () => import("../views/admin/ListeEntrepriseView.vue"),
