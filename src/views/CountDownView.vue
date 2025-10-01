@@ -31,7 +31,8 @@
       </div>
       <p class="subtitle">autour d'opportunités réelles.</p>
     </header>
-    <CountdownTimer targetDate="2025-10-01T00:00:00" />
+    <CountdownTimer 
+    :targetDate="targetDate" />
     <div class="auth-container" v-if="spinnerAlert">
       
       <EmailInput @notify="SendMailBienvenueNewsletter" />
@@ -61,7 +62,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref,defineProps } from "vue";
 import Swal from "sweetalert2";
 import instance from "../api/api";
 import CountdownTimer from "../components/countDown/CountdownTimer.vue";
@@ -72,6 +73,13 @@ const toggleItems = ["Étudiants", "Entreprises", "Particuliers"];
 const activeToggle = ref(1);
 const spinnerAlert = ref(true);
 const isloading = ref(false)
+
+defineProps({
+  targetDate: {
+    type: String,
+    required: true,
+  },
+});
 
 const setActiveToggle = (index) => {
   activeToggle.value = index;
