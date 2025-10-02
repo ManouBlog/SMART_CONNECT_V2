@@ -67,14 +67,17 @@
       <div class="teal-sidebar"></div>
     </div>
     <!-- Bouton de téléchargement -->
-    <button @click="downloadCV" class="download-button">Télécharger le CV</button>
+    <button @click="downloadCV" 
+    v-if="isbtnPdf"
+    class="download-button">Télécharger le CV</button>
   </div>
 </template>
 <script setup>
 import html2canvas from "html2canvas";
 import { defineProps } from "vue";
-// import { jsPDF } from "jspdf";
+import { jsPDF } from "jspdf";
 const props = defineProps({
+  isbtnPdf:{type:Boolean,required:false,default:false},
   nom: { type: String, required: true },
   // titre: { type: String, required: true },
   // naissance: { type: String, required: true },
@@ -91,18 +94,45 @@ const props = defineProps({
   // atouts: { type: Array, default: () => [] },
 });
 const downloadCV = async () => {
-  const cvContent = document.getElementById("cv-content");
+  const cvContent = document.getElementById("cv-content")
+  if (!cvContent) return
+
+  // capture du DOM
   const canvas = await html2canvas(cvContent, {
     scale: 2,
+    useCORS: true,          // autoriser CORS
+    allowTaint: true,       // autoriser rendu d’images cross-domain
     logging: false,
-    useCORS: true,
-  });
-  const imgData = canvas.toDataURL("image/png");
-  const link = document.createElement("a");
-  link.href = imgData;
-  link.download = `CV_${props.nom.replace(/\s+/g, "_")}.png`;
-  link.click();
-};
+  })
+
+  const imgData = canvas.toDataURL("image/png")
+  const pdf = new jsPDF("p", "mm", "a4")
+
+  const pdfWidth = pdf.internal.pageSize.getWidth()
+  const pdfHeight = pdf.internal.pageSize.getHeight()
+
+  // calcul de dimensions de l’image pour garder le ratio
+  const imgWidth = pdfWidth
+  const imgHeight = (canvas.height * imgWidth) / canvas.width
+
+  let heightLeft = imgHeight
+  let position = 0
+
+  // première page
+  pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight)
+  heightLeft -= pdfHeight
+
+  // ajouter les pages si nécessaire
+  while (heightLeft > 0) {
+    position = heightLeft - imgHeight
+    pdf.addPage()
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight)
+    heightLeft -= pdfHeight
+  }
+
+  // téléchargement
+  pdf.save(`CV_${props.nom.replace(/\s+/g, "_")}.pdf`)
+}
 </script>
 <style scoped>
 .cv-container {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Si la date de lancement est passée, on montre le router-view -->
-    <router-view v-if="isDatePassed" />
+    <router-view v-if="!isDatePassed" />
 
     <!-- Sinon, on affiche le countdown -->
     <CountDownView v-else :targetDate="lancementDate" />
@@ -89,3 +89,12 @@ export default {
   },
 };
 </script>
+<style>
+html{
+  font-size:0.89em;
+}
+.myconteneur{
+  margin-top:7.8em;
+}
+
+</style>

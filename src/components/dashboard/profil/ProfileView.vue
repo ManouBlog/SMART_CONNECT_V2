@@ -346,6 +346,19 @@ export default {
   margin: 0 !important;
   transform: translateX(0) !important;
 }
+:deep(ul){
+list-style-type: none;
+}
+:deep(.p-highlight){
+  background: orange;
+}
+:deep(a:hover){
+  color:black;
+}
+:depp(.p-highlight a){
+  color:white !important;
+  font-weight:bold !important;
+}
 img {
   border: 5px solid black;
 }

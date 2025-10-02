@@ -65,3 +65,13 @@ texte.value = await transalteStore.handleTranslate("année")
     </div>
   </div>
 </template>
+<style scoped>
+.conteneur-flex {
+  display: flex !important;
+  justify-items: center !important;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+</style>

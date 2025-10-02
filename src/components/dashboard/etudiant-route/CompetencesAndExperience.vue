@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      texte: "",
+      texte0: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -341,7 +341,7 @@ export default {
     this.getAllExperiences();
     this.getAllCompetences();
     this.getAllCompetencesByStudents();
-    this.texte = await this.handleTranslate('Ajouter une nouvelle experience');
+    this.texte0 = await this.handleTranslate('Ajouter une nouvelle experience');
     this.texte1 = await this.handleTranslate(`Poste`);
     this.texte2 = await this.handleTranslate("Nom de l'entreprise");
     this.texte3 = await this.handleTranslate('Lieu');
@@ -384,7 +384,7 @@ export default {
             @click="toogleNouvelleExperience = !toogleNouvelleExperience"
           ></em>
           <div class="p-3">
-            <h1>{{texte}}</h1>
+            <h1>{{texte0}}</h1>
           </div>
         </div>
         <form @submit.prevent="saveExperience">
@@ -418,7 +418,7 @@ export default {
               <textarea name="expereience" id="experience" cols="20" v-model="experience" rows="10"></textarea>
             </div>
           </div>
-          <div class="mx-auto">
+          <div class="text-center">
             <button type="submit" class="btn-lg btn-warning">{{texte8}}</button>
           </div>
         </form>
@@ -429,7 +429,7 @@ export default {
         <div class="conteneur-experience">
           <em class="bi bi-x-lg" @click="toogleExperience"></em>
           <div class="h1">
-            <h1 class="fw-bold">{{texte9}}</h1>
+            <h1>{{texte9}}</h1>
           </div>
         </div>
         <form @submit.prevent="changeExperience">
@@ -500,7 +500,7 @@ export default {
               ></textarea>
             </div>
           </div>
-          <div class="mx-auto">
+          <div class="text-center">
             <button
               type="submit"
               :disabled="spinnerModifyExperience ? true : false"
@@ -704,6 +704,11 @@ export default {
 </template>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style scoped>
+:deep(input){
+  padding:0.5em !important;
+  border:1px solid orange;
+  border-radius: 5px !important;
+}
 .card {
   margin-bottom: 0px;
   border: none;
@@ -758,7 +763,7 @@ textarea {
 }
 .conteneur_nouvelle_experience form {
   padding: 1em;
-  margin-top: 5em;
+  margin-top: 3.5em;
 }
 
 .bi-x-lg {
@@ -803,6 +808,7 @@ ul {
 }
 .contenteur_experience {
   padding: 0.5em 0;
+  font-size:1.5em !important;
 }
 
 .proof_experience {
@@ -882,6 +888,7 @@ h4 {
   background: #6362e7 !important;
   color: white !important;
 }
+
 .table,
 tr,
 th,
@@ -894,6 +901,7 @@ td {
   background: rgb(255, 255, 255);
   z-index: 12;
   width: inherit;
+  padding:0 1.5em;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.297);
 }
 p {

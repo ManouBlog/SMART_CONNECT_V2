@@ -119,4 +119,5 @@ onMounted(async () => {
 </template>
 <style scoped>
 @import "./style/index.css";
+
 </style>

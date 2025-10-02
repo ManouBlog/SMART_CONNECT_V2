@@ -183,8 +183,8 @@ ul,
 }
 
 .conteneur-flex {
-  display: flex;
-  justify-items: center;
+  display: flex !important;
+  justify-items: center !important;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;

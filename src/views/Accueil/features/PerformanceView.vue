@@ -126,7 +126,7 @@ onUnmounted(() => {
 }
 .conteneur-card-performance {
   display: flex;
-  gap: 2em;
+  gap: 0.5em;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;

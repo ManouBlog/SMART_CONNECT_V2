@@ -581,8 +581,15 @@ select {
 .btn:hover {
   border: 1px solid rgb(0, 0, 0) !important;
 }
+:deep(.multiselect__option--highlight){
+  background:orange;
+}
+:deep(.multiselect__tag){
+  background:orange !important;
+}
 .lgPlus {
   margin: 5em 0;
+  text-align: center;
 }
 .list_offre {
   color: #f77f00 !important;

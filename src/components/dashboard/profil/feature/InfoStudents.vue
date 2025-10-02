@@ -93,9 +93,9 @@ export default {
     handleModalInfo(payload = null) {
       console.log("handleModalInfo", payload);
       if (payload) {
-        this.changeValueForToogleModalInfoPersonnelle({ isCv: true });
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: true,isbtnPdf:true });
       } else {
-        this.changeValueForToogleModalInfoPersonnelle({ isCv: false });
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: false,isbtnPdf:true });
       }
     },
     modifyPasswordOfEntreprise() {
@@ -181,8 +181,8 @@ export default {
         </button>
       </div>
 
-      <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
-        >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
+      <p class="badge" style="text-align:center;" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
+        >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</p
       >
       <div class="d-flex" style="position: relative">
         <input
@@ -197,18 +197,17 @@ export default {
         >
           <n-avatar
             v-if="user.photo_profil"
-            style="border: 3px solid white; object-fit: cover"
+            style="border: 3px solid white; object-fit: cover;width:120px;height:120px"
             round
-            :size="120"
             :src="lienPhoto + user.photo_profil"
           />
           <p
             style="
               border: 3px solid white;
               object-fit: cover;
-              width: 120px;
-              height: 120px;
-              line-height: 120px;
+              width: 100px;
+              height: 100px;
+              line-height: 100px;
               text-align: center;
               font-size: 1em;
               border-radius: 100%;
@@ -294,7 +293,7 @@ export default {
         </div>
       </section>
 
-      <section class="my-5">
+      <section class="my-5 text-center">
         <Buttons
           :elmentsOfBtn="elmentsOfBtn"
           :shapeBtn="'round'"
@@ -340,7 +339,7 @@ export default {
               </div>
             </div>
           </div>
-          <div class="text-right">
+          <div class="text-center">
             <button
               class="btn-lg bg-warning"
               style="border: none; border-radius: 10%"

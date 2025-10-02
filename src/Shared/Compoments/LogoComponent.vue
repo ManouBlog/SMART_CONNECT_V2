@@ -11,6 +11,6 @@ export default {
 </script>
 <template>
     <div class="conteneur-image-logo">
-        <img src="/broboli_footer.png" alt="mon brobroli" >
+        <img style="width:200px;height:200;" src="/broboli_footer.png" alt="mon brobroli" >
     </div>
 </template>

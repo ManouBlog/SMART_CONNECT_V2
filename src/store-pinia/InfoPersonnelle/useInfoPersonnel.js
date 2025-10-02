@@ -10,6 +10,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         pieceIdentiteGerant:null,
         logoEntreprise:"",
         isCv:null,
+        isbtnPdf:false,
         infoUserConnected:null,
     }),
     actions: {
@@ -17,6 +18,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         // console.log("this.toogleModalInfoPersonnelle",this.toogleModalInfoPersonnelle)
         this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
         this.isCv = payload.isCv
+        this.isbtnPdf = payload.isbtnPdf
        },
        async getInfoUser(){
       await instance

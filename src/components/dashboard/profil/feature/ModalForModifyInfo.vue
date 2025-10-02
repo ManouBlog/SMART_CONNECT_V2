@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     ...mapActions(useInfoPersonnel, 
-    ["changeValueForToogleModalInfoPersonnelle"]),
+    ["changeValueForToogleModalInfoPersonnelle","isbtnPdf"]),
   },
   computed: {
     ...mapState(useInfoPersonnel, ["toogleModalInfoPersonnelle", "isCv","infoUserConnected"]),
@@ -31,10 +31,11 @@ export default {
     :footer="null"
     style="width: 850px; padding: 0 1em"
     v-model:open="toogleModalInfoPersonnelle"
-    @cancel="changeValueForToogleModalInfoPersonnelle({ isCv: false })"
-    @ok="changeValueForToogleModalInfoPersonnelle({ isCv: false })"
+    @cancel="changeValueForToogleModalInfoPersonnelle({ isCv: false,isbtnPdf:false })"
+    @ok="changeValueForToogleModalInfoPersonnelle({ isCv: false,isbtnPdf:false })"
   >
     <CvStudent
+      :isbtnPdf="this.isbtnPdf"
       :nom="this.infoUserConnected?.user?.nom"
       :photo="lienPhoto+this.infoUserConnected?.photo_profil"
       :telephone="`+225${this.infoUserConnected?.phone}`"
