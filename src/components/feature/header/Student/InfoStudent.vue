@@ -1,5 +1,5 @@
 <script>
-import instance,{lienPhoto} from "../../../../api/api";
+import instance, { lienPhoto } from "../../../../api/api";
 import LiensNavBar from "../LiensNavBar.vue";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
@@ -22,8 +22,8 @@ export default {
   },
   data() {
     return {
-      lienPhoto:lienPhoto,
-      Help:Help,
+      lienPhoto: lienPhoto,
+      Help: Help,
       texte2: "",
       texte3: "",
       texte1: "",
@@ -50,10 +50,10 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
-      texte40:"",
+      texte27: "",
+      texte40: "",
       data: null,
-      user:null,
+      user: null,
     };
   },
   computed: {
@@ -98,11 +98,11 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           this.launchLoading(false);
         });
     },
-     async getInfoUser() {
+    async getInfoUser() {
       await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
@@ -113,56 +113,59 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-        })
+        });
     },
   },
   async created() {
-     this.getInfoUser();
+    this.getInfoUser();
     this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte2 = await this.handleTranslate("Mes postulations");
-    this.texte3 = await this.handleTranslate('Mes Contrats');
-    this.texte40 = await this.handleTranslate('Entreprises intéressées');
-    this.texte4 = await this.handleTranslate('Mes disponibilités');
-    this.texte5 = await this.handleTranslate('Mes abonnements');
-    this.texte6 = await this.handleTranslate('Déconnexion');
-   
+    this.texte3 = await this.handleTranslate("Mes Contrats");
+    this.texte40 = await this.handleTranslate("Entreprises intéressées");
+    this.texte4 = await this.handleTranslate("Mes disponibilités");
+    this.texte5 = await this.handleTranslate("Mes abonnements");
+    this.texte6 = await this.handleTranslate("Déconnexion");
   },
 };
 </script>
 <template>
   <a-dropdown v-if="user">
-    <a style="text-transform:capitalize;display:flex;align-items:center;gap:0.5em" class="ant-dropdown-link" @click.prevent>
+    <a
+      style="text-transform: capitalize; display: flex; align-items: center; gap: 0.5em"
+      class="ant-dropdown-link logo_user"
+      @click.prevent
+    >
       <n-avatar
-            v-if="user.photo_profil"
-            style="border: 2px solid orange; object-fit: cover"
-            round
-            :size="55"
-            :src="lienPhoto + user.photo_profil"
-          />
-          <span
-            style="
-              border: 1px solid white;
-              object-fit: cover;
-              width: 50px;
-              height:50px;
-              line-height:50px;
-              text-align:center;
-              font-size:1em;
-              border-radius: 100%;
-              background: gray;
-            "
-            v-else
-          >
-           <span style="font-size:0.5em;">{{Help.toADfirstTwo(user.nom)}}</span>
-          </span>
-          <span>{{ user.nom }}</span>
+        v-if="user.photo_profil"
+        style="border: 2px solid orange; object-fit: cover"
+        round
+        :size="55"
+        :src="lienPhoto + user.photo_profil"
+      />
+      <span
+        style="
+          border: 1px solid white;
+          object-fit: cover;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          font-size: 1em;
+          border-radius: 100%;
+          background: gray;
+        "
+        v-else
+      >
+        <span style="font-size: 0.5em">{{ Help.toADfirstTwo(user.nom) }}</span>
+      </span>
+      <span>{{ user.nom }}</span>
     </a>
     <template #overlay>
       <a-menu>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/accueil" class="d-block">
-              {{texte1}}
+              {{ texte1 }}
             </router-link>
           </li>
         </a-menu-item>
@@ -172,44 +175,51 @@ export default {
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/offre_postule" class="d-block">
-              {{texte2}}
+              {{ texte2 }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/contrat" class="d-block">
-              {{texte3}}
+              {{ texte3 }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/emploi_du_temps" class="d-block">
-              {{texte4}}
+              {{ texte4 }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/entreprises_interessees" class="d-block">
-              {{texte40}}
+              {{ texte40 }}
             </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>
-          <LiensNavBar
-            :texte="texte5"
-            :route_lien="'dashboard-abonnements'"
-          />
+          <LiensNavBar :texte="texte5" :route_lien="'dashboard-abonnements'" />
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
-            <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{texte6}}</a>
+            <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{ texte6 }}</a>
           </li>
         </a-menu-item>
       </a-menu>
     </template>
   </a-dropdown>
- 
 </template>
+<style scoped>
+:deep(li) {
+  padding: 0.5em;
+}
+
+@media (min-width: 1201px) {
+  :deep(.ant-dropdown-link) {
+    display: none !important;
+  }
+}
+</style>

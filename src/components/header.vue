@@ -23,7 +23,7 @@ export default {
     InfoEntreprise,
     InfoStudent,
     ListeFavoris,
-    ListeNotifications
+    ListeNotifications,
   },
   data() {
     return {
@@ -280,8 +280,18 @@ export default {
                   {{ texte5 }}
                 </a>
 
-                <ListeFavoris v-if="this.$store.state.user && this.$store.state.user.user.statut.statut === 'entreprise'" />
-                <ListeNotifications v-if="this.$store.state.user && this.$store.state.user.user.statut.statut === 'entreprise'" />
+                <ListeFavoris
+                  v-if="
+                    this.$store.state.user &&
+                    this.$store.state.user.user.statut.statut === 'entreprise'
+                  "
+                />
+                <ListeNotifications
+                  v-if="
+                    this.$store.state.user &&
+                    this.$store.state.user.user.statut.statut === 'entreprise'
+                  "
+                />
                 <div>
                   <InfoEntreprise
                     v-if="
@@ -290,13 +300,15 @@ export default {
                         this.$store.state.user.user.statut.statut === 'particulier')
                     "
                   />
-
+                  <div class="login_user">
                   <InfoStudent
                     v-if="
                       this.$store.state.user &&
                       this.$store.state.user.user.statut.statut === 'etudiant'
                     "
                   />
+                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -308,7 +320,7 @@ export default {
 </template>
 <style>
 .navbar-header {
- text-align:center;
+  text-align: center;
 }
 .ant-dropdown-link {
   font-size: 1.2em;
