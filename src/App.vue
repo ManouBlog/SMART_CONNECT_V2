@@ -99,5 +99,12 @@ html{
 .router-link-exact-active{
   color:orange !important;
 }
+.p-datatable-header{
+  display:flex;
+  justify-content: flex-end;
+}
+.not_data{
+  text-align:center;
+}
 
 </style>

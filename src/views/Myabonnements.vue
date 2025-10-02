@@ -175,12 +175,18 @@ export default {
         
       </DataTable>
       <div v-if="!list_abonnement.length">
-        <h1>Pas de donnée</h1>
+        <h1 class="not_data">Pas de donnée</h1>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
+.conteneur_search{
+  display:flex;
+  justify-content:flex-end;
+  gap:1em;
+  align-items:center;
+}
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;

@@ -221,7 +221,7 @@ export default {
               </Column>
             </DataTable>
             <div v-if="!list_entreprise_interesse.length">
-              <h1>Pas de donnée.</h1>
+              <h1 class="not_data">Pas de donnée.</h1>
             </div>
           </div>
         </div>

@@ -300,15 +300,15 @@ export default {
                         this.$store.state.user.user.statut.statut === 'particulier')
                     "
                   />
-                  <div class="login_user">
-                  <InfoStudent
+                  <div
                     v-if="
                       this.$store.state.user &&
                       this.$store.state.user.user.statut.statut === 'etudiant'
                     "
-                  />
+                    class="login_user"
+                  >
+                    <InfoStudent />
                   </div>
-                  
                 </div>
               </div>
             </div>

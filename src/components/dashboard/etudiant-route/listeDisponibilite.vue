@@ -901,7 +901,7 @@ export default {
         </Column>
       </DataTable>
       <div v-if="!timetables.length">
-              <h1>Pas de donnée.</h1>
+              <h1 class="not_data">Pas de donnée.</h1>
             </div>
     </div>
     <div class="tab-content" id="top-tabContent" v-show="tab">
@@ -1010,7 +1010,7 @@ export default {
         </Column>
       </DataTable>
       <div v-if="!timetables.length">
-              <h1>Pas de donnée.</h1>
+              <h1 class="not_data">Pas de donnée.</h1>
             </div>
     </div>
   </div>
