@@ -526,6 +526,10 @@ form label,
 form select option {
   font-size: 1.5em;
 }
+input,.form-control{
+  padding:1.3em !important;
+  color:black !important;
+}
 
 .mb-3 {
   text-align: left;

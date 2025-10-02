@@ -188,3 +188,14 @@ export default {
     </template>
   </a-dropdown>
 </template>
+<style scoped>
+:deep(li) {
+  padding: 0.5em;
+}
+
+@media (min-width: 1201px) {
+  :deep(.ant-dropdown-link) {
+    display: none !important;
+  }
+}
+</style>

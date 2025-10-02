@@ -231,7 +231,7 @@ export default {
           </div>
         </div>
       </section>
-      <section>
+      <section style="display:flex;justify-content:center;padding:1.5em;">
         <Buttons
           :elmentsOfBtn="elmentsOfBtn"
           :shapeBtn="'round'"
@@ -270,7 +270,7 @@ export default {
               </div>
             </div>
           </div>
-          <div class="text-right">
+          <div class="text-center">
             <button
               class="btn-lg bg-warning"
               style="border: none"

@@ -188,7 +188,7 @@ export default {
     <div class="form theme-form projectcreate">
       <form v-if="offre_id" class="container">
         <div class="row">
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte1}}</label>
             <select class="form-control" v-model="offre_id.categorie_offre_id" @change="selectCategorie">
               <option value="" disabled>{{texte2}}</option>
@@ -201,7 +201,7 @@ export default {
               </option>
             </select>
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte3}}</label>
             <select class="form-control" v-model="offre_id.competence_id" name="" id="select_comp">
               <option value="" disabled>{{texte4}}</option>
@@ -220,7 +220,7 @@ export default {
               </option>
             </select>
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte7}}</label>
             <input
               class="form-control"
@@ -230,7 +230,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte8}}</label>
             <input
               class="form-control"
@@ -240,7 +240,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte9}}</label>
             <select class="form-control" v-model="offre_id.pointage">
               <option value="" disabled>{{texte10}}</option>
@@ -253,7 +253,7 @@ export default {
               </option>
             </select>
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte11}}</label>
             <input
               class="form-control"
@@ -264,45 +264,49 @@ export default {
               min="1"
             />
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte12}}</label>
             <input
               class="form-control"
               type="text"
+              id="lieu"
               v-model="offre_id.lieu"
               placeholder="ex:Angré"
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte13}}</label>
             <input
               class="form-control"
               type="datetime-local"
+              id="date_time"
               v-model="offre_id.debut"
               :min="new Date().toJSON().slice(0, 16)"
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte14}}</label>
             <input
               class="form-control"
               type="datetime-local"
+              id="date_fin"
               v-model="offre_id.fin"
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte15}}</label>
             <input
               class="form-control"
               type="date"
               v-model="offre_id.job_debut"
               required
+              id="date_job_debut"
             />
           </div>
-          <div class="text-left my-3 col-lg-4">
+          <div class="text-left my-3 col-lg-6">
             <label>{{texte16}}</label>
             <input
               class="form-control"
@@ -333,13 +337,16 @@ export default {
         </div>
       </form>
       <div v-if="spinnerModify" class="container">
-       <h6>Chargement...</h6>
+       <h3 class="text-center">Chargement...</h3>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.container{
+  padding:1.5em 2em;
+}
 form label,
 form select option {
   font-size: 1.5em;
@@ -374,6 +381,10 @@ select {
   border-radius: 5px !important;
   width: 100%;
   height: 39px;
+  padding:1.1em;
+}
+input,.form-control{
+  padding:1.3em !important;
 }
 .plan-modify {
   position: fixed;

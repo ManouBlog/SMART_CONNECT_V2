@@ -62,9 +62,7 @@ export default {
       />
       <ButtonsHeader
         v-if="
-          this.$store.state.user &&
-            this.$store.state.user.user.statut.statut == 'entreprise' 
-            && this.$store.state.user.user.statut.statut === 'particulier'
+          this.$store.state.user && this.$store.state.user.user.statut.statut != 'etudiant'
         "
         @handleBtn="goToRoute('/timetable')"
         :title="texte7"
