@@ -19,7 +19,7 @@ export default {
 </script>
 <template>
   <section :class="myStyle">
-    <div>
+    <div style="text-align:center;">
       <vue3-autocounter
         class="counter"
         ref="counter"

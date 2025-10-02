@@ -105,7 +105,7 @@ export default {
 <template>
   <div class="container main-container-home">
     <h1 class="step_suivre">{{ texte0 }}</h1>
-    <h5 class="text-secondary my-3">{{ texte2 }}</h5>
+    <h5 class="text-secondary my-3" style="text-align:center;padding:1em;">{{ texte2 }}</h5>
     <div class="conteneur-card" id="divCard">
       <CardView  v-for="(item, index) in dataCard" :key="index" :item="item" :cardPerfVisible="cardPerfVisible" />
     </div>

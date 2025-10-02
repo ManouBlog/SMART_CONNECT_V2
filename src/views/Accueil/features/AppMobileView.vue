@@ -83,7 +83,7 @@ export default {
 .ecriteau {
   padding: 0 0 0 1.5em;
   flex: 3 3 200px;
-  text-align: center;
+  text-align:center;
 }
 .ecriteau > h1 {
   font-weight: bold;
