@@ -19,10 +19,10 @@ export default {
   },
   methods: {
     ...mapActions(useInfoPersonnel, 
-    ["changeValueForToogleModalInfoPersonnelle","isbtnPdf"]),
+    ["changeValueForToogleModalInfoPersonnelle"]),
   },
   computed: {
-    ...mapState(useInfoPersonnel, ["toogleModalInfoPersonnelle", "isCv","infoUserConnected"]),
+    ...mapState(useInfoPersonnel, ["toogleModalInfoPersonnelle", "isbtnPdf","isCv","infoUserConnected"]),
   },
 };
 </script>
@@ -34,6 +34,7 @@ export default {
     @cancel="changeValueForToogleModalInfoPersonnelle({ isCv: false,isbtnPdf:false })"
     @ok="changeValueForToogleModalInfoPersonnelle({ isCv: false,isbtnPdf:false })"
   >
+ 
     <CvStudent
       :isbtnPdf="this.isbtnPdf"
       :nom="this.infoUserConnected?.user?.nom"

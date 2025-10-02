@@ -781,7 +781,7 @@ textarea {
   background: #ff8819;
   border-radius: 10px;
   left: -1.6em;
-  top: 0;
+  top: -16px;
 }
 .bi-plus-lg {
   right: 0;
