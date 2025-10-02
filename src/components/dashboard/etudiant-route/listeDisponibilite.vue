@@ -1126,5 +1126,11 @@ td {
   text-align: left !important;
   margin-left: 1.5em !important;
 }
+.conteneur_search{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:1em;
+}
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

@@ -633,8 +633,8 @@ export default {
       <div>
         <div class="container-fluid">
           <div>
-            <section>
-                  <select class="w-75 my-5"
+            <section style="display:flex;justify-content:center;margin-bottom:1em;">
+                  <select class="w-25 my-5"
                   style="padding:1em;"
                    name="select" id="select" v-model="handleHoraire">
                     <option value="" disabled>Type de plage</option>
@@ -650,7 +650,7 @@ export default {
                       v-model="dateTime_debut"
                       type="datetime-local"
                       :min="new Date().toISOString().substring(0, 16)"
-                      class="w-100"
+                      class="w-100 p-5"
                       @change="chooseDateTime_debut"
                     />
                   </div>
@@ -672,7 +672,7 @@ export default {
                       "
                       :disabled="!dateTime_debut"
                       type="datetime-local"
-                      class="w-100"
+                      class="w-100 p-5"
                       @change="validateDates"
                     />
                   </div>
@@ -693,6 +693,7 @@ export default {
                   selectionMode="multiple"
                   @update:modelValue="handleValueDate"
                   inline
+                  style="width:333px;"
                   :manualInput="false"
                 />
               </div>
@@ -797,6 +798,9 @@ export default {
   </div>
 </template>
 <style scoped>
+.container-fluid{
+  padding: 5.5em 2em !important;
+}
 .conteneur-plage {
   display: flex;
   justify-content: flex-start;
@@ -813,6 +817,7 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   gap: 1em;
+  text-align: center;
 }
 .text-start {
   text-align: left;
