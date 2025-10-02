@@ -73,7 +73,7 @@ export default {
 
         if (response.status === 200 && response.data?.data?.date) {
           this.lancementDate = response.data.data.date;
-          console.log('this.lancementDate',this.lancementDate)
+          console.log("this.lancementDate", this.lancementDate);
           this.checkDate(this.lancementDate);
         }
       } catch (error) {
@@ -90,21 +90,23 @@ export default {
 };
 </script>
 <style>
-html{
-  font-size:0.89em;
+html {
+  font-size: 0.89em;
 }
-.myconteneur{
-  margin-top:7.8em;
+.myconteneur {
+  margin-top: 7.8em;
 }
-.router-link-exact-active{
-  color:orange !important;
+.router-link-exact-active {
+  color: orange !important;
 }
-.p-datatable-header{
-  display:flex;
+.p-datatable-header {
+  display: flex;
   justify-content: flex-end;
 }
-.not_data{
-  text-align:center;
+.not_data {
+  text-align: center;
 }
-
+.ant-input{
+  padding:0.7em !important;
+}
 </style>
