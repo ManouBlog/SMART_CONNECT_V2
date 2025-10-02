@@ -17,6 +17,7 @@ const props = defineProps({
   targetDate: {
     type: String,
     required: true,
+    default: null
   },
 });
 function deletePageAnnonces() {

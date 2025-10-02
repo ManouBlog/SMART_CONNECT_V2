@@ -6,19 +6,23 @@
   <button
     class="toggle-switch"
     :class="{ active: isActive }"
-    @click="$emit('toggle')"
+    @click="handleClick"
   >
     <slot></slot>
   </button>
 </template>
 
 <script setup>
-import {defineProps} from 'vue';
+import {defineProps,defineEmits} from 'vue';
+const emit = defineEmits(['toggle']);
 defineProps({
   isActive: Boolean,
   isBoule:Boolean,
   colorBoule:String
 });
+const handleClick = () => {
+  emit('toggle') // ⚡ bien émettre l'événement
+}
 </script>
 
 <style scoped>

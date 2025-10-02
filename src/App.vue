@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       isDatePassed: false,
-      lancementDate: null,
+      lancementDate: "",
     };
   },
   methods: {
@@ -73,6 +73,7 @@ export default {
 
         if (response.status === 200 && response.data?.data?.date) {
           this.lancementDate = response.data.data.date;
+          console.log('this.lancementDate',this.lancementDate)
           this.checkDate(this.lancementDate);
         }
       } catch (error) {
