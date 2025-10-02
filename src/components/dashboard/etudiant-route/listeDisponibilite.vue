@@ -580,7 +580,7 @@ export default {
     const now = new Date();
     let date = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     this.getJourInMonth = date;
-    this.texte = await this.handleTranslate("Disponibilités");
+    this.texte = await this.handleTranslate("Mes Disponibilités");
     this.texte1 = await this.handleTranslate(`Voulez-vous vraiment supprimer?`);
     this.texte2 = await this.handleTranslate("Supprimer");
     this.texte3 = await this.handleTranslate(`Annuler`);

@@ -70,7 +70,7 @@ export default {
   },
   async created() {
     await this.get_entreprise_interesse();
-    this.texte0 = await this.handleTranslate(`Entreprises intéressés`);
+    this.texte0 = await this.handleTranslate(`Entreprises intéressées`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
      this.texte2 = await this.handleTranslate("Lieu du travail");
      this.texte3 = await this.handleTranslate(`Honoraire (Fcfa)`);

@@ -352,6 +352,7 @@ list-style-type: none;
 :deep(.p-highlight){
   background: orange;
 }
+
 :deep(a:hover){
   color:black;
 }

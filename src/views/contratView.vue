@@ -95,7 +95,7 @@ export default {
           </div>
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">Contrat</li>
+              <li class="breadcrumb-item">Mes Contrat</li>
             </ol>
           </div>
         </div>

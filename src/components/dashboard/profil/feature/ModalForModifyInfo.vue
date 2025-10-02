@@ -19,10 +19,10 @@ export default {
   },
   methods: {
     ...mapActions(useInfoPersonnel, 
-    ["changeValueForToogleModalInfoPersonnelle"]),
+    ["changeValueForToogleModalInfoPersonnelle",]),
   },
   computed: {
-    ...mapState(useInfoPersonnel, ["toogleModalInfoPersonnelle", "isbtnPdf","isCv","infoUserConnected"]),
+    ...mapState(useInfoPersonnel, ["toogleModalInfoPersonnelle","isbtnPdf","isCv","infoUserConnected"]),
   },
 };
 </script>

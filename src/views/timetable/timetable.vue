@@ -1183,7 +1183,7 @@ export default {
   margin-bottom: 3em;
 }
 .timetableSchedule {
-  padding: 5em 0 !important;
+  padding: 1em 0 !important;
 }
 .card {
   border-radius: 5px !important;

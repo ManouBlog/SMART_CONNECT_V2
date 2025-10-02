@@ -51,7 +51,7 @@ const initIntersectionObserver = () => {
 };
 
 onMounted(async () => {
-  texte0.value = await translateStore.handleTranslate("Nos performances");
+  texte0.value = await translateStore.handleTranslate("Chiffres clés");
   texte1.value = await translateStore.handleTranslate("Partenaire(s)");
   texte2.value = await translateStore.handleTranslate("Offre(s)");
   texte3.value = await translateStore.handleTranslate("Talent(s)");
@@ -72,7 +72,7 @@ onUnmounted(() => {
     <div class="row">
       <div class="container">
         <div class="mb-5">
-          <h1 class="fw-bold" style="color:orange;">{{ texte0 }}</h1>
+          <h1 class="fw-bold" style="color:orange;text-align:center">{{ texte0 }}</h1>
         </div>
         <div class="conteneur-card-performance" id="cardPerf">
           <!-- Premier card - Animation depuis la gauche -->

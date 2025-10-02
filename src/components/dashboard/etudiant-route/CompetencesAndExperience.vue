@@ -384,34 +384,36 @@ export default {
             @click="toogleNouvelleExperience = !toogleNouvelleExperience"
           ></em>
           <div class="p-3">
-            <h1>{{texte0}}</h1>
+            <h1 style="padding:0.5em">{{texte0}}</h1>
           </div>
         </div>
         <form @submit.prevent="saveExperience">
-          <div class="row p-2">
+          <div class="row p-5">
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>*{{texte1}}</label>
-              <input type="text" v-model="poste" required />
+              <label>
+                <span style="color:red;">*</span>
+                {{texte1}}</label>
+              <input  type="text" style="padding:1em" v-model="poste" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>*{{texte2}}</label>
-              <input type="text" v-model="entreprise" required />
+              <label><span style="color:red;">*</span>{{texte2}}</label>
+              <input type="text"  style="padding:1em" v-model="entreprise" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>*{{texte3}}</label>
-              <input type="text" v-model="lieu" required />
+              <label><span style="color:red;">*</span>{{texte3}}</label>
+              <input type="text" style="padding:1em" v-model="lieu" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
-              <label>*{{texte4}}</label>
-              <input type="date" v-model="dateDebut" required />
+              <label><span style="color:red;">*</span>{{texte4}}</label>
+              <input type="date" style="padding:1em" v-model="dateDebut" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>{{texte5}}</label>
-              <input type="date" v-model="dateFin" :min="dateDebut" required />
+              <input type="date" style="padding:1em" v-model="dateFin" :min="dateDebut" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>{{texte6}}</label>
-              <input type="file" accept="image/*" @change="onFileProof" />
+              <input type="file" style="padding:1em" accept="image/*" @change="onFileProof" />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>{{texte7}}</label>
@@ -441,6 +443,7 @@ export default {
                 v-model="updateExperience.poste"
                 placeholder="Ex : Barman,serveuse"
                 required
+                style="padding:1em"
               />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
@@ -450,6 +453,7 @@ export default {
                 v-model="updateExperience.entreprise"
                 placeholder="Ex : la locomotive"
                 required
+                style="padding:1em"
               />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
@@ -459,11 +463,14 @@ export default {
                 v-model="updateExperience.lieu"
                 placeholder="Ex : Cocody angré"
                 required
+                style="padding:1em"
               />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>{{texte4}}</label>
-              <input type="date" v-model="updateExperience.dateDebut" required />
+              <input type="date"
+              style="padding:1em"
+              v-model="updateExperience.dateDebut" required />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>{{texte5}}</label>
@@ -473,6 +480,7 @@ export default {
                 :min="dateDebut"
                 placeholder="Ex : Cocody angré"
                 required
+                style="padding:1em"
               />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
@@ -487,6 +495,7 @@ export default {
                 @change="onFileProof"
                 placeholder="Ex :Cocody angré"
                 required
+                style="padding:1em"
               />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
@@ -705,9 +714,18 @@ export default {
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style scoped>
 :deep(input){
-  padding:0.5em !important;
+  padding:0.5em;
   border:1px solid orange;
   border-radius: 5px !important;
+}
+:deep(.multiselect__input){
+padding:0 !important;
+}
+:deep(.multiselect__option--highlight){
+  background:orange;
+}
+:deep(.multiselect__tag){
+  background:orange;
 }
 .card {
   margin-bottom: 0px;
