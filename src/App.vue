@@ -33,6 +33,10 @@ export default {
       backendDate.setHours(0, 0, 0, 0);
 
       this.isDatePassed = today >= backendDate;
+      if(this.isDatePassed){
+        console.log("lance getIpapperal")
+         this.getIpApparel();
+      }
     },
 
     /**
@@ -85,7 +89,7 @@ export default {
   created() {
     this.isLancement();
     localStorage.setItem("translate", "fr");
-    this.getIpApparel();
+    
   },
 };
 </script>
