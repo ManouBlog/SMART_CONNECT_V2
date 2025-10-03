@@ -59,6 +59,12 @@ formatDateToMonthYear(dateInput) {
 
   // Met la première lettre en majuscule
   return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+},
+splitFilename(filename) {
+  const parts = filename.split('.');
+  const extension = parts[1];
+  return extension;
 }
+
 
   };

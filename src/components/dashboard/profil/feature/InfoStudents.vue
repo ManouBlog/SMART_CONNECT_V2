@@ -27,6 +27,7 @@ export default {
   },
   data() {
     return {
+      showModal:false,
       Help: Help,
       user: "",
       nom: "",
@@ -280,22 +281,44 @@ export default {
               {{ item.value }}
             </h6>
             <div
-              v-if="item.libelle === 'Pièce d identite :' || item.libelle === 'Carte étudiant'"
+              v-if="
+                item.libelle === 'Pièce d identite :' || item.libelle === 'Carte étudiant'
+              "
               style="display: flex; justify-content: flex-start; gap: 1em"
             >
+            <section v-for="(element,index) in item.value"
+            :key="index"
+            >
+              <div>
+             <div v-if="Help.splitFilename(element.path) === 'pdf'">
+                <n-button type="warning" @click="showModal = true"> Voir la carte étudiant. </n-button>
+                <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px">
+                  <n-card title="Document PDF" closable @close="showModal = false">
+                    <iframe
+                      :src="lienPhoto + element.path"
+                      style="width: 100%; height: 600px; border: none"
+                    ></iframe>
+                  </n-card>
+                </n-modal>
+              </div>
               <n-image
-                v-for="(photo, index) in item.value"
+                 v-else
+                v-for="(photo, index) in [element.path]"
                 :key="index"
-                :alt="photo.path"
-                width="120"
-                height="100"
-                :src="lienPhoto + photo.path"
+                :alt="photo"
+                width="100"
+                height="150"
+                :src="lienPhoto + photo"
               />
+              </div>
+            </section>
+    
+              
             </div>
           </div>
         </div>
       </section>
-      <h1  class="fw-bold my-3">Compétences</h1>
+      <h1 class="fw-bold my-3">Compétences</h1>
       <section v-if="infoPersonellesCompetences.length">
         <div
           v-for="(item, index) in infoPersonellesCompetences"
@@ -311,7 +334,7 @@ export default {
       <h1 class="fw-bold my-3">Qualifications</h1>
       <section v-if="infoPersonellesQualifications.length">
         <div v-for="(item, index) in infoPersonellesQualifications" :key="index">
-          <div style="display:flex;align-items:center;gap:1em;">
+          <div style="display: flex; align-items: center; gap: 1em">
             <div
               style="width: 10px; height: 10px; background: orange; border-radius: 10%"
             ></div>
@@ -324,7 +347,7 @@ export default {
           </p>
         </div>
       </section>
-       <section v-else>
+      <section v-else>
         <h4 class="p-5">Pas de qualifications</h4>
       </section>
       <section class="my-5 text-center">
