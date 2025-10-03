@@ -272,14 +272,15 @@ export default {
                 item.value !== null &&
                 item.value !== 'null' &&
                 item.value !== 'undefined' &&
-                item.libelle !== 'Pièce d identite :'
+                item.libelle !== 'Pièce d identite :' &&
+                item.libelle !== 'Carte étudiant'
               "
               class="fw-bold"
             >
               {{ item.value }}
             </h6>
             <div
-              v-if="item.libelle === 'Pièce d identite :'"
+              v-if="item.libelle === 'Pièce d identite :' || item.libelle === 'Carte étudiant'"
               style="display: flex; justify-content: flex-start; gap: 1em"
             >
               <n-image
