@@ -1,12 +1,12 @@
 <template>
   <div class="countdown">
-    <span class="countdown-item">{{ days }} Jours</span>
+    <span class="countdown-item">{{ days }}J</span>
     <span class="countdown-separator">:</span>
-    <span class="countdown-item">{{ hours }} Heures</span>
+    <span class="countdown-item">{{ hours }}H</span>
     <span class="countdown-separator">:</span>
-    <span class="countdown-item">{{ minutes }} Minutes</span>
+    <span class="countdown-item">{{ minutes }}M</span>
     <span class="countdown-separator">:</span>
-    <span class="countdown-item">{{ seconds }} Secondes</span>
+    <span class="countdown-item">{{ seconds }}S</span>
   </div>
 </template>
 
@@ -64,6 +64,7 @@ onMounted(() => {
 <style scoped>
 .countdown {
   display: flex;
+  flex-direction: row; /* forcer row même en mobile */
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -71,9 +72,7 @@ onMounted(() => {
   font-weight: bold;
   color: white;
   font-family: 'Poppins', sans-serif;
-  flex-wrap: wrap;
 }
-
 .countdown-item {
   background-color: rgba(255, 255, 255, 0.2);
   padding: 10px 20px;
@@ -84,4 +83,28 @@ onMounted(() => {
   font-size: 3rem;
   color: white;
 }
+
+/* Ajustement pour tablettes */
+@media (max-width: 768px) {
+  .countdown {
+    font-size: 2.5rem;
+    gap: 8px;
+  }
+  .countdown-separator {
+  font-size: 1.5rem !important;
+}
+}
+
+/* Ajustement pour mobiles */
+@media (max-width: 480px) {
+  .countdown-separator {
+  font-size: 1.5rem !important;
+}
+  .countdown {
+    font-size: 1.5rem;
+    gap: 5px;
+  }
+}
+
+
 </style>

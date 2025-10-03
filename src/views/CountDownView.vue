@@ -42,22 +42,9 @@
     <footer>
       <h2 class="coming-soon">Coming Soon</h2>
     </footer>
-    <div style="width: 90%;height: 400px; position: relative">
-      <img
-        style="
-          top:-90px;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        "
-        src="../assets/img_accueil.png"
-        alt="image"
-      />
-    </div>
+    <div class="image-container">
+  <img src="../assets/img_accueil.png" alt="image" />
+</div>
   </div>
 </template>
 
@@ -140,6 +127,21 @@ const SendMailBienvenueNewsletter = async (value) => {
   margin-bottom: 30px;
   width: 100%;
 }
+.image-container {
+  width: 90%;
+  aspect-ratio: 16/9; /* ou 21/9, 4/3 selon ton design */
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.image-container img {
+  position: absolute;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 .logo {
   width: 100px;
@@ -179,11 +181,27 @@ const SendMailBienvenueNewsletter = async (value) => {
 
 .coming-soon {
   color: white;
-  font-size: 8.5em;
+  font-size: 6.5em; /* très grand pour desktop */
   font-weight: bold;
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.703);
+  text-align: center; /* centré par défaut */
+  line-height: 1.2;
+}
+
+/* Tablette */
+@media (max-width: 768px) {
+  .coming-soon {
+    font-size: 5em;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .coming-soon {
+    font-size: 3em;
+  }
 }
 </style>

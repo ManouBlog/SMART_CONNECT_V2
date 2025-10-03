@@ -45,8 +45,26 @@ const notify = () => {
   border-radius: 25px;
   border: 1px solid #ccc;
   font-size: 1.5em;
-  min-width: 400px;
+  width: 100%;         /* occupe toute la largeur dispo */
+  max-width: 500px;    /* limite pour éviter qu’il devienne trop grand sur PC */
   outline: none;
   font-family: 'Poppins', sans-serif;
+  box-sizing: border-box; /* pour que padding soit inclus dans la largeur */
+}
+
+/* Tablette */
+@media (max-width: 768px) {
+  .email-input {
+    font-size: 1.2em;
+    max-width: 400px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .email-input {
+    font-size: 1em;
+    max-width: 100%;   /* prend toute la largeur du mobile */
+  }
 }
 </style>
