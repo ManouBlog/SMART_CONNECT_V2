@@ -47,7 +47,7 @@ export default {
         prenoms: "",
         phone: "",
         ville: "",
-        NCC:"",
+        ncc:"",
         commune: "",
         quartier: "",
         diplome: "",
@@ -194,10 +194,10 @@ export default {
     </a-form-item>
     <a-form-item
       label="NCC (Numéro de compte contribuable)"
-      name="NCC"
+      name="ncc"
       :rules="[{ required: true, message: 'Ajouter le Numéro de compte contribuable' }]"
     >
-      <a-input v-model:value="formState.NCC" />
+      <a-input v-model:value="formState.ncc" />
     </a-form-item>
        <a-form-item
       :label="texte2"

@@ -106,7 +106,7 @@ export const useRegisterStore = defineStore('register', {
           data.append("matricule_cc", payload?.matricule_cc);
           data.append("password", payload?.password);
           data.append("statut_id", 1);
-          // data.append("piece_gerant", payload?.piece_gerant[0]?.originFileObj);
+          data.append("NCC", payload?.ncc);
           data.append("logo", payload?.Logo[0]?.originFileObj);
          await instance
             .post("list_users", data)
