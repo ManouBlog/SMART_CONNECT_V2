@@ -62,7 +62,7 @@ const LOGO_IMG = ref([
   {
     isVisible: true,
     img: "/broboli_footer.png",
-    alt_img: "mon brobroli",
+    alt_img: "MonBrobroli",
   },
 ]);
 </script>

@@ -5,7 +5,7 @@
         <img
           style="width: 150px; height: 100px; margin: 0 !important"
           src="../assets/logo_white.png"
-          alt="Mon Brobroli Logo"
+          alt="MonBrobroli Logo"
           class="logo"
         />
       </div>

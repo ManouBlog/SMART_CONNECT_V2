@@ -71,7 +71,7 @@ export default {
     </a-card>
   </div>
   <div v-else class="p-5">
-    <h5 class="py-5">{{texte2}}</h5>
+    <h5 class="py-5 text-center">{{texte2}}</h5>
     <div class="d-flex justify-content-center p-5">
       <button class="btn bg-warning" @click="handleNouvelAbonnement">
         {{texte3}}

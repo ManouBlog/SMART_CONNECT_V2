@@ -207,7 +207,7 @@ switch (registerStore.infoUser) {
       </h1>
       <p>
         Afin de garantir un environnement de confiance, respectueux et conforme aux
-        principes éthiques portés par la plateforme Mon Brobroli, chaque utilisateur qu’il
+        principes éthiques portés par la plateforme MonBrobroli, chaque utilisateur qu’il
         soit étudiant, entreprise ou particulier est tenu de respecter les obligations qui
         lui incombent.
       </p>
@@ -294,7 +294,7 @@ switch (registerStore.infoUser) {
         <br />
         Ces sanctions visent à préserver un environnement sain, éthique et sécurisé pour
         l’ensemble des utilisateurs, et à faire respecter les principes fondamentaux de
-        respect, d’équité et de responsabilité qui régissent la plateforme Mon Brobroli.
+        respect, d’équité et de responsabilité qui régissent la plateforme MonBrobroli.
       </p>
 
       <h1 class="text-left">
@@ -528,5 +528,9 @@ switch (registerStore.infoUser) {
 }
 code {
   color: orange !important;
+}
+p {
+  text-align: justify;
+  font-size:1em;
 }
 </style>
