@@ -130,8 +130,8 @@ export default {
     this.texte5 = await this.handleTranslate("Quartier");
     this.texte6 = await this.handleTranslate("Email");
     this.texte7 = await this.handleTranslate("Compétences");
-    this.texte8 = await this.handleTranslate("Dernier diplôme");
-    this.texte9 = await this.handleTranslate("Carte étudiant");
+    this.texte8 = await this.handleTranslate("Dernier diplôme academique");
+    this.texte9 = await this.handleTranslate("Carte étudiant (jpg,pdf,png,webp)");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
     this.texte12 = await this.handleTranslate("Veuillez renseigner votre mot de passe!");
@@ -234,7 +234,7 @@ export default {
     </a-form-item>
     <a-form-item
       name="uploadPhotoProfil"
-      label="Photo de profil"
+      label="Photo de profil (jpg,png,webp)"
     >
       <a-upload
         @change="handleChangePhotoProfil"
@@ -260,7 +260,7 @@ export default {
         list-type="picture"
         :multiple="true"
         :maxCount="2"
-        accept=".jpg,.jpeg,.png,.webp"
+        accept=".jpg,.pdf,.png,.webp"
       >
         <a-button> Clique pour télecharger </a-button>
       </a-upload>

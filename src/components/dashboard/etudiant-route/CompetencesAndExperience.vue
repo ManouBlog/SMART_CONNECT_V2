@@ -589,7 +589,7 @@ export default {
                     <div class="greeting-user">
                       <div>
                         <div class="col-sm-12 px-2 mb-5" id="cont_table_competence">
-                          <table class="table">
+                          <table class="table" v-if="competences.length > 0">
                             <thead>
                               <tr>
                                 <th>{{texte22}}</th>
@@ -616,6 +616,7 @@ export default {
                               </tr>
                             </tbody>
                           </table>
+                          <h4 style="color:black;text-align:center;font-weight:bold;">Pas de compétences.</h4>
                         </div>
                       </div>
                     </div>

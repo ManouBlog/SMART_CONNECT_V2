@@ -47,6 +47,7 @@ export default {
         prenoms: "",
         phone: "",
         ville: "",
+        NCC:"",
         commune: "",
         quartier: "",
         diplome: "",
@@ -110,19 +111,19 @@ export default {
   },
   async created() {
     // this.getCompetences();
-    this.texte = await this.handleTranslate("Entreprise");
+    this.texte = await this.handleTranslate("Raison sociale");
     this.texte1 = await this.handleTranslate(
-      "RCCM"
+      "RCCM (Registre du Commerce et du Crédit Mobilier)"
     );
-    this.texte2 = await this.handleTranslate("Numéro de l'entreprise");
+    this.texte2 = await this.handleTranslate("Contact téléphonique de l'entreprise");
     this.texte3 = await this.handleTranslate("Ville");
     this.texte4 = await this.handleTranslate("Commune");
     this.texte5 = await this.handleTranslate("Quartier");
-    this.texte6 = await this.handleTranslate("Email de l'entreprise");
+    this.texte6 = await this.handleTranslate("Contact mail de l'entreprise");
     this.texte7 = await this.handleTranslate("Forme juridique");
     this.texte8 = await this.handleTranslate("Gérant");
     this.texte9 = await this.handleTranslate("Numéro du Gérant");
-    this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,jpeg)"); 
+    this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,png,webp)"); 
     this.texte11 = await this.handleTranslate("Registre (pdf)"); 
     this.texte12 = await this.handleTranslate('Mot de passe');
     this.texte13 = await this.handleTranslate("S'inscrire");
@@ -167,13 +168,42 @@ export default {
     >
       <a-input v-model:value="formState.matricule_cc" />
     </a-form-item>
-    
-
+     <a-form-item 
+    :rules="[{ required: true, message: `Ajouter un registre de commerce` }]"
+    name="Registre"
+    label=""
+    >
+        <a-upload
+          @change="handleChangeCardStudent"
+          v-model:fileList="formState.Registre"
+          name="Registre"
+          list-type="picture"
+          :multiple="false"
+          :maxCount="1"
+          accept=".pdf"
+        >
+          <a-button> Clique pour télécharger </a-button>
+        </a-upload>
+      </a-form-item>
+       <a-form-item
+      :label="texte7"
+      name="juridique"
+      :rules="[{ required: true, message: texte17 }]"
+    >
+      <a-input v-model:value="formState.juridique" />
+    </a-form-item>
     <a-form-item
+      label="NCC (Numéro de compte contribuable)"
+      name="NCC"
+      :rules="[{ required: true, message: 'Ajouter le Numéro de compte contribuable' }]"
+    >
+      <a-input v-model:value="formState.NCC" />
+    </a-form-item>
+       <a-form-item
       :label="texte2"
       name="contact"
       :rules="[{ required: true, message: texte22 }]"
-    >
+       >
       <a-input v-model:value="formState.contact" />
     </a-form-item>
     <a-form-item
@@ -206,13 +236,7 @@ export default {
       <a-input v-model:value="formState.email" />
     </a-form-item>
   
-    <a-form-item
-      :label="texte7"
-      name="juridique"
-      :rules="[{ required: true, message: texte17 }]"
-    >
-      <a-input v-model:value="formState.juridique" />
-    </a-form-item>
+   
     <a-form-item
       :label="texte8"
       name="gerant"
@@ -245,27 +269,11 @@ export default {
           <a-button> Clique pour télécharger </a-button>
         </a-upload>
       </a-form-item>
-    <a-form-item 
-    :rules="[{ required: true, message: `Ajouter un registre de commerce` }]"
-    name="Registre"
-    :label="texte11"
-    >
-        <a-upload
-          @change="handleChangeCardStudent"
-          v-model:fileList="formState.Registre"
-          name="Registre"
-          list-type="picture"
-          :multiple="false"
-          :maxCount="1"
-          accept=".pdf"
-        >
-          <a-button> Clique pour télécharger </a-button>
-        </a-upload>
-      </a-form-item>
+   
       <a-form-item 
       :rules="[{ required: true, message: `Ajouter un logo.` }]"
       name="Logo" 
-      :label="'Logo(jpeg,jpg)'"
+      :label="'Logo(jpg,png,webp)'"
       >
         <a-upload
           @change="handleChangeCardStudent"

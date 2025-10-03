@@ -295,8 +295,8 @@ export default {
           </div>
         </div>
       </section>
-      <h1 v-if="infoPersonellesCompetences.length" class="fw-bold my-3">Compétences</h1>
-      <section>
+      <h1  class="fw-bold my-3">Compétences</h1>
+      <section v-if="infoPersonellesCompetences.length">
         <div
           v-for="(item, index) in infoPersonellesCompetences"
           :key="index"
@@ -305,8 +305,11 @@ export default {
           <h6 class="fw-bold">-{{ item.competence }}</h6>
         </div>
       </section>
+      <section v-else>
+        <h4 class="p-5">Pas de compétences</h4>
+      </section>
       <h1 class="fw-bold my-3">Qualifications</h1>
-      <section>
+      <section v-if="infoPersonellesQualifications.length">
         <div v-for="(item, index) in infoPersonellesQualifications" :key="index">
           <div style="display:flex;align-items:center;gap:1em;">
             <div
@@ -321,7 +324,9 @@ export default {
           </p>
         </div>
       </section>
-
+       <section v-else>
+        <h4 class="p-5">Pas de qualifications</h4>
+      </section>
       <section class="my-5 text-center">
         <Buttons
           :elmentsOfBtn="elmentsOfBtn"
