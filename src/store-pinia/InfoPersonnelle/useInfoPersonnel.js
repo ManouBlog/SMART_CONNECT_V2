@@ -82,6 +82,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           })
       },
       async update_compte_student(payload) {
+console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
         Spinner.launchLoading(true)
         let data = new FormData();
         if(payload.photo_profil){
@@ -92,6 +93,9 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         });
         payload?.qualifications?.forEach(element => {
            data.append("qualifications[]",JSON.stringify(element));
+        });
+        this.pieceIdentiteGerant.forEach(element => {
+           data.append("carte[]",element);
         });
         data.append("nom", payload?.nom);
         data.append("prenoms", payload?.prenoms);
@@ -142,7 +146,12 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
        this.registre = payload.target.files[0]
       },
       addAnPieceDoc(payload){
-        this.pieceIdentiteGerant = payload.target.files[0]
+        this.pieceIdentiteGerant = [];
+        console.log("addAnPieceDoc",payload.target)
+        Object.values(payload.target.files).forEach(item => {
+       this.pieceIdentiteGerant.push(item)
+      });
+        console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
       },
       addAnLogo(payload){
         this.logoEntreprise = payload.target.files[0]

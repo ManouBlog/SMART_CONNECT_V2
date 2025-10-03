@@ -195,7 +195,7 @@ export default {
         </div>
         <div class="col-md-12">
           <div class="mb-3">
-            <label class="form-label">Dernier diplome</label>
+            <label class="form-label">Dernier diplôme academique</label>
             <input v-model="user.diplome" class="form-control" type="text" />
           </div>
         </div>
@@ -203,11 +203,11 @@ export default {
       <section v-if="this.user && this.user.user.statut.statut === 'etudiant'">
         <div class="col-md-12">
           <div class="mb-3">
-            <label class="form-label">Bio (max 150 caractères)</label>
+            <label class="form-label">Bio (max 300 caractères)</label>
             <textarea
               id="msg"
               name="msg"
-              maxlength="150"
+              maxlength="300"
               style="width: 100%; border-radius: 5px; height: 100px"
               placeholder="Présentez-vous en quelques lignes..."
               v-model="user.bio"
@@ -265,11 +265,17 @@ export default {
           <label for="add_file">
             {{
               this.user && this.user.user.statut.statut === "etudiant"
-                ? "Nouvelle carte étudiante"
+                ? "Nouvelle carte étudiant"
                 : "Nouvelle pièce d'identité"
             }}</label
           >
-          <input type="file" @input="addAnPieceDoc" id="add_file_piece" class="w-100" />
+          <input 
+          type="file"
+          multiple
+          @input="addAnPieceDoc" 
+          id="add_file_piece" 
+          class="w-100" 
+          />
         </div>
       </div>
       <div class="col-md-12">
@@ -301,9 +307,9 @@ export default {
                 <textarea
                   id="msg"
                   name="msg"
-                  maxlength="150"
+                  maxlength="300"
                   style="width: 100%; border-radius: 5px; padding: 1em"
-                  placeholder="Détails (max 150 caractères)"
+                  placeholder="Détails (max 300 caractères)"
                   v-model="value.detail"
                 ></textarea>
               </div>

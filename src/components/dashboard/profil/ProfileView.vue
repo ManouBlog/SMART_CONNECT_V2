@@ -255,7 +255,7 @@ export default {
     },
   },
   async created() {
-    this.texte = await this.handleTranslate('Profil');
+    this.texte = await this.handleTranslate('Mon profil');
     this.texte1 = await this.handleTranslate(`Infos personnelles`);
     this.texte2 = await this.handleTranslate('Nom :');
     this.texte3 = await this.handleTranslate('Email :');
@@ -316,8 +316,9 @@ export default {
                 { libelle: texte8, value: user.quartier },
                 { libelle: texte5, value: user.phone },
                 { libelle: texte13, value: user.diplome },
-                { libelle: texte12, value: user.user.photos }
+                { libelle: 'Carte étudiant', value: user.user.photos }
               ]"
+              :infoPersonellesQualifications="user.qualifications.length ? user.qualifications:[]"
               :infoBioStudent="user.bio"
               :infoPersonellesCompetences="user.competences"
               v-if="this.user && this.user.user.statut.statut === 'etudiant'"

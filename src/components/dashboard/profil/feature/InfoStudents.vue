@@ -21,6 +21,9 @@ export default {
     infoPersonellesCompetences: {
       type: Array,
     },
+    infoPersonellesQualifications: {
+      type: Array,
+    },
   },
   data() {
     return {
@@ -93,9 +96,9 @@ export default {
     handleModalInfo(payload = null) {
       console.log("handleModalInfo", payload);
       if (payload) {
-        this.changeValueForToogleModalInfoPersonnelle({ isCv: true,isbtnPdf:true });
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: true });
       } else {
-        this.changeValueForToogleModalInfoPersonnelle({ isCv: false,isbtnPdf:true });
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: true });
       }
     },
     modifyPasswordOfEntreprise() {
@@ -181,9 +184,13 @@ export default {
         </button>
       </div>
 
-      <p class="badge" style="text-align:center;" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
-        >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</p
+      <p
+        class="badge"
+        style="text-align: center"
+        :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
       >
+        Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}
+      </p>
       <div class="d-flex" style="position: relative">
         <input
           id="hiddenFile"
@@ -197,7 +204,12 @@ export default {
         >
           <n-avatar
             v-if="user.photo_profil"
-            style="border: 3px solid white; object-fit: cover;width:120px;height:120px"
+            style="
+              border: 3px solid white;
+              object-fit: cover;
+              width: 120px;
+              height: 120px;
+            "
             round
             :src="lienPhoto + user.photo_profil"
           />
@@ -290,6 +302,22 @@ export default {
           style="display: flex; justify-content: flex-start"
         >
           <h6 class="fw-bold">-{{ item.competence }}</h6>
+        </div>
+      </section>
+      <h1 class="fw-bold my-3">Qualifications</h1>
+      <section>
+        <div v-for="(item, index) in infoPersonellesQualifications" :key="index">
+          <div style="display:flex;align-items:center;gap:1em;">
+            <div
+              style="width: 10px; height: 10px; background: orange; border-radius: 10%"
+            ></div>
+            <span>{{ new Date(item.date_debut).toLocaleDateString("fr") }}</span>
+            <span>à</span>
+            <span>{{ new Date(item.date_fin).toLocaleDateString("fr") }}</span>
+          </div>
+          <p>
+            {{ item.detail }}
+          </p>
         </div>
       </section>
 

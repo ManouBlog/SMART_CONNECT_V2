@@ -131,7 +131,7 @@ export default {
     this.texte6 = await this.handleTranslate("Email");
     this.texte7 = await this.handleTranslate("Compétences");
     this.texte8 = await this.handleTranslate("Dernier diplôme");
-    this.texte9 = await this.handleTranslate("Carte étudiante");
+    this.texte9 = await this.handleTranslate("Carte étudiant");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
     this.texte12 = await this.handleTranslate("Veuillez renseigner votre mot de passe!");
@@ -142,7 +142,7 @@ export default {
     this.texte17 = await this.handleTranslate("Veuillez renseigner votre nom!");
     this.texte18 = await this.handleTranslate("Veuillez renseigner la ville");
     this.texte19 = await this.handleTranslate("Veuillez renseigner la commune");
-    this.texte96 = await this.handleTranslate("Veuillez ajouter une carte étudiante.");
+    this.texte96 = await this.handleTranslate("Veuillez ajouter une carte étudiant.");
   },
 };
 </script>
@@ -224,11 +224,11 @@ export default {
     >
       <a-input type="text" v-model:value="formState.diplome" />
     </a-form-item>
-    <a-form-item label="Bio (max 150 caractères)">
+    <a-form-item label="Bio (max 300 caractères)">
       <a-textarea
         :rows="4"
         v-model:value="formState.bio"
-        :maxlength="150"
+        :maxlength="300"
         placeholder="Présentez-vous en quelques lignes..."
       />
     </a-form-item>
