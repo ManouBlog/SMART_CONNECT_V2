@@ -61,7 +61,7 @@ const ABOUTUS = ref([
 const LOGO_IMG = ref([
   {
     isVisible: true,
-    img: "/broboli_footer.png",
+    img: "/broboli_footer_1.png",
     alt_img: "MonBrobroli",
   },
 ]);

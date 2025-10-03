@@ -208,7 +208,7 @@ export default {
           <nav class="navbar navbar-fixed-top">
             <div class="container conteneur-flex_nav">
               <div class="logo">
-                <img class="img-fluid" src="../assets/brobroli.png" alt="Photo" />
+                <img class="img-fluid" src="../assets/brobroli_1.png" alt="Photo" />
               </div>
               <div class="navbar-header">
                 <button

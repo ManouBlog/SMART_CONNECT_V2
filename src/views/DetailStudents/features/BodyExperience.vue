@@ -80,7 +80,7 @@ export default {
       </p>
       <div v-if="toogleExperience && timetable_for_student.experiences.length">
         <div
-          class="experiences position-relative px-4 pb-5 my-4"
+          class="experiences position-relative px-4 my-4"
           v-for="(item, index) in timetable_for_student.experiences.slice(0, 1)"
           :key="index"
         >
@@ -95,6 +95,7 @@ export default {
             <h6 class="text-start ms-2 fw-bold">
               <span class="badge bg-warning text-light fw-bold">{{ item.poste }}</span>
             </h6>
+            
             <p>
               <em class="bi bi-geo-alt"></em>
               {{ item.lieu }}

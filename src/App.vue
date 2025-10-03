@@ -100,9 +100,13 @@ html {
 .myconteneur {
   margin-top: 7.8em;
 }
-.router-link-exact-active {
+.router-link-exact-active{
   color: orange !important;
 }
+.multiselect__option--highlight,.p-button-icon-only{
+  background: orange !important;
+}
+
 .p-datatable-header {
   display: flex;
   justify-content: flex-end;

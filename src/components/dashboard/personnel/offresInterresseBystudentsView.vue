@@ -153,7 +153,7 @@ export default {
           </Column>
         </DataTable>
         <div v-if="!offresInteressByStudents.length">
-        <h1>Pas de donnée</h1>
+        <h1 class="not_data">Pas de donnée</h1>
         </div>
       </div>
     </div>

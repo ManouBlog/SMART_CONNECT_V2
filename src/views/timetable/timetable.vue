@@ -797,8 +797,8 @@ export default {
                 class="bi bi-heart-fill"
               ></em>
             </div>
-            <!-- <em class="bi bi-person"></em> -->
-            <n-avatar
+            <div style="text-align:center;">
+              <n-avatar
               v-if="emploi.photo_profil"
               style="border: 2px solid orange; object-fit: cover"
               round
@@ -819,6 +819,7 @@ export default {
             >
               <span style="font-size: 1em">{{ Help.toADfirstTwo(emploi.nom) }}</span>
             </span>
+            </div>
             <div class="card-body">
               <h3 class="name" style="color: white; font-weight: bold">
                 {{ emploi.nom }}
@@ -870,7 +871,7 @@ export default {
 }
 .jobs_filters {
   padding: 2em;
-  margin: 9.5em 0;
+  margin: 6.8em 0 2em 0;
 }
 .conteneur_timetable {
   padding: 1em;
@@ -978,6 +979,7 @@ export default {
 
 .endResearch {
   margin-bottom: 1em;
+  text-align:center;
 }
 .list_personnel {
   color: #f77f00 !important;
@@ -986,7 +988,7 @@ export default {
   position: absolute;
   bottom: 0.7em;
   padding: 0.3em 0.5em;
-  margin-right: 50%;
+  margin-left: 50%;
   transform: translateX(-50%);
 }
 
@@ -1116,6 +1118,7 @@ export default {
 .Mycard-body h3 {
   padding: 0;
   margin: 0 !important;
+  text-align:center;
 }
 .Mycard-body .btn {
   font-size: 0.8em !important;

@@ -244,7 +244,7 @@ export default {
     this.get_categorie();
     this.getAllCompetences();
     this.texte0 = await this.handleTranslate("Enregistrer une Offre");
-    this.texte1 = await this.handleTranslate("Catégorie");
+    this.texte1 = await this.handleTranslate("Catégorie d'offre");
     this.texte2 = await this.handleTranslate("Sélectionner une catégorie");
     this.texte3 = await this.handleTranslate("Choisir les compétences");
     this.texte4 = await this.handleTranslate("Choisir une compétence");
@@ -485,7 +485,7 @@ export default {
                                   </div>
                                   <div class="row">
                                     <div class="col">
-                                      <div class="text-end">
+                                      <div class="text-center my-5">
                                         <button
                                           class="btn btn-warning btn-designer me-3"
                                           type="submit"
