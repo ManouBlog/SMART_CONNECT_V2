@@ -213,7 +213,11 @@ export default {
         @update:model-value="handleCompetence"
         label="competence"
         track-by="competence"
+        placeholder="Sélectionnez vos compétences"
         class="vuemulti"
+         :close-on-select="false"
+  :clear-on-select="false"
+  :preserve-search="true"
       >
       </VueMultiselect>
     </a-form-item>
@@ -329,6 +333,11 @@ export default {
     </a-form-item>
   </a-form>
 </template>
+<style scoped>
+:deep(.multiselect__tag){
+  background:orange;
+}
+</style>
 <style
   src="../../../../../../node_modules/vue-multiselect/dist/vue-multiselect.css"
 ></style>
