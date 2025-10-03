@@ -17,8 +17,8 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
        changeValueForToogleModalInfoPersonnelle(payload){
         // console.log("this.toogleModalInfoPersonnelle",this.toogleModalInfoPersonnelle)
         this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
-        this.isCv = payload.isCv
-        this.isbtnPdf = payload.isbtnPdf
+        this.isCv = payload ? payload.isCv:null
+        this.isbtnPdf = payload ? payload.isbtnPdf:null 
        },
        async getInfoUser(){
       await instance

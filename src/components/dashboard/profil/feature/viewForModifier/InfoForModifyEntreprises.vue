@@ -56,6 +56,7 @@ export default {
     },
 
     updateInfoEntreprise(company) {
+      
       this.update_compte_entreprise({
         nom: company.nom,
         email: company.email,
@@ -70,11 +71,11 @@ export default {
       });
     },
     updateInfoStudent(Etudiants) {
-      console.log("Etudiants", JSON.stringify(Etudiants, null, 2));
-      console.log(
-        "this.itemsQualificationDynamicInput",
-        this.itemsQualificationDynamicInput
-      );
+      // console.log("Etudiants", JSON.stringify(Etudiants, null, 2));
+      // console.log(
+      //   "this.itemsQualificationDynamicInput",
+      //   this.itemsQualificationDynamicInput
+      // );
       //     const competenceWithId = Help.retirerIdIntoArrayCompetence(Etudiants.competences);
       //     console.log("competenceWithId",competenceWithId)
       this.update_compte_student({
@@ -131,7 +132,9 @@ export default {
       </legend>
       <div class="col-md-12">
         <div class="mb-3">
-          <label class="form-label">Nom</label>
+          <label class="form-label">{{ this.user && this.user.user.statut.statut === "entreprise" ?
+          'Raison sociale':'Nom' 
+          }}</label>
           <input v-model="user.nom" class="form-control" type="text" />
         </div>
       </div>
@@ -151,10 +154,16 @@ export default {
           <input v-model="user.email" class="form-control" type="email" />
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12" v-if="this.user && this.user.user.statut.statut === 'etudiant'">
         <div class="mb-3">
           <label class="form-label">Contact</label>
           <input v-model="user.phone" class="form-control" type="text" />
+        </div>
+      </div>
+       <div class="col-md-12" v-if="this.user && this.user.user.statut.statut == 'entreprise'">
+        <div class="mb-3">
+          <label class="form-label">Contact téléphonique</label>
+          <input v-model="user.contact" class="form-control" type="text" />
         </div>
       </div>
       <div class="col-md-12">
@@ -216,15 +225,20 @@ export default {
         </div>
       </section>
       <section v-if="this.user && this.user.user.statut.statut === 'entreprise'">
+        
+       
         <div class="col-md-12">
-          <div class="mb-3">
-            <label class="form-label">Forme juridique</label>
-            <input v-model="user.forme_juridique" class="form-control" type="text" />
+          <div class="my-3">
+            <label for="add_file_logo">Logo</label>
+            <input type="file" @input="addAnLogo" id="add_file_logo" class="w-100" />
           </div>
         </div>
         <div class="col-md-12">
-          <div class="my-3">
-            <label for="add_file">Registre</label>
+          <div class="mb-3">
+            <label class="form-label">RCCM (Registre du Commerce et du Crédit Mobilier)</label>
+            <input v-model="user.matricule_cc" class="form-control" type="text" />
+          </div>
+            <div class="my-3">
             <input
               type="file"
               @input="addAnRegistreDoc"
@@ -234,15 +248,15 @@ export default {
           </div>
         </div>
         <div class="col-md-12">
-          <div class="my-3">
-            <label for="add_file_logo">Logo</label>
-            <input type="file" @input="addAnLogo" id="add_file_logo" class="w-100" />
+          <div class="mb-3">
+            <label class="form-label">Forme juridique</label>
+            <input v-model="user.forme_juridique" class="form-control" type="text" />
           </div>
         </div>
         <div class="col-md-12">
           <div class="mb-3">
-            <label class="form-label">Matricule/cc</label>
-            <input v-model="user.matricule_cc" class="form-control" type="text" />
+            <label class="form-label">NCC (Numéro de compte contribuable)</label>
+            <input v-model="user.NCC" class="form-control" type="text" />
           </div>
         </div>
         <legend>Info sur le gérant</legend>
@@ -278,7 +292,7 @@ export default {
           />
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12" v-if="this.user && this.user.user.statut.statut === 'etudiant'">
         <div class="my-3">
           <label class="form-label">Qualifications</label>
           <n-dynamic-input

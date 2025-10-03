@@ -264,7 +264,7 @@ export default {
     this.texte6 = await this.handleTranslate('Ville :');
     this.texte7 = await this.handleTranslate('Commune :');
     this.texte8 = await this.handleTranslate('Quartier :');
-    this.texte9 = await this.handleTranslate('Document :');
+    this.texte9 = await this.handleTranslate('Registre :');
     this.texte10 = await this.handleTranslate('Forme juridique :');
     this.texte88 = await this.handleTranslate('Logo entreprise :');
     this.texte11 = await this.handleTranslate('Nom & Prénoms :');
@@ -289,9 +289,10 @@ export default {
             <InfoEntreprise
               v-if=" this.user && (this.user.user.statut.statut === 'entreprise' || this.user.user.statut.statut === 'particulier') "
               :infoPersonellesEntreprise="[
-                { libelle: texte2, value: user.nom },
-                { libelle: texte3, value: user.email },
-                { libelle: texte4, value: user.matricule_cc ? user.matricule_cc:'néant' },
+                { libelle: 'Raison sociale', value: user.nom },
+                { libelle: 'Contact mail', value: user.email },
+                { libelle: 'RCCM (Registre du Commerce et du Crédit Mobilier) :', value: user.matricule_cc ? user.matricule_cc:'néant' },
+                { libelle: 'NCC (Numéro de compte contribuable) :', value: user.NCC ? user.NCC:'néant' },
                 { libelle: texte5, value: user.contact },
                 { libelle: texte6, value: user.ville },
                 { libelle: texte7, value: user.commune },

@@ -161,13 +161,13 @@ export default {
             :key="index"
             class="col-lg-4 col-sm-6"
           >
-            <p>{{ item.libelle }}</p>
+            <p style="color:orange;">{{ item.libelle }}</p>
             <h6
               v-if="
                 item.value !== null &&
                 item.value !== 'null' &&
                 item.value !== 'undefined' &&
-                item.libelle !== 'Document :' && 
+                item.libelle !== 'Registre :' && 
                 item.libelle !== 'Logo entreprise :'
               "
               class="fw-bold"
@@ -183,7 +183,7 @@ export default {
               :src="lienPhoto + item.value"
               />
             </div>
-            <div v-if="item.libelle === 'Document :' && item.value" style="display: flex; justify-content: flex-start">
+            <div v-if="item.libelle === 'Registre :' && item.value" style="display: flex; justify-content: flex-start">
               <div>
                 <n-button type="warning" @click="showModal = true">
     Voir le registre
