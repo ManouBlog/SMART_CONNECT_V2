@@ -34,7 +34,6 @@ export default {
 
       this.isDatePassed = today >= backendDate;
       if(this.isDatePassed){
-        console.log("lance getIpapperal")
          this.getIpApparel();
       }
     },

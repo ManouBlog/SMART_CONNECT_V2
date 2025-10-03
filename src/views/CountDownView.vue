@@ -4,7 +4,7 @@
       <div style="display: flex; justify-content: center">
         <img
           style="width: 150px; height: 100px; margin: 0 !important"
-          src="../assets/logo_white.png"
+          src="../assets/logo_white_1.png"
           alt="MonBrobroli Logo"
           class="logo"
         />
