@@ -129,7 +129,7 @@ export default {
     this.texte4 = await this.handleTranslate("Commune");
     this.texte5 = await this.handleTranslate("Quartier");
     this.texte6 = await this.handleTranslate("Email");
-    this.texte7 = await this.handleTranslate("Compétences");
+    this.texte7 = await this.handleTranslate("Compétences (Choix multiple)");
     this.texte8 = await this.handleTranslate("Dernier diplôme academique");
     this.texte9 = await this.handleTranslate("Carte étudiant (jpg,pdf,png,webp)");
     this.texte10 = await this.handleTranslate("Mot de passe");
@@ -213,7 +213,7 @@ export default {
         @update:model-value="handleCompetence"
         label="competence"
         track-by="competence"
-        placeholder="Sélectionnez vos compétences"
+        placeholder="Sélectionnez vos compétences (Choix multiple)"
         class="vuemulti"
          :close-on-select="false"
   :clear-on-select="false"
