@@ -29,49 +29,96 @@ export default {
       offre_emploi_du_jour: "",
       user: this.$store.state.user,
       timetable: "",
-      STOREPARTENAIRE:usePartenaireStore(),
+      STOREPARTENAIRE: usePartenaireStore(),
       offres: "",
       emailForNewsletter: "",
       charte: window.localStorage.getItem("charte"),
       newletter: null,
       ListOffre: [],
       spinner: false,
-      email:"",
-      token:"",
+      email: "",
+      token: "",
     };
   },
-
   methods: {
-    async doVerificationMail(email,token){
-      try{
-      const response = await instance.post('verificationEmail',{
-        email:email,
-        token:token
-      });
-      if(response.data.status){
-      Swal.fire({
-              icon: "success",
-              title: "Compte activé",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-      }
-      }catch(e){
-        console.log(e)
-      }
-    }
-  },
-  created(){
- this.email = this.$route.params.email
-    this.token = this.$route.params.token
+    async verifyEmail(email, token) {
+      try {
+        const { data } = await instance.post("verificationEmail", { email, token });
 
-    if(this.email && this.token){
-    this.doVerificationMail(this.email,this.token)
+        if (data.status) {
+          Swal.fire({
+            icon: "success",
+            title: "Votre compte a été activé 🎉",
+            text: "Vous pouvez maintenant accéder à votre espace personnel.",
+            showConfirmButton: false,
+            timer: 1800,
+          });
+        } else {
+          Swal.fire({
+            icon: "warning",
+            title: "Vérification échouée",
+            text: data.message || "Le lien de vérification est invalide ou expiré.",
+          });
+        }
+      } catch (error) {
+        console.error("Erreur lors de la vérification :", error);
+        Swal.fire({
+          icon: "error",
+          title: "Erreur serveur",
+          text:
+            "Une erreur est survenue lors de la vérification. Veuillez réessayer plus tard.",
+        });
+      }
+    },
+  },
+
+  async created() {
+    this.email = this.$route.params.email;
+    this.token = this.$route.params.token;
+
+    if (this.email && this.token) {
+      await this.verifyEmail(this.email, this.token);
     }
   },
- async mounted() {
-    await this.STOREPARTENAIRE.getAllPartenaires();
+
+  async mounted() {
+    try {
+      await this.STOREPARTENAIRE.getAllPartenaires();
+    } catch (error) {
+      console.error("Erreur lors du chargement des partenaires :", error);
+    }
   },
+  // methods: {
+  //   async doVerificationMail(email, token) {
+  //     try {
+  //       const response = await instance.post("verificationEmail", {
+  //         email: email,
+  //         token: token,
+  //       });
+  //       if (response.data.status) {
+  //         Swal.fire({
+  //           icon: "success",
+  //           title: "Compte activé",
+  //           showConfirmButton: false,
+  //           timer: 1500,
+  //         });
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   },
+  // },
+  // created() {
+  //   this.email = this.$route.params.email;
+  //   this.token = this.$route.params.token;
+
+  //   if (this.email && this.token) {
+  //     this.doVerificationMail(this.email, this.token);
+  //   }
+  // },
+  // async mounted() {
+  //   await this.STOREPARTENAIRE.getAllPartenaires();
+  // },
 };
 </script>
 <template>
@@ -331,7 +378,6 @@ select {
 .bi-chat-square-text-fill {
   font-size: 2em !important;
 }
-
 
 h3 {
   color: white;
