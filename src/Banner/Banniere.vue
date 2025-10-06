@@ -6,6 +6,12 @@ export default {
     return {
       afficheAll: [],
       lienPhoto: lienPhoto,
+      afficheDefault: [
+        require("/src/assets/baniere_1.png"),
+        require("/src/assets/baniere_2.png"),
+        require("/src/assets/baniere_3.png"),
+      ],
+      afficheShow: [],
     };
   },
   methods: {
@@ -18,15 +24,19 @@ export default {
     },
     getAllAffiche() {
       instance
-        .get("showAffiche/"+'pc')
+        .get("showAffiche/" + "pc")
         .then((res) => {
           // // console.log(res);
           //  // console.log("this.afficheAll",res.data.data)
           this.afficheAll = res.data.data;
+          if (this.afficheAll.length > 0) {
+            this.afficheShow = this.afficheAll;
+          } else {
+            this.afficheShow = this.afficheDefault;
+          }
         })
         .catch((err) => {
           console.log(err);
-          this.afficheAll = [];
         });
     },
   },
@@ -41,35 +51,66 @@ export default {
       <div class="main-container">
         <div
           class="col-lg-12 col-md-12 col-sm-12 mt-2"
-          style="
-            min-width: 300px;
-            height: 400px;
-            text-align: center;
-            position: relative;
-          "
+          style="min-width: 300px; height: 400px; text-align: center; position: relative"
         >
           <n-carousel autoplay :interval="1500">
+            <div
+              style="
+                background: #80808014; /* fond léger */
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center; /* centre verticalement */
+                justify-content: center; /* centre horizontalement */
+              "
+            >
+              <div class="text-center">
+                <h1
+                  style="
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 2.5rem;
+                    color: #333;
+                    text-align: center;
+                  "
+                >
+                  Affichez-vous ici pour plus de visibilité.
+                </h1>
+                <h3
+                  style="
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 2.5rem;
+                    color: #333;
+                    text-align: center;
+                  "
+                >
+                  +225 0545749741
+                </h3>
+              </div>
+            </div>
             <div
               style="
                 background: white;
                 position: relative;
                 width: 100%;
-                background:#80808014;
+                background: #80808014;
                 height: 100%;
                 top: 0;
                 bottom: 0;
                 left: 0;
                 left: 0;
               "
-              v-for="item in this.afficheAll"
-              :key="item.id"
+              v-for="(item, index) in this.afficheShow"
+              :key="index"
             >
-              <img
+            <img
+             v-if="item.lien"
                 class="carousel-img"
                 :src="lienPhoto + item.affiche"
                 @click="openLink(item.lien)"
               />
+              <img v-else class="carousel-img" :src="item" />
             </div>
+            
           </n-carousel>
         </div>
       </div>
