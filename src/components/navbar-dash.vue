@@ -64,7 +64,7 @@ export default {
         <a href="#"
           ><img
             class="w-75 for-light"
-            src="../assets/broboli_footer.png"
+            src="../assets/broboli_footer_1.png"
             alt="broboli_footer.png"
         /></a>
         <div class="back-btn"><i class="fa fa-angle-left"></i></div>

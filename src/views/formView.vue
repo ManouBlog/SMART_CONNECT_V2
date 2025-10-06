@@ -82,7 +82,7 @@ export default {
       <div class="col-12">
         <div class="login-card">
           <form @submit.prevent="go_to_dash" class="theme-form login-form">
-            <img class="w-25 for-light" src="../assets/brobroli.png" alt="broboli.png" />
+            <img class="w-25 for-light" src="../assets/brobroli_1.png" alt="broboli.png" />
             <h4>Se Connecter</h4>
             <div class="form-group text-start">
               <label>Email Address</label>
