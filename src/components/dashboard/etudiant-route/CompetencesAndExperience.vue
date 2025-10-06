@@ -616,7 +616,7 @@ export default {
                               </tr>
                             </tbody>
                           </table>
-                          <h4 style="color:black;text-align:center;font-weight:bold;">Pas de compétences.</h4>
+                          <h4 style="color:black;text-align:center;font-weight:bold;" v-else>Pas de compétences.</h4>
                         </div>
                       </div>
                     </div>
@@ -682,7 +682,8 @@ export default {
                             ).toLocaleDateString()}`
                           }}
                         </h6>
-                        <p class="text-start ms-2" v-if="item.experience">
+                        <p class="text-start ms-2" v-if="item.experience !== null ||
+                         item.experience !== 'null'">
                           {{ item.experience }}
                         </p>
                       </div>

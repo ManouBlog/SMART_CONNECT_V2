@@ -203,6 +203,13 @@ export default {
         <a-menu-item>
           <LiensNavBar :texte="texte5" :route_lien="'dashboard-abonnements'" />
         </a-menu-item>
+        <!-- <a-menu-item>
+          <li>
+            <router-link to="/dashboard/entreprises_interessees" class="d-block">
+              Votre avis sur momobrobroli
+            </router-link>
+          </li>
+        </a-menu-item> -->
         <a-menu-item>
           <li class="position-absolute deconnex">
             <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{ texte6 }}</a>

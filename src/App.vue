@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Si la date de lancement est passée, on montre le router-view -->
-    <router-view v-if="!isDatePassed" />
+    <router-view v-if="isDatePassed" />
 
     <!-- Sinon, on affiche le countdown -->
     <CountDownView v-else :targetDate="lancementDate" />
@@ -33,8 +33,8 @@ export default {
       backendDate.setHours(0, 0, 0, 0);
 
       this.isDatePassed = today >= backendDate;
-      if(this.isDatePassed){
-         this.getIpApparel();
+      if (this.isDatePassed) {
+        this.getIpApparel();
       }
     },
 
@@ -88,7 +88,6 @@ export default {
   created() {
     this.isLancement();
     localStorage.setItem("translate", "fr");
-    
   },
 };
 </script>
@@ -99,10 +98,11 @@ html {
 .myconteneur {
   margin-top: 7.8em;
 }
-.router-link-exact-active{
+.router-link-exact-active {
   color: orange !important;
 }
-.multiselect__option--highlight,.p-button-icon-only{
+.multiselect__option--highlight,
+.p-button-icon-only {
   background: orange !important;
 }
 
@@ -113,7 +113,7 @@ html {
 .not_data {
   text-align: center;
 }
-.ant-input{
-  padding:0.7em !important;
+.ant-input {
+  padding: 0.7em !important;
 }
 </style>

@@ -533,7 +533,6 @@ export default {
 }
 .login_user,
 .login_user_mobile {
-  border: 2px solid orange;
   padding: 0.3em;
   border-radius: 10px;
   font-size: 1em !important;
