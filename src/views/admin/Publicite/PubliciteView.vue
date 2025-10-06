@@ -13,7 +13,8 @@ export default {
       categories: null,
       spinner: true,
       loading: false,
-      lienAffiche:null
+      lienAffiche:null,
+      appareal:'pc',
     };
   },
   methods: {
@@ -24,6 +25,7 @@ export default {
         formData.append("affiche[]", affiche);
       });
       formData.append('lien',this.lienAffiche);
+      formData.append('appareil',this.appareal);
       await axios
         .post("https://backend.monbrobroli.com/api/admin/addAffiche", formData, {
           headers: {
@@ -253,6 +255,18 @@ export default {
                             />
                           </div>
                         </div>
+                         <div class="col-lg-6">
+                          <div class="mb-3 text-start font-bold">
+                            <p style="font-weight: bold; font-size: 1.5em">Séléctionne l'appareil</p>
+                            <select name="appareal" id="appareal"
+                            v-model="appareal"
+                            style="width:100%"
+                            >
+                          <option value="mobile">Mobile</option>
+                          <option value="pc">PC</option>
+                          </select>
+                          </div>
+                          </div>
                       </div>
                       <div class="row">
                         <div class="col">

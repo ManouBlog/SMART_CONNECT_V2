@@ -19,7 +19,7 @@ export default createStore({
     addExperiences(state, person) {
       axios
         .post(
-          "http://127.0.0.1:8000/api/postNewExperience",
+          "https://backend.monbrobroli.com/api/postNewExperience",
           {
             experience: person.experience,
             lieu: person.lieu,
