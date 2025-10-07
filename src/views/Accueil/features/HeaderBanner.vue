@@ -26,7 +26,7 @@ export default {
     },
   },
   async created() {
-    this.texte0 = await this.handleTranslate("Mon emploi");
+    this.texte0 = await this.handleTranslate("Mon Brobroli");
     this.texte2 = await this.handleTranslate("en un clic");
     this.texte3 = await this.handleTranslate("Nous vous accompagnons pour");
     this.texte4 = await this.handleTranslate("trouver votre prochaine opportunité");
@@ -108,5 +108,16 @@ export default {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  margin-top:6.5em;
+}
+@media screen and (max-width: 500px) {
+ .header_banner {
+  margin-top:4em;
+}
+}
+@media screen and (max-width: 400px) {
+  .header_banner {
+  margin-top:0.5em;
+}
 }
 </style>

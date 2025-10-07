@@ -94,7 +94,7 @@ console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
         payload?.qualifications?.forEach(element => {
            data.append("qualifications[]",JSON.stringify(element));
         });
-        this.pieceIdentiteGerant.forEach(element => {
+        this.pieceIdentiteGerant?.forEach(element => {
            data.append("carte[]",element);
         });
         data.append("nom", payload?.nom);
@@ -110,7 +110,7 @@ console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
        await instance
           .post("modifier_profil", data)
           .then((res) => {
-            // console.log(res);
+            console.log("update_compte_student",res.data);
             if (res.data.status === true) {
               Swal.fire({
                 icon: "success",

@@ -71,13 +71,12 @@ export default {
       });
     },
     updateInfoStudent(Etudiants) {
-      // console.log("Etudiants", JSON.stringify(Etudiants, null, 2));
-      // console.log(
-      //   "this.itemsQualificationDynamicInput",
-      //   this.itemsQualificationDynamicInput
-      // );
-      //     const competenceWithId = Help.retirerIdIntoArrayCompetence(Etudiants.competences);
-      //     console.log("competenceWithId",competenceWithId)
+      console.log("Etudiants", JSON.stringify(Etudiants, null, 2));
+      console.log(
+        "this.itemsQualificationDynamicInput",
+        this.itemsQualificationDynamicInput
+      );
+     
       this.update_compte_student({
         nom: Etudiants.nom,
         email: Etudiants.email,
