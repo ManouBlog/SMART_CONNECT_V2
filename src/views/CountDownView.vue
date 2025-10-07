@@ -129,7 +129,7 @@ const SendMailBienvenueNewsletter = async (value) => {
 }
 .image-container {
   width: 90%;
-  aspect-ratio: 16/9; /* ou 21/9, 4/3 selon ton design */
+  aspect-ratio: 21/9; /* ou 21/9, 4/3 selon ton design */
   position: relative;
   margin: 0 auto;
   overflow: hidden;
