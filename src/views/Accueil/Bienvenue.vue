@@ -4,6 +4,7 @@ import instance from "../../api/api";
 import HeaderBanner from "./features/HeaderBanner.vue";
 import Banniere from "../../Banner/Banniere.vue";
 import StepViews from "./features/StepViews.vue";
+import TestimonialsView from "../TestimonialsView.vue";
 import RechercheOffre from "./features/RechercheOffre.vue";
 import PerformanceView from "./features/PerformanceView.vue";
 import OffresRecentes from "./features/OffresRecentes.vue";
@@ -20,6 +21,7 @@ export default {
     PerformanceView,
     OffresRecentes,
     Partenaires,
+    TestimonialsView,
     // NewsLetterView,
     Banniere,
     AppMobileView,
@@ -38,6 +40,7 @@ export default {
       spinner: false,
       email: "",
       token: "",
+      testimonials:[]
     };
   },
   methods: {
@@ -70,9 +73,20 @@ export default {
         });
       }
     },
+    async launchTestimonials(){
+      try {
+    const response = await instance.get('temoignages');
+    console.log("testimonials",response.data)
+    this.testimonials = response.data;
+  } catch (error) {
+    console.error("Erreur lors du chargement des témoignages :", error);
+  }
+    }
   },
 
+  
   async created() {
+    this.launchTestimonials()
     this.email = this.$route.params.email;
     this.token = this.$route.params.token;
 
@@ -131,7 +145,7 @@ export default {
     <AppMobileView />
     <OffresRecentes />
     <Partenaires v-if="this.STOREPARTENAIRE.partenaires.length" />
-
+    <TestimonialsView v-if="this.testimonials.length" />
     <!-- <NewsLetterView /> -->
   </section>
 </template>
