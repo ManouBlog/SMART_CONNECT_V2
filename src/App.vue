@@ -92,6 +92,9 @@ export default {
 };
 </script>
 <style>
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon{
+  color: orange !important;
+}
 html {
   font-size: 0.89em;
 }

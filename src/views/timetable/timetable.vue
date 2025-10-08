@@ -866,6 +866,7 @@ export default {
   </section>
 </template>
 <style scoped>
+
 .ecriteau {
   color: orange;
 }
