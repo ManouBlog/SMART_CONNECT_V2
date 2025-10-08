@@ -147,7 +147,6 @@ onMounted(async () => {
   position: absolute;
   bottom: 1em;
   display: flex;
-  justify-content: center;
   width: 100%;
 }
 .fermer {
@@ -157,9 +156,7 @@ onMounted(async () => {
   border: none !important;
 }
 ul,
-.abonnement-classique {
-  padding: 1.5em;
-}
+
 .abonnement-classique {
   width: 300px;
   height: 450px;
@@ -169,7 +166,6 @@ ul,
   box-shadow: 3px 3px 6px 6px rgba(0, 0, 0, 0.126);
   transition: all 1s ease-in-out;
   position: relative;
-  padding: 1.5em;
 }
 
 .hidden {
