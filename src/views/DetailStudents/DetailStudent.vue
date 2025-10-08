@@ -928,6 +928,10 @@ export default {
 </template>
 
 <style scoped>
+
+.disponibilite{
+  text-align:center;
+}
 :deep(.p-inputwrapper) {
   width: 500px !important;
 }
@@ -1036,5 +1040,27 @@ hr {
   width: 10px;
   height: 10px;
   border-radius: 100%;
+}
+@media (max-width: 780px) {
+ .conteneur_calendar_student {
+  margin-top:9em !important;
+}
+.conteneur_student{
+  padding:0 1em;
+}
+}
+@media (max-width: 580px) {
+ .conteneur_calendar_student {
+  margin-top:25em !important;
+}
+.conteneur_student{
+  padding:0 0.5em;
+}
+}
+
+@media (max-width: 380px) {
+ :deep(.vc-container){
+  width:100%;
+ }
 }
 </style>

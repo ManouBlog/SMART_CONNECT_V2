@@ -95,7 +95,7 @@ export default {
             <h6 class="text-start ms-2 fw-bold">
               <span class="badge bg-warning text-light fw-bold">{{ item.poste }}</span>
             </h6>
-            
+
             <p>
               <em class="bi bi-geo-alt"></em>
               {{ item.lieu }}
@@ -142,11 +142,19 @@ export default {
             </template>
 
             <div v-for="(item, index) in timetable_for_student?.etoiles" :key="index">
-              <div class="conteneur-stars_avis">
-                <span style="font-weight: bold; font-size: 1.2em">
-                  {{ item?.entreprise.nom }}</span
-                >
-
+              <div>
+                <p>
+                  <span>Noter par : </span>
+                  <span
+                    style="
+                      margin: 0;
+                      padding: 0;
+                      font-size: 1.2em;
+                    "
+                  >
+                    {{ item?.entreprise.nom }}
+                  </span>
+                </p>
                 <vue3starRatings
                   v-model="item.notes"
                   :showControl="false"
@@ -155,7 +163,7 @@ export default {
                 />
               </div>
 
-              <p class="my-3 text-center">{{ item.avis }}</p>
+              <p class="text-center">{{ item.avis }}</p>
             </div>
           </a-carousel>
         </div>
@@ -164,6 +172,9 @@ export default {
   </section>
 </template>
 <style scoped>
+:deep(.vue3-star-ratings__wrapper) {
+  padding: 0 !important;
+}
 .card {
   margin-bottom: 0px;
   border: none;
@@ -188,6 +199,7 @@ textarea {
   border: 2px solid orange;
   border-radius: 5px;
 }
+
 
 .conteneur_editor {
   border: 1px solid black;
@@ -362,15 +374,14 @@ p {
 
 .conteneur-stars_avis {
   display: flex;
-  justify-content: center;
   gap: 1em;
   align-items: center;
-  padding: 1em;
 }
 .evaluation_avis {
   margin-left: 0.5em;
   /* width: 160px; */
   padding: 0.5em;
+  font-weight:bold;
   border-radius: 5px;
   font-size: 1.3em;
   color: orange;
@@ -393,23 +404,23 @@ p {
 .container-testominal {
   width: 100%;
   position: relative;
-  height: 200px;
+  height: 100%;
 }
 :deep(.slick-slide) {
   text-align: center;
-  height: 200px;
+  height: 100%;
   overflow: hidden;
   border-radius: 20px;
   padding: 1em;
-  background: var(--secondary-color) !important;
-  color: var(--third-color) !important;
+  background: rgb(94, 94, 94) !important;
+  color: rgb(194, 194, 194) !important;
 }
 
 :deep(.slick-arrow.custom-slick-arrow) {
   width: 25px;
   height: 25px;
   font-size: 25px;
-  color: #000000;
+  color: orange;
   transition: ease all 0.3s;
   opacity: 1;
   z-index: 1000;

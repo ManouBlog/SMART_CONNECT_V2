@@ -98,6 +98,7 @@ export default {
           background: #80808085;
           border-radius: 5px;
           margin: 1em 0;
+          color:black;
         "
       >
         {{ timetable_for_student.bio }}
