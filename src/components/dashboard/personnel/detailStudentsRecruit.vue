@@ -88,6 +88,7 @@ export default {
       });
     },
     async sendAppreciation() {
+     spinnerLoading.launchLoading(true);
       await instance
         .post("giveAvis", {
           notes: this.numberRate,
@@ -96,17 +97,22 @@ export default {
           offre_id: this.identifiant.offre_id,
         })
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
               title: res.data.message,
               showConfirmButton: true,
             });
-            setTimeout(() => {
-              this.appreciationService = false;
-            }, 1500);
+            this.showModal = !this.showModal
+            this.numberRate = 0
+            this.avis = null
           }
+        }).catch((error)=>{
+          console.log(error)
+        })
+        .finally(()=>{
+          spinnerLoading.launchLoading(false);
         });
     },
   },
@@ -248,6 +254,9 @@ export default {
 </template>
 
 <style scoped>
+:deep(.n-modal-container){
+  z-index:99 !important;
+}
 h4{
   margin:1.5em 0;
 }
