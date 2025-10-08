@@ -72,7 +72,7 @@ export default {
           <CardFooter
            :isWhite="true"
             :title="texte4"
-            :listLien="[`+225 0707070707`, 'hotline@lce-ci.com']"
+            :listLien="[`+225 0707969672 / 0546667766`, 'hotline@lce-ci.com']"
           />
           <LogoComponent />
         </div>

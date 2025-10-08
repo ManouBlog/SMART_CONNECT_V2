@@ -16,6 +16,8 @@ export default {
       texte5: "",
       texte6: "",
       texte7: "",
+      texte88:"",
+      texte99:"",
     };
   },
   methods: {
@@ -28,11 +30,14 @@ export default {
   async created() {
     this.texte0 = await this.handleTranslate("Mon Brobroli");
     this.texte2 = await this.handleTranslate("en un clic");
-    this.texte3 = await this.handleTranslate("Nous vous accompagnons pour");
-    this.texte4 = await this.handleTranslate("trouver votre prochaine opportunité");
+    this.texte3 = await this.handleTranslate("Gagnes de l’Experience professionnelle");
+    this.texte88 = await this.handleTranslate("et de l’argent tout en etant étudiant(e).");
+    this.texte4 = await this.handleTranslate("Avec MonBrobroli, La galere est derrière vous");
+    this.texte99 = await this.handleTranslate("avec des opportunites taillées à votre mesure.");
     this.texte5 = await this.handleTranslate("Connexion");
     this.texte6 = await this.handleTranslate("Offres");
     this.texte7 = await this.handleTranslate("Talents disponibles");
+    
   },
 };
 </script>
@@ -45,7 +50,10 @@ export default {
       </h1>
       <div class="my-5" style="letter-spacing:0.2em;">
         <h5>{{ texte3 }}</h5>
+        <h5>{{ texte88 }}</h5>
+        <br>
        <h5>{{ texte4 }}</h5> 
+       <h5>{{texte99}}</h5>
       </div>
       <ButtonsHeader
         @handleBtn="changeValueIsModal"
