@@ -204,7 +204,7 @@ export default {
           </div>
         </div>
       </section>
-      <h1 class="fw-bold" style="color:orange">{{texte1}}</h1>
+      <h1 class="fw-bold"  style="color:orange" v-if="infoPersonellesGerant.length">{{texte1}}</h1>
       <section>
         <div class="row" v-if="infoPersonellesGerant.length">
           <div
@@ -227,6 +227,7 @@ export default {
               height="100"
               :src="lienPhoto + photo.path"
               />
+              <span v-if="!item.value.length">Veuillez ajouter une pièce d'identité.</span>
             </div>
           </div>
         </div>

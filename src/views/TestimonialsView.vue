@@ -44,13 +44,21 @@ onMounted(async () => {
         <div class="testimonials__author">
           <div class="author__avatar">
             <img 
-            :src="lienPhoto+item.student.photo_profil" 
-            :alt="item.student.nom" 
+            v-if="!item?.student?.logo"
+            :src="lienPhoto+item?.student?.photo_profil" 
+            :alt="item?.student?.nom" 
+            class="author__image"
+            />
+            <img 
+            v-if="item?.student?.logo"
+            :src="lienPhoto + item?.student?.logo" 
+            :alt="item?.student?.nom" 
             class="author__image"
             />
           </div>
           <p style="display:flex;flex-direction:column;">
-            <span class="author__name">{{item.student.nom}} {{item.student.prenoms}}</span>
+            <span class="author__name" v-if="item?.student">{{item?.student?.nom}} {{item?.student?.prenoms}}</span>
+            
            <span>{{item.user.statut.statut}}</span>
         </p>
           

@@ -283,12 +283,15 @@ export default {
     <ModalForModifyInfo />
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="page-body" >
+      <!-- {{ JSON.stringify(this.user,null,2) }} -->
       <TabView>
         <TabPanel :header="texte1">
           <div>
             <InfoEntreprise
               v-if=" this.user && (this.user.user.statut.statut === 'entreprise' || this.user.user.statut.statut === 'particulier') "
-              :infoPersonellesEntreprise="[
+              :infoPersonellesEntreprise="
+              this.user.user.statut.statut === 'entreprise' ?
+              [
                 { libelle: 'Raison sociale', value: user.nom },
                 { libelle: 'Contact mail', value: user.email },
                 { libelle: 'RCCM (Registre du Commerce et du Crédit Mobilier) :', value: user.matricule_cc ? user.matricule_cc:'néant' },
@@ -300,12 +303,20 @@ export default {
                 { libelle: texte88, value: user.logo },
                 { libelle: texte9, value: user.registre ? user.registre:'néant'  },
                 { libelle: texte10, value: user.forme_juridique ? user.forme_juridique:'néant' },
+              ]:[
+                { libelle: 'Nom', value: user.nom },
+                { libelle: 'Email', value: user.email },
+                { libelle: texte5, value: user.contact },
+                { libelle: texte6, value: user.ville },
+                { libelle: texte7, value: user.commune },
+                { libelle: texte8, value: user.quartier },
+                { libelle: texte12, value: user.user.photos },
               ]"
-              :infoPersonellesGerant="[
+              :infoPersonellesGerant="this.user.user.statut.statut === 'entreprise' ? [
                 { libelle: texte11, value: user.gerant ? user.gerant:user.nom },
                 { libelle: texte5, value: user.numero_gerant ? user.numero_gerant:user.contact },
                 { libelle: texte12, value: user.user.photos },
-              ]"
+              ]:[]"
             />
             <InfoStudents
               :infoPersonellesStudents="[

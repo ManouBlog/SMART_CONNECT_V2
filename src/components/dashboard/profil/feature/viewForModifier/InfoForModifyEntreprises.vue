@@ -94,7 +94,17 @@ export default {
     handleUpdate(user) {
       if (this.user.user.statut.statut === "entreprise") {
         this.updateInfoEntreprise(user);
-      } else {
+      } else if(this.user.user.statut.statut === "particulier"){
+        const data={
+          commune:user.commune,
+          contact:user.contact,
+          nom:user.nom,
+          particulier_prenoms:user.particulier_prenoms,
+          quartier:user.quartier,
+        }
+        console.log("updateInfoParticulier",data)
+        // this.updateInfoParticulier(user);
+      }else{
         this.updateInfoStudent(user);
       }
       this.getInfoUser();
@@ -146,6 +156,15 @@ export default {
           <input v-model="user.prenoms" class="form-control" type="text" />
         </div>
       </div>
+      <div
+        class="col-md-12"
+        v-if="this.user && this.user.user.statut.statut === 'particulier'"
+      >
+        <div class="mb-3">
+          <label class="form-label">Prénoms</label>
+          <input v-model="user.particulier_prenoms" class="form-control" type="text" />
+        </div>
+      </div>
 
       <div class="col-md-12">
         <div class="mb-3">
@@ -159,7 +178,7 @@ export default {
           <input v-model="user.phone" class="form-control" type="text" />
         </div>
       </div>
-       <div class="col-md-12" v-if="this.user && this.user.user.statut.statut == 'entreprise'">
+       <div class="col-md-12" v-if="this.user && (this.user.user.statut.statut == 'entreprise' || this.user.user.statut.statut == 'particulier')">
         <div class="mb-3">
           <label class="form-label">Contact téléphonique</label>
           <input v-model="user.contact" class="form-control" type="text" />
