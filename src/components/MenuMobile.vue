@@ -1,5 +1,6 @@
 <script>
-import instance from "../api/api";
+import instance,{lienPhoto} from "../api/api";
+import { Help } from "../utils";
 import Swal from "sweetalert2";
 import { mapState, mapActions } from "pinia";
 import { useMenuMobile } from "../store-pinia/MenuMobile/useMenuMobileStore";
@@ -19,6 +20,8 @@ export default {
   },
   data() {
     return {
+      Help:Help,
+      lienPhoto:lienPhoto,
       texte: "",
       texte2: "",
       texte3: "",
@@ -30,6 +33,7 @@ export default {
       texte8: "",
       texte9: "",
       texte10: "",
+      photo_profil:""
     };
   },
   computed: {
@@ -78,8 +82,23 @@ export default {
           this.launchLoading(false);
         });
     },
+    async getInfoUser() {
+      await instance
+        .get("voirInfoUserConnect")
+        .then((resp) => {
+          // console.log("voirInfoUserConnect",resp);
+          if (resp.data.status === true) {
+            this.photo_profil = resp.data.user.photo_profil;
+            // console.log("this.photo_profil",this.photo_profil);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   async created() {
+    this.getInfoUser();
     this.texte = await this.handleTranslate("Connexion");
     this.texte1 = await this.handleTranslate("Accueil");
     this.texte2 = await this.handleTranslate("Offre d'emploi");
@@ -100,14 +119,34 @@ export default {
     @close="changeValueForshowMenuMobile"
   >
     <ul>
-      <li style="display: flex; justify-content: space-between; gap: 1em">
-        <a style="text-transform:capitalize" href="#" v-if="this.$store.state.user">
-          {{ this.$store.state.user.nom }}
-          <em class="bi bi-person-workspace text-primary h3"></em>
-          <!-- <DownOutlined /> -->
-        </a>
-        <!-- <SelectLanguage /> -->
+      <li style="display: flex;align-items:center;gap: 1em">
+        <n-avatar
+        v-if="this.photo_profil"
+        style="border: 2px solid orange; object-fit: cover"
+        round
+        :size="55"
+        :src="lienPhoto + this.photo_profil"
+      />
+      <span
+        style="
+          border: 1px solid white;
+          object-fit: cover;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          font-size: 1em;
+          border-radius: 100%;
+          background: gray;
+        "
+        v-else
+      >
+        <span style="font-size: 1.5em;color:black !important;">{{ Help.toADfirstTwo(this.$store.state.user.nom) }}</span>
+      </span>
+      <span style="color:black !important;">{{ this.$store.state.user.nom }} <br /> {{this.$store.state.user.prenoms}}</span>
+        
       </li>
+      <!-- <SelectLanguage /> -->
       <li v-if="!this.$store.state.user">
         <a href="#" class="login_user_mobile" @click.prevent="changeValueIsModal">
           {{ texte }}

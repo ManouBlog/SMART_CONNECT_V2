@@ -46,7 +46,7 @@ export default {
   },
   async created() {
 
-    this.texte = await this.handleTranslate(' Tableau de bord');
+    this.texte = await this.handleTranslate('Tableau de bord');
     this.texte1 = await this.handleTranslate('Mon profil');
     this.texte2 = await this.handleTranslate("Mes favoris");
     this.texte3 = await this.handleTranslate('Mes postulations');
@@ -92,14 +92,11 @@ export default {
      {{texte5}}
     </router-link>
   </li>
-  <!-- <li class="position-absolute deconnex">
-    <router-link to="/dashboard/disponibilite" class="d-block">
-      Planifier une disponibilité
-    </router-link>
-  </li> -->
   <LiensNavBar :texte="texte6" :route_lien="'dashboard-abonnements'" />
-  <li class="position-absolute deconnex">
-    <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{texte7}}</a>
+  <li class="position-absolute">
+    <router-link to="/avis" class="d-block">
+     Votre avis
+    </router-link>
   </li>
 </template>
 <style scoped>
