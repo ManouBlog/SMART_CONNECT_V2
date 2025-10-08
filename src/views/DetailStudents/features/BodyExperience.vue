@@ -437,18 +437,13 @@ p {
   color: #010101;
 }
 
-.section_experience_evaluation {
-  display: flex;
-  align-content: center;
-  gap: 1em;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
+
 .section_experience_evaluation .conteneur_section_experience {
   flex: 2 2 300px;
 }
 .section_experience_evaluation .conteneur_evaluation_experience {
   flex: 1 1 300px;
+  margin-bottom:18em;
 }
 .info_student_detail {
   text-transform: capitalize;
@@ -460,5 +455,10 @@ p {
   display: flex;
   gap: 1em;
   align-items: flex-start;
+}
+@media (max-width:780px) {
+  .section_experience_evaluation .conteneur_evaluation_experience {
+  margin-bottom:10em;
+}
 }
 </style>
