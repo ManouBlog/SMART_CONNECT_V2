@@ -32,6 +32,7 @@ export default {
     }),
     ...mapActions(useInfoPersonnel, [
       "update_compte_entreprise",
+      "update_compte_particulier",
       "update_compte_student",
       "addAnRegistreDoc",
       "addAnPieceDoc",
@@ -101,9 +102,10 @@ export default {
           nom:user.nom,
           particulier_prenoms:user.particulier_prenoms,
           quartier:user.quartier,
+          email:user.email,
         }
         console.log("updateInfoParticulier",data)
-        // this.updateInfoParticulier(user);
+        this.update_compte_particulier(user);
       }else{
         this.updateInfoStudent(user);
       }

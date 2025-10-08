@@ -36,11 +36,14 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
       async update_compte_entreprise(payload) {
         Spinner.launchLoading(true)
         let data = new FormData();
+        this.pieceIdentiteGerant.forEach((item)=>{
+        data.append("piece_gerant[]", item);
+        })
         data.append("nom", payload.nom);
         data.append("email", payload.email);
         data.append("gerant", payload.gerant);
         data.append("numero_gerant", payload.numero_gerant);
-        data.append("piece_gerant", this.pieceIdentiteGerant);
+        // data.append("piece_gerant", this.pieceIdentiteGerant);
         data.append("commune", payload.commune);
         data.append("forme_juridique", payload.forme_juridique);
         data.append("quartier", payload.quartier);
@@ -50,6 +53,50 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         data.append("matricule_cc", payload.matricule_cc);
         // data.append("statut_id", 1);
         data.append("registre", this.registre);
+  
+       await instance
+          .post("modifier_profil", data)
+          .then((res) => {
+            // console.log(res);
+            if (res.data.status === true) {
+              Swal.fire({
+                icon: "success",
+                title: res.data.message,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              return res.data.status;
+            }
+            if (res.data.status === false) {
+              Swal.fire({
+                icon: "error",
+                title: res.data.message,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+  
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(()=>{
+            Spinner.launchLoading(false)
+          })
+      },
+      async update_compte_particulier(payload) {
+        console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
+        Spinner.launchLoading(true)
+        let data = new FormData();
+        this.pieceIdentiteGerant.forEach((item)=>{
+        data.append("piece_gerant[]", item);
+        })
+        data.append("nom", payload.nom);
+        data.append("email", payload.email);
+        data.append("commune", payload.commune);
+        data.append("quartier", payload.quartier);
+        data.append("contact", payload.contact);
+        data.append("ville", payload.ville);
   
        await instance
           .post("modifier_profil", data)
