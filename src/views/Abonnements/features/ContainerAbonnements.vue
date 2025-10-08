@@ -20,7 +20,7 @@ const handleCreate = (id) => {
 onMounted(async () => {
   elmentsOfBtn.value = [
   {
-    name_btn: await transalteStore.handleTranslate("Choisir ce plan"),
+    name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
     color_btn: "primary",
   },
 ]

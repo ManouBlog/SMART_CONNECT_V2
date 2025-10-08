@@ -19,13 +19,13 @@ export default {
   },
   async created() {
     this.texte0 = await this.handleTranslate("Recherchez une offre");
-    this.texte1 = await this.handleTranslate("Trouvez votre prochain emploi sur notre");
-    this.texte2 = await this.handleTranslate(
-      "moteur de recherche ou gagnez du temps en recevant"
-    );
-    this.texte3 = await this.handleTranslate(
-      "des alertes d'emploi en vous inscrivant à la newsletter."
-    );
+    this.texte1 = await this.handleTranslate("Vous avez un besoin, Nous avons la Solution");
+    // this.texte2 = await this.handleTranslate(
+    //   "moteur de recherche ou gagnez du temps en recevant"
+    // );
+    // this.texte3 = await this.handleTranslate(
+    //   "des alertes d'emploi en vous inscrivant à la newsletter."
+    // );
     this.elmentsOfBtn = [
         {
           name_btn: await this.handleTranslate("En savoir plus"),
@@ -48,8 +48,8 @@ export default {
       <h1 class="fw-bold" style="color:orange;">{{ texte0 }}</h1>
       <h5 class="my-5 text-center">
         {{ texte1 }} <br />
-        {{ texte2 }} <br />
-        {{ texte3 }}
+        <!-- {{ texte2 }} <br /> -->
+        <!-- {{ texte3 }} -->
       </h5>
       <Buttons :elmentsOfBtn="elmentsOfBtn" :shapeBtn="'round'" />
     </div>

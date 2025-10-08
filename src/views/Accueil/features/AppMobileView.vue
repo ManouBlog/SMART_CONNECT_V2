@@ -33,7 +33,7 @@ export default {
     this.texte0 = await this.handleTranslate("Télécharger notre");
     this.texte1 = await this.handleTranslate("application mobile");
     this.texte2 = await this.handleTranslate(
-      "Trouver des offres, ressources partout ou vous êtes"
+      "Trouver des offres, opportunités partout ou vous êtes"
     );
   },
 };
@@ -79,6 +79,7 @@ export default {
 .ecriteau_image {
   position: relative;
   flex: 2 2 200px;
+  text-align:center;
 }
 .ecriteau {
   padding: 0 0 0 1.5em;

@@ -51,8 +51,8 @@ const initIntersectionObserver = () => {
 };
 
 onMounted(async () => {
-  texte0.value = await translateStore.handleTranslate("Chiffres clés");
-  texte1.value = await translateStore.handleTranslate("Partenaire(s)");
+  texte0.value = await translateStore.handleTranslate("Nos chiffres clés");
+  texte1.value = await translateStore.handleTranslate("Entreprise(s)");
   texte2.value = await translateStore.handleTranslate("Offre(s)");
   texte3.value = await translateStore.handleTranslate("Talent(s)");
   texte4.value = await translateStore.handleTranslate("Visiteur(s)");
@@ -126,10 +126,11 @@ onUnmounted(() => {
 }
 .conteneur-card-performance {
   display: flex;
-  gap: 0.5em;
+  gap: 1.5em;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+  place-content: center;
 }
 .card_perfor_one {
   width: auto;

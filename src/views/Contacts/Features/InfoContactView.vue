@@ -36,7 +36,7 @@ this.texte3 = await this.handleTranslate("Contact")
     <CardFooter
       :icone_name="'bi bi-person'"
       :title="texte3"
-      :listLien="['+225 07 0796 9672']"
+      :listLien="['+225 0707969672 / 0546667766']"
     />
   </section>
 </template>

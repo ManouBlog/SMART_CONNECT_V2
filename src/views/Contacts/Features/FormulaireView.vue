@@ -89,10 +89,10 @@ export default {
     this.texte8 = await this.handleTranslate(
       "Dites-nous comment pouvons nous vous aider."
     );
-    this.texte9 = await this.handleTranslate("Nous");
-    this.texte10 = await this.handleTranslate("sommes");
-    this.texte11 = await this.handleTranslate("là pour vous");
-    this.texte12 = await this.handleTranslate("aider.");
+    this.texte9 = await this.handleTranslate("MonBrobroli,");
+    this.texte10 = await this.handleTranslate("un pont geant");
+    this.texte11 = await this.handleTranslate("qui vous connecte");
+    this.texte12 = await this.handleTranslate("à votre cible.");
     this.text13 = await this.handleTranslate("Nom");
     this.text14 = await this.handleTranslate("Adresse e-mail");
     this.text15 = await this.handleTranslate("Objet");

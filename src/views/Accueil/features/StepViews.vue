@@ -83,14 +83,14 @@ export default {
           id: 2,
           title: await this.handleTranslate("Choisir une option"),
           text_one: await this.handleTranslate("Etudiant : Obtenir un emploi à temps partiel"),
-          text_two: await this.handleTranslate("Employeur : Besoin d'employés à temps partiel."),
+          text_two: await this.handleTranslate("Entreprise/Particulier : Besoin d'employés à temps partiel."),
           class:"fade-in"
         },
         {
           id: 3,
           title: await this.handleTranslate("Vivez une expérience unique"),
           text_one: await this.handleTranslate("Etudiant : Choisir le meilleur profil."),
-          text_two: await this.handleTranslate("Employeur :Démarrer une nouvelle expérience Pro.."),
+          text_two: await this.handleTranslate("Entreprise/Particulier :Démarrer une nouvelle expérience Pro.."),
           class:"slide-from-right"
         },
       ]
