@@ -12,13 +12,14 @@ export default {
     <h1
       style="
         text-align: center;
-        font-size: 3.5vh;
+        
         padding: 1em;
         color: orange;
         font-weight: bold;
+        font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
       "
     >
-      CGU(conditions générale d'utilisation)
+      <code>CGU(conditions générale d'utilisation)</code>
     </h1>
     <p
       class="p-4"
@@ -77,7 +78,7 @@ export default {
         la plateforme est soumis à un abonnement annuel obligatoire, selon deux formules
         disponibles : Standard et Premium.
       </p>
-      <code style="font-size: 2em">1.a)Création d’un profil personnel sécurisé</code>
+      <code style="font-size: 1.5em">1.a)Création d’un profil personnel sécurisé</code>
       <p style="margin: 1em 0">
         Chaque utilisateur qu’il soit étudiant, entreprise ou particulier doit créer un
         compte personnel sur la plateforme. Ce profil est soumis à une vérification
@@ -114,7 +115,7 @@ export default {
         illimitée d’offres. Positionnement prioritaire des annonces en tête de liste lors
         des recherches effectuées sur la plateforme.
       </p>
-      <code style="font-size: 2em"
+      <code style="font-size: 1.5em"
         >1.b)Publication d’une offre de mission ou de service</code
       >
       <p>
@@ -123,7 +124,7 @@ export default {
         annonce doit être claire, précise et conforme aux conditions d’utilisation de la
         plateforme.
       </p>
-      <code style="font-size: 2em"
+      <code style="font-size: 1.5em"
         >1.c)Dépôt de candidature ou invitation à postuler</code
       >
       <p>
@@ -141,7 +142,7 @@ export default {
         significativement leurs chances d’être sélectionnés directement par les
         recruteurs.
       </p>
-      <code style="font-size: 2em">1.d)Accord mutuel et lancement de la mission</code>
+      <code style="font-size: 1.5em">1.d)Accord mutuel et lancement de la mission</code>
       <p>
         Une fois la candidature acceptée et la mission validée par les deux parties, un
         accord formel est établi. Celui-ci peut prendre la forme d’un contrat ou d’un
@@ -171,7 +172,7 @@ export default {
         soit étudiant, entreprise ou particulier est tenu de respecter les obligations qui
         lui incombent.
       </p>
-      <code style="font-size: 2em">3.a)Obligations des étudiants</code>
+      <code style="font-size: 1.5em">3.a)Obligations des étudiants</code>
       <p>Les étudiants utilisant la plateforme s’engagent à :</p>
       <p>
         – Compléter un profil véridique, sincère et régulièrement mis à jour, incluant
@@ -184,7 +185,7 @@ export default {
         données professionnelles, personnelles ou sensibles, obtenues dans le cadre des
         échanges ou de l’exécution d’une mission.
       </p>
-      <code style="font-size: 2em"
+      <code style="font-size: 1.5em"
         >3.b)Obligations des entreprises et des particuliers</code
       >
       <p>

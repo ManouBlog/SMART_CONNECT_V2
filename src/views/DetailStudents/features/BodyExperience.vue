@@ -86,30 +86,30 @@ export default {
         >
           <div class="rond position-absolute"></div>
           <div class="contenteur_experience">
-            <div class="proof_experience" v-if="item.proof">
-              <n-image width="100" :src="lienPhoto + item.proof" />
+            <div class="proof_experience" v-if="item?.proof">
+              <n-image width="100" :src="lienPhoto + item?.proof" />
             </div>
             <h3 class="text-start">
-              {{ item.entreprise }}
+              {{ item?.entreprise }}
             </h3>
             <h6 class="text-start ms-2 fw-bold">
-              <span class="badge bg-warning text-light fw-bold">{{ item.poste }}</span>
+              <span class="badge bg-warning text-light fw-bold">{{ item?.poste }}</span>
             </h6>
 
             <p>
               <em class="bi bi-geo-alt"></em>
-              {{ item.lieu }}
+              {{ item?.lieu }}
             </p>
             <h6 class="text-start ms-2">
               <em class="bi bi-calendar-date"></em>
               {{
-                `${new Date(item.dateDebut).toLocaleDateString()} au ${new Date(
-                  item.dateFin
+                `${new Date(item?.dateDebut).toLocaleDateString()} au ${new Date(
+                  item?.dateFin
                 ).toLocaleDateString()}`
               }}
             </h6>
-            <p class="text-start ms-2" v-if="item.experience">
-              {{ item.experience }}
+            <p class="text-start ms-2" v-if="item?.experience">
+              {{ item?.experience }}
             </p>
           </div>
         </div>
@@ -143,7 +143,7 @@ export default {
 
             <div v-for="(item, index) in timetable_for_student?.etoiles" :key="index">
               <div>
-                <p>
+                <p v-if="item?.entreprise">
                   <span>Noter par : </span>
                   <span
                     style="
@@ -152,7 +152,7 @@ export default {
                       font-size: 1.2em;
                     "
                   >
-                    {{ item?.entreprise.nom }}
+                    {{ item?.entreprise?.nom }}
                   </span>
                 </p>
                 <vue3starRatings
@@ -163,7 +163,7 @@ export default {
                 />
               </div>
 
-              <p class="text-center">{{ item.avis }}</p>
+              <p class="text-center">{{ item?.avis }}</p>
             </div>
           </a-carousel>
         </div>

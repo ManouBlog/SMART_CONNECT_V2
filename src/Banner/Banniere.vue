@@ -53,7 +53,7 @@ export default {
           class="col-lg-12 col-md-12 col-sm-12 mt-2"
           style="min-width: 300px; height: 400px; text-align: center; position: relative"
         >
-          <n-carousel autoplay :interval="3000">
+          <n-carousel  :interval="3000">
             <div
               style="
                 background: #80808024; /* fond léger */

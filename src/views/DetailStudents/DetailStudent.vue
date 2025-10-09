@@ -15,7 +15,11 @@ import BodyExperience from "./features/BodyExperience.vue";
 const loadingSpinner = useLoadingSpinner();
 //DatePicker
 export default {
-  components: { Calendar, HeaderDetailStudent, BodyExperience },
+  components: { 
+    Calendar, 
+    HeaderDetailStudent, 
+    BodyExperience 
+  },
   data() {
     return {
       texte: "",

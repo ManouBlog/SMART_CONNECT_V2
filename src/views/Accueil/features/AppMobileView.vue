@@ -61,7 +61,7 @@ export default {
     <div class="ecriteau_image">
       <ImageView
         :lien_img_folder="illustrationApp"
-        :name_class_img="'position-absolute w-50 image'"
+        :name_class_img="'position-absolute w-100 image'"
         :alt_img="'illustration_app'"
       />
     </div>

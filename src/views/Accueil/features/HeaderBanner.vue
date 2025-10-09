@@ -30,10 +30,10 @@ export default {
   async created() {
     this.texte0 = await this.handleTranslate("Mon Brobroli");
     this.texte2 = await this.handleTranslate("en un clic");
-    this.texte3 = await this.handleTranslate("Gagnes de l’Experience professionnelle");
-    this.texte88 = await this.handleTranslate("et de l’argent tout en etant étudiant(e).");
-    this.texte4 = await this.handleTranslate("Avec MonBrobroli, La galere est derrière vous");
-    this.texte99 = await this.handleTranslate("avec des opportunites taillées à votre mesure.");
+    this.texte3 = await this.handleTranslate("Gagne de l’expérience professionnelle");
+    this.texte88 = await this.handleTranslate("et de l’argent tout en étant étudiant(e).");
+    this.texte4 = await this.handleTranslate("Avec MonBrobroli, la galère est derrière vous,");
+    this.texte99 = await this.handleTranslate("grâce à des opportunités taillées à votre mesure.");
     this.texte5 = await this.handleTranslate("Connexion");
     this.texte6 = await this.handleTranslate("Offres");
     this.texte7 = await this.handleTranslate("Talents disponibles");

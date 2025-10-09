@@ -78,11 +78,11 @@ export default {
     this.texte4 = await this.handleTranslate("Soumettre");
     this.texte3 = await this.handleTranslate("Envoyez-nous un message");
     this.texte2 = await this.handleTranslate(
-      "Contactez-nous et faites-nous savoir comment nous pouvons vous aider à simplifier votre recherche d'emploi. Notre équipe sera ravie de vous lire et de répondre à toutes vos questions.."
+      "Contactez-nous et notre équipe se tient à votre disposition pour vous accompagner dans votre intégration"
     );
-    this.texte = await this.handleTranslate(
-      "Vous avez pris la décision de vous lancer à la recherche d'un nouvel emploi.Nous sommes là pour vous accompagner dans cette belle aventure en vous facilitant l'accès à de nouvelles opportunités."
-    );
+    // this.texte = await this.handleTranslate(
+    //   "Vous avez pris la décision de vous lancer à la recherche d'un nouvel emploi.Nous sommes là pour vous accompagner dans cette belle aventure en vous facilitant l'accès à de nouvelles opportunités."
+    // );
     this.texte5 = await this.handleTranslate("Entrez votre nom");
     this.text6 = await this.handleTranslate("Entrez votre adresse e-mail");
     this.texte7 = await this.handleTranslate("Objet");
@@ -110,9 +110,9 @@ export default {
           {{ texte10 }}<br />{{ texte11 }} <br />
           {{ texte12 }}
         </h1>
-        <p>
+        <!-- <p>
           {{ this.texte }}
-        </p>
+        </p> -->
         <p>
           {{ texte2 }}
         </p>

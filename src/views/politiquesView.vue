@@ -4,13 +4,13 @@
     <h1
       style="
         text-align: center;
-        font-size: 3.5vh;
         padding: 1em;
         color: orange;
         font-weight: bold;
+        font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
       "
     >
-      CGU(conditions générale d'utilisation)
+      <code>CGU(conditions générale d'utilisation)</code>
     </h1>
     <p
       class="p-4"
@@ -57,9 +57,9 @@
       class="p-4 row"
       style="padding: 3.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif"
     >
-      <h1 class="text-left">
+      <h2 class="text-left">
         <code>1) PRINCIPES DE FONCTIONNEMENT DE LA PLATEFORME</code>
-      </h1>
+      </h2>
       <p>
         Le fonctionnement de la plateforme repose sur un processus clair et sécurisé,
         visant à assurer des échanges équitables et transparents entre les étudiants en
@@ -69,7 +69,7 @@
         la plateforme est soumis à un abonnement annuel obligatoire, selon deux formules
         disponibles : Standard et Premium.
       </p>
-      <code style="font-size: 2em">1.a)Création d’un profil personnel sécurisé</code>
+      <code style="font-size: 1.5em">1.a)Création d’un profil personnel sécurisé</code>
       <p style="margin: 1em 0">
         Chaque utilisateur qu’il soit étudiant, entreprise ou particulier doit créer un
         compte personnel sur la plateforme. Ce profil est soumis à une vérification
@@ -106,7 +106,7 @@
         illimitée d’offres. Positionnement prioritaire des annonces en tête de liste lors
         des recherches effectuées sur la plateforme.
       </p>
-      <code style="font-size: 2em"
+      <code style="font-size: 1.5em"
         >1.b)Publication d’une offre de mission ou de service</code
       >
       <p>
@@ -115,7 +115,7 @@
         annonce doit être claire, précise et conforme aux conditions d’utilisation de la
         plateforme.
       </p>
-      <code style="font-size: 2em"
+      <code style="font-size: 1.5em"
         >1.c)Dépôt de candidature ou invitation à postuler</code
       >
       <p>
@@ -133,7 +133,7 @@
         significativement leurs chances d’être sélectionnés directement par les
         recruteurs.
       </p>
-      <code style="font-size: 2em">1.d)Accord mutuel et lancement de la mission</code>
+      <code style="font-size: 1.5em">1.d)Accord mutuel et lancement de la mission</code>
       <p>
         Une fois la candidature acceptée et la mission validée par les deux parties, un
         accord formel est établi. Celui-ci peut prendre la forme d’un contrat ou d’un
@@ -141,9 +141,9 @@
         peut ensuite débuter dans les conditions convenues entre l’étudiant et
         l’employeur.
       </p>
-      <h1 class="text-left">
+      <h2 class="text-left">
         <code>2)VALEUR CONTRACTUELLE DES ECHANGES </code>
-      </h1>
+      </h2>
       <p>
         Apres la mise en relation entre étudiant et entreprise, le document généré a pour
         seule fonction d’attester que l’étudiant a postulé à une offre via la plateforme
@@ -154,16 +154,16 @@
         mission. Il peut néanmoins être utilisé par l’étudiant pour Justifier une démarche
         de candidature auprès d’un recruteur.
       </p>
-      <h1 class="text-left">
+      <h2 class="text-left">
         <code>3)OBLIGATIONS DES UTILISATEURS</code>
-      </h1>
+      </h2>
       <p>
         Afin de garantir un environnement de confiance, respectueux et conforme aux
         principes éthiques portés par la plateforme MonBrobroli, chaque utilisateur qu’il
         soit étudiant, entreprise ou particulier est tenu de respecter les obligations qui
         lui incombent.
       </p>
-      <code style="font-size: 2em">3.a)Obligations des étudiants</code>
+      <code style="font-size: 1.5em">3.a)Obligations des étudiants</code>
       <p>Les étudiants utilisant la plateforme s’engagent à :</p>
       <p>
         – Compléter un profil véridique, sincère et régulièrement mis à jour, incluant
@@ -176,7 +176,7 @@
         données professionnelles, personnelles ou sensibles, obtenues dans le cadre des
         échanges ou de l’exécution d’une mission.
       </p>
-      <code style="font-size: 2em"
+      <code style="font-size: 1.5em"
         >3.b)Obligations des entreprises et des particuliers</code
       >
       <p>
@@ -196,9 +196,9 @@
         porter atteinte à l’intégrité physique, morale ou professionnelle des étudiants.
       </p>
 
-      <h1 class="text-left">
+      <h2 class="text-left">
         <code>4)SECURITE ET CONFIDENTIALITE</code>
-      </h1>
+      </h2>
       <p>
         MonBrobroli accorde une importance fondamentale à la protection des données
         personnelles de ses utilisateurs, ainsi qu’au respect de leur vie privée.
@@ -221,9 +221,9 @@
         pour assurer un haut niveau de sécurité, prévenir tout accès non autorisé, et
         protéger l’intégrité des informations confiées par ses utilisateurs.
       </p>
-      <h1 class="text-left">
+      <h2 class="text-left">
         <code>5)SANCTIONS</code>
-      </h1>
+      </h2>
       <p>
         Tout manquement aux présentes règles d’utilisation, qu’il soit le fait d’un
         étudiant, d’une entreprise ou d’un particulier, est susceptible d’entraîner des
@@ -249,9 +249,9 @@
         respect, d’équité et de responsabilité qui régissent la plateforme MonBrobroli.
       </p>
 
-      <h1 class="text-left">
+      <h2 class="text-left">
         <code>6)ACCESSIBILITE</code>
-      </h1>
+      </h2>
       <p>
         La plateforme MonBrobroli est disponible en continu, 24 heures sur 24, et
         accessible depuis tout type d’appareil connecté, qu’il s’agisse de smartphones, de
