@@ -92,6 +92,9 @@ export default {
 };
 </script>
 <style>
+.swal2-container{
+  z-index:999999 !important;
+}
 .ant-upload-list-item-error,.ant-upload-list-item-error .ant-upload-list-item-name{
   color:green !important;
   border-color:green !important;

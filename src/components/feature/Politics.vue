@@ -44,7 +44,7 @@ switch (registerStore.infoUser) {
       modal
       closable
       header="Conditions générales d’utilisation"
-      :style="{ width: '60rem',zIndex:99 }"
+      :style="{ width: '60rem',zIndex:999 }"
       :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
     >
       <div>

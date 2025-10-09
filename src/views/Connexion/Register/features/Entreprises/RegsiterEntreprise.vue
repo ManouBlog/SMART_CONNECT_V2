@@ -127,17 +127,17 @@ export default {
     this.texte11 = await this.handleTranslate("Registre (pdf)"); 
     this.texte12 = await this.handleTranslate('Mot de passe');
     this.texte13 = await this.handleTranslate("S'inscrire");
-    this.texte14 = await this.handleTranslate('Veuillez renseigner votre mot de passe!');
-    this.texte15 = await this.handleTranslate('Veuillez renseigner le numéro votre Gérant!');
-    this.texte16 = await this.handleTranslate('Veuillez renseigner votre Gérant!');
-    this.texte17 = await this.handleTranslate('Veuillez renseigner votre Forme juridique!');
-    this.texte18 = await this.handleTranslate('Veuillez renseigner votre email!');
-    this.texte19 = await this.handleTranslate('Veuillez renseigner votre Quartier!');
-    this.texte20 = await this.handleTranslate('Veuillez renseigner votre Commune!');
-    this.texte21 = await this.handleTranslate('Veuillez renseigner votre Ville!');
-    this.texte22 = await this.handleTranslate('Veuillez renseigner votre Contact!');
-    this.texte23 =  await this.handleTranslate('Veuillez renseigner votre Matricule!');
-    this.texte24 = await this.handleTranslate('Veuillez renseigner votre nom!');
+    this.texte14 = await this.handleTranslate('Veuillez renseigner votre mot de passe');
+    this.texte15 = await this.handleTranslate('Veuillez renseigner le numéro téléphone de votre Gérant');
+    this.texte16 = await this.handleTranslate('Veuillez renseigner votre Gérant');
+    this.texte17 = await this.handleTranslate('Veuillez renseigner votre Forme juridique');
+    this.texte18 = await this.handleTranslate('Veuillez renseigner votre email');
+    this.texte19 = await this.handleTranslate('Veuillez renseigner votre Quartier');
+    this.texte20 = await this.handleTranslate('Veuillez renseigner votre Commune');
+    this.texte21 = await this.handleTranslate('Veuillez renseigner votre Ville');
+    this.texte22 = await this.handleTranslate('Veuillez renseigner votre Contact');
+    this.texte23 =  await this.handleTranslate('Veuillez renseigner votre numéro de RCCM.');
+    this.texte24 = await this.handleTranslate('Veuillez renseigner votre raison sociale');
     
   },
 };
@@ -182,7 +182,7 @@ export default {
           :maxCount="1"
           accept=".pdf"
         >
-          <a-button> Clique pour télécharger </a-button>
+          <a-button> Clique pour charger </a-button>
         </a-upload>
       </a-form-item>
        <a-form-item
@@ -254,7 +254,7 @@ export default {
     </a-form-item>
     <a-form-item
     name="upload"
-    :rules="[{ required: true, message: `Ajouter une pièce d'identité.` }]"
+    :rules="[{ required: true, message: `Veuilez ajouter une pièce d'identité.` }]"
     :label="texte10"
     >
         <a-upload
@@ -266,12 +266,12 @@ export default {
           :maxCount="2"
           accept=".jpg,.jpeg,.png,.webp"
         >
-          <a-button> Clique pour télécharger </a-button>
+          <a-button> Clique pour charger </a-button>
         </a-upload>
       </a-form-item>
    
       <a-form-item 
-      :rules="[{ required: true, message: `Ajouter un logo.` }]"
+      :rules="[{ required: true, message: `Veuilez ajouter un logo.` }]"
       name="Logo" 
       :label="'Logo(jpg,png,webp)'"
       >
@@ -284,7 +284,7 @@ export default {
           accept=".jpg,.jpeg,.png,.webp"
           list-type="picture"
         >
-          <a-button> Clique pour télécharger </a-button>
+          <a-button> Clique pour charger </a-button>
         </a-upload>
       </a-form-item>
       

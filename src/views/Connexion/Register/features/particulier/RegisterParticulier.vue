@@ -192,7 +192,7 @@ export default {
           :maxCount="2"
           accept=".jpg,.jpeg,.png,.webp"
         >
-          <a-button> Clique pour télécharger </a-button>
+          <a-button> Clique pour charger </a-button>
         </a-upload>
       </a-form-item>
     
