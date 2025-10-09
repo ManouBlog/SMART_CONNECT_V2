@@ -99,8 +99,11 @@ export default {
   color:green !important;
   border-color:green !important;
 }
-.p-rating .p-rating-item.p-rating-item-active .p-rating-icon{
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon,.n-tabs.n-tabs--line-type .n-tabs-tab.n-tabs-tab--active{
   color: orange !important;
+}
+.n-tabs .n-tabs-bar{
+  background-color:orange !important;
 }
 html {
   font-size: 0.89em;
