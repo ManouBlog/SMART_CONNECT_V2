@@ -44,15 +44,21 @@ onMounted(async () => {
         <div class="testimonials__author">
           <div class="author__avatar">
             <img 
-            v-if="!item?.student?.logo"
-            :src="lienPhoto+item?.student?.photo_profil" 
-            :alt="item?.student?.nom" 
+            v-if="item.user.statut.statut === 'etudiant'"
+            :src="lienPhoto+item.student.photo_profil" 
+            :alt="item.student.nom" 
             class="author__image"
             />
             <img 
-            v-if="item?.student?.logo"
-            :src="lienPhoto + item?.student?.logo" 
-            :alt="item?.student?.nom" 
+            v-if="item.user.statut.statut === 'entreprise'"
+            :src="lienPhoto + item.student.logo" 
+            :alt="item.student.nom" 
+            class="author__image"
+            />
+            <img 
+            v-if="item.user.statut.statut === 'particulier'"
+            src="../assets/brobroli_1.png" 
+            :alt="item.student.nom" 
             class="author__image"
             />
           </div>
@@ -160,7 +166,7 @@ onMounted(async () => {
 
 /* Texte du témoignage */
 .testimonials__text {
-  font-size: 1.1rem;
+  font-size: 1.8em;
   line-height: 1.6;
   color: #333;
   text-align: left;

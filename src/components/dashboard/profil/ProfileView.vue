@@ -268,7 +268,7 @@ export default {
     this.texte10 = await this.handleTranslate('Forme juridique :');
     this.texte88 = await this.handleTranslate('Logo entreprise :');
     this.texte11 = await this.handleTranslate('Nom & Prénoms :');
-    this.texte12 = await this.handleTranslate('Pièce d identite :');
+    this.texte12 = await this.handleTranslate('Pièce d\'identité :');
     this.texte13 = await this.handleTranslate('diplome :');
     this.texte14 = await this.handleTranslate('Prénoms :');
     this.texte15 = await this.handleTranslate('Formule d\'abonnement');
@@ -305,6 +305,7 @@ export default {
                 { libelle: texte10, value: user.forme_juridique ? user.forme_juridique:'néant' },
               ]:[
                 { libelle: 'Nom', value: user.nom },
+                 { libelle: 'Prénoms', value: user.particulier_prenoms },
                 { libelle: 'Email', value: user.email },
                 { libelle: texte5, value: user.contact },
                 { libelle: texte6, value: user.ville },

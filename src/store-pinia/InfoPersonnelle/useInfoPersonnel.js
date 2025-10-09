@@ -36,10 +36,11 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
       async update_compte_entreprise(payload) {
         Spinner.launchLoading(true)
         let data = new FormData();
-        this.pieceIdentiteGerant.forEach((item)=>{
+        this.pieceIdentiteGerant?.forEach((item)=>{
         data.append("piece_gerant[]", item);
         })
         data.append("nom", payload.nom);
+        data.append("particulier_prenoms", payload.particulier_prenoms);
         data.append("email", payload.email);
         data.append("gerant", payload.gerant);
         data.append("numero_gerant", payload.numero_gerant);
@@ -88,10 +89,11 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
         Spinner.launchLoading(true)
         let data = new FormData();
-        this.pieceIdentiteGerant.forEach((item)=>{
+        this.pieceIdentiteGerant?.forEach((item)=>{
         data.append("piece_gerant[]", item);
         })
         data.append("nom", payload.nom);
+         data.append("particulier_prenoms", payload.particulier_prenoms);
         data.append("email", payload.email);
         data.append("commune", payload.commune);
         data.append("quartier", payload.quartier);
