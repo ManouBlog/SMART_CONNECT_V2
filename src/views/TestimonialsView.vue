@@ -1,13 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import instance,{lienPhoto} from '../api/api';
+import { ref, onMounted } from "vue";
+import instance, { lienPhoto } from "../api/api";
 
 const testimonials = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await instance.get('temoignages');
-    console.log("testimonials",response.data)
+    const response = await instance.get("temoignages");
+    console.log("testimonials", response.data);
     testimonials.value = response.data;
   } catch (error) {
     console.error("Erreur lors du chargement des témoignages :", error);
@@ -16,75 +16,139 @@ onMounted(async () => {
 </script>
 <template>
   <div class="testimonials">
-    <h1 class="testimonials__title">
-      <!-- <img 
-            src="../assets/am_brobroli.png" 
-            alt="am_brobroli" 
-            style="width:260px;height:310px"
-            /> -->
-            <img 
-  src="../assets/am_brobroli.png" 
-  alt="am_brobroli" 
-  style="width:100%;max-width:260px;height:auto;display:block;margin:auto;"
-/>
-    </h1>
+    <section>
+      <h1 class="testimonials__title">
+        <img
+          src="../assets/am_brobroli.png"
+          alt="am_brobroli"
+          style="
+            width: 100%;
+            max-width: 260px;
+            height: auto;
+            display: block;
+            margin: auto;
+          "
+        />
+      </h1>
 
-    <div class="testimonials__list">
+      <div class="testimonials__list">
         <n-carousel autoplay :interval="2500">
-<div class="testimonials__item"
-      v-for="(item,index) in testimonials"
-      :key="index"
-      >
-      <div class="testimonials__rating">
-    <span
-      v-for="star in 5"
-      :key="star"
-      class="star"
-      :class="{ 'star--filled': star <= item.rate }"
-    >
-      ★
-    </span>
-  </div>
-        <div class="testimonials__quote">
-          <span class="quote__mark">“</span>
-          <p class="testimonials__text">
-           {{ item.comment }}
-          </p>
-          <span class="quote__mark quote__mark--bottom">”</span>
-        </div>
-        <div class="testimonials__author">
-          <div class="author__avatar">
-            <img 
-            v-if="item.user.statut.statut === 'etudiant'"
-            :src="lienPhoto+item.student.photo_profil" 
-            :alt="item.student.nom" 
-            class="author__image"
-            />
-            <img 
-            v-if="item.user.statut.statut === 'entreprise'"
-            :src="lienPhoto + item.student.logo" 
-            :alt="item.student.nom" 
-            class="author__image"
-            />
-            <img 
-            v-if="item.user.statut.statut === 'particulier'"
-            src="../assets/brobroli_1.png" 
-            :alt="item.student.nom" 
-            class="author__image"
-            />
+          <div
+            class="testimonials__item"
+            v-for="(item, index) in testimonials.filter(
+              (item) => item.user.statut.statut === 'etudiant'
+            )"
+            :key="index"
+          >
+            <div class="testimonials__rating">
+              <span
+                v-for="star in 5"
+                :key="star"
+                class="star"
+                :class="{ 'star--filled': star <= item.rate }"
+              >
+                ★
+              </span>
+            </div>
+            <div class="testimonials__quote">
+              <span class="quote__mark">“</span>
+              <p class="testimonials__text">
+                {{ item.comment }}
+              </p>
+              <span class="quote__mark quote__mark--bottom">”</span>
+            </div>
+            <div class="testimonials__author">
+              <div class="author__avatar">
+                <img
+                  :src="lienPhoto + item.student.photo_profil"
+                  :alt="item.student.nom"
+                  class="author__image"
+                />
+              </div>
+              <p style="display: flex; flex-direction: column">
+                <span class="author__name" v-if="item?.student"
+                  >{{ item?.student?.nom }} {{ item?.student?.prenoms }}</span
+                >
+
+                <span>{{ item.user.statut.statut }}</span>
+              </p>
+            </div>
           </div>
-          <p style="display:flex;flex-direction:column;">
-            <span class="author__name" v-if="item?.student">{{item?.student?.nom}} {{item?.student?.prenoms}}</span>
-            
-           <span>{{item.user.statut.statut}}</span>
-        </p>
-          
-        </div>
-      </div>
         </n-carousel>
-      <!-- Témoignage 1 -->
-      
-    </div>
+        <!-- Témoignage 1 -->
+      </div>
+    </section>
+    <section>
+      <h1 class="testimonials__title">
+        <img
+          src="../assets/am_brobroli.png"
+          alt="am_brobroli"
+          style="
+            width: 100%;
+            max-width: 260px;
+            height: auto;
+            display: block;
+            margin: auto;
+          "
+        />
+      </h1>
+
+      <div class="testimonials__list">
+        <n-carousel autoplay :interval="2500">
+          <div
+            class="testimonials__item"
+            v-for="(item, index) in testimonials.filter(
+              (item) =>
+                item.user.statut.statut === 'entreprise' ||
+                item.user.statut.statut === 'particulier'
+            )"
+            :key="index"
+          >
+            <div class="testimonials__rating">
+              <span
+                v-for="star in 5"
+                :key="star"
+                class="star"
+                :class="{ 'star--filled': star <= item.rate }"
+              >
+                ★
+              </span>
+            </div>
+            <div class="testimonials__quote">
+              <span class="quote__mark">“</span>
+              <p class="testimonials__text">
+                {{ item.comment }}
+              </p>
+              <span class="quote__mark quote__mark--bottom">”</span>
+            </div>
+            <div class="testimonials__author">
+              <div class="author__avatar">
+                <img
+                  v-if="item.user.statut.statut === 'entreprise'"
+                  :src="lienPhoto + item.student.logo"
+                  :alt="item.student.nom"
+                  class="author__image"
+                />
+                <img
+                  v-if="item.user.statut.statut === 'particulier'"
+                  src="../assets/brobroli_1.png"
+                  :alt="item.student.nom"
+                  class="author__image"
+                />
+              </div>
+              <p style="display: flex; flex-direction: column">
+                <span class="author__name" v-if="item?.student"
+                  >{{ item?.student?.nom }} {{ item?.student?.prenoms }}</span
+                >
+
+                <span>{{ item.user.statut.statut }}</span>
+              </p>
+            </div>
+          </div>
+        </n-carousel>
+        <!-- Témoignage 1 -->
+      </div>
+    </section>
   </div>
 </template>
 <style scoped>
@@ -114,7 +178,7 @@ onMounted(async () => {
 
 /* Police par défaut */
 .testimonials {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background-color: #f8f9fa;
   padding: 60px 20px;
 }
@@ -160,7 +224,7 @@ onMounted(async () => {
   position: absolute;
   font-size: 3rem;
   color: orange;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   line-height: 1;
 }
 
@@ -211,6 +275,43 @@ onMounted(async () => {
   font-size: 1.2rem;
   font-weight: bold;
   color: #333;
+}
+.testimonials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.testimonials section {
+  flex: 1 1 45%;
+  min-width: 320px;
+  box-sizing: border-box;
+}
+
+/* Image responsive */
+.responsive-img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+
+/* Mobile (iPhone et petits écrans) */
+@media (max-width: 768px) {
+  .testimonials {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .testimonials section {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 500px;
+  }
 }
 
 /* Responsive */

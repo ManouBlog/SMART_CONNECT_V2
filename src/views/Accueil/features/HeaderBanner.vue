@@ -49,11 +49,11 @@ export default {
         {{ texte2 }}
       </h1>
       <div class="my-5" style="letter-spacing:0.2em;">
-        <h5>{{ texte3 }}</h5>
-        <h5>{{ texte88 }}</h5>
+        <h3>{{ texte3 }}</h3>
+        <h3>{{ texte88 }}</h3>
         <br>
-       <h5>{{ texte4 }}</h5> 
-       <h5>{{texte99}}</h5>
+       <h3>{{ texte4 }}</h3> 
+       <h3>{{texte99}}</h3>
       </div>
       <ButtonsHeader
         @handleBtn="changeValueIsModal"

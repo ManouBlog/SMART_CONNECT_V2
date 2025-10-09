@@ -78,7 +78,7 @@ export default {
     this.texte4 = await this.handleTranslate("Soumettre");
     this.texte3 = await this.handleTranslate("Envoyez-nous un message");
     this.texte2 = await this.handleTranslate(
-      "Contactez-nous et notre équipe se tient à votre disposition pour vous accompagner dans votre intégration"
+      "Contactez-nous et notre équipe se tient à votre disposition pour vous accompagner dans votre intégration."
     );
     // this.texte = await this.handleTranslate(
     //   "Vous avez pris la décision de vous lancer à la recherche d'un nouvel emploi.Nous sommes là pour vous accompagner dans cette belle aventure en vous facilitant l'accès à de nouvelles opportunités."
@@ -90,7 +90,7 @@ export default {
       "Dites-nous comment pouvons nous vous aider."
     );
     this.texte9 = await this.handleTranslate("MonBrobroli,");
-    this.texte10 = await this.handleTranslate("un pont geant");
+    this.texte10 = await this.handleTranslate("un pont Géant");
     this.texte11 = await this.handleTranslate("qui vous connecte");
     this.texte12 = await this.handleTranslate("à votre cible.");
     this.text13 = await this.handleTranslate("Nom");
@@ -113,9 +113,9 @@ export default {
         <!-- <p>
           {{ this.texte }}
         </p> -->
-        <p>
+        <h3>
           {{ texte2 }}
-        </p>
+        </h3>
       </div>
       <div>
         <img src="../../../assets/sendmessage.png" alt="sendmessage" class="w-50" />

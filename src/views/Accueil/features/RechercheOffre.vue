@@ -46,11 +46,11 @@ export default {
     </div>
     <div class="ecriteau">
       <h1 class="fw-bold" style="color:orange;">{{ texte0 }}</h1>
-      <h5 class="my-5 text-center">
+      <h3 class="my-5 text-center">
         {{ texte1 }} <br />
         <!-- {{ texte2 }} <br /> -->
         <!-- {{ texte3 }} -->
-      </h5>
+      </h3>
       <Buttons :elmentsOfBtn="elmentsOfBtn" :shapeBtn="'round'" />
     </div>
   </div>

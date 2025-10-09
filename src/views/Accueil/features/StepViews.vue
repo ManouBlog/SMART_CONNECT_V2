@@ -70,19 +70,19 @@ export default {
     this.initIntersectionObserver()
     this.texte0 = await this.handleTranslate("Etapes à suivre");
     this.texte2 = await this.handleTranslate(
-      "Les instructions à suivre pour contacter du personnel ou postuler à une offre."
+      "Les instructions à suivre pour contacter des talents ou postuler à une offre."
     );
     this.dataCard = [
         {
           id: 1,
-          title: await this.handleTranslate("Créer un compte"),
+          title: await this.handleTranslate("Créer mon compte"),
           text_one: await this.handleTranslate("Remplissez le formulaire"),
           class:"slide-from-left"
         },
         {
           id: 2,
           title: await this.handleTranslate("Choisir une option"),
-          text_one: await this.handleTranslate("Etudiant : Obtenir un emploi à temps partiel"),
+          text_one: await this.handleTranslate("Etudiant : Obtenir un emploi à temps partiel."),
           text_two: await this.handleTranslate("Entreprise/Particulier : Besoin d'employés à temps partiel."),
           class:"fade-in"
         },
@@ -90,7 +90,7 @@ export default {
           id: 3,
           title: await this.handleTranslate("Vivez une expérience unique"),
           text_one: await this.handleTranslate("Etudiant : Choisir le meilleur profil."),
-          text_two: await this.handleTranslate("Entreprise/Particulier :Démarrer une nouvelle expérience Pro.."),
+          text_two: await this.handleTranslate("Entreprise/Particulier : Démarrez une nouvelle expérience inédite..."),
           class:"slide-from-right"
         },
       ]
@@ -105,7 +105,7 @@ export default {
 <template>
   <div class="container main-container-home">
     <h1 class="step_suivre">{{ texte0 }}</h1>
-    <h5 class="text-secondary my-3" style="text-align:center;padding:1em;">{{ texte2 }}</h5>
+    <h3 class="text-secondary my-3" style="text-align:center;padding:1em;">{{ texte2 }}</h3>
     <div class="conteneur-card" id="divCard">
       <CardView  v-for="(item, index) in dataCard" :key="index" :item="item" :cardPerfVisible="cardPerfVisible" />
     </div>

@@ -13,6 +13,7 @@ export default {
       texte2: "",
       texte3: "",
       texte1: "",
+      texte4:"",
       illustrationData: [
         {
           lien: require("../../../assets/googleplay.png"),
@@ -33,7 +34,13 @@ export default {
     this.texte0 = await this.handleTranslate("Télécharger notre");
     this.texte1 = await this.handleTranslate("application mobile");
     this.texte2 = await this.handleTranslate(
-      "Trouver des offres, opportunités partout ou vous êtes"
+      `Avec MonBrobroli, la galère est derrière vous,`
+    );
+    this.texte3 = await this.handleTranslate(
+      `grâce à des opportunités taillées à`
+    );
+     this.texte4 = await this.handleTranslate(
+      `votre mesure qui tiennent dans la main.`
     );
   },
 };
@@ -41,13 +48,19 @@ export default {
 <template>
   <div class="header_banner py-3">
     <div class="ecriteau">
-      <h1 style="color:orange;">
+      <h1 style="color: orange">
         {{ texte0 }} <br />
         {{ texte1 }}
       </h1>
-      <h6 class="my-5 text-center">
+      <h3 class="my-5 text-center">
         {{ texte2 }}
-      </h6>
+      </h3>
+      <h3 class="text-center">
+        {{ texte3 }}
+      </h3>
+      <h3 class="my-5 text-center">
+        {{ texte4 }}
+      </h3>
       <div class="conteneur_logo_app_telechargement">
         <ImageView
           v-for="(item, index) in illustrationData"
@@ -79,12 +92,12 @@ export default {
 .ecriteau_image {
   position: relative;
   flex: 2 2 200px;
-  text-align:center;
+  text-align: center;
 }
 .ecriteau {
   padding: 0 0 0 1.5em;
   flex: 3 3 200px;
-  text-align:center;
+  text-align: center;
 }
 .ecriteau > h1 {
   font-weight: bold;
