@@ -16,7 +16,18 @@ onMounted(async () => {
 </script>
 <template>
   <div class="testimonials">
-    <h1 class="testimonials__title">Témoignages</h1>
+    <h1 class="testimonials__title">
+      <!-- <img 
+            src="../assets/am_brobroli.png" 
+            alt="am_brobroli" 
+            style="width:260px;height:310px"
+            /> -->
+            <img 
+  src="../assets/am_brobroli.png" 
+  alt="am_brobroli" 
+  style="width:100%;max-width:260px;height:auto;display:block;margin:auto;"
+/>
+    </h1>
 
     <div class="testimonials__list">
         <n-carousel autoplay :interval="2500">
@@ -114,7 +125,6 @@ onMounted(async () => {
   font-size: 3rem;
   font-weight: bold;
   color: #000;
-  margin-bottom: 50px;
 }
 
 /* Conteneur des témoignages */
