@@ -92,7 +92,10 @@ export default {
 };
 </script>
 <style>
-
+.ant-upload-list-item-error,.ant-upload-list-item-error .ant-upload-list-item-name{
+  color:green !important;
+  border-color:green !important;
+}
 .p-rating .p-rating-item.p-rating-item-active .p-rating-icon{
   color: orange !important;
 }

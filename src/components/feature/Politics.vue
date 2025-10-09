@@ -44,21 +44,20 @@ switch (registerStore.infoUser) {
       modal
       closable
       header="Conditions générales d’utilisation"
-      :style="{ width: '60rem',zIndex:99999 }"
+      :style="{ width: '60rem',zIndex:99 }"
       :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
     >
       <div>
-         <div class="myconteneur">
+         <div>
     <h1
       style="
         text-align: center;
         font-size: 3.5vh;
-        padding: 1em;
         color: orange;
         font-weight: bold;
       "
     >
-      CGU(conditions générale d'utilisation)
+      CGU(conditions générale d'utilisation1)
     </h1>
     <p
       class="p-4"
