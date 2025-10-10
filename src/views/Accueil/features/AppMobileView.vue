@@ -13,7 +13,7 @@ export default {
       texte2: "",
       texte3: "",
       texte1: "",
-      texte4:"",
+      texte4: "",
       illustrationData: [
         {
           lien: require("../../../assets/googleplay.png"),
@@ -36,12 +36,8 @@ export default {
     this.texte2 = await this.handleTranslate(
       `Avec MonBrobroli, la galère est derrière vous,`
     );
-    this.texte3 = await this.handleTranslate(
-      `grâce à des opportunités taillées à`
-    );
-     this.texte4 = await this.handleTranslate(
-      `votre mesure qui tiennent dans la main.`
-    );
+    this.texte3 = await this.handleTranslate(`grâce à des opportunités taillées à`);
+    this.texte4 = await this.handleTranslate(`votre mesure qui tiennent dans la main.`);
   },
 };
 </script>
@@ -52,13 +48,13 @@ export default {
         {{ texte0 }} <br />
         {{ texte1 }}
       </h1>
-      <h3 class="my-5 text-center">
+      <h3 class="mt-5 text-center">
         {{ texte2 }}
       </h3>
       <h3 class="text-center">
         {{ texte3 }}
       </h3>
-      <h3 class="my-5 text-center">
+      <h3 class="mb-5 text-center">
         {{ texte4 }}
       </h3>
       <div class="conteneur_logo_app_telechargement">
@@ -111,5 +107,6 @@ export default {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  gap: 1em;
 }
 </style>

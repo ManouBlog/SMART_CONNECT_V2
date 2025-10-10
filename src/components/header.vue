@@ -208,7 +208,9 @@ export default {
           <nav class="navbar navbar-fixed-top">
             <div class="container conteneur-flex_nav">
               <div class="logo">
-                <img class="img-fluid" src="../assets/brobroli_1.png" alt="Photo" />
+                <router-link :to="{ name: 'Bienvenue' }">
+                  <img class="img-fluid" src="../assets/brobroli_1.png" alt="Photo" />
+                </router-link>
               </div>
               <div class="navbar-header">
                 <button

@@ -81,7 +81,7 @@ onMounted(async () => {
     <section>
       <h1 class="testimonials__title">
         <img
-          src="../assets/am_brobroli.png"
+          src="../assets/am_brobroli_entreprise.png"
           alt="am_brobroli"
           style="
             width: 100%;

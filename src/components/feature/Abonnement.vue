@@ -148,6 +148,8 @@ onMounted(async () => {
   bottom: 1em;
   display: flex;
   width: 100%;
+  margin-left: 50%;
+  transform: translateX(-55%);
 }
 .fermer {
   height: 50px !important;

@@ -16,8 +16,8 @@ export default {
       texte5: "",
       texte6: "",
       texte7: "",
-      texte88:"",
-      texte99:"",
+      texte88: "",
+      texte99: "",
     };
   },
   methods: {
@@ -30,30 +30,37 @@ export default {
   async created() {
     this.texte0 = await this.handleTranslate("Mon Brobroli");
     this.texte2 = await this.handleTranslate("en un clic");
-    this.texte3 = await this.handleTranslate("Gagne de l’expérience professionnelle");
-    this.texte88 = await this.handleTranslate("et de l’argent tout en étant étudiant(e).");
-    this.texte4 = await this.handleTranslate("Avec MonBrobroli, la galère est derrière vous,");
-    this.texte99 = await this.handleTranslate("grâce à des opportunités taillées à votre mesure.");
+    this.texte3 = await this.handleTranslate(
+      `
+      Vous êtes étudiant, entreprise ou particulier, 
+      vous cherchez probablement une alternative plus simple,
+      sûre et plus performante pour donner un nouveau souffle à vos finances,
+       à votre activité. 
+       `
+    );
+    this.texte88 = await this.handleTranslate(`MonBrobroli est la nouvelle plateforme unifiée qui lie entreprises/particuliers et talents.
+        En quelques clics, vous allez vivre une expérience de classe mondiale.`);
+    this.texte4 = await this.handleTranslate(`Chez nous, les petits jobs pour se soutenir, on dit MonBrobroli.`);
+    this.texte99 = await this.handleTranslate("");
     this.texte5 = await this.handleTranslate("Connexion");
     this.texte6 = await this.handleTranslate("Offres");
     this.texte7 = await this.handleTranslate("Talents disponibles");
-    
   },
 };
 </script>
 <template>
   <div class="header_banner">
     <div class="ecriteau">
-      <h1 style="font-size:4.5em;color:orange;">
+      <h1 style="font-size: 4.5em; color: orange">
         {{ texte0 }}<br />
         {{ texte2 }}
       </h1>
-      <div class="my-5" style="letter-spacing:0.2em;">
-        <h3>{{ texte3 }}</h3>
-        <h3>{{ texte88 }}</h3>
-        <br>
-       <h3>{{ texte4 }}</h3> 
-       <h3>{{texte99}}</h3>
+      <div class="my-5" style="letter-spacing: 0.2em">
+        <h4>{{ texte3 }}</h4>
+        <h4>{{ texte88 }}</h4>
+        <br />
+        <h4>{{ texte4 }}</h4>
+        <h4>{{ texte99 }}</h4>
       </div>
       <ButtonsHeader
         @handleBtn="changeValueIsModal"
@@ -70,7 +77,8 @@ export default {
       />
       <ButtonsHeader
         v-if="
-          this.$store.state.user && this.$store.state.user.user.statut.statut != 'etudiant'
+          this.$store.state.user &&
+          this.$store.state.user.user.statut.statut != 'etudiant'
         "
         @handleBtn="goToRoute('/timetable')"
         :title="texte7"
@@ -86,6 +94,11 @@ export default {
   </div>
 </template>
 <style scoped>
+h4{
+  text-align:justify;
+  padding:0 2em;
+  color:black;
+}
 .image {
   top: 0;
   right: 0;
@@ -102,7 +115,7 @@ export default {
 .ecriteau {
   padding: 0 0 0 1.5em;
   flex: 3 3 200px;
-  text-align:center;
+  text-align: center;
 }
 .ecriteau > h1 {
   font-weight: bold;
@@ -116,16 +129,16 @@ export default {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin-top:6.5em;
+  margin-top: 6.5em;
 }
 @media screen and (max-width: 500px) {
- .header_banner {
-  margin-top:4em;
-}
+  .header_banner {
+    margin-top: 4em;
+  }
 }
 @media screen and (max-width: 400px) {
   .header_banner {
-  margin-top:0.5em;
-}
+    margin-top: 0.5em;
+  }
 }
 </style>
