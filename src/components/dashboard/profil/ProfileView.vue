@@ -7,6 +7,7 @@ import InfoStudents from "./feature/InfoStudents.vue";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import ModalForModifyInfo from "./feature/ModalForModifyInfo.vue";
 import CompetencesAndExperience from "../etudiant-route/CompetencesAndExperience.vue";
+import QualificationsStudent from '../etudiant-route/QualificationsStudent.vue'
 import MonPlanAbonnement from "./feature/MonPlanAbonnement.vue";
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
@@ -20,6 +21,7 @@ export default {
     HeaderDashboard,
     ModalForModifyInfo,
     CompetencesAndExperience,
+    QualificationsStudent,
     InfoStudents,
     TabView,
     TabPanel,
@@ -343,6 +345,12 @@ export default {
           header="Compétences et Expériences"
         >
           <CompetencesAndExperience />
+        </TabPanel>
+          <TabPanel
+          v-if="this.user && this.user.user.statut.statut === 'etudiant'"
+          header="Qualifications"
+        >
+          <QualificationsStudent />
         </TabPanel>
         <TabPanel :header="texte15">
           <MonPlanAbonnement />

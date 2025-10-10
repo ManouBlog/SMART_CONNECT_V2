@@ -34,9 +34,8 @@ const handleAbonement = async () => {
 };
 
 const createAbonement = () => {
-   router.push("/registre"); 
+  router.push("/registre");
 };
-
 
 onMounted(async () => {
   await handleAbonement();
@@ -75,10 +74,7 @@ onMounted(async () => {
               <div class="px-5" v-html="item.description"></div>
 
               <div class="text-center conteneur-btn">
-                <button
-                  class="btn-lg bg-dark"
-                  @click.prevent="createAbonement()"
-                >
+                <button class="btn-lg bg-dark" @click.prevent="createAbonement()">
                   Je choisi
                 </button>
               </div>
@@ -105,10 +101,7 @@ onMounted(async () => {
                 class="text-center conteneur-btn"
                 :class="offreBasic ? 'show_btn_clique' : 'hidden'"
               >
-                <button
-                  class="btn-lg bg-dark"
-                  @click.prevent="createAbonement(item.id)"
-                >
+                <button class="btn-lg bg-dark" @click.prevent="createAbonement(item.id)">
                   Je choisi
                 </button>
               </div>
@@ -158,7 +151,6 @@ onMounted(async () => {
   border: none !important;
 }
 ul,
-
 .abonnement-classique {
   width: 300px;
   height: 450px;
