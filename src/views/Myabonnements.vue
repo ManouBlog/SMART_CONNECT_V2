@@ -7,17 +7,17 @@ import { configUtils } from "../Shared/Utils";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
-import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue"
+import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue";
 import { useEntreprisesStore } from "../store-pinia/Entreprise/useEntreprisesStore";
 
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
 const STATUTABONNEMENT = {
-  'success':'Actif',
-  'expired':'Non Actif'
-}
+  success: "Actif",
+  expired: "Non Actif",
+};
 export default {
   name: "Myabonnements",
-  components:{
+  components: {
     DataTable,
     Column,
     HeaderDashboard,
@@ -54,9 +54,9 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
-      configUtils:configUtils,
-      STATUTABONNEMENT:STATUTABONNEMENT,
+      texte27: "",
+      configUtils: configUtils,
+      STATUTABONNEMENT: STATUTABONNEMENT,
       offre: null,
       offres: null,
       filters: {
@@ -70,22 +70,24 @@ export default {
     };
   },
   computed: { ...mapState(useEntreprisesStore, ["list_abonnement"]) },
-  methods: { ...mapActions(useEntreprisesStore, ["get_all_abonnement"]),
-  ...mapActions(useTranslateStore, ["handleTranslate"]),
-  handleNouvelAbonnement(){
-    this.$router.push({name:"abonnements"})
-  } },
- async created() {
+  methods: {
+    ...mapActions(useEntreprisesStore, ["get_all_abonnement"]),
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
+    handleNouvelAbonnement() {
+      this.$router.push({ name: "abonnements" });
+    },
+  },
+  async created() {
     this.get_all_abonnement();
-    this.texte0 = await this.handleTranslate('Mes abonnements');
+    this.texte0 = await this.handleTranslate("Mes abonnements");
     this.texte1 = await this.handleTranslate(`Affichage de 1 à 10 sur`);
     this.texte2 = await this.handleTranslate("Nouvel Abonnement");
-    this.texte3 = await this.handleTranslate('entrées.');
-    this.texte4 = await this.handleTranslate('Formule');
-    this.texte5 = await this.handleTranslate('Prix (Fcfa)');
-    this.texte6 = await this.handleTranslate('Echéance');
-    this.texte7 = await this.handleTranslate(' Statut');
-    this.texte8 = await this.handleTranslate(' Rejeter');
+    this.texte3 = await this.handleTranslate("entrées.");
+    this.texte4 = await this.handleTranslate("Formule");
+    this.texte5 = await this.handleTranslate("Prix (Fcfa)");
+    this.texte6 = await this.handleTranslate("Echéance");
+    this.texte7 = await this.handleTranslate(" Statut");
+    this.texte8 = await this.handleTranslate(" Rejeter");
     this.texte9 = await this.handleTranslate("Recherche:");
     this.texte10 = await this.handleTranslate("Date de paiement");
   },
@@ -93,8 +95,7 @@ export default {
 </script>
 <template>
   <div class="page-body position-relative">
-    <HeaderDashboard  :TitleHeader="texte0"
-     :subTitleHeader="texte0"/>
+    <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
 
     <div class="tab-content" id="top-tabContent">
       <DataTable
@@ -114,14 +115,15 @@ export default {
               border: none;
             "
           >
-            {{texte1}}{{ list_abonnement.length }} {{texte3}}
+            {{ texte1 }}{{ list_abonnement.length }} {{ texte3 }}
           </div>
         </template>
         <template #header>
           <div class="conteneur_search">
             <div class="mx-3">
               <button class="btn bg-warning py-2" @click="handleNouvelAbonnement">
-                {{texte2}}</button>
+                {{ texte2 }}
+              </button>
             </div>
             <IconField iconPosition="left">
               <InputIcon>
@@ -140,39 +142,41 @@ export default {
           field="created_at"
           :header="texte10"
         >
-      <template #body="slotProps">
-        <span>
-          {{ configUtils.getFormatDateFr(slotProps.data.created_at) }}
-        </span>
-      </template>
-      </Column>
+          <template #body="slotProps">
+            <span>
+              {{ configUtils.getFormatDateFr(slotProps.data.created_at) }}
+            </span>
+          </template>
+        </Column>
         <Column
           style="font-size: 1.8em; padding: 1em; text-align: center"
           field="abonement.libelle"
           :header="texte4"
         ></Column>
         <Column
-        style="font-size: 1.8em; padding: 1em; text-align: center"
-        field="montant"
-        :header="texte5"
-      ></Column>
-      <Column
-        style="font-size: 1.8em; padding: 1em; text-align: center"
-        field="echeance"
-        :header="texte6"
-      ></Column>
-      <Column
-      style="font-size: 1.8em; padding: 1em; text-align: center"
-      field="statut"
-      :header="texte7"
-    >
-    <template #body="slotProps">
-      <span class="px-2" :class="slotProps.data.statut === 'success' ? 'bg-success':'bg-danger'">
-        {{ STATUTABONNEMENT[slotProps.data.statut] }}
-      </span>
-    </template>
-  </Column>
-        
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="montant"
+          :header="texte5"
+        ></Column>
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="echeance"
+          :header="texte6"
+        ></Column>
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="statut"
+          :header="texte7"
+        >
+          <template #body="slotProps">
+            <span
+              class="px-2"
+              :class="slotProps.data.statut === 'success' ? 'bg-success' : 'bg-danger'"
+            >
+              {{ STATUTABONNEMENT[slotProps.data.statut] }}
+            </span>
+          </template>
+        </Column>
       </DataTable>
       <div v-if="!list_abonnement.length">
         <h1 class="not_data">Pas de donnée</h1>
@@ -181,11 +185,11 @@ export default {
   </div>
 </template>
 <style scoped>
-.conteneur_search{
-  display:flex;
-  justify-content:flex-end;
-  gap:1em;
-  align-items:center;
+.conteneur_search {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+  align-items: center;
 }
 th,
 td {
