@@ -18,12 +18,16 @@ export default {
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     goToRoute(payload) {
-      this.$router.push(payload);
+      if (this.user) {
+        this.$router.push(payload);
+      }
     },
   },
   async created() {
     this.texte0 = await this.handleTranslate("Recherchez une offre");
-    this.texte1 = await this.handleTranslate("Vous avez un besoin, Nous avons la Solution");
+    this.texte1 = await this.handleTranslate(
+      "Vous avez un besoin, Nous avons la Solution"
+    );
     // this.texte2 = await this.handleTranslate(
     //   "moteur de recherche ou gagnez du temps en recevant"
     // );
@@ -31,11 +35,11 @@ export default {
     //   "des alertes d'emploi en vous inscrivant à la newsletter."
     // );
     this.elmentsOfBtn = [
-        {
-          name_btn: await this.handleTranslate("En savoir plus"),
-          color_btn: "primary",
-        },
-      ]
+      {
+        name_btn: await this.handleTranslate("En savoir plus"),
+        color_btn: "primary",
+      },
+    ];
   },
 };
 </script>
@@ -49,15 +53,18 @@ export default {
       />
     </div>
     <div class="ecriteau">
-      <h1 class="fw-bold" style="color:orange;">{{ texte0 }}</h1>
+      <h1 class="fw-bold" style="color: orange">{{ texte0 }}</h1>
       <h3 class="my-5 text-center">
         {{ texte1 }} <br />
         <!-- {{ texte2 }} <br /> -->
         <!-- {{ texte3 }} -->
       </h3>
-      <Buttons 
-      @created="goToRoute('/jobs')"
-      v-if="this.user && this.user?.user?.statut?.statut === 'etudiant'" :elmentsOfBtn="elmentsOfBtn" :shapeBtn="'round'" />
+      <Buttons
+        @created="goToRoute('/jobs')"
+        v-if="this.user && this.user?.user?.statut?.statut === 'etudiant'"
+        :elmentsOfBtn="elmentsOfBtn"
+        :shapeBtn="'round'"
+      />
     </div>
   </div>
 </template>
@@ -78,7 +85,7 @@ export default {
 .ecriteau {
   padding: 0 0 0 1.5em;
   flex: 3 3 200px;
-  text-align:center;
+  text-align: center;
 }
 .ecriteau > h1 {
   font-weight: bold;
