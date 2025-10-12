@@ -40,7 +40,7 @@ export default {
     );
     this.texte88 = await this.handleTranslate(`MonBrobroli est la nouvelle plateforme unifiée qui lie entreprises/particuliers et talents.
         En quelques clics, vous allez vivre une expérience de classe mondiale.`);
-    this.texte4 = await this.handleTranslate(`Chez nous, les petits jobs pour se soutenir, on dit MonBrobroli.`);
+    this.texte4 = await this.handleTranslate(`Chez nous, les petits jobs pour nous soutra, on dit MonBrobroli.`);
     this.texte99 = await this.handleTranslate("");
     this.texte5 = await this.handleTranslate("Connexion");
     this.texte6 = await this.handleTranslate("Offres");
