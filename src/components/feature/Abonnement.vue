@@ -136,14 +136,7 @@ onMounted(async () => {
   place-items: center;
   place-content: center;
 }
-.conteneur-btn {
-  position: absolute;
-  bottom: 1em;
-  display: flex;
-  width: 100%;
-  margin-left: 50%;
-  transform: translateX(-55%);
-}
+
 .fermer {
   height: 50px !important;
   width: 50px !important;
@@ -153,7 +146,7 @@ onMounted(async () => {
 ul,
 .abonnement-classique {
   width: 300px;
-  height: 450px;
+  height: 900px;
   margin-bottom: 2em;
   text-align: left;
   border-radius: 10px;

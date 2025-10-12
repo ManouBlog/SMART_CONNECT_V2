@@ -35,26 +35,22 @@ texte.value = await transalteStore.handleTranslate("année")
         (item) => item.categorie.categorie === type_abonnements
       )"
       :key="item.id"
-      class="abonnement-classique"
+      :class="item?.categorie?.categorie == 'Etudiant'? 'abonnement-classique_etudiant':'abonnement-classique_entreprise'"
     >
       <h1 class="text-center main-color">{{ item.libelle }} 
         <span v-if="storeEntreprise?.planAbonnement?.id === item.id" class="badge bg-info">Formule</span>
       </h1>
-      <!-- <p class="text-start">{{ item.periode }} {{texte}}</p> -->
       <div style="height:310px;position:relative;padding:1em;">
-     <div class="px-5" v-html="item.description"></div>
-       <div style="position:absolute;bottom:0;">
-     <div class="d-flex align-items-center gap-5 justify-content-center main-color">
-        <h1  style="font-size: 2em;font-weight:bold">{{ Help.convertInMoney(item.prix) }}F</h1>
-        <span class="mx-2">/</span>
-        <span style="font-size: 2em">an</span>
-      </div>
-       </div>
-      
+     <div class="px-5" v-html="item.description"></div>      
       </div>
       
 
       <div class="conteneur-btn">
+        <div class="d-flex align-items-center gap-5 justify-content-center main-color">
+        <h1  style="font-size: 2em;font-weight:bold">{{ Help.convertInMoney(item.prix) }}F</h1>
+        <span class="mx-2">/</span>
+        <span style="font-size: 2em">an</span>
+      </div>
         <Buttons
           :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
           :elmentsOfBtn="elmentsOfBtn"
@@ -66,6 +62,10 @@ texte.value = await transalteStore.handleTranslate("année")
   </div>
 </template>
 <style scoped>
+:deep(.my-custom-paragraph){
+  font-size: 16px !important;
+  margin-top: 1em;
+}
 .conteneur-flex {
   display: flex !important;
   justify-items: center !important;
