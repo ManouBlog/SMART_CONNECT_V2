@@ -119,7 +119,9 @@ export default {
     @close="changeValueForshowMenuMobile"
   >
     <ul>
-      <li style="display: flex;align-items:center;gap: 1em">
+      <li 
+      v-if="this.$store.state.user"
+      style="display: flex;align-items:center;gap: 1em">
         <n-avatar
         v-if="this.photo_profil"
         style="border: 2px solid orange; object-fit: cover"
