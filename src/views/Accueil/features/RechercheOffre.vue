@@ -12,10 +12,14 @@ export default {
       texte3: "",
       texte1: "",
       elmentsOfBtn: [],
+      user: this.$store.state.user,
     };
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+    goToRoute(payload) {
+      this.$router.push(payload);
+    },
   },
   async created() {
     this.texte0 = await this.handleTranslate("Recherchez une offre");
@@ -51,7 +55,9 @@ export default {
         <!-- {{ texte2 }} <br /> -->
         <!-- {{ texte3 }} -->
       </h3>
-      <Buttons :elmentsOfBtn="elmentsOfBtn" :shapeBtn="'round'" />
+      <Buttons 
+      @created="goToRoute('/jobs')"
+      v-if="this.user && this.user?.user?.statut?.statut === 'etudiant'" :elmentsOfBtn="elmentsOfBtn" :shapeBtn="'round'" />
     </div>
   </div>
 </template>
