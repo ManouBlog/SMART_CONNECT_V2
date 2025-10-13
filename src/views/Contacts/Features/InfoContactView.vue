@@ -31,7 +31,7 @@ this.texte3 = await this.handleTranslate("Contact")
     <CardFooter
       :icone_name="'bi bi-envelope'"
       :title="texte2"
-      :listLien="['team@monbrobroli.com']"
+      :listLien="['contact@monbrobroli.com']"
     />
     <CardFooter
       :icone_name="'bi bi-person'"

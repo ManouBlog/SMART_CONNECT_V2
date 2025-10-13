@@ -52,7 +52,7 @@ const ABOUTUS = ref([
     img: false,
   },
   {
-    libelle: "team@monbrobroli.com",
+    libelle: "contact@monbrobroli.com",
     isVisible: true,
     img: false,
   },
@@ -97,8 +97,8 @@ const LOGO_IMG = ref([
       <h3>Reférences</h3>
       <p><em class="bi bi-geo-alt"></em> Angré nouveau chu</p>
       <p><em class="bi bi-telephone"></em>+225 05245852152</p>
-      <a href="mailto:team@monbrobroli.com"
-        ><em class="bi bi-envelope"></em> team@monbrobroli.com</a
+      <a href="mailto:contact@monbrobroli.com"
+        ><em class="bi bi-envelope"></em> contact@monbrobroli.com</a
       >
       <br />
       <a href="https://www.lce-ci.com">

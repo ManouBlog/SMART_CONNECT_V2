@@ -72,7 +72,7 @@ export default {
           <CardFooter
            :isWhite="true"
             :title="texte4"
-            :listLien="[`+225 0707969672 / 0546667766`, 'team@monbrobroli.com']"
+            :listLien="[`+225 0707969672 / 0546667766`, 'contact@monbrobroli.com']"
           />
           <LogoComponent />
         </div>
