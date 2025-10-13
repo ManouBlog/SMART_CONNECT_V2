@@ -4,6 +4,7 @@ import instance, { lienPhoto, lienPDF } from "../../../../api/api";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { mapActions } from "pinia";
+import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 export default {
   name: "InfoEntreprise",
@@ -83,6 +84,7 @@ export default {
       "changeValueForToogleModalInfoPersonnelle",
       "verifIfPasswordIsExact",
     ]),
+    ...mapActions(useLoadingSpinner, ["launchLoading"]),
     handleModalInfo() {
       this.changeValueForToogleModalInfoPersonnelle();
     },
@@ -127,7 +129,35 @@ export default {
           });
       }
     },
-
+    async handleActivationCompteEmail(){
+    this.launchLoading(true)
+       await instance
+          .post("send-verification-email")
+          .then((res) => {
+            console.log("send-verification-email",res.data);
+            if (res.data.status === true) {
+              Swal.fire({
+                icon: "success",
+                title: res.data.message,
+                showConfirmButton: true,
+              });
+            }
+            if (res.data.status === false) {
+              Swal.fire({
+                icon: "error",
+                title: res.data.message,
+                showConfirmButton: true,
+              });
+            }
+          })
+  
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(()=>{
+            this.launchLoading(false)
+          })
+    },
     see(e) {
       this.photo = e.target.files[0];
       // console.log(this.photo);
@@ -155,10 +185,19 @@ export default {
       "
     >
       <h1 class="fw-bold" style="color: orange">{{ texte0 }}</h1>
+      <div style="display: flex; align-items: center; gap: 0.5em">
+        <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
+          >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
+        >
+        <button
+          v-if="!user.user.verif_email"
+          style="background: orange; color: white; font-weight: 900"
+          @click="handleActivationCompteEmail"
+        >
+          Activer mon compte
+        </button>
+      </div>
 
-      <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
-        >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
-      >
       <section class="my-5">
         <div class="row">
           <div
@@ -193,7 +232,7 @@ export default {
               style="display: flex; justify-content: flex-start"
             >
               <n-image
-                v-for="(piece,index) in item.value"
+                v-for="(piece, index) in item.value"
                 :key="index"
                 :alt="piece.path"
                 width="100"

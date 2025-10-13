@@ -58,7 +58,7 @@ export default {
       spinnerModifyExperience: false,
       comp: [],
       competence: null,
-      comfirmationForDeleteCompetence: false,
+      comfirmationForDeleteQualifications: false,
       toogleNouvelleExperience: false,
       detailOfExperience: "",
       lieu: null,
@@ -89,18 +89,18 @@ export default {
       return { detail: "", date_debut: new Date(), date_fin: new Date() };
     },
     showBoxConfirmationDeleteCompetences(id) {
-      this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
+      this.comfirmationForDeleteQualifications = !this.comfirmationForDeleteQualifications;
       this.id_for_delete = id;
     },
     notDeleteCompetence() {
-      this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
+      this.comfirmationForDeleteQualifications = !this.comfirmationForDeleteQualifications;
       this.id_for_delete = "";
     },
     addNouvelExperience() {
       this.toogleNouvelleExperience = !this.toogleNouvelleExperience;
     },
     saveQualification() {
-      this.update_compte_student({
+      const saveReturnQualification = this.update_compte_student({
         nom: this.userQualifications.nom,
         email: this.userQualifications.email,
         prenoms: this.userQualifications.prenoms,
@@ -116,6 +116,10 @@ export default {
         ),
       });
       this.getInfoUser();
+      if(saveReturnQualification){
+     this.toogleNouvelleExperience = !this.toogleNouvelleExperience
+      }
+      
     },
     async getInfoUser() {
       await instance
@@ -179,11 +183,13 @@ export default {
     },
     deleteMyQualification() {
       loadingSpinner.launchLoading(true);
+      console.log('this.idQualificationAtDelete',this.idQualificationAtDelete)
       instance
         .delete("qualifications/" + this.idQualificationAtDelete)
         .then((res) => {
           console.log("deleteQualification", res);
           if (res.data.status === true) {
+            this.toogleScreenYouWantDelete = !this.toogleScreenYouWantDelete;
             this.getInfoUser();
             Swal.fire({
               icon: "success",
@@ -191,7 +197,6 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-            this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
           }
         })
         .catch((err) => {
@@ -206,7 +211,7 @@ export default {
       this.idQualificationAtDelete = id;
       this.toogleScreenYouWantDelete = !this.toogleScreenYouWantDelete;
     },
-    notDeleteExperience() {
+    notDeleteQualification() {
       this.idQualificationAtDelete = null;
       this.toogleScreenYouWantDelete = !this.toogleScreenYouWantDelete;
     },
@@ -376,7 +381,7 @@ export default {
     <div class="page-body mt-5">
       <div
         class="ecran_for_delete delete_article"
-        v-show="comfirmationForDeleteCompetence"
+        v-show="comfirmationForDeleteQualifications"
       >
         <div class="card p-5">
           <p class="h3 my-2">{{ texte16 }}</p>
@@ -395,10 +400,10 @@ export default {
         <div class="card p-5">
           <p class="h3 my-2">{{ texte19 }}</p>
           <div>
-            <button class="btn-lg bg-warning" @click="deleteExperience">
+            <button class="btn-lg bg-warning" @click="deleteMyQualification">
               {{ texte17 }}
             </button>
-            <button class="btn-lg bg-danger mx-2" @click="notDeleteExperience">
+            <button class="btn-lg bg-danger mx-2" @click="notDeleteQualification">
               {{ texte18 }}
             </button>
           </div>

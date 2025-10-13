@@ -294,8 +294,8 @@ export default {
               :infoPersonellesEntreprise="
               this.user.user.statut.statut === 'entreprise' ?
               [
-                { libelle: 'Raison sociale', value: user.nom },
-                { libelle: 'Contact mail', value: user.email },
+                { libelle: 'Raison sociale :', value: user.nom },
+                { libelle: 'Contact mail :', value: user.email },
                 { libelle: 'RCCM (Registre du Commerce et du Crédit Mobilier) :', value: user.matricule_cc ? user.matricule_cc:'néant' },
                 { libelle: 'NCC (Numéro de compte contribuable) :', value: user.NCC ? user.NCC:'néant' },
                 { libelle: texte5, value: user.contact },
@@ -306,9 +306,9 @@ export default {
                 { libelle: texte9, value: user.registre ? user.registre:'néant'  },
                 { libelle: texte10, value: user.forme_juridique ? user.forme_juridique:'néant' },
               ]:[
-                { libelle: 'Nom', value: user.nom },
-                 { libelle: 'Prénoms', value: user.particulier_prenoms },
-                { libelle: 'Email', value: user.email },
+                { libelle: 'Nom :', value: user.nom },
+                 { libelle: 'Prénoms :', value: user.particulier_prenoms },
+                { libelle: 'Email :', value: user.email },
                 { libelle: texte5, value: user.contact },
                 { libelle: texte6, value: user.ville },
                 { libelle: texte7, value: user.commune },
