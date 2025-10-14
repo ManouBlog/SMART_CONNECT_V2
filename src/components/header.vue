@@ -8,6 +8,7 @@ import InfoEntreprise from "./feature/header/Entreprise/InfoEntreprise.vue";
 import InfoStudent from "./feature/header/Student/InfoStudent.vue";
 import ListeFavoris from "./feature/header/ListeFavoris.vue";
 import ListeNotifications from "./feature/header/ListeNotifications.vue";
+import ListeAlarmStudent from "./feature/header/ListeAlarmStudent.vue";
 import { mapActions } from "pinia";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import MenuMobile from "./MenuMobile.vue";
@@ -24,6 +25,7 @@ export default {
     InfoStudent,
     ListeFavoris,
     ListeNotifications,
+    ListeAlarmStudent
   },
   data() {
     return {
@@ -256,7 +258,7 @@ export default {
                   <!-- <li>
                     <SelectLanguage />
                   </li> -->
-                  <li
+                  <!-- <li
                     v-if="
                       this.$store.state.user &&
                       this.$store.state.user.user.statut.statut === 'etudiant'
@@ -266,9 +268,9 @@ export default {
                       <div class="alarme_red" v-if="this.$store.state.contratStudent > 0">
                         {{ this.$store.state.contratStudent }}
                       </div>
-                      <i class="bi bi-bell-fill"></i>
+                      <i class="bi bi-file-earmark-text" style="font-size:1.7em"></i>
                     </router-link>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
 
@@ -292,6 +294,12 @@ export default {
                   v-if="
                     this.$store.state.user &&
                     this.$store.state.user.user.statut.statut === 'entreprise'
+                  "
+                />
+                <ListeAlarmStudent 
+                v-if="
+                    this.$store.state.user &&
+                    this.$store.state.user.user.statut.statut === 'etudiant'
                   "
                 />
                 <div>
@@ -336,6 +344,7 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1.8em;
+  align-items:center;
 }
 .conteneur-flex_nav {
   display: flex;

@@ -101,6 +101,15 @@ const routes = [
         
       },
       {
+        path:"/Notifications",
+        name:'notifications',
+        meta:{
+          requiresAuth:true
+        },
+        component: () => import( '../views/NotificationsView.vue')
+        
+      },
+      {
         path: "/contrat_etudiants-entreprises",
         name: "Contrat",
         meta:{

@@ -176,7 +176,7 @@ export default {
 </script>
 
 <template>
-  <section style="padding: 2em 3em">
+  <section>
     <a-card
       style="
         width: auto;

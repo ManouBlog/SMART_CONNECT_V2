@@ -185,6 +185,7 @@ const downloadCV = async () => {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  flex-wrap: wrap;
   padding: 10px;
   background: #f5f5f5;
   border-radius: 5px;
@@ -234,5 +235,26 @@ const downloadCV = async () => {
 
 .download-button:hover {
   background: #3a8a80;
+}
+
+@media (max-width: 900px) {
+  .cv-content {
+    width: 95%;
+    padding: 15px;
+    padding-right: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@media (max-width: 500px) {
+  .cv-content {
+    width: 100%;
+    padding: 0 !important;
+    box-shadow: none; /* allège sur très petit écran */
+  }
+  .teal-sidebar{
+    width:15px;
+    right:-0.5em;
+  }
 }
 </style>

@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      showModal:false,
+      showModal: false,
       Help: Help,
       user: "",
       nom: "",
@@ -143,7 +143,35 @@ export default {
           });
       }
     },
+    async handleActivationCompteEmail() {
+      this.launchLoading(true);
+      await instance
+        .post("send-verification-email")
+        .then((res) => {
+          console.log("send-verification-email", res.data);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: true,
+            });
+          }
+          if (res.data.status === false) {
+            Swal.fire({
+              icon: "error",
+              title: res.data.message,
+              showConfirmButton: true,
+            });
+          }
+        })
 
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.launchLoading(false);
+        });
+    },
     see(e) {
       this.photo = e.target.files[0];
       // console.log(this.photo);
@@ -156,7 +184,7 @@ export default {
 </script>
 
 <template>
-  <section style="padding: 2em 3em">
+  <section>
     <div v-if="isLoading">
       <h1 style="text-align: center">Chargement...</h1>
     </div>
@@ -168,7 +196,7 @@ export default {
         background: var(--secondary-color) !important;
       "
     >
-      <div style="display: flex; justify-content: space-between">
+      <div class="info-header" style="display: flex; justify-content: space-between">
         <h1 class="fw-bold my-3">Informations personnelles</h1>
         <button
           style="
@@ -184,14 +212,26 @@ export default {
           Voir Mon CV
         </button>
       </div>
-
-      <p
-        class="badge"
-        style="text-align: center"
-        :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
+      <div
+        class="conteneur_activation"
+        style="display: flex; align-items: center; gap: 0.5em"
       >
-        Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}
-      </p>
+        <p
+          class="badge"
+          style="text-align: center"
+          :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
+        >
+          Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}
+        </p>
+        <button
+          v-if="!user.user.verif_email"
+          style="background: orange; color: white; font-weight: 900"
+          @click="handleActivationCompteEmail"
+        >
+          Activer mon compte
+        </button>
+      </div>
+
       <div class="d-flex" style="position: relative">
         <input
           id="hiddenFile"
@@ -282,44 +322,46 @@ export default {
             </h6>
             <div
               v-if="
-                item.libelle === 'Pièce d\'identité :' || item.libelle === 'Carte étudiant'
+                item.libelle === 'Pièce d\'identité :' ||
+                item.libelle === 'Carte étudiant'
               "
               style="display: flex; justify-content: flex-start; gap: 1em"
             >
-            <section v-for="(element,index) in item.value"
-            :key="index"
-            >
-              <div>
-             <div v-if="Help.splitFilename(element.path) === 'pdf'">
-                <n-button type="warning" @click="showModal = true"> Voir la carte étudiant. </n-button>
-                <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px">
-                  <n-card title="Document PDF" closable @close="showModal = false">
-                    <iframe
-                      :src="lienPhoto + element.path"
-                      style="width: 100%; height: 600px; border: none"
-                    ></iframe>
-                  </n-card>
-                </n-modal>
-              </div>
-              <n-image
-                 v-else
-                v-for="(photo, index) in [element.path]"
-                :key="index"
-                :alt="photo"
-                width="100"
-                height="150"
-                :src="lienPhoto + photo"
-              />
-              </div>
-            </section>
-    
-              
+              <section v-for="(element, index) in item.value" :key="index">
+                <div>
+                  <div v-if="Help.splitFilename(element.path) === 'pdf'">
+                    <n-button type="warning" @click="showModal = true">
+                      Voir la carte étudiant.
+                    </n-button>
+                    <n-modal
+                      v-model:show="showModal"
+                      style="width: 80%; max-width: 900px"
+                    >
+                      <n-card title="Document PDF" closable @close="showModal = false">
+                        <iframe
+                          :src="lienPhoto + element.path"
+                          style="width: 100%; height: 600px; border: none"
+                        ></iframe>
+                      </n-card>
+                    </n-modal>
+                  </div>
+                  <n-image
+                    v-else
+                    v-for="(photo, index) in [element.path]"
+                    :key="index"
+                    :alt="photo"
+                    width="100"
+                    height="150"
+                    :src="lienPhoto + photo"
+                  />
+                </div>
+              </section>
             </div>
           </div>
         </div>
       </section>
       <h1 class="fw-bold my-3">Compétences</h1>
-      <section v-if="infoPersonellesCompetences.length">
+      <section v-if="infoPersonellesCompetences.length" class="conteneur-flex">
         <div
           v-for="(item, index) in infoPersonellesCompetences"
           :key="index"
@@ -332,15 +374,22 @@ export default {
         <h4 class="p-5">Pas de compétences</h4>
       </section>
       <h1 class="fw-bold my-3">Qualifications</h1>
-      <section v-if="infoPersonellesQualifications.length">
+      <section
+        v-if="infoPersonellesQualifications.length"
+       class="conteneur-flex"
+      >
         <div v-for="(item, index) in infoPersonellesQualifications" :key="index">
           <div style="display: flex; align-items: center; gap: 1em">
             <div
               style="width: 10px; height: 10px; background: orange; border-radius: 10%"
             ></div>
-            <span>{{ new Date(item.date_debut).toLocaleDateString("fr") }}</span>
+            <span style="font-weight: bold">{{
+              new Date(item.date_debut).toLocaleDateString("fr")
+            }}</span>
             <span>à</span>
-            <span>{{ new Date(item.date_fin).toLocaleDateString("fr") }}</span>
+            <span style="font-weight: bold">{{
+              new Date(item.date_fin).toLocaleDateString("fr")
+            }}</span>
           </div>
           <p>
             {{ item.detail }}
@@ -417,6 +466,13 @@ export default {
   </section>
 </template>
 <style scoped>
+.conteneur-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1em;
+  justify-content: space-between;
+}
 .btn_photo_profil {
   background: transparent;
   border: none;
@@ -439,5 +495,29 @@ h6 {
 }
 h1 {
   text-align: left;
+}
+
+/* ✅ Version mobile */
+@media (max-width: 768px) {
+  .info-header,
+  conteneur_activation {
+    margin: 2em 0;
+  }
+
+  .info-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .info-header button {
+    width: auto;
+    margin: 0 auto;
+    font-size: 0.7em;
+    border-radius: 8px !important;
+  }
+}
+@media (max-width: 368px) {
+  .conteneur-flex{
+    place-content: center;
+  }
 }
 </style>
