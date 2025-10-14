@@ -9,9 +9,6 @@
         <span class="notification-action">{{ notification.action }}</span>
         <span class="notification-time">{{ notification.time }}</span>
       </div>
-      <div class="notification-preview" v-if="notification.preview">
-        <img :src="notification.preview" alt="Preview" />
-      </div>
     </div>
     <div class="notification-indicator" v-if="notification.isNew"></div>
   </div>
@@ -72,14 +69,6 @@ defineProps({
 .notification-time {
   color: #999;
   font-size: 12px;
-}
-
-.notification-preview img {
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-  margin-top: 8px;
-  object-fit: cover;
 }
 
 .notification-indicator {

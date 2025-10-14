@@ -21,26 +21,23 @@ import NotificationSection from '../components/NotificationSection.vue';
 const todayNotifications = ref([
   {
     username: 'Elayamani',
-    action: 'Liked your DailyUI',
-    time: '045 - Favourites · 2 h ago',
+    action: 'a regardé votre profil',
+    time: 'il y a 2 h',
     avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-    preview: 'https://via.placeholder.com/40x40/ff9999/FFFFFF?text=♥',
     isNew: true,
   },
   {
     username: 'Arsian Ali',
-    action: 'Liked your DailyUI',
-    time: '044 - Food menu · 6 h ago',
+    action: 'a regardé votre profil',
+    time: 'il y a 6 h',
     avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-    preview: 'https://via.placeholder.com/40x40/ffcc80/FFFFFF?text=🍔',
     isNew: true,
   },
   {
     username: 'Johnny vino',
-    action: 'Mentioned you in a comment',
-    time: '8 h ago',
+    action: 'a regardé votre profil',
+    time: 'il y a 8 h',
     avatar: 'https://randomuser.me/api/portraits/men/66.jpg',
-    preview: 'https://via.placeholder.com/40x40/80deea/FFFFFF?text=💬',
     isNew: true,
   },
 ]);
@@ -48,21 +45,19 @@ const todayNotifications = ref([
 const thisWeekNotifications = ref([
   {
     username: 'Brice seraphin',
-    action: 'Liked your DailyUI',
-    time: '044 - Food menu · 6 June',
+    action: 'a regardé votre profil',
+    time: 'le 6 juin',
     avatar: 'https://randomuser.me/api/portraits/men/75.jpg',
-    preview: 'https://via.placeholder.com/40x40/ffcc80/FFFFFF?text=🍔',
     isNew: false,
   },
   {
     username: 'Best ui design',
-    action: 'Started following Your work',
-    time: '5 June',
+    action: 'a regardé votre profil',
+    time: 'le 5 juin',
     avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
     isNew: false,
   },
 ]);
-
 const totalNewNotifications = computed(() => {
   return todayNotifications.value.filter(n => n.isNew).length;
 });
