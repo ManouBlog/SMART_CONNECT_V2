@@ -1,60 +1,29 @@
 <template>
   <div class="app">
-    <h2 class="app-title" v-if="!Loading.isLoadingVisible">Vous avez {{ todayNotifications.length }} Notifications aujourdhui</h2>
+    <h2 class="app-title" v-if="Notifications.todayNotifications.length">
+      Vous avez {{ Notifications.todayNotifications.length }} Notifications aujourdhui
+    </h2>
     <NotificationSection
-    v-if="todayNotifications.length"
+      v-if="Notifications.todayNotifications.length"
       title="Aujourd’hui"
-      :notifications="todayNotifications"
+      :notifications="Notifications.todayNotifications"
     />
     <NotificationSection
-    v-if="thisPassedNotifications.length"
+      v-if="Notifications.yesterdayNotifications.length"
       title="Passées"
-      :notifications="thisPassedNotifications"
+      :notifications="Notifications.yesterdayNotifications"
     />
   </div>
 </template>
 
 <script setup>
-import { ref,onMounted } from 'vue';
-import instance from '../api/api';
-import NotificationSection from '../components/NotificationSection.vue';
-import { useLoadingSpinner } from '../store-pinia/LoadingSpinner/useLoadingSpinner';
-
-const todayNotifications = ref([]);
-const Loading = useLoadingSpinner()
-
-const thisPassedNotifications = ref([]);
-
-async function getListNotification(){
-    Loading.launchLoading(true);
-try{
-const response = await instance.get("Notifications_student");
-console.log('getListNotification',response.data)
-thisPassedNotifications.value = response.data.data.yesterday.map(item=>{
-    return {
-    username: item.user.entreprise.nom,
-    time: new Date(item.created_at).toLocaleDateString('fr'),
-    avatar: item?.user?.entreprise?.logo,
-    isNew: item.view,
-  }
-}) 
-todayNotifications.value = response.data.data.today.map(item=>{
-    return {
-    username: item.user.entreprise.nom,
-    time: new Date(item.created_at).toLocaleDateString('fr'),
-    avatar: item?.user?.entreprise?.logo,
-    isNew: item.view,
-  }
-}) 
-}catch(error){
-    console.log('error')
-}finally{
-    Loading.launchLoading(false);
-}
-}
-onMounted(() => {
-    getListNotification()
-})
+import { onMounted } from "vue";
+import NotificationSection from "../components/NotificationSection.vue";
+import { useNotificationsStore } from "../store-pinia/useNotificationsStore";
+const Notifications = useNotificationsStore();
+onMounted(async () => {
+  await Notifications.getListNotification();
+});
 </script>
 
 <style scoped>
@@ -62,7 +31,7 @@ onMounted(() => {
   width: 100%;
   margin: 6.6em 0;
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .app-title {
@@ -73,8 +42,8 @@ onMounted(() => {
   text-align: left;
 }
 @media (max-width: 500px) {
- .app {
-  margin: 1.6em 0;
-}
+  .app {
+    margin: 1.6em 0;
+  }
 }
 </style>
