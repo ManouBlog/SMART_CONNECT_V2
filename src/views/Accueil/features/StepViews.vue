@@ -76,7 +76,7 @@ export default {
         {
           id: 1,
           title: await this.handleTranslate("Créer mon compte"),
-          text_one: await this.handleTranslate("Remplissez le formulaire"),
+          text_three: await this.handleTranslate("Remplissez le formulaire"),
           class:"slide-from-left"
         },
         {

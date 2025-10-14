@@ -33,7 +33,7 @@ export default {
     this.texte3 = await this.handleTranslate(
       `
       Vous êtes étudiant, entreprise ou particulier, 
-      vous cherchez probablement une alternative plus simple,
+      Vous recherchez probablement une alternative plus simple,
       sûre et plus performante pour donner un nouveau souffle à vos finances,
        à votre activité. 
        `

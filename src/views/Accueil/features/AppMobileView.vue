@@ -31,7 +31,7 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
   },
   async created() {
-    this.texte0 = await this.handleTranslate("Télécharger notre");
+    this.texte0 = await this.handleTranslate("Téléchargez notre");
     this.texte1 = await this.handleTranslate("application mobile");
     this.texte2 = await this.handleTranslate(
       `Avec MonBrobroli, la galère est derrière vous,`

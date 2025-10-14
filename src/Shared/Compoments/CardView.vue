@@ -23,9 +23,9 @@ export default {
       <h6>{{ item.id }}</h6>
     </div>
     <h3 class="texte-center" style="color:var(--third-color) !important;">{{ item.title }}</h3>
-    <div v-if="item.text_one || item.text_two">
+    <div v-if="item.text_one || item.text_two || item.text_three">
       <p>
-        {{ item.text_one }}</p>
+        {{ item.text_one || item.text_three }}</p>
       <p>{{ item.text_two }}</p>
     </div>
   </a-card>
