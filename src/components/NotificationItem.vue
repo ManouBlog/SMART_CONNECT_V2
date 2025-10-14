@@ -1,12 +1,12 @@
 <template>
   <div class="notification-item">
     <div class="notification-avatar">
-      <img :src="notification.avatar" alt="Avatar" />
+      <img :src="lienPhoto+notification.avatar" alt="Avatar" />
     </div>
     <div class="notification-content">
       <div class="notification-header">
         <span class="notification-username">{{ notification.username }}</span>
-        <span class="notification-action">{{ notification.action }}</span>
+        <span class="notification-action">a regardé votre profil</span>
         <span class="notification-time">{{ notification.time }}</span>
       </div>
     </div>
@@ -15,6 +15,7 @@
 </template>
 
 <script setup>
+import { lienPhoto } from '../api/api';
 import {defineProps} from 'vue'
 defineProps({
   notification: {
@@ -33,7 +34,7 @@ defineProps({
   position: relative;
   background-color: #ffffff;
   margin-bottom: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.265);
 }
 
 .notification-avatar img {

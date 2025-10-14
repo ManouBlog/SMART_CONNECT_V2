@@ -1,66 +1,60 @@
 <template>
   <div class="app">
-    <h2 class="app-title">Vous avez {{ totalNewNotifications }} Notifications aujourdhui</h2>
+    <h2 class="app-title">Vous avez {{ todayNotifications.length }} Notifications aujourdhui</h2>
     <NotificationSection
     v-if="todayNotifications.length"
       title="Aujourd’hui"
       :notifications="todayNotifications"
     />
     <NotificationSection
-    v-if="thisWeekNotifications.length"
+    v-if="thisPassedNotifications.length"
       title="Passées"
-      :notifications="thisWeekNotifications"
+      :notifications="thisPassedNotifications"
     />
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref,onMounted } from 'vue';
+import instance from '../api/api';
 import NotificationSection from '../components/NotificationSection.vue';
+import { useLoadingSpinner } from '../store-pinia/LoadingSpinner/useLoadingSpinner';
 
-const todayNotifications = ref([
-  {
-    username: 'Elayamani',
-    action: 'a regardé votre profil',
-    time: 'il y a 2 h',
-    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-    isNew: true,
-  },
-  {
-    username: 'Arsian Ali',
-    action: 'a regardé votre profil',
-    time: 'il y a 6 h',
-    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-    isNew: true,
-  },
-  {
-    username: 'Johnny vino',
-    action: 'a regardé votre profil',
-    time: 'il y a 8 h',
-    avatar: 'https://randomuser.me/api/portraits/men/66.jpg',
-    isNew: true,
-  },
-]);
+const todayNotifications = ref([]);
+const Loading = useLoadingSpinner()
 
-const thisWeekNotifications = ref([
-  {
-    username: 'Brice seraphin',
-    action: 'a regardé votre profil',
-    time: 'le 6 juin',
-    avatar: 'https://randomuser.me/api/portraits/men/75.jpg',
-    isNew: false,
-  },
-  {
-    username: 'Best ui design',
-    action: 'a regardé votre profil',
-    time: 'le 5 juin',
-    avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
-    isNew: false,
-  },
-]);
-const totalNewNotifications = computed(() => {
-  return todayNotifications.value.filter(n => n.isNew).length;
-});
+const thisPassedNotifications = ref([]);
+
+async function getListNotification(){
+    Loading.launchLoading(true);
+try{
+const response = await instance.get("Notifications_student");
+console.log('getListNotification',response.data)
+thisPassedNotifications.value = response.data.data.yesterday.map(item=>{
+    return {
+    username: item.user.entreprise.nom,
+    time: new Date(item.created_at).toLocaleDateString('fr'),
+    avatar: item?.user?.entreprise?.logo,
+    isNew: item.view,
+  }
+}) 
+todayNotifications.value = response.data.data.today.map(item=>{
+    return {
+    username: item.user.entreprise.nom,
+    time: new Date(item.created_at).toLocaleDateString('fr'),
+    avatar: item?.user?.entreprise?.logo,
+    isNew: item.view,
+  }
+}) 
+}catch(error){
+    console.log('error')
+}finally{
+    Loading.launchLoading(false);
+}
+}
+onMounted(() => {
+    getListNotification()
+})
 </script>
 
 <style scoped>
@@ -77,5 +71,10 @@ const totalNewNotifications = computed(() => {
   color: #1a1a1a;
   margin: 20px 0;
   text-align: left;
+}
+@media (max-width: 500px) {
+ .app {
+  margin: 1.6em 0;
+}
 }
 </style>

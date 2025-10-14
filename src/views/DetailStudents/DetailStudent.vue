@@ -306,9 +306,9 @@ export default {
     async getDetailStudent() {
       loadingSpinner.launchLoading(true);
       await instance
-        .get("FiltreTimetable")
+        .get("FiltreTimetable",{ params: { user_id: this.idParamsItem } })
         .then((res) => {
-          // console.log(res);
+          console.log("FiltreTimetable",res);
           this.NewListEmploi = res.data.data;
           this.dateRendezVousStudentWithEntreprise = res.data.date;
           let dateOfStudent = [];
