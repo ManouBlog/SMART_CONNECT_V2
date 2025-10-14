@@ -52,8 +52,8 @@ defineProps({
 .notification-header {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   font-size: 14px;
+  flex-direction:column;
 }
 
 .notification-username {
