@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <h2 class="app-title">Vous avez {{ todayNotifications.length }} Notifications aujourdhui</h2>
+    <h2 class="app-title" v-if="!Loading.isLoadingVisible">Vous avez {{ todayNotifications.length }} Notifications aujourdhui</h2>
     <NotificationSection
     v-if="todayNotifications.length"
       title="Aujourd’hui"
