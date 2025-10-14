@@ -1,7 +1,7 @@
 <template>
   <div class="notification-item">
     <div class="notification-avatar">
-      <img :src="lienPhoto+notification.avatar" alt="Avatar" />
+      <img :src="lienPhoto + notification.avatar" alt="Avatar" />
     </div>
     <div class="notification-content">
       <div class="notification-header">
@@ -10,13 +10,13 @@
         <span class="notification-time">{{ notification.time }}</span>
       </div>
     </div>
-    <div class="notification-indicator" v-if="notification.isNew"></div>
+    <!-- <div class="notification-indicator" v-if="notification.isNew"></div> -->
   </div>
 </template>
 
 <script setup>
-import { lienPhoto } from '../api/api';
-import {defineProps} from 'vue'
+import { lienPhoto } from "../api/api";
+import { defineProps } from "vue";
 defineProps({
   notification: {
     type: Object,
@@ -68,8 +68,9 @@ defineProps({
 }
 
 .notification-time {
-  color: #999;
+  color: #8e8e8e;
   font-size: 12px;
+  font-weight: bold;
 }
 
 .notification-indicator {

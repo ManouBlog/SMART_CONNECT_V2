@@ -9,11 +9,12 @@ import InfoStudent from "./feature/header/Student/InfoStudent.vue";
 import ListeFavoris from "./feature/header/ListeFavoris.vue";
 import ListeNotifications from "./feature/header/ListeNotifications.vue";
 import ListeAlarmStudent from "./feature/header/ListeAlarmStudent.vue";
-import { mapActions } from "pinia";
+import { mapActions,mapState } from "pinia";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import MenuMobile from "./MenuMobile.vue";
 import { useMenuMobile } from "../store-pinia/MenuMobile/useMenuMobileStore";
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
+import { useNotificationsStore } from "../store-pinia/useNotificationsStore";
 
 export default {
   name: "Header",
@@ -70,6 +71,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(useNotificationsStore,['todayNotifications']),
     paginatedData() {
       let start = this.currentPage * this.perPage - this.perPage;
       let end = start + this.perPage;

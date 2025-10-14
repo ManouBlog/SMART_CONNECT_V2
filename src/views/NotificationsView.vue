@@ -3,6 +3,19 @@
     <h2 class="app-title" v-if="Notifications.todayNotifications.length">
       Vous avez {{ Notifications.todayNotifications.length }} Notifications aujourdhui
     </h2>
+    <div
+      v-else
+      style="
+        height: 300px;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 1em;
+        font-size: 2em;
+        color: black;
+      "
+    >
+      Pas de notifications
+    </div>
     <NotificationSection
       v-if="Notifications.todayNotifications.length"
       title="Aujourd’hui"

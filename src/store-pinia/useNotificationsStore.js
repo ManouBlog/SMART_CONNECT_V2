@@ -7,6 +7,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
   // 🧠 States
   const todayNotifications = ref([])
   const yesterdayNotifications = ref([])
+  const unreadNotifications = ref([])
   const Loading = useLoadingSpinner()
 
   // 🚀 Actions
@@ -19,7 +20,14 @@ export const useNotificationsStore = defineStore('notifications', () => {
       // Notifications d’hier
       yesterdayNotifications.value = (data.yesterday || []).map(item => ({
         username: item.user?.entreprise?.nom,
-        time: new Date(item.created_at).toLocaleDateString('fr'),
+        time: new Date(item.created_at).toLocaleDateString('fr',{
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+}),
         avatar: item.user?.entreprise?.logo,
         isNew: item.view,
       }))
@@ -27,10 +35,21 @@ export const useNotificationsStore = defineStore('notifications', () => {
       // Notifications d’aujourd’hui
       todayNotifications.value = (data.today || []).map(item => ({
         username: item.user?.entreprise?.nom || 'Inconnu',
-        time: new Date(item.created_at).toLocaleDateString('fr'),
+        time: new Date(item.created_at).toLocaleDateString('fr',{
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+}),
         avatar: item.user?.entreprise?.logo || null,
         isNew: item.view,
       }))
+       unreadNotifications.value = [
+      ...todayNotifications.value,
+      ...yesterdayNotifications.value,
+    ].filter(item => item.isNew === 0)
     } catch (error) {
       console.error('Erreur lors du chargement des notifications :', error)
     } finally {
@@ -42,5 +61,6 @@ export const useNotificationsStore = defineStore('notifications', () => {
     todayNotifications,
     yesterdayNotifications,
     getListNotification,
+    unreadNotifications
   }
 })
