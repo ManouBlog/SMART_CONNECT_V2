@@ -24,9 +24,26 @@ export default {
     </div>
     <h3 class="texte-center" style="color:var(--third-color) !important;">{{ item.title }}</h3>
     <div v-if="item.text_one || item.text_two || item.text_three">
-      <p>
-        {{ item.text_one || item.text_three }}</p>
-      <p>{{ item.text_two }}</p>
+      <p v-if="item.text_one && item.text_one.split(' : ')[0] === 'Etudiant'">
+        <span style="color:orange;font-weight:bold;">
+          {{item.text_one.split(' : ')[0]}} :
+        </span>
+        <span>
+          {{item.text_one.split(' : ')[1]}}
+        </span>
+      </p>
+      <p v-if="item.text_three">
+        {{ item.text_three}}
+      </p>
+     
+       <p v-if="item.text_two && item.text_two.split(' : ')[0] === 'Entreprise/Particulier'">
+        <span style="color:orange;font-weight:bold;">
+          {{item.text_two.split(' : ')[0]}} :
+        </span>
+        <span>
+          {{item.text_two.split(' : ')[1]}}
+        </span>
+      </p>
     </div>
   </a-card>
 </template>
