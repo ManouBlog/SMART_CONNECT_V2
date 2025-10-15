@@ -244,58 +244,118 @@ export default {
         this.inscriptionParticulier();
       }
     },
-
     connexionUser() {
-      // console.log("connex1")
-      instance
-        .post("auth_login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then((response) => {
-          // console.log("reponse", response.data);
-          // console.log("token", response.data.access_token);
+  this.showLoader = true
 
-          if (response.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: response.data.message,
-              showConfirmButton: true,
-            });
-            this.$store.commit("ADD_ITEM");
-            window.localStorage.setItem("user", JSON.stringify(response.data.user));
-            window.localStorage.setItem(
-              "token",
-              JSON.stringify(response.data.access_token)
-            );
-            this.$store.state.user = response.data.user;
-            // console.log("essai", this.$store.state.charte);
-            this.$store.state.token = response.data.access_token;
-            this.showLoader = false;
-            this.$router.push({
-              path: "/",
-              query: { redirect: this.path },
-            });
-          }
-          if (response.data.status === false) {
-            this.showLoader = false;
-            Swal.fire({
-              icon: "info",
-              title: response.data.message,
-              showConfirmButton: true,
-            });
-          }
+  instance
+    .post("auth_login", {
+      email: this.email,
+      password: this.password,
+    })
+    .then((response) => {
+      const data = response.data
+
+      if (data.status === true) {
+        Swal.fire({
+          icon: "success",
+          title: data.message,
+          showConfirmButton: true,
         })
-        .catch((response) => {
-          this.showLoader = false;
-          Swal.fire({
-            icon: "info",
-            title: response.message,
-            showConfirmButton: true,
-          });
-          // console.log(response.message);
-        });
-    },
+
+        // 🔹 Sauvegarde dans le localStorage
+        localStorage.setItem("user", JSON.stringify(data.user))
+        localStorage.setItem("token", JSON.stringify(data.access_token))
+
+        // 🔹 Mise à jour du store
+        this.$store.commit("ADD_ITEM")
+        this.$store.state.user = data.user
+        this.$store.state.token = data.access_token
+
+        this.showLoader = false
+
+        // 🔹 Vérifie s’il existe un paramètre redirect dans l’URL
+        const redirect = this.$route.query.redirect
+       console.log("Redirection détectée :", redirect)
+        if (redirect) {
+          console.log("Redirection détectée :", redirect)
+          // 👉 Lancer une méthode ou rediriger directement
+          this.$router.push(redirect)
+        } else {
+          // Sinon redirection par défaut
+          this.$router.push('/')
+        }
+      } else {
+        this.showLoader = false
+        Swal.fire({
+          icon: "info",
+          title: data.message,
+          showConfirmButton: true,
+        })
+      }
+    })
+    .catch((error) => {
+      this.showLoader = false
+      Swal.fire({
+        icon: "error",
+        title: error.response?.data?.message || "Une erreur est survenue",
+        showConfirmButton: true,
+      })
+      console.error(error)
+    })
+}
+,
+
+    // connexionUser() {
+    //   // console.log("connex1")
+    //   instance
+    //     .post("auth_login", {
+    //       email: this.email,
+    //       password: this.password,
+    //     })
+    //     .then((response) => {
+    //       // console.log("reponse", response.data);
+    //       // console.log("token", response.data.access_token);
+
+    //       if (response.data.status === true) {
+    //         Swal.fire({
+    //           icon: "success",
+    //           title: response.data.message,
+    //           showConfirmButton: true,
+    //         });
+    //         this.$store.commit("ADD_ITEM");
+    //         window.localStorage.setItem("user", JSON.stringify(response.data.user));
+    //         window.localStorage.setItem(
+    //           "token",
+    //           JSON.stringify(response.data.access_token)
+    //         );
+    //         this.$store.state.user = response.data.user;
+    //         // console.log("essai", this.$store.state.charte);
+    //         this.$store.state.token = response.data.access_token;
+    //         this.showLoader = false;
+    //         this.$router.push({
+    //           path: "/",
+    //           query: { redirect: this.path },
+    //         });
+    //       }
+    //       if (response.data.status === false) {
+    //         this.showLoader = false;
+    //         Swal.fire({
+    //           icon: "info",
+    //           title: response.data.message,
+    //           showConfirmButton: true,
+    //         });
+    //       }
+    //     })
+    //     .catch((response) => {
+    //       this.showLoader = false;
+    //       Swal.fire({
+    //         icon: "info",
+    //         title: response.message,
+    //         showConfirmButton: true,
+    //       });
+    //       // console.log(response.message);
+    //     });
+    // },
     verifPassword(password) {
       let isCorrect;
       if (

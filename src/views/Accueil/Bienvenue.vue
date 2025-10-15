@@ -12,6 +12,8 @@ import Partenaires from "./features/Partenaires.vue";
 // import NewsLetterView from "./features/NewsLetter.vue";
 import AppMobileView from "./features/AppMobileView.vue";
 import { usePartenaireStore } from "../../store-pinia/partenaire/usePartenaireStore";
+import { useRegisterStore } from "../../store-pinia/register/useRegisterStore";
+import { mapActions } from "pinia";
 export default {
   name: "Bienvenue",
   components: {
@@ -44,6 +46,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useRegisterStore,['changeValueIsModal']),
     async verifyEmail(email, token) {
       try {
         const { data } = await instance.post("verificationEmail", { email, token });
@@ -89,7 +92,10 @@ export default {
     this.launchTestimonials()
     this.email = this.$route.params.email;
     this.token = this.$route.params.token;
-
+    const redirect = this.$route.query.redirect
+    if(redirect){
+      this.changeValueIsModal()
+    }
     if (this.email && this.token) {
       await this.verifyEmail(this.email, this.token);
     }

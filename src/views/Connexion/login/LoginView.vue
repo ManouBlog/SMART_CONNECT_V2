@@ -70,10 +70,14 @@ export default {
             // console.log("essai", this.$store.state.charte);
             this.$store.state.token = response.data.access_token;
             this.toogleModal();
-            this.$router.push({
-              path: "/",
-              query: { redirect: this.path },
-            });
+            const redirect = this.$route.query.redirect
+       console.log("Redirection détectée :", redirect)
+        if (redirect) {
+          console.log("Redirection détectée :", redirect)
+          this.$router.push(redirect)
+        } else {
+          this.$router.push('/')
+        }
             this.launchLoading(false);
           }
           if (response.data.status === false) {

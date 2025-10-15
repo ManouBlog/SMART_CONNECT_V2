@@ -21,11 +21,11 @@ const routes = [
         name:'Bienvenue-verification',
         component: () => import( '../views/Accueil/Bienvenue.vue')
       },
-      {
-        path: '/registre',
-        name: 'registre',
-        component: () => import( '../views/registre.vue')
-      }, 
+      // {
+      //   path: '/registre',
+      //   name: 'registre',
+      //   component: () => import( '../views/registre.vue')
+      // }, 
       {
         path: '/conditions-generales',
         name: 'condition',
@@ -402,7 +402,7 @@ router.beforeEach( (to, _from, next) => {
     const session = localStorage.getItem('token')
     if(session === null){
       next({
-        path:'/registre',
+        path:'/',
         query:{redirect:to.fullPath}
     }
       )
