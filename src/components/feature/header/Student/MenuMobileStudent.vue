@@ -56,6 +56,7 @@ export default {
           this.$router.push({
             name: "notifications",
           });
+          this.getListNotification();
         }
       } catch (error) {
         console.log(error);

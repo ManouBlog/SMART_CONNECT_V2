@@ -279,10 +279,10 @@ export default {
         if (redirect) {
           console.log("Redirection détectée :", redirect)
           // 👉 Lancer une méthode ou rediriger directement
-          this.$router.push(redirect)
+          this.$router.replace(redirect)
         } else {
           // Sinon redirection par défaut
-          this.$router.push('/')
+          this.$router.replace('/')
         }
       } else {
         this.showLoader = false

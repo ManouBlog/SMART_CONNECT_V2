@@ -74,9 +74,9 @@ export default {
        console.log("Redirection détectée :", redirect)
         if (redirect) {
           console.log("Redirection détectée :", redirect)
-          this.$router.push(redirect)
+          this.$router.replace(redirect)
         } else {
-          this.$router.push('/')
+          this.$router.replace('/')
         }
             this.launchLoading(false);
           }
