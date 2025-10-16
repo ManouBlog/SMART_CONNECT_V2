@@ -281,6 +281,7 @@ export default {
                   href="#"
                   v-if="!this.$store.state.user"
                   class="login_user mx-3"
+                  style="font-family: 'Poppins', sans-serif;font-weight:bold;"
                   @click.prevent="changeValueIsModal"
                 >
                   {{ texte5 }}

@@ -102,7 +102,7 @@ export default {
     this.texte = await this.handleTranslate("Connexion");
     this.texte1 = await this.handleTranslate("Accueil");
     this.texte2 = await this.handleTranslate("Offre d'emploi");
-    this.texte3 = await this.handleTranslate("Abonnement");
+    this.texte3 = await this.handleTranslate("Abonnements");
     this.texte4 = await this.handleTranslate("Contactez-nous");
       this.texte6 = await this.handleTranslate("CGU");
     this.texte5 = await this.handleTranslate("Déconnexion");
