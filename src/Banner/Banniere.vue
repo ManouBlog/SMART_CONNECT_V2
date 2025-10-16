@@ -56,7 +56,7 @@ export default {
           <n-carousel autoplay :interval="3000">
             <div
               style="
-                background: #80808024; /* fond léger */
+              background: #80808024;
                 width: 100%;
                 height: 100%;
                 display: flex;
@@ -91,10 +91,8 @@ export default {
             </div>
             <div
               style="
-                background: white;
                 position: relative;
                 width: 100%;
-                background: #80808024;
                 height: 100%;
                 top: 0;
                 bottom: 0;
