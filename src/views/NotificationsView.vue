@@ -54,9 +54,9 @@ onMounted(async () => {
   margin: 20px 0;
   text-align: left;
 }
-@media (max-width: 500px) {
+@media (max-width: 1200px) {
   .app {
-    margin: 1.6em 0;
+    margin: 1.6em 0 !important;
   }
 }
 </style>

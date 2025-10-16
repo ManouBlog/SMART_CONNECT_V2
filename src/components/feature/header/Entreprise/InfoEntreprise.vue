@@ -205,4 +205,8 @@ export default {
     display: none !important;
   }
 }
+li a {
+  font-weight: bold;
+  color: black;
+}
 </style>

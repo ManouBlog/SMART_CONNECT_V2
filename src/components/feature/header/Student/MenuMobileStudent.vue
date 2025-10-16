@@ -1,8 +1,10 @@
 <script>
 import LiensNavBar from "../LiensNavBar.vue";
-import { mapActions } from "pinia";
+import instance from "../../../../api/api";
+import { mapActions,mapState } from "pinia";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useMenuMobile } from "../../../../store-pinia/MenuMobile/useMenuMobileStore";
+import { useNotificationsStore } from "../../../../store-pinia/useNotificationsStore";
 export default {
   name: "MenuMobileStudent",
   components: {
@@ -40,12 +42,34 @@ export default {
       texte40:"",
     };
   },
+  computed: {
+    ...mapState(useNotificationsStore, ["unreadNotifications"]),
+  },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
+    ...mapActions(useNotificationsStore, ["getListNotification"]),
+      async seeMyNotifications() {
+      try {
+        const response = await instance.get("markAllAsRead");
+        if (response["status"] === 200) {
+          this.$router.push({
+            name: "notifications",
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        // Swal.fire({
+        //   icon: "info",
+        //   title: error,
+        //   showConfirmButton: false,
+        //   timer: 3000,
+        // });
+      }
+    },
   },
   async created() {
-
+this.getListNotification();
     this.texte = await this.handleTranslate('Tableau de bord');
     this.texte1 = await this.handleTranslate('Mon profil');
     this.texte2 = await this.handleTranslate("Mes favoris");
@@ -63,6 +87,13 @@ export default {
     <li class="position-absolute deconnex">
         <router-link to="/dashboard/accueil" class="d-block">
          {{texte}}
+        </router-link>
+      </li>
+      <li class="position-absolute deconnex">
+        <router-link to="/Notifications" class="d-block">
+         Mes Notifications <span v-if="this.unreadNotifications.length > 0" class="badge bg-danger">{{
+        this.unreadNotifications.length
+      }}</span>
         </router-link>
       </li>
       <LiensNavBar :texte="texte1" :route_lien="'profil'" />
