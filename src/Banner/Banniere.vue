@@ -1,16 +1,46 @@
 <script>
 import instance, { lienPhoto } from "../api/api";
+import { useWindowSize } from '@vueuse/core'
+const { width: windowWidth } = useWindowSize();
 export default {
   name: "Banniere",
   data() {
     return {
+      windowWidth:windowWidth,
       afficheAll: [],
       lienPhoto: lienPhoto,
       afficheDefault: [
-        require("/src/assets/baniere_1.png"),
-        require("/src/assets/baniere_2.png"),
-        require("/src/assets/baniere_3.png"),
+        {
+          iphone: require("../assets/mobile/baniere_1.png"),
+          ipad:require("../assets/ipad/baniere_1.png"),
+          pc:require("../assets/baniere_1.png"),
+        },
+        {
+          iphone: require("../assets/mobile/baniere_2.png"),
+          ipad:require("../assets/ipad/baniere_2.png"),
+          pc:require("../assets/baniere_2.png"),
+        },
+        {
+           iphone: require("../assets/mobile/baniere_3.png"),
+          ipad:require("../assets/ipad/baniere_3.png"),
+          pc:require("../assets/baniere_3.png"),
+        },
       ],
+      // afficheDefault_pc: [
+      //   require("../assets/baniere_1.png"),
+      //   require("../assets/baniere_2.png"),
+      //   require("../assets/baniere_3.png"),
+      // ],
+      // afficheDefault_ipad: [
+      //   require("../assets/ipad/baniere_1.png"),
+      //   require("../assets/ipad/baniere_2.png"),
+      //   require("../assets/ipad/baniere_3.png"),
+      // ],
+      // afficheDefault_iphone: [
+      //   require("../assets/mobile/baniere_1.png"),
+      //   require("../assets/mobile/baniere_2.png"),
+      //   require("../assets/mobile/baniere_3.png"),
+      // ],
       afficheShow: [],
     };
   },
@@ -26,8 +56,6 @@ export default {
       instance
         .get("showAffiche/" + "pc")
         .then((res) => {
-          // // console.log(res);
-          //  // console.log("this.afficheAll",res.data.data)
           this.afficheAll = res.data.data;
           if (this.afficheAll.length > 0) {
             this.afficheShow = this.afficheAll;
@@ -56,7 +84,7 @@ export default {
           <n-carousel autoplay :interval="3000">
             <div
               style="
-              background: #80808024;
+                background: #80808024;
                 width: 100%;
                 height: 100%;
                 display: flex;
@@ -71,7 +99,7 @@ export default {
                     font-size: 2.5rem;
                     color: orange;
                     text-align: center;
-                    font-weight:bold;
+                    font-weight: bold;
                   "
                 >
                   Affichez-vous ici pour plus de visibilité.
@@ -81,7 +109,7 @@ export default {
                     font-family: 'Poppins', sans-serif;
                     font-size: 2.5rem;
                     color: orange;
-                    font-weight:bold;
+                    font-weight: bold;
                     text-align: center;
                   "
                 >
@@ -102,15 +130,34 @@ export default {
               v-for="(item, index) in this.afficheShow"
               :key="index"
             >
-            <img
-             v-if="item.lien"
+              <img
+                v-if="item.lien"
                 class="carousel-img"
                 :src="lienPhoto + item.affiche"
                 @click="openLink(item.lien)"
               />
-              <img v-else class="carousel-img" :src="item" />
-            </div>
+              <div v-else>
+                <img
+                v-if="windowWidth > 1200"
+                :src="item.pc"
+                class="carousel-img"
+                :alt="`Bannière ${index + 1}`"
+              />
+               <img
+                v-if="windowWidth <= 1200 && windowWidth > 600"
+                :src="item.ipad"
+                class="carousel-img"
+                :alt="`Bannière ${index + 1}`"
+              />
+               <img
+                v-if="windowWidth <= 500"
+                :src="item.iphone"
+                class="carousel-img"
+                :alt="`Bannière ${index + 1}`"
+              />
+              </div>
             
+            </div>
           </n-carousel>
         </div>
       </div>
