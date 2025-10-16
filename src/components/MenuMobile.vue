@@ -67,7 +67,7 @@ export default {
               timer: 1500,
             });
 
-            this.$router.push("/");
+            this.$router.replace("/");
             this.launchLoading(false);
           }
         })
