@@ -47,7 +47,7 @@ Table Of Index
 @import url(assets/webcss/custom_fonts.css);
 
 body {
-  font-family: OpenSansSemibold;
+  font-family: "Poppins", sans-serif;
   font-size: 21px;
 }
 body.modal-open {
@@ -100,7 +100,7 @@ body.modal-open {
   border: 2px solid rgb(5, 35, 73);
   border-radius: 26px;
   color: #232323;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   margin-right: 0;
   padding: 12px 30px;
@@ -133,26 +133,26 @@ a {
   text-decoration: none;
 }
 h3 {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 40px;
   margin: 0 0 4px;
   color: #333;
 }
 h4 {
-  font-family: OpenSansRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
 }
 h4 span {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   width: 100%;
   float: left;
 }
 h5 {
-  font-family: LatoBlack;
+  font-family: "Poppins", sans-serif;
   font-size: 28px;
 }
 ul li {
-  font-family: OpenSansRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   padding-bottom: 0;
 }
@@ -241,7 +241,7 @@ ul.dropdown-menu {
 /*///////////Navigatiosns///////////////*/
 .nav a {
   color: #333;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 12px;
   text-transform: uppercase;
 }
@@ -300,12 +300,12 @@ ul.dropdown-menu li:last-child a {
 }
 .slogan h1 {
   color: #333333;
-  font-family: LatoBlack;
+  font-family: "Poppins", sans-serif;
   font-size: 58px;
 }
 .slogan h3 {
   margin: 0;
-  font-family: RalewayLight;
+  font-family: "Poppins", sans-serif;
   font-size: 25px;
   color: #333;
   text-align: center;
@@ -323,7 +323,7 @@ ul.dropdown-menu li:last-child a {
   border: 2px solid rgb(5, 35, 73);
   color: #333;
   display: inline-block;
-  font-family: OpenSansSemibold;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   margin-top: 46px;
   padding: 10px 31px;
@@ -331,7 +331,7 @@ ul.dropdown-menu li:last-child a {
   border-radius: 44px;
 }
 .slogan a span {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
 }
 /*////////////////Jobs Filters//////////*/
 .jobs_filters .container {
@@ -345,7 +345,7 @@ ul.dropdown-menu li:last-child a {
   border: none;
   border-radius: 0;
   line-height: normal;
-  font-family: OpenSansSemibold;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   padding: 0 30px 0 8px;
   color: #333;
@@ -407,7 +407,7 @@ ul.dropdown-menu li:last-child a {
 .jobs_filters .tiny_scrolling li a {
   border-bottom: 1px solid #f4f4f4;
   display: block;
-  font-family: OpenSansSemibold;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   padding: 8px;
 }
@@ -460,7 +460,7 @@ ul.dropdown-menu li:last-child a {
   margin-bottom: 2px;
   margin-top: 8px;
   padding-left: 21px;
-  font-family: raleway;
+  font-family: "Poppins", sans-serif;
 }
 /*///////////Main Container /////////*/
 .main-container-job {
@@ -483,7 +483,7 @@ ul.dropdown-menu li:last-child a {
 }
 .tab_filters ul.nav li a {
   border: 1px solid #d0d0d0;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   color: #333;
   border-radius: 9px;
@@ -498,7 +498,7 @@ ul.dropdown-menu li:last-child a {
   margin-right: 0;
 }
 .tab_filters ul.nav li.active a {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   color: #fff;
   border: 1px solid rgb(5, 35, 73);
   background: rgb(5, 35, 73);
@@ -565,7 +565,7 @@ ul.dropdown-menu li:last-child a {
   background: rgb(5, 35, 73) none repeat scroll 0 0;
   border-radius: 0;
   float: left;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   line-height: normal;
   padding: 5px 11px;
@@ -614,7 +614,7 @@ ul.dropdown-menu li:last-child a {
   margin: 0 auto;
   color: #333;
   padding: 12px 47px;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   position: relative;
   text-transform: uppercase;
   margin: 55px auto 28px;
@@ -659,7 +659,7 @@ ul.dropdown-menu li:last-child a {
 }
 .bluesection p {
   color: #ffffff;
-  font-family: latoregular;
+  font-family: "Poppins", sans-serif;
   font-size: 17px;
   line-height: 25px;
   padding-top: 26px;
@@ -669,7 +669,7 @@ ul.dropdown-menu li:last-child a {
   float: left;
   list-style: none;
   color: #fff;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 50px;
   padding: 0px 6%;
   line-height: 40px;
@@ -691,7 +691,7 @@ ul.dropdown-menu li:last-child a {
 }
 #counter li span {
   font-size: 17px;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   float: left;
   width: 100%;
 }
@@ -719,7 +719,7 @@ ul.dropdown-menu li:last-child a {
   padding-bottom: 0;
 }
 .price-tags p {
-  font-family: RalewayLight;
+  font-family: "Poppins", sans-serif;
   font-size: 21px;
 }
 /*/////////Pricing Table ////////////*/
@@ -741,7 +741,7 @@ ul.dropdown-menu li:last-child a {
 .priceing_tables .header {
   border-bottom: 1px solid #f2f2f2;
   color: #333;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 25px;
   padding: 48px 0;
   position: relative;
@@ -765,7 +765,7 @@ priceing_tables .startup {
 }
 .priceing_tables .price {
   padding: 3px 0;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 63px;
   float: left;
   width: 100%;
@@ -774,7 +774,7 @@ priceing_tables .startup {
 }
 
 .priceing_tables .price span {
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   float: left;
   width: 100%;
   font-size: 15px;
@@ -805,7 +805,7 @@ priceing_tables .startup {
   border-radius: 77px;
   color: rgb(5, 35, 73);
   display: inherit;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   margin: 0 77px;
   padding: 17px 0;
@@ -829,7 +829,7 @@ priceing_tables .startup {
   background: #fa2328 none repeat scroll 0 0;
   border-radius: 34px;
   color: #ffffff;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 12px;
   left: 0;
   margin: 0 auto;
@@ -841,7 +841,7 @@ priceing_tables .startup {
   width: 118px;
 }
 .priceing_tables .price i {
-  font-family: Raleway;
+  font-family: "Poppins", sans-serif;
   font-size: 26px;
   font-style: normal;
   position: relative;
@@ -885,21 +885,21 @@ priceing_tables .startup {
 .postdate {
   background: rgb(5, 35, 73);
   font-size: 18px;
-  font-family: OpenSansSemibold;
+  font-family: "Poppins", sans-serif;
 }
 .postmonth {
   background: #333;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
 }
 .posts-list .post-meta h4 {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   margin: 23px 0;
   line-height: 20px;
 }
 .posts-list .post-meta p {
   color: #333;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   line-height: 29px;
   margin-bottom: 19px;
@@ -909,7 +909,7 @@ priceing_tables .startup {
   border-radius: 22px;
   color: rgb(5, 35, 73);
   float: left;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 11px;
   padding: 9px 19px;
   text-transform: uppercase;
@@ -920,20 +920,20 @@ priceing_tables .startup {
   color: #ffffff;
 }
 .container.main-container > p {
-  font-family: RalewayLight;
+  font-family: "Poppins", sans-serif;
   text-align: center;
 }
 /*//////////Image Banner ///////*/
 .white-heading {
   color: #fff;
-  font-family: opensansbold;
+  font-family: "Poppins", sans-serif;
   font-size: 39px;
   margin-bottom: 0;
   text-align: center;
 }
 .price-heading {
   color: #fff;
-  font-family: opensansbold;
+  font-family: "Poppins", sans-serif;
   font-size: 39px;
   margin-bottom: 0;
   text-align: center;
@@ -952,10 +952,10 @@ priceing_tables .startup {
   padding: 30px 0;
 }
 .white-heading span {
-  font-family: RalewayThin;
+  font-family: "Poppins", sans-serif;
 }
 .btn-getstarted {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
 
   color: #fff;
   border: none;
@@ -997,7 +997,7 @@ priceing_tables .startup {
 .owl-item .item h5,
 .owl-item .item span {
   color: #ffffff;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 22px;
   margin: 5px 0;
 }
@@ -1007,7 +1007,7 @@ priceing_tables .startup {
 }
 #testio .owl-item .item p {
   color: #ffffff;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   line-height: 30px;
   margin-top: 28px;
@@ -1068,7 +1068,7 @@ priceing_tables .startup {
   position: absolute;
 }
 .footer h3 {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   margin-bottom: 26px;
 }
@@ -1088,7 +1088,7 @@ priceing_tables .startup {
 .footer p {
   font-size: 15px;
   color: #333;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
 }
 .container-fluid.last-footer {
   border-top: 1px solid #e3e3e3;
@@ -1097,7 +1097,7 @@ priceing_tables .startup {
   padding: 35px 0;
 }
 .last-footer p {
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
 }
 .footer.last-footer ul li {
   padding-bottom: 0;
@@ -1122,18 +1122,18 @@ priceing_tables .startup {
   margin-top: 0px;
 }
 .page-title .white-heading {
-  font-family: OpenSansRegular;
+  font-family: "Poppins", sans-serif;
   text-align: left;
   font-size: 49px;
 }
 .page-title .image-heading {
-  font-family: OpenSansRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 49px;
   text-align: left;
 }
 .image-heading {
   color: #333;
-  font-family: opensansbold;
+  font-family: "Poppins", sans-serif;
   font-size: 39px;
   margin-bottom: 0;
   text-align: center;
@@ -1142,7 +1142,7 @@ priceing_tables .startup {
 .favourite {
   color: #fff;
   text-align: right;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   padding: 5px 0;
   float: right;
@@ -1155,7 +1155,7 @@ priceing_tables .startup {
   width: 100%;
 }
 .favourite.hard {
-  font-family: RalewayHeavy;
+  font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   font-size: 28px;
   padding: 8px 0;
@@ -1190,11 +1190,11 @@ priceing_tables .startup {
   float: left;
   width: 100%;
   color: rgb(5, 35, 73);
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
 }
 .user-data .user-tag {
   line-height: normal;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   width: 100%;
 }
@@ -1215,13 +1215,13 @@ priceing_tables .startup {
   margin: 0;
   padding: 6px 0 0;
   font-size: 12px;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
 }
 
 .user-data .user-tag label span {
   font-size: 18px;
   color: #333;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   margin-top: 8px;
 }
 
@@ -1272,14 +1272,14 @@ priceing_tables .startup {
   font-size: 31px;
 }
 .content p {
-  font-family: OpenSansRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   line-height: 26px;
   margin-top: 24px;
   text-align: justify;
 }
 .content h2 {
-  font-family: opensansbold;
+  font-family: "Poppins", sans-serif;
   margin: 33px 0;
   float: left;
   width: 100%;
@@ -1289,7 +1289,7 @@ ul.skills li {
   list-style: none;
 }
 .content ul li {
-  font-family: OpenSansRegular;
+  font-family: "Poppins", sans-serif;
   color: #333;
   font-size: 14px;
   list-style: outside none none;
@@ -1399,7 +1399,7 @@ ul.simple li {
 }
 .sidebar .subscribe h3 {
   font-size: 15px;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   color: #333;
   text-transform: none;
   margin-bottom: 21px;
@@ -1412,7 +1412,7 @@ ul.simple li {
 .subscribe button {
   width: 100%;
   text-align: center;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   text-transform: uppercase;
   padding: 16px 0;
@@ -1436,7 +1436,7 @@ ul.simple li {
 }
 .subscribe a {
   color: #2a2a2a;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
 }
 .subscribe i {
@@ -1450,7 +1450,7 @@ ul.simple li {
 .job-recom .main-container h3,
 .recom {
   margin-bottom: 48px;
-  font-family: OpenSansRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 30px;
 }
 .related_jos {
@@ -1466,7 +1466,7 @@ ul.simple li {
   float: left;
 }
 #recommended-job .related_jos h4 {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   color: #333;
   margin: 0 0 20px;
@@ -1474,7 +1474,7 @@ ul.simple li {
 #recommended-job .related_jos p {
   float: left;
   width: 100%;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   color: #858585;
   font-size: 18px;
   line-height: normal;
@@ -1493,7 +1493,7 @@ ul.simple li {
   border-top: 1px solid #dddddd;
   color: #333;
   float: left;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   margin: 0;
   padding: 17px 0 0;
@@ -1595,7 +1595,7 @@ ul.top_filters li input[type="checkbox"] {
 }
 
 ul.top_filters li label {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   margin-bottom: 0;
   padding-left: 30px;
@@ -1630,7 +1630,7 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
   margin-right: 0;
 }
 .list-style2 .desig h3 {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   margin: 0 0 9px;
 }
 .list-style2 h4 {
@@ -1730,13 +1730,13 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
   color: #fff;
   display: inline-block;
   line-height: 19px;
-  font-family: RalewayExtraBold;
+  font-family: "Poppins", sans-serif;
 }
 #jobs-slider .item .overlay h3 span {
   float: left;
   width: 100%;
   color: #fff;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   padding-left: 25px;
 }
 .list-style3 .jobs.list-style2 {
@@ -1762,12 +1762,12 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
 .slider-botom h3 {
   color: #fff;
   font-size: 22px;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
 }
 #jobs-slider .slider-botom h4,
 #jobs-slider .slider-botom h5 {
   color: #848484;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
 }
 #jobs-slider .slider-botom h5 {
   font-size: 12px;
@@ -1802,7 +1802,7 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
 .tag h3 {
   border-bottom: 1px solid #e5e5e5;
   color: #1a1a1a;
-  font-family: OpenSansSemibold;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   margin: 0 5px 3px;
   padding: 32px 32px 25px;
@@ -1821,7 +1821,7 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
 .tag ul li a {
   color: #333;
   font-size: 15px;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   display: block;
 }
 .tag ul li a:hover {
@@ -1834,7 +1834,7 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
 .page-title p {
   color: #fff;
   font-size: 21px;
-  font-family: Raleway;
+  font-family: "Poppins", sans-serif;
   padding-top: 14px;
 }
 .title-image .pricing {
@@ -1842,7 +1842,7 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
   background-size: cover;
 }
 .lighttext p {
-  font-family: RalewayLight;
+  font-family: "Poppins", sans-serif;
   font-size: 21px;
   margin-top: 24px;
 }
@@ -1863,7 +1863,7 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
 }
 .blocks p {
   color: #333333;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-weight: normal;
   line-height: 24px;
@@ -1873,7 +1873,7 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
   border-radius: 55px;
   color: rgb(5, 35, 73);
   float: left;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 11px;
   margin-top: 30px;
   padding: 9px 19px;
@@ -1899,12 +1899,12 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
 
 .icons-heading h3 {
   font-size: 32px;
-  font-family: RalewayHeavy;
+  font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   margin-bottom: 19px;
 }
 .icons-heading p {
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 19px;
   color: #585858;
 }
@@ -1953,7 +1953,7 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
 }
 .how_work ul li h3 {
   color: #fff;
-  font-family: RalewayHeavy;
+  font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   font-size: 32px;
 }
@@ -1976,7 +1976,7 @@ ul.top_filters li input[type="checkbox"]:checked + label:after {
   background: #494949;
 }
 .how_work ul li ul li span {
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 17px;
   display: block;
   width: 100%;
@@ -2011,7 +2011,7 @@ ul.alphabet li {
 .page-title h5 {
   font-size: 15px;
   color: #fff;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   margin: 16px 0;
 }
 .form-group label {
@@ -2020,7 +2020,7 @@ ul.alphabet li {
   width: 100%;
   margin-right: 22px;
   margin-bottom: 0;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-weight: normal;
 }
@@ -2033,7 +2033,7 @@ ul.alphabet li {
   font-size: 16px;
   color: #333;
   line-height: normal;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   border-radius: 8px;
 }
 .contact_us .form-group input:focus,
@@ -2049,7 +2049,7 @@ ul.alphabet li {
 #register,
 #signin {
   width: initial;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   border: none;
   font-size: 14px;
   background: #333;
@@ -2075,7 +2075,7 @@ ul.alphabet li {
   font-size: 20px;
 }
 .about_section p {
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   line-height: 30px;
 }
@@ -2134,7 +2134,7 @@ ul.social li a {
   width: 100%;
 }
 .deximJobs_tabs .nav li a {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 45px;
   background: none !important;
   color: #007738;
@@ -2199,7 +2199,7 @@ ul.social li a {
   padding: 0 1em;
 }
 .sidebar h3 {
-  font-family: OpenSansSemibold;
+  font-family: "Poppins", sans-serif;
   font-size: 24px;
   color: #fff;
   text-transform: uppercase;
@@ -2220,7 +2220,7 @@ ul.social li a {
 .deximJobs_tabs .sidebar .widget li p {
   text-align: left;
   font-size: 15px;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   margin-bottom: 0;
   line-height: 25px;
 }
@@ -2236,7 +2236,7 @@ ul.social li a {
 .register {
   background: #333 !important;
   font-size: 14px;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
 }
 
 .deximJobs_tabs .contact_us .lost_password {
@@ -2314,7 +2314,7 @@ ul.buttons li:last-child {
   padding: 18px 0;
 }
 .post-job .main-container label {
-  font-family: OpenSansSemibold;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   margin: 0;
   padding: 8px 0;
@@ -2356,7 +2356,7 @@ ul.select2-choices {
 .select2-container a.select2-choice .select2-chosen {
   color: #888e94;
   margin: 0;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   font-weight: normal;
   float: left;
@@ -2372,7 +2372,7 @@ body .select2-search {
   content: "Chose a category...";
   margin: 11px 0;
   float: left;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   padding-right: 35px;
   color: #888e94;
@@ -2382,7 +2382,7 @@ body .select2-search {
   border: medium none;
   border-radius: 33px;
   color: #ffffff;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   margin: 5px 8px 5px 0;
   padding: 14px 30px 14px 17px;
@@ -2420,7 +2420,7 @@ body ul.select2-results {
 body ul.select2-results li {
   padding: 11px 14px;
   margin-right: 22px;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
 }
 .container .select2-container-multi ul.select2-choices i {
@@ -2487,7 +2487,7 @@ body ul.select2-results li {
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-family: OpenSansSemibold;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   margin-right: 35px;
   padding: 15px 17px;
@@ -2504,7 +2504,7 @@ body ul.select2-results li {
 }
 .form-group label.heading {
   font-size: 20px;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   padding: 0 !important;
 }
 .contact_us .form-group.half input {
@@ -2539,7 +2539,7 @@ body ul.select2-results li {
 }
 .white-text p {
   color: rgb(0, 0, 0);
-  font-family: LatoLight;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   text-align: left;
 }
@@ -2574,7 +2574,7 @@ li.admin {
 
 li.admin span {
   color: #333;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
 }
 .container .small-heading {
@@ -2643,7 +2643,7 @@ ul.education {
 ul.education h3 {
   margin: 20px 0;
   font-size: 17px;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-weight: bold;
 }
 
@@ -2744,7 +2744,7 @@ ul.order-table li ul li {
   padding-bottom: 0;
 }
 ul.order-table li strong {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
 }
 .order-items ul.order-table li ul li {
@@ -2821,7 +2821,7 @@ ul.order-table > li:last-child:before {
   width: 100%;
 }
 ul.order-table li span.mobile {
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   font-weight: normal;
   padding-left: 20px;
   display: none;
@@ -2834,7 +2834,7 @@ ul.order-table li span.mobile {
   color: #333;
   border-radius: 0;
   font-size: 20px;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   padding: 10px 15px;
 }
 .companies ul.nav li a:hover {
@@ -2890,7 +2890,7 @@ ul.order-table li span.mobile {
 .companies ul.list > li span {
   float: left;
   width: 100%;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 26px;
   color: #333;
   text-transform: uppercase;
@@ -2971,7 +2971,7 @@ ul.order-table li span.mobile {
   line-height: normal;
 }
 .modal-dialog h3 span {
-  font-family: latoregular;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   float: left;
   width: 100%;
@@ -3050,7 +3050,7 @@ ul.order-table li span.mobile {
 /*///////////////blog //*/
 
 .page-blog .capital h5 {
-  font-family: RalewayLight;
+  font-family: "Poppins", sans-serif;
   font-size: 21px;
   margin: 13px 0;
 }
@@ -3062,7 +3062,7 @@ form#search .form-group {
 form#search input {
   color: #333;
   font-size: 17px;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
   padding: 14px 27px;
   line-height: normal;
   border: none;
@@ -3121,11 +3121,11 @@ form#search .form-group.submit input[type="submit"] {
 }
 .data-post h3 {
   font-size: 23px;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   line-height: normal;
 }
 .data-post p {
-  font-family: OpenSansRegular;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   font-weight: 500;
   line-height: 22px;
@@ -3145,7 +3145,7 @@ form#search .form-group.submit input[type="submit"] {
   border-bottom: none;
 }
 #blog-sidebar h3.widget-title {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 27px;
   margin-bottom: 30px;
 }
@@ -3190,7 +3190,7 @@ form#search .form-group.submit input[type="submit"] {
   margin-top: 60px;
 }
 .comment-section h3 {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   font-size: 27px;
   margin-bottom: 37px;
 }
@@ -3204,11 +3204,11 @@ form#search .form-group.submit input[type="submit"] {
   padding: 29px 27px;
 }
 .view-comments strong {
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
 }
 .comment-section {
   font-size: 15px;
-  font-family: opensansregular;
+  font-family: "Poppins", sans-serif;
   line-height: 25px;
 }
 .comment-section a {
@@ -3267,7 +3267,7 @@ span.login-ins {
   line-height: normal;
   padding: 18px 23px;
   font-size: 15px;
-  font-family: OpenSansBold;
+  font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   position: relative;
 }
@@ -3285,7 +3285,7 @@ span.login-ins {
   padding: 33px 22px 0px;
   font-size: 15px;
   line-height: 30px;
-  font-family: LatoRegular;
+  font-family: "Poppins", sans-serif;
 }
 .posts-list .post-thumb:hover img {
   opacity: 0.7;

@@ -97,7 +97,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace, monospace;
+  font-family: "Poppins", sans-serif;
   font-size: 1em;
 }
 hr {
@@ -180,7 +180,7 @@ textarea {
 /* End extract */
 html,
 body {
-  font-family: Verdana, sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -215,7 +215,7 @@ h6 {
   font-family: cursive;
 }
 .w3-monospace {
-  font-family: monospace;
+  font-family: "Poppins", sans-serif;
 }
 h1,
 h2,
@@ -223,7 +223,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   margin: 10px 0;
 }
@@ -904,7 +904,7 @@ a {
 }
 .w3-code,
 .w3-codespan {
-  font-family: Consolas, "courier new";
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
 }
 .w3-code {

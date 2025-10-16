@@ -73,7 +73,6 @@ export default {
   flex: 2 2 200px;
 }
 .ecriteau {
-  padding: 0 0 0 1.5em;
   flex: 3 3 200px;
   text-align: center;
 }
