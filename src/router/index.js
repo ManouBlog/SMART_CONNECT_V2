@@ -189,7 +189,7 @@ const routes = [
         
       },
       {
-        path:"/dashboard/:id",
+        path:"/dashboard/:id/:user_id",
         name:'detailStudent',
         meta:{
           requiresAuth:true

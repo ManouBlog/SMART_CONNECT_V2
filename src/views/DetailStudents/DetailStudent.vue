@@ -199,6 +199,9 @@ export default {
     idParamsItem() {
       return this.$route.params.id;
     },
+    idParamsUser_id() {
+      return this.$route.params.user_id;
+    },
   },
   watch: {
     idParamsItem(newValue, oldValue) {
@@ -306,7 +309,7 @@ export default {
     async getDetailStudent() {
       loadingSpinner.launchLoading(true);
       await instance
-        .get("FiltreTimetable",{ params: { user_id: this.idParamsItem } })
+        .get("FiltreTimetable",{ params: { recipient_id: this.idParamsUser_id } })
         .then((res) => {
           console.log("FiltreTimetable",res);
           this.NewListEmploi = res.data.data;

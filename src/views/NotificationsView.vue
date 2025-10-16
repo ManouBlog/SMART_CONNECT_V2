@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <h2 class="app-title" v-if="Notifications.todayNotifications.length">
-      Vous avez {{ Notifications.todayNotifications.length }} Notifications aujourdhui
+      Vous avez {{ Notifications.todayNotifications.length }} Notification(s) aujourdhui
     </h2>
     <div
       v-else

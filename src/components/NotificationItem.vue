@@ -6,7 +6,7 @@
     <div class="notification-content">
       <div class="notification-header">
         <span class="notification-username">{{ notification.username }}</span>
-        <span class="notification-action">a regardé votre profil</span>
+        <span class="notification-action">{{ notification.msg }}</span>
         <span class="notification-time">{{ notification.time }}</span>
       </div>
     </div>

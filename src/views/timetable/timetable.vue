@@ -530,14 +530,14 @@ export default {
       this.checkboxDate = false;
       this.checkbox = false;
     },
-    voirDetailTimetable(id) {
+    voirDetailTimetable(item) {
       if (
         (this.user && this.user.user.statut.statut == "entreprise") ||
         (this.user && this.user.user.statut.statut === "particulier")
       ) {
         this.$router.push({
           name: "detailStudent",
-          params: { id: id },
+          params: { id: item.id,user_id:item.user_id},
         });
       } else {
         Swal.fire({
@@ -842,7 +842,7 @@ export default {
 
               <button
                 class="btn bg-primary voirPlus"
-                @click="voirDetailTimetable(emploi.id)"
+                @click="voirDetailTimetable({id:emploi.id,user_id:emploi.user_id})"
               >
                 {{ texte5 }}
 

@@ -30,11 +30,13 @@ export const useNotificationsStore = defineStore('notifications', () => {
 }),
         avatar: item.user?.entreprise?.logo,
         isNew: item.view,
+        msg:item.msg
       }))
 
       // Notifications d’aujourd’hui
       todayNotifications.value = (data.today || []).map(item => ({
         username: item.user?.entreprise?.nom || 'Inconnu',
+        msg:item.msg,
         time: new Date(item.created_at).toLocaleDateString('fr',{
   day: '2-digit',
   month: '2-digit',
