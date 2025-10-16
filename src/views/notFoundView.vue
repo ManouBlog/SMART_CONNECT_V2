@@ -14,10 +14,10 @@
     
     <template>
       <div class="Myspinner">
-        <h1 class="badge bg-primary h1">404</h1>
+        <h1 class="badge bg-dark h1" >404</h1>
         <p>OOPS</p>
-        <h1>Desolé page pas trouvée.</h1>
-        <button class="btn-lg" style="background:orange;" @click="$router.push('/')">Retour</button>
+        <h1>Désolé, la page que vous recherchez est introuvable.</h1>
+        <button class="btn-lg" style="background:orange;color:white;" @click="$router.push('/')">Retour</button>
       </div>
     </template>
     

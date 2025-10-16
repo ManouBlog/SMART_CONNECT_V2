@@ -1,68 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
+  <!-- Encodage et compatibilité -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <meta name="description" content="Découvrez MonBrobroli, la plateforme leader pour trouver du jobs ou des talents en Côte d'Ivoire.">
-  <link rel="icon" href="<%= BASE_URL %>icon_brobroli.png" sizes="512x512">
-   <title>MonBrobroli</title>
-  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-  <!--Custom template CSS-->
-  <link href="/style.css" rel="stylesheet">
-  <!--Custom template CSS Responsive-->
-  <link href="/assets/webcss/site-responsive.css" rel="stylesheet">
-  <!--Animated CSS -->
-  <link href="/assets/webcss/animate.css" rel="stylesheet">
-  <!--Owsome Fonts -->
-  <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.min.css">
-  <!-- Important Owl stylesheet -->
-  <link rel="stylesheet" href="/assets/owlslider/owl-carousel/owl.carousel.css">
 
-  <!-- Default template -->
-  <link rel="stylesheet" href="/assets/owlslider/owl-carousel/owl.template.css">
+  <!-- Affichage responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Canonical URL (évite le contenu dupliqué) -->
+  <!-- SEO -->
+  <title>MonBrobroli — Trouvez un emploi ou un talent en Côte d'Ivoire</title>
+  <meta name="description" content="Découvrez MonBrobroli, la plateforme leader en Côte d'Ivoire pour trouver un emploi, un stage ou recruter des talents facilement.">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://monbrobroli.com">
 
-  <!-- Balise pour les moteurs de recherche -->
-  <meta name="robots" content="index, follow">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="512x512" href="<%= BASE_URL %>icon_brobroli.png">
 
-  <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+  <!-- Données structurées pour le logo -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://monbrobroli.com",
+    "logo": "https://monbrobroli.com/icon_brobroli.png",
+    "name": "MonBrobroli"
+  }
+  </script>
+
+  <!-- Feuilles de style -->
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/style.css" rel="stylesheet">
+  <link href="/assets/webcss/site-responsive.css" rel="stylesheet">
+  <link href="/assets/webcss/animate.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/assets/owlslider/owl-carousel/owl.carousel.css">
+  <link rel="stylesheet" href="/assets/owlslider/owl-carousel/owl.template.css">
 </head>
 
 <body>
   <noscript>
-    <strong>Mon Brobroli en un clic,
-      Nous vous accompagnons pour trouver votre prochaine opportunité.</strong>
+    <strong>MonBrobroli en un clic — Nous vous accompagnons pour trouver votre prochaine opportunité.</strong>
   </noscript>
+
   <div id="app"></div>
-  <!-- built files will be auto injected -->
+  <!-- Les fichiers générés par le build seront injectés ici -->
 
- 
   <!-- Scripts
-================================================== -->
-  <!--  jQuery 1.7+  -->
-  <script type="text/javascript" src="./assets/js/jquery-1.9.1.min.js"></script>
-  <!--Select 2-->
- 
- 
-  
-  <!-- Html Editor -->
-  <script src="./assets/tinymce/tinymce.min.js"></script>
-  <!--  parallax.js-1.4.2  -->
-  <script type="text/javascript" src="/assets/parallax.js-1.4.2/parallax.js"></script>
-
-  <script src="./assets/js/bootstrap.min.js"></script>
-  <!-- Include js plugin -->
-  <script type="text/javascript" src="./assets/owlslider/owl-carousel/owl.carousel.js"></script>
-  <script type="text/javascript" src="./assets/js/waypoints.min.js"></script>
-  <script type="text/javascript" src="./assets/counter/jquery.counterup.min.js"></script>
-  <!--Site JS-->
-  <script src="./assets/js/webjs.js"></script>
+  ================================================== -->
+  <script src="/assets/js/jquery-1.9.1.min.js"></script>
+  <script src="/assets/tinymce/tinymce.min.js"></script>
+  <script src="/assets/parallax.js-1.4.2/parallax.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <script src="/assets/owlslider/owl-carousel/owl.carousel.js"></script>
+  <script src="/assets/js/waypoints.min.js"></script>
+  <script src="/assets/counter/jquery.counterup.min.js"></script>
+  <script src="/assets/js/webjs.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://kit.fontawesome.com/5f71de9baf.js" crossorigin="anonymous"></script>
 </body>
-
 </html>
