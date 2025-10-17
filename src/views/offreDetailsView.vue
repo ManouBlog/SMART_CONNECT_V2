@@ -218,16 +218,16 @@ export default {
                     <em class="bi bi-cash-stack"></em> {{texte}}
                   </h4>
                 </div>
-                <h4 class="my-5" v-if="Offre.nbre_person">
-                  <span class="fw-bold">{{texte1}}</span> {{ Offre.nbre_person }}
+                <h4 class="my-5"  v-if="Offre.nbre_person">
+                  <span class="fw-bold" style="color:orange;">{{texte1}}</span> {{ Offre.nbre_person }}
                 </h4>
               
               </section>
               <section>
                 <h4>
-                <span class="fw-bold my-3">{{texte4}}</span>  
+                <span class="fw-bold my-3" style="font-weight:bold;color:orange;">{{texte4}}</span>  
                 </h4>
-                <div style="font-weight:300;" v-html="Offre.description" id="conteneur_description"></div>
+                <div style="font-weight:300; padding:1em;" v-html="Offre.description" id="conteneur_description"></div>
               </section>
             
               <section>

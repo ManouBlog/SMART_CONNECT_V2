@@ -78,8 +78,15 @@ export default {
       this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj
       }
       // console.log("formState", this.formState);
-      if (this.configUtils.isValidPhoneNumber(this.formState.phone)) {
-        if (this.configUtils.isValidEmail(this.formState.email)) {
+      // if (this.configUtils.isValidPhoneNumber(this.formState.phone)) {
+        
+      // } else {
+      //   this.SWALPOPUP.declencheSwalPopup(
+      //     "info",
+      //     "Votre numéro de téléphone doit contenir 10 chiffres"
+      //   );
+      // }
+      if (this.configUtils.isValidEmail(this.formState.email)) {
           if (this.formState.upload.length) {
             this.formState.photo = this.addPhotoInArray(this.formState.upload);
             
@@ -97,12 +104,6 @@ export default {
         } else {
           this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
         }
-      } else {
-        this.SWALPOPUP.declencheSwalPopup(
-          "info",
-          "Votre numéro de téléphone doit contenir 10 chiffres"
-        );
-      }
     },
     onFinishFailed(errorInfo) {
       console.log("Failed:", errorInfo);

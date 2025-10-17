@@ -63,7 +63,7 @@ const differenceInHours = dayjsDateTo.diff(dayjsDateFrom, 'hour');
   },
   isValidPhoneNumber(phoneNumber) {
     // Vérifier si le numéro contient exactement 10 chiffres
-    const phoneRegex = /^\d{10}$/;
+    const phoneRegex = /^(?:\+225)?\d{10}$/;
     return phoneRegex.test(phoneNumber);
   }
 }
