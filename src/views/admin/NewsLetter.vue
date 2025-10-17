@@ -293,6 +293,7 @@ export default {
                     <th class="bg-light">Type de message</th>
                     <th class="bg-light">Objet</th>
                     <th class="bg-light">Email</th>
+                    <th class="bg-light">Détails</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -301,6 +302,11 @@ export default {
                      <td>{{ item.type }}</td>
                      <td>{{ item.objet }}</td>
                     <td>{{ item.email }}</td>
+                      <td>
+                    <p class="d-flex justify-content-center align-items-center">
+                      <i class="bi bi-eye"></i>
+                    </p>
+                  </td>
                   </tr>
                 </tbody>
               </table>
