@@ -201,9 +201,9 @@ export default {
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"
           >
-            <i class="bi bi-person" style="margin-left: -1.2em"></i>
+            <i class="bi bi-envelope-paper" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'newsletter' }">
-              <strong>Newsletter</strong></router-link
+              <strong>Messages</strong></router-link
             >
           </li>
           <li
@@ -244,20 +244,21 @@ export default {
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"
           >
-            <i class="bi bi-pencil-square" style="margin-left: -1.2em"></i>
+            <i class="bi bi-people-fill" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'partenaires' }">
               <strong>Partenaires</strong></router-link
             >
           </li>
-          <li
+           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"
           >
-            <i class="bi bi-pencil-square" style="margin-left: -1.2em"></i>
+            <i class="bi bi-card-image" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'publicite' }">
               <strong>Publicité</strong></router-link
             >
           </li>
+
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"

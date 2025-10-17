@@ -12,6 +12,12 @@ export default {
       users: null,
       spinner: false,
       modify_timetable: false,
+      loading:false,
+      campaign :{
+  objet: "",
+  msg: "",
+  type: "newsLetter",
+}
     };
   },
   methods: {
@@ -66,6 +72,32 @@ export default {
           console.log(err);
         });
     },
+    createCampaign() {
+  console.log('Campaign data:', this.campaign);
+
+  axios.post(
+    "https://backend.monbrobroli.com/api/sendNotificationsAtUser",
+    this.campaign, // <- corps de la requête
+    {
+      headers: {
+        Authorization: `Bearer ${this.$store.state.token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  )
+  .then((response) => {
+    console.log("✅ Campaign created successfully:", response.data);
+    // Tu peux afficher une notification visuelle ici (ex: toast ou alert)
+  })
+  .catch((error) => {
+    if (error.response) {
+      console.error("❌ API Error:", error.response.data);
+    } else {
+      console.error("⚠️ Network Error:", error.message);
+    }
+  });
+}
+
   },
   created() {
     this.get_users();
@@ -85,31 +117,194 @@ export default {
           </div>
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">NewsLetter</li>
+              <li class="breadcrumb-item">Messages</li>
             </ol>
           </div>
         </div>
       </div>
     </div>
-    <!-- Container-fluid starts-->
+
+    <div class="col-sm-12 box-col-12">
+      <div class="card timetable">
+        <div class="social-tab">
+          <ul class="nav nav-tabs" id="top-tab" role="tablist">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                id="top-timeline"
+                data-bs-toggle="tab"
+                href="#see_msg"
+                role="tab"
+                aria-controls="see_msg"
+                aria-selected="true"
+                ><i data-feather="clock"></i>Voir les messages</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="top-about"
+                data-bs-toggle="tab"
+                href="#send_msg"
+                role="tab"
+                aria-controls="send_msg"
+                aria-selected="false"
+                ><i data-feather="alert-circle"></i>Envoyer un message
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="tab-content" id="top-tabContent">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Date d'enregistrement</th>
-                  <th class="bg-light">email</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in users" :key="index">
-                  <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                  <td>{{ item.email }}</td>
-                </tr>
-              </tbody>
-            </table>
+      <div class="tab-pane fade" id="send_msg" role="tabpanel" aria-labelledby="send_msg">
+        <div class="container-fluid">
+          <div class="Myspinner" v-show="spinner">
+            <div class="spinner-border text-primary" role="status"></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="form theme-form projectcreate">
+                    <form @submit.prevent="createCampaign">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="mb-3 text-start font-bold">
+                            <p style="font-weight: bold; font-size: 1.5em">
+                              Envoi de message
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="mb-3" style="text-align:left;">
+                            <label class="form-label fw-bold">Type de message</label>
+                            <select
+                              class="form-select"
+                              v-model="campaign.type"
+                              required
+                            >
+                              <option value="" disabled>-- Sélectionnez un type --</option>
+                              <option value="newsLetter">NewsLetter</option>
+                              <option value="notifications">Notifications</option>
+                            </select>
+                          </div>
+                        </div>
+                         <div class="col-lg-6">
+                          <div class="mb-3" style="text-align:left;">
+                            <label class="form-label fw-bold">Objet</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              v-model="campaign.objet"
+                              placeholder="ex : Nos nouveautés du mois"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Contenu -->
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="mb-3" style="text-align:left;">
+                            <label class="form-label fw-bold">Contenu</label>
+                            <textarea
+                              class="form-control"
+                              rows="6"
+                              v-model="campaign.msg"
+                              placeholder="Écrivez le contenu de votre campagne ici..."
+                              required
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Statut -->
+                      <!-- <div class="row">
+                        <div class="col-lg-6">
+                          <div class="mb-3" style="text-align:left;">
+                            <label class="form-label fw-bold">Statut</label>
+                            <select
+                              class="form-select"
+                              v-model="campaign.status"
+                              required
+                            >
+                              <option value="">-- Sélectionnez un statut --</option>
+                              <option value="draft">Brouillon</option>
+                              <option value="scheduled">Planifiée</option>
+                              <option value="sent">Envoyée</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6" v-if="campaign.status === 'scheduled'">
+                          <div class="mb-3" style="text-align:left;">
+                            <label class="form-label fw-bold">Date d’envoi</label>
+                            <input
+                              type="datetime-local"
+                              class="form-control"
+                              v-model="campaign.sent_at"
+                            />
+                          </div>
+                        </div>
+                      </div> -->
+
+                      <!-- Bouton d’envoi -->
+                      <div class="row">
+                        <div class="col text-end">
+                          <button
+                            :disabled="!campaign.objet || !campaign.msg"
+                            class="btn btn-primary me-3"
+                            type="submit"
+                          >
+                            <span
+                              class="spinner-border spinner-border-sm me-2"
+                              role="status"
+                              v-show="loading"
+                            ></span>
+                            <span>Envoyer</span>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-pane fade show active"
+        id="see_msg"
+        role="tabpanel"
+        aria-labelledby="see_msg"
+      >
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 card py-3 px-2">
+              <table id="MyTableData" class="table">
+                <thead>
+                  <tr>
+                    <th class="bg-light">Date d'enregistrement</th>
+                    <th class="bg-light">Type de message</th>
+                    <th class="bg-light">Objet</th>
+                    <th class="bg-light">Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, index) in users" :key="index">
+                    <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
+                     <td>{{ item.type }}</td>
+                     <td>{{ item.objet }}</td>
+                    <td>{{ item.email }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
