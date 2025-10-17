@@ -8,6 +8,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
   const todayNotifications = ref([])
   const yesterdayNotifications = ref([])
   const unreadNotifications = ref([])
+  const isNotifications = ref([]);
   const Loading = useLoadingSpinner()
 
   // 🚀 Actions
@@ -35,7 +36,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
 
       // Notifications d’aujourd’hui
       todayNotifications.value = (data.today || []).map(item => ({
-        username: item.user?.entreprise?.nom || 'Inconnu',
+        username: item.user?.entreprise?.nom || 'Une entreprise',
         msg:item.msg,
         time: new Date(item.created_at).toLocaleDateString('fr',{
   day: '2-digit',
@@ -48,6 +49,9 @@ export const useNotificationsStore = defineStore('notifications', () => {
         avatar: item.user?.entreprise?.logo || null,
         isNew: item.view,
       }))
+      isNotifications.value=[    
+        ...todayNotifications.value,
+      ...yesterdayNotifications.value,]
        unreadNotifications.value = [
       ...todayNotifications.value,
       ...yesterdayNotifications.value,
@@ -63,6 +67,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
     todayNotifications,
     yesterdayNotifications,
     getListNotification,
-    unreadNotifications
+    unreadNotifications,
+    isNotifications
   }
 })

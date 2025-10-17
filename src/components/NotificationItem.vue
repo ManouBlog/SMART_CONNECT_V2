@@ -1,11 +1,17 @@
 <template>
   <div class="notification-item">
     <div class="notification-avatar">
-      <img :src="lienPhoto + notification.avatar" alt="Avatar" />
+      <img
+        :class="notification.avatar ? null : 'flou_image'"
+        :src="lienPhoto + notification.avatar"
+        alt="Avatar"
+      />
     </div>
     <div class="notification-content">
       <div class="notification-header">
-        <span class="notification-username">{{ notification.username }}</span>
+        <span class="notification-username">{{
+          notification.username ? notification.username : "Une entreprise"
+        }}</span>
         <span class="notification-action">{{ notification.msg }}</span>
         <span class="notification-time">{{ notification.time }}</span>
       </div>
@@ -43,6 +49,9 @@ defineProps({
   border-radius: 50%;
   object-fit: cover;
 }
+.flou_image {
+  filter: blur(3px);
+}
 
 .notification-content {
   flex: 1;
@@ -53,7 +62,7 @@ defineProps({
   display: flex;
   flex-wrap: wrap;
   font-size: 14px;
-  flex-direction:column;
+  flex-direction: column;
 }
 
 .notification-username {

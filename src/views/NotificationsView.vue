@@ -1,10 +1,10 @@
 <template>
   <div class="app">
-    <h2 class="app-title" v-if="Notifications.todayNotifications.length">
-      Vous avez {{ Notifications.todayNotifications.length }} Notification(s) aujourdhui
+    <h2 class="app-title" v-if="Notifications.isNotifications.length">
+      Vous avez {{ Notifications.isNotifications.length }} Notification(s)
     </h2>
     <div
-      v-else
+      v-if="!Notifications.isNotifications.length"
       style="
         height: 300px;
         text-align: center;
@@ -44,6 +44,7 @@ onMounted(async () => {
   width: 100%;
   margin: 6.6em 0;
   padding: 20px;
+  height:80vh;
   font-family: "Arial", sans-serif;
 }
 
@@ -57,6 +58,7 @@ onMounted(async () => {
 @media (max-width: 1200px) {
   .app {
     margin: 1.6em 0 !important;
+     height:80%;
   }
 }
 </style>
