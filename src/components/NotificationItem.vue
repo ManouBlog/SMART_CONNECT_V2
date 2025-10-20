@@ -1,10 +1,18 @@
 <template>
   <div class="notification-item">
     <div class="notification-avatar">
+
       <img
+      v-if="notification.username !== 'MonBrobroli'"
         :class="notification.avatar ? null : 'flou_image'"
         :src="lienPhoto + notification.avatar"
         alt="Avatar"
+      />
+      <img
+      v-if="notification.username === 'MonBrobroli'"
+      style="background:teal;"
+      src="/broboli_footer_1.png"
+      alt="Avatar"
       />
     </div>
     <div class="notification-content">
@@ -12,6 +20,10 @@
         <span class="notification-username">{{
           notification.username ? notification.username : "Une entreprise"
         }}</span>
+         <span class="notification-objet" v-if="notification.objet">
+    {{ notification.objet }}
+  </span>
+
         <span class="notification-action">{{ notification.msg }}</span>
         <span class="notification-time">{{ notification.time }}</span>
       </div>
@@ -32,6 +44,11 @@ defineProps({
 </script>
 
 <style scoped>
+.notification-objet {
+  font-weight: bold;
+  color: orange; /* bleu pour distinguer */
+  margin-right: 4px;
+}
 .notification-item {
   display: flex;
   align-items: flex-start;
@@ -44,10 +61,10 @@ defineProps({
 }
 
 .notification-avatar img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 10%;
+  object-fit: contain;
 }
 .flou_image {
   filter: blur(3px);

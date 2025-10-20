@@ -20,7 +20,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
 
       // Notifications d’hier
       yesterdayNotifications.value = (data.yesterday || []).map(item => ({
-        username: item.user?.entreprise?.nom,
+        username: item.user.statut_id === 3 ? 'MonBrobroli': item.user?.entreprise?.nom || 'Une entreprise',
         time: new Date(item.created_at).toLocaleDateString('fr',{
   day: '2-digit',
   month: '2-digit',
@@ -31,13 +31,15 @@ export const useNotificationsStore = defineStore('notifications', () => {
 }),
         avatar: item.user?.entreprise?.logo,
         isNew: item.view,
+        objet:item.objet,
         msg:item.msg
       }))
 
       // Notifications d’aujourd’hui
       todayNotifications.value = (data.today || []).map(item => ({
-        username: item.user?.entreprise?.nom || 'Une entreprise',
+        username: item.user.statut_id === 3 ? 'MonBrobroli': item.user?.entreprise?.nom || 'Une entreprise',
         msg:item.msg,
+         objet:item.objet,
         time: new Date(item.created_at).toLocaleDateString('fr',{
   day: '2-digit',
   month: '2-digit',
