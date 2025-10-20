@@ -1,15 +1,12 @@
 <template>
-  <div class="favoris-card">
-    <div class="favoris-header">
-          <n-avatar
-            v-if="favoris.photo_profil"
-            class="user-avatar"
-            style="border: 2px solid orange; object-fit: cover"
-            round
-            :size="40"
-            :src="lienPhoto + favoris.photo_profil"
-          />
-          <span
+  <div class="notification-item">
+    <div class="notification-avatar">
+      <img
+      v-if="favoris?.photo_profil"
+        :src="lienPhoto + favoris?.photo_profil"
+        alt="Avatar"
+      />
+      <span
           class="user-avatar"
             style="
               border: 2px solid orange;
@@ -24,25 +21,25 @@
             "
             v-else
           >
-           <span style="font-size:1em;color:white;">{{Help.toADfirstTwo(favoris.nom)}}</span>
+           <span style="font-size:1em;color:white;" v-if="favoris?.nom">{{Help.toADfirstTwo(favoris?.nom)}}</span>
           </span>
-      <div class="favoris-info">
-        <p class="user-name">{{ favoris.nom }} {{ favoris.prenoms }}</p>
-        <p class="event-name" v-if="favoris.nom_offre && isDetailPostulant">vient de postuler à l'offre:{{favoris.nom_offre}}</p>
-        <p class="timestamp" v-if="favoris.created_at && isDetailPostulant">{{ formattedTimestamp }}</p>
+    </div>
+    <div class="notification-content">
+      <div class="notification-header">
+        <span class="notification-username">{{ favoris?.nom }} {{ favoris?.prenoms }}</span>
+         <span class="notification-objet" v-if="favoris?.nom_offre && isDetailPostulant">
+    vient de postuler à l'offre:{{favoris?.nom_offre}}
+  </span>
+        <span class="notification-time"
+        v-if="favoris?.created_at && isDetailPostulant"
+        >{{ formattedTimestamp }}</span>
       </div>
     </div>
-    <div class="favoris-actions">
-      <!-- <button
-        @click="handleDecline"
-        class="decline-button"
-      >
-        Supprimer
-      </button> -->
+     <div class="favoris-actions">
       <button
         @click="handleAccept"
         class="accept-button"
-      >
+>
         Voir+
       </button>
     </div>
@@ -57,7 +54,7 @@ export default {
   data() {
     return {
       lienPhoto: lienPhoto,
-      Help:Help
+      Help:Help,
     };
   },
   props: {
@@ -68,7 +65,8 @@ export default {
     isDetailPostulant:{
         type:Boolean,
         default:false
-    }
+    },
+    arrayNotifications:Array
   },
   computed: {
     formattedTimestamp() {
@@ -85,81 +83,76 @@ export default {
   },
   methods: {
     handleAccept() {
+      console.log("this.favoris",this.favoris)
       this.$emit('accept', this.favoris);
     },
-    // handleDecline() {
-    //   this.$emit('decline', this.favori.id);
-    // },
   },
 };
 </script>
 
 <style scoped>
-.favoris-card {
+.notification-objet {
+  font-weight: bold;
+  color: orange;
+  margin-right: 4px;
+}
+.notification-item {
   display: flex;
-  flex-direction: column;
-  border: 1px solid #e0e0e0;
+  align-items: flex-start;
+  padding: 12px 16px;
   border-radius: 8px;
-  padding: 16px 1.5em;
-  width: auto;
-  background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background-color: #ffffff;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.265);
 }
 
-.favoris-header {
+.notification-avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 10%;
+  object-fit: contain;
+}
+.flou_image {
+  filter: blur(3px);
+}
+
+.notification-content {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.notification-header {
   display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.user-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  margin-right: 12px;
-}
-
-.favoris-info {
-  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
   flex-direction: column;
 }
 
-.user-name {
+.notification-username {
   font-weight: 600;
-  margin: 0;
+  color: #1a1a1a;
+  margin-right: 4px;
 }
 
-.event-name {
-  margin: 2px 0;
+.notification-action {
   color: #666;
+  margin-right: 4px;
 }
 
-.timestamp {
-  margin: 0;
-  color: #999;
-  font-size: 0.9em;
+.notification-time {
+  color: #8e8e8e;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-.favoris-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.decline-button {
-  padding: 8px 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: white;
-  cursor: pointer;
-}
-
-.accept-button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background: orange;
-  color: white;
-  cursor: pointer;
+.notification-indicator {
+  width: 8px;
+  height: 8px;
+  background-color: #ff4757;
+  border-radius: 50%;
+  position: absolute;
+  top: 16px;
+  left: 8px;
 }
 </style>
