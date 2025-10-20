@@ -24,10 +24,10 @@ function deletePageAnnonces() {
     console.log("deletePageAnnonces",deletePageAnnonces)
 }
 
-const days = ref('00');
-const hours = ref('00');
-const minutes = ref('00');
-const seconds = ref('00');
+const days = ref(0);
+const hours = ref(0);
+const minutes = ref(0);
+const seconds = ref(0);
 
 onMounted(() => {
   const countdown = setInterval(() => {

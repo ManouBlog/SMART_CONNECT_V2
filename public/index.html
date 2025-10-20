@@ -12,10 +12,23 @@
   <title>MonBrobroli — Trouvez un emploi ou un talent en Côte d'Ivoire</title>
   <meta name="description" content="Découvrez MonBrobroli, la plateforme leader en Côte d'Ivoire pour trouver un emploi, un stage ou recruter des talents facilement.">
   <meta name="robots" content="index, follow">
+  <meta name="keywords" content="brobroli, monbrobroli, emploi Côte d'Ivoire, recrutement, etudiants, brobroli.ci">
   <link rel="canonical" href="https://monbrobroli.com">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="512x512" href="<%= BASE_URL %>icon_brobroli.png">
+
+
+   <!-- ===========================
+       Open Graph / Réseaux sociaux
+  ============================ -->
+  <meta property="og:title" content="MonBrobroli — Emplois, stages et talents en Côte d’Ivoire">
+  <meta property="og:description" content="Découvrez MonBrobroli, la plateforme ivoirienne pour trouver un emploi, un stage ou recruter les meilleurs talents.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://monbrobroli.com/">
+  <meta property="og:image" content="https://monbrobroli.com/icon_brobroli.png">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="MonBrobroli">
 
   <!-- Données structurées pour le logo -->
   <script type="application/ld+json">
@@ -24,7 +37,12 @@
     "@type": "Organization",
     "url": "https://monbrobroli.com",
     "logo": "https://monbrobroli.com/icon_brobroli.png",
-    "name": "MonBrobroli"
+    "name": "MonBrobroli",
+     "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://monbrobroli.com/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
   }
   </script>
 
