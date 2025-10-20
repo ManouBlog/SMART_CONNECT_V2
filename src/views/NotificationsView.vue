@@ -1,7 +1,7 @@
 <template>
   <div class="app">
-    <h2 class="app-title" v-if="Notifications.isNotifications.length">
-      Vous avez {{ Notifications.isNotifications.length }} Notification(s)
+    <h2 class="app-title" v-if="dataAlarm.length || Notifications.isNotifications.length">
+      Vous avez {{ dataAlarm.length ? dataAlarm.length+Notifications.isNotifications.length:Notifications.isNotifications.length }} Notification(s)
     </h2>
     <div
       v-if="!Notifications.isNotifications.length && user.user.statut.statut === 'etudiant'"
