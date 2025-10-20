@@ -10,13 +10,14 @@
           class="user-avatar"
             style="
               border: 2px solid orange;
-              object-fit: cover;
-              width: 40px;
-              height:40px;
-              line-height:40px;
+              object-fit: contain;
+              width: 150px !important;
+              height:150px !important;
+              line-height:50px;
               text-align:center;
+              padding:1em;
               font-size:1em;
-              border-radius: 100%;
+              border-radius: 10%;
               background: gray;
             "
             v-else
@@ -27,7 +28,7 @@
     <div class="notification-content">
       <div class="notification-header">
         <span class="notification-username">{{ favoris?.nom }} {{ favoris?.prenoms }}</span>
-         <span class="notification-objet" v-if="favoris?.nom_offre && isDetailPostulant">
+         <span style="color:gray;" v-if="favoris?.nom_offre && isDetailPostulant">
     vient de postuler à l'offre:{{favoris?.nom_offre}}
   </span>
         <span class="notification-time"
@@ -71,11 +72,14 @@ export default {
   computed: {
     formattedTimestamp() {
         if(this.favoris.created_at){
- return new Date(this.favoris.created_at).toLocaleString('fr-FR', {
-        weekday: 'long',
-        hour: '2-digit',
-        minute: '2-digit',
-      });
+ return new Date(this.favoris.created_at).toLocaleString('fr-FR',{
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+});
         }else{
             return new Date();
         }
@@ -91,6 +95,12 @@ export default {
 </script>
 
 <style scoped>
+.accept-button{
+  border:none;
+  padding: 1em;
+  background: orange;
+  color: white;
+}
 .notification-objet {
   font-weight: bold;
   color: orange;
@@ -99,18 +109,24 @@ export default {
 .notification-item {
   display: flex;
   align-items: flex-start;
-  padding: 12px 16px;
+  padding:25px 16px;
   border-radius: 8px;
   position: relative;
   background-color: #ffffff;
   margin-bottom: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.265);
+  width: 100%;
+  height: auto;
+}
+.listWhistPerson{
+  padding:0 !important;
 }
 
 .notification-avatar img {
-  width: 50px;
-  height: 50px;
+  width: 150px;
+  height: 150px;
   border-radius: 10%;
+  padding:1em;
   object-fit: contain;
 }
 .flou_image {

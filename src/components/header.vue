@@ -7,7 +7,7 @@ import LiensNavBar from "./feature/header/LiensNavBar.vue";
 import InfoEntreprise from "./feature/header/Entreprise/InfoEntreprise.vue";
 import InfoStudent from "./feature/header/Student/InfoStudent.vue";
 import ListeFavoris from "./feature/header/ListeFavoris.vue";
-import ListeNotifications from "./feature/header/ListeNotifications.vue";
+// import ListeNotifications from "./feature/header/ListeNotifications.vue";
 import ListeAlarmStudent from "./feature/header/ListeAlarmStudent.vue";
 import { mapActions,mapState } from "pinia";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
@@ -25,7 +25,7 @@ export default {
     InfoEntreprise,
     InfoStudent,
     ListeFavoris,
-    ListeNotifications,
+    // ListeNotifications,
     ListeAlarmStudent
   },
   data() {
@@ -293,12 +293,12 @@ export default {
                     this.$store.state.user.user.statut.statut === 'entreprise'
                   "
                 />
-                <ListeNotifications
+                <!-- <ListeNotifications
                   v-if="
                     this.$store.state.user &&
                     this.$store.state.user.user.statut.statut === 'entreprise'
                   "
-                />
+                /> -->
                 <ListeAlarmStudent 
                 v-if="
                     this.$store.state.user

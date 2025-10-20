@@ -37,16 +37,6 @@
            :isDetailPostulant="true"
           />
           </div>
-    <!-- <FavorisCard
-      v-if="
-        user &&
-        (user.user.statut.statut === 'entreprise' ||
-          user.user.statut.statut === 'particulier')
-      "
-        :favoris="item"
-           @accept="voirDetailPostulants"
-           :isDetailPostulant="true"
-    /> -->
   </div>
 </template>
 
