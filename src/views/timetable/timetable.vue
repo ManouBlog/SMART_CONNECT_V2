@@ -537,7 +537,7 @@ export default {
       ) {
         this.$router.push({
           name: "detailStudent",
-          params: { id: item.id,user_id:item.user_id},
+          params: { id: item.id, user_id: item.user_id },
         });
       } else {
         Swal.fire({
@@ -797,28 +797,28 @@ export default {
                 class="bi bi-heart-fill"
               ></em>
             </div>
-            <div style="text-align:center;">
+            <div style="text-align: center">
               <n-avatar
-              v-if="emploi.photo_profil"
-              style="border: 2px solid orange; object-fit: cover"
-              round
-              :size="50"
-              :src="lienPhoto + emploi.photo_profil"
-            />
-            <span
-              style="
-                border: 2px solid orange;
-                object-fit: cover;
-                padding: 1em;
-                line-height: 50px;
-                text-align: center;
-                border-radius: 100%;
-                background: gray;
-              "
-              v-else
-            >
-              <span style="font-size: 1em">{{ Help.toADfirstTwo(emploi.nom) }}</span>
-            </span>
+                v-if="emploi.photo_profil"
+                style="border: 2px solid orange; object-fit: cover"
+                round
+                :size="50"
+                :src="lienPhoto + emploi.photo_profil"
+              />
+              <span
+                style="
+                  border: 2px solid orange;
+                  object-fit: cover;
+                  padding: 1em;
+                  line-height: 50px;
+                  text-align: center;
+                  border-radius: 100%;
+                  background: gray;
+                "
+                v-else
+              >
+                <span style="font-size: 1em">{{ Help.toADfirstTwo(emploi.nom) }}</span>
+              </span>
             </div>
             <div class="card-body">
               <h3 class="name" style="color: white; font-weight: bold">
@@ -842,7 +842,7 @@ export default {
 
               <button
                 class="btn bg-primary voirPlus"
-                @click="voirDetailTimetable({id:emploi.id,user_id:emploi.user_id})"
+                @click="voirDetailTimetable({ id: emploi.id, user_id: emploi.user_id })"
               >
                 {{ texte5 }}
 
@@ -866,7 +866,6 @@ export default {
   </section>
 </template>
 <style scoped>
-
 .ecriteau {
   color: orange;
 }
@@ -980,7 +979,7 @@ export default {
 
 .endResearch {
   margin-bottom: 1em;
-  text-align:center;
+  text-align: center;
 }
 .list_personnel {
   color: #f77f00 !important;
@@ -1119,7 +1118,7 @@ export default {
 .Mycard-body h3 {
   padding: 0;
   margin: 0 !important;
-  text-align:center;
+  text-align: center;
 }
 .Mycard-body .btn {
   font-size: 0.8em !important;
@@ -1377,16 +1376,22 @@ export default {
   .d-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+ 
 }
 @media screen and (max-width: 992px) {
   .d-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+ 
 }
 @media screen and (max-width: 650px) {
   .d-grid {
     grid-template-columns: repeat(1, 1fr);
   }
+    .jobs_filters {
+    margin: 0em 0 1em 0;
+  }
+  
 }
 .d-none {
   display: none !important;

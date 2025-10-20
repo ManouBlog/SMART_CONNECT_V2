@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Si la date de lancement est passée, on montre le router-view -->
-    <router-view v-if="isDatePassed" />
+    <router-view v-if="!isDatePassed" />
 
     <!-- Sinon, on affiche le countdown -->
     <CountDownView v-else :targetDate="lancementDate" />
@@ -92,18 +92,21 @@ export default {
 };
 </script>
 <style>
-.swal2-container{
-  z-index:999999 !important;
+.swal2-container {
+  z-index: 999999 !important;
 }
-.ant-upload-list-item-error,.ant-upload-list-item-error .ant-upload-list-item-name{
-  color:green !important;
-  border-color:green !important;
+.ant-upload-list-item-error,
+.ant-upload-list-item-error .ant-upload-list-item-name {
+  color: green !important;
+  border-color: green !important;
 }
-.p-rating .p-rating-item.p-rating-item-active .p-rating-icon,.n-tabs.n-tabs--line-type .n-tabs-tab.n-tabs-tab--active{
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon,
+.n-tabs.n-tabs--line-type .n-tabs-tab.n-tabs-tab--active {
   color: orange !important;
 }
-.n-tabs .n-tabs-bar{
-  background-color:orange !important;
+.n-tabs .n-tabs-bar,
+.multiselect__tag {
+  background-color: orange !important;
 }
 html {
   font-size: 0.89em;
