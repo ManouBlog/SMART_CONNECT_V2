@@ -18,6 +18,7 @@
     "@tiptap/core": "*",
     "@tiptap/starter-kit": "*",
     "@tiptap/vue-3": "*",
+    "@unhead/vue": "^2.0.19",
     "@vueform/vueform": "^1.2.13",
     "@vueuse/core": "^13.6.0",
     "ant-design-vue": "^4.2.5",

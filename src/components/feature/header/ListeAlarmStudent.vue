@@ -2,13 +2,11 @@
 import { mapState, mapActions } from "pinia";
 import instance from "../../../api/api";
 import Swal from "sweetalert2";
-// import FavorisCard from "../../FavorisCard.vue";
 import { useListeFavoris } from "../../../store-pinia/ListeFavoris/useListeFavoris";
 import { useNotificationsStore } from "../../../store-pinia/useNotificationsStore";
 
 export default {
   name: "ListeAlarmStudent",
-  //   components:{FavorisCard},
   props: {
     texte: String,
     route_lien: String,

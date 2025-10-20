@@ -301,8 +301,7 @@ export default {
                 />
                 <ListeAlarmStudent 
                 v-if="
-                    this.$store.state.user &&
-                    this.$store.state.user.user.statut.statut === 'etudiant'
+                    this.$store.state.user
                   "
                 />
                 <div>

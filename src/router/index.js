@@ -14,6 +14,10 @@ const routes = [
       {
         path:'/',
         name:'Bienvenue',
+         meta: {
+      title: 'MonBrobroli — Trouvez un emploi ou un talent en Côte d\'Ivoire',
+      description: 'Découvrez MonBrobroli, la plateforme leader en Côte d\'Ivoire pour trouver un emploi ou recruter des talents facilement.'
+    },
         component: () => import( '../views/Accueil/Bienvenue.vue')
       },
       {
@@ -45,6 +49,10 @@ const routes = [
       {
         path: '/contact',
         name: 'contact',
+         meta: {
+      title: 'Contactez-nous — MonBrobroli',
+      description: 'Besoin d’aide ou d’informations ? Contactez l’équipe MonBrobroli dès maintenant.'
+    },
         component: () => import( '../views/Contacts/contact.vue')
       }, 
       {
@@ -60,16 +68,28 @@ const routes = [
       {
         path: '/CGU',
         name: 'politiques',
+          meta: {
+      title: 'Conditions d\'Utilisation Génerale — MonBrobroli',
+      description: 'Besoin d’aide ou d’informations ? Contactez l’équipe MonBrobroli dès maintenant.'
+    },
         component: () => import( '../views/politiquesView.vue')
       },
       {
         path: '/jobs',
         name: 'jobs',
+         meta: {
+      title: 'Offres d\'emploi et stages — MonBrobroli',
+      description: 'Trouvez les meilleures offres d’emploi et de stage en Côte d’Ivoire sur MonBrobroli.'
+    },
         component: () => import( '../views/offre_timetable.vue')
       },
       {
         path: '/timetable',
         name: 'timetable',
+         meta: {
+      title: 'MonBrobroli',
+      description: 'Trouvez les meilleures offres d’emploi et de stage en Côte d’Ivoire sur MonBrobroli.'
+    },
         component: () => import( '../views/timetable/timetable.vue')
       },
      
@@ -320,25 +340,42 @@ const routes = [
         path: "",
         name: "Accueil",
         component: Accueil,
+          meta: {
+      title: 'Tableau de bord — MonBrobroli',
+      description: 'Gérez vos offres et candidatures sur votre tableau de bord MonBrobroli.'
+    }
       },
       {
         path: "/creer_emploi_du_temps",
         name: "create_timetable",
         component: createTimetableView,
+          meta: {
+      title: 'Emploi du temps — MonBrobroli',
+      description: 'Gérez votre emploi du temps .'
+    }
       },
       {
         path: "/offres",
         name: "offres",
         component: offresView,
+         meta: {
+      title: 'Offres — MonBrobroli',
+      description: 'Gérez vos Offres .'
+    }
       },
       {
         path: "/modifier_compte",
         name: "modify_profil",
+        meta: {
+      title: 'Mon Profile — MonBrobroli',
+      description: 'Gérez vos informations personnelles.'
+    },
         component: () => import("../views/profileView.vue"),
       },
       {
         path: "/utilisateurs",
         name: "users",
+        
         component: () => import("../views/userView.vue"),
       },
       {
@@ -397,6 +434,7 @@ const router = createRouter({
   }
 })
 
+
 router.beforeEach( (to, _from, next) => {
   if(to.meta.requiresAuth){
     const session = localStorage.getItem('token')
@@ -413,6 +451,35 @@ router.beforeEach( (to, _from, next) => {
     }
   }else{
      next()
+  }
+})
+
+
+router.afterEach((to) => {
+  // 1️⃣ Canonical dynamique
+  const canonicalUrl = 'https://monbrobroli.com' + to.fullPath
+  let link = document.querySelector("link[rel='canonical']")
+  if (!link) {
+    link = document.createElement('link')
+    link.setAttribute('rel', 'canonical')
+    document.head.appendChild(link)
+  }
+  link.setAttribute('href', canonicalUrl)
+
+  // 2️⃣ Title dynamique
+  if (to.meta?.title) {
+    document.title = to.meta.title
+  }
+
+  // 3️⃣ Meta description dynamique
+  let descTag = document.querySelector('meta[name="description"]')
+  if (!descTag) {
+    descTag = document.createElement('meta')
+    descTag.setAttribute('name', 'description')
+    document.head.appendChild(descTag)
+  }
+  if (to.meta?.description) {
+    descTag.setAttribute('content', to.meta.description)
   }
 })
 

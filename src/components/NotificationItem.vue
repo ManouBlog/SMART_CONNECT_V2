@@ -46,7 +46,7 @@ defineProps({
 <style scoped>
 .notification-objet {
   font-weight: bold;
-  color: orange; /* bleu pour distinguer */
+  color: orange;
   margin-right: 4px;
 }
 .notification-item {

@@ -26,6 +26,7 @@
       title="Passées"
       :notifications="Notifications.yesterdayNotifications"
     />
+    <!-- <FavorisCard /> -->
   </div>
 </template>
 
@@ -33,6 +34,7 @@
 import { onMounted } from "vue";
 import NotificationSection from "../components/NotificationSection.vue";
 import { useNotificationsStore } from "../store-pinia/useNotificationsStore";
+// import FavorisCard from "../components/FavorisCard.vue";
 const Notifications = useNotificationsStore();
 onMounted(async () => {
   await Notifications.getListNotification();
