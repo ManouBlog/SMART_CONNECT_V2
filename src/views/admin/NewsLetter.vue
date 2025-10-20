@@ -74,9 +74,9 @@ export default {
     },
     createCampaign() {
   console.log('Campaign data:', this.campaign);
-
+   const ROUTE_BACKEND = this.campaign.type === 'newsLetter' ? "sendNewsletterAtUser":"sendNotificationsAtUser";
   axios.post(
-    "https://backend.monbrobroli.com/api/sendNotificationsAtUser",
+    "https://backend.monbrobroli.com/api/"+ROUTE_BACKEND,
     this.campaign, // <- corps de la requête
     {
       headers: {
