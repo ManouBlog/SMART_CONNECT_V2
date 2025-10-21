@@ -9,7 +9,7 @@ export default {
   name: "UserView",
   data() {
     return {
-      users: null,
+      messages: [],
       spinner: false,
       modify_timetable: false,
       loading:false,
@@ -21,7 +21,7 @@ export default {
     };
   },
   methods: {
-    get_users() {
+    get_messages() {
       this.spinner = true;
       axios
         .get("https://backend.monbrobroli.com/api/getEmailNewsletter", {
@@ -31,8 +31,17 @@ export default {
         })
         .then((res) => {
           console.log("getEmailNewsletter", res);
-          this.users = res.data;
-          console.log("USER", this.users);
+          const allMessages = [...res.data.data.newsletter,...res.data.data.notifications]
+          this.messages = allMessages.map(item=>{
+            return{
+              id:item.id,
+              email:item.email || item.user.email,
+               objet:item.objet ? item.objet:'Visite de profile',
+                type:item.type ? item.type:'Notification',
+                 created_at:item.created_at
+            }
+          }) 
+          console.log("this.messages", this.messages);
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({
@@ -100,7 +109,7 @@ export default {
 
   },
   created() {
-    this.get_users();
+    this.get_messages();
   },
 };
 </script>
@@ -297,14 +306,22 @@ export default {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, index) in users" :key="index">
+                  <tr v-for="(item, index) in messages" :key="index">
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
                      <td>{{ item.type }}</td>
                      <td>{{ item.objet }}</td>
                     <td>{{ item.email }}</td>
                       <td>
                     <p class="d-flex justify-content-center align-items-center">
-                      <i class="bi bi-eye"></i>
+                      <router-link
+                      :to="{
+                        name: 'details_notification',
+                        params: {
+                          id: item.id,
+                        },
+                      }"
+                      ><em class="bi bi-eye"></em
+                    ></router-link>
                     </p>
                   </td>
                   </tr>

@@ -23,14 +23,17 @@ export default {
       this.spinner = true;
       console.log("this.$route", this.$route);
       axios
-        .get("https://backend.monbrobroli.com/api/get_detail_user/" + this.$route.params.id, {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
+        .get(
+          "https://backend.monbrobroli.com/api/get_detail_user/" + this.$route.params.id,
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        )
         .then((res) => {
           console.log(res);
-          this.student = res.data.data
+          this.student = res.data.data;
           this.jours = this.student?.jours;
           if ($.fn.DataTable.isDataTable("#MyTableData")) {
             $("#MyTableData").DataTable().destroy();
@@ -206,7 +209,9 @@ export default {
             <div class="mb-3 text-start">
               <label class="form-label">Carte étudiante</label>
               <Image
-                :src="`${'https://backend.monbrobroli.com/storage/images/' + student?.photo}`"
+                :src="`${
+                  'https://backend.monbrobroli.com/storage/images/' + student?.photo
+                }`"
                 :alt="student?.photo"
                 width="250"
                 preview

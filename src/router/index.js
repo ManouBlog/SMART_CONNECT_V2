@@ -156,6 +156,15 @@ const routes = [
         },
       },
       {
+        path: "/details_notification/:id",
+        name: "details_notification",
+        component: () => import("../views/admin/detailNotifications.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "/contrat_etudiants-entreprises",
         name: "Contrat",
         component: () => import("../views/admin/contratView.vue"),
