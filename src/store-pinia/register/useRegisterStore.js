@@ -65,6 +65,8 @@ export const useRegisterStore = defineStore('register', {
           data.append("statut_id", 2);
           data.append("photo_profil", payload.photo_profil);
           data.append("bio", payload.bio);
+          // data.append("appareil", "iphone x");
+          // data.append("token_push", "xhdf58ehhf85shdhe8554shedhe545shdh");
          await instance
             .post("list_users", data)
             .then((response) => {

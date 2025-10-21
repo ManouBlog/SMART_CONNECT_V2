@@ -31,11 +31,10 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-    ...mapActions(useRegisterStore,["changeValueIsModal"]),
+    ...mapActions(useRegisterStore, ["changeValueIsModal"]),
     seeTabsChange(value) {
       this.tabsActive = value;
     },
-
   },
   async created() {
     this.texte = await this.handleTranslate("Saisissez vos identifiants");
@@ -52,26 +51,29 @@ export default {
 };
 </script>
 <template>
-  <a-modal :footer="null" 
-  v-model:open="isModal" 
-  @cancel="changeValueIsModal" @ok="changeValueIsModal">
+  <a-modal
+    :footer="null"
+    v-model:open="isModal"
+    @cancel="changeValueIsModal"
+    @ok="changeValueIsModal"
+  >
     <div class="mycontent">
       <div v-if="Number(tabsActive) === 1">
-      <h2 class="text-center" style="color: orange">{{ texte }}</h2>
-      <!-- <span>{{ texte1 }}</span> -->
-    </div>
-    <div v-if="Number(tabsActive) === 2">
-      <h2 class="text-center" style="color: orange">{{ texte2 }}</h2>
-      <span>{{ texte3 }}</span>
-    </div>
-    <a-tabs centered :size="'default'" @change="seeTabsChange">
-      <a-tab-pane key="1" :tab="texte4">
-        <LoginView />
-      </a-tab-pane>
-      <a-tab-pane key="2" :tab="texte5">
-        <RegisterView />
-      </a-tab-pane>
-    </a-tabs>
+        <h2 class="text-center" style="color: orange">{{ texte }}</h2>
+        <!-- <span>{{ texte1 }}</span> -->
+      </div>
+      <div v-if="Number(tabsActive) === 2">
+        <h2 class="text-center" style="color: orange">{{ texte2 }}</h2>
+        <span>{{ texte3 }}</span>
+      </div>
+      <a-tabs centered :size="'default'" @change="seeTabsChange">
+        <a-tab-pane key="1" :tab="texte4">
+          <LoginView />
+        </a-tab-pane>
+        <a-tab-pane key="2" :tab="texte5">
+          <RegisterView />
+        </a-tab-pane>
+      </a-tabs>
     </div>
   </a-modal>
 </template>
