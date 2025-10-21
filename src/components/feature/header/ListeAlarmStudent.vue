@@ -91,11 +91,13 @@ export default {
         <h6 style="color: orange; font-weight: bold; padding: 0 1em">Notifications</h6>
         <div class="cont px-3">
           <div v-if="!this.unreadNotifications.length">
-            <h6 style="text-align: center; color: gray">Pas de notification(s)</h6>
+            <h6 style="text-align: center; color: gray">Pas de notification(s)
+              
+            </h6>
           </div>
           <div v-else>
             <h6 style="text-align: center; color: gray">
-              Vous avez {{ this.unreadNotifications.length }} notification(s)
+              Vous avez {{ this.$store.state.contratStudent ? this.unreadNotifications.length+this.$store.state.contratStudent:this.unreadNotifications.length}} notification(s)
             </h6>
           </div>
         </div>
