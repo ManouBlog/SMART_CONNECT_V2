@@ -129,6 +129,15 @@ const routes = [
         },
       },
       {
+        path: "/temoignages",
+        name: "temoignages",
+        component: () => import("../views/admin/avis/AllTemoignages.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "/partenaires",
         name: "partenaires",
         component: () => import("../views/admin/partenaire/PartenaireView.vue"),
