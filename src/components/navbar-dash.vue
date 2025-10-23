@@ -244,7 +244,7 @@ export default {
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"
           >
-            <i class="bi bi-calendar" style="margin-left: -1.2em"></i>
+            <i class="bi bi-chat-quote" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'temoignages' }">
               <strong>Témoignages</strong></router-link
             >
