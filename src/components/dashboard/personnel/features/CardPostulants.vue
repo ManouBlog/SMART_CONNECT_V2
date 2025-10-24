@@ -131,16 +131,20 @@ export default {
         <h1 class="user_person" style="color:orange;">{{ InfoPostulant.nom }} {{ InfoPostulant.prenoms }}</h1>
        </div>
        <section>
-        <h4><span>{{texte}}</span> {{ InfoPostulant.email }}</h4>
-        <h4><span>{{texte1}}</span> {{ InfoPostulant.ville }}</h4>
-        <h4><span>{{texte2}}</span> {{ InfoPostulant.quartier }}</h4>
-        <h4><span>{{texte3}}</span> {{ InfoPostulant.commune }}</h4>
-        <h4><span>{{texte4}}</span> {{ InfoPostulant.phone }}</h4>
-        <h4><span>{{texte5}}</span> {{ InfoPostulant.diplome }}</h4>
+        <h4><span style="color:orange;">{{texte}} :</span> {{ InfoPostulant.email }}</h4>
+        <h4><span style="color:orange;">{{texte1}} :</span> {{ InfoPostulant.ville }}</h4>
+        <h4><span style="color:orange;">{{texte2}} :</span> {{ InfoPostulant.quartier }}</h4>
+        <h4><span style="color:orange;">{{texte3}} :</span> {{ InfoPostulant.commune }}</h4>
+        <h4><span style="color:orange;">{{texte4}} :</span> {{ InfoPostulant.phone }}</h4>
+        <h4><span style="color:orange;">{{texte5}} :</span> {{ InfoPostulant.diplome }}</h4>
         <div style="text-align:left;">
-          <h4><span>{{texte6}}</span></h4>
-          <n-image width="100" :src="lienPhoto + InfoPostulant.photo"
-            :alt="InfoPostulant.photo" />
+          <h4><span style="color:orange;">{{texte6}} :</span></h4>
+          <n-image v-for="(item,index) in InfoPostulant.photo" 
+          :key="index"
+          width="100" 
+          style="margin:1em;"
+          :src="lienPhoto + item.path"
+          :alt="item.path" />
         </div>
         <div>
           <section  v-if="InfoPostulant.recruit === 0">

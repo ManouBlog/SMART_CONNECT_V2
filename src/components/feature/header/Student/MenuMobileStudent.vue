@@ -103,7 +103,11 @@ this.getListNotification();
       {{texte2}}
     </a>
   </li>
-  
+  <li class="position-absolute deconnex">
+    <router-link to="/dashboard/entreprises_interessees" class="d-block">
+      {{texte40}}
+    </router-link>
+  </li>
   <li class="position-absolute deconnex">
     <router-link to="/dashboard/offre_postule" class="d-block">
       {{texte3}}
@@ -114,11 +118,7 @@ this.getListNotification();
       {{texte4}}
     </router-link>
   </li>
-  <li class="position-absolute deconnex">
-    <router-link to="/dashboard/entreprises_interessees" class="d-block">
-      {{texte40}}
-    </router-link>
-  </li>
+  
   <li class="position-absolute deconnex">
     <router-link to="/dashboard/emploi_du_temps" class="d-block">
      {{texte5}}

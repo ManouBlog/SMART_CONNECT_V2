@@ -178,13 +178,13 @@ export default {
             }}</b></h6
           >
           <h6
-            >Date et heure début du contrat  :
+            >Date et heure d'entrée en fonction  :
             <b>{{
               details_offre.job_debut
             }}</b></h6
           >
            <h6
-            >Date et heure début du contrat  :
+            >Date et heure de fin d'activité  :
             <b>{{
               details_offre.job_fin
             }}</b></h6

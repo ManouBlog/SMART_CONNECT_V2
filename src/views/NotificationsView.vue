@@ -103,7 +103,7 @@ onMounted(async () => {
   width: 100%;
   margin: 6.6em 0;
   padding: 20px;
-  height: 80vh;
+  height: 80%;
   font-family: "Arial", sans-serif;
 }
 

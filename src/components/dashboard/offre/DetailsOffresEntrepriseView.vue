@@ -106,8 +106,8 @@ export default {
     this.texte4 = await this.handleTranslate('Date et heure début ');
     this.texte5 = await this.handleTranslate('Date limite de candidature');
     this.texte6 = await this.handleTranslate('Publiée il y a');
-    this.texte8 = await this.handleTranslate('Date et heure début du contrat');
-    this.texte9 = await this.handleTranslate('Date et heure fin du contrat');
+    this.texte8 = await this.handleTranslate("Date et heure d'entrée en fonction");
+    this.texte9 = await this.handleTranslate("Date et heure de fin d'activité");
   },
 };
 </script>

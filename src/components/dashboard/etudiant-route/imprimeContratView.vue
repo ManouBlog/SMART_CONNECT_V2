@@ -243,19 +243,19 @@ h5 {
     >
       <div class="attestation_logo">
         <div class="img_card">
-          <img src="/brobroli.png" alt="smart-connect" />
+          <img src="../../../assets/brobroli_1.png" alt="smart-connect" />
         </div>
         <div class="img_card">
-          <img src="/brobroli.png" alt="smart-connect" />
+          <img src="../../../assets/brobroli_1.png" alt="smart-connect" />
         </div>
         <div class="img_card">
-          <img src="/brobroli.png" alt="smart-connect" />
+          <img src="../../../assets/brobroli_1.png" alt="smart-connect" />
         </div>
       </div>
       <div class="attestation_infos">
         <p>
           <span class="span_info">{{texte1}}</span>
-          <span>{{ this.entreprise.offre.entreprise.nom }}</span>
+          <span>{{ this.entreprise.offre.entreprise.ville }}</span>
         </p>
         <p>
           <span class="span_info">{{texte2}}</span>

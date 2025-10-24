@@ -518,8 +518,8 @@ export default {
                       <th class="bg-light">Nom de l'offre</th>
                       <th class="bg-light">Lieu</th>
                       <th class="bg-light">Salaire</th>
-                      <th class="bg-light">Date et heure début du contrat</th>
-                      <th class="bg-light">Date et heure fin du contrat</th>
+                      <th class="bg-light">Date et heure d'entrée en fonction</th>
+                      <th class="bg-light">Date et heure de fin d'activité</th>
                       <th class="bg-light">Description</th>
                       <th class="bg-light">Détails</th>
                     </tr>

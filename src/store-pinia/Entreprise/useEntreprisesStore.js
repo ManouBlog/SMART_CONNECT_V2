@@ -52,13 +52,13 @@ export const useEntreprisesStore = defineStore('entreprise', {
             loadingSpinner.launchLoading(true)
             try{
              const response = await instance.get("list_offres_interess_by_students")
-            //  console.log("response",response.data)
+             console.log("get_offres_interess_by_student",response.data)
              if(response['status'] === 200){
               this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
                 // this.offresInteressByStudents = Help.groupBy(response.data)
                 const groupedData = response.data.reduce((acc, curr) => {
                     // Check if there's already an entry for the current `nom_offre`
-                    const existingEntry = acc.find(entry => entry.nom_offre === curr.nom_offre);
+                    const existingEntry = acc.find(entry => entry.offre.nom_offre === curr.offre.nom_offre);
                 
                     // If it exists, push the current item into the `value` array
                     if (existingEntry) {
@@ -66,7 +66,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
                     } else {
                         // If it doesn't exist, create a new entry
                         acc.push({
-                            nom_offre: curr.nom_offre,
+                            nom_offre: curr.offre.nom_offre,
                             nbre: [curr]
                         });
                     }

@@ -181,6 +181,13 @@ export default {
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
+            <router-link to="/dashboard/entreprises_interessees" class="d-block">
+              {{ texte40 }}
+            </router-link>
+          </li>
+        </a-menu-item>
+        <a-menu-item>
+          <li class="position-absolute deconnex">
             <router-link to="/dashboard/contrat" class="d-block">
               {{ texte3 }}
             </router-link>
@@ -193,13 +200,7 @@ export default {
             </router-link>
           </li>
         </a-menu-item>
-        <a-menu-item>
-          <li class="position-absolute deconnex">
-            <router-link to="/dashboard/entreprises_interessees" class="d-block">
-              {{ texte40 }}
-            </router-link>
-          </li>
-        </a-menu-item>
+        
         <a-menu-item>
           <LiensNavBar :texte="texte5" :route_lien="'dashboard-abonnements'" />
         </a-menu-item>

@@ -14,10 +14,10 @@ export const Help = {
     },
     groupBy(value){
     const g = value.reduce((group,item)=>{
-        if(group[item.nom_offre] == null){
-            group[item.nom_offre]=[]
+        if(group[item.offre.nom_offre] == null){
+            group[item.offre.nom_offre]=[]
         }
-        group[item.nom_offre].push(item)
+        group[item.offre.nom_offre].push(item)
         return group;
     },{})
 
