@@ -2,60 +2,60 @@
   <div class="notification-item">
     <div class="notification-avatar">
       <img
-      v-if="favoris?.photo_profil"
-        :src="lienPhoto + favoris?.photo_profil"
+        v-if="favoris?.student.photo_profil"
+        :src="lienPhoto + favoris?.student.photo_profil"
         alt="Avatar"
+        style="width: 90px !important; height: 90px !important"
       />
       <span
-          class="user-avatar"
-            style="
-              border: 2px solid orange;
-              object-fit: contain;
-              width: 150px !important;
-              height:150px !important;
-              line-height:50px;
-              text-align:center;
-              padding:1em;
-              font-size:1em;
-              border-radius: 10%;
-              background: gray;
-            "
-            v-else
-          >
-           <span style="font-size:1em;color:white;" v-if="favoris?.nom">{{Help.toADfirstTwo(favoris?.nom)}}</span>
-          </span>
+        class="user-avatar"
+        style="
+          border: 2px solid orange;
+          object-fit: contain;
+          width: 150px !important;
+          height: 150px !important;
+          line-height: 50px;
+          text-align: center;
+          padding: 1em;
+          font-size: 1em;
+          border-radius: 10%;
+          background: gray;
+        "
+        v-else
+      >
+        <span style="font-size: 1em; color: white" v-if="favoris?.student.nom">{{
+          Help.toADfirstTwo(favoris?.student.nom)
+        }}</span>
+      </span>
     </div>
     <div class="notification-content">
       <div class="notification-header">
-        <span class="notification-username">{{ favoris?.nom }} {{ favoris?.prenoms }}</span>
-         <span style="color:gray;" v-if="favoris?.nom_offre && isDetailPostulant">
-    vient de postuler à l'offre:{{favoris?.nom_offre}}
-  </span>
-        <span class="notification-time"
-        v-if="favoris?.created_at && isDetailPostulant"
-        >{{ formattedTimestamp }}</span>
+        <span class="notification-username"
+          >{{ favoris?.student.nom }} {{ favoris?.student.prenoms }}</span
+        >
+        <span style="color: gray" v-if="favoris?.offre.nom_offre && isDetailPostulant">
+          vient de postuler à l'offre:{{ favoris?.offre.nom_offre }}
+        </span>
+        <span class="notification-time" v-if="favoris?.created_at && isDetailPostulant">{{
+          formattedTimestamp
+        }}</span>
       </div>
     </div>
-     <div class="favoris-actions">
-      <button
-        @click="handleAccept"
-        class="accept-button"
->
-        Voir+
-      </button>
+    <div class="favoris-actions">
+      <button @click="handleAccept" class="accept-button">Voir+</button>
     </div>
   </div>
 </template>
 
 <script>
-import { Help } from '../utils';
-import { lienPhoto } from '../api/api';
+import { Help } from "../utils";
+import { lienPhoto } from "../api/api";
 export default {
-  name: 'favorisCard',
+  name: "favorisCard",
   data() {
     return {
       lienPhoto: lienPhoto,
-      Help:Help,
+      Help: Help,
     };
   },
   props: {
@@ -63,40 +63,40 @@ export default {
       type: Object,
       required: false,
     },
-    isDetailPostulant:{
-        type:Boolean,
-        default:false
+    isDetailPostulant: {
+      type: Boolean,
+      default: false,
     },
-    arrayNotifications:Array
+    arrayNotifications: Array,
   },
   computed: {
     formattedTimestamp() {
-        if(this.favoris.created_at){
- return new Date(this.favoris.created_at).toLocaleString('fr-FR',{
-  day: '2-digit',
-  month: '2-digit',
-  year: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-});
-        }else{
-            return new Date();
-        }
+      if (this.favoris.created_at) {
+        return new Date(this.favoris.created_at).toLocaleString("fr-FR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+      } else {
+        return new Date();
+      }
     },
   },
   methods: {
     handleAccept() {
-      console.log("this.favoris",this.favoris)
-      this.$emit('accept', this.favoris);
+      console.log("this.favoris", this.favoris.offre);
+      this.$emit("accept", this.favoris.offre);
     },
   },
 };
 </script>
 
 <style scoped>
-.accept-button{
-  border:none;
+.accept-button {
+  border: none;
   padding: 1em;
   background: orange;
   color: white;
@@ -109,7 +109,7 @@ export default {
 .notification-item {
   display: flex;
   align-items: flex-start;
-  padding:25px 16px;
+  padding: 25px 16px;
   border-radius: 8px;
   position: relative;
   background-color: #ffffff;
@@ -118,15 +118,15 @@ export default {
   width: 100%;
   height: auto;
 }
-.listWhistPerson{
-  padding:0 !important;
+.listWhistPerson {
+  padding: 0 !important;
 }
 
 .notification-avatar img {
   width: 150px;
   height: 150px;
   border-radius: 10%;
-  padding:1em;
+  padding: 1em;
   object-fit: contain;
 }
 .flou_image {
