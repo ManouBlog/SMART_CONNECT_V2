@@ -287,7 +287,7 @@ export default {
         >
           {{ infoBioStudent }}
         </p>
-        <p
+        <!-- <p
           v-else
           style="
             text-align: justify;
@@ -298,7 +298,7 @@ export default {
           "
         >
           Écrivez quelques mots sur vous...
-        </p>
+        </p> -->
       </div>
       <section class="my-5">
         <div class="row">

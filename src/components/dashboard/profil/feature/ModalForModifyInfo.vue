@@ -42,6 +42,7 @@ export default {
       :telephone="`+225${this.infoUserConnected?.phone}`"
       :email="this.infoUserConnected?.user?.email"
       nationalite="Ivoirienne"
+      :titreCv="this.infoUserConnected?.titreCv"
       :description="this.infoUserConnected?.bio"
       :qualifications="this.infoUserConnected?.qualifications?.map(qualifi=>{
         return{

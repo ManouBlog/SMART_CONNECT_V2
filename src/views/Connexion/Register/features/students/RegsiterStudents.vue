@@ -40,6 +40,7 @@ export default {
       configUtils: configUtils,
       SWALPOPUP: useSwalPopup(),
       formState: {
+        titreCv:"",
         nom: "",
         prenoms: "",
         phone: "",
@@ -229,6 +230,13 @@ export default {
     >
       <a-input type="text" v-model:value="formState.diplome" />
     </a-form-item>
+    <a-form-item
+      label="Titre du CV (ex. : Développeur Web, Designer UX, etc.)"
+      name="titreCv"
+    >
+      <a-input type="text" v-model:value="formState.titreCv" />
+    </a-form-item>
+    
     <a-form-item label="Bio (max 300 caractères)">
       <a-textarea
         :rows="4"

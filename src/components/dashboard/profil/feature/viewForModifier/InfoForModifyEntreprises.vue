@@ -57,7 +57,6 @@ export default {
     },
 
     updateInfoEntreprise(company) {
-      
       this.update_compte_entreprise({
         nom: company.nom,
         email: company.email,
@@ -77,7 +76,7 @@ export default {
         "this.itemsQualificationDynamicInput",
         this.itemsQualificationDynamicInput
       );
-     
+
       this.update_compte_student({
         nom: Etudiants.nom,
         email: Etudiants.email,
@@ -88,6 +87,7 @@ export default {
         ville: Etudiants.ville,
         bio: Etudiants.bio,
         diplome: Etudiants.diplome,
+        titreCv:Etudiants.titreCv,
         qualifications: this.itemsQualificationDynamicInput,
         competences: Help.retirerIdIntoArrayCompetence(Etudiants.competences),
       });
@@ -95,18 +95,18 @@ export default {
     handleUpdate(user) {
       if (this.user.user.statut.statut === "entreprise") {
         this.updateInfoEntreprise(user);
-      } else if(this.user.user.statut.statut === "particulier"){
-        const data={
-          commune:user.commune,
-          contact:user.contact,
-          nom:user.nom,
-          particulier_prenoms:user.particulier_prenoms,
-          quartier:user.quartier,
-          email:user.email,
-        }
-        console.log("updateInfoParticulier",data)
+      } else if (this.user.user.statut.statut === "particulier") {
+        const data = {
+          commune: user.commune,
+          contact: user.contact,
+          nom: user.nom,
+          particulier_prenoms: user.particulier_prenoms,
+          quartier: user.quartier,
+          email: user.email,
+        };
+        console.log("updateInfoParticulier", data);
         this.update_compte_particulier(user);
-      }else{
+      } else {
         this.updateInfoStudent(user);
       }
       this.getInfoUser();
@@ -143,8 +143,10 @@ export default {
       </legend>
       <div class="col-md-12">
         <div class="mb-3">
-          <label class="form-label">{{ this.user && this.user.user.statut.statut === "entreprise" ?
-          'Raison sociale':'Nom' 
+          <label class="form-label">{{
+            this.user && this.user.user.statut.statut === "entreprise"
+              ? "Raison sociale"
+              : "Nom"
           }}</label>
           <input v-model="user.nom" class="form-control" type="text" />
         </div>
@@ -174,13 +176,23 @@ export default {
           <input v-model="user.email" class="form-control" type="email" />
         </div>
       </div>
-      <div class="col-md-12" v-if="this.user && this.user.user.statut.statut === 'etudiant'">
+      <div
+        class="col-md-12"
+        v-if="this.user && this.user.user.statut.statut === 'etudiant'"
+      >
         <div class="mb-3">
           <label class="form-label">Contact</label>
           <input v-model="user.phone" class="form-control" type="text" />
         </div>
       </div>
-       <div class="col-md-12" v-if="this.user && (this.user.user.statut.statut == 'entreprise' || this.user.user.statut.statut == 'particulier')">
+      <div
+        class="col-md-12"
+        v-if="
+          this.user &&
+          (this.user.user.statut.statut == 'entreprise' ||
+            this.user.user.statut.statut == 'particulier')
+        "
+      >
         <div class="mb-3">
           <label class="form-label">Contact téléphonique</label>
           <input v-model="user.contact" class="form-control" type="text" />
@@ -228,6 +240,17 @@ export default {
             <input v-model="user.diplome" class="form-control" type="text" />
           </div>
         </div>
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label class="form-label"
+              >Titre du CV
+              <small class="text-muted"
+                >(ex. : Développeur Web, Designer UX, etc.)</small
+              ></label
+            >
+            <input v-model="user.titreCv" class="form-control" type="text" />
+          </div>
+        </div>
       </section>
       <section v-if="this.user && this.user.user.statut.statut === 'etudiant'">
         <div class="col-md-12">
@@ -245,8 +268,6 @@ export default {
         </div>
       </section>
       <section v-if="this.user && this.user.user.statut.statut === 'entreprise'">
-        
-       
         <div class="col-md-12">
           <div class="my-3">
             <label for="add_file_logo">Logo</label>
@@ -255,10 +276,12 @@ export default {
         </div>
         <div class="col-md-12">
           <div class="mb-3">
-            <label class="form-label">RCCM (Registre du Commerce et du Crédit Mobilier)</label>
+            <label class="form-label"
+              >RCCM (Registre du Commerce et du Crédit Mobilier)</label
+            >
             <input v-model="user.matricule_cc" class="form-control" type="text" />
           </div>
-            <div class="my-3">
+          <div class="my-3">
             <input
               type="file"
               @input="addAnRegistreDoc"
@@ -303,16 +326,19 @@ export default {
                 : "Nouvelle pièce d'identité"
             }}</label
           >
-          <input 
-          type="file"
-          multiple
-          @input="addAnPieceDoc" 
-          id="add_file_piece" 
-          class="w-100" 
+          <input
+            type="file"
+            multiple
+            @input="addAnPieceDoc"
+            id="add_file_piece"
+            class="w-100"
           />
         </div>
       </div>
-      <div class="col-md-12" v-if="this.user && this.user.user.statut.statut === 'etudiant'">
+      <div
+        class="col-md-12"
+        v-if="this.user && this.user.user.statut.statut === 'etudiant'"
+      >
         <div class="my-3">
           <label class="form-label">Qualifications</label>
           <n-dynamic-input
@@ -333,9 +359,9 @@ export default {
                 "
               >
                 <div style="display: flex; width: 100%; gap: 1em">
-                  <input style="width: 100%" type="date" v-model="value.date_debut">
+                  <input style="width: 100%" type="date" v-model="value.date_debut" />
                   <p>À</p>
-                  <input style="width: 100%" type="date" v-model="value.date_fin">
+                  <input style="width: 100%" type="date" v-model="value.date_fin" />
                 </div>
 
                 <textarea

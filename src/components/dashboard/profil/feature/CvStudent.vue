@@ -20,7 +20,18 @@
       </div>
       <!-- Description -->
       <div class="section" v-if="description">
-        <h3>DESCRIPTION</h3>
+        <h3 style="text-transform: uppercase">
+          {{
+            titreCv && isbtnPdf
+              ? titreCv
+              : !titreCv && isbtnPdf
+              ? "Ajouter un titre"
+              : titreCv && !isbtnPdf
+              ? titreCv
+              : null
+          }}
+        </h3>
+
         <p>{{ description }}</p>
       </div>
       <!-- Qualifications -->
@@ -40,7 +51,7 @@
       <!-- Compétences -->
       <div class="section" v-if="competences.length">
         <h3>COMPÉTENCES</h3>
-        <ul style="padding:0 1.5em;">
+        <ul style="padding: 0 1.5em">
           <li v-for="(c, i) in competences" :key="i">{{ c.comp }}</li>
         </ul>
       </div>
@@ -67,9 +78,9 @@
       <div class="teal-sidebar"></div>
     </div>
     <!-- Bouton de téléchargement -->
-    <button @click="downloadCV" 
-    v-if="isbtnPdf"
-    class="download-button">Télécharger le CV</button>
+    <button @click="downloadCV" v-if="isbtnPdf" class="download-button">
+      Télécharger le CV
+    </button>
   </div>
 </template>
 <script setup>
@@ -77,7 +88,7 @@ import html2canvas from "html2canvas";
 import { defineProps } from "vue";
 import { jsPDF } from "jspdf";
 const props = defineProps({
-  isbtnPdf:{type:Boolean,required:false,default:false},
+  isbtnPdf: { type: Boolean, required: false, default: false },
   nom: { type: String, required: true },
   // titre: { type: String, required: true },
   // naissance: { type: String, required: true },
@@ -86,6 +97,7 @@ const props = defineProps({
   nationalite: { type: String, required: true },
   photo: { type: String, default: "https://via.placeholder.com/150" },
   description: { type: String, default: "" },
+  titreCv: { typs: String, default: "" },
   qualifications: { type: Array, default: () => [] },
   experiences: { type: Array, default: () => [] },
   competences: { type: Array, default: () => [] },
@@ -94,45 +106,45 @@ const props = defineProps({
   // atouts: { type: Array, default: () => [] },
 });
 const downloadCV = async () => {
-  const cvContent = document.getElementById("cv-content")
-  if (!cvContent) return
+  const cvContent = document.getElementById("cv-content");
+  if (!cvContent) return;
 
   // capture du DOM
   const canvas = await html2canvas(cvContent, {
     scale: 2,
-    useCORS: true,          // autoriser CORS
-    allowTaint: true,       // autoriser rendu d’images cross-domain
+    useCORS: true, // autoriser CORS
+    allowTaint: true, // autoriser rendu d’images cross-domain
     logging: false,
-  })
+  });
 
-  const imgData = canvas.toDataURL("image/png")
-  const pdf = new jsPDF("p", "mm", "a4")
+  const imgData = canvas.toDataURL("image/png");
+  const pdf = new jsPDF("p", "mm", "a4");
 
-  const pdfWidth = pdf.internal.pageSize.getWidth()
-  const pdfHeight = pdf.internal.pageSize.getHeight()
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = pdf.internal.pageSize.getHeight();
 
   // calcul de dimensions de l’image pour garder le ratio
-  const imgWidth = pdfWidth
-  const imgHeight = (canvas.height * imgWidth) / canvas.width
+  const imgWidth = pdfWidth;
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-  let heightLeft = imgHeight
-  let position = 0
+  let heightLeft = imgHeight;
+  let position = 0;
 
   // première page
-  pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight)
-  heightLeft -= pdfHeight
+  pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+  heightLeft -= pdfHeight;
 
   // ajouter les pages si nécessaire
   while (heightLeft > 0) {
-    position = heightLeft - imgHeight
-    pdf.addPage()
-    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight)
-    heightLeft -= pdfHeight
+    position = heightLeft - imgHeight;
+    pdf.addPage();
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pdfHeight;
   }
 
   // téléchargement
-  pdf.save(`CV_${props.nom.replace(/\s+/g, "_")}.pdf`)
-}
+  pdf.save(`CV_${props.nom.replace(/\s+/g, "_")}.pdf`);
+};
 </script>
 <style scoped>
 .cv-container {
@@ -252,9 +264,9 @@ const downloadCV = async () => {
     padding: 0 !important;
     box-shadow: none; /* allège sur très petit écran */
   }
-  .teal-sidebar{
-    width:15px;
-    right:-0.5em;
+  .teal-sidebar {
+    width: 15px;
+    right: -0.5em;
   }
 }
 </style>

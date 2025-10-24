@@ -155,6 +155,7 @@ console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
         data.append("quartier", payload?.quartier);
         data.append("phone", payload?.contact);
         data.append("ville", payload?.ville);
+         data.append("titreCv", payload?.titreCv);
         }
        await instance
           .post("modifier_profil", data)
