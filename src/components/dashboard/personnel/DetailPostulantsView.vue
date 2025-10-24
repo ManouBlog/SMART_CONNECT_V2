@@ -74,6 +74,7 @@ export default {
           v-for="(item, index) in detailStudents"
           :key="index"
           :InfoPostulant="{
+            id:item.id,
             nom:item.student.nom,
             prenoms:item.student.prenoms,
             email:item.student.email,
