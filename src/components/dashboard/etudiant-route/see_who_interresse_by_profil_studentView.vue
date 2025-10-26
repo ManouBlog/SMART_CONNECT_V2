@@ -322,7 +322,7 @@ export default {
                       class="badge bg-danger"
                       >{{texte11}}</span
                     >
-                    <span v-else class="badge bg-warning">
+                    <span v-else class="badge bg-warning w-150">
                       {{texte12}}
                     </span>
                   </div>

@@ -92,9 +92,7 @@ export default {
 };
 </script>
 <style>
-:where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-body{
-height:800px;
-}
+
 .swal2-container {
   z-index: 999999 !important;
 }

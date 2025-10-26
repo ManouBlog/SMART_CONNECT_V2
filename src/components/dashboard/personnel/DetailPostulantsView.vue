@@ -97,6 +97,9 @@ export default {
   </section>
 </template>
 <style scoped>
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-body) {
+  height: 800px;
+}
 .conteneur_postulants {
   gap: 1.5em;
   place-content: center;
