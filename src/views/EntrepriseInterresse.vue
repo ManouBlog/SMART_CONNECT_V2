@@ -11,7 +11,7 @@ import { useInfoStudentStore } from "../store-pinia/InfoStudent/useInfoStudentSt
 // const loadingSpinner = useLoadingSpinner();
 const statut = {
   0: "En attente",
-  1: "Séléctionné",
+  1: "Accepté",
   2: "Rejeté",
 };
 const colorStatut = {
@@ -187,6 +187,12 @@ export default {
                     }}</span
                   >
                 </template>
+              </Column>
+               <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="date"
+                header="Date de travail"
+              >
               </Column>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"

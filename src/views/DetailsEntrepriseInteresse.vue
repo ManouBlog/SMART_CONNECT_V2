@@ -67,10 +67,10 @@ export default {
          this.loadSpinner = false;
         })
     },
-    updateCandidature(id,payload) {
+    updateCandidature(id,payload,idContrat) {
       loadingSpinner.launchLoading(true);
       instance
-        .put("changeStatutJob/"+id,{contrat:payload})
+        .put("changeStatutJob/"+id,{contrat:payload,id_contrat:idContrat})
         .then((res) => {
           // console.log(res);
           if (res.data.status === true) {
@@ -116,7 +116,7 @@ export default {
      this.texte3 = await this.handleTranslate(`Date et heure de fin d'activité :`);
      this.texte4 = await this.handleTranslate('Description');
      this.texte5 = await this.handleTranslate('Postuler avant le :');
-     this.texte6 = await this.handleTranslate('Sélectionner');
+     this.texte6 = await this.handleTranslate('Accepter');
      this.texte7 =  await this.handleTranslate('Veuillez faire un abonnement avant de postuler à cette offre');
      this.texte8 =  await this.handleTranslate('Souscrire à un abonnement');
      this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);
@@ -127,7 +127,7 @@ export default {
      this.texte14 = await this.handleTranslate('Voir les Détails');
      this.texte15 =  await this.handleTranslate('Offre Expirée');
      this.texte16 =  await this.handleTranslate('Charger plus');
-     this.texte66 = await this.handleTranslate('Rejeter');
+     this.texte66 = await this.handleTranslate('Refuser');
   },
 };
 </script>
@@ -169,13 +169,13 @@ export default {
                   </h4>
                 </div>
                 <h4 class="my-5" v-if="DetailSeeEntreprise.offre.nbre_person">
-                  <span class="fw-bold">{{texte1}}</span> {{ DetailSeeEntreprise.offre.nbre_person }}
+                  <span class="fw-bold" style="color:orange;">{{texte1}}</span> {{ DetailSeeEntreprise.offre.nbre_person }}
                 </h4>
               
               </section>
               <section>
                 <h4>
-                <span class="fw-bold my-3">{{texte4}}</span>  
+                <span class="fw-bold my-3" style="color:orange;">{{texte4}}</span>  
                 </h4>
                 <div style="font-weight:300;" v-html="DetailSeeEntreprise.offre.description" id="conteneur_description"></div>
               </section>
@@ -194,19 +194,20 @@ export default {
                 <span class="my-2 text-danger fw-bold">{{texte5}} {{ 
                   configUtils.getFormatDateFr(DetailSeeEntreprise.offre.fin) }}</span>
               </section>
+             
               <section class="d-flex align-items-center justify-content-center"
               v-if="DetailSeeEntreprise.contrat === 0"
               >
                 <button
                   class="btn-lg bg-success mx-2"
-                  @click="updateCandidature(DetailSeeEntreprise.offre.id,1)"
+                  @click="updateCandidature(DetailSeeEntreprise.offre.id,1,DetailSeeEntreprise.id)"
                   style="width: auto !important"
                 >{{texte6}}
                   
                 </button>
                 <button
                   class="btn-lg bg-danger"
-                  @click="updateCandidature(DetailSeeEntreprise.offre.id,2)"
+                  @click="updateCandidature(DetailSeeEntreprise.offre.id,2,DetailSeeEntreprise.id)"
                   style="width: auto !important"
                 >{{texte66}}
                   
@@ -216,9 +217,8 @@ export default {
               <p 
               class="d-flex justify-content-center"
               style="color:#00ff04" 
-              v-else-if="DetailSeeEntreprise.contrat === 1">Offre Acceptée</p>
-              <p class="text-danger d-flex justify-content-center" v-else>Offre refusée</p>
-              <!-- <pre> {{ DetailSeeEntreprise.contrat }}</pre> -->
+              v-else-if="DetailSeeEntreprise.contrat === 1">Offre Acceptée pour le {{ DetailSeeEntreprise.date }} </p>
+              <p class="text-danger d-flex justify-content-center" v-else>Offre refusée pour le {{ DetailSeeEntreprise.date }}</p>
             </div>
           </div>
         </div>
@@ -320,7 +320,7 @@ span {
   display: block;
 }
 .entreprise {
-  padding: 0 5em;
+  padding: 9em 5em;
   text-align: center;
 }
 
@@ -341,5 +341,11 @@ button {
 }
 .jobs_filters {
   box-shadow: none !important;
+}
+@media (max-width: 1028px) {
+  .entreprise {
+    padding: 1em 1.5em;
+    text-align: center;
+  }
 }
 </style>

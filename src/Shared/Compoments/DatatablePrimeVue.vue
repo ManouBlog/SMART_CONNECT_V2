@@ -152,6 +152,9 @@ export default {
         <span v-else-if="item.headerName === 'Etudiant'">
           {{ slotProps.data.nom }} {{ slotProps.data.prenoms }}
         </span>
+        <span v-else-if="item.headerName === 'Date de travail'">
+          {{ slotProps.data.pivot.date }}
+        </span>
         <span v-else>
           {{ slotProps.data[item.fieldName] }}
         </span>

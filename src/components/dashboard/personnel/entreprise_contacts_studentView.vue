@@ -90,6 +90,7 @@ export default {
         { fieldName: "phone", headerName: Telephone },
         { fieldName: "statut", headerName: Statut },
         { fieldName: "offre", headerName: Offre },
+         { fieldName: "id", headerName: "Date de travail" },
       ]
     this.texte0 = await this.handleTranslate('Liste des talents');
     this.texte1 = await this.handleTranslate(`Talents contactés`);

@@ -61,7 +61,7 @@ export default {
       await instance
         .get("getStudentRecruit")
         .then((res) => {
-          // console.log("getStudentRecruit", res);
+          console.log("getStudentRecruit", res);
           this.studentRecruit = Help.groupBy(res.data);
 
           for (let item in this.studentRecruit) {

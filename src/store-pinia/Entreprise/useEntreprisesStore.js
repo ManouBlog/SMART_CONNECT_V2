@@ -8,7 +8,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
         entreprises: [],
         timetable:[],
         list_students:[],
-        student:[],
+        student:{},
         studentRecruit:[],
         offresInteressByStudents:{},
         list_abonnement:[],
@@ -41,8 +41,19 @@ export const useEntreprisesStore = defineStore('entreprise', {
             this.student = this.list_students.students;
             this.studentRecruit = studentRecruit.data;
             loadingSpinner.launchLoading(false)
-            // console.log('this.list_students',this.list_students)
-            // console.log("this.student",this.student)
+            console.log('this.student',this.student)
+//             const grouped = this.list_students.students.reduce((acc, student) => {
+//   const nomOffre = student.pivot.offre.nom_offre;
+
+//   if (!acc[nomOffre]) {
+//     acc[nomOffre] = [];
+//   }
+
+//   acc[nomOffre].push(student);
+//   return acc;
+// }, {});
+// this.student = grouped;
+            // console.log("grouped",grouped)
            }
             }catch(error){
                 console.log(error)

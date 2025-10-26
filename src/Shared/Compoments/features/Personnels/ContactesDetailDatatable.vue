@@ -14,7 +14,7 @@ export default {
 <template>
     <div class="d-flex justify-content-center align-items-center">
         <router-link
-        v-if="donnees.pivot.contrat === 1"
+        v-if="donnees?.pivot?.contrat === 1"
         :to="{
           name: 'details_students_contactes',
           params: {
@@ -27,7 +27,7 @@ export default {
       <em
         class="bi bi-dash-circle"
         v-if="
-          donnees.pivot.contrat === 2 || donnees.pivot.contrat === 0
+          donnees?.pivot?.contrat === 2 || donnees?.pivot?.contrat === 0
         "
       ></em>
     </div>
