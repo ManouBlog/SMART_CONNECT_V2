@@ -66,7 +66,7 @@ const dataAlarm = ref([]);
 async function getOffresInteressByStudent() {
   try {
     const response = await instance.get("list_offres_interess_by_students");
-
+  console.log("get_offres_interess_by_student8596")
     if (response.status === 200) {
       dataAlarm.value = response.data.filter((item) => item.recruit === 0);
       console.log(

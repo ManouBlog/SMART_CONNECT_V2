@@ -129,10 +129,11 @@ export default {
            </div>
 
             <div class="text-center">
-                <button class="btn-lg bg-warning mx-3"
+                <button class="btn-lg mx-3"
+                style="background:orange;"
                 @click="noterEntreprise"
                 >Envoyer</button>
-                <button class="btn-lg mx-3 bg-dark"
+                <button class="btn-lg mx-3"
                  @click="showModal = !showModal"
                  >Plus tard</button>
                 

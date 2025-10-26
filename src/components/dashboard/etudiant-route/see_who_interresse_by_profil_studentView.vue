@@ -375,6 +375,7 @@ export default {
                   v-if="slotProps.data?.recruit === 0 || 
                   slotProps.data?.recruit === 2"
                 ></em>
+                
                 <router-link
                 @click="seeDetailOffre(slotProps.data?.id)"
                 :to="{
@@ -384,8 +385,6 @@ export default {
                 v-if="slotProps.data?.recruit === 1"
                 ><em class="bi bi-printer"></em
               ></router-link>
-              <!-- <span v-if="slotProps.data?.pivot?.alarm === 1"
-               class="badge bg-danger mx-3">New</span> -->
               </div>
               </template>
             </Column>

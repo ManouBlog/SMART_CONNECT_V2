@@ -99,23 +99,9 @@ export default {
           this.launchLoading(false);
         });
     },
-    // async get_offres_interess_by_student() {
-    //   try {
-    //     const response = await instance.get("list_offres_interess_by_students");
-    //     // console.log(
-    //      // "get_offres_interess_by_student",
-    //      // response.data.filter((item) => item.recruit === 0).length
-    //     //);
-    //     if (response["status"] === 200) {
-    //       this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
+   
   },
   async created() {
-    // this.get_offres_interess_by_student();
     this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte2 = await this.handleTranslate("Liste des offres");
     this.texte3 = await this.handleTranslate("Créer une offre");

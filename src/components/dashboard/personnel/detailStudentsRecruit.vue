@@ -62,8 +62,8 @@ export default {
         .get("getStudentRecruit")
         .then((res) => {
           console.log("getStudentRecruit", res);
-          this.studentRecruit = Help.groupBy(res.data);
-
+          this.studentRecruit = Help.groupByRecruit(res.data);
+          console.log("this.studentRecruit",this.studentRecruit)
           for (let item in this.studentRecruit) {
             if (item === this.$route.params.offre) {
               this.tableauRecruit = this.studentRecruit[item];
@@ -174,12 +174,15 @@ export default {
             <div class="text-center">
               <button
                 v-if="numberRate"
-                class="btn-lg bg-dark mx-3"
+                class="btn-lg bg-warning mx-3"
                 @click="sendAppreciation"
               >
                 {{texte3}}
               </button>
-              <button class="btn-lg mx-3" @click="showModal = !showModal">
+              <button class="btn-lg mx-3" @click="()=>{
+                this.showModal = !this.showModal
+                this.numberRate = 0
+              }">
                 {{texte4}}
               </button>
             </div>
@@ -224,14 +227,14 @@ export default {
               <h1 style="color:white;font-weight:bold;">{{ item.nom }} {{ item.prenoms }}</h1>
             </div>
             <section class="text-left">
-              <h4><span>{{texte6}}</span> {{ item.email }}</h4>
-              <h4><span>{{texte7}}</span> {{ item.ville }}</h4>
-              <h4><span>{{texte8}}</span> {{ item.quartier }}</h4>
-              <h4><span>{{texte9}}</span> {{ item.commune }}</h4>
-              <h4><span>{{texte10}}</span> {{ item.phone }}</h4>
-              <h4><span>{{texte11}}</span> {{ item.diplome }}</h4>
+              <h4><span style="color:orange;">{{texte6}} :</span> {{ item.email }}</h4>
+              <h4><span style="color:orange;">{{texte7}} :</span> {{ item.ville }}</h4>
+              <h4 v-if="item.quartier"><span style="color:orange;">{{texte8}} :</span> {{ item.quartier }}</h4>
+              <h4><span style="color:orange;">{{texte9}} :</span> {{ item.commune }}</h4>
+              <h4><span style="color:orange;">{{texte10}} :</span> {{ item.phone }}</h4>
+              <h4><span style="color:orange;">{{texte11}} :</span> {{ item.diplome }}</h4>
               <h4>
-                <span>{{texte12}}</span>
+                <span style="color:orange;">{{texte12}} :</span>
                 <img
                   :src="lienPhoto + item.photo"
                   class="w-25 border-2 rounded"

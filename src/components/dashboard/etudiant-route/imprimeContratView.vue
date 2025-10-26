@@ -118,6 +118,7 @@ h5 {
   justify-content: space-between;
   align-items: center;
   padding: 2em;
+  flex-wrap:wrap;
 }
 .mt-5 {
   margin-top: 101px !important;

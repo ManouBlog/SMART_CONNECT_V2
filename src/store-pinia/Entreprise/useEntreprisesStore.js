@@ -34,7 +34,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
            const listStudent = await instance.get("list_students_contact_by_entreprise");
            const studentRecruit = await instance.get("getStudentRecruit");
            
-          //  console.log("studentRecruit",studentRecruit)
+           
           //  console.log("listStudent",listStudent)
            if(listStudent['status'] === 200 && studentRecruit['status'] === 200 ){
             this.list_students = listStudent.data.data;
@@ -42,6 +42,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             this.studentRecruit = studentRecruit.data;
             loadingSpinner.launchLoading(false)
             console.log('this.student',this.student)
+            console.log("this.studentRecruit",this.studentRecruit)
 //             const grouped = this.list_students.students.reduce((acc, student) => {
 //   const nomOffre = student.pivot.offre.nom_offre;
 
@@ -63,7 +64,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             loadingSpinner.launchLoading(true)
             try{
              const response = await instance.get("list_offres_interess_by_students")
-             console.log("get_offres_interess_by_student",response.data)
+             console.log("get_offres_interess_by_student85")
              if(response['status'] === 200){
               // this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
                 // this.offresInteressByStudents = Help.groupBy(response.data)

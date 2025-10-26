@@ -37,7 +37,7 @@ export default {
       await instance
         .get("list_offres_interess_by_students")
         .then((res) => {
-          console.log("list_offres_interess_by_students", res);
+          console.log("list_offres_interess_by_students23", res);
           this.offresInteressByStudents = this.getTableau(res.data);
           console.log("OFFRESINTERESSBYSTUDENTS", this.offresInteressByStudents);
           this.detailStudents = this.offresInteressByStudents.find(item=>item.nom_offre === this.$route.params.offre).students;
@@ -98,7 +98,7 @@ export default {
 </template>
 <style scoped>
 :deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-body) {
-  height: 800px;
+  height:850px;
 }
 .conteneur_postulants {
   gap: 1.5em;

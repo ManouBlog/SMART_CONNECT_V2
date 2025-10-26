@@ -39,11 +39,17 @@ export default {
       try {
         const response = await instance.get("list_offres_interess_by_students");
         console.log(
-          "get_offres_interess_by_student",
-          response.data.filter((item) => item.recruit === 1)
+          "list_offres_interess_by_students12",
+          response
         );
         if (response["status"] === 200) {
-          this.dataAlarm = response.data.filter((item) => item.recruit === 0);
+          this.dataAlarm = Object.values(response?.data || {})
+  .filter(item => typeof item === 'object' && !Array.isArray(item))
+  .filter(item => item?.recruit === 0);
+//           this.dataAlarm = Object.values(response?.data || {}).filter(
+//   (item) => item?.recruit === 0
+// );
+          // this.dataAlarm = response?.data?.filter((item) => item?.recruit === 0);
         }
       } catch (error) {
         console.log(error);

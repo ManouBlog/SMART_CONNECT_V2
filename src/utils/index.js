@@ -12,6 +12,17 @@ export const Help = {
     convertInMoney(value){
         return new Intl.NumberFormat('de-DE').format(value)
     },
+    groupByRecruit(value){
+ const g = value.reduce((group,item)=>{
+        if(group[item.nom_offre] == null){
+            group[item.nom_offre]=[]
+        }
+        group[item.nom_offre].push(item)
+        return group;
+    },{})
+
+    return g
+    },
     groupBy(value){
     const g = value.reduce((group,item)=>{
         if(group[item.offre.nom_offre] == null){
