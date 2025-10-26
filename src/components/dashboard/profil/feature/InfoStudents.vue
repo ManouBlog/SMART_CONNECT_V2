@@ -274,7 +274,7 @@ export default {
         <i class="bi bi-camera-fill"></i>
       </div>
       <div>
-        <p style="color: orange; font-weight: bold">Bio</p>
+        <p v-if="infoBioStudent" style="color: orange; font-weight: bold">Bio</p>
         <p
           v-if="infoBioStudent"
           style="

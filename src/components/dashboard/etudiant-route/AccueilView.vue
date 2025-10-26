@@ -65,14 +65,17 @@ export default {
       "get_students_contact",
       "get_offres_interess_by_student",
     ]),
-    ...mapActions(useInfoStudentStore, ["filterDataWithYear","getStatistiqueDashboardStudent"]),
+    ...mapActions(useInfoStudentStore, [
+      "filterDataWithYear",
+      "getStatistiqueDashboardStudent",
+    ]),
     handleData(year) {
       // // console.log(year);
       if (
         this.$store.state.user &&
         this.$store.state.user.user.statut.statut === "etudiant"
       ) {
-        this.getStatistiqueDashboardStudent({annee:this.date_filter.$y});
+        this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
       } else {
         this.filterOffreWithYear(year);
       }
@@ -86,7 +89,7 @@ export default {
   },
   async created() {
     // this.get_all_student();
-    this.getStatistiqueDashboardStudent({annee:this.date_filter.$y});
+    this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
     this.get_students_contact();
     this.get_offres_interess_by_student();
     this.getAllOffresCreatedByEntreprise();
@@ -139,15 +142,15 @@ export default {
     <TableauDeBord
       v-if="
         this.$store.state.user &&
-        (this.$store.state.user.user.statut.statut === 'entreprise' 
-        || this.$store.state.user.user.statut.statut === 'particulier') 
+        (this.$store.state.user.user.statut.statut === 'entreprise' ||
+          this.$store.state.user.user.statut.statut === 'particulier')
       "
       :infosArray="[
         {
           libelle: texte5,
           nbre: `${offreCreatedByEntreprise.length}`,
         },
-        { libelle: texte6, nbre: this.offresInteressByStudents.length },
+        { libelle: texte6, nbre: Object.keys(this.offresInteressByStudents).length},
         {
           libelle: texte7,
           nbre: configUtils.statistiqueEntreprise(this.student, 2),
@@ -155,7 +158,7 @@ export default {
         {
           libelle: texte8,
           nbre:
-            this.offresInteressByStudents.length -
+            Object.keys(this.offresInteressByStudents).length -
             configUtils.statistiqueEntreprise(this.student, 2),
         },
       ]"

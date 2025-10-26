@@ -31,19 +31,16 @@ export const useDisponibiliteStore = defineStore('disponibilite', {
               Swal.fire({
                 icon: "error",
                 title: res.data.message,
-                showConfirmButton: false,
-                timer: 1500,
+                showConfirmButton: true,
               });
-             
             }
           })
-          .catch((err) => {
-            console.log(err);
+          .catch((error) => {
+            console.log(error);
             Swal.fire({
-              icon: "error",
-              title: err,
-              showConfirmButton: false,
-              timer: 1500,
+              icon: "info",
+              title: error.response.data.message,
+              showConfirmButton: true,
             });
            
           })

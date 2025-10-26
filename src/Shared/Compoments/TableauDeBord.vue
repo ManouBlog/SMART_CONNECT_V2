@@ -38,5 +38,7 @@ export default {
 }
 :where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-body,:where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-head{
   border:2px solid orange;
+  
 }
+
 </style>

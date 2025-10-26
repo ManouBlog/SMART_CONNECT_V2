@@ -51,6 +51,13 @@ export default {
   },
   computed: {
     ...mapState(useEntreprisesStore, ["offresInteressByStudents"]),
+    tableData() {
+      return Object.entries(this.offresInteressByStudents).map(([nomOffre, students]) => ({
+        nom_offre: nomOffre,
+        count: students.length,
+        students
+      }));
+    }
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -94,7 +101,7 @@ export default {
           :rows="10"
           :globalFilterFields="['nom_offre']"
           :rowsPerPageOptions="[5, 10, 20, 50]"
-          :value="offresInteressByStudents"
+          :value="tableData"
           v-model:filters="filters"
         >
           <template #paginatorstart>
@@ -106,7 +113,7 @@ export default {
                 border: none;
               "
             >
-              {{texte1}}{{ offresInteressByStudents.length }} {{texte2}}
+              {{texte1}}{{ Object.keys(this.offresInteressByStudents).length }} {{texte2}}
             </div>
           </template>
           <template #header>
@@ -130,7 +137,7 @@ export default {
           ></Column>
           <Column
             style="font-size: 1.8em; padding: 1em; text-align: center"
-            field="nbre.length"
+            field="count"
             :header="texte4"
           ></Column>
           <Column
@@ -152,7 +159,7 @@ export default {
             </template>
           </Column>
         </DataTable>
-        <div v-if="!offresInteressByStudents.length">
+        <div v-if="!Object.keys(this.offresInteressByStudents).length">
         <h1 class="not_data">Pas de donnée</h1>
         </div>
       </div>

@@ -1,7 +1,7 @@
 <script>
 import instance, { lienPhoto } from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
-import { Help } from "../../../utils";
+// import { Help } from "../../../utils";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import CardPostulants from "./features/CardPostulants.vue";
 import { mapActions } from "pinia";
@@ -25,19 +25,23 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+    getTableau(data){
+ return Object.entries(data).map(([nomOffre, students]) => ({
+        nom_offre: nomOffre,
+        count: students.length,
+        students
+      }));
+    },
     async get_offres_interess_by_student() {
       spinnerLoading.launchLoading(true);
       await instance
         .get("list_offres_interess_by_students")
         .then((res) => {
           console.log("list_offres_interess_by_students", res);
-          this.offresInteressByStudents = Help.groupBy(res.data);
+          this.offresInteressByStudents = this.getTableau(res.data);
           console.log("OFFRESINTERESSBYSTUDENTS", this.offresInteressByStudents);
-          for (let item in this.offresInteressByStudents) {
-            if (item === this.$route.params.offre) {
-              this.detailStudents = this.offresInteressByStudents[item];
-            }
-          }
+          this.detailStudents = this.offresInteressByStudents.find(item=>item.nom_offre === this.$route.params.offre).students;
+          console.log("this.detailStudents",this.detailStudents)
           spinnerLoading.launchLoading(false);
         })
         .catch((err) => {

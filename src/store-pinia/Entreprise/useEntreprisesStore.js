@@ -10,7 +10,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
         list_students:[],
         student:[],
         studentRecruit:[],
-        offresInteressByStudents:[],
+        offresInteressByStudents:{},
         list_abonnement:[],
         planAbonnement:null,
         dataAlarm:null,
@@ -54,28 +54,28 @@ export const useEntreprisesStore = defineStore('entreprise', {
              const response = await instance.get("list_offres_interess_by_students")
              console.log("get_offres_interess_by_student",response.data)
              if(response['status'] === 200){
-              this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
+              // this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
                 // this.offresInteressByStudents = Help.groupBy(response.data)
-                const groupedData = response.data.reduce((acc, curr) => {
-                    // Check if there's already an entry for the current `nom_offre`
-                    const existingEntry = acc.find(entry => entry.offre.nom_offre === curr.offre.nom_offre);
+                // const groupedData = response.data.reduce((acc, curr) => {
+                //     // Check if there's already an entry for the current `nom_offre`
+                //     const existingEntry = acc.find(entry => entry?.offre?.nom_offre === curr?.offre?.nom_offre);
                 
-                    // If it exists, push the current item into the `value` array
-                    if (existingEntry) {
-                        existingEntry.nbre.push(curr);
-                    } else {
-                        // If it doesn't exist, create a new entry
-                        acc.push({
-                            nom_offre: curr.offre.nom_offre,
-                            nbre: [curr]
-                        });
-                    }
+                //     // If it exists, push the current item into the `value` array
+                //     if (existingEntry) {
+                //         existingEntry.nbre.push(curr);
+                //     } else {
+                //         // If it doesn't exist, create a new entry
+                //         acc.push({
+                //             nom_offre: curr?.offre.nom_offre,
+                //             nbre: [curr]
+                //         });
+                //     }
                 
-                    return acc;
-                }, []);
-                this.offresInteressByStudents = groupedData
+                //     return acc;
+                // }, []);
+                this.offresInteressByStudents = response.data
                 loadingSpinner.launchLoading(false)
-                // console.log("this.offresInteressByStudents",this.offresInteressByStudents)
+                console.log("this.offresInteressByStudents",this.offresInteressByStudents)
              }
             }catch(error){
                 console.log(error)

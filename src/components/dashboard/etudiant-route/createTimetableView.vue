@@ -101,7 +101,7 @@ export default {
   methods: {
     ...mapActions(useDisponibiliteStore, ["createdDisponiblite"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-     ...mapActions(useLoadingSpinner, ["launchLoading"]),
+    ...mapActions(useLoadingSpinner, ["launchLoading"]),
     show_modify() {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = null;
@@ -249,7 +249,7 @@ export default {
             }
           })
           .catch((err) => {
-            console.log(err)
+            console.log(err);
           });
       }
     },
@@ -261,11 +261,10 @@ export default {
           this.timetables = res.data.data;
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     create_timetable() {
-      
       const datesOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
       // // console.log("datesOfCalendar", datesOfCalendar);
       const HourFirstHoraire = this.configUtils.getHourInDate(
@@ -305,7 +304,7 @@ export default {
         firstHoraire: FIRST_HORRAIRE,
         secondHoraire: SECOND_HORRAIRE,
         TotalHourDisponi: TOTALHOURHORAIRE,
-      });   
+      });
     },
     show_timetable(id) {
       this.modify_timetable = !this.modify_timetable;
@@ -338,7 +337,7 @@ export default {
           // // console.log("ELEMENT", this.timetable_show_id);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     show_box_confirmation_delete(id) {
@@ -372,7 +371,7 @@ export default {
         })
         .catch((err) => {
           // console.log(err.message);
-          console.log(err)
+          console.log(err);
         });
     },
     showBoxConfirmationDeleteCompetences(id) {
@@ -406,7 +405,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     deleteMyCompetence() {
@@ -425,7 +424,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     getAllCompetencesByStudents() {
@@ -444,7 +443,7 @@ export default {
           this.competencesPredf = res.data.data;
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     addTag(newTag) {
@@ -503,7 +502,7 @@ export default {
       }
     },
     addToSchedule() {
-     this.launchLoading(true);
+      this.launchLoading(true);
       this.schedule = [];
       const scheduleItem_debut = {
         jour: this.dateTime_debut.substring(0, 10), // Extrait YYYY-MM-DD
@@ -558,7 +557,7 @@ export default {
       };
       // // console.log("DATETIME", dataSend);
       instance
-        .post("create_schedule",dataSend)
+        .post("create_schedule", dataSend)
         .then((response) => {
           // // console.log("ADD DATETIME PERIODE", response.data.status);
           if (!response.data.status) {
@@ -577,15 +576,15 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.log('ERROR',error.response.data.message);
           Swal.fire({
             icon: "info",
-            title: error,
+            title: error.response.data.message,
             showConfirmButton: true,
           });
         })
         .finally(() => {
-         this.launchLoading(false);
+          this.launchLoading(false);
           this.dateTime_fin = null;
           this.dateTime_debut = null;
         });
@@ -633,52 +632,57 @@ export default {
       <div>
         <div class="container-fluid">
           <div>
-            <section style="display:flex;justify-content:center;margin-bottom:1em;">
-                  <select class="w-25 my-5"
-                  style="padding:1em;"
-                   name="select" id="select" v-model="handleHoraire">
-                    <option value="" disabled>Type de plage</option>
-                    <option value="Horaire">Plage Horaire</option>
-                    <option value="Periode">Période</option>
-                  </select>
-                </section>
-                <section class="d-flex justify-content-center align-items-center"
-                v-if="handleHoraire === 'Periode'">
-                  <div class="mx-3">
-                    <h5 class="text-start">Date et Heure de début</h5>
-                    <input
-                      v-model="dateTime_debut"
-                      type="datetime-local"
-                      :min="new Date().toISOString().substring(0, 16)"
-                      class="w-100 p-5"
-                      @change="chooseDateTime_debut"
-                    />
-                  </div>
-
-                  <div class="mx-3">
-                    <h5 class="text-start">Date et Heure de fin</h5>
-                    <input
-                      v-model="dateTime_fin"
-                      :min="
-                        dateTime_debut
-                          ? new Date(
-                              new Date(dateTime_debut).setDate(
-                                new Date(dateTime_debut).getDate() + 1
-                              )
-                            )
-                              .toISOString()
-                              .substring(0, 16)
-                          : null
-                      "
-                      :disabled="!dateTime_debut"
-                      type="datetime-local"
-                      class="w-100 p-5"
-                      @change="validateDates"
-                    />
-                  </div>
-                </section>
-            <div class="form theme-form projectcreate"
+            <section style="display: flex; justify-content: center; margin-bottom: 1em">
+              <select
+                class="w-25 my-5"
+                style="padding: 1em"
+                name="select"
+                id="select"
+                v-model="handleHoraire"
+              >
+                <option value="" disabled>Type de plage</option>
+                <option value="Horaire">Plage Horaire</option>
+                <option value="Periode">Période</option>
+              </select>
+            </section>
+            <section
+              class="d-flex justify-content-center align-items-center"
+              v-if="handleHoraire === 'Periode'"
             >
+              <div class="mx-3">
+                <h5 class="text-start">Date et Heure de début</h5>
+                <input
+                  v-model="dateTime_debut"
+                  type="datetime-local"
+                  :min="new Date().toISOString().substring(0, 16)"
+                  class="w-100 p-5"
+                  @change="chooseDateTime_debut"
+                />
+              </div>
+
+              <div class="mx-3">
+                <h5 class="text-start">Date et Heure de fin</h5>
+                <input
+                  v-model="dateTime_fin"
+                  :min="
+                    dateTime_debut
+                      ? new Date(
+                          new Date(dateTime_debut).setDate(
+                            new Date(dateTime_debut).getDate() + 1
+                          )
+                        )
+                          .toISOString()
+                          .substring(0, 16)
+                      : null
+                  "
+                  :disabled="!dateTime_debut"
+                  type="datetime-local"
+                  class="w-100 p-5"
+                  @change="validateDates"
+                />
+              </div>
+            </section>
+            <div class="form theme-form projectcreate">
               <div style="flex: 1 1 100px" v-if="handleHoraire !== 'Periode'">
                 <h6
                   v-if="!datesOfCalendar.length"
@@ -693,12 +697,11 @@ export default {
                   selectionMode="multiple"
                   @update:modelValue="handleValueDate"
                   inline
-                  style="width:333px;"
+                  style="width: 333px"
                   :manualInput="false"
                 />
               </div>
               <div style="flex: 1 1 200px">
-                
                 <section v-if="handleHoraire === 'Horaire'">
                   <h5 class="text-start text-warning">{{ texte1 }}</h5>
                   <div class="col-lg-6">
@@ -773,7 +776,7 @@ export default {
 
                 <div class="col-lg-12" v-if="handleHoraire === 'Horaire'">
                   <button
-                  :disabled="!First_heure_start_from && !First_heure_end_to"
+                    :disabled="!First_heure_start_from && !First_heure_end_to"
                     class="btn bg-warning p-5"
                     @click="create_timetable"
                   >
@@ -782,9 +785,9 @@ export default {
                 </div>
                 <div class="col-lg-12 my-5" v-if="handleHoraire === 'Periode'">
                   <button
-                  :disabled="!this.dateTime_fin"
+                    :disabled="!this.dateTime_fin"
                     class="btn bg-warning p-5"
-                     @click="addToSchedule"
+                    @click="addToSchedule"
                   >
                     {{ texte8 }}
                   </button>
@@ -798,7 +801,7 @@ export default {
   </div>
 </template>
 <style scoped>
-.container-fluid{
+.container-fluid {
   padding: 5.5em 2em !important;
 }
 .conteneur-plage {
