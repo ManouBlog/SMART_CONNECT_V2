@@ -17,7 +17,7 @@ export default {
 <template>
     <div>
         <span v-if="dataStatut.pivot.contrat === 1" class="badge bg-success"
-          >Sélectionner</span
+          >Sélectionné</span
         >
         <!-- <span
           class="mx-2"
@@ -29,7 +29,7 @@ export default {
         > -->
 
         <span v-if="dataStatut.pivot.contrat === 2" class="badge bg-danger"
-          >Refuser</span
+          >Refusé</span
         >
         <span v-if="dataStatut.pivot.contrat === 0" class="badge bg-primary"
           >En attente de réponse</span

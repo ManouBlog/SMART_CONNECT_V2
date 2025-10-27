@@ -191,7 +191,7 @@ export default {
                <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="date"
-                header="Date de travail"
+                header="Date de début de travail"
               >
               </Column>
               <Column

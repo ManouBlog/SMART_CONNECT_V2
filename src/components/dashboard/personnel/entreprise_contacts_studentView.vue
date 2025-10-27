@@ -70,27 +70,27 @@ export default {
   },
   async created() {
     this.get_students_contact();
-    const Nom = await this.handleTranslate('Nom');
-    const prenoms = await this.handleTranslate('prénoms');
+    const Nom = await this.handleTranslate('Talents');
+    // const prenoms = await this.handleTranslate('prénoms');
     const Email = await this.handleTranslate('Email');
     const Telephone = await this.handleTranslate('Télephone');
     const Statut = await this.handleTranslate('Statut');
-    const Offre = await this.handleTranslate('Offre');
-    const Etudiant =  await this.handleTranslate('Etudiant');
+    const Offre = await this.handleTranslate('Offres');
+    const Etudiant =  await this.handleTranslate('Talents');
     this.allColumnsDataStudentRecruit= [
         { fieldName: "nom_offre", headerName: Offre },
         { fieldName: "nom", headerName: Etudiant },
-        { fieldName: "job_debut", headerName: 'Date début du job' },
-        { fieldName: "job_fin", headerName: 'Date fin du job' },
+        { fieldName: "job_debut", headerName: 'Date de début de travail' },
+        { fieldName: "job_fin", headerName: 'Date de fin de travail' },
       ]
     this.allColumnsDataContacter = [
         { fieldName: "nom", headerName: Nom },
-        { fieldName: "prenoms", headerName: prenoms },
+        // { fieldName: "prenoms", headerName: prenoms },
         { fieldName: "email", headerName: Email },
         { fieldName: "phone", headerName: Telephone },
         { fieldName: "statut", headerName: Statut },
         { fieldName: "offre", headerName: Offre },
-         { fieldName: "id", headerName: "Date de travail" },
+         { fieldName: "id", headerName: "Date de début de travail" },
       ]
     this.texte0 = await this.handleTranslate('Liste des talents');
     this.texte1 = await this.handleTranslate(`Talents contactés`);
