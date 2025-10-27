@@ -634,7 +634,7 @@ export default {
           <div>
             <section style="display: flex; justify-content: center; margin-bottom: 1em">
               <select
-                class="w-25 my-5"
+                class="w-50 my-5"
                 style="padding: 1em"
                 name="select"
                 id="select"
@@ -647,6 +647,7 @@ export default {
             </section>
             <section
               class="d-flex justify-content-center align-items-center"
+              style="flex-wrap:wrap;"
               v-if="handleHoraire === 'Periode'"
             >
               <div class="mx-3">
