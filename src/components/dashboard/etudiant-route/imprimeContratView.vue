@@ -276,8 +276,11 @@ h5 {
         <span class="mx-2">"{{ user.nom }} {{ user.prenoms }}"</span>
         {{texte7}}
       </p>
+      
       <div>
         <h5 class="my-5">{{texte8}} {{ myOffre.salaire }} Fcfa</h5>
+        <h5 class="my-5">Date de début de travail {{ new Date(this.entreprise.offre.job_debut).toLocaleDateString('fr') }}</h5>
+        <h5 class="my-5">Date de fin de travail {{ new Date(this.entreprise.offre.job_fin).toLocaleDateString('fr') }}</h5>
         <h5>{{texte9}} {{ entreprise.offre.entreprise.contact }}</h5>
         <h5 class="my-5">{{texte10}} {{ myOffre.lieu }}</h5>
       </div>

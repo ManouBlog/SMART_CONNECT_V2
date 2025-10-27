@@ -87,7 +87,7 @@ export default {
     this.text6 = await this.handleTranslate("Entrez votre adresse e-mail");
     this.texte7 = await this.handleTranslate("Objet");
     this.texte8 = await this.handleTranslate(
-      "Dites-nous comment pouvons nous vous aider."
+      "Dites-nous comment pouvons-nous vous aider?"
     );
     this.texte9 = await this.handleTranslate("MonBrobroli,");
     this.texte10 = await this.handleTranslate("un pont Géant");

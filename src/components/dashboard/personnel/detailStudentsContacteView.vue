@@ -217,7 +217,7 @@ export default {
       <a-card style="width: 400px; background: var(--secondary-color) !important;color: var(--third-color) !important;" >
         <div class="d-flex justify-content-between align-items-center">
          <h1><em class="bi bi-person h1"></em></h1>
-         <h2 class="text-warning">{{ detailsStudents.nom }} {{ detailsStudents.prenoms }}</h2>
+         <h2 style="color:orange;font-weight:bold;">{{ detailsStudents.nom }} {{ detailsStudents.prenoms }}</h2>
         </div>
         <div>
           <h1 class="badge bg-primary w-25">{{texte1}}</h1>
@@ -244,20 +244,20 @@ export default {
           </div>
         </div>
         <section class="text-left my-3">
-         <h4><span>{{texte2}}</span> {{ detailsStudents.email }}</h4>
-         <h4><span>{{texte3}}</span> {{ detailsStudents.ville }}</h4>
-         <h4><span>{{texte4}}</span> {{ detailsStudents.quartier }}</h4>
-         <h4><span>{{texte5}}</span> {{ detailsStudents.commune }}</h4>
-         <h4><span>{{texte6}}</span> {{ detailsStudents.phone }}</h4>
-         <h4><span>{{texte7}}</span> {{ detailsStudents.diplome }}</h4>
+         <h4><span style="color:orange;">{{texte2}} :</span> {{ detailsStudents.email }}</h4>
+         <h4><span style="color:orange;">{{texte3}} :</span> {{ detailsStudents.ville }}</h4>
+         <h4><span style="color:orange;">{{texte4}} :</span> {{ detailsStudents.quartier }}</h4>
+         <h4><span style="color:orange;">{{texte5}} :</span> {{ detailsStudents.commune }}</h4>
+         <h4><span style="color:orange;">{{texte6}} :</span> {{ detailsStudents.phone }}</h4>
+         <h4><span style="color:orange;">{{texte7}} :</span> {{ detailsStudents.diplome }}</h4>
          <div style="text-align:left;">
-           <h4><span>{{texte8}}</span></h4>
+           <h4><span style="color:orange;">{{texte8}} :</span></h4>
            <n-image width="100" :src="lienPhoto + detailsStudents.photo"
              :alt="detailsStudents.photo" />
          </div>
         </section>
         <section>
-          <h1 class="badge bg-dark w-25">{{texte9}}</h1>
+          <h1 class="badge bg-dark w-25 text-warning">{{texte9}}</h1>
           <div
             v-for="(competence, index) in detailsStudents.competences"
             :key="index"
