@@ -661,7 +661,7 @@ export default {
           }
           if (res.data.status === false) {
             Swal.fire({
-              icon: "error",
+              icon: "info",
               title: res.data.message,
               showConfirmButton: true,
             });
@@ -701,7 +701,7 @@ export default {
           }
           if (res.data.status === false) {
             Swal.fire({
-              icon: "error",
+              icon: "info",
               title: res.data.message,
               showConfirmButton: false,
               timer: 2000,
@@ -748,8 +748,8 @@ export default {
     verfEnter() {
       if (this.user && this.user.user.statut.statut === "etudiant") {
         Swal.fire({
-          icon: "error",
-          title: "Vous n'êtes pas autorisé26.",
+          icon: "info",
+          title: "Vous n'êtes pas autorisé",
           showConfirmButton: false,
           timer: 3000,
         });
@@ -768,7 +768,7 @@ export default {
         );
         // console.log("this.selectedService", this.selectedService);
       } catch (error) {
-        // console.log("error", error);
+        console.log("error", error);
       }
     },
     removeDate(date, hide) {

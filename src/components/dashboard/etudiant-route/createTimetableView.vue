@@ -655,7 +655,8 @@ export default {
                   v-model="dateTime_debut"
                   type="datetime-local"
                   :min="new Date().toISOString().substring(0, 16)"
-                  class="w-100 p-5"
+                  class="w-100"
+                  style="padding:1em !important;"
                   @change="chooseDateTime_debut"
                 />
               </div>
@@ -677,7 +678,8 @@ export default {
                   "
                   :disabled="!dateTime_debut"
                   type="datetime-local"
-                  class="w-100 p-5"
+                  class="w-100"
+                   style="padding:1em !important;"
                   @change="validateDates"
                 />
               </div>

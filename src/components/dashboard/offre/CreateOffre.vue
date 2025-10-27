@@ -259,8 +259,8 @@ export default {
     this.texte13 = await this.handleTranslate("Nombre de postes disponibles");
     this.texte14 = await this.handleTranslate("Date et heure de début de l'offre");
     this.texte15 = await this.handleTranslate("Date et heure d'expiration de l'offre");
-    this.texte16 = await this.handleTranslate("Date et heure d'entrée en fonction");
-    this.texte17 = await this.handleTranslate("Date et heure de fin d'activité");
+    this.texte16 = await this.handleTranslate("Date de début de travail");
+    this.texte17 = await this.handleTranslate("Date de fin de travail");
     this.texte18 = await this.handleTranslate("Description");
     this.texte19 = await this.handleTranslate("Enregistrer");
     this.texte20 = await this.handleTranslate("chargement...");

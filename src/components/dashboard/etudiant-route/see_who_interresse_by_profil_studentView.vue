@@ -169,7 +169,7 @@ export default {
      this.texte6 = await this.handleTranslate('Recherche:');
      this.texte7 =  await this.handleTranslate(`Nom de l'entreprise`);
      this.texte8 =  await this.handleTranslate(`Email de l'entreprise`);
-     this.texte9 = await this.handleTranslate(`Prise de poste`);
+     this.texte9 = await this.handleTranslate(`Date de début de travail`);
      this.texte90 = await this.handleTranslate(`Offre`);
      this.texte10 = await this.handleTranslate("Sélectionné");
      this.texte11 = await this.handleTranslate('refuser');
@@ -286,6 +286,21 @@ export default {
                     <span
                       >{{
                         slotProps.data?.offre?.job_debut
+                      }}
+                    </span>
+                  </div>
+                </template>
+              </Column>
+              <Column
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="id"
+                header="Date de fin de travail"
+              >
+                <template #body="slotProps">
+                  <div>
+                    <span
+                      >{{
+                        slotProps.data?.offre?.job_fin
                       }}
                     </span>
                   </div>

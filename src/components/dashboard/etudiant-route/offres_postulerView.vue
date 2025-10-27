@@ -77,7 +77,7 @@ export default {
      this.texte2 = await this.handleTranslate("Lieu du travail");
      this.texte3 = await this.handleTranslate(`Honoraire (Fcfa)`);
      this.texte4 = await this.handleTranslate("Prime pas fixée.");
-     this.texte5 = await this.handleTranslate('Sélectionné');
+     this.texte5 = await this.handleTranslate('Statut');
      this.texte6 = await this.handleTranslate('Détails');
      this.texte7 =  await this.handleTranslate('Veuillez faire un abonnement avant de postuler à cette offre');
      this.texte8 =  await this.handleTranslate('Souscrire à un abonnement');
