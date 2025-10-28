@@ -823,7 +823,7 @@ export default {
 </script>
 
 <template>
-  <div style="margin: 9.5em 0">
+  <div class="space-talent">
     <div class="conteneur_student" v-if="timetable_for_student">
       <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
 
@@ -986,6 +986,9 @@ h1 {
   margin-top: 6em;
   padding: 0 5em;
 }
+.space-talent{
+  margin:9.5em 0;
+}
 
 select {
   padding: 0.8em !important;
@@ -1049,11 +1052,15 @@ hr {
   border-radius: 100%;
 }
 @media (max-width: 780px) {
+ .space-talent{
+  margin:0.5em 0;
+}
  .conteneur_calendar_student {
   margin-top:9em !important;
 }
 .conteneur_student{
   padding:0 1em;
+  margin-top:0;
 }
 }
 @media (max-width: 580px) {

@@ -56,7 +56,7 @@ export default {
   async created() {
     this.get_offres_interess_by_student();
     this.texte0 = await this.handleTranslate("Détails des postulants");
-    this.texte1 = await this.handleTranslate("étudiant");
+    this.texte1 = await this.handleTranslate("Talent");
   },
 };
 </script>

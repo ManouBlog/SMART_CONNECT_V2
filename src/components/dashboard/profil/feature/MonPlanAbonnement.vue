@@ -56,7 +56,7 @@ export default {
 <template>
   <div class="conteneur_tableau_de_bord d-flex justify-content-center" v-if="planAbonnement">
     <a-card :title="planAbonnement.libelle" :bordered="false" style="width: 400px">
-      <p class="text-start">{{ planAbonnement.periode }} {{texte}}</p>
+      <!-- <p class="text-start">{{ planAbonnement.periode }} {{texte}}</p> -->
       <div class="px-5" v-html="planAbonnement.description"></div>
       <hr />
       <div class="d-flex align-items-center gap-5 justify-content-center main-color">
