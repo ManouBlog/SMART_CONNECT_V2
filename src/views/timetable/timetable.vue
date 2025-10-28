@@ -611,7 +611,6 @@ export default {
           service: this.selectedCompetenceWithPeriode,
         })
         .then((res) => {
-          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -687,14 +686,14 @@ export default {
       this.selecteDatepickers = date;
       toggle({ ref: e.target });
     },
-    jourSelect() {
-      return this.jourOfMois.forEach((element) => {
-        let month = new Date().getMonth() + 1;
-        let year = new Date().getFullYear();
-        // console.log(element.jour + "-" + month + "-" + year);
-        return element.jour + "-" + month + "-" + year;
-      });
-    },
+    // jourSelect() {
+    //   return this.jourOfMois.forEach((element) => {
+    //     let month = new Date().getMonth() + 1;
+    //     let year = new Date().getFullYear();
+    //     // console.log(element.jour + "-" + month + "-" + year);
+    //     return element.jour + "-" + month + "-" + year;
+    //   });
+    // },
   },
   async created() {
     this.$store.dispatch("handleListeFavoris");
@@ -1373,6 +1372,9 @@ export default {
   color: none !important;
 }
 @media screen and (max-width: 1199px) {
+  .jobs_filters {
+  margin: 0em 0 2em 0;
+}
   .d-grid {
     grid-template-columns: repeat(3, 1fr);
   }
