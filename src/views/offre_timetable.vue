@@ -1,28 +1,28 @@
 <script>
-import instance,{lienPhoto} from "../api/api";
+import instance, { lienPhoto } from "../api/api";
 import Swal from "sweetalert2";
 import VueMultiselect from "vue-multiselect";
-import {configUtils} from "../Shared/Utils";
+import { configUtils } from "../Shared/Utils";
 import { mapActions } from "pinia";
-import {useLoadingSpinner} from "../store-pinia/LoadingSpinner/useLoadingSpinner";
+import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 
 const RegisterStore = useRegisterStore();
-const loadingSpinner = useLoadingSpinner()
+const loadingSpinner = useLoadingSpinner();
 export default {
   name: "Offre_timetable",
   components: { VueMultiselect },
   data() {
     return {
-      texte:"",
-      texte1:"",
+      texte: "",
+      texte1: "",
       texte2: "",
       texte3: "",
       texte4: "",
       texte5: "",
       texte6: "",
-      lienPhoto:lienPhoto,
+      lienPhoto: lienPhoto,
       texte7: "",
       texte8: "",
       texte9: "",
@@ -43,8 +43,8 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
-      configUtils:configUtils,
+      texte27: "",
+      configUtils: configUtils,
       MylistOffre: [],
       compte: 2,
       longueur: null,
@@ -74,19 +74,17 @@ export default {
     list_offre() {
       return this.filtreOffre();
     },
-    fieldSearch(){
-      return !this.searchName || !this.categorie || !this.searchLieu
-    }
+    fieldSearch() {
+      return !this.searchName || !this.categorie || !this.searchLieu;
+    },
   },
   methods: {
-      handleSearchClick() {
-    this.list_offre.length > 0 ? this.searchOffres() : this.get_list_offre()
-  },
+    handleSearchClick() {
+      this.list_offre.length > 0 ? this.searchOffres() : this.get_list_offre();
+    },
     searchOffres() {
       const dataSearch = {
-        categorie: this.categorie.length
-          ? this.categorie?.map((item) => item?.id)
-          : [],
+        categorie: this.categorie.length ? this.categorie?.map((item) => item?.id) : [],
         nom_offre: this.searchName,
         lieu: this.searchLieu,
       };
@@ -102,60 +100,67 @@ export default {
     //     }
     //   });
     // },
-     async handleListOffresWithoutSearch() {
-       loadingSpinner.launchLoading(true)
+    async handleListOffresWithoutSearch() {
+      loadingSpinner.launchLoading(true);
       await instance
         .get("list_offres")
         .then((res) => {
           // console.log("list_offres", res);
           if (res.data.status) {
-            this.MylistOffre = res.data.data.filter(item=>{
-              return JSON.stringify(new Date().toISOString().substring(0, 10)) <
-   JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+            this.MylistOffre = res.data.data.filter((item) => {
+              return (
+                JSON.stringify(new Date().toISOString().substring(0, 10)) <
+                JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+              );
             });
-            this.MylistsOffres = res.data.data.filter(item=>{
-              return JSON.stringify(new Date().toISOString().substring(0, 10)) <
-   JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+            this.MylistsOffres = res.data.data.filter((item) => {
+              return (
+                JSON.stringify(new Date().toISOString().substring(0, 10)) <
+                JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+              );
             });
             this.lengthOfMylistOffre = this.MylistsOffres.length;
-         
           }
         })
         .catch((err) => {
           // console.log(err)
-          console.log(err)
-          RegisterStore.changeValueIsModal()
+          console.log(err);
+          RegisterStore.changeValueIsModal();
         })
-        .finally(()=>{
-           loadingSpinner.launchLoading(false)
-        })
+        .finally(() => {
+          loadingSpinner.launchLoading(false);
+        });
     },
     handleListOffresWithSearch(data) {
       // console.log("handleListOffresWithSearch")
-      loadingSpinner.launchLoading(true)
+      loadingSpinner.launchLoading(true);
       instance
         .post("search_offres", data)
         .then((res) => {
           // console.log("search_offres", res);
           if (res.data.status) {
             // this.listOffre = res.data.data;
-            this.MylistOffre = res.data.data.filter(item=>{
-              return JSON.stringify(new Date().toISOString().substring(0, 10)) <
-   JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+            this.MylistOffre = res.data.data.filter((item) => {
+              return (
+                JSON.stringify(new Date().toISOString().substring(0, 10)) <
+                JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+              );
             });
-            this.MylistsOffres = res.data.data.filter(item=>{
-              return JSON.stringify(new Date().toISOString().substring(0, 10)) <
-   JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+            this.MylistsOffres = res.data.data.filter((item) => {
+              return (
+                JSON.stringify(new Date().toISOString().substring(0, 10)) <
+                JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
+              );
             });
             this.lengthOfMylistOffre = this.MylistsOffres.length;
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         })
-        .finally(()=>{
-          loadingSpinner.launchLoading(false)
-        })
+        .finally(() => {
+          loadingSpinner.launchLoading(false);
+        });
     },
     get_list_offre(search = null) {
       if (!search) {
@@ -204,7 +209,7 @@ export default {
     //     }
     //   });
     // },
-  
+
     newLoadmore() {
       if (this.length > this.MylistOffre.length) return;
       this.length = this.length + 3;
@@ -234,7 +239,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           Swal.fire({
             icon: "error",
             title: err.data.message,
@@ -263,22 +268,21 @@ export default {
   async created() {
     this.texte = await this.handleTranslate(`selectionne une categorie`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
-     this.texte2 = await this.handleTranslate("ex: Angre");
-     this.texte3 = await this.handleTranslate('Offres');
-     this.texte4 = await this.handleTranslate('Nous avons trouvé');
-     this.texte5 = await this.handleTranslate('Nouveauté');
-     this.texte6 = await this.handleTranslate('Voir les Détails');
-     this.texte7 =  await this.handleTranslate('Offre Expirée');
-     this.texte8 =  await this.handleTranslate('Charger plus');
-     this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);
-     this.texte10 = await this.handleTranslate("ex: Angre");
-     this.texte11 = await this.handleTranslate('Offres');
-     this.texte12 = await this.handleTranslate('Nous avons trouvé');
-     this.texte13 = await this.handleTranslate('Nouveauté');
-     this.texte14 = await this.handleTranslate('Voir les Détails');
-     this.texte15 =  await this.handleTranslate('Offre Expirée');
-     this.texte16 =  await this.handleTranslate('Charger plus');
-     
+    this.texte2 = await this.handleTranslate("ex: Angre");
+    this.texte3 = await this.handleTranslate("Offres");
+    this.texte4 = await this.handleTranslate("Nous avons trouvé");
+    this.texte5 = await this.handleTranslate("Nouveauté");
+    this.texte6 = await this.handleTranslate("Voir les Détails");
+    this.texte7 = await this.handleTranslate("Offre Expirée");
+    this.texte8 = await this.handleTranslate("Charger plus");
+    this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);
+    this.texte10 = await this.handleTranslate("ex: Angre");
+    this.texte11 = await this.handleTranslate("Offres");
+    this.texte12 = await this.handleTranslate("Nous avons trouvé");
+    this.texte13 = await this.handleTranslate("Nouveauté");
+    this.texte14 = await this.handleTranslate("Voir les Détails");
+    this.texte15 = await this.handleTranslate("Offre Expirée");
+    this.texte16 = await this.handleTranslate("Charger plus");
   },
   mounted() {
     this.get_list_offre();
@@ -331,21 +335,22 @@ export default {
               <span class="glyphicon fa fa-location-arrow" aria-hidden="true"></span>
             </div>
           </div>
-          <div style="margin-top:-0.8em;">
-            <button 
-            :disabled="!fieldSearch && !list_offre.length"
-            :class="!fieldSearch  ? null:'bg-primary'"
-            class="btn-lg" 
-            @click.prevent="handleSearchClick">
+          <div style="margin-top: -0.8em">
+            <button
+              :disabled="!fieldSearch && !list_offre.length"
+              :class="!fieldSearch ? null : 'bg-primary'"
+              class="btn-lg"
+              @click.prevent="handleSearchClick"
+            >
               Rechercher
             </button>
-            <span v-if="!list_offre.length"
-             @click.prevent="handleSearchClick"
-             style="color:white;font-weight:bold;cursor:pointer;"
+            <span
+              v-if="!list_offre.length"
+              @click.prevent="handleSearchClick"
+              style="color: white; font-weight: bold; cursor: pointer"
             >
-             Rédemarrer
+              Rédemarrer
             </span>
-            
           </div>
         </form>
       </div>
@@ -355,36 +360,35 @@ export default {
       <div class="col-lg-12" :class="spinner ? 'conteneur_offre' : null">
         <div class="offres_disponible d-flex justify-content-between align-items-center">
           <h5 class="image-heading">
-            <span class="list_offre"> {{ lengthOfMylistOffre }}</span> {{texte3}}
+            <span class="list_offre"> {{ lengthOfMylistOffre }}</span> {{ texte3 }}
           </h5>
           <span class="text-secondary"
-            >{{texte4}}{{ lengthOfMylistOffre }} {{texte3}}</span
+            >{{ texte4 }}{{ lengthOfMylistOffre }} {{ texte3 }}</span
           >
         </div>
         <div
           class="container_result content"
           v-for="(offre, index) in list_offre"
           :key="index"
-          
         >
-        
-          <section class="one conteneur_ecriteau"
-        
-          >
+          <section class="one conteneur_ecriteau">
             <div class="logo_img_offre">
               <div class="conteneur-image-logo_jobs">
-                <img 
-                :src="offre.entreprise.logo ? lienPhoto+offre.entreprise.logo :'/brobroli.png'"
-                :alt="offre.entreprise.logo ? offre.entreprise.logo :'smart-connect'" 
-                >
-            </div>
+                <img
+                  :src="
+                    offre.entreprise.logo
+                      ? lienPhoto + offre.entreprise.logo
+                      : '/brobroli.png'
+                  "
+                  :alt="offre.entreprise.logo ? offre.entreprise.logo : 'smart-connect'"
+                />
+              </div>
             </div>
             <div class="informations_offres">
               <span
                 class="badge bg-danger badge_new"
-                :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'
-                "
-                >{{texte5}}</span
+                :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'"
+                >{{ texte5 }}</span
               >
               <h1>{{ offre.nom_offre }}</h1>
               <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
@@ -403,25 +407,22 @@ export default {
               </h6>
               <router-link :to="{ name: 'OffreDetail', params: { id: offre.id } }">
                 <button
-                  :class="configUtils.ifJobIsEnd(offre.fin) ? 'd-none':null
-                  "
+                  :class="configUtils.ifJobIsEnd(offre.fin) ? 'd-none' : null"
                   class="btn btn-Conex"
                 >
-                  {{texte6}} <em class="bi bi-eye"></em>
+                  {{ texte6 }} <em class="bi bi-eye"></em>
                 </button>
               </router-link>
-              <strong
-                class="text-danger"
-                v-if="configUtils.ifJobIsEnd(offre.fin)"
-                >{{texte7}}</strong
-              >
+              <strong class="text-danger" v-if="configUtils.ifJobIsEnd(offre.fin)">{{
+                texte7
+              }}</strong>
             </div>
           </div>
         </div>
-         <div v-if="!list_offre.length" class="text-center font-bold py-5 my-5">
-      <h2 class="text-center">Pas d'Offres pour l'instant</h2>
-      <img src="/notOffers.png" alt="notOffers">
-    </div>
+        <div v-if="!list_offre.length" class="text-center font-bold py-5 my-5">
+          <h2 class="text-center">Pas d'Offres pour l'instant</h2>
+          <img src="/notOffers.png" alt="notOffers" />
+        </div>
         <div>
           <div class="col-lg-12 lgPlus" v-if="MylistOffre.length">
             <button
@@ -429,10 +430,10 @@ export default {
               v-if="length < MylistOffre.length"
               class="btn-lg bg-primary"
             >
-              {{texte8}} <em class="bi bi-chevron-down"></em>
+              {{ texte8 }} <em class="bi bi-chevron-down"></em>
             </button>
             <h2 v-if="length >= MylistOffre.length || length >= MylistsOffres.length">
-             {{texte9}}
+              {{ texte9 }}
             </h2>
           </div>
         </div>
@@ -441,12 +442,12 @@ export default {
   </section>
 </template>
 <style scoped>
-.main-container{
-  padding:0 2em;
+.main-container {
+  padding: 0 2em;
 }
 .conteneur-image-logo_jobs {
   width: 100px;
-  height:50px;
+  height: 50px;
   position: relative;
 }
 .conteneur-image-logo_jobs img {
@@ -459,22 +460,22 @@ export default {
   bottom: 0;
   right: 0;
 }
-form{
+form {
   display: flex;
   align-items: center;
   place-content: center;
-  gap:1em;
+  gap: 1em;
   flex-wrap: wrap;
 }
 
 .form-group {
-  position:relative;
-  width:400px !important;
+  position: relative;
+  width: 400px !important;
 }
 .glyphicon {
-  position:absolute;
-  right:1em;
-  top:10px;
+  position: absolute;
+  right: 1em;
+  top: 10px;
   z-index: 9;
 }
 
@@ -498,7 +499,7 @@ form{
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  gap:1em;
+  gap: 1em;
   flex-wrap: wrap;
 }
 .d-none {
@@ -581,11 +582,11 @@ select {
 .btn:hover {
   border: 1px solid rgb(0, 0, 0) !important;
 }
-:deep(.multiselect__option--highlight){
-  background:orange;
+:deep(.multiselect__option--highlight) {
+  background: orange;
 }
-:deep(.multiselect__tag){
-  background:orange !important;
+:deep(.multiselect__tag) {
+  background: orange !important;
 }
 .lgPlus {
   margin: 5em 0;
@@ -598,6 +599,12 @@ select {
   background: #f77f00 !important;
   color: white;
   border: 1px solid black;
+}
+@media (max-width: 768px) {
+  .jobs_filters {
+    padding: 1em 0; /* réduit le padding vertical */
+    margin: 0.5em 0; /* réduit le margin vertical */
+  }
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
