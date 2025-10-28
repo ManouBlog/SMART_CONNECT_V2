@@ -223,6 +223,9 @@ h1 {
 .conteneur_message div {
   flex: 1 1 200px;
 }
+:deep(.ant-form-item-required){
+  color:white !important;
+}
 :deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-form-item .ant-form-item-label >label){
   color:white !important;
 }
