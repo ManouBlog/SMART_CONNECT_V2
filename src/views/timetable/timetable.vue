@@ -23,9 +23,11 @@ export default {
     return {
       lienPhoto: lienPhoto,
       Help: Help,
+      competenceAdd: null,
       texte01: "",
       texte: "",
       texte2: "",
+      dateSelectConvert: "",
       texte3: "",
       texte1: "",
       texte4: "",
@@ -55,7 +57,7 @@ export default {
       dateRendezVousStudentWithEntreprise: null,
       MyDateRendezVous: [],
       user: this.$store.state.user,
-      competences: "",
+      competences: [],
       competence: "",
       contacter: false,
       datesSelect: [],
@@ -96,39 +98,39 @@ export default {
       checkboxDate: false,
       checkbox: false,
       option: "",
-      jourOfMois: [
-        { jour: "1" },
-        { jour: "2" },
-        { jour: "3" },
-        { jour: "4" },
-        { jour: "5" },
-        { jour: "6" },
-        { jour: "7" },
-        { jour: "8" },
-        { jour: "9" },
-        { jour: "10" },
-        { jour: "11" },
-        { jour: "12" },
-        { jour: "13" },
-        { jour: "14" },
-        { jour: "15" },
-        { jour: "16" },
-        { jour: "17" },
-        { jour: "18" },
-        { jour: "19" },
-        { jour: "20" },
-        { jour: "21" },
-        { jour: "22" },
-        { jour: "23" },
-        { jour: "24" },
-        { jour: "25" },
-        { jour: "26" },
-        { jour: "27" },
-        { jour: "28" },
-        { jour: "29" },
-        { jour: "30" },
-        { jour: "31" },
-      ],
+      // jourOfMois: [
+      //   { jour: "1" },
+      //   { jour: "2" },
+      //   { jour: "3" },
+      //   { jour: "4" },
+      //   { jour: "5" },
+      //   { jour: "6" },
+      //   { jour: "7" },
+      //   { jour: "8" },
+      //   { jour: "9" },
+      //   { jour: "10" },
+      //   { jour: "11" },
+      //   { jour: "12" },
+      //   { jour: "13" },
+      //   { jour: "14" },
+      //   { jour: "15" },
+      //   { jour: "16" },
+      //   { jour: "17" },
+      //   { jour: "18" },
+      //   { jour: "19" },
+      //   { jour: "20" },
+      //   { jour: "21" },
+      //   { jour: "22" },
+      //   { jour: "23" },
+      //   { jour: "24" },
+      //   { jour: "25" },
+      //   { jour: "26" },
+      //   { jour: "27" },
+      //   { jour: "28" },
+      //   { jour: "29" },
+      //   { jour: "30" },
+      //   { jour: "31" },
+      // ],
       MyJour: null,
       moreExist: false,
       nextPage: 0,
@@ -154,19 +156,12 @@ export default {
     };
   },
   computed: {
-    paginatedData() {
-      let start = this.currentPage * this.perPage - this.perPage;
-      let end = start + this.perPage;
-      return this.timetable_for_student.etoiles.slice(start, end);
-    },
-    startPage() {
-      if (this.currentPage === 1) return 1;
-      if (this.currentPage === this.totalPages)
-        return this.totalPages - this.maxVisibleButtons + (this.maxVisibleButtons - 1);
-      return this.currentPage - 1;
-    },
-    endPage() {
-      return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
+    hasAnyValue() {
+      return (
+        (this.datesSelect && this.datesSelect.length > 0) ||
+        (this.competence && this.competence.length > 0) ||
+        (this.location && this.location.trim() !== "")
+      );
     },
     pages() {
       let range = [];
@@ -182,56 +177,46 @@ export default {
       return this.currentPage === this.totalPages;
     },
     list_emploi() {
-      // if (this.location !== "") {
-      //   return this.list.filter((item) => {
-      //     return item.commune.toLowerCase().includes(this.location.toLowerCase());
-      //   });
-      // }
       return this.list.slice(0, this.length);
     },
-    // jourOfMonth() {
-    //   let month = new Date().getMonth() + 1;
-    //   let year = new Date().getFullYear();
-    //   let nombre = "0";
-    //   if (month < 10 || month < 11 || month < 12) {
-    //     nombre = nombre + month;
-    //   }
-    //   return [
-    //     ...this.jourOfMois.map((element) => ({
-    //       jou: year + "-" + nombre + "-" + element.jour,
-    //     })),
-    //   ];
-    // },
-    // dates() {
-    //   return this.days.map((day) => day.date);
-    // },
-    // attribut() {
-    //   return this.dates.map((date) => ({
-    //     highlight: true,
-    //     dates: date,
-    //   }));
-    // },
-
-    // attributes() {
-    //   return [
-    //     ...this.schedule.map((time) => ({
-    //       dates: new Date(time.jour),
-    //       highlight: {
-    //         color: time.job == 3 ? "gray" : time.job == 1 ? "red" : "green",
-    //         fillMode: time.job == 3 ? "light" : "solid",
-    //       },
-    //       popover: {
-    //         label: {
-    //           one: time.First_horaire,
-    //           two: time.Second_horaire,
-    //         },
-    //         visibility: "hover",
-    //       },
-    //     })),
-    //   ];
-    // },
+  },
+  watch: {
+    // Watch sur la computed property hasAnyValue
+    hasAnyValue(newVal) {
+      if (!newVal) {
+        // Tous les champs sont vides
+        this.get_list_emploi();
+      }
+    },
   },
   methods: {
+    async filterRecherche() {
+      loadingSpinner.launchLoading(true);
+      // 🔎 Construction des critères de recherche
+      const filtres = {
+        dates: this.dateSelectConvert,
+        competences: this.competenceAdd,
+        location: this.location?.trim(),
+      };
+
+      // Exemple de filtrage local
+      console.log("🔍 Filtres de recherche :", filtres);
+      await instance
+        .post("filterStudents", filtres)
+        .then((response) => {
+          console.log("RESPONSE FILTRE STUDENT", response.data.students);
+          const transformed = this.addOtherElement(response.data.students);
+          // Mise à jour de la liste et de sa longueur
+          this.list = transformed;
+          this.lengthOfMylistEmploi = transformed.length;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          loadingSpinner.launchLoading(false);
+        });
+    },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     onPageChange(page) {
       this.currentPage = page;
@@ -274,205 +259,20 @@ export default {
       return dateConvert;
     },
     selectDate() {
-      // console.log("elem", this.datesSelect);
-      let newDateConvert = this.convertDate(this.datesSelect);
-      this.MylistEmploi.forEach((element) => {
-        const { days } = element;
-        // console.log("DAYS", days);
-        newDateConvert.forEach((dateSearch) => {
-          days.forEach((daySave) => {
-            if (daySave === dateSearch) {
-              this.Myarray.push(element);
-            }
-          });
-        });
-      });
-      // console.log("this.Myarray", this.Myarray);
-      if (!this.datesSelect.length) {
-        this.list = this.MylistEmploi;
-      } else {
-        this.list = this.Myarray;
-      }
-
-      // console.log("newDateConvert", newDateConvert);
-      // console.log("this.list", this.list);
-      // console.log("this.days", this.days);
-      // console.log("this.MylistEmploi", this.MylistEmploi);
+      this.dateSelectConvert = this.convertDate(this.datesSelect);
+      console.log("this.dateSelectConvert", this.dateSelectConvert);
     },
-    onDayClick(day) {
-      const idx = this.days.findIndex((d) => d.id === day.id);
-      // console.log(new Date().toLocaleDateString());
-      if (idx >= 0) {
-        this.days.splice(idx, 1);
-      } else {
-        this.days.push({
-          id: day.id,
-          date: day.date,
-        });
-      }
-      if (this.Myarray.length) {
-        let filterArray = [];
-        this.Myarray.forEach((item) => {
-          this.days.forEach((arr) => {
-            if (item.days.includes(arr.id)) {
-              filterArray.push(item);
-            }
-          });
-        });
-        this.list = [...new Set(filterArray)];
-      }
-      this.MylistEmploi.forEach((element) => {
-        this.days.forEach((e) => {
-          if (element.days.includes(e.id)) {
-            this.Myarray.push(element);
-          }
-        });
-      });
-      this.list = [...new Set(this.Myarray)];
-      // console.log("DATE", this.Myarray);
-      if (!this.days.length) {
-        this.list = this.MylistEmploi;
-        this.hideButtons = true;
-      }
-
-      this.showCalenderFilter = !this.showCalenderFilter;
-    },
-    showDate() {
-      this.checkboxDate = !this.checkboxDate;
-      if (this.checkbox === true) {
-        this.checkbox = !this.checkbox;
-      }
-      if (this.checkboxDate === true) {
-        this.opinion = "date";
-      }
-    },
-    showPeriode() {
-      // console.log(this.checkbox);
-      if (this.checkboxDate === true) {
-        this.checkboxDate = !this.checkboxDate;
-      }
-      this.checkbox = !this.checkbox;
-      if (this.checkbox === true) {
-        this.opinion = "periode";
-      }
-    },
-    addTag(newTag) {
-      // console.log(newTag);
-      this.Myarray = [];
-      // this.list = [];
-      this.MylistEmploi.forEach((element) => {
-        newTag.forEach((e) => {
-          element.jours.forEach((item) => {
-            if (item.jour === e.jou) {
-              // console.log(element);
-              this.Myarray.push(element);
-            }
-          });
-        });
-      });
-      this.list = [...new Set(this.Myarray)];
-      // console.log("LIST", this.list);
-      this.hideButtons = true;
-
-      if (!newTag.length) {
-        this.list = this.MylistEmploi;
-        this.hideButtons = true;
-      }
+    getCompetenceIds(competences) {
+      return competences.map((c) => c.id);
     },
     addComp(newTag) {
-      // console.log(this.days.length);
-      if (this.Myarray.length > 0) {
-        let newArray = [];
-        this.Myarray.forEach((item) => {
-          newTag.forEach((e) => {
-            if (item.acquis.includes(e.competence)) {
-              newArray.push(item);
-              // console.log("new Array", newArray);
-            }
-          });
-        });
-        this.list = [...new Set(newArray)];
-        if (!newTag.length) {
-          this.Myarray = [];
-          this.MylistEmploi.forEach((el) => {
-            this.days.forEach((item) => {
-              if (el.days.includes(item.id)) {
-                this.Myarray.push(el);
-              }
-            });
-          });
-          this.list = [...new Set(this.Myarray)];
-        }
-      }
-      if (!this.Myarray.length) {
-        this.Myarray = [];
-        this.MylistEmploi.forEach((element) => {
-          newTag.forEach((e) => {
-            if (element.acquis.includes(e.competence)) {
-              this.Myarray.push(element);
-            }
-          });
-        });
-        this.list = [...new Set(this.Myarray)];
-        // console.log("list de competences", this.list);
+      this.competenceAdd = this.getCompetenceIds(newTag);
+      console.log("competenceAdd", this.competenceAdd);
+    },
 
-        // console.log("list de jour", this.Myarray);
-        this.hideButtons = true;
-
-        if (!newTag.length) {
-          this.list = this.MylistEmploi;
-          this.hideButtons = false;
-        }
-      }
-    },
-    deleteDays(day) {
-      const idx = this.days.findIndex((d) => d.id === day.id);
-      // console.log(day.id);
-      if (idx >= 0) {
-        this.days.splice(idx, 1);
-      }
-      this.Myarray = [];
-      this.MylistEmploi.forEach((elet) => {
-        this.days.forEach((item) => {
-          if (elet.days.includes(item.id)) {
-            this.Myarray.push(elet);
-          }
-        });
-      });
-      this.list = [...new Set(this.Myarray)];
-      if (!this.days.length) {
-        this.list = this.MylistEmploi;
-        this.hideButtons = true;
-      }
-    },
-    cleanArray() {
-      this.Myarray = [];
-      this.list = [];
-    },
-    selectJour(jour) {
-      this.Myarray = [];
-      this.list = [];
-      this.MylistEmploi.forEach((element) => {
-        jour.forEach((e) => {
-          if (element.days.includes(e)) {
-            this.Myarray.push(element);
-          }
-        });
-      });
-      this.list = [...new Set(this.Myarray)];
-    },
     addPersonAtWishLit(person) {
-      // console.log("addPersonAtWishLit chooter")
       this.$store.dispatch("addListFavoris", person);
       this.isWhished[person.id] = !this.isWhished[person.id];
-    },
-    // showMyCalender(id) {
-    //   // console.log(id);
-    // },
-    defineTotalHour(hour) {
-      if (hour.length > 0) {
-        return hour.reduce((a, b) => a + b);
-      }
     },
     loadMore() {
       if (this.length > this.list.length) return;
@@ -481,46 +281,42 @@ export default {
         this.showEndResearch = !this.showEndResearch;
       }
     },
+    addOtherElement(payload) {
+      return payload.map((element) => {
+        // Transform jours
+        const days = element.jours.map((day) => day.jour);
+        const hours = element.jours.map((day) => day.totalHour);
+
+        // Transform competences
+        const competences = element.competences.map((comp) => comp.competence);
+
+        // Ajouter les nouvelles propriétés
+        element.days = days;
+        element.hours = hours;
+        element.acquis = competences;
+
+        // Vérifier si dans la whishlist
+        this.isWhished[element.id] = this.$store.state.whistListPerson.some(
+          (person) => person.id === element.id
+        );
+
+        return element;
+      });
+    },
+
     async get_list_emploi() {
       loadingSpinner.launchLoading(true);
-      await instance
-        .get("list_emplois_temps")
-        .then((res) => {
-          // console.log("EMPLOI", res.data.data);
-          res.data.data.forEach((element) => {
-            let days = [];
-            let hours = [];
-            let competences = [];
-
-            element.jours.forEach((day) => {
-              days.push(day.jour);
-              hours.push(day.totalHour);
-            });
-            element.days = days;
-            element.hours = hours;
-            element.competences.forEach((comp) => {
-              competences.push(comp.competence);
-            });
-            element.acquis = competences;
-            this.isWhished[element.id] = false;
-            this.$store.state.whistListPerson.forEach((person) => {
-              if (element.id === person.id) {
-                this.isWhished[element.id] = true;
-              }
-            });
-          });
-          this.list = res.data.data;
-          this.MylistEmploi = res.data.data;
-          // console.log("this.MylistEmploi", this.MylistEmploi);
-          this.lengthOfMylistEmploi = this.MylistEmploi.length;
-          // // console.log("EMPLOI DU TEMPS", this.list_emploi);
-          loadingSpinner.launchLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          alert(err.response.data.message);
-          loadingSpinner.launchLoading(false);
-        });
+      try {
+        const res = await instance.get("list_emplois_temps");
+        // Ici this.list sera bien un tableau
+        this.list = this.addOtherElement(res.data.data);
+        this.lengthOfMylistEmploi = this.list.length;
+      } catch (err) {
+        console.log(err);
+        alert(err.response?.data?.message || "Erreur serveur");
+      } finally {
+        loadingSpinner.launchLoading(false);
+      }
     },
     closeDetailTimetable() {
       this.details_timetable = !this.details_timetable;
@@ -723,9 +519,9 @@ export default {
   <section>
     <div class="jobs_filters">
       <h3 class="fw-bold ecriteau text-left">{{ texte }}</h3>
-
-      <form class="d-flex flex-wrap align-items-center">
-        <div class="w-100 mx-3">
+      <form class="row justify-content-center align-items-center g-3 text-center">
+        <!-- Sélecteur de dates -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
           <PrimeCalendar
             v-model="datesSelect"
             :minDate="new Date()"
@@ -735,9 +531,12 @@ export default {
             :showIcon="true"
             @update:modelValue="selectDate"
             :placeholder="texte8"
+            class="w-100"
           />
         </div>
-        <div class="w-100 mx-3">
+
+        <!-- Sélecteur de compétences -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
           <multiselect
             v-model="competence"
             :options="competences"
@@ -748,19 +547,30 @@ export default {
             label="competence"
             track-by="competence"
             :placeholder="texte9"
-          >
-          </multiselect>
+            class="w-100"
+          ></multiselect>
         </div>
 
-        <div class="w-100 mx-3">
+        <!-- Localisation -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
           <input
             type="text"
             class="form-control"
+            style="height: 40px; padding: 1em; margin-top: 0.5em"
             :placeholder="texte10"
             v-model="location"
           />
         </div>
       </form>
+      <!-- Bouton Rechercher -->
+      <div
+        v-if="hasAnyValue"
+        style="display: flex; justify-content: flex-end; margin-top: 1em"
+      >
+        <button type="button" class="btn btn-warning px-4" @click="filterRecherche">
+          Rechercher
+        </button>
+      </div>
     </div>
     <div>
       <h2 class="fw-bold ecriteau text-left px-3">
@@ -1373,27 +1183,24 @@ export default {
 }
 @media screen and (max-width: 1199px) {
   .jobs_filters {
-  margin: 0em 0 2em 0;
-}
+    margin: 0em 0 2em 0;
+  }
   .d-grid {
     grid-template-columns: repeat(3, 1fr);
   }
- 
 }
 @media screen and (max-width: 992px) {
   .d-grid {
     grid-template-columns: repeat(2, 1fr);
   }
- 
 }
 @media screen and (max-width: 650px) {
   .d-grid {
     grid-template-columns: repeat(1, 1fr);
   }
-    .jobs_filters {
+  .jobs_filters {
     margin: 0em 0 1em 0;
   }
-  
 }
 .d-none {
   display: none !important;
