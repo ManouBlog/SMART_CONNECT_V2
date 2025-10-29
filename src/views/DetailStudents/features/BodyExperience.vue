@@ -163,7 +163,7 @@ export default {
                 />
               </div>
 
-              <p class="text-center">{{ item?.avis }}</p>
+              <h4 style="text-align:left;">{{ item?.avis }}</h4>
             </div>
           </a-carousel>
         </div>
@@ -172,6 +172,9 @@ export default {
   </section>
 </template>
 <style scoped>
+:deep(.stars){
+  margin:0 0 1em 0 !important;
+}
 :deep(.vue3-star-ratings__wrapper) {
   padding: 0 !important;
 }
@@ -345,8 +348,7 @@ label {
   text-align: left;
 }
 .fw-bold,
-label,
-h4 {
+label {
   font-weight: bold;
   color: black;
 }

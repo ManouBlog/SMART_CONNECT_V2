@@ -429,9 +429,10 @@ export default {
   border-radius: 5px;
   padding: 0.3em 0;
 }
-.vue3-star-ratings__wrapper[data-v-76dea496] {
+:deep(.vue3-star-ratings__wrapper) {
   display: block;
-  text-align: center;
+  text-align: left;
+  margin:0 !important;
 }
 .conteneur_competences {
   margin-left: 1em;

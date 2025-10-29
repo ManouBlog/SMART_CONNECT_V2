@@ -81,11 +81,8 @@ export default {
     },
     rateStudent(id) {
       this.showModal = true;
-      this.tableauRecruit.forEach((item) => {
-        if (item.id === id) {
-          this.identifiant = item;
-        }
-      });
+      console.log("rateStudent",this.tableauRecruit)
+      this.identifiant = this.tableauRecruit.find(item=>Number(item.student_id) === Number(id))
     },
     async sendAppreciation() {
      spinnerLoading.launchLoading(true);
@@ -130,7 +127,7 @@ export default {
     this.texte9 = await this.handleTranslate("Commune");
     this.texte10 = await this.handleTranslate('Télephone');
     this.texte11 = await this.handleTranslate('Diplome');
-    this.texte12 = await this.handleTranslate(`Carte étudiante`);
+    this.texte12 = await this.handleTranslate(`Carte étudiant`);
     this.texte13 = await this.handleTranslate("Evaluer");
  
     this.texte14 = await this.handleTranslate('Plus tard');
@@ -188,7 +185,6 @@ export default {
             </div>
           </n-card>
         </n-modal>
-
         <div class="conteneur-evaluation-offre">
           <a-card
             v-for="(item, index) in tableauRecruit"
@@ -244,7 +240,7 @@ export default {
               <button
                 style="border: none"
                 class="btn-lg bg-warning mt-3"
-                @click="rateStudent(item.id)"
+                @click="rateStudent(item.student_id)"
               >
                 {{texte13}}
               </button>
@@ -257,6 +253,9 @@ export default {
 </template>
 
 <style scoped>
+:deep(.ant-card-body){
+  height:780px !important;
+}
 :deep(.n-modal-container){
   z-index:99 !important;
 }

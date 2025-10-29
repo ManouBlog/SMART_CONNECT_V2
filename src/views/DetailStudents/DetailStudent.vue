@@ -1051,9 +1051,9 @@ hr {
   height: 10px;
   border-radius: 100%;
 }
-@media (max-width: 780px) {
+@media (max-width: 1200px) {
  .space-talent{
-  margin:0.5em 0;
+  margin:1em 0;
 }
  .conteneur_calendar_student {
   margin-top:9em !important;
