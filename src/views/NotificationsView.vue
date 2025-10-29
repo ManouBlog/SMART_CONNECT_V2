@@ -3,6 +3,9 @@
     <h2 class="app-title" v-if="dataAlarm.length || Notifications.isNotifications.length">
       Vous avez {{ dataAlarm.length ? dataAlarm.length+Notifications.isNotifications.length:Notifications.isNotifications.length }} Notification(s)
     </h2>
+    <div style="height:300px" v-if="dataAlarm.length+Notifications.isNotifications.length === 0">
+      <h2 style="text-align:center;">Pas de notifications</h2>
+    </div>
     <div
       v-if="!Notifications.isNotifications.length && user.user.statut.statut === 'etudiant'"
       style="
@@ -14,7 +17,7 @@
         color: black;
       "
     >
-      Pas de notifications
+      <h2 style="text-align:center;">Pas de notifications</h2>
     </div>
     <NotificationSection
       v-if="Notifications.todayNotifications.length"
@@ -103,7 +106,7 @@ onMounted(async () => {
   width: 100%;
   margin: 6.6em 0;
   padding: 20px;
-  height: 80%;
+  height: 100%;
   font-family: "Arial", sans-serif;
 }
 
@@ -117,7 +120,7 @@ onMounted(async () => {
 @media (max-width: 1200px) {
   .app {
     margin: 1.6em 0 !important;
-    height: 80%;
+    height: 100%;
   }
 }
 </style>
