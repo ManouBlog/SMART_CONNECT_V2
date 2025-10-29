@@ -324,7 +324,7 @@ export default {
                 </div>
                 <div>
                   <button
-                    v-if="!item.student?.certificat"
+                    v-if="!item.certificat"
                     style="border: none; width: 150px"
                     class="btn-lg bg-dark m-3"
                     @click="showCertificatModal = !showCertificatModal"
