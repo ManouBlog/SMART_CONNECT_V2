@@ -13,7 +13,7 @@ export default {
   components: { HeaderDashboard },
   data() {
     return {
-      Help:Help,
+      Help: Help,
       texte0: "",
       texte2: "",
       texte3: "",
@@ -41,7 +41,7 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
+      texte27: "",
       studentRecruit: null,
       lienPhoto: lienPhoto,
       offre: null,
@@ -50,6 +50,7 @@ export default {
       tableauRecruit: null,
       moneyFormat: new Intl.NumberFormat("de-DE"),
       showModal: false,
+      showCertificatModal:false,
       numberRate: 0,
       identifiant: {},
       avis: "",
@@ -70,27 +71,29 @@ export default {
               this.tableauRecruit = this.studentRecruit[item];
             }
           }
-          console.log("this.tableauRecruit",this.tableauRecruit)
+          console.log("this.tableauRecruit", this.tableauRecruit);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         })
-        .finally(()=>{
-        spinnerLoading.launchLoading(false);
-        })
+        .finally(() => {
+          spinnerLoading.launchLoading(false);
+        });
     },
     getNumber(e) {
       this.numberRate = e;
     },
     rateStudent(id) {
       this.showModal = true;
-      console.log("rateStudent",id)
-       console.log("this.tableauRecruit",this.tableauRecruit)
-      this.identifiant = this.tableauRecruit.find(item=>Number(item.student_id) === Number(id))
-       console.log("this.identifiant",this.identifiant)
+      console.log("rateStudent", id);
+      console.log("this.tableauRecruit", this.tableauRecruit);
+      this.identifiant = this.tableauRecruit.find(
+        (item) => Number(item.student_id) === Number(id)
+      );
+      console.log("this.identifiant", this.identifiant);
     },
     async sendAppreciation() {
-     spinnerLoading.launchLoading(true);
+      spinnerLoading.launchLoading(true);
       await instance
         .post("giveAvis", {
           notes: this.numberRate,
@@ -106,38 +109,38 @@ export default {
               title: res.data.message,
               showConfirmButton: true,
             });
-            this.showModal = !this.showModal
-            this.numberRate = 0
-            this.avis = null
+            this.showModal = !this.showModal;
+            this.numberRate = 0;
+            this.avis = null;
           }
-        }).catch((error)=>{
-          console.log(error)
         })
-        .finally(()=>{
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
           spinnerLoading.launchLoading(false);
         });
     },
   },
   async created() {
     this.get_offres_interess_by_student();
-    this.texte0 = await this.handleTranslate('Détail-offre :');
+    this.texte0 = await this.handleTranslate("Détail-offre :");
     this.texte1 = await this.handleTranslate(`Evaluer le personnel`);
     this.texte2 = await this.handleTranslate("Commentaire");
-    this.texte3 = await this.handleTranslate('Envoyer');
-    this.texte4 = await this.handleTranslate('Plus tard');
-    this.texte5 = await this.handleTranslate('Etudiant');
-    this.texte6 = await this.handleTranslate('Email');
-    this.texte7 = await this.handleTranslate('Ville');
-    this.texte8 = await this.handleTranslate('Quartier');
+    this.texte3 = await this.handleTranslate("Envoyer");
+    this.texte4 = await this.handleTranslate("Plus tard");
+    this.texte5 = await this.handleTranslate("Etudiant");
+    this.texte6 = await this.handleTranslate("Email");
+    this.texte7 = await this.handleTranslate("Ville");
+    this.texte8 = await this.handleTranslate("Quartier");
     this.texte9 = await this.handleTranslate("Commune");
-    this.texte10 = await this.handleTranslate('Télephone');
-    this.texte11 = await this.handleTranslate('Diplome');
+    this.texte10 = await this.handleTranslate("Télephone");
+    this.texte11 = await this.handleTranslate("Diplome");
     this.texte12 = await this.handleTranslate(`Carte étudiant`);
     this.texte13 = await this.handleTranslate("Evaluer");
- 
-    this.texte14 = await this.handleTranslate('Plus tard');
-    this.texte15 = await this.handleTranslate('Etudiant');
 
+    this.texte14 = await this.handleTranslate("Plus tard");
+    this.texte15 = await this.handleTranslate("Etudiant");
   },
 };
 </script>
@@ -158,17 +161,15 @@ export default {
             role="dialog"
             aria-modal="true"
           >
-            <h1>{{texte1}}</h1>
-            <h2 class="text-center my-3"
-            style="text-transform:capitalize;"
-            >
+            <h1>{{ texte1 }}</h1>
+            <h2 class="text-center my-3" style="text-transform: capitalize">
               {{ this.identifiant.student.nom }} {{ this.identifiant.student.prenoms }}
             </h2>
             <div class="text-center my-3">
               <n-rate size="large" :value="numberRate" :on-update:value="getNumber" />
             </div>
             <div v-if="numberRate >= 3">
-              <label for="comment">{{texte2}}</label>
+              <label for="comment">{{ texte2 }}</label>
               <textarea v-model="avis" name="" id="" cols="30" rows="10" class="w-100">
               </textarea>
             </div>
@@ -179,82 +180,158 @@ export default {
                 class="btn-lg bg-warning mx-3"
                 @click="sendAppreciation"
               >
-                {{texte3}}
+                {{ texte3 }}
               </button>
-              <button class="btn-lg mx-3" @click="()=>{
-                this.showModal = !this.showModal
-                this.numberRate = 0
-              }">
-                {{texte4}}
+              <button
+                class="btn-lg mx-3"
+                @click="
+                  () => {
+                    this.showModal = !this.showModal;
+                    this.numberRate = 0;
+                  }
+                "
+              >
+                {{ texte4 }}
               </button>
             </div>
           </n-card>
         </n-modal>
-        <p style="text-align:center;">
-           Du {{ new Date(tableauRecruit[0].offre.job_debut).toLocaleDateString('fr') }}  au {{  new Date(tableauRecruit[0].offre.job_fin).toLocaleDateString('fr') }}
+        <n-modal v-model:show="showCertificatModal">
+          <n-card
+            style="width: 600px"
+            :bordered="false"
+            size="huge"
+            role="dialog"
+            aria-modal="true"
+          >
+            <h1>Certificat de travail</h1>
+            
+            <div class="text-center">
+              <button
+                class="btn-lg bg-warning mx-3"
+              >
+                Approuver
+              </button>
+              <button
+                class="btn-lg mx-3"
+                @click="this.showCertificatModal = !this.showCertificatModal"
+              >
+                {{ texte4 }}
+              </button>
+            </div>
+          </n-card>
+        </n-modal>
+        <p style="text-align: center">
+          Du {{ new Date(tableauRecruit[0].offre.job_debut).toLocaleDateString("fr") }} au
+          {{ new Date(tableauRecruit[0].offre.job_fin).toLocaleDateString("fr") }}
         </p>
         <div class="conteneur-evaluation-offre">
           <a-card
             v-for="(item, index) in tableauRecruit"
             :key="item.id"
-            style="width: 400px; background: var(--secondary-color) !important;color: var(--third-color) !important;"
+            style="
+              width: 400px;
+              background: var(--secondary-color) !important;
+              color: var(--third-color) !important;
+            "
           >
-            <h1 class="badge bg-warning w-25">{{texte5}} {{ index + 1 }}</h1>
+            <h1 class="badge bg-warning w-25">{{ texte5 }} {{ index + 1 }}</h1>
 
             <div class="d-flex align-items-center">
               <!-- <h1><em class="bi bi-person h1"></em></h1> -->
               <n-avatar
-            v-if="item.student.photo_profil"
-            class="user-avatar"
-            style="border: 2px solid orange; object-fit: cover"
-            round
-            :size="40"
-            :src="lienPhoto + item.student.photo_profil"
-          />
-          <span
-          class="user-avatar"
-            style="
-              border: 2px solid orange;
-              object-fit: cover;
-              width: 40px;
-              height:40px;
-              line-height:40px;
-              text-align:center;
-              font-size:1em;
-              border-radius: 100%;
-              background: gray;
-            "
-            v-else
-          >
-           <span style="font-size:1em;color:white;">{{Help.toADfirstTwo(item.student.nom)}}</span>
-          </span>
-              <h1 style="color:white;font-weight:bold;">{{ item.student.nom }} {{ item.student.prenoms }}</h1>
+                v-if="item.student.photo_profil"
+                class="user-avatar"
+                style="border: 2px solid orange; object-fit: cover"
+                round
+                :size="40"
+                :src="lienPhoto + item.student.photo_profil"
+              />
+              <span
+                class="user-avatar"
+                style="
+                  border: 2px solid orange;
+                  object-fit: cover;
+                  width: 40px;
+                  height: 40px;
+                  line-height: 40px;
+                  text-align: center;
+                  font-size: 1em;
+                  border-radius: 100%;
+                  background: gray;
+                "
+                v-else
+              >
+                <span style="font-size: 1em; color: white">{{
+                  Help.toADfirstTwo(item.student.nom)
+                }}</span>
+              </span>
+              <h1 style="color: white; font-weight: bold">
+                {{ item.student.nom }} {{ item.student.prenoms }}
+              </h1>
             </div>
             <section class="text-left">
-              <h4><span style="color:orange;">{{texte6}} :</span> {{ item.student.email }}</h4>
-              <h4><span style="color:orange;">{{texte7}} :</span> {{ item.student.ville }}</h4>
-              <h4 v-if="item.student.quartier"><span style="color:orange;">{{texte8}} :</span> {{ item.student.quartier }}</h4>
-              <h4><span style="color:orange;">{{texte9}} :</span> {{ item.student.commune }}</h4>
-              <h4><span style="color:orange;">{{texte10}} :</span> {{ item.student.phone }}</h4>
-              <h4><span style="color:orange;">{{texte11}} :</span> {{ item.student.diplome }}</h4>
               <h4>
-                <span style="color:orange;">{{texte12}} :</span>
+                <span style="color: orange">{{ texte6 }} :</span> {{ item.student.email }}
+              </h4>
+              <h4>
+                <span style="color: orange">{{ texte7 }} :</span> {{ item.student.ville }}
+              </h4>
+              <h4 v-if="item.student.quartier">
+                <span style="color: orange">{{ texte8 }} :</span>
+                {{ item.student.quartier }}
+              </h4>
+              <h4>
+                <span style="color: orange">{{ texte9 }} :</span>
+                {{ item.student.commune }}
+              </h4>
+              <h4>
+                <span style="color: orange">{{ texte10 }} :</span>
+                {{ item.student.phone }}
+              </h4>
+              <h4>
+                <span style="color: orange">{{ texte11 }} :</span>
+                {{ item.student.diplome }}
+              </h4>
+              <h4>
+                <span style="color: orange">{{ texte12 }} :</span>
                 <img
                   :src="lienPhoto + item.student.photo"
                   class="w-25 border-2 rounded"
                   :alt="item.student.photo"
                 />
               </h4>
-              
-              <button
-               v-if="!item.student?.etoiles?.some(rate => Number(rate.offre_id) === Number(item.offre_id))"
+              <div style="display:flex;justify-content:center;gap:0.5em;align-items:center">
+                <div>
+               <button
+                v-if="
+                  !item.student?.etoiles?.some(
+                    (rate) => Number(rate.offre_id) === Number(item.offre_id)
+                  )
+                "
                 style="border: none"
                 class="btn-lg bg-warning mt-3"
                 @click="rateStudent(item.student_id)"
               >
-                {{texte13}}
+                {{ texte13 }}
               </button>
-              <p style="text-align:center;" v-else>Évaluation effectuée</p>
+              <p style="text-align: center" v-else>Évaluation effectuée</p>
+                </div>
+                <div>
+                   <button
+                v-if="
+                  !item.student?.certificat"
+                style="border: none;width:150px;"
+                class="btn-lg bg-dark m-3"
+                @click="showCertificatModal = !showCertificatModal"
+              >
+                <i class="bi bi-send-fill"></i>
+                <span>Envoyer le certificat</span>
+              </button>
+                  <p style="text-align: center" v-else>Certificat envoyé.</p>
+                </div> 
+              </div>
+             
             </section>
           </a-card>
         </div>
@@ -264,14 +341,14 @@ export default {
 </template>
 
 <style scoped>
-:deep(.ant-card-body){
-  height:780px !important;
+:deep(.ant-card-body) {
+  height: 780px !important;
 }
-:deep(.n-modal-container){
-  z-index:99 !important;
+:deep(.n-modal-container) {
+  z-index: 99 !important;
 }
-h4{
-  margin:1.5em 0;
+h4 {
+  margin: 1.5em 0;
 }
 .conteneur-evaluation-offre {
   display: flex;
