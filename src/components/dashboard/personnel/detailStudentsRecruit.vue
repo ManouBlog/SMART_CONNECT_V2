@@ -50,7 +50,7 @@ export default {
       tableauRecruit: null,
       moneyFormat: new Intl.NumberFormat("de-DE"),
       showModal: false,
-      showCertificatModal:false,
+      showCertificatModal: false,
       numberRate: 0,
       identifiant: {},
       avis: "",
@@ -205,13 +205,9 @@ export default {
             aria-modal="true"
           >
             <h1>Certificat de travail</h1>
-            
+
             <div class="text-center">
-              <button
-                class="btn-lg bg-warning mx-3"
-              >
-                Approuver
-              </button>
+              <button class="btn-lg bg-warning mx-3">Approuver</button>
               <button
                 class="btn-lg mx-3"
                 @click="this.showCertificatModal = !this.showCertificatModal"
@@ -301,37 +297,44 @@ export default {
                   :alt="item.student.photo"
                 />
               </h4>
-              <div style="display:flex;justify-content:center;gap:0.5em;align-items:center">
-                <div>
-               <button
-                v-if="
-                  !item.student?.etoiles?.some(
-                    (rate) => Number(rate.offre_id) === Number(item.offre_id)
-                  )
+              <div
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  justify-content: center;
+                  gap: 0.5em;
+                  align-items: center;
                 "
-                style="border: none"
-                class="btn-lg bg-warning mt-3"
-                @click="rateStudent(item.student_id)"
               >
-                {{ texte13 }}
-              </button>
-              <p style="text-align: center" v-else>Évaluation effectuée</p>
+                <div>
+                  <button
+                    v-if="
+                      !item.student?.etoiles?.some(
+                        (rate) => Number(rate.offre_id) === Number(item.offre_id)
+                      )
+                    "
+                    style="border: none; width: 150px; padding: 1.1em 0"
+                    class="btn-lg bg-warning m-3"
+                    @click="rateStudent(item.student_id)"
+                  >
+                    <i class="bi bi-star-fill"></i>
+                    <span>{{ texte13 }}</span>
+                  </button>
+                  <p style="text-align: center" v-else>Évaluation effectuée</p>
                 </div>
                 <div>
-                   <button
-                v-if="
-                  !item.student?.certificat"
-                style="border: none;width:150px;"
-                class="btn-lg bg-dark m-3"
-                @click="showCertificatModal = !showCertificatModal"
-              >
-                <i class="bi bi-send-fill"></i>
-                <span>Envoyer le certificat</span>
-              </button>
+                  <button
+                    v-if="!item.student?.certificat"
+                    style="border: none; width: 150px"
+                    class="btn-lg bg-dark m-3"
+                    @click="showCertificatModal = !showCertificatModal"
+                  >
+                    <i class="bi bi-send-fill"></i>
+                    <span>Envoyer le certificat</span>
+                  </button>
                   <p style="text-align: center" v-else>Certificat envoyé.</p>
-                </div> 
+                </div>
               </div>
-             
             </section>
           </a-card>
         </div>
