@@ -4,6 +4,7 @@ import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { Help } from "../../../utils";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
+// import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 const spinnerLoading = useLoadingSpinner();
@@ -56,33 +57,37 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+    // ...mapActions(useEntreprisesStore, ["get_students_contact"]),
     async get_offres_interess_by_student() {
       spinnerLoading.launchLoading(true);
       await instance
         .get("getStudentRecruit")
         .then((res) => {
           console.log("getStudentRecruit", res);
-          this.studentRecruit = Help.groupByRecruit(res.data);
-          console.log("this.studentRecruit",this.studentRecruit)
+          this.studentRecruit = res.data;
           for (let item in this.studentRecruit) {
             if (item === this.$route.params.offre) {
               this.tableauRecruit = this.studentRecruit[item];
             }
           }
-          spinnerLoading.launchLoading(false);
+          console.log("this.tableauRecruit",this.tableauRecruit)
         })
         .catch((err) => {
           console.log(err)
-          spinnerLoading.launchLoading(false);
-        });
+        })
+        .finally(()=>{
+        spinnerLoading.launchLoading(false);
+        })
     },
     getNumber(e) {
       this.numberRate = e;
     },
     rateStudent(id) {
       this.showModal = true;
-      console.log("rateStudent",this.tableauRecruit)
+      console.log("rateStudent",id)
+       console.log("this.tableauRecruit",this.tableauRecruit)
       this.identifiant = this.tableauRecruit.find(item=>Number(item.student_id) === Number(id))
+       console.log("this.identifiant",this.identifiant)
     },
     async sendAppreciation() {
      spinnerLoading.launchLoading(true);
@@ -157,7 +162,7 @@ export default {
             <h2 class="text-center my-3"
             style="text-transform:capitalize;"
             >
-              {{ this.identifiant.nom }} {{ this.identifiant.prenoms }}
+              {{ this.identifiant.student.nom }} {{ this.identifiant.student.prenoms }}
             </h2>
             <div class="text-center my-3">
               <n-rate size="large" :value="numberRate" :on-update:value="getNumber" />
@@ -185,6 +190,9 @@ export default {
             </div>
           </n-card>
         </n-modal>
+        <p style="text-align:center;">
+           Du {{ new Date(tableauRecruit[0].offre.job_debut).toLocaleDateString('fr') }}  au {{  new Date(tableauRecruit[0].offre.job_fin).toLocaleDateString('fr') }}
+        </p>
         <div class="conteneur-evaluation-offre">
           <a-card
             v-for="(item, index) in tableauRecruit"
@@ -196,12 +204,12 @@ export default {
             <div class="d-flex align-items-center">
               <!-- <h1><em class="bi bi-person h1"></em></h1> -->
               <n-avatar
-            v-if="item.photo_profil"
+            v-if="item.student.photo_profil"
             class="user-avatar"
             style="border: 2px solid orange; object-fit: cover"
             round
             :size="40"
-            :src="lienPhoto + item.photo_profil"
+            :src="lienPhoto + item.student.photo_profil"
           />
           <span
           class="user-avatar"
@@ -218,32 +226,35 @@ export default {
             "
             v-else
           >
-           <span style="font-size:1em;color:white;">{{Help.toADfirstTwo(item.nom)}}</span>
+           <span style="font-size:1em;color:white;">{{Help.toADfirstTwo(item.student.nom)}}</span>
           </span>
-              <h1 style="color:white;font-weight:bold;">{{ item.nom }} {{ item.prenoms }}</h1>
+              <h1 style="color:white;font-weight:bold;">{{ item.student.nom }} {{ item.student.prenoms }}</h1>
             </div>
             <section class="text-left">
-              <h4><span style="color:orange;">{{texte6}} :</span> {{ item.email }}</h4>
-              <h4><span style="color:orange;">{{texte7}} :</span> {{ item.ville }}</h4>
-              <h4 v-if="item.quartier"><span style="color:orange;">{{texte8}} :</span> {{ item.quartier }}</h4>
-              <h4><span style="color:orange;">{{texte9}} :</span> {{ item.commune }}</h4>
-              <h4><span style="color:orange;">{{texte10}} :</span> {{ item.phone }}</h4>
-              <h4><span style="color:orange;">{{texte11}} :</span> {{ item.diplome }}</h4>
+              <h4><span style="color:orange;">{{texte6}} :</span> {{ item.student.email }}</h4>
+              <h4><span style="color:orange;">{{texte7}} :</span> {{ item.student.ville }}</h4>
+              <h4 v-if="item.student.quartier"><span style="color:orange;">{{texte8}} :</span> {{ item.student.quartier }}</h4>
+              <h4><span style="color:orange;">{{texte9}} :</span> {{ item.student.commune }}</h4>
+              <h4><span style="color:orange;">{{texte10}} :</span> {{ item.student.phone }}</h4>
+              <h4><span style="color:orange;">{{texte11}} :</span> {{ item.student.diplome }}</h4>
               <h4>
                 <span style="color:orange;">{{texte12}} :</span>
                 <img
-                  :src="lienPhoto + item.photo"
+                  :src="lienPhoto + item.student.photo"
                   class="w-25 border-2 rounded"
-                  :alt="item.photo"
+                  :alt="item.student.photo"
                 />
               </h4>
+              
               <button
+               v-if="!item.student?.etoiles?.some(rate => Number(rate.offre_id) === Number(item.offre_id))"
                 style="border: none"
                 class="btn-lg bg-warning mt-3"
                 @click="rateStudent(item.student_id)"
               >
                 {{texte13}}
               </button>
+              <p style="text-align:center;" v-else>Évaluation effectuée</p>
             </section>
           </a-card>
         </div>

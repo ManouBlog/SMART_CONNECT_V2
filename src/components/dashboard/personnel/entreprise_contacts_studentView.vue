@@ -79,9 +79,9 @@ export default {
     const Etudiant =  await this.handleTranslate('Talents');
     this.allColumnsDataStudentRecruit= [
         { fieldName: "nom_offre", headerName: Offre },
-        { fieldName: "nom", headerName: Etudiant },
-        { fieldName: "job_debut", headerName: 'Date de début de travail' },
-        { fieldName: "job_fin", headerName: 'Date de fin de travail' },
+        { fieldName: "count", headerName: Etudiant },
+        { fieldName: "nom_offre", headerName: 'Date de travail' },
+        // { fieldName: "offre.job_fin", headerName: 'Date de fin de travail' },
       ]
     this.allColumnsDataContacter = [
         { fieldName: "nom", headerName: Nom },

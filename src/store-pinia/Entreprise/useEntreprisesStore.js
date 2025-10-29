@@ -8,7 +8,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
         entreprises: [],
         timetable:[],
         list_students:[],
-        student:{},
+        student:[],
         studentRecruit:[],
         offresInteressByStudents:{},
         list_abonnement:[],
@@ -28,6 +28,13 @@ export const useEntreprisesStore = defineStore('entreprise', {
                 console.log(error)
             }
           },
+          tableData(dataPayload) {
+      return Object.entries(dataPayload).map(([nomOffre, students]) => ({
+        nom_offre: nomOffre,
+        count: students.length,
+        students
+      }));
+    },
           async get_students_contact() {
             loadingSpinner.launchLoading(true)
             try{
@@ -35,26 +42,18 @@ export const useEntreprisesStore = defineStore('entreprise', {
            const studentRecruit = await instance.get("getStudentRecruit");
            
            
-          //  console.log("listStudent",listStudent)
+           console.log("const_studentRecruit",studentRecruit)
            if(listStudent['status'] === 200 && studentRecruit['status'] === 200 ){
             this.list_students = listStudent.data.data;
             this.student = this.list_students.students;
-            this.studentRecruit = studentRecruit.data;
+             this.studentRecruit = this.tableData(studentRecruit.data);
+            // this.studentRecruit = elementFilter.map(item=> {
+            //   return item.students;
+            // }).flat();
             loadingSpinner.launchLoading(false)
-            console.log('this.student',this.student)
-            console.log("this.studentRecruit",this.studentRecruit)
-//             const grouped = this.list_students.students.reduce((acc, student) => {
-//   const nomOffre = student.pivot.offre.nom_offre;
+            // const flattened = studentFilterRecruit.flat() 
 
-//   if (!acc[nomOffre]) {
-//     acc[nomOffre] = [];
-//   }
-
-//   acc[nomOffre].push(student);
-//   return acc;
-// }, {});
-// this.student = grouped;
-            // console.log("grouped",grouped)
+            console.log('this.studentRecruit',this.studentRecruit)
            }
             }catch(error){
                 console.log(error)

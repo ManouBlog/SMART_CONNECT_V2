@@ -34,7 +34,10 @@ export default {
     SelectionnesDetailDatatable,
   },
   data() {
-    return { configUtils: configUtils, Help: Help,texte: "",
+    return {
+      configUtils: configUtils,
+      Help: Help,
+      texte: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -61,7 +64,8 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"", };
+      texte27: "",
+    };
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -75,7 +79,7 @@ export default {
     },
   },
   async created() {
-    this.texte = await this.handleTranslate('Affichage de 1 à 10 sur');
+    this.texte = await this.handleTranslate("Affichage de 1 à 10 sur");
     this.texte1 = await this.handleTranslate(`entrées.`);
     this.texte2 = await this.handleTranslate(`Détails`);
   },
@@ -91,7 +95,7 @@ export default {
     v-model:filters="filters"
     :rowsPerPageOptions="[5, 10, 20, 50]"
   >
-   <template #empty>
+    <template #empty>
       <div class="empty-content">
         <template v-if="hasError">
           <i class="pi pi-exclamation-triangle text-warning"></i>
@@ -111,7 +115,7 @@ export default {
       <div
         style="display: flex; justify-content: flex-start; font-size: 1em; border: none"
       >
-        {{texte}}{{ DATAVALUE.length }} {{texte1}}
+        {{ texte }}{{ DATAVALUE.length }} {{ texte1 }}
       </div>
     </template>
     <template #header>
@@ -147,14 +151,23 @@ export default {
           <StatutForDatatable :dataStatut="slotProps.data" />
         </span>
         <span v-else-if="item.fieldName === 'offre'">
-          {{ slotProps.data.pivot.offre.nom_offre }}
+          {{ slotProps.data.pivot?.offre?.nom_offre }}
         </span>
         <span v-else-if="item.headerName === 'Etudiant'">
           {{ slotProps.data.nom }} {{ slotProps.data.prenoms }}
         </span>
         <span v-else-if="item.headerName === 'Date de début de travail'">
-          {{ slotProps.data?.pivot ? slotProps.data?.pivot?.date:slotProps.data?.job_debut }}
+          {{
+            slotProps.data?.pivot
+              ? slotProps.data?.pivot?.date
+              : slotProps.data?.job_debut
+          }}
         </span>
+        <span v-else-if="item.headerName === 'Date de travail'">
+          Du {{ slotProps.data.students[0].offre.job_debut }} au
+          {{ slotProps.data.students[0].offre.job_fin }}
+        </span>
+
         <span v-else>
           {{ slotProps.data[item.fieldName] }}
         </span>
