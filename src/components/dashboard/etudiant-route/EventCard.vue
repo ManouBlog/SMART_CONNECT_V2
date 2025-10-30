@@ -1,17 +1,17 @@
 <template>
-  <div class="job-card" :class="{ available: job.isAvailable }">
+  <div class="job-card" :class="{ available: job?.certificat }">
     <div class="job-date">
-      <div class="period">{{ job.date }}</div>
-      <div class="location">{{ job.location }}</div>
+      <div class="period">{{ job?.offre?.job_debut }} au {{ job?.offre?.job_fin }} </div>
+      <div class="location">{{ job?.offre?.lieu }}</div>
     </div>
 
     <div class="job-info">
-      <h3>{{ job.title }}</h3>
-      <p>{{ job.entreprise }}</p>
+      <h3>Offre : {{ job?.offre?.nom_offre }}</h3>
+      <p>Entreprise : {{ job?.offre?.entreprise?.nom }}</p>
     </div>
 
-    <button class="apply-btn" :disabled="!job.isAvailable" @click="showModal = true">
-      {{ job.isAvailable ? "Voir" : "Indisponible" }}
+    <button class="apply-btn" :disabled="!job?.certificat" @click="showModal = true">
+      {{ job?.certificat ? "Voir" : "Indisponible" }}
     </button>
   </div>
   <div>
@@ -26,8 +26,7 @@
        <div class="certificat-container" id="certification-content">
     <header class="header">
       <div class="logo-placeholder">
-        <!-- Emplacement pour le logo -->
-        <p>Insérer votre Logo ici</p>
+       <img style="width:80px;height:80px;" :src="job.image_data" :alt="job.image_data">
       </div>
     </header>
 
@@ -36,9 +35,9 @@
 
       <div class="certificat-text">
         <p>
-          Nous soussignés, <strong>[Raison Sociale]</strong> (XX BP XXXXXXXX), certifions que Monsieur/Madame
-          <strong>[Nom de l'étudiant]</strong>, a été employé dans notre société en qualité de
-          <strong>[Intitulé de la position ou poste]</strong> du <strong>[JJ/MM/YYYY]</strong> au <strong>[JJ/MM/YYYY]</strong>.
+          Nous soussignés, <strong>{{ job?.offre?.entreprise.nom }}</strong> (XX BP XXXXXXXX), certifions que Monsieur/Madame
+          <strong>{{ job?.student?.nom}} {{ job?.student?.prenoms}}</strong>, a été employé dans notre société en qualité de
+          <strong>{{ job?.offre?.nom_offre}}</strong> du <strong>{{ new Date(job?.offre?.job_debut).toLocaleDateString('fr')}}</strong> au <strong>{{ new Date(job?.offre?.job_fin).toLocaleDateString('fr')}}</strong>.
         </p>
 
         <p>
@@ -50,7 +49,7 @@
         </p>
 
         <div class="date-location">
-          <p>Fait à <strong>[Ville]</strong>, le <strong>[JJ/MM/YYYY]</strong></p>
+          <p>Fait à <strong>ABIDJAN</strong>, le <strong>{{todayDate}}</strong></p>
         </div>
 
         <div class="signature">
@@ -79,7 +78,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps} from "vue";
+import { ref, defineProps,computed} from "vue";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
@@ -92,15 +91,16 @@ const props = defineProps({
 });
 const showModal = ref(false);
 
+
 // Date du jour formatée
-// const todayDate = computed(() => {
-//   const date = new Date();
-//   return date.toLocaleDateString("fr-FR", {
-//     day: "numeric",
-//     month: "long",
-//     year: "numeric",
-//   });
-// });
+const todayDate = computed(() => {
+  const date = new Date();
+  return date.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+});
 const downloadCertification = async () => {
 SPINNERLOADING.launchLoading(true)
   const cvContent = document.getElementById("certification-content");
@@ -141,7 +141,7 @@ SPINNERLOADING.launchLoading(true)
   }
 
   // téléchargement
-  pdf.save(`CV_${props.job.title.replace(/\s+/g, "_")}.pdf`);
+  pdf.save(`CV_${props.job?.offre?.nom_offre.replace(/\s+/g, "_")}.pdf`);
   SPINNERLOADING.launchLoading(false)
 };
 </script>
@@ -249,6 +249,8 @@ SPINNERLOADING.launchLoading(true)
 
 .logo-placeholder {
   font-size: 0.8rem;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .title {
@@ -281,8 +283,7 @@ SPINNERLOADING.launchLoading(true)
   justify-content: space-between;
   align-items: center;
   margin-top: 1vw;
-  padding-top: 3vw;
-  border-top: 1px solid #ccc;
+  padding-top: 1vw;
   font-size: clamp(0.7rem, 3vw, 0.9rem);
 }
 
