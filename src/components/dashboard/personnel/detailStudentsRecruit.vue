@@ -318,7 +318,7 @@ export default {
                     @click="rateStudent(item.student_id)"
                   >
                     <i class="bi bi-star-fill"></i>
-                    <span>{{ texte13 }}</span>
+                    <spban>{{ texte13 }}</spban>
                   </button>
                   <p style="text-align: center" v-else>Évaluation effectuée</p>
                 </div>

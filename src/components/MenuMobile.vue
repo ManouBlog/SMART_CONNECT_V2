@@ -83,7 +83,8 @@ export default {
         });
     },
     async getInfoUser() {
-      await instance
+      if(this.$store.state.token){
+await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
           // console.log("voirInfoUserConnect",resp);
@@ -95,6 +96,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      }
     },
   },
   async created() {

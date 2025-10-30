@@ -305,12 +305,21 @@ const routes = [
       },
       {
         
-        path:"dashboard/contrat",
+        path:"/dashboard/contrat",
         name:'contrat',
         meta:{
           requiresAuth:true
         },
         component: () => import( '../components/dashboard/etudiant-route/see_who_interresse_by_profil_studentView.vue')
+      },
+       {
+        
+        path:"/dashboard/certifications",
+        name:'certifications',
+        meta:{
+          requiresAuth:true
+        },
+        component: () => import( '../views/CertificationsView.vue')
       },
       {
         

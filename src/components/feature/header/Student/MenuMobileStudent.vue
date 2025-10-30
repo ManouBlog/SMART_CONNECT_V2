@@ -118,7 +118,12 @@ this.getListNotification();
       {{texte4}}
     </router-link>
   </li>
-  
+
+  <li class="position-absolute deconnex">
+    <router-link to="/dashboard/certifications" class="d-block">
+      Mes certifications
+    </router-link>
+  </li>  
   <li class="position-absolute deconnex">
     <router-link to="/dashboard/emploi_du_temps" class="d-block">
      {{texte5}}

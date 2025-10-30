@@ -92,6 +92,8 @@ export default {
     this.launchTestimonials()
     this.email = this.$route.params.email;
     this.token = this.$route.params.token;
+    console.log("this.token",this.token)
+    console.log("this.email",this.email)
     const redirect = this.$route.query.redirect
     if(redirect){
       this.changeValueIsModal()
