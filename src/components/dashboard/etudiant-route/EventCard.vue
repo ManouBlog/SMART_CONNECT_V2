@@ -61,10 +61,10 @@
 
     <footer class="footer">
       <div class="footer-left">
-        <p>Powered by LA LOCOMOTIVE (LCE)</p>
+        <p style="color:orange">Powered by LA LOCOMOTIVE (LCE)</p>
       </div>
       <div class="footer-right">
-        <p>Logo LCE</p>
+         <img style="width:80px;height:80px;" src="../../../assets/brobroli_1.png" alt="Photo" />
       </div>
     </footer>
   </div>
@@ -228,8 +228,22 @@ SPINNERLOADING.launchLoading(true)
   margin: 0 auto;
   border: 1px solid #ccc;
   font-family: Arial, sans-serif;
-  padding: 1vw;
+  padding: 2vw;
   box-sizing: border-box;
+}
+.certificat-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/icon_brobroli.png') center center no-repeat;
+  background-size: 250px auto;
+  opacity: 0.09; /* faible opacité, effet filigrane */
+  z-index: 0;
+}
+
+.certificat-container * {
+  position: relative;
+  z-index: 1;
 }
 
 .header {
@@ -237,9 +251,6 @@ SPINNERLOADING.launchLoading(true)
 }
 
 .logo-placeholder {
-  border: 1px dashed #ccc;
-  padding: 2vw;
-  display: inline-block;
   font-size: 0.8rem;
 }
 
@@ -258,6 +269,9 @@ SPINNERLOADING.launchLoading(true)
 .date-location {
   margin-top: 1vw;
   text-align: center;
+}
+.date-location p {
+  text-align: right;
 }
 
 .signature {
