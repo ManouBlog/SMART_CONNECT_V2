@@ -219,9 +219,6 @@ SPINNERLOADING.launchLoading(true)
   cursor: not-allowed;
 }
 
-
-
-
 .certificat-container {
   width: 95vw;
   max-width: 800px;
