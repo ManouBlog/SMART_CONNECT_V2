@@ -1,7 +1,10 @@
 <template>
   <HeaderDashboard TitleHeader="Mes certifications" subTitleHeader="Mes certifications" />
-  <div class="events-section">
+  <div class="events-section" v-if="jobs.length">
     <EventCard v-for="(event, index) in jobs" :key="index" :job="event" />
+  </div>
+   <div v-else>
+    <h2 style="text-align:center;padding:0 0 5em 0;">Chargement...</h2>
   </div>
 </template>
 

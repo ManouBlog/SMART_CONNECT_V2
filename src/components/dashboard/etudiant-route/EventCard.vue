@@ -53,7 +53,7 @@
         </div>
 
         <div class="signature">
-          <p>Le Représentant Légal</p>
+          <p style="text-align:right;">Le Représentant Légal</p>
         </div>
       </div>
     </main>
