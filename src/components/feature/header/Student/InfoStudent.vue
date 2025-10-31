@@ -196,7 +196,7 @@ export default {
         <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/certifications" class="d-block">
-              Mes certifications
+              Mes certificats
             </router-link>
           </li>
         </a-menu-item>

@@ -54,6 +54,10 @@ export default {
       numberRate: 0,
       identifiant: {},
       avis: "",
+      student_certification:{
+        student_id:null,
+        offre_id:null
+      }
     };
   },
   methods: {
@@ -121,6 +125,35 @@ export default {
           spinnerLoading.launchLoading(false);
         });
     },
+    async handleCertification(){
+      spinnerLoading.launchLoading(true);
+      await instance
+        .post("sendCertificat",{
+        student_id:this.student_certification.student_id,
+        offre_id:this.student_certification.offre_id
+      })
+        .then((res) => {
+          console.log("sendCertificat", res);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          spinnerLoading.launchLoading(false);
+          this.showCertificatModal = !this.showCertificatModal
+        });
+      // console.log({
+      //   student_id:this.student_certification.student_id,
+      //   offre_id:this.student_certification.offre_id
+      // })
+      
+    },
+    openModalCertification(payloadItem){
+      console.log("openModalCertification",payloadItem)
+      this.student_certification.student_id = payloadItem.student_id;
+      this.student_certification.offre_id = payloadItem.offre_id;
+      this.showCertificatModal = !this.showCertificatModal
+    } 
   },
   async created() {
     this.get_offres_interess_by_student();
@@ -204,10 +237,12 @@ export default {
             role="dialog"
             aria-modal="true"
           >
-            <h1>Certificat de travail</h1>
+            <span style="font-size:1em;">Souhaitez-vous envoyer le certificat de travail ?</span>
 
             <div class="text-center">
-              <button class="btn-lg bg-warning mx-3">Approuver</button>
+              <button class="btn-lg bg-warning mx-3"
+              @click="handleCertification"
+              >Approuver</button>
               <button
                 class="btn-lg mx-3"
                 @click="this.showCertificatModal = !this.showCertificatModal"
@@ -318,7 +353,7 @@ export default {
                     @click="rateStudent(item.student_id)"
                   >
                     <i class="bi bi-star-fill"></i>
-                    <spban>{{ texte13 }}</spban>
+                    <span>{{ texte13 }}</span>
                   </button>
                   <p style="text-align: center" v-else>Évaluation effectuée</p>
                 </div>
@@ -327,7 +362,7 @@ export default {
                     v-if="!item.certificat"
                     style="border: none; width: 150px"
                     class="btn-lg bg-dark m-3"
-                    @click="showCertificatModal = !showCertificatModal"
+                    @click="openModalCertification(item)"
                   >
                     <i class="bi bi-send-fill"></i>
                     <span>Envoyer le certificat</span>

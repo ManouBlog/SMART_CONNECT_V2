@@ -121,7 +121,7 @@ this.getListNotification();
 
   <li class="position-absolute deconnex">
     <router-link to="/dashboard/certifications" class="d-block">
-      Mes certifications
+      Mes certificats
     </router-link>
   </li>  
   <li class="position-absolute deconnex">

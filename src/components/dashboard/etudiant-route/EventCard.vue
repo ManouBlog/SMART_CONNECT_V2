@@ -16,7 +16,7 @@
   </div>
   <div>
     <!-- Modal de certification -->
-    <n-modal v-model:show="showModal" preset="card" size="large">
+    <n-modal v-model:show="showModal" preset="card" size="large" :closable="false">
       <template #header>
         <div class="modal-header">
           <h3>Certification de travail</h3>
@@ -31,11 +31,13 @@
     </header>
 
     <main class="certificat-content">
-      <h1 class="title">CERTIFICAT DE TRAVAIL</h1>
-
+      <div>
+ <h1 class="title">CERTIFICAT DE TRAVAIL</h1>
       <div class="certificat-text">
         <p>
-          Nous soussignés, <strong>{{ job?.offre?.entreprise.nom }}</strong> (XX BP XXXXXXXX), certifions que Monsieur/Madame
+          Nous soussignés, <strong>{{ job?.offre?.entreprise.nom }}</strong>
+          <strong> ({{ job?.offre?.entreprise.ville }},{{ job?.offre?.entreprise.quartier}})</strong>
+          , certifions que Monsieur/Madame
           <strong>{{ job?.student?.nom}} {{ job?.student?.prenoms}}</strong>, a été employé dans notre société en qualité de
           <strong>{{ job?.offre?.nom_offre}}</strong> du <strong>{{ new Date(job?.offre?.job_debut).toLocaleDateString('fr')}}</strong> au <strong>{{ new Date(job?.offre?.job_fin).toLocaleDateString('fr')}}</strong>.
         </p>
@@ -56,6 +58,8 @@
           <p style="text-align:right;">Le Représentant Légal</p>
         </div>
       </div>
+      </div>
+     
     </main>
 
     <footer class="footer">
@@ -63,14 +67,14 @@
         <p style="color:orange">Powered by LA LOCOMOTIVE (LCE)</p>
       </div>
       <div class="footer-right">
-         <img style="width:80px;height:80px;" src="../../../assets/brobroli_1.png" alt="Photo" />
+         <img style="width:200px;height:60px;" src="/logo_lce.png" alt="Photo" />
       </div>
     </footer>
   </div>
       <template #footer>
         <div class="modal-footer">
           <n-button @click="showModal = false" tertiary>Fermer</n-button>
-          <n-button type="primary" @click="downloadCertification"> Télécharger </n-button>
+          <n-button type="primary" style="margin:0 1em;" @click="downloadCertification"> Télécharger </n-button>
         </div>
       </template>
     </n-modal>
@@ -147,6 +151,14 @@ SPINNERLOADING.launchLoading(true)
 </script>
 
 <style scoped>
+.certificat-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* ou la hauteur que vous souhaitez */
+  margin: 0;
+  padding: 20px;
+}
 .job-card {
   display: flex;
   flex-direction: column;
@@ -209,6 +221,9 @@ SPINNERLOADING.launchLoading(true)
   transition: background 0.3s ease;
   align-self: flex-start;
 }
+:deep(.n-card){
+  width:90% !important;
+}
 
 .apply-btn:hover {
   background: rgba(255, 166, 0, 0.812);
@@ -232,9 +247,9 @@ SPINNERLOADING.launchLoading(true)
   content: "";
   position: absolute;
   inset: 0;
-  background: url('/icon_brobroli.png') center center no-repeat;
+  background: url('/brobroli_icon.png') center center no-repeat;
   background-size: 250px auto;
-  opacity: 0.09; /* faible opacité, effet filigrane */
+  opacity: 0.10; /* faible opacité, effet filigrane */
   z-index: 0;
 }
 
@@ -255,12 +270,14 @@ SPINNERLOADING.launchLoading(true)
 
 .title {
   text-align: center;
+  margin:0 2vw;
   font-size: clamp(1.2rem, 5vw, 1.5rem);
   font-weight: bold;
 }
 
 .certificat-text {
   line-height: 1.6;
+   margin-top:2vw;
   font-size: clamp(0.9rem, 4vw, 1rem);
 }
 
@@ -282,10 +299,11 @@ SPINNERLOADING.launchLoading(true)
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1vw;
+  margin-top: 3vw;
   padding-top: 1vw;
   font-size: clamp(0.7rem, 3vw, 0.9rem);
 }
+
 
 .footer-left,
 .footer-right {
