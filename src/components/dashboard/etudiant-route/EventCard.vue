@@ -36,7 +36,7 @@
       <div class="certificat-text">
         <p>
           Nous soussignés, <strong>{{ job?.offre?.entreprise.nom }}</strong>
-          <strong> ({{ job?.offre?.entreprise.ville }},{{ job?.offre?.entreprise.quartier}})</strong>
+          <strong v-if="job?.offre?.entreprise.adresse_postale">{{ job?.offre?.entreprise.adresse_postale}}</strong>
           , certifions que Monsieur/Madame
           <strong>{{ job?.student?.nom}} {{ job?.student?.prenoms}}</strong>, a été employé dans notre société en qualité de
           <strong>{{ job?.offre?.nom_offre}}</strong> du <strong>{{ new Date(job?.offre?.job_debut).toLocaleDateString('fr')}}</strong> au <strong>{{ new Date(job?.offre?.job_fin).toLocaleDateString('fr')}}</strong>.
