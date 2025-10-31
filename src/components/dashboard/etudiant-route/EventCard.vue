@@ -155,9 +155,8 @@ SPINNERLOADING.launchLoading(true)
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* ou la hauteur que vous souhaitez */
+  height: 100%; /* ou la hauteur que vous souhaitez */
   margin: 0;
-  padding: 20px;
 }
 .job-card {
   display: flex;
@@ -238,7 +237,6 @@ SPINNERLOADING.launchLoading(true)
   width: 95vw;
   max-width: 800px;
   margin: 0 auto;
-  border: 1px solid #ccc;
   font-family: Arial, sans-serif;
   padding: 2vw;
   box-sizing: border-box;
@@ -280,10 +278,12 @@ SPINNERLOADING.launchLoading(true)
    margin-top:2vw;
   font-size: clamp(0.9rem, 4vw, 1rem);
 }
-
+.certificat-text p {
+ margin-top:5vw;
+}
 
 .date-location {
-  margin-top: 1vw;
+  margin-top: 2vw;
   text-align: center;
 }
 .date-location p {
@@ -291,7 +291,7 @@ SPINNERLOADING.launchLoading(true)
 }
 
 .signature {
-  margin-top: 1vw;
+  margin-top: 2vw;
   text-align: center;
 }
 
@@ -299,7 +299,7 @@ SPINNERLOADING.launchLoading(true)
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 3vw;
+  margin-top: 5vw;
   padding-top: 1vw;
   font-size: clamp(0.7rem, 3vw, 0.9rem);
 }
