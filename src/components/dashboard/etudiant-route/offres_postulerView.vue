@@ -69,6 +69,16 @@ export default {
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useInfoStudentStore, ["get_all_student"]),
+
+    getCertificatRoute(offreId) {
+  this.$router.push({ name: 'certifications', params: { id: offreId } })
+},
+   getContratRoute(offreId) {
+  this.$router.push({ name: 'imprimeLeContrat', params: { id: offreId } })
+},
+getVoirPlusRoute(offreId){
+   this.$router.push({ name: 'details_offres_postuler', params: { id: offreId } })
+}
   },
   async created() {
     this.get_all_student();
@@ -168,7 +178,7 @@ export default {
                       slotProps.data.salaire != null
                         ? moneyFormat.format(slotProps.data.salaire)
                         : texte4
-                    }}</span
+                    }}/{{ slotProps.data.pointage }}</span
                   >
                 </template>
               </Column>
@@ -192,33 +202,28 @@ export default {
               >
                 <template #body="slotProps">
                   <div class="d-flex justify-content-center g-5 align-items-center">
-                    <router-link
-                    class="mx-2"
-                      :to="{
-                        name: 'details_offres_postuler',
-                        params: { id: slotProps.data.id },
-                      }"
-                      ><i class="bi bi-eye"></i
-                    ></router-link>
-                    <router-link
-                    v-if="slotProps.data.pivot.recruit === 1"
-                    class="mx-2"
-                      :to="{
-                        name: 'imprimeLeContrat',
-                        params: { id: slotProps.data.pivot.offre_id },
-                      }"
-                    >
-                    <span><i class="bi bi-file-earmark-text"></i></span>
-                    </router-link>
-                    <router-link
-                    v-if="slotProps.data.pivot.certificat === 1"
-                    class="mx-2"
-                      :to="{
-                        name: 'certifications',
-                        params: { id: slotProps.data.pivot.offre_id },
-                      }"
-                      ><i class="bi bi-award"></i></router-link
-                    >
+                    <n-tooltip placement="bottom" trigger="hover">
+                      <template #trigger>
+                        <n-button :bordered="false" size="large" @click="getVoirPlusRoute(slotProps.data.id)"> 
+                         <i class="bi bi-eye"></i
+                    > </n-button>
+                      </template>
+                      <span> Voir l'offre </span>
+                    </n-tooltip>
+                    <n-tooltip placement="bottom" trigger="hover"  v-if="slotProps.data.pivot.recruit === 1">
+                      <template #trigger>
+                        <n-button :bordered="false" size="large" @click="getContratRoute(slotProps.data.pivot.offre_id)"> 
+                          <i class="bi bi-file-earmark-text"></i> </n-button>
+                      </template>
+                      <span> Mon contrat </span>
+                    </n-tooltip>
+                    <n-tooltip placement="bottom" trigger="hover"  v-if="slotProps.data.pivot.certificat === 1">
+                      <template #trigger>
+                        <n-button :bordered="false" size="large" @click="getCertificatRoute(slotProps.data.pivot.offre_id)"> 
+                          <i class="bi bi-award"></i> </n-button>
+                      </template>
+                      <span> Mon certificat </span>
+                    </n-tooltip>
                   </div>
                 </template>
               </Column>
@@ -233,6 +238,12 @@ export default {
   </div>
 </template>
 <style scoped>
+.bi-eye::before,.bi-file-earmark-text::before,.bi-award::before{
+  font-size:1.8em !important;
+}
+:deep(.n-button){
+  margin:0 0.1em;
+}
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;

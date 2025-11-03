@@ -303,15 +303,15 @@ const routes = [
         },
         component: () => import( '../components/dashboard/etudiant-route/details_offres_postuleView.vue')
       },
-      {
+      // {
         
-        path:"/dashboard/contrat",
-        name:'contrat',
-        meta:{
-          requiresAuth:true
-        },
-        component: () => import( '../components/dashboard/etudiant-route/see_who_interresse_by_profil_studentView.vue')
-      },
+      //   path:"/dashboard/contrat",
+      //   name:'contrat',
+      //   meta:{
+      //     requiresAuth:true
+      //   },
+      //   component: () => import( '../components/dashboard/etudiant-route/see_who_interresse_by_profil_studentView.vue')
+      // },
        {
         
         path:"/dashboard/certifications/:id",

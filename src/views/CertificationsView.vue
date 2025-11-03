@@ -2,7 +2,7 @@
   <HeaderDashboard TitleHeader="Certificat" />
   <div v-if="job">
      <div class="certificat-container" id="certification-content">
-    <header class="header">
+    <header class="header" v-if="job?.image_data">
       <div class="logo-placeholder">
         <img
           style="width: 80px; height: 80px"
