@@ -123,6 +123,7 @@ export default {
         })
         .finally(() => {
           spinnerLoading.launchLoading(false);
+          this.get_offres_interess_by_student();
         });
     },
     async handleCertification(){
@@ -141,6 +142,7 @@ export default {
         .finally(() => {
           spinnerLoading.launchLoading(false);
           this.showCertificatModal = !this.showCertificatModal
+          this.get_offres_interess_by_student();
         });
       // console.log({
       //   student_id:this.student_certification.student_id,
@@ -237,7 +239,7 @@ export default {
             role="dialog"
             aria-modal="true"
           >
-            <span style="font-size:1em;">Souhaitez-vous envoyer le certificat de travail ?</span>
+            <span style="font-size:2em;text-align:center;">Souhaitez-vous envoyer le certificat de travail ?</span>
 
             <div class="text-center">
               <button class="btn-lg bg-warning mx-3"
@@ -355,8 +357,9 @@ export default {
                     <i class="bi bi-star-fill"></i>
                     <span>{{ texte13 }}</span>
                   </button>
-                  <p style="text-align: center" v-else>Évaluation effectuée</p>
+                  <!-- <p style="text-align: center" v-else>Évaluation effectuée</p> -->
                 </div>
+                
                 <div>
                   <button
                     v-if="!item.certificat"
@@ -367,7 +370,7 @@ export default {
                     <i class="bi bi-send-fill"></i>
                     <span>Envoyer le certificat</span>
                   </button>
-                  <p style="text-align: center" v-else>Certificat envoyé.</p>
+                  <!-- <p style="text-align: center" v-else>Certificat envoyé.</p> -->
                 </div>
               </div>
             </section>
