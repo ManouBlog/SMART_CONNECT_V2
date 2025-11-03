@@ -75,7 +75,7 @@ this.getListNotification();
     this.texte1 = await this.handleTranslate('Mon profil');
     this.texte2 = await this.handleTranslate("Mes favoris");
     this.texte3 = await this.handleTranslate('Mes postulations');
-    this.texte4 = await this.handleTranslate('Mes Contrats');
+    // this.texte4 = await this.handleTranslate('Mes Contrats');
     this.texte40 = await this.handleTranslate('Entreprises intéressées');
     this.texte5 = await this.handleTranslate(' Mes disponibilités');
     this.texte6 = await this.handleTranslate(`Mes abonnements`);
@@ -113,17 +113,17 @@ this.getListNotification();
       {{texte3}}
     </router-link>
   </li>
-  <li class="position-absolute deconnex">
+  <!-- <li class="position-absolute deconnex">
     <router-link to="/dashboard/contrat" class="d-block">
       {{texte4}}
     </router-link>
-  </li>
+  </li> -->
 
-  <li class="position-absolute deconnex">
+  <!-- <li class="position-absolute deconnex">
     <router-link to="/dashboard/certifications" class="d-block">
       Mes certificats
     </router-link>
-  </li>  
+  </li>   -->
   <li class="position-absolute deconnex">
     <router-link to="/dashboard/emploi_du_temps" class="d-block">
      {{texte5}}

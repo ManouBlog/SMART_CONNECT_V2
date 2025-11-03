@@ -192,12 +192,12 @@ h5 {
       await instance
         .get("get_who_contact_student")
         .then((res) => {
-          // // console.log("get_who_contact_student", res);
+          // console.log("get_who_contact_student", res);
           this.offreDetail = res.data;
           // // console.log("this.$route.params.id", this.$route.params.id);
           // // console.log("ENTREPRISES", this.list_entreprise_contact);
           this.entreprise = this.offreDetail.find(
-            (item) => Number(item.id) === Number(this.$route.params.id)
+            (item) => Number(item.offre_id) === Number(this.$route.params.id)
           );
           this.myOffre = this.entreprise.offre;
           // // console.log("this.myOffre", this.myOffre);

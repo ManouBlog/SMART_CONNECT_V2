@@ -314,7 +314,7 @@ const routes = [
       },
        {
         
-        path:"/dashboard/certifications",
+        path:"/dashboard/certifications/:id",
         name:'certifications',
         meta:{
           requiresAuth:true
