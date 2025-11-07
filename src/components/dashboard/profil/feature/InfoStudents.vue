@@ -374,10 +374,7 @@ export default {
         <h4 class="p-5">Pas de compétences</h4>
       </section>
       <h1 class="fw-bold my-3">Qualifications</h1>
-      <section
-        v-if="infoPersonellesQualifications.length"
-       class="conteneur-flex"
-      >
+      <section v-if="infoPersonellesQualifications.length" class="conteneur-flex">
         <div v-for="(item, index) in infoPersonellesQualifications" :key="index">
           <div style="display: flex; align-items: center; gap: 1em">
             <div
@@ -469,6 +466,119 @@ export default {
 .conteneur-flex {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1em;
+  justify-content: flex-start;
+}
+
+.btn_photo_profil {
+  background: transparent;
+  border: none;
+}
+
+.bi-camera-fill {
+  font-size: 1.2em !important;
+  position: absolute;
+  bottom: 0;
+  left: 5em;
+  z-index: 1;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  background: rgb(255, 255, 255);
+  padding: 0.5em;
+  border-radius: 100%;
+}
+
+h6 {
+  text-align: left;
+  font-size: 1.5em;
+}
+h1 {
+  text-align: left;
+}
+
+/* ✅ Responsive pour tablettes et mobiles */
+@media (max-width: 992px) {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .col-lg-4,
+  .col-sm-6 {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .info-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8em;
+  }
+
+  .info-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .info-header button {
+    font-size: 0.9rem;
+    padding: 0.4em 0.8em;
+    border-radius: 6px;
+    margin:1em 0;
+  }
+
+  .conteneur_activation {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 0.8em;
+  }
+
+  .bi-camera-fill {
+    left: 3.5em;
+    font-size: 1em;
+  }
+
+  .conteneur-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6em;
+  }
+
+  .n-image {
+    width: 80px !important;
+    height: auto !important;
+  }
+}
+
+/* ✅ Très petits écrans (téléphones ≤ 480px) */
+@media (max-width: 480px) {
+  .info-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .info-header button {
+    font-size: 0.8rem;
+  }
+
+  .bi-camera-fill {
+    left: 2.8em;
+  }
+
+  h6 {
+    font-size: 1.2em;
+  }
+
+  .a-card,
+  section {
+    padding: 0.1em !important;
+  }
+}
+</style>
+
+<!-- <style scoped>
+.conteneur-flex {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1em;
   justify-content: space-between;
@@ -516,8 +626,8 @@ h1 {
   }
 }
 @media (max-width: 368px) {
-  .conteneur-flex{
+  .conteneur-flex {
     place-content: center;
   }
 }
-</style>
+</style> -->

@@ -5,12 +5,12 @@ import Swal from "sweetalert2";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
-import {mapActions} from "pinia";
+import { mapActions } from "pinia";
 import { FilterMatchMode } from "primevue/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
-const  loadingSpinner = useLoadingSpinner()
+const loadingSpinner = useLoadingSpinner();
 export default {
   name: "see_who_interresse_by_profil_studentView",
   components: {
@@ -32,15 +32,15 @@ export default {
       texte8: "",
       texte9: "",
       texte10: "",
-      texte90:"",
-      texte11:"",
-      texte12:"",
-      texte13:"",
-      texte14:"",
-      texte15:"",
-      texte16:"",
-      texte17:"",
-      texte18:"",
+      texte90: "",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
       list_entreprise_contact: [],
       student: null,
       spinner: false,
@@ -76,7 +76,7 @@ export default {
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           loadingSpinner.launchLoading(false);
         });
     },
@@ -114,7 +114,6 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-      
           }
         })
         .catch((error) => {
@@ -144,77 +143,69 @@ export default {
           console.log(error);
         });
     },
-    seeDetailOffre(idOffre){
+    seeDetailOffre(idOffre) {
       instance
         .put("confirmAlarm/" + idOffre)
         .then((response) => {
           // console.log("confirmAlarm",response);
           if (response.data.status === true) {
-           this.$store.commit("DECREASE_ALARM")
+            this.$store.commit("DECREASE_ALARM");
           }
         })
         .catch((error) => {
           console.log(error);
         });
-    }
+    },
   },
   async created() {
     this.get_entreprise_who_contact_student();
-    this.texte = await this.handleTranslate('Contrats');
+    this.texte = await this.handleTranslate("Contrats");
     this.texte1 = await this.handleTranslate(`Voulez-vous accepter l'offre ?`);
-     this.texte2 = await this.handleTranslate("Sélectionner");
-     this.texte3 = await this.handleTranslate(` Annuler`);
-     this.texte4 = await this.handleTranslate("Voulez-vous rejeter l'offre ?");
-     this.texte5 = await this.handleTranslate('Rejeter');
-     this.texte6 = await this.handleTranslate('Recherche:');
-     this.texte7 =  await this.handleTranslate(`Nom de l'entreprise`);
-     this.texte8 =  await this.handleTranslate(`Email de l'entreprise`);
-     this.texte9 = await this.handleTranslate(`Date de début de travail`);
-     this.texte90 = await this.handleTranslate(`Offre`);
-     this.texte10 = await this.handleTranslate("Sélectionné");
-     this.texte11 = await this.handleTranslate('refuser');
-     this.texte12 = await this.handleTranslate('En attente de reponse');
-     this.texte13 = await this.handleTranslate('Rejeter');
-     this.texte14 = await this.handleTranslate('Sélectionner');
-     this.texte15 =  await this.handleTranslate('Expirée');
-     this.texte16 =  await this.handleTranslate('Action');
+    this.texte2 = await this.handleTranslate("Sélectionner");
+    this.texte3 = await this.handleTranslate(` Annuler`);
+    this.texte4 = await this.handleTranslate("Voulez-vous rejeter l'offre ?");
+    this.texte5 = await this.handleTranslate("Rejeter");
+    this.texte6 = await this.handleTranslate("Recherche:");
+    this.texte7 = await this.handleTranslate(`Nom de l'entreprise`);
+    this.texte8 = await this.handleTranslate(`Email de l'entreprise`);
+    this.texte9 = await this.handleTranslate(`Date de début de travail`);
+    this.texte90 = await this.handleTranslate(`Offre`);
+    this.texte10 = await this.handleTranslate("Sélectionné");
+    this.texte11 = await this.handleTranslate("refuser");
+    this.texte12 = await this.handleTranslate("En attente de reponse");
+    this.texte13 = await this.handleTranslate("Rejeter");
+    this.texte14 = await this.handleTranslate("Sélectionner");
+    this.texte15 = await this.handleTranslate("Expirée");
+    this.texte16 = await this.handleTranslate("Action");
   },
 };
 </script>
 <template>
   <div class="page-body position-relative">
-
-    <HeaderDashboard
-    :TitleHeader="texte"
-    :subTitleHeader="texte"
-  />
-    <div
-      class="tab-content"
-      id="top-tabContent"
-      
-    >
+    <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
+    <div class="tab-content" id="top-tabContent">
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12 py-3 px-2">
             <div class="verfAccept" v-if="showMsgAcceptoffre">
               <div class="msgForAccept">
-                <h5>{{texte1}}</h5>
+                <h5>{{ texte1 }}</h5>
                 <button class="btn-lg bg-primary" @click="acceptJob">
-                  {{texte2}}
+                  {{ texte2 }}
                 </button>
                 <button class="btn-lg bg-danger mx-2" @click="annuleContrat">
-                 {{texte3}}
+                  {{ texte3 }}
                 </button>
               </div>
             </div>
             <div class="verfAccept" v-if="showMsgRejectoffre">
               <div class="msgForAccept">
-                <h5>{{texte4}}</h5>
+                <h5>{{ texte4 }}</h5>
                 <button class="btn-lg bg-primary" @click="rejectJob">
-                  {{texte5}}
+                  {{ texte5 }}
                 </button>
                 <button class="btn-lg bg-danger mx-2" @click="annuleRejetContrat">
-                  {{texte3}}
+                  {{ texte3 }}
                 </button>
               </div>
             </div>
@@ -257,10 +248,9 @@ export default {
                 field="id"
                 :header="texte7"
               >
-            <template #body="slotProps">
+                <template #body="slotProps">
                   <div>
-                    <span>{{ slotProps.data.offre.entreprise.nom }}
-                    </span>                    
+                    <span>{{ slotProps.data.offre.entreprise.nom }} </span>
                   </div>
                 </template>
               </Column>
@@ -269,13 +259,12 @@ export default {
                 field="email"
                 :header="texte8"
               >
-            <template #body="slotProps">
+                <template #body="slotProps">
                   <div>
-                    <span>{{ slotProps.data.offre.entreprise.email }}
-                    </span>                    
+                    <span>{{ slotProps.data.offre.entreprise.email }} </span>
                   </div>
                 </template>
-            </Column>
+              </Column>
               <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="id"
@@ -283,11 +272,7 @@ export default {
               >
                 <template #body="slotProps">
                   <div>
-                    <span
-                      >{{
-                        slotProps.data?.offre?.job_debut
-                      }}
-                    </span>
+                    <span>{{ slotProps.data?.offre?.job_debut }} </span>
                   </div>
                 </template>
               </Column>
@@ -298,26 +283,18 @@ export default {
               >
                 <template #body="slotProps">
                   <div>
-                    <span
-                      >{{
-                        slotProps.data?.offre?.job_fin
-                      }}
-                    </span>
+                    <span>{{ slotProps.data?.offre?.job_fin }} </span>
                   </div>
                 </template>
               </Column>
-               <Column
+              <Column
                 style="font-size: 1.8em; padding: 1em; text-align: center"
                 field="id"
                 :header="texte90"
               >
                 <template #body="slotProps">
                   <div>
-                    <span
-                      >{{
-                        slotProps.data?.offre?.nom_offre
-                      }}
-                    </span>
+                    <span>{{ slotProps.data?.offre?.nom_offre }} </span>
                   </div>
                 </template>
               </Column>
@@ -328,17 +305,16 @@ export default {
               >
                 <template #body="slotProps">
                   <div class="d-flex align-items-center justify-content-center">
-                    <span v-if="slotProps.data?.recruit === 1" 
-                    class="badge bg-success"
-                      >{{texte10}}</span
-                    >
+                    <span v-if="slotProps.data?.recruit === 1" class="badge bg-success">{{
+                      texte10
+                    }}</span>
                     <span
                       v-else-if="slotProps.data?.recruit === 2"
                       class="badge bg-danger"
-                      >{{texte11}}</span
+                      >{{ texte11 }}</span
                     >
                     <span v-else class="badge bg-warning w-150">
-                      {{texte12}}
+                      {{ texte12 }}
                     </span>
                   </div>
                 </template>
@@ -379,30 +355,31 @@ export default {
                 </template>
               </Column> -->
               <Column
-              style="font-size: 1.8em; padding: 1em; text-align: center"
-              field="id"
-              :header="texte16"
-            >
-              <template #body="slotProps">
-                <div>
-                <em
-                  class="bi bi-dash-circle text-danger"
-                  v-if="slotProps.data?.recruit === 0 || 
-                  slotProps.data?.recruit === 2"
-                ></em>
-                
-                <router-link
-                @click="seeDetailOffre(slotProps.data?.id)"
-                :to="{
-                  name: 'imprimeLeContrat',
-                  params: { id: slotProps.data?.id },
-                }"
-                v-if="slotProps.data?.recruit === 1"
-                ><em class="bi bi-printer"></em
-              ></router-link>
-              </div>
-              </template>
-            </Column>
+                style="font-size: 1.8em; padding: 1em; text-align: center"
+                field="id"
+                :header="texte16"
+              >
+                <template #body="slotProps">
+                  <div>
+                    <em
+                      class="bi bi-dash-circle text-danger"
+                      v-if="
+                        slotProps.data?.recruit === 0 || slotProps.data?.recruit === 2
+                      "
+                    ></em>
+
+                    <router-link
+                      @click="seeDetailOffre(slotProps.data?.id)"
+                      :to="{
+                        name: 'imprimeLeContrat',
+                        params: { id: slotProps.data?.id },
+                      }"
+                      v-if="slotProps.data?.recruit === 1"
+                      ><em class="bi bi-printer"></em
+                    ></router-link>
+                  </div>
+                </template>
+              </Column>
             </DataTable>
             <div v-if="!list_entreprise_contact.length">
               <h1 class="not_data">Pas de donnée.</h1>
@@ -411,7 +388,6 @@ export default {
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 <style scoped>
