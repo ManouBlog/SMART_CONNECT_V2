@@ -415,7 +415,7 @@ export default {
             <div class="weekly-column">
               <div class="card-body position-relative">
                 <div id="weekly-chart">
-                  <div class="d-flex justify-content-between align-items-center">
+                  <div class="header_qualifications">
                     <h1 class="fw-bold text-start" style="color: orange; margin: 0">
                       {{ texte24 }}
                     </h1>
@@ -501,6 +501,13 @@ export default {
   </section>
 </template>
 <style scoped>
+.header_qualifications{
+  display:flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap:1em;
+  margin:1em 0;
+}
 :deep(input) {
   padding: 0.5em;
   border: 1px solid orange;

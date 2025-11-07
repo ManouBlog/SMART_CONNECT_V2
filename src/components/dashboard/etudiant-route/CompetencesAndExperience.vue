@@ -209,6 +209,7 @@ export default {
               title: response.data.message,
               showConfirmButton: true,
             });
+            this.toogleNouvelleExperience = false
           }
         })
         .catch((error) => {
@@ -216,6 +217,7 @@ export default {
         })
         .finally(()=>{
           loadingSpinner.launchLoading(false);
+          this.getAllExperiences();
         })
     },
     async getAllExperiences() {
@@ -261,6 +263,7 @@ export default {
       this.toogleModifyExperience = !this.toogleModifyExperience;
     },
     changeExperience() {
+      loadingSpinner.launchLoading(true);
       let formData = new FormData();
       formData.append("experience", this.updateExperience.experience);
       formData.append("lieu", this.updateExperience.lieu);
@@ -274,6 +277,7 @@ export default {
       instance
         .post("modifyExperience/" + this.idExperience, formData)
         .then((response) => {
+          console.log("rsponseExperinece",response)
           if (response.data.status === true) {
             this.getAllExperiences();
             Swal.fire({
@@ -283,20 +287,17 @@ export default {
               timer: 1500,
             });
             this.toogleModifyExperience = !this.toogleModifyExperience;
-            this.spinnerModifyExperience = false;
           }
-          if (response.data.status === false) {
-            this.spinnerModifyExperience = false;
-          }
-
-          // // console.log("Resultat modification", response);
         })
         .catch((err) => {
-          this.spinnerModifyExperience = false;
           console.log(err)
-        });
+        }).finally(() => {
+      this.spinnerModifyExperience = false; // on arrête le spinner
+      loadingSpinner.launchLoading(false);
+    });
     },
     deleteExperience() {
+      loadingSpinner.launchLoading(true);
       instance
         .delete("deleteMyExperience/" + this.idExperienceAtDelete)
         .then((res) => {
@@ -308,12 +309,15 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-            this.comfirmationForDeleteCompetence = !this.comfirmationForDeleteCompetence;
+            this.toogleScreenYouWantDelete = false
           }
         })
         .catch((err) => {
           console.log(err)
-        });
+        }).finally(()=>{
+          this.toogleScreenYouWantDelete = false
+          loadingSpinner.launchLoading(false);
+        })
     },
     ToogleShowDelete(id) {
       this.idExperienceAtDelete = id;
@@ -384,14 +388,14 @@ export default {
             @click="toogleNouvelleExperience = !toogleNouvelleExperience"
           ></em>
           <div class="p-3">
-            <h1 style="padding:0.5em">{{texte0}}</h1>
+            <h2>{{texte0}}</h2>
           </div>
         </div>
         <form @submit.prevent="saveExperience">
           <div class="row p-5">
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>
-                <span style="color:red;">*</span>
+                <span style="color:red">*</span>
                 {{texte1}}</label>
               <input  type="text" style="padding:1em" v-model="poste" required />
             </div>
@@ -431,7 +435,7 @@ export default {
         <div class="conteneur-experience">
           <em class="bi bi-x-lg" @click="toogleExperience"></em>
           <div class="h1">
-            <h1>{{texte9}}</h1>
+            <h3>{{texte9}}</h3>
           </div>
         </div>
         <form @submit.prevent="changeExperience">
@@ -494,7 +498,6 @@ export default {
                 accept="image/*"
                 @change="onFileProof"
                 placeholder="Ex :Cocody angré"
-                required
                 style="padding:1em"
               />
             </div>
@@ -528,11 +531,11 @@ export default {
       >
         <div class="card p-5">
           <p class="h3 my-2">{{texte16}}</p>
-          <div>
-            <button class="btn-lg bg-warning" @click="deleteMyCompetence">
+          <div style="display:flex;gap:1em;">
+            <button class="btn-lg w-75 bg-warning m-2" @click="deleteMyCompetence">
               {{texte17}}
             </button>
-            <button class="btn-lg bg-danger mx-2" @click="notDeleteCompetence">
+            <button class="btn-lg w-75 m-2" style="background:red !important;" @click="notDeleteCompetence">
               {{texte18}}
             </button>
           </div>
@@ -542,9 +545,9 @@ export default {
       <div class="ecran_for_delete delete_article" v-show="toogleScreenYouWantDelete">
         <div class="card p-5">
           <p class="h3 my-2">{{texte19}}</p>
-          <div>
-            <button class="btn-lg bg-warning" @click="deleteExperience"> {{texte17}}</button>
-            <button class="btn-lg bg-danger mx-2" @click="notDeleteExperience">
+          <div style="display:flex;gap:1em;">
+            <button class="btn-lg w-75 bg-warning m-2" @click="deleteExperience"> {{texte17}}</button>
+            <button class="btn-lg w-75 m-2" style="background:red !important;" @click="notDeleteExperience">
               {{texte18}}
             </button>
           </div>
@@ -602,7 +605,7 @@ export default {
                                   {{ item.competence }}
                                 </td>
                                 <td
-                                  class="d-flex justify-content-center align-items-center"
+                                  style="text-align:center;"
                                 >
                                   <em
                                     class="bi bi-trash"
@@ -715,6 +718,13 @@ export default {
 </template>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style scoped>
+button{
+  border-radius:5px;
+  margin-top:1em;
+}
+ .title_modal{
+    font-size:1.5em !important;
+  }
 :deep(input){
   padding:0.5em;
   border:1px solid orange;
@@ -773,7 +783,7 @@ textarea {
   justify-content: center;
 }
 .conteneur_nouvelle_experience {
-  width: 60%;
+  width: 80%;
   height: 500px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -782,7 +792,7 @@ textarea {
   border-radius: 5px;
 }
 .conteneur_nouvelle_experience form {
-  padding: 1em;
+  padding: 0.5em;
   margin-top: 3.5em;
 }
 
@@ -927,5 +937,137 @@ td {
 p {
   font-size: 1em !important;
 }
+
+/* === Amélioration responsive mobile === */
+@media screen and (max-width: 992px) {
+ 
+  /* Conteneur principal */
+  .info-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1em;
+  }
+
+  .info-header h1 {
+    font-size: 1.3rem !important;
+  }
+
+  .info-header button {
+    width: 100%;
+    text-align: center;
+    border-radius: 8px !important;
+    font-size: 0.9rem;
+    padding: 0.6em;
+  }
+
+  /* Activation du compte */
+  .conteneur_activation {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8em;
+  }
+
+  /* Section des infos personnelles */
+  .row > [class*="col-"] {
+    width: 100% !important;
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .n-modal iframe {
+    height: 300px !important;
+  }
+
+  /* Avatar + caméra */
+  .d-flex {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap:1em;
+  }
+  .conteneur_experience{
+    margin:1em 0;
+  }
+
+  .bi-camera-fill {
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    margin-top: 0.5em;
+  }
+.p-tabview .p-tabview-panels{
+  padding:0 !important;
+}
+  /* Compétences & qualifications */
+  .conteneur-flex {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8em;
+  }
+
+  .conteneur-flex div {
+    width: 100%;
+  }
+
+  /* Tableau et formulaires */
+  table {
+    width: 100%;
+    font-size: 0.9em;
+  }
+
+  input,
+  textarea,
+  button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Titres */
+  h1, h3, h4, p, label {
+    text-align: left !important;
+  }
+
+  /* Espacements */
+  .card-body {
+    padding: 0.5em !important;
+  }
+
+  .a-card {
+    margin: 1em 0 !important;
+  }
+
+   .col-md-6{
+    padding:0;
+  }
+
+  /* Image profil */
+  .btn_photo_profil n-avatar,
+  .btn_photo_profil p {
+    width: 100px !important;
+    height: 100px !important;
+  }
+ 
+}
+
+@media screen and (max-width: 576px) {
+  .info-header h1 {
+    font-size: 1.1rem !important;
+  }
+
+  .fw-bold {
+    font-size: 1rem !important;
+  }
+
+  .conteneur_activation button {
+    font-size: 0.8rem !important;
+    padding: 0.4em 0.8em !important;
+
+  }
+
+  .bi-camera-fill {
+    font-size: 1rem !important;
+  }
+}
+
 
 </style>

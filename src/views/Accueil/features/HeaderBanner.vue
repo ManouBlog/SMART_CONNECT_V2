@@ -140,7 +140,7 @@ h4{
    text-align:center;
 }
 .ecriteau_image img{
-  width:90%;
+  width:70%;
 }
 }
 @media screen and (max-width: 400px) {
