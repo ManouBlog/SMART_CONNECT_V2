@@ -134,6 +134,14 @@ h4{
   .header_banner {
     margin-top: 4em;
   }
+  .ecriteau_image {
+  position: relative;
+   margin-top: 3em;
+   text-align:center;
+}
+.ecriteau_image img{
+  width:90%;
+}
 }
 @media screen and (max-width: 400px) {
   .header_banner {

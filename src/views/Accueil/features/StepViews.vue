@@ -129,4 +129,10 @@ export default {
 .main-container-home {
   background: transparent;
 }
+
+@media screen and (max-width: 500px) {
+.step_suivre {
+  margin: 0.5em 0;
+}
+}
 </style>

@@ -89,4 +89,17 @@ export default {
   align-items: center;
   flex-wrap: wrap;
 }
+@media screen and (max-width: 500px) {
+.ecriteau > h1 {
+  margin: 0.5em 0;
+}
+.ecriteau_image {
+  margin:0.5em 0;
+  text-align: center;
+}
+
+.ecriteau_image img {
+  width:80%;
+}
+}
 </style>

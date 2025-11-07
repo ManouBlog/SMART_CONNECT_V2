@@ -48,34 +48,31 @@ export default {
     this.getOffres();
     this.texte0 = await this.handleTranslate("Offres récentes");
     this.texte1 = await this.handleTranslate("Description");
-    this.texte2 = await this.handleTranslate("Publié le:")
+    this.texte2 = await this.handleTranslate("Publié le:");
   },
 };
 </script>
 <template>
-  <section v-if="
-              this.$store.state.user &&
-              this.$store.state.user.user.statut.statut === 'etudiant'
-            ">
-    <h1 class="fw-bold" style="color:orange;text-align:center;" v-if="ListOffre.length">{{ texte0 }}</h1>
+  <section
+    v-if="
+      this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant'
+    "
+  >
+    <h1 class="fw-bold" style="color: orange; text-align: center" v-if="ListOffre.length">
+      {{ texte0 }}
+    </h1>
     <br />
     <br />
-    
+
     <div class="wrapper">
       <Flicking class="job-container" :defaultIndex="1">
-        <div
-          class="job_div"
-          style="width: 35%"
-          v-for="item in ListOffre"
-          :key="item.id"
-        >
+        <div class="job_div" style="width: auto" v-for="item in ListOffre" :key="item.id">
           <h1 class="fw-bold">{{ item.nom_offre }}</h1>
           <span><em class="bi bi-geo-alt"></em>{{ item.lieu }}</span>
           <br />
           <br />
-          <span>
-            <em class="bi bi-calendar-date"></em>Echéance :</span>
-          <span>{{ new Date(item.fin).toLocaleDateString('fr') }}</span>
+          <span> <em class="bi bi-calendar-date"></em>Echéance :</span>
+          <span>{{ new Date(item.fin).toLocaleDateString("fr") }}</span>
           <br />
           <br />
           <div class="desc_crop">
@@ -88,7 +85,7 @@ export default {
           >
         </div>
         <div
-        v-if="ListOffre.length > 0"
+          v-if="ListOffre.length > 0"
           style="
             width: auto;
             display: flex;
@@ -100,7 +97,7 @@ export default {
           <a
             href="#"
             class="h5"
-            style="font-size: 2em;color:orange !important;"
+            style="font-size: 2em; color: orange !important"
             @click.prevent="voirDetailTimetable"
             v-if="
               this.$store.state.user &&
@@ -115,6 +112,8 @@ export default {
 </template>
 <style scoped>
 @import "../../../Shared/styles/stylesShared.css";
+
+/* Description coupée */
 .desc_crop {
   width: 100%;
   height: 90px;
@@ -137,19 +136,74 @@ export default {
   border-radius: 10px;
   background-image: linear-gradient(to bottom, transparent, rgb(255, 255, 255));
 }
+
+/* Conteneur principal du Flicking */
 .job-container {
   background-color: var(--secondary-color) !important;
   color: black !important;
+  padding: 1em 0;
+  overflow: hidden;
 }
+
+/* Cartes d’offre */
 .job_div {
-  background: rgb(255, 255, 255);
+  background: #fff;
   width: 300px;
   height: 300px;
   margin: 0.5em;
   border-radius: 10px;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.165);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
   position: relative;
   text-align: left;
   padding: 0 1em;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.job_div:hover {
+  transform: translateY(-4px);
+  box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* Responsive mobile */
+@media screen and (max-width: 768px) {
+  .job-container {
+    padding: 0.5em;
+  }
+
+  .job_div {
+    width: 85%; /* s’adapte à la largeur de l’écran */
+    height: auto;
+    min-height: 250px;
+    margin: 0 auto;
+    padding: 1em;
+    text-align: left;
+  }
+
+  .desc_crop {
+    height: auto;
+  }
+
+  .publie_offre {
+    position: static;
+    display: block;
+    margin-top: 1em;
+  }
+
+  /* Optimise la navigation tactile */
+  :deep(.flicking-camera) {
+    gap: 1em;
+  }
+
+  :deep(.flicking-viewport) {
+    touch-action: pan-y pinch-zoom;
+  }
+}
+
+/* Ultra petit écran */
+@media screen and (max-width: 480px) {
+  .job_div {
+    width: 95%;
+    font-size: 0.9em;
+  }
 }
 </style>

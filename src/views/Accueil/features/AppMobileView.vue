@@ -70,7 +70,7 @@ export default {
     <div class="ecriteau_image">
       <ImageView
         :lien_img_folder="illustrationApp"
-        :name_class_img="'position-absolute w-100 image'"
+        :name_class_img="'position-absolute image'"
         :alt_img="'illustration_app'"
       />
     </div>
@@ -107,5 +107,15 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   gap: 1em;
+}
+
+@media screen and (max-width: 500px) {
+.ecriteau > h1 {
+  margin: 0.5em 0;
+}
+.ecriteau_image {
+  margin:0.5em 0;
+  text-align: center;
+}
 }
 </style>
