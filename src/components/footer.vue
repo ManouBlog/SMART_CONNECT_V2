@@ -96,4 +96,16 @@ export default {
   align-items: flex-start;
   flex-wrap: wrap;
 }
+
+@media screen and (max-width: 768px) {
+
+  /* On cible spécifiquement le LogoComponent (dernier enfant dans ton template) */
+  .main-container-footer :deep(.logo-component),
+  .main-container-footer > :last-child {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1.5em;
+  }
+}
 </style>

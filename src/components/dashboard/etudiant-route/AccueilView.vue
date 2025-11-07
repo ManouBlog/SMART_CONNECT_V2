@@ -166,13 +166,49 @@ export default {
   </section>
 </template>
 <style scoped>
+
 .conteneur_filter {
   display: flex;
   justify-content: flex-end;
   padding: 0 10em;
+  margin-bottom: 1em;
 }
+
+/* Ciblage du date picker Ant Design */
 :where(.css-dev-only-do-not-override-17yhhjv).ant-picker {
   width: 200px;
   border: 1px solid black !important;
+  border-radius: 6px;
+}
+
+/* Responsive: adaptation sur tablettes et mobiles */
+@media screen and (max-width: 1024px) {
+  .conteneur_filter {
+    padding: 0 3em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .conteneur_filter {
+    justify-content: center;
+    padding: 0 1em;
+  }
+
+  :where(.css-dev-only-do-not-override-17yhhjv).ant-picker {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .conteneur_filter {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 1em;
+  }
+
+  :where(.css-dev-only-do-not-override-17yhhjv).ant-picker {
+    width: 100%;
+  }
 }
 </style>
