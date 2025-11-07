@@ -86,30 +86,38 @@ this.getListNotification();
 <template>
    
     <li class="position-absolute deconnex">
-        <router-link to="/dashboard/accueil" class="d-block">
+        <router-link to="/dashboard/accueil"
+        @click.prevent="changeValueForshowMenuMobile"
+        class="d-block">
          {{texte}}
         </router-link>
       </li>
       <li class="position-absolute deconnex">
-        <router-link to="/Notifications" class="d-block">
+        <router-link 
+        @click.prevent="changeValueForshowMenuMobile"
+        to="/Notifications" class="d-block">
          Mes Notifications <span v-if="this.unreadNotifications.length > 0" class="badge bg-danger">{{
         this.unreadNotifications.length
       }}</span>
         </router-link>
       </li>
       <LiensNavBar :texte="texte1" :route_lien="'profil'" />
-  <li>
+  <!-- <li>
     <a href="#" @click.prevent="changeValueForshowMenuMobile" class="d-block lien">
       {{texte2}}
     </a>
-  </li>
+  </li> -->
   <li class="position-absolute deconnex">
-    <router-link to="/dashboard/entreprises_interessees" class="d-block">
+    <router-link 
+    @click.prevent="changeValueForshowMenuMobile"
+    to="/dashboard/entreprises_interessees" class="d-block">
       {{texte40}}
     </router-link>
   </li>
   <li class="position-absolute deconnex">
-    <router-link to="/dashboard/offre_postule" class="d-block">
+    <router-link
+    @click.prevent="changeValueForshowMenuMobile"
+    to="/dashboard/offre_postule" class="d-block">
       {{texte3}}
     </router-link>
   </li>
@@ -125,13 +133,17 @@ this.getListNotification();
     </router-link>
   </li>   -->
   <li class="position-absolute deconnex">
-    <router-link to="/dashboard/emploi_du_temps" class="d-block">
+    <router-link
+    @click.prevent="changeValueForshowMenuMobile"
+    to="/dashboard/emploi_du_temps" class="d-block">
      {{texte5}}
     </router-link>
   </li>
   <LiensNavBar :texte="texte6" :route_lien="'dashboard-abonnements'" />
   <li class="position-absolute">
-    <router-link to="/avis" class="d-block">
+    <router-link 
+    @click.prevent="changeValueForshowMenuMobile"
+    to="/avis" class="d-block">
      Votre avis
     </router-link>
   </li>

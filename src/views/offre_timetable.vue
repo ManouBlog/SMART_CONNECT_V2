@@ -605,6 +605,7 @@ select {
     padding: 1em 0; /* réduit le padding vertical */
     margin: 0.5em 0; /* réduit le margin vertical */
   }
+
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

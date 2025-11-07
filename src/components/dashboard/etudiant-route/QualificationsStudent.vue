@@ -274,7 +274,7 @@ export default {
             @click="toogleNouvelleExperience = !toogleNouvelleExperience"
           ></em>
           <div class="p-3">
-            <h3 style="padding: 0.5em">{{ texte0 }}</h3>
+            <h3 class="title_experience">{{ texte0 }}</h3>
           </div>
         </div>
         <form @submit.prevent="saveQualification">
@@ -501,6 +501,12 @@ export default {
   </section>
 </template>
 <style scoped>
+button{
+  border-radius:5px;
+}
+.p-tabview-panels{
+  padding:0 !important;
+}
 .header_qualifications{
   display:flex;
   justify-content: space-between;
@@ -566,13 +572,14 @@ textarea {
   justify-content: center;
 }
 .conteneur_nouvelle_experience {
-  width: 60%;
+  width: 80%;
   height: 500px;
   overflow-y: auto;
   overflow-x: hidden;
   background: #ffffff;
   position: relative;
-  border-radius: 5px;
+  border-radius: 8px;
+
 }
 .conteneur_nouvelle_experience form {
   padding: 1em;
@@ -719,5 +726,14 @@ td {
 }
 p {
   font-size: 1em !important;
+}
+@media (max-width: 768px) {
+ .conteneur_nouvelle_experience {
+  width: 95%;
+}
+.title_experience{
+  font-size:1.5em !important;
+}
+
 }
 </style>
