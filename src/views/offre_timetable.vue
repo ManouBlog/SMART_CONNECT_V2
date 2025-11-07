@@ -423,7 +423,7 @@ export default {
           <h2 class="text-center">Pas d'Offres pour l'instant</h2>
           <img src="/notOffers.png" alt="notOffers" />
         </div>
-        <div>
+        <!-- <div>
           <div class="col-lg-12 lgPlus" v-if="MylistOffre.length">
             <button
               @click="newLoadmore"
@@ -436,12 +436,35 @@ export default {
               {{ texte9 }}
             </h2>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
 </template>
 <style scoped>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .main-container {
   padding: 0 2em;
 }
@@ -588,10 +611,7 @@ select {
 :deep(.multiselect__tag) {
   background: orange !important;
 }
-.lgPlus {
-  margin: 5em 0;
-  text-align: center;
-}
+
 .list_offre {
   color: #f77f00 !important;
 }
@@ -604,6 +624,15 @@ select {
   .jobs_filters {
     padding: 1em 0; /* réduit le padding vertical */
     margin: 0.5em 0; /* réduit le margin vertical */
+  }
+  .main-container{
+    padding:0;
+  }
+  .container_result{
+    justify-content:flex-start;
+  }
+  .container_result .two button,.informations_offres{
+    margin:0 !important;
   }
 
 }
