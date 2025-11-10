@@ -652,14 +652,6 @@ export default {
                         <div class="col-lg-6" v-if="Horaire_Fisrt != null">
                           <div class="mb-3">
                             <label>{{ texte8 }}</label>
-                            <!-- <Calendar
-                              id="datepicker-timeonly_3"
-                              v-model="Horaire_Fisrt[1]"
-                              showIcon
-                              iconDisplay="input"
-                              timeOnly
-                              inputId="templatedisplay"
-                            /> -->
                             <input
                               class="form-control"
                               type="time"
@@ -779,14 +771,14 @@ export default {
      <div class="page-title d-flex">
           <ol
             :class="!isActive ? 'breadcrumb' : 'breadcrumb_two'"
-            class="mx-3"
+            class="mx-3 p-5"
             @click="getOtherTab"
           >
             <li class="breadcrumb-item">Horaire</li>
           </ol>
           <ol
             :class="isActive ? 'breadcrumb' : 'breadcrumb_two'"
-            class="mx-3"
+            class="mx-3 p-5"
             @click="getOtherTab"
           >
             <li class="breadcrumb-item">Période</li>
@@ -1131,6 +1123,92 @@ td {
   justify-content:flex-end;
   align-items:center;
   gap:1em;
+}
+
+@media (max-width: 768px) {
+  /* Modal overlay */
+  .plan-modify, .delete_article {
+    padding: 1em;
+    justify-content: center;
+    overflow-y: auto;
+  }
+
+  /* Card inside modal */
+  .plan-modify .card, .delete_article .card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .modify-form{
+  width:350px !important;
+  }
+
+  /* Form inside modal */
+  .modify-form .form .row {
+    flex-direction: column !important;
+  }
+
+  .modify-form .form .col-lg-6 {
+    width: 100% !important;
+    margin-bottom: 1em;
+  }
+
+  /* Headers inside form */
+  .modify-form h5 {
+    font-size: 1em !important;
+    margin-left: 0 !important;
+    margin-bottom: 0.5em;
+  }
+
+  /* Inputs */
+  .modify-form input[type="time"] {
+    width: 100%;
+    font-size: 1em;
+    padding: 0.5em;
+  }
+
+  /* Buttons */
+  .btn-lg {
+    width: 100%;
+    margin: 0.5em 0 !important;
+    padding: 0.75em 0;
+    font-size: 1em;
+  }
+
+  /* Card body spacing */
+  .card-body {
+    padding: 0 !important;
+  }
+
+  .breadcrumb, .breadcrumb_two {
+    font-size: 0.9em;
+    padding: 0.25em 0.5em;
+  }
+
+  /* Table wrapper for horizontal scroll */
+  .p-datatable-wrapper {
+    overflow-x: auto;
+  }
+
+  .p-datatable th, .p-datatable td {
+    font-size: 0.9em !important;
+    padding: 0.5em !important;
+  }
+
+  /* Icons in tables */
+  .bi {
+    font-size: 1em !important;
+    margin: 0 0.3em;
+  }
+
+  /* Search container */
+  .conteneur_search {
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .conteneur_search input {
+    width: 100% !important;
+  }
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

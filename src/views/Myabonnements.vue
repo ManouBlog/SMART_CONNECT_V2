@@ -210,4 +210,74 @@ td {
 .mt-5 {
   margin-top: 101px !important;
 }
+
+@media (max-width: 768px) {
+  /* Conteneur principal */
+  .page-body {
+    padding: 0.5em;
+  }
+
+  /* Barre de recherche et bouton d’ajout */
+  .conteneur_search {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0.8em;
+    margin-top: 1em;
+  }
+
+  .conteneur_search button {
+    width: 100%;
+    font-size: 1em;
+    padding: 0.75em;
+  }
+
+  .conteneur_search input {
+    width: 100% !important;
+    font-size: 1em !important;
+    padding: 0.75em !important;
+    border-width: 1.5px !important;
+  }
+
+  /* DataTable responsive */
+  .p-datatable-wrapper {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .p-datatable table {
+    width: 1000px; /* scroll horizontal si trop large */
+  }
+
+  th,
+  td {
+    font-size: 1em !important;
+    padding: 0.5em !important;
+    white-space: nowrap;
+  }
+
+  /* En-tête et pagination */
+  .p-paginator {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5em;
+    font-size: 0.9em;
+  }
+
+  /* Statut (Actif / Non actif) */
+  .bg-success,
+  .bg-danger {
+    font-size: 0.9em;
+    padding: 0.4em 0.8em;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* Message de "Pas de donnée" */
+  .not_data {
+    text-align: center;
+    font-size: 1.2em;
+    padding: 2em 0;
+  }
+}
 </style>

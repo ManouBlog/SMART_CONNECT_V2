@@ -805,7 +805,7 @@ export default {
 </template>
 <style scoped>
 .container-fluid {
-  padding: 5.5em 2em !important;
+  padding: 1em !important;
 }
 .conteneur-plage {
   display: flex;
@@ -937,5 +937,10 @@ td {
   border-radius: 5px !important;
   border: none !important;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.303);
+}
+@media (max-width: 768px) {
+  .w-50{
+    width:100% !important;
+  }
 }
 </style>
