@@ -70,8 +70,11 @@
       </n-button>
     </div>
   </div>
-  <div style="text-align:center;" v-else>
+  <div style="text-align:center;" v-if="isChargement && !job">
     <h2>Chargement...</h2>
+  </div>
+  <div style="text-align:center;" v-if="!isChargement && !job">
+    <h2>Pas de certificat</h2>
   </div>
 </template>
 
@@ -86,6 +89,7 @@ import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinn
 const SPINNERLOADING = useLoadingSpinner();
 const route = useRoute();
 const job = ref(null);
+const isChargement = ref(true);
 // Récupérer le paramètre "id"
 const idParams = route.params.id;
 // Date du jour formatée
@@ -143,6 +147,7 @@ const downloadCertification = async () => {
 };
 
 const getCertificationsStudentConnecte = async () => {
+  SPINNERLOADING.launchLoading(true);
   await instance
     .get("mes-certifications")
     .then((response) => {
@@ -152,7 +157,11 @@ const getCertificationsStudentConnecte = async () => {
     })
     .catch((err) => {
       console.log(err);
-    });
+    })
+    .finally(()=>{
+      SPINNERLOADING.launchLoading(false);
+      isChargement.value = false
+    })
 };
 
 onMounted(() => {

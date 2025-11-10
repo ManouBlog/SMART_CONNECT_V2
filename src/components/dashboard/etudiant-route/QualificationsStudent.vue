@@ -89,11 +89,13 @@ export default {
       return { detail: "", date_debut: new Date(), date_fin: new Date() };
     },
     showBoxConfirmationDeleteCompetences(id) {
-      this.comfirmationForDeleteQualifications = !this.comfirmationForDeleteQualifications;
+      this.comfirmationForDeleteQualifications = !this
+        .comfirmationForDeleteQualifications;
       this.id_for_delete = id;
     },
     notDeleteCompetence() {
-      this.comfirmationForDeleteQualifications = !this.comfirmationForDeleteQualifications;
+      this.comfirmationForDeleteQualifications = !this
+        .comfirmationForDeleteQualifications;
       this.id_for_delete = "";
     },
     addNouvelExperience() {
@@ -116,10 +118,9 @@ export default {
         ),
       });
       this.getInfoUser();
-      if(saveReturnQualification){
-     this.toogleNouvelleExperience = !this.toogleNouvelleExperience
+      if (saveReturnQualification) {
+        this.toogleNouvelleExperience = !this.toogleNouvelleExperience;
       }
-      
     },
     async getInfoUser() {
       await instance
@@ -183,7 +184,7 @@ export default {
     },
     deleteMyQualification() {
       loadingSpinner.launchLoading(true);
-      console.log('this.idQualificationAtDelete',this.idQualificationAtDelete)
+      console.log("this.idQualificationAtDelete", this.idQualificationAtDelete);
       instance
         .delete("qualifications/" + this.idQualificationAtDelete)
         .then((res) => {
@@ -202,7 +203,7 @@ export default {
         .catch((err) => {
           console.log(err);
         })
-         .finally(() => {
+        .finally(() => {
           this.getInfoUser();
           loadingSpinner.launchLoading(false);
         });
@@ -389,7 +390,7 @@ export default {
             <button class="btn-lg bg-warning" @click="deleteMyQualification">
               {{ texte17 }}
             </button>
-            <button class="btn-lg bg-danger mx-2" @click="notDeleteCompetence">
+            <button class="btn-lg bg-danger text-light mx-2" @click="notDeleteCompetence">
               {{ texte18 }}
             </button>
           </div>
@@ -501,18 +502,18 @@ export default {
   </section>
 </template>
 <style scoped>
-button{
-  border-radius:5px;
+button {
+  border-radius: 5px;
 }
-.p-tabview-panels{
-  padding:0 !important;
+.p-tabview-panels {
+  padding: 0 !important;
 }
-.header_qualifications{
-  display:flex;
+.header_qualifications {
+  display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap:1em;
-  margin:1em 0;
+  gap: 1em;
+  margin: 1em 0;
 }
 :deep(input) {
   padding: 0.5em;
@@ -579,7 +580,6 @@ textarea {
   background: #ffffff;
   position: relative;
   border-radius: 8px;
-
 }
 .conteneur_nouvelle_experience form {
   padding: 1em;
@@ -728,12 +728,12 @@ p {
   font-size: 1em !important;
 }
 @media (max-width: 768px) {
- .conteneur_nouvelle_experience {
-  width: 95%;
-}
-.title_experience{
-  font-size:1.5em !important;
-}
-
+  .conteneur_nouvelle_experience {
+    width: 95%;
+  }
+  .title_experience {
+    font-size: 1.5em !important;
+    width: 50px;
+  }
 }
 </style>

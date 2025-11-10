@@ -1,6 +1,6 @@
 <script>
-import instance,{lienPhoto} from "../api/api";
-import {configUtils} from "../Shared/Utils"
+import instance, { lienPhoto } from "../api/api";
+import { configUtils } from "../Shared/Utils";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       texte: "",
-      lienPhoto:lienPhoto,
+      lienPhoto: lienPhoto,
       texte2: "",
       texte3: "",
       texte1: "",
@@ -38,8 +38,8 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
-      configUtils:configUtils,
+      texte27: "",
+      configUtils: configUtils,
       spinnerText: loadingSpinner.isLoadingVisible,
       Offre: "",
       list_offre: "",
@@ -48,7 +48,7 @@ export default {
       loadSpinner: false,
       path: "",
       listEntrepriseOffre: [],
-      abonnements:[]
+      abonnements: [],
     };
   },
   methods: {
@@ -74,7 +74,7 @@ export default {
         })
         .catch((err) => {
           // console.log(err)
-          console.log(err)
+          console.log(err);
         });
     },
     sendDataPost(id) {
@@ -103,7 +103,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           Swal.fire({
             icon: "info",
             title: err.response.data.message,
@@ -126,7 +126,10 @@ export default {
         });
     },
     verfEnter() {
-      if (this.user && this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
+      if (
+        (this.user && this.user.user.statut.statut === "entreprise") ||
+        this.user.user.statut.statut === "particulier"
+      ) {
         Swal.fire({
           icon: "error",
           title: "Vous n'êtes pas autorisé25.",
@@ -141,46 +144,48 @@ export default {
     handleNouvelAbonnement() {
       this.$router.push({ name: "abonnements" });
     },
-    getAbonnementUser(){
+    getAbonnementUser() {
       instance
         .get("seeMyAbonnement")
         .then((res) => {
           // console.log("seeMyAbonnement", res);
-         this.abonnements = res.data.data;
+          this.abonnements = res.data.data;
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
-    }
+    },
   },
- async created() {
+  async created() {
     this.get_list_offre();
     this.path = window.location.pathname;
     this.verfEnter();
     this.texte = await this.handleTranslate(`Prime pas fixée`);
     this.texte1 = await this.handleTranslate(`Nombre de postes :`);
-     this.texte2 = await this.handleTranslate("Date de début de travail :");
-     this.texte3 = await this.handleTranslate(`Date de fin de travail :`);
-     this.texte4 = await this.handleTranslate('Description');
-     this.texte5 = await this.handleTranslate('Postuler avant le :');
-     this.texte6 = await this.handleTranslate('Postuler');
-     this.texte7 =  await this.handleTranslate('Veuillez faire un abonnement avant de postuler à cette offre');
-     this.texte8 =  await this.handleTranslate('Souscrire à un abonnement');
-     this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);
-     this.texte10 = await this.handleTranslate("ex: Angre");
-     this.texte11 = await this.handleTranslate('Offres');
-     this.texte12 = await this.handleTranslate('Nous avons trouvé');
-     this.texte13 = await this.handleTranslate('Nouveauté');
-     this.texte14 = await this.handleTranslate('Voir les Détails');
-     this.texte15 =  await this.handleTranslate('Offre Expirée');
-     this.texte16 =  await this.handleTranslate('Charger plus');
-     this.getAbonnementUser();
+    this.texte2 = await this.handleTranslate("Date de début de travail :");
+    this.texte3 = await this.handleTranslate(`Date de fin de travail :`);
+    this.texte4 = await this.handleTranslate("Description");
+    this.texte5 = await this.handleTranslate("Postuler avant le :");
+    this.texte6 = await this.handleTranslate("Postuler");
+    this.texte7 = await this.handleTranslate(
+      "Veuillez faire un abonnement avant de postuler à cette offre"
+    );
+    this.texte8 = await this.handleTranslate("Souscrire à un abonnement");
+    this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);
+    this.texte10 = await this.handleTranslate("ex: Angre");
+    this.texte11 = await this.handleTranslate("Offres");
+    this.texte12 = await this.handleTranslate("Nous avons trouvé");
+    this.texte13 = await this.handleTranslate("Nouveauté");
+    this.texte14 = await this.handleTranslate("Voir les Détails");
+    this.texte15 = await this.handleTranslate("Offre Expirée");
+    this.texte16 = await this.handleTranslate("Charger plus");
+    this.getAbonnementUser();
   },
 };
 </script>
 <template>
-  <div class="position-relative" style="margin-top:6em">
+  <div class="position-relative detail_conteneur">
     <div class="container main-container" v-if="Offre">
       <div class="col-lg-12">
         <div class="offres_disponible row container">
@@ -188,25 +193,37 @@ export default {
             <div class="card px-5">
               <section>
                 <div class="d-flex">
-                  <img 
-                style="width:100px;height:100px;object-fit: cover;border:5px solid white;"
-                :src="Offre.entreprise.logo ? lienPhoto+Offre.entreprise.logo :'/brobroli.png'"
-                :alt="Offre.entreprise.logo ? Offre.entreprise.logo :'smart-connect'" 
-                >  
-                <h1 class="my-5 nom_offre">
-                {{ Offre.nom_offre }}
-                </h1>
+                  <img
+                    style="
+                      width: 100px;
+                      height: 100px;
+                      object-fit: cover;
+                      border: 5px solid white;
+                    "
+                    :src="
+                      Offre.entreprise.logo
+                        ? lienPhoto + Offre.entreprise.logo
+                        : '/brobroli.png'
+                    "
+                    :alt="Offre.entreprise.logo ? Offre.entreprise.logo : 'smart-connect'"
+                  />
+                  <h1 class="my-5 nom_offre">
+                    {{ Offre.nom_offre }}
+                  </h1>
                 </div>
-                
-                <h4 class="my-5" style="color:orange;"
-                v-if="abonnements.some(item=>item.statut === 'success')"
+
+                <h4
+                  class="my-5"
+                  style="color: orange"
+                  v-if="abonnements.some((item) => item.statut === 'success')"
                 >
-                  <em class="bi bi-geo"></em> {{Offre.lieu}}
+                  <em class="bi bi-geo"></em> {{ Offre.lieu }}
                 </h4>
-                <h4 class="my-5"
-                v-if="abonnements.some(item=>item.statut === 'success')"
+                <h4
+                  class="my-5"
+                  v-if="abonnements.some((item) => item.statut === 'success')"
                 >
-                <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
+                  <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="Offre.salaire != null">
@@ -215,65 +232,95 @@ export default {
                     {{ Offre.pointage }}
                   </h4>
                   <h4 class="my-5" v-else>
-                    <em class="bi bi-cash-stack"></em> {{texte}}
+                    <em class="bi bi-cash-stack"></em> {{ texte }}
                   </h4>
                 </div>
-                <h4 class="my-5"  v-if="Offre.nbre_person">
-                  <span class="fw-bold" style="color:orange;">{{texte1}}</span> {{ Offre.nbre_person }}
+                <h4 class="my-5" v-if="Offre.nbre_person">
+                  <span class="fw-bold" style="color: orange">{{ texte1 }}</span>
+                  {{ Offre.nbre_person }}
                 </h4>
-              
               </section>
               <section>
                 <h4>
-                <span class="fw-bold my-3" style="font-weight:bold;color:orange;">{{texte4}}</span>  
+                  <span class="fw-bold my-3" style="font-weight: bold; color: orange">{{
+                    texte4
+                  }}</span>
                 </h4>
-                <div style="font-weight:300; padding:1em;" v-html="Offre.description" id="conteneur_description"></div>
+                <div
+                  style="font-weight: 300; padding: 1em"
+                  v-html="Offre.description"
+                  id="conteneur_description"
+                ></div>
               </section>
-            
+
               <section>
                 <h4 class="my-5">
-                  <span class="fw-bold">{{texte2}}</span> {{ 
-                    configUtils.getFormatDateFr(Offre.job_debut) }}
+                  <span class="fw-bold">{{ texte2 }}</span>
+                  {{ configUtils.getFormatDateFr(Offre.job_debut) }}
                 </h4>
                 <h4 class="my-5">
-                  <span class="fw-bold">{{texte3}}</span> {{ 
-                    configUtils.getFormatDateFr(Offre.job_fin) }}
+                  <span class="fw-bold">{{ texte3 }}</span>
+                  {{ configUtils.getFormatDateFr(Offre.job_fin) }}
                 </h4>
               </section>
-                <section>
-                <span class="my-2 text-danger fw-bold">{{texte5}} {{ 
-                  configUtils.getFormatDateFr(Offre.fin) }}</span>
+              <section>
+                <span class="my-2 text-danger fw-bold"
+                  >{{ texte5 }} {{ configUtils.getFormatDateFr(Offre.fin) }}</span
+                >
               </section>
-              <section v-if="abonnements.some(item=>item.statut === 'success')">
+              <section v-if="abonnements.some((item) => item.statut === 'success')">
                 <button
                   class="btn-lg bg-warning"
                   @click="sendDataPost(Offre.id)"
                   style="width: auto !important"
-                >{{texte6}}
+                >
+                  {{ texte6 }}
                   <em class="bi bi-send"></em>
                 </button>
               </section>
               <section v-else>
-               <h5 class="text-danger d-flex justify-content-center my-5">
-                {{texte7}}
-              </h5>
-              <div>
-                <button class="btn bg-warning"  style="width: auto !important;padding:1em;" @click="handleNouvelAbonnement">
-                  {{texte8}}
-                </button>
-              </div>
+                <h5 class="text-danger d-flex justify-content-center my-5">
+                  {{ texte7 }}
+                </h5>
+                <div>
+                  <button
+                    class="btn bg-warning"
+                    style="width: auto !important; padding: 1em"
+                    @click="handleNouvelAbonnement"
+                  >
+                    {{ texte8 }}
+                  </button>
+                </div>
               </section>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div v-else class="container main-container" style="padding:8em;">
-      chargement...
-    </div>
+    <div v-else class="container main-container" style="padding: 8em">chargement...</div>
   </div>
 </template>
 <style scoped>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.detail_conteneur{
+  margin-top:6em;
+}
+
 #conteneur_description {
   text-align: justify;
 }
@@ -386,4 +433,79 @@ button {
 .jobs_filters {
   box-shadow: none !important;
 }
+
+
+
+
+
+
+.offres_disponible {
+  display: flex;
+  flex-wrap: wrap; /* permet aux éléments de passer à la ligne sur mobile */
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2em;
+  gap: 1em;
+}
+
+/* Sur tablette et mobile (Bootstrap breakpoint < 992px) */
+@media (max-width: 991.98px) {
+  .offres_disponible {
+    flex-direction: column; /* empile les éléments verticalement */
+    gap: 1.5em;
+    padding: 1em;
+  }
+
+  .offres_disponible h1,
+  .offres_disponible h4,
+  .offres_disponible h5 {
+    font-size: 1.3rem !important;
+  }
+
+  .entreprise {
+    padding: 0 1em !important;
+  }
+
+  .nom_offre {
+    font-size: 2em !important;
+  }
+
+  .offres_disponible img {
+    width: 80px !important;
+    height: 80px !important;
+    margin-bottom: 1em;
+  }
+
+  button {
+    width: 100% !important;
+    font-size: 1rem;
+  }
+}
+
+/* Sur très petits écrans (Bootstrap < 576px) */
+@media (max-width: 575.98px) {
+  .detail_conteneur{
+  margin-top:1.5em;
+}
+
+  .offres_disponible {
+    padding: 0.5em;
+    gap: 1em;
+  }
+
+  .nom_offre {
+    font-size: 1.6em !important;
+    margin-top: 1em;
+  }
+
+  .offres_disponible img {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  .card {
+    padding: 0.8em !important;
+  }
+}
+
 </style>

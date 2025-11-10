@@ -1,6 +1,6 @@
 <script>
-import instance,{lienPhoto} from "../api/api";
-import {configUtils} from "../Shared/Utils"
+import instance, { lienPhoto } from "../api/api";
+import { configUtils } from "../Shared/Utils";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       texte: "",
-      lienPhoto:lienPhoto,
+      lienPhoto: lienPhoto,
       texte2: "",
       texte3: "",
       texte1: "",
@@ -28,7 +28,7 @@ export default {
       texte14: "",
       texte15: "",
       texte16: "",
-      texte66:"",
+      texte66: "",
       texte17: "",
       texte18: "",
       texte19: "",
@@ -39,8 +39,8 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
-      configUtils:configUtils,
+      texte27: "",
+      configUtils: configUtils,
       spinnerText: loadingSpinner.isLoadingVisible,
       DetailSeeEntreprise: null,
       moneyFormat: new Intl.NumberFormat("de-DE"),
@@ -56,21 +56,23 @@ export default {
         .get("see_entreprise_student")
         .then((res) => {
           // console.log("see_entreprise_student", res);
-          this.DetailSeeEntreprise = res.data.data.find((item) => item.id == this.$route.params.id);
+          this.DetailSeeEntreprise = res.data.data.find(
+            (item) => item.id == this.$route.params.id
+          );
           // console.log("this.DetailSeeEntreprise", this.DetailSeeEntreprise);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         })
-        .finally(()=>{
-         loadingSpinner.launchLoading(false);
-         this.loadSpinner = false;
-        })
+        .finally(() => {
+          loadingSpinner.launchLoading(false);
+          this.loadSpinner = false;
+        });
     },
-    updateCandidature(id,payload,idContrat) {
+    updateCandidature(id, payload, idContrat) {
       loadingSpinner.launchLoading(true);
       instance
-        .put("changeStatutJob/"+id,{contrat:payload,id_contrat:idContrat})
+        .put("changeStatutJob/" + id, { contrat: payload, id_contrat: idContrat })
         .then((res) => {
           // console.log(res);
           if (res.data.status === true) {
@@ -86,48 +88,48 @@ export default {
               title: res.data.message,
               showConfirmButton: true,
             });
-            
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           Swal.fire({
             icon: "info",
             title: err.response.data.message,
             showConfirmButton: true,
           });
         })
-        .finally(()=>{
+        .finally(() => {
           this.get_offre_detail_interesse();
-            loadingSpinner.launchLoading(false);
-        })
+          loadingSpinner.launchLoading(false);
+        });
     },
     handleNouvelAbonnement() {
       this.$router.push({ name: "abonnements" });
     },
-   
   },
- async created() {
+  async created() {
     this.get_offre_detail_interesse();
     this.path = window.location.pathname;
     this.texte = await this.handleTranslate(`Prime pas fixée`);
     this.texte1 = await this.handleTranslate(`Nombre de postes :`);
-     this.texte2 = await this.handleTranslate("Date de début de travail :");
-     this.texte3 = await this.handleTranslate(`Date de fin de travail :`);
-     this.texte4 = await this.handleTranslate('Description');
-     this.texte5 = await this.handleTranslate('Postuler avant le :');
-     this.texte6 = await this.handleTranslate('Accepter');
-     this.texte7 =  await this.handleTranslate('Veuillez faire un abonnement avant de postuler à cette offre');
-     this.texte8 =  await this.handleTranslate('Souscrire à un abonnement');
-     this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);
-     this.texte10 = await this.handleTranslate("ex: Angre");
-     this.texte11 = await this.handleTranslate('Offres');
-     this.texte12 = await this.handleTranslate('Nous avons trouvé');
-     this.texte13 = await this.handleTranslate('Nouveauté');
-     this.texte14 = await this.handleTranslate('Voir les Détails');
-     this.texte15 =  await this.handleTranslate('Offre Expirée');
-     this.texte16 =  await this.handleTranslate('Charger plus');
-     this.texte66 = await this.handleTranslate('Refuser');
+    this.texte2 = await this.handleTranslate("Date de début de travail :");
+    this.texte3 = await this.handleTranslate(`Date de fin de travail :`);
+    this.texte4 = await this.handleTranslate("Description");
+    this.texte5 = await this.handleTranslate("Postuler avant le :");
+    this.texte6 = await this.handleTranslate("Accepter");
+    this.texte7 = await this.handleTranslate(
+      "Veuillez faire un abonnement avant de postuler à cette offre"
+    );
+    this.texte8 = await this.handleTranslate("Souscrire à un abonnement");
+    this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);
+    this.texte10 = await this.handleTranslate("ex: Angre");
+    this.texte11 = await this.handleTranslate("Offres");
+    this.texte12 = await this.handleTranslate("Nous avons trouvé");
+    this.texte13 = await this.handleTranslate("Nouveauté");
+    this.texte14 = await this.handleTranslate("Voir les Détails");
+    this.texte15 = await this.handleTranslate("Offre Expirée");
+    this.texte16 = await this.handleTranslate("Charger plus");
+    this.texte66 = await this.handleTranslate("Refuser");
   },
 };
 </script>
@@ -140,23 +142,34 @@ export default {
             <div class="card px-5">
               <section>
                 <div class="d-flex">
-                <h1 class="my-5 nom_offre">
-                {{ DetailSeeEntreprise.offre.nom_offre }}
-                </h1>
+                  <h1 class="my-5 nom_offre">
+                    {{ DetailSeeEntreprise.offre.nom_offre }}
+                  </h1>
                 </div>
-                
-                <h4 class="my-5" style="color:orange;"
-            
-                >
-                  <em class="bi bi-geo"></em> {{DetailSeeEntreprise.offre.lieu}}
+
+                <h4 class="my-5" style="color: orange">
+                  <em class="bi bi-geo"></em> {{ DetailSeeEntreprise.offre.lieu }}
                 </h4>
-                <h4 class="my-5"
-                >
-                 <img 
-                style="width:35px;height:35px;object-fit: cover;border:1px solid white;"
-                :src="DetailSeeEntreprise.offre.entreprise.logo ? lienPhoto+DetailSeeEntreprise.offre.entreprise.logo :'/brobroli.png'"
-                :alt="DetailSeeEntreprise.offre.entreprise.logo ? DetailSeeEntreprise.offre.entreprise.logo :'smart-connect'" 
-                >   {{ DetailSeeEntreprise.offre.entreprise.nom }}
+                <h4 class="my-5">
+                  <img
+                    style="
+                      width: 35px;
+                      height: 35px;
+                      object-fit: cover;
+                      border: 1px solid white;
+                    "
+                    :src="
+                      DetailSeeEntreprise.offre.entreprise.logo
+                        ? lienPhoto + DetailSeeEntreprise.offre.entreprise.logo
+                        : '/brobroli.png'
+                    "
+                    :alt="
+                      DetailSeeEntreprise.offre.entreprise.logo
+                        ? DetailSeeEntreprise.offre.entreprise.logo
+                        : 'smart-connect'
+                    "
+                  />
+                  {{ DetailSeeEntreprise.offre.entreprise.nom }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="DetailSeeEntreprise.offre.salaire != null">
@@ -165,68 +178,90 @@ export default {
                     {{ DetailSeeEntreprise.offre.pointage }}
                   </h4>
                   <h4 class="my-5" v-else>
-                    <em class="bi bi-cash-stack"></em> {{texte}}
+                    <em class="bi bi-cash-stack"></em> {{ texte }}
                   </h4>
                 </div>
                 <h4 class="my-5" v-if="DetailSeeEntreprise.offre.nbre_person">
-                  <span class="fw-bold" style="color:orange;">{{texte1}}</span> {{ DetailSeeEntreprise.offre.nbre_person }}
+                  <span class="fw-bold" style="color: orange">{{ texte1 }}</span>
+                  {{ DetailSeeEntreprise.offre.nbre_person }}
                 </h4>
-              
               </section>
               <section>
                 <h4>
-                <span class="fw-bold my-3" style="color:orange;">{{texte4}}</span>  
+                  <span class="fw-bold my-3" style="color: orange">{{ texte4 }}</span>
                 </h4>
-                <div style="font-weight:300;" v-html="DetailSeeEntreprise.offre.description" id="conteneur_description"></div>
+                <div
+                  style="font-weight: 300"
+                  v-html="DetailSeeEntreprise.offre.description"
+                  id="conteneur_description"
+                ></div>
               </section>
-            
+
               <section>
                 <h4 class="my-5">
-                  <span class="fw-bold">{{texte2}}</span> {{ 
-                    configUtils.getFormatDateFr(DetailSeeEntreprise.offre.job_debut) }}
+                  <span class="fw-bold">{{ texte2 }}</span>
+                  {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.job_debut) }}
                 </h4>
                 <h4 class="my-5">
-                  <span class="fw-bold">{{texte3}}</span> {{ 
-                    configUtils.getFormatDateFr(DetailSeeEntreprise.offre.job_fin) }}
+                  <span class="fw-bold">{{ texte3 }}</span>
+                  {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.job_fin) }}
                 </h4>
               </section>
-                <section>
-                <span class="my-2 text-danger fw-bold">{{texte5}} {{ 
-                  configUtils.getFormatDateFr(DetailSeeEntreprise.offre.fin) }}</span>
+              <section>
+                <span class="my-2 text-danger fw-bold"
+                  >{{ texte5 }}
+                  {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.fin) }}</span
+                >
               </section>
-             
-              <section class="d-flex align-items-center justify-content-center"
-              v-if="DetailSeeEntreprise.contrat === 0"
+
+              <section
+                class="d-flex align-items-center justify-content-center"
+                v-if="DetailSeeEntreprise.contrat === 0"
               >
                 <button
                   class="btn-lg bg-success mx-2"
-                  @click="updateCandidature(DetailSeeEntreprise.offre.id,1,DetailSeeEntreprise.id)"
+                  @click="
+                    updateCandidature(
+                      DetailSeeEntreprise.offre.id,
+                      1,
+                      DetailSeeEntreprise.id
+                    )
+                  "
                   style="width: auto !important"
-                >{{texte6}}
-                  
+                >
+                  {{ texte6 }}
                 </button>
                 <button
                   class="btn-lg bg-danger"
-                  @click="updateCandidature(DetailSeeEntreprise.offre.id,2,DetailSeeEntreprise.id)"
+                  @click="
+                    updateCandidature(
+                      DetailSeeEntreprise.offre.id,
+                      2,
+                      DetailSeeEntreprise.id
+                    )
+                  "
                   style="width: auto !important"
-                >{{texte66}}
-                  
+                >
+                  {{ texte66 }}
                 </button>
               </section>
-             
-              <p 
-              class="d-flex justify-content-center"
-              style="color:#00ff04" 
-              v-else-if="DetailSeeEntreprise.contrat === 1">Offre Acceptée pour le {{ DetailSeeEntreprise.date }} </p>
-              <p class="text-danger d-flex justify-content-center" v-else>Offre refusée pour le {{ DetailSeeEntreprise.date }}</p>
+
+              <p
+                class="d-flex justify-content-center"
+                style="color: #00ff04"
+                v-else-if="DetailSeeEntreprise.contrat === 1"
+              >
+                Offre Acceptée pour le {{ DetailSeeEntreprise.date }}
+              </p>
+              <p class="text-danger d-flex justify-content-center" v-else>
+                Offre refusée pour le {{ DetailSeeEntreprise.date }}
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div v-else class="container main-container" style="padding:8em;">
-      chargement...
-    </div>
+    <div v-else class="container main-container" style="padding: 8em">chargement...</div>
   </div>
 </template>
 <style scoped>
@@ -346,6 +381,53 @@ button {
   .entreprise {
     padding: 1em 1.5em;
     text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Nom de l'offre plus petit sur mobile */
+  .nom_offre {
+    font-size: 2rem !important;
+    text-align: center !important;
+  }
+
+  /* Padding de la carte réduit sur mobile */
+  .entreprise {
+    padding: 1em 1.5em !important;
+    text-align: center !important;
+  }
+
+  /* Boutons : empilés et largeur complète sur mobile */
+  .card section.d-flex.flex-column.flex-md-row {
+    flex-direction: column !important;
+    gap: 0.5em !important;
+  }
+  .card section.d-flex.flex-column.flex-md-row button {
+    width: 100% !important;
+  }
+
+  /* Images logos responsive */
+  .card img {
+    max-width: 50px !important;
+    height: auto !important;
+    margin-bottom: 0.5em;
+  }
+
+  /* Texte description plus lisible */
+  #conteneur_description {
+    font-size: 0.9rem !important;
+    line-height: 1.4rem !important;
+  }
+
+  /* H4 et H5 plus adaptés aux petits écrans */
+  .offres_disponible h4,
+  .offres_disponible h5 {
+    font-size: 0.95rem !important;
+  }
+
+  /* Espacement des sections réduit */
+  .card section {
+    margin-bottom: 1em !important;
   }
 }
 </style>

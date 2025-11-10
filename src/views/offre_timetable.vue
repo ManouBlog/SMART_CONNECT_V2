@@ -358,13 +358,16 @@ export default {
 
     <div class="container-fluid main-container" v-if="list_offre">
       <div class="col-lg-12" :class="spinner ? 'conteneur_offre' : null">
-        <div class="offres_disponible d-flex justify-content-between align-items-center">
-          <h5 class="image-heading">
-            <span class="list_offre"> {{ lengthOfMylistOffre }}</span> {{ texte3 }}
+        <div
+          class="offres_disponible d-flex flex-wrap justify-content-between align-items-center text-center text-md-start py-3 px-2"
+        >
+          <h5 class="image-heading mb-2 mb-md-0">
+            <span class="list_offre">{{ lengthOfMylistOffre }}</span> {{ texte3 }}
           </h5>
-          <span class="text-secondary"
-            >{{ texte4 }}{{ lengthOfMylistOffre }} {{ texte3 }}</span
-          >
+
+          <span class="text-secondary small small-md-normal">
+            {{ texte4 }} {{ lengthOfMylistOffre }} {{ texte3 }}
+          </span>
         </div>
         <div
           class="container_result content"
@@ -419,9 +422,17 @@ export default {
             </div>
           </div>
         </div>
-        <div v-if="!list_offre.length" class="text-center font-bold py-5 my-5">
-          <h2 class="text-center">Pas d'Offres pour l'instant</h2>
-          <img src="/notOffers.png" alt="notOffers" />
+        <div
+          v-if="!list_offre.length"
+          class="text-center fw-bold py-5 my-5 d-flex flex-column align-items-center justify-content-center"
+        >
+          <h2 class="mb-4 fs-4 fs-md-3">Pas d'offres</h2>
+          <img
+            src="/notOffers.png"
+            alt="Aucune offre disponible"
+            class="img-fluid"
+            style="max-width: 350px"
+          />
         </div>
         <!-- <div>
           <div class="col-lg-12 lgPlus" v-if="MylistOffre.length">
@@ -442,29 +453,6 @@ export default {
   </section>
 </template>
 <style scoped>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .main-container {
   padding: 0 2em;
 }
@@ -621,20 +609,23 @@ select {
   border: 1px solid black;
 }
 @media (max-width: 768px) {
+  .form-group {
+    width: 300px !important; /* Pleine largeur sur mobile */
+  }
   .jobs_filters {
     padding: 1em 0; /* réduit le padding vertical */
     margin: 0.5em 0; /* réduit le margin vertical */
   }
-  .main-container{
-    padding:0;
+  .main-container {
+    padding: 0;
   }
-  .container_result{
-    justify-content:flex-start;
+  .container_result {
+    justify-content: flex-start;
   }
-  .container_result .two button,.informations_offres{
-    margin:0 !important;
+  .container_result .two button,
+  .informations_offres {
+    margin: 0 !important;
   }
-
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

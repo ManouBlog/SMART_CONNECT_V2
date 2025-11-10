@@ -207,15 +207,13 @@ export default {
             </router-link>
           </li>
         </a-menu-item>
-        
+
         <a-menu-item>
           <LiensNavBar :texte="texte5" :route_lien="'dashboard-abonnements'" />
         </a-menu-item>
         <a-menu-item>
           <li>
-            <router-link to="/avis" class="d-block">
-              Votre avis 
-            </router-link>
+            <router-link to="/avis" class="d-block"> Votre avis </router-link>
           </li>
         </a-menu-item>
         <a-menu-item>

@@ -89,10 +89,13 @@ export default {
   },
   async created() {
     // this.get_all_student();
+    if (this.$store.state.user.user.statut.statut !== "etudiant") {
+      this.get_students_contact();
+      this.get_offres_interess_by_student();
+      this.getAllOffresCreatedByEntreprise();
+    }
     this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
-    this.get_students_contact();
-    this.get_offres_interess_by_student();
-    this.getAllOffresCreatedByEntreprise();
+
     // // console.log(
     //   "Personnels contactés",
     //   configUtils.statistiqueEntreprise(this.student, 2)
@@ -150,7 +153,7 @@ export default {
           libelle: texte5,
           nbre: `${offreCreatedByEntreprise.length}`,
         },
-        { libelle: texte6, nbre: Object.keys(this.offresInteressByStudents).length},
+        { libelle: texte6, nbre: Object.keys(this.offresInteressByStudents).length },
         {
           libelle: texte7,
           nbre: configUtils.statistiqueEntreprise(this.student, 2),
@@ -166,7 +169,6 @@ export default {
   </section>
 </template>
 <style scoped>
-
 .conteneur_filter {
   display: flex;
   justify-content: flex-end;
@@ -179,6 +181,7 @@ export default {
   width: 200px;
   border: 1px solid black !important;
   border-radius: 6px;
+  padding: 1em;
 }
 
 /* Responsive: adaptation sur tablettes et mobiles */
@@ -191,7 +194,6 @@ export default {
 @media screen and (max-width: 768px) {
   .conteneur_filter {
     justify-content: center;
-    padding: 0 1em;
   }
 
   :where(.css-dev-only-do-not-override-17yhhjv).ant-picker {
@@ -203,8 +205,7 @@ export default {
 @media screen and (max-width: 480px) {
   .conteneur_filter {
     flex-direction: column;
-    align-items: stretch;
-    padding: 0 1em;
+    align-items: center;
   }
 
   :where(.css-dev-only-do-not-override-17yhhjv).ant-picker {

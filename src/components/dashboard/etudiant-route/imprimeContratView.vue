@@ -40,7 +40,7 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
+      texte27: "",
       offreDetail: "",
       list_entreprise_contact: "",
       entreprise: null,
@@ -186,7 +186,7 @@ h5 {
         // printWindow.close(); // Fermer la fenêtre après impression
       };
     },
-    
+
     async getDetail() {
       loadingSpinner.launchLoading(true);
       await instance
@@ -206,7 +206,7 @@ h5 {
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           loadingSpinner.launchLoading(false);
         });
     },
@@ -215,27 +215,26 @@ h5 {
     this.getDetail();
     this.texte0 = await this.handleTranslate(`Attestation d'admission`);
     this.texte1 = await this.handleTranslate(`Adresse :`);
-     this.texte2 = await this.handleTranslate("Téléphone :");
-     this.texte3 = await this.handleTranslate(`ATTESTATION D'ADMISSION`);
-     this.texte4 = await this.handleTranslate('Offre :');
-     this.texte5 = await this.handleTranslate("L'entreprise");
-     this.texte6 = await this.handleTranslate('vous a contacté Mr(Mme)');
-     this.texte7 =  await this.handleTranslate("pour un poste au sein de son entreprise pour effectuer un travail vu votre disponibilité.Merci de contacter l'entreprise pour plus de détail.");
-     this.texte8 =  await this.handleTranslate('Honoraire :');
-     this.texte9 = await this.handleTranslate(`Contact du gérant :`);
-     this.texte10 = await this.handleTranslate("Lieu :");
-     this.texte11 = await this.handleTranslate('Abidjan le :');
-     this.texte12 = await this.handleTranslate('Télécharger PDF');
-     this.texte13 = await this.handleTranslate('Imprimer');
+    this.texte2 = await this.handleTranslate("Téléphone :");
+    this.texte3 = await this.handleTranslate(`ATTESTATION D'ADMISSION`);
+    this.texte4 = await this.handleTranslate("Offre :");
+    this.texte5 = await this.handleTranslate("L'entreprise");
+    this.texte6 = await this.handleTranslate("vous a contacté Mr(Mme)");
+    this.texte7 = await this.handleTranslate(
+      "pour un poste au sein de son entreprise pour effectuer un travail vu votre disponibilité.Merci de contacter l'entreprise pour plus de détail."
+    );
+    this.texte8 = await this.handleTranslate("Honoraire :");
+    this.texte9 = await this.handleTranslate(`Contact du gérant :`);
+    this.texte10 = await this.handleTranslate("Lieu :");
+    this.texte11 = await this.handleTranslate("Abidjan le :");
+    this.texte12 = await this.handleTranslate("Télécharger PDF");
+    this.texte13 = await this.handleTranslate("Imprimer");
   },
 };
 </script>
 <template>
   <div class="page-body position-relative">
-    <HeaderDashboard
-      :TitleHeader="texte0"
-      :subTitleHeader="texte0"
-    />
+    <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
     <section
       ref="printSection"
       class="section_card_conteneur"
@@ -255,46 +254,52 @@ h5 {
       </div>
       <div class="attestation_infos">
         <p>
-          <span class="span_info">{{texte1}}</span>
+          <span class="span_info">{{ texte1 }}</span>
           <span>{{ this.entreprise.offre.entreprise.ville }}</span>
         </p>
         <p>
-          <span class="span_info">{{texte2}}</span>
+          <span class="span_info">{{ texte2 }}</span>
           <span>{{ this.entreprise.offre.entreprise.contact }}</span>
         </p>
       </div>
       <div class="my-5">
-        <h2 class="text-center">{{texte3}}</h2>
+        <h2 class="text-center">{{ texte3 }}</h2>
       </div>
       <div class="d-flex">
-        <h3>{{texte4}} {{ this.myOffre.nom_offre }}</h3>
+        <h3>{{ texte4 }} {{ this.myOffre.nom_offre }}</h3>
       </div>
 
       <p>
-        {{texte5}}
-        <span class="mx-2">"{{ this.entreprise.offre.entreprise.nom }}"</span>{{texte6}}
+        {{ texte5 }}
+        <span class="mx-2">"{{ this.entreprise.offre.entreprise.nom }}"</span>{{ texte6 }}
         <span class="mx-2">"{{ user.nom }} {{ user.prenoms }}"</span>
-        {{texte7}}
+        {{ texte7 }}
       </p>
-      
+
       <div>
-        <h5 class="my-5">{{texte8}} {{ myOffre.salaire }} Fcfa</h5>
-        <h5 class="my-5">Date de début de travail : {{ new Date(this.entreprise.offre.job_debut).toLocaleDateString('fr') }}</h5>
-        <h5 class="my-5">Date de fin de travail : {{ new Date(this.entreprise.offre.job_fin).toLocaleDateString('fr') }}</h5>
-        <h5>{{texte9}} {{ entreprise.offre.entreprise.contact }}</h5>
-        <h5 class="my-5">{{texte10}} {{ myOffre.lieu }}</h5>
+        <h5 class="my-5">{{ texte8 }} {{ myOffre.salaire }} Fcfa</h5>
+        <h5 class="my-5">
+          Date de début de travail :
+          {{ new Date(this.entreprise.offre.job_debut).toLocaleDateString("fr") }}
+        </h5>
+        <h5 class="my-5">
+          Date de fin de travail :
+          {{ new Date(this.entreprise.offre.job_fin).toLocaleDateString("fr") }}
+        </h5>
+        <h5>{{ texte9 }} {{ entreprise.offre.entreprise.contact }}</h5>
+        <h5 class="my-5">{{ texte10 }} {{ myOffre.lieu }}</h5>
       </div>
 
       <div class="conteneur_abidjan_sign">
         <strong v-if="this.entreprise" class="date">
-          {{texte11}}
+          {{ texte11 }}
           {{ new Date(this.created_at).toISOString().slice(0, 16) }}
         </strong>
       </div>
     </section>
     <section class="conteneur_abidjan_sign my-5">
       <button class="btn-lg p-5 bg-dark" style="border: none" @click="generatePDF">
-        {{texte12}}
+        {{ texte12 }}
       </button>
       <button
         class="btn-lg p-5 bg-warning mx-3"
@@ -302,7 +307,7 @@ h5 {
         @click="printDiv"
         v-if="this.myOffre && this.entreprise"
       >
-        {{texte13}}
+        {{ texte13 }}
       </button>
     </section>
   </div>
@@ -394,6 +399,20 @@ h5 {
   .date {
     text-align: right !important;
     margin-bottom: -10px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile : réduire le padding pour s'adapter aux petits écrans */
+  .section_card_conteneur {
+    padding: 0 1em !important;
+  }
+  .attestation_logo {
+    gap: 1em;
+    padding: 0;
+  }
+  img {
+    width: 50%;
   }
 }
 </style>
