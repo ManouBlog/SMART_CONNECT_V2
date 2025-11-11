@@ -9,8 +9,7 @@ import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
 import "v-calendar/dist/style.css";
 import { mapActions } from "pinia";
-// import { DatePicker } from "v-calendar";
-// import Calendar from "primevue/calendar";
+import { useWindowSize } from "@vueuse/core";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
@@ -106,6 +105,7 @@ export default {
       getJourInMonth: "",
       dates: [],
       selectedJourForUpadte: {},
+      isMobile: false,
     };
   },
   methods: {
@@ -258,11 +258,11 @@ export default {
             }
           })
           .catch((err) => {
-            console.log(err)
+            console.log(err);
           })
-          .finally(()=>{
+          .finally(() => {
             this.get_timetable();
-          })
+          });
       }
     },
     async get_timetable() {
@@ -275,7 +275,7 @@ export default {
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     create_timetable() {
@@ -375,7 +375,7 @@ export default {
             }
           })
           .catch((err) => {
-            console.log(err)
+            console.log(err);
             Swal.fire({
               icon: "error",
               title: "Le jour a déjà été pris",
@@ -383,9 +383,9 @@ export default {
               timer: 1500,
             });
           })
-          .finally(()=>{
+          .finally(() => {
             loadingSpinner.launchLoading(false);
-          })
+          });
       }
     },
     show_timetable(id) {
@@ -423,11 +423,11 @@ export default {
           // // console.log("ELEMENT", this.timetable_show_id);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         })
-        .finally(()=>{
+        .finally(() => {
           loadingSpinner.launchLoading(false);
-        })
+        });
     },
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -460,7 +460,7 @@ export default {
         })
         .catch((err) => {
           // console.log(err.message);
-          console.log(err)
+          console.log(err);
         });
     },
     showBoxConfirmationDeleteCompetences(id) {
@@ -489,22 +489,21 @@ export default {
               timer: 1500,
             });
             this.confirmation_for_delete = !this.confirmation_for_delete;
-            
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           Swal.fire({
-              icon: "info",
-              title: err.response.data.message,
-              showConfirmButton: true,
-              // timer: 1500,
-            });
+            icon: "info",
+            title: err.response.data.message,
+            showConfirmButton: true,
+            // timer: 1500,
+          });
         })
-         .finally(()=>{
+        .finally(() => {
           this.get_timetable();
           loadingSpinner.launchLoading(false);
-        })
+        });
     },
     deleteMyCompetence() {
       instance
@@ -522,7 +521,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     getAllCompetencesByStudents() {
@@ -541,7 +540,7 @@ export default {
           this.competencesPredf = res.data.data;
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     addTag(newTag) {
@@ -568,12 +567,20 @@ export default {
     handleNewCalendar() {
       this.$router.push("/dashboard/disponibilite");
     },
-     getOtherTab() {
+    getOtherTab() {
       this.tab = !this.tab;
       this.isActive = !this.isActive;
     },
   },
   async created() {
+    const { width } = useWindowSize();
+    this.$watch(
+      () => width.value,
+      (newWidth) => {
+        this.isMobile = newWidth < 768;
+      },
+      { immediate: true }
+    );
     this.get_timetable();
     this.getAllCompetences();
     this.getAllCompetencesByStudents();
@@ -613,7 +620,7 @@ export default {
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
       <div class="card p-5">
-        <p class="h3 my-2" style="color:black;">{{ texte1 }}</p>
+        <p class="h3 my-2" style="color: black">{{ texte1 }}</p>
         <div>
           <button class="btn bg-warning" @click="delete_timetable">
             {{ texte2 }}
@@ -661,17 +668,17 @@ export default {
                           </div>
                         </div>
                         <section v-if="timetable_show_id.periode === null">
-                           <h5 class="text-start">{{ texte9 }}</h5>
-                        <div class="col-lg-6" v-if="Horaire_Second != null">
-                          <div class="mb-3">
-                            <label>{{ texte10 }}</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Horaire_Second[0]"
-                              required
-                            />
-                            <!-- <Calendar
+                          <h5 class="text-start">{{ texte9 }}</h5>
+                          <div class="col-lg-6" v-if="Horaire_Second != null">
+                            <div class="mb-3">
+                              <label>{{ texte10 }}</label>
+                              <input
+                                class="form-control"
+                                type="time"
+                                v-model="Horaire_Second[0]"
+                                required
+                              />
+                              <!-- <Calendar
                               id="datepicker-timeonly_3"
                               v-model="Horaire_Second[0]"
                               showIcon
@@ -679,12 +686,12 @@ export default {
                               timeOnly
                               inputId="templatedisplay"
                             /> -->
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-lg-6" v-else>
-                          <div class="mb-3">
-                            <label>{{ texte11 }}</label>
-                            <!-- <Calendar
+                          <div class="col-lg-6" v-else>
+                            <div class="mb-3">
+                              <label>{{ texte11 }}</label>
+                              <!-- <Calendar
                               id="datepicker-timeonly_3"
                               v-model="Second_heure_start_from"
                               showIcon
@@ -692,18 +699,18 @@ export default {
                               timeOnly
                               inputId="templatedisplay"
                             /> -->
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Second_heure_start_from"
-                              required
-                            />
+                              <input
+                                class="form-control"
+                                type="time"
+                                v-model="Second_heure_start_from"
+                                required
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-lg-6" v-if="Horaire_Second != null">
-                          <div class="mb-3">
-                            <label>{{ texte12 }}</label>
-                            <!-- <Calendar
+                          <div class="col-lg-6" v-if="Horaire_Second != null">
+                            <div class="mb-3">
+                              <label>{{ texte12 }}</label>
+                              <!-- <Calendar
                               id="datepicker-timeonly_3"
                               v-model="Horaire_Second[1]"
                               showIcon
@@ -711,18 +718,18 @@ export default {
                               timeOnly
                               inputId="templatedisplay"
                             /> -->
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Horaire_Second[1]"
-                              required
-                            />
+                              <input
+                                class="form-control"
+                                type="time"
+                                v-model="Horaire_Second[1]"
+                                required
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-lg-6" v-else>
-                          <div class="mb-3">
-                            <label>{{ texte12 }}</label>
-                            <!-- <Calendar
+                          <div class="col-lg-6" v-else>
+                            <div class="mb-3">
+                              <label>{{ texte12 }}</label>
+                              <!-- <Calendar
                               id="datepicker-timeonly_3"
                               v-model="Second_heure_end_to"
                               showIcon
@@ -730,14 +737,14 @@ export default {
                               timeOnly
                               inputId="templatedisplay"
                             /> -->
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Second_heure_end_to"
-                              required
-                            />
+                              <input
+                                class="form-control"
+                                type="time"
+                                v-model="Second_heure_end_to"
+                                required
+                              />
+                            </div>
                           </div>
-                        </div>
                         </section>
                       </div>
                       <div class="row">
@@ -745,7 +752,7 @@ export default {
                           <div class="text-end">
                             <button
                               @click.prevent="update_timetable"
-                              class="btn btn-warning mx-1"
+                              class="btn bg-warning mx-1"
                             >
                               {{ texte13 }}
                             </button>
@@ -768,243 +775,362 @@ export default {
       </div>
     </div>
 
-     <div class="page-title d-flex">
-          <ol
-            :class="!isActive ? 'breadcrumb' : 'breadcrumb_two'"
-            class="mx-3 p-5"
-            @click="getOtherTab"
+    <div class="page-title d-flex">
+      <ol
+        :class="!isActive ? 'breadcrumb' : 'breadcrumb_two'"
+        class="mx-3 p-5"
+        @click="getOtherTab"
+      >
+        <li class="breadcrumb-item">Horaire</li>
+      </ol>
+      <ol
+        :class="isActive ? 'breadcrumb' : 'breadcrumb_two'"
+        class="mx-3 p-5"
+        @click="getOtherTab"
+      >
+        <li class="breadcrumb-item">Période</li>
+      </ol>
+    </div>
+    <div v-if="!isMobile">
+      <div class="tab-content" id="top-tabContent" v-show="!tab">
+        <DataTable
+          paginator
+          :rows="10"
+          :globalFilterFields="['formule']"
+          :rowsPerPageOptions="[5, 10, 20, 50]"
+          :value="timetables.filter((item) => !item.periode)"
+          v-model:filters="filters"
+        >
+          <template #paginatorstart>
+            <div
+              style="
+                display: flex;
+                justify-content: flex-start;
+                font-size: 1em;
+                border: none;
+              "
+            >
+              Affichage de 1 à 10 sur{{ timetables.length }} entrées.
+            </div>
+          </template>
+          <template #header>
+            <div class="conteneur_search">
+              <div class="mx-3">
+                <button class="btn bg-warning py-2" @click="handleNewCalendar">
+                  {{ texte14 }}
+                </button>
+              </div>
+              <IconField iconPosition="left">
+                <InputIcon>
+                  <i class="pi pi-search" />
+                </InputIcon>
+                <InputText
+                  style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                  v-model="filters['global'].value"
+                  placeholder="Recherche:"
+                />
+              </IconField>
+            </div>
+          </template>
+          <Column
+            style="font-size: 1.8em; padding: 1em; text-align: center"
+            field="jour"
+            :header="texte24"
           >
-            <li class="breadcrumb-item">Horaire</li>
-          </ol>
-          <ol
-            :class="isActive ? 'breadcrumb' : 'breadcrumb_two'"
-            class="mx-3 p-5"
-            @click="getOtherTab"
+            <template #body="slotProps">
+              <span v-if="!slotProps.data.periode">
+                {{ configUtils.getFormatDateFr(slotProps.data.jour) }}
+              </span>
+              <span v-else>
+                {{ slotProps.data.jour }}
+              </span>
+            </template>
+          </Column>
+          <Column
+            style="font-size: 1.8em; padding: 1em; text-align: center"
+            field="First_horaire"
+            :header="texte15"
           >
-            <li class="breadcrumb-item">Période</li>
-          </ol>
+            <template #body="slotProps">
+              <span v-if="!slotProps.data.periode">
+                {{ configUtils.formatedDisponibilite(slotProps.data.First_horaire) }}
+              </span>
+              <span v-else>
+                Du {{ configUtils.getFormatDateFr(slotProps.data.periode_debut) }} à
+                {{ slotProps.data.hour_periode_debut }} au
+                {{ configUtils.getFormatDateFr(slotProps.data.periode_fin) }} à
+                {{ slotProps.data.hour_periode_fin }}
+              </span>
+            </template>
+          </Column>
+          <Column
+            style="font-size: 1.8em; padding: 1em; text-align: center"
+            field="Second_horaire"
+            :header="texte16"
+          >
+            <template #body="slotProps">
+              <span v-if="slotProps.data.Second_horaire">
+                {{ configUtils.formatedDisponibilite(slotProps.data.Second_horaire) }}
+              </span>
+              <span v-else>{{ texte17 }}</span>
+            </template>
+          </Column>
+          <Column
+            style="font-size: 1.8em; padding: 1em; text-align: center"
+            field="statut"
+            :header="texte18"
+          >
+            <template #body="slotProps">
+              <div
+                v-if="
+                  new Date(slotProps.data.jour).toLocaleDateString('fr') >=
+                  new Date().toLocaleDateString('fr')
+                "
+                class="d-flex justify-content-center align-items-center"
+              >
+                <em class="bi bi-pencil" @click="show_timetable(slotProps.data.id)"></em>
+                <em
+                  class="bi bi-trash"
+                  @click="show_box_confirmation_delete(slotProps.data.id)"
+                ></em>
+              </div>
+              <em v-else class="bi bi-dash-circle text-danger"></em>
+            </template>
+          </Column>
+        </DataTable>
+        <div v-if="!timetables.length">
+          <h1 class="not_data">Pas de donnée.</h1>
         </div>
+      </div>
+      <div class="tab-content" id="top-tabContent" v-show="tab">
+        <DataTable
+          paginator
+          :rows="10"
+          :globalFilterFields="['formule']"
+          :rowsPerPageOptions="[5, 10, 20, 50]"
+          :value="timetables.filter((item) => item.periode === 1)"
+          v-model:filters="filters"
+        >
+          <template #paginatorstart>
+            <div
+              style="
+                display: flex;
+                justify-content: flex-start;
+                font-size: 1em;
+                border: none;
+              "
+            >
+              Affichage de 1 à 10 sur{{ timetables.length }} entrées.
+            </div>
+          </template>
+          <template #header>
+            <div class="conteneur_search">
+              <div class="mx-3">
+                <button class="btn bg-warning py-2" @click="handleNewCalendar">
+                  {{ texte14 }}
+                </button>
+              </div>
+              <IconField iconPosition="left">
+                <InputIcon>
+                  <i class="pi pi-search" />
+                </InputIcon>
+                <InputText
+                  style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                  v-model="filters['global'].value"
+                  placeholder="Recherche:"
+                />
+              </IconField>
+            </div>
+          </template>
+          <!-- <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="jour"
+          :header="'Période'"
+        >
+          <template #body="slotProps">
+            <span v-if="!slotProps.data.periode">
+              {{ configUtils.getFormatDateFr(slotProps.data.jour) }}
+            </span>
+            <span v-else>
+              {{ slotProps.data.jour }}
+            </span>
+          </template>
+        </Column> -->
+          <Column
+            style="font-size: 1.8em; padding: 1em; text-align: center"
+            field="First_horaire"
+            :header="'Période'"
+          >
+            <template #body="slotProps">
+              <span v-if="!slotProps.data.periode">
+                {{ configUtils.formatedDisponibilite(slotProps.data.First_horaire) }}
+              </span>
+              <span v-else>
+                Du {{ configUtils.getFormatDateFr(slotProps.data.periode_debut) }} à
+                {{ slotProps.data.hour_periode_debut }} au
+                {{ configUtils.getFormatDateFr(slotProps.data.periode_fin) }} à
+                {{ slotProps.data.hour_periode_fin }}
+              </span>
+            </template>
+          </Column>
+          <Column
+            style="font-size: 1.8em; padding: 1em; text-align: center"
+            field="statut"
+            :header="texte18"
+          >
+            <template #body="slotProps">
+              <div
+                v-if="
+                  new Date(slotProps.data.periode_fin).toLocaleDateString('fr') >=
+                  new Date().toLocaleDateString('fr')
+                "
+                class="d-flex justify-content-center align-items-center"
+              >
+                <em class="bi bi-pencil" @click="show_timetable(slotProps.data.id)"></em>
+                <em
+                  class="bi bi-trash"
+                  @click="show_box_confirmation_delete(slotProps.data.id)"
+                ></em>
+              </div>
+              <em v-else class="bi bi-dash-circle text-danger"></em>
+            </template>
+          </Column>
+        </DataTable>
+        <div v-if="!timetables.length">
+          <h1 class="not_data">Pas de donnée.</h1>
+        </div>
+      </div>
+    </div>
+    <div v-else class="mobile-container p-2">
+  <!-- HORAIRES SIMPLES -->
+  <section v-show="!tab">
+    <div
+      v-for="(item, i) in timetables.filter(t => !t.periode)"
+      :key="i"
+      class="mobile-card p-3 mb-3 shadow-sm rounded-4"
+    >
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5 class="fw-bold text-dark">
+          {{ configUtils.getFormatDateFr(item.jour) }}
+        </h5>
+        <span
+          class="badge bg-warning text-dark"
+          v-if="
+            new Date(item.jour).toLocaleDateString('fr') >=
+            new Date().toLocaleDateString('fr')
+          "
+        >
+          À venir
+        </span>
+        <span class="badge bg-secondary" v-else>Expiré</span>
+      </div>
 
-    <div class="tab-content" id="top-tabContent" v-show="!tab">
-      <DataTable
-        paginator
-        :rows="10"
-        :globalFilterFields="['formule']"
-        :rowsPerPageOptions="[5, 10, 20, 50]"
-        :value="timetables.filter(item=> !item.periode)"
-        v-model:filters="filters"
-      >
-        <template #paginatorstart>
-          <div
-            style="
-              display: flex;
-              justify-content: flex-start;
-              font-size: 1em;
-              border: none;
-            "
-          >
-            Affichage de 1 à 10 sur{{ timetables.length }} entrées.
-          </div>
-        </template>
-        <template #header>
-          <div class="conteneur_search">
-            <div class="mx-3">
-              <button class="btn bg-warning py-2" @click="handleNewCalendar">
-                {{ texte14 }}
-              </button>
-            </div>
-            <IconField iconPosition="left">
-              <InputIcon>
-                <i class="pi pi-search" />
-              </InputIcon>
-              <InputText
-                style="width: 300px; font-size: 1.5em; border: 2px solid orange"
-                v-model="filters['global'].value"
-                placeholder="Recherche:"
-              />
-            </IconField>
-          </div>
-        </template>
-        <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
-          field="jour"
-          :header="texte24"
+      <p class="mb-1">
+        <strong>{{ texte15 }} :</strong>
+        {{ configUtils.formatedDisponibilite(item.First_horaire) }}
+      </p>
+
+      <p class="mb-1">
+        <strong>{{ texte16 }} :</strong>
+        <span v-if="item.Second_horaire">
+          {{ configUtils.formatedDisponibilite(item.Second_horaire) }}
+        </span>
+        <span v-else>{{ texte17 }}</span>
+      </p>
+
+      <div class="d-flex justify-content-end mt-3 gap-3">
+        <button
+          v-if="
+            new Date(item.jour).toLocaleDateString('fr') >=
+            new Date().toLocaleDateString('fr')
+          "
+          class="btn bg-warning btn-sm"
+          @click="show_timetable(item.id)"
         >
-          <template #body="slotProps">
-            <span v-if="!slotProps.data.periode">
-              {{ configUtils.getFormatDateFr(slotProps.data.jour) }}
-            </span>
-            <span v-else>
-              {{ slotProps.data.jour }}
-            </span>
-          </template>
-        </Column>
-        <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
-          field="First_horaire"
-          :header="texte15"
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button
+          v-if="
+            new Date(item.jour).toLocaleDateString('fr') >=
+            new Date().toLocaleDateString('fr')
+          "
+          class="btn btn-danger btn-sm mx-2"
+          @click="show_box_confirmation_delete(item.id)"
         >
-          <template #body="slotProps">
-            <span v-if="!slotProps.data.periode">
-              {{ configUtils.formatedDisponibilite(slotProps.data.First_horaire) }}
-            </span>
-            <span v-else>
-              Du {{ configUtils.getFormatDateFr(slotProps.data.periode_debut) }} à
-              {{ slotProps.data.hour_periode_debut }} au
-              {{ configUtils.getFormatDateFr(slotProps.data.periode_fin) }} à
-              {{ slotProps.data.hour_periode_fin }}
-            </span>
-          </template>
-        </Column>
-        <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
-          field="Second_horaire"
-          :header="texte16"
-        >
-          <template #body="slotProps">
-            <span v-if="slotProps.data.Second_horaire">
-              {{ configUtils.formatedDisponibilite(slotProps.data.Second_horaire) }}
-            </span>
-            <span v-else>{{ texte17 }}</span>
-          </template>
-        </Column>
-        <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
-          field="statut"
-          :header="texte18"
-        >
-          <template #body="slotProps">
-            
-            <div 
-            v-if="new Date(slotProps.data.jour).toLocaleDateString('fr') >= new Date().toLocaleDateString('fr')"
-            class="d-flex justify-content-center align-items-center">
-              <em class="bi bi-pencil" 
-              @click="show_timetable(slotProps.data.id)"></em>
-              <em
-                class="bi bi-trash"
-                @click="show_box_confirmation_delete(slotProps.data.id)"
-              ></em>
-            </div>
-            <em 
-            v-else
-            class="bi bi-dash-circle text-danger" 
-            ></em>
-          </template>
-        </Column>
-      </DataTable>
-      <div v-if="!timetables.length">
-              <h1 class="not_data">Pas de donnée.</h1>
-            </div>
+          <i class="bi bi-trash"></i>
+        </button>
+        <i
+          v-else
+          class="bi bi-dash-circle text-danger"
+          style="font-size: 1.3em;"
+        ></i>
+      </div>
     </div>
-    <div class="tab-content" id="top-tabContent" v-show="tab">
-      <DataTable
-        paginator
-        :rows="10"
-        :globalFilterFields="['formule']"
-        :rowsPerPageOptions="[5, 10, 20, 50]"
-        :value="timetables.filter(item=> item.periode === 1)"
-        v-model:filters="filters"
-      >
-        <template #paginatorstart>
-          <div
-            style="
-              display: flex;
-              justify-content: flex-start;
-              font-size: 1em;
-              border: none;
-            "
-          >
-            Affichage de 1 à 10 sur{{ timetables.length }} entrées.
-          </div>
-        </template>
-        <template #header>
-          <div class="conteneur_search">
-            <div class="mx-3">
-              <button class="btn bg-warning py-2" @click="handleNewCalendar">
-                {{ texte14 }}
-              </button>
-            </div>
-            <IconField iconPosition="left">
-              <InputIcon>
-                <i class="pi pi-search" />
-              </InputIcon>
-              <InputText
-                style="width: 300px; font-size: 1.5em; border: 2px solid orange"
-                v-model="filters['global'].value"
-                placeholder="Recherche:"
-              />
-            </IconField>
-          </div>
-        </template>
-        <!-- <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
-          field="jour"
-          :header="'Période'"
+  </section>
+
+  <!-- PÉRIODES -->
+  <section v-show="tab">
+    <div
+      v-for="(item, i) in timetables.filter(t => t.periode)"
+      :key="i"
+      class="mobile-card p-3 mb-3 shadow-sm rounded-4"
+    >
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5 class="fw-bold text-dark">Période</h5>
+        <span
+          class="badge bg-warning text-dark"
+          v-if="
+            new Date(item.periode_fin).toLocaleDateString('fr') >=
+            new Date().toLocaleDateString('fr')
+          "
         >
-          <template #body="slotProps">
-            <span v-if="!slotProps.data.periode">
-              {{ configUtils.getFormatDateFr(slotProps.data.jour) }}
-            </span>
-            <span v-else>
-              {{ slotProps.data.jour }}
-            </span>
-          </template>
-        </Column> -->
-        <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
-          field="First_horaire"
-          :header="'Période'"
+          Active
+        </span>
+        <span class="badge bg-secondary" v-else>Terminée</span>
+      </div>
+
+      <p class="mb-1">
+        <strong>Du :</strong>
+        {{ configUtils.getFormatDateFr(item.periode_debut) }}
+        <strong>à</strong> {{ item.hour_periode_debut }}
+      </p>
+
+      <p class="mb-1">
+        <strong>Au :</strong>
+        {{ configUtils.getFormatDateFr(item.periode_fin) }}
+        <strong>à</strong> {{ item.hour_periode_fin }}
+      </p>
+
+      <div class="d-flex justify-content-end mt-3 gap-3">
+        <button
+          v-if="
+            new Date(item.periode_fin).toLocaleDateString('fr') >=
+            new Date().toLocaleDateString('fr')
+          "
+          class="btn bg-warning btn-sm"
+          @click="show_timetable(item.id)"
         >
-          <template #body="slotProps">
-            <span v-if="!slotProps.data.periode">
-              {{ configUtils.formatedDisponibilite(slotProps.data.First_horaire) }}
-            </span>
-            <span v-else>
-              Du {{ configUtils.getFormatDateFr(slotProps.data.periode_debut) }} à
-              {{ slotProps.data.hour_periode_debut }} au
-              {{ configUtils.getFormatDateFr(slotProps.data.periode_fin) }} à
-              {{ slotProps.data.hour_periode_fin }}
-            </span>
-          </template>
-        </Column>
-        <!-- <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
-          field="Second_horaire"
-          :header="texte16"
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button
+          v-if="
+            new Date(item.periode_fin).toLocaleDateString('fr') >=
+            new Date().toLocaleDateString('fr')
+          "
+          class="btn btn-danger btn-sm"
+          @click="show_box_confirmation_delete(item.id)"
         >
-          <template #body="slotProps">
-            <span v-if="slotProps.data.Second_horaire">
-              {{ configUtils.formatedDisponibilite(slotProps.data.Second_horaire) }}
-            </span>
-            <span v-else>{{ texte17 }}</span>
-          </template>
-        </Column> -->
-        <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
-          field="statut"
-          :header="texte18"
-        >
-          <template #body="slotProps">
-            <div 
-            v-if="new Date(slotProps.data.periode_fin).toLocaleDateString('fr') >= new Date().toLocaleDateString('fr')"
-            class="d-flex justify-content-center align-items-center">
-              <em class="bi bi-pencil" @click="show_timetable(slotProps.data.id)"></em>
-              <em
-                class="bi bi-trash"
-                @click="show_box_confirmation_delete(slotProps.data.id)"
-              ></em>
-            </div>
-            <em 
-            v-else
-            class="bi bi-dash-circle text-danger" 
-            ></em>
-          </template>
-        </Column>
-      </DataTable>
-      <div v-if="!timetables.length">
-              <h1 class="not_data">Pas de donnée.</h1>
-            </div>
+          <i class="bi bi-trash"></i>
+        </button>
+        <i
+          v-else
+          class="bi bi-dash-circle text-danger"
+          style="font-size: 1.3em;"
+        ></i>
+      </div>
     </div>
+  </section>
+</div>
   </div>
 </template>
 <style scoped>
@@ -1118,28 +1244,40 @@ td {
   text-align: left !important;
   margin-left: 1.5em !important;
 }
-.conteneur_search{
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  gap:1em;
+.conteneur_search {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1em;
 }
 
 @media (max-width: 768px) {
+  .mobile-card {
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 1.2rem;
+}
+.mobile-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
   /* Modal overlay */
-  .plan-modify, .delete_article {
+  .plan-modify,
+  .delete_article {
     padding: 1em;
     justify-content: center;
     overflow-y: auto;
   }
 
   /* Card inside modal */
-  .plan-modify .card, .delete_article .card {
+  .plan-modify .card,
+  .delete_article .card {
     width: 100%;
     box-sizing: border-box;
   }
-  .modify-form{
-  width:350px !important;
+  .modify-form {
+    width: 350px !important;
   }
 
   /* Form inside modal */
@@ -1166,20 +1304,14 @@ td {
     padding: 0.5em;
   }
 
-  /* Buttons */
-  .btn {
-    width: 100%;
-    margin: 0.5em 0 !important;
-    padding: 0.75em 0;
-    font-size: 1em;
-  }
 
   /* Card body spacing */
   .card-body {
     padding: 0 !important;
   }
 
-  .breadcrumb, .breadcrumb_two {
+  .breadcrumb,
+  .breadcrumb_two {
     font-size: 0.9em;
     padding: 0.25em 0.5em;
   }
@@ -1189,7 +1321,8 @@ td {
     overflow-x: auto;
   }
 
-  .p-datatable th, .p-datatable td {
+  .p-datatable th,
+  .p-datatable td {
     font-size: 0.9em !important;
     padding: 0.5em !important;
   }
