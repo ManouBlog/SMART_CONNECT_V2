@@ -625,7 +625,10 @@ select {
   .container_result .two button,
   .informations_offres {
     margin: 0 !important;
+   
   }
+  .informations_offres{padding:0 !important;}
+  
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

@@ -180,7 +180,7 @@ export default {
               <div
                 v-for="(item, i) in list_offre"
                 :key="i"
-                class="card_offre_mobile mb-3 p-3 rounded-4 shadow-sm"
+                class="card_offre_mobile mb-3 p-3  shadow-sm"
               >
                 <div class="d-flex justify-content-between align-items-center mb-2">
                   <h5 class="fw-bold text-primary">{{ item.nom_offre }}</h5>
@@ -241,10 +241,11 @@ export default {
 
 /* 📱 CARTE MOBILE STYLE */
 .card_offre_mobile {
-  background: #fff;
-  border: 1px solid #e3e3e3;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+   background: #fff;
+  border-radius: 12px;
   padding: 1.2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 .card_offre_mobile:hover {
   transform: translateY(-3px);

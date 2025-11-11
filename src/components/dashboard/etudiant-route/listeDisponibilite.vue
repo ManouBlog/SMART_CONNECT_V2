@@ -1007,13 +1007,13 @@ export default {
     <div
       v-for="(item, i) in timetables.filter(t => !t.periode)"
       :key="i"
-      class="mobile-card p-3 mb-3 shadow-sm rounded-4"
+      class="mobile-card p-3 mb-3"
     >
       <div class="d-flex justify-content-between align-items-center mb-2">
         <h5 class="fw-bold text-dark">
           {{ configUtils.getFormatDateFr(item.jour) }}
         </h5>
-        <span
+        <!-- <span
           class="badge bg-warning text-dark"
           v-if="
             new Date(item.jour).toLocaleDateString('fr') >=
@@ -1022,7 +1022,7 @@ export default {
         >
           À venir
         </span>
-        <span class="badge bg-secondary" v-else>Expiré</span>
+        <span class="badge bg-secondary" v-else>Expiré</span> -->
       </div>
 
       <p class="mb-1">
@@ -1073,7 +1073,7 @@ export default {
     <div
       v-for="(item, i) in timetables.filter(t => t.periode)"
       :key="i"
-      class="mobile-card p-3 mb-3 shadow-sm rounded-4"
+      class="mobile-card p-3 mb-3"
     >
       <div class="d-flex justify-content-between align-items-center mb-2">
         <h5 class="fw-bold text-dark">Période</h5>
@@ -1253,10 +1253,11 @@ td {
 
 @media (max-width: 768px) {
   .mobile-card {
-  background: #fff;
-  border: 1px solid #e3e3e3;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #fff;
+  border-radius: 12px;
   padding: 1.2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 .mobile-card:hover {
   transform: translateY(-3px);
