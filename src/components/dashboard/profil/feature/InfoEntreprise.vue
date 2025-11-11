@@ -343,7 +343,7 @@ export default {
           </div>
           <div class="text-center">
             <button
-              class="btn-lg bg-warning"
+              class="btn bg-warning"
               style="border: none"
               @click.prevent="
                 verifIfPasswordIsExact({

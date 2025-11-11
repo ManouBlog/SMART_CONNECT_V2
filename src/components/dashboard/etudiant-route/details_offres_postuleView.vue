@@ -129,11 +129,11 @@ export default {
            </div>
 
             <div class="text-center">
-                <button class="btn-lg mx-3"
+                <button class="btn mx-3"
                 style="background:orange;"
                 @click="noterEntreprise"
                 >Envoyer</button>
-                <button class="btn-lg mx-3"
+                <button class="btn mx-3"
                  @click="showModal = !showModal"
                  >Plus tard</button>
                 
@@ -193,7 +193,7 @@ export default {
             <button
             v-if=" details_offre.pivot.recruit === 1 && JSON.stringify(new Date().toISOString().substring(0,10)) 
             > JSON.stringify(new Date(this.details_offre.fin).toISOString().slice(0,10))"
-            class="btn-lg bg-warning mt-3" 
+            class="btn bg-warning mt-3" 
             @click="showModal = !showModal"
             >Evaluer le service</button>
         

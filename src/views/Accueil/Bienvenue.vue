@@ -324,7 +324,7 @@ section > a {
 }
 
 @import url("../../assets/w3.css");
-.btn-lg {
+.btn {
   margin: 0 1em !important;
 }
 select {

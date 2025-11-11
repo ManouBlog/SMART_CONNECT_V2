@@ -298,11 +298,11 @@ h5 {
       </div>
     </section>
     <section class="conteneur_abidjan_sign my-5">
-      <button class="btn-lg p-5 bg-dark" style="border: none" @click="generatePDF">
+      <button class="btn p-5 bg-dark" style="border: none" @click="generatePDF">
         {{ texte12 }}
       </button>
       <button
-        class="btn-lg p-5 bg-warning mx-3"
+        class="btn p-5 bg-warning mx-3"
         style="border: none"
         @click="printDiv"
         v-if="this.myOffre && this.entreprise"

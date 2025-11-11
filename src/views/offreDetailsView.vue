@@ -270,7 +270,7 @@ export default {
               </section>
               <section v-if="abonnements.some((item) => item.statut === 'success')">
                 <button
-                  class="btn-lg bg-warning"
+                  class="btn bg-warning"
                   @click="sendDataPost(Offre.id)"
                   style="width: auto !important"
                 >

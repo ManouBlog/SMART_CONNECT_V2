@@ -511,7 +511,7 @@ switch (registerStore.infoUser) {
           </p>
         </section> -->
         <section class="text-right">
-          <button class="btn-lg p-2 bg-warning" 
+          <button class="btn p-2 bg-warning" 
           @click.prevent="handleRegister">
             {{!registerStore.isLoading ? 'Accepter':'chargement'}}
           </button>

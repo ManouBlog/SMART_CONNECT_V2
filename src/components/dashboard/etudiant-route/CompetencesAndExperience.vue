@@ -425,7 +425,7 @@ export default {
             </div>
           </div>
           <div class="text-center">
-            <button type="submit" class="btn-lg btn-warning">{{texte8}}</button>
+            <button type="submit" class="btn btn-warning">{{texte8}}</button>
           </div>
         </form>
       </div>
@@ -516,7 +516,7 @@ export default {
             <button
               type="submit"
               :disabled="spinnerModifyExperience ? true : false"
-              class="btn-lg btn-warning"
+              class="btn btn-warning"
             >
               {{ spinnerModifyExperience ? "Loading..." : "Modifier" }}
             </button>
@@ -532,10 +532,10 @@ export default {
         <div class="card p-5">
           <p class="h3 my-2">{{texte16}}</p>
           <div style="display:flex;gap:1em;">
-            <button class="btn-lg w-75 bg-warning m-2" @click="deleteMyCompetence">
+            <button class="btn bg-warning m-2 border-0" @click="deleteMyCompetence">
               {{texte17}}
             </button>
-            <button class="btn-lg w-75 m-2" style="background:red !important;" @click="notDeleteCompetence">
+            <button class="btn m-2 border-0" style="background:red !important;color:white;" @click="notDeleteCompetence">
               {{texte18}}
             </button>
           </div>
@@ -546,8 +546,8 @@ export default {
         <div class="card p-5">
           <p class="h3 my-2">{{texte19}}</p>
           <div style="display:flex;gap:1em;">
-            <button class="btn-lg w-75 bg-warning m-2" @click="deleteExperience"> {{texte17}}</button>
-            <button class="btn-lg w-75 m-2" style="background:red !important;" @click="notDeleteExperience">
+            <button class="btn w-75 bg-warning m-2" @click="deleteExperience"> {{texte17}}</button>
+            <button class="btn w-75 m-2" style="background:red !important;" @click="notDeleteExperience">
               {{texte18}}
             </button>
           </div>
@@ -799,7 +799,7 @@ textarea {
 .bi-x-lg {
   position: absolute;
   right: 1em;
-  top: 0.5em;
+
   color: crimson;
   font-weight: bold;
   font-size: 1.5em;
@@ -933,6 +933,7 @@ td {
   width: inherit;
   padding:0 1.5em;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.297);
+  border-radius: 10px 10px 0px 0px;
 }
 p {
   font-size: 1em !important;
@@ -940,7 +941,9 @@ p {
 
 /* === Amélioration responsive mobile === */
 @media screen and (max-width: 992px) {
- 
+ h2{
+    font-size:1.5em !important;
+  }
   /* Conteneur principal */
   .info-header {
     flex-direction: column !important;
@@ -1050,6 +1053,10 @@ p {
 }
 
 @media screen and (max-width: 576px) {
+  .conteneur_nouvelle_experience form {
+  padding: 0.1em;
+  margin-top: 6em;
+}
   .info-header h1 {
     font-size: 1.1rem !important;
   }
@@ -1063,6 +1070,7 @@ p {
     padding: 0.4em 0.8em !important;
 
   }
+  
 
   .bi-camera-fill {
     font-size: 1rem !important;

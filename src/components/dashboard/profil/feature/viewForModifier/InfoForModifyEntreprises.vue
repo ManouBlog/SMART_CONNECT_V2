@@ -380,7 +380,7 @@ export default {
     </div>
     <div class="text-right">
       <button
-        class="btn-lg bg-warning"
+        class="btn bg-warning"
         style="border: none"
         @click.prevent="handleUpdate(user)"
       >

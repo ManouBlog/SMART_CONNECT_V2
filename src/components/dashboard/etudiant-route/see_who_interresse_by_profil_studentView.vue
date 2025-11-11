@@ -190,10 +190,10 @@ export default {
             <div class="verfAccept" v-if="showMsgAcceptoffre">
               <div class="msgForAccept">
                 <h5>{{ texte1 }}</h5>
-                <button class="btn-lg bg-primary" @click="acceptJob">
+                <button class="btn bg-primary" @click="acceptJob">
                   {{ texte2 }}
                 </button>
-                <button class="btn-lg bg-danger mx-2" @click="annuleContrat">
+                <button class="btn bg-danger mx-2" @click="annuleContrat">
                   {{ texte3 }}
                 </button>
               </div>
@@ -201,10 +201,10 @@ export default {
             <div class="verfAccept" v-if="showMsgRejectoffre">
               <div class="msgForAccept">
                 <h5>{{ texte4 }}</h5>
-                <button class="btn-lg bg-primary" @click="rejectJob">
+                <button class="btn bg-primary" @click="rejectJob">
                   {{ texte5 }}
                 </button>
-                <button class="btn-lg bg-danger mx-2" @click="annuleRejetContrat">
+                <button class="btn bg-danger mx-2" @click="annuleRejetContrat">
                   {{ texte3 }}
                 </button>
               </div>

@@ -219,7 +219,7 @@ export default {
                 v-if="DetailSeeEntreprise.contrat === 0"
               >
                 <button
-                  class="btn-lg bg-success mx-2"
+                  class="btn bg-success mx-2"
                   @click="
                     updateCandidature(
                       DetailSeeEntreprise.offre.id,
@@ -232,7 +232,7 @@ export default {
                   {{ texte6 }}
                 </button>
                 <button
-                  class="btn-lg bg-danger"
+                  class="btn bg-danger"
                   @click="
                     updateCandidature(
                       DetailSeeEntreprise.offre.id,

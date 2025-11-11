@@ -212,13 +212,13 @@ export default {
             <div class="text-center">
               <button
                 v-if="numberRate"
-                class="btn-lg bg-warning mx-3"
+                class="btn bg-warning mx-3"
                 @click="sendAppreciation"
               >
                 {{ texte3 }}
               </button>
               <button
-                class="btn-lg mx-3"
+                class="btn mx-3"
                 @click="
                   () => {
                     this.showModal = !this.showModal;
@@ -242,11 +242,11 @@ export default {
             <span style="font-size:2em;text-align:center;">Souhaitez-vous envoyer le certificat de travail ?</span>
 
             <div class="text-center">
-              <button class="btn-lg bg-warning mx-3"
+              <button class="btn bg-warning mx-3"
               @click="handleCertification"
               >Approuver</button>
               <button
-                class="btn-lg mx-3"
+                class="btn mx-3"
                 @click="this.showCertificatModal = !this.showCertificatModal"
               >
                 {{ texte4 }}
@@ -351,7 +351,7 @@ export default {
                       )
                     "
                     style="border: none; width: 150px; padding: 1.1em 0"
-                    class="btn-lg bg-warning m-3"
+                    class="btn bg-warning m-3"
                     @click="rateStudent(item.student_id)"
                   >
                     <i class="bi bi-star-fill"></i>
@@ -364,7 +364,7 @@ export default {
                   <button
                     v-if="!item.certificat"
                     style="border: none; width: 150px"
-                    class="btn-lg bg-dark m-3"
+                    class="btn bg-dark m-3"
                     @click="openModalCertification(item)"
                   >
                     <i class="bi bi-send-fill"></i>

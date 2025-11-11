@@ -666,7 +666,7 @@ export default {
       <button
         @click="loadMore"
         v-if="length < list.length"
-        class="btn-lg bg-primary loadPlus"
+        class="btn bg-primary loadPlus"
       >
         {{ texte6 }} <em class="bi bi-chevron-down"></em>
       </button>

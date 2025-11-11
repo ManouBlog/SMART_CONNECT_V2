@@ -261,7 +261,7 @@ export default {
       </div> -->
     </div>
     <div class="text-right">
-        <button class="btn-lg bg-warning"
+        <button class="btn bg-warning"
         :disabled="isLoading"
          @click.prevent="update_compte_entreprise">
          

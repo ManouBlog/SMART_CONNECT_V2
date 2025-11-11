@@ -277,7 +277,7 @@ export default {
                 </div>
               </div>
               <div class="card-footer text-end">
-                <button class="btn-lg btn-primary" @click.prevent="update_offre">
+                <button class="btn btn-primary" @click.prevent="update_offre">
                   Mettre à jour le profil
                 </button>
               </div>

@@ -17,7 +17,7 @@
         <h1 class="badge bg-dark h1" >404</h1>
         <p>OOPS</p>
         <h1>Désolé, la page que vous recherchez est introuvable.</h1>
-        <button class="btn-lg" style="background:orange;color:white;" @click="$router.push('/')">Retour</button>
+        <button class="btn" style="background:orange;color:white;" @click="$router.push('/')">Retour</button>
       </div>
     </template>
     

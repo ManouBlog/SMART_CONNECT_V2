@@ -83,7 +83,7 @@ export default {
       <button
       style="background: var(--secondary-color) !important;color: var(--third-color) !important;"
       :disabled="spinner ? true:false" 
-      class="btn-lg my-5" 
+      class="btn my-5" 
       type="submit">
        Envoyer
         </button>

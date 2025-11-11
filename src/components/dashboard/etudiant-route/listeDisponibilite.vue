@@ -615,10 +615,10 @@ export default {
       <div class="card p-5">
         <p class="h3 my-2" style="color:black;">{{ texte1 }}</p>
         <div>
-          <button class="btn-lg bg-warning" @click="delete_timetable">
+          <button class="btn bg-warning" @click="delete_timetable">
             {{ texte2 }}
           </button>
-          <button class="btn-lg bg-danger mx-2" @click="not_delete">
+          <button class="btn bg-danger mx-2" @click="not_delete">
             {{ texte3 }}
           </button>
         </div>
@@ -745,12 +745,12 @@ export default {
                           <div class="text-end">
                             <button
                               @click.prevent="update_timetable"
-                              class="btn-lg btn-warning mx-1"
+                              class="btn btn-warning mx-1"
                             >
                               {{ texte13 }}
                             </button>
                             <button
-                              class="btn-lg btn-danger mx-1"
+                              class="btn btn-danger mx-1"
                               @click.prevent="show_modify"
                             >
                               {{ texte3 }}
@@ -1167,7 +1167,7 @@ td {
   }
 
   /* Buttons */
-  .btn-lg {
+  .btn {
     width: 100%;
     margin: 0.5em 0 !important;
     padding: 0.75em 0;

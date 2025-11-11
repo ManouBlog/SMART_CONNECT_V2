@@ -149,14 +149,14 @@ export default {
         <div>
           <section  v-if="InfoPostulant.recruit === 0">
             <button
-          class="btn-lg bg-warning mt-3 rounded-5"
+          class="btn bg-warning mt-3 rounded-5"
           style="border:none"
           @click="chooseStudent(InfoPostulant.id,1)"
         >
          {{texte7}}
         </button>
         <button
-        class="btn-lg bg-danger mt-3 mx-3 rounded-5"
+        class="btn bg-danger mt-3 mx-3 rounded-5"
         style="border:none"
         @click="chooseStudent(InfoPostulant.id,2)">
          {{texte8}}

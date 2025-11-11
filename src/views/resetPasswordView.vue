@@ -69,7 +69,7 @@ export default {
        </div>
        <br>
        <div>
-       <button class="btn-lg btn-Conex" :disabled="spinner ? true:false" type="submit">
+       <button class="btn btn-Conex" :disabled="spinner ? true:false" type="submit">
          
        <span v-if="spinner">chargements...</span>
        <span v-else>Envoyer</span>  
@@ -108,7 +108,7 @@ export default {
        </div>
        <br>
        <div>
-       <button class="btn-lg btn-Conex" :disabled="spinner ? true:false" type="submit">
+       <button class="btn btn-Conex" :disabled="spinner ? true:false" type="submit">
          
        <span v-if="spinner">Loading...</span>
        <span v-else>Send</span>  

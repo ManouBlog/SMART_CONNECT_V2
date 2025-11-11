@@ -275,7 +275,7 @@ export default {
     </section>
   </div>
     <section class="text-right">
-      <button class="btn-lg p-2 bg-warning">Accepter</button>
+      <button class="btn p-2 bg-warning">Accepter</button>
     </section>
   </div>
  
@@ -289,7 +289,7 @@ code {
   padding: 1em 5em;
   text-align: justify;
 }
-.btn-lg a{
+.btn a{
     color:white !important;
 }
 .image-heading {

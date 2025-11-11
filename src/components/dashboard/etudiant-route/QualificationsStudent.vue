@@ -316,7 +316,7 @@ export default {
             </n-dynamic-input>
           </div>
           <div class="text-center" v-if="itemsQualificationDynamicInput.length">
-            <button type="submit" class="btn-lg btn-warning">{{ texte8 }}</button>
+            <button type="submit" class="btn btn-warning">{{ texte8 }}</button>
           </div>
         </form>
       </div>
@@ -371,7 +371,7 @@ export default {
             <button
               type="submit"
               :disabled="spinnerModifyExperience ? true : false"
-              class="btn-lg btn-warning"
+              class="btn btn-warning"
             >
               {{ spinnerModifyExperience ? "Loading..." : "Modifier" }}
             </button>
@@ -387,10 +387,10 @@ export default {
         <div class="card p-5">
           <p class="h3 my-2">{{ texte16 }}</p>
           <div>
-            <button class="btn-lg bg-warning" @click="deleteMyQualification">
+            <button class="btn bg-warning" @click="deleteMyQualification">
               {{ texte17 }}
             </button>
-            <button class="btn-lg bg-danger text-light mx-2" @click="notDeleteCompetence">
+            <button class="btn bg-danger text-light mx-2" @click="notDeleteCompetence">
               {{ texte18 }}
             </button>
           </div>
@@ -400,11 +400,11 @@ export default {
       <div class="ecran_for_delete delete_article" v-show="toogleScreenYouWantDelete">
         <div class="card p-5">
           <p class="h3 my-2">{{ texte19 }}</p>
-          <div>
-            <button class="btn-lg bg-warning" @click="deleteMyQualification">
+          <div style="display:flex;justify-content:center;align-items:center;gap:1em;">
+            <button class="btn bg-warning" @click="deleteMyQualification">
               {{ texte17 }}
             </button>
-            <button class="btn-lg bg-danger mx-2" @click="notDeleteQualification">
+            <button class="btn bg-danger mx-2" @click="notDeleteQualification">
               {{ texte18 }}
             </button>
           </div>
@@ -502,6 +502,7 @@ export default {
   </section>
 </template>
 <style scoped>
+
 button {
   border-radius: 5px;
 }
@@ -589,7 +590,6 @@ textarea {
 .bi-x-lg {
   position: absolute;
   right: 1em;
-  top: 0.5em;
   color: crimson;
   font-weight: bold;
   font-size: 1.5em;
@@ -723,17 +723,20 @@ td {
   width: inherit;
   padding: 0 1.5em;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.297);
+  border-radius: 10px 10px 0px 0px;
 }
 p {
   font-size: 1em !important;
 }
 @media (max-width: 768px) {
+  form{
+  padding:1em;
+}
   .conteneur_nouvelle_experience {
     width: 95%;
   }
   .title_experience {
-    font-size: 1.5em !important;
-    width: 50px;
+    font-size: 1.3em !important;
   }
 }
 </style>

@@ -335,8 +335,8 @@ export default {
         <div class="card p-5">
           <p class="h3 my-2" style="color:black;">Voulez-vous vraiment supprimer?</p>
           <div>
-            <button class="btn-lg bg-warning" @click="delete_offre">Supprimer</button>
-            <button class="btn-lg bg-danger mx-2" @click="not_delete">Annuler</button>
+            <button class="btn bg-warning" @click="delete_offre">Supprimer</button>
+            <button class="btn bg-danger mx-2" @click="not_delete">Annuler</button>
           </div>
         </div>
       </div>
@@ -670,8 +670,8 @@ export default {
         <div class="card p-5">
           <p class="h3 my-2">Are you sure you want to delete ?</p>
           <div>
-            <button class="btn-lg bg-warning" @click="delete_offre">Delete</button>
-            <button class="btn-lg bg-danger mx-2" @click="not_delete">Cancel</button>
+            <button class="btn bg-warning" @click="delete_offre">Delete</button>
+            <button class="btn bg-danger mx-2" @click="not_delete">Cancel</button>
           </div>
         </div>
       </div>

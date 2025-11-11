@@ -239,7 +239,6 @@ textarea {
 .bi-x-lg {
   position: absolute;
   right: 1em;
-  top: 0.5em;
   color: crimson;
   font-weight: bold;
   font-size: 1.5em;

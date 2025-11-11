@@ -147,8 +147,8 @@ export default {
           </div>
 
           <div class="form-group">
-            <button class="btn-lg bg-danger btn-block">Annuler</button>
-            <button class="btn-lg btn-primary btn-block" type="submit">
+            <button class="btn bg-danger btn-block">Annuler</button>
+            <button class="btn btn-primary btn-block" type="submit">
               Modifier mon compte
             </button>
           </div>

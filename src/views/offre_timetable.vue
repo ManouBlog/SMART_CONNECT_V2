@@ -339,7 +339,7 @@ export default {
             <button
               :disabled="!fieldSearch && !list_offre.length"
               :class="!fieldSearch ? null : 'bg-primary'"
-              class="btn-lg"
+              class="btn"
               @click.prevent="handleSearchClick"
             >
               Rechercher
@@ -439,7 +439,7 @@ export default {
             <button
               @click="newLoadmore"
               v-if="length < MylistOffre.length"
-              class="btn-lg bg-primary"
+              class="btn bg-primary"
             >
               {{ texte8 }} <em class="bi bi-chevron-down"></em>
             </button>

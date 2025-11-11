@@ -79,3 +79,9 @@ export default {
     </div>
   </div>
 </template>
+<style scoped>
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-head){
+  background: orange !important;
+  color:white !important;
+}
+</style>
