@@ -1,5 +1,4 @@
 <script>
-// import instance from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { FilterMatchMode } from "primevue/api";
 import { configUtils } from "../../../Shared/Utils";
@@ -9,7 +8,8 @@ import InputIcon from "primevue/inputicon";
 import { mapActions, mapState } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useInfoStudentStore } from "../../../store-pinia/InfoStudent/useInfoStudentStore";
-// const loadingSpinner = useLoadingSpinner();
+import { useWindowSize } from "@vueuse/core";
+
 const statut = {
   0: "En attente",
   1: "Séléctionné",
@@ -20,6 +20,7 @@ const colorStatut = {
   1: "bg-success",
   2: "bg-danger",
 };
+
 export default {
   name: "Offres_postulerView",
   components: {
@@ -31,9 +32,9 @@ export default {
   data() {
     return {
       texte0: "",
+      texte1: "",
       texte2: "",
       texte3: "",
-      texte1: "",
       texte4: "",
       texte5: "",
       texte6: "",
@@ -48,40 +49,45 @@ export default {
       texte15: "",
       texte16: "",
       texte89: "",
-      texte17: "",
-      texte18: "",
-      colorStatut: colorStatut,
-      statut: statut,
-      configUtils: configUtils,
-      spinner: false,
+      statut,
+      colorStatut,
+      configUtils,
       moneyFormat: new Intl.NumberFormat("de-DE"),
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        formule: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        "country.name": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        representative: { value: null, matchMode: FilterMatchMode.IN },
-        status: { value: null, matchMode: FilterMatchMode.EQUALS },
-        verified: { value: null, matchMode: FilterMatchMode.EQUALS },
       },
+      isMobile: false,
     };
   },
-  computed: { ...mapState(useInfoStudentStore, ["list_offre"]) },
+  computed: {
+    ...mapState(useInfoStudentStore, ["list_offre"]),
+  },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useInfoStudentStore, ["get_all_student"]),
 
     getCertificatRoute(offreId) {
-  this.$router.push({ name: 'certifications', params: { id: offreId } })
-},
-   getContratRoute(offreId) {
-  this.$router.push({ name: 'imprimeLeContrat', params: { id: offreId } })
-},
-getVoirPlusRoute(offreId){
-   this.$router.push({ name: 'details_offres_postuler', params: { id: offreId } })
-}
+      this.$router.push({ name: "certifications", params: { id: offreId } });
+    },
+    getContratRoute(offreId) {
+      this.$router.push({ name: "imprimeLeContrat", params: { id: offreId } });
+    },
+    getVoirPlusRoute(offreId) {
+      this.$router.push({ name: "details_offres_postuler", params: { id: offreId } });
+    },
   },
   async created() {
     this.get_all_student();
+
+    const { width } = useWindowSize();
+    this.$watch(
+      () => width.value,
+      (newWidth) => {
+        this.isMobile = newWidth < 768;
+      },
+      { immediate: true }
+    );
+
     this.texte0 = await this.handleTranslate(`Mes postulations`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
     this.texte2 = await this.handleTranslate("Lieu du travail");
@@ -89,178 +95,194 @@ getVoirPlusRoute(offreId){
     this.texte4 = await this.handleTranslate("Prime pas fixée.");
     this.texte5 = await this.handleTranslate("Statut");
     this.texte6 = await this.handleTranslate("Détails");
-    this.texte7 = await this.handleTranslate(
-      "Veuillez faire un abonnement avant de postuler à cette offre"
-    );
-    this.texte8 = await this.handleTranslate("Souscrire à un abonnement");
-    this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);
-    this.texte10 = await this.handleTranslate("ex: Angre");
-    this.texte11 = await this.handleTranslate("Offres");
-    this.texte12 = await this.handleTranslate("Nous avons trouvé");
-    this.texte13 = await this.handleTranslate("Nouveauté");
-    this.texte14 = await this.handleTranslate("Voir les Détails");
-    this.texte15 = await this.handleTranslate("Offre Expirée");
-    this.texte16 = await this.handleTranslate("Charger plus");
     this.texte89 = await this.handleTranslate("Entreprise");
   },
 };
 </script>
+
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
 
-    <div class="tab-content" id="top-tabContent">
+    <div class="tab-content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12 py-3 px-2">
-            <DataTable
-              paginator
-              :rows="10"
-              :globalFilterFields="['formule']"
-              :rowsPerPageOptions="[5, 10, 20, 50]"
-              :value="list_offre"
-              v-model:filters="filters"
-            >
-              <template #paginatorstart>
-                <div
-                  style="
-                    display: flex;
-                    justify-content: flex-start;
-                    font-size: 1em;
-                    border: none;
-                  "
-                >
-                  Affichage de 1 à 10 sur{{ list_offre.length }} entrées.
-                </div>
-              </template>
-              <template #header>
-                <div class="conteneur_search">
-                  <IconField iconPosition="left">
-                    <InputIcon>
-                      <i class="pi pi-search" />
-                    </InputIcon>
-                    <InputText
-                      style="width: 300px; font-size: 1.5em; border: 2px solid orange"
-                      v-model="filters['global'].value"
-                      placeholder="Recherche:"
-                    />
-                  </IconField>
-                </div>
-              </template>
-              <Column
-                style="font-size: 1.8em; padding: 1em; text-align: center"
-                field="nom_offre"
-                :header="texte89"
+
+            <!-- 🖥️ TABLEAU SUR GRAND ÉCRAN -->
+            <div v-if="!isMobile" class="table-container p-3 rounded-4 shadow-sm bg-white">
+              <DataTable
+                paginator
+                :rows="10"
+                :rowsPerPageOptions="[5, 10, 20, 50]"
+                :value="list_offre"
+                v-model:filters="filters"
+                :globalFilterFields="['formule']"
               >
-                <template #body="slotProps">
-                  <span> {{ slotProps.data.entreprise.nom }}</span>
-                </template>
-              </Column>
-              <Column
-                style="font-size: 1.8em; padding: 1em; text-align: center"
-                field="nom_offre"
-                :header="texte1"
-              >
-              </Column>
-              <Column
-                style="font-size: 1.8em; padding: 1em; text-align: center"
-                field="lieu"
-                :header="texte2"
-              ></Column>
-              <Column
-                style="font-size: 1.8em; padding: 1em; text-align: center"
-                field="salaire"
-                :header="texte3"
-              >
-                <template #body="slotProps">
-                  <span>
-                    {{
-                      slotProps.data.salaire != null
-                        ? moneyFormat.format(slotProps.data.salaire)
-                        : texte4
-                    }}/{{ slotProps.data.pointage }}</span
-                  >
-                </template>
-              </Column>
-              <Column
-                style="font-size: 1.8em; padding: 1em; text-align: center"
-                field="pivot.recruit"
-                :header="texte5"
-              >
-                <template #body="slotProps">
-                  <span
-                    :class="colorStatut[slotProps.data.pivot.recruit]"
-                    class="badge"
-                    >{{ statut[slotProps.data.pivot.recruit] }}</span
-                  >
-                </template>
-              </Column>
-              <Column
-                style="font-size: 1.8em; padding: 1em; text-align: center"
-                field="statut"
-                :header="texte6"
-              >
-                <template #body="slotProps">
-                  <div class="d-flex justify-content-center g-5 align-items-center">
-                    <n-tooltip placement="bottom" trigger="hover">
-                      <template #trigger>
-                        <n-button :bordered="false" size="large" @click="getVoirPlusRoute(slotProps.data.id)"> 
-                         <i class="bi bi-eye"></i
-                    > </n-button>
-                      </template>
-                      <span> Voir l'offre </span>
-                    </n-tooltip>
-                    <n-tooltip placement="bottom" trigger="hover"  v-if="slotProps.data.pivot.recruit === 1">
-                      <template #trigger>
-                        <n-button :bordered="false" size="large" @click="getContratRoute(slotProps.data.pivot.offre_id)"> 
-                          <i class="bi bi-file-earmark-text"></i> </n-button>
-                      </template>
-                      <span> Mon contrat </span>
-                    </n-tooltip>
-                    <n-tooltip placement="bottom" trigger="hover"  v-if="slotProps.data.pivot.certificat === 1">
-                      <template #trigger>
-                        <n-button :bordered="false" size="large" @click="getCertificatRoute(slotProps.data.pivot.offre_id)"> 
-                          <i class="bi bi-award"></i> </n-button>
-                      </template>
-                      <span> Mon certificat </span>
-                    </n-tooltip>
+                <template #header>
+                  <div class="d-flex justify-content-end mb-3">
+                    <IconField iconPosition="left">
+                      <InputIcon><i class="pi pi-search" /></InputIcon>
+                      <InputText
+                        style="width: 300px; font-size: 1.1em; border: 2px solid orange"
+                        v-model="filters['global'].value"
+                        placeholder="Recherche..."
+                      />
+                    </IconField>
                   </div>
                 </template>
-              </Column>
-            </DataTable>
-            <div v-if="!list_offre.length">
-              <h1 class="not_data">Pas de donnée.</h1>
+
+                <Column field="entreprise.nom" :header="texte89" />
+                <Column field="nom_offre" :header="texte1" />
+                <Column field="lieu" :header="texte2" />
+                <Column :header="texte3">
+                  <template #body="{ data }">
+                    {{ data.salaire ? moneyFormat.format(data.salaire) : texte4 }}
+                  </template>
+                </Column>
+                <Column :header="texte5">
+                  <template #body="{ data }">
+                    <span :class="['badge', colorStatut[data.pivot.recruit]]">
+                      {{ statut[data.pivot.recruit] }}
+                    </span>
+                  </template>
+                </Column>
+                <Column :header="texte6">
+                  <template #body="{ data }">
+                    <div class="d-flex justify-content-center align-items-center gap-3">
+                      <n-button :bordered="false" size="large" @click="getVoirPlusRoute(data.id)">
+                        <i class="bi bi-eye"></i>
+                      </n-button>
+                      <n-button
+                        v-if="data.pivot.recruit === 1"
+                        :bordered="false"
+                        size="large"
+                        @click="getContratRoute(data.pivot.offre_id)"
+                      >
+                        <i class="bi bi-file-earmark-text"></i>
+                      </n-button>
+                      <n-button
+                        v-if="data.pivot.certificat === 1"
+                        :bordered="false"
+                        size="large"
+                        @click="getCertificatRoute(data.pivot.offre_id)"
+                      >
+                        <i class="bi bi-award"></i>
+                      </n-button>
+                    </div>
+                  </template>
+                </Column>
+              </DataTable>
             </div>
+
+            <!-- 📱 VERSION MOBILE -->
+            <div v-else class="mobile-container p-2">
+              <div
+                v-for="(item, i) in list_offre"
+                :key="i"
+                class="card_offre_mobile mb-3 p-3 rounded-4 shadow-sm"
+              >
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h5 class="fw-bold text-primary">{{ item.nom_offre }}</h5>
+                  <span :class="['badge', colorStatut[item.pivot.recruit]]">
+                    {{ statut[item.pivot.recruit] }}
+                  </span>
+                </div>
+
+                <p class="m-0"><strong>{{ texte89 }} :</strong> {{ item.entreprise.nom }}</p>
+                <p class="m-0"><strong>{{ texte2 }} :</strong> {{ item.lieu }}</p>
+                <p class="m-0">
+                  <strong>{{ texte3 }} :</strong>
+                  {{ item.salaire ? moneyFormat.format(item.salaire) : texte4 }}
+                </p>
+
+                <div class="d-flex justify-content-end mt-3 gap-3">
+                  <n-button :bordered="false" size="large" @click="getVoirPlusRoute(item.id)">
+                    <i class="bi bi-eye"></i>
+                  </n-button>
+                  <n-button
+                    v-if="item.pivot.recruit === 1"
+                    :bordered="false"
+                    size="large"
+                    @click="getContratRoute(item.pivot.offre_id)"
+                  >
+                    <i class="bi bi-file-earmark-text"></i>
+                  </n-button>
+                  <n-button
+                    v-if="item.pivot.certificat === 1"
+                    :bordered="false"
+                    size="large"
+                    @click="getCertificatRoute(item.pivot.offre_id)"
+                  >
+                    <i class="bi bi-award"></i>
+                  </n-button>
+                </div>
+              </div>
+
+              <div v-if="!list_offre.length" class="text-center py-4">
+                <h4>Pas de donnée.</h4>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <style scoped>
-.bi-eye::before,.bi-file-earmark-text::before,.bi-award::before{
-  font-size:1.8em !important;
+/* 🖥️ TABLEAU STYLE */
+.table-container {
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid #ddd;
 }
-:deep(.n-button){
-  margin:0 0.1em;
+
+/* 📱 CARTE MOBILE STYLE */
+.card_offre_mobile {
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 1.2rem;
 }
-th,
-td {
-  border: thin solid rgba(141, 140, 140, 0.692) !important;
+.card_offre_mobile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-.Myspinner {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background: rgba(255, 255, 255, 0.625);
-  display: flex;
-  place-items: center;
-  justify-content: center;
+
+.badge {
+  padding: 0.4em 0.8em;
+  border-radius: 0.6em;
+  font-size: 0.9em;
+  color: #fff;
 }
-.mt-5 {
-  margin-top: 101px !important;
+.bg-info {
+  background-color: #17a2b8;
+}
+.bg-success {
+  background-color: #28a745;
+}
+.bg-danger {
+  background-color: #dc3545;
+}
+
+.bi-eye::before,
+.bi-file-earmark-text::before,
+.bi-award::before {
+  font-size: 1.5em;
+}
+
+/* Global padding pour petits écrans */
+.mobile-container {
+  padding: 1rem;
+}
+:deep(td){
+  padding:1em;
+  text-align:center;
+}
+:deep(.p-column-header-content){
+ padding:1em;
+ justify-content: center !important;
 }
 </style>
