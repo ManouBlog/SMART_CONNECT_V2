@@ -1011,6 +1011,11 @@ export default {
       </div>
     </div>
     <div v-else class="mobile-container p-2">
+      <div style="text-align:right;" class="mx-3">
+                <button class="btn bg-warning py-2" @click="handleNewCalendar">
+                  {{ texte14 }}
+                </button>
+              </div>
       <!-- HORAIRES SIMPLES -->
       <section v-show="!tab" style="padding: 1em">
         <div
