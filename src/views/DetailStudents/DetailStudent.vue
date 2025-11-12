@@ -4,8 +4,6 @@ import Swal from "sweetalert2";
 import "v-calendar/dist/style.css";
 import { Calendar } from "v-calendar";
 import { configUtils } from "../../Shared/Utils";
-// import vue3starRatings from "vue3-star-ratings";
-// import { KCheckbox } from "@kong/kongponents";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
@@ -13,12 +11,11 @@ import "@kong/kongponents/dist/style.css";
 import HeaderDetailStudent from "./features/HeaderDetailStudent.vue";
 import BodyExperience from "./features/BodyExperience.vue";
 const loadingSpinner = useLoadingSpinner();
-//DatePicker
 export default {
-  components: { 
-    Calendar, 
-    HeaderDetailStudent, 
-    BodyExperience 
+  components: {
+    Calendar,
+    HeaderDetailStudent,
+    BodyExperience,
   },
   data() {
     return {
@@ -206,7 +203,6 @@ export default {
   watch: {
     idParamsItem(newValue, oldValue) {
       console.log("oldValue", oldValue);
-      // console.log("newValue", newValue);
       if (newValue) {
         this.getDetailStudent();
       }
@@ -219,11 +215,9 @@ export default {
 
       for (const dateStr of dateArray) {
         if (dateStr.includes(" A ")) {
-          // Séparer les dates pour les éléments avec plage
           const [startDate, endDate] = dateStr.split(" A ");
           result.push(startDate, endDate);
         } else {
-          // Ajouter les dates simples telles quelles
           result.push(dateStr);
         }
       }
@@ -235,12 +229,9 @@ export default {
 
       for (const item of data) {
         if (item.periode) {
-          // Séparer les dates pour les éléments avec plage
           const [startDate, endDate] = item.jour.split(" A ");
           let currentDate = new Date(startDate);
           const end = new Date(endDate);
-
-          // Incrémente jour par jour
           while (currentDate <= end) {
             dates.push({
               ...item,
@@ -248,7 +239,7 @@ export default {
               periode: 1,
               periode_debut: startDate,
               periode_fin: endDate,
-            }); // Format YYYY-MM-DD
+            }); 
             currentDate.setDate(currentDate.getDate() + 1);
           }
         } else {
@@ -263,40 +254,35 @@ export default {
 
       for (const item of data) {
         if (item.periode_debut) {
-          // Séparer les dates pour les éléments avec plage
           const [startDate, endDate] = item.jour.split(" A ");
-
-          // Créer un objet pour la date de début
           result.push({
             ...item,
-            id: item.id * 10 + 1, // Nouvel ID dérivé pour éviter les conflits
+            id: item.id * 10 + 1, 
             jour: startDate,
             periode: 1,
             periode_debut: startDate,
             periode_fin: endDate,
           });
-
-          // Créer un objet pour la date de fin
           result.push({
             ...item,
-            id: item.id * 10 + 2, // Nouvel ID dérivé
+            id: item.id * 10 + 2, 
             jour: endDate,
             periode: 1,
             periode_debut: startDate,
             periode_fin: endDate,
           });
         } else {
-          // Garder les éléments sans plage tels quels
+
           result.push({ ...item });
         }
       }
-      // console.log("RESULTA",result)
+
       return result;
     },
     ifPeriodeDate(periode) {
-      // console.log("PERIODE25", periode);
+ 
       if (periode.periode) {
-        // console.log("periode254", periode);
+
         return `Du ${new Date(periode.periode_debut).toLocaleDateString("fr")} à ${
           periode.hour_periode_debut
         } au ${new Date(periode.periode_fin).toLocaleDateString("fr")} à ${
@@ -309,9 +295,9 @@ export default {
     async getDetailStudent() {
       loadingSpinner.launchLoading(true);
       await instance
-        .get("FiltreTimetable",{ params: { recipient_id: this.idParamsUser_id } })
+        .get("FiltreTimetable", { params: { recipient_id: this.idParamsUser_id } })
         .then((res) => {
-          console.log("FiltreTimetable",res);
+          console.log("FiltreTimetable", res);
           this.NewListEmploi = res.data.data;
           this.dateRendezVousStudentWithEntreprise = res.data.date;
           let dateOfStudent = [];
@@ -322,18 +308,16 @@ export default {
           });
 
           this.MyDateRendezVous = dateOfStudent;
-          // console.log("this.NewListEmploi", this.NewListEmploi);
-          // console.log("this.$route.params.id", this.idParamsItem);
+
           this.timetable_for_student = this.NewListEmploi.find(
             (item) => item.id === Number(this.idParamsItem)
           );
-          // console.log("this.timetable_for_student", this.timetable_for_student);
+
           this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
           this.schedule = this.getDatesBetween(this.timetable_for_student.jours);
-          // console.log("this.schedule",this.schedule)
+
 
           this.schedule.forEach((item) => {
-            // console.log("DATE_this_schedule", this.MyDateRendezVous);
             this.MyDateRendezVous.forEach((date) => {
               if (
                 item.jour === date.date_debut ||
@@ -347,7 +331,6 @@ export default {
             item.jou = new Date(item.jour).getDate();
             item.month = new Date(item.jour).getMonth() + 1;
             item.year = new Date(item.jour).getFullYear();
-            // console.log(JSON.stringify(new Date().toISOString().slice(0, 10)));
             if (
               JSON.stringify(new Date(item.jour)) <
               JSON.stringify(new Date().toISOString().slice(0, 10))
@@ -355,11 +338,6 @@ export default {
               item.job = 3;
             }
           });
-
-          // console.log("EMPLOI DU TEMPS", this.timetable_for_student);
-
-          // console.log("TIMETBALE", this.schedule);
-          // console.log("DateRendez-vous", this.MyDateRendezVous);
         })
         .catch((err) => {
           console.log(err);
@@ -395,7 +373,7 @@ export default {
         const reponse = await instance.get("GetAllCompetences");
         this.competences = reponse.data.data;
       } catch (e) {
-        // console.log(e);
+        console.log(e);
       }
     },
     showCalenderDate() {
@@ -403,7 +381,6 @@ export default {
     },
     onDayClick(day) {
       const idx = this.days.findIndex((d) => d.id === day.id);
-      // console.log(new Date().toLocaleDateString());
       if (idx >= 0) {
         this.days.splice(idx, 1);
       } else {
@@ -431,7 +408,7 @@ export default {
         });
       });
       this.list = [...new Set(this.Myarray)];
-      // console.log("DATE", this.Myarray);
+
       if (!this.days.length) {
         this.list = this.MylistEmploi;
         this.hideButtons = true;
@@ -451,7 +428,7 @@ export default {
       }
     },
     showPeriode() {
-      // console.log(this.checkbox);
+
       if (this.checkboxDate === true) {
         this.checkboxDate = !this.checkboxDate;
       }
@@ -462,21 +439,20 @@ export default {
       }
     },
     addTag(newTag) {
-      // console.log(newTag);
+   
       this.Myarray = [];
-      // this.list = [];
+
       this.MylistEmploi.forEach((element) => {
         newTag.forEach((e) => {
           element.jours.forEach((item) => {
             if (item.jour === e.jou) {
-              // console.log(element);
+
               this.Myarray.push(element);
             }
           });
         });
       });
       this.list = [...new Set(this.Myarray)];
-      // console.log("LIST", this.list);
       this.hideButtons = true;
 
       if (!newTag.length) {
@@ -485,14 +461,12 @@ export default {
       }
     },
     addComp(newTag) {
-      // console.log(this.days.length);
       if (this.Myarray.length > 0) {
         let newArray = [];
         this.Myarray.forEach((item) => {
           newTag.forEach((e) => {
             if (item.acquis.includes(e.competence)) {
               newArray.push(item);
-              // console.log("new Array", newArray);
             }
           });
         });
@@ -519,9 +493,6 @@ export default {
           });
         });
         this.list = [...new Set(this.Myarray)];
-        // console.log("list de competences", this.list);
-
-        // console.log("list de jour", this.Myarray);
         this.hideButtons = true;
 
         if (!newTag.length) {
@@ -532,7 +503,6 @@ export default {
     },
     deleteDays(day) {
       const idx = this.days.findIndex((d) => d.id === day.id);
-      // console.log(day.id);
       if (idx >= 0) {
         this.days.splice(idx, 1);
       }
@@ -587,7 +557,6 @@ export default {
       await instance
         .get("list_emplois_temps")
         .then((res) => {
-          // console.log("EMPLOI", res.data.data);
           res.data.data.forEach((element) => {
             let days = [];
             let hours = [];
@@ -612,10 +581,10 @@ export default {
           });
           this.list = res.data.data;
           this.MylistEmploi = res.data.data;
-          // console.log("LIST", this.MylistEmploi);
+     
 
           this.lengthOfMylistEmploi = this.MylistEmploi.length;
-          // console.log("EMPLOI DU TEMPS", this.list_emploi);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -634,15 +603,13 @@ export default {
     },
     optionDate(studentId) {
       loadingSpinner.launchLoading(true);
-      // this.loadSpinner = true;
-      // console.log("datesChoice", this.datesChoice);
+
       let date = [];
 
       this.datesChoice.forEach((item) => {
         date.push(new Date(item).toISOString().slice(0, 10));
       });
       let VerfDoublonInDate = [...new Set(date)];
-      // console.log("date", date);
       instance
         .post("entreprise_student", {
           student_id: studentId,
@@ -651,7 +618,6 @@ export default {
           offre_id: this.selectedOffreWithDate,
         })
         .then((res) => {
-          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -690,7 +656,6 @@ export default {
           offre_id: this.selectedOffreWithPeriode,
         })
         .then((res) => {
-          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -723,13 +688,12 @@ export default {
       await instance
         .get("getAllWishlist")
         .then((response) => {
-          // console.log("WISHLIST", response.data.data.wishlists);
           response.data.data.wishlists.forEach((item) => {
             this.verfIfStudentExistInWishlist.push(item.user_id);
           });
         })
         .catch((error) => {
-          // console.log("error3", error);
+
           console.log(error);
         });
       loadingSpinner.launchLoading(false);
@@ -738,7 +702,6 @@ export default {
       instance
         .get("GetAllCompetences")
         .then((res) => {
-          // console.log("competencesPredefini", res);
           this.competencesPredefini = res.data.data;
         })
         .catch((err) => {
@@ -766,7 +729,6 @@ export default {
             JSON.stringify(new Date(item.fin)) >
             JSON.stringify(new Date().toISOString().substring(0, 10))
         );
-        // console.log("this.selectedService", this.selectedService);
       } catch (error) {
         console.log("error", error);
       }
@@ -783,15 +745,12 @@ export default {
       return this.jourOfMois.forEach((element) => {
         let month = new Date().getMonth() + 1;
         let year = new Date().getFullYear();
-        // console.log(element.jour + "-" + month + "-" + year);
         return element.jour + "-" + month + "-" + year;
       });
     },
     async handleAbonnement() {
-      // console.log("handleAbonnement");
       try {
         const response = await instance.get("abonnement_user");
-        // console.log("responseHandleAbonnement", response);
         this.listAbonnement = response.data.data;
       } catch (error) {
         console.log(error);
@@ -935,9 +894,8 @@ export default {
 </template>
 
 <style scoped>
-
-.disponibilite{
-  text-align:center;
+.disponibilite {
+  text-align: center;
 }
 :deep(.p-inputwrapper) {
   width: 500px !important;
@@ -986,8 +944,8 @@ h1 {
   margin-top: 6em;
   padding: 0 5em;
 }
-.space-talent{
-  margin:9.5em 0;
+.space-talent {
+  margin: 9.5em 0;
 }
 
 select {
@@ -1052,29 +1010,29 @@ hr {
   border-radius: 100%;
 }
 @media (max-width: 1200px) {
- .space-talent{
-  margin:1em 0;
-}
- .conteneur_calendar_student {
-  margin-top:9em !important;
-}
-.conteneur_student{
-  padding:0 1em;
-  margin-top:0;
-}
+  .space-talent {
+    margin: 1em 0;
+  }
+  .conteneur_calendar_student {
+    margin-top: 9em !important;
+  }
+  .conteneur_student {
+    padding: 0 1em;
+    margin-top: 0;
+  }
 }
 @media (max-width: 580px) {
- .conteneur_calendar_student {
-  margin-top:25em !important;
-}
-.conteneur_student{
-  padding:0 0.5em;
-}
+  .conteneur_calendar_student {
+    margin-top: 25em !important;
+  }
+  .conteneur_student {
+    padding: 0 0.5em;
+  }
 }
 
 @media (max-width: 380px) {
- :deep(.vc-container){
-  width:100%;
- }
+  :deep(.vc-container) {
+    width: 100%;
+  }
 }
 </style>
