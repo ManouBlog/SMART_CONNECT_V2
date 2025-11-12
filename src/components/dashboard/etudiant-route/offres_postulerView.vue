@@ -57,10 +57,17 @@ export default {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
       },
       isMobile: false,
+       currentPage: 1,
+      pageSize: 5,
     };
   },
   computed: {
     ...mapState(useInfoStudentStore, ["list_offre"]),
+    list_offre_mobile() {
+      const start = (this.currentPage - 1) * this.pageSize;
+      const end = start + this.pageSize;
+      return this.list_offre.slice(start, end);
+    },
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -178,7 +185,7 @@ export default {
             <!-- 📱 VERSION MOBILE -->
             <div v-else class="mobile-container p-2">
               <div
-                v-for="(item, i) in list_offre"
+                v-for="(item, i) in list_offre_mobile"
                 :key="i"
                 class="card_offre_mobile mb-3 p-3  shadow-sm"
               >
@@ -218,8 +225,24 @@ export default {
                   </n-button>
                 </div>
               </div>
+              <div class="d-flex justify-content-center my-4" v-if="list_offre_mobile.filter((t) => !t.periode).length > 0">
+          <n-pagination
+            v-model:page="currentPage"
+            :page-size="pageSize"
+            :item-count="list_offre_mobile.length"
+            show-size-picker
+            :page-sizes="[5, 10, 20]"
+            @update:page="currentPage = $event"
+            @update:page-size="
+              (size) => {
+                pageSize = size;
+                currentPage = 1;
+              }
+            "
+          />
+        </div>
 
-              <div v-if="!list_offre.length" class="text-center py-4">
+              <div v-if="!list_offre_mobile.length" class="text-center py-4">
                 <h4>Pas de donnée.</h4>
               </div>
             </div>
@@ -288,7 +311,10 @@ export default {
  padding:1em;
  justify-content: center !important;
 }
+@media (max-width: 768px) {
 .bi-eye::before,.bi-file-earmark-text[data-v-78bf8cea]::before,.bi-award[data-v-78bf8cea]::before{
   color:white !important;
 }
+}
+
 </style>
