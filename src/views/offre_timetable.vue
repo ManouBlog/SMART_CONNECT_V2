@@ -68,11 +68,15 @@ export default {
       nextPage: 0,
       user: this.$store.state.user,
       dayOfday: "",
+      currentPage: 1,
+      pageSize: 5,
     };
   },
   computed: {
     list_offre() {
-      return this.filtreOffre();
+      const start = (this.currentPage - 1) * this.pageSize;
+      const end = start + this.pageSize;
+      return this.MylistOffre.slice(start, end);
     },
     fieldSearch() {
       return !this.searchName || !this.categorie || !this.searchLieu;
@@ -422,6 +426,7 @@ export default {
             </div>
           </div>
         </div>
+
         <div
           v-if="!list_offre.length"
           class="text-center fw-bold py-5 my-5 d-flex flex-column align-items-center justify-content-center"
@@ -434,25 +439,32 @@ export default {
             style="max-width: 350px"
           />
         </div>
-        <!-- <div>
-          <div class="col-lg-12 lgPlus" v-if="MylistOffre.length">
-            <button
-              @click="newLoadmore"
-              v-if="length < MylistOffre.length"
-              class="btn bg-primary"
-            >
-              {{ texte8 }} <em class="bi bi-chevron-down"></em>
-            </button>
-            <h2 v-if="length >= MylistOffre.length || length >= MylistsOffres.length">
-              {{ texte9 }}
-            </h2>
-          </div>
-        </div> -->
       </div>
+    </div>
+    <div class="d-flex justify-content-center my-4" v-if="MylistOffre.length > 0">
+      <n-pagination
+        v-model:page="currentPage"
+        :page-size="pageSize"
+        :item-count="MylistOffre.length"
+        show-size-picker
+        :page-sizes="[5, 10, 20]"
+        @update:page="currentPage = $event"
+        @update:page-size="
+          (size) => {
+            pageSize = size;
+            currentPage = 1;
+          }
+        "
+      />
     </div>
   </section>
 </template>
 <style scoped>
+:deep(.n-pagination) {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+}
 .main-container {
   padding: 0 2em;
 }
@@ -610,7 +622,7 @@ select {
 }
 @media (max-width: 768px) {
   .form-group {
-    width: 300px !important; /* Pleine largeur sur mobile */
+    width: 350px !important; /* Pleine largeur sur mobile */
   }
   .jobs_filters {
     padding: 1em 0; /* réduit le padding vertical */
@@ -625,10 +637,10 @@ select {
   .container_result .two button,
   .informations_offres {
     margin: 0 !important;
-   
   }
-  .informations_offres{padding:0 !important;}
-  
+  .informations_offres {
+    padding: 0 !important;
+  }
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

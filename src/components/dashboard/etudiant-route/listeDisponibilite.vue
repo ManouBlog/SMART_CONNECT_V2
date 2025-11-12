@@ -106,7 +106,16 @@ export default {
       dates: [],
       selectedJourForUpadte: {},
       isMobile: false,
+      currentPage: 1,
+      pageSize: 5,
     };
+  },
+  computed: {
+    timetables_mobile() {
+      const start = (this.currentPage - 1) * this.pageSize;
+      const end = start + this.pageSize;
+      return this.timetables.slice(start, end);
+    },
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -1002,18 +1011,18 @@ export default {
       </div>
     </div>
     <div v-else class="mobile-container p-2">
-  <!-- HORAIRES SIMPLES -->
-  <section v-show="!tab" style="padding:1em;">
-    <div
-      v-for="(item, i) in timetables.filter(t => !t.periode)"
-      :key="i"
-      class="mobile-card p-3 mb-3"
-    >
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <h5 class="fw-bold text-dark">
-          {{ configUtils.getFormatDateFr(item.jour) }}
-        </h5>
-        <!-- <span
+      <!-- HORAIRES SIMPLES -->
+      <section v-show="!tab" style="padding: 1em">
+        <div
+          v-for="(item, i) in timetables_mobile.filter((t) => !t.periode)"
+          :key="i"
+          class="mobile-card p-3 mb-3"
+        >
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="fw-bold text-dark">
+              {{ configUtils.getFormatDateFr(item.jour) }}
+            </h5>
+            <!-- <span
           class="badge bg-warning text-dark"
           v-if="
             new Date(item.jour).toLocaleDateString('fr') >=
@@ -1023,114 +1032,138 @@ export default {
           À venir
         </span>
         <span class="badge bg-secondary" v-else>Expiré</span> -->
-      </div>
+          </div>
 
-      <p class="mb-1">
-        <strong>{{ texte15 }} :</strong>
-        {{ configUtils.formatedDisponibilite(item.First_horaire) }}
-      </p>
+          <p class="mb-1">
+            <strong>{{ texte15 }} :</strong>
+            {{ configUtils.formatedDisponibilite(item.First_horaire) }}
+          </p>
 
-      <p class="mb-1">
-        <strong>{{ texte16 }} :</strong>
-        <span v-if="item.Second_horaire">
-          {{ configUtils.formatedDisponibilite(item.Second_horaire) }}
-        </span>
-        <span v-else>{{ texte17 }}</span>
-      </p>
+          <p class="mb-1">
+            <strong>{{ texte16 }} :</strong>
+            <span v-if="item.Second_horaire">
+              {{ configUtils.formatedDisponibilite(item.Second_horaire) }}
+            </span>
+            <span v-else>{{ texte17 }}</span>
+          </p>
 
-      <div class="d-flex justify-content-end mt-3 gap-3">
-        <button
-          v-if="
-            new Date(item.jour).toLocaleDateString('fr') >=
-            new Date().toLocaleDateString('fr')
-          "
-          class="btn bg-warning btn-sm"
-          @click="show_timetable(item.id)"
+          <div class="d-flex justify-content-end mt-3 gap-3">
+            <button
+              v-if="
+                new Date(item.jour).toLocaleDateString('fr') >=
+                new Date().toLocaleDateString('fr')
+              "
+              class="btn bg-warning btn-sm"
+              @click="show_timetable(item.id)"
+            >
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button
+              v-if="
+                new Date(item.jour).toLocaleDateString('fr') >=
+                new Date().toLocaleDateString('fr')
+              "
+              class="btn btn-danger btn-sm mx-2"
+              @click="show_box_confirmation_delete(item.id)"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+            <i v-else class="bi bi-dash-circle text-danger" style="font-size: 1.3em"></i>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center my-4" v-if="timetables_mobile.filter((t) => !t.periode).length > 0">
+          <n-pagination
+            v-model:page="currentPage"
+            :page-size="pageSize"
+            :item-count="timetables_mobile.filter((t) => !t.periode).length"
+            show-size-picker
+            :page-sizes="[5, 10, 20]"
+            @update:page="currentPage = $event"
+            @update:page-size="
+              (size) => {
+                pageSize = size;
+                currentPage = 1;
+              }
+            "
+          />
+        </div>
+      </section>
+
+      <!-- PÉRIODES -->
+      <section v-show="tab" style="padding: 1em">
+        <div
+          v-for="(item, i) in timetables_mobile.filter((t) => t.periode)"
+          :key="i"
+          class="mobile-card p-3 mb-3"
         >
-          <i class="bi bi-pencil"></i>
-        </button>
-        <button
-          v-if="
-            new Date(item.jour).toLocaleDateString('fr') >=
-            new Date().toLocaleDateString('fr')
-          "
-          class="btn btn-danger btn-sm mx-2"
-          @click="show_box_confirmation_delete(item.id)"
-        >
-          <i class="bi bi-trash"></i>
-        </button>
-        <i
-          v-else
-          class="bi bi-dash-circle text-danger"
-          style="font-size: 1.3em;"
-        ></i>
-      </div>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="fw-bold text-dark">Période</h5>
+            <span
+              class="badge bg-warning text-dark"
+              v-if="
+                new Date(item.periode_fin).toLocaleDateString('fr') >=
+                new Date().toLocaleDateString('fr')
+              "
+            >
+              Active
+            </span>
+            <span class="badge bg-secondary" v-else>Terminée</span>
+          </div>
+
+          <p class="mb-1">
+            <strong>Du :</strong>
+            {{ configUtils.getFormatDateFr(item.periode_debut) }}
+            <strong>à</strong> {{ item.hour_periode_debut }}
+          </p>
+
+          <p class="mb-1">
+            <strong>Au :</strong>
+            {{ configUtils.getFormatDateFr(item.periode_fin) }}
+            <strong>à</strong> {{ item.hour_periode_fin }}
+          </p>
+
+          <div class="d-flex justify-content-end mt-3 gap-3">
+            <button
+              v-if="
+                new Date(item.periode_fin).toLocaleDateString('fr') >=
+                new Date().toLocaleDateString('fr')
+              "
+              class="btn bg-warning btn-sm"
+              @click="show_timetable(item.id)"
+            >
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button
+              v-if="
+                new Date(item.periode_fin).toLocaleDateString('fr') >=
+                new Date().toLocaleDateString('fr')
+              "
+              class="btn btn-danger btn-sm mx-2"
+              @click="show_box_confirmation_delete(item.id)"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+            <i v-else class="bi bi-dash-circle text-danger" style="font-size: 1.3em"></i>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center my-4" v-if="timetables_mobile.filter((t) => t.periode).length > 0">
+          <n-pagination
+            v-model:page="currentPage"
+            :page-size="pageSize"
+            :item-count="timetables_mobile.filter((t) => t.periode).length"
+            show-size-picker
+            :page-sizes="[5, 10, 20]"
+            @update:page="currentPage = $event"
+            @update:page-size="
+              (size) => {
+                pageSize = size;
+                currentPage = 1;
+              }
+            "
+          />
+        </div>
+      </section>
     </div>
-  </section>
-
-  <!-- PÉRIODES -->
-  <section v-show="tab" style="padding:1em;">
-    <div
-      v-for="(item, i) in timetables.filter(t => t.periode)"
-      :key="i"
-      class="mobile-card p-3 mb-3"
-    >
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <h5 class="fw-bold text-dark">Période</h5>
-        <span
-          class="badge bg-warning text-dark"
-          v-if="
-            new Date(item.periode_fin).toLocaleDateString('fr') >=
-            new Date().toLocaleDateString('fr')
-          "
-        >
-          Active
-        </span>
-        <span class="badge bg-secondary" v-else>Terminée</span>
-      </div>
-
-      <p class="mb-1">
-        <strong>Du :</strong>
-        {{ configUtils.getFormatDateFr(item.periode_debut) }}
-        <strong>à</strong> {{ item.hour_periode_debut }}
-      </p>
-
-      <p class="mb-1">
-        <strong>Au :</strong>
-        {{ configUtils.getFormatDateFr(item.periode_fin) }}
-        <strong>à</strong> {{ item.hour_periode_fin }}
-      </p>
-
-      <div class="d-flex justify-content-end mt-3 gap-3">
-        <button
-          v-if="
-            new Date(item.periode_fin).toLocaleDateString('fr') >=
-            new Date().toLocaleDateString('fr')
-          "
-          class="btn bg-warning btn-sm"
-          @click="show_timetable(item.id)"
-        >
-          <i class="bi bi-pencil"></i>
-        </button>
-        <button
-          v-if="
-            new Date(item.periode_fin).toLocaleDateString('fr') >=
-            new Date().toLocaleDateString('fr')
-          "
-          class="btn btn-danger btn-sm mx-2"
-          @click="show_box_confirmation_delete(item.id)"
-        >
-          <i class="bi bi-trash"></i>
-        </button>
-        <i
-          v-else
-          class="bi bi-dash-circle text-danger"
-          style="font-size: 1.3em;"
-        ></i>
-      </div>
-    </div>
-  </section>
-</div>
   </div>
 </template>
 <style scoped>
@@ -1253,17 +1286,17 @@ td {
 
 @media (max-width: 768px) {
   .mobile-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border-radius: 12px;
-  padding: 1.2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  background: #25535f;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    background: #25535f;
     color: white;
-}
-.mobile-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+  }
+  .mobile-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
   /* Modal overlay */
   .plan-modify,
   .delete_article {
@@ -1305,7 +1338,6 @@ td {
     font-size: 1em;
     padding: 0.5em;
   }
-
 
   /* Card body spacing */
   .card-body {
