@@ -3,11 +3,11 @@ import instance from "../../../api/api";
 import Swal from "sweetalert2";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
-const loadingSpinner = useLoadingSpinner()
+const loadingSpinner = useLoadingSpinner();
 export default {
   name: "Détails_entreprise_view",
   components: {
-    HeaderDashboard
+    HeaderDashboard,
   },
   data() {
     return {
@@ -16,34 +16,31 @@ export default {
       spinner: false,
       details_offre: null,
       moneyFormat: new Intl.NumberFormat("de-DE"),
-      showModal:false,
-      Statut:{
-        1:'Acceptée',
-        2:'Rejetée',
-        0:'En attente de reponse'
+      showModal: false,
+      Statut: {
+        1: "Acceptée",
+        2: "Rejetée",
+        0: "En attente de reponse",
       },
-      statutColor:{
-       1:'bg-success',
-       2:'bg-danger',
-       0:'bg-info'
+      statutColor: {
+        1: "bg-success",
+        2: "bg-danger",
+        0: "bg-info",
       },
-      avis:"",
-      numberRate:"",
+      avis: "",
+      numberRate: "",
     };
   },
   methods: {
-
     get_details_offres_postule() {
       loadingSpinner.launchLoading(true);
-    
+
       instance.get("get_offres_postule").then((res) => {
         // // console.log("DETAILS", res);
         this.offres = res.data.data.offres;
-        this.details_offre = this.offres.find(
-          (item) => item.id == this.$route.params.id
-        );
-        // if(this.details_offre.pivot.recruit === 1 && 
-        // JSON.stringify(new Date().toISOString().substring(0,10)) 
+        this.details_offre = this.offres.find((item) => item.id == this.$route.params.id);
+        // if(this.details_offre.pivot.recruit === 1 &&
+        // JSON.stringify(new Date().toISOString().substring(0,10))
         // > JSON.stringify(new Date(this.details_offre.fin).toISOString().slice(0,10))
         // ){
         //   this.showModal = true;
@@ -52,8 +49,8 @@ export default {
         // // console.log("DETAILS_OFFRES", this.details_offre);
       });
     },
-    getNumber(e){
-        this.numberRate = e
+    getNumber(e) {
+      this.numberRate = e;
     },
     noterEntreprise() {
       // // console.log("NOTATION", this.detailsStudents.id);
@@ -73,7 +70,7 @@ export default {
               showConfirmButton: true,
             });
           }
-          if(res.data.status){
+          if (res.data.status) {
             Swal.fire({
               icon: "success",
               title: res.data.message,
@@ -81,9 +78,6 @@ export default {
             });
             this.showModal = false;
           }
-       
-          
-        
         });
     },
   },
@@ -96,13 +90,12 @@ export default {
 
 <template>
   <div class="page-body position-relative">
-
     <section v-if="this.details_offre != null">
       <HeaderDashboard
-      :TitleHeader="`Détails de l' Offre`"
-      :subTitleHeader="`Détails de l'Offre`"
-    />
-    <!-- <pre>{{details_offre}}</pre> -->
+        :TitleHeader="`Détails de l' Offre`"
+        :subTitleHeader="`Détails de l'Offre`"
+      />
+      <!-- <pre>{{details_offre}}</pre> -->
       <n-modal v-model:show="showModal">
         <n-card
           style="width: 600px"
@@ -111,60 +104,46 @@ export default {
           role="dialog"
           aria-modal="true"
         >
-          
-         <h1>
-            Evaluation du service
-         </h1>
-         <h2 class="text-center my-3"></h2>
-        <div class="text-center my-3">
-            <n-rate size="large" :value="numberRate" 
-            :on-update:value="getNumber"
-            />
-        </div>
-           <div>
+          <h1>Evaluation du service</h1>
+          <h2 class="text-center my-3"></h2>
+          <div class="text-center my-3">
+            <n-rate size="large" :value="numberRate" :on-update:value="getNumber" />
+          </div>
+          <div>
             <label for="comment">Commentaire</label>
-            <textarea v-model="avis" name="" id="" 
-            cols="30" rows="10" class="w-100">
+            <textarea v-model="avis" name="" id="" cols="30" rows="10" class="w-100">
             </textarea>
-           </div>
+          </div>
 
-            <div class="text-center">
-                <button class="btn mx-3"
-                style="background:orange;"
-                @click="noterEntreprise"
-                >Envoyer</button>
-                <button class="btn mx-3"
-                 @click="showModal = !showModal"
-                 >Plus tard</button>
-                
-            </div>
-     
+          <div class="text-center">
+            <button class="btn mx-3" style="background: orange" @click="noterEntreprise">
+              Envoyer
+            </button>
+            <button class="btn mx-3" @click="showModal = !showModal">Plus tard</button>
+          </div>
         </n-card>
       </n-modal>
       <div class="container-fluid">
         <div class="details_entreprise card">
-          
-          <h1>Offre : {{ details_offre.nom_offre }} 
-            <span class="badge w-25" :class="statutColor[details_offre.pivot.recruit]">{{Statut[details_offre.pivot.recruit]}}</span></h1>
+          <h1>
+            Offre : {{ details_offre.nom_offre }}
+            <span class="badge w-25" :class="statutColor[details_offre.pivot.recruit]">{{
+              Statut[details_offre.pivot.recruit]
+            }}</span>
+          </h1>
           <h4>
             Lieu : <b>{{ details_offre.lieu }}</b>
           </h4>
-          <span
-            v-if="details_offre.salaire != null"
-            class="d-block badge bg-warning"
-          >
+          <span v-if="details_offre.salaire != null" class="d-block badge bg-warning">
             Honoraire : {{ moneyFormat.format(details_offre.salaire) }} Fcfa</span
           >
-          <span
-            v-else
-            class="d-block text-light badge bg-primary"
+          <span v-else class="d-block text-light badge bg-primary"
             >Honoraire pas fixé</span
           >
           <hr />
-      
-          <h3 style="color:white;">Description complète de l'offre</h3>
-          <div class="p-5" v-html="details_offre.description">
-          </div>
+
+          <h3 style="color: white">Description complète de l'offre</h3>
+          <div class="p-5" v-html="details_offre.description"></div>
           <hr />
           <!-- <h6
             >Date et heure début  :
@@ -172,33 +151,29 @@ export default {
               details_offre.debut
             }}</b></h6
           > -->
-          <h6
-            >Date limite de candidature  :
-            <b>{{
-              details_offre.fin
-            }}</b></h6
-          >
-          <h6
-            >Date de début de travail  :
-            <b>{{
-              details_offre.job_debut
-            }}</b></h6
-          >
-           <h6
-            >Date de fin de travail  :
-            <b>{{
-              details_offre.job_fin
-            }}</b></h6
-          >
-            <button
-            v-if=" details_offre.pivot.recruit === 1 && JSON.stringify(new Date().toISOString().substring(0,10)) 
-            > JSON.stringify(new Date(this.details_offre.fin).toISOString().slice(0,10))"
-            class="btn bg-warning mt-3" 
+          <h6>
+            Date limite de candidature : <b>{{ details_offre.fin }}</b>
+          </h6>
+          <h6>
+            Date de début de travail : <b>{{ details_offre.job_debut }}</b>
+          </h6>
+          <h6>
+            Date de fin de travail : <b>{{ details_offre.job_fin }}</b>
+          </h6>
+          <button
+            v-if="
+              details_offre.pivot.recruit === 1 &&
+              JSON.stringify(new Date().toISOString().substring(0, 10)) >
+                JSON.stringify(
+                  new Date(this.details_offre.fin).toISOString().slice(0, 10)
+                )
+            "
+            class="btn bg-warning mt-3"
             @click="showModal = !showModal"
-            >Evaluer le service</button>
-        
+          >
+            Evaluer le service
+          </button>
         </div>
-        
       </div>
     </section>
     <div v-else>
@@ -238,18 +213,17 @@ td {
 }
 .details_entreprise {
   text-align: left;
-  padding:2em;
-}
-.details_entreprise span {
-  color: gray;
+  padding: 2em;
+  background: #25535f;
+  color: white;
+  margin-bottom: 1em;
 }
 .w-25 {
   width: 120px !important;
 }
-.badge{
-  color:white !important;
-  width:200px;
-  font-weight:bold  !important;
-
+.badge {
+  color: white !important;
+  width: 200px;
+  font-weight: bold !important;
 }
 </style>
