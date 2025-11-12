@@ -92,6 +92,11 @@ export default {
 };
 </script>
 <style>
+.n-pagination
+  .n-pagination-item:not(.n-pagination-item--disabled).n-pagination-item--active {
+  color: orange !important;
+  border: 1px solid orange !important;
+}
 
 .swal2-container {
   z-index: 999999 !important;

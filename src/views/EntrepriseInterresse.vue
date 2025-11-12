@@ -310,6 +310,8 @@ export default {
       statut,
       configUtils,
       spinner: false,
+      currentPage: 1,
+      pageSize: 5,
       moneyFormat: new Intl.NumberFormat("de-DE"),
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -319,6 +321,11 @@ export default {
   },
   computed: {
     ...mapState(useInfoStudentStore, ["list_entreprise_interesse"]),
+    list_entreprise_interesse_mobile(){
+     const start = (this.currentPage - 1) * this.pageSize;
+      const end = start + this.pageSize;
+      return this.list_entreprise_interesse.slice(start, end);
+    },
     isMobile() {
       const { width } = useWindowSize();
       return width.value < 768;
@@ -379,23 +386,41 @@ export default {
                 </div>
               </template>
 
-              <Column field="nom_offre" :header="texte1" style="font-size: 1.1em; text-align:center;">
+              <Column
+                field="nom_offre"
+                :header="texte1"
+                style="font-size: 1.1em; text-align: center"
+              >
                 <template #body="{ data }">{{ data.offre.nom_offre }}</template>
               </Column>
 
-              <Column field="lieu" :header="texte2" style="font-size: 1.1em; text-align:center;">
+              <Column
+                field="lieu"
+                :header="texte2"
+                style="font-size: 1.1em; text-align: center"
+              >
                 <template #body="{ data }">{{ data.offre.lieu }}</template>
               </Column>
 
-              <Column field="entreprise" header="Entreprise" style="font-size: 1.1em; text-align:center;">
+              <Column
+                field="entreprise"
+                header="Entreprise"
+                style="font-size: 1.1em; text-align: center"
+              >
                 <template #body="{ data }">{{ data.offre.entreprise.nom }}</template>
               </Column>
 
-              <Column field="salaire" :header="texte3" style="font-size: 1.1em; text-align:center;">
-                <template #body="{ data }">{{ moneyFormat.format(data.offre.salaire) }}</template>
+              <Column
+                field="salaire"
+                :header="texte3"
+                style="font-size: 1.1em; text-align: center"
+              >
+                <template #body="{ data }">{{
+                  moneyFormat.format(data.offre.salaire)
+                }}</template>
               </Column>
 
-              <Column field="statut" :header="texte5" style="text-align:center;">
+              <Column field="statut" :header="texte5" style="text-align: center">
                 <template #body="{ data }">
                   <span :class="colorStatut[data.contrat]" class="badge">
                     {{ statut[data.contrat] }}
@@ -403,7 +428,7 @@ export default {
                 </template>
               </Column>
 
-              <Column field="details" :header="texte6" style="text-align:center;">
+              <Column field="details" :header="texte6" style="text-align: center">
                 <template #body="{ data }">
                   <router-link
                     :to="{ name: 'entreprise_interesse_detail', params: { id: data.id } }"
@@ -418,7 +443,7 @@ export default {
             <!-- ✅ Mobile: Cards -->
             <div v-else class="mobile-list">
               <div
-                v-for="(item, index) in list_entreprise_interesse"
+                v-for="(item, index) in list_entreprise_interesse_mobile"
                 :key="index"
                 class="mobile-card"
               >
@@ -431,7 +456,10 @@ export default {
 
                 <p><strong>Lieu :</strong> {{ item.offre.lieu }}</p>
                 <p><strong>Entreprise :</strong> {{ item.offre.entreprise.nom }}</p>
-                <p><strong>Salaire :</strong> {{ moneyFormat.format(item.offre.salaire) }} Fcfa</p>
+                <p>
+                  <strong>Salaire :</strong>
+                  {{ moneyFormat.format(item.offre.salaire) }} Fcfa
+                </p>
 
                 <div class="mobile-actions">
                   <router-link
@@ -441,6 +469,25 @@ export default {
                     <i class="bi bi-eye"></i> {{ texte14 }}
                   </router-link>
                 </div>
+              </div>
+              <div
+                class="d-flex justify-content-center my-4"
+                v-if="list_entreprise_interesse_mobile.length > 0"
+              >
+                <n-pagination
+                  v-model:page="currentPage"
+                  :page-size="pageSize"
+                  :item-count="list_entreprise_interesse_mobile.length"
+                  show-size-picker
+                  :page-sizes="[5, 10, 20]"
+                  @update:page="currentPage = $event"
+                  @update:page-size="
+                    (size) => {
+                      pageSize = size;
+                      currentPage = 1;
+                    }
+                  "
+                />
               </div>
 
               <div v-if="!list_entreprise_interesse.length" class="not_data">
@@ -456,7 +503,8 @@ export default {
 
 <style scoped>
 /* Table */
-th, td {
+th,
+td {
   border: thin solid rgba(141, 140, 140, 0.3) !important;
   padding: 1rem !important;
   vertical-align: middle;
@@ -471,12 +519,11 @@ th, td {
 }
 
 .mobile-card {
- 
   border-radius: 12px;
   padding: 1.2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   background: #25535f;
-    color: white;
+  color: white;
 }
 
 .mobile-card-header {
@@ -498,9 +545,15 @@ th, td {
   font-size: 0.9em;
 }
 
-.bg-info { background-color: #17a2b8 !important; }
-.bg-success { background-color: #28a745 !important; }
-.bg-danger { background-color: #dc3545 !important; }
+.bg-info {
+  background-color: #17a2b8 !important;
+}
+.bg-success {
+  background-color: #28a745 !important;
+}
+.bg-danger {
+  background-color: #dc3545 !important;
+}
 
 .mobile-actions {
   margin-top: 1rem;
@@ -525,12 +578,12 @@ th, td {
   padding: 2rem;
   color: #555;
 }
-:deep(td){
-  padding:1em;
-  text-align:center;
+:deep(td) {
+  padding: 1em;
+  text-align: center;
 }
-:deep(.p-column-header-content){
- padding:1em;
- justify-content: center !important;
+:deep(.p-column-header-content) {
+  padding: 1em;
+  justify-content: center !important;
 }
 </style>

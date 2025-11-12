@@ -225,7 +225,7 @@ export default {
                   </n-button>
                 </div>
               </div>
-              <div class="d-flex justify-content-center my-4" v-if="list_offre_mobile.filter((t) => !t.periode).length > 0">
+              <div class="d-flex justify-content-center my-4" v-if="list_offre_mobile.length > 0">
           <n-pagination
             v-model:page="currentPage"
             :page-size="pageSize"
