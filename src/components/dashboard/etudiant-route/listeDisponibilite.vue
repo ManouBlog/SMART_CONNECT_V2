@@ -1003,7 +1003,7 @@ export default {
     </div>
     <div v-else class="mobile-container p-2">
   <!-- HORAIRES SIMPLES -->
-  <section v-show="!tab">
+  <section v-show="!tab" style="padding:1em;">
     <div
       v-for="(item, i) in timetables.filter(t => !t.periode)"
       :key="i"
@@ -1069,7 +1069,7 @@ export default {
   </section>
 
   <!-- PÉRIODES -->
-  <section v-show="tab">
+  <section v-show="tab" style="padding:1em;">
     <div
       v-for="(item, i) in timetables.filter(t => t.periode)"
       :key="i"
@@ -1117,7 +1117,7 @@ export default {
             new Date(item.periode_fin).toLocaleDateString('fr') >=
             new Date().toLocaleDateString('fr')
           "
-          class="btn btn-danger btn-sm"
+          class="btn btn-danger btn-sm mx-2"
           @click="show_box_confirmation_delete(item.id)"
         >
           <i class="bi bi-trash"></i>
@@ -1254,10 +1254,11 @@ td {
 @media (max-width: 768px) {
   .mobile-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background: #fff;
   border-radius: 12px;
   padding: 1.2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #25535f;
+    color: white;
 }
 .mobile-card:hover {
   transform: translateY(-3px);

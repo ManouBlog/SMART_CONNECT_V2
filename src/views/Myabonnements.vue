@@ -67,7 +67,7 @@
       </DataTable>
 
       <!-- ✅ Mobile -->
-      <div v-else>
+      <div v-else style="padding:1em;">
         <div v-for="item in list_abonnement" :key="item.id" class="abonnement-card">
           <div class="card-header">
             <span>{{ configUtils.getFormatDateFr(item.created_at) }}</span>
@@ -166,11 +166,12 @@ export default {
 <style scoped>
 /* ✅ Card mobile */
 .abonnement-card {
-  background: #fff;
+  background: #25535f;
   border-radius: 10px;
   padding: 1em;
   margin-bottom: 1em;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  color:white;
 }
 .card-header {
   display: flex;

@@ -183,7 +183,7 @@ export default {
                 class="card_offre_mobile mb-3 p-3  shadow-sm"
               >
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h5 class="fw-bold text-primary">{{ item.nom_offre }}</h5>
+                  <h5 class="fw-bold text-white">{{ item.nom_offre }}</h5>
                   <span :class="['badge', colorStatut[item.pivot.recruit]]">
                     {{ statut[item.pivot.recruit] }}
                   </span>
@@ -198,7 +198,7 @@ export default {
 
                 <div class="d-flex justify-content-end mt-3 gap-3">
                   <n-button :bordered="false" size="large" @click="getVoirPlusRoute(item.id)">
-                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-eye text-white"></i>
                   </n-button>
                   <n-button
                     v-if="item.pivot.recruit === 1"
@@ -206,7 +206,7 @@ export default {
                     size="large"
                     @click="getContratRoute(item.pivot.offre_id)"
                   >
-                    <i class="bi bi-file-earmark-text"></i>
+                    <i class="bi bi-file-earmark-text text-white"></i>
                   </n-button>
                   <n-button
                     v-if="item.pivot.certificat === 1"
@@ -214,7 +214,7 @@ export default {
                     size="large"
                     @click="getCertificatRoute(item.pivot.offre_id)"
                   >
-                    <i class="bi bi-award"></i>
+                    <i class="bi bi-award text-white"></i>
                   </n-button>
                 </div>
               </div>
@@ -246,6 +246,8 @@ export default {
   border-radius: 12px;
   padding: 1.2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #25535f;
+    color: white;
 }
 .card_offre_mobile:hover {
   transform: translateY(-3px);
@@ -285,5 +287,8 @@ export default {
 :deep(.p-column-header-content){
  padding:1em;
  justify-content: center !important;
+}
+.bi-eye::before,.bi-file-earmark-text[data-v-78bf8cea]::before,.bi-award[data-v-78bf8cea]::before{
+  color:white !important;
 }
 </style>

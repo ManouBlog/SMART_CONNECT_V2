@@ -471,10 +471,12 @@ th, td {
 }
 
 .mobile-card {
-  background: #fff;
+ 
   border-radius: 12px;
   padding: 1.2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #25535f;
+    color: white;
 }
 
 .mobile-card-header {
@@ -486,7 +488,7 @@ th, td {
 .offre-nom {
   font-size: 1.2em;
   font-weight: bold;
-  color: #333;
+  color: #ffffff;
 }
 
 .badge {
