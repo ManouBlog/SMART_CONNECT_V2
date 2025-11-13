@@ -23,34 +23,29 @@ export default {
       texte8: "",
       texte9: "",
       texte10: "",
-      texte11:"",
-      texte12:"",
-      texte13:"",
-      texte14:"",
-      texte15:"",
-      texte16:"",
-      texte17:"",
-      texte18:"",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
       user: this.$store.state.user,
     };
   },
   methods: {
-    ...mapActions(useTranslateStore, ["handleTranslate"])
-
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
   },
   async created() {
-    this.texte = await this.handleTranslate('Accès rapide');
-    this.texte1 = await this.handleTranslate(
-      "Recherche d'offre"
-    );
+    this.texte = await this.handleTranslate("Accès rapide");
+    this.texte1 = await this.handleTranslate("Accueil");
     this.texte2 = await this.handleTranslate("Abonnements");
-    this.texte3 = await this.handleTranslate('Contact');
-    this.texte4 = await this.handleTranslate('Contactez-nous');
+    this.texte3 = await this.handleTranslate("CGU");
+    this.texte4 = await this.handleTranslate("Contactez-nous");
     this.texte5 = await this.handleTranslate(" Tous droits réservés");
     this.texte6 = await this.handleTranslate("Adresse");
-
-
-  }
+  },
 };
 </script>
 
@@ -59,18 +54,24 @@ export default {
     <div class="container-fluid footer">
       <div class="row conteneur-footer">
         <div class="container main-container-footer">
-          <CardFooter  :isWhite="true" :title="texte6" :listLien="['CHU angré,Immeuble Bissié 1er Etage Porte D']" />
           <CardFooter
-           :isWhite="true"
+            :isWhite="true"
+            :title="texte6"
+            :listLien="['CHU angré,Immeuble Bissié 1er Etage Porte D']"
+          />
+          <CardFooter
+            :isLinkObject="true"
+            :isWhite="true"
             :title="texte"
             :listLien="[
-              texte1,
-              texte2,
-              texte3,
+              {text:texte1 , to: '/'},
+              { text: texte2, to: '/abonnements' },
+              { text: texte3, to: '/CGU' },
+              { text: texte4, to: '/contact' },
             ]"
           />
           <CardFooter
-           :isWhite="true"
+            :isWhite="true"
             :title="texte4"
             :listLien="[`+225 0707969672 / 0546667766`, 'contact@monbrobroli.com']"
           />
@@ -80,7 +81,7 @@ export default {
     </div>
   </section>
   <section class="py-2 background_main">
-    <p class="text-center" style="font-size:0.9em;">MonBrobroli ©2025.{{texte5}}</p>
+    <p class="text-center" style="font-size: 0.9em">MonBrobroli ©2025.{{ texte5 }}</p>
   </section>
 </template>
 <style scoped>
@@ -98,7 +99,6 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
-
   /* On cible spécifiquement le LogoComponent (dernier enfant dans ton template) */
   .main-container-footer :deep(.logo-component),
   .main-container-footer > :last-child {

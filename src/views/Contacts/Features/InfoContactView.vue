@@ -1,24 +1,24 @@
 <script>
 import CardFooter from "../../../components/feature/Footer/CardFooter.vue";
-import {useTranslateStore} from "../../../store-pinia/Translate/useTranslateStore"
-import {mapActions} from "pinia"
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import { mapActions } from "pinia";
 export default {
   name: "InfoContactView",
   components: {
     CardFooter,
   },
   data() {
-    return {texte:"",texte2:"",texte3:""};
+    return { texte: "", texte2: "", texte3: "" };
   },
-  methods:{
-  ...mapActions(useTranslateStore,["handleTranslate"])
-},
-async created(){
-this.texte = await this.handleTranslate("Adresse");
-this.texte2 = await this.handleTranslate("Adresse email");
-this.texte3 = await this.handleTranslate("Contact")
-// console.log(this.texte);
-  }
+  methods: {
+    ...mapActions(useTranslateStore, ["handleTranslate"]),
+  },
+  async created() {
+    this.texte = await this.handleTranslate("Adresse");
+    this.texte2 = await this.handleTranslate("Adresse email");
+    this.texte3 = await this.handleTranslate("Contact");
+    // console.log(this.texte);
+  },
 };
 </script>
 <template>
@@ -47,5 +47,6 @@ this.texte3 = await this.handleTranslate("Contact")
   gap: 2em;
   align-items: flex-start;
   flex-wrap: wrap;
+  padding: 0 2em;
 }
 </style>

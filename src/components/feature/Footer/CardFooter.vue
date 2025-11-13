@@ -10,7 +10,11 @@ export default {
     icone_name: {
       type: String,
     },
-    isWhite:Boolean
+    isWhite:Boolean,
+    isLinkObject:{
+      type: Boolean,
+      default:false
+    }
   },
   data() {
     return {};
@@ -29,7 +33,20 @@ export default {
       >{{ title }}
     </h3>
     <ul>
-      <li v-for="(item, index) in listLien" :key="index">{{ item }}</li>
+      <li v-for="(item, index) in listLien" :key="index">
+        <router-link
+          v-if="isLinkObject"
+          :to="item.to"
+          class="footer-link"
+          style="color:white;"
+          active-class="active"
+        >
+          {{ item.text }}
+        </router-link>
+        <span v-else class="footer-link-text">
+          {{ item }}
+        </span>
+      </li>
     </ul>
   </div>
 </template>
