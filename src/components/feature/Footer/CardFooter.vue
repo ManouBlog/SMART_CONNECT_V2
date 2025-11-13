@@ -10,10 +10,14 @@ export default {
     icone_name: {
       type: String,
     },
-    isWhite:Boolean,
-    isLinkObject:{
+    isWhite: Boolean,
+    isLinkObject: {
       type: Boolean,
-      default:false
+      default: false,
+    },
+    isIconeWithText:{
+      type: Boolean,
+      default: false,
     }
   },
   data() {
@@ -23,8 +27,7 @@ export default {
 </script>
 <template>
   <div class="conteneur_card_footer">
-    <h3 class="fw-bold" 
-    :style="isWhite ? 'color:white;':'color:black;'">
+    <h3 class="fw-bold" :style="isWhite ? 'color:white;' : 'color:black;'">
       <em
         v-if="typeof icone_name === 'string'"
         :class="icone_name"
@@ -32,13 +35,13 @@ export default {
       ></em
       >{{ title }}
     </h3>
-    <ul>
+    <ul v-if="!isIconeWithText">
       <li v-for="(item, index) in listLien" :key="index">
         <router-link
           v-if="isLinkObject"
           :to="item.to"
           class="footer-link"
-          style="color:white;"
+          style="color: white"
           active-class="active"
         >
           {{ item.text }}
@@ -46,6 +49,12 @@ export default {
         <span v-else class="footer-link-text">
           {{ item }}
         </span>
+      </li>
+      
+    </ul>
+    <ul v-else>
+      <li v-for="(item, index) in listLien" :key="index"> 
+          <em :class="item.icone"></em> {{ item.text }}
       </li>
     </ul>
   </div>

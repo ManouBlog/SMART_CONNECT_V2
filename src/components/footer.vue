@@ -64,7 +64,7 @@ export default {
             :isWhite="true"
             :title="texte"
             :listLien="[
-              {text:texte1 , to: '/'},
+              { text: texte1, to: '/' },
               { text: texte2, to: '/abonnements' },
               { text: texte3, to: '/CGU' },
               { text: texte4, to: '/contact' },
@@ -72,8 +72,15 @@ export default {
           />
           <CardFooter
             :isWhite="true"
+            :isIconeWithText="true"
             :title="texte4"
-            :listLien="[`+225 0707969672 / 0546667766`, 'contact@monbrobroli.com']"
+            :listLien="[
+              {
+                text: '+225 0707969672 / 0546667766',
+                icone: 'bi bi-telephone-fill',
+              },
+              { text: 'contact@monbrobroli.com', icone: 'bi bi-envelope-fill' },
+            ]"
           />
           <LogoComponent />
         </div>
