@@ -30,6 +30,7 @@ export default {
   },
   data() {
     return {
+      cookiesAccepted: localStorage.getItem("cookiesAccepted"),
       offre_emploi_du_jour: "",
       user: this.$store.state.user,
       timetable: "",
@@ -42,11 +43,26 @@ export default {
       spinner: false,
       email: "",
       token: "",
-      testimonials:[]
+      testimonials: [],
     };
   },
   methods: {
-    ...mapActions(useRegisterStore,['changeValueIsModal']),
+    ...mapActions(useRegisterStore, ["changeValueIsModal"]),
+    acceptCookies() {
+      this.cookiesAccepted = true;
+      localStorage.setItem("cookiesAccepted", "true");
+    },
+    rejectCookies() {
+      this.cookiesAccepted = true;
+      localStorage.setItem("cookiesAccepted", "false");
+      // Swal.fire({
+      //   icon: "info",
+      //   title: "Cookies refusés 🚫",
+      //   text: "Vous pourrez changer d’avis plus tard dans vos paramètres.",
+      //   timer: 2000,
+      //   showConfirmButton: false,
+      // });
+    },
     async verifyEmail(email, token) {
       try {
         const { data } = await instance.post("verificationEmail", { email, token });
@@ -76,27 +92,26 @@ export default {
         });
       }
     },
-    async launchTestimonials(){
+    async launchTestimonials() {
       try {
-    const response = await instance.get('temoignages');
-    console.log("testimonials",response.data)
-    this.testimonials = response.data;
-  } catch (error) {
-    console.error("Erreur lors du chargement des témoignages :", error);
-  }
-    }
+        const response = await instance.get("temoignages");
+        console.log("testimonials", response.data);
+        this.testimonials = response.data;
+      } catch (error) {
+        console.error("Erreur lors du chargement des témoignages :", error);
+      }
+    },
   },
 
-  
   async created() {
-    this.launchTestimonials()
+    this.launchTestimonials();
     this.email = this.$route.params.email;
     this.token = this.$route.params.token;
-    console.log("this.token",this.token)
-    console.log("this.email",this.email)
-    const redirect = this.$route.query.redirect
-    if(redirect){
-      this.changeValueIsModal()
+    console.log("this.token", this.token);
+    console.log("this.email", this.email);
+    const redirect = this.$route.query.redirect;
+    if (redirect) {
+      this.changeValueIsModal();
     }
     if (this.email && this.token) {
       await this.verifyEmail(this.email, this.token);
@@ -144,7 +159,7 @@ export default {
 };
 </script>
 <template>
-  <section>
+  <section style="position: relative">
     <Banniere />
     <HeaderBanner />
     <StepViews />
@@ -155,6 +170,45 @@ export default {
     <Partenaires v-if="this.STOREPARTENAIRE.partenaires.length" />
     <TestimonialsView v-if="this.testimonials.length" />
     <!-- <NewsLetterView /> -->
+    <div
+      v-if="!cookiesAccepted"
+      style="
+        z-index: 1050;
+        position: fixed;
+        width: 350px;
+        bottom: 0.5em;
+        left: 1em;
+        background: orange;
+        padding: 1rem;
+        border-radius: 10px;
+      "
+    >
+      <div
+        class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 w-100"
+      >
+        <!-- Texte informatif -->
+        <div class="d-flex align-items-start gap-3 flex-grow-1">
+          <div class="fs-2">⚠️</div>
+          <div class="w-100">
+            <h5 class="fw-semibold mb-1 text-dark">Utilisation des cookies</h5>
+            <p class="mb-0 text-dark small" style="width: 100%">
+              Nous utilisons des cookies pour garantir le bon fonctionnement de notre
+              site, analyser le trafic et personnaliser le contenu. Vous pouvez choisir
+              d’accepter ou de refuser leur utilisation. Ces choix n’affecteront pas votre
+              navigation.
+            </p>
+          </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="d-flex gap-2 flex-shrink-0 mt-2 mt-md-0">
+          <button @click="rejectCookies" class="btn text-dark btn-sm">Refuser</button>
+          <button @click="acceptCookies" class="btn btn-dark btn-sm" style="color: white">
+            Accepter
+          </button>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
