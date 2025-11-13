@@ -175,8 +175,9 @@ export default {
       style="
         z-index: 1050;
         position: fixed;
-        width: 350px;
+        min-width: 280px;
         bottom: 0.5em;
+        right: 1em;
         left: 1em;
         background: orange;
         padding: 1rem;
