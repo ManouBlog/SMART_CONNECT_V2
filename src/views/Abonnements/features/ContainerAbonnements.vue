@@ -48,8 +48,8 @@ texte.value = await transalteStore.handleTranslate("année")
       <div class="conteneur-btn">
         <div class="d-flex align-items-center gap-5 justify-content-center main-color">
         <h1  style="font-size: 2em;font-weight:bold">{{ Help.convertInMoney(item.prix) }}F</h1>
-        <span class="mx-2">/</span>
-        <span style="font-size: 2em">an</span>
+        <h3 class="mx-2" style="font-size: 1em;color:orange">/</h3>
+        <h3 style="font-size: 2em;color:orange">an</h3>
       </div>
         <Buttons
           :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
@@ -76,5 +76,10 @@ texte.value = await transalteStore.handleTranslate("année")
 }
 .main-color{
   color:orange;
+}
+
+.conteneur-btn{
+  border-top:1px solid white;
+  height:120px;
 }
 </style>

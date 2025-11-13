@@ -373,59 +373,69 @@ export default {
             {{ texte4 }} {{ lengthOfMylistOffre }} {{ texte3 }}
           </span>
         </div>
-        <div
-          class="container_result content"
-          v-for="(offre, index) in list_offre"
-          :key="index"
+        <section
+          style="
+            display: flex;
+            justify-content: center;
+            place-content: center;
+            gap: 1em;
+            flex-wrap: wrap;
+          "
         >
-          <section class="one conteneur_ecriteau">
-            <div class="logo_img_offre">
-              <div class="conteneur-image-logo_jobs">
-                <img
-                  :src="
-                    offre.entreprise.logo
-                      ? lienPhoto + offre.entreprise.logo
-                      : '/brobroli.png'
-                  "
-                  :alt="offre.entreprise.logo ? offre.entreprise.logo : 'smart-connect'"
-                />
+          <div
+            class="container_result"
+            v-for="(offre, index) in list_offre"
+            :key="index"
+          >
+            <section class="one conteneur_ecriteau">
+              <div class="logo_img_offre">
+                <div class="conteneur-image-logo_jobs">
+                  <img
+                    :src="
+                      offre.entreprise.logo
+                        ? lienPhoto + offre.entreprise.logo
+                        : '/brobroli.png'
+                    "
+                    :alt="offre.entreprise.logo ? offre.entreprise.logo : 'smart-connect'"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="informations_offres">
-              <span
-                class="badge bg-danger badge_new"
-                :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'"
-                >{{ texte5 }}</span
-              >
-              <h1>{{ offre.nom_offre }}</h1>
-              <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
-              <h1 class="badge badge_categorie">{{ offre.categorie.categorie }}</h1>
-              <!-- <div v-html="offre.description" 
+              <div class="informations_offres">
+                <span
+                  class="badge bg-danger badge_new"
+                  :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'"
+                  >{{ texte5 }}</span
+                >
+                <h1 style="font-size:1em;">{{ offre.nom_offre }}</h1>
+                <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
+                <h1 class="badge badge_categorie">{{ offre.categorie.categorie }}</h1>
+                <!-- <div v-html="offre.description" 
               id="conteneur-description" class="ellipse_text">
               </div> -->
-            </div>
-          </section>
-          <div class="two my-1">
-            <div>
-              <h6>
-                <em class="bi bi-calendar-date"></em>
-                {{ new Date(offre.debut).toLocaleDateString("fr") }} au
-                {{ new Date(offre.fin).toLocaleDateString("fr") }}
-              </h6>
-              <router-link :to="{ name: 'OffreDetail', params: { id: offre.id } }">
-                <button
-                  :class="configUtils.ifJobIsEnd(offre.fin) ? 'd-none' : null"
-                  class="btn btn-Conex"
-                >
-                  {{ texte6 }} <em class="bi bi-eye"></em>
-                </button>
-              </router-link>
-              <strong class="text-danger" v-if="configUtils.ifJobIsEnd(offre.fin)">{{
-                texte7
-              }}</strong>
+              </div>
+            </section>
+            <div class="two my-1">
+              <div>
+                <h6>
+                  <em class="bi bi-calendar-date"></em>
+                  {{ new Date(offre.debut).toLocaleDateString("fr") }} au
+                  {{ new Date(offre.fin).toLocaleDateString("fr") }}
+                </h6>
+                <router-link :to="{ name: 'OffreDetail', params: { id: offre.id } }">
+                  <button
+                    :class="configUtils.ifJobIsEnd(offre.fin) ? 'd-none' : null"
+                    class="btn btn-Conex"
+                  >
+                    {{ texte6 }} <em class="bi bi-eye"></em>
+                  </button>
+                </router-link>
+                <strong class="text-danger" v-if="configUtils.ifJobIsEnd(offre.fin)">{{
+                  texte7
+                }}</strong>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
         <div
           v-if="!list_offre.length"
@@ -520,10 +530,6 @@ form {
 }
 .conteneur_ecriteau {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 1em;
-  flex-wrap: wrap;
 }
 .d-none {
   display: none !important;
@@ -562,7 +568,7 @@ select {
 }
 .container_result {
   display: flex;
-  justify-content: flex-end;
+  gap:1em;
   align-items: center;
   background: var(--secondary-color) !important;
   color: var(--third-color) !important;
@@ -570,6 +576,7 @@ select {
   border-radius: 10px;
   flex-wrap: wrap;
   margin: 1em 0;
+  width:400px;
 }
 .container_result .two button {
   margin: 0 1em !important;
@@ -621,6 +628,9 @@ select {
   border: 1px solid black;
 }
 @media (max-width: 768px) {
+  .container_result {
+  width:500px;
+}
   .form-group {
     width: 350px !important; /* Pleine largeur sur mobile */
   }
