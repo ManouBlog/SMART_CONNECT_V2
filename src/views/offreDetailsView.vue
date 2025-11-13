@@ -214,7 +214,7 @@ export default {
 
                 <h4
                   class="my-5"
-                  style="color: orange"
+                  style="color: white"
                   v-if="abonnements.some((item) => item.statut === 'success')"
                 >
                   <em class="bi bi-geo"></em> {{ Offre.lieu }}
@@ -236,18 +236,18 @@ export default {
                   </h4>
                 </div>
                 <h4 class="my-5" v-if="Offre.nbre_person">
-                  <span class="fw-bold" style="color: orange">{{ texte1 }}</span>
+                  <span class="fw-bold" style="font-weight: 900 !important;color: white">{{ texte1 }}</span>
                   {{ Offre.nbre_person }}
                 </h4>
               </section>
               <section>
                 <h4>
-                  <span class="fw-bold my-3" style="font-weight: bold; color: orange">{{
+                  <span class="my-3" style="font-weight: 900 !important;color: white">{{
                     texte4
-                  }}</span>
+                  }} :</span>
                 </h4>
                 <div
-                  style="font-weight: 300; padding: 1em"
+                  style="padding: 1em;"
                   v-html="Offre.description"
                   id="conteneur_description"
                 ></div>
@@ -301,28 +301,15 @@ export default {
   </div>
 </template>
 <style scoped>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.detail_conteneur{
-  margin-top:6em;
+.detail_conteneur {
+  margin-top: 6em;
 }
 
 #conteneur_description {
   text-align: justify;
+}
+:deep(p){
+  font-weight:lighter !important;
 }
 .nom_offre {
   font-size: 5em;
@@ -434,11 +421,6 @@ button {
   box-shadow: none !important;
 }
 
-
-
-
-
-
 .offres_disponible {
   display: flex;
   flex-wrap: wrap; /* permet aux éléments de passer à la ligne sur mobile */
@@ -484,9 +466,9 @@ button {
 
 /* Sur très petits écrans (Bootstrap < 576px) */
 @media (max-width: 575.98px) {
-  .detail_conteneur{
-  margin-top:1.5em;
-}
+  .detail_conteneur {
+    margin-top: 1.5em;
+  }
 
   .offres_disponible {
     padding: 0.5em;
@@ -507,5 +489,4 @@ button {
     padding: 0.8em !important;
   }
 }
-
 </style>
