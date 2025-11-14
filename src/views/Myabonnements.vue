@@ -15,14 +15,19 @@
       >
         <template #paginatorstart>
           <div
-            style="display: flex; justify-content: flex-start; font-size: 1em; border: none;"
+            style="
+              display: flex;
+              justify-content: flex-start;
+              font-size: 1em;
+              border: none;
+            "
           >
             {{ texte1 }} {{ list_abonnement.length }} {{ texte3 }}
           </div>
         </template>
 
         <template #header>
-          <div class="conteneur_search" style="display:flex;align-items:center;">
+          <div class="conteneur_search" style="display: flex; align-items: center">
             <div class="mx-3">
               <button class="btn bg-warning py-2" @click="handleNouvelAbonnement">
                 {{ texte2 }}
@@ -51,10 +56,26 @@
           </template>
         </Column>
 
-        <Column style="font-size: 1.8em; padding: 1em; text-align: center" field="abonement.libelle" :header="texte4"/>
-        <Column style="font-size: 1.8em; padding: 1em; text-align: center" field="montant" :header="texte5"/>
-        <Column style="font-size: 1.8em; padding: 1em; text-align: center" field="echeance" :header="texte6"/>
-        <Column style="font-size: 1.8em; padding: 1em; text-align: center" field="statut" :header="texte7">
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="abonement.libelle"
+          :header="texte4"
+        />
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="montant"
+          :header="texte5"
+        />
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="echeance"
+          :header="texte6"
+        />
+        <Column
+          style="font-size: 1.8em; padding: 1em; text-align: center"
+          field="statut"
+          :header="texte7"
+        >
           <template #body="slotProps">
             <span
               class="px-2"
@@ -67,23 +88,31 @@
       </DataTable>
 
       <!-- ✅ Mobile -->
-      <div v-else style="padding:1em;">
+      <div v-else style="padding: 1em">
+        <div class="card-footer my-3">
+            <button class="btn bg-warning" @click="handleNouvelAbonnement">
+              {{ texte2 }}
+            </button>
+          </div>
         <div v-for="item in list_abonnement" :key="item.id" class="abonnement-card">
           <div class="card-header">
             <span>{{ configUtils.getFormatDateFr(item.created_at) }}</span>
-            <span :class="['px-2', item.statut === 'success' ? 'bg-success' : 'bg-danger']">
+            <span
+              :class="['px-2', item.statut === 'success' ? 'bg-success' : 'bg-danger']"
+            >
               {{ STATUTABONNEMENT[item.statut] }}
             </span>
           </div>
           <div class="card-body">
-            <p><strong>{{ texte4 }} :</strong> {{ item.abonement.libelle }}</p>
-            <p><strong>{{ texte5 }} :</strong> {{ item.montant }}</p>
-            <p><strong>{{ texte6 }} :</strong> {{ item.echeance }}</p>
-          </div>
-          <div class="card-footer">
-            <button class="btn bg-warning" @click="handleNouvelAbonnement">
-              {{ texte2 }}
-            </button>
+            <p>
+              <strong>{{ texte4 }} :</strong> {{ item.abonement.libelle }}
+            </p>
+            <p>
+              <strong>{{ texte5 }} :</strong> {{ item.montant }}
+            </p>
+            <p>
+              <strong>{{ texte6 }} :</strong> {{ item.echeance }}
+            </p>
           </div>
         </div>
 
@@ -170,8 +199,8 @@ export default {
   border-radius: 10px;
   padding: 1em;
   margin-bottom: 1em;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  color:white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  color: white;
 }
 .card-header {
   display: flex;

@@ -264,7 +264,8 @@ export default {
                 </h4>
               </section>
               <section>
-                <span class="my-2 text-danger fw-bold"
+                <span class="my-2 fw-bold"
+                style="color:orange;"
                   >{{ texte5 }} {{ configUtils.getFormatDateFr(Offre.fin) }}</span
                 >
               </section>
