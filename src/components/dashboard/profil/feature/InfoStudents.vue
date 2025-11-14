@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import instance, { lienPhoto } from "../../../../api/api";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
+import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { mapActions } from "pinia";
 import { Help } from "../../../../utils";
 export default {
@@ -62,7 +63,7 @@ export default {
       "update_compte_student",
       "addInfoUserConnected",
     ]),
-
+    ...mapActions(useLoadingSpinner, ["launchLoading"]),
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
@@ -524,7 +525,7 @@ h1 {
     font-size: 0.9rem;
     padding: 0.4em 0.8em;
     border-radius: 6px;
-    margin:1em 0;
+    margin: 1em 0;
   }
 
   .conteneur_activation {

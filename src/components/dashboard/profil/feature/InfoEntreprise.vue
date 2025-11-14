@@ -129,34 +129,34 @@ export default {
           });
       }
     },
-    async handleActivationCompteEmail(){
-    this.launchLoading(true)
-       await instance
-          .post("send-verification-email")
-          .then((res) => {
-            console.log("send-verification-email",res.data);
-            if (res.data.status === true) {
-              Swal.fire({
-                icon: "success",
-                title: res.data.message,
-                showConfirmButton: true,
-              });
-            }
-            if (res.data.status === false) {
-              Swal.fire({
-                icon: "error",
-                title: res.data.message,
-                showConfirmButton: true,
-              });
-            }
-          })
-  
-          .catch((err) => {
-            console.log(err);
-          })
-          .finally(()=>{
-            this.launchLoading(false)
-          })
+    async handleActivationCompteEmail() {
+      this.launchLoading(true);
+      await instance
+        .post("send-verification-email")
+        .then((res) => {
+          console.log("send-verification-email", res.data);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: true,
+            });
+          }
+          if (res.data.status === false) {
+            Swal.fire({
+              icon: "error",
+              title: res.data.message,
+              showConfirmButton: true,
+            });
+          }
+        })
+
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.launchLoading(false);
+        });
     },
     see(e) {
       this.photo = e.target.files[0];
