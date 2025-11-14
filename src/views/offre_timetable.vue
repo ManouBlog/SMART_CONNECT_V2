@@ -382,11 +382,7 @@ export default {
             flex-wrap: wrap;
           "
         >
-          <div
-            class="container_result"
-            v-for="(offre, index) in list_offre"
-            :key="index"
-          >
+          <div class="container_result" v-for="(offre, index) in list_offre" :key="index">
             <section class="one conteneur_ecriteau">
               <div class="logo_img_offre">
                 <div class="conteneur-image-logo_jobs">
@@ -406,7 +402,7 @@ export default {
                   :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'"
                   >{{ texte5 }}</span
                 >
-                <h1 style="font-size:1em;">{{ offre.nom_offre }}</h1>
+                <h1 style="font-size: 1em">{{ offre.nom_offre }}</h1>
                 <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
                 <h1 class="badge badge_categorie">{{ offre.categorie.categorie }}</h1>
                 <!-- <div v-html="offre.description" 
@@ -568,7 +564,7 @@ select {
 }
 .container_result {
   display: flex;
-  gap:1em;
+  gap: 1em;
   align-items: center;
   background: var(--secondary-color) !important;
   color: var(--third-color) !important;
@@ -576,7 +572,7 @@ select {
   border-radius: 10px;
   flex-wrap: wrap;
   margin: 1em 0;
-  width:400px;
+  width: 400px;
 }
 .container_result .two button {
   margin: 0 1em !important;
@@ -590,8 +586,7 @@ select {
 }
 .badge_new {
   width: auto;
-  position: absolute;
-  right: 2em;
+  margin: 0.5em 1em;
   animation: move 1s ease-in-out infinite alternate;
 }
 @keyframes move {
@@ -629,8 +624,8 @@ select {
 }
 @media (max-width: 768px) {
   .container_result {
-  width:500px;
-}
+    width: 500px;
+  }
   .form-group {
     width: 350px !important; /* Pleine largeur sur mobile */
   }

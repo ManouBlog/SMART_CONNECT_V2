@@ -361,7 +361,7 @@ export default {
           </div>
         </div>
       </section>
-      <h1 class="fw-bold my-3">Compétences</h1>
+      <p style="color: orange; font-weight: bold">Compétences :</p>
       <section v-if="infoPersonellesCompetences.length" class="conteneur-flex">
         <div
           v-for="(item, index) in infoPersonellesCompetences"
@@ -374,7 +374,7 @@ export default {
       <section v-else>
         <h4 class="p-5">Pas de compétences</h4>
       </section>
-      <h1 class="fw-bold my-3">Qualifications</h1>
+      <p style="color: orange; font-weight: bold">Qualifications :</p>
       <section v-if="infoPersonellesQualifications.length" class="conteneur-flex">
         <div v-for="(item, index) in infoPersonellesQualifications" :key="index">
           <div style="display: flex; align-items: center; gap: 1em">
