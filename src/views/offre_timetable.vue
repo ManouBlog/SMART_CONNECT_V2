@@ -366,11 +366,11 @@ export default {
           class="offres_disponible d-flex flex-wrap justify-content-between align-items-center text-center text-md-start py-3 px-2"
         >
           <h5 class="image-heading mb-2 mb-md-0">
-            <span class="list_offre">{{ lengthOfMylistOffre }}</span> {{ texte3 }}
+            <span class="list_offre">{{ lengthOfMylistOffre }}</span> {{ lengthOfMylistOffre > 1 ?  texte3:'Offre' }}
           </h5>
 
           <span class="text-secondary small small-md-normal">
-            {{ texte4 }} {{ lengthOfMylistOffre }} {{ texte3 }}
+            {{ texte4 }} {{ lengthOfMylistOffre }} {{ lengthOfMylistOffre > 1 ?  texte3:'Offre' }}
           </span>
         </div>
         <section
