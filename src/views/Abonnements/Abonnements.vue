@@ -40,7 +40,7 @@ const handleAbonement = async () => {
 
 async function doVerificationAbonnement(payload){
 try {
-    const response = await axios.get("https://backend.monbrobroli.com/payStack/payment/callback/"+payload);
+    const response = await axios.get("https://backend.monbrobroli.com/api/payStack/payment/callback/"+payload);
     console.log("responseVERIF",response)
     if(response.data.status){
        Swal.fire({
