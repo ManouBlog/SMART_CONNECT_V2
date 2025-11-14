@@ -97,11 +97,11 @@ export default {
   >
     <template #empty>
       <div class="empty-content">
-        <template v-if="hasError">
+        <!-- <template v-if="hasError">
           <i class="pi pi-exclamation-triangle text-warning"></i>
           <p>Erreur de chargement des données</p>
-        </template>
-        <template v-else-if="isLoading">
+        </template> -->
+        <template v-if="isLoading">
           <i class="pi pi-spin pi-spinner"></i>
           <p>Chargement en cours...</p>
         </template>

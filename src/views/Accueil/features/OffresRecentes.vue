@@ -11,7 +11,13 @@ export default {
     Flicking,
   },
   data() {
-    return { texte0: "", texte2: "", texte3: "", texte1: "" };
+    return {
+      texte0: "",
+      texte2: "",
+      texte3: "",
+      texte1: "",
+      user: this.$store.state.user,
+    };
   },
   computed: {
     ...mapState(useOffreStore, ["ListOffre"]),
@@ -45,7 +51,10 @@ export default {
     },
   },
   async created() {
-    this.getOffres();
+    if (this.user) {
+      this.getOffres();
+    }
+
     this.texte0 = await this.handleTranslate("Offres récentes");
     this.texte1 = await this.handleTranslate("Description");
     this.texte2 = await this.handleTranslate("Publié le:");

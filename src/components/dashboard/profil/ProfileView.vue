@@ -7,7 +7,7 @@ import InfoStudents from "./feature/InfoStudents.vue";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import ModalForModifyInfo from "./feature/ModalForModifyInfo.vue";
 import CompetencesAndExperience from "../etudiant-route/CompetencesAndExperience.vue";
-import QualificationsStudent from '../etudiant-route/QualificationsStudent.vue'
+import QualificationsStudent from "../etudiant-route/QualificationsStudent.vue";
 import MonPlanAbonnement from "./feature/MonPlanAbonnement.vue";
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      texte88:"",
+      texte88: "",
       texte: "",
       texte2: "",
       texte3: "",
@@ -77,7 +77,10 @@ export default {
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     update_offre() {
-      if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
+      if (
+        this.user.user.statut.statut === "entreprise" ||
+        this.user.user.statut.statut === "particulier"
+      ) {
         this.update_compte_entreprise();
       }
       if (this.user.user.statut.statut === "etudiant") {
@@ -91,7 +94,10 @@ export default {
       if (this.user.user.statut.statut === "etudiant") {
         this.modifyPasswordOfStudent();
       }
-      if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
+      if (
+        this.user.user.statut.statut === "entreprise" ||
+        this.user.user.statut.statut === "particulier"
+      ) {
         this.modifyPasswordOfEntreprise();
       }
       if (this.user.user.statut.statut === "admin") {
@@ -188,7 +194,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           Swal.fire({
             icon: "error",
             title: err.data.message,
@@ -242,40 +248,39 @@ export default {
       this.photo = e.target.files[0];
       // console.log(this.photo);
     },
-    async getInfoUser(){
+    async getInfoUser() {
       await instance
-          .get("voirInfoUserConnect")
-          .then((resp) => {
-            // console.log("voirInfoUserConnect",resp);
-            if (resp.data.status === true) {
-             this.user = resp.data.user
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        .get("voirInfoUserConnect")
+        .then((resp) => {
+          // console.log("voirInfoUserConnect",resp);
+          if (resp.data.status === true) {
+            this.user = resp.data.user;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   async created() {
-    this.texte = await this.handleTranslate('Mon profil');
+    this.texte = await this.handleTranslate("Mon profil");
     this.texte1 = await this.handleTranslate(`Infos personnelles`);
-    this.texte2 = await this.handleTranslate('Nom :');
-    this.texte3 = await this.handleTranslate('Email :');
-    this.texte4 = await this.handleTranslate('Matricule/cc :');
-    this.texte5 = await this.handleTranslate('Contact :');
-    this.texte6 = await this.handleTranslate('Ville :');
-    this.texte7 = await this.handleTranslate('Commune :');
-    this.texte8 = await this.handleTranslate('Quartier :');
-    this.texte9 = await this.handleTranslate('Registre :');
-    this.texte10 = await this.handleTranslate('Forme juridique :');
-    this.texte88 = await this.handleTranslate('Logo entreprise :');
-    this.texte11 = await this.handleTranslate('Nom & Prénoms :');
-    this.texte12 = await this.handleTranslate('Pièce d\'identité :');
-    this.texte13 = await this.handleTranslate('diplome :');
-    this.texte14 = await this.handleTranslate('Prénoms :');
-    this.texte15 = await this.handleTranslate('Formule d\'abonnement');
-    this.getInfoUser()
-    
+    this.texte2 = await this.handleTranslate("Nom :");
+    this.texte3 = await this.handleTranslate("Email :");
+    this.texte4 = await this.handleTranslate("Matricule/cc :");
+    this.texte5 = await this.handleTranslate("Contact :");
+    this.texte6 = await this.handleTranslate("Ville :");
+    this.texte7 = await this.handleTranslate("Commune :");
+    this.texte8 = await this.handleTranslate("Quartier :");
+    this.texte9 = await this.handleTranslate("Registre :");
+    this.texte10 = await this.handleTranslate("Forme juridique :");
+    this.texte88 = await this.handleTranslate("Logo entreprise :");
+    this.texte11 = await this.handleTranslate("Nom & Prénoms :");
+    this.texte12 = await this.handleTranslate("Pièce d'identité :");
+    this.texte13 = await this.handleTranslate("Diplôme :");
+    this.texte14 = await this.handleTranslate("Prénoms :");
+    this.texte15 = await this.handleTranslate("Formule d'abonnement");
+    this.getInfoUser();
   },
 };
 </script>
@@ -284,42 +289,64 @@ export default {
   <section>
     <ModalForModifyInfo />
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
-    <div class="page-body" >
+    <div class="page-body">
       <!-- {{ JSON.stringify(this.user,null,2) }} -->
       <TabView>
         <TabPanel :header="texte1">
           <div>
             <InfoEntreprise
-              v-if=" this.user && (this.user.user.statut.statut === 'entreprise' || this.user.user.statut.statut === 'particulier') "
+              v-if="
+                this.user &&
+                (this.user.user.statut.statut === 'entreprise' ||
+                  this.user.user.statut.statut === 'particulier')
+              "
               :infoPersonellesEntreprise="
-              this.user.user.statut.statut === 'entreprise' ?
-              [
-                { libelle: 'Raison sociale :', value: user.nom },
-                { libelle: 'Contact mail :', value: user.email },
-                { libelle: 'RCCM (Registre du Commerce et du Crédit Mobilier) :', value: user.matricule_cc ? user.matricule_cc:'néant' },
-                { libelle: 'NCC (Numéro de compte contribuable) :', value: user.NCC ? user.NCC:'néant' },
-                { libelle: texte5, value: user.contact },
-                { libelle: texte6, value: user.ville },
-                { libelle: texte7, value: user.commune },
-                { libelle: texte8, value: user.quartier },
-                { libelle: texte88, value: user.logo },
-                { libelle: texte9, value: user.registre ? user.registre:'néant'  },
-                { libelle: texte10, value: user.forme_juridique ? user.forme_juridique:'néant' },
-              ]:[
-                { libelle: 'Nom :', value: user.nom },
-                 { libelle: 'Prénoms :', value: user.particulier_prenoms },
-                { libelle: 'Email :', value: user.email },
-                { libelle: texte5, value: user.contact },
-                { libelle: texte6, value: user.ville },
-                { libelle: texte7, value: user.commune },
-                { libelle: texte8, value: user.quartier },
-                { libelle: texte12, value: user.user.photos },
-              ]"
-              :infoPersonellesGerant="this.user.user.statut.statut === 'entreprise' ? [
-                { libelle: texte11, value: user.gerant ? user.gerant:user.nom },
-                { libelle: texte5, value: user.numero_gerant ? user.numero_gerant:user.contact },
-                { libelle: texte12, value: user.user.photos },
-              ]:[]"
+                this.user.user.statut.statut === 'entreprise'
+                  ? [
+                      { libelle: 'Raison sociale :', value: user.nom },
+                      { libelle: 'Contact mail :', value: user.email },
+                      {
+                        libelle: 'RCCM (Registre du Commerce et du Crédit Mobilier) :',
+                        value: user.matricule_cc ? user.matricule_cc : 'néant',
+                      },
+                      {
+                        libelle: 'NCC (Numéro de compte contribuable) :',
+                        value: user.NCC ? user.NCC : 'néant',
+                      },
+                      { libelle: texte5, value: user.contact },
+                      { libelle: texte6, value: user.ville },
+                      { libelle: texte7, value: user.commune },
+                      { libelle: texte8, value: user.quartier },
+                      { libelle: texte88, value: user.logo },
+                      { libelle: texte9, value: user.registre ? user.registre : 'néant' },
+                      {
+                        libelle: texte10,
+                        value: user.forme_juridique ? user.forme_juridique : 'néant',
+                      },
+                    ]
+                  : [
+                      { libelle: 'Nom :', value: user.nom },
+                      { libelle: 'Prénoms :', value: user.particulier_prenoms },
+                      { libelle: 'Email :', value: user.email },
+                      { libelle: texte5, value: user.contact },
+                      { libelle: texte6, value: user.ville },
+                      { libelle: texte7, value: user.commune },
+                      { libelle: texte8, value: user.quartier },
+                      { libelle: texte12, value: user.user.photos },
+                    ]
+              "
+              :infoPersonellesGerant="
+                this.user.user.statut.statut === 'entreprise'
+                  ? [
+                      { libelle: texte11, value: user.gerant ? user.gerant : user.nom },
+                      {
+                        libelle: texte5,
+                        value: user.numero_gerant ? user.numero_gerant : user.contact,
+                      },
+                      { libelle: texte12, value: user.user.photos },
+                    ]
+                  : []
+              "
             />
             <InfoStudents
               :infoPersonellesStudents="[
@@ -331,9 +358,11 @@ export default {
                 { libelle: texte8, value: user.quartier },
                 { libelle: texte5, value: user.phone },
                 { libelle: texte13, value: user.diplome },
-                { libelle: 'Carte étudiant', value: user.user.photos }
+                { libelle: 'Carte étudiant', value: user.user.photos },
               ]"
-              :infoPersonellesQualifications="user.qualifications.length ? user.qualifications:[]"
+              :infoPersonellesQualifications="
+                user.qualifications.length ? user.qualifications : []
+              "
               :infoBioStudent="user.bio"
               :infoPersonellesCompetences="user.competences"
               v-if="this.user && this.user.user.statut.statut === 'etudiant'"
@@ -346,7 +375,7 @@ export default {
         >
           <CompetencesAndExperience />
         </TabPanel>
-          <TabPanel
+        <TabPanel
           v-if="this.user && this.user.user.statut.statut === 'etudiant'"
           header="Qualifications"
         >
@@ -368,19 +397,19 @@ export default {
   margin: 0 !important;
   transform: translateX(0) !important;
 }
-:deep(ul){
-list-style-type: none;
+:deep(ul) {
+  list-style-type: none;
 }
-:deep(.p-highlight){
+:deep(.p-highlight) {
   background: orange;
 }
 
-:deep(a:hover){
-  color:black;
+:deep(a:hover) {
+  color: black;
 }
-:depp(.p-highlight a){
-  color:white !important;
-  font-weight:bold !important;
+:depp(.p-highlight a) {
+  color: white !important;
+  font-weight: bold !important;
 }
 img {
   border: 5px solid black;
