@@ -1,7 +1,7 @@
 <script>
 import LiensNavBar from "../LiensNavBar.vue";
 import instance from "../../../../api/api";
-import { mapActions,mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useMenuMobile } from "../../../../store-pinia/MenuMobile/useMenuMobileStore";
 import { useNotificationsStore } from "../../../../store-pinia/useNotificationsStore";
@@ -11,7 +11,8 @@ export default {
     LiensNavBar,
   },
   data() {
-    return {texte: "",
+    return {
+      texte: "",
       texte2: "",
       texte3: "",
       texte1: "",
@@ -38,8 +39,8 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
-      texte40:"",
+      texte27: "",
+      texte40: "",
     };
   },
   computed: {
@@ -49,7 +50,7 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
     ...mapActions(useNotificationsStore, ["getListNotification"]),
-      async seeMyNotifications() {
+    async seeMyNotifications() {
       try {
         const response = await instance.get("markAllAsRead");
         if (response["status"] === 200) {
@@ -70,55 +71,67 @@ export default {
     },
   },
   async created() {
-this.getListNotification();
-    this.texte = await this.handleTranslate('Tableau de bord');
-    this.texte1 = await this.handleTranslate('Mon profil');
+    this.getListNotification();
+    this.texte = await this.handleTranslate("Tableau de bord");
+    this.texte1 = await this.handleTranslate("Mon profil");
     this.texte2 = await this.handleTranslate("Mes favoris");
-    this.texte3 = await this.handleTranslate('Mes postulations');
+    this.texte3 = await this.handleTranslate("Mes postulations");
     // this.texte4 = await this.handleTranslate('Mes Contrats');
-    this.texte40 = await this.handleTranslate('Entreprises intéressées');
-    this.texte5 = await this.handleTranslate(' Mes disponibilités');
+    this.texte40 = await this.handleTranslate("Entreprises intéressées");
+    this.texte5 = await this.handleTranslate(" Mes disponibilités");
     this.texte6 = await this.handleTranslate(`Mes abonnements`);
-    this.texte7 = await this.handleTranslate('Déconnexion');
+    this.texte7 = await this.handleTranslate("Déconnexion");
   },
 };
 </script>
 <template>
-   
-    <li class="position-absolute deconnex">
-        <router-link to="/dashboard/accueil"
-        @click.prevent="changeValueForshowMenuMobile"
-        class="d-block">
-         {{texte}}
-        </router-link>
-      </li>
-      <li class="position-absolute deconnex">
-        <router-link 
-        @click.prevent="changeValueForshowMenuMobile"
-        to="/Notifications" class="d-block">
-         Mes Notifications <span v-if="this.unreadNotifications.length > 0" class="badge bg-danger">{{
+  <li class="position-absolute deconnex">
+    <router-link
+      to="/dashboard/accueil"
+      @click.prevent="changeValueForshowMenuMobile"
+      class="d-block"
+    >
+      {{ texte }}
+    </router-link>
+  </li>
+  <li class="position-absolute deconnex">
+    <router-link
+      @click.prevent="changeValueForshowMenuMobile"
+      to="/Notifications"
+      class="d-block"
+    >
+      Mes Notifications
+      <span v-if="this.unreadNotifications.length > 0" class="badge bg-danger">{{
         this.unreadNotifications.length
       }}</span>
-        </router-link>
-      </li>
-      <LiensNavBar :texte="texte1" :route_lien="'profil'" />
+    </router-link>
+  </li>
+  <LiensNavBar
+    @click.prevent="changeValueForshowMenuMobile"
+    :texte="texte1"
+    :route_lien="'profil'"
+  />
   <!-- <li>
     <a href="#" @click.prevent="changeValueForshowMenuMobile" class="d-block lien">
       {{texte2}}
     </a>
   </li> -->
   <li class="position-absolute deconnex">
-    <router-link 
-    @click.prevent="changeValueForshowMenuMobile"
-    to="/dashboard/entreprises_interessees" class="d-block">
-      {{texte40}}
+    <router-link
+      @click.prevent="changeValueForshowMenuMobile"
+      to="/dashboard/entreprises_interessees"
+      class="d-block"
+    >
+      {{ texte40 }}
     </router-link>
   </li>
   <li class="position-absolute deconnex">
     <router-link
-    @click.prevent="changeValueForshowMenuMobile"
-    to="/dashboard/offre_postule" class="d-block">
-      {{texte3}}
+      @click.prevent="changeValueForshowMenuMobile"
+      to="/dashboard/offre_postule"
+      class="d-block"
+    >
+      {{ texte3 }}
     </router-link>
   </li>
   <!-- <li class="position-absolute deconnex">
@@ -134,17 +147,19 @@ this.getListNotification();
   </li>   -->
   <li class="position-absolute deconnex">
     <router-link
-    @click.prevent="changeValueForshowMenuMobile"
-    to="/dashboard/emploi_du_temps" class="d-block">
-     {{texte5}}
+      @click.prevent="changeValueForshowMenuMobile"
+      to="/dashboard/emploi_du_temps"
+      class="d-block"
+    >
+      {{ texte5 }}
     </router-link>
   </li>
-  <LiensNavBar :texte="texte6" :route_lien="'dashboard-abonnements'" />
+  <LiensNavBar :texte="texte6" :route_lien="'dashboard-abonnements'"
+  @click.prevent="changeValueForshowMenuMobile"
+  />
   <li class="position-absolute">
-    <router-link 
-    @click.prevent="changeValueForshowMenuMobile"
-    to="/avis" class="d-block">
-     Votre avis
+    <router-link @click.prevent="changeValueForshowMenuMobile" to="/avis" class="d-block">
+      Votre avis
     </router-link>
   </li>
 </template>
