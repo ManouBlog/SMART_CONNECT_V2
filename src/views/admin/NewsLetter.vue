@@ -5,6 +5,7 @@ import axios from "axios";
 import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import Swal from "sweetalert2";
 export default {
   name: "UserView",
   data() {
@@ -12,12 +13,12 @@ export default {
       messages: [],
       spinner: false,
       modify_timetable: false,
-      loading:false,
-      campaign :{
-  objet: "",
-  msg: "",
-  type: "newsLetter",
-}
+      loading: false,
+      campaign: {
+        objet: "",
+        msg: "",
+        type: "newsLetter",
+      },
     };
   },
   methods: {
@@ -31,16 +32,19 @@ export default {
         })
         .then((res) => {
           console.log("getEmailNewsletter", res);
-          const allMessages = [...res.data.data.newsletter,...res.data.data.notifications]
-          this.messages = allMessages.map(item=>{
-            return{
-              id:item.id,
-              email:item.email || item.user.email,
-               objet:item.objet ? item.objet:'Visite de profile',
-                type:item.type ? item.type:'Notification',
-                 created_at:item.created_at
-            }
-          }) 
+          const allMessages = [
+            ...res.data.data.newsletter,
+            ...res.data.data.notifications,
+          ];
+          this.messages = allMessages.map((item) => {
+            return {
+              id: item.id,
+              email: item.email || item.user.email,
+              objet: item.objet ? item.objet : "Visite de profile",
+              type: item.type ? item.type : "Notification",
+              created_at: item.created_at,
+            };
+          });
           console.log("this.messages", this.messages);
           this.spinner = false;
           setTimeout(function () {
@@ -82,31 +86,44 @@ export default {
         });
     },
     createCampaign() {
-  console.log('Campaign data:', this.campaign);
-   const ROUTE_BACKEND = this.campaign.type === 'newsLetter' ? "sendNewsletterAtUser":"sendNotificationsAtUser";
-  axios.post(
-    "https://backend.monbrobroli.com/api/"+ROUTE_BACKEND,
-    this.campaign, // <- corps de la requête
-    {
-      headers: {
-        Authorization: `Bearer ${this.$store.state.token}`,
-        "Content-Type": "application/json",
-      },
-    }
-  )
-  .then((response) => {
-    console.log("✅ Campaign created successfully:", response.data);
-    // Tu peux afficher une notification visuelle ici (ex: toast ou alert)
-  })
-  .catch((error) => {
-    if (error.response) {
-      console.error("❌ API Error:", error.response.data);
-    } else {
-      console.error("⚠️ Network Error:", error.message);
-    }
-  });
-}
-
+      this.loading = true;
+      console.log("Campaign data:", this.campaign);
+      const ROUTE_BACKEND =
+        this.campaign.type === "newsLetter"
+          ? "sendNewsletterAtUser"
+          : "sendNotificationsAtUser";
+      axios
+        .post(
+          "https://backend.monbrobroli.com/api/" + ROUTE_BACKEND,
+          this.campaign, // <- corps de la requête
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.state.token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log("✅ Campaign created successfully:", response.data);
+          Swal.fire({
+            icon: "success",
+            title: response.data.message,
+            showConfirmButton: true,
+            // timer: 1500,
+          });
+          // Tu peux afficher une notification visuelle ici (ex: toast ou alert)
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.error("❌ API Error:", error.response.data);
+          } else {
+            console.error("⚠️ Network Error:", error.message);
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
   },
   created() {
     this.get_messages();
@@ -189,21 +206,19 @@ export default {
 
                       <div class="row">
                         <div class="col-lg-6">
-                          <div class="mb-3" style="text-align:left;">
+                          <div class="mb-3" style="text-align: left">
                             <label class="form-label fw-bold">Type de message</label>
-                            <select
-                              class="form-select"
-                              v-model="campaign.type"
-                              required
-                            >
-                              <option value="" disabled>-- Sélectionnez un type --</option>
+                            <select class="form-select" v-model="campaign.type" required>
+                              <option value="" disabled>
+                                -- Sélectionnez un type --
+                              </option>
                               <option value="newsLetter">NewsLetter</option>
                               <option value="notifications">Notifications</option>
                             </select>
                           </div>
                         </div>
-                         <div class="col-lg-6">
-                          <div class="mb-3" style="text-align:left;">
+                        <div class="col-lg-6">
+                          <div class="mb-3" style="text-align: left">
                             <label class="form-label fw-bold">Objet</label>
                             <input
                               class="form-control"
@@ -218,7 +233,7 @@ export default {
                       <!-- Contenu -->
                       <div class="row">
                         <div class="col-lg-12">
-                          <div class="mb-3" style="text-align:left;">
+                          <div class="mb-3" style="text-align: left">
                             <label class="form-label fw-bold">Contenu</label>
                             <textarea
                               class="form-control"
@@ -265,7 +280,7 @@ export default {
                       <div class="row">
                         <div class="col text-end">
                           <button
-                            :disabled="!campaign.objet || !campaign.msg"
+                            :disabled="!campaign.objet || !campaign.msg || loading"
                             class="btn btn-primary me-3"
                             type="submit"
                           >
@@ -308,22 +323,22 @@ export default {
                 <tbody>
                   <tr v-for="(item, index) in messages" :key="index">
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                     <td>{{ item.type }}</td>
-                     <td>{{ item.objet }}</td>
+                    <td>{{ item.type }}</td>
+                    <td>{{ item.objet }}</td>
                     <td>{{ item.email }}</td>
-                      <td>
-                    <p class="d-flex justify-content-center align-items-center">
-                      <router-link
-                      :to="{
-                        name: 'details_notification',
-                        params: {
-                          id: item.id,
-                        },
-                      }"
-                      ><em class="bi bi-eye"></em
-                    ></router-link>
-                    </p>
-                  </td>
+                    <td>
+                      <p class="d-flex justify-content-center align-items-center">
+                        <router-link
+                          :to="{
+                            name: 'details_notification',
+                            params: {
+                              id: item.id,
+                            },
+                          }"
+                          ><em class="bi bi-eye"></em
+                        ></router-link>
+                      </p>
+                    </td>
                   </tr>
                 </tbody>
               </table>

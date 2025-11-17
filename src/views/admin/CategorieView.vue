@@ -125,9 +125,7 @@ export default {
           console.log("TIMETABLE", res);
           alert(res.data.message);
           if (res.data.status) {
-            const index = this.categories.findIndex(
-              (item) => item.id == idCategorie
-            );
+            const index = this.categories.findIndex((item) => item.id == idCategorie);
             if (index !== -1) {
               this.categories.splice(index, 1);
             }
@@ -228,9 +226,7 @@ export default {
                       <div class="row">
                         <div class="col-lg-12">
                           <div class="mb-3 text-start font-bold">
-                            <p style="font-weight: bold; font-size: 1.5em">
-                              Catégorie
-                            </p>
+                            <p style="font-weight: bold; font-size: 1.5em">Catégorie</p>
                             <input
                               class="form-control"
                               type="text"
@@ -288,9 +284,7 @@ export default {
                   <tr v-for="(item, index) in categories" :key="index">
                     <td>{{ item.categorie }}</td>
                     <td>
-                      <div
-                        class="d-flex justify-content-center gap-5 align-items-center"
-                      >
+                      <div class="d-flex justify-content-center gap-5 align-items-center">
                         <router-link
                           :to="{
                             name: 'modifications',
