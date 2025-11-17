@@ -36,6 +36,8 @@ export default {
       Vous recherchez probablement une alternative plus simple,
       sûre et plus performante pour donner un nouveau souffle à vos finances,
        à votre activité. 
+       MonBrobroli est la nouvelle plateforme unifiée qui lie entreprises/particuliers et talents.
+        En quelques clics, vous allez vivre une expérience de classe mondiale.
        `
     );
     this.texte88 = await this.handleTranslate(`MonBrobroli est la nouvelle plateforme unifiée qui lie entreprises/particuliers et talents.
@@ -55,10 +57,10 @@ export default {
         {{ texte0 }}<br />
         {{ texte2 }}
       </h1>
-      <div class="my-5" style="letter-spacing: 0.2em">
-        <h4>{{ texte3 }}</h4>
-        <h4>{{ texte88 }}</h4>
-        <br />
+      <div class="my-5" >
+        <h4 style="letter-spacing: 0.1em">{{ texte3 }}</h4>
+        <!-- <h4>{{ texte88 }}</h4> -->
+        <!-- <br /> -->
         <h4>{{ texte4 }}</h4>
         <h4>{{ texte99 }}</h4>
       </div>
@@ -132,7 +134,8 @@ h4{
 }
 @media screen and (max-width: 500px) {
   h4{
-    padding:0;
+    padding:1em;
+    text-align: center;
   }
   .header_banner {
     margin-top: 4em;
