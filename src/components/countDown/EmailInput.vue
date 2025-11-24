@@ -6,22 +6,25 @@
     v-model="email"
     @keyup.enter="notify"
   />
-   <button class="auth-button" @click="notify">
-    m’informer
-  </button>
+  <button class="auth-button" @click="notify">m’informer</button>
 </template>
 
 <script setup>
-import { ref,defineEmits } from 'vue';
-
-const emit = defineEmits(['notify']);
-const email = ref('');
+import { ref, defineEmits } from "vue";
+import Swal from "sweetalert2";
+const emit = defineEmits(["notify"]);
+const email = ref("");
 const notify = () => {
   if (email.value) {
-    emit('notify', email.value);
+    emit("notify", email.value);
+  } else {
+    Swal.fire({
+      icon: "info",
+      title: "Veuillez-ajouter un email",
+      showConfirmButton: true,
+    });
   }
 };
-
 </script>
 
 <style scoped>
@@ -45,10 +48,10 @@ const notify = () => {
   border-radius: 25px;
   border: 1px solid #ccc;
   font-size: 1.5em;
-  width: 100%;         /* occupe toute la largeur dispo */
-  max-width: 500px;    /* limite pour éviter qu’il devienne trop grand sur PC */
+  width: 100%; /* occupe toute la largeur dispo */
+  max-width: 500px; /* limite pour éviter qu’il devienne trop grand sur PC */
   outline: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   box-sizing: border-box; /* pour que padding soit inclus dans la largeur */
 }
 
@@ -64,7 +67,7 @@ const notify = () => {
 @media (max-width: 480px) {
   .email-input {
     font-size: 1em;
-    max-width: 100%;   /* prend toute la largeur du mobile */
+    max-width: 100%; /* prend toute la largeur du mobile */
   }
 }
 </style>
