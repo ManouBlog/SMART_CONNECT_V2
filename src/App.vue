@@ -5,15 +5,19 @@
 
     <!-- Sinon, on affiche le countdown -->
     <CountDownView v-else :targetDate="lancementDate" />
-    <PromotionModal v-model:visible="showPromo" :ctaAction="handleCta" />
   </div>
+  <PromotionModal
+    v-if="students && 1000 > students"
+    v-model:visible="showPromo"
+    :ctaAction="handleCta"
+  />
 </template>
 
 <script>
 import axios from "axios";
 import CountDownView from "./views/CountDownView.vue";
 import PromotionModal from "./components/PromotionModal.vue";
-import instance from "./api/api"
+import instance from "./api/api";
 
 export default {
   name: "AppView",
@@ -23,18 +27,18 @@ export default {
       isDatePassed: false,
       lancementDate: "",
       showPromo: true,
-      students:0,
+      students: null,
     };
   },
   methods: {
-    async NbreEtudiantsInscrit(){
+    async NbreEtudiantsInscrit() {
       try {
-        const response = await instance.get('seePerformance');
-        // console.log("NbreEtudiantsInscrit", response);
-        if(response.data.status) {
-          this.students= response.data.talentPerf;
+        const response = await instance.get("seePerformance");
+        console.log("NbreEtudiantsInscrit", response);
+        if (response.data.status) {
+          this.students = response.data.talentPerf;
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     },
@@ -109,7 +113,7 @@ export default {
   created() {
     this.isLancement();
     localStorage.setItem("translate", "fr");
-    this.NbreEtudiantsInscrit()
+    this.NbreEtudiantsInscrit();
   },
 };
 </script>

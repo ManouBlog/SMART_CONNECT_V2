@@ -91,11 +91,11 @@ export default {
       </p>
 
       <p>
-        -Formule Standard 5.000 F / an Offre un accès complet aux offres d'emploi
+        -Formule ECO 10.000 Fcfa / an Offre un accès complet aux offres d'emploi
         disponibles sur la plateforme.
         <br />
         <br />
-        -Formule Premium 15.000 F / an Inclut tous les avantages de la formule Standard,
+        -Formule PLATINUM 20.000 Fcfa / an Inclut tous les avantages de la formule Standard,
         avec en plus : La réception d'offres d’emploi ciblées par email, selon les
         compétences renseignées dans le profil. Une mise en avant prioritaire du profil
         lors des recherches effectuées par les entreprises, augmentant ainsi les chances
@@ -107,11 +107,11 @@ export default {
         :
       </p>
       <p>
-        -Formule Standard 10.000 F CFA / an Accès à la base de données des profils
+        -Formule ECO 25.000 Fcfa / an Accès à la base de données des profils
         étudiants qualifiés. Possibilité de publier des offres de mission.
         <br />
         <br />
-        -Formule Premium 25.000 F CFA / an Accès à la base de profils. Publication
+        -Formule PLATINUM 50.000 Fcfa / an Accès à la base de profils. Publication
         illimitée d’offres. Positionnement prioritaire des annonces en tête de liste lors
         des recherches effectuées sur la plateforme.
       </p>

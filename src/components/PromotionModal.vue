@@ -1,41 +1,39 @@
 <template>
-  <transition name="fade">
-    <n-modal
-      :show="visible"
-      preset="card"
-      :closable="true"
-      :mask-closable="true"
-      :mask-style="{ background: 'rgba(0,0,0,0.7)' }"
-      style="
-        max-width: 300px;
-        min-width:40%;
-        text-align: center;
-        background: #fff;
-        border-radius: 16px;
-        padding: 1em;
-      "
-      @update:show="$emit('update:visible', $event)"
-    >
-      <template #header> 🎉 Offre Spéciale Étudiants ! 🎓 </template>
+  <n-modal
+    :show="visible"
+    preset="card"
+    :closable="true"
+    :mask-closable="true"
+    :mask-style="{ background: 'rgba(0,0,0,0.7)' }"
+    style="
+      max-width: 300px;
+      min-width: 40%;
+      text-align: center;
+      background: #fff;
+      border-radius: 16px;
+      padding: 1em;
+    "
+    @update:show="$emit('update:visible', $event)"
+  >
+    <template #header> 🎉 Offre Spéciale Étudiants ! 🎓 </template>
 
-      <template #default>
-        <p style="font-size: 1.2em; color: #ff6a00; margin-bottom: 1em">
-          <strong>Les 1000 premiers étudiants abonnés</strong> bénéficient de
-          <strong>2 mois supplémentaires gratuits</strong> ! 😍
-        </p>
-        <p style="margin-bottom: 1.5em">
-          Profitez de cette récompense exclusive et prolongez votre expérience dès
-          aujourd'hui !
-        </p>
-      </template>
+    <template #default>
+      <p style="font-size: 1.2em; color: #ff6a00; margin-bottom: 1em">
+        <strong>Les 1000 premiers étudiants abonnés</strong> bénéficient de
+        <strong>2 mois supplémentaires gratuits</strong> ! 😍
+      </p>
+      <p style="margin-bottom: 1.5em">
+        Profitez de cette récompense exclusive et prolongez votre expérience dès
+        aujourd'hui !
+      </p>
+    </template>
 
-      <template #footer>
-        <n-button size="large" type="warning" @click="ctaAction">
-          Profitez-en maintenant
-        </n-button>
-      </template>
-    </n-modal>
-  </transition>
+    <template #footer>
+      <n-button size="large" type="warning" @click="ctaAction">
+        Profitez-en maintenant
+      </n-button>
+    </template>
+  </n-modal>
 </template>
 
 <script>
