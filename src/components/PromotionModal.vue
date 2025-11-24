@@ -9,7 +9,7 @@
       max-width: 300px;
       min-width: 40%;
       text-align: center;
-      background: linear-gradient(135deg, #ff6a00, #ffffff); /* dégradé orange → blanc */
+      background: linear-gradient(346deg, #ff6a00, #ffffff); /* dégradé orange → blanc */
       border-radius: 16px;
       padding: 1em;
     "
