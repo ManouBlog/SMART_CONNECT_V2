@@ -37,7 +37,7 @@
   } */
   .abonnement-classique_etudiant {
     width: 300px;
-    height: 900px;
+    height: 990px;
     margin-bottom: 2em;
     text-align: left;
     background-color: var(--secondary-color) !important;
@@ -50,7 +50,7 @@
   }
   .abonnement-classique_entreprise {
     width: 300px;
-    height: 780px;
+    height: 880px;
     margin-bottom: 2em;
     text-align: left;
     background-color: var(--secondary-color) !important;
@@ -72,7 +72,7 @@
   }
  @media (max-width: 500px) {
   .abonnement-classique_etudiant {
-    height: 880px;
+    height: 900px;
   }
 }
  
