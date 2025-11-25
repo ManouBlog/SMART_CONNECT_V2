@@ -31,12 +31,12 @@ export default {
     };
   },
   methods: {
-    async NbreEtudiantsInscrit() {
+    async NbreEtudiantsInscritAndDoAbonnement() {
       try {
-        const response = await instance.get("seePerformance");
-        console.log("NbreEtudiantsInscrit", response);
+        const response = await instance.get("getUserDoAbonnement");
+        console.log("NbreEtudiantsInscritAndDoAbonnement", response);
         if (response.data.status) {
-          this.students = response.data.talentPerf;
+          this.students = response.data.total;
         }
       } catch (error) {
         console.log(error);
@@ -113,7 +113,7 @@ export default {
   created() {
     this.isLancement();
     localStorage.setItem("translate", "fr");
-    this.NbreEtudiantsInscrit();
+    this.NbreEtudiantsInscritAndDoAbonnement();
   },
 };
 </script>
