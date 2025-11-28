@@ -31,25 +31,23 @@
       </div>
       <p class="subtitle">autour d'opportunités réelles.</p>
     </header>
-    <CountdownTimer 
-    :targetDate="targetDate" />
+    <CountdownTimer :targetDate="targetDate" />
     <div class="auth-container" v-if="spinnerAlert">
-      
       <EmailInput @notify="SendMailBienvenueNewsletter" />
     </div>
-    <p v-else style="color:white;">Email stocké</p>
-<p v-if="isloading" style="color:white;">Chargement...</p>
+    <p v-else style="color: white">Email stocké</p>
+    <p v-if="isloading" style="color: white">Chargement...</p>
     <footer>
       <h2 class="coming-soon">Coming Soon</h2>
     </footer>
-    <div class="image-container">
+    <!-- <div class="image-container">
   <img src="../assets/img_accueil.png" alt="image" />
-</div>
+</div> -->
   </div>
 </template>
 
 <script setup>
-import { ref,defineProps } from "vue";
+import { ref, defineProps } from "vue";
 import Swal from "sweetalert2";
 import instance from "../api/api";
 import CountdownTimer from "../components/countDown/CountdownTimer.vue";
@@ -59,7 +57,7 @@ import EmailInput from "../components/countDown/EmailInput.vue";
 const toggleItems = ["Étudiants", "Entreprises", "Particuliers"];
 const activeToggle = ref(1);
 const spinnerAlert = ref(true);
-const isloading = ref(false)
+const isloading = ref(false);
 
 defineProps({
   targetDate: {
@@ -105,9 +103,9 @@ const SendMailBienvenueNewsletter = async (value) => {
       });
       spinnerAlert.value = false;
     })
-    .finally(()=>{
+    .finally(() => {
       isloading.value = false;
-    })
+    });
 };
 </script>
 

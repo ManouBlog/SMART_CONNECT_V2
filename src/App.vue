@@ -21,7 +21,11 @@ import instance from "./api/api";
 
 export default {
   name: "AppView",
-  components: { CountDownView, PromotionModal },
+  components: {
+    CountDownView,
+
+    PromotionModal,
+  },
   data() {
     return {
       isDatePassed: false,
