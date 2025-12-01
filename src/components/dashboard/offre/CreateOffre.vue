@@ -274,227 +274,189 @@ export default {
         <div class="spinner-border text-primary" role="status"></div>
       </div>
       <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card timetable">
-              <div class="social-tab">
-                <div class="tab-content" id="top-tabContent">
-                  <div>
-                    <div class="container-fluid">
-                      <div class="Myspinner" v-show="spinner">
-                        <div class="spinner-border text-primary" role="status"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-lg-12 my-2">
-                          <div class="card-body">
-                            <div class="form theme-form projectcreate">
-                              <form @submit.prevent="create_offre">
-                                <div class="container">
-                                  <div class="row">
-                                    <div class="col-md-6 my-2 text-left">
-                                     <label> {{ texte1 }}</label>
-                                        <select
-                                          v-model="categorie"
-                                          @change="selectCategorie"
-                                        >
-                                          <option value="" disabled>
-                                            {{ texte2 }}
-                                          </option>
-                                          <option
-                                            :value="item.id"
-                                            v-for="(item, index) in categoriesOffres"
-                                            :key="index"
-                                          >
-                                            {{ item.categorie }}
-                                          </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 my-2 text-left">
-                                      <label id="select_comp">{{ texte3 }}</label>
-                                      <select
-                                        v-model="competence"
-                                        name=""
-                                        id="select_comp"
-                                      >
-                                        <option value="" disabled style="color: brown">
-                                          {{ texte4 }}
-                                        </option>
-                                        <option
-                                          :value="item.id"
-                                          v-for="(item, index) in competenceWithCategorie"
-                                          :key="index"
-                                        >
-                                          {{ item.competence }}
-                                        </option>
-                                        <option
-                                          style="color: brown"
-                                          v-if="
-                                            !competenceWithCategorie.length && !categorie
-                                          "
-                                          disabled
-                                        >
-                                          {{ texte5 }}
-                                        </option>
-                                        <option
-                                          style="color: brown; font-size: 0.9em"
-                                          v-if="
-                                            !competenceWithCategorie.length && categorie
-                                          "
-                                          disabled
-                                        >
-                                          {{ texte6 }}
-                                        </option>
-                                      </select>
-                                    </div>
-                                    <div class="col-md-6 my-2 text-left">
-                                     <label>{{ texte7 }}</label>
-                                        <input
-                                          class="form-control"
-                                          type="text"
-                                          v-model="offre"
-                                          placeholder="ex:serveuse,barman,pianiste"
-                                          required
-                                          pattern="[A-Za-zÀ-ȕ(),-_., ]*"
-                                        />
-                                    </div>
-                                    <div class="col-md-6 my-2 text-left">
-                                      <label>{{ texte8 }}</label>
-                                        <input
-                                          class="form-control"
-                                          type="text"
-                                          v-model="salaire"
-                                          placeholder="ex:35.000 Fcfa"
-                                          pattern="[0-9]*"
-                                        />
-                                    </div>
-                                    <div class="col-md-6 my-2 text-left">
-                                      <label>{{ texte9 }} </label>
-                                        <select
-                                          v-model="pointage"
-                                          :disabled="salaire ? false : true"
-                                        >
-                                          <option value="" disabled>{{ texte10 }}</option>
-                                          <option
-                                            :value="item.libelle"
-                                            v-for="(item, index) in OptionsOfpointage"
-                                            :key="index"
-                                          >
-                                            {{ item.libelle }}
-                                          </option>
-                                        </select>
-                                        <span
-                                          class="text-danger"
-                                          :class="!salaire ? 'd-block' : 'd-none'"
-                                          >*{{ texte11 }}</span
-                                        >
-                                    </div>
+      <div>
+        <form @submit.prevent="create_offre" class="container">
+          <div class="row">
+<div class="text-left my-3 col-lg-6">
+              <label> {{ texte1 }}</label>
+              <select v-model="categorie" @change="selectCategorie">
+                <option value="" disabled>
+                  {{ texte2 }}
+                </option>
+                <option
+                  :value="item.id"
+                  v-for="(item, index) in categoriesOffres"
+                  :key="index"
+                >
+                  {{ item.categorie }}
+                </option>
+              </select>
+            </div>
+            <div class="text-left my-3 col-lg-6">
+              <label id="select_comp">{{ texte3 }}</label>
+              <select :class="{ 'select-disabled': !categorie }" v-model="competence" name="select_comp" id="select_comp">
+                <option value="" disabled style="color: brown">
+                  {{ texte4 }}
+                </option>
+                <option
+                  :value="item.id"
+                  v-for="(item, index) in competenceWithCategorie"
+                  :key="index"
+                >
+                  {{ item.competence }}
+                </option>
+                <option
+                  style="color: brown"
+                  v-if="!competenceWithCategorie.length && !categorie"
+                  disabled
+                >
+                  {{ texte5 }}
+                </option>
+                <option
+                  style="color: brown; font-size: 0.9em"
+                  v-if="!competenceWithCategorie.length && categorie"
+                  disabled
+                >
+                  {{ texte6 }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+<div class="text-left my-3 col-lg-6">
+              <label>{{ texte7 }}</label>
+              <input
+                class="form-control"
+                type="text"
+                v-model="offre"
+                placeholder="ex:serveuse,barman,pianiste"
+                required
 
-                                    <div class="col-md-6 my-2 text-left">
-                                      <label>{{ texte12 }}</label>
-                                        <input
-                                          class="form-control"
-                                          type="text"
-                                          v-model="lieu"
-                                          placeholder="ex:Angré"
-                                          required
-                                        />
-                                    </div>
-                                    <div class="col-md-6 my-2 text-left">
-                                      <label>{{ texte13 }}</label>
-                                        <input
-                                          class="form-control"
-                                          type="number"
-                                          v-model="nbre_person"
-                                          placeholder="ex:5 ou 10"
-                                          required
-                                          min="1"
-                                        />
-                                    </div>
-                                    <div class="col-md-6 my-2 text-left">
-                                      <label
-                                          for="calendar-12h d-block"
-                                          class="date_heure"
-                                          >{{ texte14 }}</label
-                                        >
-                                        <input
-                                          class="form-control"
-                                          type="datetime-local"
-                                          v-model="debut"
-                                          required
-                                          :min="new Date().toISOString().slice(0, 16)"
-                                        />
-                                    </div>
-                                    <div class="col-md-6 my-2 text-left">
-                                       <label for="calendar-12" class="date_heure">
-                                          {{ texte15 }}</label
-                                        >
-                                        <input
-                                          class="form-control"
-                                          type="datetime-local"
-                                          :disabled="debut != null ? false : true"
-                                          v-model="fin"
-                                          required
-                                          :min="debut"
-                                        />
-                                    </div>
-                                    <div class="col-md-6 my-2 text-left">
-                                      <label>{{ texte16 }}</label>
-                                      <input
-                                        class="form-control"
-                                        type="datetime-local"
-                                        v-model="job_debut"
-                                        required
-                                      />
-                                    </div>
-                                    <div class="col-md-6 my-2 text-left">
-                                      <label>{{ texte17 }}</label>
-                                      <input
-                                        class="form-control"
-                                        type="datetime-local"
-                                        v-model="job_fin"
-                                        required
-                                      />
-                                    </div>
+              />
+            </div>
+            <div class="text-left my-3 col-lg-6">
+              <label>{{ texte8 }}</label>
+              <input
+                class="form-control"
+                type="text"
+                v-model="salaire"
+                placeholder="ex:35.000 Fcfa"
+                pattern="[0-9]*"
+              />
+            </div>
+          </div>
+          <div class="row">
+<div class="text-left my-3 col-lg-6">
+              <label>{{ texte9 }} </label>
+              <select  :class="{ 'select-disabled': !salaire }" v-model="pointage" :disabled="salaire ? false : true">
+                <option value="" disabled>{{ texte10 }}</option>
+                <option
+                  :value="item.libelle"
+                  v-for="(item, index) in OptionsOfpointage"
+                  :key="index"
+                >
+                  {{ item.libelle }}
+                </option>
+              </select>
+              <span class="text-danger" :class="!salaire ? 'd-block' : 'd-none'"
+                >*{{ texte11 }}</span
+              >
+            </div>
 
-                                    <div class="col-md-12 my-2 text-left">
-                                       <label>{{ texte18 }}</label>
-                                        <div class="conteneur_editor">
-                                          <editor v-model="description" />
-                                        </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col">
-                                      <div class="text-center my-5">
-                                        <button
-                                          class="btn btn-warning btn-designer me-3"
-                                          type="submit"
-                                          :disabled="loading ? true : false"
-                                        >
-                                          {{ loading ? texte20 : texte19 }}
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div class="text-left my-3 col-lg-6">
+              <label>{{ texte12 }}</label>
+              <input
+                class="form-control"
+                type="text"
+                v-model="lieu"
+                placeholder="ex:Angré"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+ <div class="text-left my-3 col-lg-6">
+              <label>{{ texte13 }}</label>
+              <input
+                class="form-control"
+                type="number"
+                v-model="nbre_person"
+                placeholder="ex:5 ou 10"
+                required
+                min="1"
+              />
+            </div>
+            <div class="text-left my-3 col-lg-6">
+              <label for="calendar-12h d-block" class="date_heure">{{ texte14 }}</label>
+              <input
+                class="form-control"
+                type="datetime-local"
+                v-model="debut"
+                required
+                :min="new Date().toISOString().slice(0, 16)"
+              />
+            </div>
+          </div>
+          <div class="row">
+<div class="text-left my-3 col-lg-6">
+              <label for="calendar-12" class="date_heure"> {{ texte15 }}</label>
+              <input
+                class="form-control"
+                type="datetime-local"
+                :disabled="debut != null ? false : true"
+                v-model="fin"
+                required
+                :min="debut"
+              />
+            </div>
+            <div class="text-left my-3 col-lg-6">
+              <label>{{ texte16 }}</label>
+              <input
+                class="form-control"
+                type="datetime-local"
+                v-model="job_debut"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="text-left my-3 col-lg-6">
+              <label>{{ texte17 }}</label>
+              <input
+                class="form-control"
+                type="datetime-local"
+                v-model="job_fin"
+                required
+              />
+            </div>
+
+            <div class="col-md-12 my-2 text-left">
+              <label>{{ texte18 }}</label>
+              <div class="conteneur_editor">
+                <editor v-model="description" />
               </div>
             </div>
           </div>
-        </div>
+          <div style="display:flex;justify-content:center;padding:1.5em 0;">
+            <button
+              class="btn btn-warning btn-designer me-3"
+              type="submit"
+              :disabled="loading ? true : false"
+            >
+              {{ loading ? texte20 : texte19 }}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </section>
 </template>
 <style scoped>
+.select-disabled {
+  background-color: #e5e5e5;
+  color: #666;
+  cursor: not-allowed;
+}
 .date_heure {
   display: block !important;
 }
@@ -507,9 +469,10 @@ form label,
 form select option {
   font-size: 1.5em;
 }
-input,.form-control{
-  padding:1.3em !important;
-  color:black !important;
+input,
+.form-control {
+  padding: 1.3em !important;
+  color: black !important;
 }
 
 .mb-3 {
@@ -537,6 +500,7 @@ select {
 select {
   border-radius: 5px !important;
   width: 100%;
+  padding:1em;
 }
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
