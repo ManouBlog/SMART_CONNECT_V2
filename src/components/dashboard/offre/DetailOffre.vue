@@ -322,9 +322,7 @@ export default {
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <div class="text-end">
+          <div style="display:flex;justify-content:center;">
               <button
               :disabled="isLoading"
                 class="btn p-5 mt-4 btn-designer fw-bold bg-warning"
@@ -333,8 +331,6 @@ export default {
                 {{texte18}}
               </button>
             </div>
-          </div>
-        </div>
       </form>
       <div v-if="spinnerModify" class="container">
        <h3 class="text-center">Chargement...</h3>

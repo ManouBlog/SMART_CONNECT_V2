@@ -293,8 +293,7 @@ export default {
                                 <div class="container">
                                   <div class="row">
                                     <div class="col-md-6 my-2 text-left">
-                                      <div>
-                                        <label> {{ texte1 }}</label>
+                                     <label> {{ texte1 }}</label>
                                         <select
                                           v-model="categorie"
                                           @change="selectCategorie"
@@ -310,7 +309,6 @@ export default {
                                             {{ item.categorie }}
                                           </option>
                                         </select>
-                                      </div>
                                     </div>
                                     <div class="col-md-6 my-2 text-left">
                                       <label id="select_comp">{{ texte3 }}</label>
@@ -350,8 +348,7 @@ export default {
                                       </select>
                                     </div>
                                     <div class="col-md-6 my-2 text-left">
-                                      <div>
-                                        <label>{{ texte7 }}</label>
+                                     <label>{{ texte7 }}</label>
                                         <input
                                           class="form-control"
                                           type="text"
@@ -360,11 +357,9 @@ export default {
                                           required
                                           pattern="[A-Za-zÀ-ȕ(),-_., ]*"
                                         />
-                                      </div>
                                     </div>
                                     <div class="col-md-6 my-2 text-left">
-                                      <div>
-                                        <label>{{ texte8 }}</label>
+                                      <label>{{ texte8 }}</label>
                                         <input
                                           class="form-control"
                                           type="text"
@@ -372,11 +367,9 @@ export default {
                                           placeholder="ex:35.000 Fcfa"
                                           pattern="[0-9]*"
                                         />
-                                      </div>
                                     </div>
                                     <div class="col-md-6 my-2 text-left">
-                                      <div>
-                                        <label>{{ texte9 }} </label>
+                                      <label>{{ texte9 }} </label>
                                         <select
                                           v-model="pointage"
                                           :disabled="salaire ? false : true"
@@ -395,25 +388,20 @@ export default {
                                           :class="!salaire ? 'd-block' : 'd-none'"
                                           >*{{ texte11 }}</span
                                         >
-                                      </div>
                                     </div>
 
                                     <div class="col-md-6 my-2 text-left">
-                                      <div>
-                                        <label>{{ texte12 }}</label>
+                                      <label>{{ texte12 }}</label>
                                         <input
                                           class="form-control"
                                           type="text"
                                           v-model="lieu"
                                           placeholder="ex:Angré"
                                           required
-                                          pattern="[A-Za-zÀ-ȕ(),-_., ]*"
                                         />
-                                      </div>
                                     </div>
                                     <div class="col-md-6 my-2 text-left">
-                                      <div>
-                                        <label>{{ texte13 }}</label>
+                                      <label>{{ texte13 }}</label>
                                         <input
                                           class="form-control"
                                           type="number"
@@ -422,11 +410,9 @@ export default {
                                           required
                                           min="1"
                                         />
-                                      </div>
                                     </div>
                                     <div class="col-md-6 my-2 text-left">
-                                      <div>
-                                        <label
+                                      <label
                                           for="calendar-12h d-block"
                                           class="date_heure"
                                           >{{ texte14 }}</label
@@ -438,11 +424,9 @@ export default {
                                           required
                                           :min="new Date().toISOString().slice(0, 16)"
                                         />
-                                      </div>
                                     </div>
                                     <div class="col-md-6 my-2 text-left">
-                                      <div>
-                                        <label for="calendar-12" class="date_heure">
+                                       <label for="calendar-12" class="date_heure">
                                           {{ texte15 }}</label
                                         >
                                         <input
@@ -453,7 +437,6 @@ export default {
                                           required
                                           :min="debut"
                                         />
-                                      </div>
                                     </div>
                                     <div class="col-md-6 my-2 text-left">
                                       <label>{{ texte16 }}</label>
