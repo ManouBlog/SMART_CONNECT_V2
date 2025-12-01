@@ -239,7 +239,7 @@ export default {
               periode: 1,
               periode_debut: startDate,
               periode_fin: endDate,
-            }); 
+            });
             currentDate.setDate(currentDate.getDate() + 1);
           }
         } else {
@@ -257,7 +257,7 @@ export default {
           const [startDate, endDate] = item.jour.split(" A ");
           result.push({
             ...item,
-            id: item.id * 10 + 1, 
+            id: item.id * 10 + 1,
             jour: startDate,
             periode: 1,
             periode_debut: startDate,
@@ -265,14 +265,13 @@ export default {
           });
           result.push({
             ...item,
-            id: item.id * 10 + 2, 
+            id: item.id * 10 + 2,
             jour: endDate,
             periode: 1,
             periode_debut: startDate,
             periode_fin: endDate,
           });
         } else {
-
           result.push({ ...item });
         }
       }
@@ -280,9 +279,7 @@ export default {
       return result;
     },
     ifPeriodeDate(periode) {
- 
       if (periode.periode) {
-
         return `Du ${new Date(periode.periode_debut).toLocaleDateString("fr")} à ${
           periode.hour_periode_debut
         } au ${new Date(periode.periode_fin).toLocaleDateString("fr")} à ${
@@ -315,7 +312,6 @@ export default {
 
           this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
           this.schedule = this.getDatesBetween(this.timetable_for_student.jours);
-
 
           this.schedule.forEach((item) => {
             this.MyDateRendezVous.forEach((date) => {
@@ -428,7 +424,6 @@ export default {
       }
     },
     showPeriode() {
-
       if (this.checkboxDate === true) {
         this.checkboxDate = !this.checkboxDate;
       }
@@ -439,14 +434,12 @@ export default {
       }
     },
     addTag(newTag) {
-   
       this.Myarray = [];
 
       this.MylistEmploi.forEach((element) => {
         newTag.forEach((e) => {
           element.jours.forEach((item) => {
             if (item.jour === e.jou) {
-
               this.Myarray.push(element);
             }
           });
@@ -581,10 +574,8 @@ export default {
           });
           this.list = res.data.data;
           this.MylistEmploi = res.data.data;
-     
 
           this.lengthOfMylistEmploi = this.MylistEmploi.length;
-          
         })
         .catch((err) => {
           console.log(err);
@@ -693,7 +684,6 @@ export default {
           });
         })
         .catch((error) => {
-
           console.log(error);
         });
       loadingSpinner.launchLoading(false);
@@ -880,9 +870,9 @@ export default {
             >
               {{ texte8 }}
             </h5>
-            <h5 class="text-danger" v-if="!configUtils.isAbonnementActif(listAbonnement)">
+            <!-- <h5 class="text-danger" v-if="!configUtils.isAbonnementActif(listAbonnement)">
               {{ texte9 }}
-            </h5>
+            </h5> -->
           </div>
         </div>
       </section>

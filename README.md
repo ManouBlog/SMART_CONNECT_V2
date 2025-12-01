@@ -35,3 +35,20 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+## FLOW ENTREPRISE
+-S'inscrire 
+-Vérifie son compte email
+-Faire son abonnement 
+-Enregistre une offre (si il à fait un abonnement)
+-Choisir la date et sélectionne l'etudiant(si il à une disponibilité)après l'abonnement (si l'entreprise n'a pas d'offre , elle ne peut pas choisir une étudiant)
+-sa première offre est gratuite et sa première séléction est gratuite.
+
+
+## FLOW TALENT
+-s'inscrire
+-Vérifie son compte email pour activer son compte.
+-Faire son abonnement.
+-Il peut etre sélectionné ou postule à un offre.
+-A droit a 1 mois gratuit si il fait son abonnement.
