@@ -292,7 +292,7 @@ export default {
                               <form @submit.prevent="create_offre">
                                 <div class="container">
                                   <div class="row">
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <div>
                                         <label> {{ texte1 }}</label>
                                         <select
@@ -312,7 +312,7 @@ export default {
                                         </select>
                                       </div>
                                     </div>
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <label id="select_comp">{{ texte3 }}</label>
                                       <select
                                         v-model="competence"
@@ -349,7 +349,7 @@ export default {
                                         </option>
                                       </select>
                                     </div>
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <div>
                                         <label>{{ texte7 }}</label>
                                         <input
@@ -362,7 +362,7 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <div>
                                         <label>{{ texte8 }}</label>
                                         <input
@@ -374,7 +374,7 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <div>
                                         <label>{{ texte9 }} </label>
                                         <select
@@ -398,7 +398,7 @@ export default {
                                       </div>
                                     </div>
 
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <div>
                                         <label>{{ texte12 }}</label>
                                         <input
@@ -411,7 +411,7 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <div>
                                         <label>{{ texte13 }}</label>
                                         <input
@@ -424,7 +424,7 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <div>
                                         <label
                                           for="calendar-12h d-block"
@@ -440,7 +440,7 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <div>
                                         <label for="calendar-12" class="date_heure">
                                           {{ texte15 }}</label
@@ -455,7 +455,7 @@ export default {
                                         />
                                       </div>
                                     </div>
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <label>{{ texte16 }}</label>
                                       <input
                                         class="form-control"
@@ -464,7 +464,7 @@ export default {
                                         required
                                       />
                                     </div>
-                                    <div class="col-lg-6 my-2 text-left">
+                                    <div class="col-md-6 my-2 text-left">
                                       <label>{{ texte17 }}</label>
                                       <input
                                         class="form-control"
@@ -474,13 +474,11 @@ export default {
                                       />
                                     </div>
 
-                                    <div class="col-lg-12 my-2 text-left">
-                                      <div>
-                                        <label>{{ texte18 }}</label>
+                                    <div class="col-md-12 my-2 text-left">
+                                       <label>{{ texte18 }}</label>
                                         <div class="conteneur_editor">
                                           <editor v-model="description" />
                                         </div>
-                                      </div>
                                     </div>
                                   </div>
                                   <div class="row">
