@@ -11,18 +11,28 @@ const texte1 = ref("");
 const texte2 = ref("");
 const texte3 = ref("");
 const texte4 = ref("");
-const entreprises = ref("");
-const offres = ref("");
-const timetable = ref("");
-const visiteur = ref("");
+const entreprises = ref(0);
+const offres = ref(0);
+const timetable = ref(0);
+const visiteur = ref(0);
 const cardPerfVisible = ref(false);
 
 let observer = null;
 
+// Fonction pour formater les nombres comme YouTube
+const formatNumber = (number) => {
+  if (number < 1000) {
+    return `+${number}`;
+  } else if (number < 1000000) {
+    return `+${Math.floor(number / 1000)}K`;
+  } else {
+    return `+${Math.floor(number / 1000000)}M`;
+  }
+};
+
 const seePerformanceNbre = async () => {
   try {
     const response = await instance.get('seePerformance');
-    // console.log("seePerformanceNbre", response);
     if(response.data.status) {
       entreprises.value = response.data.partenairePerf;
       offres.value = response.data.offrePerf;
@@ -75,39 +85,37 @@ onUnmounted(() => {
           <h1 class="fw-bold" style="color:orange;text-align:center">{{ texte0 }}</h1>
         </div>
         <div class="conteneur-card-performance" id="cardPerf">
-          <!-- Premier card - Animation depuis la gauche -->
           <CardPerformance
+          v-if="Number(entreprises) > 100"
             :myStyle="'card_perfor_one'"
             :icone_name="'bi bi-building icon'"
             :texte="texte1"
-            :nbre="Number(entreprises)"
+            :nbre="formatNumber(Number(entreprises))"
             :class="{ 'slide-from-left': cardPerfVisible }"
           />
-          
-          <!-- Deuxième card - Animation de fondu -->
+
           <CardPerformance
             :myStyle="'card_perfor_two'"
             :icone_name="'bi bi-briefcase-fill'"
             :texte="texte2"
-            :nbre="Number(offres)"
+            :nbre="formatNumber(Number(offres))"
             :class="{ 'fade-in': cardPerfVisible }"
           />
-          
-          <!-- Troisième card - Animation de fondu -->
+
           <CardPerformance
+          v-if="Number(timetable) > 100"
             :myStyle="'card_perfor_three'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte3"
-            :nbre="Number(timetable)"
+            :nbre="formatNumber(Number(timetable))"
             :class="{ 'fade-in': cardPerfVisible }"
           />
-          
-          <!-- Quatrième card - Animation depuis la droite -->
+
           <CardPerformance
             :myStyle="'card_perfor_two'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte4"
-            :nbre="Number(visiteur)"
+            :nbre="formatNumber(Number(visiteur))"
             :class="{ 'slide-from-right': cardPerfVisible }"
           />
         </div>
