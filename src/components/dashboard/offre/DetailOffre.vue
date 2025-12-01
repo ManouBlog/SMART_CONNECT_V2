@@ -196,7 +196,7 @@ export default {
     <div>
       <form v-if="offre_id" class="container">
         <div class="row">
-          <div class="text-left my-3 col-lg-6">
+ <div class="text-left my-3 col-lg-6">
             <label for="categorie">{{texte1}}</label>
             <select id="categorie" v-model="offre_id.categorie_offre_id" @change="selectCategorie">
               <option value="" disabled>{{texte2}}</option>
@@ -229,6 +229,9 @@ export default {
               </option>
             </select>
           </div>
+        </div>
+        <div class="row">
+ 
           <div class="text-left my-3 col-lg-6">
             <label>{{texte7}}</label>
             <input
@@ -249,7 +252,9 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-6">
+        </div>
+        <div class="row">
+ <div class="text-left my-3 col-lg-6">
             <label>{{texte9}}</label>
             <select v-model="offre_id.pointage">
               <option value="" disabled>{{texte10}}</option>
@@ -273,7 +278,9 @@ export default {
               min="1"
             />
           </div>
-          <div class="text-left my-3 col-lg-6">
+        </div>
+        <div class="row">
+   <div class="text-left my-3 col-lg-6">
             <label>{{texte12}}</label>
             <input
               class="form-control"
@@ -295,7 +302,9 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-6">
+        </div>
+        <div class="row">
+<div class="text-left my-3 col-lg-6">
             <label>{{texte14}}</label>
             <input
               class="form-control"
@@ -315,6 +324,8 @@ export default {
               id="date_job_debut"
             />
           </div>
+        </div>
+        <div class="row">
           <div class="text-left my-3 col-lg-6">
             <label>{{texte16}}</label>
             <input
