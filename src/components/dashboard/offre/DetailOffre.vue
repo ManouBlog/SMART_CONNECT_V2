@@ -133,7 +133,8 @@ export default {
           // console.log(res);
           this.offres = res.data.data;
           this.offre_id = this.offres.find((offre) => offre.id == this.$route.params.id);
-          // console.log("OFFRE_ID", this.offre_id);
+          console.log("OFFRE_ID", this.offre_id);
+          this.getCompetenceWithCategorie(this.offre_id.categorie_offre_id)
         })
         .catch((err) => {
           console.log(err)
@@ -149,6 +150,13 @@ export default {
         (item) => item.categorie.id === Number(e.target.value)
       );
     },
+    getCompetenceWithCategorie(idCategorie){
+      console.log("idCategorie",idCategorie)
+     this.competenceWithCategorie = this.allCompetences.filter(
+        (item) => item.categorie.id === Number(idCategorie)
+      );
+      console.log("this.competenceWithCategorie",this.competenceWithCategorie)
+    }
   },
   async created() {
     this.show_offre_id();
@@ -185,12 +193,12 @@ export default {
       :TitleHeader="texte0"
       :subTitleHeader="texte0"
     />
-    <div class="form theme-form projectcreate">
+    <div>
       <form v-if="offre_id" class="container">
         <div class="row">
           <div class="text-left my-3 col-lg-6">
-            <label>{{texte1}}</label>
-            <select class="form-control" v-model="offre_id.categorie_offre_id" @change="selectCategorie">
+            <label for="categorie">{{texte1}}</label>
+            <select id="categorie" v-model="offre_id.categorie_offre_id" @change="selectCategorie">
               <option value="" disabled>{{texte2}}</option>
               <option
                 :value="item.id"
@@ -201,9 +209,10 @@ export default {
               </option>
             </select>
           </div>
+         
           <div class="text-left my-3 col-lg-6">
-            <label>{{texte3}}</label>
-            <select class="form-control" v-model="offre_id.competence_id" name="" id="select_comp">
+            <label for="competences">{{texte3}}</label>
+            <select id="competences"  v-model="offre_id.competence_id">
               <option value="" disabled>{{texte4}}</option>
               <option
                 :value="item.id"
@@ -242,7 +251,7 @@ export default {
           </div>
           <div class="text-left my-3 col-lg-6">
             <label>{{texte9}}</label>
-            <select class="form-control" v-model="offre_id.pointage">
+            <select v-model="offre_id.pointage">
               <option value="" disabled>{{texte10}}</option>
               <option
                 :value="item.libelle"
@@ -347,6 +356,7 @@ form label,
 form select option {
   font-size: 1.5em;
 }
+
 .mt-5 {
   margin-top: 101px !important;
 }
@@ -376,8 +386,10 @@ label {
 select {
   border-radius: 5px !important;
   width: 100%;
-  height: 39px;
+  height: 50px;
   padding:1.1em;
+  border:2px solid orange;
+
 }
 input,.form-control{
   padding:1.3em !important;
