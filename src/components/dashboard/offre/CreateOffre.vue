@@ -168,10 +168,11 @@ export default {
             });
             this.spinner = false;
             this.creer = true;
+            this.$router.push({ name: "abonnements" });
           }
         })
         .catch((res) => {
-          // console.log(res.response.data.message);
+          console.log(res);
           Swal.fire({
             icon: "error",
             title: res.response.data.message,
@@ -179,6 +180,9 @@ export default {
           });
           this.loading = false;
           this.creer = true;
+          if (res.response.status === 302) {
+            this.$router.push({ name: "abonnements" });
+          }
         })
         .finally(() => {
           this.StoreLoading.launchLoading(false);
@@ -277,7 +281,7 @@ export default {
       <div>
         <form @submit.prevent="create_offre" class="container">
           <div class="row">
-<div class="text-left my-3 col-lg-6">
+            <div class="text-left my-3 col-lg-6">
               <label> {{ texte1 }}</label>
               <select v-model="categorie" @change="selectCategorie">
                 <option value="" disabled>
@@ -294,7 +298,12 @@ export default {
             </div>
             <div class="text-left my-3 col-lg-6">
               <label id="select_comp">{{ texte3 }}</label>
-              <select :class="{ 'select-disabled': !categorie }" v-model="competence" name="select_comp" id="select_comp">
+              <select
+                :class="{ 'select-disabled': !categorie }"
+                v-model="competence"
+                name="select_comp"
+                id="select_comp"
+              >
                 <option value="" disabled style="color: brown">
                   {{ texte4 }}
                 </option>
@@ -323,7 +332,7 @@ export default {
             </div>
           </div>
           <div class="row">
-<div class="text-left my-3 col-lg-6">
+            <div class="text-left my-3 col-lg-6">
               <label>{{ texte7 }}</label>
               <input
                 class="form-control"
@@ -331,7 +340,6 @@ export default {
                 v-model="offre"
                 placeholder="ex:serveuse,barman,pianiste"
                 required
-
               />
             </div>
             <div class="text-left my-3 col-lg-6">
@@ -346,9 +354,13 @@ export default {
             </div>
           </div>
           <div class="row">
-<div class="text-left my-3 col-lg-6">
+            <div class="text-left my-3 col-lg-6">
               <label>{{ texte9 }} </label>
-              <select  :class="{ 'select-disabled': !salaire }" v-model="pointage" :disabled="salaire ? false : true">
+              <select
+                :class="{ 'select-disabled': !salaire }"
+                v-model="pointage"
+                :disabled="salaire ? false : true"
+              >
                 <option value="" disabled>{{ texte10 }}</option>
                 <option
                   :value="item.libelle"
@@ -375,7 +387,7 @@ export default {
             </div>
           </div>
           <div class="row">
- <div class="text-left my-3 col-lg-6">
+            <div class="text-left my-3 col-lg-6">
               <label>{{ texte13 }}</label>
               <input
                 class="form-control"
@@ -398,7 +410,7 @@ export default {
             </div>
           </div>
           <div class="row">
-<div class="text-left my-3 col-lg-6">
+            <div class="text-left my-3 col-lg-6">
               <label for="calendar-12" class="date_heure"> {{ texte15 }}</label>
               <input
                 class="form-control"
@@ -439,7 +451,7 @@ export default {
               </div>
             </div>
           </div>
-          <div style="display:flex;justify-content:center;padding:1.5em 0;">
+          <div style="display: flex; justify-content: center; padding: 1.5em 0">
             <button
               class="btn btn-warning btn-designer me-3"
               type="submit"
@@ -502,7 +514,7 @@ select {
 select {
   border-radius: 5px !important;
   width: 100%;
-  padding:1em;
+  padding: 1em;
 }
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
