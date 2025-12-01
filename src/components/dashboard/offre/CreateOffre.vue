@@ -416,6 +416,7 @@ export default {
                 type="datetime-local"
                 v-model="job_debut"
                 required
+                :min="fin"
               />
             </div>
           </div>
@@ -427,6 +428,7 @@ export default {
                 type="datetime-local"
                 v-model="job_fin"
                 required
+                :min="job_debut"
               />
             </div>
 
