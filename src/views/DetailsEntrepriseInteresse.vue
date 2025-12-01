@@ -157,6 +157,7 @@ export default {
                       height: 35px;
                       object-fit: cover;
                       border: 1px solid white;
+                      background: white;
                     "
                     :src="
                       DetailSeeEntreprise.offre.entreprise.logo
@@ -208,8 +209,7 @@ export default {
                 </h4>
               </section>
               <section>
-                <span class="my-2 fw-bold"
-                style="color:orange;"
+                <span class="my-2 fw-bold" style="color: orange"
                   >{{ texte5 }}
                   {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.fin) }}</span
                 >
@@ -266,6 +266,11 @@ export default {
   </div>
 </template>
 <style scoped>
+button {
+  padding: 1.3em;
+  font-size: 1.1em;
+  font-weight: bold;
+}
 #conteneur_description {
   text-align: justify;
 }

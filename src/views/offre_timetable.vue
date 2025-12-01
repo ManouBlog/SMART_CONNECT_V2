@@ -366,11 +366,13 @@ export default {
           class="offres_disponible d-flex flex-wrap justify-content-between align-items-center text-center text-md-start py-3 px-2"
         >
           <h5 class="image-heading mb-2 mb-md-0">
-            <span class="list_offre">{{ lengthOfMylistOffre }}</span> {{ lengthOfMylistOffre > 1 ?  texte3:'Offre' }}
+            <span class="list_offre">{{ lengthOfMylistOffre }}</span>
+            {{ lengthOfMylistOffre > 1 ? texte3 : "Offre" }}
           </h5>
 
           <span class="text-secondary small small-md-normal">
-            {{ texte4 }} {{ lengthOfMylistOffre }} {{ lengthOfMylistOffre > 1 ?  texte3:'Offre' }}
+            {{ texte4 }} {{ lengthOfMylistOffre }}
+            {{ lengthOfMylistOffre > 1 ? texte3 : "Offre" }}
           </span>
         </div>
         <section
@@ -476,14 +478,14 @@ export default {
 }
 .conteneur-image-logo_jobs {
   width: 100px;
-  height: 50px;
+  height: 100%;
   position: relative;
 }
 .conteneur-image-logo_jobs img {
   width: 100%;
   height: 100%;
   position: absolute;
-  object-fit: cover;
+  object-fit: contain;
   top: 0;
   left: 0;
   bottom: 0;

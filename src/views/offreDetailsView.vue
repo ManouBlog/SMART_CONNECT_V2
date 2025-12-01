@@ -199,6 +199,7 @@ export default {
                       height: 100px;
                       object-fit: cover;
                       border: 5px solid white;
+                      background: white;
                     "
                     :src="
                       Offre.entreprise.logo
@@ -236,18 +237,22 @@ export default {
                   </h4>
                 </div>
                 <h4 class="my-5" v-if="Offre.nbre_person">
-                  <span class="fw-bold" style="font-weight: 900 !important;color: white">{{ texte1 }}</span>
+                  <span
+                    class="fw-bold"
+                    style="font-weight: 900 !important; color: white"
+                    >{{ texte1 }}</span
+                  >
                   {{ Offre.nbre_person }}
                 </h4>
               </section>
               <section>
                 <h4>
-                  <span class="my-3" style="font-weight: 900 !important;color: white">{{
-                    texte4
-                  }} :</span>
+                  <span class="my-3" style="font-weight: 900 !important; color: white"
+                    >{{ texte4 }} :</span
+                  >
                 </h4>
                 <div
-                  style="padding: 1em;"
+                  style="padding: 1em"
                   v-html="Offre.description"
                   id="conteneur_description"
                 ></div>
@@ -264,8 +269,7 @@ export default {
                 </h4>
               </section>
               <section>
-                <span class="my-2 fw-bold"
-                style="color:orange;"
+                <span class="my-2 fw-bold" style="color: orange"
                   >{{ texte5 }} {{ configUtils.getFormatDateFr(Offre.fin) }}</span
                 >
               </section>
@@ -302,6 +306,11 @@ export default {
   </div>
 </template>
 <style scoped>
+button {
+  padding: 1.3em;
+  font-size: 1.1em;
+  font-weight: bold;
+}
 .detail_conteneur {
   margin-top: 6em;
 }
@@ -309,8 +318,8 @@ export default {
 #conteneur_description {
   text-align: justify;
 }
-:deep(p){
-  font-weight:lighter !important;
+:deep(p) {
+  font-weight: lighter !important;
 }
 .nom_offre {
   font-size: 5em;
