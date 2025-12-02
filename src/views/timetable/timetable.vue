@@ -453,15 +453,13 @@ export default {
     },
     verfEnter() {
       if (this.user && this.user.user.statut.statut === "etudiant") {
+       this.$router.push("/");
         Swal.fire({
           icon: "error",
-          title: "Vous n'êtes pas autorisé27.",
+          title: "Vous n'êtes pas autorisé.",
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1000,
         });
-        setTimeout(() => {
-          this.$router.push("/");
-        }, 3000);
       }
     },
     addDate() {
