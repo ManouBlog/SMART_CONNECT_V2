@@ -767,7 +767,7 @@ textarea {
 .conteneur_editor {
   border: 1px solid black;
   color: black !important;
-  padding-bottom: 2em;
+  padding: 0 1em;
   border-radius: 5px;
 }
 .add_nouvelle_experience {

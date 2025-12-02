@@ -779,6 +779,7 @@ textarea {
   border: 1px solid black;
   color: black !important;
   border-radius: 1em;
+  padding: 0 1em;
 }
 
 /*.vuemulti label{

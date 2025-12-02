@@ -700,7 +700,7 @@ export default {
     },
     verfEnter() {
       if (this.user && this.user.user.statut.statut === "etudiant") {
-       this.$router.push("/");
+        this.$router.push("/");
         Swal.fire({
           icon: "info",
           title: "Vous n'êtes pas autorisé",

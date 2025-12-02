@@ -259,7 +259,7 @@ export default {
   border: 1px solid black;
   color: black !important;
   border-radius: 5px;
-  padding: 0 0 2em 0;
+  padding: 0 1em;
   height: auto;
 }
 label {
