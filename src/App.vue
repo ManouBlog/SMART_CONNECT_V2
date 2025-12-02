@@ -7,10 +7,32 @@
     <CountDownView v-else :targetDate="lancementDate" />
   </div>
   <PromotionModal
-    v-if="students && 1000 > students"
+    v-if="shouldShowPromo"
     v-model:visible="showPromo"
     :ctaAction="handleCta"
-  />
+    header="🎓 Offre Étudiants Exceptionnelle !"
+    :buttonTitle="true"
+  >
+    <p style="font-size: 1.2em; color: #ff6a00; margin-bottom: 1em">
+      Soyez parmi les 1000 premiers inscrits et recevez 2 mois offerts automatiquement !
+    </p>
+    <p style="margin-bottom: 1em">
+      Une opportunité rare pour profiter pleinement de nos services à moindre coût.
+    </p>
+  </PromotionModal>
+  <PromotionModal
+    v-if="isUserParticulierEntreprise"
+    v-model:visible="showPromoParticulierAndEntreprise"
+    :ctaAction="handleParticulierCta"
+    :buttonTitle="false"
+    header="🚀 Publiez votre première offre gratuitement"
+  >
+    <p style="font-size: 1.2em; color: #ff6a00; margin-bottom: 1em">
+      Publiez votre première offre gratuitement… et recrutez votre premier talent sans
+      frais.
+    </p>
+    <p style="margin-bottom: 1em">Lancez-vous dès maintenant, c’est 100% offert</p>
+  </PromotionModal>
 </template>
 
 <script>
@@ -32,8 +54,24 @@ export default {
       isDatePassed: false,
       lancementDate: "",
       showPromo: true,
+      showPromoParticulierAndEntreprise: true,
       students: null,
     };
+  },
+  computed: {
+    isUserEtudiant() {
+      return this.$store?.state?.user?.user?.statut?.statut === "etudiant";
+    },
+    isUserParticulierEntreprise() {
+      return (
+        this.$store?.state?.user?.user?.statut?.statut === "particulier" ||
+        this.$store?.state?.user?.user?.statut?.statut === "entreprise"
+      );
+    },
+    shouldShowPromo() {
+      const limit = this.students !== null && this.students < 1000;
+      return limit && this.isUserEtudiant;
+    },
   },
   methods: {
     async NbreEtudiantsInscritAndDoAbonnement() {
@@ -61,6 +99,10 @@ export default {
       if (this.isDatePassed) {
         this.getIpApparel();
       }
+    },
+    handleParticulierCta() {
+      this.showPromoParticulierAndEntreprise = false; // ferme le modal
+      this.$router.push("/abonnements"); // ou autre action
     },
     handleCta() {
       // Action du CTA

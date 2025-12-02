@@ -102,6 +102,9 @@ export const useEntreprisesStore = defineStore('entreprise', {
       });
       // console.log("STOREABONNEMENT",this.planAbonnement)
     },
+    putPlanAbonnementAtNull(){
+    this.planAbonnement = null
+    },
           async get_all_abonnement() {
             loadingSpinner.launchLoading(true)
            try{

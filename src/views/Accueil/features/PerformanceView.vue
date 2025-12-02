@@ -22,11 +22,14 @@ let observer = null;
 // Fonction pour formater les nombres comme YouTube
 const formatNumber = (number) => {
   if (number < 1000) {
-    return `+${number}`;
+    console.log("number",number)
+    return `${number}`;
   } else if (number < 1000000) {
-    return `+${Math.floor(number / 1000)}K`;
+     console.log("Math.floor(number / 1000)",Math.floor(number / 1000))
+    return `${Math.floor(number / 1000)}`;
   } else {
-    return `+${Math.floor(number / 1000000)}M`;
+    console.log("Math.floor(number / 1000000)",Math.floor(number / 1000000))
+    return `${Math.floor(number / 1000000)}`;
   }
 };
 
@@ -90,7 +93,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_one'"
             :icone_name="'bi bi-building icon'"
             :texte="texte1"
-            :nbre="formatNumber(Number(entreprises))"
+            :nbre="Number(formatNumber(Number(entreprises)))"
             :class="{ 'slide-from-left': cardPerfVisible }"
           />
 
@@ -98,7 +101,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_two'"
             :icone_name="'bi bi-briefcase-fill'"
             :texte="texte2"
-            :nbre="formatNumber(Number(offres))"
+            :nbre="Number(formatNumber(Number(offres)))"
             :class="{ 'fade-in': cardPerfVisible }"
           />
 
@@ -107,7 +110,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_three'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte3"
-            :nbre="formatNumber(Number(timetable))"
+            :nbre="Number(formatNumber(Number(timetable)))"
             :class="{ 'fade-in': cardPerfVisible }"
           />
 
@@ -115,7 +118,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_two'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte4"
-            :nbre="formatNumber(Number(visiteur))"
+            :nbre="Number(formatNumber(Number(visiteur)))"
             :class="{ 'slide-from-right': cardPerfVisible }"
           />
         </div>

@@ -189,7 +189,6 @@ export default {
       >
         <!-- Texte informatif -->
         <div class="d-flex align-items-start gap-3 flex-grow-1">
-          <div class="fs-2">⚠️</div>
           <div class="w-100">
             <h5 class="fw-semibold mb-1 text-dark">Utilisation des cookies</h5>
             <p class="mb-0 text-dark small" style="width: 100%">
