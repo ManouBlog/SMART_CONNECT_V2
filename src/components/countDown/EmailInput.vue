@@ -6,7 +6,7 @@
     v-model="email"
     @keyup.enter="notify"
   />
-  <button class="auth-button" @click="notify">m’informer</button>
+  <button class="auth-button" @click="notify">M’informer</button>
 </template>
 
 <script setup>
