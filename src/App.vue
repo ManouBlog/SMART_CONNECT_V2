@@ -1,12 +1,13 @@
 <template>
   <div>
     <!-- Si la date de lancement est passée, on montre le router-view -->
-    <router-view v-if="!isDatePassed" />
+    <router-view v-if="isDatePassed" />
 
     <!-- Sinon, on affiche le countdown -->
     <CountDownView v-else :targetDate="lancementDate" />
   </div>
-  <PromotionModal
+  <div v-if="isDatePassed">
+<PromotionModal
     v-if="shouldShowPromo"
     v-model:visible="showPromo"
     :ctaAction="handleCta"
@@ -33,6 +34,8 @@
     </p>
     <p style="margin-bottom: 1em">Lancez-vous dès maintenant, c’est 100% offert</p>
   </PromotionModal>
+  </div>
+  
 </template>
 
 <script>
