@@ -147,7 +147,7 @@ export default {
                   </h1>
                 </div>
 
-                <h4 class="my-5" style="color: orange">
+                <h4 class="my-5">
                   <em class="bi bi-geo"></em> {{ DetailSeeEntreprise.offre.lieu }}
                 </h4>
                 <h4 class="my-5">
@@ -183,13 +183,13 @@ export default {
                   </h4>
                 </div>
                 <h4 class="my-5" v-if="DetailSeeEntreprise.offre.nbre_person">
-                  <span class="fw-bold" style="color: orange">{{ texte1 }}</span>
+                  <span class="fw-bold" style="font-weight:bold">{{ texte1 }}</span>
                   {{ DetailSeeEntreprise.offre.nbre_person }}
                 </h4>
               </section>
               <section>
                 <h4>
-                  <span class="fw-bold my-3" style="color: orange">{{ texte4 }}</span>
+                  <span class="fw-bold my-3" style="font-weight:bold">{{ texte4 }} :</span>
                 </h4>
                 <div
                   style="font-weight: 300"
