@@ -54,8 +54,8 @@ export default {
   <a-modal
     :footer="null"
     v-model:open="isModal"
-    @cancel="changeValueIsModal"
-    @ok="changeValueIsModal"
+    @cancel="()=>this.changeValueIsModal()"
+    @ok="()=>this.changeValueIsModal()"
   >
     <div class="mycontent">
       <div v-if="Number(tabsActive) === 1">

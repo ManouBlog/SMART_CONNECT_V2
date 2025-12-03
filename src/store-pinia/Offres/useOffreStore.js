@@ -51,11 +51,13 @@ export const useOffreStore = defineStore('offres', {
             Spinner.launchLoading(true)
             try{
               const response = await instance.get("get_offres_entreprise");
+              console.log("RESPONSE_OFFRE",response)
               if(response['status'] === 200){
                 // console.log("response.data.data1",response.data.data)
                 this.ListeForFilterInOffreCreatedByEntreprise = response.data.data
                 this.offreCreatedByEntreprise = response.data.data
                 this.filterOffreCreatedByEntreprise = response.data.data
+
               }
               Spinner.launchLoading(false)
             }catch(error){
