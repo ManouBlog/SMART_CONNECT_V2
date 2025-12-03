@@ -56,7 +56,7 @@ export default {
       isDatePassed: false,
       lancementDate: "",
       showPromo: true,
-      showPromoParticulierAndEntreprise: true,
+      showPromoParticulierAndEntreprise: false,
       students: null,
       offreCreatedByEntreprise: [],
     };
@@ -77,15 +77,15 @@ export default {
     },
   },
    watch: {
-  user: {
-    handler(newUser) {
-      console.log("newUser", newUser);
-      if (newUser) {
-        this.getAllOffresCreatedByEntreprise();
-      }
-    },
-    deep: true
-  }
+     isUserParticulierEntreprise: {
+      handler(newValue, oldValue) {
+        console.log("newValue",{newValue,oldValue})
+        if(newValue){
+          this.getAllOffresCreatedByEntreprise();
+        }
+      },
+      deep: true
+    }
 },
   methods: {
     async getAllOffresCreatedByEntreprise() {
@@ -97,7 +97,9 @@ export default {
           const response = await instance.get("get_offres_entreprise");
           console.log("RESPONSE_OFFRE", response);
           if (response["status"] === 200) {
-            this.offreCreatedByEntreprise = response.data.data;
+            if(!response.data.data.length){
+              this.showPromoParticulierAndEntreprise = true
+            }
           }
         } catch (error) {
           console.log(error);
