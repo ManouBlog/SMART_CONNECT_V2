@@ -14,7 +14,7 @@
       header="🎓 Offre Étudiants Exceptionnelle !"
       :buttonTitle="true"
     >
-      <p style="font-size: 1.2em; color: #ff6a00; margin-bottom: 1em">
+      <p style="font-size: 1.2em; margin-bottom: 1em">
         Soyez parmi les 1000 premiers inscrits et recevez 2 mois offerts automatiquement !
       </p>
       <p style="margin-bottom: 1em">
@@ -28,7 +28,7 @@
       :buttonTitle="false"
       header="🚀 Publiez votre première offre gratuitement"
     >
-      <p style="font-size: 1.2em; color: #ff6a00; margin-bottom: 1em">
+      <p style="font-size: 1.2em; margin-bottom: 1em">
         Publiez votre première offre gratuitement… et recrutez votre premier talent sans
         frais.
       </p>
