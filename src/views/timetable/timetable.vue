@@ -453,7 +453,7 @@ export default {
     },
     verfEnter() {
       if (this.user && this.user.user.statut.statut === "etudiant") {
-       this.$router.push("/");
+        this.$router.push("/");
         Swal.fire({
           icon: "error",
           title: "Vous n'êtes pas autorisé.",
@@ -732,19 +732,7 @@ export default {
   justify-content: flex-start;
   align-items: top;
 }
-::-webkit-scrollbar {
-  width: 10px;
-}
 
-::-webkit-scrollbar-track {
-  background-color: rgba(0, 0, 0, 0.108);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgb(113, 113, 113);
-  border-radius: 10px;
-}
 .conteneur_ecriteau {
   width: 100% !important;
   padding: -1em 0;

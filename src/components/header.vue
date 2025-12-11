@@ -9,7 +9,7 @@ import InfoStudent from "./feature/header/Student/InfoStudent.vue";
 import ListeFavoris from "./feature/header/ListeFavoris.vue";
 // import ListeNotifications from "./feature/header/ListeNotifications.vue";
 import ListeAlarmStudent from "./feature/header/ListeAlarmStudent.vue";
-import { mapActions,mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import MenuMobile from "./MenuMobile.vue";
 import { useMenuMobile } from "../store-pinia/MenuMobile/useMenuMobileStore";
@@ -26,7 +26,7 @@ export default {
     InfoStudent,
     ListeFavoris,
     // ListeNotifications,
-    ListeAlarmStudent
+    ListeAlarmStudent,
   },
   data() {
     return {
@@ -71,7 +71,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useNotificationsStore,['todayNotifications']),
+    ...mapState(useNotificationsStore, ["todayNotifications"]),
     paginatedData() {
       let start = this.currentPage * this.perPage - this.perPage;
       let end = start + this.perPage;
@@ -281,7 +281,7 @@ export default {
                   href="#"
                   v-if="!this.$store.state.user"
                   class="login_user mx-3"
-                  style="font-family: 'Poppins', sans-serif;font-weight:bold;"
+                  style="font-family: 'Poppins', sans-serif; font-weight: bold"
                   @click.prevent="changeValueIsModal"
                 >
                   {{ texte5 }}
@@ -299,11 +299,7 @@ export default {
                     this.$store.state.user.user.statut.statut === 'entreprise'
                   "
                 /> -->
-                <ListeAlarmStudent 
-                v-if="
-                    this.$store.state.user
-                  "
-                />
+                <ListeAlarmStudent v-if="this.$store.state.user" />
                 <div>
                   <InfoEntreprise
                     v-if="
@@ -346,7 +342,7 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1.8em;
-  align-items:center;
+  align-items: center;
 }
 .conteneur-flex_nav {
   display: flex;
@@ -432,7 +428,7 @@ export default {
 :deep(.vue3-star-ratings__wrapper) {
   display: block;
   text-align: left;
-  margin:0 !important;
+  margin: 0 !important;
 }
 .conteneur_competences {
   margin-left: 1em;
@@ -499,19 +495,7 @@ export default {
   justify-content: flex-start;
   align-items: top;
 }
-::-webkit-scrollbar {
-  width: 10px;
-}
 
-::-webkit-scrollbar-track {
-  background-color: rgba(0, 0, 0, 0.108);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgb(113, 113, 113);
-  border-radius: 10px;
-}
 .experience button {
   background: transparent !important;
   color: black !important;
@@ -696,6 +680,7 @@ export default {
   padding: 0 0.1em !important;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
   font-size: 14px;
+  width:99%;
 }
 
 .number {
@@ -865,6 +850,9 @@ ul {
   .ant-dropdown-link {
     display: none;
   }
+  .navbar-fixed-top {
+  width:100%;
+}
 }
 @media (min-width: 1201px) {
   .loginSub,

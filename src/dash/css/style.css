@@ -1939,15 +1939,7 @@ table tbody .border-bottom-warning td {
 .map-js-height .btn-group input + input {
   background-color: #ffc500;
 }
-.custom-scrollbar::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px #ecf3fa;
-}
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(68, 102, 242, 0.15);
-}
+
 .comment {
   color: #9f9ba5;
   font-style: italic;
@@ -32736,9 +32728,7 @@ body.dark-only .shopping-checkout-option .checkbox_animated:after {
 body.dark-only .animate-chk .radio_animated:after {
   border: 2px solid #1d1e26;
 }
-body.dark-only .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(41, 50, 64, 0.52);
-}
+
 body.dark-only .product-box .product-img .product-hover ul li .btn {
   color: #98a6ad;
 }
@@ -55898,33 +55888,7 @@ html[dir="rtl"]
     padding-bottom: 80px;
     margin-left: 230px;
   }
-  .box-layout
-    .page-wrapper.compact-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-track,
-  .box-layout.page-wrapper.compact-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px #ecf3fa;
-  }
-  .box-layout
-    .page-wrapper.compact-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar,
-  .box-layout.page-wrapper.compact-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar {
-    width: 6px;
-  }
-  .box-layout
-    .page-wrapper.compact-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-thumb,
-  .box-layout.page-wrapper.compact-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-thumb {
-    background-color: rgba(68, 102, 242, 0.15);
-  }
+  
   .box-layout .page-wrapper.compact-sidebar .page-header,
   .box-layout.page-wrapper.compact-sidebar .page-header {
     padding-left: 148px;
@@ -56051,33 +56015,8 @@ html[dir="rtl"]
     max-height: calc(100vh - 170px);
     padding-bottom: 80px;
   }
-  .box-layout
-    .page-wrapper.compact-sidebar
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-track,
-  .box-layout.page-wrapper.compact-sidebar
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px #ecf3fa;
-  }
-  .box-layout
-    .page-wrapper.compact-sidebar
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar,
-  .box-layout.page-wrapper.compact-sidebar
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar {
-    width: 6px;
-  }
-  .box-layout
-    .page-wrapper.compact-sidebar
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-thumb,
-  .box-layout.page-wrapper.compact-sidebar
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-thumb {
-    background-color: rgba(68, 102, 242, 0.15);
-  }
+  
+ 
   .box-layout .page-wrapper.compact-sidebar.compact-small .page-header,
   .box-layout.page-wrapper.compact-sidebar.compact-small .page-header {
     padding-left: 90px;
@@ -56136,33 +56075,7 @@ html[dir="rtl"]
     max-height: calc(100vh - 230px);
     overflow: scroll;
   }
-  .box-layout
-    .page-wrapper.horizontal-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-track,
-  .box-layout.page-wrapper.horizontal-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px #ecf3fa;
-  }
-  .box-layout
-    .page-wrapper.horizontal-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar,
-  .box-layout.page-wrapper.horizontal-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar {
-    width: 6px;
-  }
-  .box-layout
-    .page-wrapper.horizontal-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-thumb,
-  .box-layout.page-wrapper.horizontal-wrapper
-    .page-body-wrapper
-    .page-body::-webkit-scrollbar-thumb {
-    background-color: rgba(68, 102, 242, 0.15);
-  }
+ 
   .box-layout .page-wrapper.horizontal-wrapper .page-body-wrapper .footer,
   .box-layout.page-wrapper.horizontal-wrapper .page-body-wrapper .footer {
     padding-left: 15px;

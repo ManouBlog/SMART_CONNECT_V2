@@ -1,12 +1,12 @@
 <template>
   <div>
     <!-- Si la date de lancement est passée, on montre le router-view -->
-    <router-view v-if="!isDatePassed" />
+    <router-view v-if="isDatePassed" />
 
     <!-- Sinon, on affiche le countdown -->
     <CountDownView v-else :targetDate="lancementDate" />
   </div>
-  <div v-if="!isDatePassed">
+  <div v-if="isDatePassed">
     <PromotionModal
       v-if="shouldShowPromo"
       v-model:visible="showPromo"
@@ -76,17 +76,17 @@ export default {
       return limit && this.isUserEtudiant;
     },
   },
-   watch: {
-     isUserParticulierEntreprise: {
+  watch: {
+    isUserParticulierEntreprise: {
       handler(newValue, oldValue) {
-        console.log("newValue",{newValue,oldValue})
-        if(newValue){
+        console.log("newValue", { newValue, oldValue });
+        if (newValue) {
           this.getAllOffresCreatedByEntreprise();
         }
       },
-      deep: true
-    }
-},
+      deep: true,
+    },
+  },
   methods: {
     async getAllOffresCreatedByEntreprise() {
       if (
@@ -97,8 +97,8 @@ export default {
           const response = await instance.get("get_offres_entreprise");
           console.log("RESPONSE_OFFRE", response);
           if (response["status"] === 200) {
-            if(!response.data.data.length){
-              this.showPromoParticulierAndEntreprise = true
+            if (!response.data.data.length) {
+              this.showPromoParticulierAndEntreprise = true;
             }
           }
         } catch (error) {
@@ -200,6 +200,15 @@ export default {
 };
 </script>
 <style>
+.element {
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.element::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
 .n-pagination
   .n-pagination-item:not(.n-pagination-item--disabled).n-pagination-item--active {
   color: orange !important;
