@@ -236,7 +236,7 @@ export default {
                                 class="form-control"
                                 type="text"
                                 v-model="offre_id.nom_offre"
-                                placeholder="ex:serveuse,barman,pianiste"
+                                placeholder="ex:Serveuse,Barman,Pianiste"
                                 required
                               />
                             </div>
@@ -248,7 +248,7 @@ export default {
                                 class="form-control"
                                 type="text"
                                 v-model.number="offre_id.salaire"
-                                placeholder="ex:35.000 Fcfa"
+                                placeholder="ex:35000"
                                 required
                               />
                             </div>
@@ -422,7 +422,7 @@ export default {
                                 class="form-control"
                                 type="text"
                                 v-model="salaire"
-                                placeholder="ex:35.000 Fcfa"
+                                placeholder="ex:35000"
                                 pattern="[0-9]*"
                                 required
                               />
@@ -584,7 +584,7 @@ export default {
                                 class="form-control"
                                 type="text"
                                 v-model.number="offre_id.salaire"
-                                placeholder="ex:35.000 Fcfa"
+                                placeholder="ex:35000"
                                 required
                               />
                             </div>
@@ -745,7 +745,7 @@ export default {
                                 class="form-control"
                                 type="text"
                                 v-model="offre"
-                                placeholder="ex:serveuse,barman,pianiste"
+                                placeholder="ex:Serveuse,Barman,Pianiste"
                                 required
                               />
                             </div>

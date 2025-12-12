@@ -248,7 +248,7 @@ export default {
               class="form-control"
               type="text"
               v-model.number="offre_id.salaire"
-              placeholder="ex:35.000 Fcfa"
+              placeholder="ex:35000"
               required
             />
           </div>
