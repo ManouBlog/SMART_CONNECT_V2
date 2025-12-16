@@ -15,7 +15,7 @@
       :buttonTitle="true"
     >
       <p style="font-size: 1.2em; margin-bottom: 1em">
-        Soyez parmi les 1000 premiers inscrits et recevez 2 mois offerts automatiquement !
+        Soyez parmi les 1000 premiers abonnés (PLATINUM) et recevez 2 mois offerts automatiquement !
       </p>
       <p style="margin-bottom: 1em">
         Une opportunité rare pour profiter pleinement de nos services à moindre coût.
