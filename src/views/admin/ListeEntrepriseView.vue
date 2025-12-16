@@ -16,14 +16,14 @@ export default {
     };
   },
   methods: {
-    alertNummber(entreprise){
-    let count = 0;
-    entreprise?.forEach(item=>{
-      if(item.view === 1){
-        count = 1;
-      }
-    })
-    return count;
+    alertNummber(entreprise) {
+      let count = 0;
+      entreprise?.forEach((item) => {
+        if (item.view === 1) {
+          count = 1;
+        }
+      });
+      return count;
     },
     verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
@@ -50,7 +50,7 @@ export default {
         .then((res) => {
           console.log("get_users", res);
           if (res.data.status) {
-            this.$store.commit('UPDATEBADGEENTREPRISE')
+            this.$store.commit("UPDATEBADGEENTREPRISE");
             this.$router.push({
               name: "detail_entreprise",
               params: { id: id },
@@ -66,74 +66,74 @@ export default {
         });
     },
   },
-  mounted(){
-     // Destruction des tables DataTable existantes si elles existent
-          if ($.fn.DataTable.isDataTable("#MyTableData_entreprise")) {
-            $("#MyTableData_entreprise").DataTable().destroy();
-          }
-          if ($.fn.DataTable.isDataTable("#MyTableData_entreprise2")) {
-            $("#MyTableData_entreprise2").DataTable().destroy();
-          }
+  mounted() {
+    // Destruction des tables DataTable existantes si elles existent
+    if ($.fn.DataTable.isDataTable("#MyTableData_entreprise")) {
+      $("#MyTableData_entreprise").DataTable().destroy();
+    }
+    if ($.fn.DataTable.isDataTable("#MyTableData_entreprise2")) {
+      $("#MyTableData_entreprise2").DataTable().destroy();
+    }
 
-           // Rafraîchissement du DOM avant l'initialisation de DataTables
-          this.$nextTick(() => {
-            // Initialisation séparée pour chaque table
-            $("#MyTableData_entreprise").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              responsive: true, // Ajout du responsive
-              language: {
-                decimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                lengthMenu: "Afficher _MENU_ entrées",
-                loadingRecords: "Chargement...",
-                processing: "Traitement...",
-                search: "Rechercher :",
-                zeroRecords: "Aucun résultat trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-              },
-            });
+    // Rafraîchissement du DOM avant l'initialisation de DataTables
+    this.$nextTick(() => {
+      // Initialisation séparée pour chaque table
+      $("#MyTableData_entreprise").DataTable({
+        pagingType: "full_numbers",
+        pageLength: 10,
+        processing: true,
+        order: [],
+        responsive: true, // Ajout du responsive
+        language: {
+          decimal: "",
+          emptyTable: "Aucune donnée disponible dans le tableau",
+          info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+          infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
+          infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+          lengthMenu: "Afficher _MENU_ entrées",
+          loadingRecords: "Chargement...",
+          processing: "Traitement...",
+          search: "Rechercher :",
+          zeroRecords: "Aucun résultat trouvé",
+          paginate: {
+            first: "Premier",
+            last: "Dernier",
+            next: "Suivant",
+            previous: "Précédent",
+          },
+        },
+      });
 
-            // Si vous avez une deuxième table
-            if ($("#MyTableData_entreprise2").length) {
-              $("#MyTableData_entreprise2").DataTable({
-                pagingType: "full_numbers",
-                pageLength: 10,
-                processing: true,
-                order: [],
-                responsive: true,
-                 language: {
-                decimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                lengthMenu: "Afficher _MENU_ entrées",
-                loadingRecords: "Chargement...",
-                processing: "Traitement...",
-                search: "Rechercher :",
-                zeroRecords: "Aucun résultat trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-              },
-              });
-            }
-          });
-  }
+      // Si vous avez une deuxième table
+      if ($("#MyTableData_entreprise2").length) {
+        $("#MyTableData_entreprise2").DataTable({
+          pagingType: "full_numbers",
+          pageLength: 10,
+          processing: true,
+          order: [],
+          responsive: true,
+          language: {
+            decimal: "",
+            emptyTable: "Aucune donnée disponible dans le tableau",
+            info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+            infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
+            infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+            lengthMenu: "Afficher _MENU_ entrées",
+            loadingRecords: "Chargement...",
+            processing: "Traitement...",
+            search: "Rechercher :",
+            zeroRecords: "Aucun résultat trouvé",
+            paginate: {
+              first: "Premier",
+              last: "Dernier",
+              next: "Suivant",
+              previous: "Précédent",
+            },
+          },
+        });
+      }
+    });
+  },
 };
 </script>
 <template>
@@ -240,7 +240,7 @@ export default {
       </div>
     </div>
 
-     <div class="col-sm-12 box-col-12">
+    <div class="col-sm-12 box-col-12">
       <div class="card timetable">
         <div class="social-tab">
           <ul class="nav nav-tabs" id="top-tab" role="tablist">
@@ -254,11 +254,13 @@ export default {
                 aria-controls="abonnées"
                 aria-selected="true"
                 ><i data-feather="clock"></i>Abonnées
-                <span class="badge bg-danger" v-if="alertNummber(this.$store.state.listEntrepriseAbonnee)">
-                  {{alertNummber(this.$store.state.listEntrepriseAbonnee)}}
+                <span
+                  class="badge bg-danger"
+                  v-if="alertNummber(this.$store.state.listEntrepriseAbonnee)"
+                >
+                  {{ alertNummber(this.$store.state.listEntrepriseAbonnee) }}
                 </span>
-                </a
-              >
+              </a>
             </li>
             <li class="nav-item">
               <a
@@ -269,11 +271,14 @@ export default {
                 role="tab"
                 aria-controls="nonAbonnees"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Pas abonnées 
-                <span class="badge bg-danger" v-if="alertNummber(this.$store.state.listEntreprisePasAbonnee)">
-                  {{alertNummber(this.$store.state.listEntreprisePasAbonnee)}}
+                ><i data-feather="clock"></i>Pas abonnées
+                <span
+                  class="badge bg-danger"
+                  v-if="alertNummber(this.$store.state.listEntreprisePasAbonnee)"
+                >
+                  {{ alertNummber(this.$store.state.listEntreprisePasAbonnee) }}
                 </span>
-                </a>
+              </a>
             </li>
           </ul>
         </div>
@@ -282,105 +287,104 @@ export default {
     <!-- Container-fluid starts-->
     <div class="tab-content" id="top-tabContent">
       <div
-      class="tab-pane fade show active"
+        class="tab-pane fade show active"
         id="abonnées"
         role="tabpanel"
         aria-labelledby="abonnées"
       >
-    <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData_entreprise" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Entreprise</th>
-                  <th class="bg-light">Email</th>
-                  <th class="bg-light">Profil</th>
-                  <th class="bg-light">Formule d'abonnement</th>
-                  <th class="bg-light">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(item, index) in this.$store.state.listEntrepriseAbonnee"
-                  :key="index"
-                >
-                  <td>{{ item.nom }}</td>
-                  <td>{{ item.email }}</td>
-                  <td>
-                    <span>{{ item.user.statut.statut }}</span>
-                    <!-- <span v-else class="badge bg-info"
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 card py-3 px-2">
+              <table id="MyTableData_entreprise" class="table">
+                <thead>
+                  <tr>
+                    <th class="bg-light">Entreprise</th>
+                    <th class="bg-light">Email</th>
+                    <th class="bg-light">Profil</th>
+                    <th class="bg-light">Formule d'abonnement</th>
+                    <th class="bg-light">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(item, index) in this.$store.state.listEntrepriseAbonnee"
+                    :key="index"
+                  >
+                    <td>{{ item.nom }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>
+                      <span>{{ item.user.statut.statut }}</span>
+                      <!-- <span v-else class="badge bg-info"
                       >pas de registre de commerce</span
                     > -->
-                  </td>
-                  <td>
-                    {{ this.verifIfAbonnementCurrently(item?.user?.abonement) }}
-                  </td>
+                    </td>
+                    <td>
+                      {{ this.verifIfAbonnementCurrently(item?.user?.abonement) }}
+                    </td>
 
-                  <td>
-                    
-                    <a href="#" @click.prevent="getDetailRoute(item.id)">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    <td>
+                      <a href="#" @click.prevent="getDetailRoute(item.id)">
+                        <i class="bi bi-eye"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-      </div>
       <div
-      class="tab-pane"
+        class="tab-pane"
         id="nonAbonnees"
         role="tabpanel"
         aria-labelledby="nonAbonnees"
       >
-    <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData_entreprise2" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Entreprise</th>
-                  <th class="bg-light">Email</th>
-                  <th class="bg-light">Profil</th>
-                  <th class="bg-light">Formule d'abonnement</th>
-                  <th class="bg-light">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(item, index) in this.$store.state.listEntreprisePasAbonnee"
-                  :key="index"
-                >
-                  <td>{{ item.nom }}
-              <span class="badge bg-danger" v-if="item.view">New</span>
-                  </td>
-                  <td>{{ item.email }}</td>
-                  <td>
-                    <span>{{ item.user.statut.statut }}</span>
-                    <!-- <span v-else class="badge bg-info"
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 card py-3 px-2">
+              <table id="MyTableData_entreprise2" class="table">
+                <thead>
+                  <tr>
+                    <th class="bg-light">Entreprise</th>
+                    <th class="bg-light">Email</th>
+                    <th class="bg-light">Profil</th>
+                    <th class="bg-light">Formule d'abonnement</th>
+                    <th class="bg-light">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(item, index) in this.$store.state.listEntreprisePasAbonnee"
+                    :key="index"
+                  >
+                    <td>
+                      {{ item.nom }}
+                      <span class="badge bg-danger" v-if="item.view">New</span>
+                    </td>
+                    <td>{{ item.email }}</td>
+                    <td>
+                      <span>{{ item.user.statut.statut }}</span>
+                      <!-- <span v-else class="badge bg-info"
                       >pas de registre de commerce</span
                     > -->
-                  </td>
-                  <td>
-                    {{ this.verifIfAbonnementCurrently(item?.user?.abonement) }}
-                  </td>
+                    </td>
+                    <td>
+                      {{ this.verifIfAbonnementCurrently(item?.user?.abonement) }}
+                    </td>
 
-                  <td>
-                    <a href="#" @click.prevent="getDetailRoute(item.id)">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    <td>
+                      <a href="#" @click.prevent="getDetailRoute(item.id)">
+                        <i class="bi bi-eye"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-      </div>
-      
     </div>
   </div>
   <!-- Container-fluid Ends-->

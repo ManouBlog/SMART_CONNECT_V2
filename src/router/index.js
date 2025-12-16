@@ -156,6 +156,15 @@ const routes = [
         },
       },
       {
+        path: "/utilisateur-beta",
+        name: "users_beta",
+        component: () => import("../views/admin/userBetaView.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "/details/:id/:name",
         name: "details",
         component: () => import("../views/admin/detailStudentView.vue"),

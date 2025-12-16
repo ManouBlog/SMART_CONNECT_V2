@@ -162,6 +162,15 @@ export default {
             v-if="statut == 'admin'"
           >
             <i class="bi bi-people" style="margin-left: -1.2em"></i>
+            <router-link :to="{ name: 'users_beta' }">
+              <strong>Utilisateurs bêta</strong></router-link
+            >
+          </li>
+          <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="statut == 'admin'"
+          >
+            <i class="bi bi-people" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'users' }">
               <strong> Utilisateurs </strong></router-link
             >
@@ -240,7 +249,7 @@ export default {
               <strong>Historique de paiement</strong></router-link
             >
           </li>
-           <li
+          <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"
           >
@@ -258,7 +267,7 @@ export default {
               <strong>Partenaires</strong></router-link
             >
           </li>
-           <li
+          <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"
           >
