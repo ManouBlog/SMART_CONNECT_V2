@@ -363,7 +363,7 @@ export default {
                 <div>
                   <button
                     v-if="!item.certificat"
-                    style="border: none; width: 150px"
+                    style="border: none; width: auto;padding: 1.1em;"
                     class="btn bg-dark m-3"
                     @click="openModalCertification(item)"
                   >
