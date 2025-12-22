@@ -63,6 +63,24 @@ export default {
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
+      countryCode:'+225',
+       westAfricaCodes:[
+  { label: 'Bénin', value: '+229' },
+  { label: 'Burkina Faso', value: '+226' },
+  { label: 'Cap-Vert', value: '+238' },
+  { label: "Côte d’Ivoire", value: '+225' },
+  { label: 'Gambie', value: '+220' },
+  { label: 'Ghana', value: '+233' },
+  { label: 'Guinée', value: '+224' },
+  { label: 'Guinée-Bissau', value: '+245' },
+  { label: 'Liberia', value: '+231' },
+  { label: 'Mali', value: '+223' },
+  { label: 'Niger', value: '+227' },
+  { label: 'Nigeria', value: '+234' },
+  { label: 'Sénégal', value: '+221' },
+  { label: 'Sierra Leone', value: '+232' },
+  { label: 'Togo', value: '+228' }
+]
     };
   },
   computed: {
@@ -94,8 +112,6 @@ export default {
         this.SWALPOPUP.declencheSwalPopup("info", 
         "Les numéros de téléphone doivent contenir 10 chiffres");
       }
-   
-      
     },
     onFinishFailed(errorInfo) {
       console.log("Failed:", errorInfo);
@@ -159,7 +175,7 @@ export default {
       name="nom"
       :rules="[{ required: true, message: texte24 }]"
     >
-      <a-input v-model:value="formState.nom" />
+      <a-input  v-model:value="formState.nom" />
     </a-form-item>
     <a-form-item
       :label="texte1"
@@ -204,7 +220,19 @@ export default {
       name="contact"
       :rules="[{ required: true, message: texte22 }]"
        >
-      <a-input v-model:value="formState.contact" />
+      <!-- <a-input addon-before="+225"  v-model:value="formState.contact" />-->
+       <a-input v-model:value="formState.contact" placeholder="Numéro">
+    <template #addonBefore>
+    <a-select
+  v-model:value="countryCode"
+  :options="westAfricaCodes"
+  show-search
+  option-filter-prop="label"
+  option-label-prop="value"
+  style="width: 120px"
+/>
+    </template>
+</a-input>
     </a-form-item>
     <a-form-item
       :label="texte3"
