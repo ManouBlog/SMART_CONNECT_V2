@@ -1,12 +1,12 @@
 <template>
   <div>
     <!-- Si la date de lancement est passée, on montre le router-view -->
-    <router-view v-if="!isDatePassed" />
+    <router-view v-if="isDatePassed" />
 
     <!-- Sinon, on affiche le countdown -->
-    <CountDownView v-else :targetDate="lancementDate" />
+    <!-- <CountDownView v-else :targetDate="lancementDate" /> -->
   </div>
-  <div v-if="!isDatePassed">
+  <div v-if="isDatePassed">
     <PromotionModal
       v-if="shouldShowPromo"
       v-model:visible="showPromo"
@@ -33,20 +33,34 @@
         frais.
       </p>
       <p style="margin-bottom: 1em">Lancez-vous dès maintenant, c’est 100% offert</p>
+      <button style="
+    background-color: #ff9900;
+    font-weight: bold;
+    width: 100%;
+    color: white;
+    border-radius: 10px;
+
+    white-space: normal;
+    line-height: 1.3;
+    padding: 14px 16px;
+    text-align: center;
+  "
+  @click="gotoCreatedOffre"
+  >OK</button>
     </PromotionModal>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import CountDownView from "./views/CountDownView.vue";
+// import CountDownView from "./views/CountDownView.vue";
 import PromotionModal from "./components/PromotionModal.vue";
 import instance from "./api/api";
 
 export default {
   name: "AppView",
   components: {
-    CountDownView,
+    //CountDownView,
 
     PromotionModal,
   },
@@ -143,7 +157,11 @@ export default {
       this.showPromo = false; // ferme le modal
       this.$router.push("/abonnements"); // ou autre action
     },
-
+    gotoCreatedOffre() {
+      this.showPromoParticulierAndEntreprise = false; // ferme le modal
+      this.$router.push("/dashboard/creation_offre");
+    },
+  
     /**
      * Récupère l'adresse IP publique et enregistre la visite si besoin
      */

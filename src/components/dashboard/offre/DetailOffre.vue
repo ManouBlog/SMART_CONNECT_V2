@@ -163,11 +163,11 @@ export default {
     this.get_categorie();
     this.getAllCompetences();
     this.texte0 = await this.handleTranslate('Modifier Mon offre');
-    this.texte1 = await this.handleTranslate("Catégorie de l'offre");
-    this.texte2 = await this.handleTranslate('Sélectionner une catégorie');
-    this.texte3 = await this.handleTranslate("Choisir les compétences");
-    this.texte4 = await this.handleTranslate('Choisir une compétence');
-    this.texte5 = await this.handleTranslate('Veuillez choisir une catégorie');
+    this.texte1 = await this.handleTranslate("Domaines");
+    this.texte2 = await this.handleTranslate('Sélectionner une domaine');
+    this.texte3 = await this.handleTranslate("Choisir le poste");
+    this.texte4 = await this.handleTranslate('Choisir un poste');
+    this.texte5 = await this.handleTranslate('Veuillez choisir un domaine');
     this.texte6 = await this.handleTranslate('Pas de donnée');
     this.texte7 = await this.handleTranslate("Nom de l'offre");
     this.texte8 = await this.handleTranslate('Honoraire (Fcfa)');

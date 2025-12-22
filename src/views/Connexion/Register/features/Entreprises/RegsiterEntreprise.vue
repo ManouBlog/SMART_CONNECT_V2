@@ -123,7 +123,7 @@ export default {
     this.texte7 = await this.handleTranslate("Forme juridique");
     this.texte8 = await this.handleTranslate("Gérant");
     this.texte9 = await this.handleTranslate("Numéro du Gérant");
-    this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,png,webp)"); 
+    this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,png,webp,pdf)"); 
     this.texte11 = await this.handleTranslate("Registre (pdf)"); 
     this.texte12 = await this.handleTranslate('Mot de passe');
     this.texte13 = await this.handleTranslate("S'inscrire");
@@ -264,7 +264,7 @@ export default {
           list-type="picture"
           :multiple="true"
           :maxCount="2"
-          accept=".jpg,.jpeg,.png,.webp"
+         accept="*/*"
         >
           <a-button> Clique pour charger </a-button>
         </a-upload>
