@@ -332,7 +332,6 @@ export default {
               class="form-control"
               type="date"
               v-model="offre_id.job_fin"
-              required
             />
           </div>
           <div class="text-left my-3 col-lg-12">

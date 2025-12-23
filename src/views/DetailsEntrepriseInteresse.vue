@@ -205,7 +205,7 @@ export default {
                 </h4>
                 <h4 class="my-5">
                   <span class="fw-bold">{{ texte3 }}</span>
-                  {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.job_fin) }}
+                  {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre?.job_fin) }}
                 </h4>
               </section>
               <section>

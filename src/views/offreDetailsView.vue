@@ -263,7 +263,7 @@ export default {
                   <span class="fw-bold">{{ texte2 }}</span>
                   {{ configUtils.getFormatDateFr(Offre.job_debut) }}
                 </h4>
-                <h4 class="my-5">
+                <h4 class="my-5" v-if="Offre.job_fin">
                   <span class="fw-bold">{{ texte3 }}</span>
                   {{ configUtils.getFormatDateFr(Offre.job_fin) }}
                 </h4>

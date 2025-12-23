@@ -157,7 +157,7 @@ export default {
           <h6>
             Date de début de travail : <b>{{ details_offre.job_debut }}</b>
           </h6>
-          <h6>
+          <h6 v-if="details_offre.job_fin">
             Date de fin de travail : <b>{{ details_offre.job_fin }}</b>
           </h6>
           <button

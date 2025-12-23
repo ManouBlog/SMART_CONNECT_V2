@@ -153,8 +153,8 @@ export default {
           > -->
         </div>
         <div class="px-5">
-          <span class="d-block px-3">{{ texte8 }}: {{ entreprise.job_debut }}</span>
-          <span class="px-3">{{ texte9 }} : {{ entreprise.job_fin }}</span>
+          <span class="d-block px-3">{{ texte8 }}: {{ entreprise?.job_debut }}</span>
+          <span class="px-3">{{ texte9 }} : {{ entreprise?.job_fin }}</span>
           <span class="d-block px-3"
             >{{ texte6 }}:
             {{ diffForHumans(new Date(entreprise.created_at).toISOString()) }}</span

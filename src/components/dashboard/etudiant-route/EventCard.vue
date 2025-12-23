@@ -1,7 +1,7 @@
 <template>
   <div class="job-card" :class="{ available: job?.certificat }">
     <div class="job-date">
-      <div class="period">{{ job?.offre?.job_debut }} au {{ job?.offre?.job_fin }} </div>
+      <div class="period">{{ job?.offre?.job_debut }} au {{ job?.offre?.job_fin ? job?.offre?.job_fin:null }} </div>
       <div class="location">{{ job?.offre?.lieu }}</div>
     </div>
 
@@ -39,7 +39,7 @@
           <strong v-if="job?.offre?.entreprise.adresse_postale">{{ job?.offre?.entreprise.adresse_postale}}</strong>
           , certifions que Monsieur/Madame
           <strong>{{ job?.student?.nom}} {{ job?.student?.prenoms}}</strong>, a été employé dans notre société en qualité de
-          <strong>{{ job?.offre?.nom_offre}}</strong> du <strong>{{ new Date(job?.offre?.job_debut).toLocaleDateString('fr')}}</strong> au <strong>{{ new Date(job?.offre?.job_fin).toLocaleDateString('fr')}}</strong>.
+          <strong>{{ job?.offre?.nom_offre}}</strong> du <strong>{{ new Date(job?.offre?.job_debut).toLocaleDateString('fr')}}</strong> au <strong>{{ job?.offre?.job_fin ? new Date(job?.offre?.job_fin).toLocaleDateString('fr'):null}}</strong>.
         </p>
 
         <p>

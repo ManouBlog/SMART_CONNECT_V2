@@ -283,7 +283,7 @@ export default {
               >
                 <template #body="slotProps">
                   <div>
-                    <span>{{ slotProps.data?.offre?.job_fin }} </span>
+                    <span>{{ slotProps.data?.offre?.job_fin ? slotProps.data?.offre?.job_fin:null }} </span>
                   </div>
                 </template>
               </Column>

@@ -284,7 +284,7 @@ h5 {
         </h5>
         <h5 class="my-5">
           Date de fin de travail :
-          {{ new Date(this.entreprise.offre.job_fin).toLocaleDateString("fr") }}
+          {{ this.entreprise.offre.job_fin ? new Date(this.entreprise.offre.job_fin).toLocaleDateString("fr"):null }}
         </h5>
         <h5>{{ texte9 }} {{ entreprise.offre.entreprise.contact }}</h5>
         <h5 class="my-5">{{ texte10 }} {{ myOffre.lieu }}</h5>

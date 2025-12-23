@@ -255,8 +255,8 @@ export default {
           </n-card>
         </n-modal>
         <p style="text-align: center">
-          Du {{ new Date(tableauRecruit[0].offre.job_debut).toLocaleDateString("fr") }} au
-          {{ new Date(tableauRecruit[0].offre.job_fin).toLocaleDateString("fr") }}
+          Du {{ new Date(tableauRecruit[0].offre?.job_debut).toLocaleDateString("fr") }} au
+          {{ new Date(tableauRecruit[0].offre?.job_fin).toLocaleDateString("fr") }}
         </p>
         <div class="conteneur-evaluation-offre">
           <a-card
