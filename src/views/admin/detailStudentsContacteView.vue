@@ -27,7 +27,7 @@ export default {
     get_students_contact() {
       //this.spinner = false;
       axios
-        .get("http://192.168.1.27:8000/api/list_students_contact_by_entreprise", {
+        .get("http://backend.monbrobroli.com/api/list_students_contact_by_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -96,7 +96,7 @@ export default {
     get_all_timetables() {
       this.spinner = true;
       axios
-        .get("http://192.168.1.27:8000/api/list_emplois_temps")
+        .get("http://backend.monbrobroli.com/api/list_emplois_temps")
         .then((res) => {
           console.log(res);
           this.timetables = res.data.data;
@@ -169,7 +169,7 @@ export default {
       console.log("NOTATION", this.detailsStudents.id);
       axios
         .post(
-          "http://192.168.1.27:8000/api/giveAvis",
+          "http://backend.monbrobroli.com/api/giveAvis",
           {
             notes: this.notationService,
             student_id: this.detailsStudents.id,
@@ -314,7 +314,7 @@ export default {
         <h4>commune :{{ detailsStudents.commune }}</h4>
         <h4>Télephone :{{ detailsStudents.phone }}</h4>
         <h4>Diplome :{{ detailsStudents.diplome }}</h4>
-        <h1 class="badge bg-dark w-25">Compétences</h1>
+        <h1 class="badge bg-dark w-25">Postes</h1>
         <div
           v-for="(competence, index) in detailsStudents.competences"
           :key="index"

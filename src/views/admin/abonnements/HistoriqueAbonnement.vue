@@ -36,7 +36,7 @@ export default {
     create_categorie() {
       axios
         .post(
-          "http://192.168.1.27:8000/api/create_categorie-abonnement",
+          "http://backend.monbrobroli.com/api/create_categorie-abonnement",
           this.abonnementCategorie,
           {
             headers: {
@@ -73,7 +73,7 @@ export default {
     },
     create_abonnement() {
       axios
-        .post("http://192.168.1.27:8000/api/create-abonnement", this.data, {
+        .post("http://backend.monbrobroli.com/api/create-abonnement", this.data, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -103,7 +103,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("http://192.168.1.27:8000/api/getCategorie", {
+        .get("http://backend.monbrobroli.com/api/getCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -159,7 +159,7 @@ export default {
       }
 
       axios
-        .get("http://192.168.1.27:8000/api/getAbonnement", {
+        .get("http://backend.monbrobroli.com/api/getAbonnement", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -211,7 +211,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "http://192.168.1.27:8000/api/admin/deleteAbonnement/" + idAbonnement,
+          "http://backend.monbrobroli.com/api/admin/deleteAbonnement/" + idAbonnement,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -240,7 +240,7 @@ export default {
     deleteCategorieAbonnement(idCategorie) {
       this.spinner = true;
       axios
-        .delete("http://192.168.1.27:8000/api/deleteCategorie/" + idCategorie, {
+        .delete("http://backend.monbrobroli.com/api/deleteCategorie/" + idCategorie, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -424,7 +424,7 @@ export default {
                         </div>
                         <div class="col-lg-6">
                           <div class="mb-3 test-start">
-                            <p class="font-bold">Catégorie</p>
+                            <p class="font-bold">Domaine</p>
                             <select
                               class="w-100"
                               name="categorie"
@@ -432,7 +432,7 @@ export default {
                               v-model="data.categorie_id"
                             >
                               <option value="" disabled>
-                                Séléctionne la catégorie
+                                Séléctionne le domaine
                               </option>
                               <option
                                 :value="item.id"

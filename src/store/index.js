@@ -19,7 +19,7 @@ export default createStore({
     addExperiences(state, person) {
       axios
         .post(
-          "http://192.168.1.27:8000/api/postNewExperience",
+          "http://backend.monbrobroli.com/api/postNewExperience",
           {
             experience: person.experience,
             lieu: person.lieu,
@@ -89,14 +89,10 @@ export default createStore({
     }
   },
   actions: {
-    // updateBadgeEntreprise({commit,state}){
-    // const element =  state.nbreBadgeEntreprise-1;
-    // commit('HANDLEBADGE',element)
-    // },
     get_users({ commit,state }) {
       commit('TOOGLESPINNER',true)
       axios
-        .get("http://192.168.1.27:8000/api/list_entreprise", {
+        .get("http://backend.monbrobroli.com/api/list_entreprise", {
           headers: {
             Authorization: "Bearer " + state.token,
           },

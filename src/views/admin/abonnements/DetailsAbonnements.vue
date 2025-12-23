@@ -34,7 +34,7 @@ export default {
     get_details_abonnement() {
       this.spinner = true;
       axios
-        .get("http://192.168.1.27:8000/api/getAbonnement", {
+        .get("http://backend.monbrobroli.com/api/getAbonnement", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -60,7 +60,7 @@ export default {
       this.isLoading = true;
       axios
         .put(
-          "http://192.168.1.27:8000/api/admin/updateAbonnement/" +
+          "http://backend.monbrobroli.com/api/admin/updateAbonnement/" +
             this.$route.params.id,
           this.data,
           {
@@ -86,7 +86,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("http://192.168.1.27:8000/api/getCategorie", {
+        .get("http://backend.monbrobroli.com/api/getCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -136,14 +136,14 @@ export default {
         <div class="row">
           <div class="col-md-3">
             <div class="mb-3 text-start">
-              <label class="form-label">Catégorie</label>
+              <label class="form-label">Domaines</label>
               <select
                 name="categorie"
                 id="categorie"
                 v-model="data.categorie_id"
                 :disabled="isDisabled"
               >
-                <option value="" disabled>Sélectionne une catégorie</option>
+                <option value="" disabled>Sélectionne un domaine</option>
                 <option
                   :value="item.id"
                   v-for="(item, index) in this.categories"

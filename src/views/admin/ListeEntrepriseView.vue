@@ -42,7 +42,7 @@ export default {
     async getDetailRoute(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("http://192.168.1.27:8000/api/updateBadgeEntreprise/" + id, {
+        .put("http://backend.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -65,6 +65,9 @@ export default {
           this.$store.commit("TOOGLESPINNER", false);
         });
     },
+    seelistEntrepriseAbonne(value){
+     console.log("VALUE_LISTENTREPRISE",value)
+    }
   },
   mounted() {
     // Destruction des tables DataTable existantes si elles existent
@@ -246,6 +249,7 @@ export default {
           <ul class="nav nav-tabs" id="top-tab" role="tablist">
             <li class="nav-item">
               <a
+              @click.prevent="seelistEntrepriseAbonne(this.$store.state.listEntrepriseAbonnee)"
                 class="nav-link active"
                 id="top-timeline"
                 data-bs-toggle="tab"

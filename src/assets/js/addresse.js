@@ -1,3 +1,3 @@
-var addresse = "http://192.168.1.27:8000/api/";
+var addresse = "http://backend.monbrobroli.com/api/";
 
 export default { addresse };

@@ -29,7 +29,7 @@ export default {
   },
   created() {
     axios
-      .get("http://192.168.1.27:8000/api/get_who_contact_student", {
+      .get("http://backend.monbrobroli.com/api/get_who_contact_student", {
         headers: {
           Authorization: "Bearer " + this.$store.state.token,
         },

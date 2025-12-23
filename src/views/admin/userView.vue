@@ -18,7 +18,7 @@ export default {
     get_users() {
       this.spinner = true;
       axios
-        .get("http://192.168.1.27:8000/api/list_users")
+        .get("http://backend.monbrobroli.com/api/list_users")
         .then((res) => {
           console.log(res);
           this.users = res.data.data;

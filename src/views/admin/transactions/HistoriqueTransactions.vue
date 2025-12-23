@@ -18,7 +18,7 @@ export default {
     get_Historique() {
       this.spinner = true;
       axios
-        .get("http://192.168.1.27:8000/api/admin/historiqueTransaction", {
+        .get("http://backend.monbrobroli.com/api/admin/historiqueTransaction", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -70,7 +70,7 @@ export default {
     },
     // async getPayStackHistorique() {
     //   await axios
-    //     .get("http://192.168.1.27:8000/api/payStack/transactions", {
+    //     .get("http://backend.monbrobroli.com/api/payStack/transactions", {
     //       headers: {
     //         Authorization: "Bearer " + this.$store.state.token,
     //       },

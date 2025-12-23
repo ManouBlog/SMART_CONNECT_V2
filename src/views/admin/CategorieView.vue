@@ -18,7 +18,7 @@ export default {
     async create_categorie() {
       await axios
         .post(
-          "http://192.168.1.27:8000/api/categorie",
+          "http://backend.monbrobroli.com/api/categorie",
           {
             categorie: this.categorie,
           },
@@ -60,7 +60,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("http://192.168.1.27:8000/api/seeCategorie", {
+        .get("http://backend.monbrobroli.com/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -114,7 +114,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "http://192.168.1.27:8000/api/admin/delete_categorie/" + idCategorie,
+          "http://backend.monbrobroli.com/api/admin/delete_categorie/" + idCategorie,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -139,7 +139,7 @@ export default {
         });
     },
     handleDeleteCategorie(id) {
-      if (confirm("Voulez-vous vraiment supprimer cette catégorie ?")) {
+      if (confirm("Voulez-vous vraiment supprimer ce domaine ?")) {
         // L'utilisateur a cliqué sur OK
         console.log("Action confirmée", id);
         this.deleteCategorie(id);
@@ -166,7 +166,7 @@ export default {
           <div class="col-12 col-sm-6"></div>
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">Catégorie</li>
+              <li class="breadcrumb-item">Domaines</li>
             </ol>
           </div>
         </div>
@@ -187,7 +187,7 @@ export default {
                 role="tab"
                 aria-controls="voir_emploi_temps"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Voir les catégories</a
+                ><i data-feather="clock"></i>Voir les domaines</a
               >
             </li>
             <li class="nav-item">
@@ -226,7 +226,7 @@ export default {
                       <div class="row">
                         <div class="col-lg-12">
                           <div class="mb-3 text-start font-bold">
-                            <p style="font-weight: bold; font-size: 1.5em">Catégorie</p>
+                            <p style="font-weight: bold; font-size: 1.5em">Domaines</p>
                             <input
                               class="form-control"
                               type="text"
@@ -250,7 +250,7 @@ export default {
                                 role="status"
                                 v-show="loading"
                               ></span
-                              ><span>Enregistrer une catégorie</span>
+                              ><span>Enregistrer un domaine</span>
                             </button>
                           </div>
                         </div>
@@ -276,7 +276,7 @@ export default {
               <table id="MyTableData" class="table" v-if="categories != null">
                 <thead>
                   <tr>
-                    <th class="bg-light">Catégorie</th>
+                    <th class="bg-light">Domaines</th>
                     <th class="bg-light">Actions</th>
                   </tr>
                 </thead>

@@ -83,7 +83,7 @@ export default {
           >
             <i class="bi bi-grid-1x2" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'Categorie' }"
-              ><strong> Catégorie d'offre </strong>
+              ><strong> Domaines </strong>
             </router-link>
           </li>
           <li
@@ -92,7 +92,7 @@ export default {
           >
             <i class="bi bi-grid-1x2" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'Competences' }"
-              ><strong> Compétences talents </strong>
+              ><strong> Postes </strong>
             </router-link>
           </li>
           <li

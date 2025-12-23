@@ -20,7 +20,7 @@ export default {
     create_competence() {
       axios
         .post(
-          "http://192.168.1.27:8000/api/createCompetence",
+          "http://backend.monbrobroli.com/api/createCompetence",
           {
             competence: this.competence,
             categorie_id: this.selectCategorie,
@@ -60,7 +60,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("http://192.168.1.27:8000/api/seeCategorie", {
+        .get("http://backend.monbrobroli.com/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -83,7 +83,7 @@ export default {
       }
 
       axios
-        .get("http://192.168.1.27:8000/api/GetAllCompetences", {
+        .get("http://backend.monbrobroli.com/api/GetAllCompetences", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -135,7 +135,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "http://192.168.1.27:8000/api/admin/delete_competence/" + idCompetence,
+          "http://backend.monbrobroli.com/api/admin/delete_competence/" + idCompetence,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -190,7 +190,7 @@ export default {
           <div class="col-12 col-sm-6"></div>
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">Compétences</li>
+              <li class="breadcrumb-item">Postes</li>
             </ol>
           </div>
         </div>
@@ -211,7 +211,7 @@ export default {
                 role="tab"
                 aria-controls="voir_emploi_temps"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Voir les compétences</a
+                ><i data-feather="clock"></i>Voir les postes</a
               >
             </li>
             <li class="nav-item">
@@ -262,7 +262,7 @@ export default {
                         </div>
                         <div class="col-lg-6">
                           <div class="mb-3 test-start">
-                            <p class="font-bold">Catégorie</p>
+                            <p class="font-bold">Domaine</p>
                             <select
                               class="w-100"
                               name="categorie"
@@ -270,7 +270,7 @@ export default {
                               v-model="selectCategorie"
                             >
                               <option value="" disabled>
-                                Séléctionne la catégorie
+                                Séléctionne le domaine
                               </option>
                               <option
                                 :value="item.id"
@@ -321,8 +321,8 @@ export default {
               <table id="MyTableData" class="table" v-if="competences != null">
                 <thead>
                   <tr>
-                    <th class="bg-light">Compétence</th>
-                    <th class="bg-light">Catégorie</th>
+                    <th class="bg-light">Poste</th>
+                    <th class="bg-light">Domaine</th>
                     <th class="bg-light">Actions</th>
                   </tr>
                 </thead>

@@ -24,7 +24,7 @@ export default {
         formData.append("partenaire[]", partenaire);
       });
       await axios
-        .post("http://192.168.1.27:8000/api/admin/addPartenaire", formData, {
+        .post("http://backend.monbrobroli.com/api/admin/addPartenaire", formData, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -62,7 +62,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("http://192.168.1.27:8000/api/allPartenaire", {
+        .get("http://backend.monbrobroli.com/api/allPartenaire", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -114,7 +114,7 @@ export default {
     deletePartenaire(idPartenaire) {
       this.spinner = true;
       axios
-        .delete("http://192.168.1.27:8000/api/admin/deletePartenaire/" + idPartenaire, {
+        .delete("http://backend.monbrobroli.com/api/admin/deletePartenaire/" + idPartenaire, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -290,7 +290,7 @@ export default {
                     <td>
                       <n-image
                         width="100"
-                        :src="'http://192.168.1.27:8000/storage/images/'+item.partenaire"
+                        :src="'http://backend.monbrobroli.com/storage/images/'+item.partenaire"
                         :alt="item.partenaire"
                       />
                     </td>
