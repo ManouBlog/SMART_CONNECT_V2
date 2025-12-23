@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from "vue";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import CardPerformance from "../../../Shared/Compoments/CardPerformance.vue";
 import instance from "../../../api/api";
@@ -22,42 +22,45 @@ let observer = null;
 // Fonction pour formater les nombres comme YouTube
 const formatNumber = (number) => {
   if (number < 1000) {
-    console.log("number",number)
+    console.log("number", number);
     return `${number}`;
   } else if (number < 1000000) {
-     console.log("Math.floor(number / 1000)",Math.floor(number / 1000))
+    console.log("Math.floor(number / 1000)", Math.floor(number / 1000));
     return `${Math.floor(number / 1000)}`;
   } else {
-    console.log("Math.floor(number / 1000000)",Math.floor(number / 1000000))
+    console.log("Math.floor(number / 1000000)", Math.floor(number / 1000000));
     return `${Math.floor(number / 1000000)}`;
   }
 };
 
 const seePerformanceNbre = async () => {
   try {
-    const response = await instance.get('seePerformance');
-    if(response.data.status) {
+    const response = await instance.get("seePerformance");
+    if (response.data.status) {
       entreprises.value = response.data.partenairePerf;
       offres.value = response.data.offrePerf;
       timetable.value = response.data.talentPerf;
       visiteur.value = response.data.visiteurPerf;
     }
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 };
 
 const initIntersectionObserver = () => {
-  const cardPerfElement = document.getElementById('cardPerf');
-  
+  const cardPerfElement = document.getElementById("cardPerf");
+
   if (cardPerfElement) {
-    observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        cardPerfVisible.value = entry.isIntersecting;
-      });
-    }, {
-      threshold: 0.1
-    });
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          cardPerfVisible.value = entry.isIntersecting;
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
 
     observer.observe(cardPerfElement);
   }
@@ -81,15 +84,15 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <div class="mb-5">
+    <h1 class="fw-bold" style="color: orange; text-align: center">{{ texte0 }}</h1>
+  </div>
   <div class="container-fluid stat mt-5">
     <div class="row">
       <div class="container">
-        <div class="mb-5">
-          <h1 class="fw-bold" style="color:orange;text-align:center">{{ texte0 }}</h1>
-        </div>
         <div class="conteneur-card-performance" id="cardPerf">
           <CardPerformance
-          v-if="Number(entreprises) > 100"
+            v-if="Number(entreprises) > 100"
             :myStyle="'card_perfor_one'"
             :icone_name="'bi bi-building icon'"
             :texte="texte1"
@@ -106,7 +109,7 @@ onUnmounted(() => {
           />
 
           <CardPerformance
-          v-if="Number(timetable) > 100"
+            v-if="Number(timetable) > 100"
             :myStyle="'card_perfor_three'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte3"
@@ -164,7 +167,7 @@ onUnmounted(() => {
   height: auto;
   color: white;
   padding: 3.8em 5em;
- background: #334155;
+  background: #334155;
   border-radius: 100px 0px 100px 0px;
 }
 
@@ -214,5 +217,4 @@ onUnmounted(() => {
   animation: slideFromRight 0.8s ease-out forwards;
   animation-delay: 0.6s; /* Délai plus long pour le dernier élément */
 }
-
 </style>

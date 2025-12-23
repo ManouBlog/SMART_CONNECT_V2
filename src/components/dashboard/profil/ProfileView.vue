@@ -275,7 +275,7 @@ export default {
     this.texte9 = await this.handleTranslate("Registre :");
     this.texte10 = await this.handleTranslate("Forme juridique :");
     this.texte88 = await this.handleTranslate("Logo entreprise :");
-    this.texte11 = await this.handleTranslate("Nom & Prénoms :");
+    this.texte11 = await this.handleTranslate("Gérant :");
     this.texte12 = await this.handleTranslate("Pièce d'identité :");
     this.texte13 = await this.handleTranslate("Diplôme :");
     this.texte14 = await this.handleTranslate("Prénoms :");
@@ -340,10 +340,10 @@ export default {
                   ? [
                       { libelle: texte11, value: user.gerant ? user.gerant : user.nom },
                       {
-                        libelle: texte5,
+                        libelle: 'Contact téléphonique du gérant : ',
                         value: user.numero_gerant ? user.numero_gerant : user.contact,
                       },
-                      { libelle: texte12, value: user.user.photos },
+                      { libelle: 'Pièce du gérant', value: user.user.photos },
                     ]
                   : []
               "

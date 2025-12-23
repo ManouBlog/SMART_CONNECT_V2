@@ -164,9 +164,9 @@ export default {
     <HeaderBanner />
     <StepViews />
     <RechercheOffre />
+     <OffresRecentes />
     <PerformanceView />
     <AppMobileView />
-    <OffresRecentes />
     <Partenaires v-if="this.STOREPARTENAIRE.partenaires.length" />
     <TestimonialsView v-if="this.testimonials.length" />
     <!-- <NewsLetterView /> -->

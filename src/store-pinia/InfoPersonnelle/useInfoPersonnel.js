@@ -66,7 +66,9 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              return res.data.status;
+            
+              this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
+              location.reload();
             }
             if (res.data.status === false) {
               Swal.fire({
@@ -75,9 +77,9 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
                 showConfirmButton: false,
                 timer: 1500,
               });
+             
             }
           })
-  
           .catch((err) => {
             console.log(err);
           })
@@ -111,7 +113,9 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              return res.data.status;
+              this.getInfoUser()
+              this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
+              
             }
             if (res.data.status === false) {
               Swal.fire({
@@ -120,6 +124,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
                 showConfirmButton: false,
                 timer: 1500,
               });
+              this.getInfoUser()
             }
           })
   
@@ -168,7 +173,9 @@ console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
                 showConfirmButton: false,
                 timer: 1500,
               });
-              return res.data.status;
+              this.getInfoUser()
+              this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
+            
             }
             if (res.data.status === false) {
               Swal.fire({
@@ -177,6 +184,7 @@ console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
                 showConfirmButton: false,
                 timer: 1500,
               });
+              this.getInfoUser()
             }
           })
   

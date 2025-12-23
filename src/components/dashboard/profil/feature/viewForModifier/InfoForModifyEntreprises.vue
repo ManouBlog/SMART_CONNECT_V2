@@ -43,7 +43,6 @@ export default {
       await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
-          // console.log("voirInfoUserConnect",resp);
           if (resp.data.status === true) {
             this.user = resp.data.user;
           }
@@ -92,9 +91,11 @@ export default {
         competences: Help.retirerIdIntoArrayCompetence(Etudiants.competences),
       });
     },
-    handleUpdate(user) {
+   async handleUpdate(user) {
+      console.log("UhandleUpdate", user);
       if (this.user.user.statut.statut === "entreprise") {
         this.updateInfoEntreprise(user);
+          await this.getInfoUser();
       } else if (this.user.user.statut.statut === "particulier") {
         const data = {
           commune: user.commune,
@@ -106,10 +107,12 @@ export default {
         };
         console.log("updateInfoParticulier", data);
         this.update_compte_particulier(user);
+          await this.getInfoUser();
       } else {
         this.updateInfoStudent(user);
+          await this.getInfoUser();
       }
-      this.getInfoUser();
+    
     },
     onCreateQualification() {
       return { detail: "", date_debut: new Date(), date_fin: new Date() };
@@ -122,14 +125,14 @@ export default {
       console.log("valueDate", valueDate);
     },
   },
-  created() {
+  async created() {
     this.getCompetences();
-    this.getInfoUser();
+    await this.getInfoUser();
   },
 };
 </script>
 <template>
-  <div class="card-body text-left py-4">
+  <div class="card-body text-left py-4" v-if="this.user">
     <div class="row">
       <legend>
         Info personnelle
@@ -397,6 +400,9 @@ export default {
         Modifier
       </button>
     </div>
+  </div>
+  <div v-else style="text-align:center;">
+   Chargement...
   </div>
 </template>
 <style scoped>

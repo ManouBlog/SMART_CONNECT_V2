@@ -46,8 +46,8 @@ export default {
     <div class="ecriteau">
       <h1 class="fw-bold" style="color: orange">{{ texte0 }}</h1>
       <h3 class="my-5 text-center">
-        Vous avez un <strong style="color:orange;">Besoin,</strong>
-         Nous avons la <strong style="color:orange;"> Solution.</strong>
+        Vous avez un <strong style="color: orange">Besoin,</strong> Nous avons la
+        <strong style="color: orange"> Solution.</strong>
       </h3>
       <Buttons
         @created="goToRoute('/jobs')"
@@ -90,16 +90,16 @@ export default {
   flex-wrap: wrap;
 }
 @media screen and (max-width: 500px) {
-.ecriteau > h1 {
-  margin: 0.5em 0;
-}
-.ecriteau_image {
-  margin:0.5em 0;
-  text-align: center;
-}
+  .ecriteau > h1 {
+    margin: 0.5em 0;
+  }
+  .ecriteau_image {
+    margin: 0.5em 0;
+    text-align: center;
+  }
 
-.ecriteau_image img {
-  width:80%;
-}
+  .ecriteau_image img {
+    width: 80%;
+  }
 }
 </style>
