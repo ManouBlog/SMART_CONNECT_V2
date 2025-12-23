@@ -151,7 +151,7 @@ export default {
     this.texte6 = await this.handleTranslate("Contact mail de l'entreprise");
     this.texte7 = await this.handleTranslate("Forme juridique");
     this.texte8 = await this.handleTranslate("Gérant");
-    this.texte9 = await this.handleTranslate("Numéro du Gérant");
+    this.texte9 = await this.handleTranslate("Numéro téléphonique du Gérant");
     this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,png,webp,pdf)");
     this.texte11 = await this.handleTranslate("Registre (pdf)");
     this.texte12 = await this.handleTranslate("Mot de passe");
@@ -306,8 +306,30 @@ export default {
     >
       <a-input placeholder="Entrez le nom du gérant" v-model:value="formState.gerant" />
     </a-form-item>
-
     <a-form-item
+      :label="texte9"
+      name="Phonegerant"
+      :rules="[{ required: true, message: texte15 }]"
+    >
+      <a-input
+        type="tel"
+        v-model:value="formState.Phonegerant"
+        placeholder="Entrez le numéro du gérant"
+      >
+        <template #addonBefore>
+          <a-select
+            v-model:value="formState.countryCodePhoneGerant"
+            :options="westAfricaCodes"
+            show-search
+            option-filter-prop="label"
+            option-label-prop="value"
+            style="width: 120px"
+          />
+        </template>
+      </a-input>
+    </a-form-item>
+
+    <!-- <a-form-item
       :label="texte9"
       name="Phonegerant"
       :rules="[{ required: true, message: texte15 }]"
@@ -327,7 +349,7 @@ export default {
           style="width: 120px"
         />
       </template>
-    </a-form-item>
+    </a-form-item> -->
     <a-form-item
       name="upload"
       :rules="[{ required: true, message: `Veuilez ajouter une pièce d'identité.` }]"

@@ -13,16 +13,20 @@ export default {
   },
   data() {
     return {
-      Help:Help,
-      lienPhoto:lienPhoto
+      Help: Help,
+      lienPhoto: lienPhoto,
     };
   },
   methods: {
-    ...mapActions(useInfoPersonnel, 
-    ["changeValueForToogleModalInfoPersonnelle",]),
+    ...mapActions(useInfoPersonnel, ["changeValueForToogleModalInfoPersonnelle"]),
   },
   computed: {
-    ...mapState(useInfoPersonnel, ["toogleModalInfoPersonnelle","isbtnPdf","isCv","infoUserConnected"]),
+    ...mapState(useInfoPersonnel, [
+      "toogleModalInfoPersonnelle",
+      "isbtnPdf",
+      "isCv",
+      "infoUserConnected",
+    ]),
   },
 };
 </script>
@@ -31,35 +35,43 @@ export default {
     :footer="null"
     style="width: 850px; padding: 0 1em"
     v-model:open="toogleModalInfoPersonnelle"
-    @cancel="changeValueForToogleModalInfoPersonnelle({ isCv: false,isbtnPdf:false })"
-    @ok="changeValueForToogleModalInfoPersonnelle({ isCv: false,isbtnPdf:false })"
+    @cancel="changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: false })"
+    @ok="changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: false })"
   >
- 
     <CvStudent
       :isbtnPdf="this.isbtnPdf"
       :nom="this.infoUserConnected?.user?.nom"
-      :photo="lienPhoto+this.infoUserConnected?.photo_profil"
+      :photo="lienPhoto + this.infoUserConnected?.photo_profil"
       :telephone="`+225${this.infoUserConnected?.phone}`"
       :email="this.infoUserConnected?.user?.email"
       nationalite="Ivoirienne"
       :titreCv="this.infoUserConnected?.titreCv"
       :description="this.infoUserConnected?.bio"
-      :qualifications="this.infoUserConnected?.qualifications?.map(qualifi=>{
-        return{
-          periode:`${Help.formatDateToMonthYear(qualifi?.date_debut)} - ${Help?.formatDateToMonthYear(qualifi?.date_fin)}`,
-          detail:qualifi?.detail
-        }
-      })
+      :qualifications="
+        this.infoUserConnected?.qualifications?.map((qualifi) => {
+          return {
+            periode: `${Help.formatDateToMonthYear(
+              qualifi?.date_debut
+            )} - ${Help?.formatDateToMonthYear(qualifi?.date_fin)}`,
+            detail: qualifi?.detail,
+          };
+        })
       "
-      :experiences="this.infoUserConnected?.experiences?.map(experience=>{
-        return{
-          periode:`${Help.formatDateToMonthYear(experience?.dateDebut)} - ${Help.formatDateToMonthYear(experience?.dateFin)}`,
-          detail:experience?.poste
-        }
-      })"
-      :competences="this.infoUserConnected?.competences?.map(item=>{
-        return{comp:item?.competence}
-      })"
+      :experiences="
+        this.infoUserConnected?.experiences?.map((experience) => {
+          return {
+            periode: `${Help.formatDateToMonthYear(
+              experience?.dateDebut
+            )} - ${Help.formatDateToMonthYear(experience?.dateFin)}`,
+            detail: experience?.poste,
+          };
+        })
+      "
+      :competences="
+        this.infoUserConnected?.competences?.map((item) => {
+          return { comp: item?.competence };
+        })
+      "
       v-if="isCv"
     />
     <div v-else>

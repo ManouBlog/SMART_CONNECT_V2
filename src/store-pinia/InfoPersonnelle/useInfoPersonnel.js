@@ -207,11 +207,17 @@ console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
         this.logoEntreprise = payload.target.files[0]
       },
       verifIfPasswordIsExact(payload){
-        // console.log(payload)
         if (payload.confirmation_password !== payload.password) {
           Swal.fire({
             icon: "info",
             title: "la confirmation du mot de passe et le nouveau mot de passe ne correspond pas",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }else if(!payload.password || !payload.confirmation_password){
+          Swal.fire({
+            icon: "info",
+            title: "Veuillez ajouter un mot de passe",
             showConfirmButton: false,
             timer: 1500,
           });

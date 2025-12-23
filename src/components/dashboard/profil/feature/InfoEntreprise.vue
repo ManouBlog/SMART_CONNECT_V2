@@ -316,6 +316,53 @@ export default {
       <section>
         <div class="card-body text-left py-4">
           <div class="row">
+            <!-- Ancien mot de passe -->
+            <div class="col-lg-4 col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">{{ texte3 }}</label>
+                <a-input-password v-model:value="password" />
+              </div>
+            </div>
+
+            <!-- Nouveau mot de passe -->
+            <div class="col-lg-4 col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">{{ texte4 }}</label>
+                <a-input-password v-model:value="nouveau_password" />
+              </div>
+            </div>
+
+            <!-- Confirmation -->
+            <div class="col-lg-4 col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">{{ texte5 }}</label>
+                <a-input-password v-model:value="confirmation_password" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Bouton -->
+          <div class="text-center">
+            <button
+              class="btn bg-warning"
+              style="border: none"
+              @click.prevent="
+                verifIfPasswordIsExact({
+                  confirmation_password: confirmation_password,
+                  password: nouveau_password,
+                  oldPassword: password,
+                })
+              "
+            >
+              {{ texte6 }}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- <section>
+        <div class="card-body text-left py-4">
+          <div class="row">
             <div class="col-lg-4 col-sm-6">
               <div class="mb-3">
                 <label class="form-label">{{ texte3 }}</label>
@@ -357,7 +404,7 @@ export default {
             </button>
           </div>
         </div>
-      </section>
+      </section> -->
     </a-card>
   </section>
 </template>

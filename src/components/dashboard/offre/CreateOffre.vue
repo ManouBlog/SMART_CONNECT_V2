@@ -290,12 +290,14 @@ export default {
         <div class="spinner-border text-primary" role="status"></div>
       </div>
       <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
-      <p style="text-align:center;">Les champs en astérisque sont obligatoires.</p>
+      <p style="text-align: center; color: red">
+        Les champs en astérisque (*) sont obligatoires.
+      </p>
       <div>
         <form @submit.prevent="create_offre" class="container">
           <div class="row">
             <div class="text-left my-3 col-lg-6">
-              <label><span style="color:red;">*</span>{{ texte1 }}</label>
+              <label><span style="color: red">*</span>{{ texte1 }}</label>
               <select v-model="categorie" @change="selectCategorie">
                 <option value="" disabled>
                   {{ texte2 }}
@@ -310,7 +312,9 @@ export default {
               </select>
             </div>
             <div class="text-left my-3 col-lg-6">
-              <label id="select_comp"> <span style="color:red;">*</span>{{ texte3 }}</label>
+              <label id="select_comp">
+                <span style="color: red">*</span>{{ texte3 }}</label
+              >
               <select
                 :class="{ 'select-disabled': !categorie }"
                 v-model="competence"
@@ -346,7 +350,7 @@ export default {
           </div>
           <div class="row">
             <div class="text-left my-3 col-lg-6">
-              <label><span style="color:red;">*</span>{{ texte7 }}</label>
+              <label><span style="color: red">*</span>{{ texte7 }}</label>
               <input
                 class="form-control"
                 type="text"
@@ -356,7 +360,7 @@ export default {
               />
             </div>
             <div class="text-left my-3 col-lg-6">
-              <label><span style="color:red;">*</span>{{ texte8 }}</label>
+              <label><span style="color: red">*</span>{{ texte8 }}</label>
               <input
                 class="form-control"
                 type="text"
@@ -368,7 +372,7 @@ export default {
           </div>
           <div class="row">
             <div class="text-left my-3 col-lg-6">
-              <label><span style="color:red;">*</span>{{ texte9 }} </label>
+              <label><span style="color: red">*</span>{{ texte9 }} </label>
               <select
                 :class="{ 'select-disabled': !salaire }"
                 v-model="pointage"
@@ -389,7 +393,7 @@ export default {
             </div>
 
             <div class="text-left my-3 col-lg-6">
-              <label><span style="color:red;">*</span>{{ texte12 }}</label>
+              <label><span style="color: red">*</span>{{ texte12 }}</label>
               <input
                 class="form-control"
                 type="text"
@@ -401,7 +405,7 @@ export default {
           </div>
           <div class="row">
             <div class="text-left my-3 col-lg-6">
-              <label><span style="color:red;">*</span>{{ texte13 }}</label>
+              <label><span style="color: red">*</span>{{ texte13 }}</label>
               <input
                 class="form-control"
                 type="number"
@@ -413,7 +417,8 @@ export default {
             </div>
             <div class="text-left my-3 col-lg-6">
               <label for="calendar-12h d-block" class="date_heure">
-                <span style="color:red;">*</span>{{ texte14 }}</label>
+                <span style="color: red">*</span>{{ texte14 }}</label
+              >
               <input
                 class="form-control"
                 type="datetime-local"
@@ -425,9 +430,10 @@ export default {
           </div>
           <div class="row">
             <div class="text-left my-3 col-lg-6">
-              <label for="calendar-12" class="date_heure"> 
-                <span style="color:red;">*</span>
-                {{ texte15 }}</label>
+              <label for="calendar-12" class="date_heure">
+                <span style="color: red">*</span>
+                {{ texte15 }}</label
+              >
               <input
                 class="form-control"
                 type="datetime-local"
@@ -438,7 +444,7 @@ export default {
               />
             </div>
             <div class="text-left my-3 col-lg-6">
-              <label><span style="color:red;">*</span>{{ texte16 }}</label>
+              <label><span style="color: red">*</span>{{ texte16 }}</label>
               <input
                 class="form-control"
                 type="datetime-local"
@@ -460,7 +466,7 @@ export default {
             </div>
 
             <div class="col-md-12 my-2 text-left">
-              <label><span style="color:red;">*</span>{{ texte18 }}</label>
+              <label><span style="color: red">*</span>{{ texte18 }}</label>
               <div class="conteneur_editor">
                 <editor v-model="description" />
               </div>

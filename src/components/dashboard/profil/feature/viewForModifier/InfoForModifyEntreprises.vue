@@ -87,7 +87,7 @@ export default {
         ville: Etudiants.ville,
         bio: Etudiants.bio,
         diplome: Etudiants.diplome,
-        titreCv:Etudiants.titreCv,
+        titreCv: Etudiants.titreCv,
         qualifications: this.itemsQualificationDynamicInput,
         competences: Help.retirerIdIntoArrayCompetence(Etudiants.competences),
       });
@@ -151,6 +151,51 @@ export default {
           <input v-model="user.nom" class="form-control" type="text" />
         </div>
       </div>
+      <div class="col-md-12">
+        <div class="mb-3">
+          <label class="form-label"
+            >RCCM (Registre du Commerce et du Crédit Mobilier)</label
+          >
+          <input v-model="user.matricule_cc" class="form-control" type="text" />
+        </div>
+        <div class="my-3">
+          <input
+            type="file"
+            @input="addAnRegistreDoc"
+            id="add_file_registre"
+            class="w-100"
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="mb-3">
+          <label class="form-label">Forme juridique</label>
+          <input v-model="user.forme_juridique" class="form-control" type="text" />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="mb-3">
+          <label class="form-label">NCC (Numéro de compte contribuable)</label>
+          <input v-model="user.NCC" class="form-control" type="text" />
+        </div>
+      </div>
+      <div
+        class="col-md-12"
+        v-if="
+          this.user &&
+          (this.user.user.statut.statut == 'entreprise' ||
+            this.user.user.statut.statut == 'particulier')
+        "
+      >
+        <div class="mb-3">
+          <label class="form-label">{{
+            this.user.user.statut.statut == "entreprise"
+              ? "Contact téléphonique de l'entreprise"
+              : "Contact téléphonique"
+          }}</label>
+          <input v-model="user.contact" class="form-control" type="text" />
+        </div>
+      </div>
       <div
         class="col-md-12"
         v-if="this.user && this.user.user.statut.statut === 'etudiant'"
@@ -170,9 +215,13 @@ export default {
         </div>
       </div>
 
-      <div class="col-md-12">
+      <div class="col-md-12" v-if="this.user">
         <div class="mb-3">
-          <label class="form-label">Email</label>
+          <label class="form-label">{{
+            this.user.user.statut.statut == "entreprise"
+              ? "Contact mail de l'entreprise"
+              : "Email"
+          }}</label>
           <input v-model="user.email" class="form-control" type="email" />
         </div>
       </div>
@@ -185,19 +234,7 @@ export default {
           <input v-model="user.phone" class="form-control" type="text" />
         </div>
       </div>
-      <div
-        class="col-md-12"
-        v-if="
-          this.user &&
-          (this.user.user.statut.statut == 'entreprise' ||
-            this.user.user.statut.statut == 'particulier')
-        "
-      >
-        <div class="mb-3">
-          <label class="form-label">Contact téléphonique</label>
-          <input v-model="user.contact" class="form-control" type="text" />
-        </div>
-      </div>
+
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Ville</label>
@@ -274,44 +311,17 @@ export default {
             <input type="file" @input="addAnLogo" id="add_file_logo" class="w-100" />
           </div>
         </div>
-        <div class="col-md-12">
-          <div class="mb-3">
-            <label class="form-label"
-              >RCCM (Registre du Commerce et du Crédit Mobilier)</label
-            >
-            <input v-model="user.matricule_cc" class="form-control" type="text" />
-          </div>
-          <div class="my-3">
-            <input
-              type="file"
-              @input="addAnRegistreDoc"
-              id="add_file_registre"
-              class="w-100"
-            />
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="mb-3">
-            <label class="form-label">Forme juridique</label>
-            <input v-model="user.forme_juridique" class="form-control" type="text" />
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="mb-3">
-            <label class="form-label">NCC (Numéro de compte contribuable)</label>
-            <input v-model="user.NCC" class="form-control" type="text" />
-          </div>
-        </div>
+
         <legend>Info sur le gérant</legend>
         <div class="col-md-12">
           <div class="mb-3">
-            <label class="form-label">Nom & prénoms</label>
+            <label class="form-label">Gérant</label>
             <input v-model="user.gerant" class="form-control" type="text" />
           </div>
         </div>
         <div class="col-md-12">
           <div class="mb-3">
-            <label class="form-label">Numéro</label>
+            <label class="form-label">Numéro téléphonique du Gérant</label>
             <input v-model="user.numero_gerant" class="form-control" type="text" />
           </div>
         </div>
@@ -323,7 +333,7 @@ export default {
             {{
               this.user && this.user.user.statut.statut === "etudiant"
                 ? "Nouvelle carte étudiant"
-                : "Nouvelle pièce d'identité"
+                : "Nouvelle pièce du gérant (jpg,png,webp,pdf)"
             }}</label
           >
           <input
@@ -392,5 +402,9 @@ export default {
 <style scoped>
 :deep(.n-input__input-el:hover) {
   color: orange !important;
+}
+.form-control {
+  padding: 1.5em !important;
+  border-radius: 10px !important;
 }
 </style>
