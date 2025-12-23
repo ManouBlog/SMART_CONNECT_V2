@@ -18,7 +18,7 @@ export default {
     get_users() {
       this.spinner = true;
       axios
-        .get("http://backend.monbrobroli.com/api/list_users")
+        .get("https://backend.monbrobroli.com/api/list_users")
         .then((res) => {
           console.log(res);
           this.users = res.data.data;

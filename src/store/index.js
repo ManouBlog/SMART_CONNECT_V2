@@ -19,7 +19,7 @@ export default createStore({
     addExperiences(state, person) {
       axios
         .post(
-          "http://backend.monbrobroli.com/api/postNewExperience",
+          "https://backend.monbrobroli.com/api/postNewExperience",
           {
             experience: person.experience,
             lieu: person.lieu,
@@ -92,7 +92,7 @@ export default createStore({
     get_users({ commit,state }) {
       commit('TOOGLESPINNER',true)
       axios
-        .get("http://backend.monbrobroli.com/api/list_entreprise", {
+        .get("https://backend.monbrobroli.com/api/list_entreprise", {
           headers: {
             Authorization: "Bearer " + state.token,
           },

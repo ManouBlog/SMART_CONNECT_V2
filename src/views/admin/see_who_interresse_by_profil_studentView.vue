@@ -21,7 +21,7 @@ export default {
     get_entreprise_who_contact_student() {
       this.spinner = true;
       axios
-        .get("http://backend.monbrobroli.com/api/get_who_contact_student", {
+        .get("https://backend.monbrobroli.com/api/get_who_contact_student", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -95,7 +95,7 @@ export default {
     acceptJob() {
       axios
         .put(
-          "http://backend.monbrobroli.com/api/changeStatutJob/" + this.idOffre,
+          "https://backend.monbrobroli.com/api/changeStatutJob/" + this.idOffre,
           {
             contrat: 1,
           },
@@ -126,7 +126,7 @@ export default {
     rejectJob() {
       axios
         .put(
-          "http://backend.monbrobroli.com/api/changeStatutJob/" + this.idOffre,
+          "https://backend.monbrobroli.com/api/changeStatutJob/" + this.idOffre,
           {
             contrat: 0,
           },

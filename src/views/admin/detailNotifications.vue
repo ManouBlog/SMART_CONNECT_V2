@@ -23,7 +23,7 @@ export default {
      get_messages() {
       this.spinner = true;
       axios
-        .get("http://backend.monbrobroli.com/api/getEmailNewsletter", {
+        .get("https://backend.monbrobroli.com/api/getEmailNewsletter", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

@@ -42,7 +42,7 @@ export default {
     async getDetailRoute(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("http://backend.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
+        .put("https://backend.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

@@ -23,7 +23,7 @@ export default {
       this.spinner = true;
 
       axios
-        .get("http://backend.monbrobroli.com/api/list_entreprise", {
+        .get("https://backend.monbrobroli.com/api/list_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -167,7 +167,7 @@ export default {
             <n-image
                :alt="entreprise?.piece_gerant"
               width="100"
-              :src="'http://backend.monbrobroli.com/storage/images/'+entreprise?.piece_gerant"
+              :src="'https://backend.monbrobroli.com/storage/images/'+entreprise?.piece_gerant"
               />
           </h4>
           <h4 v-if="entreprise.matricule_cc">
@@ -183,7 +183,7 @@ export default {
             <n-image
                :alt="entreprise?.logo"
               width="100"
-              :src="'http://backend.monbrobroli.com/storage/images/'+entreprise?.logo"
+              :src="'https://backend.monbrobroli.com/storage/images/'+entreprise?.logo"
               />
           </h4>
           
@@ -196,7 +196,7 @@ export default {
                <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px;">
     <n-card title="Document PDF" closable @close="showModal = false">
       <iframe
-        :src="'http://backend.monbrobroli.com/storage/pdf/'+entreprise?.registre"
+        :src="'https://backend.monbrobroli.com/storage/pdf/'+entreprise?.registre"
         style="width: 100%; height: 600px; border: none;"
       ></iframe>
     </n-card>
