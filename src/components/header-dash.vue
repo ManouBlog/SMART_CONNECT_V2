@@ -25,7 +25,7 @@ export default {
     deconnex() {
       this.$store.commit("TOOGLESPINNER", true);
       axios
-        .get("http://127.0.0.1:8000/api/auth_logout", {
+        .get("http://192.168.1.27:8000/api/auth_logout", {
           headers: {
             Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
           },
@@ -63,7 +63,7 @@ export default {
     get_entreprise_who_contact_student() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/get_who_contact_student", {
+        .get("http://192.168.1.27:8000/api/get_who_contact_student", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

@@ -44,7 +44,7 @@ export default {
     get_offres() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/get_offres_entreprise", {
+        .get("http://192.168.1.27:8000/api/get_offres_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

@@ -27,7 +27,7 @@ export default {
       formData.append('lien',this.lienAffiche);
       formData.append('appareil',this.appareal);
       await axios
-        .post("http://127.0.0.1:8000/api/admin/addAffiche", formData, {
+        .post("http://192.168.1.27:8000/api/admin/addAffiche", formData, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -66,7 +66,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("http://127.0.0.1:8000/api/showAffiche", {
+        .get("http://192.168.1.27:8000/api/showAffiche", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -118,7 +118,7 @@ export default {
     deletePublicite(idPublicite) {
       this.spinner = true;
       axios
-        .delete("http://127.0.0.1:8000/api/admin/delete_pub/" + idPublicite, {
+        .delete("http://192.168.1.27:8000/api/admin/delete_pub/" + idPublicite, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -317,7 +317,7 @@ export default {
                     <td>
                       <n-image
                         width="100"
-                        :src="'http://127.0.0.1:8000/storage/images/'+item.affiche"
+                        :src="'http://192.168.1.27:8000/storage/images/'+item.affiche"
                       />
                     </td>
                     <td>

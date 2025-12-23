@@ -74,7 +74,7 @@ export default {
     },
     // get_categorie() {
     //   axios
-    //     .get("http://127.0.0.1:8000/api/seeCategorie", {
+    //     .get("http://192.168.1.27:8000/api/seeCategorie", {
     //       headers: {
     //         Authorization: "Bearer " + this.$store.state.token,
     //       },
@@ -235,7 +235,7 @@ export default {
       console.log("DATA", data);
       axios
         .post(
-          "http://127.0.0.1:8000/api/statistiques/statistiqueVisite",
+          "http://192.168.1.27:8000/api/statistiques/statistiqueVisite",
           data,
           {
             headers: {

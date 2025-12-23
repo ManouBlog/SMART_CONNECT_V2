@@ -42,7 +42,7 @@ export default {
     async getDetailRoute(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("http://127.0.0.1:8000/api/updateBadgeEntreprise/" + id, {
+        .put("http://192.168.1.27:8000/api/updateBadgeEntreprise/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -319,7 +319,7 @@ export default {
                     > -->
                     </td>
                     <td>
-                      {{ this.verifIfAbonnementCurrently(item?.user?.abonement) }}
+                      {{ item?.user?.abonement.length ? this.verifIfAbonnementCurrently(item?.user?.abonement):"Pas d'abonnement" }}
                     </td>
 
                     <td>
@@ -370,7 +370,7 @@ export default {
                     > -->
                     </td>
                     <td>
-                      {{ this.verifIfAbonnementCurrently(item?.user?.abonement) }}
+                      {{ item?.user?.abonement.length ? this.verifIfAbonnementCurrently(item?.user?.abonement):"Pas d'abonnement" }}
                     </td>
 
                     <td>

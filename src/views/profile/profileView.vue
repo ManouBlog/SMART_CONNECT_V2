@@ -52,7 +52,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("http://127.0.0.1:8000/api/passwordModify", info, {
+        .post("http://192.168.1.27:8000/api/passwordModify", info, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -89,7 +89,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("http://127.0.0.1:8000/api/passwordModify", Entreprise, {
+        .post("http://192.168.1.27:8000/api/passwordModify", Entreprise, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -126,7 +126,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("http://127.0.0.1:8000/api/passwordModify", admin, {
+        .post("http://192.168.1.27:8000/api/passwordModify", admin, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -166,7 +166,7 @@ export default {
       };
       axios
         .put(
-          "http://127.0.0.1:8000/api/modifier_profil",
+          "http://192.168.1.27:8000/api/modifier_profil",
           compte_entreprise,
           {
             headers: {
@@ -214,7 +214,7 @@ export default {
       data.append("diplome", this.diplome);
       data.append("photo", this.photo);
       axios
-        .post("http://127.0.0.1:8000/api/modifier_profil", data, {
+        .post("http://192.168.1.27:8000/api/modifier_profil", data, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -259,7 +259,7 @@ export default {
     updateCompteAdmin() {
       axios
         .put(
-          "http://127.0.0.1:8000/api/modifier_profil",
+          "http://192.168.1.27:8000/api/modifier_profil",
           {
             nom: this.nom,
             password: this.password,
@@ -433,7 +433,7 @@ export default {
                     <label class="form-label">Document</label>
                     <img
                       :src="
-                        'http://127.0.0.1:8000/storage/images/' +
+                        'http://192.168.1.27:8000/storage/images/' +
                         user.photo
                       "
                       :alt="user.photo"
