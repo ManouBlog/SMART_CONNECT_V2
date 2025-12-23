@@ -99,7 +99,6 @@ onUnmounted(() => {
             :nbre="Number(formatNumber(Number(entreprises)))"
             :class="{ 'slide-from-left': cardPerfVisible }"
           />
-
           <CardPerformance
             :myStyle="'card_perfor_two'"
             :icone_name="'bi bi-briefcase-fill'"
@@ -107,7 +106,6 @@ onUnmounted(() => {
             :nbre="Number(formatNumber(Number(offres)))"
             :class="{ 'fade-in': cardPerfVisible }"
           />
-
           <CardPerformance
             v-if="Number(timetable) > 100"
             :myStyle="'card_perfor_three'"
@@ -122,6 +120,12 @@ onUnmounted(() => {
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte4"
             :nbre="Number(formatNumber(Number(visiteur)))"
+            :class="{ 'slide-from-right': cardPerfVisible }"
+          />
+          <CardPerformance
+            :myStyle="'card_perfor_two'"
+            :icone_name="'bi bi-person-lines-fill'"
+            :texte="'Paiement garantir 100%'"
             :class="{ 'slide-from-right': cardPerfVisible }"
           />
         </div>

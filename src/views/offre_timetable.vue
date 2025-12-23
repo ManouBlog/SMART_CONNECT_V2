@@ -270,7 +270,7 @@ export default {
     },
   },
   async created() {
-    this.texte = await this.handleTranslate(`selectionne une categorie`);
+    this.texte = await this.handleTranslate(`Sélectionne un domaine`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
     this.texte2 = await this.handleTranslate("ex: Angre");
     this.texte3 = await this.handleTranslate("Offres");

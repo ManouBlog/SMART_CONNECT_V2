@@ -80,7 +80,7 @@ export default {
           <span><em class="bi bi-geo-alt"></em>{{ item.lieu }}</span>
           <br />
           <br />
-          <span><em class="bi bi-cash"></em> Rémuneration</span>
+          <span><em class="bi bi-cash"></em> Rémuneration :</span>
           <span style="font-weight: bold;color:orange;margin:0 0.5em;">{{ new Intl.NumberFormat('fr-FR').format(item.salaire) }} Fcfa / {{item.pointage}}</span>
           <!-- <span> <em class="bi bi-calendar-date"></em>Echéance :</span>
           <span>{{ new Date(item.fin).toLocaleDateString("fr") }}</span> -->
