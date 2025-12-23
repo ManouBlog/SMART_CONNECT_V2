@@ -8,6 +8,7 @@ const translateStore = useTranslateStore();
 
 const texte0 = ref("");
 const texte1 = ref("");
+const texte55 = ref("");
 const texte2 = ref("");
 const texte3 = ref("");
 const texte4 = ref("");
@@ -15,6 +16,7 @@ const entreprises = ref(0);
 const offres = ref(0);
 const timetable = ref(0);
 const visiteur = ref(0);
+const student = ref(0);
 const cardPerfVisible = ref(false);
 
 let observer = null;
@@ -41,6 +43,7 @@ const seePerformanceNbre = async () => {
       offres.value = response.data.offrePerf;
       timetable.value = response.data.talentPerf;
       visiteur.value = response.data.visiteurPerf;
+      student.value = response.data.students;
     }
   } catch (error) {
     console.log(error);
@@ -72,6 +75,7 @@ onMounted(async () => {
   texte2.value = await translateStore.handleTranslate("Offre(s)");
   texte3.value = await translateStore.handleTranslate("Talent(s)");
   texte4.value = await translateStore.handleTranslate("Visiteur(s)");
+  texte55.value = await translateStore.handleTranslate("Étudiants inscrits");
   await seePerformanceNbre();
   initIntersectionObserver();
 });
@@ -105,6 +109,14 @@ onUnmounted(() => {
             :icone_name="'bi bi-briefcase-fill'"
             :texte="texte2"
             :nbre="Number(formatNumber(Number(offres)))"
+            :class="{ 'fade-in': cardPerfVisible }"
+             :isPayement="false"
+          />
+          <CardPerformance
+            :myStyle="'card_perfor_nbre_student_save'"
+            :icone_name="'bi bi-person-lines-fill'"
+            :texte="texte55"
+            :nbre="Number(formatNumber(Number(student)))"
             :class="{ 'fade-in': cardPerfVisible }"
              :isPayement="false"
           />
@@ -168,6 +180,16 @@ onUnmounted(() => {
   height: auto;
   color: white;
   padding: 3.8em 5em;
+  background: rgba(4, 3, 1, 0.649);
+  border-radius: 100%;
+}
+.card_perfor_nbre_student_save{
+      width: 250px;
+    height: 250px;
+    line-height: 30px;
+  color: white;
+     padding: 3.8em 5em;
+     text-align:center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
 }
