@@ -272,14 +272,14 @@ export default {
   async created() {
     this.texte = await this.handleTranslate(`Sélectionne un domaine`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
-    this.texte2 = await this.handleTranslate("ex: Angre");
+    this.texte2 = await this.handleTranslate("Ex:Lieu (Angré cocody)");
     this.texte3 = await this.handleTranslate("Offres");
     this.texte4 = await this.handleTranslate("Nous avons trouvé");
     this.texte5 = await this.handleTranslate("Nouveauté");
     this.texte6 = await this.handleTranslate("Voir les Détails");
     this.texte7 = await this.handleTranslate("Offre Expirée");
     this.texte8 = await this.handleTranslate("Charger plus");
-    this.texte9 = await this.handleTranslate(` Vous avez atteint la fin`);
+    this.texte9 = await this.handleTranslate(`Vous avez atteint la fin`);
     this.texte10 = await this.handleTranslate("ex: Angre");
     this.texte11 = await this.handleTranslate("Offres");
     this.texte12 = await this.handleTranslate("Nous avons trouvé");
