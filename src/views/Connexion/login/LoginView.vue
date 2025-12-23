@@ -144,6 +144,7 @@ export default {
     @finish="onFinish"
     @finishFailed="onFinishFailed"
   >
+  <div style="padding:0.5em 0;text-align:center;color:red;">Les champs en astérisque (*) sont obligatoires</div>
     <a-form-item
       :label="texte3"
       name="email"
