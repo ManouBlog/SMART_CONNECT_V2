@@ -406,6 +406,8 @@ export default {
                 >
                 <h1 style="font-size: 1em">{{ offre.nom_offre }}</h1>
                 <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
+                <br>
+                 <span style="font-weight: bold;color:orange;margin:0 0.5em;">{{ new Intl.NumberFormat('fr-FR').format(offre.salaire) }} Fcfa / {{offre.pointage}}</span>
                 <h1 class="badge badge_categorie">{{ offre.categorie.categorie }}</h1>
                 <!-- <div v-html="offre.description" 
               id="conteneur-description" class="ellipse_text">
