@@ -62,7 +62,7 @@ export default {
         photo: null,
         Phonegerant: null,
         countryCode: "+225",
-        countryCodePhoneGerant:"+225"
+        countryCodePhoneGerant: "+225",
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -191,7 +191,7 @@ export default {
       name="nom"
       :rules="[{ required: true, message: texte24 }]"
     >
-      <a-input v-model:value="formState.nom"  placeholder="Entrez la raison sociale" />
+      <a-input v-model:value="formState.nom" placeholder="Entrez la raison sociale" />
     </a-form-item>
     <a-form-item
       :label="texte1"
@@ -222,21 +222,31 @@ export default {
       name="juridique"
       :rules="[{ required: true, message: texte17 }]"
     >
-      <a-input v-model:value="formState.juridique" placeholder="Entrez la forme juridique" />
+      <a-input
+        v-model:value="formState.juridique"
+        placeholder="Entrez la forme juridique"
+      />
     </a-form-item>
     <a-form-item
       label="NCC (Numéro de compte contribuable)"
       name="ncc"
       :rules="[{ required: true, message: 'Ajouter le Numéro de compte contribuable' }]"
     >
-      <a-input v-model:value="formState.ncc" placeholder="Entrez le numéro de compte contribuable" />
+      <a-input
+        v-model:value="formState.ncc"
+        placeholder="Entrez le numéro de compte contribuable"
+      />
     </a-form-item>
     <a-form-item
       :label="texte2"
       name="contact"
       :rules="[{ required: true, message: texte22 }]"
     >
-      <a-input type="tel" v-model:value="formState.contact" placeholder="Entrez le numéro">
+      <a-input
+        type="tel"
+        v-model:value="formState.contact"
+        placeholder="Entrez le numéro"
+      >
         <template #addonBefore>
           <a-select
             v-model:value="formState.countryCode"
@@ -261,14 +271,20 @@ export default {
       name="commune"
       :rules="[{ required: true, message: texte20 }]"
     >
-      <a-input placeholder="Entrez le nom de la commune" v-model:value="formState.commune" />
+      <a-input
+        placeholder="Entrez le nom de la commune"
+        v-model:value="formState.commune"
+      />
     </a-form-item>
     <a-form-item
       :label="texte5"
       name="quartier"
       :rules="[{ required: true, message: texte19 }]"
     >
-      <a-input placeholder="Entrez le nom du quartier" v-model:value="formState.quartier" />
+      <a-input
+        placeholder="Entrez le nom du quartier"
+        v-model:value="formState.quartier"
+      />
     </a-form-item>
 
     <a-form-item
@@ -276,8 +292,11 @@ export default {
       name="email"
       :rules="[{ required: true, message: texte18 }]"
     >
-      <a-input  type="email" 
-  placeholder="Entrez votre email"  v-model:value="formState.email" />
+      <a-input
+        type="email"
+        placeholder="Entrez votre email"
+        v-model:value="formState.email"
+      />
     </a-form-item>
 
     <a-form-item
@@ -293,17 +312,21 @@ export default {
       name="Phonegerant"
       :rules="[{ required: true, message: texte15 }]"
     >
-      <a-input type="tel" v-model:value="formState.Phonegerant" placeholder="Entrez le numéro du gérant" />
+      <a-input
+        type="tel"
+        v-model:value="formState.Phonegerant"
+        placeholder="Entrez le numéro du gérant"
+      />
       <template #addonBefore>
-          <a-select
-            v-model:value="formState.countryCodePhoneGerant"
-            :options="westAfricaCodes"
-            show-search
-            option-filter-prop="label"
-            option-label-prop="value"
-            style="width: 120px"
-          />
-        </template>
+        <a-select
+          v-model:value="formState.countryCodePhoneGerant"
+          :options="westAfricaCodes"
+          show-search
+          option-filter-prop="label"
+          option-label-prop="value"
+          style="width: 120px"
+        />
+      </template>
     </a-form-item>
     <a-form-item
       name="upload"
@@ -346,7 +369,10 @@ export default {
       name="password"
       :rules="[{ required: true, message: texte14 }]"
     >
-      <a-input-password v-model:value="formState.password"  placeholder="Entrez le mot de passe"  />
+      <a-input-password
+        v-model:value="formState.password"
+        placeholder="Entrez le mot de passe"
+      />
     </a-form-item>
 
     <a-form-item>
