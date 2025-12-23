@@ -24,7 +24,7 @@ export default {
       console.log("this.$route", this.$route);
       axios
         .get(
-          "https://backend.monbrobroli.com/api/get_detail_user/" + this.$route.params.id,
+          "http://127.0.0.1:8000/api/get_detail_user/" + this.$route.params.id,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -207,10 +207,10 @@ export default {
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
-              <label class="form-label">Carte étudiante</label>
+              <label class="form-label">Carte étudiant</label>
               <Image
                 :src="`${
-                  'https://backend.monbrobroli.com/storage/images/' + student?.photo
+                  'http://127.0.0.1:8000/storage/images/' + student?.photo
                 }`"
                 :alt="student?.photo"
                 width="250"
@@ -218,7 +218,7 @@ export default {
               />
               <!-- <img
                 :src="`${
-                  'https://backend.monbrobroli.com/storage/images/' + student?.photo
+                  'http://127.0.0.1:8000/storage/images/' + student?.photo
                 }`"
                 :alt="student?.photo"
                 style="width: 50px; height: 50px; display: block"

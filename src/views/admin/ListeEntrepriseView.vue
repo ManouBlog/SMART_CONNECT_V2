@@ -27,7 +27,7 @@ export default {
     },
     verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
-      if (!value.length) {
+      if (!value) {
         return "Pas d'abonnement";
       }
       value?.forEach((element) => {
@@ -42,7 +42,7 @@ export default {
     async getDetailRoute(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("https://backend.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
+        .put("http://127.0.0.1:8000/api/updateBadgeEntreprise/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

@@ -23,7 +23,7 @@ export default {
       this.spinner = true;
 
       axios
-        .get("https://backend.monbrobroli.com/api/list_entreprise", {
+        .get("http://127.0.0.1:8000/api/list_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -99,7 +99,7 @@ export default {
     },
     verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
-      if (!value.length) {
+      if (!value) {
         return "Pas d'abonnement";
       }
       value?.forEach((element) => {
@@ -167,7 +167,7 @@ export default {
             <n-image
                :alt="entreprise?.piece_gerant"
               width="100"
-              :src="'https://backend.monbrobroli.com/storage/images/'+entreprise?.piece_gerant"
+              :src="'http://127.0.0.1:8000/storage/images/'+entreprise?.piece_gerant"
               />
           </h4>
           <h4 v-if="entreprise.matricule_cc">
@@ -183,7 +183,7 @@ export default {
             <n-image
                :alt="entreprise?.logo"
               width="100"
-              :src="'https://backend.monbrobroli.com/storage/images/'+entreprise?.logo"
+              :src="'http://127.0.0.1:8000/storage/images/'+entreprise?.logo"
               />
           </h4>
           
@@ -196,7 +196,7 @@ export default {
                <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px;">
     <n-card title="Document PDF" closable @close="showModal = false">
       <iframe
-        :src="'https://backend.monbrobroli.com/storage/pdf/'+entreprise?.registre"
+        :src="'http://127.0.0.1:8000/storage/pdf/'+entreprise?.registre"
         style="width: 100%; height: 600px; border: none;"
       ></iframe>
     </n-card>
