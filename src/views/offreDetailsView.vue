@@ -227,7 +227,7 @@ export default {
                   <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
                 </h4>
                 <div>
-                  <h4 class="my-5" v-if="Offre.salaire != null">
+                  <h4 class="my-5" v-if="Offre.salaire != null" style="color:orange;">
                     <em class="bi bi-cash-stack"></em>
                     {{ moneyFormat.format(Offre.salaire) }} Fcfa /
                     {{ Offre.pointage }}

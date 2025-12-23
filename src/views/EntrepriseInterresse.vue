@@ -457,7 +457,7 @@ export default {
                 <p><strong>Lieu :</strong> {{ item.offre.lieu }}</p>
                 <p><strong>Entreprise :</strong> {{ item.offre.entreprise.nom }}</p>
                 <p>
-                  <strong>Salaire :</strong>
+                  <strong>Rémuneration</strong>
                   {{ moneyFormat.format(item.offre.salaire) }} Fcfa
                 </p>
 

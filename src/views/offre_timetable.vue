@@ -404,11 +404,13 @@ export default {
                   :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'"
                   >{{ texte5 }}</span
                 >
-                <h1 style="font-size: 1em">{{ offre.nom_offre }}</h1>
+                <h1 style="font-size: 1em;margin:0.5em 0;">{{ offre.nom_offre }}</h1>
                 <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
                 <br>
+                <span><em class="bi bi-cash"></em> Rémuneration :</span>
                  <span style="font-weight: bold;color:orange;margin:0 0.5em;">{{ new Intl.NumberFormat('fr-FR').format(offre.salaire) }} Fcfa / {{offre.pointage}}</span>
-                <h1 class="badge badge_categorie">{{ offre.categorie.categorie }}</h1>
+                 
+                <!-- <h1 class="badge badge_categorie" style="margin:0.5em 0;">{{ offre.categorie.categorie }}</h1> -->
                 <!-- <div v-html="offre.description" 
               id="conteneur-description" class="ellipse_text">
               </div> -->
@@ -578,14 +580,12 @@ select {
   margin: 1em 0;
   width: 400px;
 }
-.container_result .two button {
-  margin: 0 1em !important;
-}
+
 .badge {
   display: block;
 }
 .badge_categorie {
-  width: 100px !important;
+  min-width: 100px !important;
   background: #f77f00 !important;
 }
 .badge_new {
@@ -647,9 +647,7 @@ select {
   .informations_offres {
     margin: 0 !important;
   }
-  .informations_offres {
-    padding: 0 !important;
-  }
+  
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
