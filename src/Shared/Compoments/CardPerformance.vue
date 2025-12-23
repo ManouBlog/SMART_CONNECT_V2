@@ -11,6 +11,7 @@ export default {
     texte: String,
     nbre: Number,
     myStyle: String,
+    isPayement:Boolean
   },
   data() {
     return {};
@@ -18,8 +19,8 @@ export default {
 };
 </script>
 <template>
-  <section :class="myStyle">
-    <div style="text-align:center;">
+  <section :class="myStyle" >
+    <div style="text-align:center;" v-if="!isPayement">
       <vue3-autocounter
         class="counter"
         ref="counter"
@@ -29,9 +30,13 @@ export default {
         :autoinit="true"
       />
     </div>
-    <div class="my-3">
+    <div class="my-3" v-if="!isPayement">
       <em :class="icone_name" class="mx-3"></em>
-      <span>{{ texte }} </span>
+      <span style="font-weight:bold;">{{ texte }} </span>
+    </div>
+    <div  v-if="isPayement">
+      <h1 style="color:orange;font-size:3.5em;">100%</h1>
+      <span style="font-weight:bold;">{{ texte }}</span>
     </div>
   </section>
 </template>

@@ -98,6 +98,7 @@ onUnmounted(() => {
             :texte="texte1"
             :nbre="Number(formatNumber(Number(entreprises)))"
             :class="{ 'slide-from-left': cardPerfVisible }"
+             :isPayement="false"
           />
           <CardPerformance
             :myStyle="'card_perfor_two'"
@@ -105,6 +106,7 @@ onUnmounted(() => {
             :texte="texte2"
             :nbre="Number(formatNumber(Number(offres)))"
             :class="{ 'fade-in': cardPerfVisible }"
+             :isPayement="false"
           />
           <CardPerformance
             v-if="Number(timetable) > 100"
@@ -113,6 +115,7 @@ onUnmounted(() => {
             :texte="texte3"
             :nbre="Number(formatNumber(Number(timetable)))"
             :class="{ 'fade-in': cardPerfVisible }"
+             :isPayement="false"
           />
 
           <CardPerformance
@@ -121,12 +124,14 @@ onUnmounted(() => {
             :texte="texte4"
             :nbre="Number(formatNumber(Number(visiteur)))"
             :class="{ 'slide-from-right': cardPerfVisible }"
+             :isPayement="false"
           />
           <CardPerformance
-            :myStyle="'card_perfor_two'"
-            :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Paiement garantir 100%'"
-            :class="{ 'slide-from-right': cardPerfVisible }"
+            :myStyle="'card_perfor_payment'"
+          
+            :texte="'Paiement garanti'"
+             :class="{ 'fade-in': cardPerfVisible }"
+            :isPayement="true"
           />
         </div>
       </div>
@@ -163,6 +168,16 @@ onUnmounted(() => {
   height: auto;
   color: white;
   padding: 3.8em 5em;
+  background: rgba(4, 3, 1, 0.649);
+  border-radius: 100%;
+}
+.card_perfor_payment{
+      width: 250px;
+    height: 250px;
+    line-height: 30px;
+  color: white;
+     padding: 3.8em 5em;
+     text-align:center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
 }
