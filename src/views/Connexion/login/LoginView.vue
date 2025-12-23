@@ -70,14 +70,14 @@ export default {
             // console.log("essai", this.$store.state.charte);
             this.$store.state.token = response.data.access_token;
             this.toogleModal();
-            const redirect = this.$route.query.redirect
-       console.log("Redirection détectée :", redirect)
-        if (redirect) {
-          console.log("Redirection détectée :", redirect)
-          this.$router.replace(redirect)
-        } else {
-          this.$router.replace('/')
-        }
+            const redirect = this.$route.query.redirect;
+            console.log("Redirection détectée :", redirect);
+            if (redirect) {
+              console.log("Redirection détectée :", redirect);
+              this.$router.replace(redirect);
+            } else {
+              this.$router.replace("/");
+            }
             this.launchLoading(false);
           }
           if (response.data.status === false) {
@@ -115,9 +115,8 @@ export default {
     this.texte4 = await this.handleTranslate("Mot de passe");
     this.texte5 = await this.handleTranslate("Mot de passe oublié");
     this.texte6 = await this.handleTranslate("Se connecter");
-    this.texte7 = await this.handleTranslate('Veuillez renseigner votre email!');
-    this.texte8 = await this.handleTranslate('Veuillez renseigner votre mot de passe!');
-   
+    this.texte7 = await this.handleTranslate("Veuillez renseigner votre email!");
+    this.texte8 = await this.handleTranslate("Veuillez renseigner votre mot de passe!");
   },
 };
 </script>

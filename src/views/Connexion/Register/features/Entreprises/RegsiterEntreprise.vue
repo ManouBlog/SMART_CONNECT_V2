@@ -1,4 +1,5 @@
 <script>
+import Swal from "sweetalert2";
 import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
 import { configUtils } from "../../../../../Shared/Utils";
@@ -13,7 +14,7 @@ export default {
   data() {
     return {
       SWALPOPUP: useSwalPopup(),
-      configUtils:configUtils,
+      configUtils: configUtils,
       texte: "",
       texte2: "",
       texte3: "",
@@ -25,62 +26,62 @@ export default {
       texte8: "",
       texte9: "",
       texte10: "",
-      texte11:"",
-      texte12:"",
-      texte13:"",
-      texte14:"",
-      texte15:"",
-      texte16:"",
-      texte17:"",
-      texte18:"",
-      texte19:"",
-      texte20:"",
-      texte21:"",
-      texte22:"",
-      texte23:"",
-      texte24:"",
-      texte25:"",
-      texte26:"",
+      texte11: "",
+      texte12: "",
+      texte13: "",
+      texte14: "",
+      texte15: "",
+      texte16: "",
+      texte17: "",
+      texte18: "",
+      texte19: "",
+      texte20: "",
+      texte21: "",
+      texte22: "",
+      texte23: "",
+      texte24: "",
+      texte25: "",
+      texte26: "",
       open: true,
       formState: {
         nom: "",
         prenoms: "",
         phone: "",
         ville: "",
-        ncc:"",
+        ncc: "",
         commune: "",
         quartier: "",
         diplome: "",
         carte_student: "",
         myCompetence: [],
-        Logo:[],
-        password:"",
-        myRegister:"",
-        myLogo:"",
+        Logo: [],
+        password: "",
+        myRegister: "",
+        myLogo: "",
         upload: [],
-        photo:null,
-        Phonegerant:null,
+        photo: null,
+        Phonegerant: null,
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
-      countryCode:'+225',
-       westAfricaCodes:[
-  { label: 'Bénin', value: '+229' },
-  { label: 'Burkina Faso', value: '+226' },
-  { label: 'Cap-Vert', value: '+238' },
-  { label: "Côte d’Ivoire", value: '+225' },
-  { label: 'Gambie', value: '+220' },
-  { label: 'Ghana', value: '+233' },
-  { label: 'Guinée', value: '+224' },
-  { label: 'Guinée-Bissau', value: '+245' },
-  { label: 'Liberia', value: '+231' },
-  { label: 'Mali', value: '+223' },
-  { label: 'Niger', value: '+227' },
-  { label: 'Nigeria', value: '+234' },
-  { label: 'Sénégal', value: '+221' },
-  { label: 'Sierra Leone', value: '+232' },
-  { label: 'Togo', value: '+228' }
-]
+      countryCode: "+225",
+      westAfricaCodes: [
+        { label: "Bénin", value: "+229" },
+        { label: "Burkina Faso", value: "+226" },
+        { label: "Cap-Vert", value: "+238" },
+        { label: "Côte d’Ivoire", value: "+225" },
+        { label: "Gambie", value: "+220" },
+        { label: "Ghana", value: "+233" },
+        { label: "Guinée", value: "+224" },
+        { label: "Guinée-Bissau", value: "+245" },
+        { label: "Liberia", value: "+231" },
+        { label: "Mali", value: "+223" },
+        { label: "Niger", value: "+227" },
+        { label: "Nigeria", value: "+234" },
+        { label: "Sénégal", value: "+221" },
+        { label: "Sierra Leone", value: "+232" },
+        { label: "Togo", value: "+228" },
+      ],
     };
   },
   computed: {
@@ -88,33 +89,44 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-     addPhotoInArray(allPhotos){
-    const element = []
-    allPhotos.forEach(item=>{
-      element.push(item.originFileObj)
-    })
-    return element;
+    addPhotoInArray(allPhotos) {
+      const element = [];
+      allPhotos.forEach((item) => {
+        element.push(item.originFileObj);
+      });
+      return element;
     },
     onFinish(values) {
       console.log("Success:", values);
-        if (this.configUtils.isValidPhoneNumber(this.formState.phone) 
-        || this.configUtils.isValidPhoneNumber(this.formState.Phonegerant)) {
-   if(this.formState.upload.length){
-      this.formState.photo = this.addPhotoInArray(this.formState.upload);
-      // // console.log("this.formState",this.formState)
-      // alert(JSON.stringify(this.formState,null,2))
-     this.changeValueIsPolitics({value:true,infoUser:'entreprise',payload:this.formState});
-    }else{
-      this.SWALPOPUP.declencheSwalPopup("info", 
-    "Ajouter la Pièce du gérant");
-    }
-        }else{
-        this.SWALPOPUP.declencheSwalPopup("info", 
-        "Les numéros de téléphone doivent contenir 10 chiffres");
+      if (
+        this.configUtils.isValidPhoneNumber(this.formState.phone) ||
+        this.configUtils.isValidPhoneNumber(this.formState.Phonegerant)
+      ) {
+        if (this.formState.upload.length) {
+          this.formState.photo = this.addPhotoInArray(this.formState.upload);
+          // // console.log("this.formState",this.formState)
+          // alert(JSON.stringify(this.formState,null,2))
+          this.changeValueIsPolitics({
+            value: true,
+            infoUser: "entreprise",
+            payload: this.formState,
+          });
+        } else {
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter la Pièce du gérant");
+        }
+      } else {
+        this.SWALPOPUP.declencheSwalPopup(
+          "info",
+          "Les numéros de téléphone doivent contenir 10 chiffres"
+        );
       }
     },
     onFinishFailed(errorInfo) {
       console.log("Failed:", errorInfo);
+      Swal.fire({
+        icon: "warning",
+        text: "Veuillez remplir tous les champs",
+      });
     },
     handleChangeCardStudent(value) {
       console.log(value.file.originFileObj);
@@ -139,29 +151,32 @@ export default {
     this.texte7 = await this.handleTranslate("Forme juridique");
     this.texte8 = await this.handleTranslate("Gérant");
     this.texte9 = await this.handleTranslate("Numéro du Gérant");
-    this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,png,webp,pdf)"); 
-    this.texte11 = await this.handleTranslate("Registre (pdf)"); 
-    this.texte12 = await this.handleTranslate('Mot de passe');
+    this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,png,webp,pdf)");
+    this.texte11 = await this.handleTranslate("Registre (pdf)");
+    this.texte12 = await this.handleTranslate("Mot de passe");
     this.texte13 = await this.handleTranslate("S'inscrire");
-    this.texte14 = await this.handleTranslate('Veuillez renseigner votre mot de passe');
-    this.texte15 = await this.handleTranslate('Veuillez renseigner le numéro téléphone de votre Gérant');
-    this.texte16 = await this.handleTranslate('Veuillez renseigner votre Gérant');
-    this.texte17 = await this.handleTranslate('Veuillez renseigner votre Forme juridique');
-    this.texte18 = await this.handleTranslate('Veuillez renseigner votre email');
-    this.texte19 = await this.handleTranslate('Veuillez renseigner votre Quartier');
-    this.texte20 = await this.handleTranslate('Veuillez renseigner votre Commune');
-    this.texte21 = await this.handleTranslate('Veuillez renseigner votre Ville');
-    this.texte22 = await this.handleTranslate('Veuillez renseigner votre Contact');
-    this.texte23 =  await this.handleTranslate('Veuillez renseigner votre numéro de RCCM.');
-    this.texte24 = await this.handleTranslate('Veuillez renseigner votre raison sociale');
-    
+    this.texte14 = await this.handleTranslate("Veuillez renseigner votre mot de passe");
+    this.texte15 = await this.handleTranslate(
+      "Veuillez renseigner le numéro téléphone de votre Gérant"
+    );
+    this.texte16 = await this.handleTranslate("Veuillez renseigner votre Gérant");
+    this.texte17 = await this.handleTranslate(
+      "Veuillez renseigner votre Forme juridique"
+    );
+    this.texte18 = await this.handleTranslate("Veuillez renseigner votre email");
+    this.texte19 = await this.handleTranslate("Veuillez renseigner votre Quartier");
+    this.texte20 = await this.handleTranslate("Veuillez renseigner votre Commune");
+    this.texte21 = await this.handleTranslate("Veuillez renseigner votre Ville");
+    this.texte22 = await this.handleTranslate("Veuillez renseigner votre Contact");
+    this.texte23 = await this.handleTranslate(
+      "Veuillez renseigner votre numéro de RCCM."
+    );
+    this.texte24 = await this.handleTranslate("Veuillez renseigner votre raison sociale");
   },
 };
 </script>
 <template>
-  <Politics 
-  v-if="isPolitics" 
-  />
+  <Politics v-if="isPolitics" />
   <a-form
     :layout="'vertical'"
     :model="formState"
@@ -175,7 +190,7 @@ export default {
       name="nom"
       :rules="[{ required: true, message: texte24 }]"
     >
-      <a-input  v-model:value="formState.nom" />
+      <a-input v-model:value="formState.nom" />
     </a-form-item>
     <a-form-item
       :label="texte1"
@@ -184,24 +199,24 @@ export default {
     >
       <a-input v-model:value="formState.matricule_cc" />
     </a-form-item>
-     <a-form-item 
-    :rules="[{ required: true, message: `Ajouter un registre de commerce` }]"
-    name="Registre"
-    label=""
+    <a-form-item
+      :rules="[{ required: true, message: `Ajouter un registre de commerce` }]"
+      name="Registre"
+      label=""
     >
-        <a-upload
-          @change="handleChangeCardStudent"
-          v-model:fileList="formState.Registre"
-          name="Registre"
-          list-type="picture"
-          :multiple="false"
-          :maxCount="1"
-          accept=".pdf"
-        >
-          <a-button> Clique pour charger </a-button>
-        </a-upload>
-      </a-form-item>
-       <a-form-item
+      <a-upload
+        @change="handleChangeCardStudent"
+        v-model:fileList="formState.Registre"
+        name="Registre"
+        list-type="picture"
+        :multiple="false"
+        :maxCount="1"
+        accept=".pdf"
+      >
+        <a-button> Clique pour charger </a-button>
+      </a-upload>
+    </a-form-item>
+    <a-form-item
       :label="texte7"
       name="juridique"
       :rules="[{ required: true, message: texte17 }]"
@@ -215,24 +230,24 @@ export default {
     >
       <a-input v-model:value="formState.ncc" />
     </a-form-item>
-       <a-form-item
+    <a-form-item
       :label="texte2"
       name="contact"
       :rules="[{ required: true, message: texte22 }]"
-       >
+    >
       <!-- <a-input addon-before="+225"  v-model:value="formState.contact" />-->
-       <a-input v-model:value="formState.contact" placeholder="Numéro">
-    <template #addonBefore>
-    <a-select
-  v-model:value="countryCode"
-  :options="westAfricaCodes"
-  show-search
-  option-filter-prop="label"
-  option-label-prop="value"
-  style="width: 120px"
-/>
-    </template>
-</a-input>
+      <a-input v-model:value="formState.contact" placeholder="Numéro">
+        <template #addonBefore>
+          <a-select
+            v-model:value="countryCode"
+            :options="westAfricaCodes"
+            show-search
+            option-filter-prop="label"
+            option-label-prop="value"
+            style="width: 120px"
+          />
+        </template>
+      </a-input>
     </a-form-item>
     <a-form-item
       :label="texte3"
@@ -263,8 +278,7 @@ export default {
     >
       <a-input v-model:value="formState.email" />
     </a-form-item>
-  
-   
+
     <a-form-item
       :label="texte8"
       name="gerant"
@@ -281,41 +295,40 @@ export default {
       <a-input v-model:value="formState.Phonegerant" />
     </a-form-item>
     <a-form-item
-    name="upload"
-    :rules="[{ required: true, message: `Veuilez ajouter une pièce d'identité.` }]"
-    :label="texte10"
+      name="upload"
+      :rules="[{ required: true, message: `Veuilez ajouter une pièce d'identité.` }]"
+      :label="texte10"
     >
-        <a-upload
-          @change="handleChangeCardStudent"
-          v-model:fileList="formState.upload"
-          name="upload"
-          list-type="picture"
-          :multiple="true"
-          :maxCount="2"
-         accept="*/*"
-        >
-          <a-button> Clique pour charger </a-button>
-        </a-upload>
-      </a-form-item>
-   
-      <a-form-item 
-      :rules="[{ required: true, message: `Veuilez ajouter un logo.` }]"
-      name="Logo" 
-      :label="'Logo(jpg,png,webp)'"
+      <a-upload
+        @change="handleChangeCardStudent"
+        v-model:fileList="formState.upload"
+        name="upload"
+        list-type="picture"
+        :multiple="true"
+        :maxCount="2"
+        accept="*/*"
       >
-        <a-upload
-          @change="handleChangeCardStudent"
-          v-model:fileList="formState.Logo"
-          name="logo"
-          :multiple="false"
-          :maxCount="1"
-          accept=".jpg,.jpeg,.png,.webp"
-          list-type="picture"
-        >
-          <a-button> Clique pour charger </a-button>
-        </a-upload>
-      </a-form-item>
-      
+        <a-button> Clique pour charger </a-button>
+      </a-upload>
+    </a-form-item>
+
+    <a-form-item
+      :rules="[{ required: true, message: `Veuilez ajouter un logo.` }]"
+      name="Logo"
+      :label="'Logo(jpg,png,webp)'"
+    >
+      <a-upload
+        @change="handleChangeCardStudent"
+        v-model:fileList="formState.Logo"
+        name="logo"
+        :multiple="false"
+        :maxCount="1"
+        accept=".jpg,.jpeg,.png,.webp"
+        list-type="picture"
+      >
+        <a-button> Clique pour charger </a-button>
+      </a-upload>
+    </a-form-item>
 
     <a-form-item
       :label="texte12"
@@ -324,14 +337,13 @@ export default {
     >
       <a-input-password v-model:value="formState.password" />
     </a-form-item>
-  
+
     <a-form-item>
       <div class="d-flex justify-content-center">
         <a-button type="primary" shape="round" :size="'large'" html-type="submit">
-          {{texte13}}</a-button
+          {{ texte13 }}</a-button
         >
       </div>
     </a-form-item>
   </a-form>
 </template>
-
