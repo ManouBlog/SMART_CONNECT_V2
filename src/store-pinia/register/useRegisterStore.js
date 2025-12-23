@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import instance from "../../api/api";
 import {useSwalPopup} from "../SwalPopup/useSwalPopup";
 import {useLoadingSpinner} from '../LoadingSpinner/useLoadingSpinner'
+// import Swal from 'sweetalert2';
 export const useRegisterStore = defineStore('register', {
     state: () => ({
       count: 0,
@@ -43,7 +44,7 @@ export const useRegisterStore = defineStore('register', {
           this.isModal = !this.isModal
         },
         async registerStudent(payload) {
-          // console.log("registerStudent",payload)
+          console.log("registerStudent25",payload)
           this.LOADINGSPINNER.launchLoading(true)
           this.isLoading = true;
           let data = new FormData();
@@ -75,10 +76,11 @@ export const useRegisterStore = defineStore('register', {
               if (response.data.status === true) {
                 this.SWALPOPUP.declencheSwalPopup("success",response.data.message)
                 this.changeValueIsPolitics({value:false,infoUser:"",payload:""})
-                this.connexionUser({
-        email: payload.email,
-        password: payload.password,
-           })
+                this.changeValueIsModal()
+        //         this.connexionUser({
+        // email: payload.email,
+        // password: payload.password,
+        //    })
               }
               if (response.data.status === false) {
                 this.SWALPOPUP.declencheSwalPopup("error",response.data.message)
@@ -92,51 +94,51 @@ export const useRegisterStore = defineStore('register', {
                this.LOADINGSPINNER.launchLoading(false)
             })
         },
-        async connexionUser(dataValue) { 
-       await instance
-        .post("auth_login", dataValue)
-        .then((response) => {
-          if (response.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: response.data.message,
-              showConfirmButton: true,
-            });
-            this.$store.commit("ADD_ITEM");
-            window.localStorage.setItem("user", JSON.stringify(response.data.user));
-            window.localStorage.setItem(
-              "token",
-              JSON.stringify(response.data.access_token)
-            );
-            this.$store.state.user = response.data.user;
-            this.$store.state.token = response.data.access_token;
-            const redirect = this.$route.query.redirect;
-            console.log("Redirection détectée :", redirect);
-            if (redirect) {
-              console.log("Redirection détectée :", redirect);
-              this.$router.replace(redirect);
-            } else {
-              this.$router.replace("/");
-            }
-             this.changeValueIsModal();
-          }
-          if (response.data.status === false) {
-            Swal.fire({
-              icon: "info",
-              title: response.data.message,
-              showConfirmButton: true,
-            });
-            this.launchLoading(false);
-          }
-        })
-        .catch((response) => {
-          Swal.fire({
-            icon: "info",
-            title: response.response.data.message,
-            showConfirmButton: true,
-          });
-        });
-    },
+    //     async connexionUser(dataValue) { 
+    //    await instance
+    //     .post("auth_login", dataValue)
+    //     .then((response) => {
+    //       if (response.data.status === true) {
+    //         Swal.fire({
+    //           icon: "success",
+    //           title: response.data.message,
+    //           showConfirmButton: true,
+    //         });
+    //         this.$store.commit("ADD_ITEM");
+    //         window.localStorage.setItem("user", JSON.stringify(response.data.user));
+    //         window.localStorage.setItem(
+    //           "token",
+    //           JSON.stringify(response.data.access_token)
+    //         );
+    //         this.$store.state.user = response.data.user;
+    //         this.$store.state.token = response.data.access_token;
+    //         const redirect = this.$route.query.redirect;
+    //         console.log("Redirection détectée :", redirect);
+    //         if (redirect) {
+    //           console.log("Redirection détectée :", redirect);
+    //           this.$router.replace(redirect);
+    //         } else {
+    //           this.$router.replace("/");
+    //         }
+    //          this.changeValueIsModal();
+    //       }
+    //       if (response.data.status === false) {
+    //         Swal.fire({
+    //           icon: "info",
+    //           title: response.data.message,
+    //           showConfirmButton: true,
+    //         });
+    //         this.launchLoading(false);
+    //       }
+    //     })
+    //     .catch((response) => {
+    //       Swal.fire({
+    //         icon: "info",
+    //         title: response.response.data.message,
+    //         showConfirmButton: true,
+    //       });
+    //     });
+    // },
         async registerCompany(payload) {
           // console.log("registerCompany",payload)
           this.isLoading = true;
@@ -166,8 +168,13 @@ export const useRegisterStore = defineStore('register', {
               // console.log(response);
               if (response.data.status === true) {
                 this.SWALPOPUP.declencheSwalPopup("success",response.data.message)
-                
+                  
                 this.changeValueIsPolitics({value:false,infoUser:"",payload:""})
+                this.changeValueIsModal()
+        //          this.connexionUser({
+        // email: payload.email,
+        // password: payload.password,
+        //    })
               }
               if (response.data.status === false) {
                 this.SWALPOPUP.declencheSwalPopup("error",response.data.message)
@@ -208,6 +215,11 @@ export const useRegisterStore = defineStore('register', {
               if (response.data.status === true) {
                 this.SWALPOPUP.declencheSwalPopup("success",response.data.message)
                 this.changeValueIsPolitics({value:false,infoUser:"",payload:""})
+                this.changeValueIsModal()
+        //          this.connexionUser({
+        // email: payload.email,
+        // password: payload.password,
+        //    })
               }
               if (response.data.status === false) {
                 this.SWALPOPUP.declencheSwalPopup("error",response.data.message)

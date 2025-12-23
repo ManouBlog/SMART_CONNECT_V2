@@ -1,4 +1,5 @@
 <script>
+import Swal from "sweetalert2";
 import VueMultiselect from "vue-multiselect";
 import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
@@ -40,7 +41,7 @@ export default {
       configUtils: configUtils,
       SWALPOPUP: useSwalPopup(),
       formState: {
-        titreCv:"",
+        titreCv: "",
         nom: "",
         prenoms: "",
         phone: "",
@@ -53,8 +54,8 @@ export default {
         photo: null,
         upload: [],
         bio: "",
-        photo_profil:null,
-        uploadPhotoProfil:[]
+        photo_profil: null,
+        uploadPhotoProfil: [],
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -75,46 +76,42 @@ export default {
     },
     onFinish(values) {
       console.log("Success:", values);
-      if(this.formState.uploadPhotoProfil.length){
-      this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj
+      if (this.formState.uploadPhotoProfil.length) {
+        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
       }
-      // console.log("formState", this.formState);
-      // if (this.configUtils.isValidPhoneNumber(this.formState.phone)) {
-        
-      // } else {
-      //   this.SWALPOPUP.declencheSwalPopup(
-      //     "info",
-      //     "Votre numéro de téléphone doit contenir 10 chiffres"
-      //   );
-      // }
+
       if (this.configUtils.isValidEmail(this.formState.email)) {
-          if (this.formState.upload.length) {
-            this.formState.photo = this.addPhotoInArray(this.formState.upload);
-            
-            this.changeValueIsPolitics({
-              value: true,
-              infoUser: "talents",
-              payload: this.formState,
-            });
-          } else {
-            this.SWALPOPUP.declencheSwalPopup(
-              "info",
-              "Ajouter votre carte etudiante ou une preuve"
-            );
-          }
+        if (this.formState.upload.length) {
+          this.formState.photo = this.addPhotoInArray(this.formState.upload);
+
+          this.changeValueIsPolitics({
+            value: true,
+            infoUser: "talents",
+            payload: this.formState,
+          });
         } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
+          this.SWALPOPUP.declencheSwalPopup(
+            "info",
+            "Ajouter votre carte etudiante ou une preuve"
+          );
         }
+      } else {
+        this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
+      }
     },
     onFinishFailed(errorInfo) {
-      console.log("Failed:", errorInfo);
+      console.log("Failed25:", errorInfo);
+      Swal.fire({
+        icon: "warning",
+        text: "Veuillez remplir tous les champs",
+      });
     },
     handleChangeCardStudent(value) {
       console.log(value[0]);
       // this.formState.photo = value[0].originFileObj;
     },
-    handleChangePhotoProfil(value){
-      console.log("handleChangePhotoProfil",value)
+    handleChangePhotoProfil(value) {
+      console.log("handleChangePhotoProfil", value);
     },
     ...mapActions(useRegisterStore, {
       handleCompetence: "addTag",
@@ -180,18 +177,10 @@ export default {
     >
       <a-input type="number" :maxlength="10" v-model:value="formState.phone" />
     </a-form-item>
-    <a-form-item
-      :label="texte3"
-      :rules="[{ required: true, message: texte18 }]"
-      name="ville"
-    >
+    <a-form-item :label="texte3" name="ville">
       <a-input v-model:value="formState.ville" />
     </a-form-item>
-    <a-form-item
-      :label="texte4"
-      :rules="[{ required: true, message: texte19 }]"
-      name="commune"
-    >
+    <a-form-item :label="texte4" name="commune">
       <a-input v-model:value="formState.commune" />
     </a-form-item>
     <a-form-item :label="texte5" name="quartier">
@@ -217,9 +206,9 @@ export default {
         track-by="competence"
         placeholder="Sélectionnez vos compétences (Choix multiple)"
         class="vuemulti"
-         :close-on-select="false"
-  :clear-on-select="false"
-  :preserve-search="true"
+        :close-on-select="false"
+        :clear-on-select="false"
+        :preserve-search="true"
       >
       </VueMultiselect>
     </a-form-item>
@@ -236,7 +225,7 @@ export default {
     >
       <a-input type="text" v-model:value="formState.titreCv" />
     </a-form-item>
-    
+
     <a-form-item label="Bio (max 300 caractères)">
       <a-textarea
         :rows="4"
@@ -245,10 +234,7 @@ export default {
         placeholder="Présentez-vous en quelques lignes..."
       />
     </a-form-item>
-    <a-form-item
-      name="uploadPhotoProfil"
-      label="Photo de profil (jpg,png,webp)"
-    >
+    <a-form-item name="uploadPhotoProfil" label="Photo de profil (jpg,png,webp)">
       <a-upload
         @change="handleChangePhotoProfil"
         v-model:fileList="formState.uploadPhotoProfil"
@@ -286,53 +272,6 @@ export default {
     >
       <a-input-password v-model:value="formState.password" />
     </a-form-item>
-    <!-- <a-form-item>
-      <h5 style="margin: 1em 0">Votre mot de passe doit contenir:</h5>
-      <ul style="padding: 0 2em">
-        <li>
-          <span class="d-block password_length"
-            >Au moins 8 caractères
-            <i
-              v-if="formState.password && formState.password.length > 8"
-              class="bi bi-check-lg"
-            ></i>
-          </span>
-        </li>
-        <li>
-          <span class="d-block password_length"
-            >Une lettre majuscule
-            <i
-              v-if="formState.password && /[A-Z]/.test(formState.password)"
-              class="bi bi-check-lg"
-            ></i>
-          </span>
-        </li>
-        <li>
-          <span class="d-block password_length"
-            >Une lettre miniscule
-            <i
-              v-if="formState.password && /[a-z]/.test(formState.password)"
-              class="bi bi-check-lg"
-            ></i>
-          </span>
-        </li>
-        <li>
-          <span class="d-block password_length"
-            >Un chiffre
-            <i v-if="/\d/.test(formState.password)" class="bi bi-check-lg"> </i>
-          </span>
-        </li>
-        <li>
-          <span class="d-block password_length"
-            >Un caractère spécial
-            <i v-if="verifChiffre.test(formState.password)" class="bi bi-check-lg"></i>
-          </span>
-        </li>
-      </ul>
-    </a-form-item> -->
-    <!-- <a-form-item name="remember" :wrapper-col="{ offset: 8, span: 16 }">
-      <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
-    </a-form-item> -->
     <a-form-item>
       <div class="d-flex justify-content-center">
         <a-button type="primary" shape="round" :size="'large'" html-type="submit">
@@ -343,8 +282,8 @@ export default {
   </a-form>
 </template>
 <style scoped>
-:deep(.multiselect__tag){
-  background:orange;
+:deep(.multiselect__tag) {
+  background: orange;
 }
 </style>
 <style
