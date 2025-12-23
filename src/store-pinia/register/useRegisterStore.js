@@ -59,7 +59,7 @@ export const useRegisterStore = defineStore('register', {
           data.append("email", payload.email);
           data.append("commune", payload.commune);
           data.append("quartier", payload.quartier);
-          data.append("phone", payload.phone);
+          data.append("phone",`${payload.countryCode}${payload.phone}`);
           data.append("ville", payload.ville);
           data.append("diplome", payload.diplome);
           data.append("password", payload.password);
@@ -140,7 +140,7 @@ export const useRegisterStore = defineStore('register', {
     //     });
     // },
         async registerCompany(payload) {
-          // console.log("registerCompany",payload)
+          console.log("registerCompany",payload)
           this.isLoading = true;
           this.LOADINGSPINNER.launchLoading(true);
           let data = new FormData();
@@ -149,14 +149,16 @@ export const useRegisterStore = defineStore('register', {
           });
           data.append("registre", payload?.Registre[0]?.originFileObj);
           data.append("nom", payload?.nom);
-          data.append("phone", payload?.contact);
+          // data.append("phone", payload?.contact);
+          data.append("phone",`${payload.countryCode}${payload.contact}`);
           data.append("ville", payload?.ville);
           data.append("quartier", payload?.quartier);
           data.append("forme_juridique", payload?.juridique);
           data.append("email", payload?.email);
           data.append("commune", payload?.commune);
           data.append("gerant", payload?.gerant);
-          data.append("numero_gerant", payload?.Phonegerant);
+          // data.append("numero_gerant", payload?.Phonegerant);
+          data.append("numero_gerant",`${payload.countryCodePhoneGerant}${payload?.Phonegerant}`);
           data.append("matricule_cc", payload?.matricule_cc);
           data.append("password", payload?.password);
           data.append("statut_id", 1);
@@ -200,7 +202,8 @@ export const useRegisterStore = defineStore('register', {
           });
           data.append("nom", payload?.nom);
           data.append("particulier_prenoms", payload?.prenoms);
-          data.append("phone", payload?.contact);
+          // data.append("phone", payload?.contact);
+          data.append("phone",`${payload.countryCode}${payload.contact}`);
           data.append("ville", payload?.ville);
           data.append("quartier", payload?.quartier);
           data.append("email", payload?.email);
