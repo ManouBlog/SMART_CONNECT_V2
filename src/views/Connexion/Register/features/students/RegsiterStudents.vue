@@ -40,6 +40,23 @@ export default {
       open: true,
       configUtils: configUtils,
       SWALPOPUP: useSwalPopup(),
+      westAfricaCodes: [
+        { label: "Bénin", value: "+229" },
+        { label: "Burkina Faso", value: "+226" },
+        { label: "Cap-Vert", value: "+238" },
+        { label: "Côte d’Ivoire", value: "+225" },
+        { label: "Gambie", value: "+220" },
+        { label: "Ghana", value: "+233" },
+        { label: "Guinée", value: "+224" },
+        { label: "Guinée-Bissau", value: "+245" },
+        { label: "Liberia", value: "+231" },
+        { label: "Mali", value: "+223" },
+        { label: "Niger", value: "+227" },
+        { label: "Nigeria", value: "+234" },
+        { label: "Sénégal", value: "+221" },
+        { label: "Sierra Leone", value: "+232" },
+        { label: "Togo", value: "+228" },
+      ],
       formState: {
         titreCv: "",
         nom: "",
@@ -121,7 +138,7 @@ export default {
     this.getCompetences();
     this.texte = await this.handleTranslate("Nom");
     this.texte1 = await this.handleTranslate("Prénoms");
-    this.texte2 = await this.handleTranslate("Contact");
+    this.texte2 = await this.handleTranslate("Contact Téléphonique");
     this.texte3 = await this.handleTranslate("Ville");
     this.texte4 = await this.handleTranslate("Commune");
     this.texte5 = await this.handleTranslate("Quartier");
@@ -158,31 +175,63 @@ export default {
       name="nom"
       :rules="[{ required: true, message: texte17 }]"
     >
-      <a-input v-model:value="formState.nom" />
+      <a-input v-model:value="formState.nom"  placeholder="Entrez votre nom" />
     </a-form-item>
     <a-form-item
       :label="texte1"
       name="prenoms"
       :rules="[{ required: true, message: texte16 }]"
     >
-      <a-input v-model:value="formState.prenoms" />
+      <a-input v-model:value="formState.prenoms"  placeholder="Entrez vos prénoms" />
     </a-form-item>
-
-    <a-form-item
+     <a-form-item
       :label="texte2"
       name="phone"
       :rules="[{ required: true, message: texte15 }]"
     >
-      <a-input type="number" :maxlength="10" v-model:value="formState.phone" />
+      <a-input
+        type="tel"
+        v-model:value="formState.phone"
+        placeholder="Entrez votre numéro téléphonique"
+      >
+        <template #addonBefore>
+          <a-select
+            v-model:value="formState.countryCode"
+            :options="westAfricaCodes"
+            show-search
+            option-filter-prop="label"
+            option-label-prop="value"
+            style="width: 120px"
+          />
+        </template>
+      </a-input>
     </a-form-item>
+
+    <!-- <a-form-item
+      :label="texte2"
+      name="phone"
+      :rules="[{ required: true, message: texte15 }]"
+    >
+      <a-input type="tel" v-model:value="formState.phone" />
+      <template #addonBefore>
+        <a-select
+          v-model:value="formState.countryCode"
+          :options="westAfricaCodes"
+          show-search
+          option-filter-prop="label"
+          option-label-prop="value"
+          style="width: 120px"
+        />
+      </template>
+    </a-form-item> -->
     <a-form-item :label="texte3" name="ville">
-      <a-input v-model:value="formState.ville" />
+      <a-input v-model:value="formState.ville"  placeholder="Entrez votre ville" />
     </a-form-item>
     <a-form-item :label="texte4" name="commune">
-      <a-input v-model:value="formState.commune" />
+      <a-input v-model:value="formState.commune"  placeholder="Entrez votre commune" />
     </a-form-item>
     <a-form-item :label="texte5" name="quartier">
-      <a-input v-model:value="formState.quartier" />
+      <a-input v-model:value="formState.quartier"  placeholder="Entrez votre quartier" />
     </a-form-item>
 
     <a-form-item
@@ -190,7 +239,7 @@ export default {
       name="email"
       :rules="[{ required: true, message: texte14 }]"
     >
-      <a-input v-model:value="formState.email" />
+      <a-input v-model:value="formState.email"  placeholder="Entrez votre adresse mail" />
     </a-form-item>
     <a-form-item :label="texte7" name="Compétences">
       <VueMultiselect
@@ -215,7 +264,7 @@ export default {
       name="diplome"
       :rules="[{ required: true, message: texte13 }]"
     >
-      <a-input type="text" v-model:value="formState.diplome" />
+      <a-input type="text" v-model:value="formState.diplome"  placeholder="Entrez votre dernier diplôme academique" />
     </a-form-item>
     <a-form-item
       label="Titre du CV (ex. : Développeur Web, Designer UX, etc.)"
@@ -268,7 +317,7 @@ export default {
       name="password"
       :rules="[{ required: true, message: texte12 }]"
     >
-      <a-input-password v-model:value="formState.password" />
+      <a-input-password v-model:value="formState.password" placeholder="Entrez votre mot de passe"  />
     </a-form-item>
     <a-form-item>
       <div class="d-flex justify-content-center">
