@@ -64,7 +64,7 @@ export default {
 <template>
   <section
     v-if="
-      this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant'
+      this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant' && ListOffre.length
     "
   >
     <h1 class="fw-bold" style="color: orange; text-align: center" v-if="ListOffre.length">
@@ -86,11 +86,11 @@ export default {
           <span>{{ new Date(item.fin).toLocaleDateString("fr") }}</span> -->
           <br />
           <br />
-          <div class="desc_crop">
+          <!-- <div class="desc_crop">
             <span class="fw-bold">{{ texte1 }}</span>
             <div class="desc" v-html="item.description"></div>
             <p class="lire"></p>
-          </div>
+          </div> -->
           <span class="publie_offre"
             >{{ texte2 }}{{ new Date(item.created_at).toLocaleDateString("fr") }}</span
           >
