@@ -56,6 +56,7 @@ export default {
         bio: "",
         photo_profil: null,
         uploadPhotoProfil: [],
+        countryCode: "+225",
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -90,10 +91,7 @@ export default {
             payload: this.formState,
           });
         } else {
-          this.SWALPOPUP.declencheSwalPopup(
-            "info",
-            "Ajouter votre carte etudiante ou une preuve"
-          );
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre carte étudiant.");
         }
       } else {
         this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
@@ -103,7 +101,7 @@ export default {
       console.log("Failed25:", errorInfo);
       Swal.fire({
         icon: "warning",
-        text: "Veuillez remplir tous les champs",
+        text: "Veuillez remplir tous les champs obligatoires (*)",
       });
     },
     handleChangeCardStudent(value) {

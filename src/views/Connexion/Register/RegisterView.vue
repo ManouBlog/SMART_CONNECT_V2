@@ -42,7 +42,7 @@ export default {
       console.log("Failed:", errorInfo);
       Swal.fire({
         icon: "warning",
-        text: "Veuillez remplir tous les champs",
+        text: "Veuillez remplir tous les champs obligatoires (*)",
       });
     },
     handleChange(value) {
@@ -59,7 +59,9 @@ export default {
 </script>
 <template>
   <a-form :layout="'vertical'" name="basic">
-  <div style="padding:0.5em 0;text-align:center;color:red;">Les champs en astérisque (*) sont obligatoires</div>
+    <div style="padding: 0.5em 0; text-align: center; color: red">
+      Les champs en astérisque (*) sont obligatoires
+    </div>
     <div>
       <span class="fw-bold">{{ texte0 }}</span>
       <a-select

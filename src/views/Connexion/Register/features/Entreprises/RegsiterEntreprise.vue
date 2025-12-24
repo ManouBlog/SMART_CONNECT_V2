@@ -126,7 +126,7 @@ export default {
       console.log("Failed:", errorInfo);
       Swal.fire({
         icon: "warning",
-        text: "Veuillez remplir tous les champs",
+        text: "Veuillez remplir tous les champs obligatoires (*)",
       });
     },
     handleChangeCardStudent(value) {
