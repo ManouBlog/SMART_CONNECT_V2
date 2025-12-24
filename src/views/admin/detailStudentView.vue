@@ -241,6 +241,9 @@ export default {
                   preview
                 />
               </div>
+              <div v-if="!student?.photos.length">
+               Pas de carte étudiant.
+              </div>
             </div>
           </div>
         </div>
