@@ -32,7 +32,7 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res);
+          console.log("get_details_students", res);
           this.student = res.data.data;
           this.jours = this.student?.jours;
           if ($.fn.DataTable.isDataTable("#MyTableData")) {
@@ -128,19 +128,24 @@ export default {
     <div class="card" v-if="student != null">
       <div class="card-body">
         <span v-if="student != null" class="badge bg-primary h3">{{
-          `${student.nom}  ${student.prenoms}`
+          `${student.student.nom}  ${student.student.prenoms}`
         }}</span>
         <div class="text-start">
           <h4 class="badge bg-info">
             <b>Formule d'abonnement</b> :
-            {{ this.verifIfAbonnementCurrently(student?.user?.abonement) }}
+            {{ this.verifIfAbonnementCurrently(student?.abonement) }}
           </h4>
         </div>
         <div class="row">
           <div class="col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Nom</label>
-              <input disabled v-model="student.nom" class="form-control" type="text" />
+              <input
+                disabled
+                v-model="student.student.nom"
+                class="form-control"
+                type="text"
+              />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
@@ -148,7 +153,7 @@ export default {
               <label class="form-label">Prénoms</label>
               <input
                 disabled
-                v-model="student.prenoms"
+                v-model="student.student.prenoms"
                 class="form-control"
                 type="text"
               />
@@ -157,19 +162,34 @@ export default {
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Email</label>
-              <input v-model="student.email" class="form-control" type="email" disabled />
+              <input
+                v-model="student.student.email"
+                class="form-control"
+                type="email"
+                disabled
+              />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Téléphone</label>
-              <input disabled v-model="student.phone" class="form-control" type="text" />
+              <input
+                disabled
+                v-model="student.student.phone"
+                class="form-control"
+                type="text"
+              />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">ville</label>
-              <input disabled v-model="student.ville" class="form-control" type="text" />
+              <input
+                disabled
+                v-model="student.student.ville"
+                class="form-control"
+                type="text"
+              />
             </div>
           </div>
           <div class="col-md-3">
@@ -177,7 +197,7 @@ export default {
               <label class="form-label">Commune</label>
               <input
                 disabled
-                v-model="student.commune"
+                v-model="student.student.commune"
                 class="form-control"
                 type="text"
               />
@@ -188,7 +208,7 @@ export default {
               <label class="form-label">Quartier</label>
               <input
                 disabled
-                v-model="student.quartier"
+                v-model="student.student.quartier"
                 class="form-control"
                 type="text"
               />
@@ -196,10 +216,10 @@ export default {
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
-              <label class="form-label">Diplome</label>
+              <label class="form-label">Diplome academique</label>
               <input
                 disabled
-                v-model="student.diplome"
+                v-model="student.student.diplome"
                 class="form-control"
                 type="text"
               />
@@ -208,21 +228,19 @@ export default {
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Carte étudiant</label>
-              <Image
-                :src="`${
-                  'https://backend.monbrobroli.com/storage/images/' + student?.photo
-                }`"
-                :alt="student?.photo"
-                width="250"
-                preview
-              />
-              <!-- <img
-                :src="`${
-                  'https://backend.monbrobroli.com/storage/images/' + student?.photo
-                }`"
-                :alt="student?.photo"
-                style="width: 50px; height: 50px; display: block"
-              /> -->
+              <div style="display: flex; flex-wrap: wrap; gap: 10px">
+                <Image
+                  v-for="(item, index) in student?.photos"
+                  :key="index"
+                  :src="`${
+                    'https://backend.monbrobroli.com/storage/app/public/images/' +
+                    item.path
+                  }`"
+                  :alt="item.path"
+                  width="250"
+                  preview
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -267,23 +285,6 @@ export default {
               </tr>
             </tbody>
           </table>
-          <!-- <table id="MyTableData" class="table">
-            <thead>
-              <tr>
-                <th class="bg-light">Jours</th>
-                <th class="bg-light">Première Plage Horaire</th>
-                <th class="bg-light">Seconde Plage Horaire</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(item, index) in jours" :key="index">
-                <td>{{ item.jour }}</td>
-                <td>{{ item.First_horaire }}</td>
-                <td v-if="item.Second_horaire">{{ item.Second_horaire }}</td>
-                <td v-else>pas de plage Horaire</td>
-              </tr>
-            </tbody>
-          </table> -->
         </div>
       </div>
     </div>
@@ -304,7 +305,7 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in student?.user?.abonement" :key="index">
+              <tr v-for="(item, index) in student?.abonement" :key="index">
                 <td>
                   {{ new Date(item.created_at).toLocaleDateString("fr") }}
                 </td>
@@ -314,7 +315,7 @@ export default {
                 <td>
                   {{ item?.abonement?.libelle }}
                 </td>
-                <!-- <td>{{ item.moyen_paiement }}</td> -->
+
                 <td>
                   {{ item.montant }}
                 </td>
