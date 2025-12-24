@@ -268,6 +268,13 @@ export default {
         this.MylistOffre = this.MylistsOffres;
       }
     },
+     goToOffre(id) {
+      if (!id) return
+      this.$router.push({
+        name: 'OffreDetail',
+        params: { id }
+      })
+    }
   },
   async created() {
     this.texte = await this.handleTranslate(`Sélectionne un domaine`);
@@ -384,7 +391,12 @@ export default {
             flex-wrap: wrap;
           "
         >
-          <div class="container_result" v-for="(offre, index) in list_offre" :key="index">
+          <div
+            class="container_result"
+            v-for="(offre, index) in list_offre"
+            :key="index"
+            @click.prevent="goToOffre(offre.id)"
+          >
             <section class="one conteneur_ecriteau">
               <div class="logo_img_offre">
                 <div class="conteneur-image-logo_jobs">
@@ -404,26 +416,25 @@ export default {
                   :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'"
                   >{{ texte5 }}</span
                 >
-                <h1 style="font-size: 1em;margin:0.5em 0;">{{ offre.nom_offre }}</h1>
+                <h1 style="font-size: 1em; margin: 0.5em 0">{{ offre.nom_offre }}</h1>
                 <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
-                <br>
+                <br />
                 <span><em class="bi bi-cash"></em> Rémuneration :</span>
-                 <span style="font-weight: bold;color:orange;margin:0 0.5em;">{{ new Intl.NumberFormat('fr-FR').format(offre.salaire) }} Fcfa / {{offre.pointage}}</span>
-                 
-                <!-- <h1 class="badge badge_categorie" style="margin:0.5em 0;">{{ offre.categorie.categorie }}</h1> -->
-                <!-- <div v-html="offre.description" 
-              id="conteneur-description" class="ellipse_text">
-              </div> -->
+                <span style="font-weight: bold; color: orange; margin: 0 0.5em"
+                  >{{ new Intl.NumberFormat("fr-FR").format(offre.salaire) }} Fcfa /
+                  {{ offre.pointage }}</span
+                >
               </div>
             </section>
             <div class="two my-1">
               <div>
                 <h6>
                   <em class="bi bi-calendar-date"></em>
-                  {{ new Date(offre.debut).toLocaleDateString("fr") }} au
+                  <!-- {{ new Date(offre.debut).toLocaleDateString("fr") }} au -->
+                  Date limite pour postuler :
                   {{ new Date(offre.fin).toLocaleDateString("fr") }}
                 </h6>
-                <router-link :to="{ name: 'OffreDetail', params: { id: offre.id } }">
+                <router-link class="see_detail" :to="{ name: 'OffreDetail', params: { id: offre.id } }">
                   <button
                     :class="configUtils.ifJobIsEnd(offre.fin) ? 'd-none' : null"
                     class="btn btn-Conex"
@@ -569,6 +580,7 @@ select {
   text-align: left;
 }
 .container_result {
+  cursor:pointer;
   display: flex;
   gap: 1em;
   align-items: center;
@@ -627,6 +639,9 @@ select {
   border: 1px solid black;
 }
 @media (max-width: 768px) {
+  .see_detail{
+    display:none;
+  }
   .container_result {
     width: 500px;
   }
@@ -647,7 +662,6 @@ select {
   .informations_offres {
     margin: 0 !important;
   }
-  
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

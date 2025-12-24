@@ -166,7 +166,7 @@ export default {
     this.texte2 = await this.handleTranslate("Date de début de travail :");
     this.texte3 = await this.handleTranslate(`Date de fin de travail :`);
     this.texte4 = await this.handleTranslate("Description");
-    this.texte5 = await this.handleTranslate("Postuler avant le :");
+    this.texte5 = await this.handleTranslate("Date limite pour postuler :");
     this.texte6 = await this.handleTranslate("Postuler");
     this.texte7 = await this.handleTranslate(
       "Veuillez faire un abonnement avant de postuler à cette offre"
@@ -197,7 +197,7 @@ export default {
                     style="
                       width: 100px;
                       height: 100px;
-                      object-fit: cover;
+                      object-fit: contain;
                       border: 5px solid white;
                       background: white;
                     "
@@ -227,10 +227,11 @@ export default {
                   <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
                 </h4>
                 <div>
-                  <h4 class="my-5" v-if="Offre.salaire != null" style="color:orange;">
+                  <h4 class="my-5" v-if="Offre.salaire != null" >
                     <em class="bi bi-cash-stack"></em>
-                    {{ moneyFormat.format(Offre.salaire) }} Fcfa /
-                    {{ Offre.pointage }}
+                    Rémuneration:
+                    <span style="color:orange;margin:0 0.5em;">{{ moneyFormat.format(Offre.salaire) }} Fcfa /
+                    {{ Offre.pointage }}</span>
                   </h4>
                   <h4 class="my-5" v-else>
                     <em class="bi bi-cash-stack"></em> {{ texte }}

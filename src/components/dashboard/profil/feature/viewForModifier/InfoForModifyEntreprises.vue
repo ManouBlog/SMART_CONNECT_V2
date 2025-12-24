@@ -154,7 +154,7 @@ export default {
           <input v-model="user.nom" class="form-control" type="text" />
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12" v-if='this.user && this.user.user.statut.statut === "entreprise"'>
         <div class="mb-3">
           <label class="form-label"
             >RCCM (Registre du Commerce et du Crédit Mobilier)</label
@@ -170,13 +170,13 @@ export default {
           />
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12" v-if='this.user && this.user.user.statut.statut === "entreprise"'>
         <div class="mb-3">
           <label class="form-label">Forme juridique</label>
           <input v-model="user.forme_juridique" class="form-control" type="text" />
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12" v-if='this.user && this.user.user.statut.statut === "entreprise"' >
         <div class="mb-3">
           <label class="form-label">NCC (Numéro de compte contribuable)</label>
           <input v-model="user.NCC" class="form-control" type="text" />
