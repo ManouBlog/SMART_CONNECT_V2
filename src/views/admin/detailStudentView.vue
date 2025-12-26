@@ -16,9 +16,25 @@ export default {
       students: null,
       jours: null,
       spinner: false,
+      pdfVisible: false,
+      pdfUrl: null,
     };
   },
   methods: {
+    isPdf(path) {
+      return path?.toLowerCase().endsWith(".pdf");
+    },
+    fileUrl(path) {
+      return `https://backend.monbrobroli.com/storage/app/public/images/${path}`;
+    },
+    openPdf(path) {
+      this.pdfUrl = this.fileUrl(path);
+      this.pdfVisible = true;
+    },
+    closePdf() {
+      this.pdfVisible = false;
+      this.pdfUrl = null;
+    },
     get_details_students() {
       this.spinner = true;
       console.log("this.$route", this.$route);
@@ -228,6 +244,42 @@ export default {
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Carte étudiant</label>
+
+              <div style="display: flex; flex-wrap: wrap; gap: 10px">
+                <template v-for="(item, index) in student?.photos" :key="index">
+                  <!-- CAS IMAGE -->
+                  <Image
+                    v-if="!isPdf(item.path)"
+                    :src="fileUrl(item.path)"
+                    :alt="item.path"
+                    width="250"
+                    preview
+                  />
+
+                  <!-- CAS PDF -->
+                  <div v-else style="border: 1px solid #ccc; padding: 10px">
+                    <button class="btn btn-primary btn-sm" @click="openPdf(item.path)">
+                      Voir la carte étudiant
+                    </button>
+                  </div>
+                </template>
+              </div>
+
+              <div v-if="!student?.photos?.length">Pas de carte étudiant.</div>
+
+              <!-- IFRAME PDF -->
+              <div v-if="pdfVisible" class="pdf-modal-overlay" @click.self="closePdf">
+                <iframe
+                  :src="pdfUrl"
+                  width="80%"
+                  height="500"
+                  style="border: 1px solid #ccc"
+                ></iframe>
+              </div>
+            </div>
+
+            <!-- <div class="mb-3 text-start">
+              <label class="form-label">Carte étudiant</label>
               <div style="display: flex; flex-wrap: wrap; gap: 10px">
                 <Image
                   v-for="(item, index) in student?.photos"
@@ -244,7 +296,7 @@ export default {
               <div v-if="!student?.photos.length">
                Pas de carte étudiant.
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -343,6 +395,23 @@ export default {
 </template>
 
 <style scoped>
+.pdf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.pdf-modal-content {
+  width: 80%;
+  height: 80%;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
 .bi-arrow-left-circle {
   cursor: pointer;
 }
