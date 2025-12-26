@@ -275,7 +275,6 @@ export default {
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Carte étudiant</label>
-
               <div style="display: flex; flex-wrap: wrap; gap: 10px">
                 <template v-for="(item, index) in student?.user?.photos" :key="index">
                   <!-- CAS IMAGE -->
@@ -308,26 +307,6 @@ export default {
                 ></iframe>
               </div>
             </div>
-
-            <!-- <div class="mb-3 text-start">
-              <label class="form-label">Carte étudiant</label>
-              <div style="display: flex; flex-wrap: wrap; gap: 10px">
-                <Image
-                  v-for="(item, index) in student?.user?.photos"
-                  :key="index"
-                  :src="`${
-                    'https://backend.monbrobroli.com/storage/app/public/images/' +
-                    item.path
-                  }`"
-                  :alt="item.path"
-                  width="250"
-                  preview
-                />
-              </div>
-              <div v-if="!student?.user?.photos.length">
-               Pas de carte étudiant.
-              </div>
-            </div> -->
           </div>
         </div>
       </div>

@@ -2,11 +2,15 @@
 /* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
+import Image from "primevue/image";
 import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 export default {
   name: "DétailEntrepriseView",
+   components: {
+    Image,
+  },
   data() {
     return {
       entreprise: null,
@@ -16,9 +20,25 @@ export default {
       moneyFormat: new Intl.NumberFormat("de-DE"),
       abonnementsEntreprise: [],
       showModal:false,
+       pdfVisible: false,
+      pdfUrl: null,
     };
   },
   methods: {
+     isPdf(path) {
+      return path?.toLowerCase().endsWith(".pdf");
+    },
+    fileUrl(path) {
+      return `https://backend.monbrobroli.com/storage/app/public/images/${path}`;
+    },
+    openPdf(path) {
+      this.pdfUrl = this.fileUrl(path);
+      this.pdfVisible = true;
+    },
+    closePdf() {
+      this.pdfVisible = false;
+      this.pdfUrl = null;
+    },
     get_details_entreprise() {
       this.spinner = true;
 
@@ -204,6 +224,42 @@ export default {
   </n-modal>
             </b>
           </h4>
+          <div class="col-sm-6 col-md-3">
+            <div class="mb-3 text-start">
+              <label class="form-label">Pièce d'identité</label>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px">
+                <template v-for="(item, index) in entreprise?.user?.photos" :key="index">
+                  <!-- CAS IMAGE -->
+                  <Image
+                    v-if="!isPdf(item.path)"
+                    :src="fileUrl(item.path)"
+                    :alt="item.path"
+                    width="250"
+                    preview
+                  />
+
+                  <!-- CAS PDF -->
+                  <div v-else style="border: 1px solid #ccc; padding: 10px">
+                    <button class="btn btn-primary btn-sm" @click="openPdf(item.path)">
+                      Voir la pièce d'identité
+                    </button>
+                  </div>
+                </template>
+              </div>
+
+              <div v-if="!entreprise?.user?.photos?.length">Pas de piéce.</div>
+
+              <!-- IFRAME PDF -->
+              <div v-if="pdfVisible" class="pdf-modal-overlay" @click.self="closePdf">
+                <iframe
+                  :src="pdfUrl"
+                  width="80%"
+                  height="500"
+                  style="border: 1px solid #ccc"
+                ></iframe>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
