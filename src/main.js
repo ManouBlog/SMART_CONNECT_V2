@@ -19,6 +19,7 @@ import Paginator from 'primevue/paginator';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
 import i18n from "./plugins/i18n";
+import Tooltip from 'primevue/tooltip';
 
 
 const pinia = createPinia()
@@ -34,6 +35,7 @@ app.use(pinia);
 app.use(Antd);
 app.use(i18n);
 app.component('PrimeCalendar', Calendar);
+app.directive('tooltip', Tooltip);
 app.component('multiselect', Multiselect);
 app.component('PanelMenu', PanelMenu);
 app.component('Paginator', Paginator);

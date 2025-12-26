@@ -1,4 +1,5 @@
 <script setup>
+
 import { ref, onMounted, onUnmounted } from "vue";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import CardPerformance from "../../../Shared/Compoments/CardPerformance.vue";
@@ -119,6 +120,7 @@ onUnmounted(() => {
             :class="{ 'slide-from-left': cardPerfVisible }"
              :isPayement="false"
              :suffix="'K'"
+            :tooltip="entreprises.toString()"
           />
           <CardPerformance
             :myStyle="'card_perfor_two'"
@@ -128,6 +130,7 @@ onUnmounted(() => {
             :class="{ 'fade-in': cardPerfVisible }"
              :isPayement="false"
              :suffix="formatSuffix(Number(offres))"
+             :tooltip="offres.toString()"
           />
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
@@ -135,8 +138,9 @@ onUnmounted(() => {
             :texte="texte55"
             :nbre="Number(formatNumber(Number(student)))"
             :class="{ 'fade-in': cardPerfVisible }"
-             :isPayement="false"
-             :suffix="formatSuffix(Number(student))"
+            :isPayement="false"
+            :suffix="formatSuffix(Number(student))"
+            :tooltip="student.toString()"
           />
           <CardPerformance
             v-if="Number(timetable) > 100"
@@ -147,6 +151,7 @@ onUnmounted(() => {
             :class="{ 'fade-in': cardPerfVisible }"
              :isPayement="false"
              :suffix="formatSuffix(Number(timetable))"
+             :tooltip="timetable.toString()"
           />
 
           <CardPerformance
@@ -157,6 +162,7 @@ onUnmounted(() => {
             :class="{ 'slide-from-right': cardPerfVisible }"
              :isPayement="false"
              :suffix="formatSuffix(Number(visiteur))"
+             :tooltip="visiteur.toString()"
           />
           <CardPerformance
             :myStyle="'card_perfor_payment'"

@@ -218,6 +218,10 @@ export default {
 };
 </script>
 <style>
+.p-tooltip-text{
+  font-size:2.5em !important;
+  font-weight:bold;
+}
 .element {
   overflow: auto;
   scrollbar-width: none; /* Firefox */

@@ -1,4 +1,5 @@
 <script>
+
 import Vue3autocounter from "vue3-autocounter";
 
 export default {
@@ -13,6 +14,7 @@ export default {
     myStyle: String,
     isPayement:Boolean,
     suffix:String,
+    tooltip: String,
   },
   data() {
     return {};
@@ -24,7 +26,9 @@ export default {
 };
 </script>
 <template>
-  <section :class="myStyle" >
+  <section :class="myStyle" 
+   v-tooltip="{ value: !isPayement ? tooltip:''}"
+  >
     <div style="text-align:center;" v-if="!isPayement">
       <vue3-autocounter
         class="counter"
@@ -52,4 +56,6 @@ export default {
   font-size: 5em;
   color: var(--main-color) !important;
 }
+
+
 </style>
