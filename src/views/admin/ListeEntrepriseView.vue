@@ -65,9 +65,9 @@ export default {
           this.$store.commit("TOOGLESPINNER", false);
         });
     },
-    seelistEntrepriseAbonne(value){
-     console.log("VALUE_LISTENTREPRISE",value)
-    }
+    seelistEntrepriseAbonne(value) {
+      console.log("VALUE_LISTENTREPRISE", value);
+    },
   },
   mounted() {
     // Destruction des tables DataTable existantes si elles existent
@@ -249,7 +249,9 @@ export default {
           <ul class="nav nav-tabs" id="top-tab" role="tablist">
             <li class="nav-item">
               <a
-              @click.prevent="seelistEntrepriseAbonne(this.$store.state.listEntrepriseAbonnee)"
+                @click.prevent="
+                  seelistEntrepriseAbonne(this.$store.state.listEntrepriseAbonnee)
+                "
                 class="nav-link active"
                 id="top-timeline"
                 data-bs-toggle="tab"
@@ -302,6 +304,7 @@ export default {
               <table id="MyTableData_entreprise" class="table">
                 <thead>
                   <tr>
+                    <th class="bg-light">Date d'enregistrement</th>
                     <th class="bg-light">Entreprise</th>
                     <th class="bg-light">Email</th>
                     <th class="bg-light">Profil</th>
@@ -314,6 +317,7 @@ export default {
                     v-for="(item, index) in this.$store.state.listEntrepriseAbonnee"
                     :key="index"
                   >
+                    <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
                     <td>{{ item.nom }}</td>
                     <td>{{ item.email }}</td>
                     <td>
@@ -323,7 +327,11 @@ export default {
                     > -->
                     </td>
                     <td>
-                      {{ item?.user?.abonement.length ? this.verifIfAbonnementCurrently(item?.user?.abonement):"Pas d'abonnement" }}
+                      {{
+                        item?.user?.abonement.length
+                          ? this.verifIfAbonnementCurrently(item?.user?.abonement)
+                          : "Pas d'abonnement"
+                      }}
                     </td>
 
                     <td>
@@ -350,6 +358,7 @@ export default {
               <table id="MyTableData_entreprise2" class="table">
                 <thead>
                   <tr>
+                    <th class="bg-light">Date d'enregistrement</th>
                     <th class="bg-light">Entreprise</th>
                     <th class="bg-light">Email</th>
                     <th class="bg-light">Profil</th>
@@ -362,6 +371,7 @@ export default {
                     v-for="(item, index) in this.$store.state.listEntreprisePasAbonnee"
                     :key="index"
                   >
+                    <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
                     <td>
                       {{ item.nom }}
                       <span class="badge bg-danger" v-if="item.view">New</span>
@@ -374,7 +384,11 @@ export default {
                     > -->
                     </td>
                     <td>
-                      {{ item?.user?.abonement.length ? this.verifIfAbonnementCurrently(item?.user?.abonement):"Pas d'abonnement" }}
+                      {{
+                        item?.user?.abonement.length
+                          ? this.verifIfAbonnementCurrently(item?.user?.abonement)
+                          : "Pas d'abonnement"
+                      }}
                     </td>
 
                     <td>

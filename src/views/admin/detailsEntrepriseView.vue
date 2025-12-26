@@ -146,7 +146,7 @@ export default {
           <h4>
             <b>Formule d'abonnement actuelle</b> :
             {{
-             this.verifIfAbonnementCurrently(entreprise?.user?.abonement)
+             entreprise?.user?.abonement.length ? this.verifIfAbonnementCurrently(entreprise?.user?.abonement):"Pas d'abonnement."
             }}
           </h4>
           <h4><b>Email</b> : {{ entreprise.email }}</h4>
