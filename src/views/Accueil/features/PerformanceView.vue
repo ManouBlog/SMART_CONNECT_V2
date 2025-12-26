@@ -72,7 +72,7 @@ const initIntersectionObserver = () => {
 onMounted(async () => {
   texte0.value = await translateStore.handleTranslate("Nos chiffres clés");
   texte1.value = await translateStore.handleTranslate("Entreprise(s)");
-  texte2.value = await translateStore.handleTranslate("Offre(s)");
+  texte2.value = await translateStore.handleTranslate("Offre(s) enregistrées");
   texte3.value = await translateStore.handleTranslate("Talent(s)");
   texte4.value = await translateStore.handleTranslate("Visiteur(s)");
   texte55.value = await translateStore.handleTranslate("Étudiants inscrits");

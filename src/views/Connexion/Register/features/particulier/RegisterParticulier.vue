@@ -54,6 +54,24 @@ export default {
         myRegister:"",
         myLogo:"",
         photo:null,
+        countryCode: "+225",
+         westAfricaCodes: [
+                { label: "Bénin", value: "+229" },
+                { label: "Burkina Faso", value: "+226" },
+                { label: "Cap-Vert", value: "+238" },
+                { label: "Côte d’Ivoire", value: "+225" },
+                { label: "Gambie", value: "+220" },
+                { label: "Ghana", value: "+233" },
+                { label: "Guinée", value: "+224" },
+                { label: "Guinée-Bissau", value: "+245" },
+                { label: "Liberia", value: "+231" },
+                { label: "Mali", value: "+223" },
+                { label: "Niger", value: "+227" },
+                { label: "Nigeria", value: "+234" },
+                { label: "Sénégal", value: "+221" },
+                { label: "Sierra Leone", value: "+232" },
+                { label: "Togo", value: "+228" },
+              ],
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -143,12 +161,34 @@ export default {
     >
       <a-input v-model:value="formState.prenoms" />
     </a-form-item>
-    <a-form-item
+    <!-- <a-form-item
       :label="texte2"
       name="contact"
       :rules="[{ required: true, message: 'Ajouter un contact' }]"
     >
       <a-input v-model:value="formState.contact" />
+    </a-form-item> -->
+    <a-form-item
+      :label="texte2"
+      name="contact"
+      :rules="[{ required: true, message: 'Ajouter un contact' }]"
+    >
+      <a-input
+        type="tel"
+        v-model:value="formState.contact"
+        placeholder="Entrez le numéro téléphonique"
+      >
+        <template #addonBefore>
+          <a-select
+            v-model:value="formState.countryCode"
+            :options="westAfricaCodes"
+            show-search
+            option-filter-prop="label"
+            option-label-prop="value"
+            style="width: 120px"
+          />
+        </template>
+      </a-input>
     </a-form-item>
     <a-form-item
       :label="texte3"
