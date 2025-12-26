@@ -8,7 +8,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 export default {
   name: "DétailEntrepriseView",
-   components: {
+  components: {
     Image,
   },
   data() {
@@ -19,13 +19,13 @@ export default {
       spinner: false,
       moneyFormat: new Intl.NumberFormat("de-DE"),
       abonnementsEntreprise: [],
-      showModal:false,
-       pdfVisible: false,
+      showModal: false,
+      pdfVisible: false,
       pdfUrl: null,
     };
   },
   methods: {
-     isPdf(path) {
+    isPdf(path) {
       return path?.toLowerCase().endsWith(".pdf");
     },
     fileUrl(path) {
@@ -166,7 +166,9 @@ export default {
           <h4>
             <b>Formule d'abonnement actuelle</b> :
             {{
-             entreprise?.user?.abonement.length ? this.verifIfAbonnementCurrently(entreprise?.user?.abonement):"Pas d'abonnement."
+              entreprise?.user?.abonement.length
+                ? this.verifIfAbonnementCurrently(entreprise?.user?.abonement)
+                : "Pas d'abonnement."
             }}
           </h4>
           <h4><b>Email</b> : {{ entreprise.email }}</h4>
@@ -182,13 +184,19 @@ export default {
           <h4 v-if="entreprise.gerant">
             <b>Gérant</b> : {{ entreprise.gerant }} ({{ entreprise.numero_gerant }})
           </h4>
-          <h4 v-if="entreprise?.piece_gerant" style="display:flex;align-items:center;gap:1em;">
+          <h4
+            v-if="entreprise?.piece_gerant"
+            style="display: flex; align-items: center; gap: 1em"
+          >
             <b>Pièce du gérant</b> :
             <n-image
-               :alt="entreprise?.piece_gerant"
+              :alt="entreprise?.piece_gerant"
               width="100"
-              :src="'https://backend.monbrobroli.com/storage/app/public/images/'+entreprise?.piece_gerant"
-              />
+              :src="
+                'https://backend.monbrobroli.com/storage/app/public/images/' +
+                entreprise?.piece_gerant
+              "
+            />
           </h4>
           <h4 v-if="entreprise.matricule_cc">
             <b>Matricule_cc</b> :
@@ -198,30 +206,39 @@ export default {
             <b>Matricule_cc</b> :
             {{ entreprise.forme_juridique ? entreprise.forme_juridique : null }}
           </h4>
-          <h4 v-if="entreprise?.logo" style="display:flex;align-items:center;gap:1em;">
+          <h4
+            v-if="entreprise?.logo"
+            style="display: flex; align-items: center; gap: 1em"
+          >
             <b>Logo</b> :
             <n-image
-               :alt="entreprise?.logo"
+              :alt="entreprise?.logo"
               width="100"
-              :src="'https://backend.monbrobroli.com/storage/app/public/images/'+entreprise?.logo"
-              />
+              :src="
+                'https://backend.monbrobroli.com/storage/app/public/images/' +
+                entreprise?.logo
+              "
+            />
           </h4>
-          
+
           <h4 v-if="entreprise?.registre">
             <b
               >Registre de commerce :
-              
-                <n-button type="warning" @click="showModal = true">
-    Voir le registre
-  </n-button>
-               <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px;">
-    <n-card title="Document PDF" closable @close="showModal = false">
-      <iframe
-        :src="'https://backend.monbrobroli.com/storage/app/public/pdf/'+entreprise?.registre"
-        style="width: 100%; height: 600px; border: none;"
-      ></iframe>
-    </n-card>
-  </n-modal>
+
+              <n-button type="warning" @click="showModal = true">
+                Voir le registre
+              </n-button>
+              <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px">
+                <n-card title="Document PDF" closable @close="showModal = false">
+                  <iframe
+                    :src="
+                      'https://backend.monbrobroli.com/storage/app/public/pdf/' +
+                      entreprise?.registre
+                    "
+                    style="width: 100%; height: 600px; border: none"
+                  ></iframe>
+                </n-card>
+              </n-modal>
             </b>
           </h4>
           <div class="col-sm-6 col-md-3">
@@ -271,10 +288,11 @@ export default {
             <thead>
               <tr>
                 <th class="bg-light">Nom de l'offre</th>
-                <th class="bg-light">Prime</th>
+                <th class="bg-light">Rémuneration (Fcfa)</th>
                 <th class="bg-light">Lieu</th>
                 <th class="bg-light">Date de publication</th>
                 <th class="bg-light">Date limite</th>
+                <th class="bg-light">Postulants</th>
               </tr>
             </thead>
             <tbody>
@@ -287,6 +305,9 @@ export default {
                 <td>{{ item.lieu }}</td>
                 <td>
                   {{ new Date(item.created_at).toLocaleDateString("fr") }}
+                </td>
+                <td>
+                  {{ new Date(item.fin).toLocaleDateString("fr") }}
                 </td>
                 <td>
                   {{ new Date(item.fin).toLocaleDateString("fr") }}
@@ -349,6 +370,23 @@ export default {
 </template>
 
 <style scoped>
+.pdf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.pdf-modal-content {
+  width: 80%;
+  height: 80%;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
 h4 {
   margin: 1em 0;
 }
