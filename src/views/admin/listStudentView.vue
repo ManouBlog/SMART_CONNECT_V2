@@ -315,6 +315,7 @@ export default {
             <table id="MyTableData" class="table">
               <thead>
                 <tr>
+                  <th class="bg-light">Date d'enregistrement</th>
                   <th class="bg-light">Nom</th>
                   <th class="bg-light">email</th>
                   <th class="bg-light">Ville</th>
@@ -328,6 +329,7 @@ export default {
               </thead>
               <tbody>
                 <tr v-for="(item, index) in students" :key="index">
+                  <td>{{ new Date(item.created_at).toLocaleDateString('fr') }}</td>
                   <td>{{ item.nom }}</td>
                   <td>{{ item.email }}</td>
                   <td>
@@ -375,6 +377,7 @@ export default {
             <table id="MyTableData2" class="table">
               <thead>
                 <tr>
+                  <th class="bg-light">Date d'enregistrement</th>
                   <th class="bg-light">Nom</th>
                   <th class="bg-light">email</th>
                   <th class="bg-light">Ville</th>
@@ -388,6 +391,7 @@ export default {
               </thead>
               <tbody>
                 <tr v-for="(item, index) in studentsNonAbonnee" :key="index">
+                  <td>{{ new Date(item.created_at).toLocaleDateString('fr') }}</td>
                   <td>{{ item.nom }}</td>
                   <td>{{ item.email }}</td>
                   <td>

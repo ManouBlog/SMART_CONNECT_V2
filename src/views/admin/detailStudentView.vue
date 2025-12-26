@@ -18,11 +18,11 @@ export default {
       spinner: false,
       pdfVisible: false,
       pdfUrl: null,
-       recruitStatus: {
-      0: 'En attente de confirmation',
-      1: 'Accepté',
-      2: 'Refusé'
-    }
+      recruitStatus: {
+        0: "En attente de confirmation",
+        1: "Accepté",
+        2: "Refusé",
+      },
     };
   },
   methods: {
@@ -62,7 +62,7 @@ export default {
           if ($.fn.DataTable.isDataTable("#MyTableData2")) {
             $("#MyTableData2").DataTable().destroy();
           }
-          if($.fn.DataTable.isDataTable("#MyTableData_offres")){
+          if ($.fn.DataTable.isDataTable("#MyTableData_offres")) {
             $("#MyTableData_offres").DataTable().destroy();
           }
           this.$nextTick(() => {
@@ -102,27 +102,27 @@ export default {
                 order: [],
                 responsive: true,
                 language: {
-               decimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                lengthMenu: "Afficher _MENU_ entrées",
-                loadingRecords: "Chargement...",
-                processing: "Traitement...",
-                search: "Rechercher :",
-                zeroRecords: "Aucun résultat trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
+                  decimal: "",
+                  emptyTable: "Aucune donnée disponible dans le tableau",
+                  info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                  infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
+                  infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+                  lengthMenu: "Afficher _MENU_ entrées",
+                  loadingRecords: "Chargement...",
+                  processing: "Traitement...",
+                  search: "Rechercher :",
+                  zeroRecords: "Aucun résultat trouvé",
+                  paginate: {
+                    first: "Premier",
+                    last: "Dernier",
+                    next: "Suivant",
+                    previous: "Précédent",
+                  },
                 },
               });
             }
 
-             if ($("#MyTableData_offres").length) {
+            if ($("#MyTableData_offres").length) {
               $("#MyTableData_offres").DataTable({
                 pagingType: "full_numbers",
                 pageLength: 10,
@@ -131,21 +131,21 @@ export default {
                 responsive: true,
                 language: {
                   decimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                lengthMenu: "Afficher _MENU_ entrées",
-                loadingRecords: "Chargement...",
-                processing: "Traitement...",
-                search: "Rechercher :",
-                zeroRecords: "Aucun résultat trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
+                  emptyTable: "Aucune donnée disponible dans le tableau",
+                  info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                  infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
+                  infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+                  lengthMenu: "Afficher _MENU_ entrées",
+                  loadingRecords: "Chargement...",
+                  processing: "Traitement...",
+                  search: "Rechercher :",
+                  zeroRecords: "Aucun résultat trouvé",
+                  paginate: {
+                    first: "Premier",
+                    last: "Dernier",
+                    next: "Suivant",
+                    previous: "Précédent",
+                  },
                 },
               });
             }
@@ -207,12 +207,7 @@ export default {
           <div class="col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Nom</label>
-              <input
-                disabled
-                v-model="student.nom"
-                class="form-control"
-                type="text"
-              />
+              <input disabled v-model="student.nom" class="form-control" type="text" />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
@@ -229,34 +224,19 @@ export default {
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Email</label>
-              <input
-                v-model="student.email"
-                class="form-control"
-                type="email"
-                disabled
-              />
+              <input v-model="student.email" class="form-control" type="email" disabled />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">Téléphone</label>
-              <input
-                disabled
-                v-model="student.phone"
-                class="form-control"
-                type="text"
-              />
+              <input disabled v-model="student.phone" class="form-control" type="text" />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3 text-start">
               <label class="form-label">ville</label>
-              <input
-                disabled
-                v-model="student.ville"
-                class="form-control"
-                type="text"
-              />
+              <input disabled v-model="student.ville" class="form-control" type="text" />
             </div>
           </div>
           <div class="col-md-3">
@@ -352,7 +332,7 @@ export default {
         </div>
       </div>
     </div>
-     <div class="container-fluid" v-if="student != null">
+    <div class="container-fluid" v-if="student != null">
       <h1 class="text-decoration-underline py-3">Emploi du temps</h1>
       <div class="row">
         <div class="col-sm-12 card py-3 px-2">
@@ -404,7 +384,7 @@ export default {
                 <th class="bg-light">Offre</th>
                 <th class="bg-light">Heure de debut de travail</th>
                 <th class="bg-light">Entreprise</th>
-                 <th class="bg-light">Statut</th>
+                <th class="bg-light">Statut</th>
               </tr>
             </thead>
             <tbody>
@@ -420,8 +400,19 @@ export default {
                 <td>
                   {{ item.entreprise.nom }}
                 </td>
-                 <td>
-                  {{ recruitStatus[item.pivot.recruit]  }}
+                <td>
+                  <span
+                    :class="
+                      item.pivot.recruit === 1
+                        ? 'bg-success'
+                        : item.pivot.recruit === 0
+                        ? 'bg-warning'
+                        : 'bg-danger'
+                    "
+                    style="padding: 0.5em; font-weight: bold"
+                  >
+                    {{ recruitStatus[item.pivot.recruit] }}
+                  </span>
                 </td>
               </tr>
             </tbody>
