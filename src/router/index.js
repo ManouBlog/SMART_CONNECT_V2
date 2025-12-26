@@ -434,16 +434,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
- scrollBehavior() {
-  return { top: 0, behavior: 'smooth' }
-}
-  // scrollBehavior (_to, _from, savedPosition) {
-  //  if(savedPosition){
-  //    return savedPosition
-  //  }else{
-  //    return {top:0}
-  //  }
-  // }
+   scrollBehavior() {
+    // always scroll 10px above the element #main
+    return {
+      // could also be
+      // el: document.getElementById('main'),
+      el: '#main',
+      // 10px above the element
+      top: 10,
+    }
+  }
 })
 
 
