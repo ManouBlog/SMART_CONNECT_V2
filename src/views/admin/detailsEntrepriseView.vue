@@ -310,7 +310,7 @@ export default {
                   {{ new Date(item.fin).toLocaleDateString("fr") }}
                 </td>
                 <td>
-                  {{ new Date(item.fin).toLocaleDateString("fr") }}
+                  {{item.offre_student.length}}
                 </td>
               </tr>
             </tbody>
