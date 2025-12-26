@@ -16,7 +16,6 @@ export default {
 </script>
 <template>
   <a-card 
-  
   :class="cardPerfVisible ? item.class:null"
   style="width: 300px;color: var(--third-color) !important; background: var(--secondary-color) !important">
     <div class="div_conteneur">

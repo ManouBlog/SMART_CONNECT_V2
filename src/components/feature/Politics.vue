@@ -7,7 +7,7 @@ const registerStore = useRegisterStore();
 
 // Méthodes
 const registerTalent = () => {
-  // console.log("props.payload", registerStore.payload);
+  console.log("props.payload", registerStore.payload);
   registerStore.registerStudent(registerStore.payload);
 };
 

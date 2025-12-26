@@ -22,18 +22,33 @@ const cardPerfVisible = ref(false);
 let observer = null;
 
 // Fonction pour formater les nombres comme YouTube
-const formatNumber = (number) => {
-  if (number < 1000) {
-    console.log("number", number);
-    return `${number}`;
-  } else if (number < 1000000) {
-    console.log("Math.floor(number / 1000)", Math.floor(number / 1000));
-    return `${Math.floor(number / 1000)}`;
-  } else {
-    console.log("Math.floor(number / 1000000)", Math.floor(number / 1000000));
-    return `${Math.floor(number / 1000000)}`;
+const formatNumber = (value) => {
+  const v = Math.floor(value)
+
+  if (v >= 1000000) {
+    return parseFloat((v / 1000000).toFixed(1))
   }
-};
+
+  if (v >= 1000) {
+    return parseFloat((v / 1000).toFixed(1))
+  }
+
+  return v
+}
+
+const formatSuffix = (value) => {
+  const v = Math.floor(value)
+
+  if (v >= 1000000) {
+    return 'M'
+  }
+
+  if (v >= 1000) {
+    return 'K'
+  }
+
+  return;
+}
 
 const seePerformanceNbre = async () => {
   try {
@@ -103,6 +118,7 @@ onUnmounted(() => {
             :nbre="Number(formatNumber(Number(entreprises)))"
             :class="{ 'slide-from-left': cardPerfVisible }"
              :isPayement="false"
+             :suffix="'K'"
           />
           <CardPerformance
             :myStyle="'card_perfor_two'"
@@ -111,6 +127,7 @@ onUnmounted(() => {
             :nbre="Number(formatNumber(Number(offres)))"
             :class="{ 'fade-in': cardPerfVisible }"
              :isPayement="false"
+             :suffix="formatSuffix(Number(offres))"
           />
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
@@ -119,6 +136,7 @@ onUnmounted(() => {
             :nbre="Number(formatNumber(Number(student)))"
             :class="{ 'fade-in': cardPerfVisible }"
              :isPayement="false"
+             :suffix="formatSuffix(Number(student))"
           />
           <CardPerformance
             v-if="Number(timetable) > 100"
@@ -128,6 +146,7 @@ onUnmounted(() => {
             :nbre="Number(formatNumber(Number(timetable)))"
             :class="{ 'fade-in': cardPerfVisible }"
              :isPayement="false"
+             :suffix="formatSuffix(Number(timetable))"
           />
 
           <CardPerformance
@@ -137,6 +156,7 @@ onUnmounted(() => {
             :nbre="Number(formatNumber(Number(visiteur)))"
             :class="{ 'slide-from-right': cardPerfVisible }"
              :isPayement="false"
+             :suffix="formatSuffix(Number(visiteur))"
           />
           <CardPerformance
             :myStyle="'card_perfor_payment'"

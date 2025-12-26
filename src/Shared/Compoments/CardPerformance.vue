@@ -9,25 +9,16 @@ export default {
   props: {
     icone_name: String,
     texte: String,
-    nbre: Number,
+    nbre: String,
     myStyle: String,
-    isPayement:Boolean
+    isPayement:Boolean,
+    suffix:String,
   },
   data() {
     return {};
   },
   methods: {
-  formatCounter(value) {
-    if (value >= 1000000) {
-      return (value / 1000000).toFixed(1).replace('.0', '') + 'M'
-    }
 
-    if (value >= 1000) {
-      return (value / 1000).toFixed(1).replace('.0', '') + 'K'
-    }
-
-    return value
-  }
 }
 
 };
@@ -42,7 +33,7 @@ export default {
         :endAmount="nbre"
         :duration="1"
         :autoinit="true"
-        :formatter="formatCounter"
+        :suffix="suffix"
       />
     </div>
     <div class="my-3" v-if="!isPayement">
