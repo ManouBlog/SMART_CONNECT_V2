@@ -435,7 +435,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
    scrollBehavior() {
-    // always scroll 10px above the element #main
+    
     return {
       // could also be
       // el: document.getElementById('main'),
