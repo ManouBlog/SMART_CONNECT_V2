@@ -167,7 +167,7 @@ export default {
             <n-image
                :alt="entreprise?.piece_gerant"
               width="100"
-              :src="'https://backend.monbrobroli.com/storage/images/'+entreprise?.piece_gerant"
+              :src="'https://backend.monbrobroli.com/storage/app/public/images/'+entreprise?.piece_gerant"
               />
           </h4>
           <h4 v-if="entreprise.matricule_cc">
@@ -183,20 +183,21 @@ export default {
             <n-image
                :alt="entreprise?.logo"
               width="100"
-              :src="'https://backend.monbrobroli.com/storage/images/'+entreprise?.logo"
+              :src="'https://backend.monbrobroli.com/storage/app/public/images/'+entreprise?.logo"
               />
           </h4>
           
           <h4 v-if="entreprise?.registre">
             <b
               >Registre de commerce :
+              
                 <n-button type="warning" @click="showModal = true">
     Voir le registre
   </n-button>
                <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px;">
     <n-card title="Document PDF" closable @close="showModal = false">
       <iframe
-        :src="'https://backend.monbrobroli.com/storage/pdf/'+entreprise?.registre"
+        :src="'https://backend.monbrobroli.com/storage/app/public/pdf/'+entreprise?.registre"
         style="width: 100%; height: 600px; border: none;"
       ></iframe>
     </n-card>

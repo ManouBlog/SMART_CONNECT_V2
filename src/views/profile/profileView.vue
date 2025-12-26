@@ -433,7 +433,7 @@ export default {
                     <label class="form-label">Document</label>
                     <img
                       :src="
-                        'https://backend.monbrobroli.com/storage/images/' +
+                        'https://backend.monbrobroli.com/storage/app/public/images/' +
                         user.photo
                       "
                       :alt="user.photo"

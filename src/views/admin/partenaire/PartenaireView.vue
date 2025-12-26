@@ -290,7 +290,7 @@ export default {
                     <td>
                       <n-image
                         width="100"
-                        :src="'https://backend.monbrobroli.com/storage/images/'+item.partenaire"
+                        :src="'https://backend.monbrobroli.com/storage/app/public/images/'+item.partenaire"
                         :alt="item.partenaire"
                       />
                     </td>

@@ -317,7 +317,7 @@ export default {
                     <td>
                       <n-image
                         width="100"
-                        :src="'https://backend.monbrobroli.com/storage/images/'+item.affiche"
+                        :src="'https://backend.monbrobroli.com/storage/app/public/images/'+item.affiche"
                       />
                     </td>
                     <td>
