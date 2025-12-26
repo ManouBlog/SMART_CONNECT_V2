@@ -18,6 +18,11 @@ export default {
       spinner: false,
       pdfVisible: false,
       pdfUrl: null,
+       recruitStatus: {
+      0: 'En attente de confirmation',
+      1: 'Accepté',
+      2: 'Refusé'
+    }
     };
   },
   methods: {
@@ -57,6 +62,9 @@ export default {
           if ($.fn.DataTable.isDataTable("#MyTableData2")) {
             $("#MyTableData2").DataTable().destroy();
           }
+          if($.fn.DataTable.isDataTable("#MyTableData_offres")){
+            $("#MyTableData_offres").DataTable().destroy();
+          }
           this.$nextTick(() => {
             // Initialisation séparée pour chaque table
             $("#MyTableData").DataTable({
@@ -94,7 +102,50 @@ export default {
                 order: [],
                 responsive: true,
                 language: {
-                  // Même configuration de langue que ci-dessus
+               decimal: "",
+                emptyTable: "Aucune donnée disponible dans le tableau",
+                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
+                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+                lengthMenu: "Afficher _MENU_ entrées",
+                loadingRecords: "Chargement...",
+                processing: "Traitement...",
+                search: "Rechercher :",
+                zeroRecords: "Aucun résultat trouvé",
+                paginate: {
+                  first: "Premier",
+                  last: "Dernier",
+                  next: "Suivant",
+                  previous: "Précédent",
+                },
+                },
+              });
+            }
+
+             if ($("#MyTableData_offres").length) {
+              $("#MyTableData_offres").DataTable({
+                pagingType: "full_numbers",
+                pageLength: 10,
+                processing: true,
+                order: [],
+                responsive: true,
+                language: {
+                  decimal: "",
+                emptyTable: "Aucune donnée disponible dans le tableau",
+                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
+                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+                lengthMenu: "Afficher _MENU_ entrées",
+                loadingRecords: "Chargement...",
+                processing: "Traitement...",
+                search: "Rechercher :",
+                zeroRecords: "Aucun résultat trouvé",
+                paginate: {
+                  first: "Premier",
+                  last: "Dernier",
+                  next: "Suivant",
+                  previous: "Précédent",
+                },
                 },
               });
             }
@@ -144,12 +195,12 @@ export default {
     <div class="card" v-if="student != null">
       <div class="card-body">
         <span v-if="student != null" class="badge bg-primary h3">{{
-          `${student.student.nom}  ${student.student.prenoms}`
+          `${student.nom}  ${student.prenoms}`
         }}</span>
         <div class="text-start">
           <h4 class="badge bg-info">
             <b>Formule d'abonnement</b> :
-            {{ this.verifIfAbonnementCurrently(student?.abonement) }}
+            {{ this.verifIfAbonnementCurrently(student?.user?.abonement) }}
           </h4>
         </div>
         <div class="row">
@@ -158,7 +209,7 @@ export default {
               <label class="form-label">Nom</label>
               <input
                 disabled
-                v-model="student.student.nom"
+                v-model="student.nom"
                 class="form-control"
                 type="text"
               />
@@ -169,7 +220,7 @@ export default {
               <label class="form-label">Prénoms</label>
               <input
                 disabled
-                v-model="student.student.prenoms"
+                v-model="student.prenoms"
                 class="form-control"
                 type="text"
               />
@@ -179,7 +230,7 @@ export default {
             <div class="mb-3 text-start">
               <label class="form-label">Email</label>
               <input
-                v-model="student.student.email"
+                v-model="student.email"
                 class="form-control"
                 type="email"
                 disabled
@@ -191,7 +242,7 @@ export default {
               <label class="form-label">Téléphone</label>
               <input
                 disabled
-                v-model="student.student.phone"
+                v-model="student.phone"
                 class="form-control"
                 type="text"
               />
@@ -202,7 +253,7 @@ export default {
               <label class="form-label">ville</label>
               <input
                 disabled
-                v-model="student.student.ville"
+                v-model="student.ville"
                 class="form-control"
                 type="text"
               />
@@ -213,7 +264,7 @@ export default {
               <label class="form-label">Commune</label>
               <input
                 disabled
-                v-model="student.student.commune"
+                v-model="student.commune"
                 class="form-control"
                 type="text"
               />
@@ -224,7 +275,7 @@ export default {
               <label class="form-label">Quartier</label>
               <input
                 disabled
-                v-model="student.student.quartier"
+                v-model="student.quartier"
                 class="form-control"
                 type="text"
               />
@@ -235,7 +286,7 @@ export default {
               <label class="form-label">Diplome academique</label>
               <input
                 disabled
-                v-model="student.student.diplome"
+                v-model="student.diplome"
                 class="form-control"
                 type="text"
               />
@@ -246,7 +297,7 @@ export default {
               <label class="form-label">Carte étudiant</label>
 
               <div style="display: flex; flex-wrap: wrap; gap: 10px">
-                <template v-for="(item, index) in student?.photos" :key="index">
+                <template v-for="(item, index) in student?.user?.photos" :key="index">
                   <!-- CAS IMAGE -->
                   <Image
                     v-if="!isPdf(item.path)"
@@ -265,7 +316,7 @@ export default {
                 </template>
               </div>
 
-              <div v-if="!student?.photos?.length">Pas de carte étudiant.</div>
+              <div v-if="!student?.user?.photos?.length">Pas de carte étudiant.</div>
 
               <!-- IFRAME PDF -->
               <div v-if="pdfVisible" class="pdf-modal-overlay" @click.self="closePdf">
@@ -282,7 +333,7 @@ export default {
               <label class="form-label">Carte étudiant</label>
               <div style="display: flex; flex-wrap: wrap; gap: 10px">
                 <Image
-                  v-for="(item, index) in student?.photos"
+                  v-for="(item, index) in student?.user?.photos"
                   :key="index"
                   :src="`${
                     'https://backend.monbrobroli.com/storage/app/public/images/' +
@@ -293,7 +344,7 @@ export default {
                   preview
                 />
               </div>
-              <div v-if="!student?.photos.length">
+              <div v-if="!student?.user?.photos.length">
                Pas de carte étudiant.
               </div>
             </div> -->
@@ -301,8 +352,8 @@ export default {
         </div>
       </div>
     </div>
-    <div class="container-fluid" v-if="student != null">
-      <h1 class="text-decoration-underline py-3">emploi du temps</h1>
+     <div class="container-fluid" v-if="student != null">
+      <h1 class="text-decoration-underline py-3">Emploi du temps</h1>
       <div class="row">
         <div class="col-sm-12 card py-3 px-2">
           <table id="MyTableData" class="table">
@@ -344,6 +395,41 @@ export default {
       </div>
     </div>
     <div class="container-fluid" v-if="student != null">
+      <h1 class="text-decoration-underline py-3">Offres</h1>
+      <div class="row">
+        <div class="col-sm-12 card py-3 px-2">
+          <table id="MyTableData_offres" class="table">
+            <thead>
+              <tr>
+                <th class="bg-light">Offre</th>
+                <th class="bg-light">Heure de debut de travail</th>
+                <th class="bg-light">Entreprise</th>
+                 <th class="bg-light">Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in student.offres" :key="index">
+                <td>
+                  <p>
+                    {{ item.nom_offre }}
+                  </p>
+                </td>
+                <td class="text-center">
+                  {{ item.job_debut }}
+                </td>
+                <td>
+                  {{ item.entreprise.nom }}
+                </td>
+                 <td>
+                  {{ recruitStatus[item.pivot.recruit]  }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" v-if="student != null">
       <h1 class="text-decoration-underline py-3">Abonnements</h1>
       <div class="row">
         <div class="col-sm-12 card py-3 px-2">
@@ -360,7 +446,7 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in student?.abonement" :key="index">
+              <tr v-for="(item, index) in student?.user?.abonement" :key="index">
                 <td>
                   {{ new Date(item.created_at).toLocaleDateString("fr") }}
                 </td>
