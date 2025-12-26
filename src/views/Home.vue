@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
 
 import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
 import Header from "@/components/header";
@@ -12,7 +12,7 @@ import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 import { useListeFavoris } from "../store-pinia/ListeFavoris/useListeFavoris";
 // import { useVerificationStore } from "../store-pinia/Verification/useVerificationStore";
 // import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from "pinia";
 
 const store = useStore();
 
@@ -37,9 +37,9 @@ const dateActive = ref(null);
 const handleListeFavoris = (token) => listeFavorisStore.handleListeFavoris(token);
 
 const getDateAbonementActive = () => {
-  if(useStore().state.user && useStore().state.user.user.abonement) {
-    useStore().state.user.user.abonement.forEach(item => {
-      if(item.statut === 'success') {
+  if (useStore().state.user && useStore().state.user.user.abonement) {
+    useStore().state.user.user.abonement.forEach((item) => {
+      if (item.statut === "success") {
         dateActive.value = item.echeance;
       }
     });

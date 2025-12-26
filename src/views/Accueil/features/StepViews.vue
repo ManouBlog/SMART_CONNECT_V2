@@ -39,9 +39,9 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      dataCard:[],
-      cardPerfVisible:false,
-      observer:null
+      dataCard: [],
+      cardPerfVisible: false,
+      observer: null,
     };
   },
   methods: {
@@ -50,64 +50,92 @@ export default {
     goToRoute(payload) {
       this.$router.push(payload);
     },
-    initIntersectionObserver(){
-  const cardPerfElement = document.getElementById('divCard');
-  
-  if (cardPerfElement) {
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        this.cardPerfVisible = entry.isIntersecting;
-      });
-    }, {
-      threshold: 0.1
-    });
+    initIntersectionObserver() {
+      const cardPerfElement = document.getElementById("divCard");
 
-    this.observer.observe(cardPerfElement);
-  }
-}
+      if (cardPerfElement) {
+        this.observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              this.cardPerfVisible = entry.isIntersecting;
+            });
+          },
+          {
+            threshold: 0.1,
+          }
+        );
+
+        this.observer.observe(cardPerfElement);
+      }
+    },
   },
   async mounted() {
-    this.initIntersectionObserver()
+    this.initIntersectionObserver();
     this.texte0 = await this.handleTranslate("Etapes à suivre");
     this.texte2 = await this.handleTranslate(
       "Les instructions à suivre pour contacter des talents ou postuler à une offre."
     );
     this.dataCard = [
-        {
-          id: 1,
-          title: await this.handleTranslate("Créer mon compte"),
-          text_three: await this.handleTranslate("Remplissez le formulaire"),
-          class:"slide-from-left"
-        },
-        {
-          id: 2,
-          title: await this.handleTranslate("Choisir une option"),
-          text_one: await this.handleTranslate("Etudiant : Obtenir un emploi à temps partiel selon mes disponibilités."),
-          text_two: await this.handleTranslate("Entreprise/Particulier : Besoin d'employés à temps partiel."),
-          class:"fade-in"
-        },
-        {
-          id: 3,
-          title: await this.handleTranslate("Vivez une expérience unique"),
-          text_one: await this.handleTranslate("Etudiant : Démarrez une nouvelle expérience inédite..."),
-          text_two: await this.handleTranslate("Entreprise/Particulier : Choisir le meilleur profil."),
-          class:"slide-from-right"
-        },
-      ]
+      {
+        id: 1,
+        title: await this.handleTranslate("Créer mon compte"),
+        text_three: await this.handleTranslate("Remplissez le formulaire"),
+        class: "slide-from-left",
+        footer_btn: true,
+      },
+      {
+        id: 2,
+        title: await this.handleTranslate("Choisir une option"),
+        text_one: await this.handleTranslate(
+          "Etudiant : Obtenir un emploi à temps partiel selon mes disponibilités."
+        ),
+        text_two: await this.handleTranslate(
+          "Entreprise/Particulier : Besoin d'employés à temps partiel."
+        ),
+        class: "fade-in",
+        footer_btn: false,
+      },
+      {
+        id: 3,
+        title: await this.handleTranslate("Vivez une expérience unique"),
+        text_one: await this.handleTranslate(
+          "Etudiant : Démarrez une nouvelle expérience inédite..."
+        ),
+        text_two: await this.handleTranslate(
+          "Entreprise/Particulier : Choisir le meilleur profil."
+        ),
+        class: "slide-from-right",
+        footer_btn: false,
+      },
+    ];
   },
-  unmounted(){
-     if (this.observer) {
-    this.observer.disconnect();
-  }
-  }
+  unmounted() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  },
 };
 </script>
 <template>
   <div class="container main-container-home">
     <h1 class="step_suivre">{{ texte0 }}</h1>
-    <h3 class="text-secondary my-3" style="text-align:center;padding:1em;">{{ texte2 }}</h3>
+    <h3 class="text-secondary my-3" style="text-align: center; padding: 1em">
+      {{ texte2 }}
+    </h3>
     <div class="conteneur-card" id="divCard">
-      <CardView  v-for="(item, index) in dataCard" :key="index" :item="item" :cardPerfVisible="cardPerfVisible" />
+      <CardView
+        v-for="(item, index) in dataCard"
+        :key="index"
+        :item="item"
+        :footer_btn="item.footer_btn"
+        :cardPerfVisible="cardPerfVisible"
+      >
+        <a-button type="primary" style="position: absolute; bottom: 1em; width: 80%"
+        @click.prevent="changeValueIsModal"
+        >
+          Créer
+        </a-button>
+      </CardView>
     </div>
   </div>
 </template>
@@ -124,15 +152,15 @@ export default {
   margin: 0;
   font-weight: bold;
   text-align: center;
-  color:orange;
+  color: orange;
 }
 .main-container-home {
   background: transparent;
 }
 
 @media screen and (max-width: 500px) {
-.step_suivre {
-  margin: 0.5em 0;
-}
+  .step_suivre {
+    margin: 0.5em 0;
+  }
 }
 </style>

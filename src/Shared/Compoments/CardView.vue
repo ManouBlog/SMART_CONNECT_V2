@@ -5,9 +5,12 @@ export default {
     item: {
       type: Object,
     },
-    cardPerfVisible:{
-      type:Boolean
-    }
+    cardPerfVisible: {
+      type: Boolean,
+    },
+    footer_btn: {
+      type: Boolean,
+    },
   },
   data() {
     return {};
@@ -15,35 +18,47 @@ export default {
 };
 </script>
 <template>
-  <a-card 
-  :class="cardPerfVisible ? item.class:null"
-  style="width: 300px;color: var(--third-color) !important; background: var(--secondary-color) !important">
+  <a-card
+    :class="cardPerfVisible ? item.class : null"
+    style="
+      width: 300px;
+      height: 300px;
+      color: var(--third-color) !important;
+      background: var(--secondary-color) !important;
+      position: relative;
+    "
+  >
     <div class="div_conteneur">
       <h6>{{ item.id }}</h6>
     </div>
-    <h3 class="texte-center" style="color:var(--third-color) !important;">{{ item.title }}</h3>
+    <h3 class="texte-center" style="color: var(--third-color) !important">
+      {{ item.title }}
+    </h3>
     <div v-if="item.text_one || item.text_two || item.text_three">
       <p v-if="item.text_one && item.text_one.split(' : ')[0] === 'Etudiant'">
-        <span style="color:orange;font-weight:bold;">
-          {{item.text_one.split(' : ')[0]}} :
+        <span style="color: orange; font-weight: bold">
+          {{ item.text_one.split(" : ")[0] }} :
         </span>
         <span>
-          {{item.text_one.split(' : ')[1]}}
+          {{ item.text_one.split(" : ")[1] }}
         </span>
       </p>
       <p v-if="item.text_three">
-        {{ item.text_three}}
+        {{ item.text_three }}
       </p>
-     
-       <p v-if="item.text_two && item.text_two.split(' : ')[0] === 'Entreprise/Particulier'">
-        <span style="color:orange;font-weight:bold;">
-          {{item.text_two.split(' : ')[0]}} :
+
+      <p
+        v-if="item.text_two && item.text_two.split(' : ')[0] === 'Entreprise/Particulier'"
+      >
+        <span style="color: orange; font-weight: bold">
+          {{ item.text_two.split(" : ")[0] }} :
         </span>
         <span>
-          {{item.text_two.split(' : ')[1]}}
+          {{ item.text_two.split(" : ")[1] }}
         </span>
       </p>
     </div>
+    <slot v-if="footer_btn"></slot>
   </a-card>
 </template>
 <style scoped>
