@@ -176,10 +176,12 @@ onUnmounted(() => {
   border-radius: 0px 100px 0px 100px;
 }
 .card_perfor_two {
-  width: auto;
-  height: auto;
+   width: 250px;
+    height: 250px;
+    line-height: 35px;
   color: white;
-  padding: 3.8em 5em;
+     padding: 4.4em;
+     text-align:center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
 }

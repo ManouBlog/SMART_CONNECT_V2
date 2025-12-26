@@ -16,6 +16,20 @@ export default {
   data() {
     return {};
   },
+  methods: {
+  formatCounter(value) {
+    if (value >= 1000000) {
+      return (value / 1000000).toFixed(1).replace('.0', '') + 'M'
+    }
+
+    if (value >= 1000) {
+      return (value / 1000).toFixed(1).replace('.0', '') + 'K'
+    }
+
+    return value
+  }
+}
+
 };
 </script>
 <template>
@@ -28,6 +42,7 @@ export default {
         :endAmount="nbre"
         :duration="1"
         :autoinit="true"
+        :formatter="formatCounter"
       />
     </div>
     <div class="my-3" v-if="!isPayement">
@@ -35,7 +50,7 @@ export default {
       <span style="font-weight:bold;">{{ texte }} </span>
     </div>
     <div  v-if="isPayement">
-      <h1 style="color:orange;font-size:3.5em;">100%</h1>
+      <h1 style="color:orange;font-size:3.9em;">100%</h1>
       <span style="font-weight:bold;">{{ texte }}</span>
     </div>
   </section>
