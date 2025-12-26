@@ -103,7 +103,7 @@ export default {
                 <tr>
                   <th class="bg-light">Nom de l'offre</th>
                   <th class="bg-light">Lieu du travail</th>
-                  <th class="bg-light">Prime</th>
+                  <th class="bg-light">Rémuneration (Fcfa)</th>
                   <th class="bg-light">Détails</th>
                 </tr>
               </thead>
@@ -114,7 +114,7 @@ export default {
                     {{ item.lieu }}
                   </td>
                   <td v-if="item.salaire != null">
-                    {{ moneyFormat.format(item.salaire) }} Fcfa
+                    {{ moneyFormat.format(item.salaire) }}/{{ item.pointage }}
                   </td>
                   <td v-else>Prime pas fixée</td>
                   <td class="d-flex justify-content-center align-items-center">
