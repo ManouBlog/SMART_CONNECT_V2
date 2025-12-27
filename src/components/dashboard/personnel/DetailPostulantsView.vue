@@ -37,11 +37,11 @@ export default {
       await instance
         .get("list_offres_interess_by_students")
         .then((res) => {
-          console.log("list_offres_interess_by_students23", res);
+          // console.log("list_offres_interess_by_students23", res);
           this.offresInteressByStudents = this.getTableau(res.data);
-          console.log("OFFRESINTERESSBYSTUDENTS", this.offresInteressByStudents);
+          // console.log("OFFRESINTERESSBYSTUDENTS", this.offresInteressByStudents);
           this.detailStudents = this.offresInteressByStudents.find(item=>item.nom_offre === this.$route.params.offre).students;
-          console.log("this.detailStudents",this.detailStudents)
+          // console.log("this.detailStudents",this.detailStudents)
           spinnerLoading.launchLoading(false);
         })
         .catch((err) => {

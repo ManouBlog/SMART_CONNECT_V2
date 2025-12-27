@@ -200,11 +200,11 @@ export default {
       };
 
       // Exemple de filtrage local
-      console.log("🔍 Filtres de recherche :", filtres);
+      // console.log("🔍 Filtres de recherche :", filtres);
       await instance
         .post("filterStudents", filtres)
         .then((response) => {
-          console.log("RESPONSE FILTRE STUDENT", response.data.students);
+          // console.log("RESPONSE FILTRE STUDENT", response.data.students);
           const transformed = this.addOtherElement(response.data.students);
           // Mise à jour de la liste et de sa longueur
           this.list = transformed;
@@ -244,7 +244,7 @@ export default {
         const reponse = await instance.get("GetAllCompetences");
         this.competences = reponse.data.data;
       } catch (e) {
-        // console.log(e);
+        console.log(e);
       }
     },
     showCalenderDate() {
@@ -260,14 +260,14 @@ export default {
     },
     selectDate() {
       this.dateSelectConvert = this.convertDate(this.datesSelect);
-      console.log("this.dateSelectConvert", this.dateSelectConvert);
+      // console.log("this.dateSelectConvert", this.dateSelectConvert);
     },
     getCompetenceIds(competences) {
       return competences.map((c) => c.id);
     },
     addComp(newTag) {
       this.competenceAdd = this.getCompetenceIds(newTag);
-      console.log("competenceAdd", this.competenceAdd);
+      // console.log("competenceAdd", this.competenceAdd);
     },
 
     addPersonAtWishLit(person) {

@@ -275,9 +275,9 @@ export default {
 
         // 🔹 Vérifie s’il existe un paramètre redirect dans l’URL
         const redirect = this.$route.query.redirect
-       console.log("Redirection détectée :", redirect)
+      //  console.log("Redirection détectée :", redirect)
         if (redirect) {
-          console.log("Redirection détectée :", redirect)
+          // console.log("Redirection détectée :", redirect)
           // 👉 Lancer une méthode ou rediriger directement
           this.$router.replace(redirect)
         } else {

@@ -69,13 +69,13 @@ const dataAlarm = ref([]);
 async function getOffresInteressByStudent() {
   try {
     const response = await instance.get("list_offres_interess_by_students");
-  console.log("get_offres_interess_by_student8596")
+  // console.log("get_offres_interess_by_student8596")
     if (response.status === 200) {
       dataAlarm.value = response?.data?.filter((item) => item.recruit === 0);
-      console.log(
-        "Offres intéressées par les étudiants (recruit=1) :",
-        response?.data?.filter((item) => item.recruit === 1)
-      );
+      // console.log(
+      //   "Offres intéressées par les étudiants (recruit=1) :",
+      //   response?.data?.filter((item) => item.recruit === 1)
+      // );
     }
   } catch (error) {
     console.error("Erreur lors du chargement des offres :", error);

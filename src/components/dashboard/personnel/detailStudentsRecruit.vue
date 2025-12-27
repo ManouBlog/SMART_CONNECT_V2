@@ -68,14 +68,14 @@ export default {
       await instance
         .get("getStudentRecruit")
         .then((res) => {
-          console.log("getStudentRecruit", res);
+          // console.log("getStudentRecruit", res);
           this.studentRecruit = res.data;
           for (let item in this.studentRecruit) {
             if (item === this.$route.params.offre) {
               this.tableauRecruit = this.studentRecruit[item];
             }
           }
-          console.log("this.tableauRecruit", this.tableauRecruit);
+          // console.log("this.tableauRecruit", this.tableauRecruit);
         })
         .catch((err) => {
           console.log(err);
@@ -89,12 +89,12 @@ export default {
     },
     rateStudent(id) {
       this.showModal = true;
-      console.log("rateStudent", id);
-      console.log("this.tableauRecruit", this.tableauRecruit);
+      // console.log("rateStudent", id);
+      // console.log("this.tableauRecruit", this.tableauRecruit);
       this.identifiant = this.tableauRecruit.find(
         (item) => Number(item.student_id) === Number(id)
       );
-      console.log("this.identifiant", this.identifiant);
+      // console.log("this.identifiant", this.identifiant);
     },
     async sendAppreciation() {
       spinnerLoading.launchLoading(true);
@@ -106,7 +106,7 @@ export default {
           offre_id: this.identifiant.offre_id,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -151,7 +151,7 @@ export default {
       
     },
     openModalCertification(payloadItem){
-      console.log("openModalCertification",payloadItem)
+      // console.log("openModalCertification",payloadItem)
       this.student_certification.student_id = payloadItem.student_id;
       this.student_certification.offre_id = payloadItem.offre_id;
       this.showCertificatModal = !this.showCertificatModal

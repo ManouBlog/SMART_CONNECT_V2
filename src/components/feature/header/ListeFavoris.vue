@@ -22,7 +22,7 @@ export default {
   computed: {...mapState(useListeFavoris,["myListOfFavoris"])},
   methods: {
     voirDetailTimetable(payload) {
-      console.log("voirDetailTimetable",payload)
+      // console.log("voirDetailTimetable",payload)
       this.$router.push({
         name: "detailStudent",
         params: { id: payload.id },

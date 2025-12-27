@@ -70,11 +70,11 @@ export default {
       });
     },
     updateInfoStudent(Etudiants) {
-      console.log("Etudiants", JSON.stringify(Etudiants, null, 2));
-      console.log(
-        "this.itemsQualificationDynamicInput",
-        this.itemsQualificationDynamicInput
-      );
+      // console.log("Etudiants", JSON.stringify(Etudiants, null, 2));
+      //console.log(
+      //   "this.itemsQualificationDynamicInput",
+      //   this.itemsQualificationDynamicInput
+      // );
 
       this.update_compte_student({
         nom: Etudiants.nom,
@@ -92,7 +92,7 @@ export default {
       });
     },
    async handleUpdate(user) {
-      console.log("UhandleUpdate", user);
+      // console.log("UhandleUpdate", user);
       if (this.user.user.statut.statut === "entreprise") {
         this.updateInfoEntreprise(user);
           await this.getInfoUser();

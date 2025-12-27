@@ -67,7 +67,7 @@ export default {
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
-        console.log("Fichier choisi :", file);
+        // console.log("Fichier choisi :", file);
         this.update_compte_student({
           photo_profil: file,
         });
@@ -79,7 +79,7 @@ export default {
       await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
-          console.log("voirInfoUserConnect", resp);
+          // console.log("voirInfoUserConnect", resp);
           if (resp.data.status === true) {
             this.user = resp.data.user;
             this.addInfoUserConnected(resp.data.user);
@@ -96,7 +96,7 @@ export default {
         });
     },
     handleModalInfo(payload = null) {
-      console.log("handleModalInfo", payload);
+      // console.log("handleModalInfo", payload);
       if (payload) {
         this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: true });
       } else {
@@ -149,7 +149,7 @@ export default {
       await instance
         .post("send-verification-email")
         .then((res) => {
-          console.log("send-verification-email", res.data);
+          // console.log("send-verification-email", res.data);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",

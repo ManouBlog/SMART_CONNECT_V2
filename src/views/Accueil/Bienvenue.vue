@@ -95,7 +95,7 @@ export default {
     async launchTestimonials() {
       try {
         const response = await instance.get("temoignages");
-        console.log("testimonials", response.data);
+        // console.log("testimonials", response.data);
         this.testimonials = response.data;
       } catch (error) {
         console.error("Erreur lors du chargement des témoignages :", error);
@@ -107,8 +107,8 @@ export default {
     this.launchTestimonials();
     this.email = this.$route.params.email;
     this.token = this.$route.params.token;
-    console.log("this.token", this.token);
-    console.log("this.email", this.email);
+    // console.log("this.token", this.token);
+    // console.log("this.email", this.email);
     const redirect = this.$route.query.redirect;
     if (redirect) {
       this.changeValueIsModal();

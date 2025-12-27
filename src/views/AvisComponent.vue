@@ -75,7 +75,7 @@ const data= {
   }
   try{
   const response = await instance.post('temoignages',data)
-  console.log("response",response)
+  // console.log("response",response)
   if(response.status === 201 ||response.status === 200){
      Swal.fire({
       icon: 'info',
@@ -91,10 +91,10 @@ console.log(error)
   }
 
   // Ici, vous pouvez envoyer les données à votre backend
-  console.log({
-    rating: rating.value,
-    comment: comment.value,
-  });
+  // console.log({
+  //   rating: rating.value,
+  //   comment: comment.value,
+  // });
 
   // Réinitialisation après soumission
   submitted.value = true;

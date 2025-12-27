@@ -105,7 +105,7 @@ const todayDate = computed(() => {
 const downloadCertification = async () => {
   SPINNERLOADING.launchLoading(true);
   const cvContent = document.getElementById("certification-content");
-  console.log("cvContent", cvContent);
+  // console.log("cvContent", cvContent);
   if (!cvContent) return;
 
   // capture du DOM
@@ -151,9 +151,9 @@ const getCertificationsStudentConnecte = async () => {
   await instance
     .get("mes-certifications")
     .then((response) => {
-      console.log("getCertificationsStudentConnecte", response);
+      // console.log("getCertificationsStudentConnecte", response);
       job.value = response.data.find((item) => Number(item.offre_id) === Number(idParams));
-      console.log("job.value",job.value)
+      // console.log("job.value",job.value)
     })
     .catch((err) => {
       console.log(err);

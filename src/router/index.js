@@ -434,16 +434,15 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-   scrollBehavior() {
-    
-    return {
-      // could also be
-      // el: document.getElementById('main'),
-      el: '#main',
-      // 10px above the element
-      top: 10,
+   scrollBehavior(to, from, savedPosition) {
+    // navigation arrière (back)
+    if (savedPosition) {
+      return savedPosition;
     }
-  }
+
+    // 🔥 chaque navigation normale → top
+    return { top: 0 };
+  },
 })
 
 

@@ -38,10 +38,10 @@ export default {
     async get_offres_interess_by_student() {
       try {
         const response = await instance.get("list_offres_interess_by_students");
-        console.log(
-          "list_offres_interess_by_students12",
-          response
-        );
+        // console.log(
+        //   "list_offres_interess_by_students12",
+        //   response
+        // );
         if (response["status"] === 200) {
           this.dataAlarm = Object.values(response?.data || {})
   .filter(item => typeof item === 'object' && !Array.isArray(item))

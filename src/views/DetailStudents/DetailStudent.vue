@@ -294,7 +294,7 @@ export default {
       await instance
         .get("FiltreTimetable", { params: { recipient_id: this.idParamsUser_id } })
         .then((res) => {
-          console.log("FiltreTimetable", res);
+          // console.log("FiltreTimetable", res);
           this.NewListEmploi = res.data.data;
           this.dateRendezVousStudentWithEntreprise = res.data.date;
           let dateOfStudent = [];

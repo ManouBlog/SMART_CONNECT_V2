@@ -29,7 +29,7 @@ const handleAbonement = async () => {
   loadingSpinner.launchLoading(true);
   try {
     const response = await instance.get("getAbonnement");
-    console.log("response",response)
+    // console.log("response",response)
     abonnements.value = response.data.data;
     loadingSpinner.launchLoading(false);
   } catch (error) {
@@ -41,7 +41,7 @@ const handleAbonement = async () => {
 async function doVerificationAbonnement(payload){
 try {
     const response = await axios.get("https://backend.monbrobroli.com/api/payStack/payment/callback/"+payload);
-    console.log("responseVERIF",response)
+    // console.log("responseVERIF",response)
     if(response.data.status){
        Swal.fire({
               icon: "success",
@@ -68,7 +68,7 @@ try {
 onMounted(async () => {
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
   reference.value = route.params.reference
-  console.log("route.params.reference",route.params.reference)
+  // console.log("route.params.reference",route.params.reference)
     if(reference.value){
     doVerificationAbonnement(reference.value)
     } 

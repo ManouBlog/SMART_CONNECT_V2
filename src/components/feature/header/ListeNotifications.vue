@@ -33,9 +33,9 @@ export default {
      async get_offres_interess_by_student() {
       try {
         const response = await instance.get("list_offres_interess_by_students");
-        console.log(
-         "get_offres_interess_by_student45"
-        );
+        // console.log(
+        //  "get_offres_interess_by_student45"
+        // );
         if (response["status"] === 200) {
           this.dataAlarm = response.data.filter((item) => item.recruit === 0);
         }

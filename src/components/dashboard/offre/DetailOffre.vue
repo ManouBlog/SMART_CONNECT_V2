@@ -133,7 +133,7 @@ export default {
           // console.log(res);
           this.offres = res.data.data;
           this.offre_id = this.offres.find((offre) => offre.id == this.$route.params.id);
-          console.log("OFFRE_ID", this.offre_id);
+          // console.log("OFFRE_ID", this.offre_id);
           this.getCompetenceWithCategorie(this.offre_id.categorie_offre_id)
         })
         .catch((err) => {
@@ -151,11 +151,11 @@ export default {
       );
     },
     getCompetenceWithCategorie(idCategorie){
-      console.log("idCategorie",idCategorie)
+      // console.log("idCategorie",idCategorie)
      this.competenceWithCategorie = this.allCompetences.filter(
         (item) => item.categorie.id === Number(idCategorie)
       );
-      console.log("this.competenceWithCategorie",this.competenceWithCategorie)
+      // console.log("this.competenceWithCategorie",this.competenceWithCategorie)
     }
   },
   async created() {

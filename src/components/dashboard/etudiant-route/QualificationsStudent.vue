@@ -128,7 +128,7 @@ export default {
         .then((resp) => {
           if (resp.data.status === true) {
             this.userQualifications = resp.data.user;
-            console.log("this.userQualifications", this.userQualifications);
+            // console.log("this.userQualifications", this.userQualifications);
           }
         })
         .catch((error) => {
@@ -142,7 +142,7 @@ export default {
       this.itemQualification = this.userQualifications?.qualifications?.find(
         (item) => item.id === id
       );
-      console.log("itemQualification", this.itemQualification);
+      // console.log("itemQualification", this.itemQualification);
     },
     toogleExperience() {
       this.idExperience = null;
@@ -184,11 +184,11 @@ export default {
     },
     deleteMyQualification() {
       loadingSpinner.launchLoading(true);
-      console.log("this.idQualificationAtDelete", this.idQualificationAtDelete);
+      // console.log("this.idQualificationAtDelete", this.idQualificationAtDelete);
       instance
         .delete("qualifications/" + this.idQualificationAtDelete)
         .then((res) => {
-          console.log("deleteQualification", res);
+          // console.log("deleteQualification", res);
           if (res.data.status === true) {
             this.toogleScreenYouWantDelete = !this.toogleScreenYouWantDelete;
             this.getInfoUser();

@@ -32,7 +32,7 @@ const isUserConnected = computed(() => {
 watch(
   isUserConnected,
  (newValue) => {
-    console.log("NEW VALUE", isUserConnected);
+    // console.log("NEW VALUE", isUserConnected);
     if (!newValue) {
      storeEntreprise.putPlanAbonnementAtNull();
     }

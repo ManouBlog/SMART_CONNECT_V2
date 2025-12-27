@@ -277,7 +277,7 @@ export default {
       instance
         .post("modifyExperience/" + this.idExperience, formData)
         .then((response) => {
-          console.log("rsponseExperinece",response)
+          // console.log("rsponseExperinece",response)
           if (response.data.status === true) {
             this.getAllExperiences();
             Swal.fire({

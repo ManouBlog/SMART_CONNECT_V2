@@ -71,9 +71,9 @@ export default {
             this.$store.state.token = response.data.access_token;
             this.toogleModal();
             const redirect = this.$route.query.redirect;
-            console.log("Redirection détectée :", redirect);
+            // console.log("Redirection détectée :", redirect);
             if (redirect) {
-              console.log("Redirection détectée :", redirect);
+              // console.log("Redirection détectée :", redirect);
               this.$router.replace(redirect);
             } else {
               this.$router.replace("/");

@@ -134,7 +134,7 @@ export default {
       await instance
         .post("send-verification-email")
         .then((res) => {
-          console.log("send-verification-email", res.data);
+          // console.log("send-verification-email", res.data);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
