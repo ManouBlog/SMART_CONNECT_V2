@@ -10,7 +10,7 @@ const {
 const Statut = ref(statut);
 const ADRESSE = ref([
   {
-    libelle: "CHU angré,Immeuble Bissié 1er Etage Porte D",
+    libelle: "Cocody, abidjan, cote d’ivoire",
     isVisible: true,
     img: false,
   },

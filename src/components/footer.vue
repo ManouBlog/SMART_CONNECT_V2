@@ -57,7 +57,7 @@ export default {
           <CardFooter
             :isWhite="true"
             :title="texte6"
-            :listLien="['CHU angré,Immeuble Bissié 1er Etage Porte D']"
+            :listLien="['Cocody, abidjan, cote d’ivoire']"
           />
           <CardFooter
             :isLinkObject="true"

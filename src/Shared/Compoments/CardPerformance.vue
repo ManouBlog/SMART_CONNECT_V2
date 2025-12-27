@@ -15,6 +15,7 @@ export default {
     isPayement:Boolean,
     suffix:String,
     tooltip: String,
+    decimals:Number
   },
   data() {
     return {};
@@ -27,7 +28,7 @@ export default {
 </script>
 <template>
   <section :class="myStyle" 
-   v-tooltip="{ value: !isPayement ? tooltip:''}"
+   v-tooltip.top="{ value: !isPayement ? tooltip:''}"
   >
     <div style="text-align:center;" v-if="!isPayement">
       <vue3-autocounter
@@ -38,6 +39,7 @@ export default {
         :duration="1"
         :autoinit="true"
         :suffix="suffix"
+        :decimals="decimals"
       />
     </div>
     <div class="my-3" v-if="!isPayement">

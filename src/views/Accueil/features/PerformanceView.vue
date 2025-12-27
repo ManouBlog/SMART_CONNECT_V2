@@ -121,6 +121,7 @@ onUnmounted(() => {
              :isPayement="false"
              :suffix="'K'"
             :tooltip="entreprises.toString()"
+            :decimals="Number(entreprises) > 1000  ? 1:null"
           />
           <CardPerformance
             :myStyle="'card_perfor_two'"
@@ -131,6 +132,7 @@ onUnmounted(() => {
              :isPayement="false"
              :suffix="formatSuffix(Number(offres))"
              :tooltip="offres.toString()"
+             :decimals="Number(offres) > 1000  ? 1:null"
           />
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
@@ -141,6 +143,7 @@ onUnmounted(() => {
             :isPayement="false"
             :suffix="formatSuffix(Number(student))"
             :tooltip="student.toString()"
+            :decimals="Number(student) > 1000  ? 1:null"
           />
           <CardPerformance
             v-if="Number(timetable) > 100"
@@ -152,6 +155,7 @@ onUnmounted(() => {
              :isPayement="false"
              :suffix="formatSuffix(Number(timetable))"
              :tooltip="timetable.toString()"
+             :decimals="Number(timetable) > 1000  ? 1:null"
           />
 
           <CardPerformance
@@ -163,6 +167,7 @@ onUnmounted(() => {
              :isPayement="false"
              :suffix="formatSuffix(Number(visiteur))"
              :tooltip="visiteur.toString()"
+             :decimals="Number(visiteur) > 1000  ? 1:null"
           />
           <CardPerformance
             :myStyle="'card_perfor_payment'"
