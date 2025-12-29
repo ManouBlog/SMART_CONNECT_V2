@@ -10,7 +10,15 @@ export const configUtils={
    return response;
   },
   getFormatDateFr(value){
-    return new Date(value).toLocaleDateString("fr")
+    return new Date(value).toLocaleDateString('fr-FR',{
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false // 24h
+})
   },
   formatedDisponibilite(value){
     return value.replace("-", " à ")
@@ -41,8 +49,7 @@ const differenceInHours = dayjsDateTo.diff(dayjsDateFrom, 'hour');
 
   },
   ifJobIsEnd(value){
-   return JSON.stringify(new Date().toISOString().substring(0, 10)) >
-   JSON.stringify(new Date(value).toISOString().slice(0, 10))
+   return new Date(value) >= new Date();
   },
   showJobNew(value){
     return JSON.stringify(new Date().toISOString().substring(0, 10)) ===

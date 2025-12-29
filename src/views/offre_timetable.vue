@@ -112,16 +112,10 @@ export default {
           // console.log("list_offres", res);
           if (res.data.status) {
             this.MylistOffre = res.data.data.filter((item) => {
-              return (
-                JSON.stringify(new Date().toISOString().substring(0, 10)) <
-                JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
-              );
+             return new Date(item.fin) >= new Date();
             });
             this.MylistsOffres = res.data.data.filter((item) => {
-              return (
-                JSON.stringify(new Date().toISOString().substring(0, 10)) <
-                JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
-              );
+             return new Date(item.fin) >= new Date();
             });
             this.lengthOfMylistOffre = this.MylistsOffres.length;
           }
@@ -141,20 +135,15 @@ export default {
       instance
         .post("search_offres", data)
         .then((res) => {
-          // console.log("search_offres", res);
+          console.log("search_offres", res);
           if (res.data.status) {
             // this.listOffre = res.data.data;
             this.MylistOffre = res.data.data.filter((item) => {
-              return (
-                JSON.stringify(new Date().toISOString().substring(0, 10)) <
-                JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
-              );
+            
+             return new Date(item.fin) >= new Date();
             });
             this.MylistsOffres = res.data.data.filter((item) => {
-              return (
-                JSON.stringify(new Date().toISOString().substring(0, 10)) <
-                JSON.stringify(new Date(item.fin).toISOString().slice(0, 10))
-              );
+              return new Date(item.fin) >= new Date();
             });
             this.lengthOfMylistOffre = this.MylistsOffres.length;
           }
@@ -436,15 +425,16 @@ export default {
                 </h6>
                 <router-link class="see_detail" :to="{ name: 'OffreDetail', params: { id: offre.id } }">
                   <button
-                    :class="configUtils.ifJobIsEnd(offre.fin) ? 'd-none' : null"
+                   
                     class="btn btn-Conex"
                   >
+                  
                     {{ texte6 }} <em class="bi bi-eye"></em>
                   </button>
                 </router-link>
-                <strong class="text-danger" v-if="configUtils.ifJobIsEnd(offre.fin)">{{
+                <!-- <strong class="text-danger" v-if="configUtils.ifJobIsEnd(offre.fin)">{{
                   texte7
-                }}</strong>
+                }}</strong> -->
               </div>
             </div>
           </div>
