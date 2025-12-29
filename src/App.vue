@@ -3,6 +3,9 @@
 </template>
 
 <style>
+.n-input .n-input__input-el {
+  caret-color: gray !important;
+}
 table,
 .dataTables_wrapper {
   overflow: auto !important;

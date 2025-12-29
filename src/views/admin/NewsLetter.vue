@@ -18,6 +18,8 @@ export default {
         objet: "",
         msg: "",
         type: "newsLetter",
+        link: [""],
+        profil: "all",
       },
     };
   },
@@ -86,43 +88,43 @@ export default {
         });
     },
     createCampaign() {
-      this.loading = true;
+      // this.loading = true;
       console.log("Campaign data:", this.campaign);
-      const ROUTE_BACKEND =
-        this.campaign.type === "newsLetter"
-          ? "sendNewsletterAtUser"
-          : "sendNotificationsAtUser";
-      axios
-        .post(
-          "https://backend.monbrobroli.com/api/" + ROUTE_BACKEND,
-          this.campaign, // <- corps de la requête
-          {
-            headers: {
-              Authorization: `Bearer ${this.$store.state.token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((response) => {
-          console.log("✅ Campaign created successfully:", response.data);
-          Swal.fire({
-            icon: "success",
-            title: response.data.message,
-            showConfirmButton: true,
-            // timer: 1500,
-          });
-          // Tu peux afficher une notification visuelle ici (ex: toast ou alert)
-        })
-        .catch((error) => {
-          if (error.response) {
-            console.error("❌ API Error:", error.response.data);
-          } else {
-            console.error("⚠️ Network Error:", error.message);
-          }
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+      // const ROUTE_BACKEND =
+      //   this.campaign.type === "newsLetter"
+      //     ? "sendNewsletterAtUser"
+      //     : "sendNotificationsAtUser";
+      // axios
+      //   .post(
+      //     "https://backend.monbrobroli.com/api/" + ROUTE_BACKEND,
+      //     this.campaign, // <- corps de la requête
+      //     {
+      //       headers: {
+      //         Authorization: `Bearer ${this.$store.state.token}`,
+      //         "Content-Type": "application/json",
+      //       },
+      //     }
+      //   )
+      //   .then((response) => {
+      //     console.log("✅ Campaign created successfully:", response.data);
+      //     Swal.fire({
+      //       icon: "success",
+      //       title: response.data.message,
+      //       showConfirmButton: true,
+      //       // timer: 1500,
+      //     });
+      //     // Tu peux afficher une notification visuelle ici (ex: toast ou alert)
+      //   })
+      //   .catch((error) => {
+      //     if (error.response) {
+      //       console.error("❌ API Error:", error.response.data);
+      //     } else {
+      //       console.error("⚠️ Network Error:", error.message);
+      //     }
+      //   })
+      //   .finally(() => {
+      //     this.loading = false;
+      //   });
     },
   },
   created() {
@@ -212,8 +214,8 @@ export default {
                               <option value="" disabled>
                                 -- Sélectionnez un type --
                               </option>
-                              <option value="newsLetter">NewsLetter</option>
-                              <option value="notifications">Notifications</option>
+                              <option value="newsLetter">Email</option>
+                              <option value="notifications">Notifications Push</option>
                             </select>
                           </div>
                         </div>
@@ -246,25 +248,36 @@ export default {
                         </div>
                       </div>
 
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="mb-3" style="text-align: left">
+                            <label class="form-label fw-bold">Liens</label>
+                            <n-dynamic-input
+                              v-model:value="campaign.link"
+                              placeholder="Ajouter un lien:https://lce-ci.com/"
+                              :min="1"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
                       <!-- Statut -->
-                      <!-- <div class="row">
+                      <div class="row">
                         <div class="col-lg-6">
-                          <div class="mb-3" style="text-align:left;">
-                            <label class="form-label fw-bold">Statut</label>
-                            <select
-                              class="form-select"
-                              v-model="campaign.status"
-                              required
-                            >
-                              <option value="">-- Sélectionnez un statut --</option>
-                              <option value="draft">Brouillon</option>
-                              <option value="scheduled">Planifiée</option>
-                              <option value="sent">Envoyée</option>
+                          <div class="mb-3" style="text-align: left">
+                            <label class="form-label fw-bold">Profil</label>
+                            <select class="form-select" v-model="campaign.profil">
+                              <option value="" disabled>
+                                -- Sélectionnez un profil --
+                              </option>
+                              <option value="all">Tout le monde</option>
+                              <option value="student">Etudiants</option>
+                              <option value="company">Entreprise & Particulier</option>
                             </select>
                           </div>
                         </div>
 
-                        <div class="col-lg-6" v-if="campaign.status === 'scheduled'">
+                        <!-- <div class="col-lg-6">
                           <div class="mb-3" style="text-align:left;">
                             <label class="form-label fw-bold">Date d’envoi</label>
                             <input
@@ -273,8 +286,8 @@ export default {
                               v-model="campaign.sent_at"
                             />
                           </div>
-                        </div>
-                      </div> -->
+                        </div> -->
+                      </div>
 
                       <!-- Bouton d’envoi -->
                       <div class="row">
