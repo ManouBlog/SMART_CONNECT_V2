@@ -223,7 +223,7 @@ export default {
                 role="tab"
                 aria-controls="timetable"
                 aria-selected="false"
-                ><i data-feather="alert-circle"></i>Créer une compétence
+                ><i data-feather="alert-circle"></i>Créer un poste
               </a>
             </li>
           </ul>
@@ -250,7 +250,7 @@ export default {
                       <div class="row">
                         <div class="col-lg-6">
                           <div class="mb-3 test-start">
-                            <p class="font-bold">Compétence</p>
+                            <p class="font-bold">Poste</p>
                             <input
                               class="form-control"
                               type="text"

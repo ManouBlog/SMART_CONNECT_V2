@@ -199,7 +199,7 @@ export default {
                 role="tab"
                 aria-controls="timetable"
                 aria-selected="false"
-                ><i data-feather="alert-circle"></i>Créer une categorie
+                ><i data-feather="alert-circle"></i>Créer un domaine
               </a>
             </li>
           </ul>
