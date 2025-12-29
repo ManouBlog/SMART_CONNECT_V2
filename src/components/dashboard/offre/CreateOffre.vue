@@ -260,32 +260,26 @@ export default {
       this.loading = true;
       this.creer = false;
       try {
-        let data = null;
-
         if (this.otherDomaine && this.otherPoste) {
           const response = await this.create_categorieOffre(
             this.otherDomaine,
             this.otherPoste
           );
-          console.log("OTHER DOMAINE", response);
           if (response.status) {
             this.postOffre(response.categorie_id, response.competence_id);
           }
-        }
-        if (!this.otherDomaine && this.otherPoste) {
-          data = {
-            domaine: this.categorie,
-            otherPoste: this.otherPoste,
-          };
+        }else if(!this.otherDomaine && this.otherPoste) {
+         
           const response = await this.create_CompetenceOffre(
             this.categorie,
             this.otherPoste
           );
           if (response.status) {
-            this.postOffre(this.categorie, response.competence_id);
+            await this.postOffre(this.categorie, response.competence_id);
           }
-        }
-        console.log("DATA", data);
+        }else if(!this.otherDomaine && !this.otherPoste){
+          await this.postOffre()
+        } 
       } catch (error) {
         console.error("Erreur lors de la création de l'offre :", error);
       } finally {
