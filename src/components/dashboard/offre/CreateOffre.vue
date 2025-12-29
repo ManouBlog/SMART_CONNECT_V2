@@ -89,8 +89,8 @@ export default {
           libelle: "Trimestre",
         },
       ],
-      otherDomaine:"",
-      otherPoste:"",
+      otherDomaine: "",
+      otherPoste: "",
       pointage: "",
       nbre_person: 1,
       job_fin: "",
@@ -125,14 +125,71 @@ export default {
       this.modify_offre = !this.modify_offre;
       this.id_offre_update = "";
     },
+    async create_CompetenceOffre(idCategorie, libellecompetence) {
+      try {
+        const data = {
+          competence: libellecompetence,
+          categorie_id: idCategorie,
+        };
 
-    create_offre() {
-      this.StoreLoading.launchLoading(true);
-      this.loading = true;
-      this.creer = false;
+        const response = await instance.post("createCompetence", data);
+
+        if (response.data.status === true) {
+          return {
+            competence_id: response.data.data.id,
+            status: true,
+          };
+        }
+
+        return { status: false };
+      } catch (error) {
+        Swal.fire({
+          icon: "info",
+          title: error.response?.data?.message,
+          showConfirmButton: true,
+        });
+        return { status: false };
+      }
+    },
+    async create_categorieOffre(categorieData, competenceData) {
+      try {
+        const responseCategorie = await instance.post("categorie", {
+          categorie: categorieData,
+        });
+
+        if (responseCategorie.data.status !== true) {
+          return { status: false };
+        }
+
+        const idCategorieCreate = responseCategorie.data.data.id;
+
+        const responseCreateCompetence = await this.create_CompetenceOffre(
+          idCategorieCreate,
+          competenceData
+        );
+
+        if (!responseCreateCompetence.status) {
+          return { status: false };
+        }
+
+        return {
+          categorie_id: idCategorieCreate,
+          competence_id: responseCreateCompetence.competence_id,
+          status: true,
+        };
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: error.response?.data?.message,
+          showConfirmButton: true,
+        });
+        return { status: false };
+      }
+    },
+
+    async postOffre(categorienew = null, competencenew = null) {
       let capitalizeFirstLetterOffre = this.offre[0].toUpperCase();
       let offreConcat = capitalizeFirstLetterOffre + this.offre.substring(1);
-      // console.log(offreConcat);
       let data = {
         nom_offre: offreConcat,
         salaire: this.salaire,
@@ -141,69 +198,103 @@ export default {
         fin: this.fin,
         lieu: this.lieu,
         pointage: this.pointage,
-        categorie_offre_id: this.categorie !== 'autre' ? this.categorie:null,
-        competence_id: this.competence !== 'autre' ? this.competence:null,
-        otherPoste:this.otherPoste,
-        otherDomaine:this.otherDomaine,
+        categorie_offre_id: this.categorie !== "autre" ? this.categorie : categorienew,
+        competence_id: this.competence !== "autre" ? this.competence : competencenew,
         nbre_person: this.nbre_person,
         job_fin: this.job_fin,
         job_debut: this.job_debut,
       };
-      console.log("dataINSTANCE",data)
-      // instance
-      //   .post("create_offre", data)
-      //   .then((res) => {
-      //     this.spinner = true;
-      //     this.loading = false;
-      //     // console.log(res);
-      //     if (res.data.status === true) {
-      //       Swal.fire({
-      //         icon: "success",
-      //         title: res.data.message,
-      //         showConfirmButton: false,
-      //         timer: 1500,
-      //       });
-      //       this.spinner = false;
+      await instance
+        .post("create_offre", data)
+        .then((res) => {
+          this.spinner = true;
+          this.loading = false;
+          // console.log(res);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.spinner = false;
+            this.salaire = null;
+            this.description = null;
+            this.debut = null;
+            this.offre = null;
+            this.fin = null;
+            this.nbre_person = 1;
+            this.lieu = null;
+            this.pointage = null;
+            this.categorie = null;
+            this.competence = null;
+            this.creer = true;
+          }
+          if (res.data.status === false) {
+            Swal.fire({
+              icon: "error",
+              title: res.data.message,
+              showConfirmButton: true,
+            });
+            this.spinner = false;
+            this.creer = true;
+            this.$router.push({ name: "abonnements" });
+          }
+        })
+        .catch((res) => {
+          // console.log(res);
+          Swal.fire({
+            icon: "error",
+            title: res.response.data.message,
+            showConfirmButton: true,
+          });
+          this.loading = false;
+          this.creer = true;
+          if (res.response.status === 302) {
+            this.$router.push({ name: "abonnements" });
+          }
+        });
+    },
+    async create_offre() {
+      this.StoreLoading.launchLoading(true);
+      this.loading = true;
+      this.creer = false;
+      try {
+        let data = null;
 
-      //       this.salaire = null;
-      //       this.description = null;
-      //       this.debut = null;
-      //       this.offre = null;
-      //       this.fin = null;
-      //       this.nbre_person = 1;
-      //       this.lieu = null;
-      //       this.pointage = null;
-      //       this.categorie = null;
-      //       this.competence = null;
-      //       this.creer = true;
-      //     }
-      //     if (res.data.status === false) {
-      //       Swal.fire({
-      //         icon: "error",
-      //         title: res.data.message,
-      //         showConfirmButton: true,
-      //       });
-      //       this.spinner = false;
-      //       this.creer = true;
-      //       this.$router.push({ name: "abonnements" });
-      //     }
-      //   })
-      //   .catch((res) => {
-      //     // console.log(res);
-      //     Swal.fire({
-      //       icon: "error",
-      //       title: res.response.data.message,
-      //       showConfirmButton: true,
-      //     });
-      //     this.loading = false;
-      //     this.creer = true;
-      //     if (res.response.status === 302) {
-      //       this.$router.push({ name: "abonnements" });
-      //     }
-      //   })
-      //   .finally(() => {
-      //     this.StoreLoading.launchLoading(false);
-      //   });
+        if (this.otherDomaine && this.otherPoste) {
+          const response = await this.create_categorieOffre(
+            this.otherDomaine,
+            this.otherPoste
+          );
+          console.log("OTHER DOMAINE", response);
+          if (response.status) {
+            this.postOffre(response.categorie_id, response.competence_id);
+          }
+        }
+        if (!this.otherDomaine && this.otherPoste) {
+          data = {
+            domaine: this.categorie,
+            otherPoste: this.otherPoste,
+          };
+        }
+        console.log("DATA", data);
+        // const reponseCreateCategorieandCompetence = this.otherDomaine && this.otherPoste ? this.create_categorieOffre(this.otherDomaine,this.otherPoste):false;
+
+        // // console.log("dataINSTANCE",data)
+        // if(reponseCreateCategorieandCompetence){
+        //   console.log("NEW CATEGORE AND NEW COMPETENCE")
+        //   this.postOffre(this.otherDomaine,this.otherPoste);
+        // }else{
+        //   console.log("CATEGORIE EXIST ALREADY")
+        //   this.postOffre();
+        // }
+      } catch (error) {
+        console.error("Erreur lors de la création de l'offre :", error);
+      } finally {
+        this.loading = false;
+        this.StoreLoading.launchLoading(false);
+      }
     },
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -253,10 +344,13 @@ export default {
           }
         });
     },
-
+    chooseCompetence() {
+      this.otherPoste = "";
+    },
     selectCategorie(e) {
       // console.log("selectCategorie", e.target.value);
-     
+      this.otherDomaine = "";
+      this.otherPoste = "";
       this.competenceWithCategorie = this.allCompetences.filter(
         (item) => item.categorie.id === Number(e.target.value)
       );
@@ -315,32 +409,29 @@ export default {
                 >
                   {{ item.categorie }}
                 </option>
-                <option value="autre" >
-                  Autre
-                </option>
+                <option value="autre">Autre</option>
               </select>
-              <div style="margin:0.5em 0;" v-if="categorie === 'autre'">
-             <label for="otherDomaine">Autre domaine</label>
-             <input
-              id="otherDomaine"
-                class="form-control"
-                type="text"
-                v-model="otherDomaine"
-              />
+              <div style="margin: 0.5em 0" v-if="categorie === 'autre'">
+                <label for="otherDomaine">Autre domaine</label>
+                <input
+                  id="otherDomaine"
+                  class="form-control"
+                  type="text"
+                  v-model="otherDomaine"
+                />
               </div>
-              
             </div>
-            <div class="text-left my-3 col-lg-6" >
+            <div class="text-left my-3 col-lg-6">
               <label id="select_comp" v-if="categorie !== 'autre'">
                 <span style="color: red">*</span>{{ texte3 }}</label
               >
               <select
                 v-if="categorie !== 'autre'"
                 :class="{ 'select-disabled': !categorie || categorie === 'autre' }"
-                
                 v-model="competence"
                 name="select_comp"
                 id="select_comp"
+                @change="chooseCompetence"
               >
                 <option value="" disabled style="color: brown">
                   {{ texte4 }}
@@ -366,20 +457,21 @@ export default {
                 >
                   {{ texte6 }}
                 </option>
-                <option value="autre">Autre</option>
+                <option value="autre" :disabled="!categorie">Autre</option>
               </select>
-              <div style="margin:0.5em 0;" v-if="categorie === 'autre' || categorie && competence == 'autre'">
+              <div
+                style="margin: 0.5em 0"
+                v-if="categorie === 'autre' || (categorie && competence == 'autre')"
+              >
                 <label for="otherPoste">Autre poste</label>
-             <input
-              id="otherPoste"
-                class="form-control"
-                type="text"
-                v-model="otherPoste"
-              />
+                <input
+                  id="otherPoste"
+                  class="form-control"
+                  type="text"
+                  v-model="otherPoste"
+                />
               </div>
-              
             </div>
-             
           </div>
           <div class="row">
             <div class="text-left my-3 col-lg-6">
