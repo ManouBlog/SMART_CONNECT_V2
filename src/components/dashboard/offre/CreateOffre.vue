@@ -277,18 +277,15 @@ export default {
             domaine: this.categorie,
             otherPoste: this.otherPoste,
           };
+          const response = await this.create_CompetenceOffre(
+            this.categorie,
+            this.otherPoste
+          );
+          if (response.status) {
+            this.postOffre(this.categorie, response.competence_id);
+          }
         }
         console.log("DATA", data);
-        // const reponseCreateCategorieandCompetence = this.otherDomaine && this.otherPoste ? this.create_categorieOffre(this.otherDomaine,this.otherPoste):false;
-
-        // // console.log("dataINSTANCE",data)
-        // if(reponseCreateCategorieandCompetence){
-        //   console.log("NEW CATEGORE AND NEW COMPETENCE")
-        //   this.postOffre(this.otherDomaine,this.otherPoste);
-        // }else{
-        //   console.log("CATEGORIE EXIST ALREADY")
-        //   this.postOffre();
-        // }
       } catch (error) {
         console.error("Erreur lors de la création de l'offre :", error);
       } finally {
