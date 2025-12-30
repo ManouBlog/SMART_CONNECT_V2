@@ -1,7 +1,7 @@
 <script>
 /* eslint-disable */
 import axios from "axios";
-// import Swal from "sweetalert2";
+
 import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
@@ -16,14 +16,8 @@ export default {
     };
   },
   methods: {
-    alertNummber(entreprise) {
-      let count = 0;
-      entreprise?.forEach((item) => {
-        if (item.view === 1) {
-          count = 1;
-        }
-      });
-      return count;
+    seeNbreBadge(entreprise) {
+      return entreprise?.filter((item) => item.view === 1).length || 0;
     },
     verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
@@ -232,7 +226,6 @@ export default {
       <div class="page-title">
         <div class="row">
           <div class="col-12 col-sm-6">
-            <!-- <h3>Créer un emploi du temps</h3> -->
           </div>
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
@@ -262,9 +255,9 @@ export default {
                 ><i data-feather="clock"></i>Abonnées
                 <span
                   class="badge bg-danger"
-                  v-if="alertNummber(this.$store.state.listEntrepriseAbonnee)"
+                  v-if="seeNbreBadge(this.$store.state.listEntrepriseAbonnee)"
                 >
-                  {{ alertNummber(this.$store.state.listEntrepriseAbonnee) }}
+                  {{ seeNbreBadge(this.$store.state.listEntrepriseAbonnee) }}
                 </span>
               </a>
             </li>
@@ -280,9 +273,9 @@ export default {
                 ><i data-feather="clock"></i>Pas abonnées
                 <span
                   class="badge bg-danger"
-                  v-if="alertNummber(this.$store.state.listEntreprisePasAbonnee)"
+                  v-if="seeNbreBadge(this.$store.state.listEntreprisePasAbonnee)"
                 >
-                  {{ alertNummber(this.$store.state.listEntreprisePasAbonnee) }}
+                  {{ seeNbreBadge(this.$store.state.listEntreprisePasAbonnee) }}
                 </span>
               </a>
             </li>
@@ -379,9 +372,6 @@ export default {
                     <td>{{ item.email }}</td>
                     <td>
                       <span>{{ item.user.statut.statut }}</span>
-                      <!-- <span v-else class="badge bg-info"
-                      >pas de registre de commerce</span
-                    > -->
                     </td>
                     <td>
                       {{
@@ -405,7 +395,6 @@ export default {
       </div>
     </div>
   </div>
-  <!-- Container-fluid Ends-->
 </template>
 <style scoped>
 .bi {

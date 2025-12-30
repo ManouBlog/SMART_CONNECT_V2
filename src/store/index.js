@@ -84,9 +84,25 @@ export default createStore({
     HANDLEBADGE(state,payload){
       state.nbreBadgeEntreprise = payload; 
     },
-    UPDATEBADGEENTREPRISE(state){
-      state.nbreBadgeEntreprise--
+    HANDLE_BADGE_ON_ACTION(state, entrepriseId) {
+  // Cherche dans les deux listes
+  const allCompanies = [
+    ...state.listEntrepriseAbonnee,
+    ...state.listEntreprisePasAbonnee
+  ];
+
+  const company = allCompanies.find(
+    item => item.id === entrepriseId && item.view === 1
+  );
+
+  if (company) {
+    company.view = 0;
+
+    if (state.nbreBadgeEntreprise > 0) {
+      state.nbreBadgeEntreprise--;
     }
+  }
+}
   },
   actions: {
     get_users({ commit,state }) {
@@ -100,6 +116,8 @@ export default createStore({
         .then((res) => {
           console.log('get_users',res)
           if(res.data.status){
+            console.log("LISTER_COMPANY_ABONNEE",res.data.data.filter(item=> item.user?.abonement?.length > 0))
+            console.log('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item.user?.abonement?.length))
           commit('LISTER_COMPANY_ABONNEE',res.data.data.filter(item=> item.user?.abonement?.length > 0))
           commit('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item.user?.abonement?.length))
           commit('HANDLEBADGE',res.data.data.filter(item=>item.view == 1).length)
@@ -118,6 +136,7 @@ export default createStore({
     addFirstItemForPeriodeStatistique(context) {
       context.commit("FIRSTPERIODE");
     },
+    
   },
   modules: {},
 });
