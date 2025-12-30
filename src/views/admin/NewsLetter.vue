@@ -18,7 +18,12 @@ export default {
         objet: "",
         msg: "",
         type: "newsLetter",
-        link: [""],
+        link: [
+          {
+            key: "",
+            value: "",
+          },
+        ],
         profil: "all",
       },
     };
@@ -88,43 +93,39 @@ export default {
         });
     },
     createCampaign() {
-      // this.loading = true;
+      this.loading = true;
       console.log("Campaign data:", this.campaign);
-      // const ROUTE_BACKEND =
-      //   this.campaign.type === "newsLetter"
-      //     ? "sendNewsletterAtUser"
-      //     : "sendNotificationsAtUser";
-      // axios
-      //   .post(
-      //     "https://backend.monbrobroli.com/api/" + ROUTE_BACKEND,
-      //     this.campaign, // <- corps de la requête
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ${this.$store.state.token}`,
-      //         "Content-Type": "application/json",
-      //       },
-      //     }
-      //   )
-      //   .then((response) => {
-      //     console.log("✅ Campaign created successfully:", response.data);
-      //     Swal.fire({
-      //       icon: "success",
-      //       title: response.data.message,
-      //       showConfirmButton: true,
-      //       // timer: 1500,
-      //     });
-      //     // Tu peux afficher une notification visuelle ici (ex: toast ou alert)
-      //   })
-      //   .catch((error) => {
-      //     if (error.response) {
-      //       console.error("❌ API Error:", error.response.data);
-      //     } else {
-      //       console.error("⚠️ Network Error:", error.message);
-      //     }
-      //   })
-      //   .finally(() => {
-      //     this.loading = false;
-      //   });
+      const ROUTE_BACKEND =
+        this.campaign.type === "newsLetter"
+          ? "sendNewsletterAtUser"
+          : "sendNotificationsAtUser";
+      axios
+        .post("https://backend.monbrobroli.com/api/" + ROUTE_BACKEND, this.campaign, {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.token}`,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log("✅ Campaign created successfully:", response.data);
+          Swal.fire({
+            icon: "success",
+            title: response.data.message,
+            showConfirmButton: true,
+            // timer: 1500,
+          });
+          // Tu peux afficher une notification visuelle ici (ex: toast ou alert)
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.error("❌ API Error:", error.response.data);
+          } else {
+            console.error("⚠️ Network Error:", error.message);
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   created() {
@@ -252,10 +253,16 @@ export default {
                         <div class="col-lg-12">
                           <div class="mb-3" style="text-align: left">
                             <label class="form-label fw-bold">Liens</label>
-                            <n-dynamic-input
+                            <!-- <n-dynamic-input
                               v-model:value="campaign.link"
                               placeholder="Ajouter un lien:https://lce-ci.com/"
                               :min="1"
+                            /> -->
+                            <n-dynamic-input
+                              v-model:value="campaign.link"
+                              preset="pair"
+                              key-placeholder="Entre le titre"
+                              value-placeholder="Entre le lien"
                             />
                           </div>
                         </div>
