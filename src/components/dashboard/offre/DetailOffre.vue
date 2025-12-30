@@ -69,12 +69,24 @@ export default {
       categories: [],
       OptionsOfpointage: [
         {
+          id: 2,
+          libelle: "Heure",
+        },
+        {
           id: 1,
           libelle: "Jour",
         },
         {
-          id: 2,
-          libelle: "Heure",
+          id: 5,
+          libelle: "Semaine",
+        },
+        {
+          id: 4,
+          libelle: "Mois",
+        },
+        {
+          id: 3,
+          libelle: "Trimestre",
         },
       ],
       pointage: "",
@@ -112,11 +124,11 @@ export default {
             showConfirmButton: true,
           });
         })
-        .catch((err) => {
-          console.log(err)
+        .catch((error) => {
+          // console.log(error)
           Swal.fire({
             icon: "info",
-            title: "erreur",
+            title: error?.response?.data?.message,
             showConfirmButton: true,
           });
         })
@@ -397,7 +409,6 @@ select {
   border-radius: 5px !important;
   width: 100%;
   height: 50px;
-  padding:1.1em;
   border:2px solid orange;
 
 }

@@ -129,7 +129,7 @@ export default {
     this.texte14 = await this.handleTranslate("Voir les Détails");
     this.texte15 = await this.handleTranslate("Offre Expirée");
     this.texte16 = await this.handleTranslate("Charger plus");
-    this.texte66 = await this.handleTranslate("Refuser");
+    this.texte66 = await this.handleTranslate("Non retenu");
   },
 };
 </script>

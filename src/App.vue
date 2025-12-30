@@ -179,7 +179,7 @@ export default {
       if (!sessionStorage.getItem("@visit")) {
         try {
           const response = await axios.post(
-            `${process.env.VUE_APP_LIENS_BACKEND}api/visites`,
+            `${process.env.VUE_APP_LIENS_LOCAL}api/visites`,
             { ip: ipMachin }
           );
           if (response.data.status) sessionStorage.setItem("@visit", 1);

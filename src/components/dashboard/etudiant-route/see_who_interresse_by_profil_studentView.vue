@@ -171,7 +171,7 @@ export default {
     this.texte9 = await this.handleTranslate(`Date de début de travail`);
     this.texte90 = await this.handleTranslate(`Offre`);
     this.texte10 = await this.handleTranslate("Sélectionné");
-    this.texte11 = await this.handleTranslate("refuser");
+    this.texte11 = await this.handleTranslate("Non retenu");
     this.texte12 = await this.handleTranslate("En attente de reponse");
     this.texte13 = await this.handleTranslate("Rejeter");
     this.texte14 = await this.handleTranslate("Sélectionner");
