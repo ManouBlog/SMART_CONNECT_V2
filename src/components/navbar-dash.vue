@@ -139,7 +139,7 @@ export default {
             v-if="statut == 'admin'"
           >
             <i class="bi bi-building" style="margin-left: -1.2em"></i>
-            <router-link :to="{ name: 'entreprises' }">
+            <router-link :to="{ name: 'entreprises' }" @click.prevent="get_users">
               <strong>Entreprises</strong>
               <BadgeCompVue
                 v-if="this.$store.state.nbreBadgeEntreprise > 0"

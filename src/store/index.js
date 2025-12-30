@@ -13,6 +13,8 @@ export default createStore({
     listEntreprisePasAbonnee:[],
     spinnerLoading:false,
     nbreBadgeEntreprise:0,
+    nbreBdageEntreprisePasAbonnee:0,
+    nbreBdageEntrepriseAbonnee:0,
   },
   getters: {},
   mutations: {
@@ -84,25 +86,16 @@ export default createStore({
     HANDLEBADGE(state,payload){
       state.nbreBadgeEntreprise = payload; 
     },
-    HANDLE_BADGE_ON_ACTION(state, entrepriseId) {
-  // Cherche dans les deux listes
-  const allCompanies = [
-    ...state.listEntrepriseAbonnee,
-    ...state.listEntreprisePasAbonnee
-  ];
-
-  const company = allCompanies.find(
-    item => item.id === entrepriseId && item.view === 1
-  );
-
-  if (company) {
-    company.view = 0;
-
-    if (state.nbreBadgeEntreprise > 0) {
-      state.nbreBadgeEntreprise--;
+    HANDLECOMPANYNOTSUSCRBIBE(state,payload){
+      state.nbreBdageEntreprisePasAbonnee = payload;
+    },
+    DECREMENT_COMPANY_NOT_SUSCRIBE(state){
+      state.nbreBdageEntreprisePasAbonnee--
+    },
+    DECREMENT_COMPANY_SUSCRIBE(state){
+      state.nbreBdageEntrepriseAbonnee--
     }
-  }
-}
+   
   },
   actions: {
     get_users({ commit,state }) {
@@ -121,6 +114,8 @@ export default createStore({
           commit('LISTER_COMPANY_ABONNEE',res.data.data.filter(item=> item.user?.abonement?.length > 0))
           commit('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item.user?.abonement?.length))
           commit('HANDLEBADGE',res.data.data.filter(item=>item.view == 1).length)
+          commit('HANDLECOMPANYNOTSUSCRBIBE',res.data.data.filter(item=> !item.user?.abonement?.length && item.view == 1).length)
+          commit('DECREMENT_COMPANY_SUSCRIBE',res.data.data.filter(item=> item.user?.abonement?.length > 0 && item.view == 1).length)
           } 
         })
         .catch((err) => {
@@ -136,6 +131,7 @@ export default createStore({
     addFirstItemForPeriodeStatistique(context) {
       context.commit("FIRSTPERIODE");
     },
+    
     
   },
   modules: {},

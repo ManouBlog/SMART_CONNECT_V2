@@ -16,6 +16,9 @@ export default {
     };
   },
   methods: {
+     get_users() {
+      this.$store.dispatch("get_users");
+    },
     seeNbreBadge(entreprise) {
       return entreprise?.filter((item) => item.view === 1).length || 0;
     },
@@ -33,7 +36,7 @@ export default {
         ? valueAbonnementCurrently?.abonement?.libelle
         : null;
     },
-    async getDetailRoute(id) {
+    async getDetailCompanyNotSuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
         .put("https://backend.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
@@ -42,9 +45,9 @@ export default {
           },
         })
         .then((res) => {
-          console.log("get_users", res);
+          console.log("get_detail_users", res);
           if (res.data.status) {
-            this.$store.commit("UPDATEBADGEENTREPRISE");
+            this.$store.commit("DECREMENT_COMPANY_NOT_SUSCRIBE");
             this.$router.push({
               name: "detail_entreprise",
               params: { id: id },
@@ -57,11 +60,37 @@ export default {
         })
         .finally(() => {
           this.$store.commit("TOOGLESPINNER", false);
+          this.get_users()
         });
     },
-    seelistEntrepriseAbonne(value) {
-      console.log("VALUE_LISTENTREPRISE", value);
+     async getDetailCompanySuscribe(id) {
+      this.$store.commit("TOOGLESPINNER", true);
+      await axios
+        .put("https://backend.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("get_detail_users", res);
+          if (res.data.status) {
+            this.$store.commit("DECREMENT_COMPANY_NOT_SUSCRIBE");
+            this.$router.push({
+              name: "detail_entreprise",
+              params: { id: id },
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err.response.data.message);
+        })
+        .finally(() => {
+          this.$store.commit("TOOGLESPINNER", false);
+          this.get_users()
+        });
     },
+    
   },
   mounted() {
     // Destruction des tables DataTable existantes si elles existent
@@ -138,90 +167,6 @@ export default {
     <div class="Myspinner" v-show="this.$store.state.spinnerLoading">
       <div class="spinner-border text-primary" role="status"></div>
     </div>
-    <div class="ecran" v-if="modify_timetable">
-      <div class="modify_form plan-modify" v-if="timetable_show_id">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-10 modify-form">
-              <div class="card">
-                <div class="card-body">
-                  <h1 class="badge bg-primary h3">Modifier l'emploi du temps</h1>
-                  <div class="form theme-form projectcreate p-5">
-                    <form>
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label>Choisir un jour</label>
-                            <select
-                              class="form-select"
-                              v-model="timetable_show_id.jour"
-                              required
-                              disabled
-                            >
-                              <option value="lundi">lundi</option>
-                              <option value="mardi">Mardi</option>
-                              <option value="mercredi">Mercredi</option>
-                              <option value="jeudi">Jeudi</option>
-                              <option value="vendredi">Vendredi</option>
-                              <option value="samedi">Samedi</option>
-                              <option value="dimanche">Dimanche</option>
-                            </select>
-                          </div>
-                          <span class="text-danger"
-                            >nb:le jour ne peut pas être modifier</span
-                          >
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="timetable_show_id.heure_start"
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="timetable_show_id.heure_end"
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="text-end">
-                            <button
-                              class="btn btn-danger me-3"
-                              @click.prevent="show_modify"
-                            >
-                              Annuler
-                            </button>
-                            <button
-                              @click.prevent="update_timetable"
-                              class="btn btn-secondary"
-                            >
-                              Modifier
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="container-fluid">
       <div class="page-title">
         <div class="row">
@@ -242,9 +187,7 @@ export default {
           <ul class="nav nav-tabs" id="top-tab" role="tablist">
             <li class="nav-item">
               <a
-                @click.prevent="
-                  seelistEntrepriseAbonne(this.$store.state.listEntrepriseAbonnee)
-                "
+               
                 class="nav-link active"
                 id="top-timeline"
                 data-bs-toggle="tab"
@@ -255,9 +198,9 @@ export default {
                 ><i data-feather="clock"></i>Abonnées
                 <span
                   class="badge bg-danger"
-                  v-if="seeNbreBadge(this.$store.state.listEntrepriseAbonnee)"
+                  v-if="this.$store.state.nbreBdageEntrepriseAbonnee > 0"
                 >
-                  {{ seeNbreBadge(this.$store.state.listEntrepriseAbonnee) }}
+                  {{ this.$store.state.nbreBdageEntrepriseAbonnee }}
                 </span>
               </a>
             </li>
@@ -273,9 +216,9 @@ export default {
                 ><i data-feather="clock"></i>Pas abonnées
                 <span
                   class="badge bg-danger"
-                  v-if="seeNbreBadge(this.$store.state.listEntreprisePasAbonnee)"
+                  v-if="this.$store.state.nbreBdageEntreprisePasAbonnee > 0 "
                 >
-                  {{ seeNbreBadge(this.$store.state.listEntreprisePasAbonnee) }}
+                  {{ this.$store.state.nbreBdageEntreprisePasAbonnee }}
                 </span>
               </a>
             </li>
@@ -283,7 +226,7 @@ export default {
         </div>
       </div>
     </div>
-    <!-- Container-fluid starts-->
+    
     <div class="tab-content" id="top-tabContent">
       <div
         class="tab-pane fade show active"
@@ -315,9 +258,7 @@ export default {
                     <td>{{ item.email }}</td>
                     <td>
                       <span>{{ item.user.statut.statut }}</span>
-                      <!-- <span v-else class="badge bg-info"
-                      >pas de registre de commerce</span
-                    > -->
+                      
                     </td>
                     <td>
                       {{
@@ -328,7 +269,7 @@ export default {
                     </td>
 
                     <td>
-                      <a href="#" @click.prevent="getDetailRoute(item.id)">
+                      <a href="#" @click.prevent="getDetailCompanySuscribe(item.id)">
                         <i class="bi bi-eye"></i>
                       </a>
                     </td>
@@ -367,7 +308,7 @@ export default {
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
                     <td>
                       {{ item.nom }}
-                      <span class="badge bg-danger" v-if="item.view">New</span>
+                      <span class="badge bg-danger" v-if="item.view == 1">New</span>
                     </td>
                     <td>{{ item.email }}</td>
                     <td>
@@ -382,7 +323,7 @@ export default {
                     </td>
 
                     <td>
-                      <a href="#" @click.prevent="getDetailRoute(item.id)">
+                      <a href="#" @click.prevent="getDetailCompanyNotSuscribe(item.id)">
                         <i class="bi bi-eye"></i>
                       </a>
                     </td>
