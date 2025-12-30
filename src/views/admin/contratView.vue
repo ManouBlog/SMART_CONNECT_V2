@@ -154,7 +154,7 @@ export default {
                         item.recruit === 1
                           ? "Accepté"
                           : item.recruit === 2
-                          ? "Réfusé"
+                          ? "Non retenu"
                           : "En attente de réponse"
                       }}
                     </p>

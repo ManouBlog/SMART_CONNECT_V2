@@ -403,9 +403,6 @@ export default {
                   <td>
                     {{ item.quartier }}
                   </td>
-                  <!-- <td>
-                    {{ item.diplome }}
-                  </td> -->
                   <td>
                     {{ item.phone }}
                   </td>
@@ -430,7 +427,6 @@ export default {
      
     </div>
   </div>
-  <!-- Container-fluid Ends-->
 </template>
 <style scoped>
 .bi {
