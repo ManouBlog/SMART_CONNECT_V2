@@ -19,10 +19,7 @@ export default {
         msg: "",
         type: "newsLetter",
         link: [
-          {
-            key: "",
-            value: "",
-          },
+          
         ],
         profil: "all",
       },
@@ -253,11 +250,7 @@ export default {
                         <div class="col-lg-12">
                           <div class="mb-3" style="text-align: left">
                             <label class="form-label fw-bold">Liens</label>
-                            <!-- <n-dynamic-input
-                              v-model:value="campaign.link"
-                              placeholder="Ajouter un lien:https://lce-ci.com/"
-                              :min="1"
-                            /> -->
+                            
                             <n-dynamic-input
                               v-model:value="campaign.link"
                               preset="pair"
@@ -283,6 +276,7 @@ export default {
                             </select>
                           </div>
                         </div>
+                        
 
                         <!-- <div class="col-lg-6">
                           <div class="mb-3" style="text-align:left;">

@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       students: [],
-      studentsNonAbonnee:[],
+      studentsNonAbonnee: [],
       see_detail_students: false,
       id_student: null,
       student: null,
@@ -18,7 +18,7 @@ export default {
     };
   },
   methods: {
-     verifIfAbonnementCurrently(value) {
+    verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
       if (!value) {
         return "Pas d'abonnement";
@@ -182,11 +182,7 @@ export default {
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Prénoms</label>
-                <input
-                  v-model="student.prenoms"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.prenoms" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
@@ -203,51 +199,31 @@ export default {
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Télephone</label>
-                <input
-                  v-model="student.phone"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.phone" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">ville</label>
-                <input
-                  v-model="student.ville"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.ville" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-md-3">
               <div class="mb-3">
                 <label class="form-label">Commune</label>
-                <input
-                  v-model="student.commune"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.commune" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Quartier</label>
-                <input
-                  v-model="student.quartier"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.quartier" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Diplome</label>
-                <input
-                  v-model="student.diplome"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.diplome" class="form-control" type="text" />
               </div>
             </div>
           </div>
@@ -258,9 +234,7 @@ export default {
     <div class="container-fluid">
       <div class="page-title">
         <div class="row">
-          <div class="col-12 col-sm-6">
-            <!-- <h3>Créer un emploi du temps</h3> -->
-          </div>
+          <div class="col-12 col-sm-6"></div>
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">Talents</li>
@@ -304,127 +278,136 @@ export default {
     <!-- Container-fluid starts-->
     <div class="tab-content" id="top-tabContent">
       <div
-      class="tab-pane fade show active"
+        class="tab-pane fade show active"
         id="abonnées"
         role="tabpanel"
         aria-labelledby="abonnées"
       >
- <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Date d'enregistrement</th>
-                  <th class="bg-light">Nom</th>
-                  <th class="bg-light">email</th>
-                  <th class="bg-light">Ville</th>
-                  <th class="bg-light">Commune</th>
-                  <th class="bg-light">Quartier</th>
-                  <!-- <th class="bg-light">Diplome</th> -->
-                  <th class="bg-light">Télephone</th>
-                  <th class="bg-light">Formule d'abonnement</th>
-                  <th class="bg-light">Détails</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in students" :key="index">
-                  <td>{{ new Date(item.created_at).toLocaleDateString('fr') }}</td>
-                  <td>{{ item.nom }}</td>
-                  <td>{{ item.email }}</td>
-                  <td>
-                    {{ item.ville }}
-                  </td>
-                  <td>
-                    {{ item.commune }}
-                  </td>
-                  <td>
-                    {{ item.quartier }}
-                  </td>
-                  <!-- <td>
-                    {{ item.diplome }}
-                  </td> -->
-                  <td>
-                    {{ item.phone }}
-                  </td>
-                  <td>{{item?.user?.abonement.length ? this.verifIfAbonnementCurrently(item?.user?.abonement):"Pas d'abonnement."}}</td>
-                  <td>
-                    <router-link
-                      :to="{
-                        name: 'details',
-                        params: { id: item.id, name: 'talents' },
-                      }"
-                    >
-                      <i class="bi bi-eye"></i
-                    ></router-link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 card py-3 px-2">
+              <table id="MyTableData" class="table">
+                <thead>
+                  <tr>
+                    <th class="bg-light">Date d'enregistrement</th>
+                    <th class="bg-light">Nom</th>
+                    <th class="bg-light">email</th>
+                    <th class="bg-light">Ville</th>
+                    <th class="bg-light">Commune</th>
+                    <th class="bg-light">Quartier</th>
+
+                    <th class="bg-light">Télephone</th>
+                    <th class="bg-light">Formule d'abonnement</th>
+                    <th class="bg-light">Détails</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, index) in students" :key="index">
+                    <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
+                    <td>{{ item.nom }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>
+                      {{ item.ville }}
+                    </td>
+                    <td>
+                      {{ item.commune }}
+                    </td>
+                    <td>
+                      {{ item.quartier }}
+                    </td>
+
+                    <td>
+                      {{ item.phone }}
+                    </td>
+                    <td>
+                      {{
+                        item?.user?.abonement.length
+                          ? this.verifIfAbonnementCurrently(item?.user?.abonement)
+                          : "Pas d'abonnement."
+                      }}
+                    </td>
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'details',
+                          params: { id: item.id, name: 'talents' },
+                        }"
+                      >
+                        <i class="bi bi-eye"></i
+                      ></router-link>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-      </div>
       <div
-      class="tab-pane"
+        class="tab-pane"
         id="nonAbonnees"
         role="tabpanel"
         aria-labelledby="nonAbonnees"
       >
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData2" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Date d'enregistrement</th>
-                  <th class="bg-light">Nom</th>
-                  <th class="bg-light">email</th>
-                  <th class="bg-light">Ville</th>
-                  <th class="bg-light">Commune</th>
-                  <th class="bg-light">Quartier</th>
-                  <!-- <th class="bg-light">Diplome</th> -->
-                  <th class="bg-light">Télephone</th>
-                  <th class="bg-light">Formule d'abonnement</th>
-                  <th class="bg-light">Détails</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in studentsNonAbonnee" :key="index">
-                  <td>{{ new Date(item.created_at).toLocaleDateString('fr') }}</td>
-                  <td>{{ item.nom }}</td>
-                  <td>{{ item.email }}</td>
-                  <td>
-                    {{ item.ville }}
-                  </td>
-                  <td>
-                    {{ item.commune }}
-                  </td>
-                  <td>
-                    {{ item.quartier }}
-                  </td>
-                  <td>
-                    {{ item.phone }}
-                  </td>
-                  <td>{{item?.user?.abonement.length ? this.verifIfAbonnementCurrently(item?.user?.abonement):"Pas d'abonnement."}}</td>
-                  <td>
-                    <router-link
-                      :to="{
-                        name: 'details',
-                        params: { id: item.id, name: 'visiteur' },
-                      }"
-                    >
-                      <i class="bi bi-eye"></i
-                    ></router-link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 card py-3 px-2">
+              <table id="MyTableData2" class="table">
+                <thead>
+                  <tr>
+                    <th class="bg-light">Date d'enregistrement</th>
+                    <th class="bg-light">Nom</th>
+                    <th class="bg-light">email</th>
+                    <th class="bg-light">Ville</th>
+                    <th class="bg-light">Commune</th>
+                    <th class="bg-light">Quartier</th>
+                    <!-- <th class="bg-light">Diplome</th> -->
+                    <th class="bg-light">Télephone</th>
+                    <th class="bg-light">Formule d'abonnement</th>
+                    <th class="bg-light">Détails</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, index) in studentsNonAbonnee" :key="index">
+                    <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
+                    <td>{{ item.nom }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>
+                      {{ item.ville }}
+                    </td>
+                    <td>
+                      {{ item.commune }}
+                    </td>
+                    <td>
+                      {{ item.quartier }}
+                    </td>
+                    <td>
+                      {{ item.phone }}
+                    </td>
+                    <td>
+                      {{
+                        item?.user?.abonement.length
+                          ? this.verifIfAbonnementCurrently(item?.user?.abonement)
+                          : "Pas d'abonnement."
+                      }}
+                    </td>
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'details',
+                          params: { id: item.id, name: 'visiteur' },
+                        }"
+                      >
+                        <i class="bi bi-eye"></i
+                      ></router-link>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-      </div>
-     
     </div>
   </div>
 </template>

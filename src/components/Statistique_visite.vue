@@ -266,7 +266,7 @@ export default {
 };
 </script>
 <template>
-  <div class="card py-4" style="flex: 1">
+  <div class="card py-4">
     <h3 class="text-start p-1">{{ this.title }}</h3>
     <div
       class="chart-loading d-flex gap-2 flex-wrap align-items-center px-2 py-3"
@@ -319,7 +319,7 @@ export default {
         v-if="this.chooseTypesOfFilter === 'nombre'"
         type="bar"
         :height="300"
-        :width="500"
+        
         :data="chartData"
         :options="chartOptions"
       />
@@ -329,5 +329,13 @@ export default {
 <style scoped>
 input {
   width: auto;
+}
+.card{
+  flex:1;
+}
+@media only screen and (max-width: 900px){
+.card{
+  flex:none;
+}
 }
 </style>

@@ -16,10 +16,11 @@ export default {
     get_users() {
       this.$store.dispatch("get_users");
     },
+   
   },
   created() {
     this.get_users();
-    console.log("badgeEntreprise", this.$store.state.nbreBadgeEntreprise);
+    
   },
 };
 </script>

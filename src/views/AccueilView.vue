@@ -459,7 +459,7 @@ export default {
             </div>
           </div>
         </div>
-        <div class="d-flex" style="place-content: flex-start; justify-content: center">
+        <div class="d-flex container_tableauBord" style="place-content: flex-start; justify-content: center;flex-wrap:wrap;">
           <div
             class="d-flex"
             style="
@@ -591,7 +591,7 @@ export default {
             display: flex;
             gap: 1.5em;
             align-items: 'center';
-            flex-wrap: wrap;
+           
             place-content: 'center !important';
             justify-content: 'center !important';
           "
@@ -759,5 +759,13 @@ ul {
 }
 #cont_table_competence {
   margin-top: 1.5em;
+}
+@media only screen and (max-width: 900px){
+.container_tableauBord{
+  flex-direction: column-reverse;
+}
+.card{
+  width:100% !important;
+}
 }
 </style>

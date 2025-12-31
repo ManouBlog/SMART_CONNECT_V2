@@ -99,13 +99,8 @@ export default {
     <div class="Myspinner" v-show="this.$store.state.spinnerLoading">
       <div class="spinner-border text-primary" role="status"></div>
     </div>
-    <div class="header-wrapper row m-0">
+    <div class="header-wrapper">
       <div class="header-logo-wrapper col-auto p-0">
-        <div class="logo-wrapper">
-          <a href="index.html"
-            ><img class="img-fluid" src="asset/images/logo/logo.png" alt=""
-          /></a>
-        </div>
         <div class="toggle-sidebar">
           <div class="status_toggle sidebar-toggle d-flex">
             <svg
@@ -295,5 +290,11 @@ export default {
   display: flex;
   place-items: center;
   justify-content: center;
+}
+
+@media only screen and (min-width: 991.98px) {
+    .header-logo-wrapper {
+        display: none;
+    }
 }
 </style>

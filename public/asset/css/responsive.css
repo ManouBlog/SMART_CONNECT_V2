@@ -1674,6 +1674,7 @@
   }
   .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper {
     top: 0;
+    display: none;
   }
   .page-wrapper.compact-wrapper
     .page-body-wrapper

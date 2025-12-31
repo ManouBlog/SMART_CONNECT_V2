@@ -4,7 +4,7 @@
     <HeaderDash />
     <div class="page-body-wrapper">
       <NavbarDash />
-      <FooterDash />
+      <!-- <FooterDash /> -->
       <router-view></router-view>
     </div>
   </div>
@@ -14,14 +14,14 @@
 // @ is an alias to /src
 import HeaderDash from "@/components/header-dash";
 import NavbarDash from "@/components/navbar-dash";
-import FooterDash from "@/components/footer-dash";
+// import FooterDash from "@/components/footer-dash";
 
 export default {
   name: "HomeView",
   components: {
     HeaderDash,
     NavbarDash,
-    FooterDash,
+    // FooterDash,
   },
 };
 </script>
