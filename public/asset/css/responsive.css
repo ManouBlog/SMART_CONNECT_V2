@@ -1468,8 +1468,8 @@
 }
 @media only screen and (max-width: 991.98px) {
   .status_toggle img {
-    width: 20px;
-    height: 20px;
+    width: 50px;
+    height: 50px;
   }
   .simplebar-mask {
     top: 80px;
@@ -1759,7 +1759,7 @@
   }
   .page-wrapper .page-header .header-wrapper {
     margin: 0;
-    padding: 12px 30px;
+    /* padding: 12px 30px; */
   }
   .page-wrapper .page-header .header-wrapper .nav-right .notification {
     top: 10px;
@@ -3297,7 +3297,7 @@
   .page-wrapper .page-body-wrapper .page-title .breadcrumb {
     -webkit-box-pack: start;
     -ms-flex-pack: start;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
     padding: 10px 0 0;
   }
   .page-wrapper .nav-right .nav-menus {
@@ -3910,7 +3910,8 @@
   }
   .page-wrapper .page-body-wrapper .page-title {
     padding-top: 15px;
-    padding-bottom: 15px;
+    margin-top: 25px;
+    /* padding-bottom: 15px; */
   }
   .page-wrapper .page-body-wrapper .page-title .row h3 {
     font-size: 20px;
@@ -4276,8 +4277,8 @@
     top: 50px !important;
   }
   .status_toggle img {
-    width: 18px;
-    height: 18px;
+    width: 50px;
+    height: 50px;
   }
   .page-wrapper
     .page-header

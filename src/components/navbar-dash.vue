@@ -117,7 +117,7 @@ export default {
             >
           </li>
 
-          <li
+          <!-- <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"
           >
@@ -125,7 +125,7 @@ export default {
             <router-link :to="{ name: 'users_beta' }">
               <strong>Utilisateurs bêta</strong></router-link
             >
-          </li>
+          </li> -->
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"

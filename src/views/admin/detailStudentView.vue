@@ -21,7 +21,7 @@ export default {
       recruitStatus: {
         0: "En attente de confirmation",
         1: "Accepté",
-        2: "Refusé",
+        2: "Non retenu",
       },
     };
   },

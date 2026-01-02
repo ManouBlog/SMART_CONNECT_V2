@@ -66,7 +66,6 @@ export default {
         });
     },
     toggleMenu() {
-      
       this.menu_bar = !this.menu_bar;
     },
     get_entreprise_who_contact_student() {
@@ -112,54 +111,12 @@ export default {
       <div class="header-logo-wrapper col-auto p-0">
         <div class="toggle-sidebar">
           <div class="status_toggle sidebar-toggle d-flex">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g>
-                <g>
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M21.0003 6.6738C21.0003 8.7024 19.3551 10.3476 17.3265 10.3476C15.2979 10.3476 13.6536 8.7024 13.6536 6.6738C13.6536 4.6452 15.2979 3 17.3265 3C19.3551 3 21.0003 4.6452 21.0003 6.6738Z"
-                    stroke="#130F26"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M10.3467 6.6738C10.3467 8.7024 8.7024 10.3476 6.6729 10.3476C4.6452 10.3476 3 8.7024 3 6.6738C3 4.6452 4.6452 3 6.6729 3C8.7024 3 10.3467 4.6452 10.3467 6.6738Z"
-                    stroke="#130F26"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M21.0003 17.2619C21.0003 19.2905 19.3551 20.9348 17.3265 20.9348C15.2979 20.9348 13.6536 19.2905 13.6536 17.2619C13.6536 15.2333 15.2979 13.5881 17.3265 13.5881C19.3551 13.5881 21.0003 15.2333 21.0003 17.2619Z"
-                    stroke="#130F26"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M10.3467 17.2619C10.3467 19.2905 8.7024 20.9348 6.6729 20.9348C4.6452 20.9348 3 19.2905 3 17.2619C3 15.2333 4.6452 13.5881 6.6729 13.5881C8.7024 13.5881 10.3467 15.2333 10.3467 17.2619Z"
-                    stroke="#130F26"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </g>
-              </g>
-            </svg>
+           <a href="#"
+          ><img
+            class="w-100 for-light"
+            src="../assets/brobroli_1.png"
+            alt="broboli_footer.png"
+        /></a>
           </div>
         </div>
       </div>
@@ -211,7 +168,7 @@ export default {
           <li
             class="profile-nav onhover-dropdown pe-0 py-0 me-0"
             @mouseenter="menu_bar = true"
-             @click="toggleMenu"
+            @click="toggleMenu"
           >
             <div class="media profile-media">
               <svg
@@ -259,6 +216,11 @@ export default {
                 </g>
               </svg>
               <span v-if="user" class="fw-bold mx-2">{{ this.user.nom }}</span>
+               <i
+    class="bi mx-1"
+    style="font-weight:bold;"
+    :class="menu_bar ? 'bi-chevron-up' : 'bi-chevron-down'"
+  ></i>
             </div>
             <ul class="profile-dropdown onhover-show-div menu_web" v-if="menu_bar">
               <li @click="show_compte">
@@ -274,16 +236,69 @@ export default {
             <ul class="menu_mobile profile-dropdown" v-if="menu_bar">
               <ListeMenuMobile>
                 <template #header>
-                  <li @click="show_compte" >
-                    <a href="#"><i data-feather="user"></i><span>Compte</span></a>
+                  <li
+                    @click="show_compte"
+                    style="display:flex;align-items:center;gap:10px;"
+                  >
+                    <a href="#" style="color: hsla(193, 44%, 26%, 1)">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M9.55851 21.4562C5.88651 21.4562 2.74951 20.9012 2.74951 18.6772C2.74951 16.4532 5.86651 14.4492 9.55851 14.4492C13.2305 14.4492 16.3665 16.4342 16.3665 18.6572C16.3665 20.8802 13.2505 21.4562 9.55851 21.4562Z"
+                              stroke="#130F26"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M9.55849 11.2776C11.9685 11.2776 13.9225 9.32356 13.9225 6.91356C13.9225 4.50356 11.9685 2.54956 9.55849 2.54956C7.14849 2.54956 5.19449 4.50356 5.19449 6.91356C5.18549 9.31556 7.12649 11.2696 9.52749 11.2776H9.55849Z"
+                              stroke="#130F26"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>
+                            <path
+                              d="M16.8013 10.0789C18.2043 9.70388 19.2383 8.42488 19.2383 6.90288C19.2393 5.31488 18.1123 3.98888 16.6143 3.68188"
+                              stroke="#130F26"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>
+                            <path
+                              d="M17.4608 13.6536C19.4488 13.6536 21.1468 15.0016 21.1468 16.2046C21.1468 16.9136 20.5618 17.6416 19.6718 17.8506"
+                              stroke="#130F26"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>
+                          </g>
+                        </g></svg
+                      ></a
+                    >
+                    <strong  style="color: hsla(193, 44%, 26%, 1)">Compte</strong>
                   </li>
                 </template>
                 <template #footer>
-                  <li @click.prevent="deconnex">
+                  <li
+                    @click.prevent="deconnex"
+                    style="display:flex;align-items:center;gap:10px;"
+                  >
                     <a href="javascript:void(0)"
                       ><i class="bi bi-box-arrow-in-left mx-2"></i
-                      ><span>Se déconnecter</span></a
+                      ></a
                     >
+                    <strong  style="color: hsla(193, 44%, 26%, 1)">Se déconnecter</strong>
                   </li>
                 </template>
               </ListeMenuMobile>
@@ -319,31 +334,35 @@ export default {
   place-items: center;
   justify-content: center;
 }
-.menu_mobile{
-      display: none;
-    }
+.menu_mobile {
+  display: none;
+}
 @media only screen and (min-width: 991.98px) {
   .header-logo-wrapper {
     display: none;
   }
- .menu_mobile{
-      display: none;
-    }
-    
+  .menu_mobile {
+    display: none;
+  }
 }
 @media only screen and (max-width: 991.98px) {
-  
-    .menu_mobile{
-      display: block;
-    }
-        .page-header .header-wrapper .nav-right.right-header ul.profile-dropdown {
-        position: fixed;
-        top: 60px;
-        right: 15px !important;
-    }
-    .menu_web{
-      display: none;
-    }
+  .menu_mobile {
+    display: block;
+  }
+  .page-header .header-wrapper .nav-right.right-header ul.profile-dropdown {
+    position: fixed;
+    top: 55px;
+    right: 15px !important;
+    box-shadow: 0 0 20px rgba(89, 102, 122, 0.1);
+    background-color: #fff;
+    list-style-type: none;
+    height: 90%;
+    overflow: auto;
+    width: 250px;
+    padding-bottom:1.5em !important;
+  }
+  .menu_web {
+    display: none;
+  }
 }
-
 </style>
