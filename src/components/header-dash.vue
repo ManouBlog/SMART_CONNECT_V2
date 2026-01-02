@@ -2,8 +2,12 @@
 /* eslint-disable */
 import axios from "axios";
 import Swal from "sweetalert2";
+import ListeMenuMobile from "./ListMenuMobile.vue";
 export default {
   name: "HeaderDash",
+  components: {
+    ListeMenuMobile,
+  },
   data() {
     return {
       user: this.$store.state.user,
@@ -62,6 +66,7 @@ export default {
         });
     },
     toggleMenu() {
+      
       this.menu_bar = !this.menu_bar;
     },
     get_entreprise_who_contact_student() {
@@ -206,9 +211,9 @@ export default {
           <li
             class="profile-nav onhover-dropdown pe-0 py-0 me-0"
             @mouseenter="menu_bar = true"
-            @mouseleave="menu_bar = false"
+             @click="toggleMenu"
           >
-            <div class="media profile-media" @click="toggleMenu">
+            <div class="media profile-media">
               <svg
                 width="24"
                 height="24"
@@ -255,7 +260,7 @@ export default {
               </svg>
               <span v-if="user" class="fw-bold mx-2">{{ this.user.nom }}</span>
             </div>
-            <ul class="profile-dropdown onhover-show-div" v-if="menu_bar">
+            <ul class="profile-dropdown onhover-show-div menu_web" v-if="menu_bar">
               <li @click="show_compte">
                 <a href="#"><i data-feather="user"></i><span>Compte</span></a>
               </li>
@@ -265,6 +270,23 @@ export default {
                   ><span>Se déconnecter</span></a
                 >
               </li>
+            </ul>
+            <ul class="menu_mobile profile-dropdown" v-if="menu_bar">
+              <ListeMenuMobile>
+                <template #header>
+                  <li @click="show_compte" >
+                    <a href="#"><i data-feather="user"></i><span>Compte</span></a>
+                  </li>
+                </template>
+                <template #footer>
+                  <li @click.prevent="deconnex">
+                    <a href="javascript:void(0)"
+                      ><i class="bi bi-box-arrow-in-left mx-2"></i
+                      ><span>Se déconnecter</span></a
+                    >
+                  </li>
+                </template>
+              </ListeMenuMobile>
             </ul>
           </li>
         </ul>
@@ -297,10 +319,31 @@ export default {
   place-items: center;
   justify-content: center;
 }
-
+.menu_mobile{
+      display: none;
+    }
 @media only screen and (min-width: 991.98px) {
   .header-logo-wrapper {
     display: none;
   }
+ .menu_mobile{
+      display: none;
+    }
+    
 }
+@media only screen and (max-width: 991.98px) {
+  
+    .menu_mobile{
+      display: block;
+    }
+        .page-header .header-wrapper .nav-right.right-header ul.profile-dropdown {
+        position: fixed;
+        top: 60px;
+        right: 15px !important;
+    }
+    .menu_web{
+      display: none;
+    }
+}
+
 </style>

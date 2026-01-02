@@ -1572,8 +1572,8 @@
     padding: 11px 30px 10px;
   }
   .page-wrapper .page-header .header-wrapper .nav-right .profile-dropdown {
-    top: 50px;
-    width: 160px;
+    /* top: 50px; */
+    width: 200px;
   }
   .page-wrapper .current_lang .lang span.lang-txt {
     display: none;

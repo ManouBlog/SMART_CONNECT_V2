@@ -764,6 +764,7 @@ ul {
 @media only screen and (max-width: 900px) {
   .container_tableauBord {
     flex-direction: column-reverse;
+    place-content: center !important;
   }
   .card {
     width: 100% !important;
