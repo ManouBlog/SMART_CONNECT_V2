@@ -108,7 +108,13 @@ export default createStore({
      LISTER_STUDENT_NOT_ABONNE(state,payload){
       state.listStudentPasAbonne = payload
       console.log("LISTER_STUDENT_ABONNE",state.listStudentAbonne)
-    }
+    },
+    DECREMENT_STUDENT_NOT_SUSCRIBE(state){
+      state.listStudentPasAbonne--
+    },
+    DECREMENT_STUDENT_SUSCRIBE(state){
+      state.listStudentAbonne--
+    },
    
   },
   actions: {
@@ -152,13 +158,8 @@ export default createStore({
              const arrayStudent = Object.entries(res.data.data)
              .map(([_key, value]) => value);
          console.log('get_Students_abonne',arrayStudent)
-            // console.log("LISTER_COMPANY_ABONNEE",res.data.data.filter(item=> item.user?.abonement?.length > 0))
-            // console.log('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item.user?.abonement?.length))
           commit('LISTER_STUDENT_ABONNE',arrayStudent.filter(item=> item.view == 1).length)
-          // commit('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item.user?.abonement?.length))
-          // commit('HANDLEBADGE',res.data.data.filter(item=>item.view == 1).length)
-          // commit('HANDLECOMPANYNOTSUSCRBIBE',res.data.data.filter(item=> !item.user?.abonement?.length && item.view == 1).length)
-          // commit('DECREMENT_COMPANY_SUSCRIBE',res.data.data.filter(item=> item.user?.abonement?.length > 0 && item.view == 1).length)
+          
           } 
         })
         .catch((err) => {

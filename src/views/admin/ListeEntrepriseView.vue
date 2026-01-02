@@ -254,7 +254,9 @@ export default {
                     :key="index"
                   >
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>{{ item.nom }}</td>
+                    <td>{{ item.nom }}
+                      <span class="badge bg-danger" v-if="item.view == 1">New</span>
+                    </td>
                     <td>{{ item.email }}</td>
                     <td>
                       <span>{{ item.user.statut.statut }}</span>

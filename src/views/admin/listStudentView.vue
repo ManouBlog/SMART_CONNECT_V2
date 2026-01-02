@@ -158,6 +158,62 @@ export default {
           console.log(err);
         });
     },
+    async getDetailNotSuscribe(id){
+      this.$store.commit("TOOGLESPINNER", true);
+      await axios
+        .put("https://backend.monbrobroli.com/api/updateBadgeStudent/" + id, {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("get_detail_users", res);
+          if (res.data.status) {
+            this.$store.commit("DECREMENT_STUDENT_NOT_SUSCRIBE");
+            this.$router.push({
+                          name: 'details',
+                          params: { id: id, name: 'visiteur' },
+                        });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err.response.data.message);
+        })
+        .finally(() => {
+          this.$store.commit("TOOGLESPINNER", false);
+          this.$store.dispatch("get_Students_Non_Abonne");
+          this.$store.dispatch("get_Students_abonne");
+        });
+    },
+     async getDetailSuscribe(id){
+      this.$store.commit("TOOGLESPINNER", true);
+      await axios
+        .put("https://backend.monbrobroli.com/api/updateBadgeStudent/" + id, {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("get_detail_users", res);
+          if (res.data.status) {
+            this.$store.commit("DECREMENT_STUDENT_NOT_SUSCRIBE");
+            this.$router.push({
+                          name: 'details',
+                          params: { id: id, name: 'talents' },
+                        });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err.response.data.message);
+        })
+        .finally(() => {
+          this.$store.commit("TOOGLESPINNER", false);
+          this.$store.dispatch("get_Students_Non_Abonne");
+          this.$store.dispatch("get_Students_abonne");
+        });
+    }
   },
   created() {
     this.get_students();
@@ -316,7 +372,7 @@ export default {
                 <tbody>
                   <tr v-for="(item, index) in students" :key="index">
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>{{ item.nom }}</td>
+                    <td>{{ item.nom }} <span class="badge bg-danger" v-if="item.view == 1">New</span></td>
                     <td>{{ item.email }}</td>
                     <td>
                       {{ item.ville }}
@@ -339,14 +395,17 @@ export default {
                       }}
                     </td>
                     <td>
-                      <router-link
+                      <a href="#" @click.prevent="getDetailSuscribe(item.id)">
+                        <i class="bi bi-eye"></i>
+                      </a>
+                      <!-- <router-link
                         :to="{
                           name: 'details',
                           params: { id: item.id, name: 'talents' },
                         }"
                       >
                         <i class="bi bi-eye"></i
-                      ></router-link>
+                      ></router-link> -->
                     </td>
                   </tr>
                 </tbody>
@@ -382,7 +441,7 @@ export default {
                 <tbody>
                   <tr v-for="(item, index) in studentsNonAbonnee" :key="index">
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>{{ item.nom }}</td>
+                    <td>{{ item.nom }} <span class="badge bg-danger" v-if="item.view == 1">New</span></td>
                     <td>{{ item.email }}</td>
                     <td>
                       {{ item.ville }}
@@ -404,14 +463,17 @@ export default {
                       }}
                     </td>
                     <td>
-                      <router-link
+                      <a href="#" @click.prevent="getDetailNotSuscribe(item.id)">
+                        <i class="bi bi-eye"></i>
+                      </a>
+                      <!-- <router-link
                         :to="{
                           name: 'details',
                           params: { id: item.id, name: 'visiteur' },
                         }"
                       >
                         <i class="bi bi-eye"></i
-                      ></router-link>
+                      ></router-link> -->
                     </td>
                   </tr>
                 </tbody>
