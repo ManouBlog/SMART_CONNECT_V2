@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
 import Statistique_Comp from "@/components/Statistique_Comp.vue";
 import Statistiques_Account from "@/components/Statistiques_Account.vue";
-import Statistique_revenu from '@/components/Statistique_revenu.vue';
+import Statistique_revenu from "@/components/Statistique_revenu.vue";
 import Statistique_visite from "@/components/Statistique_visite.vue";
 import MyCardStatistique from "@/components/MyCardStatistique.vue";
 // import Editor from "../components/text-editor.vue";
@@ -16,7 +16,7 @@ export default {
     Statistiques_Account,
     MyCardStatistique,
     Statistique_visite,
-    Statistique_revenu
+    Statistique_revenu,
   },
   data() {
     return {
@@ -269,8 +269,7 @@ export default {
       console.log(this.updateExperience.experience);
       axios
         .post(
-          "https://backend.monbrobroli.com/api/modifyExperience/" +
-            this.idExperience,
+          "https://backend.monbrobroli.com/api/modifyExperience/" + this.idExperience,
           {
             experience: this.updateExperience.experience,
             lieu: this.updateExperience.lieu,
@@ -459,7 +458,10 @@ export default {
             </div>
           </div>
         </div>
-        <div class="d-flex container_tableauBord" style="place-content: flex-start; justify-content: center;flex-wrap:wrap;">
+        <div
+          class="d-flex container_tableauBord"
+          style="place-content: flex-start; justify-content: center; flex-wrap: wrap"
+        >
           <div
             class="d-flex"
             style="
@@ -591,15 +593,14 @@ export default {
             display: flex;
             gap: 1.5em;
             align-items: 'center';
-           
+            flex-wrap: wrap;
             place-content: 'center !important';
             justify-content: 'center !important';
           "
         >
-         <Statistiques_Account :title="'Entreprises & Etudiants'" />
-         <Statistique_revenu :title="'Revenu'"/>
+          <Statistiques_Account :title="'Entreprises & Etudiants'" />
+          <Statistique_revenu :title="'Revenu'" />
         </div>
-        
       </div>
     </div>
   </div>
@@ -760,12 +761,12 @@ ul {
 #cont_table_competence {
   margin-top: 1.5em;
 }
-@media only screen and (max-width: 900px){
-.container_tableauBord{
-  flex-direction: column-reverse;
-}
-.card{
-  width:100% !important;
-}
+@media only screen and (max-width: 900px) {
+  .container_tableauBord {
+    flex-direction: column-reverse;
+  }
+  .card {
+    width: 100% !important;
+  }
 }
 </style>

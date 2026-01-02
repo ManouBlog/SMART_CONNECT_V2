@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
+      menu_bar: false,
       // compte: this.$store.state.compte,
       // statut: this.$store.state.statut,
       lentgh: this.$store.state.lentgh,
@@ -56,9 +57,12 @@ export default {
         .catch((err) => {
           console.log(err);
         })
-        .finally(()=>{
+        .finally(() => {
           this.$store.commit("TOOGLESPINNER", false);
-        })
+        });
+    },
+    toggleMenu() {
+      this.menu_bar = !this.menu_bar;
     },
     get_entreprise_who_contact_student() {
       this.spinner = true;
@@ -155,9 +159,7 @@ export default {
         </div>
       </div>
       <div class="left-side-header col ps-0 d-none d-md-block">
-        <div class="input-group">
-         
-        </div>
+        <div class="input-group"></div>
       </div>
       <div class="nav-right col-10 col-sm-6 pull-right right-header p-0">
         <ul class="nav-menus">
@@ -201,8 +203,12 @@ export default {
               <span class="badge bg-primary" v-show="showMessageNew">new</span>
             </div>
           </li>
-          <li class="profile-nav onhover-dropdown pe-0 py-0 me-0">
-            <div class="media profile-media">
+          <li
+            class="profile-nav onhover-dropdown pe-0 py-0 me-0"
+            @mouseenter="menu_bar = true"
+            @mouseleave="menu_bar = false"
+          >
+            <div class="media profile-media" @click="toggleMenu">
               <svg
                 width="24"
                 height="24"
@@ -249,7 +255,7 @@ export default {
               </svg>
               <span v-if="user" class="fw-bold mx-2">{{ this.user.nom }}</span>
             </div>
-            <ul class="profile-dropdown onhover-show-div">
+            <ul class="profile-dropdown onhover-show-div" v-if="menu_bar">
               <li @click="show_compte">
                 <a href="#"><i data-feather="user"></i><span>Compte</span></a>
               </li>
@@ -293,8 +299,8 @@ export default {
 }
 
 @media only screen and (min-width: 991.98px) {
-    .header-logo-wrapper {
-        display: none;
-    }
+  .header-logo-wrapper {
+    display: none;
+  }
 }
 </style>
