@@ -2,11 +2,15 @@
 /* eslint-disable */
 import axios from "axios";
 // import Swal from "sweetalert2";
+import BadgeCompVue from "../../components/BadgeComp.vue";
 import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 export default {
   name: "UserView",
+  components: {
+    BadgeCompVue,
+  },
   data() {
     return {
       students: [],
@@ -256,7 +260,11 @@ export default {
                 role="tab"
                 aria-controls="abonnées"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Abonnées</a
+                ><i data-feather="clock"></i>Abonnées
+                <BadgeCompVue v-if="this.$store.state.listStudentAbonne > 0" 
+                  :nbreTotal="this.$store.state.listStudentAbonne"
+                  />
+                </a
               >
             </li>
             <li class="nav-item">
@@ -268,7 +276,11 @@ export default {
                 role="tab"
                 aria-controls="nonAbonnees"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Pas abonnées</a
+                ><i data-feather="clock"></i>Pas abonnées
+                <BadgeCompVue v-if="this.$store.state.listStudentPasAbonne > 0" 
+                  :nbreTotal="this.$store.state.listStudentPasAbonne"
+                  />
+                </a
               >
             </li>
           </ul>

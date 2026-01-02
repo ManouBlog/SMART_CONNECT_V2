@@ -16,11 +16,15 @@ export default {
     get_users() {
       this.$store.dispatch("get_users");
     },
+     get_Students() {
+      this.$store.dispatch("get_Students_abonne");
+      this.$store.dispatch("get_Students_Non_Abonne");
+    },
    
   },
   created() {
     this.get_users();
-    
+    this.get_Students();
   },
 };
 </script>
@@ -155,8 +159,14 @@ export default {
           >
             <i class="bi bi-person" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'students' }">
-              <strong>Etudiants</strong></router-link
+              <strong>Etudiants</strong>
+              <BadgeCompVue
+                v-if="(this.$store.state.listStudentAbonne+this.$store.state.listStudentPasAbonne) > 0"
+                :nbreTotal="this.$store.state.listStudentAbonne+this.$store.state.listStudentPasAbonne"
+              />
+              </router-link
             >
+            
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
