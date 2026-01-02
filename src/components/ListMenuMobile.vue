@@ -1,6 +1,7 @@
 <script>
 /* eslint-disable */
 import BadgeCompVue from "./BadgeComp.vue";
+import axios from "axios";
 
 export default {
   name: "NavbarDash",
@@ -25,18 +26,47 @@ export default {
     },
     get_users() {
       this.$store.dispatch("get_users");
-      this.goTo("entreprises");
+    },
+    get_Students() {
+      this.$store.dispatch("get_Students_abonne");
+      this.$store.dispatch("get_Students_Non_Abonne");
+    },
+    get_Contrat() {
+      this.$store.dispatch("get_contrats");
+    },
+    seeNewContrat() {
+      this.$store.commit("TOOGLESPINNER", true);
+      axios
+        .get("https://backend.monbrobroli.com/api/admin/updateBadgeContrat", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("get_contrat", res);
+          if (res.data.status) {
+            this.get_Contrat();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.$store.commit("TOOGLESPINNER", false);
+        });
     },
   },
+  // created() {
+  //   this.get_users();
+  //   this.get_Students();
+  //   this.get_Contrat();
+  // },
 };
 </script>
 
 <template>
   <!-- ACCUEIL -->
-  <li
-    @click="goTo('Accueil')"
-    :class="['nav-item', { active: isActive('Accueil') }]"
-  >
+  <li @click="goTo('Accueil')" :class="['nav-item', { active: isActive('Accueil') }]">
     <i class="bi bi-house-door"></i>
     <strong>Tableau de bord</strong>
   </li>
@@ -139,7 +169,7 @@ export default {
 
   <li
     v-if="statut === 'admin'"
-    @click="get_users"
+    @click="goTo('entreprises')"
     :class="['nav-item', { active: isActive('entreprises') }]"
   >
     <i class="bi bi-building"></i>
@@ -158,6 +188,14 @@ export default {
   >
     <i class="bi bi-person"></i>
     <strong>Étudiants</strong>
+    <BadgeCompVue
+      v-if="
+        this.$store.state.listStudentAbonne + this.$store.state.listStudentPasAbonne > 0
+      "
+      :nbreTotal="
+        this.$store.state.listStudentAbonne + this.$store.state.listStudentPasAbonne
+      "
+    />
   </li>
 
   <li
@@ -185,6 +223,10 @@ export default {
   >
     <i class="bi bi-pencil-square"></i>
     <strong>Contrat</strong>
+    <BadgeCompVue
+      v-if="this.$store.state.nbreBadgeContrat > 0"
+      :nbreTotal="this.$store.state.nbreBadgeContrat"
+    />
   </li>
 
   <li
@@ -271,5 +313,9 @@ export default {
 
 .nav-item i {
   font-size: 1.1rem;
+}
+.page-wrapper .page-header .header-wrapper .nav-right > ul > li .badge {
+  top: 0 !important;
+  color: white !important;
 }
 </style>
