@@ -17,7 +17,9 @@ export default createStore({
     nbreBdageEntrepriseAbonnee:0,
     listStudentAbonne:[],
     listStudentPasAbonne:[],
-    isDisplayMenuBar:false
+    isDisplayMenuBar:false,
+    nbreBadgeContrat:0,
+    listeContrat:[],
   },
   getters: {},
   mutations: {
@@ -94,6 +96,15 @@ export default createStore({
     },
     HANDLECOMPANYNOTSUSCRBIBE(state,payload){
       state.nbreBdageEntreprisePasAbonnee = payload;
+    },
+    HANDLEBADGECONTRAT(state,payload){
+      state.nbreBadgeContrat = payload;
+    },
+    LIST_CONTRAT(state,payload){
+    state.listeContrat = payload;
+    },
+    DECREMENT_BADGE_CONTRAT(state){
+      state.nbreBadgeContrat = 0;
     },
     DECREMENT_COMPANY_NOT_SUSCRIBE(state){
       state.nbreBdageEntreprisePasAbonnee--
@@ -204,7 +215,28 @@ export default createStore({
     addFirstItemForPeriodeStatistique(context) {
       context.commit("FIRSTPERIODE");
     },
-    
+    get_contrats({ commit,state }) {
+      commit('TOOGLESPINNER',true)
+      axios
+        .get("https://backend.monbrobroli.com/api/admin/allContrats", {
+          headers: {
+            Authorization: "Bearer " + state.token,
+          },
+        })
+        .then((res) => {
+          console.log('get_contrat',res)
+          if(res.data.status){
+          commit('LIST_CONTRAT',res.data.data)
+          commit('HANDLEBADGECONTRAT',res.data.data.filter(item=>item.view == 1).length)
+          } 
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(()=>{
+          commit('TOOGLESPINNER',false)
+        })
+    },
     
   },
   modules: {},

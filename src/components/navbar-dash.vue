@@ -1,6 +1,7 @@
 <script>
 /* eslint-disable */
 import BadgeCompVue from "./BadgeComp.vue";
+import axios from 'axios';
 export default {
   name: "NavbarDash",
   components: {
@@ -20,11 +21,36 @@ export default {
       this.$store.dispatch("get_Students_abonne");
       this.$store.dispatch("get_Students_Non_Abonne");
     },
+    get_Contrat() {
+      this.$store.dispatch("get_contrats");
+    },
+    seeNewContrat(){
+      this.$store.commit('TOOGLESPINNER',true)
+      axios
+        .get("https://backend.monbrobroli.com/api/admin/updateBadgeContrat", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log('get_contrat',res)
+          if(res.data.status){
+        this.get_Contrat();
+          } 
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(()=>{
+          this.$store.commit('TOOGLESPINNER',false)
+        })
+    }
    
   },
   created() {
     this.get_users();
     this.get_Students();
+    this.get_Contrat();
   },
 };
 </script>
@@ -189,9 +215,15 @@ export default {
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="statut == 'admin'"
+            @click.prevent="seeNewContrat"
           >
             <i class="bi bi-pencil-square" style="margin-left: -1.2em"></i>
-            <router-link :to="{ name: 'Contrat' }"> <strong>Contrat</strong></router-link>
+            <router-link :to="{ name: 'Contrat' }"> <strong>Contrat</strong>
+            <BadgeCompVue
+                v-if="this.$store.state.nbreBadgeContrat > 0"
+                :nbreTotal="this.$store.state.nbreBadgeContrat"
+              />
+            </router-link>
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"

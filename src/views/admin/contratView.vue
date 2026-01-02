@@ -37,16 +37,7 @@ export default {
         });
     },
     get_contrats() {
-      this.spinner = true;
-      axios
-        .get("https://backend.monbrobroli.com/api/admin/allContrats", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log("allContrats", res);
-          this.contrats = res.data.data;
+      this.contrats = this.$store.state.listeContrat;
           console.log("ENTRPRISES CONTRAT", this.contrats);
           this.spinner = false;
           setTimeout(function () {
@@ -82,10 +73,20 @@ export default {
               },
             });
           }, 10);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // this.spinner = true;
+      // axios
+      //   .get("https://backend.monbrobroli.com/api/admin/allContrats", {
+      //     headers: {
+      //       Authorization: "Bearer " + this.$store.state.token,
+      //     },
+      //   })
+      //   .then((res) => {
+      //     console.log("allContrats", res);
+          
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     },
   },
   created() {
@@ -130,7 +131,9 @@ export default {
               </thead>
               <tbody>
                 <tr v-for="(item, index) in contrats" :key="index">
-                  <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
+                  <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}
+                     <span class="badge bg-danger" v-if="item.view == 1">New</span>
+                  </td>
                   <td>{{ item.offre.entreprise.nom }}</td>
                   <td>{{ item.student.nom }} {{ item.student.prenoms }}</td>
                   <td>
