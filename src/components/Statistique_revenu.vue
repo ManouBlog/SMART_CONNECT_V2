@@ -106,25 +106,25 @@ export default {
         labels: labels,
         datasets: [
           {
-            label: "Entreprises premiun",
+            label: "Entreprises Platinum",
             backgroundColor: "teal",
             borderColor: "teal",
             data: EntreprisesPremium,
           },
           {
-            label: "Entreprises stantard",
+            label: "Entreprises eco",
             backgroundColor: "brown",
             borderColor: "brown",
             data: EntreprisesStantard,
           },
           {
-            label: "Talents premium",
+            label: "Talents Platinum",
             backgroundColor: "black",
             borderColor: "black",
             data: TalentsPremiunm,
           },
           {
-            label: "Talents stantard",
+            label: "Talents eco",
             backgroundColor: "orange",
             borderColor: "orange",
             data: TalentsStantard,
