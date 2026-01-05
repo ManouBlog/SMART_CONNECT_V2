@@ -147,6 +147,10 @@ export const useRegisterStore = defineStore('register', {
           payload.photo.forEach((item) => {
             data.append("piece_gerant[]", item);
           });
+          payload.email_cc.forEach((item) => {
+            data.append("email_cc[]", item);
+          });
+          // data.append("email_cc", payload.email_cc);
           data.append("registre", payload?.Registre[0]?.originFileObj);
           data.append("nom", payload?.nom);
           // data.append("phone", payload?.contact);
@@ -163,6 +167,7 @@ export const useRegisterStore = defineStore('register', {
           data.append("password", payload?.password);
           data.append("statut_id", 1);
           data.append("NCC", payload?.ncc);
+          
           data.append("logo", payload?.Logo[0]?.originFileObj);
          await instance
             .post("list_users", data)

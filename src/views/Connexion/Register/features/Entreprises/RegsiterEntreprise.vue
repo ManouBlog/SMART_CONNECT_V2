@@ -49,6 +49,7 @@ export default {
         phone: "",
         ville: "",
         ncc: "",
+        email:"",
         commune: "",
         quartier: "",
         diplome: "",
@@ -63,6 +64,7 @@ export default {
         Phonegerant: null,
         countryCode: "+225",
         countryCodePhoneGerant: "+225",
+        email_cc:[""]
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -298,7 +300,19 @@ export default {
         v-model:value="formState.email"
       />
     </a-form-item>
-
+     <a-form-item
+      :label="'Email secondaires (CC)'"
+    >
+   <n-dynamic-input
+  v-model:value="formState.email_cc"
+  placeholder="Ajouter un email en copie"
+  :min="1"
+  :max="6"
+  :item-style="{
+    borderColor: 'gray'
+  }"
+/>
+    </a-form-item>
     <a-form-item
       :label="texte8"
       name="gerant"
@@ -328,28 +342,6 @@ export default {
         </template>
       </a-input>
     </a-form-item>
-
-    <!-- <a-form-item
-      :label="texte9"
-      name="Phonegerant"
-      :rules="[{ required: true, message: texte15 }]"
-    >
-      <a-input
-        type="tel"
-        v-model:value="formState.Phonegerant"
-        placeholder="Entrez le numéro du gérant"
-      />
-      <template #addonBefore>
-        <a-select
-          v-model:value="formState.countryCodePhoneGerant"
-          :options="westAfricaCodes"
-          show-search
-          option-filter-prop="label"
-          option-label-prop="value"
-          style="width: 120px"
-        />
-      </template>
-    </a-form-item> -->
     <a-form-item
       name="upload"
       :rules="[{ required: true, message: `Veuilez ajouter une pièce d'identité.` }]"
@@ -406,3 +398,4 @@ export default {
     </a-form-item>
   </a-form>
 </template>
+
