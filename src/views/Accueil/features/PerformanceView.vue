@@ -209,9 +209,9 @@ onUnmounted(() => {
 .card_perfor_two {
    width: 250px;
     height: 250px;
-    line-height: 35px;
+   line-height: 55px;
   color: white;
-     padding: 4.4em;
+     padding: 3.9em 1.1em;
      text-align:center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
@@ -219,9 +219,9 @@ onUnmounted(() => {
 .card_perfor_nbre_student_save{
       width: 250px;
     height: 250px;
-    line-height: 30px;
+    line-height: 55px;
   color: white;
-     padding: 3.8em 5em;
+     padding: 3.9em 1.1em;
      text-align:center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
@@ -229,9 +229,9 @@ onUnmounted(() => {
 .card_perfor_payment{
       width: 250px;
     height: 250px;
-    line-height: 30px;
+    line-height: 55px;
   color: white;
-     padding: 3.8em 5em;
+    padding: 3.9em 1.1em;
      text-align:center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;

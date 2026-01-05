@@ -267,7 +267,7 @@ export default {
       <a-input type="text" v-model:value="formState.diplome"  placeholder="Entrez votre dernier diplôme academique" />
     </a-form-item>
     <a-form-item
-      label="Titre du CV (ex. : Développeur Web, Designer UX, etc.)"
+      label="Mon Profil (ex. : Développeur Web, Designer UX, etc.)"
       name="titreCv"
     >
       <a-input type="text" v-model:value="formState.titreCv" />

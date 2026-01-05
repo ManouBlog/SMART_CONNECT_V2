@@ -20,6 +20,24 @@ export default {
       StoreLoading: useLoadingSpinner(),
       itemsQualificationDynamicInput: [],
       placeholderDynamicInput: ["05-02-2020", "05-03-2025"],
+      westAfricaCodes: [
+        { label: "Bénin", value: "+229" },
+        { label: "Burkina Faso", value: "+226" },
+        { label: "Cap-Vert", value: "+238" },
+        { label: "Côte d’Ivoire", value: "+225" },
+        { label: "Gambie", value: "+220" },
+        { label: "Ghana", value: "+233" },
+        { label: "Guinée", value: "+224" },
+        { label: "Guinée-Bissau", value: "+245" },
+        { label: "Liberia", value: "+231" },
+        { label: "Mali", value: "+223" },
+        { label: "Niger", value: "+227" },
+        { label: "Nigeria", value: "+234" },
+        { label: "Sénégal", value: "+221" },
+        { label: "Sierra Leone", value: "+232" },
+        { label: "Togo", value: "+228" },
+      ],
+      countryCode:null
     };
   },
   computed: {
@@ -263,6 +281,28 @@ export default {
       >
         <div class="mb-3">
           <label class="form-label">Contact</label>
+          <!-- <a-form-item
+      :label="texte2"
+      name="phone"
+      :rules="[{ required: true, message: texte15 }]"
+    >
+      <a-input
+        type="tel"
+        v-model:value="this.$store.state.infoUserConnected.phone"
+        placeholder="Entrez votre numéro téléphonique"
+      >
+        <template #addonBefore>
+          <a-select
+            v-model:value="countryCode"
+            :options="westAfricaCodes"
+            show-search
+            option-filter-prop="label"
+            option-label-prop="value"
+            style="width: 120px"
+          />
+        </template>
+      </a-input>
+    </a-form-item> -->
           <input v-model="this.$store.state.infoUserConnected.phone" class="form-control" type="text" />
         </div>
       </div>
@@ -312,7 +352,7 @@ export default {
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label"
-              >Titre du CV
+              >Mon Profil
               <small class="text-muted"
                 >(ex. : Développeur Web, Designer UX, etc.)</small
               ></label

@@ -179,7 +179,7 @@ export default {
       if (!sessionStorage.getItem("@visit")) {
         try {
           const response = await axios.post(
-            `${process.env.VUE_APP_LIENS_LOCAL}api/visites`,
+            `${process.env.VUE_APP_LIENS_BACKEND}api/visites`,
             { ip: ipMachin }
           );
           if (response.data.status) sessionStorage.setItem("@visit", 1);
@@ -195,7 +195,7 @@ export default {
     async isLancement() {
       try {
         const response = await axios.get(
-          `${process.env.VUE_APP_LIENS_LOCAL}api/date-lancement`
+          `${process.env.VUE_APP_LIENS_BACKEND}api/date-lancement`
         );
 
         if (response.status === 200 && response.data?.data?.date) {
@@ -218,12 +218,8 @@ export default {
 };
 </script>
 <style>
-.n-input .n-input-wrapper,
-.n-input .n-input-wrapper:focus,
-.n-input .n-input-wrapper:focus-within {
-  border-color: gray !important;
-  box-shadow: none !important;
-  outline: none !important;
+:where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus{
+  border-color: orange !important;
 }
 .p-tooltip-text{
   font-size:2.5em !important;

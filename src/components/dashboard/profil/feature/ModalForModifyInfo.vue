@@ -75,7 +75,7 @@ export default {
       v-if="isCv"
     />
     <div v-else>
-      <h5>Modifier ses informations personnelles</h5>
+      <h5>Modifier Mes informations personnelles</h5>
       <InfoForModifyEntreprises />
     </div>
   </a-modal>
