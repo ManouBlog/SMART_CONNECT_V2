@@ -33,13 +33,19 @@ export default {
       this.$router.push("/dashboard");
     },
     get_email_for_verif() {
-      axios.get("https://backend.monbrobroli.com/api/list_users").then((res) => {
-        console.log(res);
-        this.list_email = res.data.data;
+      axios
+        .get("https://backend.monbrobroli.com/api/listerUser", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.list_email = res.data.data;
 
-        this.My_email = this.list_email.find((item) => item.email == this.email);
-        console.log("EMAIL", this.My_email);
-      });
+          this.My_email = this.list_email.find((item) => item.email == this.email);
+          console.log("EMAIL", this.My_email);
+        });
     },
     connex_student() {
       this.status_connex = "etudiant";
