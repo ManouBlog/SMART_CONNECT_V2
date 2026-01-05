@@ -14,6 +14,7 @@ export default createStore({
     translate:"FR",
     contratStudent:JSON.parse(localStorage.getItem("alarm")) || '',
     abonnement:false,
+    infoUserConnected:"",
   },
   mutations: {
      deletePersonAtWishList(state,idPerson){
@@ -35,6 +36,9 @@ export default createStore({
       .catch((error) => {
         console.log(error);
       })
+     },
+     UPDATE_INFO_CONPANY(state,payload){
+      state.infoUserConnected = payload
      },
      GET_ALL_WISH_LIST(state,payload){
       state.whistListPerson = payload
@@ -117,6 +121,18 @@ export default createStore({
       return;
     }
   },
+   async getInfoUser({commit}) {
+      await instance
+        .get("voirInfoUserConnect")
+        .then((resp) => {
+          if (resp.data.status === true) {
+            commit("UPDATE_INFO_CONPANY",resp.data.user)
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   modules: {
   }

@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       user: "",
+      emails_cc:[],
       lienPhoto: lienPhoto,
       StoreLoading: useLoadingSpinner(),
       itemsQualificationDynamicInput: [],
@@ -37,14 +38,19 @@ export default {
       "addAnRegistreDoc",
       "addAnPieceDoc",
       "addAnLogo",
+      "changeValueForToogleModalInfoPersonnelle"
     ]),
     async getInfoUser() {
       this.StoreLoading.launchLoading(true);
       await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
+          
           if (resp.data.status === true) {
-            this.user = resp.data.user;
+            this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
+            // this.$store.state.infoUserConnected = this.$store.state.infoUserConnected;
+            this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
+            console.log("this.emails_cc",this.emails_cc)
           }
         })
         .catch((error) => {
@@ -55,8 +61,10 @@ export default {
         });
     },
 
-    updateInfoEntreprise(company) {
-      this.update_compte_entreprise({
+    async updateInfoEntreprise(company) {
+      // console.log("this.emails_cc.length",this.emails_cc)
+      // console.log("company",company)
+      const data = await this.update_compte_entreprise({
         nom: company.nom,
         email: company.email,
         gerant: company.gerant,
@@ -67,7 +75,14 @@ export default {
         contact: company.contact,
         ville: company.ville,
         matricule_cc: company.matricule_cc,
+        email_cc:this.emails_cc.length ? this.emails_cc:[]
       });
+      if(data.status){
+        this.$store.commit("UPDATE_INFO_CONPANY",data.data);
+        // this.$store.state.infoUserConnected = this.$store.state.infoUserConnected;
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: false })
+      }
+      console.log("COMPANY_UPDATE",this.$store.state.infoUserConnected)
     },
     updateInfoStudent(Etudiants) {
       // console.log("Etudiants", JSON.stringify(Etudiants, null, 2));
@@ -89,27 +104,28 @@ export default {
         titreCv: Etudiants.titreCv,
         qualifications: this.itemsQualificationDynamicInput,
         competences: Help.retirerIdIntoArrayCompetence(Etudiants.competences),
+        
       });
     },
-   async handleUpdate(user) {
-      // console.log("UhandleUpdate", user);
-      if (this.user.user.statut.statut === "entreprise") {
-        this.updateInfoEntreprise(user);
-          await this.getInfoUser();
-      } else if (this.user.user.statut.statut === "particulier") {
+   async handleUpdate(payload) {
+     
+      if (this.$store.state.infoUserConnected.user.statut.statut === "entreprise") {
+        this.updateInfoEntreprise(payload);
+          // await this.getInfoUser();
+      } else if (this.$store.state.infoUserConnected.user.statut.statut === "particulier") {
         const data = {
-          commune: user.commune,
-          contact: user.contact,
-          nom: user.nom,
-          particulier_prenoms: user.particulier_prenoms,
-          quartier: user.quartier,
-          email: user.email,
+          commune: payload.commune,
+          contact: payload.contact,
+          nom: payload.nom,
+          particulier_prenoms: payload.particulier_prenoms,
+          quartier: payload.quartier,
+          email: payload.email,
         };
         console.log("updateInfoParticulier", data);
-        this.update_compte_particulier(user);
+        this.update_compte_particulier(payload);
           await this.getInfoUser();
       } else {
-        this.updateInfoStudent(user);
+        this.updateInfoStudent(payload);
           await this.getInfoUser();
       }
     
@@ -132,14 +148,14 @@ export default {
 };
 </script>
 <template>
-  <div class="card-body text-left py-4" v-if="this.user">
+  <div class="card-body text-left py-4" v-if="this.$store.state.infoUserConnected">
     <div class="row">
       <legend>
         Info personnelle
         {{
-          this.user &&
-          (this.user.user.statut.statut === "entreprise" ||
-            this.user.user.statut.statut === "particulier")
+          this.$store.state.infoUserConnected &&
+          (this.$store.state.infoUserConnected.user.statut.statut === "entreprise" ||
+            this.$store.state.infoUserConnected.user.statut.statut === "particulier")
             ? "sur l'entreprise"
             : null
         }}
@@ -147,19 +163,19 @@ export default {
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">{{
-            this.user && this.user.user.statut.statut === "entreprise"
+            this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"
               ? "Raison sociale"
               : "Nom"
           }}</label>
-          <input v-model="user.nom" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.nom" class="form-control" type="text" />
         </div>
       </div>
-      <div class="col-md-12" v-if='this.user && this.user.user.statut.statut === "entreprise"'>
+      <div class="col-md-12" v-if='this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"'>
         <div class="mb-3">
           <label class="form-label"
             >RCCM (Registre du Commerce et du Crédit Mobilier)</label
           >
-          <input v-model="user.matricule_cc" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.matricule_cc" class="form-control" type="text" />
         </div>
         <div class="my-3">
           <input
@@ -170,98 +186,111 @@ export default {
           />
         </div>
       </div>
-      <div class="col-md-12" v-if='this.user && this.user.user.statut.statut === "entreprise"'>
+      <div class="col-md-12" v-if='this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"'>
         <div class="mb-3">
           <label class="form-label">Forme juridique</label>
-          <input v-model="user.forme_juridique" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.forme_juridique" class="form-control" type="text" />
         </div>
       </div>
-      <div class="col-md-12" v-if='this.user && this.user.user.statut.statut === "entreprise"' >
+      <div class="col-md-12" v-if='this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"' >
         <div class="mb-3">
           <label class="form-label">NCC (Numéro de compte contribuable)</label>
-          <input v-model="user.NCC" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.NCC" class="form-control" type="text" />
         </div>
       </div>
       <div
         class="col-md-12"
         v-if="
-          this.user &&
-          (this.user.user.statut.statut == 'entreprise' ||
-            this.user.user.statut.statut == 'particulier')
+          this.$store.state.infoUserConnected &&
+          (this.$store.state.infoUserConnected.user.statut.statut == 'entreprise' ||
+            this.$store.state.infoUserConnected.user.statut.statut == 'particulier')
         "
       >
         <div class="mb-3">
           <label class="form-label">{{
-            this.user.user.statut.statut == "entreprise"
+            this.$store.state.infoUserConnected.user.statut.statut == "entreprise"
               ? "Contact téléphonique de l'entreprise"
               : "Contact téléphonique"
           }}</label>
-          <input v-model="user.contact" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.contact" class="form-control" type="text" />
         </div>
       </div>
       <div
         class="col-md-12"
-        v-if="this.user && this.user.user.statut.statut === 'etudiant'"
+        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
       >
         <div class="mb-3">
           <label class="form-label">Prénoms</label>
-          <input v-model="user.prenoms" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.prenoms" class="form-control" type="text" />
         </div>
       </div>
       <div
         class="col-md-12"
-        v-if="this.user && this.user.user.statut.statut === 'particulier'"
+        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'particulier'"
       >
         <div class="mb-3">
           <label class="form-label">Prénoms</label>
-          <input v-model="user.particulier_prenoms" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.particulier_prenoms" class="form-control" type="text" />
         </div>
       </div>
 
-      <div class="col-md-12" v-if="this.user">
+      <div class="col-md-12" v-if="this.$store.state.infoUserConnected">
         <div class="mb-3">
           <label class="form-label">{{
-            this.user.user.statut.statut == "entreprise"
+            this.$store.state.infoUserConnected.user.statut.statut == "entreprise"
               ? "Contact mail de l'entreprise"
               : "Email"
           }}</label>
-          <input v-model="user.email" class="form-control" type="email" />
+          <input v-model="this.$store.state.infoUserConnected.email" class="form-control" type="email" />
         </div>
       </div>
+      <div class="col-md-12 my-2" 
+      v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut == 'entreprise'">
+      <label class="form-label">Emails secondaires(cc)</label>
+      <n-dynamic-input
+       v-model:value="emails_cc"
+         placeholder="Ajouter un email en copie"
+  :max="6"
+  :item-style="{
+    borderColor: 'gray'
+  }"
+/>
+      </div>
+  
       <div
         class="col-md-12"
-        v-if="this.user && this.user.user.statut.statut === 'etudiant'"
+        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
       >
         <div class="mb-3">
           <label class="form-label">Contact</label>
-          <input v-model="user.phone" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.phone" class="form-control" type="text" />
         </div>
       </div>
 
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Ville</label>
-          <input v-model="user.ville" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.ville" class="form-control" type="text" />
         </div>
       </div>
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Commune</label>
-          <input v-model="user.commune" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.commune" class="form-control" type="text" />
         </div>
       </div>
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Quartier</label>
-          <input v-model="user.quartier" class="form-control" type="text" />
+          <input v-model="this.$store.state.infoUserConnected.quartier" class="form-control" type="text" />
         </div>
       </div>
-      <section v-if="this.user && this.user.user.statut.statut === 'etudiant'">
+      <section v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'">
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Compétences</label>
             <VueMultiselect
-              v-model="user.competences"
+              v-model="this.$store.state.infoUserConnected.competences"
               :options="allCompetences"
               :multiple="true"
               :taggable="true"
@@ -277,7 +306,7 @@ export default {
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Dernier diplôme academique</label>
-            <input v-model="user.diplome" class="form-control" type="text" />
+            <input v-model="this.$store.state.infoUserConnected.diplome" class="form-control" type="text" />
           </div>
         </div>
         <div class="col-md-12">
@@ -288,11 +317,11 @@ export default {
                 >(ex. : Développeur Web, Designer UX, etc.)</small
               ></label
             >
-            <input v-model="user.titreCv" class="form-control" type="text" />
+            <input v-model="this.$store.state.infoUserConnected.titreCv" class="form-control" type="text" />
           </div>
         </div>
       </section>
-      <section v-if="this.user && this.user.user.statut.statut === 'etudiant'">
+      <section v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'">
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Bio (max 300 caractères)</label>
@@ -302,12 +331,12 @@ export default {
               maxlength="300"
               style="width: 100%; border-radius: 5px; height: 100px"
               placeholder="Présentez-vous en quelques lignes..."
-              v-model="user.bio"
+              v-model="this.$store.state.infoUserConnected.bio"
             ></textarea>
           </div>
         </div>
       </section>
-      <section v-if="this.user && this.user.user.statut.statut === 'entreprise'">
+      <section v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'entreprise'">
         <div class="col-md-12">
           <div class="my-3">
             <label for="add_file_logo">Logo</label>
@@ -319,13 +348,13 @@ export default {
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Gérant</label>
-            <input v-model="user.gerant" class="form-control" type="text" />
+            <input v-model="this.$store.state.infoUserConnected.gerant" class="form-control" type="text" />
           </div>
         </div>
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Numéro téléphonique du Gérant</label>
-            <input v-model="user.numero_gerant" class="form-control" type="text" />
+            <input v-model="this.$store.state.infoUserConnected.numero_gerant" class="form-control" type="text" />
           </div>
         </div>
       </section>
@@ -334,7 +363,7 @@ export default {
         <div class="my-3">
           <label for="add_file">
             {{
-              this.user && this.user.user.statut.statut === "etudiant"
+              this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "etudiant"
                 ? "Nouvelle carte étudiant"
                 : "Nouvelle pièce du gérant (jpg,png,webp,pdf)"
             }}</label
@@ -350,7 +379,7 @@ export default {
       </div>
       <div
         class="col-md-12"
-        v-if="this.user && this.user.user.statut.statut === 'etudiant'"
+        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
       >
         <div class="my-3">
           <label class="form-label">Qualifications</label>
@@ -395,7 +424,7 @@ export default {
       <button
         class="btn bg-warning"
         style="border: none"
-        @click.prevent="handleUpdate(user)"
+        @click.prevent="handleUpdate(this.$store.state.infoUserConnected)"
       >
         Modifier
       </button>

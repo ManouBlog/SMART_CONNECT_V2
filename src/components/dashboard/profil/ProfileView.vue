@@ -57,7 +57,6 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      user: "",
       nom: "",
       prenoms: "",
       lienPhoto: lienPhoto,
@@ -78,29 +77,29 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     update_offre() {
       if (
-        this.user.user.statut.statut === "entreprise" ||
-        this.user.user.statut.statut === "particulier"
+        this.$store.state.infoUserConnected.user.statut.statut === "entreprise" ||
+        this.$store.state.infoUserConnected.user.statut.statut === "particulier"
       ) {
         this.update_compte_entreprise();
       }
-      if (this.user.user.statut.statut === "etudiant") {
+      if (this.$store.state.infoUserConnected.user.statut.statut === "etudiant") {
         this.update_compte_etudiant();
       }
-      if (this.user.user.statut.statut === "admin") {
+      if (this.$store.state.infoUserConnected.user.statut.statut === "admin") {
         this.updateCompteAdmin();
       }
     },
     modifyPassword() {
-      if (this.user.user.statut.statut === "etudiant") {
+      if (this.$store.state.infoUserConnected.user.statut.statut === "etudiant") {
         this.modifyPasswordOfStudent();
       }
       if (
-        this.user.user.statut.statut === "entreprise" ||
-        this.user.user.statut.statut === "particulier"
+        this.$store.state.infoUserConnected.user.statut.statut === "entreprise" ||
+        this.$store.state.infoUserConnected.user.statut.statut === "particulier"
       ) {
         this.modifyPasswordOfEntreprise();
       }
-      if (this.user.user.statut.statut === "admin") {
+      if (this.$store.state.infoUserConnected.user.statut.statut === "admin") {
         this.modifyPasswordOfAdmin();
       }
     },
@@ -249,17 +248,8 @@ export default {
       // console.log(this.photo);
     },
     async getInfoUser() {
-      await instance
-        .get("voirInfoUserConnect")
-        .then((resp) => {
-          // console.log("voirInfoUserConnect",resp);
-          if (resp.data.status === true) {
-            this.user = resp.data.user;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      await this.$store.dispatch("getInfoUser");
+      console.log("this.$store.state.infoUserConnected",this.$store.state.infoUserConnected)
     },
   },
   async created() {
@@ -290,93 +280,97 @@ export default {
     <ModalForModifyInfo />
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="page-body">
-      <!-- {{ JSON.stringify(this.user,null,2) }} -->
+      <!-- {{ JSON.stringify(this.$store.state.infoUserConnected,null,2) }} -->
       <TabView>
         <TabPanel :header="texte1">
           <div>
             <InfoEntreprise
               v-if="
-                this.user &&
-                (this.user.user.statut.statut === 'entreprise' ||
-                  this.user.user.statut.statut === 'particulier')
+                this.$store.state.infoUserConnected &&
+                (this.$store.state.infoUserConnected.user.statut.statut === 'entreprise' ||
+                  this.$store.state.infoUserConnected.user.statut.statut === 'particulier')
               "
               :infoPersonellesEntreprise="
-                this.user.user.statut.statut === 'entreprise'
+                this.$store.state.infoUserConnected.user.statut.statut === 'entreprise'
                   ? [
-                      { libelle: 'Raison sociale :', value: user.nom },
-                      { libelle: 'Contact mail :', value: user.email },
+                      { libelle: 'Raison sociale :', value: this.$store.state.infoUserConnected.nom },
+                      { libelle: 'Contact mail :', value: this.$store.state.infoUserConnected.email },
                       {
                         libelle: 'RCCM (Registre du Commerce et du Crédit Mobilier) :',
-                        value: user.matricule_cc ? user.matricule_cc : 'néant',
+                        value: this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.matricule_cc : 'néant',
                       },
                       {
                         libelle: 'NCC (Numéro de compte contribuable) :',
-                        value: user.NCC ? user.NCC : 'néant',
+                        value: this.$store.state.infoUserConnected.NCC ? this.$store.state.infoUserConnected.NCC : 'néant',
                       },
-                      { libelle: texte5, value: user.contact },
-                      { libelle: texte6, value: user.ville },
-                      { libelle: texte7, value: user.commune },
-                      { libelle: texte8, value: user.quartier },
-                      { libelle: texte88, value: user.logo },
-                      { libelle: texte9, value: user.registre ? user.registre : 'néant' },
+                      { libelle: texte5, value: this.$store.state.infoUserConnected.contact },
+                      { libelle: texte6, value: this.$store.state.infoUserConnected.ville },
+                      { libelle: texte7, value: this.$store.state.infoUserConnected.commune },
+                      { libelle: texte8, value: this.$store.state.infoUserConnected.quartier },
+                      { libelle: texte88, value: this.$store.state.infoUserConnected.logo },
+                      { libelle: texte9, value: this.$store.state.infoUserConnected.registre ? this.$store.state.infoUserConnected.registre : 'néant' },
                       {
                         libelle: texte10,
-                        value: user.forme_juridique ? user.forme_juridique : 'néant',
+                        value: this.$store.state.infoUserConnected.forme_juridique ? this.$store.state.infoUserConnected.forme_juridique : 'néant',
+                      },
+                      {
+                        libelle: 'Emails en copie :',
+                        value: this.$store.state.infoUserConnected.emails.length ? this.$store.state.infoUserConnected.emails : null,
                       },
                     ]
                   : [
-                      { libelle: 'Nom :', value: user.nom },
-                      { libelle: 'Prénoms :', value: user.particulier_prenoms },
-                      { libelle: 'Email :', value: user.email },
-                      { libelle: texte5, value: user.contact },
-                      { libelle: texte6, value: user.ville },
-                      { libelle: texte7, value: user.commune },
-                      { libelle: texte8, value: user.quartier },
-                      { libelle: texte12, value: user.user.photos },
+                      { libelle: 'Nom :', value: this.$store.state.infoUserConnected.nom },
+                      { libelle: 'Prénoms :', value: this.$store.state.infoUserConnected.particulier_prenoms },
+                      { libelle: 'Email :', value: this.$store.state.infoUserConnected.email },
+                      { libelle: texte5, value: this.$store.state.infoUserConnected.contact },
+                      { libelle: texte6, value: this.$store.state.infoUserConnected.ville },
+                      { libelle: texte7, value: this.$store.state.infoUserConnected.commune },
+                      { libelle: texte8, value: this.$store.state.infoUserConnected.quartier },
+                      { libelle: texte12, value: this.$store.state.infoUserConnected.user.photos },
                     ]
               "
               :infoPersonellesGerant="
-                this.user.user.statut.statut === 'entreprise'
+                this.$store.state.infoUserConnected.user.statut.statut === 'entreprise'
                   ? [
-                      { libelle: texte11, value: user.gerant ? user.gerant : user.nom },
+                      { libelle: texte11, value: this.$store.state.infoUserConnected.gerant ? this.$store.state.infoUserConnected.gerant : user.nom },
                       {
                         libelle: 'Contact téléphonique du gérant : ',
-                        value: user.numero_gerant ? user.numero_gerant : user.contact,
+                        value: this.$store.state.infoUserConnected.numero_gerant ? this.$store.state.infoUserConnected.numero_gerant : user.contact,
                       },
-                      { libelle: 'Pièce du gérant', value: user.user.photos },
+                      { libelle: 'Pièce du gérant', value: this.$store.state.infoUserConnected.user.photos },
                     ]
                   : []
               "
             />
             <InfoStudents
               :infoPersonellesStudents="[
-                { libelle: texte2, value: user.nom },
-                { libelle: texte14, value: user.prenoms },
-                { libelle: texte3, value: user.email },
-                { libelle: texte6, value: user.ville },
-                { libelle: texte7, value: user.commune },
-                { libelle: texte8, value: user.quartier },
-                { libelle: texte5, value: user.phone },
-                { libelle: texte13, value: user.diplome },
-                { libelle: 'Carte étudiant', value: user.user.photos },
+                { libelle: texte2, value: this.$store.state.infoUserConnected.nom },
+                { libelle: texte14, value: this.$store.state.infoUserConnected.prenoms },
+                { libelle: texte3, value: this.$store.state.infoUserConnected.email },
+                { libelle: texte6, value: this.$store.state.infoUserConnected.ville },
+                { libelle: texte7, value: this.$store.state.infoUserConnected.commune },
+                { libelle: texte8, value: this.$store.state.infoUserConnected.quartier },
+                { libelle: texte5, value: this.$store.state.infoUserConnected.phone },
+                { libelle: texte13, value: this.$store.state.infoUserConnected.diplome },
+                { libelle: 'Carte étudiant', value: this.$store.state.infoUserConnected.user.photos },
               ]"
               :infoPersonellesQualifications="
-                user.qualifications.length ? user.qualifications : []
+                this.$store.state.infoUserConnected.qualifications.length ? this.$store.state.infoUserConnected.qualifications : []
               "
-              :infoBioStudent="user.bio"
-              :infoPersonellesCompetences="user.competences"
-              v-if="this.user && this.user.user.statut.statut === 'etudiant'"
+              :infoBioStudent="this.$store.state.infoUserConnected.bio"
+              :infoPersonellesCompetences="this.$store.state.infoUserConnected.competences"
+              v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
             />
           </div>
         </TabPanel>
         <TabPanel
-          v-if="this.user && this.user.user.statut.statut === 'etudiant'"
+          v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
           header="Compétences et Expériences"
         >
           <CompetencesAndExperience />
         </TabPanel>
         <TabPanel
-          v-if="this.user && this.user.user.statut.statut === 'etudiant'"
+          v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
           header="Qualifications"
         >
           <QualificationsStudent />

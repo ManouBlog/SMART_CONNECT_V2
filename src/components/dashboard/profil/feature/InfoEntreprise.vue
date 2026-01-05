@@ -51,7 +51,7 @@ export default {
       texte25: "",
       texte26: "",
       texte27: "",
-      user: this.$store.state.user,
+      user: this.$store.state.infoUserConnected,
       nom: "",
 
       prenoms: "",
@@ -213,7 +213,8 @@ export default {
                 item.value !== 'undefined' &&
                 item.libelle !== 'Registre :' &&
                 item.libelle !== 'Logo entreprise :' &&
-                item.libelle !== 'Pièce d\'identité :'
+                item.libelle !== 'Pièce d\'identité :' &&
+                item.libelle !== 'Emails en copie :' 
               "
               class="fw-bold"
             >
@@ -238,6 +239,12 @@ export default {
                 width="100"
                 :src="lienPhoto + piece.path"
               />
+            </div>
+            <div v-if="item.libelle === 'Emails en copie :' && item.value"
+            >
+            <ul>
+              <li class="my-3" v-for="(email_cc,index) in item.value" :key="index">- {{email_cc.email_cc}}</li>
+            </ul>
             </div>
 
             <div
