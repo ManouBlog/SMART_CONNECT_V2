@@ -197,65 +197,128 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           })
       },
       async update_compte_student(payload) {
-console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
-        Spinner.launchLoading(true)
-        let data = new FormData();
-        if(payload.photo_profil){
-          data.append("photo_profil", payload?.photo_profil);
-        }else{
-        payload?.competences?.forEach(element => {
-           data.append("competences[]",element);
-        });
-        payload?.qualifications?.forEach(element => {
-           data.append("qualifications[]",JSON.stringify(element));
-        });
-        this.pieceIdentiteGerant?.forEach(element => {
-           data.append("carte[]",element);
-        });
-        data.append("nom", payload?.nom);
-        data.append("prenoms", payload?.prenoms);
-        data.append("email", payload?.email);
-        data.append("bio", payload?.bio);
-        data.append("diplome", payload?.diplome);
-        data.append("commune", payload?.commune);
-        data.append("quartier", payload?.quartier);
-        data.append("phone", payload?.contact);
-        data.append("ville", payload?.ville);
-         data.append("titreCv", payload?.titreCv);
-        }
-       await instance
-          .post("modifier_profil", data)
-          .then((res) => {
-            console.log("update_compte_student",res.data);
-            if (res.data.status === true) {
-              Swal.fire({
-                icon: "success",
-                title: res.data.message,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              this.getInfoUser()
-              this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
+  console.log("this.pieceIdentiteGerant", this.pieceIdentiteGerant);
+
+  Spinner.launchLoading(true);
+
+  let data = new FormData();
+
+  if (payload.photo_profil) {
+    data.append("photo_profil", payload.photo_profil);
+  } else {
+    payload?.competences?.forEach(element => {
+      data.append("competences[]", element);
+    });
+
+    payload?.qualifications?.forEach(element => {
+      data.append("qualifications[]", JSON.stringify(element));
+    });
+
+    this.pieceIdentiteGerant?.forEach(element => {
+      data.append("carte[]", element);
+    });
+
+    data.append("nom", payload?.nom);
+    data.append("prenoms", payload?.prenoms);
+    data.append("email", payload?.email);
+    data.append("bio", payload?.bio);
+    data.append("diplome", payload?.diplome);
+    data.append("commune", payload?.commune);
+    data.append("quartier", payload?.quartier);
+    data.append("phone", payload?.contact);
+    data.append("ville", payload?.ville);
+    data.append("titreCv", payload?.titreCv);
+  }
+
+  try {
+    const res = await instance.post("modifier_profil", data);
+    console.log("update_compte_student", res.data);
+    if (res.data.status === true) {
+      Swal.fire({
+        icon: "success",
+        title: res.data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return res.data;
+      
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: res.data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+     return null; // explicite
+    }
+  } catch (err) {
+    console.log(err);
+    throw err; // optionnel mais propre
+  } finally {
+    Spinner.launchLoading(false);
+  }
+}
+,
+//       async update_compte_student(payload) {
+// console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
+//         Spinner.launchLoading(true)
+//         let data = new FormData();
+//         if(payload.photo_profil){
+//           data.append("photo_profil", payload?.photo_profil);
+//         }else{
+//         payload?.competences?.forEach(element => {
+//            data.append("competences[]",element);
+//         });
+//         payload?.qualifications?.forEach(element => {
+//            data.append("qualifications[]",JSON.stringify(element));
+//         });
+//         this.pieceIdentiteGerant?.forEach(element => {
+//            data.append("carte[]",element);
+//         });
+//         data.append("nom", payload?.nom);
+//         data.append("prenoms", payload?.prenoms);
+//         data.append("email", payload?.email);
+//         data.append("bio", payload?.bio);
+//         data.append("diplome", payload?.diplome);
+//         data.append("commune", payload?.commune);
+//         data.append("quartier", payload?.quartier);
+//         data.append("phone", payload?.contact);
+//         data.append("ville", payload?.ville);
+//          data.append("titreCv", payload?.titreCv);
+//         }
+//        await instance
+//           .post("modifier_profil", data)
+//           .then((res) => {
+//             console.log("update_compte_student",res.data);
+//             if (res.data.status === true) {
+//               Swal.fire({
+//                 icon: "success",
+//                 title: res.data.message,
+//                 showConfirmButton: false,
+//                 timer: 1500,
+//               });
+//               this.getInfoUser()
+//               this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
             
-            }
-            if (res.data.status === false) {
-              Swal.fire({
-                icon: "error",
-                title: res.data.message,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              this.getInfoUser()
-            }
-          })
+//             }
+//             if (res.data.status === false) {
+//               Swal.fire({
+//                 icon: "error",
+//                 title: res.data.message,
+//                 showConfirmButton: false,
+//                 timer: 1500,
+//               });
+//               this.getInfoUser()
+//             }
+//           })
   
-          .catch((err) => {
-            console.log(err);
-          })
-          .finally(()=>{
-            Spinner.launchLoading(false)
-          })
-      },
+//           .catch((err) => {
+//             console.log(err);
+//           })
+//           .finally(()=>{
+//             Spinner.launchLoading(false)
+//           })
+//       },
       addInfoUserConnected(payload){
         this.infoUserConnected = payload;
         console.log("addInfoUserConnected",payload)

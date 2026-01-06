@@ -80,8 +80,7 @@ export default {
     },
 
     async updateInfoEntreprise(company) {
-      // console.log("this.emails_cc.length",this.emails_cc)
-      // console.log("company",company)
+      
       const data = await this.update_compte_entreprise({
         nom: company.nom,
         email: company.email,
@@ -102,14 +101,8 @@ export default {
       }
       console.log("COMPANY_UPDATE",this.$store.state.infoUserConnected)
     },
-    updateInfoStudent(Etudiants) {
-      // console.log("Etudiants", JSON.stringify(Etudiants, null, 2));
-      //console.log(
-      //   "this.itemsQualificationDynamicInput",
-      //   this.itemsQualificationDynamicInput
-      // );
-
-      this.update_compte_student({
+    async updateInfoStudent(Etudiants) {
+      const data = await this.update_compte_student({
         nom: Etudiants.nom,
         email: Etudiants.email,
         prenoms: Etudiants.prenoms,
@@ -122,8 +115,12 @@ export default {
         titreCv: Etudiants.titreCv,
         qualifications: this.itemsQualificationDynamicInput,
         competences: Help.retirerIdIntoArrayCompetence(Etudiants.competences),
-        
       });
+      console.log("DATA UPDATE STUDENT",data)
+      if(data.status){
+        this.$store.commit("UPDATE_INFO_CONPANY",data.compte);
+        this.changeValueForToogleModalInfoPersonnelle()
+      }
     },
    async handleUpdate(payload) {
      
