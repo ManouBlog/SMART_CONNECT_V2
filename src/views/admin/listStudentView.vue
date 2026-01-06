@@ -158,7 +158,7 @@ export default {
           console.log(err);
         });
     },
-    async getDetailNotSuscribe(id){
+    async getDetailNotSuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
         .put("https://backend.monbrobroli.com/api/updateBadgeStudent/" + id, {
@@ -171,9 +171,9 @@ export default {
           if (res.data.status) {
             this.$store.commit("DECREMENT_STUDENT_NOT_SUSCRIBE");
             this.$router.push({
-                          name: 'details',
-                          params: { id: id, name: 'visiteur' },
-                        });
+              name: "details",
+              params: { id: id, name: "visiteur" },
+            });
           }
         })
         .catch((err) => {
@@ -186,7 +186,7 @@ export default {
           this.$store.dispatch("get_Students_abonne");
         });
     },
-     async getDetailSuscribe(id){
+    async getDetailSuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
         .put("https://backend.monbrobroli.com/api/updateBadgeStudent/" + id, {
@@ -199,9 +199,9 @@ export default {
           if (res.data.status) {
             this.$store.commit("DECREMENT_STUDENT_NOT_SUSCRIBE");
             this.$router.push({
-                          name: 'details',
-                          params: { id: id, name: 'talents' },
-                        });
+              name: "details",
+              params: { id: id, name: "talents" },
+            });
           }
         })
         .catch((err) => {
@@ -213,7 +213,7 @@ export default {
           this.$store.dispatch("get_Students_Non_Abonne");
           this.$store.dispatch("get_Students_abonne");
         });
-    }
+    },
   },
   created() {
     this.get_students();
@@ -226,71 +226,6 @@ export default {
     <div class="Myspinner" v-show="spinner">
       <div class="spinner-border text-primary" role="status"></div>
     </div>
-    <div class="ecran Myspinner" v-if="see_detail_students">
-      <div class="card">
-        <div class="card-body" v-if="student">
-          <h1>Détails</h1>
-          <span>{{ `${student.nom}  ${student.prenoms}` }}</span>
-
-          <div class="row">
-            <div class="col-md-3">
-              <div class="mb-3">
-                <label class="form-label">Nom</label>
-                <input v-model="student.nom" class="form-control" type="text" />
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="mb-3">
-                <label class="form-label">Prénoms</label>
-                <input v-model="student.prenoms" class="form-control" type="text" />
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input
-                  v-model="student.email"
-                  class="form-control"
-                  type="email"
-                  disabled
-                />
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="mb-3">
-                <label class="form-label">Télephone</label>
-                <input v-model="student.phone" class="form-control" type="text" />
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="mb-3">
-                <label class="form-label">ville</label>
-                <input v-model="student.ville" class="form-control" type="text" />
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="mb-3">
-                <label class="form-label">Commune</label>
-                <input v-model="student.commune" class="form-control" type="text" />
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="mb-3">
-                <label class="form-label">Quartier</label>
-                <input v-model="student.quartier" class="form-control" type="text" />
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="mb-3">
-                <label class="form-label">Diplome</label>
-                <input v-model="student.diplome" class="form-control" type="text" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="container-fluid">
       <div class="page-title">
         <div class="row">
@@ -317,11 +252,11 @@ export default {
                 aria-controls="abonnées"
                 aria-selected="true"
                 ><i data-feather="clock"></i>Abonnées
-                <BadgeCompVue v-if="this.$store.state.listStudentAbonne > 0" 
+                <BadgeCompVue
+                  v-if="this.$store.state.listStudentAbonne > 0"
                   :nbreTotal="this.$store.state.listStudentAbonne"
-                  />
-                </a
-              >
+                />
+              </a>
             </li>
             <li class="nav-item">
               <a
@@ -333,11 +268,11 @@ export default {
                 aria-controls="nonAbonnees"
                 aria-selected="true"
                 ><i data-feather="clock"></i>Pas abonnées
-                <BadgeCompVue v-if="this.$store.state.listStudentPasAbonne > 0" 
+                <BadgeCompVue
+                  v-if="this.$store.state.listStudentPasAbonne > 0"
                   :nbreTotal="this.$store.state.listStudentPasAbonne"
-                  />
-                </a
-              >
+                />
+              </a>
             </li>
           </ul>
         </div>
@@ -372,7 +307,10 @@ export default {
                 <tbody>
                   <tr v-for="(item, index) in students" :key="index">
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>{{ item.nom }} <span class="badge bg-danger" v-if="item.view == 1">New</span></td>
+                    <td>
+                      {{ item.nom }}
+                      <span class="badge bg-danger" v-if="item.view == 1">New</span>
+                    </td>
                     <td>{{ item.email }}</td>
                     <td>
                       {{ item.ville }}
@@ -441,7 +379,10 @@ export default {
                 <tbody>
                   <tr v-for="(item, index) in studentsNonAbonnee" :key="index">
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>{{ item.nom }} <span class="badge bg-danger" v-if="item.view == 1">New</span></td>
+                    <td>
+                      {{ item.nom }}
+                      <span class="badge bg-danger" v-if="item.view == 1">New</span>
+                    </td>
                     <td>{{ item.email }}</td>
                     <td>
                       {{ item.ville }}
