@@ -135,7 +135,7 @@ export default {
       instance
         .post("search_offres", data)
         .then((res) => {
-          console.log("search_offres", res);
+          // console.log("search_offres", res);
           if (res.data.status) {
             // this.listOffre = res.data.data;
             this.MylistOffre = res.data.data.filter((item) => {

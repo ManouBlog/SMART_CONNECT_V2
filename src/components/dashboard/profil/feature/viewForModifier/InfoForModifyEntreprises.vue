@@ -68,7 +68,7 @@ export default {
             this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
             // this.$store.state.infoUserConnected = this.$store.state.infoUserConnected;
             this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
-            console.log("this.emails_cc",this.emails_cc)
+            // console.log("this.emails_cc",this.emails_cc)
           }
         })
         .catch((error) => {
@@ -99,7 +99,7 @@ export default {
         // this.$store.state.infoUserConnected = this.$store.state.infoUserConnected;
         this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: false })
       }
-      console.log("COMPANY_UPDATE",this.$store.state.infoUserConnected)
+      // console.log("COMPANY_UPDATE",this.$store.state.infoUserConnected)
     },
     async updateInfoStudent(Etudiants) {
       const data = await this.update_compte_student({
@@ -116,7 +116,7 @@ export default {
         qualifications: this.itemsQualificationDynamicInput,
         competences: Help.retirerIdIntoArrayCompetence(Etudiants.competences),
       });
-      console.log("DATA UPDATE STUDENT",data)
+      // console.log("DATA UPDATE STUDENT",data)
       if(data.status){
         this.$store.commit("UPDATE_INFO_CONPANY",data.compte);
         this.changeValueForToogleModalInfoPersonnelle()
@@ -128,15 +128,15 @@ export default {
         this.updateInfoEntreprise(payload);
           // await this.getInfoUser();
       } else if (this.$store.state.infoUserConnected.user.statut.statut === "particulier") {
-        const data = {
-          commune: payload.commune,
-          contact: payload.contact,
-          nom: payload.nom,
-          particulier_prenoms: payload.particulier_prenoms,
-          quartier: payload.quartier,
-          email: payload.email,
-        };
-        console.log("updateInfoParticulier", data);
+        // const data = {
+        //   commune: payload.commune,
+        //   contact: payload.contact,
+        //   nom: payload.nom,
+        //   particulier_prenoms: payload.particulier_prenoms,
+        //   quartier: payload.quartier,
+        //   email: payload.email,
+        // };
+        // console.log("updateInfoParticulier", data);
         this.update_compte_particulier(payload);
           await this.getInfoUser();
       } else {
