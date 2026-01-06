@@ -44,7 +44,7 @@ export default {
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
       axios
-        .get("https://backend.monbrobroli.com/api/list_students", {
+        .get("http://127.0.0.1:8000/api/list_students", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -59,7 +59,7 @@ export default {
     get_students() {
       this.spinner = true;
       axios
-        .get("https://backend.monbrobroli.com/api/list_students", {
+        .get("http://127.0.0.1:8000/api/list_students", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -110,7 +110,7 @@ export default {
     get_Visiteurs() {
       this.spinner = true;
       axios
-        .get("https://backend.monbrobroli.com/api/list_visiteurs", {
+        .get("http://127.0.0.1:8000/api/list_visiteurs", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -161,7 +161,7 @@ export default {
     async getDetailNotSuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("https://backend.monbrobroli.com/api/updateBadgeStudent/" + id, {
+        .put("http://127.0.0.1:8000/api/updateBadgeStudent/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -189,7 +189,7 @@ export default {
     async getDetailSuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("https://backend.monbrobroli.com/api/updateBadgeStudent/" + id, {
+        .put("http://127.0.0.1:8000/api/updateBadgeStudent/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

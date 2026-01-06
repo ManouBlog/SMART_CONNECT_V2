@@ -183,6 +183,15 @@ const routes = [
         },
       },
       {
+        path: "/details_personnel/:id",
+        name: "details_personnel",
+        component: () => import("../views/admin/Derails_user_admins.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "/contrat_etudiants-entreprises",
         name: "Contrat",
         component: () => import("../views/admin/contratView.vue"),

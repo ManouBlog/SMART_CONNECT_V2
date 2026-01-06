@@ -15,128 +15,83 @@ export default {
     };
   },
   methods: {
-    get_users() {
-  this.spinner = true;
-  axios
-    .get("https://backend.monbrobroli.com/api/listerUser", {
-      headers: {
-        Authorization: "Bearer " + this.$store.state.token,
-      },
-    })
-    .then((res) => {
-      this.users = res.data.data;
-      this.spinner = false;
-      
-      this.$nextTick(() => {
-        this.initializeDataTables();
+    seeDetailsUserPersonnel(payload) {
+      this.$router.push({
+        name: "details_personnel",
+        params: { id: payload },
       });
-    })
-    .catch((err) => {
-      console.log(err);
-      this.spinner = false;
-    });
-},
-  initializeDataTables() {
-    const tables = ['#MyTableData', '#MyTableData1'];
-    const config = {
-      pagingType: "full_numbers",
-      pageLength: 10,
-      processing: true,
-      order: [],
-      language: {
-        décimal: "",
-        emptyTable: "Aucune donnée disponible dans le tableau",
-        infoEmpty: "Showing 0 to 0 of 0 entries",
-        info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-        infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-        infoPostFix: "",
-        thousands: ",",
-        lengthMenu: "Afficher les entrées du _MENU_",
-        loadingRecords: "Loading...",
-        processing: "Processing...",
-        search: "Chercher :",
-        stateSave: true,
-        zeroRecords: "Aucun enregistrement correspondant trouvé",
-        paginate: {
-          first: "Premier",
-          last: "Dernier",
-          next: "Suivant",
-          previous: "Précédent",
+    },
+    get_users() {
+      this.spinner = true;
+      axios
+        .get("http://127.0.0.1:8000/api/listerUser", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          this.users = res.data.data;
+          this.spinner = false;
+
+          this.$nextTick(() => {
+            this.initializeDataTables();
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          this.spinner = false;
+        });
+    },
+    initializeDataTables() {
+      const tables = ["#MyTableData", "#MyTableData1"];
+      const config = {
+        pagingType: "full_numbers",
+        pageLength: 10,
+        processing: true,
+        order: [],
+        language: {
+          décimal: "",
+          emptyTable: "Aucune donnée disponible dans le tableau",
+          infoEmpty: "Showing 0 to 0 of 0 entries",
+          info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+          infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+          infoPostFix: "",
+          thousands: ",",
+          lengthMenu: "Afficher les entrées du _MENU_",
+          loadingRecords: "Loading...",
+          processing: "Processing...",
+          search: "Chercher :",
+          stateSave: true,
+          zeroRecords: "Aucun enregistrement correspondant trouvé",
+          paginate: {
+            first: "Premier",
+            last: "Dernier",
+            next: "Suivant",
+            previous: "Précédent",
+          },
+          aria: {
+            sortAscending: ": activate to sort column ascending",
+            sortDescending: ": activate to sort column descending",
+          },
         },
-        aria: {
-          sortAscending: ": activate to sort column ascending",
-          sortDescending: ": activate to sort column descending",
-        },
-      },
-    };
-    
-    tables.forEach(tableId => {
-      const table = $(tableId);
-      if (table.length) {
-        // Détruire l'instance existante
-        if ($.fn.DataTable.isDataTable(tableId)) {
-          $(tableId).DataTable().destroy();
-          $(tableId).empty(); // Optionnel: vider le contenu
+      };
+
+      tables.forEach((tableId) => {
+        const table = $(tableId);
+        if (table.length) {
+          // Détruire l'instance existante
+          if ($.fn.DataTable.isDataTable(tableId)) {
+            $(tableId).DataTable().destroy();
+            $(tableId).empty(); // Optionnel: vider le contenu
+          }
+
+          // Réinitialiser
+          setTimeout(() => {
+            $(tableId).DataTable(config);
+          }, 50);
         }
-        
-        // Réinitialiser
-        setTimeout(() => {
-          $(tableId).DataTable(config);
-        }, 50);
-      }
-    });
-  }
-    // get_users() {
-    //   this.spinner = true;
-    //   axios
-    //     .get("https://backend.monbrobroli.com/api/listerUser", {
-    //       headers: {
-    //         Authorization: "Bearer " + this.$store.state.token,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       this.users = res.data.data;
-    //       console.log("USER", this.users);
-    //       this.spinner = false;
-    //       setTimeout(function () {
-    //         $("#MyTableData","#MyTableData1").DataTable({
-    //           pagingType: "full_numbers",
-    //           pageLength: 10,
-    //           processing: true,
-    //           order: [],
-    //           language: {
-    //             décimal: "",
-    //             emptyTable: "Aucune donnée disponible dans le tableau",
-    //             infoEmpty: "Showing 0 to 0 of 0 entries",
-    //             info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-    //             infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-    //             infoPostFix: "",
-    //             thousands: ",",
-    //             lengthMenu: "Afficher les entrées du _MENU_",
-    //             loadingRecords: "Loading...",
-    //             processing: "Processing...",
-    //             search: "Chercher :",
-    //             stateSave: true,
-    //             zeroRecords: "Aucun enregistrement correspondant trouvé",
-    //             paginate: {
-    //               first: "Premier",
-    //               last: "Dernier",
-    //               next: "Suivant",
-    //               previous: "Précédent",
-    //             },
-    //             aria: {
-    //               sortAscending: ": activate to sort column ascending",
-    //               sortDescending: ": activate to sort column descending",
-    //             },
-    //           },
-    //         });
-    //       }, 10);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
+      });
+    },
   },
   created() {
     this.get_users();
@@ -149,7 +104,7 @@ export default {
       <div class="spinner-border text-primary" role="status"></div>
     </div>
 
-    <div class="container-fluid" >
+    <div class="container-fluid">
       <div class="page-title">
         <div class="row">
           <div class="col-12 col-sm-6">
@@ -203,89 +158,93 @@ export default {
         role="tabpanel"
         aria-labelledby="admis_personnel"
       >
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData1" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Nom</th>
-                  <th class="bg-light">email</th>
-                  <th class="bg-light">Statut</th>
-                  <th class="bg-light">Détails</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in users.filter(person => person.statut.statut == 'admin')" :key="index">
-                  <td>{{ item.nom }} {{ item.prenoms }}</td>
-                  <td>{{ item.email }}</td>
-                  <td>
-                    
-                    <span class="badge bg-danger"
-                      >Admin</span
-                    >
-                   
-                  </td>
-                  <td>
-                    <i class="bi bi-eye"></i> 
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 card py-3 px-2">
+              <table id="MyTableData1" class="table">
+                <thead>
+                  <tr>
+                    <th class="bg-light">Nom</th>
+                    <th class="bg-light">email</th>
+                    <th class="bg-light">Statut</th>
+                    <th class="bg-light">Détails</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(item, index) in users.filter(
+                      (person) => person.statut.statut == 'admin'
+                    )"
+                    :key="index"
+                  >
+                    <td>{{ item.nom }} {{ item.prenoms }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>
+                      <span class="badge bg-danger">Admin</span>
+                    </td>
+                    <td>
+                      <i class="bi bi-eye" @click="seeDetailsUserPersonnel(item.id)"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div
-        class="tab-pane"
-        id="clients"
-        role="tabpanel"
-        aria-labelledby="clients"
-      >
-    <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Nom</th>
-                  <th class="bg-light">email</th>
-                  <th class="bg-light">Statut</th>
-                  <!-- <th class="bg-light">Télephone</th> -->
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in users.filter(person => person.statut.statut != 'admin')" :key="index">
-                  <td>{{ item.nom }} {{ item.prenoms }}</td>
-                  <td>{{ item.email }}</td>
-                  <td>
-                    <span
-                      v-if="item.statut.statut == 'entreprise'"
-                      class="badge bg-primary"
-                      >Entreprise</span
-                    >
-                    <span v-if="item.statut.statut == 'etudiant'" class="badge bg-warning"
-                      >Etudiant</span
-                    >
-                    <span v-if="item.statut.statut == 'admin'" class="badge bg-danger"
-                      >Admin</span
-                    >
-                    <span v-if="item.statut.statut == 'particulier'" class="badge bg-info"
-                      >Particulier</span
-                    >
-                  </td>
-                  <!-- <td v-if="item.student.statut">
+      <div class="tab-pane" id="clients" role="tabpanel" aria-labelledby="clients">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 card py-3 px-2">
+              <table id="MyTableData" class="table">
+                <thead>
+                  <tr>
+                    <th class="bg-light">Nom</th>
+                    <th class="bg-light">email</th>
+                    <th class="bg-light">Statut</th>
+                    <!-- <th class="bg-light">Télephone</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(item, index) in users.filter(
+                      (person) => person.statut.statut != 'admin'
+                    )"
+                    :key="index"
+                  >
+                    <td>{{ item.nom }} {{ item.prenoms }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>
+                      <span
+                        v-if="item.statut.statut == 'entreprise'"
+                        class="badge bg-primary"
+                        >Entreprise</span
+                      >
+                      <span
+                        v-if="item.statut.statut == 'etudiant'"
+                        class="badge bg-warning"
+                        >Etudiant</span
+                      >
+                      <span v-if="item.statut.statut == 'admin'" class="badge bg-danger"
+                        >Admin</span
+                      >
+                      <span
+                        v-if="item.statut.statut == 'particulier'"
+                        class="badge bg-info"
+                        >Particulier</span
+                      >
+                    </td>
+                    <!-- <td v-if="item.student.statut">
                     {{item.statut.}}
                     <i class="bi bi-eye"></i> 
                   </td> -->
-                </tr>
-              </tbody>
-            </table>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-      </div>
-      
     </div>
   </div>
   <!-- Container-fluid Ends-->

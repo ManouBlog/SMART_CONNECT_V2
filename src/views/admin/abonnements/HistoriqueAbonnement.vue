@@ -36,7 +36,7 @@ export default {
     create_categorie() {
       axios
         .post(
-          "https://backend.monbrobroli.com/api/create_categorie-abonnement",
+          "http://127.0.0.1:8000/api/create_categorie-abonnement",
           this.abonnementCategorie,
           {
             headers: {
@@ -73,7 +73,7 @@ export default {
     },
     create_abonnement() {
       axios
-        .post("https://backend.monbrobroli.com/api/create-abonnement", this.data, {
+        .post("http://127.0.0.1:8000/api/create-abonnement", this.data, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -103,7 +103,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("https://backend.monbrobroli.com/api/getCategorie", {
+        .get("http://127.0.0.1:8000/api/getCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -159,7 +159,7 @@ export default {
       }
 
       axios
-        .get("https://backend.monbrobroli.com/api/getAbonnement", {
+        .get("http://127.0.0.1:8000/api/getAbonnement", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -211,7 +211,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "https://backend.monbrobroli.com/api/admin/deleteAbonnement/" + idAbonnement,
+          "http://127.0.0.1:8000/api/admin/deleteAbonnement/" + idAbonnement,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -240,7 +240,7 @@ export default {
     deleteCategorieAbonnement(idCategorie) {
       this.spinner = true;
       axios
-        .delete("https://backend.monbrobroli.com/api/deleteCategorie/" + idCategorie, {
+        .delete("http://127.0.0.1:8000/api/deleteCategorie/" + idCategorie, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

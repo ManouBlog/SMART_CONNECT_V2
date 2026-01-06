@@ -54,7 +54,7 @@ export default {
     update_offre() {
       axios
         .put(
-          "https://backend.monbrobroli.com/api/modify_offre_entreprise/" +
+          "http://127.0.0.1:8000/api/modify_offre_entreprise/" +
             this.id_offre_update,
           {
             nom_offre: this.offre_id.nom_offre,
@@ -95,7 +95,7 @@ export default {
     get_offres() {
       this.spinner = true;
       axios
-        .get("https://backend.monbrobroli.com/api/get_offres_entreprise", {
+        .get("http://127.0.0.1:8000/api/get_offres_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -148,7 +148,7 @@ export default {
       console.log("ID", this.id_offre_update);
       this.spinnerModify = true;
       await axios
-        .get("https://backend.monbrobroli.com/api/get_offres_entreprise", {
+        .get("http://127.0.0.1:8000/api/get_offres_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -172,7 +172,7 @@ export default {
       console.log(offreConcat);
       axios
         .post(
-          "https://backend.monbrobroli.com/api/create_offre",
+          "http://127.0.0.1:8000/api/create_offre",
           {
             nom_offre: offreConcat,
             salaire: this.salaire,
@@ -240,7 +240,7 @@ export default {
     delete_offre() {
       axios
         .delete(
-          "https://backend.monbrobroli.com/api/delete_offre_entreprise/" +
+          "http://127.0.0.1:8000/api/delete_offre_entreprise/" +
             this.id_for_delete,
           {
             headers: {
@@ -280,7 +280,7 @@ export default {
     get_categorie() {
       this.spinner = true;
       axios
-        .get("https://backend.monbrobroli.com/api/seeCategorie", {
+        .get("http://127.0.0.1:8000/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

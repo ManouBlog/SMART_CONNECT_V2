@@ -29,7 +29,7 @@ export default {
     get_messages() {
       this.spinner = true;
       axios
-        .get("https://backend.monbrobroli.com/api/getEmailNewsletter", {
+        .get("http://127.0.0.1:8000/api/getEmailNewsletter", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -97,7 +97,7 @@ export default {
           ? "sendNewsletterAtUser"
           : "sendNotificationsAtUser";
       axios
-        .post("https://backend.monbrobroli.com/api/" + ROUTE_BACKEND, this.campaign, {
+        .post("http://127.0.0.1:8000/api/" + ROUTE_BACKEND, this.campaign, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
             "Content-Type": "application/json",
