@@ -421,25 +421,28 @@ export default {
             <div class="col-lg-4 col-sm-6">
               <div class="mb-3">
                 <label class="form-label">Ancien mot de passe</label>
-                <input v-model="password" class="form-control" type="password" />
+                <a-input-password v-model:value="password" />
+                <!-- <input v-model="password" class="form-control" type="password" /> -->
               </div>
             </div>
 
             <div class="col-lg-4 col-sm-6">
               <div class="mb-3">
                 <label class="form-label">Nouveau mot de passe</label>
-                <input v-model="nouveau_password" class="form-control" type="password" />
+                <a-input-password v-model:value="nouveau_password" />
+                <!-- <input v-model="nouveau_password" class="form-control" type="password" /> -->
               </div>
             </div>
 
             <div class="col-lg-4 col-sm-6">
               <div class="mb-3">
                 <label class="form-label">Confirmation du nouveau mot de passe</label>
-                <input
+                <a-input-password v-model:value="confirmation_password" />
+                <!-- <input
                   v-model="confirmation_password"
                   class="form-control"
                   type="password"
-                />
+                /> -->
               </div>
             </div>
           </div>
