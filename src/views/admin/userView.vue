@@ -9,7 +9,7 @@ export default {
   name: "UserView",
   data() {
     return {
-      users: null,
+      users: [],
       spinner: false,
       modify_timetable: false,
     };
@@ -73,12 +73,12 @@ export default {
 };
 </script>
 <template>
-  <div class="page-body position-relative">
+  <div class="page-body position-relative" v-if="users.length">
     <div class="Myspinner" v-show="spinner">
       <div class="spinner-border text-primary" role="status"></div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" >
       <div class="page-title">
         <div class="row">
           <div class="col-12 col-sm-6">
@@ -105,7 +105,7 @@ export default {
                 role="tab"
                 aria-controls="admis_personnel"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Admins
+                ><i data-feather="clock"></i>Admins(personnel monbrobroli)
               </a>
             </li>
             <li class="nav-item">
@@ -141,12 +141,51 @@ export default {
                   <th class="bg-light">Nom</th>
                   <th class="bg-light">email</th>
                   <th class="bg-light">Statut</th>
+                  <th class="bg-light">Détails</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in users.filter(person => person.statut.statut == 'admin')" :key="index">
+                  <td>{{ item.nom }} {{ item.prenoms }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>
+                    
+                    <span class="badge bg-danger"
+                      >Admin</span
+                    >
+                   
+                  </td>
+                  <td>
+                    <i class="bi bi-eye"></i> 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+        class="tab-pane"
+        id="clients"
+        role="tabpanel"
+        aria-labelledby="clients"
+      >
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12 card py-3 px-2">
+            <table id="MyTableData" class="table">
+              <thead>
+                <tr>
+                  <th class="bg-light">Nom</th>
+                  <th class="bg-light">email</th>
+                  <th class="bg-light">Statut</th>
                   <!-- <th class="bg-light">Télephone</th> -->
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in users" :key="index">
-                  <td>{{ item.nom }}</td>
+                <tr v-for="(item, index) in users.filter(person => person.statut.statut != 'admin')" :key="index">
+                  <td>{{ item.nom }} {{ item.prenoms }}</td>
                   <td>{{ item.email }}</td>
                   <td>
                     <span
@@ -174,14 +213,6 @@ export default {
           </div>
         </div>
       </div>
-    </div>
-    <div
-        class="tab-pane"
-        id="clients"
-        role="tabpanel"
-        aria-labelledby="clients"
-      >
-    
       </div>
       
     </div>
