@@ -16,56 +16,127 @@ export default {
   },
   methods: {
     get_users() {
-      this.spinner = true;
-      axios
-        .get("https://backend.monbrobroli.com/api/listerUser", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.users = res.data.data;
-          console.log("USER", this.users);
-          this.spinner = false;
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+  this.spinner = true;
+  axios
+    .get("https://backend.monbrobroli.com/api/listerUser", {
+      headers: {
+        Authorization: "Bearer " + this.$store.state.token,
+      },
+    })
+    .then((res) => {
+      this.users = res.data.data;
+      this.spinner = false;
+      
+      this.$nextTick(() => {
+        this.initializeDataTables();
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      this.spinner = false;
+    });
+},
+  initializeDataTables() {
+    const tables = ['#MyTableData', '#MyTableData1'];
+    const config = {
+      pagingType: "full_numbers",
+      pageLength: 10,
+      processing: true,
+      order: [],
+      language: {
+        décimal: "",
+        emptyTable: "Aucune donnée disponible dans le tableau",
+        infoEmpty: "Showing 0 to 0 of 0 entries",
+        info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+        infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+        infoPostFix: "",
+        thousands: ",",
+        lengthMenu: "Afficher les entrées du _MENU_",
+        loadingRecords: "Loading...",
+        processing: "Processing...",
+        search: "Chercher :",
+        stateSave: true,
+        zeroRecords: "Aucun enregistrement correspondant trouvé",
+        paginate: {
+          first: "Premier",
+          last: "Dernier",
+          next: "Suivant",
+          previous: "Précédent",
+        },
+        aria: {
+          sortAscending: ": activate to sort column ascending",
+          sortDescending: ": activate to sort column descending",
+        },
+      },
+    };
+    
+    tables.forEach(tableId => {
+      const table = $(tableId);
+      if (table.length) {
+        // Détruire l'instance existante
+        if ($.fn.DataTable.isDataTable(tableId)) {
+          $(tableId).DataTable().destroy();
+          $(tableId).empty(); // Optionnel: vider le contenu
+        }
+        
+        // Réinitialiser
+        setTimeout(() => {
+          $(tableId).DataTable(config);
+        }, 50);
+      }
+    });
+  }
+    // get_users() {
+    //   this.spinner = true;
+    //   axios
+    //     .get("https://backend.monbrobroli.com/api/listerUser", {
+    //       headers: {
+    //         Authorization: "Bearer " + this.$store.state.token,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log(res);
+    //       this.users = res.data.data;
+    //       console.log("USER", this.users);
+    //       this.spinner = false;
+    //       setTimeout(function () {
+    //         $("#MyTableData","#MyTableData1").DataTable({
+    //           pagingType: "full_numbers",
+    //           pageLength: 10,
+    //           processing: true,
+    //           order: [],
+    //           language: {
+    //             décimal: "",
+    //             emptyTable: "Aucune donnée disponible dans le tableau",
+    //             infoEmpty: "Showing 0 to 0 of 0 entries",
+    //             info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+    //             infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+    //             infoPostFix: "",
+    //             thousands: ",",
+    //             lengthMenu: "Afficher les entrées du _MENU_",
+    //             loadingRecords: "Loading...",
+    //             processing: "Processing...",
+    //             search: "Chercher :",
+    //             stateSave: true,
+    //             zeroRecords: "Aucun enregistrement correspondant trouvé",
+    //             paginate: {
+    //               first: "Premier",
+    //               last: "Dernier",
+    //               next: "Suivant",
+    //               previous: "Précédent",
+    //             },
+    //             aria: {
+    //               sortAscending: ": activate to sort column ascending",
+    //               sortDescending: ": activate to sort column descending",
+    //             },
+    //           },
+    //         });
+    //       }, 10);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
   },
   created() {
     this.get_users();
@@ -135,7 +206,7 @@ export default {
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData" class="table">
+            <table id="MyTableData1" class="table">
               <thead>
                 <tr>
                   <th class="bg-light">Nom</th>
