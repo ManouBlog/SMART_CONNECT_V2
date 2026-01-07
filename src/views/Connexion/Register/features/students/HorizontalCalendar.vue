@@ -5,7 +5,9 @@
 
     <div class="horizontal-calendar">
       <!-- Flèche gauche -->
-      <button class="nav-arrow" @click.prevent="prevRange">‹</button>
+      <button class="nav-arrow" :disabled="!canGoPrev" @click.prevent="prevRange">
+        ‹
+      </button>
 
       <!-- Liste des jours scrollable -->
       <div class="days-row" ref="daysRow">
@@ -46,6 +48,20 @@ export default {
       currentMonthYear: "", // mois et année affichés
     };
   },
+  computed: {
+    canGoPrev() {
+      const today = new Date();
+
+      // premier jour du mois affiché
+      const displayedMonth = new Date(this.currentYear, this.currentMonth, 1);
+
+      // premier jour du mois actuel réel
+      const currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+      return displayedMonth > currentMonth;
+    },
+  },
+
   methods: {
     generateDates(month = this.currentMonth, year = this.currentYear) {
       const temp = [];
@@ -82,12 +98,16 @@ export default {
     },
 
     prevRange() {
+      if (!this.canGoPrev) return;
+
       let month = this.currentMonth - 1;
       let year = this.currentYear;
+
       if (month < 0) {
         month = 11;
         year -= 1;
       }
+
       this.currentMonth = month;
       this.currentYear = year;
       this.generateDates(month, year);
@@ -124,9 +144,7 @@ export default {
 <style scoped>
 .horizontal-calendar-container {
   width: 100%;
-  padding: 0.5rem;
 }
-
 .month-year {
   text-align: center;
   font-weight: bold;
@@ -206,9 +224,13 @@ export default {
 .nav-arrow {
   background: none;
   border: none;
-  font-size: 2rem;
+  font-size: 2em;
   cursor: pointer;
   color: #333;
+}
+.nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .nav-arrow:hover {

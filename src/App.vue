@@ -15,7 +15,8 @@
       :buttonTitle="true"
     >
       <p style="font-size: 1.2em; margin-bottom: 1em">
-        Soyez parmi les 1000 premiers abonnés (PLATINUM) et recevez 2 mois offerts automatiquement !
+        Soyez parmi les 1000 premiers abonnés (PLATINUM) et recevez 2 mois offerts
+        automatiquement !
       </p>
       <p style="margin-bottom: 1em">
         Une opportunité rare pour profiter pleinement de nos services à moindre coût.
@@ -33,20 +34,23 @@
         frais.
       </p>
       <p style="margin-bottom: 1em">Lancez-vous dès maintenant, c’est 100% offert</p>
-      <button style="
-    background-color: #ff9900;
-    font-weight: bold;
-    width: 100%;
-    color: white;
-    border-radius: 10px;
+      <button
+        style="
+          background-color: #ff9900;
+          font-weight: bold;
+          width: 100%;
+          color: white;
+          border-radius: 10px;
 
-    white-space: normal;
-    line-height: 1.3;
-    padding: 14px 16px;
-    text-align: center;
-  "
-  @click="gotoCreatedOffre"
-  >OK</button>
+          white-space: normal;
+          line-height: 1.3;
+          padding: 14px 16px;
+          text-align: center;
+        "
+        @click="gotoCreatedOffre"
+      >
+        OK
+      </button>
     </PromotionModal>
   </div>
 </template>
@@ -161,7 +165,7 @@ export default {
       this.showPromoParticulierAndEntreprise = false; // ferme le modal
       this.$router.push("/dashboard/creation_offre");
     },
-  
+
     /**
      * Récupère l'adresse IP publique et enregistre la visite si besoin
      */
@@ -218,12 +222,15 @@ export default {
 };
 </script>
 <style>
-:where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus{
+:where(.css-dev-only-do-not-override-17yhhjv).ant-modal .ant-modal-content {
+  padding: 0 20px !important;
+}
+:where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus {
   border-color: orange !important;
 }
-.p-tooltip-text{
-  font-size:2.5em !important;
-  font-weight:bold;
+.p-tooltip-text {
+  font-size: 2.5em !important;
+  font-weight: bold;
 }
 .element {
   overflow: auto;
