@@ -331,8 +331,7 @@ import CreateDisponibilite from "./CreateDisponibilite.vue";
 
 export default {
   name: "RegsiterStudents",
-  components: { VueMultiselect, Politics,CreateDisponibilite },
-
+  components: { VueMultiselect, Politics, CreateDisponibilite },
   data() {
     return {
       availabilityDates: [],
@@ -389,10 +388,17 @@ export default {
         email: "",
         password: "",
         countryCode: "+225",
+        datesOfCalendar:[],
+        handleHoraire:"",
+        dateTime_debut:null,
+        dateTime_fin:null,
+        First_heure_start_from:null,
+        First_heure_end_to:null,
+        Second_heure_start_from:null,
+        Second_heure_end_to:null
       },
     };
   },
-
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
     requiredFieldsByStep() {
@@ -427,6 +433,16 @@ export default {
 
     nextStep() {
       this.currentStep++;
+      console.log("DISPONIBILITE",{
+        datesOfCalendar:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.datesOfCalendar:[],
+        handleHoraire:this.$store.state.handleHoraire,
+        dateTime_debut:this.$store.state.handleHoraire === 'Periode' ? this.$store.state.dateTime_debut:null,
+        dateTime_fin:this.$store.state.handleHoraire === 'Periode' ? this.$store.state.dateTime_fin:null,
+        First_heure_start_from:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.First_heure_start_from:null,
+        First_heure_end_to:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.First_heure_end_to:null,
+        Second_heure_start_from:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.Second_heure_start_from:null,
+        Second_heure_end_to:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.Second_heure_end_to:null
+      })
     },
     prevStep() {
       this.currentStep--;
@@ -588,43 +604,6 @@ export default {
     <!-- STEP 3 -->
     <div v-show="currentStep === 2">
       <CreateDisponibilite />
-      <!-- <a-form-item
-        label="Dates de disponibilité"
-        name="availabilityDates"
-        :rules="[{ required: true, message: 'Veuillez sélectionner au moins une date' }]"
-      >
-        <a-date-picker v-model:value="formState.availabilityDates" style="width: 100%" />
-      </a-form-item>
-
-      <a-row :gutter="16">
-        <a-col :span="12">
-          <a-form-item
-            label="Heure de début"
-            name="startTime"
-            :rules="[{ required: true, message: 'Heure de début requise' }]"
-          >
-            <a-time-picker
-              v-model:value="formState.startTime"
-              format="HH:mm"
-              style="width: 100%"
-            />
-          </a-form-item>
-        </a-col>
-
-        <a-col :span="12">
-          <a-form-item
-            label="Heure de fin"
-            name="endTime"
-            :rules="[{ required: true, message: 'Heure de fin requise' }]"
-          >
-            <a-time-picker
-              v-model:value="formState.endTime"
-              format="HH:mm"
-              style="width: 100%"
-            />
-          </a-form-item>
-        </a-col>
-      </a-row> -->
     </div>
 
     <!-- STEP 4 -->
@@ -655,17 +634,18 @@ export default {
     </div>
 
     <!-- NAVIGATION -->
-    <div class="d-flex justify-content-between mt-4">
+    <div class="d-flex justify-content-between p-4">
       <a-button v-if="currentStep > 0" @click="prevStep">Précédent</a-button>
       <a-button
-        v-if="currentStep < 2"
+        v-if="currentStep < 4"
         type="primary"
-        @click="nextStep"
-        :disabled="!isCurrentStepValid"
+        @click.prevent="nextStep"
+        :disabled="!isCurrentStepValid && currentStep !== 2"
         >Suivant</a-button
       >
+      
       <a-button
-        v-if="currentStep === 2"
+        v-if="currentStep === 4"
         :disabled="!isCurrentStepValid"
         type="primary"
         html-type="submit"

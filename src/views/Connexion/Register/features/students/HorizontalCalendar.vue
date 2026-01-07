@@ -159,11 +159,11 @@ export default {
 .days-row {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: scroll; /* scroll horizontal activé */
-  -webkit-overflow-scrolling: touch; /* scroll tactile fluide iOS */
+  overflow-x: scroll; 
+  -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-  gap: 0.1rem;
+  gap: 1em;
   padding: 0.5rem 0;
   width: 100%;
 }

@@ -146,116 +146,7 @@ export default {
       this.selecteDatepickers = date;
       toggle({ ref: e.target });
     },
-    update_timetable() {
-      this.firstPlageHoraire = this.Horaire_Fisrt.toString();
-      let FirstHour = this.Horaire_Fisrt;
-      let SecondHour;
-      if (this.Horaire_Second != null) {
-        this.SecondPlageHoraire = this.Horaire_Second.toString();
-        SecondHour = this.Horaire_Second;
-      } else {
-        if (this.Second_heure_start_from != null && this.Second_heure_end_to != null) {
-          this.SecondPlageHoraire = this.Second_heure_start_from.concat(
-            "-",
-            this.Second_heure_end_to
-          );
-        }
-      }
-
-      let oneHoraireFirstHoraire = FirstHour[0].split(":");
-      let oneHoraireHour = Number(oneHoraireFirstHoraire[0]);
-      let oneHoraireMinute = Number(oneHoraireFirstHoraire[1]);
-      let convertOneHoraireminuteInHour = Math.ceil(oneHoraireMinute / 60);
-      let totalHourOneHoraire = oneHoraireHour + convertOneHoraireminuteInHour;
-
-      let twoHoraireSecondHoraire = FirstHour[1].split(":");
-      let twoHoraireHour = Number(twoHoraireSecondHoraire[0]);
-      let twoHoraireMinute = Number(twoHoraireSecondHoraire[1]);
-      let convertTwoHoraireminuteInHour = Math.ceil(twoHoraireMinute / 60);
-      let totalHourTwoHoraire = twoHoraireHour + convertTwoHoraireminuteInHour;
-
-      let totalGlobalHoraire = totalHourTwoHoraire - totalHourOneHoraire;
-      let SecondHoraireHour, SecondHoraireHourSecondHoraire;
-      // // console.log(totalGlobalHoraire);
-      if (this.Horaire_Second != null) {
-        let SecondHoraireFirstHoraire = SecondHour[0].split(":");
-        SecondHoraireHour = Number(SecondHoraireFirstHoraire[0]);
-        let SecondHoraireMinute = Number(SecondHoraireFirstHoraire[1]);
-        let convertSecondHoraireminuteInHour = Math.ceil(SecondHoraireMinute / 60);
-        let totalHourSecondHoraireOne =
-          SecondHoraireHour + convertSecondHoraireminuteInHour;
-
-        let SecondHoraireSecondHoraire = SecondHour[1].split(":");
-        SecondHoraireHourSecondHoraire = Number(SecondHoraireSecondHoraire[0]);
-        let SecondHoraireMinuteSecondHoraire = Number(SecondHoraireSecondHoraire[1]);
-        let convertSecondHoraireminuteInHourSecondHoraire = Math.ceil(
-          SecondHoraireMinuteSecondHoraire / 60
-        );
-        let totalHourSecondHoraireTwo =
-          SecondHoraireHourSecondHoraire + convertSecondHoraireminuteInHourSecondHoraire;
-
-        let totalGlobalSecondHoraire =
-          totalHourSecondHoraireTwo - totalHourSecondHoraireOne;
-        this.totalHour = totalGlobalHoraire + totalGlobalSecondHoraire;
-      } else {
-        this.totalHour = totalGlobalHoraire;
-      }
-
-      // // console.log("FIRSTHORAIRE", totalGlobalHoraire);
-      // // console.log("SECONDHORAIRE", this.totalHour);
-
-      if (
-        oneHoraireHour > twoHoraireHour ||
-        SecondHoraireHour > SecondHoraireHourSecondHoraire
-      ) {
-        Swal.fire({
-          icon: "error",
-          title: "l'heure de fin doit être superieur à l'heure de départ",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        let newDateForTimetable = [];
-        this.dates.forEach((date) => {
-          newDateForTimetable.push(date.date.toISOString().slice(0, 10));
-          // // console.log(newDateForTimetable);
-        });
-        instance
-          .put("modify_schedule/" + this.id_timetable_update, {
-            First_horaire: this.firstPlageHoraire.replace(",", "-"),
-            Second_horaire: this.SecondPlageHoraire.replace(",", "-"),
-            totalHour: this.totalHour,
-            day: newDateForTimetable,
-          })
-          .then((res) => {
-            // // console.log(res);
-            if (res.data.status === true) {
-              Swal.fire({
-                icon: "success",
-                title: res.data.message,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              setTimeout(() => {
-                this.modify_timetable = false;
-                this.id_timetable_update = null;
-                //location.reload(true);
-              }, 1500);
-            }
-            if (res.data.status === false) {
-              Swal.fire({
-                icon: "error",
-                title: res.data.message,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    },
+    
     get_timetable() {
       instance
         .get("get_schedule")
@@ -268,7 +159,7 @@ export default {
         });
     },
     create_timetable() {
-      const datesOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
+      //   const datesOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
       // // console.log("datesOfCalendar", datesOfCalendar);
       const HourFirstHoraire = this.configUtils.getHourInDate(
         this.First_heure_start_from,
@@ -303,7 +194,7 @@ export default {
       }
 
       this.createdDisponiblite({
-        DateRendezVous: datesOfCalendar,
+        DateRendezVous: this.datesOfCalendar,
         firstHoraire: FIRST_HORRAIRE,
         secondHoraire: SECOND_HORRAIRE,
         TotalHourDisponi: TOTALHOURHORAIRE,
@@ -430,46 +321,6 @@ export default {
           console.log(err);
         });
     },
-    // getAllCompetencesByStudents() {
-    //   instance.get("getCompetenceByStudents").then((res) => {
-    //     // // console.log("AllCompetences", res.data.data);
-    //     if (res.data.status === true) {
-    //       this.competences = res.data.data.competences;
-    //     }
-    //   });
-    // },
-    // getAllCompetences() {
-    //   instance
-    //     .get("GetAllCompetences")
-    //     .then((res) => {
-    //       // // console.log("COMPETENCE", res.data.data);
-    //       this.competencesPredf = res.data.data;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    addTag(newTag) {
-      // // console.log(newTag);
-      let brox = newTag;
-      this.acquis = brox;
-      this.comp = [];
-      this.acquis.forEach((el) => {
-        this.comp.push(el.id);
-      });
-      // // console.log("THIS.comp", this.comp);
-    },
-    addJour(Tag) {
-      // // console.log(Tag);
-      let brox = Tag;
-      this.acquis = brox;
-      this.comp = [];
-      // // console.log("Tableau", this.comp);
-      this.acquis.forEach((el) => {
-        this.comp.push(el.jour);
-      });
-      // // console.log("THIS.days", this.comp);
-    },
     resetData() {
       this.First_heure_start_from = "";
       this.First_heure_end_to = "";
@@ -477,32 +328,26 @@ export default {
       this.Second_heure_end_to = "";
     },
     handleValueDate() {
-      // // console.log("handleValueDate", this.datesOfCalendar);
-      if (!this.datesOfCalendar.length) {
+      if (!this.this.$store.state.datesOfCalendar.length) {
         this.resetData();
       }
       this.datesFormatedOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
-      // // console.log("this.datesFormatedOfCalendar", this.datesFormatedOfCalendar);
     },
-    chooseDateTime_debut() {
+    chooseDateTime_debut(e) {
       this.dateTime_fin = null;
+         if(e.target.value){
+     this.$store.commit('SET_DATE_DEBUT',e.target.value)
+    }else{
+        this.$store.commit('SET_DATE_DEBUT',null)
+    }
     },
-    validateDates() {
+    handleDateTimeFin(e) {
       this.error = null;
-
-      if (this.dateTime_debut && this.dateTime_fin) {
-        const start = new Date(this.dateTime_debut);
-        const end = new Date(this.dateTime_fin);
-
-        if (end <= start) {
-          Swal.fire({
-            icon: "info",
-            title: "La date de fin doit être postérieure à la date de début",
-            showConfirmButton: true,
-          });
-          this.dateTime_fin = null;
-        }
-      }
+    if(e.target.value){
+     this.$store.commit('SET_DATE_FIN',e.target.value)
+    }else{
+        this.$store.commit('SET_DATE_FIN',null)
+    }
     },
     addToSchedule() {
       this.launchLoading(true);
@@ -592,6 +437,59 @@ export default {
           this.dateTime_debut = null;
         });
     },
+    handleSelectedDates(payload_date_chosen) {
+      if (payload_date_chosen.length > 0) {
+        const formattedDates = payload_date_chosen.map((d) =>
+          new Date(d).toISOString().slice(0, 10)
+        );
+        console.log("formattedDates", formattedDates);
+        // this.datesOfCalendar = formattedDates;
+        this.$store.commit('SET_DATES',formattedDates)
+      } else {
+       this.$store.commit('SET_DATES',[])
+      }
+    },
+    handleFirstHeureStart(e){
+   console.log("handleFirstHeureStart",e.target.value)
+   if(e.target.value){
+     this.$store.commit('SET_FIRST_HEURE_START',e.target.value)
+    }else{
+        this.$store.commit('SET_FIRST_HEURE_START',null)
+    }
+
+    },
+    handleFirstHeureEnd(e){
+        if(e.target.value){
+     this.$store.commit('SET_FIRST_HEURE_END',e.target.value)
+    }else{
+        this.$store.commit('SET_FIRST_HEURE_END',null)
+    }
+    },
+    handleSecondHeureStart(e){
+        if(e.target.value){
+     this.$store.commit('SET_SECOND_HEURE_START',e.target.value)
+    }else{
+        this.$store.commit('SET_SECOND_HEURE_START',null)
+    }
+    },
+    handleSecondHeureEnd(e){
+          if(e.target.value){
+     this.$store.commit('SET_SECOND_HEURE_END',e.target.value)
+    }else{
+        this.$store.commit('SET_SECOND_HEURE_END',null)
+    }
+    },
+    chooseTypePlage(e){
+    if(e.target.value){
+    this.$store.commit('SET_DATE_DEBUT',null)
+    this.$store.commit('SET_DATE_FIN',null)
+    this.$store.commit('SET_SECOND_HEURE_START',null)
+    this.$store.commit('SET_SECOND_HEURE_END',null)
+    this.$store.commit('SET_FIRST_HEURE_START',null)
+    this.$store.commit('SET_FIRST_HEURE_END',null)
+    this.$store.commit('SET_HANDLE_HORAIRE',e.target.value);
+    }
+    }
   },
   async created() {
     // this.get_timetable();
@@ -640,6 +538,7 @@ export default {
                 name="select"
                 id="select"
                 v-model="handleHoraire"
+                @change="chooseTypePlage"
               >
                 <option value="" disabled>Type de plage</option>
                 <option value="Horaire">Plage Horaire</option>
@@ -680,13 +579,13 @@ export default {
                   :disabled="!dateTime_debut"
                   type="datetime-local"
                   style="padding: 0.8em !important; border-radius: 10px"
-                  @change="validateDates"
+                  @change="handleDateTimeFin"
                 />
               </div>
             </section>
             <div style="flex: 1 1 100px" v-if="handleHoraire !== 'Periode'">
               <h6
-                v-if="!datesOfCalendar.length"
+                v-if="!this.$store.state.datesOfCalendar.length"
                 class="text-danger d-block text-center"
                 style="font-weight: bold; font-size: 1.4em; padding: 0.5em 0"
               >
@@ -694,7 +593,7 @@ export default {
               </h6>
               <HorizontalCalendar
                 :year="new Date().getFullYear()"
-                v-model:selectedDates="selectedDates"
+                @update:selectedDates="handleSelectedDates"
               />
             </div>
             <div class="form theme-form">
@@ -706,12 +605,17 @@ export default {
                   <div class="col-lg-6">
                     <div class="mb-3 conteneur-horaire">
                       <label class="d-block">{{ texte2 }}</label>
-                      <a-time-picker
-                        v-model:value="First_heure_start_from"
-                        :disabled="datesOfCalendar.length === 0"
-                        style="width: 100%"
-                        format="HH:mm"
-                        placeholder="Heure de début"
+                      <input
+                        type="time"
+                        class="form-control mt-1"
+                        :disabled="this.$store.state.datesOfCalendar.length === 0"
+                        :value="
+                          First_heure_start_from
+                            ? First_heure_start_from.format('HH:mm')
+                            : ''
+                        "
+                        @change="handleFirstHeureStart"
+                       
                       />
                     </div>
                   </div>
@@ -719,37 +623,35 @@ export default {
                   <div class="col-lg-6">
                     <div class="mb-3 conteneur-horaire">
                       <label class="d-block">{{ texte3 }}</label>
-                      <a-time-picker
-                        v-model:value="First_heure_end_to"
-                        :disabled="datesOfCalendar.length === 0"
-                        style="width: 100%"
-                        format="HH:mm"
-                        placeholder="Heure de fin"
-                        :disabled-time="
-                          () => ({
-                            disabledHours: () =>
-                              Array.from(
-                                { length: First_heure_start_from?.hour() || 0 },
-                                (_, i) => i
-                              ),
-                          })
+                      <input
+                        type="time"
+                        class="form-control mt-1"
+                        :disabled="this.$store.state.datesOfCalendar.length === 0"
+                        :min="First_heure_start_from?.format('HH:mm')"
+                        :value="
+                          First_heure_end_to ? First_heure_end_to.format('HH:mm') : ''
                         "
+                        @change="handleFirstHeureEnd"
                       />
                     </div>
                   </div>
 
-                  <h5 class="text-start mt-5 text-warning">{{ texte4 }}</h5>
+                  <h5 class="text-start my-2 text-warning">{{ texte4 }}</h5>
 
                   <!-- Second créneau : heure début / heure fin -->
                   <div class="col-lg-6">
                     <div class="mb-3 conteneur-horaire">
                       <label class="d-block">{{ texte5 }}</label>
-                      <a-time-picker
-                        v-model:value="Second_heure_start_from"
-                        :disabled="datesOfCalendar.length === 0"
-                        style="width: 100%"
-                        format="HH:mm"
-                        placeholder="Heure de début"
+                      <input
+                        type="time"
+                        class="form-control mt-1"
+                        :disabled="this.$store.state.datesOfCalendar.length === 0"
+                        :value="
+                          Second_heure_start_from
+                            ? Second_heure_start_from.format('HH:mm')
+                            : ''
+                        "
+                       @change="handleSecondHeureStart"
                       />
                     </div>
                   </div>
@@ -757,26 +659,20 @@ export default {
                   <div class="col-lg-6">
                     <div class="mb-3 conteneur-horaire">
                       <label class="d-block">{{ texte6 }}</label>
-                      <a-time-picker
-                        v-model:value="Second_heure_end_to"
-                        :disabled="datesOfCalendar.length === 0"
-                        style="width: 100%"
-                        format="HH:mm"
-                        placeholder="Heure de fin"
-                        :disabled-time="
-                          () => ({
-                            disabledHours: () =>
-                              Array.from(
-                                { length: Second_heure_start_from?.hour() || 0 },
-                                (_, i) => i
-                              ),
-                          })
+                      <input
+                        type="time"
+                        class="form-control mt-1"
+                        :disabled="this.$store.state.datesOfCalendar.length === 0"
+                        :min="Second_heure_start_from?.format('HH:mm')"
+                        :value="
+                          Second_heure_end_to ? Second_heure_end_to.format('HH:mm') : ''
                         "
+                        @change="handleSecondHeureEnd"
                       />
                     </div>
                   </div>
                 </section>
-                <div class="col-lg-12" v-if="handleHoraire === 'Horaire'">
+                <!-- <div class="col-lg-12" v-if="handleHoraire === 'Horaire'">
                   <button
                     :disabled="!First_heure_start_from && !First_heure_end_to"
                     class="btn bg-warning p-5"
@@ -784,8 +680,8 @@ export default {
                   >
                     {{ texte8 }}
                   </button>
-                </div>
-                <div class="col-lg-12 my-5" v-if="handleHoraire === 'Periode'">
+                </div> -->
+                <!-- <div class="col-lg-12 my-5" v-if="handleHoraire === 'Periode'">
                   <button
                     :disabled="!this.dateTime_fin"
                     class="btn bg-warning p-5"
@@ -793,7 +689,7 @@ export default {
                   >
                     {{ texte8 }}
                   </button>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

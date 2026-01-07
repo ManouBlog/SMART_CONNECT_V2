@@ -15,8 +15,47 @@ export default createStore({
     contratStudent:JSON.parse(localStorage.getItem("alarm")) || '',
     abonnement:false,
     infoUserConnected:"",
+     datesOfCalendar:[],
+        handleHoraire:"Horaire",
+        dateTime_debut:null,
+        dateTime_fin:null,
+        First_heure_start_from:null,
+        First_heure_end_to:null,
+        Second_heure_start_from:null,
+        Second_heure_end_to:null
   },
   mutations: {
+    SET_DATES(state, dates) {
+      state.datesOfCalendar = dates;
+    },
+
+    SET_HANDLE_HORAIRE(state, value) {
+      state.handleHoraire = value;
+    },
+
+    SET_DATE_DEBUT(state, value) {
+      state.dateTime_debut = value;
+    },
+
+    SET_DATE_FIN(state, value) {
+      state.dateTime_fin = value;
+    },
+
+    SET_FIRST_HEURE_START(state, value) {
+      state.First_heure_start_from = value;
+    },
+
+    SET_FIRST_HEURE_END(state, value) {
+      state.First_heure_end_to = value;
+    },
+
+    SET_SECOND_HEURE_START(state, value) {
+      state.Second_heure_start_from = value;
+    },
+
+    SET_SECOND_HEURE_END(state, value) {
+      state.Second_heure_end_to = value;
+    },
      deletePersonAtWishList(state,idPerson){
       instance.delete("deletePersonInMyWishlist/"+idPerson)
       .then((res) => {
@@ -46,7 +85,6 @@ export default createStore({
      },
      CHANGE_LANGAGE_WEB(state,langue){
       state.translate = langue;
-      // console.log("state.translate",state.translate)
      },
      ADD_ITEM(state){
       if(state.token){
