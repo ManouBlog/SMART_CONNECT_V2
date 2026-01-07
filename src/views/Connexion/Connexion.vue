@@ -38,13 +38,9 @@ export default {
   },
   async created() {
     this.texte = await this.handleTranslate("Saisissez vos identifiants");
-    // this.texte1 = await this.handleTranslate(
-    //   "Nous vous aiderons à créer un compte si vous n'êtes pas encore inscrit"
-    // );
+    
     this.texte2 = await this.handleTranslate("Trouvez un emploi aujourd'hui");
-    // this.texte3 = await this.handleTranslate(
-    //   "Nous vous aiderons à créer un compte si vous n'êtes pas encore inscrit"
-    // );
+    
     this.texte4 = await this.handleTranslate("CONNEXION");
     this.texte5 = await this.handleTranslate("INSCRIPTION");
   },
@@ -54,6 +50,9 @@ export default {
   <a-modal
     :footer="null"
     v-model:open="isModal"
+     :width="'100vw'"
+  :style="{ top: '0', padding: 0 }"
+  wrap-class-name="fullscreen-modal"
     @cancel="()=>this.changeValueIsModal()"
     @ok="()=>this.changeValueIsModal()"
   >
@@ -78,8 +77,22 @@ export default {
   </a-modal>
 </template>
 <style scoped>
-.mycontent {
-  max-height: 80vh; /* 60% de la hauteur de l'écran (viewport) */
-  overflow-y: auto; /* Ajoute une barre de défilement verticale SI nécessaire */
+:deep(.fullscreen-modal .ant-modal) {
+  max-width: 100vw;
+  height: 90vh;
+  margin: 0;
+}
+
+:deep(.fullscreen-modal .ant-modal-content) {
+  height: 90vh;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+:deep(.fullscreen-modal .ant-modal-body) {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
 }
 </style>

@@ -718,7 +718,7 @@ export default {
                           showIcon
                           iconDisplay="input"
                           timeOnly
-                          inputId="templatedisplay"
+                          inputId="templatedispla1"
                         />
                       </div>
                     </div>
@@ -735,7 +735,7 @@ export default {
                           showIcon
                           iconDisplay="input"
                           timeOnly
-                          inputId="templatedisplay"
+                          inputId="templatedisplay2"
                         />
                       </div>
                     </div>
@@ -753,7 +753,7 @@ export default {
                           showIcon
                           iconDisplay="input"
                           timeOnly
-                          inputId="templatedisplay"
+                          inputId="templatedisplay3"
                         />
                       </div>
                     </div>
@@ -770,7 +770,7 @@ export default {
                           showIcon
                           iconDisplay="input"
                           timeOnly
-                          inputId="templatedisplay"
+                          inputId="templatedisplay4"
                         />
                       </div>
                     </div>
