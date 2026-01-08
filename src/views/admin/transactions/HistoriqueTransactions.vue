@@ -18,7 +18,7 @@ export default {
     get_Historique() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/admin/historiqueTransaction", {
+        .get("http://backend.monbrobroli.com/api/admin/historiqueTransaction", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -70,7 +70,7 @@ export default {
     },
     // async getPayStackHistorique() {
     //   await axios
-    //     .get("http://127.0.0.1:8000/api/payStack/transactions", {
+    //     .get("http://backend.monbrobroli.com/api/payStack/transactions", {
     //       headers: {
     //         Authorization: "Bearer " + this.$store.state.token,
     //       },
@@ -131,9 +131,9 @@ export default {
                     {{ new Date(item.created_at).toLocaleDateString("fr") }}
                   </td>
                   <td>{{ item.transaction_id }}</td>
-                  <!-- <td>{{ item.moyen_paiement }}</td> -->
+        
                   <td>{{ item.montant }}</td>
-                  <td>{{ `${item.user.nom}` }}</td>
+                  <td>{{ `${item?.user?.nom}` }}</td>
                   <td>
                     {{ item.status_user }}
                   </td>

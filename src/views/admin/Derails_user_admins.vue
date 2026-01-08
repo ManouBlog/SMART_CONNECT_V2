@@ -19,7 +19,7 @@ export default {
       //   this.loading = true;
       //   axios
       //     .post(
-      //       "http://127.0.0.1:8000/api/savePermissions",
+      //       "http://backend.monbrobroli.com/api/savePermissions",
       //       { permissions: this.permissions },
       //       {
       //         headers: {
@@ -45,7 +45,7 @@ export default {
     getAllPermission() {
       this.loading = true;
       axios
-        .get("http://127.0.0.1:8000/api/listerPermission", {
+        .get("http://backend.monbrobroli.com/api/listerPermission", {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
             "Content-Type": "application/json",

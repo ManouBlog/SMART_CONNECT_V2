@@ -19,7 +19,7 @@ export default {
     get_all_student() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/get_offres_postule", {
+        .get("http://backend.monbrobroli.com/api/get_offres_postule", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

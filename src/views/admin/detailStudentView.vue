@@ -30,7 +30,7 @@ export default {
       return path?.toLowerCase().endsWith(".pdf");
     },
     fileUrl(path) {
-      return `http://127.0.0.1:8000/storage/app/public/images/${path}`;
+      return `http://backend.monbrobroli.com/storage/app/public/images/${path}`;
     },
     openPdf(path) {
       this.pdfUrl = this.fileUrl(path);
@@ -45,7 +45,7 @@ export default {
       console.log("this.$route", this.$route);
       axios
         .get(
-          "http://127.0.0.1:8000/api/get_detail_user/" + this.$route.params.id,
+          "http://backend.monbrobroli.com/api/get_detail_user/" + this.$route.params.id,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -200,7 +200,7 @@ export default {
         <div class="text-start">
           <h4 class="badge bg-info">
             <b>Formule d'abonnement</b> :
-            {{ this.verifIfAbonnementCurrently(student?.user?.abonement) }}
+            {{ this.verifIfAbonnementCurrently(student?.user?.abonement) ? this.verifIfAbonnementCurrently(student?.user?.abonement):'Pas abonnée' }}
           </h4>
         </div>
         <div class="row">
@@ -416,7 +416,7 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in student?.user?.abonement" :key="index">
+              <tr v-for="(item, index) in student?.user?.abonement.filter(item=>item.statut !== 'EN ATTENTE')" :key="index">
                 <td>
                   {{ new Date(item.created_at).toLocaleDateString("fr") }}
                 </td>
@@ -436,7 +436,7 @@ export default {
                 <td>
                   <p
                     class="badge"
-                    :class="item.statut === 'success' ? 'bg-success' : 'bg-danger'"
+                    :class="item.statut === 'success' ? 'bg-success' : item.statut === 'EN ATTENTE' ? 'bg-warning':'bg-danger'"
                   >
                     {{ item.statut }}
                   </p>

@@ -34,7 +34,7 @@ export default {
     get_details_abonnement() {
       this.spinner = true;
       axios
-        .get("http://127.0.0.1:8000/api/getAbonnement", {
+        .get("http://backend.monbrobroli.com/api/getAbonnement", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -60,7 +60,7 @@ export default {
       this.isLoading = true;
       axios
         .put(
-          "http://127.0.0.1:8000/api/admin/updateAbonnement/" +
+          "http://backend.monbrobroli.com/api/admin/updateAbonnement/" +
             this.$route.params.id,
           this.data,
           {
@@ -86,7 +86,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("http://127.0.0.1:8000/api/getCategorie", {
+        .get("http://backend.monbrobroli.com/api/getCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

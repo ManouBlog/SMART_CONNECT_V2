@@ -18,7 +18,7 @@ export default {
       this.spinner = true;
       axios
         .get(
-          "http://127.0.0.1:8000/api/list_students_contact_by_entreprise",
+          "http://backend.monbrobroli.com/api/list_students_contact_by_entreprise",
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
