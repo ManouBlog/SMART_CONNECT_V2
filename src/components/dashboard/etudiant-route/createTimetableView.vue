@@ -299,12 +299,19 @@ export default {
         SECOND_HORRAIRE = HEURE_FROM_OF_SECONDHORRAIRE + "-" + HEURE_TO_OF_SECONDHORRAIRE;
       }
 
-      this.createdDisponiblite({
+      console.log("JOUR 2",{
         DateRendezVous: datesOfCalendar,
         firstHoraire: FIRST_HORRAIRE,
         secondHoraire: SECOND_HORRAIRE,
         TotalHourDisponi: TOTALHOURHORAIRE,
-      });
+      })
+
+      // this.createdDisponiblite({
+      //   DateRendezVous: datesOfCalendar,
+      //   firstHoraire: FIRST_HORRAIRE,
+      //   secondHoraire: SECOND_HORRAIRE,
+      //   TotalHourDisponi: TOTALHOURHORAIRE,
+      // });
     },
     show_timetable(id) {
       this.modify_timetable = !this.modify_timetable;
@@ -555,7 +562,7 @@ export default {
         })[1],
         periode: 1,
       };
-      // // console.log("DATETIME", dataSend);
+      console.log("JOUR 1", dataSend);
       instance
         .post("create_schedule", dataSend)
         .then((response) => {

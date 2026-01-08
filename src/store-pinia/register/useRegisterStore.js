@@ -44,17 +44,30 @@ export const useRegisterStore = defineStore('register', {
           this.isModal = !this.isModal
         },
         async registerStudent(payload) {
-          // console.log("registerStudent25",payload)
+          console.log("registerStudent25",payload)
           this.LOADINGSPINNER.launchLoading(true)
           this.isLoading = true;
           let data = new FormData();
+       
           payload.myCompetence.forEach((item) => {
             data.append("competence[]", item.id);
           });
           payload.photo.forEach((item) => {
             data.append("photo[]", item);
           });
+           payload.jour.forEach((item) => {
+            data.append("jour[]", item);
+          });
           data.append("nom", payload.nom);
+          //  data.append("jour", payload.datesOfCalendar);
+           data.append("First_horaire", payload.First_horaire);
+           data.append("Second_horaire", payload.Second_horaire);
+           data.append("totalHour", payload.totalHour);
+           data.append("hour_periode_debut", payload.hour_periode_debut);
+           data.append("hour_periode_fin", payload.hour_periode_fin);
+            data.append("periode_debut", payload.periode_debut);
+             data.append("periode_fin", payload.periode_fin);
+             data.append("periode", payload.periode);
           data.append("prenoms", payload.prenoms);
           data.append("email", payload.email);
           data.append("commune", payload.commune);
@@ -72,15 +85,10 @@ export const useRegisterStore = defineStore('register', {
          await instance
             .post("list_users", data)
             .then((response) => {
-              // console.log(response);
               if (response.data.status === true) {
                 this.SWALPOPUP.declencheSwalPopup("success",response.data.message)
                 this.changeValueIsPolitics({value:false,infoUser:"",payload:""})
                 this.changeValueIsModal()
-        //         this.connexionUser({
-        // email: payload.email,
-        // password: payload.password,
-        //    })
               }
               if (response.data.status === false) {
                 this.SWALPOPUP.declencheSwalPopup("error",response.data.message)
@@ -94,51 +102,7 @@ export const useRegisterStore = defineStore('register', {
                this.LOADINGSPINNER.launchLoading(false)
             })
         },
-    //     async connexionUser(dataValue) { 
-    //    await instance
-    //     .post("auth_login", dataValue)
-    //     .then((response) => {
-    //       if (response.data.status === true) {
-    //         Swal.fire({
-    //           icon: "success",
-    //           title: response.data.message,
-    //           showConfirmButton: true,
-    //         });
-    //         this.$store.commit("ADD_ITEM");
-    //         window.localStorage.setItem("user", JSON.stringify(response.data.user));
-    //         window.localStorage.setItem(
-    //           "token",
-    //           JSON.stringify(response.data.access_token)
-    //         );
-    //         this.$store.state.user = response.data.user;
-    //         this.$store.state.token = response.data.access_token;
-    //         const redirect = this.$route.query.redirect;
-    //         console.log("Redirection détectée :", redirect);
-    //         if (redirect) {
-    //           console.log("Redirection détectée :", redirect);
-    //           this.$router.replace(redirect);
-    //         } else {
-    //           this.$router.replace("/");
-    //         }
-    //          this.changeValueIsModal();
-    //       }
-    //       if (response.data.status === false) {
-    //         Swal.fire({
-    //           icon: "info",
-    //           title: response.data.message,
-    //           showConfirmButton: true,
-    //         });
-    //         this.launchLoading(false);
-    //       }
-    //     })
-    //     .catch((response) => {
-    //       Swal.fire({
-    //         icon: "info",
-    //         title: response.response.data.message,
-    //         showConfirmButton: true,
-    //       });
-    //     });
-    // },
+  
         async registerCompany(payload) {
           console.log("registerCompany",payload)
           this.isLoading = true;

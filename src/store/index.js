@@ -150,7 +150,7 @@ export default createStore({
         .get("getAllWishlist")
         .then((response) => {
           // console.log("WISHLIST", response.data.data);
-          commit('GET_ALL_WISH_LIST',response.data.data.wishlists)
+          commit('GET_ALL_WISH_LIST',response?.data?.data?.wishlists)
         })
         .catch((error) => {
           console.log("error", error);

@@ -493,10 +493,8 @@ export default {
     this.$store.dispatch("handleListeFavoris");
     this.get_list_emploi();
     this.getAllCompetences();
-    // this.handleListeFavoris();
     this.AllCompetencesPredf();
     this.verfEnter();
-    // // console.log(this.jourSelect());
     this.path = window.location.pathname;
     this.texte = await this.handleTranslate("Vous rechercher un talent ?");
     this.texte1 = await this.handleTranslate("Talents disponibles");

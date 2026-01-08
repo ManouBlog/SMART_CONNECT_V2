@@ -403,7 +403,7 @@ export default {
         })[1],
         periode: 1,
       };
-      // // console.log("DATETIME", dataSend);
+      console.log("DATETIME2", dataSend);
       instance
         .post("create_schedule", dataSend)
         .then((response) => {

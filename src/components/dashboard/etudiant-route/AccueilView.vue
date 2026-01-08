@@ -127,18 +127,18 @@ export default {
         this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant'
       "
       :infosArray="[
-        { libelle: texte1, nbre: Number(statistiqueDashboard.offrePostule) },
+        { libelle: texte1, nbre: Number(statistiqueDashboard?.offrePostule) },
         {
           libelle: texte2,
-          nbre: statistiqueDashboard.offrePending,
+          nbre: statistiqueDashboard?.offrePending,
         },
         {
           libelle: texte3,
-          nbre: statistiqueDashboard.offreAccepted,
+          nbre: statistiqueDashboard?.offreAccepted,
         },
         {
           libelle: texte4,
-          nbre: statistiqueDashboard.offreCancel,
+          nbre: statistiqueDashboard?.offreCancel,
         },
       ]"
     />

@@ -199,7 +199,7 @@ export default {
     async isLancement() {
       try {
         const response = await axios.get(
-          `${process.env.VUE_APP_LIENS_BACKEND}api/date-lancement`
+          `${process.env.VUE_APP_LIENS_LOCAL}api/date-lancement`
         );
 
         if (response.status === 200 && response.data?.data?.date) {

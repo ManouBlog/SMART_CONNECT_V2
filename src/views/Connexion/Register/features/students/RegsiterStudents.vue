@@ -388,14 +388,14 @@ export default {
         email: "",
         password: "",
         countryCode: "+225",
-        datesOfCalendar:[],
-        handleHoraire:"",
-        dateTime_debut:null,
-        dateTime_fin:null,
-        First_heure_start_from:null,
-        First_heure_end_to:null,
-        Second_heure_start_from:null,
-        Second_heure_end_to:null
+        // datesOfCalendar:[],
+        // handleHoraire:"",
+        // dateTime_debut:null,
+        // dateTime_fin:null,
+        // First_heure_start_from:null,
+        // First_heure_end_to:null,
+        // Second_heure_start_from:null,
+        // Second_heure_end_to:null
       },
     };
   },
@@ -432,21 +432,41 @@ export default {
     }),
 
     nextStep() {
+      if (this.currentStep >= 3) return;
+
+      // validation sauf pour le step Disponibilités
+      if (this.currentStep !== 2 && !this.isCurrentStepValid) {
+        this.SWALPOPUP.declencheSwalPopup(
+          "warning",
+          "Veuillez remplir les champs requis avant de continuer"
+        );
+        return;
+      }
+
       this.currentStep++;
-      console.log("DISPONIBILITE",{
-        datesOfCalendar:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.datesOfCalendar:[],
-        handleHoraire:this.$store.state.handleHoraire,
-        dateTime_debut:this.$store.state.handleHoraire === 'Periode' ? this.$store.state.dateTime_debut:null,
-        dateTime_fin:this.$store.state.handleHoraire === 'Periode' ? this.$store.state.dateTime_fin:null,
-        First_heure_start_from:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.First_heure_start_from:null,
-        First_heure_end_to:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.First_heure_end_to:null,
-        Second_heure_start_from:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.Second_heure_start_from:null,
-        Second_heure_end_to:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.Second_heure_end_to:null
-      })
     },
     prevStep() {
-      this.currentStep--;
+      if (this.currentStep > 0) {
+        this.currentStep--;
+      }
     },
+
+    // nextStep() {
+    //   this.currentStep++;
+    //   console.log("DISPONIBILITE",{
+    //     datesOfCalendar:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.datesOfCalendar:[],
+    //     handleHoraire:this.$store.state.handleHoraire,
+    //     dateTime_debut:this.$store.state.handleHoraire === 'Periode' ? this.$store.state.dateTime_debut:null,
+    //     dateTime_fin:this.$store.state.handleHoraire === 'Periode' ? this.$store.state.dateTime_fin:null,
+    //     First_heure_start_from:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.First_heure_start_from:null,
+    //     First_heure_end_to:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.First_heure_end_to:null,
+    //     Second_heure_start_from:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.Second_heure_start_from:null,
+    //     Second_heure_end_to:this.$store.state.handleHoraire !== 'Periode' ? this.$store.state.Second_heure_end_to:null
+    //   })
+    // },
+    // prevStep() {
+    //   this.currentStep--;
+    // },
 
     addPhotoInArray(allPhotos) {
       return allPhotos.map((item) => item.originFileObj);
@@ -461,6 +481,53 @@ export default {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
 
+          if (this.$store.state.handleHoraire !== "Periode") {
+            const TOTALHOURHORAIRE = 0;
+            const FIRST_HORRAIRE =
+              this.$store.state.First_heure_start_from +
+              "-" +
+              this.$store.state.First_heure_end_to;
+            let SECOND_HORRAIRE = null;
+            if (this.$store.state.Second_heure_start_from) {
+              SECOND_HORRAIRE =
+                this.$store.state.Second_heure_start_from +
+                "-" +
+                this.$store.state.Second_heure_end_to;
+            }
+            this.formState.jour =
+              this.$store.state.handleHoraire !== "Periode"
+                ? this.$store.state.datesOfCalendar
+                : [];
+            this.formState.periode = 0;
+            this.formState.First_horaire = FIRST_HORRAIRE;
+            this.formState.Second_horaire = SECOND_HORRAIRE;
+            this.formState.totalHour = TOTALHOURHORAIRE;
+          } else {
+            console.log("fhf");
+            console.log("DISPONIBILITE", {
+              dateTime_debut:
+                this.$store.state.handleHoraire === "Periode"
+                  ? this.$store.state.dateTime_debut
+                  : null,
+              dateTime_fin:
+                this.$store.state.handleHoraire === "Periode"
+                  ? this.$store.state.dateTime_fin
+                  : null,
+            });
+            this.formState.jour = [
+              this.$store.state.dateTime_debut.split("T")[0] +
+                " A " +
+                this.$store.state.dateTime_fin.split("T")[0],
+            ];
+            this.formState.First_horaire = this.$store.state.dateTime_debut.split("T")[1] + "-" + this.$store.state.dateTime_fin.split("T")[1];
+            this.formState.hour_periode_debut = this.$store.state.dateTime_debut.split("T")[1];
+            this.formState.hour_periode_fin = this.$store.state.dateTime_fin.split("T")[1];
+            this.formState.periode = 1;
+             this.formState.periode_debut = this.$store.state.dateTime_debut.split("T")[0];
+             this.formState.periode_fin = this.$store.state.dateTime_fin.split("T")[0];
+            this.formState.totalHour = 0;
+            
+          }
           this.changeValueIsPolitics({
             value: true,
             infoUser: "talents",
@@ -610,7 +677,7 @@ export default {
     <div v-show="currentStep === 3">
       <a-form-item name="uploadPhotoProfil" label="Photo de profil">
         <a-upload v-model:fileList="formState.uploadPhotoProfil" :maxCount="1">
-          <a-button>Upload</a-button>
+          <a-button> Clique pour charger </a-button>
         </a-upload>
       </a-form-item>
 
@@ -620,7 +687,7 @@ export default {
         :rules="[{ required: true, message: texte96 }]"
       >
         <a-upload v-model:fileList="formState.upload" :maxCount="2">
-          <a-button>Upload</a-button>
+          <a-button> Clique pour charger </a-button>
         </a-upload>
       </a-form-item>
 
@@ -634,21 +701,23 @@ export default {
     </div>
 
     <!-- NAVIGATION -->
-    <div class="d-flex justify-content-between p-4">
-      <a-button v-if="currentStep > 0" @click="prevStep">Précédent</a-button>
+    <div class="d-flex justify-content-between" style="padding: 1.5em">
+      <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
+
       <a-button
-        v-if="currentStep < 4"
+        v-if="currentStep < 3"
         type="primary"
         @click.prevent="nextStep"
-        :disabled="!isCurrentStepValid && currentStep !== 2"
-        >Suivant</a-button
+        :disabled="currentStep !== 2 && !isCurrentStepValid"
       >
-      
+        Suivant
+      </a-button>
+
       <a-button
-        v-if="currentStep === 4"
-        :disabled="!isCurrentStepValid"
+        v-if="currentStep === 3"
         type="primary"
         html-type="submit"
+        :disabled="!isCurrentStepValid"
       >
         {{ texte11 }}
       </a-button>
