@@ -34,7 +34,7 @@ export default {
     },
     get_email_for_verif() {
       axios
-        .get("http://backend.monbrobroli.com/api/listerUser", {
+        .get("https://backend.monbrobroli.com/api/listerUser", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -78,7 +78,7 @@ export default {
       this.get_email_for_verif();
       if (this.status == "student") {
         axios
-          .post("http://backend.monbrobroli.com/api/list_users", {
+          .post("https://backend.monbrobroli.com/api/list_users", {
             status: "student",
             nom: this.nom,
             prenoms: this.prenoms,
@@ -121,7 +121,7 @@ export default {
       }
       if (this.status == "entreprise") {
         axios
-          .post("http://backend.monbrobroli.com/api/list_users", {
+          .post("https://backend.monbrobroli.com/api/list_users", {
             status: "entreprise",
             nom: this.nom_entreprise,
             registre_commerce: this.registre_commerce,

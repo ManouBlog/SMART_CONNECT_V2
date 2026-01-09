@@ -27,7 +27,7 @@ export default {
     seeNewContrat(){
       this.$store.commit('TOOGLESPINNER',true)
       axios
-        .get("http://backend.monbrobroli.com/api/admin/updateBadgeContrat", {
+        .get("https://backend.monbrobroli.com/api/admin/updateBadgeContrat", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

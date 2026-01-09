@@ -26,7 +26,7 @@ export default createStore({
     addExperiences(state, person) {
       axios
         .post(
-          "http://backend.monbrobroli.com/api/postNewExperience",
+          "https://backend.monbrobroli.com/api/postNewExperience",
           {
             experience: person.experience,
             lieu: person.lieu,
@@ -132,7 +132,7 @@ export default createStore({
     get_users({ commit,state }) {
       commit('TOOGLESPINNER',true)
       axios
-        .get("http://backend.monbrobroli.com/api/list_entreprise", {
+        .get("https://backend.monbrobroli.com/api/list_entreprise", {
           headers: {
             Authorization: "Bearer " + state.token,
           },
@@ -159,7 +159,7 @@ export default createStore({
     get_Students_abonne({ commit,state }) {
       commit('TOOGLESPINNER',true)
       axios
-        .get("http://backend.monbrobroli.com/api/list_students", {
+        .get("https://backend.monbrobroli.com/api/list_students", {
           headers: {
             Authorization: "Bearer " + state.token,
           },
@@ -183,7 +183,7 @@ export default createStore({
     get_Students_Non_Abonne({ commit,state }) {
       commit('TOOGLESPINNER',true)
       axios
-        .get("http://backend.monbrobroli.com/api/list_visiteurs", {
+        .get("https://backend.monbrobroli.com/api/list_visiteurs", {
           headers: {
             Authorization: "Bearer " + state.token,
           },
@@ -218,7 +218,7 @@ export default createStore({
     get_contrats({ commit,state }) {
       commit('TOOGLESPINNER',true)
       axios
-        .get("http://backend.monbrobroli.com/api/admin/allContrats", {
+        .get("https://backend.monbrobroli.com/api/admin/allContrats", {
           headers: {
             Authorization: "Bearer " + state.token,
           },

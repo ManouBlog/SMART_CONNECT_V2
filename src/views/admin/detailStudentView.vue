@@ -30,7 +30,7 @@ export default {
       return path?.toLowerCase().endsWith(".pdf");
     },
     fileUrl(path) {
-      return `http://backend.monbrobroli.com/storage/app/public/images/${path}`;
+      return `https://backend.monbrobroli.com/storage/app/public/images/${path}`;
     },
     openPdf(path) {
       this.pdfUrl = this.fileUrl(path);
@@ -45,7 +45,7 @@ export default {
       console.log("this.$route", this.$route);
       axios
         .get(
-          "http://backend.monbrobroli.com/api/get_detail_user/" + this.$route.params.id,
+          "https://backend.monbrobroli.com/api/get_detail_user/" + this.$route.params.id,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,

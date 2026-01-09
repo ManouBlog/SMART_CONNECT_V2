@@ -17,7 +17,7 @@ export default {
       this.acces = false;
       this.loading = true;
       axios
-        .post("http://backend.monbrobroli.com/api/auth_login", {
+        .post("https://backend.monbrobroli.com/api/auth_login", {
           email: this.email,
           password: this.password,
         })

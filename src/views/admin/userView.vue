@@ -24,7 +24,7 @@ export default {
     get_users() {
       this.spinner = true;
       axios
-        .get("http://backend.monbrobroli.com/api/listerUser", {
+        .get("https://backend.monbrobroli.com/api/listerUser", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

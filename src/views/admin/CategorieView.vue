@@ -18,7 +18,7 @@ export default {
     async create_categorie() {
       await axios
         .post(
-          "http://backend.monbrobroli.com/api/categorie",
+          "https://backend.monbrobroli.com/api/categorie",
           {
             categorie: this.categorie,
           },
@@ -60,7 +60,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("http://backend.monbrobroli.com/api/seeCategorie", {
+        .get("https://backend.monbrobroli.com/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -114,7 +114,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "http://backend.monbrobroli.com/api/admin/delete_categorie/" + idCategorie,
+          "https://backend.monbrobroli.com/api/admin/delete_categorie/" + idCategorie,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
