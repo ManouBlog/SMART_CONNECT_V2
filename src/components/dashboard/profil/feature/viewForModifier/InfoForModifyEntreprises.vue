@@ -1,6 +1,6 @@
 <script>
 import instance, { lienPhoto } from "../../../../../api/api";
-import VueMultiselect from "vue-multiselect";
+// import VueMultiselect from "vue-multiselect";
 import { mapActions, mapState } from "pinia";
 import { Help } from "../../../../../utils";
 import { useLoadingSpinner } from "../../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
@@ -10,7 +10,7 @@ import { useInfoPersonnel } from "../../../../../store-pinia/InfoPersonnelle/use
 export default {
   name: "InfoForModifyEntreprises",
   components: {
-    VueMultiselect,
+    // VueMultiselect,
   },
   data() {
     return {
@@ -37,7 +37,8 @@ export default {
         { label: "Sierra Leone", value: "+232" },
         { label: "Togo", value: "+228" },
       ],
-      countryCode:null
+      countryCode:null,
+      dataStudentUpdated:null
     };
   },
   computed: {
@@ -65,9 +66,27 @@ export default {
         .then((resp) => {
           
           if (resp.data.status === true) {
-            this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
-            // this.$store.state.infoUserConnected = this.$store.state.infoUserConnected;
-            this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
+            
+        console.log("getInfoUser25",resp.data.user)
+        const statutUser = resp.data.user.user.statut.statut
+        if(statutUser === 'entreprise'){
+        this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
+        this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
+        console.log("COMPANY_INFOS",resp.data.user) 
+        }
+        if(statutUser === 'etudiant'){
+          resp.data.user.qualifications.map(item=>{
+            return {
+              date_debut:item.date_debut.split(' ')[0],
+              date_fin:item.date_fin.split(' ')[0],
+              objet:item.objet,
+              detail:item.detail
+            }
+          });
+          this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
+          
+          console.log("STUDENT_INFOS",resp.data.user) 
+          }
             // console.log("this.emails_cc",this.emails_cc)
           }
         })
@@ -102,6 +121,7 @@ export default {
       // console.log("COMPANY_UPDATE",this.$store.state.infoUserConnected)
     },
     async updateInfoStudent(Etudiants) {
+      console.log("updateInfoStudent",Etudiants)
       const data = await this.update_compte_student({
         nom: Etudiants.nom,
         email: Etudiants.email,
@@ -113,7 +133,7 @@ export default {
         bio: Etudiants.bio,
         diplome: Etudiants.diplome,
         titreCv: Etudiants.titreCv,
-        qualifications: this.itemsQualificationDynamicInput,
+        // qualifications: Etudiants.qualifications,
         competences: Help.retirerIdIntoArrayCompetence(Etudiants.competences),
       });
       // console.log("DATA UPDATE STUDENT",data)
@@ -126,22 +146,14 @@ export default {
      
       if (this.$store.state.infoUserConnected.user.statut.statut === "entreprise") {
         this.updateInfoEntreprise(payload);
-          // await this.getInfoUser();
+    
       } else if (this.$store.state.infoUserConnected.user.statut.statut === "particulier") {
-        // const data = {
-        //   commune: payload.commune,
-        //   contact: payload.contact,
-        //   nom: payload.nom,
-        //   particulier_prenoms: payload.particulier_prenoms,
-        //   quartier: payload.quartier,
-        //   email: payload.email,
-        // };
-        // console.log("updateInfoParticulier", data);
+        
         this.update_compte_particulier(payload);
           await this.getInfoUser();
       } else {
         this.updateInfoStudent(payload);
-          await this.getInfoUser();
+          // await this.getInfoUser();
       }
     
     },
@@ -323,7 +335,7 @@ export default {
         </div>
       </div>
       <section v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Compétences</label>
             <VueMultiselect
@@ -339,7 +351,7 @@ export default {
             >
             </VueMultiselect>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Dernier diplôme academique</label>
@@ -414,48 +426,77 @@ export default {
           />
         </div>
       </div>
-      <div
+      <!-- <div
         class="col-md-12"
         v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
       >
         <div class="my-3">
           <label class="form-label">Qualifications</label>
-          <n-dynamic-input
-            v-model:value="itemsQualificationDynamicInput"
-            :on-create="onCreateQualification"
-          >
-            <template #create-button-default>
-              <slot name="create-button">Ajouter des qualifications</slot>
-            </template>
-            <template #default="{ value }">
-              <div
-                style="
-                  display: flex;
-                  align-items: center;
-                  width: 100%;
-                  gap: 1em;
-                  flex-direction: column;
-                "
-              >
-                <div style="display: flex; width: 100%; gap: 1em">
-                  <input style="width: 100%" type="date" v-model="value.date_debut" />
-                  <p>À</p>
-                  <input style="width: 100%" type="date" v-model="value.date_fin" />
-                </div>
+           <n-dynamic-input
+              v-model:value="this.$store.state.infoUserConnected.qualifications"
+              :on-create="onCreateQualification"
+            >
+              
+              <template #create-button-default>
+                <slot name="create-button"> Ajouter des qualifications </slot>
+              </template>
 
-                <textarea
-                  id="msg"
-                  name="msg"
-                  maxlength="300"
-                  style="width: 100%; border-radius: 5px; padding: 1em"
-                  placeholder="Détails (max 300 caractères)"
-                  v-model="value.detail"
-                ></textarea>
-              </div>
-            </template>
-          </n-dynamic-input>
+            
+              <template #default="{ value }">
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    gap: 1em;
+                    flex-direction: column;
+                  "
+                >
+                  <div style="width: 100%">
+                    <label for="objet">Titre (Ex:commercial)</label>
+                    <input
+                      type="text"
+                      class="input_class"
+                      id="objet"
+                      v-model="value.objet"
+                    />
+                  </div>
+
+                  <div style="width: 100%">
+                    <label for="periode">Période</label>
+                    <div style="display: flex; gap: 1em; align-items: center">
+                      <input
+                        type="date"
+                        class="input_class"
+                        id="periode"
+                        
+                        v-model="value.date_debut"
+                      />
+                      <p>À</p>
+                      <input type="date" 
+                      :min="value.date_debut"
+                      class="input_class" v-model="value.date_fin" />
+                    </div>
+                  </div>
+                  <div style="width: 100%;">
+                    <label for="description">Description (max 300 caractères)</label>
+                    <textarea
+                      maxlength="300"
+                      id="description"
+                      style="
+                        width: 100%;
+                        border-radius: 5px;
+                        padding: 0.5em;
+                        border: 1px solid gray;
+                      "
+                      v-model="value.detail"
+                    ></textarea>
+                  </div>
+                </div>
+              </template>
+            </n-dynamic-input>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="text-right">
       <button
@@ -472,6 +513,12 @@ export default {
   </div>
 </template>
 <style scoped>
+.input_class {
+  width: 100%;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
 :deep(.n-input__input-el:hover) {
   color: orange !important;
 }

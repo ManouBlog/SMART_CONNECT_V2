@@ -98,6 +98,7 @@ export default {
     handleModalInfo(payload = null) {
       // console.log("handleModalInfo", payload);
       if (payload) {
+        console.log("this.$store.state.infoUserConnected",this.$store.state.infoUserConnected)
         this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: true });
       } else {
         this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: true });
@@ -288,18 +289,7 @@ export default {
         >
           {{ infoBioStudent }}
         </p>
-        <!-- <p
-          v-else
-          style="
-            text-align: justify;
-            padding: 0.4em;
-            font-weight: bold;
-            background: #80808085;
-            border-radius: 10px;
-          "
-        >
-          Écrivez quelques mots sur vous...
-        </p> -->
+        
       </div>
       <section class="my-5">
         <div class="row">
@@ -361,8 +351,8 @@ export default {
           </div>
         </div>
       </section>
-      <p style="color: orange; font-weight: bold">Compétences :</p>
-      <section v-if="infoPersonellesCompetences.length" class="conteneur-flex">
+      <!-- <p style="color: orange; font-weight: bold">Compétences :</p> -->
+      <!-- <section v-if="infoPersonellesCompetences.length" class="conteneur-flex">
         <div
           v-for="(item, index) in infoPersonellesCompetences"
           :key="index"
@@ -373,9 +363,9 @@ export default {
       </section>
       <section v-else>
         <h4 class="p-5">Pas de compétences</h4>
-      </section>
-      <p style="color: orange; font-weight: bold">Qualifications :</p>
-      <section v-if="infoPersonellesQualifications.length" class="conteneur-flex">
+      </section> -->
+      <!-- <p style="color: orange; font-weight: bold">Qualifications :</p> -->
+      <!-- <section v-if="infoPersonellesQualifications.length" class="conteneur-flex">
         <div v-for="(item, index) in infoPersonellesQualifications" :key="index">
           <div style="display: flex; align-items: center; gap: 1em">
             <div
@@ -393,10 +383,10 @@ export default {
             {{ item.detail }}
           </p>
         </div>
-      </section>
-      <section v-else>
+      </section> -->
+      <!-- <section v-else>
         <h4 class="p-5">Pas de qualifications</h4>
-      </section>
+      </section> -->
       <section class="my-5 text-center">
         <Buttons
           :elmentsOfBtn="elmentsOfBtn"
@@ -430,7 +420,6 @@ export default {
               <div class="mb-3">
                 <label class="form-label">Nouveau mot de passe</label>
                 <a-input-password v-model:value="nouveau_password" />
-                <!-- <input v-model="nouveau_password" class="form-control" type="password" /> -->
               </div>
             </div>
 
@@ -438,11 +427,7 @@ export default {
               <div class="mb-3">
                 <label class="form-label">Confirmation du nouveau mot de passe</label>
                 <a-input-password v-model:value="confirmation_password" />
-                <!-- <input
-                  v-model="confirmation_password"
-                  class="form-control"
-                  type="password"
-                /> -->
+                
               </div>
             </div>
           </div>

@@ -217,17 +217,54 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
     this.pieceIdentiteGerant?.forEach(element => {
       data.append("carte[]", element);
     });
+   if(payload?.nom !== null && payload?.nom !== 'null'){
+   data.append("nom", payload?.nom);
+   }
+if (payload?.prenoms != null && payload?.prenoms !== 'null') {
+  data.append("prenoms", payload.prenoms);
+}
 
-    data.append("nom", payload?.nom);
-    data.append("prenoms", payload?.prenoms);
-    data.append("email", payload?.email);
-    data.append("bio", payload?.bio);
-    data.append("diplome", payload?.diplome);
-    data.append("commune", payload?.commune);
-    data.append("quartier", payload?.quartier);
-    data.append("phone", payload?.contact);
-    data.append("ville", payload?.ville);
-    data.append("titreCv", payload?.titreCv);
+if (payload?.email != null && payload?.email !== 'null') {
+  data.append("email", payload.email);
+}
+
+if (payload?.bio != null && payload?.bio !== 'null') {
+  data.append("bio", payload.bio);
+}
+
+if (payload?.diplome != null && payload?.diplome !== 'null') {
+  data.append("diplome", payload.diplome);
+}
+
+if (payload?.commune != null && payload?.commune !== 'null') {
+  data.append("commune", payload.commune);
+}
+
+if (payload?.quartier != null && payload?.quartier !== 'null') {
+  data.append("quartier", payload.quartier);
+}
+
+if (payload?.contact != null && payload?.contact !== 'null') {
+  data.append("phone", payload.contact);
+}
+
+if (payload?.ville != null && payload?.ville !== 'null') {
+  data.append("ville", payload.ville);
+}
+
+if (payload?.titreCv != null && payload?.titreCv !== 'null') {
+  data.append("titreCv", payload.titreCv);
+}
+
+    // data.append("prenoms", payload?.prenoms);
+    // data.append("email", payload?.email);
+    // data.append("bio", payload?.bio);
+    // data.append("diplome", payload?.diplome);
+    // data.append("commune", payload?.commune);
+    // data.append("quartier", payload?.quartier);
+    // data.append("phone", payload?.contact);
+    // data.append("ville", payload?.ville);
+    // data.append("titreCv", payload?.titreCv);
   }
 
   try {
