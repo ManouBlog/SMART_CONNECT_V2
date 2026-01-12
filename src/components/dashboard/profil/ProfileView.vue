@@ -248,10 +248,11 @@ export default {
       // console.log(this.photo);
     },
     seeMessageUploadProfil() {
-  const infoUser = JSON.parse(localStorage.getItem('user')) || {}
-  const competences = Array.isArray(infoUser.competences) ? infoUser.competences : []
-  const qualifications = Array.isArray(infoUser.qualifications) ? infoUser.qualifications : []
-  const jours = Array.isArray(infoUser.jours) ? infoUser.jours : []
+      this.$store.dispatch("getInfoUser")
+  const infoUser = this.$store.state.infoUserConnected;
+  const competences =  infoUser.competences;
+  const qualifications = infoUser.qualifications;
+  const jours = infoUser.jours;
 
   let message = ''
 
