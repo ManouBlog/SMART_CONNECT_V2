@@ -55,7 +55,7 @@ export default {
       spinner: false,
       experience: null,
       spinnerExperience: false,
-      spinnerModifyExperience: false,
+      spinnerModifyQualification: false,
       comp: [],
       competence: null,
       comfirmationForDeleteQualifications: false,
@@ -67,15 +67,15 @@ export default {
       poste: null,
       entreprise: null,
       MyExperiences: [],
-      toogleModifyExperience: false,
+      toogleModifyQualifications: false,
       updateExperience: {},
-      idExperience: null,
+      idQualification: null,
       idQualificationAtDelete: null,
       toogleScreenYouWantDelete: false,
       fileProofAttestation: null,
       spinnerCompetence: false,
       userQualifications: "",
-      itemQualification: "",
+      itemQualification: [],
       itemsQualificationDynamicInput: [],
     };
   },
@@ -167,51 +167,58 @@ export default {
           console.log(error);
         });
     },
-    chosenOneExperience(id) {
-      this.spinnerModifyExperience = true;
-      this.toogleModifyExperience = !this.toogleModifyExperience;
-      this.idExperience = id;
-      this.itemQualification = this.userQualifications?.qualifications?.find(
+    chosenQualifications(id) {
+      let elements = []
+      this.itemQualification=[];
+      this.spinnerModifyQualification = true;
+      this.toogleModifyQualifications = !this.toogleModifyQualifications;
+      this.idQualification = id;
+       elements = this.userQualifications?.qualifications?.find(
         (item) => item.id === id
       );
-      // console.log("itemQualification", this.itemQualification);
+      this.itemQualification.push({
+        date_debut:elements.date_debut.split(' ')[0],
+        date_fin:elements.date_fin.split(' ')[0],
+        objet:elements.objet,
+        detail:elements.detail,
+        id:elements.id
+      })
+      console.log("this.itemQualification", this.itemQualification);
     },
-    toogleExperience() {
-      this.idExperience = null;
-      this.toogleModifyExperience = !this.toogleModifyExperience;
+    toogleQualifications() {
+      this.idQualification = null;
+      this.toogleModifyQualifications = !this.toogleModifyQualifications;
     },
-    changeExperience() {
+    changeQualifications() {
+      loadingSpinner.launchLoading(true);
       let formData = new FormData();
-      formData.append("experience", this.updateExperience.experience);
-      formData.append("lieu", this.updateExperience.lieu);
-      formData.append("dateDebut", this.updateExperience.dateDebut);
-      formData.append("dateFin", this.updateExperience.dateFin);
-      formData.append("poste", this.updateExperience.poste);
-      formData.append("entreprise", this.updateExperience.entreprise);
-      formData.append("proof", this.fileProofAttestation);
-      this.spinnerModifyExperience = true;
-      // // console.log(this.updateExperience.experience);
+       this.itemQualification.forEach((item) => {
+        formData.append("qualifications[]", JSON.stringify(item));
+      });
+      this.spinnerModifyQualification = true;
+      console.log("this.itemQualification",this.itemQualification);
       instance
-        .post("modifyExperience/" + this.idExperience, formData)
+        .post("updateQualification",formData)
         .then((response) => {
           if (response.data.status === true) {
-            this.getAllExperiences();
+            this.getInfoUser();
             Swal.fire({
               icon: "success",
               title: response.data.message,
               showConfirmButton: false,
               timer: 1500,
             });
-            this.toogleModifyExperience = !this.toogleModifyExperience;
-            this.spinnerModifyExperience = false;
+            this.toogleModifyQualifications = !this.toogleModifyQualifications;
           }
-          if (response.data.status === false) {
-            this.spinnerModifyExperience = false;
-          }
+         
         })
         .catch((err) => {
-          this.spinnerModifyExperience = false;
+       
           console.log(err);
+        })
+        .finally(() => {
+          this.getInfoUser();
+          loadingSpinner.launchLoading(false);
         });
     },
     deleteMyQualification() {
@@ -270,7 +277,7 @@ export default {
     this.texte6 = await this.handleTranslate("Fichier");
     this.texte7 = await this.handleTranslate("Description");
     this.texte8 = await this.handleTranslate("Enregistrer");
-    this.texte9 = await this.handleTranslate("Modifier l'experience");
+    this.texte9 = await this.handleTranslate("Modifier la qualification");
     this.texte10 = await this.handleTranslate("Poste");
     this.texte11 = await this.handleTranslate("Nom de l'entreprise");
     this.texte12 = await this.handleTranslate("Lieu");
@@ -423,59 +430,86 @@ export default {
         </form> -->
       </div>
     </div>
-    <div class="add_nouvelle_experience" v-show="toogleModifyExperience">
-      <div class="conteneur_nouvelle_experience" v-if="itemQualification">
+    <div class="add_nouvelle_experience" v-show="toogleModifyQualifications">
+      <div class="conteneur_nouvelle_experience" v-if="itemQualification.length">
         <div class="conteneur-experience">
-          <em class="bi bi-x-lg" @click="toogleExperience"></em>
+          <em class="bi bi-x-lg" @click="toogleQualifications"></em>
           <div class="h1">
             <h1>{{ texte9 }}</h1>
           </div>
         </div>
-        <form @submit.prevent="changeExperience">
+        <form @submit.prevent="changeQualifications">
           <div class="my-3">
-            <label class="form-label">Qualifications</label>
-            <n-dynamic-input
-              v-model:value="itemsQualificationDynamicInput"
-              :on-create="onCreateQualification"
-            >
-              <template #create-button-default>
-                <slot name="create-button">Ajouter des qualifications</slot>
-              </template>
-              <template #default="{ value }">
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-                    gap: 1em;
-                    flex-direction: column;
-                  "
-                >
-                  <div style="display: flex; width: 100%; gap: 1em">
-                    <input style="width: 100%" type="date" v-model="value.date_debut" />
-                    <p>À</p>
-                    <input style="width: 100%" type="date" v-model="value.date_fin" />
-                  </div>
+            <n-dynamic-input 
+            :max="1"
+            :min="1"
+            v-model:value="itemQualification"
+             :on-create="onCreateQualification">
+        <!-- Bouton ajouter -->
+        <template #create-button-default>
+          <slot name="create-button"> Ajouter des qualifications </slot>
+        </template>
 
-                  <textarea
-                    id="msg"
-                    name="msg"
-                    maxlength="300"
-                    style="width: 100%; border-radius: 5px; padding: 1em"
-                    placeholder="Détails (max 300 caractères)"
-                    v-model="value.detail"
-                  ></textarea>
-                </div>
-              </template>
-            </n-dynamic-input>
+        <!-- Contenu d’un item -->
+        <template #default="{ value }">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              width: 100%;
+              gap: 1em;
+              flex-direction: column;
+              margin-top:2em;
+            "
+          >
+            <div style="width: 100%">
+              <label for="objet"><span style="color:red;">*</span> Titre (Ex:commercial)</label>
+              <input type="text" class="input_class" id="objet" v-model="value.objet" />
+            </div>
+
+            <div style="width: 100%">
+              <label for="periode"><span style="color:red;">*</span> Période</label>
+              <div style="display: flex; gap: 1em; align-items: center">
+                <input
+                  type="date"
+                  class="input_class"
+                  id="periode"
+                  v-model="value.date_debut"
+                />
+                <p>À</p>
+                <input 
+                type="date"
+
+                 class="input_class" 
+                 :min="value.date_debut"
+                v-model="value.date_fin" 
+                />
+              </div>
+            </div>
+            <div style="width: 100%">
+              <label for="description"> <span style="color:red;">*</span> Description (max 300 caractères)</label>
+              <textarea
+                maxlength="300"
+                id="description"
+                style="
+                  width: 100%;
+                  border-radius: 5px;
+                  padding: 0.5em;
+                  border: 1px solid gray;
+                "
+                v-model="value.detail"
+              ></textarea>
+            </div>
+          </div>
+        </template>
+      </n-dynamic-input>
           </div>
           <div class="text-center">
             <button
               type="submit"
-              :disabled="spinnerModifyExperience ? true : false"
               class="btn btn-warning"
             >
-              {{ spinnerModifyExperience ? "Loading..." : "Modifier" }}
+           Modifier
             </button>
           </div>
         </form>
@@ -538,6 +572,10 @@ export default {
                       v-for="(item, index) in paginatedQualifications"
                       :key="index"
                     >
+                    <em
+                        class="bi bi-pencil position-absolute"
+                        @click="chosenQualifications(item.id)"
+                      ></em>
                       <em
                         class="bi bi-trash3 position-absolute"
                         @click="ToogleShowDelete(item.id)"
@@ -717,12 +755,14 @@ textarea {
 }
 .bi-trash3 {
   right: 0;
-  top: 1em;
+  top: 0.5em;
+  font-size:1.3em;
   cursor: pointer;
 }
 .bi-pencil {
   right: 1.7em;
-  top: 0;
+  top: 0.5em;
+  font-size:1.3em;
   cursor: pointer;
 }
 ul {
