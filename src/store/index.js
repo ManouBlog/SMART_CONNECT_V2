@@ -8,6 +8,7 @@ export default createStore({
     token: JSON.parse(localStorage.getItem("token")) || '',
     charte:false,
     whistListPerson:[],
+    tabsActive:1,
     colorHeart:false,
     colorForlikePerson:false,
     compteUser:false,
@@ -25,6 +26,9 @@ export default createStore({
         Second_heure_end_to:null
   },
   mutations: {
+    SET_TABS_CONNEXION(state,payloadNumber){
+     state.tabsActive = payloadNumber;
+    },
     SET_DATES(state, dates) {
       state.datesOfCalendar = dates;
     },

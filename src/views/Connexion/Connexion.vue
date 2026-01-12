@@ -23,7 +23,7 @@ export default {
       texte8: "",
       texte9: "",
       texte10: "",
-      tabsActive: 1,
+      // tabsActive: 1,
     };
   },
   computed: {
@@ -33,14 +33,15 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useRegisterStore, ["changeValueIsModal"]),
     seeTabsChange(value) {
-      this.tabsActive = value;
+      this.$store.commit('SET_TABS_CONNEXION',value)
+      // this.tabsActive = value;
     },
   },
   async created() {
     this.texte = await this.handleTranslate("Saisissez vos identifiants");
-    
+
     this.texte2 = await this.handleTranslate("Trouvez un emploi aujourd'hui");
-    
+
     this.texte4 = await this.handleTranslate("CONNEXION");
     this.texte5 = await this.handleTranslate("INSCRIPTION");
   },
@@ -50,17 +51,17 @@ export default {
   <a-modal
     :footer="null"
     v-model:open="isModal"
-     width="100%"
-      wrap-class-name="full-modal"
-    @cancel="()=>this.changeValueIsModal()"
-    @ok="()=>this.changeValueIsModal()"
+    width="100%"
+    wrap-class-name="full-modal"
+    @cancel="() => this.changeValueIsModal()"
+    @ok="() => this.changeValueIsModal()"
   >
     <div class="mycontent">
-      <div v-if="Number(tabsActive) === 1">
+      <div v-if="Number(this.$store.state.tabsActive) === 1">
         <h2 class="text-center" style="color: orange">{{ texte }}</h2>
         <!-- <span>{{ texte1 }}</span> -->
       </div>
-      <div v-if="Number(tabsActive) === 2">
+      <div v-if="Number(this.$store.state.tabsActive) === 2">
         <h2 class="text-center" style="color: orange">{{ texte2 }}</h2>
         <span>{{ texte3 }}</span>
       </div>

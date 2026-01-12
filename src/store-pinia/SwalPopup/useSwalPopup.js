@@ -8,7 +8,6 @@ export const useSwalPopup = defineStore('swalPopup',()=>{
             icon: statut,
             title: message,
             showConfirmButton: true,
-            // timer: 1500,
           });
      }
 

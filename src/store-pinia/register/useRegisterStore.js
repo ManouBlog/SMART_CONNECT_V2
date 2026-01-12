@@ -90,9 +90,17 @@ export const useRegisterStore = defineStore('register', {
             .post("list_users", data)
             .then((response) => {
               if (response.data.status === true) {
-                this.SWALPOPUP.declencheSwalPopup("success",response.data.message)
                 this.changeValueIsPolitics({value:false,infoUser:"",payload:""})
                 this.changeValueIsModal()
+                this.SWALPOPUP.declencheSwalPopup(
+  "success",
+  `${response.data.message}
+  
+Bienvenue parmi nous 🎉  
+Un email d’activation vient de vous être envoyé.
+Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre compte.`
+);
+                // this.SWALPOPUP.declencheSwalPopup("success",response.data.message)
               }
               if (response.data.status === false) {
                 this.SWALPOPUP.declencheSwalPopup("error",response.data.message)

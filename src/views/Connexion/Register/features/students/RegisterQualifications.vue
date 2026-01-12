@@ -16,15 +16,16 @@
               width: 100%;
               gap: 1em;
               flex-direction: column;
+              margin-top:2em;
             "
           >
             <div style="width: 100%">
-              <label for="objet">Titre (Ex:commercial)</label>
+              <label for="objet"><span style="color:red;">*</span> Titre (Ex:commercial)</label>
               <input type="text" class="input_class" id="objet" v-model="value.objet" />
             </div>
 
             <div style="width: 100%">
-              <label for="periode">Période</label>
+              <label for="periode"><span style="color:red;">*</span> Période</label>
               <div style="display: flex; gap: 1em; align-items: center">
                 <input
                   type="date"
@@ -33,11 +34,17 @@
                   v-model="value.date_debut"
                 />
                 <p>À</p>
-                <input type="date" class="input_class" v-model="value.date_fin" />
+                <input 
+                type="date"
+
+                 class="input_class" 
+                 :min="value.date_debut"
+                v-model="value.date_fin" 
+                />
               </div>
             </div>
             <div style="width: 100%">
-              <label for="description">Description (max 300 caractères)</label>
+              <label for="description"> <span style="color:red;">*</span> Description (max 300 caractères)</label>
               <textarea
                 maxlength="300"
                 id="description"

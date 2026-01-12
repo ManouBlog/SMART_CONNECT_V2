@@ -6,9 +6,9 @@ import { useRegisterStore } from "../../store-pinia/register/useRegisterStore";
 const registerStore = useRegisterStore();
 
 // Méthodes
-const registerTalent = () => {
+const registerTalent = async() => {
   // console.log("props.payload", registerStore.payload);
-  registerStore.registerStudent(registerStore.payload);
+  await registerStore.registerStudent(registerStore.payload);
 };
 
 const registerEntreprise = () => {
