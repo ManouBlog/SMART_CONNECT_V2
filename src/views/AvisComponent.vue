@@ -38,16 +38,37 @@
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import instance from '../api/api';
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { useLoadingSpinner } from '../store-pinia/LoadingSpinner/useLoadingSpinner';
 const rating = ref(0);
+const router = useRouter();
 const comment = ref('');
 const submitted = ref(false);
 const loadingSpinner = useLoadingSpinner();
+const vuexStore = useStore();
+
+
 // Fonction pour définir la note
 const setRating = (star) => {
   rating.value = star;
 };
 
+function verifUserProfilEtudiantComplet() {
+  // Charger l'utilisateur et attendre la fin
+   vuexStore.dispatch("getInfoUser");
+
+  const user = vuexStore.state.infoUserConnected;
+  console.log("USER",user)
+  if(user.user.statut.statut === 'etudiant'){
+  if (!user.competences.length || !user.qualifications.length || !user.jours.length) {
+    router.replace("/dashboard/profil");
+  }
+  }
+
+  
+}
+verifUserProfilEtudiantComplet();
 // Fonction pour soumettre l'avis
 const submitAvis = async() => {
   if (rating.value === 0) {

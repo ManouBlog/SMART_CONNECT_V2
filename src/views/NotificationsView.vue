@@ -81,6 +81,21 @@ async function getOffresInteressByStudent() {
     console.error("Erreur lors du chargement des offres :", error);
   }
 }
+  function verifUserProfilEtudiantComplet() {
+  // Charger l'utilisateur et attendre la fin
+   vuexStore.dispatch("getInfoUser");
+
+  const user = vuexStore.state.infoUserConnected;
+  console.log("USER",user)
+  if(user.user.statut.statut === 'etudiant'){
+  if (!user.competences.length || !user.qualifications.length || !user.jours.length) {
+    router.replace("/dashboard/profil");
+  }
+  }
+
+  
+}
+
 
 function voirDetailPostulants(nameOffre) {
   // On charge d'abord les offres
@@ -93,8 +108,11 @@ function voirDetailPostulants(nameOffre) {
   });
 }
 
+verifUserProfilEtudiantComplet()
+
 // === Lifecycle ===
 onMounted(async () => {
+  
   await Notifications.getListNotification();
   await getOffresInteressByStudent();
 });

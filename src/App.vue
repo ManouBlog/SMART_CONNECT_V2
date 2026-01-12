@@ -2,7 +2,7 @@
   <div>
     <!-- Si la date de lancement est passée, on montre le router-view -->
     <router-view v-if="isDatePassed" />
-
+     <!-- <updateProfiIfNot /> -->
     <!-- Sinon, on affiche le countdown -->
     <!-- <CountDownView v-else :targetDate="lancementDate" /> -->
   </div>
@@ -58,6 +58,7 @@
 <script>
 import axios from "axios";
 // import CountDownView from "./views/CountDownView.vue";
+
 import PromotionModal from "./components/PromotionModal.vue";
 import instance from "./api/api";
 
@@ -65,7 +66,6 @@ export default {
   name: "AppView",
   components: {
     //CountDownView,
-
     PromotionModal,
   },
   data() {
@@ -104,6 +104,18 @@ export default {
       },
       deep: true,
     },
+    // isUserEtudiant:{
+    //   handler(newValue, oldValue) {
+    //     console.log("newValue", { newValue, oldValue });
+    //     if (newValue) {
+    //       console.log("USER_INFO",this.$store.state.user)
+    //       if(!this.$store.state.user.competences.length){
+    //         this.$router.replace('/upated/infos_personnelle')
+    //       }
+    //         }
+    //   },
+    //   deep: true,
+    // }
   },
   methods: {
     async getAllOffresCreatedByEntreprise() {
@@ -218,6 +230,7 @@ export default {
     localStorage.setItem("translate", "fr");
     this.NbreEtudiantsInscritAndDoAbonnement();
     // this.getAllOffresCreatedByEntreprise();
+    console.log('USER_INFO',)
   },
 };
 </script>

@@ -92,7 +92,6 @@ const routes = [
     },
         component: () => import( '../views/timetable/timetable.vue')
       },
-     
       {
         path: '/DetailsOffre/:id',
         name: 'OffreDetail',

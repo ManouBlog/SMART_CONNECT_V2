@@ -580,8 +580,19 @@ export default {
       this.tab = !this.tab;
       this.isActive = !this.isActive;
     },
+    verifUserProfilEtudiantComplet() {
+      this.$store.dispatch("getInfoUser")
+  const user = this.$store.state.infoUserConnected;
+  console.log("USER_INFO",user)
+  if(user.user.statut.statut === 'etudiant'){
+if (!user.competences.length || !user.qualifications.length || !user.jours.length) {
+    this.$router.push('/dashboard/profil');
+   }
+  }
+}
   },
   async created() {
+    this.verifUserProfilEtudiantComplet();
     const { width } = useWindowSize();
     this.$watch(
       () => width.value,

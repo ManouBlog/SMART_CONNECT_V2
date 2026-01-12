@@ -263,9 +263,21 @@ export default {
         name: 'OffreDetail',
         params: { id }
       })
-    }
+    },
+      verifUserProfilEtudiantComplet() {
+      this.$store.dispatch("getInfoUser")
+  const user = this.$store.state.infoUserConnected;
+  console.log("USER_INFO",user)
+  if(user.user.statut.statut === 'etudiant'){
+if (!user.competences.length || !user.qualifications.length || !user.jours.length) {
+    this.$router.push('/dashboard/profil');
+   }
+  }
+  
+}
   },
   async created() {
+    this.verifUserProfilEtudiantComplet();
     this.texte = await this.handleTranslate(`Sélectionne un domaine`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
     this.texte2 = await this.handleTranslate("Ex:Lieu (Angré cocody)");

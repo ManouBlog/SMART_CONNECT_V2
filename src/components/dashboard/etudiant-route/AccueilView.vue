@@ -80,6 +80,18 @@ export default {
         this.filterOffreWithYear(year);
       }
     },
+    verifUserProfilEtudiantComplet() {
+      
+      this.$store.dispatch("getInfoUser")
+  const user = this.$store.state.infoUserConnected;
+  console.log("USER_INFO",user)
+  if(user.user.statut.statut === 'etudiant'){
+if (!user.competences.length || !user.qualifications.length || !user.jours.length) {
+    this.$router.push('/dashboard/profil');
+   }
+  }
+  
+}
   },
   computed: {
     ...mapState(useInfoStudentStore, ["statistiqueDashboard"]),
@@ -88,20 +100,15 @@ export default {
     ...mapState(useEntreprisesStore, ["student", "studentRecruit", "list_students"]),
   },
   async created() {
-    // this.get_all_student();
     if (this.$store.state.user.user.statut.statut !== "etudiant") {
       this.get_students_contact();
       this.get_offres_interess_by_student();
       this.getAllOffresCreatedByEntreprise();
+     
     }
+     this.verifUserProfilEtudiantComplet()
     this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
 
-    // // console.log(
-    //   "Personnels contactés",
-    //   configUtils.statistiqueEntreprise(this.student, 2)
-    // );
-    // // console.log("Personnels sélectionnés", this.offresInteressByStudents);
-    // // console.log("list_students", this.list_students);
     this.texte0 = await this.handleTranslate("Tableau de bord");
     this.texte1 = await this.handleTranslate(`Nombre d'offres postulées`);
     this.texte2 = await this.handleTranslate(`Offres en attente de réponse`);
@@ -112,6 +119,7 @@ export default {
     this.texte7 = await this.handleTranslate(`Candidatures rejetées`);
     this.texte8 = await this.handleTranslate(`Candidatures acceptées`);
     this.texte9 = await this.handleTranslate("Vous devez faire un abonnement");
+    
   },
 };
 </script>

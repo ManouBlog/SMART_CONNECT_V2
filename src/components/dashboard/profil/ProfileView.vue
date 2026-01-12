@@ -247,6 +247,37 @@ export default {
       this.photo = e.target.files[0];
       // console.log(this.photo);
     },
+    seeMessageUploadProfil() {
+  const infoUser = JSON.parse(localStorage.getItem('user')) || {}
+  const competences = Array.isArray(infoUser.competences) ? infoUser.competences : []
+  const qualifications = Array.isArray(infoUser.qualifications) ? infoUser.qualifications : []
+  const jours = Array.isArray(infoUser.jours) ? infoUser.jours : []
+
+  let message = ''
+
+  if (!competences.length && !qualifications.length && !jours.length) {
+    message = 'Veuillez renseigner vos compétences, qualifications et disponibilités pour continuer.'
+  } else if (!competences.length) {
+    message = 'Veuillez renseigner vos compétences pour continuer.'
+  } else if (!qualifications.length) {
+    message = 'Veuillez renseigner vos qualifications pour continuer.'
+  } else if (!jours.length) {
+    message = 'Veuillez renseigner vos disponibilités pour continuer.'
+  }
+
+  if (message) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Profil incomplet',
+      text: message,
+      // timer: 3000,
+      // timerProgressBar: true,
+      showConfirmButton: true
+    })
+  }
+},
+
+
     async getInfoUser() {
       await this.$store.dispatch("getInfoUser");
       console.log("this.$store.state.infoUserConnected",this.$store.state.infoUserConnected)
@@ -271,6 +302,7 @@ export default {
     this.texte14 = await this.handleTranslate("Prénoms :");
     this.texte15 = await this.handleTranslate("Formule d'abonnement");
     this.getInfoUser();
+    this.seeMessageUploadProfil();
   },
 };
 </script>
@@ -364,16 +396,15 @@ export default {
           </div>
         </TabPanel>
         <TabPanel
-          v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
+         
           header="Compétences et Expériences"
         >
-          <CompetencesAndExperience />
+          <CompetencesAndExperience  v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'" />
         </TabPanel>
         <TabPanel
-          v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
           header="Qualifications"
         >
-          <QualificationsStudent />
+          <QualificationsStudent v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'" />
         </TabPanel>
         <TabPanel :header="texte15">
           <MonPlanAbonnement />
