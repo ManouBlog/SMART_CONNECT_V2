@@ -1,7 +1,7 @@
 <script>
 import instance, { lienPhoto } from "../../../api/api";
 import Swal from "sweetalert2";
-import { Help } from "../../../utils";
+// import { Help } from "../../../utils";
 // import VueMultiselect from "vue-multiselect";
 import { useInfoPersonnel } from "../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { mapActions } from "pinia";
@@ -86,7 +86,7 @@ export default {
       this.fileProofAttestation = e.target.files[0];
     },
     onCreateQualification() {
-      return { detail: "", date_debut: new Date(), date_fin: new Date() };
+      return { detail: "", date_debut: new Date(), date_fin: new Date(), objet: "" };
     },
     showBoxConfirmationDeleteCompetences(id) {
       this.comfirmationForDeleteQualifications = !this
@@ -101,26 +101,58 @@ export default {
     addNouvelExperience() {
       this.toogleNouvelleExperience = !this.toogleNouvelleExperience;
     },
-    saveQualification() {
-      const saveReturnQualification = this.update_compte_student({
-        nom: this.userQualifications.nom,
-        email: this.userQualifications.email,
-        prenoms: this.userQualifications.prenoms,
-        commune: this.userQualifications.commune,
-        quartier: this.userQualifications.quartier,
-        contact: this.userQualifications.phone,
-        ville: this.userQualifications.ville,
-        bio: this.userQualifications.bio,
-        diplome: this.userQualifications.diplome,
-        qualifications: this.itemsQualificationDynamicInput,
-        competences: Help.retirerIdIntoArrayCompetence(
-          this.userQualifications.competences
-        ),
+    async saveQualification() {
+      loadingSpinner.launchLoading(true);
+      let data = new FormData();
+
+      this.itemsQualificationDynamicInput?.forEach((element) => {
+        data.append("qualifications[]", JSON.stringify(element));
       });
-      this.getInfoUser();
-      if (saveReturnQualification) {
-        this.toogleNouvelleExperience = !this.toogleNouvelleExperience;
+      try {
+        const res = await instance.post("addQualifications", data);
+        if (res.data.status === true) {
+          this.getInfoUser();
+          Swal.fire({
+            icon: "success",
+            title: res.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.toogleNouvelleExperience = false;
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: res.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.toogleNouvelleExperience = true;
+        }
+      } catch (err) {
+        console.log(err);
+        throw err; // optionnel mais propre
+      } finally {
+        loadingSpinner.launchLoading(false);
       }
+      // const saveReturnQualification = this.update_compte_student({
+      //   nom: this.userQualifications.nom,
+      //   email: this.userQualifications.email,
+      //   prenoms: this.userQualifications.prenoms,
+      //   commune: this.userQualifications.commune,
+      //   quartier: this.userQualifications.quartier,
+      //   contact: this.userQualifications.phone,
+      //   ville: this.userQualifications.ville,
+      //   bio: this.userQualifications.bio,
+      //   diplome: this.userQualifications.diplome,
+      //   qualifications: this.itemsQualificationDynamicInput,
+      //   competences: Help.retirerIdIntoArrayCompetence(
+      //     this.userQualifications.competences
+      //   ),
+      // });
+      // this.getInfoUser();
+      // if (saveReturnQualification) {
+      //   this.toogleNouvelleExperience = !this.toogleNouvelleExperience;
+      // }
     },
     async getInfoUser() {
       await instance
@@ -253,7 +285,7 @@ export default {
     this.texte19 = await this.handleTranslate(
       "Voulez-vous vraiment supprimer la qualification ?"
     );
-    this.texte20 = await this.handleTranslate("Mes qualifications");
+
     this.texte21 = await this.handleTranslate("Ajouter");
     this.texte22 = await this.handleTranslate("Compétences");
     this.texte23 = await this.handleTranslate("Action");
@@ -274,11 +306,78 @@ export default {
             class="bi bi-x-lg"
             @click="toogleNouvelleExperience = !toogleNouvelleExperience"
           ></em>
-          <div class="p-3">
+          <div style="padding: 1.1em">
             <h3 class="title_experience">{{ texte0 }}</h3>
           </div>
         </div>
         <form @submit.prevent="saveQualification">
+          <div class="my-3">
+            <n-dynamic-input
+              v-model:value="itemsQualificationDynamicInput"
+              :on-create="onCreateQualification"
+            >
+              <!-- Bouton ajouter -->
+              <template #create-button-default>
+                <slot name="create-button"> Ajouter des qualifications </slot>
+              </template>
+
+              <!-- Contenu d’un item -->
+              <template #default="{ value }">
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    gap: 1em;
+                    flex-direction: column;
+                  "
+                >
+                  <div style="width: 100%">
+                    <label for="objet">Titre (Ex:commercial)</label>
+                    <input
+                      type="text"
+                      class="input_class"
+                      id="objet"
+                      v-model="value.objet"
+                    />
+                  </div>
+
+                  <div style="width: 100%">
+                    <label for="periode">Période</label>
+                    <div style="display: flex; gap: 1em; align-items: center">
+                      <input
+                        type="date"
+                        class="input_class"
+                        id="periode"
+                        v-model="value.date_debut"
+                      />
+                      <p>À</p>
+                      <input type="date" class="input_class" v-model="value.date_fin" />
+                    </div>
+                  </div>
+                  <div style="width: 100%">
+                    <label for="description">Description (max 300 caractères)</label>
+                    <textarea
+                      maxlength="300"
+                      id="description"
+                      style="
+                        width: 100%;
+                        border-radius: 5px;
+                        padding: 0.5em;
+                        border: 1px solid gray;
+                      "
+                      v-model="value.detail"
+                    ></textarea>
+                  </div>
+                </div>
+              </template>
+            </n-dynamic-input>
+          </div>
+          <div class="text-center" v-if="itemsQualificationDynamicInput.length">
+            <button type="submit" class="btn btn-warning">{{ texte8 }}</button>
+          </div>
+        </form>
+        <!-- <form @submit.prevent="saveQualification">
           <div class="my-3">
             <n-dynamic-input
               v-model:value="itemsQualificationDynamicInput"
@@ -318,7 +417,7 @@ export default {
           <div class="text-center" v-if="itemsQualificationDynamicInput.length">
             <button type="submit" class="btn btn-warning">{{ texte8 }}</button>
           </div>
-        </form>
+        </form> -->
       </div>
     </div>
     <div class="add_nouvelle_experience" v-show="toogleModifyExperience">
@@ -400,7 +499,9 @@ export default {
       <div class="ecran_for_delete delete_article" v-show="toogleScreenYouWantDelete">
         <div class="card p-5">
           <p class="h3 my-2">{{ texte19 }}</p>
-          <div style="display:flex;justify-content:center;align-items:center;gap:1em;">
+          <div
+            style="display: flex; justify-content: center; align-items: center; gap: 1em"
+          >
             <button class="btn bg-warning" @click="deleteMyQualification">
               {{ texte17 }}
             </button>
@@ -469,6 +570,9 @@ export default {
                             ).toLocaleDateString()}`
                           }}
                         </h6>
+                        <span class="text-start ms-2">
+                          {{ item.objet }}
+                        </span>
                         <p class="text-start ms-2">
                           {{ item.detail }}
                         </p>
@@ -502,7 +606,12 @@ export default {
   </section>
 </template>
 <style scoped>
-
+.input_class {
+  width: 100%;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
 button {
   border-radius: 5px;
 }
@@ -515,6 +624,12 @@ button {
   flex-wrap: wrap;
   gap: 1em;
   margin: 1em 0;
+}
+:deep(.n-button:not(.n-button--disabled):active) {
+  color: orange !important;
+}
+:deep(.n-button:not(.n-button--disabled):hover) {
+  color: orange !important;
 }
 :deep(input) {
   padding: 0.5em;
@@ -558,7 +673,7 @@ textarea {
 .conteneur_editor {
   border: 1px solid black;
   color: black !important;
- padding: 0 1em;
+  padding: 0 1em;
   border-radius: 5px;
 }
 .add_nouvelle_experience {
@@ -729,14 +844,17 @@ p {
   font-size: 1em !important;
 }
 @media (max-width: 768px) {
-  form{
-  padding:1em;
-}
+  form {
+    padding: 1em;
+  }
   .conteneur_nouvelle_experience {
     width: 95%;
   }
   .title_experience {
     font-size: 1.3em !important;
+  }
+  :deep(.n-dynamic-input .n-dynamic-input-item) {
+    display: block;
   }
 }
 </style>

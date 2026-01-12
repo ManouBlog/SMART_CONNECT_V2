@@ -50,9 +50,8 @@ export default {
   <a-modal
     :footer="null"
     v-model:open="isModal"
-     :width="'100vw'"
-  :style="{ top: '0', padding: 0 }"
-  wrap-class-name="fullscreen-modal"
+     width="100%"
+      wrap-class-name="full-modal"
     @cancel="()=>this.changeValueIsModal()"
     @ok="()=>this.changeValueIsModal()"
   >
@@ -77,6 +76,22 @@ export default {
   </a-modal>
 </template>
 <style scoped>
+:deep(.full-modal .ant-modal) {
+  max-width: 100%;
+  top: 0;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+:deep(.full-modal .ant-modal-content) {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+:deep(.full-modal .ant-modal-body) {
+  flex: 1;
+}
 :deep(.fullscreen-modal .ant-modal) {
   max-width: 100vw;
   height: 90vh;

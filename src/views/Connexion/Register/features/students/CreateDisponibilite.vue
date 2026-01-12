@@ -102,9 +102,6 @@ export default {
     };
   },
   methods: {
-    // ...mapActions(useDisponibiliteStore, ["createdDisponiblite"]),
-    // ...mapActions(useTranslateStore, ["handleTranslate"]),
-    // ...mapActions(useLoadingSpinner, ["launchLoading"]),
     show_modify() {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = null;
@@ -531,7 +528,7 @@ export default {
       <div>
         <div class="container-fluid">
           <div>
-            <section style="display: flex; justify-content: center; margin-bottom: 1em">
+            <!-- <section style="display: flex; justify-content: center; margin-bottom: 1em">
               <select
                 class="w-50 my-5"
                 style="padding: 0.5em; border-radius: 10px"
@@ -544,7 +541,7 @@ export default {
                 <option value="Horaire">Plage Horaire</option>
                 <option value="Periode">Période</option>
               </select>
-            </section>
+            </section> -->
             <section
               class="d-flex justify-content-center align-items-center"
               style="flex-wrap: wrap"
@@ -699,6 +696,10 @@ export default {
   </div>
 </template>
 <style scoped>
+.form-control{
+border:1px solid gray !important;
+height:40px;
+}
 .container-fluid {
   padding: 1em !important;
 }

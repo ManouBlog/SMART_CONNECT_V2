@@ -58,8 +58,11 @@ export const useRegisterStore = defineStore('register', {
            payload.jour.forEach((item) => {
             data.append("jour[]", item);
           });
+          payload.qualifications.forEach((item) => {
+            data.append("qualifications[]", JSON.stringify(item));
+          });
           data.append("nom", payload.nom);
-          //  data.append("jour", payload.datesOfCalendar);
+          
            data.append("First_horaire", payload.First_horaire);
            data.append("Second_horaire", payload.Second_horaire);
            data.append("totalHour", payload.totalHour);
@@ -80,6 +83,7 @@ export const useRegisterStore = defineStore('register', {
           data.append("photo_profil", payload.photo_profil);
           data.append("bio", payload.bio);
           data.append("titreCv", payload.titreCv);
+          // data.append("qualifications", payload.qualifications);
           // data.append("appareil", "iphone x");
           // data.append("token_push", "xhdf58ehhf85shdhe8554shedhe545shdh");
          await instance

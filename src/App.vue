@@ -222,9 +222,7 @@ export default {
 };
 </script>
 <style>
-:where(.css-dev-only-do-not-override-17yhhjv).ant-modal .ant-modal-content {
-  padding: 0 20px !important;
-}
+
 :where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus {
   border-color: orange !important;
 }
