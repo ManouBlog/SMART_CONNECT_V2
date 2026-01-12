@@ -278,7 +278,7 @@ export default {
     this.texte14 = await this.handleTranslate("Ajouter un fichier");
     this.texte15 = await this.handleTranslate("Description (facultatif)");
     this.texte16 = await this.handleTranslate(
-      "Voulez-vous vraiment supprimer la compétence?"
+      "Voulez-vous vraiment supprimer la qualification?"
     );
     this.texte17 = await this.handleTranslate("Supprimer");
     this.texte18 = await this.handleTranslate("Annuler");
@@ -306,12 +306,12 @@ export default {
             class="bi bi-x-lg"
             @click="toogleNouvelleExperience = !toogleNouvelleExperience"
           ></em>
-          <div style="padding: 1.1em">
+          <div style="padding: 1em;">
             <h3 class="title_experience">{{ texte0 }}</h3>
           </div>
         </div>
         <form @submit.prevent="saveQualification">
-          <div class="my-3">
+          <div class="my-3" >
             <n-dynamic-input
               v-model:value="itemsQualificationDynamicInput"
               :on-create="onCreateQualification"
@@ -349,13 +349,16 @@ export default {
                         type="date"
                         class="input_class"
                         id="periode"
+                        
                         v-model="value.date_debut"
                       />
                       <p>À</p>
-                      <input type="date" class="input_class" v-model="value.date_fin" />
+                      <input type="date" 
+                      :min="value.date_debut"
+                      class="input_class" v-model="value.date_fin" />
                     </div>
                   </div>
-                  <div style="width: 100%">
+                  <div style="width: 100%;">
                     <label for="description">Description (max 300 caractères)</label>
                     <textarea
                       maxlength="300"
@@ -539,27 +542,10 @@ export default {
                         class="bi bi-trash3 position-absolute"
                         @click="ToogleShowDelete(item.id)"
                       ></em>
-                      <!-- <em
-                        class="bi bi-pencil position-absolute"
-                        @click="chosenOneExperience(item.id)"
-                      ></em> -->
+                      
                       <div class="rond position-absolute"></div>
                       <div class="contenteur_experience">
-                        <!-- <div class="proof_experience" v-if="item.proof">
-                          <n-image width="100" :src="lienPhoto + item.proof" />
-                        </div> -->
-                        <!-- <h3 class="text-start">
-                          {{ item.entreprise }}
-                        </h3> -->
-                        <!-- <h6 class="text-start ms-2 fw-bold">
-                          <span class="badge bg-warning text-light fw-bold">{{
-                            item.poste
-                          }}</span>
-                        </h6> -->
-                        <!-- <p>
-                          <em class="bi bi-geo-alt"></em>
-                          {{ item.lieu }}
-                        </p> -->
+                        
                         <h6 class="text-start ms-2">
                           <em class="bi bi-calendar-date"></em>
                           {{
@@ -570,7 +556,7 @@ export default {
                             ).toLocaleDateString()}`
                           }}
                         </h6>
-                        <span class="text-start ms-2">
+                        <span style="font-weight:bold;color:gray;">
                           {{ item.objet }}
                         </span>
                         <p class="text-start ms-2">
@@ -606,6 +592,10 @@ export default {
   </section>
 </template>
 <style scoped>
+:deep(.n-dynamic-input-item){
+border-bottom:0.5px solid #d9d9d9; 
+padding: 1em 0;
+}
 .input_class {
   width: 100%;
   padding: 0.5em;
@@ -708,6 +698,7 @@ textarea {
   color: crimson;
   font-weight: bold;
   font-size: 1.5em;
+  top:0.6em;
   cursor: pointer;
 }
 .rond {
@@ -726,7 +717,7 @@ textarea {
 }
 .bi-trash3 {
   right: 0;
-  top: 0;
+  top: 1em;
   cursor: pointer;
 }
 .bi-pencil {

@@ -387,12 +387,12 @@ export default {
             class="bi bi-x-lg"
             @click="toogleNouvelleExperience = !toogleNouvelleExperience"
           ></em>
-          <div class="p-3">
+          <div style="padding: 1em;">
             <h2>{{texte0}}</h2>
           </div>
         </div>
         <form @submit.prevent="saveExperience">
-          <div class="row p-5">
+          <div class="row p-5 mt-3">
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <label>
                 <span style="color:red">*</span>
@@ -531,7 +531,7 @@ export default {
       >
         <div class="card p-5">
           <p class="h3 my-2">{{texte16}}</p>
-          <div style="display:flex;gap:1em;">
+          <div style="display:flex;gap:1em;justify-content:center;">
             <button class="btn bg-warning m-2 border-0" @click="deleteMyCompetence">
               {{texte17}}
             </button>
@@ -727,7 +727,7 @@ button{
   }
 :deep(input){
   padding:0.5em;
-  border:1px solid orange;
+  border:1px solid rgb(161, 161, 161);
   border-radius: 5px !important;
 }
 :deep(.multiselect__input){
@@ -760,7 +760,7 @@ textarea {
 }
 
 textarea {
-  border: 2px solid orange;
+  border: 2px solid rgb(161, 161, 161);
   border-radius: 5px;
 }
 
@@ -799,7 +799,7 @@ textarea {
 .bi-x-lg {
   position: absolute;
   right: 1em;
-
+  top:0.6em;
   color: crimson;
   font-weight: bold;
   font-size: 1.5em;
