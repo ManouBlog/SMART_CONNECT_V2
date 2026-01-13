@@ -247,3 +247,12 @@ export default {
     </a-form-item>
   </a-form>
 </template>
+<style scoped>
+@media (min-width: 768px) {
+  :deep(.ant-form-item) {
+    width: 50%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+</style>

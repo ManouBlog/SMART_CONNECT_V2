@@ -407,12 +407,20 @@ watch: {
 
     <!-- STEP 3 -->
     <div v-show="currentStep === 2">
+     
       <a-form-item
         :label="texte8"
         name="diplome"
         :rules="[{ required: true, message: texte13 }]"
       >
-        <a-input v-model:value="formState.diplome" />
+        <a-select v-model:value="formState.diplome" placeholder="Sélectionnez un diplôme">
+    <a-select-option value="BTS">BTS (Brevet de Technicien Supérieur)</a-select-option>
+    <a-select-option value="DUT">DUT (Diplôme Universitaire de Technologie)</a-select-option>
+    <a-select-option value="DTS">DTS (Diplôme de Technicien Supérieur)</a-select-option>
+    <a-select-option value="LICENCE">LICENCE</a-select-option>
+    <a-select-option value="MASTER">MASTER</a-select-option>
+    <a-select-option value="DOCTORAT">DOCTORAT</a-select-option>
+  </a-select>
       </a-form-item>
       <RegisterQualifications
       @update:modelValue="handleQualifications"
