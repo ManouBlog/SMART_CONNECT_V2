@@ -59,7 +59,7 @@ export default {
         ville: "",
         commune: "",
         quartier: "",
-        diplome: "",
+        diplome: "BTS",
         myCompetence: [],
         photo: null,
         upload: [],
@@ -485,6 +485,9 @@ watch: {
   </a-form>
 </template>
 <style scoped>
+  ::where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
+    height:39px !important;
+  }
 :deep(.multiselect__tag) {
   background: orange;
 }
