@@ -833,6 +833,20 @@ td {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.303);
 }
 @media (max-width: 768px) {
+    .form-control {
+    min-height: 48px;       /* zone tactile */
+    font-size: 1rem;        /* lisibilité */
+    padding: 0.75em;
+  }
+
+  label {
+    font-size: 0.9rem;
+    margin-bottom: 0.25em;
+  }
+
+  .conteneur-horaire {
+    width: 100%;
+  }
   .w-50 {
     width: 100% !important;
   }
