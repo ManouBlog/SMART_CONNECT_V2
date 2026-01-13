@@ -92,8 +92,6 @@ async function getOffresInteressByStudent() {
     router.replace("/dashboard/profil");
   }
   }
-
-  
 }
 
 
@@ -112,7 +110,6 @@ verifUserProfilEtudiantComplet()
 
 // === Lifecycle ===
 onMounted(async () => {
-  
   await Notifications.getListNotification();
   await getOffresInteressByStudent();
 });

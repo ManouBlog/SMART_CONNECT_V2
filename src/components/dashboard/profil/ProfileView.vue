@@ -314,7 +314,7 @@ export default {
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="page-body">
       <!-- {{ JSON.stringify(this.$store.state.infoUserConnected,null,2) }} -->
-      <TabView>
+      <TabView v-if="this.$store.state.infoUserConnected">
         <TabPanel :header="texte1">
           <div>
             <InfoEntreprise
@@ -397,15 +397,16 @@ export default {
           </div>
         </TabPanel>
         <TabPanel
-         
+        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
           header="Compétences et Expériences"
         >
-          <CompetencesAndExperience  v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'" />
+          <CompetencesAndExperience   />
         </TabPanel>
         <TabPanel
+        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
           header="Qualifications"
         >
-          <QualificationsStudent v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'" />
+          <QualificationsStudent  />
         </TabPanel>
         <TabPanel :header="texte15">
           <MonPlanAbonnement />
