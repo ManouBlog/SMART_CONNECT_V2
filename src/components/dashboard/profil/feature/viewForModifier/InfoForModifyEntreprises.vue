@@ -453,7 +453,7 @@ export default {
                   "
                 >
                   <div style="width: 100%">
-                    <label for="objet">Titre (Ex:commercial)</label>
+                    <label for="objet">Diplôme</label>
                     <input
                       type="text"
                       class="input_class"

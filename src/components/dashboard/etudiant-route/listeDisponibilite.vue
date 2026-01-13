@@ -616,7 +616,7 @@ if (!user.competences.length || !user.qualifications.length || !user.jours.lengt
     this.texte6 = await this.handleTranslate("Premier plage horaire");
     this.texte7 = await this.handleTranslate(`Heure de début`);
     this.texte8 = await this.handleTranslate(`Heure de fin`);
-    this.texte9 = await this.handleTranslate(`Deuxieme plage horaire`);
+    this.texte9 = await this.handleTranslate(`Deuxième sélection`);
     this.texte10 = await this.handleTranslate("Heure de début");
     this.texte11 = await this.handleTranslate("Heure de début");
     this.texte12 = await this.handleTranslate("Heure de fin");

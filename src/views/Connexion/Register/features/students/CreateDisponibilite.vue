@@ -496,15 +496,15 @@ export default {
     let date = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     this.getJourInMonth = date;
     this.texte0 = "Planifier une disponibilité";
-    this.texte1 = `Première plage horaire`;
+    this.texte1 = `Première sélection`;
     this.texte2 = "Heure de début";
     this.texte3 = `Heure de fin`;
-    this.texte4 = "Deuxieme plage horaire";
+    this.texte4 = "Deuxième sélection";
     this.texte5 = "Heure de début";
     this.texte6 = "Heure de fin";
     this.texte7 = `Veuillez sélectionner une date`;
     this.texte8 = `Enregistrer`;
-    this.texte9 = `Deuxieme plage horaire`;
+    this.texte9 = `Deuxième sélection`;
     this.texte10 = "Heure de début";
     this.texte11 = "Heure de début";
     this.texte12 = "Heure de fin";
@@ -596,9 +596,7 @@ export default {
             <div class="form theme-form">
               <div>
                 <section v-if="handleHoraire === 'Horaire'">
-                  <h5 class="text-start text-warning">{{ texte1 }}</h5>
-
-                  <!-- Premier créneau : heure début / heure fin -->
+                  <h5 class="text-start text-warning"><span style="color:red;">*</span>{{ texte1 }}</h5>
                   <div class="col-lg-6">
                     <div class="mb-3 conteneur-horaire">
                       <label class="d-block">{{ texte2 }}</label>
@@ -624,7 +622,7 @@ export default {
                         type="time"
                         class="form-control mt-1"
                         :disabled="this.$store.state.datesOfCalendar.length === 0"
-                        :min="First_heure_start_from?.format('HH:mm')"
+                        :min="First_heure_start_from"
                         :value="
                           First_heure_end_to ? First_heure_end_to.format('HH:mm') : ''
                         "

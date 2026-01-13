@@ -80,6 +80,9 @@ export default {
      getFirstHeureStartFrom() {
     return this.$store.state.First_heure_start_from;
   },
+   getTableauDays() {
+    return this.$store.state.datesOfCalendar;
+  },
   getFirstHeureFinFrom(){
    return this.$store.state.First_heure_end_to;
   },
@@ -93,13 +96,13 @@ export default {
 
     // chaque qualification doit avoir une date_debut
     return this.formState.qualifications.some(
-      (q) => !q.date_debut || !q.date_fin || !q.detail || !q.objet
+      (q) => !q.date_debut || !q.date_fin || !q.objet
     );
   }
 
   // STEP 3 – Disponibilités
   if (this.currentStep === 3) {
-    return !this.getFirstHeureStartFrom || !this.getFirstHeureFinFrom;
+    return !this.getFirstHeureStartFrom || !this.getFirstHeureFinFrom || !this.getTableauDays.length;
   }
 
   // Autres steps
@@ -112,10 +115,10 @@ export default {
     0: ["nom", "prenoms", "phone", "email"],
 
     // STEP 1 – Profil & compétences
-    1: ["diplome", "myCompetence"],
+    1: ["myCompetence"],
 
     // STEP 2 – Qualifications
-    2: ["qualifications"],
+    2: ["qualifications","diplome"],
 
     // // STEP 3 – Disponibilités
     // 3: ["disponibiliteValid"],
@@ -149,9 +152,13 @@ watch: {
   'getFirstHeureFinFrom': {
     handler(value) {
       console.log("value qualifications", value);
-      // if(value){
-      //   this.formState.disponibiliteValid = true;
-      // }
+      
+    },
+    immediate: true, // si tu veux déclencher au montage
+  },
+  'getTableauDays':{
+     handler(value) {
+      console.log("TableauDays", value);
     },
     immediate: true, // si tu veux déclencher au montage
   }
@@ -292,9 +299,9 @@ watch: {
     this.texte4 = await this.handleTranslate("Commune");
     this.texte5 = await this.handleTranslate("Quartier");
     this.texte6 = await this.handleTranslate("Email");
-    this.texte7 = await this.handleTranslate("Compétences");
+    this.texte7 = await this.handleTranslate("Compétences (plusieurs choix sont possibles)");
     this.texte8 = await this.handleTranslate("Dernier diplôme academique");
-    this.texte9 = await this.handleTranslate("Carte étudiant");
+    this.texte9 = await this.handleTranslate("Carte étudiant(.jpeg,.pdf,.png)");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
     this.texte12 = await this.handleTranslate("Mot de passe requis");
@@ -312,12 +319,12 @@ watch: {
 
   <a-steps :current="currentStep" class="mb-4">
     <a-step
-      title="Informations personnelles"
+      title="Profil"
       description="Renseignez vos informations de base pour créer votre compte."
     />
     <a-step
-      title="Profil & compétences"
-      description="Décrivez votre parcours et sélectionnez vos compétences."
+      title="Compétences"
+      description="Sélectionnez vos compétences."
     />
      <a-step 
      title="Qualifications"
@@ -376,6 +383,9 @@ watch: {
       >
         <a-input v-model:value="formState.email" />
       </a-form-item>
+      <a-form-item label="Biographie – résumé de votre profil">
+        <a-textarea v-model:value="formState.bio" :maxlength="300" />
+      </a-form-item>
     </div>
 
     <!-- STEP 2 -->
@@ -387,12 +397,16 @@ watch: {
         <VueMultiselect
           v-model="formState.myCompetence"
           :options="allCompetences"
+          placeholder="Choix multiples"
           :multiple="true"
           label="competence"
           track-by="competence"
         />
       </a-form-item>
+    </div>
 
+    <!-- STEP 3 -->
+    <div v-show="currentStep === 2">
       <a-form-item
         :label="texte8"
         name="diplome"
@@ -400,14 +414,6 @@ watch: {
       >
         <a-input v-model:value="formState.diplome" />
       </a-form-item>
-
-      <a-form-item label="Bio">
-        <a-textarea v-model:value="formState.bio" :maxlength="300" />
-      </a-form-item>
-    </div>
-
-    <!-- STEP 3 -->
-    <div v-show="currentStep === 2">
       <RegisterQualifications
       @update:modelValue="handleQualifications"
       />
@@ -429,9 +435,10 @@ watch: {
       <a-form-item
         name="upload"
         :label="texte9"
+        
         :rules="[{ required: true, message: texte96 }]"
       >
-        <a-upload v-model:fileList="formState.upload" :maxCount="2">
+        <a-upload v-model:fileList="formState.upload" multiple :maxCount="2">
           <a-button> Clique pour charger </a-button>
         </a-upload>
       </a-form-item>

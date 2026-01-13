@@ -382,7 +382,7 @@ export default {
       </div>
       <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
       <p style="text-align: center; color: red">
-        Les champs en astérisque (*) sont obligatoires.
+        Les champs avec astérisque (*) sont obligatoires.
       </p>
       <div>
         <form @submit.prevent="create_offre" class="container">

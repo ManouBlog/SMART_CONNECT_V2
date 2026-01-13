@@ -340,7 +340,7 @@ export default {
                   "
                 >
                   <div style="width: 100%">
-                    <label for="objet">Titre (Ex:commercial)</label>
+                    <label for="objet">Diplôme</label>
                     <input
                       type="text"
                       class="input_class"
@@ -463,7 +463,7 @@ export default {
             "
           >
             <div style="width: 100%">
-              <label for="objet"><span style="color:red;">*</span> Titre (Ex:commercial)</label>
+              <label for="objet"><span style="color:red;">*</span> Diplôme</label>
               <input type="text" class="input_class" id="objet" v-model="value.objet" />
             </div>
 

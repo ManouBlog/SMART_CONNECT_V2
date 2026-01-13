@@ -20,7 +20,7 @@
             "
           >
             <div style="width: 100%">
-              <label for="objet"><span style="color:red;">*</span> Titre (Ex:commercial)</label>
+              <label for="objet"><span style="color:red;">*</span> Diplôme ou certification obtenue</label>
               <input type="text" class="input_class" id="objet" v-model="value.objet" />
             </div>
 
@@ -44,7 +44,7 @@
               </div>
             </div>
             <div style="width: 100%">
-              <label for="description"> <span style="color:red;">*</span> Description (max 300 caractères)</label>
+              <label for="description">Description (max 300 caractères)</label>
               <textarea
                 maxlength="300"
                 id="description"

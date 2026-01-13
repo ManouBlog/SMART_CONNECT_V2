@@ -60,7 +60,7 @@ export default {
 <template>
   <a-form :layout="'vertical'" name="basic">
     <div style="padding: 0.5em 0; text-align: center; color: red">
-      Les champs en astérisque (*) sont obligatoires
+      Les champs avec astérisque (*) sont obligatoires
     </div>
     <div>
       <span class="fw-bold">{{ texte0 }}</span>
