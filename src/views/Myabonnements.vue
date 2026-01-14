@@ -180,8 +180,11 @@ export default {
   const user = this.$store.state.infoUserConnected;
   console.log("USER_INFO",user)
   if(user.user.statut.statut === 'etudiant'){
-if (!user.competences.length || !user.qualifications.length || !user.jours.length) {
+if (!user.competences.length || !user.qualifications.length) {
     this.$router.push('/dashboard/profil');
+   }
+   if(!user.jours.length){
+    this.$router.push('/dashboard/emploi_du_temps');
    }
   }
 }

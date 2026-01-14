@@ -340,7 +340,7 @@ export default {
                   "
                 >
                   <div style="width: 100%">
-                    <label for="objet">Diplôme</label>
+                    <label for="objet">Diplôme ou certification obtenue</label>
                     <input
                       type="text"
                       class="input_class"

@@ -61,9 +61,12 @@ function verifUserProfilEtudiantComplet() {
   const user = vuexStore.state.infoUserConnected;
   console.log("USER",user)
   if(user.user.statut.statut === 'etudiant'){
-  if (!user.competences.length || !user.qualifications.length || !user.jours.length) {
+  if (!user.competences.length || !user.qualifications.length) {
     router.replace("/dashboard/profil");
   }
+  if(!user.jours.length){
+    this.$router.push('/dashboard/emploi_du_temps');
+   }
   }
 
   

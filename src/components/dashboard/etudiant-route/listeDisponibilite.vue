@@ -585,14 +585,36 @@ export default {
   const user = this.$store.state.infoUserConnected;
   console.log("USER_INFO",user)
   if(user.user.statut.statut === 'etudiant'){
-if (!user.competences.length || !user.qualifications.length || !user.jours.length) {
+if (!user.competences.length || !user.qualifications.length) {
     this.$router.push('/dashboard/profil');
    }
+   if(!user.jours.length){
+    this.$router.push('/dashboard/emploi_du_temps');
+   }
   }
-}
+},
+async seeMessageUploadProfil() {
+  let message = ''
+
+  if (!this.$store.state.infoUserConnected.qualifications.length) {
+    message = 'Veuillez renseigner vos qualifications pour continuer.'
+  }
+
+  if (message) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Profil incomplet',
+      text: message,
+      // timer: 3000,
+      // timerProgressBar: true,
+      showConfirmButton: true
+    })
+  }
+},
   },
   async created() {
     this.verifUserProfilEtudiantComplet();
+    this.seeMessageUploadProfil()
     const { width } = useWindowSize();
     this.$watch(
       () => width.value,
@@ -608,7 +630,7 @@ if (!user.competences.length || !user.qualifications.length || !user.jours.lengt
     let date = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     this.getJourInMonth = date;
     this.texte = await this.handleTranslate("Mes Disponibilités");
-    this.texte1 = await this.handleTranslate(`Voulez-vous vraiment supprimer?`);
+    this.texte1 = await this.handleTranslate(`Voulez-vous vraiment supprimer cette disponibilité?`);
     this.texte2 = await this.handleTranslate("Supprimer");
     this.texte3 = await this.handleTranslate(`Annuler`);
     this.texte4 = await this.handleTranslate("Modifier l'emploi du temps");
@@ -641,7 +663,7 @@ if (!user.competences.length || !user.qualifications.length || !user.jours.lengt
     <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
       <div class="card p-5">
         <p class="h3 my-2" style="color: black">{{ texte1 }}</p>
-        <div>
+        <div style="display:flex;justify-content:center;gap:1em;">
           <button class="btn bg-warning" @click="delete_timetable">
             {{ texte2 }}
           </button>

@@ -5,164 +5,145 @@ import { mapActions, mapState } from "pinia";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useMenuMobile } from "../../../../store-pinia/MenuMobile/useMenuMobileStore";
 import { useNotificationsStore } from "../../../../store-pinia/useNotificationsStore";
+
 export default {
   name: "MenuMobileStudent",
-  components: {
-    LiensNavBar,
-  },
+  components: { LiensNavBar },
+
   data() {
     return {
       texte: "",
+      texte1: "",
       texte2: "",
       texte3: "",
-      texte1: "",
-      texte4: "",
       texte5: "",
       texte6: "",
       texte7: "",
-      texte8: "",
-      texte9: "",
-      texte10: "",
-      texte11: "",
-      texte12: "",
-      texte13: "",
-      texte14: "",
-      texte15: "",
-      texte16: "",
-      texte17: "",
-      texte18: "",
-      texte19: "",
-      texte20: "",
-      texte21: "",
-      texte22: "",
-      texte23: "",
-      texte24: "",
-      texte25: "",
-      texte26: "",
-      texte27: "",
       texte40: "",
     };
   },
+
   computed: {
     ...mapState(useNotificationsStore, ["unreadNotifications"]),
   },
+
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
     ...mapActions(useNotificationsStore, ["getListNotification"]),
+
+    async goTo(route) {
+      if (!route) return;
+  console.log("lancer1")
+      this.changeValueForshowMenuMobile();
+
+      await this.$store.dispatch("getInfoUser");
+      const userInfo = this.$store.state.infoUserConnected;
+    console.log("lancer25",userInfo)
+      if (!userInfo) return;
+
+      const qualifications = userInfo.qualifications || [];
+      const competences = userInfo.competences || [];
+      const disponibilites = userInfo.jours || [];
+
+      if (!qualifications.length || !competences.length) {
+        this.$router.push("/dashboard/profil");
+        console.log("lancer2")
+        return;
+      }
+
+      if (!disponibilites.length) {
+        this.$router.push("/dashboard/emploi_du_temps");
+         console.log("lancer3")
+        return;
+      }
+
+      this.$router.push(route);
+    },
+
     async seeMyNotifications() {
       try {
         const response = await instance.get("markAllAsRead");
-        if (response["status"] === 200) {
-          this.$router.push({
-            name: "notifications",
-          });
+        if (response.status === 200) {
           this.getListNotification();
+          this.goTo({ name: "notifications" });
         }
       } catch (error) {
         console.log(error);
-        // Swal.fire({
-        //   icon: "info",
-        //   title: error,
-        //   showConfirmButton: false,
-        //   timer: 3000,
-        // });
       }
     },
   },
+
   async created() {
     this.getListNotification();
     this.texte = await this.handleTranslate("Tableau de bord");
     this.texte1 = await this.handleTranslate("Mon profil");
     this.texte2 = await this.handleTranslate("Mes favoris");
     this.texte3 = await this.handleTranslate("Mes postulations");
-    // this.texte4 = await this.handleTranslate('Mes Contrats');
     this.texte40 = await this.handleTranslate("Entreprises intéressées");
-    this.texte5 = await this.handleTranslate(" Mes disponibilités");
-    this.texte6 = await this.handleTranslate(`Mes abonnements`);
+    this.texte5 = await this.handleTranslate("Mes disponibilités");
+    this.texte6 = await this.handleTranslate("Mes abonnements");
     this.texte7 = await this.handleTranslate("Déconnexion");
   },
 };
 </script>
+
 <template>
   <li class="position-absolute deconnex">
-    <router-link
-      to="/dashboard/accueil"
-      @click.prevent="changeValueForshowMenuMobile"
-      class="d-block"
-    >
+    <a class="d-block" @click="goTo('/dashboard/accueil')">
       {{ texte }}
-    </router-link>
+    </a>
   </li>
+
   <li class="position-absolute deconnex">
-    <router-link
-      @click.prevent="changeValueForshowMenuMobile"
-      to="/Notifications"
-      class="d-block"
-    >
+    <a class="d-block" @click="seeMyNotifications">
       Mes Notifications
-      <span v-if="this.unreadNotifications.length > 0" class="badge bg-danger">{{
-        this.unreadNotifications.length
-      }}</span>
-    </router-link>
+      <span
+        v-if="unreadNotifications.length > 0"
+        class="badge bg-danger"
+      >
+        {{ unreadNotifications.length }}
+      </span>
+    </a>
   </li>
+
   <LiensNavBar
-    @click.prevent="changeValueForshowMenuMobile"
     :texte="texte1"
     :route_lien="'profil'"
+    @click="changeValueForshowMenuMobile"
   />
-  <!-- <li>
-    <a href="#" @click.prevent="changeValueForshowMenuMobile" class="d-block lien">
-      {{texte2}}
-    </a>
-  </li> -->
-  <li class="position-absolute deconnex">
-    <router-link
-      @click.prevent="changeValueForshowMenuMobile"
-      to="/dashboard/entreprises_interessees"
-      class="d-block"
-    >
-      {{ texte40 }}
-    </router-link>
-  </li>
-  <li class="position-absolute deconnex">
-    <router-link
-      @click.prevent="changeValueForshowMenuMobile"
-      to="/dashboard/offre_postule"
-      class="d-block"
-    >
-      {{ texte3 }}
-    </router-link>
-  </li>
-  <!-- <li class="position-absolute deconnex">
-    <router-link to="/dashboard/contrat" class="d-block">
-      {{texte4}}
-    </router-link>
-  </li> -->
 
-  <!-- <li class="position-absolute deconnex">
-    <router-link to="/dashboard/certifications" class="d-block">
-      Mes certificats
-    </router-link>
-  </li>   -->
   <li class="position-absolute deconnex">
-    <router-link
-      @click.prevent="changeValueForshowMenuMobile"
-      to="/dashboard/emploi_du_temps"
-      class="d-block"
-    >
-      {{ texte5 }}
-    </router-link>
+    <a class="d-block" @click="goTo('/dashboard/entreprises_interessees')">
+      {{ texte40 }}
+    </a>
   </li>
-  <LiensNavBar :texte="texte6" :route_lien="'dashboard-abonnements'"
-  @click.prevent="changeValueForshowMenuMobile"
+
+  <li class="position-absolute deconnex">
+    <a class="d-block" @click="goTo('/dashboard/offre_postule')">
+      {{ texte3 }}
+    </a>
+  </li>
+
+  <li class="position-absolute deconnex">
+    <a class="d-block" @click="goTo('/dashboard/emploi_du_temps')">
+      {{ texte5 }}
+    </a>
+  </li>
+
+  <LiensNavBar
+    :texte="texte6"
+    :route_lien="'dashboard-abonnements'"
+    @click="changeValueForshowMenuMobile"
   />
+
   <li class="position-absolute">
-    <router-link @click.prevent="changeValueForshowMenuMobile" to="/avis" class="d-block">
+    <a class="d-block" @click="goTo('/avis')">
       Votre avis
-    </router-link>
+    </a>
   </li>
 </template>
+
 <style scoped>
 li {
   padding: 1em;

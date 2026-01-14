@@ -40,7 +40,7 @@ export default {
   >
     <CvStudent
       :isbtnPdf="this.isbtnPdf"
-      :nom="this.infoUserConnected?.user?.nom"
+      :nom="this.infoUserConnected?.user?.nom +' '+this.infoUserConnected?.user?.prenoms"
       :photo="this.infoUserConnected?.photo_profil ? lienPhoto + this.infoUserConnected?.photo_profil:null"
       :telephone="`${this.infoUserConnected?.phone}`"
       :email="this.infoUserConnected?.user?.email"

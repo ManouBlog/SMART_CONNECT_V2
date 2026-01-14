@@ -273,7 +273,7 @@ export default {
   if (!competences.length && !qualifications.length && !jours.length) {
     message = 'Veuillez renseigner vos compétences, qualifications et disponibilités pour continuer.'
   } else if (!competences.length) {
-    message = 'Veuillez renseigner vos compétences pour continuer.'
+    message = 'Veuillez renseigner vos compétences,qualifications pour continuer.'
   } else if (!qualifications.length) {
     message = 'Veuillez renseigner vos qualifications pour continuer.'
   } else if (!jours.length) {
