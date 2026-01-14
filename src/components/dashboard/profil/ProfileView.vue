@@ -262,7 +262,8 @@ export default {
     async seeMessageUploadProfil() {
       await this.$store.dispatch("getInfoUser");
       const infoUser = this.$store.state.infoUserConnected;
-      // const infoUser = await this.getInfoUser
+
+      if(infoUser.user.statut.statut === 'etudiant'){
       console.log("seeMessageUploadProfil", infoUser);
       const competences = infoUser.competences;
       const qualifications = infoUser.qualifications;
@@ -286,6 +287,8 @@ export default {
           showConfirmButton: true,
         });
       }
+      }
+      
     },
 
     async getInfoUser() {

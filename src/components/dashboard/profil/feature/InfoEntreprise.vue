@@ -214,7 +214,8 @@ export default {
                 item.libelle !== 'Registre :' &&
                 item.libelle !== 'Logo entreprise :' &&
                 item.libelle !== 'Pièce d\'identité :' &&
-                item.libelle !== 'Emails en copie :' 
+                item.libelle !== 'Emails en copie :'  &&
+                item.libelle !== 'Pièce du gérant'
               "
               class="fw-bold"
             >
@@ -240,11 +241,13 @@ export default {
                 :src="lienPhoto + piece.path"
               />
             </div>
+            
             <div v-if="item.libelle === 'Emails en copie :' && item.value"
             >
-            <ul>
+            <ul v-if="item.value[0].email_cc">
               <li class="my-3" v-for="(email_cc,index) in item.value" :key="index">- {{email_cc.email_cc}}</li>
             </ul>
+            <p v-else>Néant</p>
             </div>
 
             <div
@@ -280,7 +283,11 @@ export default {
             class="col-lg-4 col-sm-6"
           >
             <p style="color: orange">{{ item.libelle }}</p>
-            <h6 class="fw-bold" v-if="item.libelle !== 'Pièce d\'identité :'">
+            <h6 class="fw-bold" 
+            
+            
+            v-if="item.libelle !== 'Pièce d\'identité :' && 
+            item.libelle !== 'Pièce du gérant'">
               {{ item.value }}
             </h6>
             <div
@@ -298,6 +305,18 @@ export default {
               <span v-if="!item.value.length"
                 >Veuillez ajouter une pièce d'identité.</span
               >
+            </div>
+             <div
+              v-if="item.libelle === 'Pièce du gérant'"
+              style="display: flex; justify-content: flex-start"
+            >
+              <n-image
+                v-for="(piece, index) in item.value"
+                :key="index"
+                :alt="piece.path"
+                width="100"
+                :src="lienPhoto + piece.path"
+              />
             </div>
           </div>
         </div>
