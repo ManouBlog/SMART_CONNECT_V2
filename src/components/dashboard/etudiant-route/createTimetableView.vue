@@ -306,12 +306,12 @@ export default {
         TotalHourDisponi: TOTALHOURHORAIRE,
       })
 
-      // this.createdDisponiblite({
-      //   DateRendezVous: datesOfCalendar,
-      //   firstHoraire: FIRST_HORRAIRE,
-      //   secondHoraire: SECOND_HORRAIRE,
-      //   TotalHourDisponi: TOTALHOURHORAIRE,
-      // });
+      this.createdDisponiblite({
+        DateRendezVous: datesOfCalendar,
+        firstHoraire: FIRST_HORRAIRE,
+        secondHoraire: SECOND_HORRAIRE,
+        TotalHourDisponi: TOTALHOURHORAIRE,
+      });
     },
     show_timetable(id) {
       this.modify_timetable = !this.modify_timetable;

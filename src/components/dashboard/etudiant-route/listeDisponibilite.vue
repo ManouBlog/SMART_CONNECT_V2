@@ -580,41 +580,22 @@ export default {
       this.tab = !this.tab;
       this.isActive = !this.isActive;
     },
-    async verifUserProfilEtudiantComplet() {
-      await this.$store.dispatch("getInfoUser")
-  const user = this.$store.state.infoUserConnected;
-  console.log("USER_INFO",user)
-  if(user.user.statut.statut === 'etudiant'){
-if (!user.competences.length || !user.qualifications.length) {
-    this.$router.push('/dashboard/profil');
-   }
-   if(!user.jours.length){
-    this.$router.push('/dashboard/emploi_du_temps');
-   }
-  }
-},
-async seeMessageUploadProfil() {
-  let message = ''
+//     async verifUserProfilEtudiantComplet() {
+//       await this.$store.dispatch("getInfoUser")
+//   const user = this.$store.state.infoUserConnected;
+//   console.log("USER_INFO",user)
+//   if(user.user.statut.statut === 'etudiant'){
+// if (!user.competences.length || !user.qualifications.length) {
+//     this.$router.push('/dashboard/profil');
+//    }
+  
+//   }
+// },
 
-  if (!this.$store.state.infoUserConnected.qualifications.length) {
-    message = 'Veuillez renseigner vos qualifications pour continuer.'
-  }
-
-  if (message) {
-    Swal.fire({
-      icon: 'info',
-      title: 'Profil incomplet',
-      text: message,
-      // timer: 3000,
-      // timerProgressBar: true,
-      showConfirmButton: true
-    })
-  }
-},
   },
   async created() {
-    this.verifUserProfilEtudiantComplet();
-    this.seeMessageUploadProfil()
+    // this.verifUserProfilEtudiantComplet();
+    
     const { width } = useWindowSize();
     this.$watch(
       () => width.value,
