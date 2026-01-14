@@ -12,7 +12,7 @@ import RegisterQualifications from "./RegisterQualifications.vue";
 
 export default {
   name: "RegsiterStudents",
-  components: { VueMultiselect,Politics,CreateDisponibilite,RegisterQualifications},
+  components: { VueMultiselect, Politics, CreateDisponibilite, RegisterQualifications },
   data() {
     return {
       availabilityDates: [],
@@ -69,64 +69,68 @@ export default {
         email: "",
         password: "",
         countryCode: "+225",
-        qualifications:[],
-        disponibiliteValid:false
+        qualifications: [],
+        disponibiliteValid: false,
       },
     };
   },
 
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
-     getFirstHeureStartFrom() {
-    return this.$store.state.First_heure_start_from;
-  },
-   getTableauDays() {
-    return this.$store.state.datesOfCalendar;
-  },
-  getFirstHeureFinFrom(){
-   return this.$store.state.First_heure_end_to;
-  },
-  isNextDisabled() {
-  // STEP 2 – Qualifications
-  if (this.currentStep === 2) {
-    // au moins une qualification
-    if (!this.formState.qualifications.length) {
-      return true;
-    }
+    getFirstHeureStartFrom() {
+      return this.$store.state.First_heure_start_from;
+    },
+    getTableauDays() {
+      return this.$store.state.datesOfCalendar;
+    },
+    getFirstHeureFinFrom() {
+      return this.$store.state.First_heure_end_to;
+    },
+    isNextDisabled() {
+      // STEP 2 – Qualifications
+      if (this.currentStep === 2) {
+        // au moins une qualification
+        if (!this.formState.qualifications.length) {
+          return true;
+        }
 
-    // chaque qualification doit avoir une date_debut
-    return this.formState.qualifications.some(
-      (q) => !q.date_debut || !q.date_fin || !q.objet
-    );
-  }
+        // chaque qualification doit avoir une date_debut
+        return this.formState.qualifications.some(
+          (q) => !q.date_debut || !q.date_fin || !q.objet
+        );
+      }
 
-  // STEP 3 – Disponibilités
-  if (this.currentStep === 3) {
-    return !this.getFirstHeureStartFrom || !this.getFirstHeureFinFrom || !this.getTableauDays.length;
-  }
+      // STEP 3 – Disponibilités
+      if (this.currentStep === 3) {
+        return (
+          !this.getFirstHeureStartFrom ||
+          !this.getFirstHeureFinFrom ||
+          !this.getTableauDays.length
+        );
+      }
 
-  // Autres steps
-  return !this.isCurrentStepValid;
-},
+      // Autres steps
+      return !this.isCurrentStepValid;
+    },
 
     requiredFieldsByStep() {
-  return {
-    // STEP 0 – Infos personnelles
-    0: ["nom", "prenoms", "phone", "email"],
+      return {
+        // STEP 0 – Infos personnelles
+        0: ["nom", "prenoms", "phone", "email"],
 
-    // STEP 1 – Profil & compétences
-    1: ["myCompetence"],
+        // STEP 1 – Profil & compétences
+        1: ["myCompetence"],
 
-    // STEP 2 – Qualifications
-    2: ["qualifications","diplome"],
+        // STEP 2 – Qualifications
+        2: ["qualifications", "diplome"],
 
-    // // STEP 3 – Disponibilités
-    // 3: ["disponibiliteValid"],
+        // // STEP 3 – Disponibilités
+        // 3: ["disponibiliteValid"],
 
-    // STEP 4 – Validation finale
-    4: ["upload", "password"],
-  };
-},
+        // STEP 4 – Validation finale
+        4: ["upload", "password"],
+      };
+    },
     isCurrentStepValid() {
       const fields = this.requiredFieldsByStep[this.currentStep] || [];
 
@@ -141,28 +145,27 @@ export default {
       });
     },
   },
-watch: {
-  // Fonction qui retourne la valeur du store à observer
-  'getFirstHeureStartFrom': {
-    handler(value) {
-      console.log("value qualifications", value);
+  watch: {
+    // Fonction qui retourne la valeur du store à observer
+    getFirstHeureStartFrom: {
+      handler(value) {
+        console.log("value qualifications", value);
+      },
+      immediate: true, // si tu veux déclencher au montage
     },
-    immediate: true, // si tu veux déclencher au montage
+    getFirstHeureFinFrom: {
+      handler(value) {
+        console.log("value qualifications", value);
+      },
+      immediate: true, // si tu veux déclencher au montage
+    },
+    getTableauDays: {
+      handler(value) {
+        console.log("TableauDays", value);
+      },
+      immediate: true, // si tu veux déclencher au montage
+    },
   },
-  'getFirstHeureFinFrom': {
-    handler(value) {
-      console.log("value qualifications", value);
-      
-    },
-    immediate: true, // si tu veux déclencher au montage
-  },
-  'getTableauDays':{
-     handler(value) {
-      console.log("TableauDays", value);
-    },
-    immediate: true, // si tu veux déclencher au montage
-  }
-},
 
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -171,38 +174,36 @@ watch: {
       getCompetences: "getAllCompetences",
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
-    handleQualifications(payload){
-   console.log("handleQualifications",payload)
-   
-   this.formState.qualifications = payload;
+    handleQualifications(payload) {
+      console.log("handleQualifications", payload);
+
+      this.formState.qualifications = payload;
     },
-    
+
     nextStep() {
-      console.log("getFirstHeureStartFrom",this.getFirstHeureStartFrom)
-  if (this.currentStep === 2) {
-    const invalid = this.formState.qualifications.some(
-      (q) => !q.date_debut
-    );
+      console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
+      if (this.currentStep === 2) {
+        const invalid = this.formState.qualifications.some((q) => !q.date_debut);
 
-    if (invalid) {
-      this.SWALPOPUP.declencheSwalPopup(
-        "warning",
-        "Chaque qualification doit avoir une date de début"
-      );
-      return;
-    }
-  }
+        if (invalid) {
+          this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Chaque qualification doit avoir une date de début"
+          );
+          return;
+        }
+      }
 
-  if (this.currentStep !== 2 && !this.isCurrentStepValid) {
-    this.SWALPOPUP.declencheSwalPopup(
-      "warning",
-      "Veuillez remplir les champs requis avant de continuer"
-    );
-    return;
-  }
+      if (this.currentStep !== 2 && !this.isCurrentStepValid) {
+        this.SWALPOPUP.declencheSwalPopup(
+          "warning",
+          "Veuillez remplir les champs requis avant de continuer"
+        );
+        return;
+      }
 
-  this.currentStep++;
-},
+      this.currentStep++;
+    },
 
     prevStep() {
       if (this.currentStep > 0) {
@@ -260,14 +261,20 @@ watch: {
                 " A " +
                 this.$store.state.dateTime_fin.split("T")[0],
             ];
-            this.formState.First_horaire = this.$store.state.dateTime_debut.split("T")[1] + "-" + this.$store.state.dateTime_fin.split("T")[1];
-            this.formState.hour_periode_debut = this.$store.state.dateTime_debut.split("T")[1];
-            this.formState.hour_periode_fin = this.$store.state.dateTime_fin.split("T")[1];
+            this.formState.First_horaire =
+              this.$store.state.dateTime_debut.split("T")[1] +
+              "-" +
+              this.$store.state.dateTime_fin.split("T")[1];
+            this.formState.hour_periode_debut = this.$store.state.dateTime_debut.split(
+              "T"
+            )[1];
+            this.formState.hour_periode_fin = this.$store.state.dateTime_fin.split(
+              "T"
+            )[1];
             this.formState.periode = 1;
-             this.formState.periode_debut = this.$store.state.dateTime_debut.split("T")[0];
-             this.formState.periode_fin = this.$store.state.dateTime_fin.split("T")[0];
+            this.formState.periode_debut = this.$store.state.dateTime_debut.split("T")[0];
+            this.formState.periode_fin = this.$store.state.dateTime_fin.split("T")[0];
             this.formState.totalHour = 0;
-            
           }
           this.changeValueIsPolitics({
             value: true,
@@ -299,7 +306,9 @@ watch: {
     this.texte4 = await this.handleTranslate("Commune");
     this.texte5 = await this.handleTranslate("Quartier");
     this.texte6 = await this.handleTranslate("Email");
-    this.texte7 = await this.handleTranslate("Compétences (plusieurs choix sont possibles)");
+    this.texte7 = await this.handleTranslate(
+      "Compétences (plusieurs choix sont possibles)"
+    );
     this.texte8 = await this.handleTranslate("Dernier diplôme academique");
     this.texte9 = await this.handleTranslate("Carte étudiant(.jpeg,.pdf,.png)");
     this.texte10 = await this.handleTranslate("Mot de passe");
@@ -317,19 +326,23 @@ watch: {
 <template>
   <Politics v-if="isPolitics" />
 
-  <a-steps :current="currentStep" class="mb-4">
+  <a-steps
+    :style="{
+      color: 'orange',
+      boxShadow: '0px -1px 0 0 #e8e8e8 inset',
+    }"
+    :current="currentStep"
+    class="mb-4"
+  >
     <a-step
       title="Profil"
       description="Renseignez vos informations de base pour créer votre compte."
     />
+    <a-step title="Compétences" description="Sélectionnez vos compétences." />
     <a-step
-      title="Compétences"
-      description="Sélectionnez vos compétences."
+      title="Qualifications"
+      description="Ajoutez vos qualifications pour valoriser votre profil."
     />
-     <a-step 
-     title="Qualifications"
-     description="Ajoutez vos qualifications pour valoriser votre profil."
-     />
     <a-step
       title="Disponibilités"
       description="Indiquez vos créneaux horaires et les périodes où vous êtes disponible."
@@ -407,24 +420,27 @@ watch: {
 
     <!-- STEP 3 -->
     <div v-show="currentStep === 2">
-     
       <a-form-item
         :label="texte8"
         name="diplome"
         :rules="[{ required: true, message: texte13 }]"
       >
         <a-select v-model:value="formState.diplome" placeholder="Sélectionnez un diplôme">
-    <a-select-option value="BTS">BTS (Brevet de Technicien Supérieur)</a-select-option>
-    <a-select-option value="DUT">DUT (Diplôme Universitaire de Technologie)</a-select-option>
-    <a-select-option value="DTS">DTS (Diplôme de Technicien Supérieur)</a-select-option>
-    <a-select-option value="LICENCE">LICENCE</a-select-option>
-    <a-select-option value="MASTER">MASTER</a-select-option>
-    <a-select-option value="DOCTORAT">DOCTORAT</a-select-option>
-  </a-select>
+          <a-select-option value="BTS"
+            >BTS (Brevet de Technicien Supérieur)</a-select-option
+          >
+          <a-select-option value="DUT"
+            >DUT (Diplôme Universitaire de Technologie)</a-select-option
+          >
+          <a-select-option value="DTS"
+            >DTS (Diplôme de Technicien Supérieur)</a-select-option
+          >
+          <a-select-option value="LICENCE">LICENCE</a-select-option>
+          <a-select-option value="MASTER">MASTER</a-select-option>
+          <a-select-option value="DOCTORAT">DOCTORAT</a-select-option>
+        </a-select>
       </a-form-item>
-      <RegisterQualifications
-      @update:modelValue="handleQualifications"
-      />
+      <RegisterQualifications @update:modelValue="handleQualifications" />
     </div>
 
     <!-- STEP 4 -->
@@ -443,7 +459,6 @@ watch: {
       <a-form-item
         name="upload"
         :label="texte9"
-        
         :rules="[{ required: true, message: texte96 }]"
       >
         <a-upload v-model:fileList="formState.upload" multiple :maxCount="2">
@@ -485,9 +500,14 @@ watch: {
   </a-form>
 </template>
 <style scoped>
-  ::where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
-    height:39px !important;
-  }
+:deep(:where(.ant-steps-item-icon)){
+      background-color: #ff8819 !important;
+    border-color: #ff8819 !important;
+}
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input)
+    .ant-select-selector) {
+  height: 40px !important;
+}
 :deep(.multiselect__tag) {
   background: orange;
 }
