@@ -95,22 +95,11 @@ export default {
     v-model:filters="filters"
     :rowsPerPageOptions="[5, 10, 20, 50]"
   >
-    <!-- <template #empty>
-      <div class="empty-content">
-        <template v-if="hasError">
-          <i class="pi pi-exclamation-triangle text-warning"></i>
-          <p>Erreur de chargement des données</p>
-        </template>
-        <template v-if="isLoading">
-          <i class="pi pi-spin pi-spinner"></i>
-          <p>Chargement en cours...</p>
-        </template>
-        <template v-else>
-          <i class="pi pi-inbox"></i>
-          <p class="text-center">Aucune donnée disponible</p>
-        </template>
-      </div>
-    </template> -->
+      <template #empty>
+    <div class="text-center" style="padding:2em;font-weight:bold;">
+      Aucune donnée disponible
+    </div>
+  </template>
     <template #paginatorstart>
       <div
         style="display: flex; justify-content: flex-start; font-size: 1em; border: none"

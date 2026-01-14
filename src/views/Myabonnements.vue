@@ -13,6 +13,11 @@
         :value="list_abonnement"
         v-model:filters="filters"
       >
+      <template #empty>
+    <div class="text-center" style="padding:2em;font-weight:bold;">
+      Aucune donnée disponible
+    </div>
+  </template>
         <template #paginatorstart>
           <div
             style="

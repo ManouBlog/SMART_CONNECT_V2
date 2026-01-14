@@ -104,6 +104,11 @@ export default {
           :value="tableData"
           v-model:filters="filters"
         >
+        <template #empty>
+    <div class="text-center" style="padding:2em;font-weight:bold;">
+      Aucune donnée disponible
+    </div>
+  </template>
           <template #paginatorstart>
             <div
               style="
@@ -159,9 +164,6 @@ export default {
             </template>
           </Column>
         </DataTable>
-        <div v-if="!Object.keys(this.offresInteressByStudents).length">
-        <h1 class="not_data">Pas de donnée</h1>
-        </div>
       </div>
     </div>
     <!-- <LogoAnimations /> -->

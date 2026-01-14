@@ -513,6 +513,9 @@ export default {
           <MonPlanAbonnement />
         </TabPanel>
       </TabView>
+      <div v-else style="text-align:center;padding:2em;">
+      Chargement...
+      </div>
     </div>
   </section>
 </template>
