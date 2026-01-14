@@ -38,6 +38,7 @@
                 type="date"
 
                  class="input_class" 
+                 :disabled="!value.date_debut"
                  :min="value.date_debut"
                 v-model="value.date_fin" 
                 />

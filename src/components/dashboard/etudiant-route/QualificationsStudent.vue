@@ -362,6 +362,7 @@ export default {
                       <p>À</p>
                       <input type="date" 
                       :min="value.date_debut"
+                      :disabled="!value.date_debut"
                       class="input_class" v-model="value.date_fin" />
                     </div>
                   </div>
@@ -482,6 +483,7 @@ export default {
 
                  class="input_class" 
                  :min="value.date_debut"
+                 :disabled="!value.date_debut"
                 v-model="value.date_fin" 
                 />
               </div>
@@ -594,11 +596,11 @@ export default {
                             ).toLocaleDateString()}`
                           }}
                         </h6>
-                        <span style="font-weight:bold;color:gray;">
-                          {{ item.objet }}
+                        <span style="font-weight:bold;color:gray;" v-if="item.objet">
+                          Diplôme ou certification obtenue : {{ item.objet }}
                         </span>
-                        <p class="text-start ms-2">
-                          {{ item.detail }}
+                        <p class="text-start ms-2" v-if="item.detail">
+                          Détail : {{ item.detail }}
                         </p>
                       </div>
                     </div>
