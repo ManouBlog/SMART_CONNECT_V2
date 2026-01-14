@@ -3,7 +3,7 @@
     <div id="cv-content" class="cv-content">
       <!-- En-tête avec photo et infos personnelles -->
       <div class="header">
-        <div class="photo-placeholder">
+        <div class="photo-placeholder" v-if="photo">
           <img :src="photo" alt="Photo de profil" class="profile-photo" />
         </div>
         <div class="personal-info">
@@ -34,12 +34,23 @@
 
         <p>{{ description }}</p>
       </div>
+       <!-- Compétences -->
+      <div class="section" v-if="competences.length">
+        <h3>COMPÉTENCES</h3>
+        <ul style="padding: 0 1.5em">
+          <li v-for="(c, i) in competences" :key="i">{{ c.comp }}</li>
+        </ul>
+      </div>
       <!-- Qualifications -->
       <div class="section" v-if="qualifications.length">
         <h3>QUALIFICATIONS</h3>
-        <p v-for="(q, i) in qualifications" :key="i">
-          <strong>{{ q.periode }} :</strong> {{ q.detail }}
-        </p>
+        <ul style="padding: 0 1.5em">
+        <li v-for="(q, i) in qualifications" :key="i">
+          <span>{{ q.periode }}</span>
+          <span style="display:block;margin-bottom:0.5em">Diplome ou Certification : {{ q.objet }}</span>
+          <span style="display:block;margin-bottom:0.5em" v-if="q.detail">Détail :{{ q.detail }}</span>
+        </li>
+        </ul>
       </div>
       <!-- Expériences professionnelles -->
       <div class="section" v-if="experiences.length">
@@ -48,13 +59,7 @@
           <strong>{{ exp.periode }} :</strong> {{ exp.detail }}
         </p>
       </div>
-      <!-- Compétences -->
-      <div class="section" v-if="competences.length">
-        <h3>COMPÉTENCES</h3>
-        <ul style="padding: 0 1.5em">
-          <li v-for="(c, i) in competences" :key="i">{{ c.comp }}</li>
-        </ul>
-      </div>
+     
       <!-- Langues, centres d'intérêt et atouts -->
       <!-- <div class="bottom-sections">
         <div class="bottom-section" v-if="langues.length">
@@ -195,6 +200,7 @@ const downloadCV = async () => {
 
 .contact-info {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin-bottom: 20px;
   flex-wrap: wrap;

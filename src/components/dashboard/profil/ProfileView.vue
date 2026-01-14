@@ -247,9 +247,23 @@ export default {
       this.photo = e.target.files[0];
       // console.log(this.photo);
     },
-    seeMessageUploadProfil() {
-      this.$store.dispatch("getInfoUser")
+    //  async getInfoUser() {
+    //       await instance
+    //         .get("voirInfoUserConnect")
+    //         .then((resp) => {
+    //           if (resp.data.status === true) {
+    //             return resp.data.user;
+    //           }
+    //         })
+    //         .catch((error) => {
+    //           console.log(error);
+    //         });
+    //     },
+    async seeMessageUploadProfil() {
+      await this.$store.dispatch("getInfoUser")
   const infoUser = this.$store.state.infoUserConnected;
+  // const infoUser = await this.getInfoUser
+  console.log("seeMessageUploadProfil",infoUser)
   const competences =  infoUser.competences;
   const qualifications = infoUser.qualifications;
   const jours = infoUser.jours;

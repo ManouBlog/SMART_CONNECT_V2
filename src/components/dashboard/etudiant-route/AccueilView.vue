@@ -80,9 +80,8 @@ export default {
         this.filterOffreWithYear(year);
       }
     },
-    verifUserProfilEtudiantComplet() {
-      
-      this.$store.dispatch("getInfoUser")
+    async verifUserProfilEtudiantComplet() {
+      await this.$store.dispatch("getInfoUser")
   const user = this.$store.state.infoUserConnected;
   console.log("USER_INFO",user)
   if(user.user.statut.statut === 'etudiant'){

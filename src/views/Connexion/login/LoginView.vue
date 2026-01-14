@@ -121,17 +121,18 @@ export default {
 //       this.launchLoading(false);
 //     });
 // },
-    connexionUser(dataValue) {
+     connexionUser(dataValue) {
       this.launchLoading(true);
       instance
         .post("auth_login", dataValue)
-        .then((response) => {
+        .then(async (response) => {
           if (response.data.status === true) {
             Swal.fire({
               icon: "success",
               title: response.data.message,
               showConfirmButton: true,
             });
+            await this.$store.dispatch("getInfoUser")
             this.$store.commit("ADD_ITEM");
             window.localStorage.setItem("user", JSON.stringify(response.data.user));
             window.localStorage.setItem(

@@ -41,8 +41,8 @@ export default {
     <CvStudent
       :isbtnPdf="this.isbtnPdf"
       :nom="this.infoUserConnected?.user?.nom"
-      :photo="lienPhoto + this.infoUserConnected?.photo_profil"
-      :telephone="`+225${this.infoUserConnected?.phone}`"
+      :photo="this.infoUserConnected?.photo_profil ? lienPhoto + this.infoUserConnected?.photo_profil:null"
+      :telephone="`${this.infoUserConnected?.phone}`"
       :email="this.infoUserConnected?.user?.email"
       nationalite="Ivoirienne"
       :titreCv="this.infoUserConnected?.titreCv"
@@ -54,6 +54,7 @@ export default {
               qualifi?.date_debut
             )} - ${Help?.formatDateToMonthYear(qualifi?.date_fin)}`,
             detail: qualifi?.detail,
+            objet:qualifi?.objet
           };
         })
       "

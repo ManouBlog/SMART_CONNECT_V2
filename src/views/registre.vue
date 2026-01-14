@@ -244,7 +244,7 @@ export default {
         this.inscriptionParticulier();
       }
     },
-    connexionUser() {
+    async connexionUser() {
   this.showLoader = true
 
   instance
@@ -252,7 +252,7 @@ export default {
       email: this.email,
       password: this.password,
     })
-    .then((response) => {
+    .then(async (response) => {
       const data = response.data
 
       if (data.status === true) {
@@ -261,7 +261,7 @@ export default {
           title: data.message,
           showConfirmButton: true,
         })
-
+        await this.$store.dispatch("getInfoUser")
         // 🔹 Sauvegarde dans le localStorage
         localStorage.setItem("user", JSON.stringify(data.user))
         localStorage.setItem("token", JSON.stringify(data.access_token))
