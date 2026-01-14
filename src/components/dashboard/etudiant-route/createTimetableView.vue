@@ -565,7 +565,7 @@ export default {
       console.log("JOUR 1", dataSend);
       instance
         .post("create_schedule", dataSend)
-        .then((response) => {
+        .then(async (response) => {
           // // console.log("ADD DATETIME PERIODE", response.data.status);
           if (!response.data.status) {
             Swal.fire({
@@ -580,6 +580,7 @@ export default {
               title: response.data.message,
               showConfirmButton: true,
             });
+              await this.$store.dispatch("getInfoUser");
           }
         })
         .catch((error) => {

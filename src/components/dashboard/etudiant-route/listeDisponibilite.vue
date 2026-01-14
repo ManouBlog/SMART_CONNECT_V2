@@ -580,22 +580,27 @@ export default {
       this.tab = !this.tab;
       this.isActive = !this.isActive;
     },
-//     async verifUserProfilEtudiantComplet() {
-//       await this.$store.dispatch("getInfoUser")
-//   const user = this.$store.state.infoUserConnected;
-//   console.log("USER_INFO",user)
-//   if(user.user.statut.statut === 'etudiant'){
-// if (!user.competences.length || !user.qualifications.length) {
-//     this.$router.push('/dashboard/profil');
-//    }
-  
-//   }
-// },
-
+    // async verifUserProfilEtudiantComplet() {
+    //   await this.$store.dispatch("getInfoUser");
+    //   const user = this.$store.state.infoUserConnected;
+    //   console.log("USER_INFO", user);
+    //   if (user.user.statut.statut === "etudiant") {
+    //     if (!user.jours.length) {
+    //       Swal.fire({
+    //         icon: "info",
+    //         title: "Profil incomplet",
+    //         text: "Veuillez renseigner vos disponibilités pour continuer.",
+    //         // timer: 3000,
+    //         // timerProgressBar: true,
+    //         showConfirmButton: true,
+    //       });
+    //     }
+    //   }
+    // },
   },
   async created() {
+    await this.$store.dispatch("getInfoUser");
     // this.verifUserProfilEtudiantComplet();
-    
     const { width } = useWindowSize();
     this.$watch(
       () => width.value,
@@ -611,7 +616,9 @@ export default {
     let date = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     this.getJourInMonth = date;
     this.texte = await this.handleTranslate("Mes Disponibilités");
-    this.texte1 = await this.handleTranslate(`Voulez-vous vraiment supprimer cette disponibilité?`);
+    this.texte1 = await this.handleTranslate(
+      `Voulez-vous vraiment supprimer cette disponibilité?`
+    );
     this.texte2 = await this.handleTranslate("Supprimer");
     this.texte3 = await this.handleTranslate(`Annuler`);
     this.texte4 = await this.handleTranslate("Modifier l'emploi du temps");
@@ -644,7 +651,7 @@ export default {
     <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
       <div class="card p-5">
         <p class="h3 my-2" style="color: black">{{ texte1 }}</p>
-        <div style="display:flex;justify-content:center;gap:1em;">
+        <div style="display: flex; justify-content: center; gap: 1em">
           <button class="btn bg-warning" @click="delete_timetable">
             {{ texte2 }}
           </button>
@@ -797,7 +804,7 @@ export default {
         </div>
       </div>
     </div>
-
+   <p style="color:red;text-align:center;" v-if="!this.$store.state.infoUserConnected.jours.length">Veuillez renseigner vos disponibilités pour continuer.</p>
     <div class="page-title d-flex">
       <ol
         :class="!isActive ? 'breadcrumb' : 'breadcrumb_two'"
@@ -1025,11 +1032,11 @@ export default {
       </div>
     </div>
     <div v-else class="mobile-container p-2">
-      <div style="text-align:right;" class="mx-3">
-                <button class="btn bg-warning py-2" @click="handleNewCalendar">
-                  {{ texte14 }}
-                </button>
-              </div>
+      <div style="text-align: right" class="mx-3">
+        <button class="btn bg-warning py-2" @click="handleNewCalendar">
+          {{ texte14 }}
+        </button>
+      </div>
       <!-- HORAIRES SIMPLES -->
       <section v-show="!tab" style="padding: 1em">
         <div
@@ -1090,7 +1097,10 @@ export default {
             <i v-else class="bi bi-dash-circle text-danger" style="font-size: 1.3em"></i>
           </div>
         </div>
-        <div class="d-flex justify-content-center my-4" v-if="timetables_mobile.filter((t) => !t.periode).length > 0">
+        <div
+          class="d-flex justify-content-center my-4"
+          v-if="timetables_mobile.filter((t) => !t.periode).length > 0"
+        >
           <n-pagination
             v-model:page="currentPage"
             :page-size="pageSize"
@@ -1165,7 +1175,10 @@ export default {
             <i v-else class="bi bi-dash-circle text-danger" style="font-size: 1.3em"></i>
           </div>
         </div>
-        <div class="d-flex justify-content-center my-4" v-if="timetables_mobile.filter((t) => t.periode).length > 0">
+        <div
+          class="d-flex justify-content-center my-4"
+          v-if="timetables_mobile.filter((t) => t.periode).length > 0"
+        >
           <n-pagination
             v-model:page="currentPage"
             :page-size="pageSize"

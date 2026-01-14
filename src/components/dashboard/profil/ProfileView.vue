@@ -260,42 +260,40 @@ export default {
     //         });
     //     },
     async seeMessageUploadProfil() {
-      await this.$store.dispatch("getInfoUser")
-  const infoUser = this.$store.state.infoUserConnected;
-  // const infoUser = await this.getInfoUser
-  console.log("seeMessageUploadProfil",infoUser)
-  const competences =  infoUser.competences;
-  const qualifications = infoUser.qualifications;
-  const jours = infoUser.jours;
+      await this.$store.dispatch("getInfoUser");
+      const infoUser = this.$store.state.infoUserConnected;
+      // const infoUser = await this.getInfoUser
+      console.log("seeMessageUploadProfil", infoUser);
+      const competences = infoUser.competences;
+      const qualifications = infoUser.qualifications;
+      const jours = infoUser.jours;
 
-  let message = ''
+      let message = "";
 
-  if (!competences.length && !qualifications.length && !jours.length) {
-    message = 'Veuillez renseigner vos compétences, qualifications et disponibilités pour continuer.'
-  } else if (!competences.length) {
-    message = 'Veuillez renseigner vos compétences,qualifications pour continuer.'
-  } else if (!qualifications.length) {
-    message = 'Veuillez renseigner vos qualifications pour continuer.'
-  } else if (!jours.length) {
-    message = 'Veuillez renseigner vos disponibilités pour continuer.'
-  }
+      if (!competences.length) {
+        message = "Veuillez renseigner vos compétences pour continuer.";
+      } else if (!qualifications.length) {
+        message = "Veuillez renseigner vos qualifications pour continuer.";
+      } else if (!jours.length) {
+        message = "Veuillez renseigner vos disponibilités pour continuer.";
+      }
 
-  if (message) {
-    Swal.fire({
-      icon: 'info',
-      title: 'Profil incomplet',
-      text: message,
-      // timer: 3000,
-      // timerProgressBar: true,
-      showConfirmButton: true
-    })
-  }
-},
-
+      if (message) {
+        Swal.fire({
+          icon: "info",
+          title: "Profil incomplet",
+          text: message,
+          showConfirmButton: true,
+        });
+      }
+    },
 
     async getInfoUser() {
       await this.$store.dispatch("getInfoUser");
-      console.log("this.$store.state.infoUserConnected",this.$store.state.infoUserConnected)
+      console.log(
+        "this.$store.state.infoUserConnected",
+        this.$store.state.infoUserConnected
+      );
     },
   },
   async created() {
@@ -334,57 +332,127 @@ export default {
             <InfoEntreprise
               v-if="
                 this.$store.state.infoUserConnected &&
-                (this.$store.state.infoUserConnected.user.statut.statut === 'entreprise' ||
-                  this.$store.state.infoUserConnected.user.statut.statut === 'particulier')
+                (this.$store.state.infoUserConnected.user.statut.statut ===
+                  'entreprise' ||
+                  this.$store.state.infoUserConnected.user.statut.statut ===
+                    'particulier')
               "
               :infoPersonellesEntreprise="
                 this.$store.state.infoUserConnected.user.statut.statut === 'entreprise'
                   ? [
-                      { libelle: 'Raison sociale :', value: this.$store.state.infoUserConnected.nom },
-                      { libelle: 'Contact mail :', value: this.$store.state.infoUserConnected.email },
+                      {
+                        libelle: 'Raison sociale :',
+                        value: this.$store.state.infoUserConnected.nom,
+                      },
+                      {
+                        libelle: 'Contact mail :',
+                        value: this.$store.state.infoUserConnected.email,
+                      },
                       {
                         libelle: 'RCCM (Registre du Commerce et du Crédit Mobilier) :',
-                        value: this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.matricule_cc : 'néant',
+                        value: this.$store.state.infoUserConnected.matricule_cc
+                          ? this.$store.state.infoUserConnected.matricule_cc
+                          : 'néant',
                       },
                       {
                         libelle: 'NCC (Numéro de compte contribuable) :',
-                        value: this.$store.state.infoUserConnected.NCC ? this.$store.state.infoUserConnected.NCC : 'néant',
+                        value: this.$store.state.infoUserConnected.NCC
+                          ? this.$store.state.infoUserConnected.NCC
+                          : 'néant',
                       },
-                      { libelle: texte5, value: this.$store.state.infoUserConnected.contact },
-                      { libelle: texte6, value: this.$store.state.infoUserConnected.ville },
-                      { libelle: texte7, value: this.$store.state.infoUserConnected.commune },
-                      { libelle: texte8, value: this.$store.state.infoUserConnected.quartier },
-                      { libelle: texte88, value: this.$store.state.infoUserConnected.logo },
-                      { libelle: texte9, value: this.$store.state.infoUserConnected.registre ? this.$store.state.infoUserConnected.registre : 'néant' },
+                      {
+                        libelle: texte5,
+                        value: this.$store.state.infoUserConnected.contact,
+                      },
+                      {
+                        libelle: texte6,
+                        value: this.$store.state.infoUserConnected.ville,
+                      },
+                      {
+                        libelle: texte7,
+                        value: this.$store.state.infoUserConnected.commune,
+                      },
+                      {
+                        libelle: texte8,
+                        value: this.$store.state.infoUserConnected.quartier,
+                      },
+                      {
+                        libelle: texte88,
+                        value: this.$store.state.infoUserConnected.logo,
+                      },
+                      {
+                        libelle: texte9,
+                        value: this.$store.state.infoUserConnected.registre
+                          ? this.$store.state.infoUserConnected.registre
+                          : 'néant',
+                      },
                       {
                         libelle: texte10,
-                        value: this.$store.state.infoUserConnected.forme_juridique ? this.$store.state.infoUserConnected.forme_juridique : 'néant',
+                        value: this.$store.state.infoUserConnected.forme_juridique
+                          ? this.$store.state.infoUserConnected.forme_juridique
+                          : 'néant',
                       },
                       {
                         libelle: 'Emails en copie :',
-                        value: this.$store.state.infoUserConnected.emails.length ? this.$store.state.infoUserConnected.emails : null,
+                        value: this.$store.state.infoUserConnected.emails.length
+                          ? this.$store.state.infoUserConnected.emails
+                          : null,
                       },
                     ]
                   : [
-                      { libelle: 'Nom :', value: this.$store.state.infoUserConnected.nom },
-                      { libelle: 'Prénoms :', value: this.$store.state.infoUserConnected.particulier_prenoms },
-                      { libelle: 'Email :', value: this.$store.state.infoUserConnected.email },
-                      { libelle: texte5, value: this.$store.state.infoUserConnected.contact },
-                      { libelle: texte6, value: this.$store.state.infoUserConnected.ville },
-                      { libelle: texte7, value: this.$store.state.infoUserConnected.commune },
-                      { libelle: texte8, value: this.$store.state.infoUserConnected.quartier },
-                      { libelle: texte12, value: this.$store.state.infoUserConnected.user.photos },
+                      {
+                        libelle: 'Nom :',
+                        value: this.$store.state.infoUserConnected.nom,
+                      },
+                      {
+                        libelle: 'Prénoms :',
+                        value: this.$store.state.infoUserConnected.particulier_prenoms,
+                      },
+                      {
+                        libelle: 'Email :',
+                        value: this.$store.state.infoUserConnected.email,
+                      },
+                      {
+                        libelle: texte5,
+                        value: this.$store.state.infoUserConnected.contact,
+                      },
+                      {
+                        libelle: texte6,
+                        value: this.$store.state.infoUserConnected.ville,
+                      },
+                      {
+                        libelle: texte7,
+                        value: this.$store.state.infoUserConnected.commune,
+                      },
+                      {
+                        libelle: texte8,
+                        value: this.$store.state.infoUserConnected.quartier,
+                      },
+                      {
+                        libelle: texte12,
+                        value: this.$store.state.infoUserConnected.user.photos,
+                      },
                     ]
               "
               :infoPersonellesGerant="
                 this.$store.state.infoUserConnected.user.statut.statut === 'entreprise'
                   ? [
-                      { libelle: texte11, value: this.$store.state.infoUserConnected.gerant ? this.$store.state.infoUserConnected.gerant : user.nom },
+                      {
+                        libelle: texte11,
+                        value: this.$store.state.infoUserConnected.gerant
+                          ? this.$store.state.infoUserConnected.gerant
+                          : user.nom,
+                      },
                       {
                         libelle: 'Contact téléphonique du gérant : ',
-                        value: this.$store.state.infoUserConnected.numero_gerant ? this.$store.state.infoUserConnected.numero_gerant : user.contact,
+                        value: this.$store.state.infoUserConnected.numero_gerant
+                          ? this.$store.state.infoUserConnected.numero_gerant
+                          : user.contact,
                       },
-                      { libelle: 'Pièce du gérant', value: this.$store.state.infoUserConnected.user.photos },
+                      {
+                        libelle: 'Pièce du gérant',
+                        value: this.$store.state.infoUserConnected.user.photos,
+                      },
                     ]
                   : []
               "
@@ -399,28 +467,44 @@ export default {
                 { libelle: texte8, value: this.$store.state.infoUserConnected.quartier },
                 { libelle: texte5, value: this.$store.state.infoUserConnected.phone },
                 { libelle: texte13, value: this.$store.state.infoUserConnected.diplome },
-                { libelle: 'Carte étudiant', value: this.$store.state.infoUserConnected.user.photos },
+                {
+                  libelle: 'Carte étudiant',
+                  value: this.$store.state.infoUserConnected.user.photos,
+                },
               ]"
               :infoPersonellesQualifications="
-                this.$store.state.infoUserConnected.qualifications.length ? this.$store.state.infoUserConnected.qualifications : []
+                this.$store.state.infoUserConnected.qualifications.length
+                  ? this.$store.state.infoUserConnected.qualifications
+                  : []
               "
               :infoBioStudent="this.$store.state.infoUserConnected.bio"
-              :infoPersonellesCompetences="this.$store.state.infoUserConnected.competences"
-              v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
+              :infoPersonellesCompetences="
+                this.$store.state.infoUserConnected.competences
+              "
+              v-if="
+                this.$store.state.infoUserConnected &&
+                this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'
+              "
             />
           </div>
         </TabPanel>
         <TabPanel
-        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
+          v-if="
+            this.$store.state.infoUserConnected &&
+            this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'
+          "
           header="Compétences et Expériences"
         >
-          <CompetencesAndExperience   />
+          <CompetencesAndExperience />
         </TabPanel>
         <TabPanel
-        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
+          v-if="
+            this.$store.state.infoUserConnected &&
+            this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'
+          "
           header="Qualifications"
         >
-          <QualificationsStudent  />
+          <QualificationsStudent />
         </TabPanel>
         <TabPanel :header="texte15">
           <MonPlanAbonnement />
