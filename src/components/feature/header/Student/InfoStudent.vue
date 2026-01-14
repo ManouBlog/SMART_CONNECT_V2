@@ -99,8 +99,18 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          this.launchLoading(false);
-        });
+          if (err.response.data.message === "Unauthenticated.") {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$router.replace("/");
+           
+          }
+
+         
+        })
+        .finally(()=>{
+           this.launchLoading(false);
+        })
     },
     async getInfoUser() {
       await instance

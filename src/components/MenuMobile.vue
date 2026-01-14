@@ -1,5 +1,5 @@
 <script>
-import instance,{lienPhoto} from "../api/api";
+import instance, { lienPhoto } from "../api/api";
 import { Help } from "../utils";
 import Swal from "sweetalert2";
 import { mapState, mapActions } from "pinia";
@@ -20,8 +20,8 @@ export default {
   },
   data() {
     return {
-      Help:Help,
-      lienPhoto:lienPhoto,
+      Help: Help,
+      lienPhoto: lienPhoto,
       texte: "",
       texte2: "",
       texte3: "",
@@ -33,7 +33,7 @@ export default {
       texte8: "",
       texte9: "",
       texte10: "",
-      photo_profil:""
+      photo_profil: "",
     };
   },
   computed: {
@@ -72,30 +72,29 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err)
-          Swal.fire({
-            icon: "info",
-            title: err,
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          console.log(err);
+          if (err.response.data.message === "Unauthenticated.") {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$router.replace("/");
+          }
           this.launchLoading(false);
         });
     },
     async getInfoUser() {
-      if(this.$store.state.token){
-await instance
-        .get("voirInfoUserConnect")
-        .then((resp) => {
-          // console.log("voirInfoUserConnect",resp);
-          if (resp.data.status === true) {
-            this.photo_profil = resp.data.user.photo_profil;
-            // console.log("this.photo_profil",this.photo_profil);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (this.$store.state.token) {
+        await instance
+          .get("voirInfoUserConnect")
+          .then((resp) => {
+            // console.log("voirInfoUserConnect",resp);
+            if (resp.data.status === true) {
+              this.photo_profil = resp.data.user.photo_profil;
+              // console.log("this.photo_profil",this.photo_profil);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
   },
@@ -106,7 +105,7 @@ await instance
     this.texte2 = await this.handleTranslate("Offre d'emploi");
     this.texte3 = await this.handleTranslate("Abonnements");
     this.texte4 = await this.handleTranslate("Contactez-nous");
-      this.texte6 = await this.handleTranslate("CGU");
+    this.texte6 = await this.handleTranslate("CGU");
     this.texte5 = await this.handleTranslate("Déconnexion");
   },
 };
@@ -121,34 +120,39 @@ await instance
     @close="changeValueForshowMenuMobile"
   >
     <ul>
-      <li 
-      v-if="this.$store.state.user"
-      style="display: flex;align-items:center;gap: 1em">
-        <n-avatar
-        v-if="this.photo_profil"
-        style="border: 2px solid orange; object-fit: cover"
-        round
-        :size="55"
-        :src="lienPhoto + this.photo_profil"
-      />
-      <span
-        style="
-          border: 1px solid white;
-          object-fit: cover;
-          width: 50px;
-          height: 50px;
-          line-height: 50px;
-          text-align: center;
-          font-size: 1em;
-          border-radius: 100%;
-          background: gray;
-        "
-        v-else
+      <li
+        v-if="this.$store.state.user"
+        style="display: flex; align-items: center; gap: 1em"
       >
-        <span style="font-size: 1.5em;color:black !important;">{{ Help.toADfirstTwo(this.$store.state.user.nom) }}</span>
-      </span>
-      <span style="color:black !important;">{{ this.$store.state.user.nom }} <br /> {{this.$store.state.user.prenoms}}</span>
-        
+        <n-avatar
+          v-if="this.photo_profil"
+          style="border: 2px solid orange; object-fit: cover"
+          round
+          :size="55"
+          :src="lienPhoto + this.photo_profil"
+        />
+        <span
+          style="
+            border: 1px solid white;
+            object-fit: cover;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 1em;
+            border-radius: 100%;
+            background: gray;
+          "
+          v-else
+        >
+          <span style="font-size: 1.5em; color: black !important">{{
+            Help.toADfirstTwo(this.$store.state.user.nom)
+          }}</span>
+        </span>
+        <span style="color: black !important"
+          >{{ this.$store.state.user.nom }} <br />
+          {{ this.$store.state.user.prenoms }}</span
+        >
       </li>
       <!-- <SelectLanguage /> -->
       <li v-if="!this.$store.state.user">
@@ -168,8 +172,8 @@ await instance
       <MenuMobileEntreprise
         v-if="
           this.$store.state.user &&
-          (this.$store.state.user.user.statut.statut === 'entreprise' 
-          || this.$store.state.user.user.statut.statut === 'particulier')
+          (this.$store.state.user.user.statut.statut === 'entreprise' ||
+            this.$store.state.user.user.statut.statut === 'particulier')
         "
       />
       <MenuMobileStudent

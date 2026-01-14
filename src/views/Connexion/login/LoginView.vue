@@ -45,94 +45,94 @@ export default {
       // console.log("Success:", values);
       this.connexionUser(values);
     },
-//   connexionUser(dataValue) {
-//   this.launchLoading(true);
+    //   connexionUser(dataValue) {
+    //   this.launchLoading(true);
 
-//   instance
-//     .post("auth_login", dataValue)
-//     .then((response) => {
-//       if (response.data.status === true) {
-//         const user = response.data.user;
+    //   instance
+    //     .post("auth_login", dataValue)
+    //     .then((response) => {
+    //       if (response.data.status === true) {
+    //         const user = response.data.user;
 
-//         Swal.fire({
-//           icon: "success",
-//           title: response.data.message,
-//           showConfirmButton: true,
-//         });
+    //         Swal.fire({
+    //           icon: "success",
+    //           title: response.data.message,
+    //           showConfirmButton: true,
+    //         });
 
-//         this.$store.commit("ADD_ITEM");
+    //         this.$store.commit("ADD_ITEM");
 
-//         window.localStorage.setItem("user", JSON.stringify(user));
-//         window.localStorage.setItem(
-//           "token",
-//           JSON.stringify(response.data.access_token)
-//         );
+    //         window.localStorage.setItem("user", JSON.stringify(user));
+    //         window.localStorage.setItem(
+    //           "token",
+    //           JSON.stringify(response.data.access_token)
+    //         );
 
-//         this.$store.state.user = user;
-//         this.$store.state.token = response.data.access_token;
+    //         this.$store.state.user = user;
+    //         this.$store.state.token = response.data.access_token;
 
-//         this.toogleModal();
+    //         this.toogleModal();
 
-//         // 🔑 RÈGLES MÉTIER (sans changer la logique)
-//         const isStudent = user?.user?.statut?.statut === "etudiant";
+    //         // 🔑 RÈGLES MÉTIER (sans changer la logique)
+    //         const isStudent = user?.user?.statut?.statut === "etudiant";
 
-//         const hasCompetences =
-//           Array.isArray(user?.competences) && user.competences.length > 0;
+    //         const hasCompetences =
+    //           Array.isArray(user?.competences) && user.competences.length > 0;
 
-//         const hasJours =
-//           Array.isArray(user?.jours) && user.jours.length > 0;
+    //         const hasJours =
+    //           Array.isArray(user?.jours) && user.jours.length > 0;
 
-//         if (isStudent && !hasCompetences) {
-//           // 1️⃣ Étudiant sans compétences
-//           this.$router.replace("/dashboard/profil");
+    //         if (isStudent && !hasCompetences) {
+    //           // 1️⃣ Étudiant sans compétences
+    //           this.$router.replace("/dashboard/profil");
 
-//         } else if (isStudent && hasCompetences && !hasJours) {
-//           // 2️⃣ Étudiant avec compétences mais sans emploi du temps
-//           this.$router.replace("/dashboard/emploi_du_temps");
+    //         } else if (isStudent && hasCompetences && !hasJours) {
+    //           // 2️⃣ Étudiant avec compétences mais sans emploi du temps
+    //           this.$router.replace("/dashboard/emploi_du_temps");
 
-//         } else {
-//           // 3️⃣ Tous les autres cas
-//           const redirect = this.$route.query.redirect;
-//           if (redirect) {
-//             this.$router.replace(redirect);
-//           } else {
-//             this.$router.replace("/");
-//           }
-//         }
+    //         } else {
+    //           // 3️⃣ Tous les autres cas
+    //           const redirect = this.$route.query.redirect;
+    //           if (redirect) {
+    //             this.$router.replace(redirect);
+    //           } else {
+    //             this.$router.replace("/");
+    //           }
+    //         }
 
-//         this.launchLoading(false);
-//       }
+    //         this.launchLoading(false);
+    //       }
 
-//       if (response.data.status === false) {
-//         Swal.fire({
-//           icon: "info",
-//           title: response.data.message,
-//           showConfirmButton: true,
-//         });
-//         this.launchLoading(false);
-//       }
-//     })
-//     .catch((error) => {
-//       Swal.fire({
-//         icon: "info",
-//         title: error.response?.data?.message || "Erreur serveur",
-//         showConfirmButton: true,
-//       });
-//       this.launchLoading(false);
-//     });
-// },
-     connexionUser(dataValue) {
+    //       if (response.data.status === false) {
+    //         Swal.fire({
+    //           icon: "info",
+    //           title: response.data.message,
+    //           showConfirmButton: true,
+    //         });
+    //         this.launchLoading(false);
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       Swal.fire({
+    //         icon: "info",
+    //         title: error.response?.data?.message || "Erreur serveur",
+    //         showConfirmButton: true,
+    //       });
+    //       this.launchLoading(false);
+    //     });
+    // },
+    connexionUser(dataValue) {
       this.launchLoading(true);
       instance
         .post("auth_login", dataValue)
-        .then(async (response) => {
+        .then((response) => {
           if (response.data.status === true) {
             Swal.fire({
               icon: "success",
               title: response.data.message,
               showConfirmButton: true,
             });
-            await this.$store.dispatch("getInfoUser")
+
             this.$store.commit("ADD_ITEM");
             window.localStorage.setItem("user", JSON.stringify(response.data.user));
             window.localStorage.setItem(
@@ -142,6 +142,9 @@ export default {
             this.$store.state.user = response.data.user;
             this.$store.state.token = response.data.access_token;
             this.toogleModal();
+            // if (this.$store.state.token) {
+            //   await this.$store.dispatch("getInfoUser");
+            // }
             const redirect = this.$route.query.redirect;
             if (redirect) {
               this.$router.replace(redirect);
@@ -213,7 +216,9 @@ export default {
     @finish="onFinish"
     @finishFailed="onFinishFailed"
   >
-  <div style="padding:0.5em 0;text-align:center;color:red;">Les champs avec astérisque (*) sont obligatoires</div>
+    <div style="padding: 0.5em 0; text-align: center; color: red">
+      Les champs avec astérisque (*) sont obligatoires
+    </div>
     <a-form-item
       :label="texte3"
       name="email"

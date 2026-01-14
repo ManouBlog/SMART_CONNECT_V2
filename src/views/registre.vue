@@ -176,7 +176,7 @@ export default {
         })
         .catch((err) => {
           // console.log("ERROR", err);
-          console.log(err)
+          console.log(err);
           // Swal.fire({
           //   icon: "error",
           //   title: "l'email existe déjà",
@@ -224,7 +224,7 @@ export default {
         })
         .catch((error) => {
           // console.log(error.message);
-          console.log(error)
+          console.log(error);
           Swal.fire({
             icon: "error",
             title: "l'email existe déjà",
@@ -245,66 +245,68 @@ export default {
       }
     },
     async connexionUser() {
-  this.showLoader = true
+      this.showLoader = true;
 
-  instance
-    .post("auth_login", {
-      email: this.email,
-      password: this.password,
-    })
-    .then(async (response) => {
-      const data = response.data
-
-      if (data.status === true) {
-        Swal.fire({
-          icon: "success",
-          title: data.message,
-          showConfirmButton: true,
+      instance
+        .post("auth_login", {
+          email: this.email,
+          password: this.password,
         })
-        await this.$store.dispatch("getInfoUser")
-        // 🔹 Sauvegarde dans le localStorage
-        localStorage.setItem("user", JSON.stringify(data.user))
-        localStorage.setItem("token", JSON.stringify(data.access_token))
+        .then((response) => {
+          const data = response.data;
 
-        // 🔹 Mise à jour du store
-        this.$store.commit("ADD_ITEM")
-        this.$store.state.user = data.user
-        this.$store.state.token = data.access_token
+          if (data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: data.message,
+              showConfirmButton: true,
+            });
 
-        this.showLoader = false
+            // 🔹 Sauvegarde dans le localStorage
+            localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("token", JSON.stringify(data.access_token));
 
-        // 🔹 Vérifie s’il existe un paramètre redirect dans l’URL
-        const redirect = this.$route.query.redirect
-      //  console.log("Redirection détectée :", redirect)
-        if (redirect) {
-          // console.log("Redirection détectée :", redirect)
-          // 👉 Lancer une méthode ou rediriger directement
-          this.$router.replace(redirect)
-        } else {
-          // Sinon redirection par défaut
-          this.$router.replace('/')
-        }
-      } else {
-        this.showLoader = false
-        Swal.fire({
-          icon: "info",
-          title: data.message,
-          showConfirmButton: true,
+            // 🔹 Mise à jour du store
+            this.$store.commit("ADD_ITEM");
+            this.$store.state.user = data.user;
+            this.$store.state.token = data.access_token;
+
+            this.showLoader = false;
+
+            // if (this.$store.state.token) {
+            //   await this.$store.dispatch("getInfoUser");
+            // }
+
+            // 🔹 Vérifie s’il existe un paramètre redirect dans l’URL
+            const redirect = this.$route.query.redirect;
+            //  console.log("Redirection détectée :", redirect)
+            if (redirect) {
+              // console.log("Redirection détectée :", redirect)
+              // 👉 Lancer une méthode ou rediriger directement
+              this.$router.replace(redirect);
+            } else {
+              // Sinon redirection par défaut
+              this.$router.replace("/");
+            }
+          } else {
+            this.showLoader = false;
+            Swal.fire({
+              icon: "info",
+              title: data.message,
+              showConfirmButton: true,
+            });
+          }
         })
-      }
-    })
-    .catch((error) => {
-      this.showLoader = false
-      Swal.fire({
-        icon: "error",
-        title: error.response?.data?.message || "Une erreur est survenue",
-        showConfirmButton: true,
-      })
-      console.error(error)
-    })
-}
-,
-
+        .catch((error) => {
+          this.showLoader = false;
+          Swal.fire({
+            icon: "error",
+            title: error.response?.data?.message || "Une erreur est survenue",
+            showConfirmButton: true,
+          });
+          console.error(error);
+        });
+    },
     // connexionUser() {
     //   // console.log("connex1")
     //   instance
@@ -501,7 +503,7 @@ Un caractère spécial
           this.competences = res.data.data;
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
     addTag(newTag) {
@@ -557,7 +559,6 @@ Un caractère spécial
 
             <div class="tab-content">
               <div id="register-account" class="tab-pane fade in white-text">
-                
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right sidebar">
                   <div class="widget">
                     <h3>POURQUOI AVOIR UN COMPTE DANS SMART-CONNECT?</h3>

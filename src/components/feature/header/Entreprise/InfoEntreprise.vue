@@ -96,6 +96,12 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+           if (err.response.data.message === "Unauthenticated.") {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$router.replace("/");
+           
+          }
           this.launchLoading(false);
         });
     },

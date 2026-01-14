@@ -1,12 +1,13 @@
 <template>
+  <LoadingSpinner v-if="spinnerLoading" />
   <div>
     <!-- Si la date de lancement est passée, on montre le router-view -->
-    <router-view v-if="isDatePassed" />
-     <!-- <updateProfiIfNot /> -->
+    <router-view v-if="!spinnerLoading && isDatePassed" />
+    <!-- <updateProfiIfNot /> -->
     <!-- Sinon, on affiche le countdown -->
     <!-- <CountDownView v-else :targetDate="lancementDate" /> -->
   </div>
-  <div v-if="isDatePassed">
+  <div v-if="isDatePassed && !spinnerLoading">
     <PromotionModal
       v-if="shouldShowPromo"
       v-model:visible="showPromo"
@@ -58,7 +59,7 @@
 <script>
 import axios from "axios";
 // import CountDownView from "./views/CountDownView.vue";
-
+import LoadingSpinner from "./Shared/Compoments/LoadingSpinner.vue";
 import PromotionModal from "./components/PromotionModal.vue";
 import instance from "./api/api";
 
@@ -66,6 +67,7 @@ export default {
   name: "AppView",
   components: {
     //CountDownView,
+    LoadingSpinner,
     PromotionModal,
   },
   data() {
@@ -77,6 +79,7 @@ export default {
       showPromoParticulierAndEntreprise: false,
       students: null,
       offreCreatedByEntreprise: [],
+      spinnerLoading: true,
     };
   },
   computed: {
@@ -147,6 +150,8 @@ export default {
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        this.spinnerLoading = false;
       }
     },
     checkDate(value) {
@@ -188,6 +193,8 @@ export default {
         this.visiteur(data.ip);
       } catch (error) {
         console.error("Erreur lors de la récupération de l'adresse IP:", error);
+      } finally {
+        this.spinnerLoading = false;
       }
     },
 
@@ -221,6 +228,8 @@ export default {
         }
       } catch (error) {
         console.error("Erreur récupération date de lancement:", error);
+      } finally {
+        this.spinnerLoading = false;
       }
     },
   },
@@ -230,12 +239,11 @@ export default {
     localStorage.setItem("translate", "fr");
     this.NbreEtudiantsInscritAndDoAbonnement();
     // this.getAllOffresCreatedByEntreprise();
-    console.log('USER_INFO',)
+    console.log("USER_INFO");
   },
 };
 </script>
 <style>
-
 :where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus {
   border-color: orange !important;
 }

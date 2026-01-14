@@ -7,16 +7,20 @@ export default {
   // components:{
   //   LogoAnimations
   // },
-  data(){
-    return{
-      I8N:t
-    }
-  }
-}
+  data() {
+    return {
+      I8N: t,
+    };
+  },
+};
 </script>
 <template>
   <div class="spinner_loading">
-    <img src="../../assets/brobroli_1.png" alt="logo" style="width:250px;height:200px;">
+    <img
+      src="../../assets/brobroli_1.png"
+      alt="logo"
+      style="width: 250px; height: 200px"
+    />
     <a-spin size="large" wrapperClassName="style-spinner" />
     <!-- <LogoAnimations /> -->
   </div>
@@ -38,7 +42,7 @@ export default {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.957);
+  background: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
