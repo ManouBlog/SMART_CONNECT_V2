@@ -325,7 +325,7 @@ export default {
             >
               <!-- Bouton ajouter -->
               <template #create-button-default>
-                <slot name="create-button"> Ajouter des qualifications (diplomes ou certification obtenues) </slot>
+                <slot name="create-button"> Diplomes ou certification obtenues </slot>
               </template>
 
               <!-- Contenu d’un item -->
@@ -448,7 +448,7 @@ export default {
              :on-create="onCreateQualification">
         <!-- Bouton ajouter -->
         <template #create-button-default>
-          <slot name="create-button"> Ajouter des qualifications (diplomes ou certification obtenues) </slot>
+          <slot name="create-button"> Diplomes ou certifications obtenues </slot>
         </template>
 
         <!-- Contenu d’un item -->
