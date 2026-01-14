@@ -297,7 +297,7 @@ export default {
     this.texte22 = await this.handleTranslate("Compétences");
     this.texte23 = await this.handleTranslate("Action");
     this.texte24 = await this.handleTranslate("Mes qualifications");
-    this.texte25 = await this.handleTranslate("Ajouter une qualification");
+    this.texte25 = await this.handleTranslate("Ajouter une qualification (diplome ou certification obtenue)");
     this.texte26 = await this.handleTranslate("Chargement...");
     this.texte27 = await this.handleTranslate("Pas de qualifications");
   },
@@ -325,7 +325,7 @@ export default {
             >
               <!-- Bouton ajouter -->
               <template #create-button-default>
-                <slot name="create-button"> Ajouter des qualifications </slot>
+                <slot name="create-button"> Ajouter des qualifications (diplomes ou certification obtenues) </slot>
               </template>
 
               <!-- Contenu d’un item -->
@@ -448,7 +448,7 @@ export default {
              :on-create="onCreateQualification">
         <!-- Bouton ajouter -->
         <template #create-button-default>
-          <slot name="create-button"> Ajouter des qualifications </slot>
+          <slot name="create-button"> Ajouter des qualifications (diplomes ou certification obtenues) </slot>
         </template>
 
         <!-- Contenu d’un item -->

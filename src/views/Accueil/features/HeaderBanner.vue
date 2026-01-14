@@ -3,9 +3,13 @@ import ButtonsHeader from "../../../Shared/Compoments/ButtonsHeader.vue";
 import { mapActions } from "pinia";
 import { useRegisterStore } from "../../../store-pinia/register/useRegisterStore";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+// import DefilementText from "../../../components/DefilementText.vue";
 export default {
   name: "HeaderBanner",
-  components: { ButtonsHeader },
+  components: { 
+    ButtonsHeader,
+   // DefilementText 
+  },
   data() {
     return {
       texte0: "",
@@ -57,6 +61,7 @@ export default {
         {{ texte0 }}<br />
         {{ texte2 }}
       </h1>
+      <!-- <DefilementText /> -->
       <div class="my-5" >
         <h4 style="letter-spacing: 0.1em">{{ texte3 }}</h4>
         <!-- <h4>{{ texte88 }}</h4> -->

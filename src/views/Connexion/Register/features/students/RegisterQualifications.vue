@@ -4,7 +4,7 @@
       <n-dynamic-input v-model:value="localItems" :on-create="onCreateQualification">
         <!-- Bouton ajouter -->
         <template #create-button-default>
-          <slot name="create-button"> Ajouter des qualifications </slot>
+          <slot name="create-button"> Ajouter des qualifications (diplomes ou certifications obtenues) </slot>
         </template>
 
         <!-- Contenu d’un item -->
