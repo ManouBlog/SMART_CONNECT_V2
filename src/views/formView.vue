@@ -32,21 +32,13 @@ export default {
             });
             console.log("user", response.data.user);
             setTimeout(() => {
-              this.$router.push("/dashboard");
-            }, 1500);
-            localStorage.setItem("token", JSON.stringify(response.data.access_token));
+              localStorage.setItem("token", JSON.stringify(response.data.access_token));
             localStorage.setItem("user", JSON.stringify(response.data.user));
-            // localStorage.setItem(
-            //   "compte",
-            //   JSON.stringify(response.data.compte)
-            // );
-            // localStorage.setItem("statut", response.data.user.statut.statut);
-            this.loading = false;
-            this.acces = true;
             this.$store.state.user = response.data.user;
             this.$store.state.token = response.data.access_token;
-            // this.$store.state.compte = response.data.compte;
-            // this.$store.state.statut = response.data.user.statut.statut;
+            this.$store.dispatch("getInfoUser");
+              this.$router.push("/dashboard");
+            }, 1500);
           }
           if (response.data.status === false) {
             Swal.fire({
@@ -55,8 +47,7 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-            this.loading = false;
-            this.acces = true;
+           
           }
         })
         .catch((response) => {

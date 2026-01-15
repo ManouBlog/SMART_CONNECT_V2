@@ -40,6 +40,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(()=>{
           this.$store.commit('TOOGLESPINNER',false)
@@ -48,15 +55,24 @@ export default {
    
   },
   created() {
-    this.get_users();
-    this.get_Students();
-    this.get_Contrat();
+    if(this.$store.state.user.permissions.some(p => p.name === 'Utilisateurs')){
+this.get_users();
+    }
+    if(this.$store.state.user.permissions.some(p => p.name === 'Etudiants')){
+this.get_Students();
+    }
+
+    if(this.$store.state.user.permissions.some(p => p.name === 'Contrat')){
+this.get_Contrat();
+    }
+    
+    this.$store.dispatch("getInfoUser");
   },
 };
 </script>
 <template>
   <div class="sidebar-wrapper" style="overflow: auto">
-    <div style="background: var(--theme-deafult)">
+    <div style="background: var(--theme-deafult);min-height:100vh;">
       <div class="logo-wrapper">
         <a href="#"
           ><img
@@ -68,7 +84,9 @@ export default {
       </div>
       <div>
         <ul class="liste_liens">
-          <li style="display: flex; align-items: center; gap: 0.1em; color: white">
+          <li style="display: flex; align-items: center; gap: 0.1em; color: white"
+          v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Dashboard')"
+          >
             <i class="bi bi-house-door position-absolute" style="margin-left: -1.2em"></i
             ><router-link :to="{ name: 'Accueil' }">
               <strong>Tableau de bord</strong></router-link
@@ -76,7 +94,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Domaines')"
           >
             <i class="bi bi-grid-1x2" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'Categorie' }"
@@ -85,7 +103,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Poste')"
           >
             <i class="bi bi-grid-1x2" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'Competences' }"
@@ -94,71 +112,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'entreprise'"
-          >
-            <i class="bi bi-briefcase" style="margin-left: -1.2em"></i>
-            <router-link :to="{ name: 'offres' }"
-              ><strong> Mes offres </strong>
-            </router-link>
-          </li>
-          <li
-            style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'entreprise'"
-          >
-            <i class="bi bi-people" style="margin-left: -1.2em"></i>
-            <router-link :to="{ name: 'student_contacts_by_entreprise' }">
-              <strong> Personnels Contactés</strong></router-link
-            >
-          </li>
-          <li
-            style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'entreprise'"
-          >
-            <i class="bi bi-people" style="margin-left: -1.2em"></i>
-            <router-link :to="{ name: 'OffreInteressByStudents' }">
-              <strong> Postulants à mon offre</strong></router-link
-            >
-          </li>
-          <li
-            style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'etudiant'"
-          >
-            <i class="bi bi-calendar-date" style="margin-left: -1.2em"></i>
-            <router-link :to="{ name: 'create_timetable' }">
-              <strong> Mon calendrier </strong></router-link
-            >
-          </li>
-          <li
-            style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'etudiant'"
-          >
-            <i class="bi bi-briefcase" style="margin-left: -1.2em"></i>
-            <router-link :to="{ name: 'see_offres_postuler' }">
-              <strong> Offres postulées </strong></router-link
-            >
-          </li>
-          <li
-            style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'etudiant'"
-          >
-            <i class="bi bi-building" style="margin-left: -1.2em"></i>
-            <router-link :to="{ name: 'see_who_interesse_by_profil_student' }">
-              <strong>Contrat-entreprises</strong></router-link
-            >
-          </li>
-
-          <!-- <li
-            style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
-          >
-            <i class="bi bi-people" style="margin-left: -1.2em"></i>
-            <router-link :to="{ name: 'users_beta' }">
-              <strong>Utilisateurs bêta</strong></router-link
-            >
-          </li> -->
-          <li
-            style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Utilisateurs')"
           >
             <i class="bi bi-people" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'users' }">
@@ -167,7 +121,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Entreprises')"
           >
             <i class="bi bi-building" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'entreprises' }" @click.prevent="get_users">
@@ -181,7 +135,7 @@ export default {
 
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Etudiants')"
           >
             <i class="bi bi-person" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'students' }">
@@ -196,7 +150,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Messages')"
           >
             <i class="bi bi-envelope-paper" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'newsletter' }">
@@ -205,7 +159,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Offres')"
           >
             <i class="bi bi-briefcase" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'all_Offres' }">
@@ -214,7 +168,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+           v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Contrat')"
             @click.prevent="seeNewContrat"
           >
             <i class="bi bi-pencil-square" style="margin-left: -1.2em"></i>
@@ -227,7 +181,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+           v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Abonnements')"
           >
             <i class="bi bi-credit-card-2-back" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'abonnement' }">
@@ -236,7 +190,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+             v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Paiements')"
           >
             <i class="bi bi-cash-stack" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'transactions' }">
@@ -245,7 +199,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+             v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Temoignages')"
           >
             <i class="bi bi-chat-quote" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'temoignages' }">
@@ -254,7 +208,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+             v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Partenaires')"
           >
             <i class="bi bi-people-fill" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'partenaires' }">
@@ -263,7 +217,7 @@ export default {
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+             v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Publicités')"
           >
             <i class="bi bi-card-image" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'publicite' }">
@@ -273,7 +227,7 @@ export default {
 
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="statut == 'admin'"
+            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Date_lancement')"
           >
             <i class="bi bi-calendar" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'date_lancement' }">

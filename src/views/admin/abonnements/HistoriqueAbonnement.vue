@@ -65,6 +65,13 @@ export default {
         })
         .catch((error) => {
           console.log("error", error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(() => {
           this.get_categorie();
@@ -99,6 +106,13 @@ export default {
         })
         .catch((error) => {
           console.log("error", error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
     get_categorie() {
@@ -148,6 +162,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(() => {
           this.spinner = false;
@@ -232,6 +253,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(() => {
           this.spinner = false;
@@ -259,6 +287,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(() => {
           this.spinner = false;

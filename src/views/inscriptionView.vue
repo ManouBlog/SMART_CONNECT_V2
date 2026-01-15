@@ -154,12 +154,13 @@ export default {
           })
           .catch((err) => {
             console.log(err.message);
-            Swal.fire({
-              icon: "error",
-              title: "l'email existe déjà",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
           });
       }
     },

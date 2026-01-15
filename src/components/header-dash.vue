@@ -49,17 +49,20 @@ export default {
             }, 1500);
             localStorage.removeItem("token");
             localStorage.removeItem("user");
-            // localStorage.removeItem("compte");
-            // localStorage.removeItem("statut");
-
             this.$store.state.user = null;
             this.$store.state.token = null;
-            // this.$store.state.compte = null;
-            // this.$store.state.statut = null;
+        
           }
         })
         .catch((err) => {
           console.log(err);
+           setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(() => {
           this.$store.commit("TOOGLESPINNER", false);
@@ -92,6 +95,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
   },

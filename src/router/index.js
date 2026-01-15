@@ -1,9 +1,9 @@
+/* eslint-disable */
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Accueil from "../views/AccueilView.vue";
 import FormView from "../views/formView.vue";
 import InscriptonView from "../views/inscriptionView.vue";
-// import timetableView from "../views/timetableView.vue";
 import createTimetableView from "../views/timetable/createTimetableView.vue";
 import offresView from "../views/offres/offresView.vue";
 import UpdateLibelle from "../shared/UpdateLibelle.vue";
@@ -403,14 +403,16 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
 ];
-
+/* eslint-disable */
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+/* eslint-disable */
 router.beforeEach((to, _from, next) => {
   if (to.meta.requiresAuth) {
     let session = localStorage.getItem("token");
+    // const permissionUser = JSON.parse(localStorage.getItem("user"))
     if (session === null) {
       next({ path: "/" });
     }

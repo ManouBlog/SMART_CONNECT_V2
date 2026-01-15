@@ -70,6 +70,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
     showId(id) {
@@ -121,6 +128,13 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
     rejectJob() {
@@ -152,6 +166,13 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
   },

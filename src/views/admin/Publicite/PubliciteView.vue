@@ -53,6 +53,13 @@ export default {
         })
         .catch((error) => {
           alert(error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
           // console.log(error);
         })
         .finally(() => {
@@ -66,7 +73,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("https://backend.monbrobroli.com/api/showAffiche", {
+        .get("https://backend.monbrobroli.com/api/showAllAffiche", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -135,6 +142,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(() => {
           this.spinner = false;
@@ -251,7 +265,6 @@ export default {
                               class="form-control"
                               type="text"
                               v-model="lienAffiche"
-                              required
                             />
                           </div>
                         </div>
@@ -308,7 +321,8 @@ export default {
                 <thead>
                   <tr>
                     <th class="bg-light">Affiches</th>
-                     <th class="bg-light">Lien</th>
+                     <th class="bg-light">Liens</th>
+                    <th class="bg-light">Appareils</th> 
                     <th class="bg-light">Actions</th>
                   </tr>
                 </thead>
@@ -322,6 +336,9 @@ export default {
                     </td>
                     <td>
                       {{ item.lien ? item.lien:'Pas de lien'}}
+                    </td>
+                    <td>
+                      {{ item.appareil ? item.appareil:'néant'}}
                     </td>
                     <td>
                       <div class="d-flex justify-content-center gap-5 align-items-center">

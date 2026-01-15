@@ -1,7 +1,7 @@
 <script>
 /* eslint-disable */
 import axios from "axios";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 export default {
   name: "Derails_user_admins",
@@ -11,39 +11,57 @@ export default {
       loading: false,
       permissions: [],
       checkedPermissions: [],
+      userProfil:null
     };
   },
   methods: {
-    savePermissions() {
-      console.log("this.checkedPermissions", this.checkedPermissions);
-      //   this.loading = true;
-      //   axios
-      //     .post(
-      //       "https://backend.monbrobroli.com/api/savePermissions",
-      //       { permissions: this.permissions },
-      //       {
-      //         headers: {
-      //           Authorization: `Bearer ${this.$store.state.token}`,
-      //           "Content-Type": "application/json",
-      //         },
-      //       }
-      //     )
-      //     .then((response) => {
-      //       Swal.fire({
-      //         icon: "success",
-      //         title: response.data.message || "Permissions enregistrées !",
-      //         showConfirmButton: true,
-      //       });
-      //     })
-      //     .catch((error) => {
-      //       console.error("Erreur API:", error);
-      //     })
-      //     .finally(() => {
-      //       this.loading = false;
-      //     });
-    },
+   savePermissions() {
+  this.$store.commit("TOOGLESPINNER", true);
+
+  const userId = Number(this.$route.params.id);
+    let formData = new FormData();
+
+  const newPermissions = this.checkedPermissions.map(item => ({
+    user_id: userId,
+    permission_id: item,
+  }));
+  console.log("newPermissions",newPermissions)
+  newPermissions.forEach((item) => {
+        formData.append("permissions[]", JSON.stringify(item));
+      });
+  axios
+    .post(
+      "https://backend.monbrobroli.com/api/GivePermission/"+userId,formData,
+      {
+        headers: {
+          Authorization: `Bearer ${this.$store.state.token}`,
+        },
+      }
+    )
+    .then((response) => {
+      Swal.fire({
+        icon: "success",
+        title: response.data.message,
+        showConfirmButton: true,
+      });
+    })
+    .catch((error) => {
+      console.error("Erreur API GivePermission :", error);
+
+      setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
+    })
+    .finally(() => {
+      this.$store.commit("TOOGLESPINNER", false);
+    });
+},
     getAllPermission() {
-      this.loading = true;
+      this.$store.commit("TOOGLESPINNER", true);
       axios
         .get("https://backend.monbrobroli.com/api/listerPermission", {
           headers: {
@@ -57,13 +75,57 @@ export default {
         })
         .catch((error) => {
           console.error("Erreur API:", error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(() => {
-          this.loading = false;
+          this.$store.commit("TOOGLESPINNER", false);
         });
     },
+    async get_users() {
+      this.$store.commit("TOOGLESPINNER", true);
+      await axios
+        .get("https://backend.monbrobroli.com/api/listerUser", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          const userId = Number(this.$route.params.id);
+          this.userProfil = res.data.data.find(item=>item.id == userId);
+          this.checkedPermissions = this.userProfil.permissions.map(item=>{
+            return item.id
+          })
+          console.log("this.checkedPermissions",this.checkedPermissions)
+        })
+        .catch((err) => {
+          console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
+          
+        })
+        .finally(() => {
+                 this.$store.commit("TOOGLESPINNER", false);
+               });
+    },
+    onChangePermission(newValue){
+    console.log('Permissions cochées :', newValue)
+    const lastChanged = newValue.filter(id => !this.checkedPermissions.includes(id))
+  console.log('Dernier coché :', lastChanged)
+    }
   },
   created() {
+    this.get_users();
     this.getAllPermission();
   },
 };
@@ -88,7 +150,7 @@ export default {
       </div>
     </div>
 
-    <div class="tab-content" id="top-tabContent">
+    <div class="tab-content" id="top-tabContent" v-if="userProfil">
       <div role="tabpanel" aria-labelledby="permissions_tab">
         <div class="container-fluid">
           <div class="row">
@@ -102,8 +164,8 @@ export default {
                         <div class="col-lg-12">
                           <div class="mb-3 text-start font-bold">
                             <p style="font-weight: bold; font-size: 1.5em">
-                              Gestion des Permissions
-                            </p>
+                              Gestion des Permissions de : {{ userProfil.nom }} {{ userProfil.prenoms }}
+                            </p> 
                           </div>
                         </div>
                       </div>
@@ -112,10 +174,9 @@ export default {
                         <div class="col-lg-12">
                           <div class="mb-3" style="text-align: left">
                             <n-checkbox-group
-                            
+                            @update:value="onChangePermission"
                             v-model:value="checkedPermissions">
                               <n-space vertical>
-    
                                 <n-checkbox v-for="perm in permissions" :value="perm.id">
                                   <span class="fw-bold">{{ perm.name }}</span>
                                   <small class="text-muted d-block">

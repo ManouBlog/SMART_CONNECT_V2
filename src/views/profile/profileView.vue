@@ -81,6 +81,13 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
     modifyPasswordOfEntreprise() {
@@ -118,6 +125,13 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
     modifyPasswordOfAdmin() {
@@ -155,6 +169,13 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
     update_compte_entreprise() {
@@ -297,12 +318,13 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          Swal.fire({
-            icon: "error",
-            title: error.data.message,
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
     see(e) {

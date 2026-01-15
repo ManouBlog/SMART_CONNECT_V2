@@ -78,6 +78,13 @@ export default {
         })
         .catch((error) => {
           console.log("error", error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(() => {
           this.isLoadingWallet = false;
@@ -137,6 +144,13 @@ export default {
         })
         .catch((err) => {
           console.log(err.message);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
           this.spinner = false;
         });
     },
@@ -151,6 +165,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
           this.spinner = false;
         });
     },
@@ -202,6 +223,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
           this.spinner = false;
         });
     },
@@ -257,6 +285,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
           this.spinnerModifyExperience = true;
         });
     },
@@ -304,6 +339,13 @@ export default {
         .catch((err) => {
           this.spinnerModifyExperience = false;
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
     deleteExperience() {
@@ -334,6 +376,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         });
     },
     ToogleShowDelete(id) {
@@ -369,6 +418,13 @@ export default {
         })
         .catch((error) => {
           console.log("error", error);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(() => {
           this.isLoadingWallet = false;
@@ -416,9 +472,12 @@ export default {
     console.log("user", this.$store.state.user);
     // console.log("compte", this.$store.state.compte);
     // this.getAllExperiences();
-    this.getAllStatistique();
+    if(this.$store.state.user.permissions.some(p => p.name === 'Dashboard')){
+this.getAllStatistique();
     this.getAllCompetences();
     this.getAllCompetencesByStudents();
+    }
+    
   },
 };
 </script>
@@ -458,7 +517,8 @@ export default {
             </div>
           </div>
         </div>
-        <div
+        <section v-if="this.$store.state.user.permissions.some(p => p.name === 'Dashboard')">
+          <div
           class="d-flex container_tableauBord"
           style="place-content: flex-start; justify-content: center; flex-wrap: wrap"
         >
@@ -601,6 +661,7 @@ export default {
           <Statistiques_Account :title="'Entreprises & Etudiants'" />
           <Statistique_revenu :title="'Revenu'" />
         </div>
+        </section>
       </div>
     </div>
   </div>

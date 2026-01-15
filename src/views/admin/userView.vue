@@ -21,9 +21,9 @@ export default {
         params: { id: payload },
       });
     },
-    get_users() {
-      this.spinner = true;
-      axios
+    async get_users() {
+      this.$store.commit("TOOGLESPINNER", true);
+      await axios
         .get("https://backend.monbrobroli.com/api/listerUser", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
@@ -31,16 +31,24 @@ export default {
         })
         .then((res) => {
           this.users = res.data.data;
-          this.spinner = false;
-
           this.$nextTick(() => {
             this.initializeDataTables();
           });
         })
         .catch((err) => {
           console.log(err);
-          this.spinner = false;
-        });
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
+          
+        })
+        .finally(() => {
+                 this.$store.commit("TOOGLESPINNER", false);
+               });
     },
     initializeDataTables() {
       const tables = ["#MyTableData", "#MyTableData1"];
@@ -93,8 +101,8 @@ export default {
       });
     },
   },
-  created() {
-    this.get_users();
+  async created() {
+    await this.get_users();
   },
 };
 </script>
@@ -167,7 +175,9 @@ export default {
                     <th class="bg-light">Nom</th>
                     <th class="bg-light">email</th>
                     <th class="bg-light">Statut</th>
-                    <th class="bg-light">Détails</th>
+
+                    <th class="bg-light" v-if="this.$store.state.user.email === 'admin@gmail.com' 
+                    && this.$store.state.user.statut.statut === 'admin'">Détails</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -182,7 +192,8 @@ export default {
                     <td>
                       <span class="badge bg-danger">Admin</span>
                     </td>
-                    <td>
+                    <td v-if="this.$store.state.user.email === 'admin@gmail.com' 
+                    && this.$store.state.user.statut.statut === 'admin'">
                       <i class="bi bi-eye" @click="seeDetailsUserPersonnel(item.id)"></i>
                     </td>
                   </tr>

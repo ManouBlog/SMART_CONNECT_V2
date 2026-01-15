@@ -50,23 +50,28 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+              this.$router.push("/");
+            }, 1500);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            this.$store.state.user = null;
+            this.$store.state.token = null;
         })
         .finally(() => {
           this.$store.commit("TOOGLESPINNER", false);
         });
     },
   },
-  // created() {
-  //   this.get_users();
-  //   this.get_Students();
-  //   this.get_Contrat();
-  // },
+ 
 };
 </script>
 
 <template>
   <!-- ACCUEIL -->
-  <li @click="goTo('Accueil')" :class="['nav-item', { active: isActive('Accueil') }]">
+  <li 
+  v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Dashboard')"
+  @click="goTo('Accueil')" :class="['nav-item', { active: isActive('Accueil') }]">
     <i class="bi bi-house-door"></i>
     <strong>Tableau de bord</strong>
   </li>
@@ -75,7 +80,8 @@ export default {
 
   <!-- ADMIN -->
   <li
-    v-if="statut === 'admin'"
+  
+     v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Domaines')"
     @click="goTo('Categorie')"
     :class="['nav-item', { active: isActive('Categorie') }]"
   >
@@ -84,68 +90,12 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+       v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Poste')"
     @click="goTo('Competences')"
     :class="['nav-item', { active: isActive('Competences') }]"
   >
     <i class="bi bi-grid-1x2"></i>
     <strong>Postes</strong>
-  </li>
-
-  <!-- ENTREPRISE -->
-  <li
-    v-if="statut === 'entreprise'"
-    @click="goTo('offres')"
-    :class="['nav-item', { active: isActive('offres') }]"
-  >
-    <i class="bi bi-briefcase"></i>
-    <strong>Mes offres</strong>
-  </li>
-
-  <li
-    v-if="statut === 'entreprise'"
-    @click="goTo('student_contacts_by_entreprise')"
-    :class="['nav-item', { active: isActive('student_contacts_by_entreprise') }]"
-  >
-    <i class="bi bi-people"></i>
-    <strong>Personnels contactés</strong>
-  </li>
-
-  <li
-    v-if="statut === 'entreprise'"
-    @click="goTo('OffreInteressByStudents')"
-    :class="['nav-item', { active: isActive('OffreInteressByStudents') }]"
-  >
-    <i class="bi bi-people"></i>
-    <strong>Postulants à mon offre</strong>
-  </li>
-
-  <!-- ETUDIANT -->
-  <li
-    v-if="statut === 'etudiant'"
-    @click="goTo('create_timetable')"
-    :class="['nav-item', { active: isActive('create_timetable') }]"
-  >
-    <i class="bi bi-calendar-date"></i>
-    <strong>Mon calendrier</strong>
-  </li>
-
-  <li
-    v-if="statut === 'etudiant'"
-    @click="goTo('see_offres_postuler')"
-    :class="['nav-item', { active: isActive('see_offres_postuler') }]"
-  >
-    <i class="bi bi-briefcase"></i>
-    <strong>Offres postulées</strong>
-  </li>
-
-  <li
-    v-if="statut === 'etudiant'"
-    @click="goTo('see_who_interesse_by_profil_student')"
-    :class="['nav-item', { active: isActive('see_who_interesse_by_profil_student') }]"
-  >
-    <i class="bi bi-building"></i>
-    <strong>Contrat-entreprises</strong>
   </li>
 
   <!-- ADMIN AVANCÉ -->
@@ -159,7 +109,7 @@ export default {
   </li> -->
 
   <li
-    v-if="statut === 'admin'"
+      v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Utilisateurs')"
     @click="goTo('users')"
     :class="['nav-item', { active: isActive('users') }]"
   >
@@ -168,7 +118,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+      v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Entreprises')"
     @click="goTo('entreprises')"
     :class="['nav-item', { active: isActive('entreprises') }]"
   >
@@ -182,7 +132,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+    v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Etudiants')"
     @click="goTo('students')"
     :class="['nav-item', { active: isActive('students') }]"
   >
@@ -199,7 +149,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+    v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Messages')"
     @click="goTo('newsletter')"
     :class="['nav-item', { active: isActive('newsletter') }]"
   >
@@ -208,7 +158,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+           v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Offres')"
     @click="goTo('all_Offres')"
     :class="['nav-item', { active: isActive('all_Offres') }]"
   >
@@ -217,7 +167,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+       v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Contrat')"
     @click="goTo('Contrat')"
     :class="['nav-item', { active: isActive('Contrat') }]"
   >
@@ -230,7 +180,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+       v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Abonnements')"
     @click="goTo('abonnement')"
     :class="['nav-item', { active: isActive('abonnement') }]"
   >
@@ -239,7 +189,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+     v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Paiements')"
     @click="goTo('transactions')"
     :class="['nav-item', { active: isActive('transactions') }]"
   >
@@ -248,7 +198,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+    v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Temoignages')"
     @click="goTo('temoignages')"
     :class="['nav-item', { active: isActive('temoignages') }]"
   >
@@ -257,7 +207,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+     v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Partenaires')"
     @click="goTo('partenaires')"
     :class="['nav-item', { active: isActive('partenaires') }]"
   >
@@ -266,7 +216,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+         v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Publicités')"
     @click="goTo('publicite')"
     :class="['nav-item', { active: isActive('publicite') }]"
   >
@@ -275,7 +225,7 @@ export default {
   </li>
 
   <li
-    v-if="statut === 'admin'"
+       v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Date_lancement')"
     @click="goTo('date_lancement')"
     :class="['nav-item', { active: isActive('date_lancement') }]"
   >

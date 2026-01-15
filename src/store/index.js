@@ -20,6 +20,7 @@ export default createStore({
     isDisplayMenuBar:false,
     nbreBadgeContrat:0,
     listeContrat:[],
+    userSeeMenuBar:"",
   },
   getters: {},
   mutations: {
@@ -70,6 +71,10 @@ export default createStore({
             showConfirmButton: false,
             timer: 1500,
           });
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            state.user = null;
+            state.token = null;
           console.log(error);
         });
     },
@@ -126,6 +131,9 @@ export default createStore({
     DECREMENT_STUDENT_SUSCRIBE(state){
       state.listStudentAbonne--
     },
+    USER_CONNECTED(state,payload){
+      state.userSeeMenuBar = payload
+    }
    
   },
   actions: {
@@ -236,6 +244,29 @@ export default createStore({
         .finally(()=>{
           commit('TOOGLESPINNER',false)
         })
+    },
+     async getInfoUser({commit,state}) {
+      if(state.token){
+       await axios.get("https://backend.monbrobroli.com/api/voirInfoUserConnect", {
+          headers: {
+            Authorization: "Bearer " + state.token,
+          },
+        })
+        .then((resp) => {
+          if (resp.data.status === true) {
+            commit("USER_CONNECTED",resp.data.user)
+            console.log("USER_CONNECTED",resp.data.user)
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            state.user = null;
+            state.token = null;
+        });
+      }
     },
     
   },
