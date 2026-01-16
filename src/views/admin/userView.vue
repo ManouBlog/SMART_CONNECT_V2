@@ -24,7 +24,7 @@ export default {
     async get_users() {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .get("https://backend.monbrobroli.com/api/listerUser", {
+        .get("http://192.168.1.2:8000/api/listerUser", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

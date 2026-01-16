@@ -18,7 +18,7 @@ export default {
     get_details_offres_postule() {
       this.spinner = true;
       axios
-        .get("https://backend.monbrobroli.com/api/get_offres_postule", {
+        .get("http://192.168.1.2:8000/api/get_offres_postule", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

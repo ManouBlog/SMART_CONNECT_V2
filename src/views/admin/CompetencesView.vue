@@ -20,7 +20,7 @@ export default {
     create_competence() {
       axios
         .post(
-          "https://backend.monbrobroli.com/api/createCompetence",
+          "http://192.168.1.2:8000/api/createCompetence",
           {
             competence: this.competence,
             categorie_id: this.selectCategorie,
@@ -67,7 +67,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("https://backend.monbrobroli.com/api/seeCategorie", {
+        .get("http://192.168.1.2:8000/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -97,7 +97,7 @@ export default {
       }
 
       axios
-        .get("https://backend.monbrobroli.com/api/GetAllCompetences", {
+        .get("http://192.168.1.2:8000/api/GetAllCompetences", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -156,7 +156,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "https://backend.monbrobroli.com/api/admin/delete_competence/" + idCompetence,
+          "http://192.168.1.2:8000/api/admin/delete_competence/" + idCompetence,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,

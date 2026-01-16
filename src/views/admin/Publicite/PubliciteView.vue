@@ -13,21 +13,55 @@ export default {
       categories: null,
       spinner: true,
       loading: false,
-      lienAffiche:null,
-      appareal:'pc',
+      lienAffiche: null,
+      appareal: "pc",
+      localization: "pc",
+      date_debut: null,
+      date_fin: null,
+      format: "iphone",
+      today: new Date().toISOString().split("T")[0],
+      typePublicite: "locomotive",
+      company: null,
     };
   },
   methods: {
     async create_publicite() {
-        this.spinner = true;
+      this.spinner = true;
       const formData = new FormData();
       this.afficheData.forEach((affiche) => {
         formData.append("affiche[]", affiche);
       });
-      formData.append('lien',this.lienAffiche);
-      formData.append('appareil',this.appareal);
+      formData.append(
+        "company",
+        this.typePublicite === "locomotive" ? "locomotive" : this.company
+      );
+
+      if (this.lienAffiche) {
+        formData.append("lien", this.lienAffiche);
+      }
+
+      if (this.appareal) {
+        formData.append("appareil", this.appareal);
+      }
+
+      if (this.format) {
+        formData.append("mobile_format", this.format);
+      }
+
+      if (this.localization) {
+        formData.append("localization", this.localization);
+      }
+
+      if (this.date_debut) {
+        formData.append("date_debut", this.date_debut);
+      }
+
+      if (this.date_fin) {
+        formData.append("date_fin", this.date_fin);
+      }
+
       await axios
-        .post("https://backend.monbrobroli.com/api/admin/addAffiche", formData, {
+        .post("http://192.168.1.2:8000/api/admin/addAffiche", formData, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -41,6 +75,14 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
+            this.afficheData = [];
+            this.typePublicite === "locomotive";
+            this.lienAffiche = null;
+            this.appareal = null;
+            this.format = null;
+            this.localization = null;
+            this.date_debut = null;
+            this.date_fin = null;
           }
           if (res.data.status == false) {
             Swal.fire({
@@ -53,14 +95,6 @@ export default {
         })
         .catch((error) => {
           alert(error);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
-          // console.log(error);
         })
         .finally(() => {
           this.get_publicite(1);
@@ -73,13 +107,21 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("https://backend.monbrobroli.com/api/showAllAffiche", {
+        .get("http://192.168.1.2:8000/api/showAllAffiche", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
         })
         .then((res) => {
-          this.allAffiches = res.data.data;
+          const elements = [];
+          console.log("this.afficheAll", res.data.data);
+          const DataAffiche = res.data.data;
+          for (const company in DataAffiche) {
+            console.log("Company:", DataAffiche[company]);
+            elements.push(DataAffiche[company]);
+          }
+          console.log("elements", elements.flat());
+          this.allAffiches = elements.flat();
           console.log("AFFICHES ALL", this.allAffiches);
           setTimeout(function () {
             $("#MyTableData").DataTable({
@@ -125,7 +167,7 @@ export default {
     deletePublicite(idPublicite) {
       this.spinner = true;
       axios
-        .delete("https://backend.monbrobroli.com/api/admin/delete_pub/" + idPublicite, {
+        .delete("http://192.168.1.2:8000/api/admin/delete_pub/" + idPublicite, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -142,13 +184,13 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          // setTimeout(() => {
+          //   this.$router.push("/");
+          // }, 1500);
+          // localStorage.removeItem("token");
+          // localStorage.removeItem("user");
+          // this.$store.state.user = null;
+          // this.$store.state.token = null;
         })
         .finally(() => {
           this.spinner = false;
@@ -237,16 +279,119 @@ export default {
           <div class="Myspinner" v-show="spinner">
             <div class="spinner-border text-primary" role="status"></div>
           </div>
+
           <div class="row">
             <div class="col-sm-12">
               <div class="card">
                 <div class="card-body">
+                  <p style="text-align: center; color: red">
+                    Les champs avec astérisque (*) sont obligatoires.
+                  </p>
                   <div class="form theme-form projectcreate">
                     <form @submit.prevent="create_publicite">
                       <div class="row">
                         <div class="col-lg-6">
+                          <div class="mb-3 text-start">
+                            <p style="font-weight: bold; font-size: 1em">
+                              <span style="color: red">*</span>Localisation (afficher sur
+                              l'application web ou l'application mobile (android & ios))
+                            </p>
+                            <select class="form-control" v-model="localization">
+                              <option value="mobile">Mobile</option>
+                              <option value="pc">Web</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-lg-6" v-if="localization === 'pc'">
                           <div class="mb-3 text-start font-bold">
-                            <p style="font-weight: bold; font-size: 1.5em">Ajouter une Affiche</p>
+                            <p style="font-weight: bold; font-size: 1em">
+                              <span style="color: red">*</span> Séléctionne l'appareil
+                              (sélectionne le format d'affichage )
+                            </p>
+                            <select
+                              name="appareal"
+                              id="appareal"
+                              v-model="appareal"
+                              style="width: 100%"
+                            >
+                              <option value="mobile">Format Mobile</option>
+                              <option value="pc">Format PC</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div
+                          class="col-lg-6"
+                          v-if="appareal === 'mobile' && localization === 'pc'"
+                        >
+                          <div class="mb-3 text-start">
+                            <p style="font-weight: bold; font-size: 1em">
+                              <span style="color: red">*</span> Format
+                            </p>
+                            <select class="form-control" v-model="format">
+                              <option value="iphone">Iphone</option>
+                              <option value="ipad">Ipad</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                          <div class="mb-3 text-start">
+                            <p style="font-weight: bold; font-size: 1.2em">
+                              <span style="color: red">*</span> Propriétaire
+                            </p>
+
+                            <select class="form-control" v-model="typePublicite">
+                              <option disabled value="">
+                                -- Sélectionner le propriétaire --
+                              </option>
+                              <option value="locomotive">Locomotive</option>
+                              <option value="partenaire">Partenaire</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-lg-6" v-if="typePublicite === 'partenaire'">
+                          <div class="mb-3 text-start font-bold">
+                            <p style="font-weight: bold; font-size: 1em">
+                              <span style="color: red">*</span> Entreprise
+                            </p>
+                            <input class="form-control" type="text" v-model="company" />
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6" v-if="typePublicite === 'partenaire'">
+                          <div class="mb-3 text-start">
+                            <p style="font-weight: bold; font-size: 1.2em">
+                              <span style="color: red">*</span>Date début
+                            </p>
+                            <input
+                              type="datetime-local"
+                              :min="today"
+                              class="form-control"
+                              v-model="date_debut"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6" v-if="typePublicite === 'partenaire'">
+                          <div class="mb-3 text-start">
+                            <p style="font-weight: bold; font-size: 1.2em">
+                              <span style="color: red">*</span> Date fin
+                            </p>
+                            <input
+                              type="datetime-local"
+                              :min="date_debut"
+                              :disabled="!date_debut"
+                              class="form-control"
+                              v-model="date_fin"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="mb-3 text-start font-bold">
+                            <p style="font-weight: bold; font-size: 1em">
+                              <span style="color: red">*</span> Ajouter une Affiche
+                            </p>
 
                             <input
                               class="form-control"
@@ -258,9 +403,11 @@ export default {
                             />
                           </div>
                         </div>
-                          <div class="col-lg-6">
+                        <div class="col-lg-6">
                           <div class="mb-3 text-start font-bold">
-                            <p style="font-weight: bold; font-size: 1.5em">Ajouter un lien</p>
+                            <p style="font-weight: bold; font-size: 1em">
+                              Ajouter un lien
+                            </p>
                             <input
                               class="form-control"
                               type="text"
@@ -268,18 +415,6 @@ export default {
                             />
                           </div>
                         </div>
-                         <div class="col-lg-6">
-                          <div class="mb-3 text-start font-bold">
-                            <p style="font-weight: bold; font-size: 1.5em">Séléctionne l'appareil</p>
-                            <select name="appareal" id="appareal"
-                            v-model="appareal"
-                            style="width:100%"
-                            >
-                          <option value="mobile">Mobile</option>
-                          <option value="pc">PC</option>
-                          </select>
-                          </div>
-                          </div>
                       </div>
                       <div class="row">
                         <div class="col">
@@ -321,8 +456,10 @@ export default {
                 <thead>
                   <tr>
                     <th class="bg-light">Affiches</th>
-                     <th class="bg-light">Liens</th>
-                    <th class="bg-light">Appareils</th> 
+                    <th class="bg-light">Propriétaires</th>
+                    <th class="bg-light">Liens</th>
+                    <th class="bg-light">Appareils</th>
+                    <th class="bg-light">Période</th>
                     <th class="bg-light">Actions</th>
                   </tr>
                 </thead>
@@ -331,14 +468,30 @@ export default {
                     <td>
                       <n-image
                         width="100"
-                        :src="'https://backend.monbrobroli.com/storage/app/public/images/'+item.affiche"
+                        :src="'http://192.168.1.2:8000/storage/images/' + item.affiche"
                       />
                     </td>
                     <td>
-                      {{ item.lien ? item.lien:'Pas de lien'}}
+                      {{ item.company ? item.company : "néant" }}
                     </td>
                     <td>
-                      {{ item.appareil ? item.appareil:'néant'}}
+                      {{ item.lien ? item.lien : "Pas de lien" }}
+                    </td>
+                    <td>
+                      {{
+                        item.appareil
+                          ? item.appareil === "mobile"
+                            ? `${item.appareil} (${item.mobile_format})`
+                            : item.appareil
+                          : "néant"
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        item.date_debut
+                          ? item.date_debut + " Au " + item.date_fin
+                          : "néant"
+                      }}
                     </td>
                     <td>
                       <div class="d-flex justify-content-center gap-5 align-items-center">
