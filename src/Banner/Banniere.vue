@@ -45,8 +45,28 @@ export default {
     };
   },
   methods: {
-    mergeTabeau(){
+    mergeTableau(data){
+// Étape 1 : fusionner par company
+const grouped = {};
 
+data.forEach(item => {
+  const company = item.company;
+
+  if (!grouped[company]) {
+    // Crée un objet vide avec la clé company
+    grouped[company] = { company };
+  }
+
+  // Ajoute seulement les valeurs non null
+  if (item.pc) grouped[company].pc = item.pc;
+  if (item.iphone) grouped[company].iphone = item.iphone;
+  if (item.ipad) grouped[company].ipad = item.ipad;
+    if (item.fin) grouped[company].fin = item.fin;
+});
+
+// Étape 2 : convertir en tableau
+const result = Object.values(grouped);
+return result;
     },
     openLink(lien) {
       if (!/^https?:\/\//i.test(lien)) {
@@ -61,24 +81,29 @@ export default {
         .then((res) => {
           this.afficheAll = res.data.data;
           const elements = [];
+          const elementsFlatesFilter = [];
           console.log("this.afficheAll",this.afficheAll)
            for (const company in this.afficheAll) {
-  console.log("Company:", company);
-  this.afficheAll[company].forEach(item => {
-    elements.push({
-      pc:item.appareil === 'pc' ? item.affiche:null,
-      iphone:item.appareil === 'mobile' && item.mobile_format === 'iphone' ? item.affiche:null,
-      ipad:item.appareil === 'mobile' && item.mobile_format === 'ipad' ? item.affiche:null,
+               console.log("Company:", this.afficheAll[company]);
+               elements.push(this.afficheAll[company])
+  
+               }
+console.log("elements",elements.flat());
+const elementsFlats = elements.flat();
+elementsFlats.forEach(item => {
+    elementsFlatesFilter.push({
+      company:item.company,
+      pc:item.appareil === 'pc' ? this.LocalPhoto + item.affiche:null,
+      iphone:item.appareil === 'mobile' && item.mobile_format === 'iphone' ? this.LocalPhoto + item.affiche:null,
+      ipad:item.appareil === 'mobile' && item.mobile_format === 'ipad' ? this.LocalPhoto + item.affiche:null,
+      fin:item.date_fin ? item.date_fin:null
     })
-    // console.log("  Affiche ID:", item.id, "→", item.affiche);
   });
-}
-console.log("elements",elements);
-          if (this.afficheAll.length > 0) {
-            this.afficheShow = this.afficheAll;
-         
-          // console.log("afficheShowPc", );
-          
+  console.log("elementsFlatesFilter",this.mergeTableau(elementsFlatesFilter));
+  const afficheFilterShow = this.mergeTableau(elementsFlatesFilter);
+          if (afficheFilterShow.length > 0) {
+            this.afficheShow = this.mergeTableau(elementsFlatesFilter).filter(item=>new Date(item.fin) > new Date());
+            console.log("FILTER PASSE",this.afficheShow) 
           } else {
             this.afficheShow = this.afficheDefault;
           }
@@ -158,22 +183,22 @@ console.log("elements",elements);
               />
               <div v-else>
                 <img
-                v-if="windowWidth > 1200"
+                v-if="windowWidth > 1200 "
                 :src="item.pc"
                 class="carousel-img"
-                :alt="`Bannière ${index + 1}`"
+                :alt="`Bannière ${'pc'}`"
               />
                <img
                 v-if="windowWidth <= 1200 && windowWidth > 600"
                 :src="item.ipad"
                 class="carousel-img"
-                :alt="`Bannière ${index + 1}`"
+                :alt="`Bannière ${'ipad'}`"
               />
                <img
                 v-if="windowWidth <= 500"
                 :src="item.iphone"
                 class="carousel-img"
-                :alt="`Bannière ${index + 1}`"
+                :alt="`Bannière ${'iphone'}`"
               />
               </div>
             
