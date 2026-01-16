@@ -87,7 +87,7 @@ export default {
           <div class="rond position-absolute"></div>
           <div class="contenteur_experience">
             <div class="proof_experience" v-if="item?.proof">
-              <n-image width="100" :src="lienPhoto + item?.proof" />
+              <n-image width="100" :src="LocalPhoto + item?.proof" />
             </div>
             <h3 class="text-start">
               {{ item?.entreprise }}

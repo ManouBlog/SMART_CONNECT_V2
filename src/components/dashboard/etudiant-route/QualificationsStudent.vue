@@ -1,5 +1,5 @@
 <script>
-import instance, { lienPhoto } from "../../../api/api";
+import instance, { LocalPhoto } from "../../../api/api";
 import Swal from "sweetalert2";
 // import { Help } from "../../../utils";
 // import VueMultiselect from "vue-multiselect";
@@ -50,7 +50,7 @@ export default {
       rows: 2,
       user: this.$store.state.user,
       competencesPredf: [],
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       competences: [],
       spinner: false,
       experience: null,

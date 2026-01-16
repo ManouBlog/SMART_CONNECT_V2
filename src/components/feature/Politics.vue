@@ -319,7 +319,7 @@ const handleRegister = () => {
               incendie, panne informatique, etc. (liste non exhaustive).
             </p>
             <h2 class="text-left">
-              <code>ARTICLE 7-SECURITE-PROTECTION DES DONNEES A CARACTERE PERSONNEL</code>
+              <code>ARTICLE 7-POLITIQUES DE CONFIDENTIALITÉ</code>
             </h2>
             <p>
               MonBrobroli met en œuvre les mesures techniques et organisationnelles

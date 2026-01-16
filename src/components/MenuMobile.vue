@@ -1,5 +1,5 @@
 <script>
-import instance, { lienPhoto } from "../api/api";
+import instance, { LocalPhoto } from "../api/api";
 import { Help } from "../utils";
 import Swal from "sweetalert2";
 import { mapState, mapActions } from "pinia";
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       Help: Help,
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       texte: "",
       texte2: "",
       texte3: "",
@@ -129,7 +129,7 @@ export default {
           style="border: 2px solid orange; object-fit: cover"
           round
           :size="55"
-          :src="lienPhoto + this.photo_profil"
+          :src="LocalPhoto + this.photo_profil"
         />
         <span
           style="

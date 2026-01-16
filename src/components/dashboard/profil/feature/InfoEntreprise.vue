@@ -1,6 +1,6 @@
 <script>
 import Swal from "sweetalert2";
-import instance, { lienPhoto, lienPDF } from "../../../../api/api";
+import instance, { LocalPhoto, lienPDF } from "../../../../api/api";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { mapActions } from "pinia";
@@ -55,7 +55,7 @@ export default {
       nom: "",
 
       prenoms: "",
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       password: null,
       commune: "",
       quartier: "",
@@ -226,7 +226,7 @@ export default {
                 :alt="item.value"
                 v-if="item.libelle === 'Logo entreprise :'"
                 width="100"
-                :src="lienPhoto + item.value"
+                :src="LocalPhoto + item.value"
               />
             </div>
             <div
@@ -238,7 +238,7 @@ export default {
                 :key="index"
                 :alt="piece.path"
                 width="100"
-                :src="lienPhoto + piece.path"
+                :src="LocalPhoto + piece.path"
               />
             </div>
             
@@ -300,7 +300,7 @@ export default {
                 :alt="photo.path"
                 width="120"
                 height="100"
-                :src="lienPhoto + photo.path"
+                :src="LocalPhoto + photo.path"
               />
               <span v-if="!item.value.length"
                 >Veuillez ajouter une pièce d'identité.</span
@@ -315,7 +315,7 @@ export default {
                 :key="index"
                 :alt="piece.path"
                 width="100"
-                :src="lienPhoto + piece.path"
+                :src="LocalPhoto + piece.path"
               />
             </div>
           </div>

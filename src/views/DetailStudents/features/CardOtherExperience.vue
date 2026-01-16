@@ -1,6 +1,6 @@
 <script>
 import { mapActions, mapState } from "pinia";
-import { lienPhoto } from "../../../api/api";
+import { LocalPhoto } from "../../../api/api";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useModalExperienceStore } from "../../../store-pinia/ModalExperience/useModalExperienceStore";
 export default {
@@ -8,7 +8,7 @@ export default {
   props: { experiences: { type: Array } },
   data() {
     return {
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       texte: "",
       texte2: "",
       texte3: "",
@@ -65,7 +65,7 @@ export default {
       <div class="rond position-absolute"></div>
       <div class="contenteur_experience">
         <div class="proof_experience" v-if="item.proof">
-          <n-image width="100" :src="lienPhoto + item.proof" />
+          <n-image width="100" :src="LocalPhoto + item.proof" />
         </div>
         <h3 class="text-start">
           {{ item?.entreprise }}

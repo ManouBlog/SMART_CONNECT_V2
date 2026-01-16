@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import instance, { lienPhoto } from "../api/api";
+import instance, { LocalPhoto } from "../api/api";
 
 const testimonials = ref([]);
 
@@ -60,7 +60,7 @@ onMounted(async () => {
             <div class="testimonials__author">
               <div class="author__avatar">
                 <img
-                  :src="lienPhoto + item.student.photo_profil"
+                  :src="LocalPhoto + item.student.photo_profil"
                   :alt="item.student.nom"
                   class="author__image"
                 />
@@ -125,7 +125,7 @@ onMounted(async () => {
               <div class="author__avatar">
                 <img
                   v-if="item.user.statut.statut === 'entreprise'"
-                  :src="lienPhoto + item.student.logo"
+                  :src="LocalPhoto + item.student.logo"
                   :alt="item.student.nom"
                   class="author__image"
                 />

@@ -1,5 +1,5 @@
 <script>
-import instance, { lienPhoto } from "../../../api/api";
+import instance, { LocalPhoto } from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 // import { Help } from "../../../utils";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
@@ -15,7 +15,7 @@ export default {
       texte0: "",
       texte1: "",
       offresInteressByStudents: null,
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       offre: null,
       offres: null,
       spinner: false,

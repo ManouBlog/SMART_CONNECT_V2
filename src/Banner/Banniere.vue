@@ -1,5 +1,5 @@
 <script>
-import instance, { lienPhoto } from "../api/api";
+import instance, { LocalPhoto } from "../api/api";
 import { useWindowSize } from '@vueuse/core'
 const { width: windowWidth } = useWindowSize();
 export default {
@@ -8,7 +8,7 @@ export default {
     return {
       windowWidth:windowWidth,
       afficheAll: [],
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       afficheDefault: [
         {
           iphone: require("../assets/mobile/baniere_1.png"),
@@ -45,6 +45,9 @@ export default {
     };
   },
   methods: {
+    mergeTabeau(){
+
+    },
     openLink(lien) {
       if (!/^https?:\/\//i.test(lien)) {
         window.open(`https://${lien}`, "_blank");
@@ -54,11 +57,28 @@ export default {
     },
     getAllAffiche() {
       instance
-        .get("showAffiche/" + "pc")
+        .get("showAllAffiche")
         .then((res) => {
           this.afficheAll = res.data.data;
+          const elements = [];
+          console.log("this.afficheAll",this.afficheAll)
+           for (const company in this.afficheAll) {
+  console.log("Company:", company);
+  this.afficheAll[company].forEach(item => {
+    elements.push({
+      pc:item.appareil === 'pc' ? item.affiche:null,
+      iphone:item.appareil === 'mobile' && item.mobile_format === 'iphone' ? item.affiche:null,
+      ipad:item.appareil === 'mobile' && item.mobile_format === 'ipad' ? item.affiche:null,
+    })
+    // console.log("  Affiche ID:", item.id, "→", item.affiche);
+  });
+}
+console.log("elements",elements);
           if (this.afficheAll.length > 0) {
             this.afficheShow = this.afficheAll;
+         
+          // console.log("afficheShowPc", );
+          
           } else {
             this.afficheShow = this.afficheDefault;
           }
@@ -133,7 +153,7 @@ export default {
               <img
                 v-if="item.lien"
                 class="carousel-img"
-                :src="lienPhoto + item.affiche"
+                :src="LocalPhoto + item.affiche"
                 @click="openLink(item.lien)"
               />
               <div v-else>

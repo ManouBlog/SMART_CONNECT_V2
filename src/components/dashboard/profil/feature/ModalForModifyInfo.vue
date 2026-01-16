@@ -3,7 +3,7 @@ import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInf
 import { mapActions, mapState } from "pinia";
 import InfoForModifyEntreprises from "./viewForModifier/InfoForModifyEntreprises.vue";
 import CvStudent from "./CvStudent.vue";
-import { lienPhoto } from "../../../../api/api";
+import { LocalPhoto } from "../../../../api/api";
 import { Help } from "../../../../utils";
 export default {
   name: "ModalForModifyInfo",
@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       Help: Help,
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
     };
   },
   methods: {
@@ -41,7 +41,7 @@ export default {
     <CvStudent
       :isbtnPdf="this.isbtnPdf"
       :nom="this.infoUserConnected?.user?.nom +' '+this.infoUserConnected?.user?.prenoms"
-      :photo="this.infoUserConnected?.photo_profil ? lienPhoto + this.infoUserConnected?.photo_profil:null"
+      :photo="this.infoUserConnected?.photo_profil ? LocalPhoto + this.infoUserConnected?.photo_profil:null"
       :telephone="`${this.infoUserConnected?.phone}`"
       :email="this.infoUserConnected?.user?.email"
       nationalite="Ivoirienne"

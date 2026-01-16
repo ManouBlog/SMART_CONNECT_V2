@@ -1,5 +1,5 @@
 <script>
-import instance, { lienPhoto } from "../api/api";
+import instance, { LocalPhoto } from "../api/api";
 import { configUtils } from "../Shared/Utils";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       texte: "",
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       texte2: "",
       texte3: "",
       texte1: "",
@@ -161,7 +161,7 @@ export default {
                     "
                     :src="
                       DetailSeeEntreprise.offre.entreprise.logo
-                        ? lienPhoto + DetailSeeEntreprise.offre.entreprise.logo
+                        ? LocalPhoto + DetailSeeEntreprise.offre.entreprise.logo
                         : '/brobroli.png'
                     "
                     :alt="

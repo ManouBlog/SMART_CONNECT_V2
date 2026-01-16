@@ -1,5 +1,5 @@
 <script>
-import instance, { lienPhoto } from "../../api/api";
+import instance, { LocalPhoto } from "../../api/api";
 import Swal from "sweetalert2";
 import { Help } from "../../utils";
 import "primeicons/primeicons.css";
@@ -21,7 +21,7 @@ export default {
   // },
   data() {
     return {
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       Help: Help,
       competenceAdd: null,
       texte01: "",
@@ -608,7 +608,7 @@ export default {
                 style="border: 2px solid orange; object-fit: cover"
                 round
                 :size="50"
-                :src="lienPhoto + emploi.photo_profil"
+                :src="LocalPhoto + emploi.photo_profil"
               />
               <span
                 style="

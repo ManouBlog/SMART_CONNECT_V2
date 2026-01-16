@@ -1,5 +1,5 @@
 <script>
-import instance, { lienPhoto } from "../../../../../api/api";
+import instance, { LocalPhoto } from "../../../../../api/api";
 // import VueMultiselect from "vue-multiselect";
 import { mapActions, mapState } from "pinia";
 import { Help } from "../../../../../utils";
@@ -16,7 +16,7 @@ export default {
     return {
       user: "",
       emails_cc:[],
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       StoreLoading: useLoadingSpinner(),
       itemsQualificationDynamicInput: [],
       placeholderDynamicInput: ["05-02-2020", "05-03-2025"],

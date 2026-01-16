@@ -1,5 +1,5 @@
 <script>
-import instance, { lienPhoto } from "../../../api/api";
+import instance, { LocalPhoto } from "../../../api/api";
 import Swal from "sweetalert2";
 import VueMultiselect from "vue-multiselect";
 import { mapActions } from "pinia";
@@ -48,7 +48,7 @@ export default {
       rows: 2,
       user: this.$store.state.user,
       competencesPredf: [],
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       competences: [],
       spinner: false,
       experience: null,
@@ -490,7 +490,7 @@ export default {
             <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
               <div v-if="updateExperience.proof">
                 <label class="d-block">{{texte13}}</label>
-                <n-image width="200" :src="lienPhoto + updateExperience.proof" />
+                <n-image width="200" :src="LocalPhoto + updateExperience.proof" />
               </div>
               <label class="d-block">{{texte14}}</label>
               <input
@@ -661,7 +661,7 @@ export default {
                       <div class="rond position-absolute"></div>
                       <div class="contenteur_experience">
                         <div class="proof_experience" v-if="item.proof">
-                          <n-image width="100" :src="lienPhoto + item.proof" />
+                          <n-image width="100" :src="LocalPhoto + item.proof" />
                         </div>
                         <h3 class="text-start">
                           {{ item.entreprise }}

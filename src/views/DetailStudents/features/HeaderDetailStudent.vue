@@ -1,5 +1,5 @@
 <script>
-import { lienPhoto } from "../../../api/api";
+import { LocalPhoto } from "../../../api/api";
 import ModalForModifyInfo from "../../../components/dashboard/profil/feature/ModalForModifyInfo.vue";
 import { Help } from "../../../utils";
 import { useInfoPersonnel } from "../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      lienPhoto: lienPhoto,
+      LocalPhoto: LocalPhoto,
       Help: Help,
     };
   },
@@ -44,7 +44,7 @@ export default {
           style="border: 2px solid orange; object-fit: cover"
           round
           :size="50"
-          :src="lienPhoto + timetable_for_student.photo_profil"
+          :src="LocalPhoto + timetable_for_student.photo_profil"
         />
         <span
           style="
