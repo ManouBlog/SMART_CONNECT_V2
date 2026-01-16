@@ -61,7 +61,7 @@ export default {
       }
 
       await axios
-        .post("http://192.168.1.2:8000/api/admin/addAffiche", formData, {
+        .post("https://backend.monbrobroli.com/api/admin/addAffiche", formData, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -107,7 +107,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("http://192.168.1.2:8000/api/showAllAffiche", {
+        .get("https://backend.monbrobroli.com/api/showAllAffiche", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -167,7 +167,7 @@ export default {
     deletePublicite(idPublicite) {
       this.spinner = true;
       axios
-        .delete("http://192.168.1.2:8000/api/admin/delete_pub/" + idPublicite, {
+        .delete("https://backend.monbrobroli.com/api/admin/delete_pub/" + idPublicite, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -468,7 +468,9 @@ export default {
                     <td>
                       <n-image
                         width="100"
-                        :src="'http://192.168.1.2:8000/storage/images/' + item.affiche"
+                        :src="
+                          'https://backend.monbrobroli.com/storage/images/' + item.affiche
+                        "
                       />
                     </td>
                     <td>

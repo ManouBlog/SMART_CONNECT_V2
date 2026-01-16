@@ -59,7 +59,7 @@ export default {
     getAllStatistique() {
       this.isLoadingWallet = true;
       axios
-        .get("http://192.168.1.2:8000/api/statistiques/statistiqueGlobal", {
+        .get("https://backend.monbrobroli.com/api/statistiques/statistiqueGlobal", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -92,7 +92,7 @@ export default {
     },
     getAllCompetencesByStudents() {
       axios
-        .get("http://192.168.1.2:8000/api/getCompetenceByStudents", {
+        .get("https://backend.monbrobroli.com/api/getCompetenceByStudents", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -108,7 +108,7 @@ export default {
       this.spinner = true;
       axios
         .post(
-          "http://192.168.1.2:8000/api/addCompetences",
+          "https://backend.monbrobroli.com/api/addCompetences",
           {
             competence: this.comp,
           },
@@ -157,7 +157,7 @@ export default {
     getAllCompetences() {
       this.spinner = true;
       axios
-        .get("http://192.168.1.2:8000/api/GetAllCompetences")
+        .get("https://backend.monbrobroli.com/api/GetAllCompetences")
         .then((res) => {
           console.log("COMPETENCE", res?.data?.data);
           this.competencesPredf = res?.data?.data;
@@ -197,7 +197,7 @@ export default {
       this.spinner = true;
       axios
         .delete(
-          "http://192.168.1.2:8000/api/deleteCompetencesOfStudents/" +
+          "https://backend.monbrobroli.com/api/deleteCompetencesOfStudents/" +
             this.id_for_delete,
           {
             headers: {
@@ -251,7 +251,7 @@ export default {
     // getAllExperiences() {
     //   this.spinnerExperience = true;
     //   axios
-    //     .get("http://192.168.1.2:8000/api/GetMyExperiences", {
+    //     .get("https://backend.monbrobroli.com/api/GetMyExperiences", {
     //       headers: {
     //         Authorization: "Bearer " + this.$store.state.token,
     //       },
@@ -272,7 +272,7 @@ export default {
       this.idExperience = id;
       console.log("IDEXPERIENCE", this.idExperience);
       axios
-        .get("http://192.168.1.2:8000/api/GetMyExperiences", {
+        .get("https://backend.monbrobroli.com/api/GetMyExperiences", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -304,7 +304,7 @@ export default {
       console.log(this.updateExperience.experience);
       axios
         .post(
-          "http://192.168.1.2:8000/api/modifyExperience/" + this.idExperience,
+          "https://backend.monbrobroli.com/api/modifyExperience/" + this.idExperience,
           {
             experience: this.updateExperience.experience,
             lieu: this.updateExperience.lieu,
@@ -351,7 +351,7 @@ export default {
     deleteExperience() {
       axios
         .delete(
-          "http://192.168.1.2:8000/api/deleteMyExperience/" +
+          "https://backend.monbrobroli.com/api/deleteMyExperience/" +
             this.idExperienceAtDelete,
           {
             headers: {
@@ -402,7 +402,7 @@ export default {
       };
       axios
         .post(
-          "http://192.168.1.2:8000/api/statistiques/filterStatistiqueWallet",
+          "https://backend.monbrobroli.com/api/statistiques/filterStatistiqueWallet",
           data,
           {
             headers: {

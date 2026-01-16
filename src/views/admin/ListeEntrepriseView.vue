@@ -39,7 +39,7 @@ export default {
     async getDetailCompanyNotSuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("http://192.168.1.2:8000/api/updateBadgeEntreprise/" + id, {
+        .put("https://backend.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -73,7 +73,7 @@ export default {
      async getDetailCompanySuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("http://192.168.1.2:8000/api/updateBadgeEntreprise/" + id, {
+        .put("https://backend.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
