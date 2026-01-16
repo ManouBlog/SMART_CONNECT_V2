@@ -40,9 +40,9 @@ export default {
         formData.append("lien", this.lienAffiche);
       }
 
-      if (this.appareal) {
-        formData.append("appareil", this.appareal);
-      }
+      // if (this.appareal) {
+        formData.append("appareil", this.localization === 'mobile' ? 'mobile' : this.appareal);
+      // }
 
       if (this.format) {
         formData.append("mobile_format", this.format);
@@ -293,8 +293,7 @@ export default {
                         <div class="col-lg-6">
                           <div class="mb-3 text-start">
                             <p style="font-weight: bold; font-size: 1em">
-                              <span style="color: red">*</span>Localisation (afficher sur
-                              l'application web ou l'application mobile (android & ios))
+                              <span style="color: red">*</span>Plateforme de diffusion
                             </p>
                             <select class="form-control" v-model="localization">
                               <option value="mobile">Mobile</option>
@@ -305,8 +304,8 @@ export default {
                         <div class="col-lg-6" v-if="localization === 'pc'">
                           <div class="mb-3 text-start font-bold">
                             <p style="font-weight: bold; font-size: 1em">
-                              <span style="color: red">*</span> Séléctionne l'appareil
-                              (sélectionne le format d'affichage )
+                              <span style="color: red">*</span>
+                              Sélectionner le format d'affichage
                             </p>
                             <select
                               name="appareal"
@@ -329,8 +328,8 @@ export default {
                               <span style="color: red">*</span> Format
                             </p>
                             <select class="form-control" v-model="format">
-                              <option value="iphone">Iphone</option>
-                              <option value="ipad">Ipad</option>
+                              <option value="iphone">Smartphone</option>
+                              <option value="ipad">Tablette</option>
                             </select>
                           </div>
                         </div>
@@ -338,12 +337,12 @@ export default {
                         <div class="col-lg-6">
                           <div class="mb-3 text-start">
                             <p style="font-weight: bold; font-size: 1.2em">
-                              <span style="color: red">*</span> Propriétaire
+                              <span style="color: red">*</span> Annonceur
                             </p>
 
                             <select class="form-control" v-model="typePublicite">
                               <option disabled value="">
-                                -- Sélectionner le propriétaire --
+                                -- Sélectionner l'annonceur --
                               </option>
                               <option value="locomotive">Locomotive</option>
                               <option value="partenaire">Partenaire</option>
