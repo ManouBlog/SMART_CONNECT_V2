@@ -1,5 +1,5 @@
 <script>
-import instance, { LocalPhoto } from "../../../../api/api";
+import instance, { lienPhoto } from "../../../../api/api";
 import LiensNavBar from "../LiensNavBar.vue";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      LocalPhoto: LocalPhoto,
+      lienPhoto: lienPhoto,
       Help: Help,
       texte2: "",
       texte3: "",
@@ -150,7 +150,7 @@ export default {
         style="border: 2px solid orange; object-fit: cover"
         round
         :size="55"
-        :src="LocalPhoto + user.photo_profil"
+        :src="lienPhoto + user.photo_profil"
       />
       <span
         style="

@@ -5,7 +5,7 @@
       <img
       v-if="notification.username !== 'MonBrobroli'"
         :class="notification.avatar ? null : 'flou_image'"
-        :src="LocalPhoto + notification.avatar"
+        :src="lienPhoto + notification.avatar"
         alt="Avatar"
       />
       <img
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { LocalPhoto } from "../api/api";
+import { lienPhoto } from "../api/api";
 import { defineProps } from "vue";
 defineProps({
   notification: {

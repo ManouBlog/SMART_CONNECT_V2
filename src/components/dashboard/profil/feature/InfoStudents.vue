@@ -1,6 +1,6 @@
 <script>
 import Swal from "sweetalert2";
-import instance, { LocalPhoto } from "../../../../api/api";
+import instance, { lienPhoto } from "../../../../api/api";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
@@ -33,7 +33,7 @@ export default {
       user: "",
       nom: "",
       prenoms: "",
-      LocalPhoto: LocalPhoto,
+      lienPhoto: lienPhoto,
       password: null,
       commune: "",
       quartier: "",
@@ -254,7 +254,7 @@ export default {
               height: 120px;
             "
             round
-            :src="LocalPhoto + user.photo_profil"
+            :src="lienPhoto + user.photo_profil"
           />
           <p
             style="
@@ -330,7 +330,7 @@ export default {
                     >
                       <n-card title="Document PDF" closable @close="showModal = false">
                         <iframe
-                          :src="LocalPhoto + element.path"
+                          :src="lienPhoto + element.path"
                           style="width: 100%; height: 600px; border: none"
                         ></iframe>
                       </n-card>
@@ -343,7 +343,7 @@ export default {
                     :alt="photo"
                     width="100"
                     height="150"
-                    :src="LocalPhoto + photo"
+                    :src="lienPhoto + photo"
                   />
                 </div>
               </section>

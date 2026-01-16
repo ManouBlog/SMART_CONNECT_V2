@@ -1,5 +1,5 @@
 <script>
-import instance, { LocalPhoto } from "../api/api";
+import instance, { lienPhoto } from "../api/api";
 import Swal from "sweetalert2";
 import VueMultiselect from "vue-multiselect";
 import { configUtils } from "../Shared/Utils";
@@ -22,7 +22,7 @@ export default {
       texte4: "",
       texte5: "",
       texte6: "",
-      LocalPhoto: LocalPhoto,
+      lienPhoto: lienPhoto,
       texte7: "",
       texte8: "",
       texte9: "",
@@ -407,7 +407,7 @@ if (!user.competences.length || !user.qualifications.length) {
                   <img
                     :src="
                       offre.entreprise.logo
-                        ? LocalPhoto + offre.entreprise.logo
+                        ? lienPhoto + offre.entreprise.logo
                         : '/brobroli.png'
                     "
                     :alt="offre.entreprise.logo ? offre.entreprise.logo : 'smart-connect'"

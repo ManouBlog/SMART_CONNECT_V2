@@ -1,5 +1,5 @@
 <script>
-import { LocalPhoto } from "../../../api/api";
+import { lienPhoto } from "../../../api/api";
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       texte: "", texte2: "", texte3: "", texte1: "" ,
-      LocalPhoto:LocalPhoto,
+      lienPhoto:lienPhoto,
       slides: [
         // {
         //   id: 1,
@@ -68,7 +68,7 @@ export default {
       <vueper-slide 
       v-for="(slide, i) in partenaires" 
       :key="i" 
-      :image="LocalPhoto+slide.partenaire" 
+      :image="lienPhoto+slide.partenaire" 
       style="margin:0 1em;"
       />
       <template #pause>

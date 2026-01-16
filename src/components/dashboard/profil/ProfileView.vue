@@ -1,6 +1,6 @@
 <script>
 import Swal from "sweetalert2";
-import instance, { LocalPhoto } from "../../../api/api";
+import instance, { lienPhoto } from "../../../api/api";
 import InfoEntreprise from "./feature/InfoEntreprise.vue";
 import InfoStudents from "./feature/InfoStudents.vue";
 // import InfoParticulier from "./feature/InfoParticulier.vue"
@@ -59,7 +59,7 @@ export default {
       texte26: "",
       nom: "",
       prenoms: "",
-      LocalPhoto: LocalPhoto,
+      lienPhoto: lienPhoto,
       password: null,
       commune: "",
       quartier: "",

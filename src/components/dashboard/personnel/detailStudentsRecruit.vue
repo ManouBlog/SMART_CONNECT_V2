@@ -1,5 +1,5 @@
 <script>
-import instance, { LocalPhoto } from "../../../api/api";
+import instance, { lienPhoto } from "../../../api/api";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import { Help } from "../../../utils";
 import Swal from "sweetalert2";
@@ -43,7 +43,7 @@ export default {
       texte26: "",
       texte27: "",
       studentRecruit: null,
-      LocalPhoto: LocalPhoto,
+      lienPhoto: lienPhoto,
       offre: null,
       offres: null,
       spinner: false,
@@ -278,7 +278,7 @@ export default {
                 style="border: 2px solid orange; object-fit: cover"
                 round
                 :size="40"
-                :src="LocalPhoto + item.student.photo_profil"
+                :src="lienPhoto + item.student.photo_profil"
               />
               <span
                 class="user-avatar"
@@ -329,7 +329,7 @@ export default {
               <h4>
                 <span style="color: orange">{{ texte12 }} :</span>
                 <img
-                  :src="LocalPhoto + item.student.photo"
+                  :src="lienPhoto + item.student.photo"
                   class="w-25 border-2 rounded"
                   :alt="item.student.photo"
                 />

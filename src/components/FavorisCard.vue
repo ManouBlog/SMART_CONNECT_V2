@@ -3,7 +3,7 @@
     <div class="notification-avatar">
       <img
         v-if="favoris?.student.photo_profil"
-        :src="LocalPhoto + favoris?.student.photo_profil"
+        :src="lienPhoto + favoris?.student.photo_profil"
         alt="Avatar"
         style="width: 90px !important; height: 90px !important"
       />
@@ -49,12 +49,12 @@
 
 <script>
 import { Help } from "../utils";
-import { LocalPhoto } from "../api/api";
+import { lienPhoto } from "../api/api";
 export default {
   name: "favorisCard",
   data() {
     return {
-      LocalPhoto: LocalPhoto,
+      lienPhoto: lienPhoto,
       Help: Help,
     };
   },

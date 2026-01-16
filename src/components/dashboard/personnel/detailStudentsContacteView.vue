@@ -1,5 +1,5 @@
 <script>
-import instance,{LocalPhoto} from "../../../api/api";
+import instance,{lienPhoto} from "../../../api/api";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
@@ -42,7 +42,7 @@ export default {
       texte27:"",
       list_students: null,
       student: null,
-      LocalPhoto:LocalPhoto,
+      lienPhoto:lienPhoto,
       spinner: false,
       detailsStudents: null,
       moneyFormat: new Intl.NumberFormat("de-DE"),
@@ -252,7 +252,7 @@ export default {
          <h4><span style="color:orange;">{{texte7}} :</span> {{ detailsStudents.diplome }}</h4>
          <div style="text-align:left;">
            <h4><span style="color:orange;">{{texte8}} :</span></h4>
-           <n-image width="100" :src="LocalPhoto + detailsStudents.photo"
+           <n-image width="100" :src="lienPhoto + detailsStudents.photo"
              :alt="detailsStudents.photo" />
          </div>
         </section>

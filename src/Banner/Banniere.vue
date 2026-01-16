@@ -1,5 +1,5 @@
 <script>
-import instance, { LocalPhoto } from "../api/api";
+import instance, { lienPhoto } from "../api/api";
 import { useWindowSize } from '@vueuse/core'
 const { width: windowWidth } = useWindowSize();
 export default {
@@ -8,7 +8,7 @@ export default {
     return {
       windowWidth:windowWidth,
       afficheAll: [],
-      LocalPhoto: LocalPhoto,
+      lienPhoto: lienPhoto,
       afficheDefault: [
         {
           iphone: require("../assets/mobile/baniere_1.png"),
@@ -93,9 +93,9 @@ const elementsFlats = elements.flat();
 elementsFlats.forEach(item => {
     elementsFlatesFilter.push({
       company:item.company,
-      pc:item.appareil === 'pc' ? this.LocalPhoto + item.affiche:null,
-      iphone:item.appareil === 'mobile' && item.mobile_format === 'iphone' ? this.LocalPhoto + item.affiche:null,
-      ipad:item.appareil === 'mobile' && item.mobile_format === 'ipad' ? this.LocalPhoto + item.affiche:null,
+      pc:item.appareil === 'pc' ? this.lienPhoto + item.affiche:null,
+      iphone:item.appareil === 'mobile' && item.mobile_format === 'iphone' ? this.lienPhoto + item.affiche:null,
+      ipad:item.appareil === 'mobile' && item.mobile_format === 'ipad' ? this.lienPhoto + item.affiche:null,
       fin:item.date_fin ? item.date_fin:null
     })
   });
@@ -178,7 +178,7 @@ elementsFlats.forEach(item => {
               <img
                 v-if="item.lien"
                 class="carousel-img"
-                :src="LocalPhoto + item.affiche"
+                :src="lienPhoto + item.affiche"
                 @click="openLink(item.lien)"
               />
               <div v-else>

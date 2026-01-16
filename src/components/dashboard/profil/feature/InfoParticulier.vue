@@ -1,7 +1,7 @@
 
 <script>
 import Swal from "sweetalert2";
-import instance,{LocalPhoto} from "../../../../api/api";
+import instance,{lienPhoto} from "../../../../api/api";
 export default {
   name: "InfoParticulier",
   data() {
@@ -10,7 +10,7 @@ export default {
       nom: "",
       isLoading:false,
       prenoms: "",
-      LocalPhoto:LocalPhoto, 
+      lienPhoto:lienPhoto, 
       password: null,
       commune: "",
       quartier: "",
@@ -248,7 +248,7 @@ export default {
           <label class="form-label d-block">Pièce d'identité</label>
           <img
                       :src="
-                      LocalPhoto + user.piece_gerant
+                      lienPhoto + user.piece_gerant
                       "
                       :alt="user.piece_gerant"
                       class="w-25"

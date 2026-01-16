@@ -1,5 +1,5 @@
 <script>
-// import instance, { LocalPhoto } from "../../../api/api";
+// import instance, { lienPhoto } from "../../../api/api";
 // import Swal from "sweetalert2";
 
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
