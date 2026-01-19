@@ -81,9 +81,9 @@ async function getOffresInteressByStudent() {
     console.error("Erreur lors du chargement des offres :", error);
   }
 }
-  function verifUserProfilEtudiantComplet() {
+  async function verifUserProfilEtudiantComplet() {
   // Charger l'utilisateur et attendre la fin
-   vuexStore.dispatch("getInfoUser");
+  await vuexStore.dispatch("getInfoUser");
 
   const user = vuexStore.state.infoUserConnected;
   console.log("USER",user)
