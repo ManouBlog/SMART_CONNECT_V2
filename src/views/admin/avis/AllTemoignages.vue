@@ -20,7 +20,7 @@ export default {
     get_temoignages() {
       this.spinner = true;
       axios
-        .get("https://backend.monbrobroli.com/api/allTemoignages")
+        .get("http://192.168.1.14:8000/api/allTemoignages")
         .then((res) => {
           console.log(res);
           this.temoignages = res.data;

@@ -78,7 +78,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("https://backend.monbrobroli.com/api/seeCategorie", {
+        .get("http://192.168.1.14:8000/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -267,7 +267,7 @@ export default {
       console.log("DATA", data);
       axios
         .post(
-          "https://backend.monbrobroli.com/api/statistiques/statistiqueAccount",
+          "http://192.168.1.14:8000/api/statistiques/statistiqueAccount",
           data,
           {
             headers: {

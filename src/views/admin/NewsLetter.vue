@@ -18,9 +18,7 @@ export default {
         objet: "",
         msg: "",
         type: "newsLetter",
-        link: [
-          
-        ],
+        link: [],
         profil: "all",
       },
     };
@@ -29,7 +27,7 @@ export default {
     get_messages() {
       this.spinner = true;
       axios
-        .get("https://backend.monbrobroli.com/api/getEmailNewsletter", {
+        .get("http://192.168.1.14:8000/api/getEmailNewsletter", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -88,12 +86,12 @@ export default {
         .catch((err) => {
           console.log(err);
           setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+            this.$router.push("/");
+          }, 1500);
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          this.$store.state.user = null;
+          this.$store.state.token = null;
         });
     },
     createCampaign() {
@@ -104,7 +102,7 @@ export default {
           ? "sendNewsletterAtUser"
           : "sendNotificationsAtUser";
       axios
-        .post("https://backend.monbrobroli.com/api/" + ROUTE_BACKEND, this.campaign, {
+        .post("http://192.168.1.14:8000/api/" + ROUTE_BACKEND, this.campaign, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
             "Content-Type": "application/json",
@@ -127,12 +125,12 @@ export default {
             console.error("⚠️ Network Error:", error.message);
           }
           setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+            this.$router.push("/");
+          }, 1500);
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          this.$store.state.user = null;
+          this.$store.state.token = null;
         })
         .finally(() => {
           this.loading = false;
@@ -264,7 +262,7 @@ export default {
                         <div class="col-lg-12">
                           <div class="mb-3" style="text-align: left">
                             <label class="form-label fw-bold">Liens</label>
-                            
+
                             <n-dynamic-input
                               v-model:value="campaign.link"
                               preset="pair"
@@ -290,7 +288,6 @@ export default {
                             </select>
                           </div>
                         </div>
-                        
 
                         <!-- <div class="col-lg-6">
                           <div class="mb-3" style="text-align:left;">

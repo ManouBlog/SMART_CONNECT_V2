@@ -4,7 +4,7 @@ import $ from "jquery";
 import axios from "axios";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -22,92 +22,207 @@ export default {
       today: new Date().toISOString().split("T")[0],
       typePublicite: "locomotive",
       company: null,
+      customValue: [
+        {
+          key: "",
+          value: null,
+          lien: null,
+        },
+      ],
+      formatOptions: [
+        { label: "Smartphone", value: "iphone" },
+        { label: "Tablette", value: "ipad" },
+        { label: "Pc", value: "pc" },
+      ],
+      mobileFiles: [], // pour les fichiers mobile
     };
   },
   methods: {
-    async create_publicite() {
-      this.spinner = true;
-      const formData = new FormData();
-      this.afficheData.forEach((affiche) => {
-        formData.append("affiche[]", affiche);
-      });
-      formData.append(
-        "company",
-        this.typePublicite === "locomotive" ? "locomotive" : this.company
-      );
-
-      if (this.lienAffiche) {
-        formData.append("lien", this.lienAffiche);
-      }
-
-      // if (this.appareal) {
-        formData.append("appareil", this.localization === 'mobile' ? 'mobile' : this.appareal);
-      // }
-
-      if (this.format) {
-        formData.append("mobile_format", this.format);
-      }
-
-      if (this.localization) {
-        formData.append("localization", this.localization);
-      }
-
-      if (this.date_debut) {
-        formData.append("date_debut", this.date_debut);
-      }
-
-      if (this.date_fin) {
-        formData.append("date_fin", this.date_fin);
-      }
-
-      await axios
-        .post("https://backend.monbrobroli.com/api/admin/addAffiche", formData, {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.data.status == true) {
-            Swal.fire({
-              icon: "success",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            this.afficheData = [];
-            this.typePublicite === "locomotive";
-            this.lienAffiche = null;
-            this.appareal = null;
-            this.format = null;
-            this.localization = null;
-            this.date_debut = null;
-            this.date_fin = null;
-          }
-          if (res.data.status == false) {
-            Swal.fire({
-              icon: "error",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        })
-        .finally(() => {
-          this.get_publicite(1);
-          this.spinner = false;
-          this.lienAffiche = null;
-        });
+    handleFile(event) {
+      this.mobileFiles = Array.from(event.target.files);
     },
+
+
+    // Méthode principale pour créer la publicité
+    async create_publicite() {
+     const payload = this.customValue
+  .filter(item => item.value) // garder uniquement ceux avec un fichier
+  .map(item => ({
+    affiche: item.value,
+    mobile_format: String(item.key || ""),
+    lien: String(item.lien || "")
+  }));
+  console.log("payload",payload)
+   const formData = new FormData();
+   
+if (this.localization === "pc" || this.localization === "pc_mobile") {
+  payload.forEach(item => {
+    // fichier
+    formData.append("affiches[]", item.affiche);
+
+    // ⚠️ champs MULTIPLES → tableaux
+    formData.append("mobile_format[]", item.mobile_format);
+
+    if (item.lien) {
+      formData.append("lien[]", item.lien);
+    }
+  });
+
+  // champs globaux → UNE seule fois
+  formData.append("localization", this.localization);
+  formData.append("company", this.typePublicite);
+  formData.append("appareil", this.appareal);
+}
+
+//  if(this.localization === "pc" || this.localization === "pc_mobile"){
+//   payload.forEach(item=>{
+//     formData.append('affiches[]',item.affiche)
+//    formData.append("localization", this.localization);
+//    formData.append("company", this.typePublicite);
+//    formData.append("appareil", this.appareal);
+//    formData.append("mobile_format", item.mobile_format);
+//    if(item.lien){
+//    formData.append("lien", item.lien);
+//    }
+//   })
+//  }
+
+    if (this.localization === "mobile" || this.localization === "pc_mobile") {
+    this.mobileFiles.forEach(item => {
+      formData.append('affiches[]',item)
+   formData.append("localization", this.localization);
+   formData.append("company", this.typePublicite);
+   formData.append("appareil", "mobile");
+    });
+  }
+
+    if (this.typePublicite === "partenaire") {
+          formData.append("date_debut", this.date_debut);
+          formData.append("date_fin", this.date_fin);
+        }
+  
+  
+      try {
+        this.spinner = true;
+      
+       
+        // Ici tu peux envoyer formData à ton API via axios ou fetch
+        // Exemple :
+         const response = await axios.post("http://192.168.1.14:8000/api/admin/addAffiche", formData, {
+        headers: {
+          Authorization: "Bearer " + this.$store.state.token,
+        },
+      })
+
+
+        console.log("FormData prêt à être envoyé :",response);
+        for (let pair of formData.entries()) {
+          console.log(pair[0], pair[1]);
+        }
+
+      //  Réinitialiser les champs après envoi
+        this.localization = "";
+        this.typePublicite = "";
+        this.company = "";
+        this.date_debut = "";
+        this.date_fin = "";
+        this.lienAffiche = "";
+        this.mobileFiles = [];
+        this.customValue = [{ key: "", value: null, lien: "" }];
+      } catch (error) {
+        console.error("Erreur création publicité :", error);
+      } finally {
+        this.spinner = false;
+      }
+    },
+    // async create_publicite() {
+    //   this.spinner = true;
+    //   const formData = new FormData();
+    //   this.afficheData.forEach((affiche) => {
+    //     formData.append("affiche[]", affiche);
+    //   });
+    //   formData.append(
+    //     "company",
+    //     this.typePublicite === "locomotive" ? "locomotive" : this.company
+    //   );
+
+    //   if (this.lienAffiche) {
+    //     formData.append("lien", this.lienAffiche);
+    //   }
+
+    //   // if (this.appareal) {
+    //   formData.append(
+    //     "appareil",
+    //     this.localization === "mobile" ? "mobile" : this.appareal
+    //   );
+    //   // }
+
+    //   if (this.format) {
+    //     formData.append("mobile_format", this.format);
+    //   }
+
+    //   if (this.localization) {
+    //     formData.append("localization", this.localization);
+    //   }
+
+    //   if (this.date_debut) {
+    //     formData.append("date_debut", this.date_debut);
+    //   }
+
+    //   if (this.date_fin) {
+    //     formData.append("date_fin", this.date_fin);
+    //   }
+
+    //   console.log("formData", formData);
+
+    //   // await axios
+    //   //   .post("http://192.168.1.14:8000/api/admin/addAffiche", formData, {
+    //   //     headers: {
+    //   //       Authorization: "Bearer " + this.$store.state.token,
+    //   //     },
+    //   //   })
+    //   //   .then((res) => {
+    //   //     console.log(res);
+    //   //     if (res.data.status == true) {
+    //   //       Swal.fire({
+    //   //         icon: "success",
+    //   //         title: res.data.message,
+    //   //         showConfirmButton: false,
+    //   //         timer: 1500,
+    //   //       });
+    //   //       this.afficheData = [];
+    //   //       this.typePublicite === "locomotive";
+    //   //       this.lienAffiche = null;
+    //   //       this.appareal = null;
+    //   //       this.format = null;
+    //   //       this.localization = null;
+    //   //       this.date_debut = null;
+    //   //       this.date_fin = null;
+    //   //     }
+    //   //     if (res.data.status == false) {
+    //   //       Swal.fire({
+    //   //         icon: "error",
+    //   //         title: res.data.message,
+    //   //         showConfirmButton: false,
+    //   //         timer: 1500,
+    //   //       });
+    //   //     }
+    //   //   })
+    //   //   .catch((error) => {
+    //   //     alert(error);
+    //   //   })
+    //   //   .finally(() => {
+    //   //     this.get_publicite(1);
+    //   //     this.spinner = false;
+    //   //     this.lienAffiche = null;
+    //   //   });
+    // },
     get_publicite(isLoading = null) {
       if (isLoading === 1) {
         this.spinner = false;
       }
       axios
-        .get("https://backend.monbrobroli.com/api/showAllAffiche", {
+        .get("http://192.168.1.14:8000/api/showAllAffiche", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -167,7 +282,7 @@ export default {
     deletePublicite(idPublicite) {
       this.spinner = true;
       axios
-        .delete("https://backend.monbrobroli.com/api/admin/delete_pub/" + idPublicite, {
+        .delete("http://192.168.1.14:8000/api/admin/delete_pub/" + idPublicite, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -206,9 +321,17 @@ export default {
         console.log("Action annulée");
       }
     },
-    handleFile(e) {
-      console.log("This.afficheData", e.target.files);
-      this.afficheData = e.target.files;
+    // handleFile(e) {
+    //   console.log("This.afficheData", e.target.files);
+    //   this.afficheData = e.target.files;
+    // },
+    onCreate() {
+      // Crée une nouvelle ligne vide pour le select et le fichier
+      return {
+        key: "",
+        value: null,
+        lien: null,
+      };
     },
   },
   created() {
@@ -298,39 +421,70 @@ export default {
                             <select class="form-control" v-model="localization">
                               <option value="mobile">Mobile</option>
                               <option value="pc">Web</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-lg-6" v-if="localization === 'pc'">
-                          <div class="mb-3 text-start font-bold">
-                            <p style="font-weight: bold; font-size: 1em">
-                              <span style="color: red">*</span>
-                              Sélectionner le format d'affichage
-                            </p>
-                            <select
-                              name="appareal"
-                              id="appareal"
-                              v-model="appareal"
-                              style="width: 100%"
-                            >
-                              <option value="mobile">Format Mobile</option>
-                              <option value="pc">Format PC</option>
+                              <option value="pc_mobile">Web | mobile</option>
                             </select>
                           </div>
                         </div>
 
-                        <div
-                          class="col-lg-6"
-                          v-if="appareal === 'mobile' && localization === 'pc'"
-                        >
+                        <div class="col-lg-12" v-if="localization === 'pc' || localization === 'pc_mobile'">
                           <div class="mb-3 text-start">
                             <p style="font-weight: bold; font-size: 1em">
-                              <span style="color: red">*</span> Format
+                              <span style="color: red">*</span> Formats
                             </p>
-                            <select class="form-control" v-model="format">
-                              <option value="iphone">Smartphone</option>
-                              <option value="ipad">Tablette</option>
-                            </select>
+                            <n-dynamic-input
+                              v-model:value="customValue"
+                              :on-create="onCreate"
+                            >
+                              <!-- Texte du bouton -->
+                              <template #create-button-default>
+                                Ajouter un format
+                              </template>
+
+                              <!-- Contenu de chaque ligne -->
+                              <template #default="{ value }">
+                                <div
+                                  style="
+                                    display: flex;
+                                    align-items: center;
+                                    width: 100%;
+                                    gap: 1em;
+                                  "
+                                >
+                                  <div style="width: 100%">
+                                    <label>Format</label>
+                                    <!-- SELECT HTML -->
+                                    <select
+                                      style="width: 100%"
+                                      :value="value.key"
+                                      @change="value.key = $event.target.value"
+                                    >
+                                      <option disabled value="">Choisir le format</option>
+                                      <option
+                                        v-for="opt in formatOptions"
+                                        :key="opt.value"
+                                        :value="opt.value"
+                                      >
+                                        {{ opt.label }}
+                                      </option>
+                                    </select>
+                                  </div>
+
+                                  <!-- INPUT FILE -->
+                                  <div style="width: 100%">
+                                    <label>Affiche</label>
+                                    <input
+                                      type="file"
+                                      class="form-control"
+                                      @change="value.value = $event.target.files[0]"
+                                    />
+                                  </div>
+                                  <div style="width: 100%">
+                                    <label>Lien</label>
+                                    <n-input v-model:value="value.lien" type="text" />
+                                  </div>
+                                </div>
+                              </template>
+                            </n-dynamic-input>
                           </div>
                         </div>
 
@@ -386,10 +540,10 @@ export default {
                             />
                           </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" v-if="localization === 'mobile' || localization === 'pc_mobile'">
                           <div class="mb-3 text-start font-bold">
                             <p style="font-weight: bold; font-size: 1em">
-                              <span style="color: red">*</span> Ajouter une Affiche
+                              <span style="color: red">*</span> Affiche (mobile)
                             </p>
 
                             <input
@@ -402,7 +556,7 @@ export default {
                             />
                           </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" v-if="localization === 'mobile'">
                           <div class="mb-3 text-start font-bold">
                             <p style="font-weight: bold; font-size: 1em">
                               Ajouter un lien
@@ -418,11 +572,7 @@ export default {
                       <div class="row">
                         <div class="col">
                           <div class="text-end">
-                            <button
-                              :disabled="!afficheData.length"
-                              class="btn btn-primary me-3"
-                              type="submit"
-                            >
+                            <button class="btn btn-primary me-3" type="submit">
                               <span
                                 class="spinner-border w-20"
                                 role="status"
@@ -468,7 +618,8 @@ export default {
                       <n-image
                         width="100"
                         :src="
-                          'https://backend.monbrobroli.com/storage/images/' + item.affiche
+                          'http://192.168.1.14:8000/storage/images/' +
+                          item.affiche
                         "
                       />
                     </td>
@@ -481,11 +632,7 @@ export default {
                     <td>
                       {{
                         item.appareil
-                          ? item.appareil === "mobile"
-                            ? `${item.appareil} (${item.mobile_format})`
-                            : item.appareil
-                          : "néant"
-                      }}
+                      }} <span v-if="item.mobile_format">({{item.mobile_format}})</span>
                     </td>
                     <td>
                       {{
@@ -522,6 +669,9 @@ export default {
   </div>
 </template>
 <style scoped>
+:deep(.n-dynamic-input .n-dynamic-input-item) {
+  display: block;
+}
 .Myspinner {
   position: fixed;
   left: 0;
