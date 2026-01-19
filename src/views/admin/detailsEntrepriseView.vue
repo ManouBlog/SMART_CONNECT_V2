@@ -29,7 +29,7 @@ export default {
       return path?.toLowerCase().endsWith(".pdf");
     },
     fileUrl(path) {
-      return `http://192.168.1.14:8000/storage/app/public/images/${path}`;
+      return `https://backend.monbrobroli.com/storage/app/public/images/${path}`;
     },
     openPdf(path) {
       this.pdfUrl = this.fileUrl(path);
@@ -43,7 +43,7 @@ export default {
       this.spinner = true;
 
       axios
-        .get("http://192.168.1.14:8000/api/list_entreprise", {
+        .get("https://backend.monbrobroli.com/api/list_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -200,7 +200,7 @@ export default {
               :alt="entreprise?.piece_gerant"
               width="100"
               :src="
-                'http://192.168.1.14:8000/storage/app/public/images/' +
+                'https://backend.monbrobroli.com/storage/app/public/images/' +
                 entreprise?.piece_gerant
               "
             />
@@ -222,7 +222,7 @@ export default {
               :alt="entreprise?.logo"
               width="100"
               :src="
-                'http://192.168.1.14:8000/storage/app/public/images/' +
+                'https://backend.monbrobroli.com/storage/app/public/images/' +
                 entreprise?.logo
               "
             />
@@ -239,7 +239,7 @@ export default {
                 <n-card title="Document PDF" closable @close="showModal = false">
                   <iframe
                     :src="
-                      'http://192.168.1.14:8000/storage/app/public/pdf/' +
+                      'https://backend.monbrobroli.com/storage/app/public/pdf/' +
                       entreprise?.registre
                     "
                     style="width: 100%; height: 600px; border: none"

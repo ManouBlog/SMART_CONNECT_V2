@@ -31,7 +31,7 @@ export default {
       });
   axios
     .post(
-      "http://192.168.1.14:8000/api/GivePermission/"+userId,formData,
+      "https://backend.monbrobroli.com/api/GivePermission/"+userId,formData,
       {
         headers: {
           Authorization: `Bearer ${this.$store.state.token}`,
@@ -63,7 +63,7 @@ export default {
     getAllPermission() {
       this.$store.commit("TOOGLESPINNER", true);
       axios
-        .get("http://192.168.1.14:8000/api/listerPermission", {
+        .get("https://backend.monbrobroli.com/api/listerPermission", {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
             "Content-Type": "application/json",
@@ -90,7 +90,7 @@ export default {
     async get_users() {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .get("http://192.168.1.14:8000/api/listerUser", {
+        .get("https://backend.monbrobroli.com/api/listerUser", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

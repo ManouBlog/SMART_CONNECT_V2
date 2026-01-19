@@ -16,7 +16,7 @@ export default {
     async create_categorie() {
       await axios
         .post(
-          "http://192.168.1.14:8000/api/categorie",
+          "https://backend.monbrobroli.com/api/categorie",
           {
             categorie: this.categorie,
           },
@@ -72,7 +72,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("http://192.168.1.14:8000/api/seeCategorie", {
+        .get("https://backend.monbrobroli.com/api/seeCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -105,7 +105,7 @@ export default {
         this.spinner = false;
       }
       axios
-        .get("http://192.168.1.14:8000/api/GetAllCompetences", {
+        .get("https://backend.monbrobroli.com/api/GetAllCompetences", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -147,7 +147,7 @@ export default {
           : "update_competence";
       axios
         .put(
-          "http://192.168.1.14:8000/api/admin/" +
+          "https://backend.monbrobroli.com/api/admin/" +
             route +
             "/" +
             this.$route.params.id,

@@ -24,7 +24,7 @@ export default {
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
       axios
-        .get("http://192.168.1.14:8000/api/list_students", {
+        .get("https://backend.monbrobroli.com/api/list_students", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -75,7 +75,7 @@ export default {
           }, 10);
       // this.spinner = true;
       // axios
-      //   .get("http://192.168.1.14:8000/api/admin/allContrats", {
+      //   .get("https://backend.monbrobroli.com/api/admin/allContrats", {
       //     headers: {
       //       Authorization: "Bearer " + this.$store.state.token,
       //     },

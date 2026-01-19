@@ -29,7 +29,7 @@ export default {
     get_details_categorie() {
       this.spinner = true;
       axios
-        .get("http://192.168.1.14:8000/api/getCategorie", {
+        .get("https://backend.monbrobroli.com/api/getCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -51,7 +51,7 @@ export default {
       this.isLoading = true;
       axios
         .put(
-          "http://192.168.1.14:8000/api/editCategorie/" + this.$route.params.id,
+          "https://backend.monbrobroli.com/api/editCategorie/" + this.$route.params.id,
           this.data,
           {
             headers: {
@@ -76,7 +76,7 @@ export default {
     },
     get_categorie() {
       axios
-        .get("http://192.168.1.14:8000/api/getCategorie", {
+        .get("https://backend.monbrobroli.com/api/getCategorie", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
