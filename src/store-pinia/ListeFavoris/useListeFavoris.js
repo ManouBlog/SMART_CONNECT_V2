@@ -13,7 +13,7 @@ export const useListeFavoris = defineStore('liste_favoris', {
              await instance
                 .get("getAllWishlist")
                 .then((response) => {
-                  console.log("WISHLIST", response);
+                  // console.log("WISHLIST", response);
                   this.myListOfFavoris = response?.data?.data?.wishlists
                   response?.data?.data?.wishlists.forEach((item) => {
                     this.verfIfStudentExistInWishlist.push(item.user_id);

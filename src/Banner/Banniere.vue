@@ -82,13 +82,13 @@ return result;
           this.afficheAll = res.data.data;
           const elements = [];
           const elementsFlatesFilter = [];
-          console.log("this.afficheAll",this.afficheAll)
+          // console.log("this.afficheAll",this.afficheAll)
            for (const company in this.afficheAll) {
-               console.log("Company:", this.afficheAll[company]);
+              //  console.log("Company:", this.afficheAll[company]);
                elements.push(this.afficheAll[company])
   
                }
-console.log("elements",elements.flat());
+// console.log("elements",elements.flat());
 const elementsFlats = elements.flat();
 elementsFlats.forEach(item => {
     elementsFlatesFilter.push({
@@ -99,11 +99,11 @@ elementsFlats.forEach(item => {
       fin:item.date_fin ? item.date_fin:null
     })
   });
-  console.log("elementsFlatesFilter",this.mergeTableau(elementsFlatesFilter));
+  // console.log("elementsFlatesFilter",this.mergeTableau(elementsFlatesFilter));
   const afficheFilterShow = this.mergeTableau(elementsFlatesFilter);
           if (afficheFilterShow.length > 0) {
             this.afficheShow = this.mergeTableau(elementsFlatesFilter).filter(item=>new Date(item.fin) > new Date());
-            console.log("FILTER PASSE",this.afficheShow) 
+            // console.log("FILTER PASSE",this.afficheShow) 
           } else {
             this.afficheShow = this.afficheDefault;
           }
