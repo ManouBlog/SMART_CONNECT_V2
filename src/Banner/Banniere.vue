@@ -102,7 +102,7 @@ elementsFlats.forEach(item => {
   // console.log("elementsFlatesFilter",this.mergeTableau(elementsFlatesFilter));
   const afficheFilterShow = this.mergeTableau(elementsFlatesFilter);
           if (afficheFilterShow.length > 0) {
-            this.afficheShow = this.mergeTableau(elementsFlatesFilter).filter(item=>new Date(item.fin) > new Date());
+            this.afficheShow = this.mergeTableau(elementsFlatesFilter);
             // console.log("FILTER PASSE",this.afficheShow) 
           } else {
             this.afficheShow = this.afficheDefault;
