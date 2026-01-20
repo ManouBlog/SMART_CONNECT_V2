@@ -264,7 +264,7 @@ export default {
       const infoUser = this.$store.state.infoUserConnected;
 
       if(infoUser.user.statut.statut === 'etudiant'){
-      console.log("seeMessageUploadProfil", infoUser);
+      // console.log("seeMessageUploadProfil", infoUser);
       const competences = infoUser.competences;
       const qualifications = infoUser.qualifications;
       const jours = infoUser.jours;
@@ -293,10 +293,10 @@ export default {
 
     async getInfoUser() {
       await this.$store.dispatch("getInfoUser");
-      console.log(
-        "this.$store.state.infoUserConnected",
-        this.$store.state.infoUserConnected
-      );
+      // console.log(
+      //   "this.$store.state.infoUserConnected",
+      //   this.$store.state.infoUserConnected
+      // );
     },
   },
   async created() {

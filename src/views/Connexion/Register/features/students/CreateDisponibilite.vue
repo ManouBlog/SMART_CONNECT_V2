@@ -421,7 +421,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log("ERROR", error.response.data.message);
+          // console.log("ERROR", error.response.data.message);
           Swal.fire({
             icon: "info",
             title: error.response.data.message,

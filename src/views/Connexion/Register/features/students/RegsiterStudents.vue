@@ -175,13 +175,13 @@ export default {
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
     handleQualifications(payload) {
-      console.log("handleQualifications", payload);
+      // console.log("handleQualifications", payload);
 
       this.formState.qualifications = payload;
     },
 
     nextStep() {
-      console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
+      // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
       if (this.currentStep === 2) {
         const invalid = this.formState.qualifications.some((q) => !q.date_debut);
 
@@ -245,17 +245,17 @@ export default {
             this.formState.Second_horaire = SECOND_HORRAIRE;
             this.formState.totalHour = TOTALHOURHORAIRE;
           } else {
-            console.log("fhf");
-            console.log("DISPONIBILITE", {
-              dateTime_debut:
-                this.$store.state.handleHoraire === "Periode"
-                  ? this.$store.state.dateTime_debut
-                  : null,
-              dateTime_fin:
-                this.$store.state.handleHoraire === "Periode"
-                  ? this.$store.state.dateTime_fin
-                  : null,
-            });
+            // console.log("fhf");
+            // console.log("DISPONIBILITE", {
+            //   dateTime_debut:
+            //     this.$store.state.handleHoraire === "Periode"
+            //       ? this.$store.state.dateTime_debut
+            //       : null,
+            //   dateTime_fin:
+            //     this.$store.state.handleHoraire === "Periode"
+            //       ? this.$store.state.dateTime_fin
+            //       : null,
+            // });
             this.formState.jour = [
               this.$store.state.dateTime_debut.split("T")[0] +
                 " A " +

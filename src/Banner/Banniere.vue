@@ -84,7 +84,7 @@ return result;
           const elementsFlatesFilter = [];
          
            for (const company in this.afficheAll) {
-               console.log("Company:", this.afficheAll[company]);
+              //  console.log("Company:", this.afficheAll[company]);
                elements.push(this.afficheAll[company])
   
                }

@@ -85,7 +85,7 @@ export default {
           });
           this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
           
-          console.log("STUDENT_INFOS",resp.data.user) 
+          // console.log("STUDENT_INFOS",resp.data.user) 
           }
             // console.log("this.emails_cc",this.emails_cc)
           }
@@ -121,7 +121,7 @@ export default {
       // console.log("COMPANY_UPDATE",this.$store.state.infoUserConnected)
     },
     async updateInfoStudent(Etudiants) {
-      console.log("updateInfoStudent",Etudiants)
+      // console.log("updateInfoStudent",Etudiants)
       const data = await this.update_compte_student({
         nom: Etudiants.nom,
         email: Etudiants.email,

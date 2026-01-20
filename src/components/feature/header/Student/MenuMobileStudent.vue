@@ -34,12 +34,12 @@ export default {
 
     async goTo(route) {
       if (!route) return;
-      console.log("lancer1");
+      // console.log("lancer1");
       this.changeValueForshowMenuMobile();
 
       await this.$store.dispatch("getInfoUser");
       const userInfo = this.$store.state.infoUserConnected;
-      console.log("lancer25", userInfo);
+      // console.log("lancer25", userInfo);
       if (!userInfo) return;
 
       const qualifications = userInfo.qualifications || [];
@@ -48,13 +48,13 @@ export default {
 
       if (!qualifications.length || !competences.length) {
         this.$router.push("/dashboard/profil");
-        console.log("lancer2");
+        // console.log("lancer2");
         return;
       }
 
       if (!disponibilites.length) {
         this.$router.push("/dashboard/emploi_du_temps");
-        console.log("lancer3");
+        // console.log("lancer3");
 
         return;
       }

@@ -33,11 +33,11 @@ export const useVerificationStore = defineStore('verification', {
                       this.handleAbonnementExpired()
                       clearInterval(this.intervalId);
                     }else{
-                        console.log('connected , but not expired')
+                        // console.log('connected , but not expired')
                         return ;
                     }
                 }else{
-                    console.log("not connected")
+                    // console.log("not connected")
                     return;
                 }
                

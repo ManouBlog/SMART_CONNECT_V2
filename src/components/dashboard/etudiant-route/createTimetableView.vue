@@ -297,12 +297,12 @@ export default {
         SECOND_HORRAIRE = HEURE_FROM_OF_SECONDHORRAIRE + "-" + HEURE_TO_OF_SECONDHORRAIRE;
       }
 
-      console.log("JOUR 2",{
-        DateRendezVous: datesOfCalendar,
-        firstHoraire: FIRST_HORRAIRE,
-        secondHoraire: SECOND_HORRAIRE,
-        TotalHourDisponi: TOTALHOURHORAIRE,
-      })
+      // console.log("JOUR 2",{
+      //   DateRendezVous: datesOfCalendar,
+      //   firstHoraire: FIRST_HORRAIRE,
+      //   secondHoraire: SECOND_HORRAIRE,
+      //   TotalHourDisponi: TOTALHOURHORAIRE,
+      // })
 
       this.createdDisponiblite({
         DateRendezVous: datesOfCalendar,
@@ -560,7 +560,7 @@ export default {
         })[1],
         periode: 1,
       };
-      console.log("JOUR 1", dataSend);
+      // console.log("JOUR 1", dataSend);
       instance
         .post("create_schedule", dataSend)
         .then(async (response) => {
@@ -582,7 +582,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log('ERROR',error.response.data.message);
+          // console.log('ERROR',error.response.data.message);
           Swal.fire({
             icon: "info",
             title: error.response.data.message,

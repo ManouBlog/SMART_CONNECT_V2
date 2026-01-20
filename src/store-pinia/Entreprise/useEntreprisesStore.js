@@ -42,7 +42,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
            const studentRecruit = await instance.get("getStudentRecruit");
            
            
-           console.log("const_studentRecruit",studentRecruit)
+          //  console.log("const_studentRecruit",studentRecruit)
            if(listStudent['status'] === 200 && studentRecruit['status'] === 200 ){
             this.list_students = listStudent.data.data;
             this.student = this.list_students.students;
@@ -53,7 +53,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             loadingSpinner.launchLoading(false)
             // const flattened = studentFilterRecruit.flat() 
 
-            console.log('this.studentRecruit',this.studentRecruit)
+            // console.log('this.studentRecruit',this.studentRecruit)
            }
             }catch(error){
                 console.log(error)
@@ -63,7 +63,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             loadingSpinner.launchLoading(true)
             try{
              const response = await instance.get("list_offres_interess_by_students")
-             console.log("get_offres_interess_by_student85")
+            //  console.log("get_offres_interess_by_student85")
              if(response['status'] === 200){
               // this.dataAlarm = response.data.filter((item) => item.recruit === 0).length;
                 // this.offresInteressByStudents = Help.groupBy(response.data)
@@ -86,7 +86,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
                 // }, []);
                 this.offresInteressByStudents = response.data
                 loadingSpinner.launchLoading(false)
-                console.log("this.offresInteressByStudents",this.offresInteressByStudents)
+                // console.log("this.offresInteressByStudents",this.offresInteressByStudents)
              }
             }catch(error){
                 console.log(error)

@@ -149,7 +149,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
       //     })
       // },
       async update_compte_particulier(payload) {
-        console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
+        // console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
         Spinner.launchLoading(true)
         let data = new FormData();
         this.pieceIdentiteGerant?.forEach((item)=>{
@@ -197,7 +197,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           })
       },
       async update_compte_student(payload) {
-  console.log("this.pieceIdentiteGerant", this.pieceIdentiteGerant);
+  // console.log("this.pieceIdentiteGerant", this.pieceIdentiteGerant);
 
   Spinner.launchLoading(true);
 
@@ -269,7 +269,7 @@ if (payload?.titreCv != null && payload?.titreCv !== 'null') {
 
   try {
     const res = await instance.post("modifier_profil", data);
-    console.log("update_compte_student", res.data);
+    // console.log("update_compte_student", res.data);
     if (res.data.status === true) {
       Swal.fire({
         icon: "success",
@@ -358,7 +358,7 @@ if (payload?.titreCv != null && payload?.titreCv !== 'null') {
 //       },
       addInfoUserConnected(payload){
         this.infoUserConnected = payload;
-        console.log("addInfoUserConnected",payload)
+        // console.log("addInfoUserConnected",payload)
       },
       addAnRegistreDoc(payload){
         // console.log(payload.target.files[0])
@@ -366,11 +366,11 @@ if (payload?.titreCv != null && payload?.titreCv !== 'null') {
       },
       addAnPieceDoc(payload){
         this.pieceIdentiteGerant = [];
-        console.log("addAnPieceDoc",payload.target)
+        // console.log("addAnPieceDoc",payload.target)
         Object.values(payload.target.files).forEach(item => {
        this.pieceIdentiteGerant.push(item)
       });
-        console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
+        // console.log("this.pieceIdentiteGerant",this.pieceIdentiteGerant)
       },
       addAnLogo(payload){
         this.logoEntreprise = payload.target.files[0]
