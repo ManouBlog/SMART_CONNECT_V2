@@ -70,7 +70,7 @@ export default {
       "getStatistiqueDashboardStudent",
     ]),
     handleData(year) {
-      // // console.log(year);
+      
       if (
         this.$store.state.user &&
         this.$store.state.user.user.statut.statut === "etudiant"

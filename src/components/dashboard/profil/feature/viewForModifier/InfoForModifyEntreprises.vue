@@ -67,12 +67,12 @@ export default {
           
           if (resp.data.status === true) {
             
-        console.log("getInfoUser25",resp.data.user)
+        // console.log("getInfoUser25",resp.data.user)
         const statutUser = resp.data.user.user.statut.statut
         if(statutUser === 'entreprise'){
         this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
         this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
-        console.log("COMPANY_INFOS",resp.data.user) 
+        // console.log("COMPANY_INFOS",resp.data.user) 
         }
         if(statutUser === 'etudiant'){
           resp.data.user.qualifications.map(item=>{

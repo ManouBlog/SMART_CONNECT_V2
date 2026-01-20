@@ -183,7 +183,7 @@ export default {
         detail:elements.detail,
         id:elements.id
       })
-      console.log("this.itemQualification", this.itemQualification);
+     
     },
     toogleQualifications() {
       this.idQualification = null;
@@ -196,7 +196,7 @@ export default {
         formData.append("qualifications[]", JSON.stringify(item));
       });
       this.spinnerModifyQualification = true;
-      console.log("this.itemQualification",this.itemQualification);
+   
       instance
         .post("updateQualification",formData)
         .then((response) => {

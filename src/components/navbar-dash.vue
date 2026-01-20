@@ -9,9 +9,8 @@ export default {
       role: this.$store.state.role,
     };
   },
-  // created() {
-  //   // console.log(this.role);
-  // },
+
+
 };
 </script>
 <template>

@@ -14,7 +14,7 @@ export default {
       instance
         .get("auth_logout")
         .then((res) => {
-          // // console.log(res);
+    
           if (res) {
             localStorage.removeItem("token");
             localStorage.removeItem("user");
@@ -39,123 +39,11 @@ export default {
         });
     },
   },
-  // created() {
-  //   // // console.log(localStorage.getItem("token"));
-  //   // // console.log("store", this.$store.state.token);
-  // },
+
 };
 </script>
 <template>
-  <!-- <div class="profile" v-show="my_profile">
-    <div class="card">
-      <div class="card-body p-5">
-        <h1 class="badge bg-primary h3">Mon compte</h1>
-        <form @submit.prevent="inscription">
-          <div class="row">
-            <div class="form-group col-lg-6">
-              <label>Nom</label>
-              <input
-                type="text"
-                v-model="nom"
-                required
-                placeholder="ex:Adjobi"
-              />
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Prénoms</label>
-              <input
-                type="text"
-                v-model="prenoms"
-                required
-                placeholder="ex:kadjo pierre"
-              />
-            </div>
-
-            <div class="form-group col-lg-6">
-              <label>Télephone</label>
-              <input
-                type="text"
-                v-model.number="phone"
-                required
-                placeholder="ex:0545749741"
-                pattern="[0-9]*"
-              />
-              <span
-                class="d-block text-danger entreprise_caractere"
-                v-if="typeof this.phone === 'string'"
-                ><b>*le numéro doit être en chiffres</b></span
-              >
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Ville</label>
-              <input
-                type="text"
-                v-model="ville"
-                required
-                placeholder="ex:Abidjan"
-              />
-            </div>
-
-            <div class="form-group col-lg-6">
-              <label>Commune</label>
-              <input
-                type="text"
-                v-model="commune"
-                required
-                placeholder="ex:yopougon"
-              />
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Quartier</label>
-              <input
-                type="text"
-                v-model="quartier"
-                required
-                placeholder="ex:Maroc"
-              />
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Diplome</label>
-              <input
-                type="text"
-                v-model="diplome"
-                required
-                placeholder="ex:licence 3 informatique"
-              />
-            </div>
-            <div class="form-group col-lg-6">
-              <label>E-mail</label>
-              <input
-                type="email"
-                v-model="email"
-                required
-                placeholder="ex:adjobi@gmail.com"
-              />
-              <span v-if="My_email"
-                ><b class="text-danger">*l'email existe deja</b></span
-              >
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Password</label>
-              <input
-                type="password"
-                v-model="password"
-                placeholder="*********"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <button class="btn bg-danger btn-block">Annuler</button>
-            <button class="btn btn-primary btn-block" type="submit">
-              Modifier mon compte
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div> -->
+ 
   <div class="page-header">
     <div class="header-wrapper row m-0">
       <div class="header-logo-wrapper col-auto p-0">

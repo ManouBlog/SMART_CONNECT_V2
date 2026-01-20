@@ -142,7 +142,7 @@ export default {
               dateFin_contrat: this.dateFin,
             })
             .then((res) => {
-              // // console.log(res);
+           
               if (res.data.status === true) {
                 Swal.fire({
                   icon: "success",

@@ -128,7 +128,7 @@ export default {
       ) {
         try {
           const response = await instance.get("get_offres_entreprise");
-          // console.log("RESPONSE_OFFRE", response);
+          
           if (response["status"] === 200) {
             if (!response.data.data.length) {
               this.showPromoParticulierAndEntreprise = true;
@@ -144,7 +144,7 @@ export default {
     async NbreEtudiantsInscritAndDoAbonnement() {
       try {
         const response = await instance.get("getUserDoAbonnement");
-        // console.log("NbreEtudiantsInscritAndDoAbonnement", response);
+    
         if (response.data.status) {
           this.students = response.data.total;
         }
@@ -223,7 +223,7 @@ export default {
 
         if (response.status === 200 && response.data?.data?.date) {
           this.lancementDate = response.data.data.date;
-          // console.log("this.lancementDate", this.lancementDate);
+         
           this.checkDate(this.lancementDate);
         }
       } catch (error) {
@@ -238,8 +238,7 @@ export default {
     this.isLancement();
     localStorage.setItem("translate", "fr");
     this.NbreEtudiantsInscritAndDoAbonnement();
-    // this.getAllOffresCreatedByEntreprise();
-    console.log("USER_INFO");
+   
   },
 };
 </script>

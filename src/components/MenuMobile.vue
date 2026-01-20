@@ -49,13 +49,12 @@ export default {
       await instance
         .get("auth_logout")
         .then((response) => {
-          // // console.log(response);
+         
           if (response.data.status) {
-            // // console.log("RESPONSE", response.data);
+            
             this.$store.state.user = null;
             this.$store.state.token = null;
-            // // console.log("this.$store.state.user", this.$store.state.user);
-            // // console.log("this.$store.state.token", this.$store.state.token);
+        
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             this.changeValueForshowMenuMobile();
@@ -86,10 +85,10 @@ export default {
         await instance
           .get("voirInfoUserConnect")
           .then((resp) => {
-            // console.log("voirInfoUserConnect",resp);
+          
             if (resp.data.status === true) {
               this.photo_profil = resp.data.user.photo_profil;
-              // console.log("this.photo_profil",this.photo_profil);
+            
             }
           })
           .catch((error) => {

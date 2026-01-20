@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     handleAccept() {
-      // console.log("this.favoris", this.favoris.offre);
+    
       this.$emit("accept", this.favoris.offre);
     },
   },

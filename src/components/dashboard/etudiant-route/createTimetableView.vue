@@ -110,7 +110,7 @@ export default {
       this.dates.push({
         date: new Date(),
       });
-      // // console.log("mes Nouvelle dates", this.dates);
+    
       this.$nextTick(() => {
         const btn = this.$refs.button[this.$refs.button.length - 1];
         btn.click();
@@ -128,7 +128,7 @@ export default {
       this.datesPickers.push({
         date: new Date(),
       });
-      // // console.log("mes Dates", this.datesPickers);
+      
       this.$nextTick(() => {
         const btn = this.$refs.button[this.$refs.button.length - 1];
         btn.click();
@@ -173,7 +173,7 @@ export default {
 
       let totalGlobalHoraire = totalHourTwoHoraire - totalHourOneHoraire;
       let SecondHoraireHour, SecondHoraireHourSecondHoraire;
-      // // console.log(totalGlobalHoraire);
+     
       if (this.Horaire_Second != null) {
         let SecondHoraireFirstHoraire = SecondHour[0].split(":");
         SecondHoraireHour = Number(SecondHoraireFirstHoraire[0]);
@@ -198,8 +198,6 @@ export default {
         this.totalHour = totalGlobalHoraire;
       }
 
-      // // console.log("FIRSTHORAIRE", totalGlobalHoraire);
-      // // console.log("SECONDHORAIRE", this.totalHour);
 
       if (
         oneHoraireHour > twoHoraireHour ||
@@ -215,7 +213,7 @@ export default {
         let newDateForTimetable = [];
         this.dates.forEach((date) => {
           newDateForTimetable.push(date.date.toISOString().slice(0, 10));
-          // // console.log(newDateForTimetable);
+       
         });
         instance
           .put("modify_schedule/" + this.id_timetable_update, {
@@ -225,7 +223,7 @@ export default {
             day: newDateForTimetable,
           })
           .then((res) => {
-            // // console.log(res);
+          
             if (res.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -257,7 +255,7 @@ export default {
       instance
         .get("get_schedule")
         .then((res) => {
-          // // console.log(res);
+        
           this.timetables = res.data.data;
         })
         .catch((err) => {
@@ -266,7 +264,7 @@ export default {
     },
     create_timetable() {
       const datesOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
-      // // console.log("datesOfCalendar", datesOfCalendar);
+    
       const HourFirstHoraire = this.configUtils.getHourInDate(
         this.First_heure_start_from,
         this.First_heure_end_to
@@ -317,11 +315,11 @@ export default {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = id;
       this.spinner = true;
-      // // console.log("ID_UPADTE", this.id_timetable_update);
+  
       instance
         .get("get_schedule")
         .then((res) => {
-          // // console.log(res);
+          
           this.timetable = res.data.data;
           this.timetable_show_id = this.timetable.find((item) => item.id === id);
 
@@ -337,11 +335,11 @@ export default {
           } else {
             this.Horaire_Second = null;
           }
-          // // console.log("FIRST HORAIRE", this.Horaire_Fisrt);
-          // // console.log("SECOND HORAIRE", this.Horaire_Second);
+       
+      
 
           this.spinner = false;
-          // // console.log("ELEMENT", this.timetable_show_id);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -350,7 +348,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      // // console.log("ID_DELETE", this.id_for_delete);
+   
     },
     addCompetences() {
       instance
@@ -358,7 +356,7 @@ export default {
           competence: this.comp,
         })
         .then((response) => {
-          // // console.log(response);
+       
           if (response.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -377,7 +375,7 @@ export default {
           }
         })
         .catch((err) => {
-          // console.log(err.message);
+       
           console.log(err);
         });
     },
@@ -397,7 +395,7 @@ export default {
       instance
         .delete("delete_schedule/" + this.id_for_delete)
         .then((res) => {
-          // // console.log(res);
+        
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
