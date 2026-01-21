@@ -88,7 +88,7 @@ export default {
     </div>
   </section>
   <section class="py-2 background_main">
-    <p class="text-center" style="font-size: 0.9em">MonBrobroli ©2025.{{ texte5 }}</p>
+    <p class="text-center" style="font-size: 0.9em">MonBrobroli ©{{ new Date().getFullYear() }}.{{ texte5 }}</p>
   </section>
 </template>
 <style scoped>
