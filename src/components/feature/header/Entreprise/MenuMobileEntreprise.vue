@@ -59,8 +59,8 @@ export default {
       to="/dashboard/personnel"
       class="d-block"
     >
-      Talents
-    </router-link>
+      Talents sélectionnés
+     </router-link>
   </li>
   <li>
     <router-link

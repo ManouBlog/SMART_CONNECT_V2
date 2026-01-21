@@ -86,7 +86,7 @@ async function getOffresInteressByStudent() {
   await vuexStore.dispatch("getInfoUser");
 
   const user = vuexStore.state.infoUserConnected;
-  console.log("USER",user)
+  //console.log("USER",user)
   if(user.user.statut.statut === 'etudiant'){
   if (!user.competences.length || !user.qualifications.length) {
     router.replace("/dashboard/profil");
