@@ -54,6 +54,7 @@ export default {
       texte25: "",
       texte26: "",
       lieu: "",
+      isLoading:true,
       dateRendezVousStudentWithEntreprise: null,
       MyDateRendezVous: [],
       user: this.$store.state.user,
@@ -316,6 +317,7 @@ export default {
         alert(err.response?.data?.message || "Erreur serveur");
       } finally {
         loadingSpinner.launchLoading(false);
+        this.isLoading = false;
       }
     },
     closeDetailTimetable() {
@@ -490,6 +492,7 @@ export default {
     // },
   },
   async created() {
+     await this.$store.dispatch("getInfoUser");
     this.$store.dispatch("handleListeFavoris");
     this.get_list_emploi();
     this.getAllCompetences();
@@ -512,7 +515,7 @@ export default {
 };
 </script>
 <template>
-  <section>
+  <section v-if="!isLoading">
     <div class="jobs_filters">
       <h3 class="fw-bold ecriteau text-left">{{ texte }}</h3>
       <form class="row justify-content-center align-items-center g-3 text-center">
@@ -568,7 +571,7 @@ export default {
         </button>
       </div>
     </div>
-    <div>
+    <div v-if="list.length">
       <h2 class="fw-bold ecriteau text-left px-3">
         {{ list.length }} {{ list.length > 1 ? texte1 : texte01 }}
       </h2>
@@ -578,7 +581,8 @@ export default {
       class="container-fluid timetableSchedule"
       :class="spinner ? 'conteneur_offre' : null"
     >
-      <div class="timetable_disponible" v-if="list_emploi">
+      <div class="timetable_disponible" 
+      v-if="list_emploi.length">
         <h6>
           {{ texte2 }}
           {{ datesSelect.length ? list.length : lengthOfMylistEmploi }}
@@ -644,8 +648,9 @@ export default {
               <span class="biStar">
                 <Rating v-model="emploi.average" readonly :cancel="false" />
               </span>
-
+        
               <button
+              v-if="this.$store.state.infoUserConnected.user.abonement.length && this.$store.state.infoUserConnected.user.abonement.some(item=>item.statut === 'success')"
                 class="btn bg-primary voirPlus"
                 @click="voirDetailTimetable({ id: emploi.id, user_id: emploi.user_id })"
               >
@@ -653,6 +658,7 @@ export default {
 
                 <em class="bi bi-eye"></em>
               </button>
+              <p v-else style="color:red !important;font-size:1em;text-align:center;">Veuillez faire un abonnement</p>
             </div>
           </div>
         </div>
@@ -667,6 +673,11 @@ export default {
         {{ texte6 }} <em class="bi bi-chevron-down"></em>
       </button>
       <h2 v-if="length >= list.length" class="endResearch">{{ texte7 }}</h2>
+    </div>
+  </section>
+  <section v-else>
+    <div style="min-height:100vh !important;text-align:center;padding:2em; font-weight:bold;">
+    Chargement....
     </div>
   </section>
 </template>

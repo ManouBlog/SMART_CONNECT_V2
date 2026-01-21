@@ -1,9 +1,9 @@
 import axios from "axios";
-export const lienPhoto = `${process.env.VUE_APP_LIENS_LOCAL}storage/app/public/images/`
-// export const LocalPhoto = `${process.env.VUE_APP_LIENS_LOCAL}storage/images/`
-export const lienPDF = `${process.env.VUE_APP_LIENS_LOCAL}storage/app/public/pdf/`
+export const lienPhoto = `${process.env.VUE_APP_LIENS_BACKEND}storage/app/public/images/`
+// export const LocalPhoto = `${process.env.VUE_APP_LIENS_BACKEND}storage/images/`
+export const lienPDF = `${process.env.VUE_APP_LIENS_BACKEND}storage/app/public/pdf/`
 const instance = axios.create({
-  baseURL: `${process.env.VUE_APP_LIENS_LOCAL}api`,
+  baseURL: `${process.env.VUE_APP_LIENS_BACKEND}api`,
 }); 
 
 instance.interceptors.request.use((config) => {
