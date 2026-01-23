@@ -289,7 +289,6 @@ export default {
         >
           {{ infoBioStudent }}
         </p>
-        
       </div>
       <section class="my-5">
         <div class="row">
@@ -427,7 +426,6 @@ export default {
               <div class="mb-3">
                 <label class="form-label">Confirmation du nouveau mot de passe</label>
                 <a-input-password v-model:value="confirmation_password" />
-                
               </div>
             </div>
           </div>
@@ -477,6 +475,8 @@ export default {
   z-index: 1;
   color: rgb(0, 0, 0);
   font-weight: bold;
+  text-align: center;
+  width: 43px;
   background: rgb(255, 255, 255);
   padding: 0.5em;
   border-radius: 100%;
