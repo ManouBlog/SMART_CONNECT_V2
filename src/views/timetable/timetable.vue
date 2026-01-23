@@ -54,7 +54,7 @@ export default {
       texte25: "",
       texte26: "",
       lieu: "",
-      isLoading:true,
+      isLoading: true,
       dateRendezVousStudentWithEntreprise: null,
       MyDateRendezVous: [],
       user: this.$store.state.user,
@@ -333,10 +333,32 @@ export default {
         (this.user && this.user.user.statut.statut == "entreprise") ||
         (this.user && this.user.user.statut.statut === "particulier")
       ) {
-        this.$router.push({
-          name: "detailStudent",
-          params: { id: item.id, user_id: item.user_id },
-        });
+        if (
+          this.$store.state.infoUserConnected.user.abonement.length &&
+          this.$store.state.infoUserConnected.user.abonement.some(
+            (item) => item.statut === "success"
+          )
+        ) {
+          this.$router.push({
+            name: "detailStudent",
+            params: { id: item.id, user_id: item.user_id },
+          });
+        } else {
+          Swal.fire({
+            icon: "info",
+            title: "Veuillez souscrire à l’abonnement PLATINUM.",
+            text: "Accédez aux fonctionnalités premium.",
+            confirmButtonText: "Voir les abonnements",
+            showCancelButton: true,
+            cancelButtonText: "Plus tard",
+            confirmButtonColor: "orange", // violet / premium
+            cancelButtonColor: "#6c757d", // gris neutre
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$router.push({ name: "abonnements" });
+            }
+          });
+        }
       } else {
         Swal.fire({
           icon: "info",
@@ -492,7 +514,7 @@ export default {
     // },
   },
   async created() {
-     await this.$store.dispatch("getInfoUser");
+    await this.$store.dispatch("getInfoUser");
     this.$store.dispatch("handleListeFavoris");
     this.get_list_emploi();
     this.getAllCompetences();
@@ -581,8 +603,7 @@ export default {
       class="container-fluid timetableSchedule"
       :class="spinner ? 'conteneur_offre' : null"
     >
-      <div class="timetable_disponible" 
-      v-if="list_emploi.length">
+      <div class="timetable_disponible" v-if="list_emploi.length">
         <h6>
           {{ texte2 }}
           {{ datesSelect.length ? list.length : lengthOfMylistEmploi }}
@@ -648,9 +669,8 @@ export default {
               <span class="biStar">
                 <Rating v-model="emploi.average" readonly :cancel="false" />
               </span>
-        
+
               <button
-              v-if="this.$store.state.infoUserConnected.user.abonement.length && this.$store.state.infoUserConnected.user.abonement.some(item=>item.statut === 'success')"
                 class="btn bg-primary voirPlus"
                 @click="voirDetailTimetable({ id: emploi.id, user_id: emploi.user_id })"
               >
@@ -658,7 +678,10 @@ export default {
 
                 <em class="bi bi-eye"></em>
               </button>
-              <p v-else style="color:red !important;font-size:1em;text-align:center;">Veuillez faire un abonnement</p>
+              <!-- <p v-else style="color: red !important; font-size: 1em; text-align: center">
+                Veuillez souscrire à l’abonnement Platinum.
+                {{ this.$store.state.infoUserConnected.user.abonement }}
+              </p> -->
             </div>
           </div>
         </div>
@@ -676,8 +699,15 @@ export default {
     </div>
   </section>
   <section v-else>
-    <div style="min-height:100vh !important;text-align:center;padding:2em; font-weight:bold;">
-    Chargement....
+    <div
+      style="
+        min-height: 100vh !important;
+        text-align: center;
+        padding: 2em;
+        font-weight: bold;
+      "
+    >
+      Chargement....
     </div>
   </section>
 </template>
