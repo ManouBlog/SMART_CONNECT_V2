@@ -336,7 +336,7 @@ export default {
         if (
           this.$store.state.infoUserConnected.user.abonement.length &&
           this.$store.state.infoUserConnected.user.abonement.some(
-            (item) => item.statut === "success"
+            (item) => item.statut === "success" && item.abonement.libelle === "PLATINUM"
           )
         ) {
           this.$router.push({

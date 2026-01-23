@@ -210,6 +210,9 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+    seeAllAbonnement() {
+      this.$router.push({ name: "abonnements" });
+    },
     splitDateRanges(dateArray) {
       const result = [];
 
@@ -746,6 +749,7 @@ export default {
     },
   },
   async created() {
+    await this.$store.dispatch("getInfoUser");
     this.handleAbonnement();
     this.get_list_emploi();
     this.getAllCompetences();
@@ -807,7 +811,15 @@ export default {
             </Calendar>
           </div>
         </div>
-        <div class="conteneur_date">
+        <div
+          class="conteneur_date"
+          v-if="
+            this.$store.state.infoUserConnected.user.abonement.length &&
+            this.$store.state.infoUserConnected.user.abonement.some(
+              (item) => item.statut === 'success' && item.abonement.libelle === 'PLATINUM'
+            )
+          "
+        >
           <label class="d-block">{{ texte3 }}</label>
           <PrimeCalendar
             v-model="datesChoice"
@@ -866,6 +878,23 @@ export default {
               {{ texte9 }}
             </h5>
           </div> -->
+        </div>
+        <div class="conteneur_date" style="color: red; text-align: center">
+          Veuillez souscrire à l’abonnement PLATINUM.
+          <div>
+            <button
+              style="
+                background: orange;
+                color: white;
+                padding: 0.5em;
+                border-radius: 10px;
+                border: 1px solid orange;
+              "
+              @click.prevent="seeAllAbonnement"
+            >
+              Voir les abonnements
+            </button>
+          </div>
         </div>
       </section>
     </div>

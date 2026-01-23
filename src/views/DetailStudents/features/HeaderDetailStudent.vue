@@ -4,6 +4,7 @@ import ModalForModifyInfo from "../../../components/dashboard/profil/feature/Mod
 import { Help } from "../../../utils";
 import { useInfoPersonnel } from "../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { mapActions } from "pinia";
+import Swal from "sweetalert2";
 export default {
   name: "HeaderDetailStudent",
   components: {
@@ -18,17 +19,41 @@ export default {
       Help: Help,
     };
   },
-  methods:{
+  methods: {
     ...mapActions(useInfoPersonnel, [
       "changeValueForToogleModalInfoPersonnelle",
-      "addInfoUserConnected"
+      "addInfoUserConnected",
     ]),
     handleModalInfo() {
-      // console.log("timetable_for_student",this.timetable_for_student)
-      this.addInfoUserConnected(this.timetable_for_student)
-     this.changeValueForToogleModalInfoPersonnelle({ isCv: true,isbtnPdf:false });
-    }
-  }
+      if (
+        this.$store.state.infoUserConnected.user.abonement.length &&
+        this.$store.state.infoUserConnected.user.abonement.some(
+          (item) => item.statut === "success" && item.abonement.libelle === "PLATINUM"
+        )
+      ) {
+        this.addInfoUserConnected(this.timetable_for_student);
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: false });
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "Veuillez souscrire à l’abonnement PLATINUM.",
+          text: "Accédez aux fonctionnalités premium.",
+          confirmButtonText: "Voir les abonnements",
+          showCancelButton: true,
+          cancelButtonText: "Plus tard",
+          confirmButtonColor: "orange", // violet / premium
+          cancelButtonColor: "#6c757d", // gris neutre
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.$router.push({ name: "abonnements" });
+          }
+        });
+      }
+    },
+  },
+  async created() {
+    await this.$store.dispatch("getInfoUser");
+  },
 };
 </script>
 <template>
@@ -75,7 +100,7 @@ export default {
         </div>
       </section>
       <button
-      @click="handleModalInfo"
+        @click="handleModalInfo"
         style="
           width: auto;
           border-radius: 10%;
@@ -98,7 +123,7 @@ export default {
           background: #80808085;
           border-radius: 5px;
           margin: 1em 0;
-          color:black;
+          color: black;
         "
       >
         {{ timetable_for_student.bio }}
