@@ -332,21 +332,25 @@ export default {
         <div v-if="jours && jours.length" class="row">
         <div v-for="(item, index) in jours" :key="index" class="col-lg-4 col-md-6 col-sm-12 mb-3">
           <div class="card py-3 px-2 h-100">
-          <h5 class="card-title">{{ new Date(item.jour).toLocaleDateString("fr") }}</h5>
+          <h5 style="text-align:left;">{{ new Date(item.jour).toLocaleDateString("fr") }}</h5>
           
           <!-- Si periode === 1: afficher periode_debut et periode_fin -->
-          <div v-if="item.periode === 1" class="mb-2">
+          <div v-if="item.periode === 1 && !item.First_horaire" class="mb-2">
             <p><strong>Période:</strong></p>
             <p>Du {{ new Date(item.periode_debut).toLocaleDateString("fr") }} à {{ item.hour_periode_debut }}</p>
             <p>Au {{ new Date(item.periode_fin).toLocaleDateString("fr") }} à {{ item.hour_periode_fin }}</p>
-            <p v-if="item.totalHour" class="text-muted"><small>Total: {{ item.totalHour }}h</small></p>
+          </div>
+
+          <div v-else-if="item.periode === 1 && item.First_horaire" class="mb-2">
+            <p v-if="item.First_horaire"><strong>1ère Plage:</strong>{{ item.First_horaire.replace("-", " à ") }}</p>
+            <p v-if="item.Second_horaire"><strong>2e Plage:</strong>{{ item.Second_horaire.replace("-", " à ") }}</p>
           </div>
           
           <!-- Si periode === 0: afficher First_horaire et Second_horaire -->
           <div v-else class="mb-2">
             <p v-if="item.First_horaire"><strong>1ère Plage:</strong> {{ item.First_horaire.replace("-", " à ") }}</p>
             <p v-if="item.Second_horaire"><strong>2e Plage:</strong> {{ item.Second_horaire.replace("-", " à ") }}</p>
-            <p v-else class="text-muted">Pas de 2e plage horaire</p>
+            <p v-if="!item.First_horaire && !item.Second_horaire" class="text-muted">Pas de 2e plage horaire</p>
           </div>
           </div>
         </div>
