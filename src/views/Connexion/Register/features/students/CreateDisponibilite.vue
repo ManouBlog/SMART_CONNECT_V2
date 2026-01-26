@@ -3,7 +3,7 @@ import instance from "../../../../../api/api";
 // import { useDisponibiliteStore } from "../../../store-pinia/Disponibilite/useDisponibiliteStore";
 import Swal from "sweetalert2";
 // import { mapActions } from "pinia";
-// import Calendar from "primevue/calendar";
+import Calendar from "primevue/calendar";
 import HorizontalCalendar from "./HorizontalCalendar.vue";
 // import HeaderDashboard from "../../../../../Shared/Compoments/HeaderDashboard.vue";
 // import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
@@ -18,7 +18,7 @@ dayjs.extend(updateLocale);
 export default {
   name: "CreateTimetableView",
   components: {
-    // Calendar,
+    Calendar,
     HorizontalCalendar,
     // HeaderDashboard,
   },
@@ -143,7 +143,7 @@ export default {
       this.selecteDatepickers = date;
       toggle({ ref: e.target });
     },
-    
+
     get_timetable() {
       instance
         .get("get_schedule")
@@ -332,19 +332,19 @@ export default {
     },
     chooseDateTime_debut(e) {
       this.dateTime_fin = null;
-         if(e.target.value){
-     this.$store.commit('SET_DATE_DEBUT',e.target.value)
-    }else{
-        this.$store.commit('SET_DATE_DEBUT',null)
-    }
+      if (e.target.value) {
+        this.$store.commit("SET_DATE_DEBUT", e.target.value);
+      } else {
+        this.$store.commit("SET_DATE_DEBUT", null);
+      }
     },
     handleDateTimeFin(e) {
       this.error = null;
-    if(e.target.value){
-     this.$store.commit('SET_DATE_FIN',e.target.value)
-    }else{
-        this.$store.commit('SET_DATE_FIN',null)
-    }
+      if (e.target.value) {
+        this.$store.commit("SET_DATE_FIN", e.target.value);
+      } else {
+        this.$store.commit("SET_DATE_FIN", null);
+      }
     },
     addToSchedule() {
       this.launchLoading(true);
@@ -441,52 +441,51 @@ export default {
         );
         console.log("formattedDates", formattedDates);
         // this.datesOfCalendar = formattedDates;
-        this.$store.commit('SET_DATES',formattedDates)
+        this.$store.commit("SET_DATES", formattedDates);
       } else {
-       this.$store.commit('SET_DATES',[])
+        this.$store.commit("SET_DATES", []);
       }
     },
-    handleFirstHeureStart(e){
-   console.log("handleFirstHeureStart",e.target.value)
-   if(e.target.value){
-     this.$store.commit('SET_FIRST_HEURE_START',e.target.value)
-    }else{
-        this.$store.commit('SET_FIRST_HEURE_START',null)
-    }
-
+    handleFirstHeureStart(e) {
+      console.log("handleFirstHeureStart", e);
+      if (e) {
+        this.$store.commit("SET_FIRST_HEURE_START", e);
+      } else {
+        this.$store.commit("SET_FIRST_HEURE_START", null);
+      }
     },
-    handleFirstHeureEnd(e){
-        if(e.target.value){
-     this.$store.commit('SET_FIRST_HEURE_END',e.target.value)
-    }else{
-        this.$store.commit('SET_FIRST_HEURE_END',null)
-    }
+    handleFirstHeureEnd(e) {
+      if (e) {
+        this.$store.commit("SET_FIRST_HEURE_END", e);
+      } else {
+        this.$store.commit("SET_FIRST_HEURE_END", null);
+      }
     },
-    handleSecondHeureStart(e){
-        if(e.target.value){
-     this.$store.commit('SET_SECOND_HEURE_START',e.target.value)
-    }else{
-        this.$store.commit('SET_SECOND_HEURE_START',null)
-    }
+    handleSecondHeureStart(e) {
+      if (e) {
+        this.$store.commit("SET_SECOND_HEURE_START", e);
+      } else {
+        this.$store.commit("SET_SECOND_HEURE_START", null);
+      }
     },
-    handleSecondHeureEnd(e){
-          if(e.target.value){
-     this.$store.commit('SET_SECOND_HEURE_END',e.target.value)
-    }else{
-        this.$store.commit('SET_SECOND_HEURE_END',null)
-    }
+    handleSecondHeureEnd(e) {
+      if (e) {
+        this.$store.commit("SET_SECOND_HEURE_END", e);
+      } else {
+        this.$store.commit("SET_SECOND_HEURE_END", null);
+      }
     },
-    chooseTypePlage(e){
-    if(e.target.value){
-    this.$store.commit('SET_DATE_DEBUT',null)
-    this.$store.commit('SET_DATE_FIN',null)
-    this.$store.commit('SET_SECOND_HEURE_START',null)
-    this.$store.commit('SET_SECOND_HEURE_END',null)
-    this.$store.commit('SET_FIRST_HEURE_START',null)
-    this.$store.commit('SET_FIRST_HEURE_END',null)
-    this.$store.commit('SET_HANDLE_HORAIRE',e.target.value);
-    }
-    }
+    chooseTypePlage(e) {
+      if (e.target.value) {
+        this.$store.commit("SET_DATE_DEBUT", null);
+        this.$store.commit("SET_DATE_FIN", null);
+        this.$store.commit("SET_SECOND_HEURE_START", null);
+        this.$store.commit("SET_SECOND_HEURE_END", null);
+        this.$store.commit("SET_FIRST_HEURE_START", null);
+        this.$store.commit("SET_FIRST_HEURE_END", null);
+        this.$store.commit("SET_HANDLE_HORAIRE", e.target.value);
+      }
+    },
   },
   async created() {
     // this.get_timetable();
@@ -596,75 +595,116 @@ export default {
             <div class="form theme-form">
               <div>
                 <section v-if="handleHoraire === 'Horaire'">
-                  <h5 class="text-start text-warning"><span style="color:red;">*</span>{{ texte1 }}</h5>
+                  <h5 class="text-start text-warning">
+                  <span style="color: red">*</span>{{ texte1 }}
+                  </h5>
                   <div class="col-lg-6">
-                    <div class="mb-3 conteneur-horaire">
-                      <label class="d-block">{{ texte2 }}</label>
-                      <input
-                        type="time"
-                        class="form-control mt-1"
-                        :disabled="this.$store.state.datesOfCalendar.length === 0"
-                        :value="
-                          First_heure_start_from
-                            ? First_heure_start_from.format('HH:mm')
-                            : ''
-                        "
-                        @change="handleFirstHeureStart"
-                       
-                      />
-                    </div>
+                  <div class="mb-3 conteneur-horaire">
+                  <label class="d-block">{{ texte2 }}</label>
+                  <Calendar
+                    v-model="First_heure_start_from"
+                    timeOnly
+                    showTime
+                    hourFormat="24"
+                    :disabled="this.$store.state.datesOfCalendar.length === 0"
+                    @update:modelValue="handleFirstHeureStart"
+                    class="w-100"
+                  />
+                  <button
+                    v-if="First_heure_start_from"
+                    type="button"
+                    class="btn-close-time"
+                    @click="First_heure_start_from = null"
+                    title="Effacer"
+                    style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
+                  >
+                    ✕
+                  </button>
+                  </div>
                   </div>
 
                   <div class="col-lg-6">
-                    <div class="mb-3 conteneur-horaire">
-                      <label class="d-block">{{ texte3 }}</label>
-                      <input
-                        type="time"
-                        class="form-control mt-1"
-                        :disabled="this.$store.state.datesOfCalendar.length === 0"
-                        :min="First_heure_start_from"
-                        :value="
-                          First_heure_end_to ? First_heure_end_to.format('HH:mm') : ''
-                        "
-                        @change="handleFirstHeureEnd"
-                      />
-                    </div>
+                  <div class="mb-3 conteneur-horaire">
+                  <label class="d-block">{{ texte3 }}</label>
+                  <div class="position-relative">
+                    <Calendar
+                    v-model="First_heure_end_to"
+                    timeOnly
+                    showTime
+                    hourFormat="24"
+                    :minDate="First_heure_start_from"
+                    :disabled="this.$store.state.datesOfCalendar.length === 0"
+                    @update:modelValue="handleFirstHeureEnd"
+                    class="w-100 bg-secondary"
+                    />
+                    <button
+                    v-if="First_heure_end_to"
+                    type="button"
+                    class="btn-close-time"
+                    @click="First_heure_end_to = null"
+                    title="Effacer"
+                    style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
+                    >
+                    ✕
+                    </button>
+                  </div>
+                  </div>
                   </div>
 
                   <h5 class="text-start my-2 text-warning">{{ texte4 }}</h5>
 
                   <!-- Second créneau : heure début / heure fin -->
                   <div class="col-lg-6">
-                    <div class="mb-3 conteneur-horaire">
-                      <label class="d-block">{{ texte5 }}</label>
-                      <input
-                        type="time"
-                        class="form-control mt-1"
-                        :disabled="this.$store.state.datesOfCalendar.length === 0"
-                        :value="
-                          Second_heure_start_from
-                            ? Second_heure_start_from.format('HH:mm')
-                            : ''
-                        "
-                       @change="handleSecondHeureStart"
-                      />
-                    </div>
+                  <div class="mb-3 conteneur-horaire">
+                  <label class="d-block">{{ texte5 }}</label>
+                  <Calendar
+                  v-model="Second_heure_start_from"
+                  timeOnly
+                  showTime
+                  hourFormat="24"
+                  :disabled="this.$store.state.datesOfCalendar.length === 0"
+                  @update:modelValue="handleSecondHeureStart"
+                  class="w-100"
+                  />
+                  <button
+                    v-if="Second_heure_start_from"
+                    type="button"
+                    class="btn-close-time"
+                    @click="Second_heure_start_from = null"
+                    title="Effacer"
+                    style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
+                  >
+                    ✕
+                  </button>
+                  </div>
                   </div>
 
                   <div class="col-lg-6">
-                    <div class="mb-3 conteneur-horaire">
-                      <label class="d-block">{{ texte6 }}</label>
-                      <input
-                        type="time"
-                        class="form-control mt-1"
-                        :disabled="this.$store.state.datesOfCalendar.length === 0"
-                        :min="Second_heure_start_from?.format('HH:mm')"
-                        :value="
-                          Second_heure_end_to ? Second_heure_end_to.format('HH:mm') : ''
-                        "
-                        @change="handleSecondHeureEnd"
-                      />
-                    </div>
+                  <div class="mb-3 conteneur-horaire">
+                  <label class="d-block">{{ texte6 }}</label>
+                  <div class="position-relative">
+                    <Calendar
+                    v-model="Second_heure_end_to"
+                    timeOnly
+                    showTime
+                    hourFormat="24"
+                    :minDate="Second_heure_start_from"
+                    :disabled="this.$store.state.datesOfCalendar.length === 0"
+                    @update:modelValue="handleSecondHeureEnd"
+                    class="w-100"
+                    />
+                    <button
+                    v-if="Second_heure_end_to"
+                    type="button"
+                    class="btn-close-time"
+                    @click="Second_heure_end_to = null"
+                    title="Effacer"
+                    style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
+                    >
+                    ✕
+                    </button>
+                  </div>
+                  </div>
                   </div>
                 </section>
                 <!-- <div class="col-lg-12" v-if="handleHoraire === 'Horaire'">
@@ -694,9 +734,9 @@ export default {
   </div>
 </template>
 <style scoped>
-.form-control{
-border:1px solid gray !important;
-height:40px;
+.form-control {
+  border: 1px solid gray !important;
+  height: 40px;
 }
 .container-fluid {
   padding: 1em !important;
@@ -833,9 +873,9 @@ td {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.303);
 }
 @media (max-width: 768px) {
-    .form-control {
-    min-height: 48px;       /* zone tactile */
-    font-size: 1rem;        /* lisibilité */
+  .form-control {
+    min-height: 48px; /* zone tactile */
+    font-size: 1rem; /* lisibilité */
     padding: 0.75em;
   }
 

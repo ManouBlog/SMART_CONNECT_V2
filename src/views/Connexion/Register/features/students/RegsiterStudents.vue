@@ -500,9 +500,9 @@ export default {
   </a-form>
 </template>
 <style scoped>
-:deep(:where(.ant-steps-item-icon)){
-      background-color: #ff8819 !important;
-    border-color: #ff8819 !important;
+:deep(:where(.ant-steps-item-icon)) {
+  background-color: #ff8819 !important;
+  border-color: #ff8819 !important;
 }
 :deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input)
     .ant-select-selector) {

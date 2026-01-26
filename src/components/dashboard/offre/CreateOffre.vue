@@ -268,8 +268,7 @@ export default {
           if (response.status) {
             this.postOffre(response.categorie_id, response.competence_id);
           }
-        }else if(!this.otherDomaine && this.otherPoste) {
-         
+        } else if (!this.otherDomaine && this.otherPoste) {
           const response = await this.create_CompetenceOffre(
             this.categorie,
             this.otherPoste
@@ -277,9 +276,9 @@ export default {
           if (response.status) {
             await this.postOffre(this.categorie, response.competence_id);
           }
-        }else if(!this.otherDomaine && !this.otherPoste){
-          await this.postOffre()
-        } 
+        } else if (!this.otherDomaine && !this.otherPoste) {
+          await this.postOffre();
+        }
       } catch (error) {
         console.error("Erreur lors de la création de l'offre :", error);
       } finally {
@@ -560,12 +559,11 @@ export default {
               />
             </div>
             <div class="text-left my-3 col-lg-6">
-              <label><span style="color: red">*</span>{{ texte16 }}</label>
+              <label>{{ texte16 }}</label>
               <input
                 class="form-control"
                 type="datetime-local"
                 v-model="job_debut"
-                required
                 :min="fin"
               />
             </div>
