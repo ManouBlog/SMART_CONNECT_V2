@@ -194,163 +194,165 @@ export default {
     </div>
     <div class="card" v-if="student != null">
       <div class="card-body">
-        <span v-if="student != null" class="badge bg-primary h3">{{
-          `${student.nom}  ${student.prenoms}`
-        }}</span>
-        <div class="text-start">
-          <h4 class="badge bg-info">
-            <b>Formule d'abonnement</b> :
-            {{ this.verifIfAbonnementCurrently(student?.user?.abonement) ? this.verifIfAbonnementCurrently(student?.user?.abonement):'Pas abonnée' }}
-          </h4>
+      <span v-if="student != null" class="badge bg-primary h3">{{
+        `${student.nom}  ${student.prenoms}`
+      }}</span>
+      <div class="text-start">
+        <h4 class="badge bg-info">
+        <b>Formule d'abonnement</b> :
+        {{ this.verifIfAbonnementCurrently(student?.user?.abonement) ? this.verifIfAbonnementCurrently(student?.user?.abonement):'Pas abonnée' }}
+        </h4>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+        <div class="mb-3 text-start">
+          <label class="form-label"><b>Nom</b></label>
+          <p>{{ student.nom }}</p>
         </div>
-        <div class="row">
-          <div class="col-md-3">
-            <div class="mb-3 text-start">
-              <label class="form-label">Nom</label>
-              <input disabled v-model="student.nom" class="form-control" type="text" />
+        </div>
+        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 text-start">
+          <label class="form-label"><b>Prénoms</b></label>
+          <p>{{ student.prenoms }}</p>
+        </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 text-start">
+          <label class="form-label"><b>Email</b></label>
+          <p>{{ student.email }}</p>
+        </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 text-start">
+          <label class="form-label"><b>Téléphone</b></label>
+          <p>{{ student.phone }}</p>
+        </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 text-start">
+          <label class="form-label"><b>Ville</b></label>
+          <p>{{ student.ville }}</p>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="mb-3 text-start">
+          <label class="form-label"><b>Commune</b></label>
+          <p>{{ student.commune }}</p>
+        </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 text-start">
+          <label class="form-label"><b>Quartier</b></label>
+          <p>{{ student.quartier }}</p>
+        </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 text-start">
+          <label class="form-label"><b>Diplôme académique</b></label>
+          <p>{{ student.diplome }}</p>
+        </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 text-start">
+          <label class="form-label"><b>Carte étudiant</b></label>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px">
+          <template v-for="(item, index) in student?.user?.photos" :key="index">
+            <Image
+            v-if="!isPdf(item.path)"
+            :src="fileUrl(item.path)"
+            :alt="item.path"
+            width="250"
+            preview
+            />
+            <div v-else style="border: 1px solid #ccc; padding: 10px">
+            <button class="btn btn-primary btn-sm" @click="openPdf(item.path)">
+              Voir la carte étudiant
+            </button>
             </div>
+          </template>
           </div>
-          <div class="col-sm-6 col-md-3">
-            <div class="mb-3 text-start">
-              <label class="form-label">Prénoms</label>
-              <input
-                disabled
-                v-model="student.prenoms"
-                class="form-control"
-                type="text"
-              />
-            </div>
+          <div v-if="!student?.user?.photos?.length">Pas de carte étudiant.</div>
+          <div v-if="pdfVisible" class="pdf-modal-overlay" @click.self="closePdf">
+          <iframe
+            :src="pdfUrl"
+            width="80%"
+            height="500"
+            style="border: 1px solid #ccc"
+          ></iframe>
           </div>
-          <div class="col-sm-6 col-md-3">
-            <div class="mb-3 text-start">
-              <label class="form-label">Email</label>
-              <input v-model="student.email" class="form-control" type="email" disabled />
-            </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="container-fluid" v-if="student != null">
+      <h1 class="text-decoration-underline py-3">Compétences</h1>
+      <div class="row">
+        <div class="col-sm-12 card py-3 px-2">
+          <div v-if="student?.competences?.length" class="d-flex flex-wrap gap-2">
+            <span v-for="(item, index) in student.competences" :key="index" class="badge bg-dark">
+              {{ item.competence }}
+            </span>
           </div>
-          <div class="col-sm-6 col-md-3">
-            <div class="mb-3 text-start">
-              <label class="form-label">Téléphone</label>
-              <input disabled v-model="student.phone" class="form-control" type="text" />
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-3">
-            <div class="mb-3 text-start">
-              <label class="form-label">ville</label>
-              <input disabled v-model="student.ville" class="form-control" type="text" />
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="mb-3 text-start">
-              <label class="form-label">Commune</label>
-              <input
-                disabled
-                v-model="student.commune"
-                class="form-control"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-3">
-            <div class="mb-3 text-start">
-              <label class="form-label">Quartier</label>
-              <input
-                disabled
-                v-model="student.quartier"
-                class="form-control"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-3">
-            <div class="mb-3 text-start">
-              <label class="form-label">Diplome academique</label>
-              <input
-                disabled
-                v-model="student.diplome"
-                class="form-control"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-3">
-            <div class="mb-3 text-start">
-              <label class="form-label">Carte étudiant</label>
-              <div style="display: flex; flex-wrap: wrap; gap: 10px">
-                <template v-for="(item, index) in student?.user?.photos" :key="index">
-                  <!-- CAS IMAGE -->
-                  <Image
-                    v-if="!isPdf(item.path)"
-                    :src="fileUrl(item.path)"
-                    :alt="item.path"
-                    width="250"
-                    preview
-                  />
+          <p v-else class="text-muted">Aucune compétence enregistrée.</p>
+        </div>
+      </div>
+    </div>
 
-                  <!-- CAS PDF -->
-                  <div v-else style="border: 1px solid #ccc; padding: 10px">
-                    <button class="btn btn-primary btn-sm" @click="openPdf(item.path)">
-                      Voir la carte étudiant
-                    </button>
-                  </div>
-                </template>
-              </div>
-
-              <div v-if="!student?.user?.photos?.length">Pas de carte étudiant.</div>
-
-              <!-- IFRAME PDF -->
-              <div v-if="pdfVisible" class="pdf-modal-overlay" @click.self="closePdf">
-                <iframe
-                  :src="pdfUrl"
-                  width="80%"
-                  height="500"
-                  style="border: 1px solid #ccc"
-                ></iframe>
-              </div>
-            </div>
-          </div>
+    <div class="container-fluid" v-if="student != null">
+      <h1 class="text-decoration-underline py-3">Qualifications</h1>
+      <div class="row">
+        <div class="col-sm-12 card py-3 px-2">
+          <table v-if="student?.qualifications?.length" class="table">
+            <thead>
+              <tr>
+                <th class="bg-light">Objet</th>
+                <th class="bg-light">Détail</th>
+                <th class="bg-light">Date de début</th>
+                <th class="bg-light">Date de fin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in student.qualifications" :key="index">
+                <td>{{ item.objet }}</td>
+                <td>{{ item.detail || "N/A" }}</td>
+                <td>{{ new Date(item.date_debut).toLocaleDateString("fr") }}</td>
+                <td>{{ new Date(item.date_fin).toLocaleDateString("fr") }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p v-else class="text-muted">Aucune qualification enregistrée.</p>
         </div>
       </div>
     </div>
     <div class="container-fluid" v-if="student != null">
       <h1 class="text-decoration-underline py-3">Emploi du temps</h1>
       <div class="row">
-        <div class="col-sm-12 card py-3 px-2">
-          <table id="MyTableData" class="table">
-            <thead>
-              <tr>
-                <th class="bg-light">Jours</th>
-                <th class="bg-light">Premiere Plage Horaire</th>
-                <th class="bg-light">Seconde Plage Horaire</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(item, index) in jours" :key="index">
-                <td>
-                  <p>
-                    {{ item.jour }}
-                  </p>
-                </td>
-                <td class="text-center">
-                  <p v-if="item.periode">
-                    Du {{ new Date(item.periode_debut).toLocaleDateString() }} à
-                    {{ item.hour_periode_debut }} au
-                    {{ new Date(item.periode_fin).toLocaleDateString() }} à
-                    {{ item.hour_periode_fin }}
-                  </p>
-                  <p v-else>
-                    {{ item.First_horaire.replace("-", " à ") }}
-                  </p>
-                </td>
-                <td>
-                  <p v-if="item.Second_horaire">
-                    {{ item.Second_horaire.replace("-", " à ") }}
-                  </p>
-                  <p v-else>Pas de plage horaire</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="col-sm-12 card py-3 px-2">
+        <div v-if="jours && jours.length" class="row">
+        <div v-for="(item, index) in jours" :key="index" class="col-lg-4 col-md-6 col-sm-12 mb-3">
+          <div class="card py-3 px-2 h-100">
+          <h5 class="card-title">{{ new Date(item.jour).toLocaleDateString("fr") }}</h5>
+          
+          <!-- Si periode === 1: afficher periode_debut et periode_fin -->
+          <div v-if="item.periode === 1" class="mb-2">
+            <p><strong>Période:</strong></p>
+            <p>Du {{ new Date(item.periode_debut).toLocaleDateString("fr") }} à {{ item.hour_periode_debut }}</p>
+            <p>Au {{ new Date(item.periode_fin).toLocaleDateString("fr") }} à {{ item.hour_periode_fin }}</p>
+            <p v-if="item.totalHour" class="text-muted"><small>Total: {{ item.totalHour }}h</small></p>
+          </div>
+          
+          <!-- Si periode === 0: afficher First_horaire et Second_horaire -->
+          <div v-else class="mb-2">
+            <p v-if="item.First_horaire"><strong>1ère Plage:</strong> {{ item.First_horaire.replace("-", " à ") }}</p>
+            <p v-if="item.Second_horaire"><strong>2e Plage:</strong> {{ item.Second_horaire.replace("-", " à ") }}</p>
+            <p v-else class="text-muted">Pas de 2e plage horaire</p>
+          </div>
+          </div>
         </div>
+        </div>
+        <p v-else class="text-muted">Aucun emploi du temps enregistré.</p>
+      </div>
       </div>
     </div>
     <div class="container-fluid" v-if="student != null">
