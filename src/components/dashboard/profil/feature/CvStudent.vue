@@ -36,21 +36,21 @@
        <!-- Compétences -->
       <div class="section" style="margin:1em 0;" v-if="competences.length">
         <h3>COMPÉTENCES</h3>
-        <ul style="padding: 0 1.5em">
+        <ul style="padding:1em">
           <li v-for="(c, i) in competences" :key="i">{{ c.comp }}</li>
         </ul>
       </div>
        <!-- Expériences professionnelles -->
       <div class="section" v-if="experiences.length">
         <h3>EXPÉRIENCES PROFESSIONNELLES</h3>
-        <p v-for="(exp, i) in experiences" :key="i">
+        <p v-for="(exp, i) in experiences" :key="i" style="padding:1em">
           <strong>{{ exp.periode }} :</strong> {{ exp.detail }}
         </p>
       </div>
       <!-- Qualifications -->
       <div class="section" v-if="qualifications.length">
         <h3>QUALIFICATIONS</h3>
-        <ul style="padding: 0 1.5em">
+        <ul style="padding:1em">
         <li v-for="(q, i) in qualifications" :key="i">
           
           <span style="display:block;margin-bottom:0.5em"><span style="font-weight:bold;">{{ q.periode }}</span>: {{ q.objet }}</span>
@@ -60,15 +60,19 @@
       </div>
     </div>
     <!-- Bouton de téléchargement -->
-    <button @click="downloadCV" v-if="isbtnPdf" class="download-button">
-      Télécharger le CV
+    <button @click="downloadCV"
+    :disabled="isLoading"
+    v-if="isbtnPdf" class="download-button">
+      {{ isLoading ? "Téléchargement en cours..." : "Télécharger le CV" }}
     </button>
   </div>
 </template>
 <script setup>
 import html2canvas from "html2canvas";
-import { defineProps } from "vue";
+import { defineProps,ref } from "vue";
 import { jsPDF } from "jspdf";
+
+const isLoading=ref(false);
 const props = defineProps({
   isbtnPdf: { type: Boolean, required: false, default: false },
   nom: { type: String, required: true },
