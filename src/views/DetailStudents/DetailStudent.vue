@@ -879,7 +879,7 @@ export default {
             </h5>
           </div> -->
         </div>
-        <div class="conteneur_date" style="color: red; text-align: center">
+        <div v-else class="conteneur_date" style="color: red; text-align: center">
           Veuillez souscrire à l’abonnement PLATINUM.
           <div>
             <button
