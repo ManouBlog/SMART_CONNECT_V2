@@ -8,16 +8,15 @@
         </div>
         <div class="personal-info">
           <h1>{{ nom }}</h1>
-          <!-- <h2>{{ titre }}</h2> -->
-          <!-- <p><strong>Date et lieu de naissance :</strong> {{ naissance }}</p> -->
         </div>
       </div>
       <!-- Coordonnées -->
       <div class="contact-info">
-        <p>📞 {{ telephone }}</p>
-        <p>✉️ {{ email }}</p>
-        <p>🇨🇮 {{ nationalite }}</p>
-      </div>
+  <p><span class="icon">☎</span> {{ telephone }}</p>
+  <p><span class="icon">✉</span> {{ email }}</p>
+  <p><span class="icon">⚑</span> {{ nationalite }}</p>
+</div>
+
       <!-- Description -->
       <div class="section" v-if="description">
         <h3 style="text-transform: uppercase">
@@ -25,62 +24,40 @@
             titreCv && isbtnPdf
               ? titreCv
               : !titreCv && isbtnPdf
-              ? "Ajouter un titre"
+              ? "DESCRIPTION"
               : titreCv && !isbtnPdf
               ? titreCv
               : null
           }}
         </h3>
 
-        <p>{{ description }}</p>
+        <p style="border-bottom: 3px solid black;padding-bottom:10px">{{ description }}</p>
       </div>
        <!-- Compétences -->
-      <div class="section" v-if="competences.length">
+      <div class="section" style="margin:1em 0;" v-if="competences.length">
         <h3>COMPÉTENCES</h3>
         <ul style="padding: 0 1.5em">
           <li v-for="(c, i) in competences" :key="i">{{ c.comp }}</li>
         </ul>
       </div>
-      <!-- Qualifications -->
-      <div class="section" v-if="qualifications.length">
-        <h3>QUALIFICATIONS</h3>
-        <ul style="padding: 0 1.5em">
-        <li v-for="(q, i) in qualifications" :key="i">
-          <span>{{ q.periode }}</span>
-          <span style="display:block;margin-bottom:0.5em">Diplome ou Certification : {{ q.objet }}</span>
-          <span style="display:block;margin-bottom:0.5em" v-if="q.detail">Détail :{{ q.detail }}</span>
-        </li>
-        </ul>
-      </div>
-      <!-- Expériences professionnelles -->
+       <!-- Expériences professionnelles -->
       <div class="section" v-if="experiences.length">
         <h3>EXPÉRIENCES PROFESSIONNELLES</h3>
         <p v-for="(exp, i) in experiences" :key="i">
           <strong>{{ exp.periode }} :</strong> {{ exp.detail }}
         </p>
       </div>
-     
-      <!-- Langues, centres d'intérêt et atouts -->
-      <!-- <div class="bottom-sections">
-        <div class="bottom-section" v-if="langues.length">
-          <h3>LANGUES</h3>
-          <p v-for="(langue, i) in langues" :key="i">{{ langue }}</p>
-        </div>
-        <div class="bottom-section" v-if="interets.length">
-          <h3>Centres d’intérêt</h3>
-          <ul>
-            <li v-for="(interet, i) in interets" :key="i">{{ interet }}</li>
-          </ul>
-        </div>
-        <div class="bottom-section" v-if="atouts.length">
-          <h3>Atouts</h3>
-          <ul>
-            <li v-for="(atout, i) in atouts" :key="i">{{ atout }}</li>
-          </ul>
-        </div>
-      </div> -->
-      <!-- Barre verticale teal -->
-      <div class="teal-sidebar"></div>
+      <!-- Qualifications -->
+      <div class="section" v-if="qualifications.length">
+        <h3>QUALIFICATIONS</h3>
+        <ul style="padding: 0 1.5em">
+        <li v-for="(q, i) in qualifications" :key="i">
+          
+          <span style="display:block;margin-bottom:0.5em"><span style="font-weight:bold;">{{ q.periode }}</span>: {{ q.objet }}</span>
+          <span style="display:block;margin-bottom:0.5em" v-if="q.detail !== null && q.detail !== '' && q.detail !== 'null'">Détail :{{ q.detail }}</span>
+        </li>
+        </ul>
+      </div>
     </div>
     <!-- Bouton de téléchargement -->
     <button @click="downloadCV" v-if="isbtnPdf" class="download-button">
@@ -181,7 +158,7 @@ const downloadCV = async () => {
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #4aa99e;
+  border: 3px solid #0d2421;
   margin-right: 20px;
 }
 
@@ -200,24 +177,21 @@ const downloadCV = async () => {
 
 .contact-info {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   margin-bottom: 20px;
-  flex-wrap: wrap;
-  padding: 10px;
-  background: #f5f5f5;
-  border-radius: 5px;
+  padding: 10px 0;
+  border-top:2px solid black;
+  border-bottom:2px solid black;
 }
 
 .section {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  padding-bottom:1em;
 }
 
 .section h3 {
-  color: #4aa99e;
-  border-bottom: 2px solid #4aa99e;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
+  color: #000000;
+  font-weight:bold;
 }
 
 .bottom-sections {
@@ -243,7 +217,7 @@ const downloadCV = async () => {
 .download-button {
   margin-top: 20px;
   padding: 10px 20px;
-  background: #4aa99e;
+  background: orange;
   color: white;
   border: none;
   border-radius: 5px;
