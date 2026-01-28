@@ -54,7 +54,7 @@
         <li v-for="(q, i) in qualifications" :key="i">
           
           <span style="display:block;margin-bottom:0.5em"><span style="font-weight:bold;">{{ q.periode }}</span>: {{ q.objet }}</span>
-          <span style="display:block;margin-bottom:0.5em" v-if="q.detail !== null && q.detail !== '' && q.detail !== 'null'">Détail :{{ q.detail }}</span>
+          <span style="display:block;margin-bottom:0.5em" v-if="q.detail !== null && q.detail !== '' && q.detail !== 'null'"><strong>Détail :</strong> {{ q.detail }}</span>
         </li>
         </ul>
       </div>
