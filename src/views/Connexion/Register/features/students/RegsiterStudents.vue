@@ -527,7 +527,7 @@ preprocessImage(file) {
     { required: true, message: texte17 },
     {
       pattern: /^[A-Za-z]+$/,
-      message: 'Only letters are allowed'
+      message: 'Veuillez ajouter que des lettres.'
     }
   ]"
       >
@@ -541,7 +541,7 @@ preprocessImage(file) {
     { required: true, message: texte16 },
     {
       pattern: /^[A-Za-z]+$/,
-      message: 'Only letters are allowed'
+      message: 'Veuillez ajouter que des lettres.'
     }
   ]"
       >
@@ -569,7 +569,10 @@ preprocessImage(file) {
       <a-form-item
         :label="texte6"
         name="email"
-        :rules="[{ required: true, message: texte14 }]"
+         :rules="[
+    { required: true, message: texte14 },
+    { type: 'email', message: 'Please enter a valid email address' }
+  ]"
       >
         <a-input v-model:value="formState.email" />
       </a-form-item>
