@@ -9,12 +9,58 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 import CreateDisponibilite from "./CreateDisponibilite.vue";
 import RegisterQualifications from "./RegisterQualifications.vue";
+import Tesseract from 'tesseract.js'
 
 export default {
   name: "RegsiterStudents",
   components: { VueMultiselect, Politics, CreateDisponibilite, RegisterQualifications },
   data() {
     return {
+       fileList : [],
+ loading : false,
+ rawText : '',
+ result : null,
+      SCHOOL_KEYWORDS :[
+  // Carte étudiante (formes tolérantes OCR)
+  'carte etudiant',
+  'carte d etudiant',
+  'carte a etudiant',
+  'carte etudiante',
+
+  // Étudiant (avec ou sans accents, fautes OCR)
+  'etudiant',
+  'etudiante',
+  'etudant',
+  'etud',
+
+  // Institution / enseignement
+  'ministere de l enseignement',
+  "ministere de l'enseignement",
+  'enseignement superieur',
+  'ufr',
+  'faculte',
+  'faculté',
+  'ecole',
+  'institut',
+
+  // Scolarité
+  'filiere',
+  'filiere',
+  'niveau',
+  'licence',
+  'master',
+  'doctorat',
+
+  // Niveaux courts (attention : à combiner avec d’autres mots)
+  'l1',
+  'l2',
+  'l3',
+  'm1',
+  'm2',
+
+  // Identifiant
+  'matricule'
+],
       availabilityDates: [],
       startTime: null,
       endTime: null,
@@ -77,6 +123,12 @@ export default {
 
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
+    isPasswordDisabled() {
+    return (
+      this.loading ||
+      (this.result && this.result.isStudentCard === false)
+    )
+  },
     getFirstHeureStartFrom() {
       return this.$store.state.First_heure_start_from;
     },
@@ -213,8 +265,115 @@ export default {
     addPhotoInArray(allPhotos) {
       return allPhotos.map((item) => item.originFileObj);
     },
+    onUploadChange({ fileList: newList }) {
+  // fileList.value = newList
+  console.log('onUploadChange', newList);
+  if (!newList.length) return
+
+  this.rawText = ''
+  this.result = null
+
+  this.runOCR(newList)
+},
+async runOCR(files) {
+  this.loading = true
+  let fullText = ''
+
+  for (const f of files) {
+    const file = f.originFileObj
+    if (!file || !file.type.startsWith('image/')) continue
+
+    const canvas = await this.preprocessImage(file)
+    const { data } = await Tesseract.recognize(canvas, 'fra')
+    fullText += '\n' + (data.text || '')
+  }
+
+  this.rawText = this.cleanOCRText(fullText)
+
+  if (!this.hasReadableText(fullText)) {
+    this.result = {
+      score: 0,
+      isStudentCard: false,
+      reason: 'Aucun texte exploitable détecté'
+    }
+    this.loading = false
+    return
+  }
+
+  this.analyzeText(fullText)
+  this.loading = false
+},
+hasReadableText(text) {
+  const lettersOnly = text
+    .replace(/\s/g, '')
+    .replace(/[^a-zA-ZÀ-ÿ]/g, '')
+
+  return lettersOnly.length >= 5
+},
+normalizeText(text) {
+  return text
+    .toLowerCase()
+    .normalize('NFD')              // enlève les accents
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
+    .replace(/\s+/g, ' ')
+},
+analyzeText(text) {
+  const cleanText = this.normalizeText(text)
+  let score = 0
+
+  if (cleanText.length > 80) score += 20
+
+  const keywordHits = this.SCHOOL_KEYWORDS.filter(k =>
+    cleanText.includes(k)
+  ).length
+
+  score += Math.min(keywordHits * 10, 40)
+
+  if (cleanText.includes('matricule')) score += 20
+  if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
+
+  this.result = {
+    score,
+    isStudentCard: score >= 60
+  }
+},
+cleanOCRText(text) {
+  return text
+    // supprimer caractères parasites fréquents OCR
+    .replace(/[|«»“”]/g, '')
+    .replace(/_{2,}/g, ' ')
+    .replace(/-{2,}/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\n{2,}/g, '\n')
+    .trim()
+},
+preprocessImage(file) {
+  return new Promise(resolve => {
+    const img = new Image()
+    const reader = new FileReader()
+
+    reader.onload = () => (img.src = reader.result)
+
+    img.onload = () => {
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+
+      canvas.width = img.width
+      canvas.height = img.height
+
+      ctx.filter = 'grayscale(1) contrast(1.5)'
+      ctx.drawImage(img, 0, 0)
+
+      resolve(canvas)
+    }
+
+    reader.readAsDataURL(file)
+  })
+},
 
     onFinish() {
+      console.log("this.formState",this.formState);
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
       }
@@ -310,7 +469,7 @@ export default {
       "Compétences (plusieurs choix sont possibles)"
     );
     this.texte8 = await this.handleTranslate("Dernier diplôme academique");
-    this.texte9 = await this.handleTranslate("Carte étudiant(.jpeg,.pdf,.png)");
+    this.texte9 = await this.handleTranslate("Carte étudiant bien lisible,texte lisible,sans flou (.jpg, .png)");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
     this.texte12 = await this.handleTranslate("Mot de passe requis");
@@ -364,7 +523,13 @@ export default {
       <a-form-item
         :label="texte"
         name="nom"
-        :rules="[{ required: true, message: texte17 }]"
+         :rules="[
+    { required: true, message: texte17 },
+    {
+      pattern: /^[A-Za-z]+$/,
+      message: 'Only letters are allowed'
+    }
+  ]"
       >
         <a-input v-model:value="formState.nom" />
       </a-form-item>
@@ -372,7 +537,13 @@ export default {
       <a-form-item
         :label="texte1"
         name="prenoms"
-        :rules="[{ required: true, message: texte16 }]"
+        :rules="[
+    { required: true, message: texte16 },
+    {
+      pattern: /^[A-Za-z]+$/,
+      message: 'Only letters are allowed'
+    }
+  ]"
       >
         <a-input v-model:value="formState.prenoms" />
       </a-form-item>
@@ -380,7 +551,13 @@ export default {
       <a-form-item
         :label="texte2"
         name="phone"
-        :rules="[{ required: true, message: texte15 }]"
+       :rules="[
+    { required: true, message: texte15 },
+    {
+      pattern: /^\d{10}$/,
+      message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
+    }
+  ]"
       >
         <a-input v-model:value="formState.phone">
           <template #addonBefore>
@@ -455,23 +632,31 @@ export default {
           <a-button> Clique pour charger </a-button>
         </a-upload>
       </a-form-item>
+     
 
       <a-form-item
         name="upload"
         :label="texte9"
         :rules="[{ required: true, message: texte96 }]"
       >
-        <a-upload v-model:fileList="formState.upload" multiple :maxCount="2">
+        <a-upload 
+        v-model:fileList="formState.upload"  
+        :maxCount="1"
+         accept="image/*"
+          @change="onUploadChange"
+        >
           <a-button> Clique pour charger </a-button>
         </a-upload>
       </a-form-item>
-
+      <a-spin v-if="loading" tip="Vérification de la carte d'étudiant" />
+      <span style="color:red;" v-if="this.result && this.result.isStudentCard === false">Veuillez ajouter une carte bien visible</span>
+       <!-- {{ this.result }} -->
       <a-form-item
         :label="texte10"
         name="password"
         :rules="[{ required: true, message: texte12 }]"
       >
-        <a-input-password v-model:value="formState.password" />
+        <a-input-password :disabled="isPasswordDisabled" v-model:value="formState.password" />
       </a-form-item>
     </div>
 
@@ -510,6 +695,9 @@ export default {
 }
 :deep(.multiselect__tag) {
   background: orange;
+}
+:deep(.ant-spin-text){
+  font-size: 16px !important;
 }
 </style>
 <style
