@@ -571,7 +571,7 @@ preprocessImage(file) {
         name="email"
          :rules="[
     { required: true, message: texte14 },
-    { type: 'email', message: 'Please enter a valid email address' }
+    { type: 'email', message: 'Veuillez entrer un email valide' }
   ]"
       >
         <a-input v-model:value="formState.email" />
