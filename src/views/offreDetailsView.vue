@@ -260,7 +260,7 @@ export default {
               </section>
 
               <section>
-                <h4 class="my-5">
+                <h4 class="my-5" v-if="Offre.job_debut">
                   <span class="fw-bold">{{ texte2 }}</span>
                   {{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0] ) }}
                 </h4>

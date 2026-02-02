@@ -13,13 +13,13 @@ import Partenaires from "./features/Partenaires.vue";
 import AppMobileView from "./features/AppMobileView.vue";
 import { usePartenaireStore } from "../../store-pinia/partenaire/usePartenaireStore";
 import { useRegisterStore } from "../../store-pinia/register/useRegisterStore";
-import StudentCardOCR from "../../components/ocr/StudentCardOCR.vue";
+// import StudentCardOCR from "../../components/ocr/StudentCardOCR.vue";
 import { mapActions } from "pinia";
 export default {
   name: "Bienvenue",
   components: {
     HeaderBanner,
-    StudentCardOCR,
+    // StudentCardOCR,
     StepViews,
     RechercheOffre,
     PerformanceView,
@@ -170,7 +170,7 @@ export default {
     <PerformanceView />
     <AppMobileView />
     <Partenaires v-if="this.STOREPARTENAIRE.partenaires.length" />
-    <StudentCardOCR />
+    <!-- <StudentCardOCR /> -->
     <TestimonialsView v-if="this.testimonials.length" />
     <!-- <NewsLetterView /> -->
     <div
