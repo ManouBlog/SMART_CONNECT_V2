@@ -447,9 +447,10 @@ preprocessImage(file) {
       }
     },
 
-    onFinishFailed() {
+    onFinishFailed(errorInfo) {
       Swal.fire({
         icon: "warning",
+        title: `${errorInfo.errorFields[0].errors[0]}`,
         text: "Veuillez remplir tous les champs obligatoires (*)",
       });
     },

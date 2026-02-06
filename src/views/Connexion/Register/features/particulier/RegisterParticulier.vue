@@ -74,6 +74,23 @@ export default {
       texte25: "",
       texte26: "",
       open: true,
+        westAfricaCodes: [
+          { label: "Bénin", value: "+229" },
+          { label: "Burkina Faso", value: "+226" },
+          { label: "Cap-Vert", value: "+238" },
+          { label: "Côte d’Ivoire", value: "+225" },
+          { label: "Gambie", value: "+220" },
+          { label: "Ghana", value: "+233" },
+          { label: "Guinée", value: "+224" },
+          { label: "Guinée-Bissau", value: "+245" },
+          { label: "Liberia", value: "+231" },
+          { label: "Mali", value: "+223" },
+          { label: "Niger", value: "+227" },
+          { label: "Nigeria", value: "+234" },
+          { label: "Sénégal", value: "+221" },
+          { label: "Sierra Leone", value: "+232" },
+          { label: "Togo", value: "+228" },
+        ],
       formState: {
       nom_particulier:"",
         nom: "",
@@ -92,23 +109,7 @@ export default {
         myLogo: "",
         photo: null,
         countryCode: "+225",
-        westAfricaCodes: [
-          { label: "Bénin", value: "+229" },
-          { label: "Burkina Faso", value: "+226" },
-          { label: "Cap-Vert", value: "+238" },
-          { label: "Côte d’Ivoire", value: "+225" },
-          { label: "Gambie", value: "+220" },
-          { label: "Ghana", value: "+233" },
-          { label: "Guinée", value: "+224" },
-          { label: "Guinée-Bissau", value: "+245" },
-          { label: "Liberia", value: "+231" },
-          { label: "Mali", value: "+223" },
-          { label: "Niger", value: "+227" },
-          { label: "Nigeria", value: "+234" },
-          { label: "Sénégal", value: "+221" },
-          { label: "Sierra Leone", value: "+232" },
-          { label: "Togo", value: "+228" },
-        ],
+      
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -150,9 +151,10 @@ export default {
       // this.changeValueIsPolitics({value:true,infoUser:'particulier',payload:this.formState});
     },
     onFinishFailed(errorInfo) {
-      console.log("Failed:", errorInfo);
+      // console.log("Failed:", errorInfo);
       Swal.fire({
         icon: "warning",
+        title: `${errorInfo.errorFields[0].errors[0]}`,
         text: "Veuillez remplir tous les champs obligatoires (*)",
       });
     },
@@ -165,7 +167,7 @@ export default {
     }),
      onUploadChange({ fileList: newList }) {
   // fileList.value = newList
-  console.log('onUploadChange', newList);
+  // console.log('onUploadChange', newList);
   if (!newList.length) return
 
   this.rawText = ''
@@ -217,7 +219,7 @@ normalizeText(text) {
     .replace(/\s+/g, ' ')
 },
 analyzeText(text) {
-  console.log('Texte OCR nettoyé :', this.normalizeText(text))
+  // console.log('Texte OCR nettoyé :', this.normalizeText(text))
   const cleanText = this.normalizeText(text)
   let score = 0
 
@@ -228,10 +230,10 @@ analyzeText(text) {
   ).length
 
   score += Math.min(keywordHits * 10, 40)
-  console.log(`Score basé sur les mots-clés : ${score} (hits: ${keywordHits})`)
+  // console.log(`Score basé sur les mots-clés : ${score} (hits: ${keywordHits})`)
 
   if (cleanText.includes('nationalite') || cleanText.includes('nationalité')) {
-   console.log("Mot-clé 'nationalité' détecté, ajout de 20 points")
+  //  console.log("Mot-clé 'nationalité' détecté, ajout de 20 points")
     score += 20
   }
   // if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
