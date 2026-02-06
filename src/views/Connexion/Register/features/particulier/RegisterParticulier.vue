@@ -4,6 +4,7 @@ import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
 import { useTranslateStore } from "../../../../../store-pinia/Translate/useTranslateStore";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
+// import Tesseract from 'tesseract.js'
 export default {
   name: "RegsiterEntreprise",
   components: {
@@ -40,6 +41,7 @@ export default {
       texte26: "",
       open: true,
       formState: {
+      nom_particulier:"",
         nom: "",
         prenoms: "",
         phone: "",
@@ -142,7 +144,7 @@ export default {
     );
     this.texte18 = await this.handleTranslate("Veuillez renseigner votre email!");
     this.texte19 = await this.handleTranslate("Veuillez renseigner votre Quartier!");
-    this.texte10 = await this.handleTranslate("Ajouter une pièce d'identité");
+    this.texte10 = await this.handleTranslate("Ajouter une pièce d'identité bien visible");
   },
 };
 </script>
@@ -163,12 +165,19 @@ export default {
     >
       <a-input v-model:value="formState.nom" placeholder="Entrez votre nom" />
     </a-form-item>
+    
     <a-form-item
       :label="texte1"
       name="prenoms"
       :rules="[{ required: true, message: 'Ajouter vos prénoms' }]"
     >
       <a-input v-model:value="formState.prenoms" placeholder="Entrez vos prénoms" />
+    </a-form-item>
+    <a-form-item
+      :label="'Nom de l\'entreprise'"
+      name="nom_particulier"
+    >
+      <a-input v-model:value="formState.nom_particulier" placeholder="Entrez le nom de votre entreprise" />
     </a-form-item>
     <a-form-item
       :label="texte2"

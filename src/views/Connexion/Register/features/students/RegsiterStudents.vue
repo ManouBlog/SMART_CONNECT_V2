@@ -371,7 +371,6 @@ preprocessImage(file) {
     reader.readAsDataURL(file)
   })
 },
-
     onFinish() {
       console.log("this.formState",this.formState);
       if (this.formState.uploadPhotoProfil.length) {
@@ -469,7 +468,7 @@ preprocessImage(file) {
       "Compétences (plusieurs choix sont possibles)"
     );
     this.texte8 = await this.handleTranslate("Dernier diplôme academique");
-    this.texte9 = await this.handleTranslate("Carte étudiant bien lisible,texte lisible,sans flou (.jpg, .png)");
+    this.texte9 = await this.handleTranslate("Carte étudiant bien lisible,texte lisible,sans flou,image bien rognée sans fond noir (.jpg, .png)");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
     this.texte12 = await this.handleTranslate("Mot de passe requis");
@@ -526,9 +525,9 @@ preprocessImage(file) {
          :rules="[
     { required: true, message: texte17 },
     {
-      pattern: /^[A-Za-z]+$/,
-      message: 'Veuillez ajouter que des lettres.'
-    }
+  pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
+  message: 'Veuillez saisir uniquement des lettres.'
+}
   ]"
       >
         <a-input v-model:value="formState.nom" />
@@ -540,9 +539,9 @@ preprocessImage(file) {
         :rules="[
     { required: true, message: texte16 },
     {
-      pattern: /^[A-Za-z]+$/,
-      message: 'Veuillez ajouter que des lettres.'
-    }
+  pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
+  message: 'Veuillez saisir uniquement des lettres.'
+}
   ]"
       >
         <a-input v-model:value="formState.prenoms" />
@@ -680,7 +679,7 @@ preprocessImage(file) {
         v-if="currentStep === 4"
         type="primary"
         html-type="submit"
-        :disabled="!isCurrentStepValid"
+        :disabled="!isCurrentStepValid && !isPasswordDisabled"
       >
         {{ texte11 }}
       </a-button>

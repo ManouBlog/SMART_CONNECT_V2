@@ -183,7 +183,7 @@ Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre c
           });
           data.append("nom", payload?.nom);
           data.append("particulier_prenoms", payload?.prenoms);
-          // data.append("phone", payload?.contact);
+          data.append("nom_particulier", payload?.nom_particulier);
           
           data.append("phone",`${payload.countryCode}${payload.contact}`);
           data.append("ville", payload?.ville);
