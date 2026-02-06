@@ -103,7 +103,7 @@ export default {
 
           const elementsFlats = elements.flat();
 
-          console.log("elementsFlats:", elementsFlats);
+          // console.log("elementsFlats:", elementsFlats);
           if (elementsFlats.length > 0) {
             this.afficheShow = elementsFlats;
           } else {
