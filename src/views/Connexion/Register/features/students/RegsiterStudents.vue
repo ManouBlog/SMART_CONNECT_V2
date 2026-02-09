@@ -118,6 +118,8 @@ export default {
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
+        disponiblitheuredebut:false,
+        disponiblitheurefin:false
       },
     };
   },
@@ -156,8 +158,8 @@ export default {
       // STEP 3 – Disponibilités
       if (this.currentStep === 3) {
         return (
-          !this.getFirstHeureStartFrom ||
-          !this.getFirstHeureFinFrom ||
+          !this.getFirstHeureStartFrom &&
+          !this.getFirstHeureFinFrom &&
           !this.getTableauDays.length
         );
       }
@@ -177,8 +179,8 @@ export default {
         // STEP 2 – Qualifications
         2: ["qualifications", "diplome"],
 
-        // // STEP 3 – Disponibilités
-        // 3: ["disponibiliteValid"],
+        // STEP 3 – Disponibilités
+        3: ["disponibiliteValid","disponiblitheuredebut",'disponiblitheurefin'],
 
         // STEP 4 – Validation finale
         4: ["upload", "password"],
@@ -203,18 +205,27 @@ export default {
     getFirstHeureStartFrom: {
       handler(value) {
         console.log("value qualifications", value);
+        if(value){
+          this.formState.disponiblitheuredebut = true
+        }
       },
       immediate: true, // si tu veux déclencher au montage
     },
     getFirstHeureFinFrom: {
       handler(value) {
         console.log("value qualifications", value);
+        if(value){
+          this.formState.disponiblitheurefin = true
+        }
       },
       immediate: true, // si tu veux déclencher au montage
     },
     getTableauDays: {
       handler(value) {
         console.log("TableauDays", value);
+        if(value.length){
+          this.formState.disponibiliteValid = true;
+        }
       },
       immediate: true, // si tu veux déclencher au montage
     },
@@ -242,6 +253,19 @@ export default {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Chaque qualification doit avoir un titre"
+          );
+          return;
+        }
+      }
+
+        if (this.currentStep === 3) {
+    
+        if (!this.formState.disponibiliteValid && 
+        !this.formState.disponiblitheuredebut &&
+         !this.formState.disponiblitheurefin) {
+          this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Veuillez remplir les champs obligatoire"
           );
           return;
         }

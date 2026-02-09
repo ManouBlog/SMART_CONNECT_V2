@@ -52,7 +52,7 @@ export const useRegisterStore = defineStore('register', {
   return `${hours}:${minutes}`;
 },
         splithourWithDate(payload){
-          console.log("splithourWithDate",payload)
+          // console.log("splithourWithDate",payload)
        const [startRaw, endRaw] = payload.split("-");
       const result = `${this.formatTime(startRaw)}-${this.formatTime(endRaw)}`;
       return result;
