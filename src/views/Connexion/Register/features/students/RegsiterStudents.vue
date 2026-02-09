@@ -98,6 +98,7 @@ export default {
         { label: "Sénégal", value: "+221" },
       ],
       formState: {
+        code_ambassadeur:"",
         titreCv: "",
         nom: "",
         prenoms: "",
@@ -148,7 +149,7 @@ export default {
 
         // chaque qualification doit avoir une date_debut
         return this.formState.qualifications.some(
-          (q) => !q.date_debut || !q.date_fin || !q.objet
+          (q) => !q.objet
         );
       }
 
@@ -235,12 +236,12 @@ export default {
     nextStep() {
       // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
       if (this.currentStep === 2) {
-        const invalid = this.formState.qualifications.some((q) => !q.date_debut);
+        const invalid = this.formState.qualifications.some((q) => !q.objet);
 
         if (invalid) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
-            "Chaque qualification doit avoir une date de début"
+            "Chaque qualification doit avoir un titre"
           );
           return;
         }
@@ -468,12 +469,12 @@ preprocessImage(file) {
     this.texte7 = await this.handleTranslate(
       "Compétences (plusieurs choix sont possibles)"
     );
-    this.texte8 = await this.handleTranslate("Dernier diplôme academique");
+    this.texte8 = await this.handleTranslate("Niveau actuel");
     this.texte9 = await this.handleTranslate("Carte étudiant bien lisible,texte lisible,sans flou,image bien rognée sans fond noir (.jpg, .png)");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
     this.texte12 = await this.handleTranslate("Mot de passe requis");
-    this.texte13 = await this.handleTranslate("Diplôme requis");
+    this.texte13 = await this.handleTranslate("Votre niveau d'étude actuel requis");
     this.texte14 = await this.handleTranslate("Email requis");
     this.texte15 = await this.handleTranslate("Téléphone requis");
     this.texte16 = await this.handleTranslate("Prénoms requis");
@@ -520,6 +521,12 @@ preprocessImage(file) {
   >
     <!-- STEP 1 -->
     <div v-show="currentStep === 0">
+    <a-form-item
+        :label="'Code bonus'"
+        name="code_ambassadeur"
+      >
+        <a-input v-model:value="formState.code_ambassadeur" />
+      </a-form-item>
       <a-form-item
         :label="texte"
         name="nom"
@@ -605,7 +612,8 @@ preprocessImage(file) {
         name="diplome"
         :rules="[{ required: true, message: texte13 }]"
       >
-        <a-select v-model:value="formState.diplome" placeholder="Sélectionnez un diplôme">
+      <a-input v-model:value="formState.diplome" />
+        <!-- <a-select v-model:value="formState.diplome" placeholder="Sélectionnez un diplôme">
           <a-select-option value="BTS"
             >BTS (Brevet de Technicien Supérieur)</a-select-option
           >
@@ -618,7 +626,7 @@ preprocessImage(file) {
           <a-select-option value="LICENCE">LICENCE</a-select-option>
           <a-select-option value="MASTER">MASTER</a-select-option>
           <a-select-option value="DOCTORAT">DOCTORAT</a-select-option>
-        </a-select>
+        </a-select> -->
       </a-form-item>
       <RegisterQualifications @update:modelValue="handleQualifications" />
     </div>
