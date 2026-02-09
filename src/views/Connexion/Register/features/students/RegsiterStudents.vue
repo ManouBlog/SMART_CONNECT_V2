@@ -118,8 +118,6 @@ export default {
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
-        disponiblitheuredebut:false,
-        disponiblitheurefin:false
       },
     };
   },
@@ -157,11 +155,12 @@ export default {
 
       // STEP 3 – Disponibilités
       if (this.currentStep === 3) {
-        return (
-          !this.getFirstHeureStartFrom &&
-          !this.getFirstHeureFinFrom &&
-          !this.getTableauDays.length
-        );
+        if(!this.getFirstHeureStartFrom ||
+          !this.getFirstHeureFinFrom ||
+          !this.getTableauDays.length){
+          return true;
+          }
+       
       }
 
       // Autres steps
@@ -180,7 +179,7 @@ export default {
         2: ["qualifications", "diplome"],
 
         // STEP 3 – Disponibilités
-        3: ["disponibiliteValid","disponiblitheuredebut",'disponiblitheurefin'],
+        // 3: ["disponibiliteValid"],
 
         // STEP 4 – Validation finale
         4: ["upload", "password"],
@@ -205,27 +204,21 @@ export default {
     getFirstHeureStartFrom: {
       handler(value) {
         console.log("value qualifications", value);
-        if(value){
-          this.formState.disponiblitheuredebut = true
-        }
+      
       },
       immediate: true, // si tu veux déclencher au montage
     },
     getFirstHeureFinFrom: {
       handler(value) {
         console.log("value qualifications", value);
-        if(value){
-          this.formState.disponiblitheurefin = true
-        }
+        
       },
       immediate: true, // si tu veux déclencher au montage
     },
     getTableauDays: {
       handler(value) {
         console.log("TableauDays", value);
-        if(value.length){
-          this.formState.disponibiliteValid = true;
-        }
+       
       },
       immediate: true, // si tu veux déclencher au montage
     },
@@ -245,6 +238,7 @@ export default {
     },
 
     nextStep() {
+      console.log("this.currentStep",this.currentStep)
       // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
       if (this.currentStep === 2) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
@@ -259,10 +253,8 @@ export default {
       }
 
         if (this.currentStep === 3) {
-    
-        if (!this.formState.disponibiliteValid && 
-        !this.formState.disponiblitheuredebut &&
-         !this.formState.disponiblitheurefin) {
+          console.log("this.currentStep4",this.getFirstHeureStartFrom)
+        if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Veuillez remplir les champs obligatoire"
@@ -712,7 +704,7 @@ preprocessImage(file) {
         v-if="currentStep === 4"
         type="primary"
         html-type="submit"
-        :disabled="!isCurrentStepValid && !isPasswordDisabled"
+        :disabled="!isCurrentStepValid && isPasswordDisabled"
       >
         {{ texte11 }}
       </a-button>

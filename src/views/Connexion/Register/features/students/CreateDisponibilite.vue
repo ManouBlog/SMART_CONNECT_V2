@@ -614,7 +614,7 @@ export default {
                     v-if="First_heure_start_from"
                     type="button"
                     class="btn-close-time"
-                    @click="First_heure_start_from = null"
+                    @click="handleFirstHeureStart(null)"
                     title="Effacer"
                     style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
                   >
@@ -641,7 +641,7 @@ export default {
                     v-if="First_heure_end_to"
                     type="button"
                     class="btn-close-time"
-                    @click="First_heure_end_to = null"
+                    @click="handleFirstHeureEnd(null)"
                     title="Effacer"
                     style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
                     >
@@ -670,7 +670,7 @@ export default {
                     v-if="Second_heure_start_from"
                     type="button"
                     class="btn-close-time"
-                    @click="Second_heure_start_from = null"
+                    @click="handleSecondHeureStart(null)"
                     title="Effacer"
                     style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
                   >
@@ -697,7 +697,7 @@ export default {
                     v-if="Second_heure_end_to"
                     type="button"
                     class="btn-close-time"
-                    @click="Second_heure_end_to = null"
+                    @click="handleSecondHeureEnd(null)"
                     title="Effacer"
                     style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
                     >
