@@ -9,11 +9,11 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
      const cinetpayStore = useCinetpayStore()
     const store = useStore();
 
-   const createAbonement = async (idAbonnement)=>{
+   const createAbonement = async (payload)=>{
       if(!store.state.token){
         RegisterStore.changeValueIsModal()
       }else{
-        cinetpayStore.paymentCinetpay({idAbonnement:idAbonnement});
+        cinetpayStore.paymentCinetpay(payload);
       }
     };
     return{

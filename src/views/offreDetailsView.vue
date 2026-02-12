@@ -80,7 +80,7 @@ export default {
     sendDataPost(id) {
       loadingSpinner.launchLoading(true);
       instance
-        .post("postule_offre", {
+        .post("postule_offre",{
           offre_id: id,
         })
         .then((res) => {
@@ -274,7 +274,7 @@ export default {
                   >{{ texte5 }} {{ configUtils.getFormatDateFr(Offre.fin) }}</span
                 >
               </section>
-              <section v-if="abonnements.some((item) => item.statut === 'success')">
+              <section>
                 <button
                   class="btn bg-warning"
                   @click="sendDataPost(Offre.id)"
@@ -284,7 +284,7 @@ export default {
                   <em class="bi bi-send"></em>
                 </button>
               </section>
-              <section v-else>
+              <!-- <section v-else>
                 <h5 class="text-danger d-flex justify-content-center my-5">
                   {{ texte7 }}
                 </h5>
@@ -297,7 +297,7 @@ export default {
                     {{ texte8 }}
                   </button>
                 </div>
-              </section>
+              </section> -->
             </div>
           </div>
         </div>
