@@ -486,7 +486,7 @@ preprocessImage(file) {
     this.texte7 = await this.handleTranslate(
       "Compétences (plusieurs choix sont possibles)"
     );
-    this.texte8 = await this.handleTranslate("Niveau actuel + Filiére");
+    this.texte8 = await this.handleTranslate("Niveau actuel + Filière");
     this.texte9 = await this.handleTranslate("Carte étudiant bien lisible,texte lisible,sans flou,image bien rognée sans fond noir (.jpg, .png)");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
@@ -600,6 +600,10 @@ preprocessImage(file) {
       >
         <a-input v-model:value="formState.email" />
       </a-form-item>
+      <a-form-item label="Profil">
+        <a-input v-model:value="formState.titreCv" />
+        <!-- <a-textarea v-model:value="formState.titreCv" :maxlength="300" /> -->
+      </a-form-item>
       <a-form-item label="Biographie – résumé de votre profil">
         <a-textarea v-model:value="formState.bio" :maxlength="300" />
       </a-form-item>
@@ -639,7 +643,7 @@ preprocessImage(file) {
 </a-select-option>
          
         </a-select>
-      <a-input v-model:value="formState.filiere" placeholder="Filiére" />
+      <a-input v-model:value="formState.filiere" placeholder="Filière" />
       </a-form-item>
       <RegisterQualifications @update:modelValue="handleQualifications" />
     </div>
