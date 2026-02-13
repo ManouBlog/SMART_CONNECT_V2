@@ -97,7 +97,7 @@ export const useRegisterStore = defineStore('register', {
           data.append("photo_profil", payload.photo_profil);
           data.append("bio", payload.bio);
           data.append("titreCv", payload.titreCv);
-          // data.append("qualifications", payload.qualifications);
+          data.append("code_ambassadeur", payload.code_ambassadeur);
           // data.append("appareil", "iphone x");
           // data.append("token_push", "xhdf58ehhf85shdhe8554shedhe545shdh");
          await instance
