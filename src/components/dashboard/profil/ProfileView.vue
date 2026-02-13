@@ -314,7 +314,7 @@ export default {
     this.texte88 = await this.handleTranslate("Logo entreprise :");
     this.texte11 = await this.handleTranslate("Gérant :");
     this.texte12 = await this.handleTranslate("Pièce d'identité :");
-    this.texte13 = await this.handleTranslate("Diplôme :");
+    this.texte13 = await this.handleTranslate("Niveau d'etude:");
     this.texte14 = await this.handleTranslate("Prénoms :");
     this.texte15 = await this.handleTranslate("Formule d'abonnement");
     this.getInfoUser();

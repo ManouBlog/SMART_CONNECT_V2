@@ -58,7 +58,7 @@ export const useRegisterStore = defineStore('register', {
       return result;
         },
         async registerStudent(payload) {
-          // console.log("registerStudent25",payload)
+          console.log("registerStudent25",payload)
           this.LOADINGSPINNER.launchLoading(true)
           this.isLoading = true;
           let data = new FormData();
@@ -91,7 +91,7 @@ export const useRegisterStore = defineStore('register', {
           data.append("quartier", payload.quartier);
           data.append("phone",`${payload.countryCode}${payload.phone}`);
           data.append("ville", payload.ville);
-          data.append("diplome", payload.diplome);
+          data.append("diplome", payload.niveauEtude + ' ' + payload.filiere);
           data.append("password", payload.password);
           data.append("statut_id", 2);
           data.append("photo_profil", payload.photo_profil);

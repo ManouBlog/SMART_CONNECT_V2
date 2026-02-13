@@ -136,19 +136,18 @@ onMounted(async () => {
       <n-tab-pane name="Année" tab="Année" />
     </n-tabs>
     <section v-if="select_mode_payment_tab === 'Année'">
-     <div style="height: 310px; position: relative; padding: 1em">
-        <div class="px-5" v-html="item.description"></div>
-      </div>
-
-      <div class="conteneur-btn">
-        <div class="d-flex align-items-center gap-5 justify-content-center main-color">
+         <div class="d-flex align-items-center gap-5 justify-content-center main-color">
           <h1 style="font-size: 2em; font-weight: bold">
             {{ Help.convertInMoney(item.prix) }} F
           </h1>
           <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
           <h3 style="font-size: 2em; color: orange">an</h3>
         </div>
-
+     <div style="height: 310px; position: relative; padding: 1em">
+        <div class="px-5" v-html="item.description"></div>
+      </div>
+      <div class="conteneur-btn">
+     
         <Buttons
           :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
           :elmentsOfBtn="elmentsOfBtn"
@@ -158,17 +157,18 @@ onMounted(async () => {
       </div>
     </section>
     <section v-if="select_mode_payment_tab === 'Mois'">
-    <div style="height: 310px; position: relative; padding: 1em">
-        <div class="px-5" v-html="item.description_month"></div>
-      </div>
-      <div class="conteneur-btn">
-        <div class="d-flex align-items-center gap-5 justify-content-center main-color">
+      <div class="d-flex align-items-center gap-5 justify-content-center main-color">
           <h1 style="font-size: 2em; font-weight: bold">
             {{ Help.convertInMoney(item.price_month) }} F
           </h1>
           <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
-          <h3 style="font-size: 2em; color: orange">Mois</h3>
+          <h3 style="font-size: 2em; color: orange">mois</h3>
         </div>
+    <div style="height: 310px; position: relative; padding: 1em">
+        <div class="px-5" v-html="item.description_month"></div>
+      </div>
+      <div class="conteneur-btn">
+        
         <Buttons
           :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
           :elmentsOfBtn="elmentsOfBtn"
@@ -179,18 +179,19 @@ onMounted(async () => {
     </section>
     </div>
     <section v-else>
-       <div style="height: 310px; position: relative; padding: 1em">
-        <div class="px-5" v-html="item.description"></div>
-      </div>
-
-      <div class="conteneur-btn">
-        <div class="d-flex align-items-center gap-5 justify-content-center main-color">
+       <div class="d-flex align-items-center gap-5 justify-content-center main-color">
           <h1 style="font-size: 2em; font-weight: bold">
             {{ Help.convertInMoney(item.prix) }} F
           </h1>
           <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
           <h3 style="font-size: 2em; color: orange">an</h3>
         </div>
+       <div style="height: 310px; position: relative; padding: 1em">
+        <div class="px-5" v-html="item.description"></div>
+      </div>
+
+      <div class="conteneur-btn">
+       
 
         <Buttons
           :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
@@ -268,7 +269,6 @@ onMounted(async () => {
   color: orange;
 }
 .conteneur-btn {
-  border-top: 1px solid white;
   height: 120px;
 }
 </style>

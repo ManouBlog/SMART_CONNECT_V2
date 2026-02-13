@@ -86,7 +86,8 @@ export default {
       texte18: "",
       texte19: "",
       texte96: "",
-
+     niveauEtude:"",
+     filiere:"",
       configUtils,
       SWALPOPUP: useSwalPopup(),
 
@@ -176,7 +177,7 @@ export default {
         1: ["myCompetence"],
 
         // STEP 2 – Qualifications
-        2: ["qualifications", "diplome"],
+        2: ["qualifications", "niveauEtude", "filiere"],
 
         // STEP 3 – Disponibilités
         // 3: ["disponibiliteValid"],
@@ -485,7 +486,7 @@ preprocessImage(file) {
     this.texte7 = await this.handleTranslate(
       "Compétences (plusieurs choix sont possibles)"
     );
-    this.texte8 = await this.handleTranslate("Niveau actuel");
+    this.texte8 = await this.handleTranslate("Niveau actuel + Filiére");
     this.texte9 = await this.handleTranslate("Carte étudiant bien lisible,texte lisible,sans flou,image bien rognée sans fond noir (.jpg, .png)");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
@@ -625,24 +626,20 @@ preprocessImage(file) {
     <div v-show="currentStep === 2">
       <a-form-item
         :label="texte8"
-        name="diplome"
+        name="niveauEtude"
         :rules="[{ required: true, message: texte13 }]"
       >
-      <a-input v-model:value="formState.diplome" />
-        <!-- <a-select v-model:value="formState.diplome" placeholder="Sélectionnez un diplôme">
-          <a-select-option value="BTS"
-            >BTS (Brevet de Technicien Supérieur)</a-select-option
-          >
-          <a-select-option value="DUT"
-            >DUT (Diplôme Universitaire de Technologie)</a-select-option
-          >
-          <a-select-option value="DTS"
-            >DTS (Diplôme de Technicien Supérieur)</a-select-option
-          >
-          <a-select-option value="LICENCE">LICENCE</a-select-option>
-          <a-select-option value="MASTER">MASTER</a-select-option>
-          <a-select-option value="DOCTORAT">DOCTORAT</a-select-option>
-        </a-select> -->
+       <a-select style="margin:1em 0" v-model:value="formState.niveauEtude" placeholder="Sélectionnez un diplôme">
+         <a-select-option
+  v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
+  :key="item.value"
+  :value="item.value"
+>
+  {{ item.value }}
+</a-select-option>
+         
+        </a-select>
+      <a-input v-model:value="formState.filiere" placeholder="Filiére" />
       </a-form-item>
       <RegisterQualifications @update:modelValue="handleQualifications" />
     </div>

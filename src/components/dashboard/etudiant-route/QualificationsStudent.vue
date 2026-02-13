@@ -488,7 +488,7 @@ export default {
                 />
               </div>
             </div>
-            <div style="width: 100%">
+            <!-- <div style="width: 100%">
               <label for="description"> <span style="color:red;">*</span> Description (max 300 caractères)</label>
               <textarea
                 maxlength="300"
@@ -501,7 +501,7 @@ export default {
                 "
                 v-model="value.detail"
               ></textarea>
-            </div>
+            </div> -->
           </div>
         </template>
       </n-dynamic-input>
