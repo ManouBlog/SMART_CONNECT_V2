@@ -90,7 +90,7 @@ export default {
     this.texte3 = await this.handleTranslate('Commune');
     this.texte4 = await this.handleTranslate('Télephone');
     this.texte5 = await this.handleTranslate('Diplome');
-    this.texte6 = await this.handleTranslate('Carte étudiante');
+    this.texte6 = await this.handleTranslate('Carte étudiant');
     this.texte7 = await this.handleTranslate(' Sélectionner');
     this.texte8 = await this.handleTranslate(' Rejeter');
     this.texte9 = await this.handleTranslate("Sélectionné");

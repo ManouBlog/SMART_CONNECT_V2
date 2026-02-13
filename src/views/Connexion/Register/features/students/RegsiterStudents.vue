@@ -539,7 +539,7 @@ preprocessImage(file) {
     <!-- STEP 1 -->
     <div v-show="currentStep === 0">
     <a-form-item
-        :label="'Code bonus'"
+        :label="'Code de parrainage'"
         name="code_ambassadeur"
       >
         <a-input v-model:value="formState.code_ambassadeur" />
