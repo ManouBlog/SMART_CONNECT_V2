@@ -366,7 +366,7 @@ export default {
                       class="input_class" v-model="value.date_fin" />
                     </div>
                   </div>
-                  <div style="width: 100%;">
+                  <!-- <div style="width: 100%;">
                     <label for="description">Description (max 300 caractères)</label>
                     <textarea
                       maxlength="300"
@@ -379,7 +379,7 @@ export default {
                       "
                       v-model="value.detail"
                     ></textarea>
-                  </div>
+                  </div> -->
                 </div>
               </template>
             </n-dynamic-input>

@@ -23,7 +23,6 @@
               <label for="objet"><span style="color:red;">*</span> Diplôme ou certification obtenue</label>
               <input type="text" class="input_class" id="objet" v-model="value.objet" />
             </div>
-<!-- 
             <div style="width: 100%">
               <label for="periode"><span style="color:red;">*</span> Période</label>
               <div style="display: flex; gap: 1em; align-items: center">
@@ -43,7 +42,7 @@
                 v-model="value.date_fin" 
                 />
               </div>
-            </div> -->
+            </div>
             <!-- <div style="width: 100%">
               <label for="description">Description (max 300 caractères)</label>
               <textarea
@@ -106,8 +105,8 @@ export default {
   methods: {
     onCreateQualification() {
       return {
-        // date_debut: null,
-        // date_fin: null,
+        date_debut: null,
+        date_fin: null,
         // detail: "",
         objet: "",
       };

@@ -106,7 +106,7 @@ export default {
         ville: "",
         commune: "",
         quartier: "",
-        diplome: "BTS",
+        diplome: "",
         myCompetence: [],
         photo: null,
         upload: [],
@@ -149,7 +149,7 @@ export default {
 
         // chaque qualification doit avoir une date_debut
         return this.formState.qualifications.some(
-          (q) => !q.objet
+          (q) => !q.objet || !q.date_debut || !q.date_fin
         );
       }
 
