@@ -45,6 +45,13 @@ export default {
      "union",
      "discipline",
      "travail",
+     "date de delivrance",
+     "Date d expiratione",
+     "Nom/surname",
+     "passeport",
+     "passport",
+     "code du pays",
+     "CIV",
 ],
       texte: "",
       texte2: "",
@@ -232,7 +239,7 @@ analyzeText(text) {
   score += Math.min(keywordHits * 10, 40)
   // console.log(`Score basé sur les mots-clés : ${score} (hits: ${keywordHits})`)
 
-  if (cleanText.includes('nationalite') || cleanText.includes('nationalité')) {
+  if (cleanText.includes('Nationalité') || cleanText.includes('nationalité')) {
   //  console.log("Mot-clé 'nationalité' détecté, ajout de 20 points")
     score += 20
   }

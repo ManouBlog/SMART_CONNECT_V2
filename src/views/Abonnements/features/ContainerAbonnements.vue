@@ -5,7 +5,7 @@ import Buttons from "../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
-
+import contentAbonnement from './contentAbonnement'
 defineProps({
   abonnements: Array,
   type_abonnements: String,
@@ -18,26 +18,14 @@ const storeEntreprise = useEntreprisesStore();
 const userConnected = ref(localStorage.getItem('user'))
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
-const select_mode_payment = ref("")
-const select_mode_payment_tab = ref('Mois')
+// const select_mode_payment = ref("")
+
+// const select_mode_payment_tab = ref('Mois')
 
 
 
 
-const handleCreateMonth =(payload)=>{
-  console.log("handleCreateMonth",payload)
 
-  const randomPart = Math.random().toString(36).substring(2);
-       
-        const data = {
-            abonement_id:payload.id,
-            channels:"undefined",
-            mode_payment:"month",
-            transaction_id:randomPart
-        }
-  console.log("handleConfirmationPayement",data)
-storeAbonnement.createAbonement(data)
-}
 const handleCreateEntreprise=(payload)=>{
   const randomPart = Math.random().toString(36).substring(2);
         // console.log("payload",payload)
@@ -49,25 +37,7 @@ const handleCreateEntreprise=(payload)=>{
   storeAbonnement.createAbonement(data)
 }
 
-const handleCreateYear =(payload)=>{
-  console.log("handleCreateYear",payload)
-   const randomPart = Math.random().toString(36).substring(2);
-       
-        const data = {
-            abonement_id:payload.id,
-            channels:"undefined",
-            mode_payment:"year",
-            transaction_id:randomPart
-        }
-  console.log("handleConfirmationPayement",data)
-  storeAbonnement.createAbonement(data)
-}
 
-const handleSelect_mode_Payement = (e) => {
-  select_mode_payment.value = e
-  console.log(e)
-  console.log("select_mode_payment.value",select_mode_payment.value)
-};
 
 
 
@@ -127,56 +97,11 @@ onMounted(async () => {
         </span>
       </h1>
     <div v-if="item?.categorie && item?.categorie?.categorie == 'Etudiant'">
-<n-tabs 
-     v-model:value="select_mode_payment_tab" 
-     type="segment" 
-     @update:value="handleSelect_mode_Payement" 
-     style="margin:1em 0;">
-     <n-tab-pane name="Mois" tab="Mois" />
-      <n-tab-pane name="Année" tab="Année" />
-    </n-tabs>
-    <section v-if="select_mode_payment_tab === 'Année'">
-         <div class="d-flex align-items-center gap-5 justify-content-center main-color">
-          <h1 style="font-size: 2em; font-weight: bold">
-            {{ Help.convertInMoney(item.prix) }} F
-          </h1>
-          <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
-          <h3 style="font-size: 2em; color: orange">an</h3>
-        </div>
-     <div style="height: 310px; position: relative; padding: 1em">
-        <div class="px-5" v-html="item.description"></div>
-      </div>
-      <div class="conteneur-btn">
-     
-        <Buttons
-          :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
-          :elmentsOfBtn="elmentsOfBtn"
-          :shapeBtn="'round'"
-          @created="handleCreateYear(item)"
-        />
-      </div>
-    </section>
-    <section v-if="select_mode_payment_tab === 'Mois'">
-      <div class="d-flex align-items-center gap-5 justify-content-center main-color">
-          <h1 style="font-size: 2em; font-weight: bold">
-            {{ Help.convertInMoney(item.price_month) }} F
-          </h1>
-          <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
-          <h3 style="font-size: 2em; color: orange">mois</h3>
-        </div>
-    <div style="height: 310px; position: relative; padding: 1em">
-        <div class="px-5" v-html="item.description_month"></div>
-      </div>
-      <div class="conteneur-btn">
-        
-        <Buttons
-          :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
-          :elmentsOfBtn="elmentsOfBtn"
-          :shapeBtn="'round'"
-          @created="handleCreateMonth(item)"
-        />
-      </div>
-    </section>
+      <contentAbonnement 
+      :item="item"
+      :storeEntreprise="storeEntreprise"
+      :elmentsOfBtn="elmentsOfBtn"
+      />
     </div>
     <section v-else>
        <div class="d-flex align-items-center gap-5 justify-content-center main-color">

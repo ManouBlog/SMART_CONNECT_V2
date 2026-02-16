@@ -20,7 +20,7 @@ export default {
  loading : false,
  rawText : '',
  result : null,
-      SCHOOL_KEYWORDS :[
+ SCHOOL_KEYWORDS :[
   // Carte étudiante (formes tolérantes OCR)
   'carte etudiant',
   'carte d etudiant',
