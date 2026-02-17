@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       configUtils: configUtils,
-      date_filter: dayjs("2025", "YYYY"),
+      date_filter: dayjs("2026", "YYYY"),
       texte0: "",
       texte2: "",
       texte3: "",
@@ -53,6 +53,7 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
+      IsAmbassador:"",
     };
   },
   methods: {
@@ -83,7 +84,8 @@ export default {
     async verifUserProfilEtudiantComplet() {
       await this.$store.dispatch("getInfoUser")
   const user = this.$store.state.infoUserConnected;
-  // console.log("USER_INFO",user)
+  console.log("USER_INFO",user)
+  this.IsAmbassador = user.user.code_ambassadeur
   if(user.user.statut.statut === 'etudiant'){
 if (!user.competences.length || !user.qualifications.length) {
     this.$router.push('/dashboard/profil');
@@ -121,6 +123,8 @@ if (!user.competences.length || !user.qualifications.length) {
     this.texte7 = await this.handleTranslate(`Candidatures rejetées`);
     this.texte8 = await this.handleTranslate(`Candidatures acceptées`);
     this.texte9 = await this.handleTranslate("Vous devez faire un abonnement");
+
+   
     
   },
 };
@@ -136,20 +140,54 @@ if (!user.competences.length || !user.qualifications.length) {
       v-if="
         this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant'
       "
-      :infosArray="[
-        { libelle: texte1, nbre: Number(statistiqueDashboard?.offrePostule) },
+      :infosArray="IsAmbassador ? [
+         {
+          libelle: 'Personnes parrainées',
+          nbre: statistiqueDashboard?.personreferral.length,
+          btn:true,
+          infosReferrals:statistiqueDashboard?.personreferral.map(item=>{
+            return  {
+      name: item.referred.nom,
+      is_registered: item.referred.id,
+      has_subscription: item.subscription_paid
+         }
+          })
+        },
+        { libelle: texte1, nbre: Number(statistiqueDashboard?.offrePostule),infosReferrals:[] },
         {
           libelle: texte2,
           nbre: statistiqueDashboard?.offrePending,
+          infosReferrals:[]
         },
         {
           libelle: texte3,
           nbre: statistiqueDashboard?.offreAccepted,
+          infosReferrals:[]
         },
         {
           libelle: texte4,
           nbre: statistiqueDashboard?.offreCancel,
+          infosReferrals:[]
         },
+       
+      ]:[
+        { libelle: texte1, nbre: Number(statistiqueDashboard?.offrePostule),infosReferrals:[] },
+        {
+          libelle: texte2,
+          nbre: statistiqueDashboard?.offrePending,
+          infosReferrals:[]
+        },
+        {
+          libelle: texte3,
+          nbre: statistiqueDashboard?.offreAccepted,
+          infosReferrals:[]
+        },
+        {
+          libelle: texte4,
+          nbre: statistiqueDashboard?.offreCancel,
+          infosReferrals:[]
+        },
+       
       ]"
     />
     <TableauDeBord

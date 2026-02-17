@@ -243,6 +243,7 @@ export default {
 };
 </script>
 <style>
+
 :where(.n-button:not(.n-button--disabled):active,.n-button:not(.n-button--disabled):hover){
     color:orange !important;
   }

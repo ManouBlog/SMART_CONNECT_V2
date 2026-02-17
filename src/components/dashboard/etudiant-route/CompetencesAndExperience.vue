@@ -380,7 +380,9 @@ export default {
 
 <template>
   <section>
-    <div class="add_nouvelle_experience" v-show="toogleNouvelleExperience">
+    <div class="add_nouvelle_experience" v-show="toogleNouvelleExperience"
+    @click.self="toogleNouvelleExperience = !toogleNouvelleExperience"
+    >
       <div class="conteneur_nouvelle_experience">
         <div class="conteneur-experience">
           <em
@@ -388,7 +390,7 @@ export default {
             @click="toogleNouvelleExperience = !toogleNouvelleExperience"
           ></em>
           <div style="padding: 1em;">
-            <h2>{{texte0}}</h2>
+            <h3>{{texte0}}</h3>
           </div>
         </div>
         <form @submit.prevent="saveExperience">
@@ -430,7 +432,9 @@ export default {
         </form>
       </div>
     </div>
-    <div class="add_nouvelle_experience" v-show="toogleModifyExperience">
+    <div class="add_nouvelle_experience" v-show="toogleModifyExperience"
+    @click.self="toogleExperience"
+    >
       <div class="conteneur_nouvelle_experience" v-if="updateExperience">
         <div class="conteneur-experience">
           <em class="bi bi-x-lg" @click="toogleExperience"></em>
@@ -528,6 +532,7 @@ export default {
       <div
         class="ecran_for_delete delete_article"
         v-show="comfirmationForDeleteCompetence"
+        @click.self="notDeleteCompetence"
       >
         <div class="card p-5">
           <p class="h3 my-2">{{texte16}}</p>
@@ -542,7 +547,9 @@ export default {
         </div>
       </div>
 
-      <div class="ecran_for_delete delete_article" v-show="toogleScreenYouWantDelete">
+      <div class="ecran_for_delete delete_article" v-show="toogleScreenYouWantDelete"
+      @click.self="notDeleteExperience"
+      >
         <div class="card p-5">
           <p class="h3 my-2">{{texte19}}</p>
           <div style="display:flex;gap:1em;">

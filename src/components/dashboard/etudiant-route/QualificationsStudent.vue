@@ -306,7 +306,9 @@ export default {
 
 <template>
   <section>
-    <div class="add_nouvelle_experience" v-show="toogleNouvelleExperience">
+    <div class="add_nouvelle_experience" v-show="toogleNouvelleExperience"
+    @click.self="toogleNouvelleExperience = !toogleNouvelleExperience"
+    >
       <div class="conteneur_nouvelle_experience">
         <div class="conteneur-experience">
           <em
@@ -431,12 +433,14 @@ export default {
         </form> -->
       </div>
     </div>
-    <div class="add_nouvelle_experience" v-show="toogleModifyQualifications">
+    <div class="add_nouvelle_experience" v-show="toogleModifyQualifications"
+    @click.self="toogleQualifications"
+    >
       <div class="conteneur_nouvelle_experience" v-if="itemQualification.length">
         <div class="conteneur-experience">
           <em class="bi bi-x-lg" @click="toogleQualifications"></em>
           <div class="h1">
-            <h1>{{ texte9 }}</h1>
+            <h3>{{ texte9 }}</h3>
           </div>
         </div>
         <form @submit.prevent="changeQualifications">
