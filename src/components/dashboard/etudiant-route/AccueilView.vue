@@ -147,7 +147,7 @@ if (!user.competences.length || !user.qualifications.length) {
           btn:true,
           infosReferrals:statistiqueDashboard?.personreferral.map(item=>{
             return  {
-      name: item.referred.nom,
+      name: item.referred.student.nom + ' ' + item.referred.student.prenoms,
       is_registered: item.referred.id,
       has_subscription: item.subscription_paid
          }

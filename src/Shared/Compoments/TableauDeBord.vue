@@ -1,6 +1,8 @@
 <script>
+// import StatisticsChart from './StatisticsChart.vue';
 export default {
     name:"TableauDeBord",
+    // components:{StatisticsChart},
     props:{
     infosArray:{type:Array}
     },
@@ -12,6 +14,15 @@ export default {
         }
     },
     computed: {
+        todayLabel() {
+    const today = new Date()
+
+    return today.toLocaleDateString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric'
+    }).replace(/\//g, '-')
+  },
   registeredList() {
     return this.infosArray[0].infosReferrals?.filter(
       user => user.is_registered
@@ -61,11 +72,11 @@ export default {
   @cancel="closeModal"
   :footer="null"
 >
-<!-- {{ infosArray[0].infosReferrals}} -->
   <div v-if="infosArray[0].infosReferrals?.length">
    <a-tabs v-model:activeKey="activeTab" centered>
   <a-tab-pane key="registered" :tab="`Inscrits ${registeredList.length}`" />
   <a-tab-pane key="subscribed" :tab="`Abonnés ${subscribedList.length}`" />
+   <!-- <a-tab-pane key="statistics" tab="statistiques" /> -->
 </a-tabs>
 
 <div style="max-height: 400px; overflow:auto; margin-top:1em">
@@ -97,6 +108,13 @@ export default {
       Aucun abonné
     </li>
   </ul>
+  <!-- <div v-if="activeTab === 'statistics'">
+    <StatisticsChart 
+    :labels="this.todayLabel"
+    :registeredCount="[2]"
+    :subscribedCount="[5]"
+    />
+  </div> -->
 
 </div>
 
