@@ -680,7 +680,6 @@ export default {
   padding: 0 0.1em !important;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
   font-size: 14px;
-  width:99%;
 }
 
 .number {
@@ -850,9 +849,6 @@ ul {
   .ant-dropdown-link {
     display: none;
   }
-  .navbar-fixed-top {
-  width:100%;
-}
 }
 @media (min-width: 1201px) {
   .loginSub,

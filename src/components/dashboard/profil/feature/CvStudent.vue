@@ -18,7 +18,7 @@
 </div>
 
       <!-- Description -->
-      <div class="section" v-if="description">
+      <div class="section">
         <h3 style="text-transform: uppercase">
           {{
             titreCv && isbtnPdf
@@ -43,9 +43,9 @@
        <!-- Expériences professionnelles -->
       <div class="section" v-if="experiences.length">
         <h3>EXPÉRIENCES PROFESSIONNELLES</h3>
-        <p v-for="(exp, i) in experiences" :key="i" style="padding:1em">
-          <strong>{{ exp.periode }} :</strong> {{ exp.detail }}
-        </p>
+        <span v-for="(exp, i) in experiences" :key="i" style="padding:0.2em">
+          <strong>{{ exp.periode }} :</strong> {{ exp.objet }}
+        </span>
       </div>
       <!-- Qualifications -->
       <div class="section" v-if="qualifications.length">
