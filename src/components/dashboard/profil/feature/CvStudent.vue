@@ -43,9 +43,12 @@
        <!-- Expériences professionnelles -->
       <div class="section" v-if="experiences.length">
         <h3>EXPÉRIENCES PROFESSIONNELLES</h3>
-        <span v-for="(exp, i) in experiences" :key="i" style="padding:0.2em">
-          <strong>{{ exp.periode }} :</strong> {{ exp.objet }}
-        </span>
+        <ul style="padding:0.5em 1em">
+         <li v-for="(exp, i) in experiences" :key="i" style="padding:0.5em">
+          <span style="font-weight:bold;" v-if="exp.periode">{{ exp.periode }} :</span> {{ exp.objet }}
+        </li>
+        </ul>
+        
       </div>
       <!-- Qualifications -->
       <div class="section" v-if="qualifications.length">
