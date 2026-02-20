@@ -470,6 +470,7 @@ export default {
                 { libelle: texte8, value: this.$store.state.infoUserConnected.quartier },
                 { libelle: texte5, value: this.$store.state.infoUserConnected.phone },
                 { libelle: texte13, value: this.$store.state.infoUserConnected.diplome },
+                { libelle: 'code parrainage', value: this.$store.state.infoUserConnected.user.code_ambassadeur },
                 {
                   libelle: 'Carte étudiant',
                   value: this.$store.state.infoUserConnected.user.photos,

@@ -104,25 +104,28 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          Swal.fire({
+          if (err.response?.status === 403){
+Swal.fire({
             icon: "info",
             title: err.response.data.message,
             showConfirmButton: true,
-          });
-          loadingSpinner.launchLoading(false);
-          // Swal.fire({
-          //   icon: "error",
-          //   title: "Veuillez-vous connecter",
-          //   showConfirmButton: false,
-          //   timer: 1500,
-          // });
-          // setTimeout(() => {
-          //   this.$router.push({
-          //     path: "/registre",
-          //      query: { redirect: this.path }
-          //   })
-          // })
-          loadingSpinner.launchLoading(false);
+          })
+          .then((result) => {
+         if (result.isConfirmed) {
+      // Redirection vers page abonnement (adapte le chemin)
+      this.$router.push('/abonnements')  // ou  si Vue Router
+          }
+           });
+          }else{
+            Swal.fire({
+            icon: "info",
+            title: err.response.data.message,
+            showConfirmButton: true,
+          })
+          }
+        })
+        .finally(()=>{
+           loadingSpinner.launchLoading(false);
         });
     },
     verfEnter() {

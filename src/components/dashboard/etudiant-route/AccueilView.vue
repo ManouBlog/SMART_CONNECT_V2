@@ -149,7 +149,8 @@ if (!user.competences.length || !user.qualifications.length) {
             return  {
       name: item.referred.student.nom + ' ' + item.referred.student.prenoms,
       is_registered: item.referred.id,
-      has_subscription: item.subscription_paid
+      has_subscription: item.subscription_paid,
+      formule:item.formule
          }
           })
         },

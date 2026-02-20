@@ -60,7 +60,7 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
             await instance
               .post("statistiqueDashboard/student",payload)
               .then((res) => {
-                // console.log("statistiqueDashboard",res.data);
+                console.log("statistiqueDashboard",res.data);
                 this.statistiqueDashboard = res.data;
               })
               .catch((err) => {
