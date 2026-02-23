@@ -50,38 +50,93 @@ export default {
     },
     methods:{
       ...mapActions(useTranslateStore, ["handleTranslate"]),
-        async chooseStudent(id,valueRecruit) {
-      // console.log(id);
+      async chooseStudent(id, valueRecruit) {
+
+  const actionText = valueRecruit === 1 
+    ? "sélectionner" 
+    : "rejeter"
+
+  const result = await Swal.fire({
+    title: `Voulez-vous vraiment ${actionText} cet étudiant ?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: valueRecruit === 1 ? "#22c55e" : "#ef4444",
+    cancelButtonColor: "#6b7280",
+    confirmButtonText: "Oui, confirmer",
+    cancelButtonText: "Annuler",
+  })
+
+  // ❌ Si l'utilisateur annule
+  if (!result.isConfirmed) {
+    return
+  }
+
+  spinnerLoading.launchLoading(true)
+
+  try {
+    const data = {
+      id,
+      recruit: valueRecruit,
+    }
+
+    const reponse = await instance.post("recruitStudent", data)
+
+    if (reponse.data.status) {
+
+      this.$emit('handleListe')
+
+      await Swal.fire({
+        icon: "success",
+        title: reponse.data.message,
+        timer: 1500,
+        showConfirmButton: false,
+      })
+    }
+
+  } catch (error) {
+
+    Swal.fire({
+      icon: "error",
+      title: error.response?.data?.message || "Une erreur est survenue",
+      confirmButtonText: "OK"
+    })
+
+  } finally {
+    spinnerLoading.launchLoading(false)
+  }
+}
+    //     async chooseStudent(id,valueRecruit) {
+    //   // console.log(id);
     
-      // console.log(this.InfoPostulant)
-      spinnerLoading.launchLoading(true)
-      try {
-        const data = {
-          id: id,
-          recruit: valueRecruit,
-        };
-        const reponse = await instance.post("recruitStudent", data);
-        if (reponse.data.status) {
+    //   // console.log(this.InfoPostulant)
+    //   spinnerLoading.launchLoading(true)
+    //   try {
+    //     const data = {
+    //       id: id,
+    //       recruit: valueRecruit,
+    //     };
+    //     const reponse = await instance.post("recruitStudent", data);
+    //     if (reponse.data.status) {
           
-          this.$emit('handleListe')
-          Swal.fire({
-            icon: "success",
-            title: reponse.data.message,
-            showConfirmButton: true,
-          });
-        }
-        // console.log(reponse);
-        spinnerLoading.launchLoading(false)
-      } catch (error) {
-        console.log(error);
-        Swal.fire({
-          icon: "success",
-          title: error.response.data.message,
-          showConfirmButton: true,
-        });
-        spinnerLoading.launchLoading(false)
-      }
-    },
+    //       this.$emit('handleListe')
+    //       Swal.fire({
+    //         icon: "success",
+    //         title: reponse.data.message,
+    //         showConfirmButton: true,
+    //       });
+    //     }
+    //     // console.log(reponse);
+    //     spinnerLoading.launchLoading(false)
+    //   } catch (error) {
+    //     console.log(error);
+    //     Swal.fire({
+    //       icon: "success",
+    //       title: error.response.data.message,
+    //       showConfirmButton: true,
+    //     });
+    //     spinnerLoading.launchLoading(false)
+    //   }
+    // },
     },
     async created() {
       this.texte = await this.handleTranslate('Email');
@@ -101,18 +156,16 @@ export default {
 </script>
 <template>
     <a-card style="width: 400px;color: var(--third-color) !important; background: var(--secondary-color) !important">
-       <div class="d-flex g-5 align-items-center">
-        <!-- <h1><em class="bi bi-person h1"></em></h1> -->
-        
-         <!-- <n-avatar
+       <div class="d-flex g-5 align-items-center">    
+         <n-avatar
             v-if="InfoPostulant.photo_profil"
             class="user-avatar"
             style="border: 2px solid orange; object-fit: cover"
             round
-            :size="40"
+            :size="80"
             :src="lienPhoto + InfoPostulant.photo_profil"
           />
-           -->
+          
           <span
             style="
               border: 2px solid orange;
@@ -125,18 +178,21 @@ export default {
               border-radius: 100%;
               background: gray;
             "
+            v-else
           >
            <span style="font-size:1em;color:white;">{{Help.toADfirstTwo(InfoPostulant.nom)}}</span>
           </span>
         <h1 class="user_person" style="color:orange;">{{ InfoPostulant.nom }} {{ InfoPostulant.prenoms }}</h1>
        </div>
        <section>
-        <h4><span style="color:orange;">{{texte}} :</span> {{ InfoPostulant.email }}</h4>
-        <h4><span style="color:orange;">{{texte1}} :</span> {{ InfoPostulant.ville }}</h4>
-        <h4><span style="color:orange;">{{texte2}} :</span> {{ InfoPostulant.quartier }}</h4>
-        <h4><span style="color:orange;">{{texte3}} :</span> {{ InfoPostulant.commune }}</h4>
-        <h4><span style="color:orange;">{{texte4}} :</span> {{ InfoPostulant.phone }}</h4>
-        <h4><span style="color:orange;">{{texte5}} :</span> {{ InfoPostulant.diplome }}</h4>
+        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte}} :</span> 
+          <span style="word-break: break-word;">{{ InfoPostulant.email }}</span>
+          </h4>
+        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte1}} :</span> {{ InfoPostulant.ville }}</h4>
+        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte2}} :</span> {{ InfoPostulant.quartier }}</h4>
+        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte3}} :</span> {{ InfoPostulant.commune }}</h4>
+        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte4}} :</span> {{ InfoPostulant.phone }}</h4>
+        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte5}} :</span> {{ InfoPostulant.diplome }}</h4>
         <div style="text-align:left;">
           <h4><span style="color:orange;">{{texte6}} :</span></h4>
           <n-image v-for="(item,index) in InfoPostulant.photo" 
@@ -146,8 +202,8 @@ export default {
           :src="lienPhoto + item.path"
           :alt="item.path" />
         </div>
-        <div>
-          <section  v-if="InfoPostulant.recruit === 0">
+        <div style="position:absolute;bottom:1em;left:50%;transform:translateX(-50%);">
+          <section style="display: flex;justify-content: center;"   v-if="InfoPostulant.recruit === 0">
             <button
           class="btn bg-warning mt-3 rounded-5"
           style="border:none"

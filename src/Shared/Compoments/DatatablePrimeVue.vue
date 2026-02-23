@@ -153,8 +153,15 @@ export default {
           }}
         </span>
         <span v-else-if="item.headerName === 'Date de travail'">
-          Du {{ slotProps.data.students[0].offre?.job_debut }} au
+
+          <span v-if="slotProps.data.students[0].offre?.job_debut && slotProps.data.students[0].offre?.job_fin">
+           Du {{ slotProps.data.students[0].offre?.job_debut }} au
           {{ slotProps.data.students[0].offre?.job_fin }}
+          </span>
+          <span v-else>
+             Néant
+          </span>
+         
         </span>
 
         <span v-else>

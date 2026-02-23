@@ -255,29 +255,32 @@ export default {
           </n-card>
         </n-modal>
         <p style="text-align: center">
-          Du {{ new Date(tableauRecruit[0].offre?.job_debut).toLocaleDateString("fr") }} au
+          <span v-if="tableauRecruit[0].offre?.job_debut && tableauRecruit[0].offre?.job_fin">
+  Du {{ new Date(tableauRecruit[0].offre?.job_debut).toLocaleDateString("fr") }} au
           {{ new Date(tableauRecruit[0].offre?.job_fin).toLocaleDateString("fr") }}
+          </span>
+         
+        
         </p>
         <div class="conteneur-evaluation-offre">
           <a-card
             v-for="(item, index) in tableauRecruit"
             :key="item.id"
             style="
-              width: 400px;
+              width: auto;
               background: var(--secondary-color) !important;
               color: var(--third-color) !important;
             "
           >
             <h1 class="badge bg-warning w-25">{{ texte5 }} {{ index + 1 }}</h1>
 
-            <div class="d-flex align-items-center">
-              <!-- <h1><em class="bi bi-person h1"></em></h1> -->
+            <div class="d-flex align-items-center" style="gap:1em;">
               <n-avatar
                 v-if="item.student.photo_profil"
                 class="user-avatar"
                 style="border: 2px solid orange; object-fit: cover"
                 round
-                :size="40"
+                :size="100"
                 :src="lienPhoto + item.student.photo_profil"
               />
               <span
@@ -357,7 +360,6 @@ export default {
                     <i class="bi bi-star-fill"></i>
                     <span>{{ texte13 }}</span>
                   </button>
-                  <!-- <p style="text-align: center" v-else>Évaluation effectuée</p> -->
                 </div>
                 
                 <div>
@@ -370,7 +372,6 @@ export default {
                     <i class="bi bi-send-fill"></i>
                     <span>Envoyer le certificat</span>
                   </button>
-                  <!-- <p style="text-align: center" v-else>Certificat envoyé.</p> -->
                 </div>
               </div>
             </section>
