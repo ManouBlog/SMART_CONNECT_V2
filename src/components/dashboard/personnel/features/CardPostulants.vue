@@ -50,6 +50,14 @@ export default {
     },
     methods:{
       ...mapActions(useTranslateStore, ["handleTranslate"]),
+     
+        VoirCv(item) {
+          console.log("item",item)
+     this.$router.push({
+            name: "detailStudent",
+            params: { id: item.id, user_id: item.user_id },
+          });
+    },
       async chooseStudent(id, valueRecruit) {
 
   const actionText = valueRecruit === 1 
@@ -202,7 +210,8 @@ export default {
           :src="lienPhoto + item.path"
           :alt="item.path" />
         </div>
-       <button style="background-color: orange;font-weight: bold;position:absolute;top:0.8em;right: 1em;">
+       <button style="background-color: orange;font-weight: bold;position:absolute;top:0.8em;right: 1em;border:none;" @click="VoirCv(InfoPostulant)">
+       
         Voir le CV</button>
         <div style="position:absolute;bottom:1em;left:50%;transform:translateX(-50%);">
           <section style="display: flex;justify-content: center;"   v-if="InfoPostulant.recruit === 0">

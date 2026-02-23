@@ -41,7 +41,7 @@ export default {
           this.offresInteressByStudents = this.getTableau(res.data);
           // console.log("OFFRESINTERESSBYSTUDENTS", this.offresInteressByStudents);
           this.detailStudents = this.offresInteressByStudents.find(item=>item.nom_offre === this.$route.params.offre).students;
-          // console.log("this.detailStudents",this.detailStudents)
+          console.log("this.detailStudents",this.detailStudents)
           spinnerLoading.launchLoading(false);
         })
         .catch((err) => {
@@ -74,11 +74,13 @@ export default {
         v-if="detailStudents != null"
         class="d-flex align-items-center conteneur_postulants justify-content-center"
       >
+      
         <CardPostulants
           v-for="(item, index) in detailStudents"
           :key="index"
           :InfoPostulant="{
             id:item.id,
+            user_id:item.user_id,
             nom:item.student.nom,
             prenoms:item.student.prenoms,
             email:item.student.email,
