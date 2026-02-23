@@ -91,6 +91,14 @@ onMounted(async () => {
       />
     </div>
     <section v-else>
+      <p style="text-align:center;">
+     <span
+          v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
+          class="badge bg-warning"
+        >
+          Formule
+        </span>
+  </p>
        <div class="d-flex align-items-center gap-5 justify-content-center main-color">
           <h1 style="font-size: 2em; font-weight: bold">
             {{ Help.convertInMoney(item.prix) }} F
