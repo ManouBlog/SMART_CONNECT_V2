@@ -202,6 +202,8 @@ export default {
           :src="lienPhoto + item.path"
           :alt="item.path" />
         </div>
+       <button style="background-color: orange;font-weight: bold;position:absolute;top:0.8em;right: 1em;">
+        Voir le CV</button>
         <div style="position:absolute;bottom:1em;left:50%;transform:translateX(-50%);">
           <section style="display: flex;justify-content: center;"   v-if="InfoPostulant.recruit === 0">
             <button
@@ -230,6 +232,9 @@ export default {
       </a-card>
 </template>
 <style scoped>
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-body) {
+  height: 900px;
+}
 .bi-person{
     font-size: 3em;
 }
