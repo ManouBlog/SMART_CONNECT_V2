@@ -100,7 +100,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
           this.planAbonnement = item;
         }
       });
-      console.log("STOREABONNEMENT",this.planAbonnement)
+      // console.log("STOREABONNEMENT",this.planAbonnement)
     },
     putPlanAbonnementAtNull(){
     this.planAbonnement = null

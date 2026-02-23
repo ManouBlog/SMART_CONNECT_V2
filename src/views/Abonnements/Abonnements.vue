@@ -42,7 +42,7 @@ async function doVerificationAbonnement(payload){
 try {
     const response = await instance.get("payStack/payment/callback/"+payload); 
     // await axios.get("https://backend-test.monbrobroli.com/api/payStack/payment/callback/"+payload);
-    console.log("responseVERIF",response)
+    // console.log("responseVERIF",response)
     if(response.data.status){
        Swal.fire({
               icon: "success",

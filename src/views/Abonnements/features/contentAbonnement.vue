@@ -25,7 +25,7 @@ const tabs = [
   { id: 'month', label: 'Mois' }
 ]
 
-console.log("PROPSITEM",props.item)
+// console.log("PROPSITEM",props.item)
 
 const currentConfig = computed(() => {
   const formule = storeAbonnementUser?.planAbonnement?.mode_payment;
@@ -57,7 +57,7 @@ function handleCreate(type) {
   }
 }
 const handleCreateMonth =(payload)=>{
-  console.log("handleCreateMonth",payload)
+  // console.log("handleCreateMonth",payload)
 
   const randomPart = Math.random().toString(36).substring(2);
        
@@ -67,7 +67,7 @@ const handleCreateMonth =(payload)=>{
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart
         }
-  console.log("handleConfirmationPayement",data)
+  // console.log("handleConfirmationPayement",data)
 storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
@@ -80,7 +80,7 @@ const handleCreateYear =(payload)=>{
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart
         }
-  console.log("handleConfirmationPayement",data)
+  // console.log("handleConfirmationPayement",data)
   storeAbonnement.createAbonement(data)
 }
 
