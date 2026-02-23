@@ -5,7 +5,7 @@ import Buttons from "../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
-import contentAbonnement from './contentAbonnement'
+import contentAbonnement from './contentAbonnement.vue'
 defineProps({
   abonnements: Array,
   type_abonnements: String,
@@ -14,16 +14,10 @@ defineProps({
 
 const transalteStore = useTranslateStore();
 const storeAbonnement = useAbonnementsStore();
-const storeEntreprise = useEntreprisesStore();
+const storeAbonnementUser = useEntreprisesStore();
 const userConnected = ref(localStorage.getItem('user'))
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
-// const select_mode_payment = ref("")
-
-// const select_mode_payment_tab = ref('Mois')
-
-
-
 
 
 const handleCreateEntreprise=(payload)=>{
@@ -52,7 +46,7 @@ watch(
  (newValue) => {
     // console.log("NEW VALUE", isUserConnected);
     if (!newValue) {
-     storeEntreprise.putPlanAbonnementAtNull();
+     storeAbonnementUser.putPlanAbonnementAtNull();
     }
   },
   { immediate: true }
@@ -68,7 +62,7 @@ onMounted(async () => {
 
   texte.value = await transalteStore.handleTranslate("année");
   if (isUserConnected.value) {
-      await storeEntreprise.get_all_abonnement();
+      await storeAbonnementUser.get_all_abonnement();
     }
 });
 </script>
@@ -89,17 +83,10 @@ onMounted(async () => {
    
       <h1 class="text-center main-color">
         {{ item.libelle }}
-        <span
-          v-if="storeEntreprise?.planAbonnement?.id === item.id"
-          class="badge bg-info"
-        >
-          Formule
-        </span>
       </h1>
     <div v-if="item?.categorie && item?.categorie?.categorie == 'Etudiant'">
       <contentAbonnement 
       :item="item"
-      :storeEntreprise="storeEntreprise"
       :elmentsOfBtn="elmentsOfBtn"
       />
     </div>
@@ -119,7 +106,7 @@ onMounted(async () => {
        
 
         <Buttons
-          :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
+          :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
           :elmentsOfBtn="elmentsOfBtn"
           :shapeBtn="'round'"
           @created="handleCreateEntreprise(item)"

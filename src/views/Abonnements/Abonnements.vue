@@ -5,7 +5,7 @@ import { useStore } from 'vuex'
 import { useRouter,useRoute} from 'vue-router'
 import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
 // import { useEntreprisesStore } from "../../store-pinia/Entreprise/useEntreprisesStore";
-import axios from "axios";
+// import axios from "axios";
 import instance from "../../api/api";
 
 // import i18n from "../../plugins/i18n";
@@ -40,8 +40,9 @@ const handleAbonement = async () => {
 
 async function doVerificationAbonnement(payload){
 try {
-    const response = await axios.get("https://backend.monbrobroli.com/api/payStack/payment/callback/"+payload);
-    // console.log("responseVERIF",response)
+    const response = await instance.get("payStack/payment/callback/"+payload); 
+    // await axios.get("https://backend-test.monbrobroli.com/api/payStack/payment/callback/"+payload);
+    console.log("responseVERIF",response)
     if(response.data.status){
        Swal.fire({
               icon: "success",
@@ -68,7 +69,7 @@ try {
 onMounted(async () => {
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
   reference.value = route.params.reference
-  // console.log("route.params.reference",route.params.reference)
+  console.log("route.params.reference",route.params.reference)
     if(reference.value){
     doVerificationAbonnement(reference.value)
     } 

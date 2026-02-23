@@ -97,10 +97,10 @@ export const useEntreprisesStore = defineStore('entreprise', {
       payload.forEach((item) => {
         if (item.statut === "success") {
           item.abonement.echeance = item.echeance
-          this.planAbonnement = item.abonement;
+          this.planAbonnement = item;
         }
       });
-      // console.log("STOREABONNEMENT",this.planAbonnement)
+      console.log("STOREABONNEMENT",this.planAbonnement)
     },
     putPlanAbonnementAtNull(){
     this.planAbonnement = null
@@ -109,7 +109,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             loadingSpinner.launchLoading(true)
            try{
            const response = await instance.get("abonnement_user")
-          //  console.log("response",response)
+           console.log("abonnement_user_response23",response)
            if(response["status"] === 200){
             this.list_abonnement = response.data.data.filter(item=>item.statut === 'success' || item.statut === 'expired')
            this.handlePlanAbonnement(this.list_abonnement)

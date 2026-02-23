@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed ,defineProps,onMounted} from 'vue';
+
 import { Help } from '../../../utils';
 import Buttons from "../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
@@ -8,7 +9,7 @@ import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntrepri
 
 const transalteStore = useTranslateStore();
 const storeAbonnement = useAbonnementsStore();
-const storeEntreprise = useEntreprisesStore();
+const storeAbonnementUser = useEntreprisesStore();
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
 
@@ -16,7 +17,6 @@ const select_mode_payment_tab = ref('year')
 
 const props = defineProps({
   item: Object,
-  storeEntreprise: Object,
   elmentsOfBtn: Array
 })
 
@@ -25,10 +25,15 @@ const tabs = [
   { id: 'month', label: 'Mois' }
 ]
 
+console.log("PROPSITEM",props.item)
+
 const currentConfig = computed(() => {
+  const formule = storeAbonnementUser?.planAbonnement?.mode_payment;
   if (select_mode_payment_tab.value === 'year') {
+     
     return {
       price: props.item.prix,
+      isFormule: formule === 'year',
       description: props.item.description,
       suffix: 'an',
       action: () => handleCreate('year')
@@ -37,6 +42,7 @@ const currentConfig = computed(() => {
 
   return {
     price: props.item.price_month,
+    isFormule: formule === 'month',
     description: props.item.description_month,
     suffix: 'mois',
     action: () => handleCreate('month')
@@ -79,6 +85,7 @@ const handleCreateYear =(payload)=>{
 }
 
 
+
 function handleSelect_mode_Payement(val) {
   select_mode_payment_tab.value = val
 }
@@ -109,6 +116,15 @@ onMounted(async () => {
 </n-tabs>
 
 <section>
+  <p style="text-align:center;">
+     <span
+          v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
+          class="badge bg-warning"
+        >
+          Formule
+        </span>
+  </p>
+ 
   <div class="d-flex align-items-center gap-5 justify-content-center main-color">
     <h1 style="font-size: 2em; font-weight: bold">
       {{ Help.convertInMoney(currentConfig.price) }} F
@@ -125,7 +141,7 @@ onMounted(async () => {
 
   <div class="conteneur-btn">
     <Buttons
-      :isDisabled="storeEntreprise?.planAbonnement?.id === item.id"
+      :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
       :elmentsOfBtn="elmentsOfBtn"
       shapeBtn="round"
       @created="currentConfig.action"
