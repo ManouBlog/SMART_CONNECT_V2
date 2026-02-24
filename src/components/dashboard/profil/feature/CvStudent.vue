@@ -21,17 +21,12 @@
       <div class="section">
         <h3 style="text-transform: uppercase">
           {{
-            titreCv && isbtnPdf
-              ? titreCv
-              : !titreCv && isbtnPdf
-              ? "DESCRIPTION"
-              : titreCv && !isbtnPdf
-              ? titreCv
-              : null
+            titreCv && titreCv != 'null' && isbtnPdf ? titreCv : description != 'null' ? "Description":null
+             
           }}
         </h3>
 
-        <p style="border-bottom: 3px solid black;padding-bottom:10px">{{ description }}</p>
+        <p style="border-bottom: 3px solid black;padding-bottom:10px" v-if="description != null && description !== '' && description !== 'null'">{{ description }}</p>
       </div>
        <!-- Compétences -->
       <div class="section" style="margin:1em 0;" v-if="competences.length">
