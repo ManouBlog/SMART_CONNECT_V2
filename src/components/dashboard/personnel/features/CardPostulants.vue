@@ -161,12 +161,12 @@ export default {
     this.texte2 = await this.handleTranslate("Quartier");
     this.texte3 = await this.handleTranslate('Commune');
     this.texte4 = await this.handleTranslate('Télephone');
-    this.texte5 = await this.handleTranslate('Diplome');
+    this.texte5 = await this.handleTranslate("niveau d’étude");
     this.texte6 = await this.handleTranslate('Carte étudiant');
     this.texte7 = await this.handleTranslate(' Sélectionner');
     this.texte8 = await this.handleTranslate(' Rejeter');
-    this.texte9 = await this.handleTranslate("Sélectionné");
-    this.texte10 = await this.handleTranslate(' Pas retenu');
+    this.texte9 = await this.handleTranslate("Candidature retenue");
+    this.texte10 = await this.handleTranslate('Candidature Pas retenue');
    
   },
 }
@@ -269,11 +269,12 @@ export default {
          {{texte8}}
         </button>
           </section>
-        <h3 v-if="InfoPostulant.recruit === 1" class="text-success">
+        <h3 v-if="InfoPostulant.recruit === 1" class="text-success" style="width:500px;text-align: center;">
           <i class="bi bi-check-lg"></i>
           {{texte9}}
         </h3>
-        <h3 v-if="InfoPostulant.recruit === 2" class="text-danger">
+        <h3 v-if="InfoPostulant.recruit === 2" class="text-danger" style="width:500px; text-align: center;">
+          <i class="bi bi-x-lg"></i>
          {{texte10}}
         </h3>
         </div>
