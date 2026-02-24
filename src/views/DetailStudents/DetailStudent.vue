@@ -312,6 +312,7 @@ export default {
           this.timetable_for_student = this.NewListEmploi.find(
             (item) => item.id === Number(this.idParamsItem)
           );
+          console.log("serac123",this.timetable_for_student)
 
           this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
           this.schedule = this.getDatesBetween(this.timetable_for_student.jours);

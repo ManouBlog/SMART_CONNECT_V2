@@ -32,6 +32,7 @@ export default {
         )
       ) {
         this.addInfoUserConnected(this.timetable_for_student);
+        console.log('this.timetable_for_student',this.timetable_for_student)
         this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: false });
       } else {
         Swal.fire({
@@ -113,7 +114,7 @@ export default {
       </button>
     </div>
 
-    <div v-if="timetable_for_student.bio">
+    <div v-if="timetable_for_student.bio !== null && timetable_for_student.bio !== 'null'">
       <!-- <p style="color: orange; font-weight: bold">Bio</p> -->
       <p
         style="
