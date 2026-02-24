@@ -213,16 +213,16 @@ h5 {
   },
   async created() {
     this.getDetail();
-    this.texte0 = await this.handleTranslate(`Attestation d'admission`);
+    this.texte0 = await this.handleTranslate(`CANDIDATURE RETENUE`);
     this.texte1 = await this.handleTranslate(`Adresse :`);
     this.texte2 = await this.handleTranslate("Téléphone :");
-    this.texte3 = await this.handleTranslate(`ATTESTATION D'ADMISSION`);
+    this.texte3 = await this.handleTranslate(`CANDIDATURE RETENUE`);
     this.texte4 = await this.handleTranslate("Offre :");
-    this.texte5 = await this.handleTranslate("L'entreprise");
-    this.texte6 = await this.handleTranslate("vous a contacté Mr(Mme)");
-    this.texte7 = await this.handleTranslate(
-      "pour un poste au sein de son entreprise pour effectuer un travail vu votre disponibilité.Merci de contacter l'entreprise pour plus de détail."
-    );
+   this.texte5 = await this.handleTranslate("l'entreprise :");
+this.texte6 = await this.handleTranslate("Mr(Mme)");
+this.texte7 = await this.handleTranslate(
+  ", votre candidature a été retenue pour un poste au sein de"
+);
     this.texte8 = await this.handleTranslate("Honoraire :");
     this.texte9 = await this.handleTranslate(`Contact du gérant :`);
     this.texte10 = await this.handleTranslate("Lieu :");
@@ -270,10 +270,12 @@ h5 {
       </div>
 
       <p>
-        {{ texte5 }}
-        <span class="mx-2">"{{ this.entreprise.offre.entreprise.nom }}"</span>{{ texte6 }}
-        <span class="mx-2">"{{ user.nom }} {{ user.prenoms }}"</span>
+       
+        {{ texte6 }}
+        <span class="mx-2">{{ user.nom }} {{ user.prenoms }}</span>
         {{ texte7 }}
+        {{ texte5 }}
+         <span class="mx-2">{{ this.entreprise.offre.entreprise.nom }}</span>
       </p>
 
       <div>

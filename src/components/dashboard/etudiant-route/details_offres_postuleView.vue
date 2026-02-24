@@ -127,7 +127,7 @@ export default {
         <div class="details_entreprise card">
           <h1>
             Offre : {{ details_offre.nom_offre }}
-            <span class="badge w-25" :class="statutColor[details_offre.pivot.recruit]">{{
+            <span class="badge w-auto" :class="statutColor[details_offre.pivot.recruit]">{{
               Statut[details_offre.pivot.recruit]
             }}</span>
           </h1>
