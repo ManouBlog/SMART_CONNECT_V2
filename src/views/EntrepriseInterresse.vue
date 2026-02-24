@@ -13,7 +13,7 @@ import { useWindowSize } from "@vueuse/core"; // <-- ajout VueUse
 const statut = {
   0: "En attente",
   1: "Accepté",
-  2: "Rejeté",
+  2: "Pas retenu",
 };
 const colorStatut = {
   0: "bg-info",

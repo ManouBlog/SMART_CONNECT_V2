@@ -63,7 +63,7 @@ export default {
 
 <template>
   <section>
-    <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
+    <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="this.$route.params.offre" />
     <div class="page-body position-relative">
       <h2 class="text-left my-5 mx-5">
         {{ detailStudents.length }}{{ texte1
@@ -80,7 +80,8 @@ export default {
           :key="index"
           :InfoPostulant="{
             id:item.id,
-            user_id:item.user_id,
+            user_id:item.id,
+            student_id:item.student.id,
             nom:item.student.nom,
             prenoms:item.student.prenoms,
             email:item.student.email,

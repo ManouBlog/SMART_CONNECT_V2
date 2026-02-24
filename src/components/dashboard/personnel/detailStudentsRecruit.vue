@@ -75,7 +75,7 @@ export default {
               this.tableauRecruit = this.studentRecruit[item];
             }
           }
-          // console.log("this.tableauRecruit", this.tableauRecruit);
+          console.log("this.tableauRecruit", this.tableauRecruit);
         })
         .catch((err) => {
           console.log(err);
@@ -170,7 +170,7 @@ export default {
     this.texte8 = await this.handleTranslate("Quartier");
     this.texte9 = await this.handleTranslate("Commune");
     this.texte10 = await this.handleTranslate("Télephone");
-    this.texte11 = await this.handleTranslate("Diplome");
+    this.texte11 = await this.handleTranslate("Niveau d'étude");
     this.texte12 = await this.handleTranslate(`Carte étudiant`);
     this.texte13 = await this.handleTranslate("Evaluer");
 
@@ -190,9 +190,8 @@ export default {
       <div v-if="tableauRecruit != null" class="conteneur-detail">
         <n-modal v-model:show="showModal">
           <n-card
-            style="width: 600px"
+            style="width: 400px;"
             :bordered="false"
-            size="huge"
             role="dialog"
             aria-modal="true"
           >
@@ -218,7 +217,7 @@ export default {
                 {{ texte3 }}
               </button>
               <button
-                class="btn mx-3"
+                class="btn mx-3 bg-dark text-white"
                 @click="
                   () => {
                     this.showModal = !this.showModal;
@@ -233,20 +232,20 @@ export default {
         </n-modal>
         <n-modal v-model:show="showCertificatModal">
           <n-card
-            style="width: 600px"
+          style="width: 400px;"
             :bordered="false"
-            size="huge"
+            
             role="dialog"
             aria-modal="true"
           >
             <span style="font-size:2em;text-align:center;">Souhaitez-vous envoyer le certificat de travail ?</span>
-
             <div class="text-center">
-              <button class="btn bg-warning mx-3"
+              <button 
+              class="btn bg-warning mx-3"
               @click="handleCertification"
               >Approuver</button>
               <button
-                class="btn mx-3"
+                class="btn mx-3 bg-dark text-white"
                 @click="this.showCertificatModal = !this.showCertificatModal"
               >
                 {{ texte4 }}
@@ -267,7 +266,7 @@ export default {
             v-for="(item, index) in tableauRecruit"
             :key="item.id"
             style="
-              width: auto;
+              width: 400px;
               background: var(--secondary-color) !important;
               color: var(--third-color) !important;
             "
@@ -280,7 +279,7 @@ export default {
                 class="user-avatar"
                 style="border: 2px solid orange; object-fit: cover"
                 round
-                :size="100"
+                :size="120"
                 :src="lienPhoto + item.student.photo_profil"
               />
               <span
@@ -307,72 +306,74 @@ export default {
               </h1>
             </div>
             <section class="text-left">
-              <h4>
-                <span style="color: orange">{{ texte6 }} :</span> {{ item.student.email }}
+              <h4 style="padding:0.3em;">
+                <span style="color: orange">{{ texte6 }} :</span> 
+                <span style="word-break: break-word;padding: 0.4em;">{{ item.student.email }}</span> 
               </h4>
-              <h4>
+              <h4 style="padding:0.3em;">
                 <span style="color: orange">{{ texte7 }} :</span> {{ item.student.ville }}
               </h4>
-              <h4 v-if="item.student.quartier">
+              <h4 v-if="item.student.quartier" style="padding:0.3em;">
                 <span style="color: orange">{{ texte8 }} :</span>
                 {{ item.student.quartier }}
               </h4>
-              <h4>
+              <h4 style="padding:0.3em;">
                 <span style="color: orange">{{ texte9 }} :</span>
                 {{ item.student.commune }}
               </h4>
-              <h4>
+              <h4 style="padding:0.3em;">
                 <span style="color: orange">{{ texte10 }} :</span>
                 {{ item.student.phone }}
               </h4>
-              <h4>
+              <h4 style="padding:0.3em;">
                 <span style="color: orange">{{ texte11 }} :</span>
                 {{ item.student.diplome }}
               </h4>
-              <h4>
-                <span style="color: orange">{{ texte12 }} :</span>
-                <img
-                  :src="lienPhoto + item.student.photo"
-                  class="w-25 border-2 rounded"
-                  :alt="item.student.photo"
-                />
+              <h4 style="padding:0.3em;">
+                <span style="color: orange">{{ texte12 }} :</span>  
+                <n-image v-for="(item,index) in item.student.user.photos" 
+          :key="index"
+          width="100" 
+          style="margin:1em;"
+          :src="lienPhoto + item.path"
+          :alt="item.path" />
               </h4>
               <div
                 style="
-                  display: flex;
-                  flex-wrap: wrap;
-                  justify-content: center;
-                  gap: 0.5em;
-                  align-items: center;
+                position:absolute;
+                bottom:0.5em;
+                left:50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width:100%;
+                gap:1em;
+                transform: translateX(-50%);
                 "
               >
-                <div>
-                  <button
+              <button
                     v-if="
                       !item.student?.etoiles?.some(
                         (rate) => Number(rate.offre_id) === Number(item.offre_id)
                       )
                     "
-                    style="border: none; width: 150px; padding: 1.1em 0"
+                    style="border: none; width:100px; padding: 1.1em 0"
                     class="btn bg-warning m-3"
                     @click="rateStudent(item.student_id)"
                   >
                     <i class="bi bi-star-fill"></i>
-                    <span>{{ texte13 }}</span>
+                    <span style="word-break: break-word;">{{ texte13 }}</span>
                   </button>
-                </div>
-                
-                <div>
-                  <button
+               
+                    <button
                     v-if="!item.certificat"
-                    style="border: none; width: auto;padding: 1.1em;"
+                    style="border: none; width: 130px;padding: 0.5em 0.1em;"
                     class="btn bg-dark m-3"
                     @click="openModalCertification(item)"
                   >
                     <i class="bi bi-send-fill"></i>
-                    <span>Envoyer le certificat</span>
+                    <span>Envoyer le <br/> certificat</span>
                   </button>
-                </div>
               </div>
             </section>
           </a-card>
@@ -383,8 +384,12 @@ export default {
 </template>
 
 <style scoped>
+:deep(.n-avatar){
+  height: 100px !important;
+  width:190px !important;
+}
 :deep(.ant-card-body) {
-  height: 780px !important;
+  height: 900px !important;
 }
 :deep(.n-modal-container) {
   z-index: 99 !important;

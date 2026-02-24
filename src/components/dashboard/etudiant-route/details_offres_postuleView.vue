@@ -18,8 +18,8 @@ export default {
       moneyFormat: new Intl.NumberFormat("de-DE"),
       showModal: false,
       Statut: {
-        1: "Acceptée",
-        2: "Rejetée",
+        1: "Retenu",
+        2: "Pas retenu",
         0: "En attente de reponse",
       },
       statutColor: {

@@ -201,7 +201,7 @@ export default {
     this.texte7 = await this.handleTranslate('Diplome');
     this.texte8 = await this.handleTranslate('Carte étudiant');
     this.texte9 = await this.handleTranslate("Compétences");
-    this.texte10 = await this.handleTranslate(' Rejeté');
+    this.texte10 = await this.handleTranslate('Pas retenu');
   },
 };
 </script>

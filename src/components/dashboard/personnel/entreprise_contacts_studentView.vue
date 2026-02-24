@@ -102,7 +102,7 @@ export default {
     this.texte7 = await this.handleTranslate(' Sélectionner');
     this.texte8 = await this.handleTranslate(' Rejeter');
     this.texte9 = await this.handleTranslate("Sélectionné");
-    this.texte10 = await this.handleTranslate(' Rejeté');
+    this.texte10 = await this.handleTranslate('Pas retenu');
   },
 };
 </script>

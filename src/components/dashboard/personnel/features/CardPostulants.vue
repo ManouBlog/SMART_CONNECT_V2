@@ -51,11 +51,11 @@ export default {
     methods:{
       ...mapActions(useTranslateStore, ["handleTranslate"]),
      
-        VoirCv(item) {
+        VoirProfil(item) {
           console.log("item",item)
      this.$router.push({
             name: "detailStudent",
-            params: { id: item.id, user_id: item.user_id },
+            params: { id: item.student_id, user_id: item.user_id },
           });
     },
       async chooseStudent(id, valueRecruit) {
@@ -157,7 +157,7 @@ export default {
     this.texte7 = await this.handleTranslate(' Sélectionner');
     this.texte8 = await this.handleTranslate(' Rejeter');
     this.texte9 = await this.handleTranslate("Sélectionné");
-    this.texte10 = await this.handleTranslate(' Rejeté');
+    this.texte10 = await this.handleTranslate(' Pas retenu');
    
   },
 }
@@ -210,9 +210,10 @@ export default {
           :src="lienPhoto + item.path"
           :alt="item.path" />
         </div>
-       <button style="background-color: orange;font-weight: bold;position:absolute;top:0.8em;right: 1em;border:none;" @click="VoirCv(InfoPostulant)">
-       
-        Voir le CV</button>
+       <button style="background-color: orange;font-weight: bold;
+       position:absolute;top:0.8em;right: 1em;border:none;" @click="VoirProfil(InfoPostulant)"> 
+        Voir le Profil
+      </button>
         <div style="position:absolute;bottom:1em;left:50%;transform:translateX(-50%);">
           <section style="display: flex;justify-content: center;"   v-if="InfoPostulant.recruit === 0">
             <button
