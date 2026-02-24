@@ -155,7 +155,15 @@ export default {
       this.student_certification.student_id = payloadItem.student_id;
       this.student_certification.offre_id = payloadItem.offre_id;
       this.showCertificatModal = !this.showCertificatModal
-    } 
+    },
+     VoirProfil(item) {
+          console.log("item",item)
+          // console.log("item.student_id",{ id: item.student_id, user_id: item.id })
+     this.$router.push({
+            name: "detailStudent",
+            params: { id: item.student_id, user_id: item.id },
+          });
+    },
   },
   async created() {
     this.get_offres_interess_by_student();
@@ -184,7 +192,7 @@ export default {
   <section>
     <HeaderDashboard
       :TitleHeader="`${texte0} ${this.$route.params.offre}`"
-      :subTitleHeader="texte0"
+      :subTitleHeader="this.$route.params.offre"
     />
     <div class="page-body position-relative">
       <div v-if="tableauRecruit != null" class="conteneur-detail">
@@ -258,10 +266,10 @@ export default {
   Du {{ new Date(tableauRecruit[0].offre?.job_debut).toLocaleDateString("fr") }} au
           {{ new Date(tableauRecruit[0].offre?.job_fin).toLocaleDateString("fr") }}
           </span>
-         
-        
+
         </p>
         <div class="conteneur-evaluation-offre">
+
           <a-card
             v-for="(item, index) in tableauRecruit"
             :key="item.id"
@@ -305,6 +313,10 @@ export default {
                 {{ item.student.nom }} {{ item.student.prenoms }}
               </h1>
             </div>
+            <button style="background-color: orange;font-weight: bold;
+                   position:absolute;top:0.8em;right: 1em;border:none;" @click="VoirProfil(item)"> 
+                    Voir le Profil
+                  </button>
             <section class="text-left">
               <h4 style="padding:0.3em;">
                 <span style="color: orange">{{ texte6 }} :</span> 
