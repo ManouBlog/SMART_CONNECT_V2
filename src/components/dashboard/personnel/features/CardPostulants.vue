@@ -45,14 +45,20 @@ export default {
       texte25: "",
       texte26: "",
       texte27:"",
-        lienPhoto:lienPhoto
+        lienPhoto:lienPhoto,
+         showPdfModal: false,
+         currentPdf: null
       }  
     },
     methods:{
       ...mapActions(useTranslateStore, ["handleTranslate"]),
+     openPdf(url){
+  this.currentPdf = url
+  this.showPdfModal = true
+},
      
         VoirProfil(item) {
-          console.log("item",item)
+          // console.log("item",item)
      this.$router.push({
             name: "detailStudent",
             params: { id: item.student_id, user_id: item.user_id },
@@ -112,7 +118,10 @@ export default {
   } finally {
     spinnerLoading.launchLoading(false)
   }
-}
+},
+ isPdf(path) {
+  return path.toLowerCase().endsWith('.pdf')
+},
     //     async chooseStudent(id,valueRecruit) {
     //   // console.log(id);
     
@@ -202,6 +211,36 @@ export default {
         <h4 style="padding:0.8em;"><span style="color:orange;">{{texte4}} :</span> {{ InfoPostulant.phone }}</h4>
         <h4 style="padding:0.8em;"><span style="color:orange;">{{texte5}} :</span> {{ InfoPostulant.diplome }}</h4>
         <div style="text-align:left;">
+  <h4>
+    <span style="color:orange;">{{ texte6 }} :</span>
+  </h4>
+
+  <div v-for="(item, index) in InfoPostulant.photo" :key="index">
+    
+    <!-- ✅ CAS PDF -->
+    <div v-if="isPdf(item.path)">
+      <n-button
+        type="warning"
+        size="small"
+        style="margin:1em;"
+        @click="openPdf(lienPhoto + item.path)"
+      >
+        Voir la carte étudiant
+      </n-button>
+    </div>
+
+    <!-- ✅ CAS IMAGE -->
+    <n-image
+      v-else
+      width="100"
+      style="margin:1em;"
+      :src="lienPhoto + item.path"
+      :alt="item.path"
+    />
+
+  </div>
+</div>
+        <!-- <div style="text-align:left;">
           <h4><span style="color:orange;">{{texte6}} :</span></h4>
           <n-image v-for="(item,index) in InfoPostulant.photo" 
           :key="index"
@@ -209,7 +248,7 @@ export default {
           style="margin:1em;"
           :src="lienPhoto + item.path"
           :alt="item.path" />
-        </div>
+        </div> -->
        <button style="background-color: orange;font-weight: bold;
        position:absolute;top:0.8em;right: 1em;border:none;" @click="VoirProfil(InfoPostulant)"> 
         Voir le Profil
@@ -240,10 +279,22 @@ export default {
         </div>
        </section>
       </a-card>
+      <n-modal v-model:show="showPdfModal" style="width: 80%;">
+  <div style="background:white; padding:20px;">
+    
+    <iframe
+      v-if="currentPdf"
+      :src="currentPdf"
+      width="100%"
+      height="600px"
+    ></iframe>
+
+  </div>
+</n-modal>
 </template>
 <style scoped>
 :deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-body) {
-  height: 900px;
+  height: 800px;
 }
 .bi-person{
     font-size: 3em;

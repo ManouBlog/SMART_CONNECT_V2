@@ -10,10 +10,15 @@ import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
 import { useInfoStudentStore } from "../store-pinia/InfoStudent/useInfoStudentStore";
 import { useWindowSize } from "@vueuse/core"; // <-- ajout VueUse
 
+// const statut = {
+//   0: "En attente",
+//   1: "Accepté",
+//   2: "Pas retenu",
+// };
 const statut = {
-  0: "En attente",
-  1: "Accepté",
-  2: "Pas retenu",
+  0: "Candidature en cours d’examen",
+  1: "Candidature retenue",
+  2: "Candidature non retenue",
 };
 const colorStatut = {
   0: "bg-info",

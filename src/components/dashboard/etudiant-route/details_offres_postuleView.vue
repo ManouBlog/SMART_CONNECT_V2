@@ -18,9 +18,9 @@ export default {
       moneyFormat: new Intl.NumberFormat("de-DE"),
       showModal: false,
       Statut: {
-        1: "Retenu",
-        2: "Pas retenu",
-        0: "En attente de reponse",
+        1: "Candidature retenue",
+        2: "Candidature non retenue",
+        0: "Candidature en cours d’examen",
       },
       statutColor: {
         1: "bg-success",
