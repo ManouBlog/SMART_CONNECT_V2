@@ -538,114 +538,150 @@ preprocessImage(file) {
   >
     <!-- STEP 1 -->
     <div v-show="currentStep === 0">
-    <a-form-item
-        :label="'Code de parrainage'"
-        name="code_ambassadeur"
-      >
-        <a-input v-model:value="formState.code_ambassadeur" />
-      </a-form-item>
-      <a-form-item
-        :label="texte"
-        name="nom"
-         :rules="[
-    { required: true, message: texte17 },
-    {
-  pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
-  message: 'Veuillez saisir uniquement des lettres.'
-}
-  ]"
-      >
-        <a-input v-model:value="formState.nom" />
-      </a-form-item>
+      <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="12">
+          <a-form-item label="Code de parrainage" name="code_ambassadeur">
+            <a-input v-model:value="formState.code_ambassadeur" />
+          </a-form-item>
+        </a-col>
 
-      <a-form-item
-        :label="texte1"
-        name="prenoms"
-        :rules="[
-    { required: true, message: texte16 },
-    {
-  pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
-  message: 'Veuillez saisir uniquement des lettres.'
-}
-  ]"
-      >
-        <a-input v-model:value="formState.prenoms" />
-      </a-form-item>
+        <a-col :xs="24" :md="12">
+          <a-form-item
+            :label="texte"
+            name="nom"
+            :rules="[
+              { required: true, message: texte17 },
+              {
+                pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
+                message: 'Veuillez saisir uniquement des lettres.'
+              }
+            ]"
+          >
+            <a-input v-model:value="formState.nom" />
+          </a-form-item>
+        </a-col>
+      </a-row>
 
-      <a-form-item
-        :label="texte2"
-        name="phone"
-       :rules="[
-    { required: true, message: texte15 },
-    {
-      pattern: /^\d{10}$/,
-      message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
-    }
-  ]"
-      >
-        <a-input v-model:value="formState.phone">
-          <template #addonBefore>
-            <a-select v-model:value="formState.countryCode" :options="westAfricaCodes" />
-          </template>
-        </a-input>
-      </a-form-item>
+      <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="12">
+          <a-form-item
+            :label="texte1"
+            name="prenoms"
+            :rules="[
+              { required: true, message: texte16 },
+              {
+                pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
+                message: 'Veuillez saisir uniquement des lettres.'
+              }
+            ]"
+          >
+            <a-input v-model:value="formState.prenoms" />
+          </a-form-item>
+        </a-col>
 
-      <a-form-item
-        :label="texte6"
-        name="email"
-         :rules="[
-    { required: true, message: texte14 },
-    { type: 'email', message: 'Veuillez entrer un email valide' }
-  ]"
-      >
-        <a-input v-model:value="formState.email" />
-      </a-form-item>
-      <a-form-item label="Profil">
-        <a-input v-model:value="formState.titreCv" />
-        <!-- <a-textarea v-model:value="formState.titreCv" :maxlength="300" /> -->
-      </a-form-item>
-      <a-form-item label="Biographie – résumé de votre profil">
-        <a-textarea v-model:value="formState.bio" :maxlength="300" />
-      </a-form-item>
+        <a-col :xs="24" :md="12">
+          <a-form-item
+            :label="texte2"
+            name="phone"
+            :rules="[
+              { required: true, message: texte15 },
+              {
+                pattern: /^\d{10}$/,
+                message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
+              }
+            ]"
+          >
+            <a-input v-model:value="formState.phone">
+              <template #addonBefore>
+                <a-select v-model:value="formState.countryCode" :options="westAfricaCodes" />
+              </template>
+            </a-input>
+          </a-form-item>
+        </a-col>
+      </a-row>
+
+      <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="12">
+          <a-form-item
+            :label="texte6"
+            name="email"
+            :rules="[
+              { required: true, message: texte14 },
+              { type: 'email', message: 'Veuillez entrer un email valide' }
+            ]"
+          >
+            <a-input v-model:value="formState.email" />
+          </a-form-item>
+        </a-col>
+
+        <a-col :xs="24" :md="12">
+          <a-form-item label="Profil">
+            <a-input v-model:value="formState.titreCv" />
+            <!-- <a-textarea v-model:value="formState.titreCv" :maxlength="300" /> -->
+          </a-form-item>
+        </a-col>
+      </a-row>
+
+      <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="24">
+          <a-form-item label="Biographie – résumé de votre profil">
+            <a-textarea v-model:value="formState.bio" :maxlength="300" />
+          </a-form-item>
+        </a-col>
+      </a-row>
     </div>
 
     <!-- STEP 2 -->
     <div v-show="currentStep === 1">
-      <a-form-item
-        :label="texte7"
-        :rules="[{ required: true, message: 'Ajoutez au moins une compétence' }]"
-      >
-        <VueMultiselect
-          v-model="formState.myCompetence"
-          :options="allCompetences"
-          placeholder="Choix multiples"
-          :multiple="true"
-          label="competence"
-          track-by="competence"
-        />
-      </a-form-item>
+      <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="24">
+          <a-form-item
+            :label="texte7"
+            :rules="[{ required: true, message: 'Ajoutez au moins une compétence' }]"
+          >
+            <VueMultiselect
+              v-model="formState.myCompetence"
+              :options="allCompetences"
+              placeholder="Choix multiples"
+              :multiple="true"
+              label="competence"
+              track-by="competence"
+            />
+          </a-form-item>
+        </a-col>
+      </a-row>
     </div>
 
     <!-- STEP 3 -->
     <div v-show="currentStep === 2">
-      <a-form-item
-        :label="texte8"
-        name="niveauEtude"
-        :rules="[{ required: true, message: texte13 }]"
-      >
-       <a-select style="margin:1em 0" v-model:value="formState.niveauEtude" placeholder="Sélectionnez un diplôme">
-         <a-select-option
-  v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
-  :key="item.value"
-  :value="item.value"
->
-  {{ item.value }}
-</a-select-option>
-         
-        </a-select>
-      <a-input v-model:value="formState.filiere" placeholder="Filière" />
-      </a-form-item>
-      <RegisterQualifications @update:modelValue="handleQualifications" />
+      <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="12">
+          <a-form-item
+            :label="texte8"
+            name="niveauEtude"
+            :rules="[{ required: true, message: texte13 }]"
+          >
+            <a-select
+              style="margin:1em 0"
+              v-model:value="formState.niveauEtude"
+              placeholder="Sélectionnez un diplôme"
+            >
+              <a-select-option
+                v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
+                :key="item.value"
+                :value="item.value"
+              >
+                {{ item.value }}
+              </a-select-option>
+            </a-select>
+            <a-input v-model:value="formState.filiere" placeholder="Filière" />
+          </a-form-item>
+        </a-col>
+
+        <a-col :xs="24" :md="12">
+          <RegisterQualifications @update:modelValue="handleQualifications" />
+        </a-col>
+      </a-row>
     </div>
 
     <!-- STEP 4 -->
@@ -655,37 +691,53 @@ preprocessImage(file) {
 
     <!-- STEP 5 -->
     <div v-show="currentStep === 4">
-      <a-form-item name="uploadPhotoProfil" label="Photo de profil">
-        <a-upload v-model:fileList="formState.uploadPhotoProfil" :maxCount="1">
-          <a-button> Clique pour charger </a-button>
-        </a-upload>
-      </a-form-item>
-     
+      <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="12">
+          <a-form-item name="uploadPhotoProfil" label="Photo de profil">
+            <a-upload v-model:fileList="formState.uploadPhotoProfil" :maxCount="1">
+              <a-button> Clique pour charger </a-button>
+            </a-upload>
+          </a-form-item>
+        </a-col>
 
-      <a-form-item
-        name="upload"
-        :label="texte9"
-        :rules="[{ required: true, message: texte96 }]"
-      >
-        <a-upload 
-        v-model:fileList="formState.upload"  
-        :maxCount="1"
-         accept="image/*"
-          @change="onUploadChange"
-        >
-          <a-button> Clique pour charger </a-button>
-        </a-upload>
-      </a-form-item>
-      <a-spin v-if="loading" tip="Vérification de la carte d'étudiant" />
-      <span style="color:red;" v-if="this.result && this.result.isStudentCard === false">Veuillez ajouter une carte bien visible</span>
-       <!-- {{ this.result }} -->
-      <a-form-item
-        :label="texte10"
-        name="password"
-        :rules="[{ required: true, message: texte12 }]"
-      >
-        <a-input-password :disabled="isPasswordDisabled" v-model:value="formState.password" />
-      </a-form-item>
+        <a-col :xs="24" :md="12">
+          <a-form-item
+            name="upload"
+            :label="texte9"
+            :rules="[{ required: true, message: texte96 }]"
+          >
+            <a-upload
+              v-model:fileList="formState.upload"
+              :maxCount="1"
+              accept="image/*"
+              @change="onUploadChange"
+            >
+              <a-button> Clique pour charger </a-button>
+            </a-upload>
+          </a-form-item>
+
+          <a-spin v-if="loading" tip="Vérification de la carte d'étudiant" />
+          <span style="color:red;" v-if="this.result && this.result.isStudentCard === false">
+            Veuillez ajouter une carte bien visible
+          </span>
+          <!-- {{ this.result }} -->
+        </a-col>
+      </a-row>
+
+      <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="24">
+          <a-form-item
+            :label="texte10"
+            name="password"
+            :rules="[{ required: true, message: texte12 }]"
+          >
+            <a-input-password
+              :disabled="isPasswordDisabled"
+              v-model:value="formState.password"
+            />
+          </a-form-item>
+        </a-col>
+      </a-row>
     </div>
 
     <!-- NAVIGATION -->
@@ -712,6 +764,7 @@ preprocessImage(file) {
     </div>
   </a-form>
 </template>
+
 <style scoped>
 :deep(:where(.ant-steps-item-icon)) {
   background-color: #ff8819 !important;
@@ -724,10 +777,11 @@ preprocessImage(file) {
 :deep(.multiselect__tag) {
   background: orange;
 }
-:deep(.ant-spin-text){
+:deep(.ant-spin-text) {
   font-size: 16px !important;
 }
 </style>
+
 <style
   src="../../../../../../node_modules/vue-multiselect/dist/vue-multiselect.css"
 ></style>
