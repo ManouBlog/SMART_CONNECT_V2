@@ -310,6 +310,212 @@ preprocessImage(file) {
 </script>
 <template>
   <Politics v-if="isPolitics" />
+
+  <a-form
+    :layout="'vertical'"
+    :model="formState"
+    name="basic"
+    autocomplete="on"
+    @finish="onFinish"
+    @finishFailed="onFinishFailed"
+  >
+    <!-- Nom + Prénoms -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte"
+          name="nom"
+          :rules="[
+            { required: true, message: 'Ajouter votre nom' },
+            {
+              pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
+              message: 'Veuillez saisir uniquement des lettres.'
+            }
+          ]"
+        >
+          <a-input v-model:value="formState.nom" placeholder="Entrez votre nom" />
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte1"
+          name="prenoms"
+          :rules="[
+            { required: true, message: 'Ajouter vos prénoms' },
+            {
+              pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
+              message: 'Veuillez saisir uniquement des lettres.'
+            }
+          ]"
+        >
+          <a-input v-model:value="formState.prenoms" placeholder="Entrez vos prénoms" />
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Nom de l'entreprise (optionnel) + Téléphone -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="'Nom de l\'entreprise'"
+          name="nom_particulier"
+        >
+          <a-input
+            v-model:value="formState.nom_particulier"
+            placeholder="Entrez le nom de votre entreprise"
+          />
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte2"
+          name="contact"
+          :rules="[
+            { required: true, message: 'Ajouter un contact' },
+            {
+              pattern: /^\d{10}$/,
+              message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
+            }
+          ]"
+        >
+          <a-input
+            type="tel"
+            v-model:value="formState.contact"
+            placeholder="Entrez le numéro téléphonique"
+          >
+            <template #addonBefore>
+              <a-select
+                v-model:value="formState.countryCode"
+                :options="westAfricaCodes"
+                show-search
+                option-filter-prop="label"
+                option-label-prop="value"
+                style="width: 120px"
+              />
+            </template>
+          </a-input>
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Ville + Commune -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte3"
+          name="ville"
+          :rules="[{ required: true, message: 'Ajouter une ville' }]"
+        >
+          <a-input v-model:value="formState.ville" placeholder="Ajouter votre ville" />
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte4"
+          name="commune"
+          :rules="[{ required: true, message: 'Ajouter une commune' }]"
+        >
+          <a-input v-model:value="formState.commune" placeholder="Ajouter votre commune" />
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Quartier (seul sur sa ligne car souvent moins long) + Email -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item :label="texte5" name="quartier">
+          <a-input
+            v-model:value="formState.quartier"
+            placeholder="Ajouter votre quartier"
+          />
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte6"
+          name="email"
+          :rules="[
+            { required: true, message: 'Ajouter un email' },
+            { type: 'email', message: 'Veuillez entrer un email valide' }
+          ]"
+        >
+          <a-input
+            v-model:value="formState.email"
+            placeholder="Ajouter votre adresse email"
+          />
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Upload pièce d'identité (souvent mieux en pleine largeur) -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="24">
+        <a-form-item
+          name="upload"
+          :label="texte10"
+          :rules="[{ required: true, message: texte10 }]"
+        >
+          <a-upload
+            v-model:fileList="formState.upload"
+            name="upload"
+            list-type="picture"
+            :multiple="true"
+            :maxCount="1"
+            accept=".jpg,.jpeg,.png,.webp"
+            @change="onUploadChange"
+          >
+            <a-button> Clique pour charger </a-button>
+          </a-upload>
+        </a-form-item>
+
+        <a-spin v-if="loading" tip="Vérification de la carte d'identité" />
+        <span
+          style="color:red;"
+          v-if="this.result && this.result.isCardIdentity === false"
+        >
+          Veuillez ajouter une carte d'identité bien visible
+        </span>
+      </a-col>
+    </a-row>
+
+    <!-- Mot de passe (pleine largeur) -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="24">
+        <a-form-item
+          :label="texte12"
+          name="password"
+          :rules="[{ required: true, message: 'Ajouter un mot de passe' }]"
+        >
+          <a-input-password
+            v-model:value="formState.password"
+            placeholder="Ajouter votre mot de passe"
+          />
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Bouton de soumission -->
+    <a-form-item>
+      <div class="d-flex justify-content-center">
+        <a-button
+          :disabled="isPasswordDisabled"
+          type="primary"
+          shape="round"
+          :size="'large'"
+          html-type="submit"
+        >
+          {{ texte13 }}
+        </a-button>
+      </div>
+    </a-form-item>
+  </a-form>
+</template>
+<!-- <template>
+  <Politics v-if="isPolitics" />
   <a-form
     :layout="'vertical'"
     :model="formState"
@@ -433,4 +639,4 @@ preprocessImage(file) {
       </div>
     </a-form-item>
   </a-form>
-</template>
+</template> -->

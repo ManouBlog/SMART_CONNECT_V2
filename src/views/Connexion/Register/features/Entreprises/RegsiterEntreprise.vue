@@ -180,6 +180,295 @@ export default {
 </script>
 <template>
   <Politics v-if="isPolitics" />
+
+  <a-form
+    :layout="'vertical'"
+    :model="formState"
+    name="basic"
+    autocomplete="off"
+    @finish="onFinish"
+    @finishFailed="onFinishFailed"
+  >
+    <!-- Première ligne : Raison sociale + RCCM -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte"
+          name="nom"
+          :rules="[{ required: true, message: texte24 }]"
+        >
+          <a-input v-model:value="formState.nom" placeholder="Entrez la raison sociale" />
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte1"
+          name="matricule_cc"
+          :rules="[{ required: true, message: texte23 }]"
+        >
+          <a-input v-model:value="formState.matricule_cc" placeholder="Entrez le RCCM" />
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Registre de commerce (souvent mieux en pleine largeur) -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="24">
+        <a-form-item
+          :rules="[{ required: true, message: `Ajouter un registre de commerce` }]"
+          name="Registre"
+          label=""
+        >
+          <a-upload
+            @change="handleChangeCardStudent"
+            v-model:fileList="formState.Registre"
+            name="Registre"
+            list-type="picture"
+            :multiple="false"
+            :maxCount="1"
+            accept=".pdf"
+          >
+            <a-button> Clique pour charger </a-button>
+          </a-upload>
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Forme juridique + NCC -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte7"
+          name="juridique"
+          :rules="[{ required: true, message: texte17 }]"
+        >
+          <a-input
+            v-model:value="formState.juridique"
+            placeholder="Entrez la forme juridique"
+          />
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          label="NCC (Numéro de compte contribuable)"
+          name="ncc"
+          :rules="[{ required: true, message: 'Ajouter le Numéro de compte contribuable' }]"
+        >
+          <a-input
+            v-model:value="formState.ncc"
+            placeholder="Entrez le numéro de compte contribuable"
+          />
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Contact + Ville -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte2"
+          name="contact"
+          :rules="[{ required: true, message: texte22 }]"
+        >
+          <a-input
+            type="tel"
+            v-model:value="formState.contact"
+            placeholder="Entrez le numéro"
+          >
+            <template #addonBefore>
+              <a-select
+                v-model:value="formState.countryCode"
+                :options="westAfricaCodes"
+                show-search
+                option-filter-prop="label"
+                option-label-prop="value"
+                style="width: 120px"
+              />
+            </template>
+          </a-input>
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte3"
+          name="ville"
+          :rules="[{ required: true, message: texte21 }]"
+        >
+          <a-input placeholder="Entrez le nom de la ville" v-model:value="formState.ville" />
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Commune + Quartier -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte4"
+          name="commune"
+          :rules="[{ required: true, message: texte20 }]"
+        >
+          <a-input
+            placeholder="Entrez le nom de la commune"
+            v-model:value="formState.commune"
+          />
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte5"
+          name="quartier"
+          :rules="[{ required: true, message: texte19 }]"
+        >
+          <a-input
+            placeholder="Entrez le nom du quartier"
+            v-model:value="formState.quartier"
+          />
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Email + Email secondaires -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte6"
+          name="email"
+          :rules="[{ required: true, message: texte18 }]"
+        >
+          <a-input
+            type="email"
+            placeholder="Entrez votre email"
+            v-model:value="formState.email"
+          />
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item :label="'Email secondaires (CC)'">
+          <n-dynamic-input
+            v-model:value="formState.email_cc"
+            placeholder="Ajouter un email en copie"
+            :min="1"
+            :max="6"
+            :item-style="{ borderColor: 'gray' }"
+          />
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Gérant + Téléphone gérant -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte8"
+          name="gerant"
+          :rules="[{ required: true, message: texte16 }]"
+        >
+          <a-input placeholder="Entrez le nom du gérant" v-model:value="formState.gerant" />
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :label="texte9"
+          name="Phonegerant"
+          :rules="[{ required: true, message: texte15 }]"
+        >
+          <a-input
+            type="tel"
+            v-model:value="formState.Phonegerant"
+            placeholder="Entrez le numéro du gérant"
+          >
+            <template #addonBefore>
+              <a-select
+                v-model:value="formState.countryCodePhoneGerant"
+                :options="westAfricaCodes"
+                show-search
+                option-filter-prop="label"
+                option-label-prop="value"
+                style="width: 120px"
+              />
+            </template>
+          </a-input>
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Pièce d'identité + Logo -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          name="upload"
+          :rules="[{ required: true, message: `Veuilez ajouter une pièce d'identité.` }]"
+          :label="texte10"
+        >
+          <a-upload
+            @change="handleChangeCardStudent"
+            v-model:fileList="formState.upload"
+            name="upload"
+            list-type="picture"
+            :multiple="true"
+            :maxCount="2"
+            accept="*/*"
+          >
+            <a-button> Clique pour charger </a-button>
+          </a-upload>
+        </a-form-item>
+      </a-col>
+
+      <a-col :xs="24" :md="12">
+        <a-form-item
+          :rules="[{ required: true, message: `Veuilez ajouter un logo.` }]"
+          name="Logo"
+          :label="'Logo(jpg,png,webp)'"
+        >
+          <a-upload
+            @change="handleChangeCardStudent"
+            v-model:fileList="formState.Logo"
+            name="logo"
+            :multiple="false"
+            :maxCount="1"
+            accept=".jpg,.jpeg,.png,.webp"
+            list-type="picture"
+          >
+            <a-button> Clique pour charger </a-button>
+          </a-upload>
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Mot de passe (souvent en pleine largeur) -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="24">
+        <a-form-item
+          :label="texte12"
+          name="password"
+          :rules="[{ required: true, message: texte14 }]"
+        >
+          <a-input-password
+            v-model:value="formState.password"
+            placeholder="Entrez le mot de passe"
+          />
+        </a-form-item>
+      </a-col>
+    </a-row>
+
+    <!-- Bouton de soumission -->
+    <a-form-item>
+      <div class="d-flex justify-content-center">
+        <a-button type="primary" shape="round" :size="'large'" html-type="submit">
+          {{ texte13 }}
+        </a-button>
+      </div>
+    </a-form-item>
+  </a-form>
+</template>
+<!-- <template>
+  <Politics v-if="isPolitics" />
   <a-form
     :layout="'vertical'"
     :model="formState"
@@ -397,5 +686,5 @@ export default {
       </div>
     </a-form-item>
   </a-form>
-</template>
+</template> -->
 
