@@ -80,7 +80,7 @@ export default {
     this.texte = await this.handleTranslate("Tableau de bord");
     this.texte1 = await this.handleTranslate("Mon profil");
     this.texte2 = await this.handleTranslate("Mes favoris");
-    this.texte3 = await this.handleTranslate("Mes postulations");
+    this.texte3 = await this.handleTranslate("Mes candidatures");
     this.texte40 = await this.handleTranslate("Entreprises intéressées");
     this.texte5 = await this.handleTranslate("Mes disponibilités");
     this.texte6 = await this.handleTranslate("Mes abonnements");

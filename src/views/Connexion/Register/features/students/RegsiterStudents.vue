@@ -757,7 +757,7 @@ preprocessImage(file) {
         v-if="currentStep === 4"
         type="primary"
         html-type="submit"
-        :disabled="!isCurrentStepValid && isPasswordDisabled"
+        :disabled="!isCurrentStepValid || isPasswordDisabled"
       >
         {{ texte11 }}
       </a-button>
