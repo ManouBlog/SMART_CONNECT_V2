@@ -114,7 +114,7 @@ onMounted(async () => {
        
 
         <Buttons
-          :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
+          :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id"
           :elmentsOfBtn="elmentsOfBtn"
           :shapeBtn="'round'"
           @created="handleCreateEntreprise(item)"

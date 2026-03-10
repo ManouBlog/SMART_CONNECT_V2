@@ -33,7 +33,7 @@ const currentConfig = computed(() => {
      
     return {
       price: props.item.prix,
-      isFormule: formule === 'year',
+      isFormule: formule === 'year' || !formule,
       description: props.item.description,
       suffix: 'an',
       action: () => handleCreate('year')
