@@ -209,11 +209,28 @@ export default {
         >
           <a-input v-model:value="formState.matricule_cc" placeholder="Entrez le RCCM" />
         </a-form-item>
+         <a-form-item
+          :rules="[{ required: true, message: `Ajouter un registre de commerce` }]"
+          name="Registre"
+          label=""
+        >
+          <a-upload
+            @change="handleChangeCardStudent"
+            v-model:fileList="formState.Registre"
+            name="Registre"
+            list-type="picture"
+            :multiple="false"
+            :maxCount="1"
+            accept=".pdf"
+          >
+            <a-button> Clique pour charger le registre de commerce(Pdf) </a-button>
+          </a-upload>
+        </a-form-item>
       </a-col>
     </a-row>
 
     <!-- Registre de commerce (souvent mieux en pleine largeur) -->
-    <a-row :gutter="[16, 24]">
+    <!-- <a-row :gutter="[16, 24]">
       <a-col :xs="24" :md="24">
         <a-form-item
           :rules="[{ required: true, message: `Ajouter un registre de commerce` }]"
@@ -233,7 +250,7 @@ export default {
           </a-upload>
         </a-form-item>
       </a-col>
-    </a-row>
+    </a-row> -->
 
     <!-- Forme juridique + NCC -->
     <a-row :gutter="[16, 24]">
