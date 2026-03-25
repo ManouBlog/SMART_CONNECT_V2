@@ -611,7 +611,7 @@ export default {
                           }}
                         </h6>
                         <span style="font-weight:bold;color:gray;font-size:0.8em" v-if="item.objet">
-                          Diplôme ou certification obtenue : {{ item.objet }}
+                          {{ item.objet }}
                         </span>
                         <p class="text-start ms-2" v-if="item.detail">
                           Détail : {{ item.detail }}
