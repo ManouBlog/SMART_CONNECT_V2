@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import RegsiterStudents from "./features/students/RegsiterStudents.vue";
 import RegsiterEntreprise from "./features/Entreprises/RegsiterEntreprise.vue";
 import RegisterParticulier from "./features/particulier/RegisterParticulier.vue";
+import RegisterProfessionels from './features/profesionnels/RegisterProfessionels.vue'
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 export default {
@@ -11,6 +12,7 @@ export default {
     RegsiterStudents,
     RegsiterEntreprise,
     RegisterParticulier,
+    RegisterProfessionels
   },
   data() {
     return {
@@ -31,6 +33,14 @@ export default {
       texte14: "",
       open: true,
       value1: "student",
+      descriptions: {
+      student: "Cette étape est réservée aux étudiants qui souhaitent acquérir une expérience de travail.",
+      entreprise: "Cette étape est destinée aux entreprises qui souhaitent recruter.",
+      particulier: "Cette étape concerne les particuliers qui souhaitent recruter.",
+      professionnels: "Cette étape est réservée aux diplômés et consultants, qu’ils soient en activité ou sans emploi.",
+      artisans: "Cette étape concerne les artisans qui souhaitent promouvoir leur savoir‑faire.",
+      vétérans: "Cette étape est exclusivement réservée aux retraités disposant de compétences expertes."
+    },
     };
   },
   methods: {
@@ -67,17 +77,24 @@ export default {
       <a-select
         ref="select"
         v-model:value="value1"
-        style="width: 100%; padding: 0; margin-top: 0.5em; margin-bottom: 0.5em"
+        style="width: 100%; padding: 0; margin-top: 0.5em; margin-bottom: 1.5em"
         :size="'large'"
         @change="handleChange"
       >
         <a-select-option value="student">{{ texte1 }}</a-select-option>
         <a-select-option value="entreprise">{{ texte2 }}</a-select-option>
         <a-select-option value="particulier">{{ texte3 }}</a-select-option>
+         <a-select-option value="professionnels">Professionnels</a-select-option>
+          <a-select-option value="artisans">Artisans</a-select-option>
+           <a-select-option value="vétérans">Vétérans</a-select-option>
       </a-select>
+      <div style="padding: 0.5em 0; text-align: center; color: gray;font-weight: bold;">
+      {{ this.descriptions[value1] }}
+    </div>
     </div>
     <RegsiterStudents v-if="value1 === 'student'" />
-    <RegsiterEntreprise v-else-if="value1 === 'entreprise'" />
-    <RegisterParticulier v-else />
+    <RegsiterEntreprise v-if="value1 === 'entreprise'" />
+    <RegisterProfessionels v-if="value1 === 'professionnels'"  />
+    <RegisterParticulier v-if="value1 === 'particulier'" />
   </a-form>
 </template>

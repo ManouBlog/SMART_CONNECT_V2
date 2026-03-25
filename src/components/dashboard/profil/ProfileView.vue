@@ -82,17 +82,35 @@ export default {
       ) {
         this.update_compte_entreprise();
       }
-      if (this.$store.state.infoUserConnected.user.statut.statut === "etudiant") {
-        this.update_compte_etudiant();
-      }
+      if (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
+) {
+  this.update_compte_etudiant();
+}
+
+      // if (this.$store.state.infoUserConnected.user.statut.statut === "etudiant") {
+      //   this.update_compte_etudiant();
+      // }
       if (this.$store.state.infoUserConnected.user.statut.statut === "admin") {
         this.updateCompteAdmin();
       }
     },
     modifyPassword() {
-      if (this.$store.state.infoUserConnected.user.statut.statut === "etudiant") {
-        this.modifyPasswordOfStudent();
-      }
+      // if (this.$store.state.infoUserConnected.user.statut.statut === "etudiant") {
+      //   this.modifyPasswordOfStudent();
+      // }
+      if (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
+) {
+ this.modifyPasswordOfStudent();
+}
+
       if (
         this.$store.state.infoUserConnected.user.statut.statut === "entreprise" ||
         this.$store.state.infoUserConnected.user.statut.statut === "particulier"
@@ -328,7 +346,7 @@ export default {
     <ModalForModifyInfo />
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="page-body">
-      <!-- {{ JSON.stringify(this.$store.state.infoUserConnected,null,2) }} -->
+      <!-- {{ JSON.stringify(this.$store.state.infoUserConnected.user,null,2) }} -->
       <TabView v-if="this.$store.state.infoUserConnected">
         <TabPanel :header="texte1">
           <div>
@@ -486,26 +504,41 @@ export default {
                 this.$store.state.infoUserConnected.competences
               "
               v-if="
-                this.$store.state.infoUserConnected &&
-                this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'
-              "
+  this.$store.state.infoUserConnected &&
+  (
+    this.$store.state.infoUserConnected.user.statut.statut === 'etudiant' ||
+    this.$store.state.infoUserConnected.user.statut.statut === 'professionnel' ||
+    this.$store.state.infoUserConnected.user.statut.statut === 'artisan' ||
+    this.$store.state.infoUserConnected.user.statut.statut === 'veteran'
+  )
+"
             />
           </div>
         </TabPanel>
         <TabPanel
           v-if="
-            this.$store.state.infoUserConnected &&
-            this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'
-          "
+  this.$store.state.infoUserConnected &&
+  (
+    this.$store.state.infoUserConnected.user.statut.statut === 'etudiant' ||
+    this.$store.state.infoUserConnected.user.statut.statut === 'professionnel' ||
+    this.$store.state.infoUserConnected.user.statut.statut === 'artisan' ||
+    this.$store.state.infoUserConnected.user.statut.statut === 'veteran'
+  )
+"
           header="Compétences et Expériences"
         >
           <CompetencesAndExperience />
         </TabPanel>
         <TabPanel
           v-if="
-            this.$store.state.infoUserConnected &&
-            this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'
-          "
+  this.$store.state.infoUserConnected &&
+  (
+    this.$store.state.infoUserConnected.user.statut.statut === 'etudiant' ||
+    this.$store.state.infoUserConnected.user.statut.statut === 'professionnel' ||
+    this.$store.state.infoUserConnected.user.statut.statut === 'artisan' ||
+    this.$store.state.infoUserConnected.user.statut.statut === 'veteran'
+  )
+"
           header="Qualifications"
         >
           <QualificationsStudent />

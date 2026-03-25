@@ -73,9 +73,14 @@ export default {
     handleData(year) {
       
       if (
-        this.$store.state.user &&
-        this.$store.state.user.user.statut.statut === "etudiant"
-      ) {
+  this.$store.state.user &&
+  (
+    this.$store.state.user.user.statut.statut === "etudiant" ||
+    this.$store.state.user.user.statut.statut === "professionnel" ||
+    this.$store.state.user.user.statut.statut === "artisan" ||
+    this.$store.state.user.user.statut.statut === "veteran"
+  )
+) {
         this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
       } else {
         this.filterOffreWithYear(year);
@@ -104,7 +109,12 @@ if (!user.competences.length || !user.qualifications.length) {
     ...mapState(useEntreprisesStore, ["student", "studentRecruit", "list_students"]),
   },
   async created() {
-    if (this.$store.state.user.user.statut.statut !== "etudiant") {
+   if (
+  this.$store.state.user.user.statut.statut !== "etudiant" &&
+  this.$store.state.user.user.statut.statut !== "professionnel" &&
+  this.$store.state.user.user.statut.statut !== "artisan" &&
+  this.$store.state.user.user.statut.statut !== "veteran"
+) {
       this.get_students_contact();
       this.get_offres_interess_by_student();
       this.getAllOffresCreatedByEntreprise();
@@ -138,8 +148,14 @@ if (!user.competences.length || !user.qualifications.length) {
     </div>
     <TableauDeBord
       v-if="
-        this.$store.state.user && this.$store.state.user.user.statut.statut === 'etudiant'
-      "
+  this.$store.state.user &&
+  [
+    'etudiant',
+    'professionnel',
+    'artisan',
+    'veteran'
+  ].includes(this.$store.state.user.user.statut.statut)
+"
       :infosArray="IsAmbassador ? [
          {
           libelle: 'Personnes parrainées',

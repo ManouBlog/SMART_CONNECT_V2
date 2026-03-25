@@ -476,15 +476,32 @@ export default {
         });
     },
     verfEnter() {
-      if (this.user && this.user.user.statut.statut === "etudiant") {
-        this.$router.push("/");
-        Swal.fire({
-          icon: "error",
-          title: "Vous n'êtes pas autorisé.",
-          showConfirmButton: false,
-          timer: 1000,
-        });
-      }
+      if (
+  this.user &&
+  (
+    this.user.user.statut.statut === "etudiant" ||
+    this.user.user.statut.statut === "professionnel" ||
+    this.user.user.statut.statut === "artisan" ||
+    this.user.user.statut.statut === "veteran"
+  )
+) {
+  this.$router.push("/");
+  Swal.fire({
+    icon: "info",
+    title: "Vous n'êtes pas autorisé",
+    showConfirmButton: false,
+    timer: 1000,
+  });
+}
+      // if (this.user && this.user.user.statut.statut === "etudiant") {
+      //   this.$router.push("/");
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "Vous n'êtes pas autorisé.",
+      //     showConfirmButton: false,
+      //     timer: 1000,
+      //   });
+      // }
     },
     addDate() {
       this.datesPickers.push({

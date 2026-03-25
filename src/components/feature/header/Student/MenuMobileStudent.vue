@@ -22,9 +22,18 @@ export default {
       texte40: "",
     };
   },
-
   computed: {
     ...mapState(useNotificationsStore, ["unreadNotifications"]),
+    userStatut() {
+    const userStr = localStorage.getItem('user');
+    if (!userStr) return null;
+    try {
+      const user = JSON.parse(userStr);
+      return user.user?.statut ?? null;
+    } catch (e) {
+      return null;
+    }
+  }
   },
 
   methods: {
@@ -54,8 +63,6 @@ export default {
 
       if (!disponibilites.length) {
         this.$router.push("/dashboard/emploi_du_temps");
-        // console.log("lancer3");
-
         return;
       }
 
@@ -123,7 +130,7 @@ export default {
     </a>
   </li>
 
-  <li class="position-absolute deconnex">
+  <li class="position-absolute deconnex" v-if="userStatut === 'etudiant'">
     <a class="d-block" @click="goTo('/dashboard/emploi_du_temps')">
       {{ texte5 }}
     </a>

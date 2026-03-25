@@ -525,6 +525,7 @@ export default {
       <div
         class="ecran_for_delete delete_article"
         v-show="comfirmationForDeleteQualifications"
+        @click.self="notDeleteCompetence"
       >
         <div class="card p-5">
           <p class="h3 my-2">{{ texte16 }}</p>
@@ -539,7 +540,9 @@ export default {
         </div>
       </div>
 
-      <div class="ecran_for_delete delete_article" v-show="toogleScreenYouWantDelete">
+      <div class="ecran_for_delete delete_article" v-show="toogleScreenYouWantDelete"
+      @click.self="notDeleteQualification"
+      >
         <div class="card p-5">
           <p class="h3 my-2">{{ texte19 }}</p>
           <div
@@ -555,7 +558,14 @@ export default {
         </div>
       </div>
       <div class="container-fluid default-dash" style="margin: -7em 0 0 0">
-        <div class="row" v-if="user.user.statut.statut == 'etudiant'">
+        <div class="row" 
+        v-if="
+         user.user.statut.statut === 'etudiant' ||
+    user.user.statut.statut === 'professionnel' ||
+    user.user.statut.statut === 'artisan' ||
+    user.user.statut.statut === 'veteran'
+        "
+        >
           <div class="col-md-12" style="margin: 4em 0">
             <div class="weekly-column">
               <div class="card-body position-relative">

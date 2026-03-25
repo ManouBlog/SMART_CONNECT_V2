@@ -221,8 +221,15 @@ export default {
         })
     },
     async getAllExperiences() {
-      if(this.$store.state.token &&
-       this.$store.state.user.user.statut.statut === 'etudiant'){
+      if (
+  this.$store.state.token &&
+  (
+    this.$store.state.user.user.statut.statut === 'etudiant' ||
+    this.$store.state.user.user.statut.statut === 'professionnel' ||
+    this.$store.state.user.user.statut.statut === 'artisan' ||
+    this.$store.state.user.user.statut.statut === 'veteran'
+  )
+){
         this.spinnerExperience = true;
       await instance
         .get("GetMyExperiences")
@@ -249,7 +256,7 @@ export default {
         .get("GetMyExperiences")
         .then((res) => {
           this.MyExperiences = res.data.data;
-          this.updateExperience = this.MyExperiences.find((item) => item.id === id);
+          this.updateExperience = this.MyExperiences?.find((item) => item.id === id);
           this.spinnerModifyExperience = false;
        
         })
@@ -380,6 +387,7 @@ export default {
 
 <template>
   <section>
+
     <div class="add_nouvelle_experience" v-show="toogleNouvelleExperience"
     @click.self="toogleNouvelleExperience = !toogleNouvelleExperience"
     >
@@ -561,7 +569,13 @@ export default {
         </div>
       </div>
       <div class="container-fluid default-dash" style="margin: -7em 0 0 0">
-        <div class="row" v-if="user.user.statut.statut == 'etudiant'">
+        <div class="row" v-if="
+         user.user.statut.statut === 'etudiant' ||
+    user.user.statut.statut === 'professionnel' ||
+    user.user.statut.statut === 'artisan' ||
+    user.user.statut.statut === 'veteran'
+        "
+        >
           <div class="col-xl-5 col-md-6 dash-xl-50 my-5">
             <div class="profile-greeting" id="content_competences">
               <div class="card-body position-relative">

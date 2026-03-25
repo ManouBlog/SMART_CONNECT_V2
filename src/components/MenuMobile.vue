@@ -177,15 +177,25 @@ export default {
       />
       <MenuMobileStudent
         v-if="
-          this.$store.state.user &&
-          this.$store.state.user.user.statut.statut === 'etudiant'
-        "
+  this.$store.state.user &&
+  [
+    'etudiant',
+    'professionnel',
+    'artisan',
+    'veteran'
+  ].includes(this.$store.state.user.user.statut.statut)
+"
       />
       <li
         v-if="
-          this.$store.state.user &&
-          this.$store.state.user.user.statut.statut === 'etudiant'
-        "
+  this.$store.state.user &&
+  [
+    'etudiant',
+    'professionnel',
+    'artisan',
+    'veteran'
+  ].includes(this.$store.state.user.user.statut.statut)
+"
       >
         <router-link
           :to="{ name: 'jobs' }"

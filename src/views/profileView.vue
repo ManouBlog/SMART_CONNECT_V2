@@ -15,7 +15,12 @@ export default {
       if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
         this.update_compte_entreprise();
       }
-      if (this.user.user.statut.statut === "etudiant") {
+      if (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
+) {
         this.update_compte_etudiant();
       }
     },
@@ -128,7 +133,14 @@ export default {
                   ></a>
                 </div>
               </div>
-              <div class="card-body" v-if="user.user.statut.statut == 'etudiant'">
+              <div class="card-body" 
+              v-if="
+         user.user.statut.statut === 'etudiant' ||
+    user.user.statut.statut === 'professionnel' ||
+    user.user.statut.statut === 'artisan' ||
+    user.user.statut.statut === 'veteran'
+        "
+              >
                 <div class="row">
                   <div class="col-md-3">
                     <div class="mb-3">

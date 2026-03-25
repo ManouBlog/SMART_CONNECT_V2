@@ -29,15 +29,26 @@ export default {
       if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
         this.update_compte_entreprise();
       }
-      if (this.user.user.statut.statut === "etudiant") {
+      if (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
+) {
         this.update_compte_etudiant();
       }
+      
       if (this.user.user.statut.statut === "admin") {
         this.updateCompteAdmin();
       }
     },
     modifyPassword() {
-      if (this.user.user.statut.statut === "etudiant") {
+      if (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
+) {
         this.modifyPasswordOfStudent();
       }
       if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {

@@ -234,9 +234,14 @@ export default {
 
                   <LiensNavBar
                     v-if="
-                      this.$store.state.user &&
-                      this.$store.state.user.user.statut.statut === 'etudiant'
-                    "
+  this.$store.state.user &&
+  [
+    'etudiant',
+    'professionnel',
+    'artisan',
+    'veteran'
+  ].includes(this.$store.state.user.user.statut.statut)
+"
                     :texte="texte2"
                     :route_lien="'jobs'"
                     :statut_user="'etudiant'"
@@ -262,9 +267,14 @@ export default {
                   </li> -->
                   <!-- <li
                     v-if="
-                      this.$store.state.user &&
-                      this.$store.state.user.user.statut.statut === 'etudiant'
-                    "
+  this.$store.state.user &&
+  [
+    'etudiant',
+    'professionnel',
+    'artisan',
+    'veteran'
+  ].includes(this.$store.state.user.user.statut.statut)
+"
                   >
                     <router-link class="lien position-relative" :to="{ name: 'contrat' }">
                       <div class="alarme_red" v-if="this.$store.state.contratStudent > 0">
@@ -310,9 +320,14 @@ export default {
                   />
                   <div
                     v-if="
-                      this.$store.state.user &&
-                      this.$store.state.user.user.statut.statut === 'etudiant'
-                    "
+  this.$store.state.user &&
+  [
+    'etudiant',
+    'professionnel',
+    'artisan',
+    'veteran'
+  ].includes(this.$store.state.user.user.statut.statut)
+"
                     class="login_user"
                   >
                     <InfoStudent />

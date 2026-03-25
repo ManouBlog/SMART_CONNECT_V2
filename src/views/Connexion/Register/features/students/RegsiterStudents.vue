@@ -112,6 +112,7 @@ export default {
         photo: null,
         upload: [],
         bio: "",
+        statutId:2,
         photo_profil: null,
         uploadPhotoProfil: [],
         email: "",
