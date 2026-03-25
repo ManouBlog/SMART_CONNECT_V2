@@ -121,7 +121,7 @@ export default {
         photo: null,
         upload: [],
         bio: "",
-        statutId:5,
+        statutId:6,
         photo_profil: null,
         uploadPhotoProfil: [],
         email: "",
