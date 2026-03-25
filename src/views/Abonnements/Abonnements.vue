@@ -90,7 +90,10 @@ onMounted(async () => {
         <n-tab-pane
           v-if="
             !store.state.user ||
-            store.state.user.user.statut.statut === 'etudiant'
+            (store.state.user.user.statut.statut === 'etudiant' ||
+             store.state.user.user.statut.statut === 'professionnel' ||
+             store.state.user.user.statut.statut === 'artisan' ||
+             store.state.user.user.statut.statut === 'veteran')
           "
           :name="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
           :tab="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
