@@ -98,7 +98,7 @@ export const useRegisterStore = defineStore('register', {
           data.append("quartier", payload?.quartier);
           data.append("phone",`${payload?.countryCode}${payload?.phone}`);
           data.append("ville", payload?.ville);
-          data.append("diplome", payload?.niveauEtude + ' ' + payload?.filiere);
+          data.append("diplome", payload?.niveauEtude && payload?.filiere ? payload?.niveauEtude + ' ' + payload?.filiere:payload?.niveauEtude);
           data.append("password", payload?.password);
           data.append("statut_id", payload?.statutId);
           data.append("photo_profil", payload?.photo_profil);

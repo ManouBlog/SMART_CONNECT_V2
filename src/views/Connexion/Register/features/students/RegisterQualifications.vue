@@ -20,11 +20,11 @@
             "
           >
             <div style="width: 100%">
-              <label for="objet"><span style="color:red;">*</span> Diplôme ou certification obtenue</label>
+              <label for="objet"><span style="color:red;" v-if="isRequired">*</span> Diplôme ou certification obtenue</label>
               <input type="text" class="input_class" id="objet" v-model="value.objet" />
             </div>
             <div style="width: 100%">
-              <label for="periode"><span style="color:red;">*</span> Période</label>
+              <label for="periode"><span style="color:red;" v-if="isRequired">*</span> Période</label>
               <div style="display: flex; gap: 1em; align-items: center">
                 <input
                   type="date"
@@ -72,6 +72,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    isRequired:{
+      type:Boolean,
+      default:true
+    }
   },
 
   emits: ["update:modelValue"],

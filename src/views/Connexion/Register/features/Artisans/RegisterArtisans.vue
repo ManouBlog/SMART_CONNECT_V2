@@ -8,7 +8,7 @@ import { useTranslateStore } from "../../../../../store-pinia/Translate/useTrans
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 
-// import RegisterQualifications from "../students/RegisterQualifications.vue";
+import RegisterQualifications from "../students/RegisterQualifications.vue";
 // import Tesseract from 'tesseract.js'
 
 
@@ -17,7 +17,7 @@ export default {
   components: { 
     VueMultiselect, 
     Politics,
-    // RegisterQualifications 
+     RegisterQualifications
   },
   data() {
     return {
@@ -173,28 +173,28 @@ export default {
       (this.result && this.result.isStudentCard === false)
     )
   },
-    getFirstHeureStartFrom() {
-      return this.$store.state.First_heure_start_from;
-    },
-    getTableauDays() {
-      return this.$store.state.datesOfCalendar;
-    },
-    getFirstHeureFinFrom() {
-      return this.$store.state.First_heure_end_to;
-    },
+    // getFirstHeureStartFrom() {
+    //   return this.$store.state.First_heure_start_from;
+    // },
+    // getTableauDays() {
+    //   return this.$store.state.datesOfCalendar;
+    // },
+    // getFirstHeureFinFrom() {
+    //   return this.$store.state.First_heure_end_to;
+    // },
     isNextDisabled() {
       // STEP 2 – Qualifications
-      if (this.currentStep === 2) {
-        // au moins une qualification
-        if (!this.formState.qualifications.length) {
-          return true;
-        }
+    //   if (this.currentStep === 2) {
+    //     // au moins une qualification
+    //     if (!this.formState.qualifications.length) {
+    //       return true;
+    //     }
 
-        // chaque qualification doit avoir une date_debut
-        return this.formState.qualifications.some(
-          (q) => !q.objet || !q.date_debut || !q.date_fin
-        );
-      }
+    //     // chaque qualification doit avoir une date_debut
+    //     return this.formState.qualifications.some(
+    //       (q) => !q.objet || !q.date_debut || !q.date_fin
+    //     );
+    //   }
 
 
       // Autres steps
@@ -207,10 +207,13 @@ export default {
         0: ["nom", "prenoms", "phone", "email"],
 
         // STEP 1 – Profil & compétences
-        1: ["myCompetence",'niveauEtude'],
+        1: ["myCompetence"],
+
+         // STEP 1 – Profil & compétences
+        2: ["niveauEtude"],
 
         // STEP 4 – Validation finale
-        2: ["upload", "password"],
+        3: ["upload", "password"],
       };
     },
     isCurrentStepValid() {
@@ -244,28 +247,28 @@ export default {
     nextStep() {
       console.log("this.currentStep",this.currentStep)
       // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
-      if (this.currentStep === 2) {
-        const invalid = this.formState.qualifications.some((q) => !q.objet);
+    //   if (this.currentStep === 2) {
+    //     const invalid = this.formState.qualifications.some((q) => !q.objet);
 
-        if (invalid) {
-          this.SWALPOPUP.declencheSwalPopup(
-            "warning",
-            "Chaque qualification doit avoir un titre"
-          );
-          return;
-        }
-      }
+    //     if (invalid) {
+    //       this.SWALPOPUP.declencheSwalPopup(
+    //         "warning",
+    //         "Chaque qualification doit avoir un titre"
+    //       );
+    //       return;
+    //     }
+    //   }
 
-        if (this.currentStep === 3) {
-          console.log("this.currentStep4",this.getFirstHeureStartFrom)
-        if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
-          this.SWALPOPUP.declencheSwalPopup(
-            "warning",
-            "Veuillez remplir les champs obligatoire"
-          );
-          return;
-        }
-      }
+    //     if (this.currentStep === 3) {
+    //       console.log("this.currentStep4",this.getFirstHeureStartFrom)
+    //     if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
+    //       this.SWALPOPUP.declencheSwalPopup(
+    //         "warning",
+    //         "Veuillez remplir les champs obligatoire"
+    //       );
+    //       return;
+    //     }
+    //   }
 
       if (this.currentStep !== 2 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
@@ -464,7 +467,8 @@ export default {
       title="Profil"
       description="Renseignez vos informations de base pour créer votre compte."
     />
-    <a-step title="Compétences" description="Sélectionnez vos compétences et ajoutez votre niveau d'etude." />
+    <a-step title="Compétences" description="Sélectionnez vos compétences." />
+    <a-step title="Qualifications" description="Ajoutez vos qualifications." />
     <a-step
       title="Validation finale"
       description="Ajoutez vos documents et confirmez votre inscription."
@@ -572,10 +576,10 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- STEP 1 -->
     <div v-show="currentStep === 1">
       <a-row :gutter="[16, 24]">
-        <a-col :xs="24" :md="12">
+        <a-col :xs="24" :md="24">
           <a-form-item
             :label="texte7"
             :rules="[{ required: true, message: 'Ajoutez au moins une compétence' }]"
@@ -590,7 +594,13 @@ export default {
             />
           </a-form-item>
         </a-col>
-        <a-col :xs="24" :md="12">
+       
+      </a-row>
+    </div>
+    <!-- STEP 2 -->
+    <div v-show="currentStep === 2">
+         <a-row :gutter="[16, 24]">
+         <a-col :xs="24" :md="12">
           <a-form-item
             :label="texte8"
             name="niveauEtude"
@@ -627,10 +637,15 @@ export default {
             <!-- <a-input v-model:value="formState.filiere" placeholder="Filière" /> -->
           </a-form-item>
         </a-col>
-      </a-row>
+         <a-col :xs="24" :md="12">
+          <RegisterQualifications 
+          :isRequired="false"
+          @update:modelValue="handleQualifications" />
+        </a-col>
+        </a-row>
     </div>
-    <!-- STEP 2 -->
-    <div v-show="currentStep === 2">
+    <!-- STEP 3 -->
+    <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -639,7 +654,6 @@ export default {
             </a-upload>
           </a-form-item>
         </a-col>
-
         <a-col :xs="24" :md="12">
           <a-form-item
             name="upload"
@@ -686,7 +700,7 @@ export default {
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
       <a-button
-        v-if="currentStep < 2"
+        v-if="currentStep < 3"
         type="primary"
         @click.prevent="nextStep"
         :disabled="isNextDisabled"
@@ -695,7 +709,7 @@ export default {
       </a-button>
 
       <a-button
-        v-if="currentStep === 2"
+        v-if="currentStep === 3"
         type="primary"
         html-type="submit"
         :disabled="!isCurrentStepValid || isPasswordDisabled"
