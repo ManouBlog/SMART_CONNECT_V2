@@ -610,7 +610,7 @@ export default {
                             ).toLocaleDateString()}`
                           }}
                         </h6>
-                        <span style="font-weight:bold;color:gray;" v-if="item.objet">
+                        <span style="font-weight:bold;color:gray;font-size:0.8em" v-if="item.objet">
                           Diplôme ou certification obtenue : {{ item.objet }}
                         </span>
                         <p class="text-start ms-2" v-if="item.detail">
@@ -648,7 +648,7 @@ export default {
 <style scoped>
 :deep(.n-dynamic-input-item){
 border-bottom:0.5px solid #d9d9d9; 
-padding: 1em 0;
+padding: 0 0 1em 0;
 }
 .input_class {
   width: 100%;
