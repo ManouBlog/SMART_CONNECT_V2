@@ -450,11 +450,11 @@ export default {
     <!-- STEP 1 -->
     <div v-show="currentStep === 0">
       <a-row :gutter="[16, 24]">
-        <!-- <a-col :xs="24" :md="12">
+        <a-col :xs="24" :md="12">
           <a-form-item label="Code de parrainage" name="code_ambassadeur">
             <a-input v-model:value="formState.code_ambassadeur" />
           </a-form-item>
-        </a-col> -->
+        </a-col>
 
         <a-col :xs="24" :md="12">
           <a-form-item
