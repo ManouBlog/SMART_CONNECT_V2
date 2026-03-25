@@ -52,7 +52,7 @@
         </template>
 
         <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
+          style="font-size: 1.3em; padding: 1em; text-align: center"
           field="created_at"
           :header="texte10"
         >
@@ -62,22 +62,22 @@
         </Column>
 
         <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
+          style="font-size: 1.3em; padding: 1em; text-align: center"
           field="abonement.libelle"
           :header="texte4"
         />
         <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
+          style="font-size: 1.3em; padding: 1em; text-align: center"
           field="montant"
           :header="texte5"
         />
         <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
+          style="font-size: 1.3em; padding: 1em; text-align: center"
           field="echeance"
           :header="texte6"
         />
         <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
+          style="font-size: 1.3em; padding: 1em; text-align: center"
           field="statut"
           :header="texte7"
         >
