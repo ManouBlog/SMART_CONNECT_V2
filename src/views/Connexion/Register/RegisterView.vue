@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import RegsiterStudents from "./features/students/RegsiterStudents.vue";
 import RegsiterEntreprise from "./features/Entreprises/RegsiterEntreprise.vue";
 import RegisterParticulier from "./features/particulier/RegisterParticulier.vue";
+import RegisterArtisans from './features/Artisans/RegisterArtisans.vue'
 import RegisterProfessionels from './features/profesionnels/RegisterProfessionels.vue'
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
@@ -12,7 +13,8 @@ export default {
     RegsiterStudents,
     RegsiterEntreprise,
     RegisterParticulier,
-    RegisterProfessionels
+    RegisterProfessionels,
+    RegisterArtisans
   },
   data() {
     return {
@@ -96,5 +98,6 @@ export default {
     <RegsiterEntreprise v-if="value1 === 'entreprise'" />
     <RegisterProfessionels v-if="value1 === 'professionnels'"  />
     <RegisterParticulier v-if="value1 === 'particulier'" />
+    <RegisterArtisans  v-if="value1 === 'artisans'"  />
   </a-form>
 </template>
