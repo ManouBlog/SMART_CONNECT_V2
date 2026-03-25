@@ -235,16 +235,14 @@ export default {
                   <LiensNavBar
                     v-if="
   this.$store.state.user &&
-  [
-    'etudiant',
-    'professionnel',
-    'artisan',
-    'veteran'
-  ].includes(this.$store.state.user.user.statut.statut)
+  ( this.$store.state.user.user.statut.statut === 'etudiant' ||
+    this.$store.state.user.user.statut.statut === 'professionnel' ||
+    this.$store.state.user.user.statut.statut === 'artisan' ||
+    this.$store.state.user.user.statut.statut === 'veteran')
 "
                     :texte="texte2"
                     :route_lien="'jobs'"
-                    :statut_user="'etudiant'"
+                    :statut_user="'etudiant' || 'professionnel' || 'artisan' || 'veteran'"
                     :isNeedConnection="true"
                   />
 
