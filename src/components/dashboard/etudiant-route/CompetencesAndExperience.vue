@@ -403,33 +403,33 @@ export default {
         </div>
         <form @submit.prevent="saveExperience">
           <div class="row p-5 mt-3">
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>
                 <span style="color:red">*</span>
                 {{texte1}}</label>
               <input  type="text" style="padding:1em" v-model="poste" required />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label><span style="color:red;">*</span>{{texte2}}</label>
               <input type="text"  style="padding:1em" v-model="entreprise" required />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label><span style="color:red;">*</span>{{texte3}}</label>
               <input type="text" style="padding:1em" v-model="lieu" required />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label><span style="color:red;">*</span>{{texte4}}</label>
               <input type="date" style="padding:1em" v-model="dateDebut" required />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>{{texte5}}</label>
               <input type="date" style="padding:1em" v-model="dateFin" :min="dateDebut" required />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>{{texte6}}</label>
               <input type="file" style="padding:1em" accept="image/*" @change="onFileProof" />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>{{texte7}}</label>
               <textarea name="expereience" id="experience" cols="20" v-model="experience" rows="10"></textarea>
             </div>
@@ -452,7 +452,7 @@ export default {
         </div>
         <form @submit.prevent="changeExperience">
           <div class="row p-2">
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
               <label>{{texte10}}</label>
               <input
                 type="text"
@@ -462,7 +462,7 @@ export default {
                 style="padding:1em"
               />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
               <label>{{texte11}}</label>
               <input
                 type="text"
@@ -472,7 +472,7 @@ export default {
                 style="padding:1em"
               />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
               <label>{{texte12}}</label>
               <input
                 type="text"
@@ -482,13 +482,13 @@ export default {
                 style="padding:1em"
               />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
               <label>{{texte4}}</label>
               <input type="date"
               style="padding:1em"
               v-model="updateExperience.dateDebut" required />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
               <label>{{texte5}}</label>
               <input
                 type="date"
@@ -499,7 +499,7 @@ export default {
                 style="padding:1em"
               />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
               <div v-if="updateExperience.proof">
                 <label class="d-block">{{texte13}}</label>
                 <n-image width="200" :src="lienPhoto + updateExperience.proof" />
@@ -513,7 +513,7 @@ export default {
                 style="padding:1em"
               />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-6 text-start">
+            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
               <label>{{texte15}}</label>
               <textarea
                 name="description"
