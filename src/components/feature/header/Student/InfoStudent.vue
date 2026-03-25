@@ -116,7 +116,7 @@ export default {
       await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
-          // console.log("voirInfoUserConnect",resp);
+          console.log("voirInfoUserConnect",resp);
           if (resp.data.status === true) {
             this.user = resp.data.user;
           }

@@ -317,14 +317,10 @@ export default {
                     "
                   />
                   <div
-                    v-if="
-  this.$store.state.user &&
-  [
-    'etudiant',
-    'professionnel',
-    'artisan',
-    'veteran'
-  ].includes(this.$store.state.user.user.statut.statut)
+                     v-if="this.$store.state.user && (this.$store.state.user.user.statut.statut === 'etudiant' ||
+    this.$store.state.user.user.statut.statut === 'professionnel' ||
+    this.$store.state.user.user.statut.statut === 'artisan' ||
+    this.$store.state.user.user.statut.statut === 'veteran')
 "
                     class="login_user"
                   >
