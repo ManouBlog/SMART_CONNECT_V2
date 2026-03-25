@@ -95,6 +95,7 @@ export default {
       texte19: "",
       texte96: "",
      niveauEtude:"",
+  
      filiere:"",
       configUtils,
       SWALPOPUP: useSwalPopup(),
@@ -125,6 +126,7 @@ export default {
         uploadPhotoProfil: [],
         email: "",
         password: "",
+        niveauExpertise:"avance",
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
