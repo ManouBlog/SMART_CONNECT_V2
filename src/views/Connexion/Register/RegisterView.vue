@@ -4,6 +4,7 @@ import RegsiterStudents from "./features/students/RegsiterStudents.vue";
 import RegsiterEntreprise from "./features/Entreprises/RegsiterEntreprise.vue";
 import RegisterParticulier from "./features/particulier/RegisterParticulier.vue";
 import RegisterArtisans from './features/Artisans/RegisterArtisans.vue'
+import RegisterVeterans from './features/Veterans/RegisterVeterans.vue'
 import RegisterProfessionels from './features/profesionnels/RegisterProfessionels.vue'
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
@@ -14,7 +15,8 @@ export default {
     RegsiterEntreprise,
     RegisterParticulier,
     RegisterProfessionels,
-    RegisterArtisans
+    RegisterArtisans,
+    RegisterVeterans
   },
   data() {
     return {
@@ -99,5 +101,6 @@ export default {
     <RegisterProfessionels v-if="value1 === 'professionnels'"  />
     <RegisterParticulier v-if="value1 === 'particulier'" />
     <RegisterArtisans  v-if="value1 === 'artisans'"  />
+    <RegisterVeterans  v-if="value1 === 'vétérans'"  />
   </a-form>
 </template>
