@@ -648,6 +648,7 @@ export default {
 <template>
   <div class="page-body position-relative mt-3">
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
+
     <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
       <div class="card p-5">
         <p class="h3 my-2" style="color: black">{{ texte1 }}</p>
