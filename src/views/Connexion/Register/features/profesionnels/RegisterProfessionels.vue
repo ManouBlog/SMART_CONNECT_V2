@@ -176,7 +176,7 @@ export default {
         0: ["nom", "prenoms", "phone", "email"],
 
         // STEP 1 – Profil & compétences
-        1: ["myCompetence"],
+        1: ["myCompetence","niveauExpertise"],
 
         // STEP 2 – Qualifications
         2: ["qualifications", "niveauEtude", "filiere"],
