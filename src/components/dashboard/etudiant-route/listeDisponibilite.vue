@@ -858,7 +858,7 @@ export default {
                   <i class="pi pi-search" />
                 </InputIcon>
                 <InputText
-                  style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                  style="width: 300px; font-size: 1.3em; border: 2px solid orange"
                   v-model="filters['global'].value"
                   placeholder="Recherche:"
                 />
@@ -866,7 +866,7 @@ export default {
             </div>
           </template>
           <Column
-            style="font-size: 1.8em; padding: 1em; text-align: center"
+            style="font-size: 1.3em; padding: 0.6em; text-align: center"
             field="jour"
             :header="texte24"
           >
@@ -880,7 +880,7 @@ export default {
             </template>
           </Column>
           <Column
-            style="font-size: 1.8em; padding: 1em; text-align: center"
+            style="font-size: 1.3em; padding: 0.6em; text-align: center"
             field="First_horaire"
             :header="texte15"
           >
@@ -897,7 +897,7 @@ export default {
             </template>
           </Column>
           <Column
-            style="font-size: 1.8em; padding: 1em; text-align: center"
+            style="font-size: 1.3em; padding: 0.6em; text-align: center"
             field="Second_horaire"
             :header="texte16"
           >
@@ -909,7 +909,7 @@ export default {
             </template>
           </Column>
           <Column
-            style="font-size: 1.8em; padding: 1em; text-align: center"
+            style="font-size: 1.3em; padding: 0.6em; text-align: center"
             field="statut"
             :header="texte18"
           >
@@ -968,7 +968,7 @@ export default {
                   <i class="pi pi-search" />
                 </InputIcon>
                 <InputText
-                  style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                  style="width: 300px; font-size: 1.3em; border: 2px solid orange"
                   v-model="filters['global'].value"
                   placeholder="Recherche:"
                 />
@@ -976,7 +976,7 @@ export default {
             </div>
           </template>
           <!-- <Column
-          style="font-size: 1.8em; padding: 1em; text-align: center"
+          style="font-size: 1.3em; padding: 0.6em; text-align: center"
           field="jour"
           :header="'Période'"
         >
@@ -990,7 +990,7 @@ export default {
           </template>
         </Column> -->
           <Column
-            style="font-size: 1.8em; padding: 1em; text-align: center"
+            style="font-size: 1.3em; padding: 0.6em; text-align: center"
             field="First_horaire"
             :header="'Période'"
           >
@@ -1007,7 +1007,7 @@ export default {
             </template>
           </Column>
           <Column
-            style="font-size: 1.8em; padding: 1em; text-align: center"
+            style="font-size: 1.3em; padding: 0.6em; text-align: center"
             field="statut"
             :header="texte18"
           >
@@ -1335,7 +1335,7 @@ td {
   /* Modal overlay */
   .plan-modify,
   .delete_article {
-    padding: 1em;
+    padding: 0.6em;
     justify-content: center;
     overflow-y: auto;
   }
