@@ -510,7 +510,7 @@ export default {
     this.texte13 = "Modifier";
     this.texte14 = "Nouvelle disponibilitée";
     this.texte15 = "Premiere Plage Horaire";
-    this.texte16 = "Seconde Plage Horaire";
+    this.texte16 = "Deuxième sélection";
     this.texte17 = "Néant";
     this.texte18 = "Actions";
     this.texte19 = "Détails";

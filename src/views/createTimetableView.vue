@@ -196,7 +196,7 @@ export default {
     <div class="Myspinner" v-show="spinner">
       <div class="spinner-border text-primary" role="status"></div>
     </div>
-    <div class="page-body position-relative">
+    <div class="page-body position-relative" @click.self="not_delete">
       <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
         <div class="card p-5">
           <p class="h3 my-2" style="color: black">Voulez-vous vraiment supprimer?</p>
@@ -206,7 +206,7 @@ export default {
           </div>
         </div>
       </div>
-      <div class="ecran" v-if="modify_timetable">
+      <div class="ecran" v-if="modify_timetable" @click.self="show_modify">
         <div class="modify_form plan-modify" v-if="timetable_show_id">
           <div class="container">
             <div class="row">

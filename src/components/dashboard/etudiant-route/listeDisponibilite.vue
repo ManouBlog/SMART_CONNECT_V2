@@ -623,7 +623,7 @@ export default {
     this.texte3 = await this.handleTranslate(`Annuler`);
     this.texte4 = await this.handleTranslate("Modifier l'emploi du temps");
     this.texte5 = await this.handleTranslate("+ Ajouter une date");
-    this.texte6 = await this.handleTranslate("Premier plage horaire");
+    this.texte6 = await this.handleTranslate("Première sélection");
     this.texte7 = await this.handleTranslate(`Heure de début`);
     this.texte8 = await this.handleTranslate(`Heure de fin`);
     this.texte9 = await this.handleTranslate(`Deuxième sélection`);
@@ -632,8 +632,8 @@ export default {
     this.texte12 = await this.handleTranslate("Heure de fin");
     this.texte13 = await this.handleTranslate("Modifier");
     this.texte14 = await this.handleTranslate("Nouvelle disponibilitée");
-    this.texte15 = await this.handleTranslate("Premiere Plage Horaire");
-    this.texte16 = await this.handleTranslate("Seconde Plage Horaire");
+    this.texte15 = await this.handleTranslate("Première sélection");
+    this.texte16 = await this.handleTranslate("Deuxième sélection");
     this.texte17 = await this.handleTranslate("Néant");
     this.texte18 = await this.handleTranslate("Actions");
     this.texte19 = await this.handleTranslate("Détails");
@@ -649,7 +649,9 @@ export default {
   <div class="page-body position-relative mt-3">
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
 
-    <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
+    <div class="ecran_for_delete delete_article"
+    @click.self="not_delete"
+    v-show="confirmation_for_delete">
       <div class="card p-5">
         <p class="h3 my-2" style="color: black">{{ texte1 }}</p>
         <div style="display: flex; justify-content: center; gap: 1em">
@@ -663,7 +665,7 @@ export default {
       </div>
     </div>
     <div class="ecran" v-if="modify_timetable">
-      <div class="modify_form plan-modify" v-if="timetable_show_id">
+      <div class="modify_form plan-modify" v-if="timetable_show_id"  @click.self="show_modify">
         <div class="container">
           <div class="row">
             <div class="col-lg-12 modify-form">
@@ -780,7 +782,7 @@ export default {
                       </div>
                       <div class="row">
                         <div class="col">
-                          <div class="text-end">
+                          <div class="text-center my-4">
                             <button
                               @click.prevent="update_timetable"
                               class="btn bg-warning mx-1"
@@ -1249,7 +1251,7 @@ td {
   width: 100%;
   height: 100%;
   z-index: 9999;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.272);
   display: flex;
   place-items: center;
   justify-content: center;
