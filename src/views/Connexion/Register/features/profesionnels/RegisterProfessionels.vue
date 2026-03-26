@@ -29,6 +29,11 @@ export default {
   { value: "diplome_en_activite", label: "Diplômé en activité" },
   { value: "consultant", label: "Consultant" },
 ],
+valueModeDeTravail: [
+  { value: "onsite", label: "Présentiel" },
+  { value: "remote", label: "Télétravail" },
+  { value: "hybrid", label: "Hybride" }
+],
 //  SCHOOL_KEYWORDS :[
 //   // Carte étudiante (formes tolérantes OCR)
 //   'carte etudiant',
@@ -120,6 +125,7 @@ export default {
         myCompetence: [],
         photo: null,
         upload: [],
+        modeTravail:"",
         niveauExpertise:"",
         bio: "",
         statutId:5,
@@ -165,6 +171,15 @@ export default {
         );
       }
 
+       if (this.currentStep === 3) {
+        // au moins une qualification
+        if (!this.formState.modeTravail) {
+          return true;
+        }
+
+     
+      }
+
 
       // Autres steps
       return !this.isCurrentStepValid;
@@ -180,6 +195,10 @@ export default {
 
         // STEP 2 – Qualifications
         2: ["qualifications", "niveauEtude", "filiere","niveauExpertise"],
+
+        
+        // STEP 2 – Qualifications
+        3: ["modeTravail"],
 
         // STEP 4 – Validation finale
         4: ["upload", "password"],
@@ -440,7 +459,10 @@ export default {
       title="Qualifications"
       description="Ajoutez vos qualifications pour valoriser votre profil."
     />
-   
+    <a-step
+      title="Mode de travail"
+      description="Séléctionnez un mode de travail."
+    />
     <a-step
       title="Validation finale"
       description="Ajoutez vos documents et confirmez votre inscription."
@@ -453,7 +475,7 @@ export default {
     @finish="onFinish"
     @finishFailed="onFinishFailed"
   >
-    <!-- STEP 1 -->
+    <!-- STEP 0 -->
     <div v-show="currentStep === 0">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
@@ -548,7 +570,7 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- STEP 1 -->
     <div v-show="currentStep === 1">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
@@ -570,7 +592,7 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 3 -->
+    <!-- STEP 2 -->
     <div v-show="currentStep === 2">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
@@ -594,6 +616,35 @@ export default {
             </a-select>
             
           </a-form-item>
+          <!-- <a-form-item
+            label="Filière"
+            name="filiere"
+            :rules="[{ required: true, message: texte13 }]"
+          >
+            <a-input v-model:value="formState.filiere" placeholder="Ajoutez votre filière" />
+            </a-form-item> -->
+        </a-col>
+        <a-col :xs="24" :md="12">
+          <!-- <a-form-item
+            :label="texte8"
+            name="niveauEtude"
+            :rules="[{ required: true, message: texte13 }]"
+          >
+            <a-select
+              style="margin:1em 0"
+              v-model:value="formState.niveauEtude"
+              placeholder="Sélectionnez un diplôme"
+            >
+              <a-select-option
+                v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
+                :key="item.value"
+                :value="item.value"
+              >
+                {{ item.value }}
+              </a-select-option>
+            </a-select>
+            
+          </a-form-item> -->
           <a-form-item
             label="Filière"
             name="filiere"
@@ -602,9 +653,33 @@ export default {
             <a-input v-model:value="formState.filiere" placeholder="Ajoutez votre filière" />
             </a-form-item>
         </a-col>
+         <!-- <a-col :xs="24" :md="12">
+           <a-form-item
+            :label="'Mode de travail'"
+            :rules="[{ required: true, message: 'Ajoutez  votre mode de travail' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.modeTravail"
+    placeholder="Sélectionnez votre mode de travail"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in valueModeDeTravail"
+      :key="item.value"
+      :value="item.value"
+      :label="item.label"
+    >
+      {{ item.label }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col> -->
           <a-col :xs="24" :md="12">
             <a-form-item
             :label="'Niveau de carrière'"
+            :rules="[{ required: true, message: 'Ajoutez  votre niveau de carrière' }]"
           >
             <a-select
             style="width: 100%;"
@@ -622,7 +697,7 @@ export default {
       {{ item.label }}
     </a-select-option>
   </a-select>
-   </a-form-item>
+            </a-form-item>
         </a-col> 
         <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />
@@ -631,8 +706,38 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 5 -->
+    <!-- STEP 3 -->
     <div v-show="currentStep === 3">
+      <a-row :gutter="[16, 24]">
+         <a-col :xs="24" :md="24">
+           <a-form-item
+            :label="'Mode de travail'"
+            :rules="[{ required: true, message: 'Ajoutez  votre mode de travail' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.modeTravail"
+    placeholder="Sélectionnez votre mode de travail"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in valueModeDeTravail"
+      :key="item.value"
+      :value="item.value"
+      :label="item.label"
+    >
+      {{ item.label }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col>
+       
+      </a-row>
+    </div>
+
+    <!-- STEP 4 -->
+    <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -687,7 +792,7 @@ export default {
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
       <a-button
-        v-if="currentStep < 3"
+        v-if="currentStep < 4"
         type="primary"
         @click.prevent="nextStep"
         :disabled="isNextDisabled"
@@ -696,7 +801,7 @@ export default {
       </a-button>
 
       <a-button
-        v-if="currentStep === 3"
+        v-if="currentStep === 4"
         type="primary"
         html-type="submit"
         :disabled="!isCurrentStepValid || isPasswordDisabled"
