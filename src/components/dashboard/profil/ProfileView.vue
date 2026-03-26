@@ -489,7 +489,7 @@ export default {
                 { libelle: texte5, value: this.$store.state.infoUserConnected.phone },
                 { libelle: texte13, value: this.$store.state.infoUserConnected.diplome ?? 'Pas de diplome' },
                 { libelle: this.$store.state.infoUserConnected.user.statut.statut != 'etudiant' ? 'Niveau de carrière':null, value: this.$store.state.infoUserConnected.niveauExpertise ?? '' },
-                { libelle: 'code parrainage', value: this.$store.state.infoUserConnected.user.code_ambassadeur ?? 'Pas de code' },
+                { libelle: this.$store.state.infoUserConnected.user.code_ambassadeur ? 'code parrainage':null , value: this.$store.state.infoUserConnected.user.code_ambassadeur ?? null },
                 {
                   libelle: 'Carte étudiant',
                   value: this.$store.state.infoUserConnected.user.photos,
