@@ -25,9 +25,9 @@ export default {
  rawText : '',
  result : null,
  valueExpertise: [
-  { value: "diplome", label: "Diplômé" },
-  { value: "diplome_en_activite", label: "Diplômé en activité" },
-  { value: "consultant", label: "Consultant" },
+  { value: "Diplômé", label: "Diplômé" },
+  { value: "Diplômé en activite", label: "Diplômé en activité" },
+  { value: "Consultant", label: "Consultant" },
 ],
 valueModeDeTravail: [
   { value: "onsite", label: "Présentiel" },
