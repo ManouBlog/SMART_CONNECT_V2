@@ -34,6 +34,12 @@ export default {
       texte2: "",
       texte3: "",
       texte1: "",
+      documentLabels : {
+  etudiant: "Carte étudiant",
+  professionnel: "Diplôme",
+  artisan: "CNI",
+  veteran: "Attestation de travail"
+},
       texte4: "",
       texte5: "",
       texte6: "",
@@ -491,7 +497,7 @@ export default {
                 { libelle: this.$store.state.infoUserConnected.user.statut.statut != 'etudiant' ? 'Niveau de carrière':null, value: this.$store.state.infoUserConnected.niveauExpertise ?? '' },
                 { libelle: this.$store.state.infoUserConnected.user.code_ambassadeur ? 'code parrainage':null , value: this.$store.state.infoUserConnected.user.code_ambassadeur ?? null },
                 {
-                  libelle: 'Carte étudiant',
+                  libelle: documentLabels[this.$store.state.infoUserConnected?.user?.statut?.statut],
                   value: this.$store.state.infoUserConnected.user.photos,
                 },
               ]"

@@ -313,7 +313,10 @@ export default {
                 item.value !== 'null' &&
                 item.value !== 'undefined' &&
                 item.libelle !== 'Pièce d\'identité' &&
-                item.libelle !== 'Carte étudiant'
+                item.libelle !== 'Carte étudiant' &&
+                item.libelle !== 'Diplôme' &&
+                item.libelle !== 'CNI' &&
+                item.libelle !== 'Attestation de travail'
               "
               class="fw-bold"
             >
@@ -321,14 +324,17 @@ export default {
             </h6>
             <div
               v-if="
-                item.libelle === 'Pièce d\'identité' ||
-                item.libelle === 'Carte étudiant'
+                item.libelle === 'Pièce d\'identité' || 
+                item.libelle === 'Carte étudiant' ||
+                item.libelle === 'Diplôme' ||
+                item.libelle === 'CNI' ||
+                item.libelle === 'Attestation de travail'
               "
               style="display: flex; justify-content: flex-start; gap: 1em"
             >
               <section v-for="(element, index) in item.value" :key="index">
                 <div>
-                  <div v-if="Help.splitFilename(element.path) === 'pdf'">
+                  <div v-if="Help.splitFilename(element?.path) === 'pdf'">
                     <n-button type="warning" @click="showModal = true">
                       Voir la carte étudiant.
                     </n-button>

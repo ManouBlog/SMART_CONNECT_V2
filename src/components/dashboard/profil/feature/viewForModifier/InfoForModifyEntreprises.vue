@@ -19,6 +19,12 @@ export default {
       lienPhoto: lienPhoto,
       StoreLoading: useLoadingSpinner(),
       itemsQualificationDynamicInput: [],
+      documentLabels : {
+  etudiant: "Nouvelle carte d'étudiant",
+  professionnel: "Copie du diplôme",
+  artisan: "Copie de la CNI",
+  veteran: "Attestation de travail"
+},
       placeholderDynamicInput: ["05-02-2020", "05-03-2025"],
       westAfricaCodes: [
         { label: "Bénin", value: "+229" },
@@ -435,6 +441,13 @@ export default {
       <div class="col-md-12">
         <div class="my-3">
           <label for="add_file">
+  {{
+    documentLabels[
+      this.$store.state.infoUserConnected?.user?.statut?.statut
+    ] || "Nouvelle pièce du gérant (jpg,png)"
+  }}
+</label>
+          <!-- <label for="add_file">
             {{
               this.$store.state.infoUserConnected && (
   this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
@@ -444,7 +457,7 @@ export default {
                 ? "Nouvelle carte étudiant"
                 : "Nouvelle pièce du gérant (jpg,png,webp,pdf)"
             }}</label
-          >
+          > -->
           <input
             type="file"
             multiple
