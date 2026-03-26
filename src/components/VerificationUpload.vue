@@ -1,75 +1,75 @@
 <template>
-  <div class="container p-3 border rounded bg-light">
-    <a-form :layout="'vertical'">
-      <!-- Sélect profil (Ant Design) -->
-      <a-form-item label="Sélectionnez votre profil">
-        <a-select v-model="selectedProfil" placeholder="Choisir un profil" @change="onProfilChange">
-          <a-select-option v-for="(label, key) in profils" :key="key" :value="key">
-            {{ label }}
-          </a-select-option>
-        </a-select>
-      </a-form-item>
+  <div class="p-3 border rounded">
+    <a-form layout="vertical">
 
       <!-- Upload document -->
-      <a-form-item v-if="config.label" :label="config.label">
+      <a-form-item v-if="isValidProfil && config?.label" :label="config?.label">
         <input 
           type="file" 
-          class="form-control" 
-          :accept="config.accepted.join(',')"
+          :accept="acceptString"
           @change="handleFileChange"
         />
-        <small class="form-text text-muted">{{ config.description }}</small>
+        <small class="form-text text-muted">
+          {{ config.description }}
+        </small>
       </a-form-item>
 
-      <!-- Aperçu du fichier -->
+
+
+      <!-- Aperçu fichier -->
       <div v-if="fileName" class="mt-2">
         <span class="badge bg-primary">
-          <i class="bi bi-file-earmark-fill me-1"></i> {{ fileName }}
+          <i class="bi bi-file-earmark-fill me-1"></i>
+          {{ fileName }}
         </span>
       </div>
 
-      <!-- Bouton soumettre -->
+      <!-- Bouton -->
       <a-form-item class="mt-3">
-        <button class="btn btn-success" :disabled="!file || !selectedProfil" @click="submitRequest">
+        <button 
+          type="button"
+          class="btn btn-success"
+          :disabled="!canSubmit"
+          @click="submitRequest"
+        >
           Soumettre la demande
         </button>
       </a-form-item>
 
       <!-- Statut -->
       <div v-if="status" class="mt-2">
-        <span 
-          class="badge" 
-          :class="statusClass"
-        >
+        <span class="badge" :class="statusClass">
           <i v-if="status === 'approved'" class="bi bi-patch-check-fill me-1"></i>
           {{ statusMessage }}
         </span>
       </div>
+
     </a-form>
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import { message } from 'ant-design-vue';
+import { computed, ref, defineProps, watch } from 'vue'
+import { message } from 'ant-design-vue'
 
-const profils = {
-  diplome: "Diplômé",
-  consultant: "Consultant",
-  artisan: "Artisan",
-  veteran: "Veteran"
-};
+/**
+ * PROPS
+ */
+const props = defineProps({
+  userProfil: {
+    type: String,
+    required: true
+  }
+})
 
+/**
+ * CONFIG
+ */
 const verificationConfig = {
-  diplome: {
+  professionnel: {
     label: "Téléverser votre diplôme",
     accepted: ["pdf", "jpg", "png"],
     description: "Diplôme ou attestation de réussite"
-  },
-  consultant: {
-    label: "Téléverser votre preuve d’expérience",
-    accepted: ["pdf", "jpg", "png"],
-    description: "Attestation de travail ou certification"
   },
   artisan: {
     label: "Téléverser votre CNI et certificat métier",
@@ -81,70 +81,118 @@ const verificationConfig = {
     accepted: ["pdf", "jpg", "png"],
     description: "Attestation de fonction ou lettre officielle"
   }
-};
+}
 
-const selectedProfil = ref(null);
-const file = ref(null);
-const fileName = ref('');
-const status = ref(''); // pending / approved / rejected
+/**
+ * STATE
+ */
+const file = ref(null)
+const fileName = ref('')
+const status = ref('') // pending, approved, rejected...
 
+/**
+ * COMPUTED
+ */
+
+// Vérifie si profil valide
+const isValidProfil = computed(() => {
+  console.log("props.userProfil",props.userProfil)
+  return Object.keys(verificationConfig).includes(props.userProfil)
+})
+
+// Config dynamique
 const config = computed(() => {
-  return verificationConfig[selectedProfil.value] || {};
-});
+  return verificationConfig[props.userProfil] || {}
+})
 
-const onProfilChange = () => {
-  file.value = null;
-  fileName.value = '';
-  status.value = '';
-};
+// Accept string pour input file
+const acceptString = computed(() => {
+  return config.value.accepted?.map(ext => `.${ext}`).join(',') || ''
+})
 
-const handleFileChange = (event) => {
-  if (event.target.files.length) {
-    file.value = event.target.files[0];
-    fileName.value = file.value.name;
-  } else {
-    file.value = null;
-    fileName.value = '';
-  }
-};
+// Peut soumettre ?
+const canSubmit = computed(() => {
+  return file.value && isValidProfil.value
+})
 
-const submitRequest = async () => {
-  if (!file.value || !selectedProfil.value) {
-    message.error("Veuillez sélectionner un profil et un fichier.");
-    return;
-  }
-
-  // Simule l'upload
-  status.value = 'pending';
-  message.success("Demande soumise, en attente de validation.");
-
-  // TODO: ici, POST vers ton API Laravel
-  // axios.post('/api/verification-request', { type: selectedProfil.value, file: file.value })
-  //   .then(res => status.value = 'under_review')
-  //   .catch(err => message.error('Erreur lors de la soumission'));
-};
-
+// Classe statut
 const statusClass = computed(() => {
-  switch (status.value) {
-    case 'pending': return 'bg-warning text-dark';
-    case 'under_review': return 'bg-info text-white';
-    case 'approved': return 'bg-success text-white';
-    case 'rejected': return 'bg-danger text-white';
-    default: return 'bg-secondary text-white';
+  return {
+    'bg-warning text-dark': status.value === 'pending',
+    'bg-info text-white': status.value === 'under_review',
+    'bg-success text-white': status.value === 'approved',
+    'bg-danger text-white': status.value === 'rejected'
   }
-});
+})
 
+// Texte statut
 const statusMessage = computed(() => {
-  switch (status.value) {
-    case 'pending': return 'En attente';
-    case 'under_review': return 'En cours d’analyse';
-    case 'approved': return 'Validé';
-    case 'rejected': return 'Rejeté';
-    default: return '';
+  const map = {
+    pending: 'En attente',
+    under_review: 'En cours d’analyse',
+    approved: 'Validé',
+    rejected: 'Rejeté'
   }
-});
-</script>
+  return map[status.value] || ''
+})
 
-<style scoped>
-.me-1 { margin-right: 0.25rem; }
-</style>
+/**
+ * METHODS
+ */
+
+// Gestion fichier
+const handleFileChange = (event) => {
+  const f = event.target.files[0]
+
+  if (!f) {
+    file.value = null
+    fileName.value = ''
+    return
+  }
+
+  // Validation extension
+  const ext = f.name.split('.').pop().toLowerCase()
+  if (!config.value.accepted.includes(ext)) {
+    message.error("Format de fichier non autorisé")
+    return
+  }
+
+  file.value = f
+  fileName.value = f.name
+}
+
+// Submit
+const submitRequest = async () => {
+  if (!canSubmit.value) {
+    message.error("Formulaire invalide")
+    return
+  }
+
+  try {
+    status.value = 'pending'
+
+    // Simule API
+    await new Promise(resolve => setTimeout(resolve, 1000))
+
+    message.success("Demande envoyée avec succès")
+
+    // Exemple Laravel
+    // const formData = new FormData()
+    // formData.append('type', props.userProfil)
+    // formData.append('file', file.value)
+    // await axios.post('/api/verification-request', formData)
+
+  } catch (e) {
+    message.error("Erreur lors de l'envoi")
+  }
+}
+
+/**
+ * WATCH (reset si profil change)
+ */
+watch(() => props.userProfil, () => {
+  file.value = null
+  fileName.value = ''
+  status.value = ''
+})
+</script>

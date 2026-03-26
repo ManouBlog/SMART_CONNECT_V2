@@ -190,18 +190,20 @@ export default {
 
 <template>
   <section>
-    <div v-if="isLoading">
-      <h1 style="text-align: center">Chargement...</h1>
-    </div>
      <!-- Modal de certification -->
-    <n-modal v-model:show="showModalBadgeVerifi" style="width:90%" preset="card" :closable="false">
+    <n-modal v-model:show="showModalBadgeVerifi" style="width:auto" preset="card" :closable="false">
       <template #header>
         <div class="modal-header">
           <h3>Badge de Vérification</h3>
         </div>
       </template>
-      <VerificationUpload />
+      <VerificationUpload 
+      :userProfil="user?.user?.statut?.statut"
+      />
     </n-modal>
+    <div v-if="isLoading">
+      <h1 style="text-align: center">Chargement...</h1>
+    </div>
     <a-card
       v-if="user"
       style="
