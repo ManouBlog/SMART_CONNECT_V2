@@ -92,7 +92,7 @@ export const useRegisterStore = defineStore('register', {
             data.append("periode", payload?.periode);
             data.append("code_ambassadeur", payload?.code_ambassadeur);
           }
-          if(payload?.statutId == 6){
+          if(payload?.statutId == 6 || payload?.statutId == 5){
             data.append("niveauExpertise", payload?.niveauExpertise);
           }
           data.append("prenoms", payload?.prenoms);

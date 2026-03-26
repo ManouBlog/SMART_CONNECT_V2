@@ -228,16 +228,16 @@ export default {
         }
       }
 
-        if (this.currentStep === 3) {
-          console.log("this.currentStep4",this.getFirstHeureStartFrom)
-        if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
-          this.SWALPOPUP.declencheSwalPopup(
-            "warning",
-            "Veuillez remplir les champs obligatoire"
-          );
-          return;
-        }
-      }
+      //   if (this.currentStep === 3) {
+      //     console.log("this.currentStep4",this.getFirstHeureStartFrom)
+      //   if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
+      //     this.SWALPOPUP.declencheSwalPopup(
+      //       "warning",
+      //       "Veuillez remplir les champs obligatoire"
+      //     );
+      //     return;
+      //   }
+      // }
 
       if (this.currentStep !== 2 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
