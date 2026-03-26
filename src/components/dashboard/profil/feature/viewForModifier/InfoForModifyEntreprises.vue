@@ -74,7 +74,7 @@ export default {
         this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
         // console.log("COMPANY_INFOS",resp.data.user) 
         }
-        if(statutUser === 'etudiant'){
+        if(statutUser === 'etudiant' || statutUser === 'professionnel' || statutUser === 'artisan' || statutUser === 'veteran'){
           resp.data.user.qualifications.map(item=>{
             return {
               date_debut:item.date_debut.split(' ')[0],
@@ -244,7 +244,13 @@ export default {
       </div>
       <div
         class="col-md-12"
-        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
+        v-if='this.$store.state.infoUserConnected && (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
+)
+        '
       >
         <div class="mb-3">
           <label class="form-label">Prénoms</label>
@@ -286,7 +292,13 @@ export default {
   
       <div
         class="col-md-12"
-        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
+        v-if='this.$store.state.infoUserConnected && (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
+)
+        '
       >
         <div class="mb-3">
           <label class="form-label">Contact</label>
@@ -334,7 +346,13 @@ export default {
           <input v-model="this.$store.state.infoUserConnected.quartier" class="form-control" type="text" />
         </div>
       </div>
-      <section v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'">
+      <section v-if='this.$store.state.infoUserConnected && (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
+)
+        '>
         <!-- <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Compétences</label>
@@ -370,10 +388,16 @@ export default {
           </div>
         </div>
       </section>
-      <section v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'">
+      <section v-if='this.$store.state.infoUserConnected && (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
+)
+        '>
         <div class="col-md-12">
           <div class="mb-3">
-            <label class="form-label">Bio (max 300 caractères)</label>
+            <label class="form-label">Biographie – résumé de votre profil (max 300 caractères)</label>
             <textarea
               id="msg"
               name="msg"
@@ -412,7 +436,11 @@ export default {
         <div class="my-3">
           <label for="add_file">
             {{
-              this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "etudiant"
+              this.$store.state.infoUserConnected && (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran" )
                 ? "Nouvelle carte étudiant"
                 : "Nouvelle pièce du gérant (jpg,png,webp,pdf)"
             }}</label
@@ -428,7 +456,13 @@ export default {
       </div>
       <!-- <div
         class="col-md-12"
-        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'"
+        v-if='this.$store.state.infoUserConnected && (
+  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
+  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
+)
+        '
       >
         <div class="my-3">
           <label class="form-label">Qualifications</label>

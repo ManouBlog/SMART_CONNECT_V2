@@ -299,8 +299,7 @@ export default {
           >
             <p style="color: orange; font-weight: bold"
             v-if="
-                item.libelle !== null ||
-                item.value !== null
+                item.libelle !== null 
               "
             >{{ item.libelle }} :</p>
             <h6
