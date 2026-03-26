@@ -202,6 +202,7 @@ export default {
         <h1 class="fw-bold my-3">Informations personnelles</h1>
         <div>
           <button 
+          v-if="user.user.statut.statut != 'etudiant'"
           style="
           width:auto;
           padding:0.5em;
