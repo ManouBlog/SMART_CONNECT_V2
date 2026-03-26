@@ -34,7 +34,7 @@ export default {
       Help: Help,
       user: "",
       nom: "",
-      showModalBadgeVerifi:true,
+      showModalBadgeVerifi:false,
       prenoms: "",
       lienPhoto: lienPhoto,
       password: null,

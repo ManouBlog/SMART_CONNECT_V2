@@ -29,7 +29,7 @@ export default {
     if (!userStr) return null;
     try {
       const user = JSON.parse(userStr);
-      return user.user?.statut ?? null;
+      return user.user?.statut.statut ?? null;
     } catch (e) {
       return null;
     }
@@ -55,13 +55,13 @@ export default {
       const competences = userInfo.competences || [];
       const disponibilites = userInfo.jours || [];
 
-      if (!qualifications.length || !competences.length) {
+      if ( userInfo.user.statut.statut == 'etudiant' && (!qualifications.length || !competences.length)) {
         this.$router.push("/dashboard/profil");
         // console.log("lancer2");
         return;
       }
 
-      if (!disponibilites.length) {
+      if (userInfo.user.statut.statut == 'etudiant' && !disponibilites.length) {
         this.$router.push("/dashboard/emploi_du_temps");
         return;
       }
