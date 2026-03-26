@@ -200,7 +200,18 @@ export default {
     >
       <div class="info-header" style="display: flex; justify-content: space-between">
         <h1 class="fw-bold my-3">Informations personnelles</h1>
-        <button
+        <div>
+          <button 
+          style="
+          width:auto;
+          padding:0.5em;
+          margin:0 1em;
+          border-radius: 5%;
+          border:1px dashed orange; 
+          background-color: transparent;
+          color:orange"
+          > <i class="bi bi-patch-check-fill"></i> Ajouter un badge de vérification</button>
+         <button
           style="
             height: auto;
             width: auto;
@@ -208,11 +219,14 @@ export default {
             color: white;
             font-weight: bold;
             border-radius: 10%;
+            padding:0.5em;
           "
           @click="handleModalInfo(1)"
         >
           Voir Mon CV
         </button>
+        </div>
+        
       </div>
       <div
         class="conteneur_activation"
