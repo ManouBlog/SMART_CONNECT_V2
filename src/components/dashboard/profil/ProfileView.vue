@@ -320,20 +320,20 @@ export default {
   async created() {
     this.texte = await this.handleTranslate("Mon profil");
     this.texte1 = await this.handleTranslate(`Infos personnelles`);
-    this.texte2 = await this.handleTranslate("Nom :");
-    this.texte3 = await this.handleTranslate("Email :");
-    this.texte4 = await this.handleTranslate("Matricule/cc :");
-    this.texte5 = await this.handleTranslate("Contact :");
-    this.texte6 = await this.handleTranslate("Ville :");
-    this.texte7 = await this.handleTranslate("Commune :");
-    this.texte8 = await this.handleTranslate("Quartier :");
-    this.texte9 = await this.handleTranslate("Registre :");
-    this.texte10 = await this.handleTranslate("Forme juridique :");
-    this.texte88 = await this.handleTranslate("Logo entreprise :");
-    this.texte11 = await this.handleTranslate("Gérant :");
-    this.texte12 = await this.handleTranslate("Pièce d'identité :");
-    this.texte13 = await this.handleTranslate("Niveau d'etude:");
-    this.texte14 = await this.handleTranslate("Prénoms :");
+    this.texte2 = await this.handleTranslate("Nom");
+    this.texte3 = await this.handleTranslate("Email");
+    this.texte4 = await this.handleTranslate("Matricule/cc");
+    this.texte5 = await this.handleTranslate("Contact");
+    this.texte6 = await this.handleTranslate("Ville");
+    this.texte7 = await this.handleTranslate("Commune");
+    this.texte8 = await this.handleTranslate("Quartier");
+    this.texte9 = await this.handleTranslate("Registre");
+    this.texte10 = await this.handleTranslate("Forme juridique");
+    this.texte88 = await this.handleTranslate("Logo entreprise");
+    this.texte11 = await this.handleTranslate("Gérant");
+    this.texte12 = await this.handleTranslate("Pièce d'identité");
+    this.texte13 = await this.handleTranslate("Niveau d'etude");
+    this.texte14 = await this.handleTranslate("Prénoms");
     this.texte15 = await this.handleTranslate("Formule d'abonnement");
     this.getInfoUser();
     this.seeMessageUploadProfil();
@@ -346,7 +346,7 @@ export default {
     <ModalForModifyInfo />
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="page-body">
-      <!-- {{ JSON.stringify(this.$store.state.infoUserConnected.user,null,2) }} -->
+      <!-- {{ JSON.stringify(this.$store.state.infoUserConnected.user.statut.statut,null,5) }} -->
       <TabView v-if="this.$store.state.infoUserConnected">
         <TabPanel :header="texte1">
           <div>
@@ -482,12 +482,13 @@ export default {
               :infoPersonellesStudents="[
                 { libelle: texte2, value: this.$store.state.infoUserConnected.nom },
                 { libelle: texte14, value: this.$store.state.infoUserConnected.prenoms },
-                { libelle: texte3, value: this.$store.state.infoUserConnected.email ?? 'Néant' },
-                { libelle: texte6, value: this.$store.state.infoUserConnected.ville ?? 'Néant' },
-                { libelle: texte7, value: this.$store.state.infoUserConnected.commune ?? 'Néant' },
-                { libelle: texte8, value: this.$store.state.infoUserConnected.quartier ?? 'Néant' },
+                { libelle: texte3, value: this.$store.state.infoUserConnected.email ?? '' },
+                { libelle: texte6, value: this.$store.state.infoUserConnected.ville ?? '' },
+                { libelle: texte7, value: this.$store.state.infoUserConnected.commune ?? '' },
+                { libelle: texte8, value: this.$store.state.infoUserConnected.quartier ?? '' },
                 { libelle: texte5, value: this.$store.state.infoUserConnected.phone },
                 { libelle: texte13, value: this.$store.state.infoUserConnected.diplome ?? 'Pas de diplome' },
+                { libelle: this.$store.state.infoUserConnected.user.statut.statut != 'etudiant' ? 'Niveau de carrière':null, value: this.$store.state.infoUserConnected.niveauExpertise ?? '' },
                 { libelle: 'code parrainage', value: this.$store.state.infoUserConnected.user.code_ambassadeur ?? 'Pas de code' },
                 {
                   libelle: 'Carte étudiant',

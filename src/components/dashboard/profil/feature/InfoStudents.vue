@@ -297,13 +297,18 @@ export default {
             :key="index"
             class="col-lg-4 col-sm-6"
           >
-            <p style="color: orange; font-weight: bold">{{ item.libelle }}</p>
+            <p style="color: orange; font-weight: bold"
+            v-if="
+                item.libelle !== null
+              "
+            >{{ item.libelle }} :</p>
             <h6
               v-if="
+                item.libelle !== null &&
                 item.value !== null &&
                 item.value !== 'null' &&
                 item.value !== 'undefined' &&
-                item.libelle !== 'Pièce d\'identité :' &&
+                item.libelle !== 'Pièce d\'identité' &&
                 item.libelle !== 'Carte étudiant'
               "
               class="fw-bold"
@@ -312,7 +317,7 @@ export default {
             </h6>
             <div
               v-if="
-                item.libelle === 'Pièce d\'identité :' ||
+                item.libelle === 'Pièce d\'identité' ||
                 item.libelle === 'Carte étudiant'
               "
               style="display: flex; justify-content: flex-start; gap: 1em"
@@ -350,42 +355,6 @@ export default {
           </div>
         </div>
       </section>
-      <!-- <p style="color: orange; font-weight: bold">Compétences :</p> -->
-      <!-- <section v-if="infoPersonellesCompetences.length" class="conteneur-flex">
-        <div
-          v-for="(item, index) in infoPersonellesCompetences"
-          :key="index"
-          style="display: flex; justify-content: flex-start"
-        >
-          <h6 class="fw-bold">-{{ item.competence }}</h6>
-        </div>
-      </section>
-      <section v-else>
-        <h4 class="p-5">Pas de compétences</h4>
-      </section> -->
-      <!-- <p style="color: orange; font-weight: bold">Qualifications :</p> -->
-      <!-- <section v-if="infoPersonellesQualifications.length" class="conteneur-flex">
-        <div v-for="(item, index) in infoPersonellesQualifications" :key="index">
-          <div style="display: flex; align-items: center; gap: 1em">
-            <div
-              style="width: 10px; height: 10px; background: orange; border-radius: 10%"
-            ></div>
-            <span style="font-weight: bold">{{
-              new Date(item.date_debut).toLocaleDateString("fr")
-            }}</span>
-            <span>à</span>
-            <span style="font-weight: bold">{{
-              new Date(item.date_fin).toLocaleDateString("fr")
-            }}</span>
-          </div>
-          <p>
-            {{ item.detail }}
-          </p>
-        </div>
-      </section> -->
-      <!-- <section v-else>
-        <h4 class="p-5">Pas de qualifications</h4>
-      </section> -->
       <section class="my-5 text-center">
         <Buttons
           :elmentsOfBtn="elmentsOfBtn"
