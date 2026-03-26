@@ -216,15 +216,19 @@ export default {
       </div>
       <div
         class="conteneur_activation"
-        style="display: flex; align-items: center; gap: 0.5em"
+        style="display: flex; align-items: center;"
       >
-        <p
+      <span class="badge bg-warning"
+          >{{ user.user.statut.statut}}</span
+        >
+        <span
           class="badge"
           style="text-align: center"
           :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
         >
           Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}
-        </p>
+    </span>
+
         <button
           v-if="!user.user.verif_email"
           style="background: orange; color: white; font-weight: 900"

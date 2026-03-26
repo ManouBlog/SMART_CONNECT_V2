@@ -185,7 +185,10 @@ export default {
       "
     >
       <h1 class="fw-bold" style="color: orange">{{ texte0 }}</h1>
-      <div style="display: flex; align-items: center; gap: 0.5em">
+      <div style="display: flex; align-items: center;">
+        <span class="badge bg-warning"
+          >{{ user.user.statut.statut}}</span
+        >
         <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
           >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
         >
