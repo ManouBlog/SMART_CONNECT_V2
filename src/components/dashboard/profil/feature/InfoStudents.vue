@@ -6,10 +6,12 @@ import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInf
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { mapActions } from "pinia";
 import { Help } from "../../../../utils";
+import VerificationUpload from "../../../VerificationUpload.vue";
 export default {
   name: "InfoStudents",
   components: {
     Buttons,
+    VerificationUpload
   },
   props: {
     infoBioStudent: {
@@ -32,6 +34,7 @@ export default {
       Help: Help,
       user: "",
       nom: "",
+      showModalBadgeVerifi:true,
       prenoms: "",
       lienPhoto: lienPhoto,
       password: null,
@@ -190,6 +193,15 @@ export default {
     <div v-if="isLoading">
       <h1 style="text-align: center">Chargement...</h1>
     </div>
+     <!-- Modal de certification -->
+    <n-modal v-model:show="showModalBadgeVerifi" style="width:90%" preset="card" :closable="false">
+      <template #header>
+        <div class="modal-header">
+          <h3>Badge de Vérification</h3>
+        </div>
+      </template>
+      <VerificationUpload />
+    </n-modal>
     <a-card
       v-if="user"
       style="
