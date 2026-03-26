@@ -28,6 +28,11 @@ export default {
   { value: "avance", label: "Avancé" },
   { value: "expert", label: "Expert" },
 ],
+valueModeDeTravail: [
+  { value: "onsite", label: "Présentiel" },
+  { value: "remote", label: "Télétravail" },
+  { value: "hybrid", label: "Hybride" }
+],
 //  SCHOOL_KEYWORDS :[
 //   // Carte étudiante (formes tolérantes OCR)
 //   'carte etudiant',
@@ -181,6 +186,9 @@ export default {
         // STEP 2 – Qualifications
         2: ["qualifications", "niveauEtude", "filiere"],
 
+         // STEP 2 – mode de travail
+        3: ["modeTravail"],
+
         // STEP 4 – Validation finale
         4: ["upload", "password"],
       };
@@ -228,16 +236,16 @@ export default {
         }
       }
 
-        if (this.currentStep === 3) {
-          console.log("this.currentStep4",this.getFirstHeureStartFrom)
-        if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
-          this.SWALPOPUP.declencheSwalPopup(
-            "warning",
-            "Veuillez remplir les champs obligatoire"
-          );
-          return;
-        }
-      }
+      //   if (this.currentStep === 3) {
+      //     console.log("this.currentStep4",this.getFirstHeureStartFrom)
+      //   if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
+      //     this.SWALPOPUP.declencheSwalPopup(
+      //       "warning",
+      //       "Veuillez remplir les champs obligatoire"
+      //     );
+      //     return;
+      //   }
+      // }
 
       if (this.currentStep !== 2 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
@@ -440,7 +448,10 @@ export default {
       title="Qualifications"
       description="Ajoutez vos qualifications pour valoriser votre profil."
     />
-   
+    <a-step
+      title="Mode de travail"
+      description="Séléctionnez un mode de travail."
+    />
     <a-step
       title="Validation finale"
       description="Ajoutez vos documents et confirmez votre inscription."
@@ -623,8 +634,38 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 5 -->
+      <!-- STEP 4 -->
     <div v-show="currentStep === 3">
+      <a-row :gutter="[16, 24]">
+         <a-col :xs="24" :md="24">
+           <a-form-item
+            :label="'Mode de travail'"
+            :rules="[{ required: true, message: 'Ajoutez  votre mode de travail' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.modeTravail"
+    placeholder="Sélectionnez votre mode de travail"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in valueModeDeTravail"
+      :key="item.value"
+      :value="item.value"
+      :label="item.label"
+    >
+      {{ item.label }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col>
+       
+      </a-row>
+    </div>
+
+    <!-- STEP 5 -->
+    <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -679,7 +720,7 @@ export default {
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
       <a-button
-        v-if="currentStep < 3"
+        v-if="currentStep < 4"
         type="primary"
         @click.prevent="nextStep"
         :disabled="isNextDisabled"
@@ -688,7 +729,7 @@ export default {
       </a-button>
 
       <a-button
-        v-if="currentStep === 3"
+        v-if="currentStep === 4"
         type="primary"
         html-type="submit"
         :disabled="!isCurrentStepValid || isPasswordDisabled"
