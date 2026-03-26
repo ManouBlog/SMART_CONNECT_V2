@@ -24,6 +24,11 @@ export default {
  loading : false,
  rawText : '',
  result : null,
+ valueExpertise: [
+  { value: "diplome", label: "Diplômé" },
+  { value: "diplome_en_activite", label: "Diplômé en activité" },
+  { value: "consultant", label: "Consultant" },
+],
 //  SCHOOL_KEYWORDS :[
 //   // Carte étudiante (formes tolérantes OCR)
 //   'carte etudiant',
@@ -115,6 +120,7 @@ export default {
         myCompetence: [],
         photo: null,
         upload: [],
+        niveauExpertise:"",
         bio: "",
         statutId:5,
         photo_profil: null,
@@ -136,15 +142,15 @@ export default {
       (this.result && this.result.isStudentCard === false)
     )
   },
-    getFirstHeureStartFrom() {
-      return this.$store.state.First_heure_start_from;
-    },
-    getTableauDays() {
-      return this.$store.state.datesOfCalendar;
-    },
-    getFirstHeureFinFrom() {
-      return this.$store.state.First_heure_end_to;
-    },
+    // getFirstHeureStartFrom() {
+    //   return this.$store.state.First_heure_start_from;
+    // },
+    // getTableauDays() {
+    //   return this.$store.state.datesOfCalendar;
+    // },
+    // getFirstHeureFinFrom() {
+    //   return this.$store.state.First_heure_end_to;
+    // },
     isNextDisabled() {
       // STEP 2 – Qualifications
       if (this.currentStep === 2) {
@@ -545,7 +551,7 @@ export default {
     <!-- STEP 2 -->
     <div v-show="currentStep === 1">
       <a-row :gutter="[16, 24]">
-        <a-col :xs="24" :md="24">
+        <a-col :xs="24" :md="12">
           <a-form-item
             :label="texte7"
             :rules="[{ required: true, message: 'Ajoutez au moins une compétence' }]"
@@ -560,6 +566,28 @@ export default {
             />
           </a-form-item>
         </a-col>
+        <a-col :xs="24" :md="12">
+            <a-form-item
+            :label="'Niveau de carrière'"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.niveauExpertise"
+    placeholder="Sélectionnez votre Niveau de carrière"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in valueExpertise"
+      :key="item.value"
+      :value="item.value"
+      :label="item.label"
+    >
+      {{ item.label }}
+    </a-select-option>
+  </a-select>
+   </a-form-item>
+        </a-col> 
       </a-row>
     </div>
 
