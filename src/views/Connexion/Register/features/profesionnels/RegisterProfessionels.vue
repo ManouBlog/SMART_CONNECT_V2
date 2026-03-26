@@ -176,10 +176,10 @@ export default {
         0: ["nom", "prenoms", "phone", "email"],
 
         // STEP 1 – Profil & compétences
-        1: ["myCompetence","niveauExpertise"],
+        1: ["myCompetence"],
 
         // STEP 2 – Qualifications
-        2: ["qualifications", "niveauEtude", "filiere"],
+        2: ["qualifications", "niveauEtude", "filiere","niveauExpertise"],
 
         // STEP 4 – Validation finale
         4: ["upload", "password"],
@@ -406,7 +406,7 @@ export default {
     this.texte7 = await this.handleTranslate(
       "Compétences (plusieurs choix sont possibles)"
     );
-    this.texte8 = await this.handleTranslate("Niveau actuel + Filière");
+    this.texte8 = await this.handleTranslate("Niveau actuel");
     this.texte9 = await this.handleTranslate("Carte national d'identité");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
@@ -551,7 +551,7 @@ export default {
     <!-- STEP 2 -->
     <div v-show="currentStep === 1">
       <a-row :gutter="[16, 24]">
-        <a-col :xs="24" :md="12">
+        <a-col :xs="24" :md="24">
           <a-form-item
             :label="texte7"
             :rules="[{ required: true, message: 'Ajoutez au moins une compétence' }]"
@@ -566,28 +566,7 @@ export default {
             />
           </a-form-item>
         </a-col>
-        <a-col :xs="24" :md="12">
-            <a-form-item
-            :label="'Niveau de carrière'"
-          >
-            <a-select
-            style="width: 100%;"
-    v-model:value="formState.niveauExpertise"
-    placeholder="Sélectionnez votre Niveau de carrière"
-    show-search
-    option-filter-prop="label"
-  >
-    <a-select-option
-      v-for="item in valueExpertise"
-      :key="item.value"
-      :value="item.value"
-      :label="item.label"
-    >
-      {{ item.label }}
-    </a-select-option>
-  </a-select>
-   </a-form-item>
-        </a-col> 
+       
       </a-row>
     </div>
 
@@ -613,13 +592,42 @@ export default {
                 {{ item.value }}
               </a-select-option>
             </a-select>
-            <a-input v-model:value="formState.filiere" placeholder="Filière" />
+            
           </a-form-item>
+          <a-form-item
+            label="Filière"
+            name="filiere"
+            :rules="[{ required: true, message: texte13 }]"
+          >
+            <a-input v-model:value="formState.filiere" placeholder="Ajoutez votre filière" />
+            </a-form-item>
         </a-col>
-
-        <a-col :xs="24" :md="12">
+          <a-col :xs="24" :md="12">
+            <a-form-item
+            :label="'Niveau de carrière'"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.niveauExpertise"
+    placeholder="Sélectionnez votre Niveau de carrière"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in valueExpertise"
+      :key="item.value"
+      :value="item.value"
+      :label="item.label"
+    >
+      {{ item.label }}
+    </a-select-option>
+  </a-select>
+   </a-form-item>
+        </a-col> 
+        <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />
         </a-col>
+       
       </a-row>
     </div>
 

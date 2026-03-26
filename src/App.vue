@@ -247,6 +247,9 @@ export default {
 };
 </script>
 <style>
+:where(.css-dev-only-do-not-override-17yhhjv).ant-btn-primary {
+    background-color: #ff8819 !important;
+}
 
 :where(.n-button:not(.n-button--disabled):active,.n-button:not(.n-button--disabled):hover){
     color:orange !important;
