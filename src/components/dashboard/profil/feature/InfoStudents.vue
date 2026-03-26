@@ -225,6 +225,7 @@ export default {
           border:1px dashed orange; 
           background-color: transparent;
           color:orange"
+          @click="showModalBadgeVerifi = !showModalBadgeVerifi"
           > <i class="bi bi-patch-check-fill"></i> Ajouter un badge de vérification</button>
          <button
           style="

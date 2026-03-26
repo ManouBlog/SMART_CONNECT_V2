@@ -37,12 +37,12 @@
       </a-form-item>
 
       <!-- Statut -->
-      <div v-if="status" class="mt-2">
+      <!-- <div v-if="status" class="mt-2" style="z-index: 99999999;">
         <span class="badge" :class="statusClass">
           <i v-if="status === 'approved'" class="bi bi-patch-check-fill me-1"></i>
           {{ statusMessage }}
         </span>
-      </div>
+      </div> -->
 
     </a-form>
   </div>
@@ -116,25 +116,25 @@ const canSubmit = computed(() => {
 })
 
 // Classe statut
-const statusClass = computed(() => {
-  return {
-    'bg-warning text-dark': status.value === 'pending',
-    'bg-info text-white': status.value === 'under_review',
-    'bg-success text-white': status.value === 'approved',
-    'bg-danger text-white': status.value === 'rejected'
-  }
-})
+// const statusClass = computed(() => {
+//   return {
+//     'bg-warning text-dark': status.value === 'pending',
+//     'bg-info text-white': status.value === 'under_review',
+//     'bg-success text-white': status.value === 'approved',
+//     'bg-danger text-white': status.value === 'rejected'
+//   }
+// })
 
 // Texte statut
-const statusMessage = computed(() => {
-  const map = {
-    pending: 'En attente',
-    under_review: 'En cours d’analyse',
-    approved: 'Validé',
-    rejected: 'Rejeté'
-  }
-  return map[status.value] || ''
-})
+// const statusMessage = computed(() => {
+//   const map = {
+//     pending: 'En attente',
+//     under_review: 'En cours d’analyse',
+//     approved: 'Validé',
+//     rejected: 'Rejeté'
+//   }
+//   return map[status.value] || ''
+// })
 
 /**
  * METHODS
