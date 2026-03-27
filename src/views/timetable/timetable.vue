@@ -647,7 +647,7 @@ export default {
                 class="bi bi-heart-fill"
               ></em>
             </div>
-            <div class="verification_badge">
+            <div class="verification_badge" v-if="emploi?.is_verified">
               <i class="bi bi-patch-check-fill"></i>
             </div>
             <div style="text-align: center">

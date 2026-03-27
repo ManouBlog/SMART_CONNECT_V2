@@ -61,12 +61,10 @@ export default {
   <ModalForModifyInfo />
   <div class="info_student_detail">
     <div
-      style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+      style="display: flex; justify-content: space-between; align-items: center; gap: 1em;"
     >
       <section class="section_student_header">
-        <!-- <div class="verification_badge" style="left:4.5em !important;top:0 !important;">
-            
-            </div> -->
+       
         <!-- <em class="bi bi-person"></em> -->
         <n-avatar
           v-if="timetable_for_student.photo_profil"
@@ -94,7 +92,9 @@ export default {
         <div>
           <h1 class="text-left my-3">
             {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
-              <i class="bi bi-patch-check-fill"  
+              <i 
+              v-if="timetable_for_student?.is_verified"
+              class="bi bi-patch-check-fill"  
               style="color:rgb(0, 171, 251); 
               font-size: 0.7em !important;"></i>
           </h1>

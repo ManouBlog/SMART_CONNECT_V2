@@ -970,6 +970,7 @@ h1 {
 .conteneur_student {
   margin-top: 6em;
   padding: 0 5em;
+  text-align: center;
 }
 .space-talent {
   margin: 9.5em 0;
