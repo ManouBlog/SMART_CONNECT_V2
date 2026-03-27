@@ -780,7 +780,7 @@ export default {
     this.texte4 = await this.handleTranslate("Choisir une offre");
     this.texte5 = await this.handleTranslate("Sélectionner une offre");
     this.texte6 = await this.handleTranslate("Pas d'offres");
-    this.texte7 = await this.handleTranslate("Envoyer");
+    this.texte7 = await this.handleTranslate("Séléctionner");
     this.texte8 = await this.handleTranslate(
       "Ce talent n'a pas encore fait un abonnement."
     );
@@ -795,8 +795,8 @@ export default {
       <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
 
       <BodyExperience :timetable_for_student="timetable_for_student" />
-
-      <section class="conteneur_calendar_student">
+ <!--  ceci : timetable_for_student.user.statut_id === 2 est destine au étudiant -->
+      <section class="conteneur_calendar_student" v-if="timetable_for_student.user.statut_id === 2">
         <div class="jobs-result">
           <div class="disponibilite">
             <span>
@@ -804,7 +804,8 @@ export default {
               >{{ texte1 }}
             </span>
           </div>
-          <div class="container-fluid my-5 conteneur_timetable">
+         
+          <div class="container-fluid my-5 conteneur_timetable" >
             <Calendar :attributes="attributes" :min-date="new Date()" class="myCalender">
               <template #day-popover="{ attributes }">
                 <ul>
@@ -883,17 +884,6 @@ export default {
               {{ texte7 }}
             </button>
           </div>
-          <!-- <div class="text-center fw-bold">
-            <h5
-              class="text-danger"
-            
-            >
-              {{ texte8 }}
-            </h5>
-            <h5 class="text-danger" v-if="!configUtils.isAbonnementActif(listAbonnement)">
-              {{ texte9 }}
-            </h5>
-          </div> -->
         </div>
         <div v-else class="conteneur_date" style="color: red; text-align: center">
           Veuillez souscrire à l’abonnement PLATINUM.
@@ -913,6 +903,83 @@ export default {
           </div>
         </div>
       </section>
+      <!--  ceci : timetable_for_student.user.statut_id est destine aux autres -->
+        <section>
+         <div
+          class="conteneur_date"
+          v-if="
+            this.$store.state.infoUserConnected.user.abonement.length &&
+            this.$store.state.infoUserConnected.user.abonement.some(
+              (item) => item.statut === 'success' && item.abonement.libelle === 'PLATINUM'
+            )
+          "
+        >
+          <!-- <label class="d-block">{{ texte3 }}</label>
+          <PrimeCalendar
+            v-model="datesChoice"
+            :minDate="new Date()"
+            inputClass="prime_calendar"
+            selectionMode="multiple"
+            :manualInput="false"
+            dateFormat="dd/mm/yy"
+          /> -->
+
+          <div class="selecte_service my-3">
+            <label class="d-block">{{ texte4 }}</label>
+            <!-- <a-auto-complete
+            v-model:value="selectedOffreWithDate"
+            :options="selectedService"
+            style="width: 100%"
+            placeholder="input here"
+            :filter-option="filterOption"
+          /> -->
+            <select
+              name="select_offre"
+              id="select_offre"
+              v-model="selectedOffreWithDate"
+              class="my-3"
+            >
+              <option value="" disabled>{{ texte5 }}</option>
+              <option
+                :value="offre.id"
+                v-for="(offre, index) in selectedService"
+                :key="index"
+              >
+                {{ offre.nom_offre }}
+              </option>
+              <option disabled v-if="!selectedService.length">{{ texte6 }}</option>
+            </select>
+          </div>
+
+          <div class="conteneurInter">
+            <button
+              class="btn btn-warning btn-designer my-3"
+              type="submit"
+              :disabled="!this.selectedOffreWithDate || !this.datesChoice.length"
+              @click="optionDate(timetable_for_student.id)"
+            >
+              {{ texte7 }}
+            </button>
+          </div>
+        </div>
+        <div v-else class="conteneur_date" style="color: red; text-align: center">
+          Veuillez souscrire à l’abonnement PLATINUM.
+          <div>
+            <button
+              style="
+                background: orange;
+                color: white;
+                padding: 0.5em;
+                border-radius: 10px;
+                border: 1px solid orange;
+              "
+              @click.prevent="seeAllAbonnement"
+            >
+              Voir les abonnements
+            </button>
+          </div>
+        </div>
+        </section>
     </div>
     <div class="conteneur_student py-5" v-else>
       <h3>Chargement...</h3>
