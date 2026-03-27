@@ -414,7 +414,7 @@ valueModeDeTravail: [
     this.texte7 = await this.handleTranslate(
       "Compétences (plusieurs choix sont possibles)"
     );
-    this.texte8 = await this.handleTranslate("Niveau actuel + Filière");
+    this.texte8 = await this.handleTranslate("Niveau actuel + Domaine");
     this.texte9 = await this.handleTranslate("Carte national d'identité");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
@@ -624,7 +624,7 @@ valueModeDeTravail: [
                 {{ item.value }}
               </a-select-option>
             </a-select>
-            <a-input v-model:value="formState.filiere" placeholder="Filière" />
+            <a-input v-model:value="formState.filiere" placeholder="Domaines" />
           </a-form-item>
         </a-col>
 

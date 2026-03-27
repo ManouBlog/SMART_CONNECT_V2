@@ -616,13 +616,6 @@ valueModeDeTravail: [
             </a-select>
             
           </a-form-item>
-          <!-- <a-form-item
-            label="Filière"
-            name="filiere"
-            :rules="[{ required: true, message: texte13 }]"
-          >
-            <a-input v-model:value="formState.filiere" placeholder="Ajoutez votre filière" />
-            </a-form-item> -->
         </a-col>
         <a-col :xs="24" :md="12">
           <!-- <a-form-item
@@ -646,11 +639,11 @@ valueModeDeTravail: [
             
           </a-form-item> -->
           <a-form-item
-            label="Filière"
+            label="Domaine"
             name="filiere"
             :rules="[{ required: true, message: texte13 }]"
           >
-            <a-input v-model:value="formState.filiere" placeholder="Ajoutez votre filière" />
+            <a-input v-model:value="formState.filiere" placeholder="Ajoutez votre domaine" />
             </a-form-item>
         </a-col>
          <!-- <a-col :xs="24" :md="12">
