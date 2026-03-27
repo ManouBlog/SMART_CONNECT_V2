@@ -203,7 +203,7 @@ export default {
         fin: this.fin,
         lieu: this.lieu,
         pointage: this.pointage,
-        offre_mode_travail:this.offre_mode_travail,
+        offre_mode_travail:this.offre_mode_travail?.label,
         categorie_offre_id: !categorienew ? this.categorie : categorienew,
         competence_id: !competencenew ? this.competence : competencenew,
         nbre_person: this.nbre_person,
