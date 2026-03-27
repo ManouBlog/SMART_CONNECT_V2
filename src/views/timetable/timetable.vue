@@ -283,7 +283,7 @@ export default {
       }
     },
     addOtherElement(payload) {
-      return payload.map((element) => {
+      return payload?.map((element) => {
         // Transform jours
         const days = element.jours.map((day) => day.jour);
         const hours = element.jours.map((day) => day.totalHour);
@@ -309,9 +309,12 @@ export default {
       loadingSpinner.launchLoading(true);
       try {
         const res = await instance.get("list_emplois_temps");
+        console.log("res_ALL",res)
         // Ici this.list sera bien un tableau
         this.list = this.addOtherElement(res.data.data);
+        console.log("get_list_emploi",this.list)
         this.lengthOfMylistEmploi = this.list.length;
+        console.log("this.lengthOfMylistEmploi",this.lengthOfMylistEmploi)
       } catch (err) {
         console.log(err);
         alert(err.response?.data?.message || "Erreur serveur");
@@ -543,7 +546,7 @@ export default {
     this.texte01 = await this.handleTranslate("Talent disponible");
     this.texte2 = await this.handleTranslate(" Nous avons trouvé");
     this.texte3 = await this.handleTranslate("disponibilité(s).");
-    this.texte4 = await this.handleTranslate("Chargements...");
+    this.texte4 = await this.handleTranslate("Chargement...");
     this.texte5 = await this.handleTranslate("Voir plus");
     this.texte6 = await this.handleTranslate("Charger plus");
     this.texte7 = await this.handleTranslate("Vous avez atteint la fin");
@@ -631,7 +634,7 @@ export default {
       <div>
         <span v-if="spinner" class="h1 char">{{ texte4 }}</span>
 
-        <div class="container-fuid d-grid px-3">
+        <div class="container-fuid d-grid px-3" v-if="list_emploi.length">
           <div
             v-for="(emploi, index) in list_emploi"
             :key="index"
@@ -643,6 +646,9 @@ export default {
                 :class="isWhished[emploi.id] ? 'text-danger' : 'null'"
                 class="bi bi-heart-fill"
               ></em>
+            </div>
+            <div class="verification_badge">
+              <i class="bi bi-patch-check-fill"></i>
             </div>
             <div style="text-align: center">
               <n-avatar
@@ -657,7 +663,7 @@ export default {
                   border: 2px solid orange;
                   object-fit: cover;
                   padding: 1em;
-                  line-height: 50px;
+                  /* line-height: 50px; */
                   text-align: center;
                   border-radius: 100%;
                   background: gray;
@@ -695,13 +701,14 @@ export default {
 
                 <em class="bi bi-eye"></em>
               </button>
-              <!-- <p v-else style="color: red !important; font-size: 1em; text-align: center">
-                Veuillez souscrire à l’abonnement Platinum.
-                {{ this.$store.state.infoUserConnected.user.abonement }}
-              </p> -->
             </div>
           </div>
         </div>
+       <div v-else>
+    <p class="text-center text-muted py-4">
+      Aucun talent disponible
+    </p>
+      </div>
       </div>
     </div>
     <div v-if="list.length">
@@ -712,7 +719,7 @@ export default {
       >
         {{ texte6 }} <em class="bi bi-chevron-down"></em>
       </button>
-      <h2 v-if="length >= list.length" class="endResearch">{{ texte7 }}</h2>
+      <!-- <h2 v-if="length >= list.length" class="endResearch">{{ texte7 }}</h2> -->
     </div>
   </section>
   <section v-else>
@@ -980,6 +987,15 @@ export default {
   top: 1em;
   left: 1em;
 }
+.verification_badge{
+  position: absolute !important;
+  top: 0.5em;
+  right: 1em;
+}
+.verification_badge .bi{
+  color:rgb(0, 171, 251);
+  font-size: 1.5em !important;
+}
 .totalHour {
   position: absolute !important;
   top: 1em;
@@ -997,11 +1013,12 @@ export default {
 }
 
 .icons_interesse em {
-  font-size: 1.89em !important;
+  font-size: 1.5em !important;
 }
 .icons_interesse .bi {
-  font-size: 2em !important;
+  font-size: 1.5em !important;
 }
+
 .w-100 {
   width: 20%;
   padding: 0.5em 0;
