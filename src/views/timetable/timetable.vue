@@ -678,7 +678,7 @@ export default {
                 {{ emploi.nom }}
                 {{ emploi.prenoms }}
               </h3>
-
+              <span>{{ emploi.user.statut_id }}</span>
               <div class="jour">
                 <span
                   v-for="(item, index) in emploi.competences.slice(0, 3)"
