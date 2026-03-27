@@ -598,29 +598,24 @@ export default {
               label="value"
               track-by="value"
             />
-              <!-- <select
-                v-model="chooseProfil"
-                name="select_comp"
-                id="select_comp"
-              
-              >
-                <option value="" disabled style="color: brown">
-                 Séléctionne un profil
-                </option>
-                <option
-                  :value="item.id"
-                  v-for="(item, index) in [
-                  {value:'Etudiants',id:1}
-                  ,{value:'Professionnels',id:2},
-                  {value:'Vétérans',id:3},
-                  {value:'Artisans',id:4}
-                  ]"
-                  :key="index"
-                >
-                  {{ item.value }}
-                </option>
-               
-              </select> -->
+             
+            </div>
+             <div class="text-left my-3 col-lg-6">
+              <label>
+               <span style="color: red">*</span>
+                Choisir un mode de travail</label>
+                <VueMultiselect
+              v-model="chooseModeDeTravail"
+              :options="[
+  { value:'onsite', label:'Présentiel' },
+  { value:'remote', label:'Télétravail' },
+  { value:'hybrid', label:'Hybride' }
+]"
+              placeholder="Choix multiples"
+              :multiple="true"
+              label="label"
+              track-by="label"
+            />
             </div>
 
             <div class="col-md-12 my-2 text-left">
