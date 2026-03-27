@@ -25,6 +25,7 @@ export default {
       texte4: "",
       texte5: "",
       chooseProfil:null,
+      chooseModeDeTravail:null,
       texte6: "",
       texte7: "",
       texte8: "",
@@ -600,7 +601,12 @@ export default {
             />
              
             </div>
-             <div class="text-left my-3 col-lg-6">
+           
+            
+          
+          </div>
+           <div class="row">
+           <div class="text-left my-3 col-lg-6">
               <label>
                <span style="color: red">*</span>
                 Choisir un mode de travail</label>
@@ -617,14 +623,16 @@ export default {
               track-by="label"
             />
             </div>
-
-            <div class="col-md-12 my-2 text-left">
+            </div>
+          <div class="row">
+              <div class="col-md-12 my-2 text-left">
               <label><span style="color: red">*</span>{{ texte18 }}</label>
               <div class="conteneur_editor">
                 <editor v-model="description" />
               </div>
             </div>
           </div>
+          
           <div style="display: flex; justify-content: center; padding: 1.5em 0">
             <button
               class="btn btn-warning btn-designer me-3"
