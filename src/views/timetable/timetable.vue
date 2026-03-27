@@ -678,7 +678,9 @@ export default {
                 {{ emploi.nom }}
                 {{ emploi.prenoms }}
               </h3>
-              <span>{{ emploi.user.statut_id }}</span>
+              <p class="text-center p-0 m-0">
+                <span class="badge" style="background:orange;font-size:0.5em !important;">{{ emploi.user.statut.statut }}</span>
+              </p>
               <div class="jour">
                 <span
                   v-for="(item, index) in emploi.competences.slice(0, 3)"

@@ -796,7 +796,7 @@ export default {
 
       <BodyExperience :timetable_for_student="timetable_for_student" />
  <!--  ceci : timetable_for_student.user.statut_id === 2 est destine au étudiant -->
-      <section class="conteneur_calendar_student" v-if="timetable_for_student.user.statut_id === 2">
+      <section class="conteneur_calendar_student" v-if="timetable_for_student.user.statut_id == 2">
         <div class="jobs-result">
           <div class="disponibilite">
             <span>
@@ -904,7 +904,7 @@ export default {
         </div>
       </section>
       <!--  ceci : timetable_for_student.user.statut_id est destine aux autres -->
-        <section>
+        <section class="conteneur_calendar_student" v-else> 
          <div
           class="conteneur_date"
           v-if="
