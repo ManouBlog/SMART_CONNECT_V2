@@ -64,6 +64,9 @@ export default {
       style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
     >
       <section class="section_student_header">
+        <!-- <div class="verification_badge" style="left:4.5em !important;top:0 !important;">
+            
+            </div> -->
         <!-- <em class="bi bi-person"></em> -->
         <n-avatar
           v-if="timetable_for_student.photo_profil"
@@ -91,8 +94,11 @@ export default {
         <div>
           <h1 class="text-left my-3">
             {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
+              <i class="bi bi-patch-check-fill"  
+              style="color:rgb(0, 171, 251); 
+              font-size: 0.7em !important;"></i>
           </h1>
-
+           
           <n-rate
             v-if="timetable_for_student.average"
             readonly
@@ -166,6 +172,7 @@ export default {
   display: flex;
   gap: 1em;
   align-items: flex-start;
+  position: relative;
   width: 100%;
 }
 </style>

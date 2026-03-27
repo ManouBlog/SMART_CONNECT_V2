@@ -987,15 +987,7 @@ export default {
   top: 1em;
   left: 1em;
 }
-.verification_badge{
-  position: absolute !important;
-  top: 0.5em;
-  right: 1em;
-}
-.verification_badge .bi{
-  color:rgb(0, 171, 251);
-  font-size: 1.5em !important;
-}
+
 .totalHour {
   position: absolute !important;
   top: 1em;

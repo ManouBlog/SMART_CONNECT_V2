@@ -247,6 +247,15 @@ export default {
 };
 </script>
 <style>
+.verification_badge{
+  position: absolute !important;
+  top: 0.5em;
+  right: 1em;
+}
+.verification_badge .bi{
+  color:rgb(0, 171, 251);
+  font-size: 1.5em !important;
+}
 :where(.css-dev-only-do-not-override-17yhhjv).ant-btn-primary {
     background-color: #ff8819 !important;
 }
