@@ -22,6 +22,7 @@ export default {
       texte1: "",
       texte4: "",
       texte5: "",
+      chooseProfil:1,
       texte6: "",
       texte7: "",
       texte8: "",
@@ -577,6 +578,32 @@ export default {
                 v-model="job_fin"
                 :min="job_debut"
               />
+            </div>
+              <div class="text-left my-3 col-lg-6">
+              <label>Choisir un profil</label>
+              <select
+                v-model="chooseProfil"
+                name="select_comp"
+                id="select_comp"
+              
+              >
+                <option value="" disabled style="color: brown">
+                 Séléctionne un profil
+                </option>
+                <option
+                  :value="item.id"
+                  v-for="(item, index) in [
+                  {value:'Etudiants',id:1}
+                  ,{value:'Professionnels',id:2},
+                  {value:'Vétérans',id:3},
+                  {value:'Artisans',id:4}
+                  ]"
+                  :key="index"
+                >
+                  {{ item.value }}
+                </option>
+               
+              </select>
             </div>
 
             <div class="col-md-12 my-2 text-left">
