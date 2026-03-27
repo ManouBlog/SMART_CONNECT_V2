@@ -768,5 +768,14 @@ th {
   background: transparent !important;
   color: black !important;
 }
+:deep(.multiselect__tags){
+    min-height: 40px;
+    display: block;
+    padding: 8px 40px 0 8px;
+    border-radius: 3px !important;
+    border: 1.4px solid #fa8d26 !important;
+    background: #fff;
+    font-size: 14px;
+}
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
