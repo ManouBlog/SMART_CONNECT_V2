@@ -24,8 +24,9 @@ export default {
       texte1: "",
       texte4: "",
       texte5: "",
-      chooseProfil:null,
-      chooseModeDeTravail:null,
+      chooseStatut:[],
+      allStatuses:[],
+      offre_mode_travail:null,
       texte6: "",
       texte7: "",
       texte8: "",
@@ -202,11 +203,13 @@ export default {
         fin: this.fin,
         lieu: this.lieu,
         pointage: this.pointage,
+        offre_mode_travail:this.offre_mode_travail,
         categorie_offre_id: !categorienew ? this.categorie : categorienew,
         competence_id: !competencenew ? this.competence : competencenew,
         nbre_person: this.nbre_person,
         job_fin: this.job_fin,
         job_debut: this.job_debut,
+        status_id:this.chooseStatut.map(item=>item.id)
       };
       await instance
         .post("create_offre", data)
@@ -290,6 +293,15 @@ export default {
         this.StoreLoading.launchLoading(false);
       }
     },
+    async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+        console.log("lister_statut",response.data.data.filter(item=>item.statut != 'admin'))
+        this.allStatuses = response.data.data.filter(item=>item.statut != 'admin')
+      } catch (error) {
+        console.log(error);
+      }
+    },
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
@@ -353,6 +365,7 @@ export default {
   async created() {
     this.get_categorie();
     this.getAllCompetences();
+    this.lister_statut();
     this.texte0 = await this.handleTranslate("Enregistrer une Offre");
     this.texte1 = await this.handleTranslate("Domaines");
     this.texte2 = await this.handleTranslate("Sélectionnez un domaine");
@@ -587,23 +600,14 @@ export default {
                <span style="color: red">*</span>
                 Choisir un profil</label>
                 <VueMultiselect
-              v-model="chooseProfil"
-              :options="[
-                  {value:'Etudiants',id:1}
-                  ,{value:'Professionnels',id:2},
-                  {value:'Vétérans',id:3},
-                  {value:'Artisans',id:4}
-                  ]"
+              v-model="chooseStatut"
+              :options="allStatuses"
               placeholder="Choix multiples"
               :multiple="true"
-              label="value"
-              track-by="value"
+              label="statut"
+              track-by="statut"
             />
-             
             </div>
-           
-            
-          
           </div>
            <div class="row">
            <div class="text-left my-3 col-lg-6">
@@ -611,14 +615,12 @@ export default {
                <span style="color: red">*</span>
                 Choisir un mode de travail</label>
                 <VueMultiselect
-              v-model="chooseModeDeTravail"
+              v-model="offre_mode_travail"
               :options="[
-  { value:'onsite', label:'Présentiel' },
-  { value:'remote', label:'Télétravail' },
-  { value:'hybrid', label:'Hybride' }
-]"
-              placeholder="Choix multiples"
-              :multiple="true"
+                   { value:'onsite', label:'Présentiel' },
+                   { value:'remote', label:'Télétravail' },
+                   { value:'hybrid', label:'Hybride' }
+                     ]"
               label="label"
               track-by="label"
             />
