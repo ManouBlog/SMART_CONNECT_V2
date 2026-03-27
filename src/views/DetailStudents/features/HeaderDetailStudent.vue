@@ -77,7 +77,7 @@ export default {
             border: 2px solid orange;
             object-fit: cover;
             padding: 1em 1.5em;
-            line-height: 50px;
+            /* line-height: 50px; */
             text-align: center;
             border-radius: 100%;
             background: gray;
@@ -131,7 +131,7 @@ export default {
       </p>
     </div>
     <div class="text-left p-5">
-      <h3 class="my-3">
+      <h3 class="my-3" v-if="timetable_for_student.commune">
         <em class="bi bi-geo-alt"></em> {{ timetable_for_student.commune }}
       </h3>
       <h4 class="my-3">
@@ -148,7 +148,7 @@ export default {
       <span
         v-for="(item, index) in timetable_for_student.competences"
         :key="index"
-        class="badge bg-dark my-2"
+        class="badge bg-dark my-1"
       >
         <strong>{{ item.competence }}</strong>
       </span>

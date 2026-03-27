@@ -663,7 +663,7 @@ export default {
                   border: 2px solid orange;
                   object-fit: cover;
                   padding: 1em;
-                  /* line-height: 50px; */
+                  line-height: 50px;
                   text-align: center;
                   border-radius: 100%;
                   background: gray;
