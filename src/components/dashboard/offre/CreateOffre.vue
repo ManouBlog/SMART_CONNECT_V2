@@ -7,11 +7,13 @@ import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { mapActions, mapState } from "pinia";
+import VueMultiselect from "vue-multiselect";
 export default {
   name: "CreateOffre",
   components: {
     Editor,
     HeaderDashboard,
+    VueMultiselect, 
   },
   data() {
     return {
@@ -22,7 +24,7 @@ export default {
       texte1: "",
       texte4: "",
       texte5: "",
-      chooseProfil:1,
+      chooseProfil:null,
       texte6: "",
       texte7: "",
       texte8: "",
@@ -580,8 +582,23 @@ export default {
               />
             </div>
               <div class="text-left my-3 col-lg-6">
-              <label>Choisir un profil</label>
-              <select
+              <label>
+               <span style="color: red">*</span>
+                Choisir un profil</label>
+                <VueMultiselect
+              v-model="chooseProfil"
+              :options="[
+                  {value:'Etudiants',id:1}
+                  ,{value:'Professionnels',id:2},
+                  {value:'Vétérans',id:3},
+                  {value:'Artisans',id:4}
+                  ]"
+              placeholder="Choix multiples"
+              :multiple="true"
+              label="value"
+              track-by="value"
+            />
+              <!-- <select
                 v-model="chooseProfil"
                 name="select_comp"
                 id="select_comp"
@@ -603,7 +620,7 @@ export default {
                   {{ item.value }}
                 </option>
                
-              </select>
+              </select> -->
             </div>
 
             <div class="col-md-12 my-2 text-left">
