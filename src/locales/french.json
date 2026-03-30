@@ -1,0 +1,101 @@
+{
+    "spinnerText":"Chargement...",
+    "Header":{
+        "Menu":{
+            "Accueil":"Accueil",
+            "Abonnement":"Abonnement",
+            "aboutUs":"Contactez-nous",
+            "Connexion":"Connexion",
+             "Tableau_bord":"Tableau de bord",
+             "Profil":"Mon profil",
+             "Mes_abonnements":"Mes abonnements",
+             "Deconnexion":"Déconnexion",
+            "Student":{
+                "Offre_emploi":"Offre d'emploi",
+                "Postulations":"Mes candidatures",
+                "Contrats":"Mes Contrats",
+                 "Disponibilite":"Mes disponibilités"
+            },
+            "Entreprise":{
+                "Talents":"Talents",
+                "Liste_des_offres":"Liste des offres",
+                "creer_une_offre":"Créer une offre",
+                "Personnels":"Personnels",
+                "Postulants":"Postulants"
+               
+            }
+        }
+        
+    },
+    "Home":{
+        "headline":{
+            "emploi":"Mon emploi",
+            "oneClick":"en un clic",
+            "Text_one":"Nous vous accompagnons pour",
+            "Text_two":"trouver votre prochaine opportunité",
+            "Button_Connexion":"Connexion",
+            "Offres":"Offres",
+            "Talents":"Talents disponibles"
+        },
+        "Etape":{
+        "etapes":"Etapes à suivre",
+        "instructions":"Les instructions à suivre pour contacter du personnel ou postuler à une offre.",
+        "data":{
+            "ONE":"Créer un compte",
+            "TEXT_ONE":"Remplissez le formulaire"
+        }
+        },
+        "rechercheOffre":{
+            "title":"Recherchez une offre",
+            "description1":"Trouvez votre prochain emploi sur notre",
+             "description2":"moteur de recherche ou gagnez du temps en recevant",
+             "description3":"des alertes d'emploi en vous inscrivant à la newsletter."
+        },
+        "Performance":{
+            "title":"Nos performances",
+            "one":"Partenaire(s)",
+            "two":"Offre(s)",
+            "three":"Talent(s)"
+        },
+        "Appli_mobile":{
+            "title_one":"Télécharger notre",
+            "title_two":"application mobile",
+            "title_three":"Trouver des offres, ressources partout ou vous êtes"
+        },
+        "OFFRE_RECENT":{
+            "title":"Offres récentes"
+        },
+        "PARTENAIRE":{
+            "title":"Nos Partenaires"
+        },
+        "ALERTES":{
+            "title":"Alertes Offres",
+            "description1":"Vous voulez reçevoir les offres d'emploi",
+            "description2":"Inscrivez-vous à la newsletter",
+            "description3":"Envoyer",
+            "description4":"Chargement..."
+        }
+    },
+    "FOOTER":{
+        "Adresse":{
+          "title":"Adresse"
+        },
+        "ACCES":{
+         "title":"Accès rapide",
+         "one":"Recherche d’offre",
+         "two":"Abonnements",
+         "three":"Contact"
+        },
+        "CONTACT":{
+          "title":"Contactez-nous"
+        },
+        "COPYRIGHT":{
+            "title":"Tous droits réservés"
+        }
+    },
+    "ABONNEMENTS":{
+        "title":"Choisissez votre formule",
+        "one":"Etudiant",
+        "two":"Entreprise"
+    }
+}

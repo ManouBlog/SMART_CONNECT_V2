@@ -1,0 +1,635 @@
+<script>
+import Swal from "sweetalert2";
+import instance, { lienPhoto } from "../../../../api/api";
+import Buttons from "../../../../Shared/Compoments/Buttons.vue";
+import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
+import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
+import { mapActions } from "pinia";
+import { Help } from "../../../../utils";
+import VerificationUpload from "../../../VerificationUpload.vue";
+export default {
+  name: "InfoStudents",
+  components: {
+    Buttons,
+    VerificationUpload
+  },
+  props: {
+    infoBioStudent: {
+      type: String,
+      required: false,
+    },
+    infoPersonellesStudents: {
+      type: Array,
+    },
+    infoPersonellesCompetences: {
+      type: Array,
+    },
+    infoPersonellesQualifications: {
+      type: Array,
+    },
+  },
+  data() {
+    return {
+      showModal: false,
+      Help: Help,
+      user: "",
+      nom: "",
+      showModalBadgeVerifi:false,
+      prenoms: "",
+      lienPhoto: lienPhoto,
+      password: null,
+      commune: "",
+      quartier: "",
+      ville: "",
+      diplome: "",
+      phone: "",
+      registre_commerce: "",
+      oldPassword: "",
+      photo: {},
+      isLoading: false,
+      confirmation_password: "",
+      nouveau_password: "",
+      msgErr: false,
+      formState: { username: "", password: "" },
+      elmentsOfBtn: [
+        {
+          name_btn: "Modifier",
+          color_btn: "primary",
+        },
+      ],
+    };
+  },
+  methods: {
+    ...mapActions(useInfoPersonnel, [
+      "changeValueForToogleModalInfoPersonnelle",
+      "verifIfPasswordIsExact",
+      "update_compte_student",
+      "addInfoUserConnected",
+    ]),
+    ...mapActions(useLoadingSpinner, ["launchLoading"]),
+    handleFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        // console.log("Fichier choisi :", file);
+        this.update_compte_student({
+          photo_profil: file,
+        });
+        this.getInfoUser(1);
+      }
+    },
+    async getInfoUser(value = null) {
+      this.isLoading = true;
+      await instance
+        .get("voirInfoUserConnect")
+        .then((resp) => {
+          // console.log("voirInfoUserConnect", resp);
+          if (resp.data.status === true) {
+            this.user = resp.data.user;
+            this.addInfoUserConnected(resp.data.user);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          if (value) {
+            location.reload(true);
+          }
+          this.isLoading = false;
+        });
+    },
+    handleModalInfo(payload = null) {
+      // console.log("handleModalInfo", payload);
+      if (payload) {
+        // console.log("this.$store.state.infoUserConnected",this.$store.state.infoUserConnected)
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: true });
+      } else {
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: true });
+      }
+    },
+    modifyPasswordOfEntreprise() {
+      let Entreprise = {
+        oldPassword: this.oldPassword,
+        password: this.password,
+      };
+      this.routeForLaunch(Entreprise);
+    },
+
+    routeForLaunch(data) {
+      if (this.cpassword !== this.password) {
+        this.msgErr = true;
+      } else {
+        instance
+          .post("passwordModify", data)
+          .then((resp) => {
+            // console.log(resp);
+            if (resp.data.status === true) {
+              Swal.fire({
+                icon: "success",
+                title: "Mot de passe changé",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              //setTimeout(() => {
+              //location.reload(true);
+              //}, 1500);
+            }
+            if (resp.data.status === false) {
+              Swal.fire({
+                icon: "error",
+                title: resp.data.message,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    async handleActivationCompteEmail() {
+      this.launchLoading(true);
+      await instance
+        .post("send-verification-email")
+        .then((res) => {
+          // console.log("send-verification-email", res.data);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: true,
+            });
+          }
+          if (res.data.status === false) {
+            Swal.fire({
+              icon: "error",
+              title: res.data.message,
+              showConfirmButton: true,
+            });
+          }
+        })
+
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.launchLoading(false);
+        });
+    },
+    see(e) {
+      this.photo = e.target.files[0];
+      // console.log(this.photo);
+    },
+  },
+  created() {
+    this.getInfoUser();
+  },
+};
+</script>
+
+<template>
+  <section>
+     <!-- Modal de certification -->
+    <n-modal v-model:show="showModalBadgeVerifi" style="width:auto" preset="card" :closable="false">
+      <template #header>
+        <div class="modal-header">
+          <h3>Badge de Vérification</h3>
+        </div>
+      </template>
+      <VerificationUpload 
+      :userProfil="user?.user?.statut?.statut"
+      />
+    </n-modal>
+    <div v-if="isLoading">
+      <h1 style="text-align: center">Chargement...</h1>
+    </div>
+    <a-card
+      v-if="user"
+      style="
+        width: auto;
+        color: var(--third-color) !important;
+        background: var(--secondary-color) !important;
+      "
+    >
+      <div class="info-header" style="display: flex; justify-content: space-between">
+        <h1 class="fw-bold my-3">Informations personnelles</h1>
+        <div>
+          <button 
+          v-if="user.user.statut.statut != 'etudiant' && !user.is_verified"
+          style="
+          width:auto;
+          padding:0.5em;
+          margin:0 1em;
+          border-radius: 5%;
+          border:1px dashed orange; 
+          background-color: transparent;
+          color:orange"
+          @click="showModalBadgeVerifi = !showModalBadgeVerifi"
+          > <i class="bi bi-patch-check-fill"></i> Ajouter un badge de vérification</button>
+         <button
+          style="
+            height: auto;
+            width: auto;
+            background: orange;
+            color: white;
+            font-weight: bold;
+            border-radius: 10%;
+            padding:0.5em;
+          "
+          @click="handleModalInfo(1)"
+        >
+          Voir Mon CV
+        </button>
+        </div>
+        
+      </div>
+      <div
+        class="conteneur_activation"
+        style="display: flex; align-items: center;"
+      >
+      <span class="badge bg-warning"
+          >{{ user.user.statut.statut}}</span
+        >
+        <span
+          class="badge"
+          style="text-align: center"
+          :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
+        >
+          Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}
+    </span>
+
+        <button
+          v-if="!user.user.verif_email"
+          style="background: orange; color: white; font-weight: 900"
+          @click="handleActivationCompteEmail"
+        >
+          Activer mon compte
+        </button>
+      </div>
+
+      <div class="d-flex" style="position: relative">
+        <input
+          id="hiddenFile"
+          type="file"
+          style="display: none"
+          @change="handleFileChange"
+        />
+        <button
+          class="btn_photo_profil"
+          onclick="document.getElementById('hiddenFile').click()"
+        >
+          <n-avatar
+            v-if="user.photo_profil"
+            style="
+              border: 3px solid white;
+              object-fit: cover;
+              width: 120px;
+              height: 120px;
+            "
+            round
+            :src="lienPhoto + user.photo_profil"
+          />
+          <p
+            style="
+              border: 3px solid white;
+              object-fit: cover;
+              width: 100px;
+              height: 100px;
+              line-height: 100px;
+              text-align: center;
+              font-size: 1em;
+              border-radius: 100%;
+              background: gray;
+            "
+            v-else
+          >
+            <span style="font-size: 2.5em">{{ Help.toADfirstTwo(user.nom) }}</span>
+          </p>
+        </button>
+        <i class="bi bi-camera-fill"></i>
+      </div>
+      <div>
+        <p v-if="infoBioStudent" style="color: orange; font-weight: bold">Bio</p>
+        <p
+          v-if="infoBioStudent"
+          style="
+            text-align: justify;
+            padding: 0.4em;
+            font-weight: bold;
+            background: #80808085;
+            border-radius: 10px;
+          "
+        >
+          {{ infoBioStudent }}
+        </p>
+      </div>
+      <section class="my-5">
+        <div class="row">
+          <div
+            v-for="(item, index) in infoPersonellesStudents"
+            :key="index"
+            class="col-lg-4 col-sm-6"
+          >
+            <p style="color: orange; font-weight: bold"
+            v-if="
+                item.libelle !== null 
+              "
+            >{{ item.libelle }} :</p>
+            <h6
+              v-if="
+                item.libelle !== null &&
+                item.value !== null &&
+                item.value !== 'null' &&
+                item.value !== 'undefined' &&
+                item.libelle !== 'Pièce d\'identité' &&
+                item.libelle !== 'Carte étudiant' &&
+                item.libelle !== 'Diplôme' &&
+                item.libelle !== 'CNI' &&
+                item.libelle !== 'Attestation de travail'
+              "
+              class="fw-bold"
+            >
+              {{ item.value }}
+            </h6>
+            <div
+              v-if="
+                item.libelle === 'Pièce d\'identité' || 
+                item.libelle === 'Carte étudiant' ||
+                item.libelle === 'Diplôme' ||
+                item.libelle === 'CNI' ||
+                item.libelle === 'Attestation de travail'
+              "
+              style="display: flex; justify-content: flex-start; gap: 1em"
+            >
+              <section v-for="(element, index) in item.value" :key="index">
+                <div>
+                  <div v-if="Help.splitFilename(element?.path) === 'pdf'">
+                    <n-button type="warning" @click="showModal = true">
+                      Voir la carte étudiant.
+                    </n-button>
+                    <n-modal
+                      v-model:show="showModal"
+                      style="width: 80%; max-width: 900px"
+                    >
+                      <n-card title="Document PDF" closable @close="showModal = false">
+                        <iframe
+                          :src="lienPhoto + element.path"
+                          style="width: 100%; height: 600px; border: none"
+                        ></iframe>
+                      </n-card>
+                    </n-modal>
+                  </div>
+                  <n-image
+                    v-else
+                    v-for="(photo, index) in [element.path]"
+                    :key="index"
+                    :alt="photo"
+                    width="100"
+                    height="150"
+                    :src="lienPhoto + photo"
+                  />
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="my-5 text-center">
+        <Buttons
+          :elmentsOfBtn="elmentsOfBtn"
+          :shapeBtn="'round'"
+          @created="handleModalInfo"
+        />
+      </section>
+    </a-card>
+    <a-card
+      v-if="user"
+      style="
+        width: auto;
+        color: var(--third-color) !important;
+        background: var(--secondary-color) !important;
+        margin: 2em 0;
+      "
+    >
+      <h1 class="fw-bold">Modifier mot de passe</h1>
+      <section>
+        <div class="card-body text-left py-4">
+          <div class="row">
+            <div class="col-lg-4 col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Ancien mot de passe</label>
+                <a-input-password v-model:value="password" />
+                <!-- <input v-model="password" class="form-control" type="password" /> -->
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Nouveau mot de passe</label>
+                <a-input-password v-model:value="nouveau_password" />
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Confirmation du nouveau mot de passe</label>
+                <a-input-password v-model:value="confirmation_password" />
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button
+              class="btn bg-warning"
+              style="
+                border-radius: 32px;
+                padding-inline-start: 16px;
+                padding-inline-end: 16px;
+              "
+              @click.prevent="
+                verifIfPasswordIsExact({
+                  confirmation_password: confirmation_password,
+                  password: nouveau_password,
+                  oldPassword: password,
+                })
+              "
+            >
+              Modifier
+            </button>
+          </div>
+        </div>
+      </section>
+    </a-card>
+  </section>
+</template>
+<style scoped>
+.conteneur-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1em;
+  justify-content: flex-start;
+}
+
+.btn_photo_profil {
+  background: transparent;
+  border: none;
+}
+
+.bi-camera-fill {
+  font-size: 1.2em !important;
+  position: absolute;
+  bottom: 0;
+  left: 5em;
+  z-index: 1;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  text-align: center;
+  width: 43px;
+  background: rgb(255, 255, 255);
+  padding: 0.5em;
+  border-radius: 100%;
+}
+
+h6 {
+  text-align: left;
+  font-size: 1.5em;
+}
+h1 {
+  text-align: left;
+}
+
+/* ✅ Responsive pour tablettes et mobiles */
+@media (max-width: 992px) {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .col-lg-4,
+  .col-sm-6 {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .info-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8em;
+  }
+
+  .info-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .info-header button {
+    font-size: 0.9rem;
+    padding: 0.4em 0.8em;
+    border-radius: 6px;
+    margin: 1em 0;
+  }
+
+  .conteneur_activation {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 0.8em;
+  }
+
+  .bi-camera-fill {
+    left: 3.5em;
+    font-size: 1em;
+  }
+
+  .conteneur-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6em;
+  }
+
+  .n-image {
+    width: 80px !important;
+    height: auto !important;
+  }
+}
+
+/* ✅ Très petits écrans (téléphones ≤ 480px) */
+@media (max-width: 480px) {
+  .info-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .info-header button {
+    font-size: 0.8rem;
+  }
+
+  .bi-camera-fill {
+    left: 2.8em;
+  }
+
+  h6 {
+    font-size: 1.2em;
+  }
+
+  .a-card,
+  section {
+    padding: 0.1em !important;
+  }
+}
+</style>
+
+<!-- <style scoped>
+.conteneur-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1em;
+  justify-content: space-between;
+}
+.btn_photo_profil {
+  background: transparent;
+  border: none;
+}
+.bi-camera-fill {
+  font-size: 1.2em !important;
+  position: absolute;
+  bottom: 0;
+  left: 5em;
+  z-index: 1;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  background: rgb(255, 255, 255);
+  padding: 0.5em;
+  border-radius: 100%;
+}
+h6 {
+  text-align: left;
+  font-size: 1.5em;
+}
+h1 {
+  text-align: left;
+}
+
+/* ✅ Version mobile */
+@media (max-width: 768px) {
+  .info-header,
+  conteneur_activation {
+    margin: 2em 0;
+  }
+
+  .info-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .info-header button {
+    width: auto;
+    margin: 0 auto;
+    font-size: 0.7em;
+    border-radius: 8px !important;
+  }
+}
+@media (max-width: 368px) {
+  .conteneur-flex {
+    place-content: center;
+  }
+}
+</style> -->

@@ -1,0 +1,100 @@
+{
+    "spinnerText":"Loading...",
+    "Header":{
+        "Menu":{
+            "Accueil":"Home",
+            "Abonnement":"Subscription",
+            "aboutUs":"Contact us",
+            "Connexion":"Login",
+            "Tableau_bord":"Dashboard",
+            "Profil":"My profile",
+            "Mes_abonnements":"My subscriptions",
+            "Deconnexion":"Logout",
+            "Student":{
+                "Offre_emploi":"Jobs",
+                 "Postulations":"My job applications",
+                 "Contrats":"My Contracts",
+                 "Disponibilite":"My availability"
+            },
+            "Entreprise":{
+                "Talents":"Talents",
+                "Liste_des_offres":"List of offers",
+                "creer_une_offre":"Create an offer",
+                "Personnels":"Employees",
+                "Postulants":"Candidates"
+            }
+        }
+        
+    },
+    "Home":{
+        "headline":{
+            "emploi":"My job",
+            "oneClick":"in one click",
+            "Text_one":"We can help you",
+            "Text_two":"find your next opportunity",
+            "Button_Connexion":"Login",
+            "Offres":"Jobs",
+            "Talents":"Available talents"
+        },
+        "Etape":{
+        "etapes":"Steps to follow",
+        "instructions":"Instructions for contacting staff or applying for a job.",
+        "data":{
+            "ONE":"Create an account",
+            "TEXT_ONE":"Remplissez le formulaire"
+        }
+        },
+        "rechercheOffre":{
+            "title":"Search for an offer",
+             "description1":"Find your next job on our",
+             "description2":"search engine or save time by receiving",
+             "description3":"job alerts by subscribing to our newsletter."
+        },
+        "Performance":{
+            "title":"Our performance",
+            "one":"Partner(s)",
+            "two":"Offer(s)",
+            "three":"Talent(s)"
+        },
+        "Appli_mobile":{
+            "title_one":"Download our",
+            "title_two":"mobile application",
+            "title_three":"Find offers and resources wherever you are"
+        },
+        "OFFRE_RECENT":{
+            "title":"Recent offers"
+        },
+        "PARTENAIRE":{
+            "title":"Our partners"
+        },
+        "ALERTES":{
+            "title":"Alerts Offers",
+            "description1":"You want to receive job offers",
+            "description2":"Subscribe to our newsletter",
+            "description3":"Send",
+            "description4":"Loading..."
+        }
+    },
+    "FOOTER":{
+        "Adresse":{
+          "title":"Address"
+        },
+        "ACCES":{
+         "title":"Quick access",
+         "one":"Offer search",
+         "two":"Subscriptions",
+         "three":"Contact"
+        },
+        "CONTACT":{
+          "title":"Contact us"
+        },
+        "COPYRIGHT":{
+            "title":"All rights reserved"
+        }
+    },
+    "ABONNEMENTS":{
+        "title":"Choose your formula",
+        "one":"Student",
+        "two":"Company"
+    } 
+}
