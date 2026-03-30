@@ -1,0 +1,35 @@
+-roles:
+*sup-admin,
+*admin(entreprise),
+*support(les utilisateurs de lce),
+*entreprise(les utilisateurs des entreprises)
+
+Flow:
+-le sup admin valide la creation des entreprises en ajoutant un admin
+-l'admin rentrer par le sup admin, enregistre ses users,tant que le sup admin n a pas valide l ustilisateur, 
+il ne se retrouve pas dans la liste de l admin (users) avec role entreprise.
+
+-les personnes creent pas des admins sont pending et approve pas le sup admin.
+
+-l abonnement : 
+*le sup admin enregistre la formule de l'entreprise avec le temps de traitement.
+configuration des tickets.
+*les personnes de l entreprise emettent des tickets.
+
+-dans configuration:
+les roles,
+le niveau de difficulte,
+les temps de traitements,
+les types de tickets,
+les formules
+
+-ajouter une interface entreprise
+
+
+interfaces 
+-statistiques
+
+
+-configuration : 18/02 AU 20/02
+-espace dashboard sup_admin + espace admin statistques : 23/02 au 27/02
+-tickets + espaces support (utilisateur lce) : 02/03 au 06/03

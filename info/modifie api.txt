@@ -1,0 +1,6 @@
+-Mettre une restriction au niveau du régistre de commerce (il doit etre unique).
+-Le nom de l'entreprise doit avoir une restriction(au niveau des caracteres à rentrer).
+-Ajouter les functions des utilisateurs dans la liste des utilisateurs.
+-Recuperer l id de l utilisateur a travers son token.
+-On ne peut pas modifier l'email.
+-Au niveau de l'emploi du temps,on ne peut pas modifier le jour (modifie que les heures).

@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.p-galleria-mask{
+  background-color: rgba(176, 173, 173, 0.763);
+}
+.p-galleria-close .p-link{
+top:1em;
+right:1em;
+}
+.p-checkbox-box{
+  display: none !important;
+}
+ol > .p-highlight{
+ background-color: orange;
+ color: white;
+}
+ol > .p-disabled{
+  background-color: rgba(128, 128, 128, 0.326);
+}
+.p-autocomplete-dd .p-autocomplete-input, .p-autocomplete-dd .p-autocomplete-multiple-container {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 40px;
+    border: 1px solid black;
+    padding: 1em;
+}
+.p-autocomplete-items {
+    margin: 0;
+    list-style-type: none;
+    background: #ececee;
+    padding: 0.6em;
+    border-radius: 0px 0px 10px 10px;
+}
+.p-autocomplete-dd .p-autocomplete-dropdown {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0px;
+    padding: 0 0.6em;
+    background: #c0c5cc;
+}
+
+.p-datatable-tbody tr td{
+  border-bottom: thin solid rgba(149, 149, 149, 0.418);
+   padding: 0.5em;
+}
+.p-paginator-pages{
+  padding: 1em;
+}
+.p-paginator-pages button{
+margin:0 0.5em;
+background-color: rgba(205, 205, 205, 0.724);
+padding: 0.5em;
+}
+
+.p-datatable .p-column-header-content{
+  background-color: #8888885a;
+  justify-content: center;
+  color:rgb(141, 141, 141) !important;
+  border-bottom: thin solid rgba(149, 149, 149, 0.418);
+  padding: 0.5em;
+  height: 3em;
+}
+
+.p-calendar .p-inputtext {
+    flex: 1 1 auto;
+    width: 1%;
+    border: 1px solid #cbc3c3;
+    border-radius: 5px;
+    padding: 0.4em;
+}
+.p-datepicker-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.192) !important;
+    background: white;
+    border-bottom: 1px solid black;
+    padding: 0.2em;
+}
+.p-yearpicker-year{
+  padding:0.5em;
+}
+.p-yearpicker .p-highlight{
+  background-color: orange;
+}
+.p-yearpicker{
+    background: white;
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.192) !important;
+
+}
+
+@keyframes ping-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.animate-ping-scale {
+  animation: ping-scale 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}

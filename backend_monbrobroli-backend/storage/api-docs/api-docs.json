@@ -1,0 +1,4151 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "darius@matulionis.lt"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0",
+        "x-logo": {
+            "url": "https://via.placeholder.com/190x90.png?text=L5-Swagger"
+        }
+    },
+    "paths": {
+        "api/create_categorie-abonnement": {
+            "post": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Creation d'abonnement",
+                "description": "Creation d'abonnement",
+                "operationId": "f406dfcd6e5525a101c47099b44325b9",
+                "requestBody": {
+                    "description": "création de catégorie abonnement",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string",
+                                        "example": "Etudiant"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "...."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/getCategorie": {
+            "get": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Voir toutes les catégories",
+                "description": "Voir toutes les catégories",
+                "operationId": "Voir toutes les catégories",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/admin/transactionsAbonnement": {
+            "get": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Voir toutes les transactions",
+                "description": "Voir toutes les transactions",
+                "operationId": "Voir toutes les transactions abonnement",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/deleteCategorie/{id}": {
+            "delete": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Supprimer une catégorie",
+                "description": "Supprimer une catégorie",
+                "operationId": "deleteCategorie",
+                "parameters": [
+                    {
+                        "name": "Id",
+                        "in": "path",
+                        "description": "Id de l'emploi du temps.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid schedule supplied"
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie supprimée avec succes"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "route not found"
+                    }
+                }
+            }
+        },
+        "api/editCategorie/{id}": {
+            "put": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Modifier la catégorie.",
+                "operationId": "Modifier la catégorie",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de l'emploi du temps.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Modifier la catégorie",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string",
+                                        "example": "Etudiant"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "405": {
+                        "description": "Mauvaise méthode"
+                    }
+                }
+            }
+        },
+        "api/create-abonnement": {
+            "post": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Creation d'abonnement",
+                "description": "Creation d'abonnement",
+                "operationId": "30190b2c32906251edbb07f8c1778494",
+                "requestBody": {
+                    "description": "création de catégorie abonnement",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string",
+                                        "example": "Etudiant"
+                                    },
+                                    "prix": {
+                                        "type": "number",
+                                        "example": "2000"
+                                    },
+                                    "periode": {
+                                        "type": "number",
+                                        "example": "1 ou 2 ans ( nb:ne pas écrire le ans)"
+                                    },
+                                    "categorie_id": {
+                                        "type": "number",
+                                        "example": "4"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin/updateAbonnement/{id}": {
+            "put": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Modifier l'abonnement",
+                "operationId": "Modifier l'abonnement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de l'abonnement.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Modifier l'abonnement",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string",
+                                        "example": "Standard"
+                                    },
+                                    "prix": {
+                                        "type": "string",
+                                        "example": "100"
+                                    },
+                                    "periode": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "<ul><li>blabla</li></ul>"
+                                    },
+                                    "categorie_id": {
+                                        "type": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "405": {
+                        "description": "Mauvaise méthode"
+                    }
+                }
+            }
+        },
+        "api/admin/deleteAbonnement/{id}": {
+            "delete": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Supprimer un abonnement",
+                "description": "Supprimer un abonnement",
+                "operationId": "deleteAbonnement",
+                "parameters": [
+                    {
+                        "name": "Id",
+                        "in": "path",
+                        "description": "Id de l'abonnement.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid schedule supplied"
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie supprimée avec succes"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "route not found"
+                    }
+                }
+            }
+        },
+        "api/getAbonnement": {
+            "get": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Voir touts les abonnements",
+                "description": "Voir touts les abonnements",
+                "operationId": "Voir touts les abonnements",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/seeMyAbonnement": {
+            "get": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Voir touts les abonnements d'utilisateur précis",
+                "description": "Voir touts les abonnements d'utilisateur précis (récupération de l'id par le token)",
+                "operationId": "Voir touts les abonnements d'utilisateur précis",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/do_an_abonnement": {
+            "post": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Permettre à l utilisateur de faire un abonnement",
+                "description": "Permettre à l utilisateur de faire un abonnement (Récupération de l utilisateur par le token)",
+                "operationId": "fa78a12fe3bccac01af9a8df6392fdaf",
+                "requestBody": {
+                    "description": "création de catégorie abonnement",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "abonement_id": {
+                                        "type": "numner",
+                                        "example": "2"
+                                    },
+                                    "moyen_paiement": {
+                                        "type": "string",
+                                        "example": "orange"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/handleMyAbonnement": {
+            "get": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Permettre au entreprise de voir les abonnements avec des utilisateurs",
+                "description": "Permettre au entreprise de voir les abonnements avec des utilisateurs ",
+                "operationId": "Permettre au entreprise de voir les abonnements avec des utilisateurs",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/abonnement_user": {
+            "get": {
+                "tags": [
+                    "Abonnement."
+                ],
+                "summary": "Permettre au etudiant de voir les abonnements",
+                "description": "Permettre au etudiant de voir les abonnements ",
+                "operationId": "Permettre au etudiant de voir les abonnements",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/payStack/paiement": {
+            "post": {
+                "tags": [
+                    "PAYSTACK"
+                ],
+                "summary": "faire un paiement",
+                "description": "Faire une paiement.",
+                "operationId": "c58d7dfc9a952aae44ea6a9560b0ae01",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "transaction_id": {
+                                        "type": "integer",
+                                        "example": "7845584 (generer automatiquement)"
+                                    },
+                                    "mobile": {
+                                        "type": "integer",
+                                        "example": "1 (ajout 30% si mobile === 1)"
+                                    },
+                                    "abonement_id": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "channels": {
+                                        "type": "string",
+                                        "example": "Moov,Orange,etc..."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payStack/payment/callback/{reference}": {
+            "get": {
+                "tags": [
+                    "PAYSTACK"
+                ],
+                "summary": "Verification de la reference",
+                "description": "Voir si la réference est passée. (Ajouter la reference en paramètre.)",
+                "operationId": "ac872f0abc3dd9ef9e80ffa5745be419",
+                "parameters": [
+                    {
+                        "name": "reference",
+                        "in": "path",
+                        "description": "Reference de la transaction.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "true"
+                                        },
+                                        "msg": {
+                                            "type": "success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/handleWebHookRevenueCat": {
+            "post": {
+                "tags": [
+                    "RevenueCat"
+                ],
+                "summary": "Webhook RevenueCat",
+                "description": "Endpoint recevant les événements RevenueCat (INITIAL_PURCHASE, RENEWAL, CANCELLATION, EXPIRATION, TRANSFER). \r\n *     Il valide la signature, analyse l'événement et synchronise les abonnements utilisateurs.",
+                "operationId": "revenueCatWebhook",
+                "parameters": [
+                    {
+                        "name": "X-RevenueCat-Signature",
+                        "in": "header",
+                        "description": "Signature HMAC SHA256 générée par RevenueCat",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Payload JSON envoyé par RevenueCat",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "event": {
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "example": "INITIAL_PURCHASE"
+                                            },
+                                            "app_user_id": {
+                                                "type": "string",
+                                                "example": "123"
+                                            },
+                                            "product_id": {
+                                                "type": "string",
+                                                "example": "premium_monthly"
+                                            },
+                                            "expiration_at_ms": {
+                                                "type": "integer",
+                                                "example": 1700000000000
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Webhook traité avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ok"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Signature RevenueCat invalide",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid signature"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "JSON invalide",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid JSON"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Abonnement incompatible avec le profil utilisateur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cet abonnement ne convient pas à votre profil."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin/update_competence/{id}": {
+            "put": {
+                "tags": [
+                    "Competences."
+                ],
+                "summary": "Update la compétence.",
+                "operationId": "Update la compétence",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de la compétence.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Modifier la compétence",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "competence": {
+                                        "type": "string",
+                                        "example": "Etudiant"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "405": {
+                        "description": "Mauvaise méthode"
+                    }
+                }
+            }
+        },
+        "api/admin/delete_categorie/{id}": {
+            "delete": {
+                "tags": [
+                    "Categories."
+                ],
+                "summary": "Supprimer une catégorie",
+                "description": "Supprimer une catégorie",
+                "operationId": "delete_categorie",
+                "parameters": [
+                    {
+                        "name": "Id",
+                        "in": "path",
+                        "description": "Id de la catégorie.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid schedule supplied"
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie supprimée avec succes"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "route not found"
+                    }
+                }
+            }
+        },
+        "api/GetAllCompetences": {
+            "get": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Voir toutes les compétences créées.",
+                "description": "Retourne toutes les compétences créées",
+                "operationId": "Voir toutes les compétences créées.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/confirmAlarm/{id}": {
+            "put": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Met à jour l'alarme d'un étudiant",
+                "description": "Met l'alarme à 0 pour l'étudiant donné et retourne le status.",
+                "operationId": "changeAlarm",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du contact ou contrat",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Alarme modifiée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Alarme déjà à 0",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Étudiant non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Étudiant non trouvé"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/AllEntrepriseWithTimetables": {
+            "get": {
+                "tags": [
+                    "Entreprise or Particulier"
+                ],
+                "summary": "Voir toutes les entreprises",
+                "description": "Retourne la liste des entreprises",
+                "operationId": "Voir toutes les entreprises",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "timetable": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/rate_entreprise": {
+            "post": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Evaluer le service",
+                "description": "Evaluer le service",
+                "operationId": "6c50ffa7e906c8649472cddeb89e9313",
+                "requestBody": {
+                    "description": "Evaluation",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "offre_id": {
+                                        "type": "integer",
+                                        "example": "5"
+                                    },
+                                    "student_id": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "notes": {
+                                        "type": "integer",
+                                        "example": "3"
+                                    },
+                                    "avis": {
+                                        "type": "string",
+                                        "example": "Super le service"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "...."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/create_offre": {
+            "post": {
+                "tags": [
+                    "Offres."
+                ],
+                "summary": "Creation d'offres",
+                "description": "Creation d'offres",
+                "operationId": "a0ece49935950312db97048cc11aab55",
+                "requestBody": {
+                    "description": "création d'offres",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom_offre": {
+                                        "type": "string",
+                                        "example": "restauration"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "serveur"
+                                    },
+                                    "debut": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2022-10-14 00:00:00"
+                                    },
+                                    "fin": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2022-10-15 00:00:00"
+                                    },
+                                    "lieu": {
+                                        "type": "string",
+                                        "example": "Abidjan"
+                                    },
+                                    "nbre_person": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "categorie_offre_id": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "pointage": {
+                                        "type": "integer",
+                                        "example": "jour/mois"
+                                    },
+                                    "salaire": {
+                                        "type": "integer",
+                                        "example": "25000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "...."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/toogleFavoris": {
+            "post": {
+                "tags": [
+                    "Favoris-Student."
+                ],
+                "summary": "ajouter et rétirer les offres dans les favoris",
+                "description": "ajouter et rétirer les offres dans les favoris",
+                "operationId": "bb0237cae84e4c2cab65c94f44a64cf2",
+                "requestBody": {
+                    "description": "Evaluation",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "offre_id": {
+                                        "type": "integer",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "...."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/listFavoris": {
+            "get": {
+                "tags": [
+                    "Favoris-Student."
+                ],
+                "summary": "Voir la liste de mes favoris",
+                "description": "Retourne la liste des favoris.",
+                "operationId": "Voir la liste de mes favoris.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/create_schedule": {
+            "post": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Création d'emploi du temps",
+                "description": "Création d'emploi du temps",
+                "operationId": "552a67b373d8cf02b59070906de4c9d0",
+                "requestBody": {
+                    "description": "Create calendar",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "jour": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "[2022-10-22,2023-10-22]"
+                                    },
+                                    "First_horaire": {
+                                        "type": "heure",
+                                        "example": "13:31-16:31 si periode=1 ou 0 "
+                                    },
+                                    "Second_horaire": {
+                                        "type": "heure",
+                                        "example": "20:13-21:14 si periode = 0"
+                                    },
+                                    "totalHour": {
+                                        "type": "integer",
+                                        "example": "4 (facultatif)"
+                                    },
+                                    "periode": {
+                                        "type": "integer",
+                                        "example": "1 / 0"
+                                    },
+                                    "periode_fin": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-07-17 si periode=1"
+                                    },
+                                    "periode_debut": {
+                                        "type": "integer",
+                                        "example": "2025-07-18 si periode=1"
+                                    },
+                                    "hour_periode_debut": {
+                                        "type": "heure",
+                                        "example": "08:40 si periode=1"
+                                    },
+                                    "hour_periode_fin": {
+                                        "type": "integer",
+                                        "example": "18:40 si periode=1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "...."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/get_schedule": {
+            "get": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Voir touts mes emplois du temps  créés.",
+                "description": "Retourne tous les emploi du temps créés",
+                "operationId": "Voir touts mes emplois du temps  créés.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/modify_schedule/{id}": {
+            "put": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Modifier l'emploi du temps.",
+                "operationId": "Modifier l'emploi du temps",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de l'emploi du temps.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Modifier l'emploi du temps",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "day": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2022-10-22"
+                                    },
+                                    "First_horaire": {
+                                        "type": "heure",
+                                        "example": "13:31-16:31"
+                                    },
+                                    "Second_horaire": {
+                                        "type": "heure",
+                                        "example": "20:13-21:14"
+                                    },
+                                    "totalHour": {
+                                        "type": "integer",
+                                        "example": "4"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "405": {
+                        "description": "Mauvaise méthode"
+                    }
+                }
+            }
+        },
+        "api/delete_schedule/{id}": {
+            "delete": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Supprimer un emploi du temps",
+                "description": "Supprimer un emploi du temps",
+                "operationId": "deleteSchedule",
+                "parameters": [
+                    {
+                        "name": "Id",
+                        "in": "path",
+                        "description": "Id de l'emploi du temps.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid schedule supplied"
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "...."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "route not found"
+                    }
+                }
+            }
+        },
+        "api/SendMailAtEmailToNewsletter": {
+            "post": {
+                "tags": [
+                    "Email."
+                ],
+                "summary": "S'incrire à la newsLetter",
+                "description": "S'incrire à la newsLetter",
+                "operationId": "315736f5f7c80ea1422a29151839637c",
+                "requestBody": {
+                    "description": "Create user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "adjobi@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Nous vous avons envoyé un email de bienvenue.."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Votre email a déjà été pris en compte"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/showAffiche/'mobile'ou'pc'": {
+            "get": {
+                "tags": [
+                    "Affiches"
+                ],
+                "summary": "Récupère la liste des affiches filtrées par appareil",
+                "description": "Retourne les affiches disponibles pour le type d'appareil envoyé (pc ou mobile)",
+                "operationId": "getAffichesByAppareil",
+                "parameters": [
+                    {
+                        "name": "appareil",
+                        "in": "query",
+                        "description": "Type d'appareil ('pc' ou 'mobile') pour filtrer les affiches",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "pc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des affiches récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "titre": {
+                                                        "type": "string",
+                                                        "example": "Affiche de bienvenue"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Ceci est une affiche test"
+                                                    },
+                                                    "appareil": {
+                                                        "type": "string",
+                                                        "example": "pc"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-10-03T12:00:00Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-10-03T12:30:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/list_offres": {
+            "get": {
+                "tags": [
+                    "Offres."
+                ],
+                "summary": "Voir les offres",
+                "description": "Retourne la liste des offres.",
+                "operationId": "Voir les offres.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/search_offres": {
+            "post": {
+                "tags": [
+                    "Offres."
+                ],
+                "summary": "Recherche sur les offres",
+                "description": "Recherche avancée sur les offres par nom, lieu et catégories",
+                "operationId": "1417e7120cb04e39239de6fd0640d60e",
+                "requestBody": {
+                    "description": "Paramètres de recherche",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nom_offre",
+                                    "lieu",
+                                    "categorie"
+                                ],
+                                "properties": {
+                                    "nom_offre": {
+                                        "type": "string",
+                                        "example": "Serveur en restaurant"
+                                    },
+                                    "lieu": {
+                                        "type": "string",
+                                        "example": "Paris"
+                                    },
+                                    "categorie": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "example": "restauration"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/detail_offre/{id}": {
+            "get": {
+                "tags": [
+                    "Offres."
+                ],
+                "summary": "Voir les détails de l' offre.",
+                "description": "Retourne les infos de l' offre.",
+                "operationId": "Voir les détails de l' offre..",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de l'offre.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/seeCategorie": {
+            "get": {
+                "tags": [
+                    "Offres."
+                ],
+                "summary": "Voir les catégories d'offre",
+                "description": "Retourne la liste des catégories d'offre.",
+                "operationId": "Voir les catégories d'offre.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/categorie": {
+            "post": {
+                "tags": [
+                    "Offres."
+                ],
+                "summary": "Route pour la création d'une categorie",
+                "description": "Route pour la création d'une categorie",
+                "operationId": "e0da26fecf1e09aa57ce20808a49ae84",
+                "requestBody": {
+                    "description": "Create user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "categorie": {
+                                        "type": "string",
+                                        "example": "informatique"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie crée avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "La catégorie existe déjà."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin/update_categorie/{id}": {
+            "put": {
+                "tags": [
+                    "Categories."
+                ],
+                "summary": "Update la catégorie.",
+                "operationId": "Update la catégorie",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de la categorie.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Modifier la catégorie",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "categorie": {
+                                        "type": "string",
+                                        "example": "Etudiant"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "405": {
+                        "description": "Mauvaise méthode"
+                    }
+                }
+            }
+        },
+        "api/password/createNewPassword": {
+            "post": {
+                "tags": [
+                    "Email."
+                ],
+                "summary": "Route pour la réinitialisation du mot de passe.",
+                "description": "Route pour la réinitialisation du mot de passe.",
+                "operationId": "15760d7ce1cf58a32d2e22e31a85623b",
+                "requestBody": {
+                    "description": "Create user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "adjobi@gmail.com"
+                                    },
+                                    "mobile": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Nous vous avons envoyé un email de bienvenue.."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Votre email a déjà été pris en compte"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/password/reset": {
+            "post": {
+                "tags": [
+                    "Email."
+                ],
+                "summary": "Route pour changer le mot de passe",
+                "description": "Route pour changer le mot de passe",
+                "operationId": "e960f245f3ba219a96c77c3d84f25e26",
+                "requestBody": {
+                    "description": "Create user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "adjobi@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "*****"
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "example": "*****"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/qualifications/{id}": {
+            "delete": {
+                "tags": [
+                    "Qualifications"
+                ],
+                "summary": "Supprimer une qualification par ID",
+                "description": "Supprime la qualification identifiée par {id}. Retourne 404 si non trouvée.",
+                "operationId": "deleteQualification",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la qualification à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Qualification supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Qualification supprimée avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Qualification non trouvée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Qualification non trouvée."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié / token manquant",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/addQualifications": {
+            "post": {
+                "tags": [
+                    "Qualifications"
+                ],
+                "summary": "Ajouter des qualifications pour l'étudiant connecté",
+                "description": "Cette API permet à l'étudiant authentifié d'ajouter une ou plusieurs qualifications.",
+                "operationId": "addQualifications",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "qualifications": {
+                                        "description": "Liste des qualifications à ajouter",
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "detail": {
+                                                    "type": "string",
+                                                    "example": "Licence en Informatique"
+                                                },
+                                                "date_debut": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2020-09-01"
+                                                },
+                                                "date_fin": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2023-06-30"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Qualification ajoutée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Qualification ajoutée."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non autorisé"
+                    },
+                    "422": {
+                        "description": "Validation échouée"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/updateQualification": {
+            "post": {
+                "tags": [
+                    "Qualifications"
+                ],
+                "summary": "Mettre à jour les qualifications d’un étudiant",
+                "operationId": "67dfc868f3f4fbadb8b1dd319df2e4ab",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "qualifications"
+                                ],
+                                "properties": {
+                                    "qualifications": {
+                                        "type": "array",
+                                        "items": {
+                                            "required": [
+                                                "id",
+                                                "objet",
+                                                "detail",
+                                                "date_debut",
+                                                "date_fin"
+                                            ],
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "objet": {
+                                                    "type": "string",
+                                                    "example": "Développement Web"
+                                                },
+                                                "detail": {
+                                                    "type": "string",
+                                                    "example": "Laravel & Vue.js"
+                                                },
+                                                "date_debut": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2023-01-01"
+                                                },
+                                                "date_fin": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-01-01"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Qualification mise à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "La qualification a été modifiée."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "api/getCompetenceByStudents": {
+            "get": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Obtenir les compétences des étudiants",
+                "description": "Retourne la liste des compétences des étudiants.",
+                "operationId": "Obtenir les compétences des étudiants.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/FiltreTimetable": {
+            "get": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Voir l'emploi du temps de tous les étudiants.",
+                "description": "Retourne la liste des disponibilités de tous les étudiants.",
+                "operationId": "Voir l'emploi du temps de tous les étudiants..",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "date": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Notifications_student": {
+            "get": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Récupère les notifications du jour et d’hier pour l’étudiant connecté",
+                "description": "Cette route retourne deux listes : les notifications créées aujourd’hui et celles d’hier. Accessible uniquement aux étudiants connectés via Sanctum.",
+                "operationId": "dbee6d0c02176cf8bb81d9bb96fe543a",
+                "responses": {
+                    "200": {
+                        "description": "Notifications récupérées avec succès.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Notifications récupérées avec succès."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "today": {
+                                                    "description": "Notifications du jour"
+                                                },
+                                                "yesterday": {
+                                                    "description": "Notifications d’hier"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès non autorisé (étudiant non connecté)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Accès non autorisé."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié (token manquant ou invalide)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/markAllAsRead": {
+            "get": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Marquer toutes les notifications de l'étudiant connecté comme lues",
+                "description": "Cette route met à jour toutes les notifications non lues (`view = 0`) de l'étudiant connecté en `view = 1`.",
+                "operationId": "2fda408d5edb156d91b3f5e3eea5e6cf",
+                "responses": {
+                    "200": {
+                        "description": "Toutes les notifications ont été marquées comme lues.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Toutes les notifications ont été marquées comme lues."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Étudiant non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Étudiant non trouvé."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié (token manquant ou invalide)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "api/changeStatutJob/{id}": {
+            "put": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Modifier l'offre.",
+                "operationId": "Modifier l'offre",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id pour de l'offre.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "405": {
+                        "description": "Mauvaise méthode"
+                    }
+                }
+            }
+        },
+        "api/deleteCompetencesOfStudents/{id}": {
+            "delete": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Supprimer une compétence",
+                "description": "Supprimer une compétence",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "Id",
+                        "in": "path",
+                        "description": "Id de la compétence.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid username supplied"
+                    },
+                    "404": {
+                        "description": "Compétences not found"
+                    }
+                }
+            }
+        },
+        "api/get_who_contact_student": {
+            "get": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Obtenir les entreprises qui ont contactés les étudiants.",
+                "description": "Retourne la liste des entreprises qui ont contactés les étudiants",
+                "operationId": "Obtenir les entreprises qui ont contactés les étudiants.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/get_offres_postule": {
+            "get": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Voir les offres d'un étudiant auxquelles il a postulé (celui connecté).",
+                "description": "Retourne la liste des offres d'un étudiant",
+                "operationId": "Voir les offres d'un étudiant auxquelles il a postulé(celui qui est connecté).",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Les offres d'un etudiant."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/postule_offre": {
+            "post": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Permet à l'etudiant de postuler à une offre",
+                "description": "Permet à l'etudiant de postuler à une offre",
+                "operationId": "f9225c4b371f33a21c773f0d8cbff8ce",
+                "requestBody": {
+                    "description": "Create user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "offre_id": {
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Les offres d'un etudiant."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/list_students": {
+            "get": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Voir la liste des talents.",
+                "description": "Voir la liste des talents.",
+                "operationId": "Voir la liste des talents.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/list_visiteurs": {
+            "get": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Voir la liste des visiteurs.",
+                "description": "Voir la liste des visiteurs.",
+                "operationId": "Voir la liste des visiteurs.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/addCompetences": {
+            "post": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Permet à l'etudiant d'ajouter des compétences.",
+                "description": "Permet à l'etudiant d'ajouter des compétences.",
+                "operationId": "b1bfee3cc3279e5bb92c42f9d39a872f",
+                "requestBody": {
+                    "description": "Create user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "competence": {
+                                        "type": "id",
+                                        "example": "[3,2]"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Compétence à éte ajoutée avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Data exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "les ou la compétence(s) existe déjà."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/postNewExperience": {
+            "post": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Création d'une nouvelle expérience.",
+                "description": "Création d'une nouvelle expérience.",
+                "operationId": "ea6ff38e4ca4f468dc6a3e4066996bef",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "poste": {
+                                        "type": "string",
+                                        "example": "développeur freelance"
+                                    },
+                                    "lieu": {
+                                        "type": "string",
+                                        "example": "cocody angré"
+                                    },
+                                    "dateDebut": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2021-02-12"
+                                    },
+                                    "dateFin": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2021-02-18"
+                                    },
+                                    "experience": {
+                                        "type": "string",
+                                        "example": "lorem"
+                                    },
+                                    "entreprise": {
+                                        "type": "string",
+                                        "example": "nom de l'entreprise"
+                                    },
+                                    "proof": {
+                                        "type": "image",
+                                        "example": "{}"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Compétence à éte ajoutée avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/modifyExperience/{id}": {
+            "post": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Modifier mon expérience.",
+                "description": "Modifier mon expérience.",
+                "operationId": "cad53f132cb9ac1a0eaf44ad8ea57d6d",
+                "parameters": [
+                    {
+                        "name": "Id",
+                        "in": "path",
+                        "description": "Id de l'expérience.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "poste": {
+                                        "type": "string",
+                                        "example": "développeur freelance"
+                                    },
+                                    "lieu": {
+                                        "type": "string",
+                                        "example": "cocody angré"
+                                    },
+                                    "dateDebut": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2021-02-12"
+                                    },
+                                    "dateFin": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2021-02-18"
+                                    },
+                                    "experience": {
+                                        "type": "string",
+                                        "example": "lorem"
+                                    },
+                                    "entreprise": {
+                                        "type": "string",
+                                        "example": "nom de l'entreprise"
+                                    },
+                                    "proof": {
+                                        "example": "{}"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Modification reussie"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/GetMyExperiences": {
+            "get": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Voir la liste des expériences des étudiants",
+                "description": "Voir la liste des expériences des étudiants",
+                "operationId": "Voir la liste des expériences des étudiants.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/deleteMyExperience/{id}": {
+            "delete": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Supprimer une expérience",
+                "description": "Supprimer une expérience",
+                "operationId": "1ae7e84b23bc5b525f0bc2b2778c2971",
+                "parameters": [
+                    {
+                        "name": "Id",
+                        "in": "path",
+                        "description": "Id de l'expérience.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Suppression reussie"
+                    },
+                    "404": {
+                        "description": "Compétences not found"
+                    }
+                }
+            }
+        },
+        "api/giveAvis": {
+            "post": {
+                "tags": [
+                    "Entreprise or Particulier"
+                ],
+                "summary": "Noter l'etudiant.",
+                "description": "Noter l'etudiant.",
+                "operationId": "1ee1d5b5c5e1ad07b1d1226e34daf0e0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "notes": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "student_id": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "avis": {
+                                        "type": "string",
+                                        "example": "Mettre un commentaire"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Merci à vous."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/mes-certifications": {
+            "get": {
+                "tags": [
+                    "Certificats"
+                ],
+                "summary": "Récupère les offres validées avec certificat pour l'utilisateur connecté",
+                "description": "Retourne toutes les offres du modèle OffreStudent où le champ certificat est à 1 pour l'utilisateur actuellement connecté.",
+                "operationId": "getCertifications",
+                "responses": {
+                    "200": {
+                        "description": "Liste des certifications validées",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 12
+                                            },
+                                            "user_id": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "certificat": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-10-30T12:45:00Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-10-30T12:45:00Z"
+                                            },
+                                            "offre": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "titre": {
+                                                        "type": "string",
+                                                        "example": "Chauffeur livraison"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Livraison de colis dans la ville d’Abidjan"
+                                                    },
+                                                    "entreprise_id": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "entreprise": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 2
+                                                            },
+                                                            "nom": {
+                                                                "type": "string",
+                                                                "example": "MonBroboli SARL"
+                                                            },
+                                                            "adresse": {
+                                                                "type": "string",
+                                                                "example": "Abidjan, Côte d’Ivoire"
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "contact@monbroboli.com"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié - jeton invalide ou manquant"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/temoignages": {
+            "post": {
+                "tags": [
+                    "Témoignages"
+                ],
+                "summary": "Ajouter un nouveau témoignage",
+                "description": "Cette route permet à un utilisateur authentifié d'ajouter un témoignage avec une note et un commentaire.",
+                "operationId": "b46840af890a1e36f158ef60322dfd79",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "rate",
+                                    "comment"
+                                ],
+                                "properties": {
+                                    "rate": {
+                                        "description": "Note de l'utilisateur (1 à 5)",
+                                        "type": "integer",
+                                        "maximum": 5,
+                                        "minimum": 1,
+                                        "example": 5
+                                    },
+                                    "comment": {
+                                        "description": "Commentaire du témoignage",
+                                        "type": "string",
+                                        "maxLength": 1000,
+                                        "example": "Super expérience !"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Témoignage créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Témoignage ajouté avec succès !"
+                                        },
+                                        "temoignage": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "rate": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "comment": {
+                                                    "type": "string",
+                                                    "example": "Super expérience !"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-10-13T15:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-10-13T15:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "rate": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "example": [
+                                                        "The rate field is required."
+                                                    ]
+                                                },
+                                                "comment": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "example": [
+                                                        "The comment field is required."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "api/list_users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "S'incrire",
+                "description": "S'incrire",
+                "operationId": "6d2b0462320444500d4f090aa38f4351",
+                "requestBody": {
+                    "description": "Create user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "example": "adjobi (student,entreprise,particulier)"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "adjobi@gmail.com "
+                                    },
+                                    "prenoms": {
+                                        "type": "string",
+                                        "example": "adjobi@gmail.com "
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "0874857485"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "******"
+                                    },
+                                    "photo_profil": {
+                                        "type": "string",
+                                        "example": "sgdd554.jpg (student)"
+                                    },
+                                    "ville": {
+                                        "type": "string",
+                                        "example": "Bonoua (student)"
+                                    },
+                                    "token_push": {
+                                        "type": "string",
+                                        "example": "dhfhf55854f (student)"
+                                    },
+                                    "appareil": {
+                                        "type": "string",
+                                        "example": "iphone xr (student)"
+                                    },
+                                    "quartier": {
+                                        "type": "string",
+                                        "example": "Résidenciel (student)"
+                                    },
+                                    "commune": {
+                                        "type": "string",
+                                        "example": "lafoue (student)"
+                                    },
+                                    "diplome": {
+                                        "type": "string",
+                                        "example": "BTS (student)"
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "example": "1663438547.jpg (student)"
+                                    },
+                                    "titreCv": {
+                                        "type": "string",
+                                        "example": "Développeur flutter (student)"
+                                    },
+                                    "statut_id": {
+                                        "type": "string",
+                                        "example": "2 (student,entreprise,particulier)"
+                                    },
+                                    "competence": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "registre": {
+                                        "type": "string",
+                                        "example": "****** (entreprise)"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Enregistrer avec succès"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/auth_logout": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Se déconnecter",
+                "operationId": "Se déconnecter",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Déconnecté avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "api/see_role": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Voir les profils",
+                "operationId": "Voir les profils",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/modifier_profil": {
+            "post": {
+                "tags": [
+                    "Etudiants."
+                ],
+                "summary": "Mise à jour du profil étudiant connecté",
+                "description": "Met à jour les informations de l'étudiant connecté, y compris ses compétences et sa photo de profil.",
+                "operationId": "08c4b88ec316a1f9eed8ecb742be6e2b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "nom",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "prenoms": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+2250700000000"
+                                    },
+                                    "bio": {
+                                        "type": "string",
+                                        "example": "Je suis étudiant en informatique..."
+                                    },
+                                    "commune": {
+                                        "type": "string",
+                                        "example": "Cocody"
+                                    },
+                                    "ville": {
+                                        "type": "string",
+                                        "example": "Abidjan"
+                                    },
+                                    "quartier": {
+                                        "type": "string",
+                                        "example": "Angré"
+                                    },
+                                    "diplome": {
+                                        "type": "string",
+                                        "example": "Licence Informatique"
+                                    },
+                                    "update_via_mobile": {
+                                        "type": "string",
+                                        "example": "1 (ceci est pour le mobile)"
+                                    },
+                                    "competences": {
+                                        "description": "Liste des ID de compétences",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "example": 8
+                                        }
+                                    },
+                                    "qualifications": {
+                                        "description": "Liste des qualifications",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "any"
+                                        }
+                                    },
+                                    "photo_profil": {
+                                        "description": "Image du profil (upload fichier)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Mise à jour effectuée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mis à jour effectuée avec succès"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nom": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john.doe@example.com"
+                                                },
+                                                "Qualifications": {
+                                                    "type": "string",
+                                                    "example": "[{detail:lorem,date_debut:2025-06-12,date_fin:2025-08-01}]"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "compte": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "bio": {
+                                                    "type": "string",
+                                                    "example": "Je suis étudiant..."
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "+2250700000000"
+                                                },
+                                                "ville": {
+                                                    "type": "string",
+                                                    "example": "Abidjan"
+                                                },
+                                                "photo_profil": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "api/auth_login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Se connecter",
+                "description": "Se connecter",
+                "operationId": "0b03cd87b99933ca0a5cd6bc19c51bb3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "adjobi@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "********"
+                                    },
+                                    "token_push": {
+                                        "type": "string",
+                                        "example": "dhdhd5dnhdfhd5wgxhd (pour le mobile)"
+                                    },
+                                    "appareil": {
+                                        "type": "string",
+                                        "example": "iphone xr (pour le mobile)"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Connecté"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        },
+                                        "access_token": {
+                                            "type": "string"
+                                        },
+                                        "compte": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/voirInfoUserConnect": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Voir toutes les infos personnelles",
+                "description": "Voir toutes les infos personnelles",
+                "operationId": "Voir les infos de l utilisateur connecté.",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Supprimer un utilisateur",
+                "description": "Supprime un utilisateur sans le retirer définitivement de la base (soft delete).",
+                "operationId": "a0ce91d753f85c9a3caee8c136d70e4c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur supprimé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Utilisateur supprimé avec succès (soft delete)."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Utilisateur non trouvé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Abonnement.",
+            "description": "Abonnement."
+        },
+        {
+            "name": "PAYSTACK",
+            "description": "PAYSTACK"
+        },
+        {
+            "name": "RevenueCat",
+            "description": "RevenueCat"
+        },
+        {
+            "name": "Competences.",
+            "description": "Competences."
+        },
+        {
+            "name": "Categories.",
+            "description": "Categories."
+        },
+        {
+            "name": "Etudiants.",
+            "description": "Etudiants."
+        },
+        {
+            "name": "Entreprise or Particulier",
+            "description": "Entreprise or Particulier"
+        },
+        {
+            "name": "Offres.",
+            "description": "Offres."
+        },
+        {
+            "name": "Favoris-Student.",
+            "description": "Favoris-Student."
+        },
+        {
+            "name": "Email.",
+            "description": "Email."
+        },
+        {
+            "name": "Affiches",
+            "description": "Affiches"
+        },
+        {
+            "name": "Qualifications",
+            "description": "Qualifications"
+        },
+        {
+            "name": "Notifications",
+            "description": "Notifications"
+        },
+        {
+            "name": "Certificats",
+            "description": "Certificats"
+        },
+        {
+            "name": "Témoignages",
+            "description": "Témoignages"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ]
+}

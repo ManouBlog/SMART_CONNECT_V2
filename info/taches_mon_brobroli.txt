@@ -1,0 +1,4 @@
+-ajouter abonnement par mois pour les etudiants,
+-ajouter le code bonus a l inscription, pour l'ambassadeur (pas encore faire interface aambassadeur)
+-ajouter periode pour qualification
+-a l'inscription l'etudiant a droit une postulation gratuite.

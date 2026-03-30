@@ -1,0 +1,67 @@
+mon_brobroli pro
+
+- on aura un bloc : les professionnelles (diplomes, diplomes en activité qui veulent evoluer,
+les experts(consultants))
+ (etudiant peut changer son profile)
+
+- on aura un autre bloc : les artisans (les menusiers,chauffeurs.) 
+(le chauffeur doit avoir un permis de conduite)
+
+- on aura un bloc: vétéran et vérétan expert avec profile valider sur leur profile 
+(comme vérification)(ajout des attestations de travail)
+
+
+*champs
+-transitions d 'etudiant a professionnels
+-Ajout des pays avec leurs offre
+
+*subscription
+
+
+
+--changement sur backend---
+*dans phpMyadmin
+INSERT INTO `statuses` (`statut`) VALUES 
+('professionnel'),
+('veteran'),
+('artisan');
+
+*voir le fichier userController modifie les cas pour l enregistrement de user
+*update UserController
+*Ajouter un champ pour les personnes verifiés (is_verified) dans la table students
+*Ajouter un champ dans la table student qui est : niveauExpertise et le controller  
+userController puis le model student.
+*ajouter ce champ dans 'modeTravail' dans la table students. et dans le model student et le userController
+*ajouter la relation statut dans la route : list_emplois_temps qui se trouve dans le fichier API.phpp
+*ajouter un champ offre_mode_travail dans la table offre, le model offre et le controller entreprise.
+*creer le model offre_status pour table pivot entre offre et status
+*ajouter ceci dans la route api.php : Route::get('listStatut', function () {
+    $allStatus = Status::get();
+    return response()->json([
+        'status'=>true,
+        'data'  => $allStatus,
+    ],200);
+});
+*creer une table pivot avec ce code sql : 
+CREATE TABLE offre_status (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    offre_id BIGINT UNSIGNED NOT NULL,
+    status_id BIGINT UNSIGNED NOT NULL,
+
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_offre
+        FOREIGN KEY (offre_id) REFERENCES offres(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_status
+        FOREIGN KEY (status_id) REFERENCES statuses(id)
+        ON DELETE CASCADE,
+
+    UNIQUE (offre_id, status_id)
+);
+
+
+

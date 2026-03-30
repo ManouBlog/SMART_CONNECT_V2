@@ -1,0 +1,13 @@
+
+-LM STUDIO (Window)
+
+
+-il ya des llm gratuits , confifentiel , Hors ligne 
+par exemple : MISTRAL AI,
+Ollama (permet d'installer les modèles open-source)
+et Deepseek
+
+*Ollama est un ensemble de modèle ,
+ de prime abord se voir sur le terminale et 
+peut aussi avoir une interface graphic 
+(sur window on a : Msty,https://www.librechat.ai/ et sur mac on a :Enchanted)

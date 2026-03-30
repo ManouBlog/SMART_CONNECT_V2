@@ -1,0 +1,6 @@
+-ajouter le bloqueur d'image dans le backend.
+-Gérer l interface ambassadeur et la logique dans le back.
+
+-Faire un paiement.
+
+-rendre l'ambassadeur dans le back office via les utilisateurs.

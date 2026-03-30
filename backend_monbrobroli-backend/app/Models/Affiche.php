@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Affiche extends Model
+{
+    use HasFactory;
+     protected $fillable = ['affiche','mobile_format','date_debut',
+     'date_fin','localization','lien','company'];
+}

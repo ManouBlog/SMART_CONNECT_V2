@@ -1,0 +1,127 @@
+<script setup>
+import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
+import { ref, onMounted } from "vue";
+import { useStore } from 'vuex'
+import { useRouter,useRoute} from 'vue-router'
+import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
+// import { useEntreprisesStore } from "../../store-pinia/Entreprise/useEntreprisesStore";
+// import axios from "axios";
+import instance from "../../api/api";
+
+// import i18n from "../../plugins/i18n";
+import Swal from "sweetalert2";
+
+import ContainerAbonnements from "./features/ContainerAbonnements.vue";
+// const { t } = i18n.global;
+const text0 = ref("")
+const store = useStore();
+const reference = ref(null);
+const router = useRouter();
+const route = useRoute();
+// const storeEntreprise = useEntreprisesStore();
+const translateStore = useTranslateStore();
+const defaulValueTranslate = ref(translateStore.defaultLocale);
+
+const abonnements = ref([]);
+const loadingSpinner = useLoadingSpinner();
+
+const handleAbonement = async () => {
+  loadingSpinner.launchLoading(true);
+  try {
+    const response = await instance.get("getAbonnement");
+    // console.log("response",response)
+    abonnements.value = response.data.data;
+    loadingSpinner.launchLoading(false);
+  } catch (error) {
+    console.log(error);
+    loadingSpinner.launchLoading(false);
+  }
+};
+
+async function doVerificationAbonnement(payload){
+try {
+    const response = await instance.get("payStack/payment/callback/"+payload); 
+    // await axios.get("https://backend-test.monbrobroli.com/api/payStack/payment/callback/"+payload);
+    // console.log("responseVERIF",response)
+    if(response.data.status){
+       Swal.fire({
+              icon: "success",
+              title: "Paiement reussi.",
+              showConfirmButton: true,
+            });
+            router.push('/')
+    }
+    if(!response.data.status){
+      Swal.fire({
+              icon: "error",
+              title: "Paiement échoué.",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+    }
+  } catch (error) {
+    console.log(error);
+  }finally{
+    await handleAbonement();
+  }
+}
+
+onMounted(async () => {
+  text0.value = await translateStore.handleTranslate("Choisissez votre formule")
+  reference.value = route.params.reference
+  console.log("route.params.reference",route.params.reference)
+    if(reference.value){
+    doVerificationAbonnement(reference.value)
+    } 
+  await handleAbonement();
+});
+</script>
+
+<template>
+  <div class="wrapped myconteneur">
+    <h1 class="text-center main-color">{{text0}}</h1>
+    <n-card>
+       <div class="d-flex justify-content-center">
+     <p style="background:#df3535;color:white;">
+      Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
+     </p>
+      </div>
+      <n-tabs type="line" size="large" animated justify-content="center">
+        <n-tab-pane
+          v-if="
+            !store.state.user ||
+            (store.state.user.user.statut.statut === 'etudiant' ||
+             store.state.user.user.statut.statut === 'professionnel' ||
+             store.state.user.user.statut.statut === 'artisan' ||
+             store.state.user.user.statut.statut === 'veteran')
+          "
+          :name="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
+          :tab="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
+        >
+          <ContainerAbonnements
+            :abonnements="abonnements"
+            :type_abonnements="'Etudiant'"
+          />
+        </n-tab-pane>
+        <n-tab-pane
+          v-if="
+            !store.state.user ||
+            store.state.user.user.statut.statut === 'entreprise' || 
+            store.state.user.user.statut.statut === 'particulier'
+          "
+          :name="defaulValueTranslate == 'fr' ? 'Entreprise/Particulier' :'Company'"
+          :tab="defaulValueTranslate == 'fr' ? 'Entreprise/Particulier' :'Company'"
+        >
+          <ContainerAbonnements
+            :abonnements="abonnements"
+            :type_abonnements="'Entreprise'"
+          />
+        </n-tab-pane>
+      </n-tabs>
+    </n-card>
+  </div>
+</template>
+<style scoped>
+@import "./style/index.css";
+
+</style>
