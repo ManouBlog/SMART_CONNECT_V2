@@ -199,22 +199,23 @@ valueModeDeTravail: [
       }
       // console.log("COMPANY_UPDATE",this.$store.state.infoUserConnected)
     },
-    async updateInfoStudent(Etudiants) {
-      // console.log("updateInfoStudent",Etudiants)
+    async updateInfoStudent(Talent) {
+      // console.log("updateInfoStudent",Talent)
       const data = await this.update_compte_student({
-        nom: Etudiants.nom,
-        email: Etudiants.email,
-        prenoms: Etudiants.prenoms,
-        commune: Etudiants.commune,
-        quartier: Etudiants.quartier,
-        contact: Etudiants.phone,
-        ville: Etudiants.ville,
-        bio: Etudiants.bio,
-        diplome: Etudiants.diplome,
-        titreCv: Etudiants.titreCv,
-        modeTravail: Etudiants.modeTravail,
-        tempsTravail:Etudiants.tempsTravail,
-        competences:Etudiants?.competences?.length > 0 ? Help.retirerIdIntoArrayCompetence(Etudiants.competences):[],
+        nom: Talent.nom,
+        email: Talent.email,
+        prenoms: Talent.prenoms,
+        commune: Talent.commune,
+        quartier: Talent.quartier,
+        contact: Talent.phone,
+        ville: Talent.ville,
+        bio: Talent.bio,
+        diplome: Talent.diplome,
+        titreCv: Talent.titreCv,
+        modeTravail: Talent.modeTravail,
+        tempsTravail:Talent.tempsTravail,
+        statut_id:Talent.statut_id,
+        competences:Talent?.competences?.length > 0 ? Help.retirerIdIntoArrayCompetence(Talent.competences):[],
       });
       // console.log("DATA UPDATE STUDENT",data)
       if(data.status){

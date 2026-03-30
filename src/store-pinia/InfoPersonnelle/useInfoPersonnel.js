@@ -197,7 +197,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           })
       },
       async update_compte_student(payload) {
-  // console.log("this.pieceIdentiteGerant", this.pieceIdentiteGerant);
+  console.log("payload_update_compte_student", payload);
 
   Spinner.launchLoading(true);
 
@@ -261,6 +261,10 @@ if(payload?.modeTravail != null && payload?.modeTravail !== 'null'){
 
 if(payload?.tempsTravail != null && payload?.tempsTravail !== 'null'){
   data.append('tempsTravail',payload.tempsTravail)
+}
+
+if(payload?.statut_id != null && payload?.statut_id !== 'null'){
+  data.append('statut_id',payload.statut_id)
 }
 
   }
