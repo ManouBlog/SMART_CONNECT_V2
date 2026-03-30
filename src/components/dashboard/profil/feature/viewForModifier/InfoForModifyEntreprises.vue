@@ -143,7 +143,6 @@ valueModeDeTravail: [
       await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
-          
           if (resp.data.status === true) {
             
         // console.log("getInfoUser25",resp.data.user)
