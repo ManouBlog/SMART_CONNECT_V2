@@ -198,7 +198,7 @@ export default {
         </div>
       </template>
       <VerificationUpload 
-      :userProfil="user?.user?.statut?.statut"
+      :userProfil="this.$store.state.infoUserConnected?.user?.statut?.statut"
       />
     </n-modal>
     <div v-if="isLoading">
@@ -250,7 +250,7 @@ export default {
       >
       
       <span class="badge bg-warning"
-          >{{ user.user.statut.statut}}</span
+          >{{this.$store.state.infoUserConnected.user.statut.statut}}</span
         >
         <span
           class="badge"
