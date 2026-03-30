@@ -82,15 +82,36 @@ valueModeDeTravail: [
     ...mapState(useInfoPersonnel, ["otherInfoPersonnelle"]),
   },
   methods: {
-      initForm() {
+       initForm() {
     const user = this.$store.state.infoUserConnected;
-
+    console.log("initForm",user)
     if (!user) return;
 
-    this.form = {
-      ...this.form,
-      ...user
-    };
+    this.form.nom = user.nom || "";
+    this.form.prenoms = user.prenoms || "";
+    this.form.email = user.email || "";
+    this.form.contact = user.contact || "";
+    this.form.phone = user.phone || "";
+    this.form.ville = user.ville || "";
+    this.form.commune = user.commune || "";
+    this.form.quartier = user.quartier || "";
+
+    this.form.matricule_cc = user.matricule_cc || "";
+    this.form.forme_juridique = user.forme_juridique || "";
+    this.form.NCC = user.NCC || "";
+
+    this.form.diplome = user.diplome || "";
+
+    this.form.modeTravail = user.modeTravail || "";
+    this.form.tempsTravail = user.tempsTravail || "";
+
+    this.form.titreCv = user.titreCv || "";
+    this.form.bio = user.bio || "";
+
+    this.form.gerant = user.gerant || "";
+    this.form.numero_gerant = user.numero_gerant || "";
+
+    this.form.particulier_prenoms = user.particulier_prenoms || "";
   },
     ...mapActions(useRegisterStore, {
       handleCompetence: "addTag",
@@ -179,8 +200,9 @@ valueModeDeTravail: [
         bio: Etudiants.bio,
         diplome: Etudiants.diplome,
         titreCv: Etudiants.titreCv,
-        // qualifications: Etudiants.qualifications,
-        competences: Help.retirerIdIntoArrayCompetence(Etudiants.competences),
+        modeTravail: Etudiants.modeTravail,
+        tempsTravail:Etudiants.tempsTravail,
+        competences:Etudiants?.competences?.length > 0 ? Help.retirerIdIntoArrayCompetence(Etudiants.competences):[],
       });
       // console.log("DATA UPDATE STUDENT",data)
       if(data.status){
@@ -189,6 +211,7 @@ valueModeDeTravail: [
       }
     },
    async handleUpdate(payload) {
+    console.log('handleUpdate',payload)
      
       if (this.$store.state.infoUserConnected.user.statut.statut === "entreprise") {
         this.updateInfoEntreprise(payload);
@@ -199,7 +222,7 @@ valueModeDeTravail: [
           await this.getInfoUser();
       } else {
         this.updateInfoStudent(payload);
-          // await this.getInfoUser();
+          await this.getInfoUser();
       }
     
     },
@@ -512,7 +535,7 @@ valueModeDeTravail: [
       <button
         class="btn bg-warning"
         style="border: none"
-        @click.prevent="handleUpdate(this.$store.state.infoUserConnected)"
+        @click.prevent="handleUpdate(this.form)"
       >
         Modifier
       </button>

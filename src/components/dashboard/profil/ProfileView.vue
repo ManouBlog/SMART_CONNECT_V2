@@ -494,6 +494,7 @@ export default {
                 { libelle: texte8, value: this.$store.state.infoUserConnected.quartier ?? '' },
                 { libelle: texte5, value: this.$store.state.infoUserConnected.phone },
                 { libelle: texte13, value: this.$store.state.infoUserConnected.diplome ?? 'Pas de diplome' },
+                      { libelle: this.$store.state.infoUserConnected.user.statut.statut != 'etudiant' ? 'Temps de travail':null, value: this.$store.state.infoUserConnected.tempsTravail ?? '' },
                 { libelle: this.$store.state.infoUserConnected.user.statut.statut != 'etudiant' ? 'Mode de travail':null, value: this.$store.state.infoUserConnected.modeTravail ?? '' },
                    { libelle: this.$store.state.infoUserConnected.user.statut.statut == 'veteran' ? 'Traitement préférentiel':null, value: this.$store.state.infoUserConnected.niveauExpertise ?? '' },
                 { libelle: this.$store.state.infoUserConnected.user.code_ambassadeur ? 'code parrainage':null , value: this.$store.state.infoUserConnected.user.code_ambassadeur ?? null },
