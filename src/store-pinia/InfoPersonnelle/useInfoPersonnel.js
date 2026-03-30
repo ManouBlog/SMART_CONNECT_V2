@@ -267,6 +267,9 @@ if(payload?.statut_id != null && payload?.statut_id !== 'null'){
   data.append('statut_id',payload.statut_id)
 }
 
+if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
+  data.append('niveauExpertise',payload.niveauExpertise)
+}
   }
 
   try {

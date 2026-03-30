@@ -25,8 +25,8 @@ export default {
  rawText : '',
  result : null,
  valueExpertise: [
-  { value: "Prioritize", label: "privilégier" },
-  { value: "", label: "Aucun" },
+  { value: "Privilégier", label: "privilégier" },
+  { value: "aucun", label: "Aucun" },
 ],
  valueTempsTravail: [
   { value: "Temps partiel", label: "Temps partiel" },

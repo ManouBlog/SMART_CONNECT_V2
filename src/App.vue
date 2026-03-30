@@ -247,6 +247,16 @@ export default {
 };
 </script>
 <style>
+.disabled-custom {
+  background-color: #e9ecef !important; /* gris bootstrap */
+  color: #6c757d !important;
+  cursor: not-allowed;
+  opacity: 0.8;
+  border: 1px solid #ced4da !important;
+}
+.disabled-custom:focus {
+  box-shadow: none !important;
+}
 .verification_badge{
   position: absolute !important;
   top: 0.5em;

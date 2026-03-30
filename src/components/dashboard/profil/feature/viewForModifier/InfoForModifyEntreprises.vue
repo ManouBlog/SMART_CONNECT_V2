@@ -23,6 +23,10 @@ valueModeDeTravail: [
   { value: "Télétravail", label: "Télétravail" },
   { value: "Hybride", label: "Hybride" }
 ],
+valueExpertise: [
+  { value: "Privilégier", label: "privilégier" },
+  { value: "aucun", label: "Aucun" },
+],
       user: "",
       emails_cc:[],
       lienPhoto: lienPhoto,
@@ -75,7 +79,9 @@ valueModeDeTravail: [
       gerant: "",
       numero_gerant: "",
       particulier_prenoms: "",
-      statut_id:""
+      statut_id:"",
+      statut:"",
+      niveauExpertise:"aucun"
     },
     };
   },
@@ -98,6 +104,8 @@ valueModeDeTravail: [
     this.form.commune = user.commune || "";
     this.form.quartier = user.quartier || "";
     this.form.statut_id = user.user.statut_id || "";
+    this.form.statut = user.user.statut.statut || "";
+    this.form.niveauExpertise = user.niveauExpertise || "";
 
     this.form.matricule_cc = user.matricule_cc || "";
     this.form.forme_juridique = user.forme_juridique || "";
@@ -214,6 +222,7 @@ valueModeDeTravail: [
         modeTravail: Talent.modeTravail,
         tempsTravail:Talent.tempsTravail,
         statut_id:Talent.statut_id,
+        niveauExpertise:Talent.niveauExpertise,
         competences:Talent?.competences?.length > 0 ? Help.retirerIdIntoArrayCompetence(Talent.competences):[],
       });
       // console.log("DATA UPDATE STUDENT",data)
@@ -272,12 +281,14 @@ valueModeDeTravail: [
             : null
         }}
       </legend>
-      <div class="col-md-12">
-      <div class="mb-3">
+      <div class="col-md-12" v-if="this.$store.state.infoUserConnected.user.statut.statut !== 'etudiant'">
+      <div class="mb-3" >
             <label class="form-label">Statut</label>
             <select 
             name="statut_id" 
             id="statut_id"
+            :class="{ 'disabled-custom': form.statut === 'veteran' }"
+            :disabled="form.statut === 'veteran'"
             style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
             v-model="form.statut_id"
             >
@@ -289,7 +300,7 @@ valueModeDeTravail: [
                 {{ item.statut }}
               </option>
             </select>
-            <!-- <input v-model="form.diplome" class="form-control" type="text" /> -->
+            
             </div>
       </div>
       <div class="col-md-12">
@@ -442,7 +453,7 @@ valueModeDeTravail: [
             <label class="form-label">Dernier diplôme academique</label>
             <input v-model="form.diplome" class="form-control" type="text" />
           </div>
-          <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut === 'professionnel'">
+          <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut === 'professionnel' || this.$store.state.infoUserConnected.user.statut.statut === 'veteran'">
             <div>
      <label class="form-label">Niveau actuel + diplome</label>
             <input v-model="form.diplome" class="form-control" type="text" />
@@ -482,8 +493,44 @@ valueModeDeTravail: [
                 {{ item.label }}
               </option>
             </select>
-            <!-- <input v-model="form.diplome" class="form-control" type="text" /> -->
             </div>
+       
+          </div>
+          <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut === 'veteran'">
+            
+            <div>
+            <label class="form-label">Traitement préférentiel</label>
+            <select 
+            name="treatmentPriorize" 
+            id="treatmentPriorize"
+          style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
+            v-model="form.niveauExpertise"
+            >
+              <option 
+              :value="item.value"
+              :key="item.value" 
+              v-for="item in valueExpertise">
+                {{ item.label }}
+              </option>
+            </select>
+            </div>
+            <!-- <div>
+            <label class="form-label">Temps de travail</label>
+            <select 
+            name="time_work" 
+            id="time_work"
+            style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
+            v-model="form.tempsTravail"
+            >
+              <option value="">Séléctionne un temps de travail</option>
+              <option 
+              :value="item.value"
+              :key="item.value" 
+              v-for="item in valueTempsTravail">
+                {{ item.label }}
+              </option>
+            </select>
+            </div> -->
        
           </div>
         </div>
