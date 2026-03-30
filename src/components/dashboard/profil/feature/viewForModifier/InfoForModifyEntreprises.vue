@@ -81,7 +81,8 @@ valueExpertise: [
       particulier_prenoms: "",
       statut_id:"",
       statut:"",
-      niveauExpertise:"aucun"
+      niveauExpertise:"aucun",
+      
     },
     };
   },
@@ -633,7 +634,6 @@ valueExpertise: [
     ] || "Nouvelle pièce du gérant (jpg,png)"
   }}
 </label>
-         
           <input
             type="file"
             multiple
