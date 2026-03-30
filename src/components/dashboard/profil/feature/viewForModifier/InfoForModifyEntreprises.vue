@@ -456,15 +456,16 @@ valueExpertise: [
   this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
   this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
   this.$store.state.infoUserConnected.user.statut.statut === "veteran"
-)
-        '>
+)'>
       
         <div class="col-md-12">
-          <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'">
+          <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut === 'etudiant' && form.statut_id == 2">
             <label class="form-label">Dernier diplôme academique</label>
             <input v-model="form.diplome" class="form-control" type="text" />
           </div>
-          <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut === 'professionnel' || this.$store.state.infoUserConnected.user.statut.statut === 'veteran'">
+          <div class="mb-3" 
+          v-if="this.$store.state.infoUserConnected.user.statut.statut === 'professionnel' 
+          || this.$store.state.infoUserConnected.user.statut.statut === 'veteran' || form.statut_id == 5 || form.statut_id == 6 || form.statut_id == 7">
             <div>
      <label class="form-label">Niveau actuel + diplome</label>
             <input v-model="form.diplome" class="form-control" type="text" />
