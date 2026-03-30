@@ -602,7 +602,6 @@ valueModeDeTravail: [
             :rules="[{ required: true, message: texte13 }]"
           >
             <a-select
-              style="margin:1em 0"
               v-model:value="formState.niveauEtude"
               placeholder="Sélectionnez un diplôme"
             >
@@ -669,7 +668,7 @@ valueModeDeTravail: [
   </a-select>
             </a-form-item>
         </a-col> -->
-          <a-col :xs="24" :md="12">
+          <!-- <a-col :xs="24" :md="12">
             <a-form-item
             :label="'Niveau de carrière'"
             :rules="[{ required: true, message: 'Ajoutez  votre niveau de carrière' }]"
@@ -691,7 +690,7 @@ valueModeDeTravail: [
     </a-select-option>
   </a-select>
             </a-form-item>
-        </a-col> 
+        </a-col>  -->
         <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />
         </a-col>
