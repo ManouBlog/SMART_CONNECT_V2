@@ -54,6 +54,7 @@ valueModeDeTravail: [
       ],
       countryCode:null,
       dataStudentUpdated:null,
+      allStatuses:[],
       form: {
       nom: "",
       prenoms: "",
@@ -73,7 +74,8 @@ valueModeDeTravail: [
       bio: "",
       gerant: "",
       numero_gerant: "",
-      particulier_prenoms: ""
+      particulier_prenoms: "",
+      statut_id:""
     },
     };
   },
@@ -95,6 +97,7 @@ valueModeDeTravail: [
     this.form.ville = user.ville || "";
     this.form.commune = user.commune || "";
     this.form.quartier = user.quartier || "";
+    this.form.statut_id = user.user.statut_id || "";
 
     this.form.matricule_cc = user.matricule_cc || "";
     this.form.forme_juridique = user.forme_juridique || "";
@@ -126,6 +129,15 @@ valueModeDeTravail: [
       "addAnLogo",
       "changeValueForToogleModalInfoPersonnelle"
     ]),
+    async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+        console.log("lister_statut",response.data.data.filter(item=>item.statut != 'admin'))
+        this.allStatuses = response.data.data.filter(item=>item.statut != 'admin')
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async getInfoUser() {
       this.StoreLoading.launchLoading(true);
       await instance
@@ -242,6 +254,7 @@ valueModeDeTravail: [
 },
   async created() {
     this.getCompetences();
+    this.lister_statut();
     await this.getInfoUser();
   },
 };
@@ -259,6 +272,26 @@ valueModeDeTravail: [
             : null
         }}
       </legend>
+      <div class="col-md-12">
+      <div class="mb-3">
+            <label class="form-label">Statut</label>
+            <select 
+            name="statut_id" 
+            id="statut_id"
+            style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
+            v-model="form.statut_id"
+            >
+              <option 
+              style="text-transform: capitalize;"
+              :value="item.id"
+              :key="item.id" 
+              v-for="item in allStatuses">
+                {{ item.statut }}
+              </option>
+            </select>
+            <!-- <input v-model="form.diplome" class="form-control" type="text" /> -->
+            </div>
+      </div>
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">{{
@@ -421,7 +454,7 @@ valueModeDeTravail: [
             <select 
             name="mode_travail1" 
             id="mode_travail1"
-          style="width:100%;padding:0.8em;border-radius: 10px;border:1px solid orange"
+          style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
             v-model="form.modeTravail"
             >
               <option value="">Séléctionne un mode de travail</option>
@@ -438,7 +471,7 @@ valueModeDeTravail: [
             <select 
             name="time_work" 
             id="time_work"
-            style="width:100%;padding:0.8em;border-radius: 10px;border:1px solid orange"
+            style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
             v-model="form.tempsTravail"
             >
               <option value="">Séléctionne un temps de travail</option>
