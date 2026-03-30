@@ -321,8 +321,8 @@ valueExpertise: [
             style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
             v-model="form.statut_id"
             @change="()=>{
-              form.tempsTravail = "";
-              form.modeTravail = "";
+              form.tempsTravail = '';
+              form.modeTravail = '';
             }"
             >
               <option 
