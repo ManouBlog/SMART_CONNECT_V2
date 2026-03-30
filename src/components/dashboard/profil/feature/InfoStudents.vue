@@ -86,6 +86,7 @@ export default {
           if (resp.data.status === true) {
             this.user = resp.data.user;
             this.addInfoUserConnected(resp.data.user);
+             this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
           }
         })
         .catch((error) => {
@@ -98,10 +99,9 @@ export default {
           this.isLoading = false;
         });
     },
-    handleModalInfo(payload = null) {
-      // console.log("handleModalInfo", payload);
+    handleModalInfo(payload = null){
+    
       if (payload) {
-        // console.log("this.$store.state.infoUserConnected",this.$store.state.infoUserConnected)
         this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: true });
       } else {
         this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: true });

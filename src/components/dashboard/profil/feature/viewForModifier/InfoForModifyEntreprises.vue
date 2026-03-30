@@ -138,10 +138,21 @@ valueExpertise: [
       "changeValueForToogleModalInfoPersonnelle"
     ]),
     async lister_statut(){
+      const transitions = {
+  etudiant:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "artisan"],
+  professionnel:[this.$store.state.infoUserConnected.user.statut.statut,"artisan", "veteran"],
+  artisan:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "veteran"]
+};
       try {
         const response =  await instance.get("listStatut")
-        console.log("lister_statut",response.data.data.filter(item=>item.statut != 'admin'))
-        this.allStatuses = response.data.data.filter(item=>item.statut != 'admin')
+        
+        this.allStatuses = response.data.data.filter(item =>
+  transitions[this.$store.state.infoUserConnected.user.statut.statut]?.includes(item.statut)); 
+  console.log("allStatuses",{
+    statut:this.allStatuses,
+    profil:this.$store.state.infoUserConnected
+  })
+        // this.allStatuses = response.data.data.filter(item=>item.statut == 'professionnel' || item.statut == 'artisan' || item.statut == 'etudiant' || item.statut === 'veteran')
       } catch (error) {
         console.log(error);
       }
@@ -262,9 +273,9 @@ valueExpertise: [
   this.initForm();
 },
   async created() {
-    this.getCompetences();
-    this.lister_statut();
     await this.getInfoUser();
+    this.getCompetences();
+    await this.lister_statut();
   },
 };
 </script>
@@ -281,7 +292,7 @@ valueExpertise: [
             : null
         }}
       </legend>
-      <div class="col-md-12" v-if="this.$store.state.infoUserConnected.user.statut.statut !== 'etudiant'">
+      <div class="col-md-12">
       <div class="mb-3" >
             <label class="form-label">Statut</label>
             <select 
