@@ -141,6 +141,7 @@ export default {
             font-size: 1em;
             border-radius: 100%;
             background: gray;
+            border: 2px solid orange;
           "
           v-else
         >
@@ -148,9 +149,17 @@ export default {
             Help.toADfirstTwo(this.$store.state.user.nom)
           }}</span>
         </span>
+        
         <span style="color: black !important"
-          >{{ this.$store.state.user.nom }} <br />
-          {{ this.$store.state.user.prenoms }}</span
+          >{{ this.$store.state.user.nom }} 
+          <i class="bi bi-patch-check-fill" 
+          v-if="this.$store?.state?.user?.user?.is_verified"
+          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
+          <br />
+          {{ this.$store.state.user.prenoms }} 
+          <br />
+          <span class="badge bg-warning">{{ this.$store?.state?.user?.user?.statut?.statut }}</span>
+          </span
         >
       </li>
       <!-- <SelectLanguage /> -->
