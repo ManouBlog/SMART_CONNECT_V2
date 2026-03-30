@@ -248,6 +248,7 @@ export default {
         class="conteneur_activation"
         style="display: flex; align-items: center;"
       >
+      
       <span class="badge bg-warning"
           >{{ user.user.statut.statut}}</span
         >
@@ -266,6 +267,9 @@ export default {
         >
           Activer mon compte
         </button>
+         <i class="bi bi-patch-check-fill" 
+          v-if="user?.user?.is_verified"
+          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
       </div>
 
       <div class="d-flex" style="position: relative">
