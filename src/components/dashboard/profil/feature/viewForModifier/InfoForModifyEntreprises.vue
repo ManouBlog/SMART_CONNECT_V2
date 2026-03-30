@@ -88,6 +88,24 @@ valueExpertise: [
   computed: {
     ...mapState(useRegisterStore, ["allCompetences"]),
     ...mapState(useInfoPersonnel, ["otherInfoPersonnelle"]),
+     isDisabled() {
+    const statutId = Number(this.form.statut_id);
+
+    // Statuts concernés
+    const idsToCheck = [5, 6, 7];
+    if (!idsToCheck.includes(statutId)) return false;
+
+    // Champs obligatoires par statut
+    const rules = {
+      5: ["tempsTravail", "modeTravail"],
+      6: ["niveauExpertise", "tempsTravail", "modeTravail"],
+      7: ["niveauExpertise", "tempsTravail", "modeTravail"]
+    };
+
+    const requiredFields = rules[statutId] || [];
+
+    return requiredFields.some(field => !this.form[field]);
+  }
   },
   methods: {
        initForm() {
@@ -302,6 +320,10 @@ valueExpertise: [
             :disabled="form.statut === 'veteran'"
             style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
             v-model="form.statut_id"
+            @change="()=>{
+              form.tempsTravail = "";
+              form.modeTravail = "";
+            }"
             >
               <option 
               style="text-transform: capitalize;"
@@ -625,7 +647,9 @@ valueExpertise: [
     </div>
     <div class="text-right">
       <button
+       :class="{ 'disabled-custom': isDisabled }"
         class="btn bg-warning"
+         :disabled="isDisabled"
         style="border: none"
         @click.prevent="handleUpdate(this.form)"
       >
