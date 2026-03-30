@@ -25,8 +25,12 @@ export default {
  rawText : '',
  result : null,
  valueExpertise: [
-  { value: "avance", label: "Avancé" },
-  { value: "expert", label: "Expert" },
+  { value: "Prioritize", label: "privilégier" },
+  { value: "", label: "Aucun" },
+],
+ valueTempsTravail: [
+  { value: "Temps partiel", label: "Temps partiel" },
+  { value: "Temps plein", label: "Temps plein" },
 ],
 valueModeDeTravail: [
   { value: "onsite", label: "Présentiel" },
@@ -74,6 +78,7 @@ valueModeDeTravail: [
 //   // Identifiant
 //   'matricule'
 // ],
+
       availabilityDates: [],
       startTime: null,
       endTime: null,
@@ -119,6 +124,7 @@ valueModeDeTravail: [
         prenoms: "",
         phone: "",
         ville: "",
+        tempsTravail:"",
         commune: "",
         quartier: "",
         diplome: "",
@@ -131,7 +137,7 @@ valueModeDeTravail: [
         uploadPhotoProfil: [],
         email: "",
         password: "",
-        niveauExpertise:"avance",
+        niveauExpertise:"",
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
@@ -579,7 +585,7 @@ valueModeDeTravail: [
         </a-col>
         <a-col :xs="24" :md="12">
             <a-form-item
-            :label="'Niveau d\'expertise'"
+            :label="'Traitement préférentiel'"
           >
             <a-select
             style="width: 100%;"
@@ -637,7 +643,7 @@ valueModeDeTravail: [
       <!-- STEP 4 -->
     <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
-         <a-col :xs="24" :md="24">
+         <a-col :xs="24" :md="12">
            <a-form-item
             :label="'Mode de travail'"
             :rules="[{ required: true, message: 'Ajoutez  votre mode de travail' }]"
@@ -660,6 +666,29 @@ valueModeDeTravail: [
   </a-select>
             </a-form-item>
         </a-col>
+        <a-col :xs="24" :md="12">
+            <a-form-item
+            :label="'Temps de travail'"
+            :rules="[{ required: true, message: 'Séléctionnez un temps de travail' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.tempsTravail"
+    placeholder="Sélectionnez votre Niveau de carrière"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in valueTempsTravail"
+      :key="item.value"
+      :value="item.value"
+      :label="item.label"
+    >
+      {{ item.label }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col> 
        
       </a-row>
     </div>

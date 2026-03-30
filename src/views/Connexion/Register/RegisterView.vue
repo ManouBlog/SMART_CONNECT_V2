@@ -119,7 +119,7 @@ export default {
     </div>
     </div> -->
     <div>
-    <p class="fw-bold text-center" style="font-size: 1em;">{{ texte0 }}</p>
+    <p class="fw-bold text-center" style="font-size: 1.em;">{{ texte0 }}</p>
 
     <!-- MOBILE -->
     <a-select

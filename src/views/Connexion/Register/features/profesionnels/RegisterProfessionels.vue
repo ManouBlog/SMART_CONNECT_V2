@@ -24,10 +24,9 @@ export default {
  loading : false,
  rawText : '',
  result : null,
- valueExpertise: [
-  { value: "Diplômé", label: "Diplômé" },
-  { value: "Diplômé en activite", label: "Diplômé en activité" },
-  { value: "Consultant", label: "Consultant" },
+ valueTempsTravail: [
+  { value: "Temps partiel", label: "Temps partiel" },
+  { value: "Temps plein", label: "Temps plein" },
 ],
 valueModeDeTravail: [
   { value: "onsite", label: "Présentiel" },
@@ -127,6 +126,7 @@ valueModeDeTravail: [
         upload: [],
         modeTravail:"",
         niveauExpertise:"",
+        tempsTravail:"",
         bio: "",
         statutId:5,
         photo_profil: null,
@@ -194,11 +194,11 @@ valueModeDeTravail: [
         1: ["myCompetence"],
 
         // STEP 2 – Qualifications
-        2: ["qualifications", "niveauEtude", "filiere","niveauExpertise"],
+        2: ["qualifications", "niveauEtude", "filiere"],
 
         
-        // STEP 2 – Qualifications
-        3: ["modeTravail"],
+        // STEP 3 – mode de travail
+        3: ["modeTravail","niveauExpertise"],
 
         // STEP 4 – Validation finale
         4: ["upload", "password"],
@@ -681,7 +681,7 @@ valueModeDeTravail: [
     option-filter-prop="label"
   >
     <a-select-option
-      v-for="item in valueExpertise"
+      v-for="item in valueTempsTravail"
       :key="item.value"
       :value="item.value"
       :label="item.label"
@@ -701,7 +701,7 @@ valueModeDeTravail: [
     <!-- STEP 3 -->
     <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
-         <a-col :xs="24" :md="24">
+         <a-col :xs="24" :md="12">
            <a-form-item
             :label="'Mode de travail'"
             :rules="[{ required: true, message: 'Ajoutez  votre mode de travail' }]"
@@ -724,6 +724,29 @@ valueModeDeTravail: [
   </a-select>
             </a-form-item>
         </a-col>
+        <a-col :xs="24" :md="12">
+            <a-form-item
+            :label="'Temps de travail'"
+            :rules="[{ required: true, message: 'Séléctionnez un temps de travail' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.tempsTravail"
+    placeholder="Sélectionnez votre Niveau de carrière"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in valueTempsTravail"
+      :key="item.value"
+      :value="item.value"
+      :label="item.label"
+    >
+      {{ item.label }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col> 
        
       </a-row>
     </div>
