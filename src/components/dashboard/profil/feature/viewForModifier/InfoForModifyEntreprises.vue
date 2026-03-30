@@ -513,7 +513,7 @@ valueModeDeTravail: [
               id="msg"
               name="msg"
               maxlength="300"
-              style="width: 100%; border-radius: 5px; height: 100px"
+              style="width: 100%; border-radius: 5px; height: 100px;border:1px solid orange"
               placeholder="Présentez-vous en quelques lignes..."
               v-model="form.bio"
             ></textarea>
