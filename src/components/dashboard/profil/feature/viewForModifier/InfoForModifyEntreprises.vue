@@ -14,6 +14,15 @@ export default {
   },
   data() {
     return {
+       valueTempsTravail: [
+  { value: "Temps partiel", label: "Temps partiel" },
+  { value: "Temps plein", label: "Temps plein" },
+],
+valueModeDeTravail: [
+  { value: "Présentiel", label: "Présentiel" },
+  { value: "Télétravail", label: "Télétravail" },
+  { value: "Hybride", label: "Hybride" }
+],
       user: "",
       emails_cc:[],
       lienPhoto: lienPhoto,
@@ -44,7 +53,28 @@ export default {
         { label: "Togo", value: "+228" },
       ],
       countryCode:null,
-      dataStudentUpdated:null
+      dataStudentUpdated:null,
+      form: {
+      nom: "",
+      prenoms: "",
+      email: "",
+      contact: "",
+      phone: "",
+      ville: "",
+      commune: "",
+      quartier: "",
+      matricule_cc: "",
+      forme_juridique: "",
+      NCC: "",
+      diplome: "",
+      modeTravail: "",
+      tempsTravail: "",
+      titreCv: "",
+      bio: "",
+      gerant: "",
+      numero_gerant: "",
+      particulier_prenoms: ""
+    },
     };
   },
   computed: {
@@ -52,6 +82,16 @@ export default {
     ...mapState(useInfoPersonnel, ["otherInfoPersonnelle"]),
   },
   methods: {
+      initForm() {
+    const user = this.$store.state.infoUserConnected;
+
+    if (!user) return;
+
+    this.form = {
+      ...this.form,
+      ...user
+    };
+  },
     ...mapActions(useRegisterStore, {
       handleCompetence: "addTag",
       getCompetences: "getAllCompetences",
@@ -174,6 +214,9 @@ export default {
       console.log("valueDate", valueDate);
     },
   },
+  mounted() {
+  this.initForm();
+},
   async created() {
     this.getCompetences();
     await this.getInfoUser();
@@ -200,7 +243,7 @@ export default {
               ? "Raison sociale"
               : "Nom"
           }}</label>
-          <input v-model="this.$store.state.infoUserConnected.nom" class="form-control" type="text" />
+          <input v-model="form.nom" class="form-control" type="text" />
         </div>
       </div>
       <div class="col-md-12" v-if='this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"'>
@@ -208,7 +251,7 @@ export default {
           <label class="form-label"
             >RCCM (Registre du Commerce et du Crédit Mobilier)</label
           >
-          <input v-model="this.$store.state.infoUserConnected.matricule_cc" class="form-control" type="text" />
+          <input v-model="form.matricule_cc" class="form-control" type="text" />
         </div>
         <div class="my-3">
           <input
@@ -222,13 +265,13 @@ export default {
       <div class="col-md-12" v-if='this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"'>
         <div class="mb-3">
           <label class="form-label">Forme juridique</label>
-          <input v-model="this.$store.state.infoUserConnected.forme_juridique" class="form-control" type="text" />
+          <input v-model="form.forme_juridique" class="form-control" type="text" />
         </div>
       </div>
       <div class="col-md-12" v-if='this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"' >
         <div class="mb-3">
           <label class="form-label">NCC (Numéro de compte contribuable)</label>
-          <input v-model="this.$store.state.infoUserConnected.NCC" class="form-control" type="text" />
+          <input v-model="form.NCC" class="form-control" type="text" />
         </div>
       </div>
       <div
@@ -245,7 +288,7 @@ export default {
               ? "Contact téléphonique de l'entreprise"
               : "Contact téléphonique"
           }}</label>
-          <input v-model="this.$store.state.infoUserConnected.contact" class="form-control" type="text" />
+          <input v-model="form.contact" class="form-control" type="text" />
         </div>
       </div>
       <div
@@ -260,7 +303,7 @@ export default {
       >
         <div class="mb-3">
           <label class="form-label">Prénoms</label>
-          <input v-model="this.$store.state.infoUserConnected.prenoms" class="form-control" type="text" />
+          <input v-model="form.prenoms" class="form-control" type="text" />
         </div>
       </div>
       <div
@@ -269,7 +312,7 @@ export default {
       >
         <div class="mb-3">
           <label class="form-label">Prénoms</label>
-          <input v-model="this.$store.state.infoUserConnected.particulier_prenoms" class="form-control" type="text" />
+          <input v-model="form.particulier_prenoms" class="form-control" type="text" />
         </div>
       </div>
 
@@ -280,7 +323,7 @@ export default {
               ? "Contact mail de l'entreprise"
               : "Email"
           }}</label>
-          <input v-model="this.$store.state.infoUserConnected.email" class="form-control" type="email" />
+          <input v-model="form.email" class="form-control" type="email" />
         </div>
       </div>
       <div class="col-md-12 my-2" 
@@ -308,48 +351,26 @@ export default {
       >
         <div class="mb-3">
           <label class="form-label">Contact</label>
-          <!-- <a-form-item
-      :label="texte2"
-      name="phone"
-      :rules="[{ required: true, message: texte15 }]"
-    >
-      <a-input
-        type="tel"
-        v-model:value="this.$store.state.infoUserConnected.phone"
-        placeholder="Entrez votre numéro téléphonique"
-      >
-        <template #addonBefore>
-          <a-select
-            v-model:value="countryCode"
-            :options="westAfricaCodes"
-            show-search
-            option-filter-prop="label"
-            option-label-prop="value"
-            style="width: 120px"
-          />
-        </template>
-      </a-input>
-    </a-form-item> -->
-          <input v-model="this.$store.state.infoUserConnected.phone" class="form-control" type="text" />
+          <input v-model="form.phone" class="form-control" type="text" />
         </div>
       </div>
 
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Ville</label>
-          <input v-model="this.$store.state.infoUserConnected.ville" class="form-control" type="text" />
+          <input v-model="form.ville" class="form-control" type="text" />
         </div>
       </div>
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Commune</label>
-          <input v-model="this.$store.state.infoUserConnected.commune" class="form-control" type="text" />
+          <input v-model="form.commune" class="form-control" type="text" />
         </div>
       </div>
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Quartier</label>
-          <input v-model="this.$store.state.infoUserConnected.quartier" class="form-control" type="text" />
+          <input v-model="form.quartier" class="form-control" type="text" />
         </div>
       </div>
       <section v-if='this.$store.state.infoUserConnected && (
@@ -359,27 +380,55 @@ export default {
   this.$store.state.infoUserConnected.user.statut.statut === "veteran"
 )
         '>
-        <!-- <div class="col-md-12">
-          <div class="mb-3">
-            <label class="form-label">Compétences</label>
-            <VueMultiselect
-              v-model="this.$store.state.infoUserConnected.competences"
-              :options="allCompetences"
-              :multiple="true"
-              :taggable="true"
-              :tag="handleCompetence"
-              @update:model-value="handleCompetence"
-              label="competence"
-              track-by="competence"
-              class="vuemulti"
-            >
-            </VueMultiselect>
-          </div>
-        </div> -->
+      
         <div class="col-md-12">
-          <div class="mb-3">
+          <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut === 'etudiant'">
             <label class="form-label">Dernier diplôme academique</label>
-            <input v-model="this.$store.state.infoUserConnected.diplome" class="form-control" type="text" />
+            <input v-model="form.diplome" class="form-control" type="text" />
+          </div>
+          <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut === 'professionnel'">
+            <div>
+     <label class="form-label">Niveau actuel + diplome</label>
+            <input v-model="form.diplome" class="form-control" type="text" />
+            </div>
+
+            <div>
+              <!-- {{ this.$store.state.infoUserConnected }} -->
+            <label class="form-label">Mode de travail</label>
+            <select 
+            name="mode_travail1" 
+            id="mode_travail1"
+          style="width:100%;padding:0.8em;border-radius: 10px;border:1px solid orange"
+            v-model="form.modeTravail"
+            >
+              <option value="">Séléctionne un mode de travail</option>
+              <option 
+              :value="item.value"
+              :key="item.value" 
+              v-for="item in valueModeDeTravail">
+                {{ item.label }}
+              </option>
+            </select>
+            </div>
+            <div>
+            <label class="form-label">Temps de travail</label>
+            <select 
+            name="time_work" 
+            id="time_work"
+            style="width:100%;padding:0.8em;border-radius: 10px;border:1px solid orange"
+            v-model="form.tempsTravail"
+            >
+              <option value="">Séléctionne un temps de travail</option>
+              <option 
+              :value="item.value"
+              :key="item.value" 
+              v-for="item in valueTempsTravail">
+                {{ item.label }}
+              </option>
+            </select>
+            <!-- <input v-model="form.diplome" class="form-control" type="text" /> -->
+            </div>
+       
           </div>
         </div>
         <div class="col-md-12">
@@ -390,7 +439,7 @@ export default {
                 >(ex. : Développeur Web, Designer UX, etc.)</small
               ></label
             >
-            <input v-model="this.$store.state.infoUserConnected.titreCv" class="form-control" type="text" />
+            <input v-model="form.titreCv" class="form-control" type="text" />
           </div>
         </div>
       </section>
@@ -410,7 +459,7 @@ export default {
               maxlength="300"
               style="width: 100%; border-radius: 5px; height: 100px"
               placeholder="Présentez-vous en quelques lignes..."
-              v-model="this.$store.state.infoUserConnected.bio"
+              v-model="form.bio"
             ></textarea>
           </div>
         </div>
@@ -427,13 +476,13 @@ export default {
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Gérant</label>
-            <input v-model="this.$store.state.infoUserConnected.gerant" class="form-control" type="text" />
+            <input v-model="form.gerant" class="form-control" type="text" />
           </div>
         </div>
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Numéro téléphonique du Gérant</label>
-            <input v-model="this.$store.state.infoUserConnected.numero_gerant" class="form-control" type="text" />
+            <input v-model="form.numero_gerant" class="form-control" type="text" />
           </div>
         </div>
       </section>
@@ -447,17 +496,7 @@ export default {
     ] || "Nouvelle pièce du gérant (jpg,png)"
   }}
 </label>
-          <!-- <label for="add_file">
-            {{
-              this.$store.state.infoUserConnected && (
-  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "veteran" )
-                ? "Nouvelle carte étudiant"
-                : "Nouvelle pièce du gérant (jpg,png,webp,pdf)"
-            }}</label
-          > -->
+         
           <input
             type="file"
             multiple
@@ -467,83 +506,7 @@ export default {
           />
         </div>
       </div>
-      <!-- <div
-        class="col-md-12"
-        v-if='this.$store.state.infoUserConnected && (
-  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
-)
-        '
-      >
-        <div class="my-3">
-          <label class="form-label">Qualifications</label>
-           <n-dynamic-input
-              v-model:value="this.$store.state.infoUserConnected.qualifications"
-              :on-create="onCreateQualification"
-            >
-              
-              <template #create-button-default>
-                <slot name="create-button"> Ajouter des qualifications </slot>
-              </template>
-
-            
-              <template #default="{ value }">
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-                    gap: 1em;
-                    flex-direction: column;
-                  "
-                >
-                  <div style="width: 100%">
-                    <label for="objet">Diplôme</label>
-                    <input
-                      type="text"
-                      class="input_class"
-                      id="objet"
-                      v-model="value.objet"
-                    />
-                  </div>
-
-                  <div style="width: 100%">
-                    <label for="periode">Période</label>
-                    <div style="display: flex; gap: 1em; align-items: center">
-                      <input
-                        type="date"
-                        class="input_class"
-                        id="periode"
-                        
-                        v-model="value.date_debut"
-                      />
-                      <p>À</p>
-                      <input type="date" 
-                      :min="value.date_debut"
-                      class="input_class" v-model="value.date_fin" />
-                    </div>
-                  </div>
-                  <div style="width: 100%;">
-                    <label for="description">Description (max 300 caractères)</label>
-                    <textarea
-                      maxlength="300"
-                      id="description"
-                      style="
-                        width: 100%;
-                        border-radius: 5px;
-                        padding: 0.5em;
-                        border: 1px solid gray;
-                      "
-                      v-model="value.detail"
-                    ></textarea>
-                  </div>
-                </div>
-              </template>
-            </n-dynamic-input>
-        </div>
-      </div> -->
+      
     </div>
     <div class="text-right">
       <button
