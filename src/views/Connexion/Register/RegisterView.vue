@@ -119,7 +119,7 @@ export default {
     </div>
     </div> -->
     <div>
-    <span class="fw-bold">{{ texte0 }}</span>
+    <p class="fw-bold text-center" style="font-size: 1em;">{{ texte0 }}</p>
 
     <!-- MOBILE -->
     <a-select
@@ -144,7 +144,7 @@ export default {
       v-model:value="value1"
       option-type="button"
       button-style="solid"
-      style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
+      style="display: flex; flex-wrap: wrap; justify-content:center;gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
       @change="handleChange"
     >
       <a-radio-button
