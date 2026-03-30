@@ -94,7 +94,8 @@ export const useRegisterStore = defineStore('register', {
           }
           if(payload?.statutId == 6 || payload?.statutId == 5){
             data.append("niveauExpertise", payload?.niveauExpertise);
-            data.append("modeTravail",payload.modeTravail)
+            data.append("modeTravail",payload.modeTravail);
+            data.append("tempsTravail", payload?.tempsTravail);
           }
           
           data.append("prenoms", payload?.prenoms);

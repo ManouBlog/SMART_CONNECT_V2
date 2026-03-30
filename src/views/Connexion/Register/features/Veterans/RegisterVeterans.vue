@@ -33,9 +33,9 @@ export default {
   { value: "Temps plein", label: "Temps plein" },
 ],
 valueModeDeTravail: [
-  { value: "onsite", label: "Présentiel" },
-  { value: "remote", label: "Télétravail" },
-  { value: "hybrid", label: "Hybride" }
+  { value: "Présentiel", label: "Présentiel" },
+  { value: "Télétravail", label: "Télétravail" },
+  { value: "Hybride", label: "Hybride" }
 ],
 //  SCHOOL_KEYWORDS :[
 //   // Carte étudiante (formes tolérantes OCR)
@@ -193,7 +193,7 @@ valueModeDeTravail: [
         2: ["qualifications", "niveauEtude", "filiere"],
 
          // STEP 2 – mode de travail
-        3: ["modeTravail"],
+        3: ["modeTravail","tempsTravail"],
 
         // STEP 4 – Validation finale
         4: ["upload", "password"],
