@@ -158,7 +158,7 @@ export default {
           <br />
           {{ this.$store.state.user.prenoms }} 
           <br />
-          <span class="badge bg-warning">{{ this.$store?.state?.user?.user?.statut?.statut }}</span>
+          <span class="badge bg-warning">{{ this.$store.state.infoUserConnected.user.statut.statut }}</span>
           </span
         >
       </li>
