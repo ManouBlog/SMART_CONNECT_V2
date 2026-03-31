@@ -8,7 +8,7 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 export default {
   name: "Formels",
-  props: ['optionsPaper'],
+  props: ['optionsPaperChoosse'],
   components: {
     Politics,
   },
@@ -47,7 +47,7 @@ export default {
       open: true,
       optionsPaper:"",
       formState: {
-       optionsPaperChoose: this.optionsPaper,
+       optionsPaperChoose: this.optionsPaperChoosse,
         nom: "",
         prenoms: "",
         phone: "",

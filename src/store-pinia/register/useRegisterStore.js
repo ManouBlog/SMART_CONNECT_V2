@@ -214,6 +214,7 @@ Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre c
           data.append("email", payload?.email);
           data.append("commune", payload?.commune);
           data.append("password", payload?.password);
+             data.append("is_company_verified", payload?.optionsPaperChoose);
           data.append("statut_id", 4);
           // data.append("piece_gerant", payload?.piece_gerant[0]?.originFileObj);
          await instance
