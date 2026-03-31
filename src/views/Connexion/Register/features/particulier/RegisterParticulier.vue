@@ -82,22 +82,22 @@ export default {
       texte26: "",
       open: true,
         westAfricaCodes: [
-          { label: "Bénin", value: "+229" },
-          { label: "Burkina Faso", value: "+226" },
-          { label: "Cap-Vert", value: "+238" },
-          { label: "Côte d’Ivoire", value: "+225" },
-          { label: "Gambie", value: "+220" },
-          { label: "Ghana", value: "+233" },
-          { label: "Guinée", value: "+224" },
-          { label: "Guinée-Bissau", value: "+245" },
-          { label: "Liberia", value: "+231" },
-          { label: "Mali", value: "+223" },
-          { label: "Niger", value: "+227" },
-          { label: "Nigeria", value: "+234" },
-          { label: "Sénégal", value: "+221" },
-          { label: "Sierra Leone", value: "+232" },
-          { label: "Togo", value: "+228" },
-        ],
+  { label: "Bénin", value: "+229", length: 8 },
+  { label: "Burkina Faso", value: "+226", length: 8 },
+  { label: "Cap‑Vert", value: "+238", length: 7 },
+  { label: "Côte d’Ivoire", value: "+225", length: 10 },
+  { label: "Gambie", value: "+220", length: 7 },
+  { label: "Ghana", value: "+233", length: 9 },
+  { label: "Guinée", value: "+224", length: 7 },
+  { label: "Guinée‑Bissau", value: "+245", length: 9 },
+  { label: "Liberia", value: "+231", length: 9 },
+  { label: "Mali", value: "+223", length: 8 },
+  { label: "Niger", value: "+227", length: 8 },
+  { label: "Nigeria", value: "+234", length: 10 },
+  { label: "Sénégal", value: "+221", length: 8 },
+  { label: "Sierra Leone", value: "+232", length: 8 },
+  { label: "Togo", value: "+228", length: 8 },
+],
       formState: {
       nom_particulier:"",
         nom: "",
@@ -131,7 +131,40 @@ export default {
     )
   },
   },
+  watch: {
+    'formState.countryCode'(newVal, oldVal) {
+      console.log('Code pays changé de', oldVal, 'à', newVal);
+      if (newVal !== oldVal) {
+      this.formState.contact = '';
+      this.$refs.formRef?.validateFields(['contact']);
+    }
+    },
+  },
   methods: {
+    validatePhone(_, value) {
+  
+    // Trouver le pays sélectionné
+    const country = this.westAfricaCodes.find(
+      c => c.value === this.formState.countryCode
+    );
+
+    if (!country) {
+      return Promise.reject('Sélectionnez un indicatif');
+    }
+
+    const length = country.length;
+
+    // Vérifie uniquement les chiffres + longueur exacte
+    const regex = new RegExp(`^\\d{${length}}$`);
+
+    if (!regex.test(value)) {
+      return Promise.reject(
+        `Le numéro doit contenir exactement ${length} chiffres pour ce pays`
+      );
+    }
+
+    return Promise.resolve();
+  },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     addPhotoInArray(allPhotos) {
       const element = [];
@@ -374,10 +407,11 @@ preprocessImage(file) {
           name="contact"
           :rules="[
             { required: true, message: 'Ajouter un contact' },
-            {
-              pattern: /^\d{10}$/,
-              message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
-            }
+            // {
+            //   pattern: /^\d{10}$/,
+            //   message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
+            // },
+             { validator: validatePhone }
           ]"
         >
           <a-input
