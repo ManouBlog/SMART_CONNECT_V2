@@ -1,0 +1,6 @@
+:root {
+    --color-of-page: hsla(193, 44%, 26%, 1) !important;
+  }
+table{
+    border: 1px solid black;
+}

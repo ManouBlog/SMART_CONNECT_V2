@@ -1,0 +1,29 @@
+:root {
+  --color-of-page: hsla(193, 44%, 26%, 1) !important;
+}
+.login-form .form-group .input-group-text {
+  background: var(--color-of-page);
+}
+.bi-envelope,
+.bi-lock {
+  color: white !important;
+}
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background: var(--color-of-page) !important;
+  color: white !important;
+}
+.btn-primary{
+  margin-left:50% !important;
+  transform: translateX(-50%) !important;
+
+}
+.link,.show{
+  color:var(--color-of-page) !important;
+}
+.inscription{
+  color:grey !important;
+  text-decoration: underline;
+}

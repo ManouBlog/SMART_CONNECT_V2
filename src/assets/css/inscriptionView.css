@@ -1,0 +1,58 @@
+:root {
+    --color-of-page: hsla(193, 44%, 26%, 1) !important;
+  }
+.connex{
+    color:grey !important;
+}
+.content{
+    width:200px;
+    height: 200px;
+    box-shadow: 1px 6px 10px rgba(0, 0, 0, 0.129);
+    position: relative;
+    text-align: center;
+    padding:1em 0;
+    border-radius:1em;
+    margin-bottom: 2.5em;
+}
+.content span{
+    position: absolute;
+    margin-right: 25%;
+    transform: translateX(-50%);
+    z-index: 2;
+    
+}
+
+.img{
+    position: absolute;
+    width:100%;
+    height:100%;
+    margin-right:50%;
+    transform: translateX(-50%);
+    object-fit: cover;
+    padding:1em 0;
+  }
+  .login-form{
+      width: 500px !important;
+  }
+  .choose_statut{
+      gap:1em !important;
+      justify-content:center !important;
+  }
+  .login-card{
+      height:0 !important;
+  }
+  .bi-arrow-left-circle{
+      position: absolute;
+      left:.2em;
+      top: 10px;
+      font-size:3em !important;
+  }
+input,select{
+    border-radius: 5px;
+    height:40px;
+    border: 2px solid rgb(83, 83, 83);
+    width: auto;
+}
+label{
+    text-transform: none !important;
+}
