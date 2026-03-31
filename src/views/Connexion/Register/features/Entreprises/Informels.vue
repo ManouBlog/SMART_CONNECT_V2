@@ -13,9 +13,10 @@ export default {
   data() {
     return {
           fileList : [],
- loading : false,
- rawText : '',
- result : null,
+            props: ['optionsPaper'],
+          loading : false,
+          rawText : '',
+        result : null,
       PIECE_KEYWORDS :[
   "republique de cote d ivoire",
   "signature du titulaire",
@@ -99,6 +100,7 @@ export default {
   { label: "Togo", value: "+228", length: 8 },
 ],
       formState: {
+        optionsPaperChoose: this.optionsPaper,
       nom_particulier:"",
         nom: "",
         prenoms: "",

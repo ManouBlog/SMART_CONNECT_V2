@@ -152,7 +152,7 @@ Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre c
           // data.append("email_cc", payload?.email_cc);
           data.append("registre", payload?.Registre[0]?.originFileObj);
           data.append("nom", payload?.nom);
-          // data.append("phone", payload?.contact);
+          data.append("is_company_verified", payload?.optionsPaperChoose);
           data.append("phone",`${payload?.countryCode}${payload?.contact}`);
           data.append("ville", payload?.ville);
           data.append("quartier", payload?.quartier);

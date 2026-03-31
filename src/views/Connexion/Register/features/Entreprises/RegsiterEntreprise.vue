@@ -39,7 +39,11 @@ options : [
 </label>
 </div>
 
-<Formels v-if="optionsPaper === 'Formel'" />
-<Informels v-else />
+<Formels 
+:optionsPaper="optionsPaper"
+v-if="optionsPaper === 'Formel'" />
+<Informels
+:optionsPaper="optionsPaper"
+v-else />
 
 </template>
