@@ -139,7 +139,7 @@ this.get_Contrat();
           >
             <i class="bi bi-person" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'students' }">
-              <strong>Etudiants</strong>
+              <strong>Talents</strong>
               <BadgeCompVue
                 v-if="(this.$store.state.listStudentAbonne+this.$store.state.listStudentPasAbonne) > 0"
                 :nbreTotal="this.$store.state.listStudentAbonne+this.$store.state.listStudentPasAbonne"

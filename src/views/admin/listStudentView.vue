@@ -19,6 +19,8 @@ export default {
       id_student: null,
       student: null,
       spinner: false,
+      currentFilter:"",
+      talentsChoose:"abonne"
     };
   },
   methods: {
@@ -56,115 +58,275 @@ export default {
           console.log("ID_STUDENT", this.student);
         });
     },
+    setFilter(type) {
+      console.log("Filter set to:", type);
+    this.currentFilter = type.toLowerCase();
+    console.log("Current filter:", this.currentFilter);
+    const table = talentsChoose === 'abonne' ? $("#MyTableData").DataTable() : $("#MyTableData2").DataTable();
+    table.draw();
+  },
+  getBtnClass(type) {
+  return this.currentFilter === type
+    ? "btn-active"
+    : "btn-gray";
+},
     get_students() {
-      this.spinner = true;
-      axios
-        .get("https://backend-test.monbrobroli.com/api/list_students", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.students = res.data.data;
-          console.log("ENTRPRISES", this.students);
-          this.spinner = false;
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
-        })
-        .catch((err) => {
-          console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+  this.spinner = true;
+  axios.get("https://backend-test.monbrobroli.com/api/list_students", {
+      headers: {
+        Authorization: "Bearer " + this.$store.state.token,
+      },
+    })
+    .then((res) => {
+      this.students = res.data.data;
+      this.spinner = false;
+
+      setTimeout(() => {
+        const vm = this;
+
+        // 🔥 Filtre personnalisé
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+          if (!vm.currentFilter) return true;
+
+          // ⚠️ adapte l'index selon ta colonne "type"
+          // ex: data[2] = colonne type
+          const type = data[1]?.toLowerCase();
+
+          return type === vm.currentFilter;
         });
-    },
+
+        $("#MyTableData").DataTable({
+          pagingType: "full_numbers",
+          pageLength: 10,
+          processing: true,
+          order: [],
+          language: {
+            decimal: "",
+            emptyTable: "Aucune donnée disponible dans le tableau",
+            infoEmpty: "Showing 0 to 0 of 0 entries",
+            info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+            infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+            thousands: ",",
+            lengthMenu: "Afficher _MENU_",
+            loadingRecords: "Loading...",
+            processing: "Processing...",
+            search: "Chercher :",
+            zeroRecords: "Aucun enregistrement correspondant trouvé",
+            paginate: {
+              first: "Premier",
+              last: "Dernier",
+              next: "Suivant",
+              previous: "Précédent",
+            },
+          },
+        });
+      }, 10);
+    })
+    .catch((err) => {
+      console.log(err);
+      // setTimeout(() => {
+      //   this.$router.push("/");
+      // }, 1500);
+
+      // localStorage.removeItem("token");
+      // localStorage.removeItem("user");
+      // this.$store.state.user = null;
+      // this.$store.state.token = null;
+    });
+},
+    // get_students() {
+    //   this.spinner = true;
+    //   axios
+    //     .get("https://backend-test.monbrobroli.com/api/list_students", {
+    //       headers: {
+    //         Authorization: "Bearer " + this.$store.state.token,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log(res);
+    //       this.students = res.data.data;
+    //       console.log("ENTRPRISES", this.students);
+    //       this.spinner = false;
+    //       setTimeout(function () {
+    //         $("#MyTableData").DataTable({
+    //           pagingType: "full_numbers",
+    //           pageLength: 10,
+    //           processing: true,
+    //           order: [],
+    //           language: {
+    //             décimal: "",
+    //             emptyTable: "Aucune donnée disponible dans le tableau",
+    //             infoEmpty: "Showing 0 to 0 of 0 entries",
+    //             info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+    //             infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+    //             infoPostFix: "",
+    //             thousands: ",",
+    //             lengthMenu: "Afficher les entrées du _MENU_",
+    //             loadingRecords: "Loading...",
+    //             processing: "Processing...",
+    //             search: "Chercher :",
+    //             stateSave: true,
+    //             zeroRecords: "Aucun enregistrement correspondant trouvé",
+    //             paginate: {
+    //               first: "Premier",
+    //               last: "Dernier",
+    //               next: "Suivant",
+    //               previous: "Précédent",
+    //             },
+    //             aria: {
+    //               sortAscending: ": activate to sort column ascending",
+    //               sortDescending: ": activate to sort column descending",
+    //             },
+    //           },
+    //         });
+    //       }, 10);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       setTimeout(() => {
+    //           this.$router.push("/");
+    //         }, 1500);
+    //         localStorage.removeItem("token");
+    //         localStorage.removeItem("user");
+    //         this.$store.state.user = null;
+    //         this.$store.state.token = null;
+    //     });
+    // },
+    // get_Visiteurs() {
+    //   this.spinner = true;
+    //   axios
+    //     .get("https://backend-test.monbrobroli.com/api/list_visiteurs", {
+    //       headers: {
+    //         Authorization: "Bearer " + this.$store.state.token,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log(res);
+    //       this.studentsNonAbonnee = res.data.data;
+    //       console.log("ENTRPRISES", this.students);
+    //       this.spinner = false;
+    //       setTimeout(function () {
+
+    //         const vm = this;
+
+    //     // 🔥 Filtre personnalisé
+    //     $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    //       if (!vm.currentFilter) return true;
+
+    //       // ⚠️ adapte l'index selon ta colonne "type"
+    //       // ex: data[2] = colonne type
+    //       const type = data[1]?.toLowerCase();
+
+    //       return type === vm.currentFilter;
+    //     });
+
+    //         $("#MyTableData2").DataTable({
+    //           pagingType: "full_numbers",
+    //           pageLength: 10,
+    //           processing: true,
+    //           order: [],
+    //           language: {
+    //             décimal: "",
+    //             emptyTable: "Aucune donnée disponible dans le tableau",
+    //             infoEmpty: "Showing 0 to 0 of 0 entries",
+    //             info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+    //             infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+    //             infoPostFix: "",
+    //             thousands: ",",
+    //             lengthMenu: "Afficher les entrées du _MENU_",
+    //             loadingRecords: "Loading...",
+    //             processing: "Processing...",
+    //             search: "Chercher :",
+    //             stateSave: true,
+    //             zeroRecords: "Aucun enregistrement correspondant trouvé",
+    //             paginate: {
+    //               first: "Premier",
+    //               last: "Dernier",
+    //               next: "Suivant",
+    //               previous: "Précédent",
+    //             },
+    //             aria: {
+    //               sortAscending: ": activate to sort column ascending",
+    //               sortDescending: ": activate to sort column descending",
+    //             },
+    //           },
+    //         });
+    //       }, 10);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
     get_Visiteurs() {
-      this.spinner = true;
-      axios
-        .get("https://backend-test.monbrobroli.com/api/list_visiteurs", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.studentsNonAbonnee = res.data.data;
-          console.log("ENTRPRISES", this.students);
-          this.spinner = false;
-          setTimeout(function () {
-            $("#MyTableData2").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
-        })
-        .catch((err) => {
-          console.log(err);
+  this.spinner = true;
+
+  axios
+    .get("https://backend-test.monbrobroli.com/api/list_visiteurs", {
+      headers: {
+        Authorization: "Bearer " + this.$store.state.token,
+      },
+    })
+    .then((res) => {
+      this.studentsNonAbonnee = res.data.data;
+      console.log("VISITEURS", this.studentsNonAbonnee);
+
+      this.spinner = false;
+
+      setTimeout(() => {
+        const vm = this;
+
+        // 🔥 Évite d’empiler les filtres (très important)
+        $.fn.dataTable.ext.search = [];
+
+        $.fn.dataTable.ext.search.push(function (settings, data) {
+          if (!vm.currentFilter) return true;
+
+          // sécurisation + nettoyage HTML
+          const type = (data[1] || "")
+            .replace(/<[^>]*>/g, "")
+            .toLowerCase()
+            .trim();
+
+          return type === vm.currentFilter;
         });
-    },
+
+        // 🔥 destroy si déjà initialisé
+        if ($.fn.DataTable.isDataTable("#MyTableData2")) {
+          $("#MyTableData2").DataTable().destroy();
+        }
+
+        $("#MyTableData2").DataTable({
+          pagingType: "full_numbers",
+          pageLength: 10,
+          processing: true,
+          order: [],
+          language: {
+            decimal: "",
+            emptyTable: "Aucune donnée disponible dans le tableau",
+            infoEmpty: "Showing 0 to 0 of 0 entries",
+            info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+            infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+            thousands: ",",
+            lengthMenu: "Afficher les entrées du _MENU_",
+            loadingRecords: "Loading...",
+            processing: "Processing...",
+            search: "Chercher :",
+            zeroRecords: "Aucun enregistrement correspondant trouvé",
+            paginate: {
+              first: "Premier",
+              last: "Dernier",
+              next: "Suivant",
+              previous: "Précédent",
+            },
+          },
+        });
+      }, 10);
+    })
+    .catch((err) => {
+      console.log(err);
+      this.spinner = false;
+    });
+},
     async getDetailNotSuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
@@ -258,6 +420,9 @@ export default {
           <ul class="nav nav-tabs" id="top-tab" role="tablist">
             <li class="nav-item">
               <a
+              @click.prevent="()=>{
+                talentsChoose = 'abonne'
+              }"
                 class="nav-link active"
                 id="top-timeline"
                 data-bs-toggle="tab"
@@ -274,6 +439,9 @@ export default {
             </li>
             <li class="nav-item">
               <a
+              @click.prevent="()=>{
+                talentsChoose = 'NonAbonnes'
+              }"
                 class="nav-link"
                 id="top-timeline"
                 data-bs-toggle="tab"
@@ -292,8 +460,28 @@ export default {
         </div>
       </div>
     </div>
+      <!-- filter with buttons-->
+   
     <!-- Container-fluid starts-->
-    <div class="tab-content" id="top-tabContent">
+  <div class="tab-content" id="top-tabContent">
+  <div class="mb-3 d-flex gap-2">
+  <button @click="setFilter('')" 
+  :class="getBtnClass('')"
+  style="border-radius: 5px;border:none;padding:0.5em;">Tous</button>
+  <button @click="setFilter('etudiant')" 
+  :class="getBtnClass('etudiant')"
+  style="border-radius: 5px;border:none;padding:0.5em;">Étudiants</button>
+  <button @click="setFilter('professionnel')" 
+  :class="getBtnClass('professionnel')"
+  style="border-radius: 5px;border:none;padding:0.5em;">Professionnels</button>
+  <button @click="setFilter('veteran')" 
+  :class="getBtnClass('veteran')"
+  style="border-radius: 5px;border:none;padding:0.5em;" >Vétérans</button>
+  <button @click="setFilter('artisan')" 
+  :class="getBtnClass('artisan')"
+  style="border-radius: 5px;border:none;padding:0.5em;" >Artisans</button>
+  
+  </div>
       <div
         class="tab-pane fade show active"
         id="abonnées"
@@ -307,6 +495,7 @@ export default {
                 <thead>
                   <tr>
                     <th class="bg-light">Date d'enregistrement</th>
+                    <th class="bg-light">Statut</th>
                     <th class="bg-light">Nom</th>
                     <th class="bg-light">email</th>
                     <th class="bg-light">Ville</th>
@@ -321,6 +510,7 @@ export default {
                 <tbody>
                   <tr v-for="(item, index) in students" :key="index">
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
+                    <td>{{ item.user?.statut?.statut }}</td>
                     <td>
                       {{ item.nom }}
                       <span class="badge bg-danger" v-if="item.view == 1">New</span>
@@ -379,6 +569,7 @@ export default {
                 <thead>
                   <tr>
                     <th class="bg-light">Date d'enregistrement</th>
+                    <th class="bg-light">Statut</th>
                     <th class="bg-light">Nom</th>
                     <th class="bg-light">email</th>
                     <th class="bg-light">Ville</th>
@@ -393,6 +584,7 @@ export default {
                 <tbody>
                   <tr v-for="(item, index) in studentsNonAbonnee" :key="index">
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
+                    <td>{{ item.user?.statut?.statut }}</td>
                     <td>
                       {{ item.nom }}
                       <span class="badge bg-danger" v-if="item.view == 1">New</span>
@@ -441,6 +633,21 @@ export default {
   </div>
 </template>
 <style scoped>
+.btn-gray {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.btn-gray:hover {
+  background-color: #e5e7eb;
+}
+
+.btn-active {
+  background-color: #2563eb;
+  color: white;
+  border: 1px solid #2563eb;
+}
 .bi {
   font-size: 1.5em !important;
   cursor: pointer;
