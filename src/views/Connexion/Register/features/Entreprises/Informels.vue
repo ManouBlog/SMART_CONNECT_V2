@@ -7,13 +7,13 @@ import { useRegisterStore } from "../../../../../store-pinia/register/useRegiste
 import Tesseract from 'tesseract.js'
 export default {
   name: "Informels",
+   props: ['optionsPaper'],
   components: {
     Politics,
   },
   data() {
     return {
           fileList : [],
-            props: ['optionsPaper'],
           loading : false,
           rawText : '',
         result : null,
