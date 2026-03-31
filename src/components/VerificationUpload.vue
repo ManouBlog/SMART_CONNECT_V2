@@ -3,7 +3,7 @@
     <a-form layout="vertical">
 
       <!-- Upload document -->
-      <a-form-item v-if="isValidProfil && config?.label" :label="config?.label">
+      <!-- <a-form-item v-if="isValidProfil && config?.label" :label="config?.label">
         <input 
           type="file" 
           :accept="acceptString"
@@ -12,17 +12,17 @@
         <small class="form-text text-muted">
           {{ config.description }}
         </small>
-      </a-form-item>
+      </a-form-item> -->
 
 
 
       <!-- Aperçu fichier -->
-      <div v-if="fileName" class="mt-2">
+      <!-- <div v-if="fileName" class="mt-2">
         <span class="badge bg-primary">
           <i class="bi bi-file-earmark-fill me-1"></i>
           {{ fileName }}
         </span>
-      </div>
+      </div> -->
 
       <!-- Bouton -->
       <a-form-item class="mt-3">
@@ -101,14 +101,14 @@ const isValidProfil = computed(() => {
 })
 
 // Config dynamique
-const config = computed(() => {
-  return verificationConfig[props.userProfil] || {}
-})
+// const config = computed(() => {
+//   return verificationConfig[props.userProfil] || {}
+// })
 
 // Accept string pour input file
-const acceptString = computed(() => {
-  return config.value.accepted?.map(ext => `.${ext}`).join(',') || ''
-})
+// const acceptString = computed(() => {
+//   return config.value.accepted?.map(ext => `.${ext}`).join(',') || ''
+// })
 
 // Peut soumettre ?
 const canSubmit = computed(() => {
@@ -141,25 +141,25 @@ const canSubmit = computed(() => {
  */
 
 // Gestion fichier
-const handleFileChange = (event) => {
-  const f = event.target.files[0]
+// const handleFileChange = (event) => {
+//   const f = event.target.files[0]
 
-  if (!f) {
-    file.value = null
-    fileName.value = ''
-    return
-  }
+//   if (!f) {
+//     file.value = null
+//     fileName.value = ''
+//     return
+//   }
 
-  // Validation extension
-  const ext = f.name.split('.').pop().toLowerCase()
-  if (!config.value.accepted.includes(ext)) {
-    message.error("Format de fichier non autorisé")
-    return
-  }
+//   // Validation extension
+//   const ext = f.name.split('.').pop().toLowerCase()
+//   if (!config.value.accepted.includes(ext)) {
+//     message.error("Format de fichier non autorisé")
+//     return
+//   }
 
-  file.value = f
-  fileName.value = f.name
-}
+//   file.value = f
+//   fileName.value = f.name
+// }
 
 // Submit
 const submitRequest = async () => {

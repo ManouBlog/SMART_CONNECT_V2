@@ -313,7 +313,7 @@ valueExpertise: [
       </legend>
       <div class="col-md-12">
       <div class="mb-3" >
-            <label class="form-label">Statut</label>
+            <label class="form-label">Changer de statut</label>
             <select 
             name="statut_id" 
             id="statut_id"

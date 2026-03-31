@@ -194,7 +194,7 @@ export default {
     <n-modal v-model:show="showModalBadgeVerifi" style="width:auto" preset="card" :closable="false">
       <template #header>
         <div class="modal-header">
-          <h3>Badge de Vérification</h3>
+          <h3>Vérification d'identité</h3>
         </div>
       </template>
       <VerificationUpload 
@@ -202,7 +202,7 @@ export default {
       />
     </n-modal>
     <div v-if="isLoading">
-      <h1 style="text-align: center">Chargement...</h1>
+      <h5 style="text-align: center">Chargement...</h5>
     </div>
     <a-card
       v-if="user"
