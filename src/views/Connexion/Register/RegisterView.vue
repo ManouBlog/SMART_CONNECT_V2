@@ -27,11 +27,12 @@ export default {
       isMobile:false,
       options : [
   { value: "student", label: "Étudiant" },
-  { value: "entreprise", label: "Entreprise" },
+  { value: "professionnels", label: "Professionnel" },
+  { value: "artisans", label: "Artisan" },
+  { value: "vétérans", label: "Vétéran" },
   { value: "particulier", label: "Particulier" },
-  { value: "professionnels", label: "Professionnels" },
-  { value: "artisans", label: "Artisans" },
-  { value: "vétérans", label: "Vétérans" }
+  { value: "entreprise", label: "Entreprise" },
+
 ],
       texte1: "",
       texte4: "",
