@@ -51,7 +51,7 @@ export default {
       descriptions: {
       student: "Cette étape est réservée aux étudiants qui souhaitent acquérir une expérience de travail.",
       entreprise: "Cette étape est destinée aux entreprises qui souhaitent recruter.",
-      particulier: "Cette étape concerne les particuliers qui souhaitent recruter.",
+      particulier: "Cette étape concerne les particuliers qui souhaitent recruter des artisans et professionnels.",
       professionnels: "Cette étape est réservée aux diplômés et consultants, qu’ils soient en activité ou sans emploi.",
       artisans: "Cette étape concerne les artisans qui souhaitent promouvoir leur savoir‑faire.",
       vétérans: "Cette étape est exclusivement réservée aux retraités disposant de compétences expertes."
