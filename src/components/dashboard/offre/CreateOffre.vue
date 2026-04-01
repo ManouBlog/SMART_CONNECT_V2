@@ -577,7 +577,7 @@ export default {
   </div>
 
   <!-- Bouton centré -->
-  <div class="row g-3">
+  <div class="row g-3 my-5">
     <div class="col-12 text-center">
       <button class="btn btn-warning btn-designer" type="submit" :disabled="loading">
         {{ loading ? texte20 : texte19 }}
