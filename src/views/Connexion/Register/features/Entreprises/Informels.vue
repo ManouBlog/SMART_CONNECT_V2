@@ -118,7 +118,7 @@ export default {
         myLogo: "",
         photo: null,
         countryCode: "+225",
-      
+        statut_id:1,
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -148,7 +148,7 @@ export default {
         this.formState.photo = this.addPhotoInArray(this.formState.upload);
         this.changeValueIsPolitics({
           value: true,
-          infoUser: "particulier",
+          infoUser: "entreprise",
           payload: this.formState,
         });
       } else {

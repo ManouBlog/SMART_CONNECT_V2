@@ -68,7 +68,8 @@ export default {
         Phonegerant: null,
         countryCode: "+225",
         countryCodePhoneGerant: "+225",
-        email_cc:[""]
+        email_cc:[""],
+        statut_id:1,
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],

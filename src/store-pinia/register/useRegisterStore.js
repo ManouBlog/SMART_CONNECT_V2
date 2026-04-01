@@ -72,7 +72,6 @@ export const useRegisterStore = defineStore('register', {
           payload?.photo.forEach((item) => {
             data.append("photo[]", item);
           });
-         
           payload?.qualifications.forEach((item) => {
             data.append("qualifications[]", JSON.stringify(item));
           });
@@ -164,9 +163,8 @@ Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre c
           data.append("numero_gerant",`${payload?.countryCodePhoneGerant}${payload?.Phonegerant}`);
           data.append("matricule_cc", payload?.matricule_cc);
           data.append("password", payload?.password);
-          data.append("statut_id", 1);
+          data.append("statut_id", payload?.statut_id);
           data.append("NCC", payload?.ncc);
-          
           data.append("logo", payload?.Logo[0]?.originFileObj);
          await instance
             .post("list_users", data)

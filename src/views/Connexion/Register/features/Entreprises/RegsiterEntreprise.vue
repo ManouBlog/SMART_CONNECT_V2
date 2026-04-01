@@ -15,7 +15,15 @@ options : [
   { value: "Informel", label: "Informel" }]
     };
   },
- 
+  watch: {
+    optionsPaper(newValue) {
+      console.log("Selected option:", newValue);
+      if(!newValue){
+        this.optionsPaper = "Formel";
+      }
+      console.log("Selected option:", newValue);
+    },
+  },
   methods: {
     selectOne(value) {
     this.optionsPaper = value;
