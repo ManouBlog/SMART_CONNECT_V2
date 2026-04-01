@@ -18,6 +18,10 @@ export default {
   { value: "Temps partiel", label: "Temps partiel" },
   { value: "Temps plein", label: "Temps plein" },
 ],
+
+options : [
+  { value: "Formel", label: "Formel" },
+  { value: "Informel", label: "Informel" }],
 valueModeDeTravail: [
   { value: "Présentiel", label: "Présentiel" },
   { value: "Télétravail", label: "Télétravail" },
@@ -70,6 +74,7 @@ valueExpertise: [
       quartier: "",
       matricule_cc: "",
       forme_juridique: "",
+      optionsPaper:null,
       NCC: "",
       diplome: "",
       modeTravail: "",
@@ -108,13 +113,29 @@ valueExpertise: [
     return requiredFields.some(field => !this.form[field]);
   }
   },
+   watch: {
+    'form.optionsPaper'(newValue) {
+      console.log("Selected option:", newValue);
+      this.form.optionsPaper = newValue;
+      console.log("Selected option:", newValue);
+    },
+  },
   methods: {
+    selectOne(value) {
+      console.log("this.form.optionsPaper",this.form.optionsPaper)
+      if (this.form.optionsPaper === value) {
+        // Déjà sélectionné → ignore le clic (reste sélectionné)
+        return;
+      }
+    this.form.optionsPaper = value;
+    
+  },
        initForm() {
     const user = this.$store.state.infoUserConnected;
     console.log("initForm",user)
     if (!user) return;
 
-    this.form.nom = this.$store.state.infoUserConnected.user.statut.statut !== 'entreprise' ? user.nom : this.$store.state.infoUserConnected.user.is_company_verified === 'Formel' ? user.nom:user.nom_particulier;
+    this.form.nom = this.$store.state.infoUserConnected.user.statut.statut !== 'entreprise' ? user.nom : this.form.optionsPaper === 'Formel' ? user.nom:user.nom_particulier;
     this.form.prenoms = user.prenoms || "";
     this.form.email = user.email || "";
     this.form.contact = user.contact || "";
@@ -140,7 +161,7 @@ valueExpertise: [
 
     this.form.gerant = user.gerant || "";
     this.form.numero_gerant = user.numero_gerant || "";
-
+    this.form.optionsPaper = user.is_company_verified || "";
     this.form.particulier_prenoms = user.particulier_prenoms || "";
     
   },
@@ -360,6 +381,21 @@ valueExpertise: [
             
             </div>
       </div>
+      <div
+      class="col-md-12"
+      v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'entreprise'"
+      style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
+     >
+ <label v-for="item in options" :key="item.value">
+  <input
+    type="checkbox"
+    :value="item.value"
+    :checked="form.optionsPaper === item.value"
+    @change="selectOne(item.value)"
+  />
+  {{ item.label }}
+</label>
+</div>
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">{{
@@ -370,7 +406,10 @@ valueExpertise: [
           <input v-model="form.nom" class="form-control" type="text" />
         </div>
       </div>
-      <div class="col-md-12" v-if='this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"'>
+      <div class="col-md-12" 
+      v-if='this.$store.state.infoUserConnected 
+      && this.$store.state.infoUserConnected.user.statut.statut === "entreprise" 
+      && this.$store.state.infoUserConnected.user.is_company_verified === "Formel"'>
         <div class="mb-3">
           <label class="form-label"
             >RCCM (Registre du Commerce et du Crédit Mobilier)</label
@@ -386,13 +425,21 @@ valueExpertise: [
           />
         </div>
       </div>
-      <div class="col-md-12" v-if='this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"'>
+      <div class="col-md-12" 
+      v-if='this.$store.state.infoUserConnected 
+      && this.$store.state.infoUserConnected.user.statut.statut === "entreprise" &&
+      this.$store.state.infoUserConnected.user.is_company_verified === "Formel"
+      '>
         <div class="mb-3">
           <label class="form-label">Forme juridique</label>
           <input v-model="form.forme_juridique" class="form-control" type="text" />
         </div>
       </div>
-      <div class="col-md-12" v-if='this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"' >
+      <div class="col-md-12" 
+      v-if='this.$store.state.infoUserConnected && 
+      this.$store.state.infoUserConnected.user.statut.statut === "entreprise" &&
+      this.$store.state.infoUserConnected.user.is_company_verified === "Formel"
+      ' >
         <div class="mb-3">
           <label class="form-label">NCC (Numéro de compte contribuable)</label>
           <input v-model="form.NCC" class="form-control" type="text" />
@@ -451,7 +498,10 @@ valueExpertise: [
         </div>
       </div>
       <div class="col-md-12 my-2" 
-      v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut == 'entreprise'">
+      v-if="this.$store.state.infoUserConnected && 
+      this.$store.state.infoUserConnected.user.statut.statut == 'entreprise'
+      && this.form.optionsPaper === 'Formel'
+      ">
       <label class="form-label">Emails secondaires(cc)</label>
       <n-dynamic-input
        v-model:value="emails_cc"
@@ -625,7 +675,11 @@ valueExpertise: [
           </div>
         </div>
       </section>
-      <section v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'entreprise'">
+      <section 
+      v-if="this.$store.state.infoUserConnected 
+      && this.$store.state.infoUserConnected.user.statut.statut === 'entreprise'
+      && this.form.optionsPaper === 'Formel'
+      ">
         <div class="col-md-12">
           <div class="my-3">
             <label for="add_file_logo">Logo</label>
