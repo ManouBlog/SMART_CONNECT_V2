@@ -347,6 +347,9 @@ valueExpertise: [
             : null
         }}
       </legend>
+      <p style="text-align: center; color: red;font-size: 1em;">
+        Les champs avec astérisque (*) sont obligatoires.
+      </p>
       <div class="col-md-12">
       <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut !== 'entreprise'" >
             <label class="form-label">Changer de statut</label>
@@ -415,7 +418,7 @@ valueExpertise: [
             this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"
               ? "Raison sociale"
               : "Nom"
-          }}</label>
+          }} <span style="color:red">*</span></label>
           <input v-model="form.nom" class="form-control" type="text" />
         </div>
       </div>
@@ -425,7 +428,9 @@ valueExpertise: [
       && this.form.optionsPaper === "Formel"'>
         <div class="mb-3">
           <label class="form-label"
-            >RCCM (Registre du Commerce et du Crédit Mobilier)</label
+            >RCCM (Registre du Commerce et du Crédit Mobilier)
+            <span style="color:red">*</span>
+            </label
           >
           <input v-model="form.matricule_cc" class="form-control" type="text" />
         </div>
@@ -435,6 +440,7 @@ valueExpertise: [
             @input="addAnRegistreDoc"
             id="add_file_registre"
             class="w-100"
+            placeholder="charger un fichier"
           />
         </div>
       </div>
@@ -444,7 +450,7 @@ valueExpertise: [
       this.form.optionsPaper === "Formel"
       '>
         <div class="mb-3">
-          <label class="form-label">Forme juridique</label>
+          <label class="form-label">Forme juridique <span style="color:red">*</span></label>
           <input v-model="form.forme_juridique" class="form-control" type="text" />
         </div>
       </div>
@@ -454,7 +460,7 @@ valueExpertise: [
       && this.form.optionsPaper === "Formel"
       ' >
         <div class="mb-3">
-          <label class="form-label">NCC (Numéro de compte contribuable)</label>
+          <label class="form-label">NCC (Numéro de compte contribuable) <span style="color:red">*</span></label>
           <input v-model="form.NCC" class="form-control" type="text" />
         </div>
       </div>
@@ -468,10 +474,11 @@ valueExpertise: [
       >
         <div class="mb-3">
           <label class="form-label">{{
-            this.$store.state.infoUserConnected.user.statut.statut == "entreprise"
+            this.$store.state.infoUserConnected.user.statut.statut == "entreprise" 
+            && this.form.optionsPaper === "Formel"
               ? "Contact téléphonique de l'entreprise"
               : "Contact téléphonique"
-          }}</label>
+          }} <span style="color:red">*</span></label>
           <input v-model="form.contact" class="form-control" type="text" />
         </div>
       </div>
@@ -503,10 +510,11 @@ valueExpertise: [
       <div class="col-md-12" v-if="this.$store.state.infoUserConnected">
         <div class="mb-3">
           <label class="form-label">{{
-            this.$store.state.infoUserConnected.user.statut.statut == "entreprise"
+            this.$store.state.infoUserConnected.user.statut.statut == "entreprise" 
+            && this.form.optionsPaper == "Formel"
               ? "Contact mail de l'entreprise"
               : "Email"
-          }}</label>
+          }} <span style="color:red">*</span> </label>
           <input v-model="form.email" class="form-control" type="email" />
         </div>
       </div>
@@ -687,13 +695,13 @@ valueExpertise: [
         <legend>Info sur le gérant</legend>
         <div class="col-md-12">
           <div class="mb-3">
-            <label class="form-label">Gérant</label>
+            <label class="form-label">Gérant <span style="color:red">*</span></label>
             <input v-model="form.gerant" class="form-control" type="text" />
           </div>
         </div>
         <div class="col-md-12">
           <div class="mb-3">
-            <label class="form-label">Numéro téléphonique du Gérant</label>
+            <label class="form-label">Numéro téléphonique du Gérant <span style="color:red">*</span></label>
             <input v-model="form.numero_gerant" class="form-control" type="text" />
           </div>
         </div>
