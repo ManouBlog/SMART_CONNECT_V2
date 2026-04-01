@@ -379,13 +379,13 @@ export default {
                         libelle: 'RCCM (Registre du Commerce et du Crédit Mobilier)',
                         value: this.$store.state.infoUserConnected?.matricule_cc
                           ? this.$store.state.infoUserConnected?.matricule_cc
-                          : 'néant',
+                          : null,
                       },
                       {
                         libelle: 'NCC (Numéro de compte contribuable)',
                         value: this.$store.state.infoUserConnected?.NCC
                           ? this.$store.state.infoUserConnected?.NCC
-                          : 'néant',
+                          : null,
                       },
                       {
                         libelle: texte5,
@@ -411,13 +411,13 @@ export default {
                         libelle: texte9,
                         value: this.$store.state.infoUserConnected?.registre
                           ? this.$store.state.infoUserConnected?.registre
-                          : 'néant',
+                          : null,
                       },
                       {
                         libelle: texte10,
                         value: this.$store.state.infoUserConnected?.forme_juridique
                           ? this.$store.state.infoUserConnected?.forme_juridique
-                          : 'néant',
+                          : null,
                       },
                       {
                         libelle: 'Emails en copie',
@@ -466,15 +466,15 @@ export default {
                   ? [
                       {
                         libelle: texte11,
-                        value: this.$store.state.infoUserConnected?.gerant
+                        value: this.$store.state.infoUserConnected?.gerant && this.$store.state.infoUserConnected?.user?.is_company_verified === 'Formel'
                           ? this.$store.state.infoUserConnected?.gerant
-                          : user?.nom,
+                          : this.$store.state.infoUserConnected?.nom+' '+this.$store.state.infoUserConnected?.particulier_prenoms,
                       },
                       {
-                        libelle: 'Contact téléphonique du gérant : ',
-                        value: this.$store.state.infoUserConnected?.numero_gerant
+                        libelle: 'Contact téléphonique du gérant',
+                        value: this.$store.state.infoUserConnected?.numero_gerant && this.$store.state.infoUserConnected?.user?.is_company_verified === 'Formel'
                           ? this.$store.state.infoUserConnected?.numero_gerant
-                          : user?.contact,
+                          :  this.$store.state.infoUserConnected?.contact,
                       },
                       {
                         libelle: 'Pièce du gérant',
