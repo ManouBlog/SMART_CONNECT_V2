@@ -330,7 +330,6 @@ export default {
     async lister_statut(){
       try {
         const response =  await instance.get("listStatut")
-        console.log("lister_statut",response.data.data.filter(item=>item.statut != 'admin'))
         this.allStatuses = response.data.data.filter(item=>item.statut != 'admin')
       } catch (error) {
         console.log(error);
@@ -539,10 +538,16 @@ export default {
       <label>{{ texte17 }}</label>
       <input class="form-control" type="datetime-local" v-model="job_fin" :min="job_debut" />
     </div>
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
       <label><span style="color: red">*</span>Choisir un profil</label>
-      <VueMultiselect v-model="chooseStatut" :options="allStatuses" placeholder="Choix multiples" 
-                      :multiple="true" label="statut" track-by="statut" />
+      <VueMultiselect 
+      v-model="chooseStatut" 
+      :options="userInfo && userInfo?.statut?.statut === 'entreprise' ? allStatuses.filter(item => item.statut !== 'particulier') : allStatuses.filter(item => item.statut == 'etudiant' || item.statut == 'artisan')" 
+      placeholder="Choix multiples" 
+      :multiple="true" 
+      label="statut" 
+      track-by="statut"
+       />
     </div>
   </div>
 
