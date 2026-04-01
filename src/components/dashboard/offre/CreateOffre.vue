@@ -866,7 +866,7 @@ input,
   text-align: left;
 }
 .conteneur_editor {
-  border: 1px solid black;
+  border: 1px solid orange;
   color: black !important;
   border-radius: 5px;
   padding: 0 1em;

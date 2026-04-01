@@ -715,7 +715,7 @@ textarea {
 }
 
 .conteneur_editor {
-  border: 1px solid black;
+  border: 1px solid orange;
   color: black !important;
   padding: 0 1em;
   border-radius: 5px;
