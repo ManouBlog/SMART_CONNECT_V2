@@ -203,7 +203,6 @@ textarea {
   border-radius: 5px;
 }
 
-
 .conteneur_editor {
   border: 1px solid orange;
   color: black !important;
