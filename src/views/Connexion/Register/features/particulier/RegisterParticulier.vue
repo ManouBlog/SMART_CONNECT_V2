@@ -179,7 +179,7 @@ export default {
         this.formState.photo = this.addPhotoInArray(this.formState.upload);
         this.changeValueIsPolitics({
           value: true,
-          infoUser: "particulier",
+          infoUser: "talents",
           payload: this.formState,
         });
       } else {

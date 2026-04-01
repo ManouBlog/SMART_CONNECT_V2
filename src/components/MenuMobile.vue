@@ -149,7 +149,6 @@ export default {
             Help.toADfirstTwo(this.$store.state.user.nom)
           }}</span>
         </span>
-        
         <span style="color: black !important"
           >{{ this.$store.state.user.nom }} 
           <i class="bi bi-patch-check-fill" 
@@ -158,7 +157,8 @@ export default {
           <br />
           {{ this.$store.state.user.prenoms }} 
           <br />
-          <span class="badge bg-warning">{{ this.$store.state.user.user?.statut?.statut }}</span>
+          <span class="badge bg-warning">
+            {{ this.$store.state.user.user?.statut?.statut }}</span>
           </span
         >
       </li>

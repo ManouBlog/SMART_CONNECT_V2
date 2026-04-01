@@ -29,8 +29,8 @@ valueModeDeTravail: [
   { value: "Hybride", label: "Hybride" }
 ],
 valueExpertise: [
-  { value: "Privilégier", label: "privilégier" },
-  { value: "aucun", label: "Aucun" },
+  { value: "Privilége", label: "privilége" },
+  { value: "Normal", label: "Normal" },
 ],
       user: "",
       emails_cc:[],
