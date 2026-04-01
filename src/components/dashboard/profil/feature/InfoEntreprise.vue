@@ -208,16 +208,17 @@ export default {
             :key="index"
             class="col-lg-4 col-sm-6"
           >
-            <p style="color: orange">{{ item.libelle }}</p>
+            <p style="color: orange" 
+            v-if="item.value !== null">{{ item.libelle }} :</p>
             <h6
               v-if="
                 item.value !== null &&
                 item.value !== 'null' &&
                 item.value !== 'undefined' &&
-                item.libelle !== 'Registre :' &&
-                item.libelle !== 'Logo entreprise :' &&
-                item.libelle !== 'Pièce d\'identité :' &&
-                item.libelle !== 'Emails en copie :'  &&
+                item.libelle !== 'Registre' &&
+                item.libelle !== 'Logo entreprise' &&
+                item.libelle !== 'Pièce d\'identité' &&
+                item.libelle !== 'Emails en copie'  &&
                 item.libelle !== 'Pièce du gérant'
               "
               class="fw-bold"

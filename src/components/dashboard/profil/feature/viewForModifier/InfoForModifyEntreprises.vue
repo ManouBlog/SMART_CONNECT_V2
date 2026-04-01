@@ -82,7 +82,7 @@ valueExpertise: [
       statut_id:"",
       statut:"",
       niveauExpertise:"aucun",
-      
+      nom_particulier:"",
     },
     };
   },
@@ -114,7 +114,7 @@ valueExpertise: [
     console.log("initForm",user)
     if (!user) return;
 
-    this.form.nom = user.nom || "";
+    this.form.nom = this.$store.state.infoUserConnected.user.statut.statut !== 'entreprise' ? user.nom : this.$store.state.infoUserConnected.user.is_company_verified === 'Formel' ? user.nom:user.nom_particulier;
     this.form.prenoms = user.prenoms || "";
     this.form.email = user.email || "";
     this.form.contact = user.contact || "";
@@ -142,6 +142,7 @@ valueExpertise: [
     this.form.numero_gerant = user.numero_gerant || "";
 
     this.form.particulier_prenoms = user.particulier_prenoms || "";
+    
   },
     ...mapActions(useRegisterStore, {
       handleCompetence: "addTag",
@@ -160,7 +161,8 @@ valueExpertise: [
       const transitions = {
   etudiant:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "artisan"],
   professionnel:[this.$store.state.infoUserConnected.user.statut.statut,"artisan", "veteran"],
-  artisan:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "veteran"]
+  artisan:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "veteran"],
+  entreprise:[this.$store.state.infoUserConnected.user.statut.statut,'entreprise']
 };
       try {
         const response =  await instance.get("listStatut")
@@ -312,7 +314,7 @@ valueExpertise: [
         }}
       </legend>
       <div class="col-md-12">
-      <div class="mb-3" >
+      <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut !== 'entreprise'" >
             <label class="form-label">Changer de statut</label>
             <select 
             name="statut_id" 
@@ -324,6 +326,27 @@ valueExpertise: [
             @change="()=>{
               form.tempsTravail = '';
               form.modeTravail = '';
+            }"
+            >
+              <option 
+              style="text-transform: capitalize;"
+              :value="item.id"
+              :key="item.id" 
+              v-for="item in allStatuses">
+                {{ item.statut }}
+              </option>
+            </select>
+            
+            </div>
+            <div class="mb-3" v-else>
+            <label class="form-label">Statut</label>
+            <select 
+            name="statut_id" 
+            id="statut_id"
+            style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
+            v-model="form.statut_id"
+            @change="()=>{
+              console.log('hello world')
             }"
             >
               <option 
