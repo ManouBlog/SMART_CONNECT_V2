@@ -17,6 +17,23 @@ export default {
   },
   data() {
     return {
+       countries: [
+  { label: "Bénin", value: "+229", length: 8 },
+  { label: "Burkina Faso", value: "+226", length: 8 },
+  { label: "Cap‑Vert", value: "+238", length: 7 },
+  { label: "Côte d’Ivoire", value: "+225", length: 10 },
+  { label: "Gambie", value: "+220", length: 7 },
+  { label: "Ghana", value: "+233", length: 9 },
+  { label: "Guinée", value: "+224", length: 7 },
+  { label: "Guinée‑Bissau", value: "+245", length: 9 },
+  { label: "Liberia", value: "+231", length: 9 },
+  { label: "Mali", value: "+223", length: 8 },
+  { label: "Niger", value: "+227", length: 8 },
+  { label: "Nigeria", value: "+234", length: 10 },
+  { label: "Sénégal", value: "+221", length: 8 },
+  { label: "Sierra Leone", value: "+232", length: 8 },
+  { label: "Togo", value: "+228", length: 8 },
+],
       texte0: "",
       StoreLoading: useLoadingSpinner(),
       texte2: "",
@@ -27,6 +44,7 @@ export default {
       chooseStatut:[],
       allStatuses:[],
       offre_mode_travail:null,
+      offre_pays:[],
       texte6: "",
       texte7: "",
       texte8: "",
@@ -94,6 +112,7 @@ export default {
           libelle: "Trimestre",
         },
       ],
+      userInfo:"",
       otherDomaine: "",
       otherPoste: "",
       pointage: "",
@@ -123,6 +142,21 @@ export default {
     },
   },
   methods: {
+    async getInfoUser() {
+      if (this.$store.state.token) {
+        await instance
+          .get("voirInfoUserConnect")
+          .then((resp) => {
+            if (resp.data.status === true) {
+              this.userInfo = resp.data.user;
+              console.log("USER_INFO", this.userInfo);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
 
@@ -363,6 +397,7 @@ export default {
     },
   },
   async created() {
+    this.getInfoUser();
     this.get_categorie();
     this.getAllCompetences();
     this.lister_statut();
@@ -513,7 +548,9 @@ export default {
 
   <!-- Ligne 7 : Mode travail (centré)+ PAYS -->
   <div class="row g-3">
-    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3">
+    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3"
+    v-if="userInfo?.statut?.statut === 'entreprise'"
+    >
       <label><span style="color: red">*</span>Choisir un mode de travail</label>
       <VueMultiselect v-model="offre_mode_travail" 
                       :options="[{value:'onsite',label:'Présentiel'},{value:'remote',label:'Télétravail'},{value:'hybrid',label:'Hybride'}]" 
@@ -522,8 +559,10 @@ export default {
     <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3">
       <label><span style="color: red">*</span>Choisir un pays</label>
       <VueMultiselect v-model="offre_pays" 
-                      :options="[{value:'france',label:'France'},{value:'belgique',label:'Belgique'},{value:'suisse',label:'Suisse'}]" 
-                      label="label" track-by="label" />
+                      :options="countries" 
+                      label="label" 
+                      multiple
+                      track-by="label" />
     </div>
   </div>
 
