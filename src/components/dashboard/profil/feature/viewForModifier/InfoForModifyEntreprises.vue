@@ -94,6 +94,19 @@ valueExpertise: [
   computed: {
     ...mapState(useRegisterStore, ["allCompetences"]),
     ...mapState(useInfoPersonnel, ["otherInfoPersonnelle"]),
+    isCompanyDisabled(){
+    const idsToCheck = ['Formel'];
+     const statutId = this.form.optionsPaper;
+    if (!idsToCheck.includes(statutId)) return false;
+
+    const rules = {
+      'Formel': ["NCC", "matricule_cc","forme_juridique","gerant","numero_gerant"]
+    };
+
+    const requiredFields = rules[statutId] || [];
+
+    return requiredFields.some(field => !this.form[field]);
+    },
      isDisabled() {
     const statutId = Number(this.form.statut_id);
 
@@ -622,23 +635,7 @@ valueExpertise: [
               </option>
             </select>
             </div>
-            <!-- <div>
-            <label class="form-label">Temps de travail</label>
-            <select 
-            name="time_work" 
-            id="time_work"
-            style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
-            v-model="form.tempsTravail"
-            >
-              <option value="">Séléctionne un temps de travail</option>
-              <option 
-              :value="item.value"
-              :key="item.value" 
-              v-for="item in valueTempsTravail">
-                {{ item.label }}
-              </option>
-            </select>
-            </div> -->
+           
        
           </div>
         </div>
@@ -724,9 +721,20 @@ valueExpertise: [
     </div>
     <div class="text-right">
       <button
+      v-if="this.$store.state.infoUserConnected.user.statut.statut !== 'entreprise'"
        :class="{ 'disabled-custom': isDisabled }"
         class="btn bg-warning"
          :disabled="isDisabled"
+        style="border: none"
+        @click.prevent="handleUpdate(this.form)"
+      >
+        Modifier
+      </button>
+       <button
+        v-else
+       :class="{ 'disabled-custom': isCompanyDisabled }"
+        class="btn bg-warning"
+        :disabled="isCompanyDisabled"
         style="border: none"
         @click.prevent="handleUpdate(this.form)"
       >
