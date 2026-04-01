@@ -409,7 +409,7 @@ valueExpertise: [
       <div class="col-md-12" 
       v-if='this.$store.state.infoUserConnected 
       && this.$store.state.infoUserConnected.user.statut.statut === "entreprise" 
-      && this.$store.state.infoUserConnected.user.is_company_verified === "Formel"'>
+      && this.form.optionsPaper === "Formel"'>
         <div class="mb-3">
           <label class="form-label"
             >RCCM (Registre du Commerce et du Crédit Mobilier)</label
@@ -428,7 +428,7 @@ valueExpertise: [
       <div class="col-md-12" 
       v-if='this.$store.state.infoUserConnected 
       && this.$store.state.infoUserConnected.user.statut.statut === "entreprise" &&
-      this.$store.state.infoUserConnected.user.is_company_verified === "Formel"
+      this.form.optionsPaper === "Formel"
       '>
         <div class="mb-3">
           <label class="form-label">Forme juridique</label>
@@ -437,8 +437,8 @@ valueExpertise: [
       </div>
       <div class="col-md-12" 
       v-if='this.$store.state.infoUserConnected && 
-      this.$store.state.infoUserConnected.user.statut.statut === "entreprise" &&
-      this.$store.state.infoUserConnected.user.is_company_verified === "Formel"
+      this.$store.state.infoUserConnected.user.statut.statut === "entreprise" 
+      && this.form.optionsPaper === "Formel"
       ' >
         <div class="mb-3">
           <label class="form-label">NCC (Numéro de compte contribuable)</label>
