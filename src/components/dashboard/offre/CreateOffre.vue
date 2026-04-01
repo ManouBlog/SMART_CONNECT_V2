@@ -401,7 +401,152 @@ export default {
         Les champs avec astérisque (*) sont obligatoires.
       </p>
       <div>
-        <form @submit.prevent="create_offre" class="container">
+       <form @submit.prevent="create_offre" class="container">
+  <!-- Ligne 1 : Catégorie + Compétence -->
+  <div class="row g-3">
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label><span style="color: red">*</span>{{ texte1 }}</label>
+      <select v-model="categorie" @change="selectCategorie">
+        <option value="" disabled>{{ texte2 }}</option>
+        <option :value="item.id" v-for="(item, index) in categoriesOffres" :key="index">
+          {{ item.categorie }}
+        </option>
+        <option value="autre">Autre</option>
+      </select>
+      <div style="margin: 0.5em 0" v-if="categorie === 'autre'">
+        <label for="otherDomaine">Autre domaine</label>
+        <input id="otherDomaine" class="form-control" type="text" v-model="otherDomaine" />
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label id="select_comp" v-if="categorie !== 'autre'">
+        <span style="color: red">*</span>{{ texte3 }}</label>
+      <select v-if="categorie !== 'autre'" 
+              :class="{ 'select-disabled': !categorie || categorie === 'autre' }"
+              v-model="competence" name="select_comp" id="select_comp" @change="chooseCompetence">
+        <option value="" disabled style="color: brown">{{ texte4 }}</option>
+        <option :value="item.id" v-for="(item, index) in competenceWithCategorie" :key="index">
+          {{ item.competence }}
+        </option>
+        <option style="color: brown" v-if="!competenceWithCategorie.length && !categorie" disabled>
+          {{ texte5 }}
+        </option>
+        <option style="color: brown; font-size: 0.9em" v-if="!competenceWithCategorie.length && categorie" disabled>
+          {{ texte6 }}
+        </option>
+        <option value="autre" :disabled="!categorie">Autre</option>
+      </select>
+      <div style="margin: 0.5em 0" v-if="categorie === 'autre' || (categorie && competence == 'autre')">
+        <label for="otherPoste">Autre poste</label>
+        <input id="otherPoste" class="form-control" type="text" v-model="otherPoste" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Ligne 2 : Offre + Salaire -->
+  <div class="row g-3">
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label><span style="color: red">*</span>{{ texte7 }}</label>
+      <input class="form-control" type="text" v-model="offre" placeholder="" required />
+    </div>
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label><span style="color: red">*</span>{{ texte8 }}</label>
+      <input class="form-control" type="text" v-model="salaire" placeholder="ex:35000" pattern="[0-9]*" />
+    </div>
+  </div>
+
+  <!-- Ligne 3 : Pointage + Lieu -->
+  <div class="row g-3">
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label><span style="color: red">*</span>{{ texte9 }}</label>
+      <select :class="{ 'select-disabled': !salaire }" v-model="pointage" :disabled="salaire ? false : true">
+        <option value="" disabled>{{ texte10 }}</option>
+        <option :value="item.libelle" v-for="(item, index) in OptionsOfpointage" :key="index">
+          {{ item.libelle }}
+        </option>
+      </select>
+      <span class="text-danger" :class="!salaire ? 'd-block' : 'd-none'">*{{ texte11 }}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label><span style="color: red">*</span>{{ texte12 }}</label>
+      <input class="form-control" type="text" v-model="lieu" placeholder="ex:Angré" required />
+    </div>
+  </div>
+
+  <!-- Ligne 4 : Nb Personnes + Date début -->
+  <div class="row g-3">
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label><span style="color: red">*</span>{{ texte13 }}</label>
+      <input class="form-control" type="number" v-model="nbre_person" placeholder="ex:5 ou 10" required min="1" />
+    </div>
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label for="calendar-12h" class="date_heure"><span style="color: red">*</span>{{ texte14 }}</label>
+      <input class="form-control" type="datetime-local" v-model="debut" required :min="new Date().toISOString().slice(0, 16)" />
+    </div>
+  </div>
+
+  <!-- Ligne 5 : Date fin + Job début -->
+  <div class="row g-3">
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label for="calendar-12" class="date_heure"><span style="color: red">*</span>{{ texte15 }}</label>
+      <input class="form-control" type="datetime-local" :disabled="debut != null ? false : true" v-model="fin" required :min="debut" />
+    </div>
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label>{{ texte16 }}</label>
+      <input class="form-control" type="datetime-local" v-model="job_debut" :min="fin" />
+    </div>
+  </div>
+
+  <!-- Ligne 6 : Job fin + Profil -->
+  <div class="row g-3">
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label>{{ texte17 }}</label>
+      <input class="form-control" type="datetime-local" v-model="job_fin" :min="job_debut" />
+    </div>
+    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+      <label><span style="color: red">*</span>Choisir un profil</label>
+      <VueMultiselect v-model="chooseStatut" :options="allStatuses" placeholder="Choix multiples" 
+                      :multiple="true" label="statut" track-by="statut" />
+    </div>
+  </div>
+
+  <!-- Ligne 7 : Mode travail (centré)+ PAYS -->
+  <div class="row g-3">
+    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3">
+      <label><span style="color: red">*</span>Choisir un mode de travail</label>
+      <VueMultiselect v-model="offre_mode_travail" 
+                      :options="[{value:'onsite',label:'Présentiel'},{value:'remote',label:'Télétravail'},{value:'hybrid',label:'Hybride'}]" 
+                      label="label" track-by="label" />
+    </div>
+    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3">
+      <label><span style="color: red">*</span>Choisir un pays</label>
+      <VueMultiselect v-model="offre_pays" 
+                      :options="[{value:'france',label:'France'},{value:'belgique',label:'Belgique'},{value:'suisse',label:'Suisse'}]" 
+                      label="label" track-by="label" />
+    </div>
+  </div>
+
+  <!-- Description pleine largeur -->
+  <div class="row g-3">
+    <div class="col-12 text-left my-3">
+      <label><span style="color: red">*</span>{{ texte18 }}</label>
+      <div class="conteneur_editor">
+        <editor v-model="description" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton centré -->
+  <div class="row g-3">
+    <div class="col-12 text-center">
+      <button class="btn btn-warning btn-designer" type="submit" :disabled="loading">
+        {{ loading ? texte20 : texte19 }}
+      </button>
+    </div>
+  </div>
+</form>
+        <!-- <form @submit.prevent="create_offre" class="container">
           <div class="row">
             <div class="text-left my-3 col-lg-6">
               <label><span style="color: red">*</span>{{ texte1 }}</label>
@@ -644,7 +789,7 @@ export default {
               {{ loading ? texte20 : texte19 }}
             </button>
           </div>
-        </form>
+        </form> -->
       </div>
     </div>
   </section>

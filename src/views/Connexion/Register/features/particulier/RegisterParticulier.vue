@@ -4,7 +4,7 @@ import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
 import { useTranslateStore } from "../../../../../store-pinia/Translate/useTranslateStore";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
-import Tesseract from 'tesseract.js'
+// import Tesseract from 'tesseract.js'
 export default {
   name: "RegisterParticulier",
   components: {
@@ -136,8 +136,8 @@ export default {
     'formState.countryCode'(newVal, oldVal) {
       console.log('Code pays changé de', oldVal, 'à', newVal);
       if (newVal !== oldVal) {
-      this.formState.contact = '';
-      this.$refs.formRef?.validateFields(['contact']);
+      this.formState.phone = '';
+      this.$refs.formRef?.validateFields(['phone']);
     }
     },
   },
@@ -214,109 +214,109 @@ export default {
   this.rawText = ''
   this.result = null
 
-  this.runOCR(newList)
+  // this.runOCR(newList)
 },
-async runOCR(files) {
-  this.loading = true
-  let fullText = ''
+// async runOCR(files) {
+//   this.loading = true
+//   let fullText = ''
 
-  for (const f of files) {
-    const file = f.originFileObj
-    if (!file || !file.type.startsWith('image/')) continue
+//   for (const f of files) {
+//     const file = f.originFileObj
+//     if (!file || !file.type.startsWith('image/')) continue
 
-    const canvas = await this.preprocessImage(file)
-    const { data } = await Tesseract.recognize(canvas, 'fra')
-    fullText += '\n' + (data.text || '')
-  }
+//     const canvas = await this.preprocessImage(file)
+//     const { data } = await Tesseract.recognize(canvas, 'fra')
+//     fullText += '\n' + (data.text || '')
+//   }
 
-  this.rawText = this.cleanOCRText(fullText)
+//   this.rawText = this.cleanOCRText(fullText)
 
-  if (!this.hasReadableText(fullText)) {
-    this.result = {
-      score: 0,
-      isCardIdentity: false,
-      reason: 'Aucun texte exploitable détecté'
-    }
-    this.loading = false
-    return
-  }
+//   if (!this.hasReadableText(fullText)) {
+//     this.result = {
+//       score: 0,
+//       isCardIdentity: false,
+//       reason: 'Aucun texte exploitable détecté'
+//     }
+//     this.loading = false
+//     return
+//   }
 
-  this.analyzeText(fullText)
-  this.loading = false
-},
-hasReadableText(text) {
-  const lettersOnly = text
-    .replace(/\s/g, '')
-    .replace(/[^a-zA-ZÀ-ÿ]/g, '')
+//   this.analyzeText(fullText)
+//   this.loading = false
+// },
+// hasReadableText(text) {
+//   const lettersOnly = text
+//     .replace(/\s/g, '')
+//     .replace(/[^a-zA-ZÀ-ÿ]/g, '')
 
-  return lettersOnly.length >= 5
-},
-normalizeText(text) {
-  return text
-    .toLowerCase()
-    .normalize('NFD')              // enlève les accents
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
-    .replace(/\s+/g, ' ')
-},
-analyzeText(text) {
-  // console.log('Texte OCR nettoyé :', this.normalizeText(text))
-  const cleanText = this.normalizeText(text)
-  let score = 0
+//   return lettersOnly.length >= 5
+// },
+// normalizeText(text) {
+//   return text
+//     .toLowerCase()
+//     .normalize('NFD')              // enlève les accents
+//     .replace(/[\u0300-\u036f]/g, '')
+//     .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
+//     .replace(/\s+/g, ' ')
+// },
+// analyzeText(text) {
+//   // console.log('Texte OCR nettoyé :', this.normalizeText(text))
+//   const cleanText = this.normalizeText(text)
+//   let score = 0
 
-  if (cleanText.length > 80) score += 20
+//   if (cleanText.length > 80) score += 20
 
-  const keywordHits = this.PIECE_KEYWORDS.filter(k =>
-    cleanText.includes(k)
-  ).length
+//   const keywordHits = this.PIECE_KEYWORDS.filter(k =>
+//     cleanText.includes(k)
+//   ).length
 
-  score += Math.min(keywordHits * 10, 40)
-  // console.log(`Score basé sur les mots-clés : ${score} (hits: ${keywordHits})`)
+//   score += Math.min(keywordHits * 10, 40)
+//   // console.log(`Score basé sur les mots-clés : ${score} (hits: ${keywordHits})`)
 
-  if (cleanText.includes('Nationalité') || cleanText.includes('nationalité')) {
-  //  console.log("Mot-clé 'nationalité' détecté, ajout de 20 points")
-    score += 20
-  }
-  // if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
+//   if (cleanText.includes('Nationalité') || cleanText.includes('nationalité')) {
+//   //  console.log("Mot-clé 'nationalité' détecté, ajout de 20 points")
+//     score += 20
+//   }
+//   // if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
 
-  this.result = {
-    score,
-    isCardIdentity: score >= 40
-  }
-},
-cleanOCRText(text) {
-  return text
-    // supprimer caractères parasites fréquents OCR
-    .replace(/[|«»“”]/g, '')
-    .replace(/_{2,}/g, ' ')
-    .replace(/-{2,}/g, ' ')
-    .replace(/\s{2,}/g, ' ')
-    .replace(/\n{2,}/g, '\n')
-    .trim()
-},
-preprocessImage(file) {
-  return new Promise(resolve => {
-    const img = new Image()
-    const reader = new FileReader()
+//   this.result = {
+//     score,
+//     isCardIdentity: score >= 40
+//   }
+// },
+// cleanOCRText(text) {
+//   return text
+//     // supprimer caractères parasites fréquents OCR
+//     .replace(/[|«»“”]/g, '')
+//     .replace(/_{2,}/g, ' ')
+//     .replace(/-{2,}/g, ' ')
+//     .replace(/\s{2,}/g, ' ')
+//     .replace(/\n{2,}/g, '\n')
+//     .trim()
+// },
+// preprocessImage(file) {
+//   return new Promise(resolve => {
+//     const img = new Image()
+//     const reader = new FileReader()
 
-    reader.onload = () => (img.src = reader.result)
+//     reader.onload = () => (img.src = reader.result)
 
-    img.onload = () => {
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
+//     img.onload = () => {
+//       const canvas = document.createElement('canvas')
+//       const ctx = canvas.getContext('2d')
 
-      canvas.width = img.width
-      canvas.height = img.height
+//       canvas.width = img.width
+//       canvas.height = img.height
 
-      ctx.filter = 'grayscale(1) contrast(1.5)'
-      ctx.drawImage(img, 0, 0)
+//       ctx.filter = 'grayscale(1) contrast(1.5)'
+//       ctx.drawImage(img, 0, 0)
 
-      resolve(canvas)
-    }
+//       resolve(canvas)
+//     }
 
-    reader.readAsDataURL(file)
-  })
-},
+//     reader.readAsDataURL(file)
+//   })
+// },
   },
   async created() {
     this.texte = await this.handleTranslate("Nom");
@@ -405,9 +405,9 @@ preprocessImage(file) {
       <a-col :xs="24" :md="12">
         <a-form-item
           :label="texte2"
-          name="contact"
+          name="phone"
           :rules="[
-            { required: true, message: 'Ajouter un contact' },
+            { required: true, message: 'Ajouter un phone' },
             // {
             //   pattern: /^\d{10}$/,
             //   message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
@@ -417,7 +417,7 @@ preprocessImage(file) {
         >
           <a-input
             type="tel"
-            v-model:value="formState.contact"
+            v-model:value="formState.phone"
             placeholder="Entrez le numéro téléphonique"
           >
             <template #addonBefore>

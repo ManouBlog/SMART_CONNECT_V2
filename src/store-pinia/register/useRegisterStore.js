@@ -65,51 +65,125 @@ export const useRegisterStore = defineStore('register', {
           this.LOADINGSPINNER.launchLoading(true)
           this.isLoading = true;
           let data = new FormData();
-       
-          payload?.myCompetence.forEach((item) => {
-            data.append("competence[]", item.id);
-          });
-          payload?.photo.forEach((item) => {
-            data.append("photo[]", item);
-          });
-          payload?.qualifications.forEach((item) => {
-            data.append("qualifications[]", JSON.stringify(item));
-          });
-          data.append("nom", payload?.nom);
 
-          if(payload?.statutId == 2){
-              payload?.jour?.forEach((item) => {
-            data.append("jour[]", item);
-          });
-           data.append("First_horaire", this.splithourWithDate(payload?.First_horaire));
-           data.append("Second_horaire", payload?.Second_horaire ? this.splithourWithDate(payload?.Second_horaire):payload?.Second_horaire);
-           data.append("totalHour", payload?.totalHour);
-           data.append("hour_periode_debut", payload?.hour_periode_debut);
-           data.append("hour_periode_fin", payload?.hour_periode_fin);
-            data.append("periode_debut", payload?.periode_debut);
-            data.append("periode_fin", payload?.periode_fin);
-            data.append("periode", payload?.periode);
-            data.append("code_ambassadeur", payload?.code_ambassadeur);
-          }
-          if(payload?.statutId == 6 || payload?.statutId == 5){
-            data.append("niveauExpertise", payload?.niveauExpertise);
-            data.append("modeTravail",payload.modeTravail);
-            data.append("tempsTravail", payload?.tempsTravail);
-          }
+          // Compétences (array IDs)
+if (payload?.myCompetence?.length > 0) {
+  payload.myCompetence.forEach((item) => {
+    if (item?.id) data.append("competence[]", item.id);
+  });
+}
+
+// Photos (array fichiers)
+if (payload?.photo?.length > 0) {
+  payload.photo.forEach((item) => {
+    if (item) data.append("photo[]", item);
+  });
+}
+
+// Qualifications (array objets → JSON)
+if (payload?.qualifications?.length > 0) {
+  payload.qualifications.forEach((item) => {
+    if (item) data.append("qualifications[]", JSON.stringify(item));
+  });
+}
+
+// Nom simple
+if (payload?.nom) data.append("nom", payload.nom);
+
+// 👇 Statut 2 : Horaires/Jours (logique INCHANGÉE)
+if (payload?.statutId == 2) {
+  if (payload?.jour?.length > 0) {
+    payload.jour.forEach((item) => {
+      if (item) data.append("jour[]", item);
+    });
+  }
+  if (payload?.First_horaire) {
+    data.append("First_horaire", this.splithourWithDate(payload.First_horaire));
+  }
+  if (payload?.Second_horaire) {
+    data.append("Second_horaire", this.splithourWithDate(payload.Second_horaire));
+  } else if (payload?.Second_horaire !== undefined) {
+    data.append("Second_horaire", payload.Second_horaire);
+  }
+  if (payload?.totalHour !== undefined) data.append("totalHour", payload.totalHour);
+  if (payload?.hour_periode_debut) data.append("hour_periode_debut", payload.hour_periode_debut);
+  if (payload?.hour_periode_fin) data.append("hour_periode_fin", payload.hour_periode_fin);
+  if (payload?.periode_debut) data.append("periode_debut", payload.periode_debut);
+  if (payload?.periode_fin) data.append("periode_fin", payload.periode_fin);
+  if (payload?.periode) data.append("periode", payload.periode);
+  if (payload?.code_ambassadeur) data.append("code_ambassadeur", payload.code_ambassadeur);
+}
+
+// 👇 Statut 5/6 : Expertise (logique INCHANGÉE)
+if (payload?.statutId == 6 || payload?.statutId == 5) {
+  if (payload?.niveauExpertise !== undefined) data.append("niveauExpertise", payload.niveauExpertise);
+  if (payload?.modeTravail) data.append("modeTravail", payload.modeTravail);
+  if (payload?.tempsTravail !== undefined) data.append("tempsTravail", payload.tempsTravail);
+}
+
+// Champs finaux
+if (payload?.prenoms) data.append("prenoms", payload.prenoms);
+if (payload?.email) data.append("email", payload.email);
+if (payload?.commune) data.append("commune", payload.commune);
+if (payload?.quartier) data.append("quartier", payload.quartier);
+if (payload?.countryCode && payload?.phone) {
+  data.append("phone", `${payload.countryCode}${payload.phone}`);
+}
+if (payload?.ville) data.append("ville", payload.ville);
+if (payload?.niveauEtude) {
+  const diplomeFull = payload.filiere ? `${payload.niveauEtude} ${payload.filiere}` : payload.niveauEtude;
+  data.append("diplome", diplomeFull);
+}
+if (payload?.password) data.append("password", payload.password);
+if (payload?.statutId !== undefined) data.append("statut_id", payload.statutId);
+if (payload?.photo_profil) data.append("photo_profil", payload.photo_profil);
+if (payload?.bio) data.append("bio", payload.bio);
+if (payload?.titreCv) data.append("titreCv", payload.titreCv);
+       
+          // payload?.myCompetence.forEach((item) => {
+          //   data.append("competence[]", item.id);
+          // });
+          // payload?.photo.forEach((item) => {
+          //   data.append("photo[]", item);
+          // });
+          // payload?.qualifications.forEach((item) => {
+          //   data.append("qualifications[]", JSON.stringify(item));
+          // });
+          // data.append("nom", payload?.nom);
+
+          // if(payload?.statutId == 2){
+          //     payload?.jour?.forEach((item) => {
+          //   data.append("jour[]", item);
+          // });
+          //  data.append("First_horaire", this.splithourWithDate(payload?.First_horaire));
+          //  data.append("Second_horaire", payload?.Second_horaire ? this.splithourWithDate(payload?.Second_horaire):payload?.Second_horaire);
+          //  data.append("totalHour", payload?.totalHour);
+          //  data.append("hour_periode_debut", payload?.hour_periode_debut);
+          //  data.append("hour_periode_fin", payload?.hour_periode_fin);
+          //   data.append("periode_debut", payload?.periode_debut);
+          //   data.append("periode_fin", payload?.periode_fin);
+          //   data.append("periode", payload?.periode);
+          //   data.append("code_ambassadeur", payload?.code_ambassadeur);
+          // }
+          // if(payload?.statutId == 6 || payload?.statutId == 5){
+          //   data.append("niveauExpertise", payload?.niveauExpertise);
+          //   data.append("modeTravail",payload.modeTravail);
+          //   data.append("tempsTravail", payload?.tempsTravail);
+          // }
           
-          data.append("prenoms", payload?.prenoms);
+          // data.append("prenoms", payload?.prenoms);
            
-          data.append("email", payload?.email);
-          data.append("commune", payload?.commune);
-          data.append("quartier", payload?.quartier);
-          data.append("phone",`${payload?.countryCode}${payload?.phone}`);
-          data.append("ville", payload?.ville);
-          data.append("diplome", payload?.niveauEtude && payload?.filiere ? payload?.niveauEtude + ' ' + payload?.filiere:payload?.niveauEtude);
-          data.append("password", payload?.password);
-          data.append("statut_id", payload?.statutId);
-          data.append("photo_profil", payload?.photo_profil);
-          data.append("bio", payload?.bio);
-          data.append("titreCv", payload?.titreCv);
+          // data.append("email", payload?.email);
+          // data.append("commune", payload?.commune);
+          // data.append("quartier", payload?.quartier);
+          // data.append("phone",`${payload?.countryCode}${payload?.phone}`);
+          // data.append("ville", payload?.ville);
+          // data.append("diplome", payload?.niveauEtude && payload?.filiere ? payload?.niveauEtude + ' ' + payload?.filiere:payload?.niveauEtude);
+          // data.append("password", payload?.password);
+          // data.append("statut_id", payload?.statutId);
+          // data.append("photo_profil", payload?.photo_profil);
+          // data.append("bio", payload?.bio);
+          // data.append("titreCv", payload?.titreCv);
          
           // data.append("appareil", "iphone x");
           // data.append("token_push", "xhdf58ehhf85shdhe8554shedhe545shdh");
