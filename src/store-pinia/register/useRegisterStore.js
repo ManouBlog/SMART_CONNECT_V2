@@ -138,34 +138,79 @@ Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre c
           }
         },
         async registerCompany(payload) {
-          // console.log("registerCompany",payload)
+          console.log("registerCompany",payload)
           this.isLoading = true;
           this.LOADINGSPINNER.launchLoading(true);
           let data = new FormData();
-          payload?.photo.forEach((item) => {
-            data.append("piece_gerant[]", item);
-          });
-          payload?.email_cc.forEach((item) => {
-            data.append("email_cc[]", item);
-          });
-          // data.append("email_cc", payload?.email_cc);
-          data.append("registre", payload?.Registre[0]?.originFileObj);
-          data.append("nom", payload?.nom);
-          data.append("is_company_verified", payload?.optionsPaperChoose);
-          data.append("phone",`${payload?.countryCode}${payload?.contact}`);
-          data.append("ville", payload?.ville);
-          data.append("quartier", payload?.quartier);
-          data.append("forme_juridique", payload?.juridique);
-          data.append("email", payload?.email);
-          data.append("commune", payload?.commune);
-          data.append("gerant", payload?.gerant);
-          // data.append("numero_gerant", payload?.Phonegerant);
-          data.append("numero_gerant",`${payload?.countryCodePhoneGerant}${payload?.Phonegerant}`);
-          data.append("matricule_cc", payload?.matricule_cc);
-          data.append("password", payload?.password);
-          data.append("statut_id", payload?.statut_id);
-          data.append("NCC", payload?.ncc);
-          data.append("logo", payload?.Logo[0]?.originFileObj);
+          // Photos gérant (array de fichiers)
+if (payload?.photo?.length > 0) {
+  payload.photo.forEach((item) => {
+    if (item) {  // Sécurité supplémentaire par item
+      data.append("piece_gerant[]", item);
+    }
+  });
+}
+
+// Emails CC (array optionnel)
+if (payload?.email_cc?.length > 0) {
+  payload.email_cc.forEach((item) => {
+    if (item) {
+      data.append("email_cc[]", item);
+    }
+  });
+}
+
+// Registre (fichier unique)
+if (payload?.Registre?.[0]?.originFileObj) {
+  data.append("registre", payload.Registre[0].originFileObj);
+}
+
+// Champs texte simples
+if (payload?.nom) data.append("nom", payload.nom);
+if (payload?.optionsPaperChoose !== undefined) data.append("is_company_verified", payload.optionsPaperChoose);
+if (payload?.contact && payload?.countryCode) data.append("phone", `${payload.countryCode}${payload.contact}`);
+if (payload?.ville) data.append("ville", payload.ville);
+if(payload?.nom_particulier) data.append("particulier_prenoms", payload?.nom_particulier);
+if (payload?.quartier) data.append("quartier", payload.quartier);
+if (payload?.juridique) data.append("forme_juridique", payload.juridique);
+if (payload?.email) data.append("email", payload.email);
+if (payload?.commune) data.append("commune", payload.commune);
+if (payload?.gerant) data.append("gerant", payload.gerant);
+if (payload?.Phonegerant && payload?.countryCodePhoneGerant) {
+  data.append("numero_gerant", `${payload.countryCodePhoneGerant}${payload.Phonegerant}`);
+}
+if (payload?.matricule_cc) data.append("matricule_cc", payload.matricule_cc);
+if (payload?.password) data.append("password", payload.password);
+if (payload?.statut_id !== undefined) data.append("statut_id", payload.statut_id);
+if (payload?.ncc) data.append("NCC", payload.ncc);
+
+// Logo (fichier unique)
+if (payload?.Logo?.[0]?.originFileObj) {
+  data.append("logo", payload.Logo[0].originFileObj);
+}
+          // payload?.photo.forEach((item) => {
+          //   data.append("piece_gerant[]", item);
+          // });
+          // if(payload?.email_cc){
+          // payload?.email_cc?.forEach((item) => {
+          //   data.append("email_cc[]", item);
+          // })}
+          // data.append("registre", payload?.Registre[0]?.originFileObj);
+          // data.append("nom", payload?.nom);
+          // data.append("is_company_verified", payload?.optionsPaperChoose);
+          // data.append("phone",`${payload?.countryCode}${payload?.contact}`);
+          // data.append("ville", payload?.ville);
+          // data.append("quartier", payload?.quartier);
+          // data.append("forme_juridique", payload?.juridique);
+          // data.append("email", payload?.email);
+          // data.append("commune", payload?.commune);
+          // data.append("gerant", payload?.gerant);
+          // data.append("numero_gerant",`${payload?.countryCodePhoneGerant}${payload?.Phonegerant}`);
+          // data.append("matricule_cc", payload?.matricule_cc);
+          // data.append("password", payload?.password);
+          // data.append("statut_id", payload?.statut_id);
+          // data.append("NCC", payload?.ncc);
+          // data.append("logo", payload?.Logo[0]?.originFileObj);
          await instance
             .post("list_users", data)
             .then((response) => {
