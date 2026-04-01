@@ -89,6 +89,7 @@ valueExpertise: [
       statut:"",
       niveauExpertise:"aucun",
       nom_particulier:"",
+      fileCharge:null
     },
     };
   },
@@ -101,7 +102,7 @@ valueExpertise: [
     if (!idsToCheck.includes(statutId)) return false;
 
     const rules = {
-      'Formel': ["NCC", "matricule_cc","forme_juridique","gerant","numero_gerant"]
+      'Formel': ["NCC", "matricule_cc","forme_juridique","gerant","numero_gerant","fileCharge"]
     };
 
     const requiredFields = rules[statutId] || [];
@@ -135,6 +136,16 @@ valueExpertise: [
     },
   },
   methods: {
+    chargerFichier(event) {
+      const file = event.target.files[0];
+      console.log("file", file)
+      if (file) {
+        this.form.fileCharge = file;
+      }
+       if (!file) {
+      this.form.fileCharge = null;  // Reset HTML natif
+    }
+    },
     selectOne(value) {
       console.log("this.form.optionsPaper",this.form.optionsPaper)
       if (this.form.optionsPaper === value) {
@@ -436,12 +447,18 @@ valueExpertise: [
           <input v-model="form.matricule_cc" class="form-control" type="text" />
         </div>
         <div class="my-3">
+         <label class="form-label"
+            >Charger le document du RCCM
+            <span style="color:red">*</span>
+            </label
+          >
           <input
             type="file"
+            ref="fileInput"
             @input="addAnRegistreDoc"
             id="add_file_registre"
             class="w-100"
-            placeholder="charger un fichier"
+            @change="chargerFichier"
           />
         </div>
       </div>
