@@ -116,6 +116,7 @@ export default {
         myLogo: "",
         photo: null,
         countryCode: "+225",
+        statutId:4
       
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,

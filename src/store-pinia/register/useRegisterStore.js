@@ -258,9 +258,7 @@ if (payload?.Logo?.[0]?.originFileObj) {
           data.append("email", payload?.email);
           data.append("commune", payload?.commune);
           data.append("password", payload?.password);
-            //  data.append("is_company_verified", payload?.optionsPaperChoose);
           data.append("statut_id", 4);
-          // data.append("piece_gerant", payload?.piece_gerant[0]?.originFileObj);
          await instance
             .post("list_users", data)
             .then((response) => {
