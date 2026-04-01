@@ -170,7 +170,8 @@ if (payload?.nom) data.append("nom", payload.nom);
 if (payload?.optionsPaperChoose !== undefined) data.append("is_company_verified", payload.optionsPaperChoose);
 if (payload?.contact && payload?.countryCode) data.append("phone", `${payload.countryCode}${payload.contact}`);
 if (payload?.ville) data.append("ville", payload.ville);
-if(payload?.nom_particulier) data.append("particulier_prenoms", payload?.nom_particulier);
+if (payload?.prenoms) data.append("particulier_prenoms", payload?.prenoms);
+if (payload?.nom_particulier) data.append("nom_particulier", payload?.nom_particulier);
 if (payload?.quartier) data.append("quartier", payload.quartier);
 if (payload?.juridique) data.append("forme_juridique", payload.juridique);
 if (payload?.email) data.append("email", payload.email);
@@ -257,7 +258,7 @@ if (payload?.Logo?.[0]?.originFileObj) {
           data.append("email", payload?.email);
           data.append("commune", payload?.commune);
           data.append("password", payload?.password);
-             data.append("is_company_verified", payload?.optionsPaperChoose);
+            //  data.append("is_company_verified", payload?.optionsPaperChoose);
           data.append("statut_id", 4);
           // data.append("piece_gerant", payload?.piece_gerant[0]?.originFileObj);
          await instance
