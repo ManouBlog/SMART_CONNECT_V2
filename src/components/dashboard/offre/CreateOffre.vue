@@ -238,6 +238,7 @@ export default {
         lieu: this.lieu,
         pointage: this.pointage,
         offre_mode_travail:this.offre_mode_travail?.label,
+        offre_pays:this.offre_pays?.map(item=>item.label),
         categorie_offre_id: !categorienew ? this.categorie : categorienew,
         competence_id: !competencenew ? this.competence : competencenew,
         nbre_person: this.nbre_person,
