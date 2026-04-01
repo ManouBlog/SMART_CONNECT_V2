@@ -11,8 +11,10 @@ export default {
     return {
    optionsPaper:"Formel",
 options : [
-  { value: "Formel", label: "Formel" },
-  { value: "Informel", label: "Informel" }]
+   { value: "Informel", label: "Informel" },
+  { value: "Formel", label: "Formel" }
+ 
+]
     };
   },
   watch: {

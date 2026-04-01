@@ -20,8 +20,9 @@ export default {
 ],
 
 options : [
+  { value: "Informel", label: "Informel" },
   { value: "Formel", label: "Formel" },
-  { value: "Informel", label: "Informel" }],
+],
 valueModeDeTravail: [
   { value: "Présentiel", label: "Présentiel" },
   { value: "Télétravail", label: "Télétravail" },
