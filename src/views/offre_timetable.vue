@@ -483,8 +483,8 @@ if (!user.competences.length || !user.qualifications.length) {
   padding: 0 2em;
 }
 .conteneur-image-logo_jobs {
-  width: 100px;
-  height: 100%;
+  width: 80px;
+  height: 80px;
   position: relative;
 }
 .conteneur-image-logo_jobs img {
