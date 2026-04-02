@@ -504,7 +504,12 @@ if (!user.competences.length || !user.qualifications.length) {
 </template>
 <style scoped>
 .btn-search:hover {
-  background: #0b5ed7;
+  background: #f77f00;
+}
+.btn-search {
+  background: #f77f00;
+  color: white;
+  border: 1px solid black;
 }
 
 .btn-search:disabled {
