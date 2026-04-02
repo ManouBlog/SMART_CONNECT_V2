@@ -15,6 +15,11 @@ export default {
   components: { VueMultiselect },
   data() {
     return {
+      list_countries:[{id:1,label:"Côte d'Ivoire"},{id:3,label:"Sénégal"},
+      {id:4,label:"Mali"},{id:5,label:"Burkina Faso"},
+      {id:6,label:"Niger"},{id:7,label:"Togo"},
+      {id:8,label:"Bénin"},{id:9,label:"Ghana"},{id:10,label:"Guinée"}],
+      selectedCountries: [],
       texte: "",
       texte1: "",
       texte2: "",
@@ -267,7 +272,7 @@ if (!user.competences.length || !user.qualifications.length) {
   },
   async created() {
     this.verifUserProfilEtudiantComplet();
-    this.texte = await this.handleTranslate(`Sélectionne un domaine`);
+    this.texte = await this.handleTranslate(`Sélectionnez domaine`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
     this.texte2 = await this.handleTranslate("Ex:Lieu (Angré cocody)");
     this.texte3 = await this.handleTranslate("Offres");
@@ -295,10 +300,9 @@ if (!user.competences.length || !user.qualifications.length) {
 <template>
   <section class="myconteneur">
     <div class="jobs_filters">
-      <div class="container-fluid">
+       <div class="container-fluid">
         <form>
           <div>
-            <div class="form-group">
               <VueMultiselect
                 v-model="categorie"
                 :options="list_categorie"
@@ -310,33 +314,43 @@ if (!user.competences.length || !user.qualifications.length) {
                 :placeholder="texte"
               >
               </VueMultiselect>
+  
             </div>
-          </div>
-
-          <div>
-            <div class="form-group">
+            <div>
+        <VueMultiselect
+          v-model="selectedCountries"
+          :options="list_countries"
+          :multiple="true"
+          label="label"
+          track-by="id"
+          placeholder="Sélectionnez plusieurs pays"
+        />
+      </div>
+         <div>
               <input
                 type="text"
                 class="form-control"
+                style="min-height: 40px !important;"
                 :placeholder="texte1"
                 v-model="searchName"
               />
               <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
             </div>
-          </div>
 
-          <div>
-            <div class="form-group position-relative">
+           <div class="position-relative">
               <input
                 type="text"
                 class="form-control"
+                style="min-height: 40px !important;"
                 :placeholder="texte2"
                 v-model="searchLieu"
               />
               <span class="glyphicon fa fa-location-arrow" aria-hidden="true"></span>
             </div>
-          </div>
-          <div style="margin-top: -0.8em">
+           <div>
+        
+    </div>
+          <div>
             <button
               :disabled="!fieldSearch && !list_offre.length"
               :class="!fieldSearch ? null : 'bg-primary'"
@@ -354,7 +368,7 @@ if (!user.competences.length || !user.qualifications.length) {
             </span>
           </div>
         </form>
-      </div>
+      </div> 
     </div>
 
     <div class="container-fluid main-container">
