@@ -80,6 +80,10 @@ if (payload?.photo?.length > 0) {
   });
 }
 
+if(payload?.CVupload){
+  data.append("CVupload", payload?.CVupload);
+}
+
 // Qualifications (array objets → JSON)
 if (payload?.qualifications?.length > 0) {
   payload.qualifications.forEach((item, index) => {
