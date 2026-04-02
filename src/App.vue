@@ -314,9 +314,7 @@ export default {
 html {
   font-size: 0.89em;
 }
-.myconteneur {
-  margin-top: 7.8em;
-}
+
 .router-link-exact-active {
   color: orange !important;
 }
@@ -343,9 +341,5 @@ html {
 .ant-input {
   padding: 0.7em !important;
 }
-@media (max-width: 1200px) {
-  .myconteneur {
-    margin-top: 0.5em !important; /* nouvelle valeur adaptée au mobile */
-  }
-}
+
 </style>

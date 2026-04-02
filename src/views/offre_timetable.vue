@@ -588,7 +588,7 @@ form {
 }
 .jobs_filters {
   padding: 2em 0;
-  margin: 2em 0;
+  /* margin: 2em 0; */
 }
 .image-heading {
   color: black !important;
@@ -686,7 +686,7 @@ select {
   }
   .jobs_filters {
     padding: 1em 0; /* réduit le padding vertical */
-    margin: 0.5em 0; /* réduit le margin vertical */
+    /* margin: 0.5em 0;  */
   }
   .main-container {
     padding: 0;
