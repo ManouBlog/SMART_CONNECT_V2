@@ -779,12 +779,7 @@ valueModeDeTravail: [
           >
             <a-upload
               v-model:fileList="formState.CVupload"
-              :maxCount="1"
               accept="application/pdf"
-              @change="({ fileList: newList })=>{
-    console.log('onUploadChange', newList);
-    if (!newList.length) return
-      this.formState.CVupload = newList[0].originFileObj}"
             >
               <a-button> Clique pour charger </a-button>
             </a-upload>
