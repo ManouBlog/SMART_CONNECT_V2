@@ -517,7 +517,6 @@ if (!user.competences.length || !user.qualifications.length) {
   cursor: not-allowed;
 }
 
-
 :deep(.n-pagination) {
   margin-top: 2em;
   display: flex;
