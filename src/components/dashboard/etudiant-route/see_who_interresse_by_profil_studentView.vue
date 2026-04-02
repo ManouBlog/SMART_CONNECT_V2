@@ -250,7 +250,7 @@ export default {
               >
                 <template #body="slotProps">
                   <div>
-                    <span>{{ slotProps.data.offre.entreprise.nom }} </span>
+                    <span>{{ slotProps.data.Offre?.entreprise?.nom }} </span>
                   </div>
                 </template>
               </Column>

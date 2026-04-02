@@ -62,7 +62,7 @@ export default {
           this.list_offre = res.data.data;
           this.Offre = this.list_offre.find((item) => item.id == this.$route.params.id);
           this.list_offre.forEach((el) => {
-            if (el.entreprise.nom === this.Offre.entreprise.nom) {
+            if (el?.entreprise?.nom === this.Offre?.entreprise?.nom) {
               this.listEntrepriseOffre.push(el);
             }
           });
@@ -227,13 +227,13 @@ Swal.fire({
                   class="my-5"
                   v-if="abonnements.some((item) => item.statut === 'success')"
                 >
-                  <em class="bi bi-building"></em> {{ Offre.entreprise.nom }}
+                  <em class="bi bi-building"></em> {{ Offre?.entreprise?.nom }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="Offre.salaire != null" >
                     <em class="bi bi-cash-stack"></em>
                     Rémuneration:
-                    <span style="color:orange;margin:0 0.5em;">{{ moneyFormat.format(Offre.salaire) }} Fcfa /
+                    <span style="color:orange;margin:0.5em;">{{ moneyFormat.format(Offre.salaire) }} Fcfa /
                     {{ Offre.pointage }}</span>
                   </h4>
                   <h4 class="my-5" v-else>
@@ -243,7 +243,7 @@ Swal.fire({
                 <h4 class="my-5" v-if="Offre.nbre_person">
                   <span
                     class="fw-bold"
-                    style="font-weight: 900 !important; color: white"
+                    style="font-weight: 500 !important; color: white"
                     >{{ texte1 }}</span
                   >
                   {{ Offre.nbre_person }}
@@ -251,7 +251,7 @@ Swal.fire({
               </section>
               <section>
                 <h4>
-                  <span class="my-3" style="font-weight: 900 !important; color: white"
+                  <span class="my-3" style="font-weight: 500 !important; color: white"
                     >{{ texte4 }} :</span
                   >
                 </h4>

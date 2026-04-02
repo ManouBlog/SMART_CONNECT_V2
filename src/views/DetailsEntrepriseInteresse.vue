@@ -170,7 +170,7 @@ export default {
                         : 'smart-connect'
                     "
                   />
-                  {{ DetailSeeEntreprise.offre.entreprise.nom }}
+                  {{ DetailSeeEntreprise.Offre?.entreprise?.nom }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="DetailSeeEntreprise.offre.salaire != null">

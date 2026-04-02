@@ -275,7 +275,7 @@ this.texte7 = await this.handleTranslate(
         <span class="mx-2">{{ user.nom }} {{ user.prenoms }}</span>
         {{ texte7 }}
         {{ texte5 }}
-         <span class="mx-2">{{ this.entreprise.offre.entreprise.nom }}</span>
+         <span class="mx-2">{{ this.entreprise.Offre?.entreprise?.nom }}</span>
       </p>
 
       <div>
