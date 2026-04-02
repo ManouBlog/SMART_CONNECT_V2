@@ -17,23 +17,7 @@ export default {
   },
   data() {
     return {
-       countries: [
-  { label: "Bénin", value: "+229", length: 8 },
-  { label: "Burkina Faso", value: "+226", length: 8 },
-  { label: "Cap‑Vert", value: "+238", length: 7 },
-  { label: "Côte d’Ivoire", value: "+225", length: 10 },
-  { label: "Gambie", value: "+220", length: 7 },
-  { label: "Ghana", value: "+233", length: 9 },
-  { label: "Guinée", value: "+224", length: 7 },
-  { label: "Guinée‑Bissau", value: "+245", length: 9 },
-  { label: "Liberia", value: "+231", length: 9 },
-  { label: "Mali", value: "+223", length: 8 },
-  { label: "Niger", value: "+227", length: 8 },
-  { label: "Nigeria", value: "+234", length: 10 },
-  { label: "Sénégal", value: "+221", length: 8 },
-  { label: "Sierra Leone", value: "+232", length: 8 },
-  { label: "Togo", value: "+228", length: 8 },
-],
+       countries: [],
       texte0: "",
       StoreLoading: useLoadingSpinner(),
       texte2: "",
@@ -142,6 +126,15 @@ export default {
     },
   },
   methods: {
+  async listerCountries() {
+    try {
+      const response = await instance.get("countries");
+      this.countries = response.data;
+      console.log("COUNTRIES", this.countries);
+    } catch (error) {
+      console.log(error);
+    }
+  },
     async getInfoUser() {
       if (this.$store.state.token) {
         await instance
@@ -238,7 +231,7 @@ export default {
         lieu: this.lieu,
         pointage: this.pointage,
         offre_mode_travail:this.offre_mode_travail?.label,
-        offre_pays:this.offre_pays?.map(item=>item.label),
+        offre_pays:this.offre_pays?.map(item=>item.id),
         categorie_offre_id: !categorienew ? this.categorie : categorienew,
         competence_id: !competencenew ? this.competence : competencenew,
         nbre_person: this.nbre_person,
@@ -397,10 +390,11 @@ export default {
     },
   },
   async created() {
-    this.getInfoUser();
+     this.getInfoUser();
     this.get_categorie();
     this.getAllCompetences();
     this.lister_statut();
+     this.listerCountries();
     this.texte0 = await this.handleTranslate("Enregistrer une Offre");
     this.texte1 = await this.handleTranslate("Domaines");
     this.texte2 = await this.handleTranslate("Sélectionnez un domaine");
@@ -562,7 +556,7 @@ export default {
                       :options="[{value:'onsite',label:'Présentiel'},{value:'remote',label:'Télétravail'},{value:'hybrid',label:'Hybride'}]" 
                       label="label" track-by="label" />
     </div>
-    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3">
+    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3" v-if="countries.length > 0">
       <label><span style="color: red">*</span>Choisir un pays</label>
       <VueMultiselect v-model="offre_pays" 
                       :options="countries" 
@@ -591,250 +585,6 @@ export default {
     </div>
   </div>
 </form>
-        <!-- <form @submit.prevent="create_offre" class="container">
-          <div class="row">
-            <div class="text-left my-3 col-lg-6">
-              <label><span style="color: red">*</span>{{ texte1 }}</label>
-              <select v-model="categorie" @change="selectCategorie">
-                <option value="" disabled>
-                  {{ texte2 }}
-                </option>
-                <option
-                  :value="item.id"
-                  v-for="(item, index) in categoriesOffres"
-                  :key="index"
-                >
-                  {{ item.categorie }}
-                </option>
-                <option value="autre">Autre</option>
-              </select>
-              <div style="margin: 0.5em 0" v-if="categorie === 'autre'">
-                <label for="otherDomaine">Autre domaine</label>
-                <input
-                  id="otherDomaine"
-                  class="form-control"
-                  type="text"
-                  v-model="otherDomaine"
-                />
-              </div>
-            </div>
-            <div class="text-left my-3 col-lg-6">
-              <label id="select_comp" v-if="categorie !== 'autre'">
-                <span style="color: red">*</span>{{ texte3 }}</label
-              >
-              <select
-                v-if="categorie !== 'autre'"
-                :class="{ 'select-disabled': !categorie || categorie === 'autre' }"
-                v-model="competence"
-                name="select_comp"
-                id="select_comp"
-                @change="chooseCompetence"
-              >
-                <option value="" disabled style="color: brown">
-                  {{ texte4 }}
-                </option>
-                <option
-                  :value="item.id"
-                  v-for="(item, index) in competenceWithCategorie"
-                  :key="index"
-                >
-                  {{ item.competence }}
-                </option>
-                <option
-                  style="color: brown"
-                  v-if="!competenceWithCategorie.length && !categorie"
-                  disabled
-                >
-                  {{ texte5 }}
-                </option>
-                <option
-                  style="color: brown; font-size: 0.9em"
-                  v-if="!competenceWithCategorie.length && categorie"
-                  disabled
-                >
-                  {{ texte6 }}
-                </option>
-                <option value="autre" :disabled="!categorie">Autre</option>
-              </select>
-              <div
-                style="margin: 0.5em 0"
-                v-if="categorie === 'autre' || (categorie && competence == 'autre')"
-              >
-                <label for="otherPoste">Autre poste</label>
-                <input
-                  id="otherPoste"
-                  class="form-control"
-                  type="text"
-                  v-model="otherPoste"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="text-left my-3 col-lg-6">
-              <label><span style="color: red">*</span>{{ texte7 }}</label>
-              <input
-                class="form-control"
-                type="text"
-                v-model="offre"
-                placeholder=""
-                required
-              />
-            </div>
-            <div class="text-left my-3 col-lg-6">
-              <label><span style="color: red">*</span>{{ texte8 }}</label>
-              <input
-                class="form-control"
-                type="text"
-                v-model="salaire"
-                placeholder="ex:35000"
-                pattern="[0-9]*"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="text-left my-3 col-lg-6">
-              <label><span style="color: red">*</span>{{ texte9 }} </label>
-              <select
-                :class="{ 'select-disabled': !salaire }"
-                v-model="pointage"
-                :disabled="salaire ? false : true"
-              >
-                <option value="" disabled>{{ texte10 }}</option>
-                <option
-                  :value="item.libelle"
-                  v-for="(item, index) in OptionsOfpointage"
-                  :key="index"
-                >
-                  {{ item.libelle }}
-                </option>
-              </select>
-              <span class="text-danger" :class="!salaire ? 'd-block' : 'd-none'"
-                >*{{ texte11 }}</span
-              >
-            </div>
-
-            <div class="text-left my-3 col-lg-6">
-              <label><span style="color: red">*</span>{{ texte12 }}</label>
-              <input
-                class="form-control"
-                type="text"
-                v-model="lieu"
-                placeholder="ex:Angré"
-                required
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="text-left my-3 col-lg-6">
-              <label><span style="color: red">*</span>{{ texte13 }}</label>
-              <input
-                class="form-control"
-                type="number"
-                v-model="nbre_person"
-                placeholder="ex:5 ou 10"
-                required
-                min="1"
-              />
-            </div>
-            <div class="text-left my-3 col-lg-6">
-              <label for="calendar-12h d-block" class="date_heure">
-                <span style="color: red">*</span>{{ texte14 }}</label
-              >
-              <input
-                class="form-control"
-                type="datetime-local"
-                v-model="debut"
-                required
-                :min="new Date().toISOString().slice(0, 16)"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="text-left my-3 col-lg-6">
-              <label for="calendar-12" class="date_heure">
-                <span style="color: red">*</span>
-                {{ texte15 }}</label
-              >
-              <input
-                class="form-control"
-                type="datetime-local"
-                :disabled="debut != null ? false : true"
-                v-model="fin"
-                required
-                :min="debut"
-              />
-            </div>
-            <div class="text-left my-3 col-lg-6">
-              <label>{{ texte16 }}</label>
-              <input
-                class="form-control"
-                type="datetime-local"
-                v-model="job_debut"
-                :min="fin"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="text-left my-3 col-lg-6">
-              <label>{{ texte17 }}</label>
-              <input
-                class="form-control"
-                type="datetime-local"
-                v-model="job_fin"
-                :min="job_debut"
-              />
-            </div>
-              <div class="text-left my-3 col-lg-6">
-              <label>
-               <span style="color: red">*</span>
-                Choisir un profil</label>
-                <VueMultiselect
-              v-model="chooseStatut"
-              :options="allStatuses"
-              placeholder="Choix multiples"
-              :multiple="true"
-              label="statut"
-              track-by="statut"
-            />
-            </div>
-          </div>
-           <div class="row">
-           <div class="text-left my-3 col-lg-6">
-              <label>
-               <span style="color: red">*</span>
-                Choisir un mode de travail</label>
-                <VueMultiselect
-              v-model="offre_mode_travail"
-              :options="[
-                   { value:'onsite', label:'Présentiel' },
-                   { value:'remote', label:'Télétravail' },
-                   { value:'hybrid', label:'Hybride' }
-                     ]"
-              label="label"
-              track-by="label"
-            />
-            </div>
-            </div>
-          <div class="row">
-              <div class="col-md-12 my-2 text-left">
-              <label><span style="color: red">*</span>{{ texte18 }}</label>
-              <div class="conteneur_editor">
-                <editor v-model="description" />
-              </div>
-            </div>
-          </div>
-          
-          <div style="display: flex; justify-content: center; padding: 1.5em 0">
-            <button
-              class="btn btn-warning btn-designer me-3"
-              type="submit"
-              :disabled="loading ? true : false"
-            >
-              {{ loading ? texte20 : texte19 }}
-            </button>
-          </div>
-        </form> -->
       </div>
     </div>
   </section>
