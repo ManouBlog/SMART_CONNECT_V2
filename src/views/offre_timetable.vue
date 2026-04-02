@@ -107,7 +107,9 @@ export default {
         categorie: this.categorie.length ? this.categorie?.map((item) => item?.id) : [],
         nom_offre: this.searchName,
         lieu: this.searchLieu,
+        pays: this.selectedCountries.length ? this.selectedCountries?.map((item) => item?.id) : [],
       };
+      console.log("dataSearch", dataSearch);
       this.get_list_offre(dataSearch);
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -377,9 +379,9 @@ if (!user.competences.length || !user.qualifications.length) {
             <span
               v-if="!list_offre.length"
               @click.prevent="handleSearchClick"
-              style="color: white; font-weight: bold; cursor: pointer"
+              style="color: orange; font-weight: bold; cursor: pointer"
             >
-              Rédemarrer
+               Toutes
             </span>
           </div>
         </form>
