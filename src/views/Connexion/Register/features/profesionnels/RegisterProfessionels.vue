@@ -772,6 +772,24 @@ valueModeDeTravail: [
             </a-upload>
           </a-form-item>
         </a-col>
+         <a-col :xs="24" :md="8">
+          <a-form-item
+            name="upload"
+            label="Charger un CV (Curriculum Vitae) (.pdf)"
+          >
+            <a-upload
+              v-model:fileList="formState.CVupload"
+              :maxCount="1"
+              accept="application/pdf"
+              @change="({ fileList: newList })=>{
+    console.log('onUploadChange', newList);
+    if (!newList.length) return
+      this.formState.CVupload = newList[0].originFileObj}"
+            >
+              <a-button> Clique pour charger </a-button>
+            </a-upload>
+          </a-form-item>
+        </a-col>
         <a-col :xs="24" :md="8">
           <a-form-item
             name="upload"
@@ -794,24 +812,7 @@ valueModeDeTravail: [
           </span>
           <!-- {{ this.result }} -->
         </a-col>
-        <a-col :xs="24" :md="8">
-          <a-form-item
-            name="upload"
-            label="Charger un CV (.pdf)"
-          >
-            <a-upload
-              v-model:fileList="formState.CVupload"
-              :maxCount="1"
-              accept="application/pdf"
-              @change="({ fileList: newList })=>{
-    console.log('onUploadChange', newList);
-    if (!newList.length) return
-      this.formState.CVupload = newList[0].originFileObj}"
-            >
-              <a-button> Clique pour charger </a-button>
-            </a-upload>
-          </a-form-item>
-        </a-col>
+       
       </a-row>
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
