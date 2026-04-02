@@ -76,6 +76,9 @@ export default {
     list_offre() {
       const start = (this.currentPage - 1) * this.pageSize;
       const end = start + this.pageSize;
+      console.log("end", end);
+      console.log("start", start);
+      console.log("computed_listOffre",this.MylistOffre);
       return this.MylistOffre.slice(start, end);
     },
     fieldSearch() {
@@ -109,11 +112,12 @@ export default {
       await instance
         .get("list_offres")
         .then((res) => {
-          // console.log("list_offres", res);
+          console.log("list_offres23", res.data.data);
           if (res.data.status) {
             this.MylistOffre = res.data.data.filter((item) => {
              return new Date(item.fin) >= new Date();
             });
+            console.log("MylistOffre23", this.MylistOffre);
             this.MylistsOffres = res.data.data.filter((item) => {
              return new Date(item.fin) >= new Date();
             });
@@ -184,25 +188,7 @@ export default {
         this.Myfiltre();
       }
     },
-    // FiltreWithLoadMore(a, b, c) {
-    //   for (let i = 0; i < a; i++) {
-    //     const element = b[i];
-    //     c.push(element);
-    //   }
-    // },
-    // findElement() {
-    //   this.list_offre = [];
-    //   this.MylistsOffres.find((element) => {
-    //     if (
-    //       element.categorie == this.categorie &&
-    //       element.lieu == this.searchLieu &&
-    //       element.nom_offre == this.searchName
-    //     ) {
-    //       this.MylistOffre.push(element);
-    //     }
-    //   });
-    // },
-
+   
     newLoadmore() {
       if (this.length > this.MylistOffre.length) return;
       this.length = this.length + 3;
@@ -371,7 +357,7 @@ if (!user.competences.length || !user.qualifications.length) {
       </div>
     </div>
 
-    <div class="container-fluid main-container" v-if="list_offre">
+    <div class="container-fluid main-container">
       <div class="col-lg-12" :class="spinner ? 'conteneur_offre' : null">
         <div
           class="offres_disponible d-flex flex-wrap justify-content-between align-items-center text-center text-md-start py-3 px-2"
@@ -406,11 +392,11 @@ if (!user.competences.length || !user.qualifications.length) {
                 <div class="conteneur-image-logo_jobs">
                   <img
                     :src="
-                      offre.entreprise.logo
-                        ? lienPhoto + offre.entreprise.logo
+                      offre?.entreprise?.logo
+                        ? lienPhoto + offre?.entreprise?.logo
                         : '/brobroli.png'
                     "
-                    :alt="offre.entreprise.logo ? offre.entreprise.logo : 'smart-connect'"
+                    :alt="offre?.entreprise?.logo ? offre?.entreprise?.logo : 'smart-connect'"
                   />
                 </div>
               </div>
@@ -606,7 +592,7 @@ select {
   background: #f77f00 !important;
 }
 .badge_new {
-  width: auto;
+  width: 80px;
   margin: 0.5em 1em;
   animation: move 1s ease-in-out infinite alternate;
 }
