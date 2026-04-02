@@ -29,7 +29,7 @@ valueModeDeTravail: [
   { value: "Hybride", label: "Hybride" }
 ],
 valueExpertise: [
-  { value: "Privilége", label: "privilége" },
+  { value: "Privilége", label: "Privilége" },
   { value: "Normal", label: "Normal" },
 ],
       user: "",
