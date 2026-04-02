@@ -775,7 +775,7 @@ valueModeDeTravail: [
          <a-col :xs="24" :md="8">
           <a-form-item
             name="upload"
-            label="Charger un CV (Curriculum Vitae) (.pdf)"
+            label="CV (Curriculum Vitae)"
           >
             <a-upload
               v-model:fileList="formState.CVupload"
