@@ -38,7 +38,7 @@ export default {
   etudiant: "Carte étudiant",
   professionnel: "Diplôme",
   artisan: "CNI",
-  veteran: "Attestation de travail"
+  veteran: "Certificat de travail"
 },
       texte4: "",
       texte5: "",

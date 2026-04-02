@@ -350,7 +350,7 @@ export default {
                 item.libelle !== 'Carte étudiant' &&
                 item.libelle !== 'Diplôme' &&
                 item.libelle !== 'CNI' &&
-                item.libelle !== 'Attestation de travail'
+                item.libelle !== 'Certificat de travail'
               "
               class="fw-bold"
             >
@@ -362,7 +362,7 @@ export default {
                 item.libelle === 'Carte étudiant' ||
                 item.libelle === 'Diplôme' ||
                 item.libelle === 'CNI' ||
-                item.libelle === 'Attestation de travail'
+                item.libelle === 'Certificat de travail'
               "
               style="display: flex; justify-content: flex-start; gap: 1em"
             >

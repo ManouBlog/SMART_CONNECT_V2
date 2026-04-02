@@ -215,6 +215,23 @@ Swal.fire({
                     {{ Offre.nom_offre }}
                   </h1>
                 </div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                  <h4
+                  class="my-5"
+                  style="color: white"
+                >
+                  <em class="bi bi-geo"></em> Pays :
+                </h4>
+  <div 
+    v-for="country in Offre.countries" 
+    :key="country.id"
+    class="d-flex align-items-center flex-wrap"
+  >
+    <span class="badge bg-warning text-dark mx-2 px-3 py-2">
+      {{ country.label }}
+    </span>
+  </div>
+</div>
 
                 <h4
                   class="my-5"

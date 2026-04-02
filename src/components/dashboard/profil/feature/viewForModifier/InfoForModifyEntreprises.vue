@@ -41,7 +41,7 @@ valueExpertise: [
   etudiant: "Nouvelle carte d'étudiant",
   professionnel: "Copie du diplôme",
   artisan: "Copie de la CNI",
-  veteran: "Attestation de travail"
+  veteran: "Certificat de travail"
 },
       placeholderDynamicInput: ["05-02-2020", "05-03-2025"],
       westAfricaCodes: [
