@@ -189,7 +189,7 @@ Swal.fire({
 </script>
 <template>
   <div class="position-relative detail_conteneur">
-    <div class="container main-container" v-if="Offre">
+    <div class="container" v-if="Offre">
       <div class="col-lg-12">
         <div class="offres_disponible row container">
           <div class="col-md-12 col-sm-12 entreprise">
@@ -315,9 +315,7 @@ button {
   font-size: 1.1em;
   font-weight: bold;
 }
-.detail_conteneur {
-  margin-top: 6em;
-}
+
 
 #conteneur_description {
   text-align: justify;
@@ -481,7 +479,7 @@ button {
 /* Sur très petits écrans (Bootstrap < 576px) */
 @media (max-width: 575.98px) {
   .detail_conteneur {
-    margin-top: 1.5em;
+    margin-top: 0.5em;
   }
 
   .offres_disponible {
