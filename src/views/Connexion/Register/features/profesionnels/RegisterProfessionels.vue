@@ -122,6 +122,7 @@ valueModeDeTravail: [
   { label: "Togo", value: "+228", length: 8 },
 ],
       formState: {
+        CVupload: null,
         code_ambassadeur:"",
         titreCv: "",
         nom: "",
@@ -764,15 +765,14 @@ valueModeDeTravail: [
     <!-- STEP 4 -->
     <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
-        <a-col :xs="24" :md="12">
+        <a-col :xs="24" :md="8">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
             <a-upload v-model:fileList="formState.uploadPhotoProfil" :maxCount="1">
               <a-button> Clique pour charger </a-button>
             </a-upload>
           </a-form-item>
         </a-col>
-
-        <a-col :xs="24" :md="12">
+        <a-col :xs="24" :md="8">
           <a-form-item
             name="upload"
             :label="texte9"
@@ -794,8 +794,25 @@ valueModeDeTravail: [
           </span>
           <!-- {{ this.result }} -->
         </a-col>
+        <a-col :xs="24" :md="8">
+          <a-form-item
+            name="upload"
+            label="Charger un CV (.pdf)"
+          >
+            <a-upload
+              v-model:fileList="formState.CVupload"
+              :maxCount="1"
+              accept="application/pdf"
+              @change="({ fileList: newList })=>{
+    console.log('onUploadChange', newList);
+    if (!newList.length) return
+      this.formState.CVupload = newList[0].originFileObj}"
+            >
+              <a-button> Clique pour charger </a-button>
+            </a-upload>
+          </a-form-item>
+        </a-col>
       </a-row>
-
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item
@@ -809,6 +826,7 @@ valueModeDeTravail: [
             />
           </a-form-item>
         </a-col>
+        
       </a-row>
     </div>
 
