@@ -160,13 +160,13 @@ export default {
                       background: white;
                     "
                     :src="
-                      DetailSeeEntreprise.offre.entreprise.logo
-                        ? lienPhoto + DetailSeeEntreprise.offre.entreprise.logo
+                      DetailSeeEntreprise.Offre?.entreprise?.logo
+                        ? lienPhoto + DetailSeeEntreprise.Offre?.entreprise?.logo
                         : '/brobroli.png'
                     "
                     :alt="
-                      DetailSeeEntreprise.offre.entreprise.logo
-                        ? DetailSeeEntreprise.offre.entreprise.logo
+                      DetailSeeEntreprise.Offre?.entreprise?.logo
+                        ? DetailSeeEntreprise.Offre?.entreprise?.logo
                         : 'smart-connect'
                     "
                   />

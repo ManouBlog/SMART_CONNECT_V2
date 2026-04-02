@@ -205,11 +205,11 @@ Swal.fire({
                       background: white;
                     "
                     :src="
-                      Offre.entreprise.logo
-                        ? lienPhoto + Offre.entreprise.logo
+                      Offre?.entreprise?.logo
+                        ? lienPhoto + Offre?.entreprise?.logo
                         : '/brobroli.png'
                     "
-                    :alt="Offre.entreprise.logo ? Offre.entreprise.logo : 'smart-connect'"
+                    :alt="Offre?.entreprise?.logo ? Offre?.entreprise?.logo : 'smart-connect'"
                   />
                   <h1 class="my-5 nom_offre">
                     {{ Offre.nom_offre }}
