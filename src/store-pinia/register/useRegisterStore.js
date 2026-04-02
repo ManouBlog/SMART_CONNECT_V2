@@ -98,9 +98,6 @@ if (payload?.qualifications?.length > 0) {
     data.append(`files[${index}]`, item.fileCharged);
   }
 });
-  // payload.qualifications.forEach((item) => {
-  //   if (item) data.append("qualifications[]", JSON.stringify(item));
-  // });
 }
 
 

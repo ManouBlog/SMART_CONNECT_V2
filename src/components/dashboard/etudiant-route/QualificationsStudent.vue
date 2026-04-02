@@ -48,6 +48,7 @@ export default {
       texte27: "",
       currentPage: 1,
       rows: 2,
+      fileCharged: null,
       user: this.$store.state.user,
       competencesPredf: [],
       lienPhoto: lienPhoto,
@@ -182,12 +183,14 @@ export default {
        elements = this.userQualifications?.qualifications?.find(
         (item) => item.id === id
       );
+      this.fileCharged = elements.fileCharged;
       this.itemQualification.push({
         date_debut:elements.date_debut.split(' ')[0],
         date_fin:elements.date_fin.split(' ')[0],
         objet:elements.objet,
-        detail:elements.detail,
-        id:elements.id
+        // detail:elements.detail,
+        id:elements.id,
+        fileCharged:elements.fileCharged
       })
      
     },
@@ -198,11 +201,29 @@ export default {
     changeQualifications() {
       loadingSpinner.launchLoading(true);
       let formData = new FormData();
-       this.itemQualification.forEach((item) => {
-        formData.append("qualifications[]", JSON.stringify(item));
-      });
+      if (this.itemQualification?.length > 0) {
+  this.itemQualification.forEach((item, index) => {
+  // envoyer l'objet SANS le fichier
+  formData.append(
+    `qualifications[${index}]`,
+    JSON.stringify({
+      objet: item.objet,
+      date_debut: item.date_debut,
+      date_fin: item.date_fin,
+      id: item.id,
+    })
+  );
+
+  // envoyer le fichier à part
+  if (item.fileCharged) {
+    formData.append(`files[${index}]`, item.fileCharged);
+  }
+})
+}
+      //  this.itemQualification.forEach((item) => {
+      //   formData.append("qualifications[]", JSON.stringify(item));
+      // });
       this.spinnerModifyQualification = true;
-   
       instance
         .post("updateQualification",formData)
         .then((response) => {
@@ -396,47 +417,7 @@ export default {
             <button type="submit" class="btn btn-warning">{{ texte8 }}</button>
           </div>
         </form>
-        <!-- <form @submit.prevent="saveQualification">
-          <div class="my-3">
-            <n-dynamic-input
-              v-model:value="itemsQualificationDynamicInput"
-              :on-create="onCreateQualification"
-            >
-              <template #create-button-default>
-                <slot name="create-button">Ajouter des qualifications</slot>
-              </template>
-              <template #default="{ value }">
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-                    gap: 1em;
-                    flex-direction: column;
-                  "
-                >
-                  <div style="display: flex; width: 100%; gap: 1em">
-                    <input style="width: 100%" type="date" v-model="value.date_debut" />
-                    <p>À</p>
-                    <input style="width: 100%" type="date" v-model="value.date_fin" />
-                  </div>
-
-                  <textarea
-                    id="msg"
-                    name="msg"
-                    maxlength="300"
-                    style="width: 100%; border-radius: 5px; padding: 1em"
-                    placeholder="Détails (max 300 caractères)"
-                    v-model="value.detail"
-                  ></textarea>
-                </div>
-              </template>
-            </n-dynamic-input>
-          </div>
-          <div class="text-center" v-if="itemsQualificationDynamicInput.length">
-            <button type="submit" class="btn btn-warning">{{ texte8 }}</button>
-          </div>
-        </form> -->
+       
       </div>
     </div>
     <div class="add_nouvelle_experience" v-show="toogleModifyQualifications"
@@ -499,7 +480,16 @@ export default {
               </div>
             </div>
             <div style="width: 100%">
-              <label for="descriptionFile">Charger un fichier</label>
+              
+              <div v-if="this.fileCharged">
+                        <n-image
+                        alt="photo"
+                         width="50"
+                         height="70"
+                         :src="lienPhoto + this.fileCharged"
+                        />
+                        </div>
+              <label for="descriptionFile">Charger un nouveau fichier</label>
               <input
       type="file"
       id="descriptionFile"
@@ -512,20 +502,7 @@ export default {
       "
     />
             </div>
-            <!-- <div style="width: 100%">
-              <label for="description"> <span style="color:red;">*</span> Description (max 300 caractères)</label>
-              <textarea
-                maxlength="300"
-                id="description"
-                style="
-                  width: 100%;
-                  border-radius: 5px;
-                  padding: 0.5em;
-                  border: 1px solid gray;
-                "
-                v-model="value.detail"
-              ></textarea>
-            </div> -->
+            
           </div>
         </template>
       </n-dynamic-input>
