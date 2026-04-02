@@ -513,9 +513,8 @@ if (!user.competences.length || !user.qualifications.length) {
 }
 
 .btn-search:disabled {
-  background: #ccc;
+  background: #999898;
   cursor: not-allowed;
-  opacity: 0.7;
 }
 
 
