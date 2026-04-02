@@ -78,6 +78,14 @@ export default {
     };
   },
   computed: {
+    isFormValid() {
+    return (
+      this.categorie?.length > 0 ||
+      this.selectedCountries?.length > 0 ||
+      this.searchName?.trim() !== '' ||
+      this.searchLieu?.trim() !== ''
+    );
+  },
     list_offre() {
       const start = (this.currentPage - 1) * this.pageSize;
       const end = start + this.pageSize;
@@ -352,13 +360,20 @@ if (!user.competences.length || !user.qualifications.length) {
     </div>
           <div>
             <button
+         class="btn-search btn"
+         :disabled="!isFormValid"
+         @click.prevent="handleSearchClick"
+         >
+         Rechercher
+         </button>
+            <!-- <button
               :disabled="!fieldSearch && !list_offre.length"
               :class="!fieldSearch ? null : 'bg-primary'"
               class="btn"
               @click.prevent="handleSearchClick"
             >
               Rechercher
-            </button>
+            </button> -->
             <span
               v-if="!list_offre.length"
               @click.prevent="handleSearchClick"
@@ -488,6 +503,17 @@ if (!user.competences.length || !user.qualifications.length) {
   </section>
 </template>
 <style scoped>
+.btn-search:hover {
+  background: #0b5ed7;
+}
+
+.btn-search:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+
 :deep(.n-pagination) {
   margin-top: 2em;
   display: flex;
