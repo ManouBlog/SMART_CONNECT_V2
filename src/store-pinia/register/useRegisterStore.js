@@ -82,10 +82,28 @@ if (payload?.photo?.length > 0) {
 
 // Qualifications (array objets → JSON)
 if (payload?.qualifications?.length > 0) {
-  payload.qualifications.forEach((item) => {
-    if (item) data.append("qualifications[]", JSON.stringify(item));
-  });
+  payload.qualifications.forEach((item, index) => {
+  // envoyer l'objet SANS le fichier
+  data.append(
+    `qualifications[${index}]`,
+    JSON.stringify({
+      objet: item.objet,
+      date_debut: item.date_debut,
+      date_fin: item.date_fin,
+    })
+  );
+
+  // envoyer le fichier à part
+  if (item.fileCharged) {
+    data.append(`files[${index}]`, item.fileCharged);
+  }
+});
+  // payload.qualifications.forEach((item) => {
+  //   if (item) data.append("qualifications[]", JSON.stringify(item));
+  // });
 }
+
+
 
 // Nom simple
 if (payload?.nom) data.append("nom", payload.nom);

@@ -43,20 +43,20 @@
                 />
               </div>
             </div>
-            <!-- <div style="width: 100%">
-              <label for="description">Description (max 300 caractères)</label>
-              <textarea
-                maxlength="300"
-                id="description"
-                style="
-                  width: 100%;
-                  border-radius: 5px;
-                  padding: 0.5em;
-                  border: 1px solid gray;
-                "
-                v-model="value.detail"
-              ></textarea>
-            </div> -->
+            <div style="width: 100%">
+              <label for="descriptionFile">Charger un fichier</label>
+              <input
+      type="file"
+      id="descriptionFile"
+      @change="(event)=>value.fileCharged = event.target.files[0]"
+      style="
+        width: 100%;
+        border-radius: 5px;
+        padding: 0.5em;
+        border: 1px solid gray;
+      "
+    />
+            </div>
           </div>
         </template>
       </n-dynamic-input>
@@ -111,7 +111,7 @@ export default {
       return {
         date_debut: null,
         date_fin: null,
-        // detail: "",
+        fileCharged: null,
         objet: "",
       };
     },

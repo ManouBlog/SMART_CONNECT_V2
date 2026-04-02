@@ -616,6 +616,15 @@ export default {
                         <p class="text-start ms-2" v-if="item.detail">
                           Détail : {{ item.detail }}
                         </p>
+                        <div v-if="item.fileCharged">
+                        <n-image
+                        :alt="photo"
+                         width="50"
+                         height="70"
+                         :src="lienPhoto + item.fileCharged"
+                        />
+                        </div>
+                      
                       </div>
                     </div>
                     <div v-if="userQualifications?.qualifications?.length">

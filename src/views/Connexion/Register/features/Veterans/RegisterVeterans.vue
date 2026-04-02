@@ -402,7 +402,7 @@ valueModeDeTravail: [
             payload: this.formState,
           });
         } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre Carte national d'identité.");
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre certificat de travail.");
         }
       } else {
         this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
@@ -431,7 +431,7 @@ valueModeDeTravail: [
       "Compétences (plusieurs choix sont possibles)"
     );
     this.texte8 = await this.handleTranslate("Niveau actuel + Domaine");
-    this.texte9 = await this.handleTranslate("Carte national d'identité");
+    this.texte9 = await this.handleTranslate("Certificat de travail");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
     this.texte12 = await this.handleTranslate("Mot de passe requis");
@@ -718,7 +718,6 @@ valueModeDeTravail: [
           <a-form-item
             name="upload"
             :label="texte9"
-            :rules="[{ required: true, message: texte96 }]"
           >
             <a-upload
               v-model:fileList="formState.upload"

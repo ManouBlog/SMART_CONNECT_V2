@@ -215,7 +215,7 @@ export default {
       <div class="info-header" style="display: flex; justify-content: space-between">
         <h1 class="fw-bold my-3">Informations personnelles</h1>
         <div>
-          <button 
+          <!-- <button 
           v-if="user.user.statut.statut != 'etudiant' && !user.is_verified"
           style="
           width:auto;
@@ -226,7 +226,8 @@ export default {
           background-color: transparent;
           color:orange"
           @click="showModalBadgeVerifi = !showModalBadgeVerifi"
-          > <i class="bi bi-patch-check-fill"></i> Ajouter un badge de vérification</button>
+          > <i class="bi bi-patch-check-fill"></i> Ajouter un badge de vérification
+        </button> -->
          <button
           style="
             height: auto;
