@@ -86,7 +86,13 @@ export default {
       this.fileProofAttestation = e.target.files[0];
     },
     onCreateQualification() {
-      return { detail: "", date_debut: new Date(), date_fin: new Date(), objet: "" };
+      return { 
+      //  detail: "",
+       date_debut: new Date(), 
+       date_fin: new Date(), 
+       objet: "",
+       fileCharged:null 
+      };
     },
     showBoxConfirmationDeleteCompetences(id) {
       this.comfirmationForDeleteQualifications = !this
@@ -491,6 +497,20 @@ export default {
                 v-model="value.date_fin" 
                 />
               </div>
+            </div>
+            <div style="width: 100%">
+              <label for="descriptionFile">Charger un fichier</label>
+              <input
+      type="file"
+      id="descriptionFile"
+      @change="(event)=>value.fileCharged = event.target.files[0]"
+      style="
+        width: 100%;
+        border-radius: 5px;
+        padding: 0.5em;
+        border: 1px solid gray;
+      "
+    />
             </div>
             <!-- <div style="width: 100%">
               <label for="description"> <span style="color:red;">*</span> Description (max 300 caractères)</label>
