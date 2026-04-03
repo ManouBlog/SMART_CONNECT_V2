@@ -175,14 +175,71 @@ export default {
       class="text-left my-3"
       style="width: 50%"
     >
-      <p style="color: orange; font-weight: bold">Compétences</p>
-      <span
+      <p style="
+  color: orange; 
+  font-weight: bold;
+  border-bottom: 1px solid orange;
+  padding-bottom: 2px;
+  display: inline-block;
+  margin-bottom: 1rem;
+  ">Compétences :</p>
+  <div>
+ <span
         v-for="(item, index) in timetable_for_student.competences"
         :key="index"
         class="badge bg-dark my-1"
+
       >
         <strong>{{ item.competence }}</strong>
-      </span>
+  </span>
+  </div>
+     
+    </div>
+     <div
+      v-if="timetable_for_student.qualifications.length"
+      class="text-left my-3"
+      style="width: 50%"
+    >
+      <p style="
+  color: orange; 
+  font-weight: bold;
+  border-bottom: 1px solid orange;
+  padding-bottom: 2px;
+  display: inline-block;
+  margin-bottom: 1rem;
+  ">Qualifications :</p>
+     <ul class="list-unstyled cv-qualifications" style="padding: 0 1em;">
+  <li
+    v-for="(item, index) in timetable_for_student.qualifications"
+    :key="index"
+    style="list-style-type: disc;"
+    class="mb-3 p-3 bg-white border-start border-3 border-primary rounded-end shadow-sm"
+  >
+    <div class="d-flex align-items-center">
+      <!-- Photo ou icône -->
+      <div class="me-3 flex-shrink-0">
+        <n-image
+          v-if="item.fileCharged"
+          :src="item.fileCharged"
+          class="rounded-circle"
+          width="48"
+          height="48"
+          style="object-fit: cover;"
+        />
+       
+      </div>
+
+      <!-- Texte -->
+      <div class="flex-grow-1">
+        <h6 class="mb-1 fw-bold text-dark">{{ item.objet }}</h6>
+        <small class="text-muted">
+          📅 {{ new Date(item.date_debut).toLocaleDateString('fr-FR') }} 
+          - {{ new Date(item.date_fin).toLocaleDateString('fr-FR') }}
+        </small>
+      </div>
+    </div>
+  </li>
+</ul>
     </div>
   </div>
 </template>
