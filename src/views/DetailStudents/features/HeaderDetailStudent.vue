@@ -217,10 +217,10 @@ export default {
   >
     <div class="d-flex align-items-center">
       <!-- Photo ou icône -->
-      <div class="me-3 flex-shrink-0">
+      <div class="mx-3 flex-shrink-0">
         <n-image
           v-if="item.fileCharged"
-          :src="item.fileCharged"
+          :src="this.lienPhoto+item.fileCharged"
           class="rounded-circle"
           width="48"
           height="48"
