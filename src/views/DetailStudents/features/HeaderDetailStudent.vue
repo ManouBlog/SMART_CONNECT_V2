@@ -17,6 +17,7 @@ export default {
     return {
       lienPhoto: lienPhoto,
       Help: Help,
+      showCvModal: false,
     };
   },
   methods: {
@@ -107,7 +108,30 @@ export default {
           />
         </div>
       </section>
+      <div v-if="timetable_for_student.CVupload">
+              <n-modal v-model:show="showCvModal" 
+              preset="card" style="width: 80vw; max-width: 1000px;">
+    <template #header>
+      Curriculum Vitae de {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
+    </template>
+
+    <div style="height: 80vh;">
+      <iframe
+        :src="this.lienPhoto+timetable_for_student.CVupload"
+        style="width: 100%; height: 100%; border: none;"
+      ></iframe>
+    </div>
+  </n-modal>
+              <section >
+                <div v-if="timetable_for_student.CVupload">
+                  <n-button type="warning" @click="()=> showCvModal = true">
+                     Voir le CV
+                  </n-button>
+                </div>
+                </section>
+            </div>
       <button
+      v-else
         @click="handleModalInfo"
         style="
           width: auto;
