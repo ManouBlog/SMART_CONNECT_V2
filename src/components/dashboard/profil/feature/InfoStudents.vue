@@ -1,6 +1,6 @@
 <script>
 import Swal from "sweetalert2";
-import instance, { lienPhoto } from "../../../../api/api";
+import instance, { lienPhoto,lienPDF } from "../../../../api/api";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
@@ -34,6 +34,8 @@ export default {
       Help: Help,
       user: "",
       nom: "",
+      lienPDF: lienPDF,
+      showCvModal : false,
       showModalBadgeVerifi:false,
       prenoms: "",
       lienPhoto: lienPhoto,
@@ -351,7 +353,8 @@ export default {
                 item.libelle !== 'Carte étudiant' &&
                 item.libelle !== 'Diplôme' &&
                 item.libelle !== 'CNI' &&
-                item.libelle !== 'Certificat de travail'
+                item.libelle !== 'Certificat de travail' && 
+                item.libelle !== 'Curriculum Vitae'
               "
               class="fw-bold"
             >
@@ -396,6 +399,28 @@ export default {
                   />
                 </div>
               </section>
+            </div>
+            <div v-if="item.libelle === 'Curriculum Vitae'">
+              <n-modal v-model:show="showCvModal" 
+              preset="card" style="width: 80vw; max-width: 1000px;">
+    <template #header>
+      Mon CV chargé
+    </template>
+
+    <div style="height: 80vh;">
+      <iframe
+        :src="this.lienPhoto+item.value"
+        style="width: 100%; height: 100%; border: none;"
+      ></iframe>
+    </div>
+  </n-modal>
+              <section >
+                <div v-if="item.value">
+                  <n-button type="warning" @click="()=> showCvModal = true">
+                     Mon CV chargé
+                  </n-button>
+                </div>
+                </section>
             </div>
           </div>
         </div>
