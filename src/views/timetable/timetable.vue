@@ -178,6 +178,7 @@ export default {
       return this.currentPage === this.totalPages;
     },
     list_emploi() {
+      
       return this.list.slice(0, this.length);
     },
   },
@@ -305,24 +306,39 @@ export default {
       });
     },
 
-    async get_list_emploi() {
-      loadingSpinner.launchLoading(true);
-      try {
-        const res = await instance.get("list_emplois_temps");
-        console.log("res_ALL",res)
-        // Ici this.list sera bien un tableau
-        this.list = this.addOtherElement(res.data.data);
-        console.log("get_list_emploi",this.list)
-        this.lengthOfMylistEmploi = this.list.length;
-        console.log("this.lengthOfMylistEmploi",this.lengthOfMylistEmploi)
-      } catch (err) {
-        console.log(err);
-        alert(err.response?.data?.message || "Erreur serveur");
-      } finally {
-        loadingSpinner.launchLoading(false);
-        this.isLoading = false;
-      }
-    },
+   async get_list_emploi() {
+  loadingSpinner.launchLoading(true);
+  try {
+    const res = await instance.get("list_emplois_temps");
+    console.log("res_ALL", res);
+
+    const UserConnected = localStorage.getItem("user");
+    const profil = UserConnected ? JSON.parse(UserConnected)?.user?.statut?.statut : null;
+    console.log("profilUserConnected", profil);
+
+    let data = res.data.data;
+
+    if (profil === "particulier") {
+      data = data.filter(
+        (emploi) =>
+          emploi?.user?.statut?.statut === "artisan" ||
+          emploi?.user?.statut?.statut === "etudiant"
+      );
+    }
+
+    this.list = this.addOtherElement(data);
+    console.log("get_list_emploi", this.list);
+
+    this.lengthOfMylistEmploi = this.list.length;
+    console.log("this.lengthOfMylistEmploi", this.lengthOfMylistEmploi);
+  } catch (err) {
+    console.log(err);
+    alert(err.response?.data?.message || "Erreur serveur");
+  } finally {
+    loadingSpinner.launchLoading(false);
+    this.isLoading = false;
+  }
+},
     closeDetailTimetable() {
       this.details_timetable = !this.details_timetable;
       this.id_detail_timetable = "";
