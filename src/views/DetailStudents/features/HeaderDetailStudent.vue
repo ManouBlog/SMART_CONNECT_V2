@@ -89,16 +89,17 @@ export default {
             Help.toADfirstTwo(timetable_for_student.nom)
           }}</span>
         </span>
-        <div>
-          <h1 class="text-left my-3">
+        <div style="display: flex; flex-direction: column; gap: 0.5em; align-items: flex-start">
+          <h3 class="text-left my-3">
             {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
+        
               <i 
               v-if="timetable_for_student?.is_verified"
               class="bi bi-patch-check-fill"  
               style="color:rgb(0, 171, 251); 
               font-size: 0.7em !important;"></i>
-          </h1>
-           
+          </h3>
+          <span class="badge bg-warning">{{ timetable_for_student?.user?.statut?.statut }}</span>
           <n-rate
             v-if="timetable_for_student.average"
             readonly
