@@ -23,18 +23,19 @@ export default {
     return {
        fileList : [],
  loading : false,
-  niveauxEtudes : [
+  niveauxEtudes:[
   // Aucun / base
   { value: "aucun", label: "Aucun niveau" },
+
   // Primaire
-  { value: "cepe", label: "CEPE (Certificat d'Études Primaires)" },
+  { value: "cepe", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
 
   // Collège
   { value: "6eme", label: "6ème" },
   { value: "5eme", label: "5ème" },
   { value: "4eme", label: "4ème" },
   { value: "3eme", label: "3ème" },
-  { value: "bepc", label: "BEPC" },
+  { value: "bepc", label: "BEPC (Brevet d'Études du Premier Cycle)" },
 
   // Lycée
   { value: "2nde", label: "Seconde" },
@@ -42,21 +43,26 @@ export default {
   { value: "terminale", label: "Terminale" },
   { value: "bac", label: "BAC" },
 
+  // Professionnel / technique
+  { value: "cap", label: "CAP (Certificat d'Aptitude Professionnelle)" },
+  { value: "cqp", label: "CQP (Certificat de Qualification Professionnelle)" },
+  { value: "bt", label: "BT (Brevet de Technicien)" },
+  { value: "bp", label: "BP (Brevet Professionnel)" },
+  { value: "bep", label: "BEP (Brevet d'Études Professionnelles)" },
+  { value: "bts", label: "BTS (Brevet de Technicien Supérieur)" },
+  { value: "dut", label: "DUT (Diplôme Universitaire de Technologie)" },
+  { value: "licence_pro", label: "Licence professionnelle" },
+  { value: "ingenieur", label: "Diplôme d'ingénieur" },
+
   // Supérieur général
   { value: "bac+1", label: "BAC+1" },
-  { value: "bac+2", label: "BAC+2 (BTS, DUT)" },
+  { value: "bac+2", label: "BAC+2" },
   { value: "bac+3", label: "BAC+3 (Licence)" },
   { value: "bac+4", label: "BAC+4 (Maîtrise)" },
-  { value: "bac+5", label: "BAC+5 (Master, Ingénieur)" },
+  { value: "bac+5", label: "BAC+5 (Master)" },
   { value: "bac+6", label: "BAC+6" },
   { value: "bac+7", label: "BAC+7" },
-  { value: "doctorat", label: "Doctorat (BAC+8)" },
-
-  // Professionnel / technique
-  { value: "cap", label: "CAP" },
-  { value: "bt", label: "BT (Brevet de Technicien)" },
-  { value: "bts", label: "BTS" },
-  { value: "ingenieur", label: "Diplôme d'ingénieur" },
+  { value: "doctorat", label: "Doctorat (BAC+8 et plus)" },
 ],
  rawText : '',
  result : null,
