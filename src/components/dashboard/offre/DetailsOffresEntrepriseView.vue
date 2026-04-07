@@ -85,7 +85,7 @@ export default {
           // console.log(res);
           this.offres = res.data.data;
           this.entreprise = this.offres.find((item) => item.id == this.$route.params.id);
-          // console.log("ENTREPRISE", this.entreprise);
+          console.log("ENTREPRISE", this.entreprise);
           this.spinner = false;
         })
         .catch((error) => {
@@ -136,14 +136,31 @@ export default {
           >
             {{ texte2 }}</span
           >
+          
         </div>
-        <hr />
-        <div class="px-5">
-          <h3 class="fw-bold" style="color: white">{{ texte3 }}</h3>
+       <div 
+       class="px-5">
+          Pays :
+          <div class="d-flex align-items-center flex-wrap">
+         <span 
+         v-for="country in entreprise.countries" 
+         :key="country.id"
+        class="badge bg-warning text-dark mx-2 my-3"
+        style="border-radius: 3px;"
+        >
+          {{ country.label }}
+          </span>
+          </div>
+        
+        </div>
+        
+       
+        <div class="px-5 my-4" style="border-top: 1px solid white;border-bottom: 1px solid white;">
+          <h4 class="fw-bold my-4" style="color: white">{{ texte3 }}</h4>
           <div class="description_html" v-html="entreprise.description"></div>
         </div>
 
-        <hr />
+        
         <div class="px-5">
           <!-- <span class="d-block px-3">{{texte4}}: {{ entreprise.debut }}</span> -->
           <span class="px-3">{{ texte5 }} : {{ entreprise.fin }}</span>
