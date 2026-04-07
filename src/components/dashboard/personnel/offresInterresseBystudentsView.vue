@@ -136,18 +136,18 @@ export default {
             </div>
           </template>
           <Column
-            style="font-size: 1.8em; padding: 1em; text-align: center"
+            style="font-size: 1.5em; padding: 1em; text-align: center"
             field="nom_offre"
             :header="texte3"
           ></Column>
           <Column
-            style="font-size: 1.8em; padding: 1em; text-align: center"
+            style="font-size: 1.5em; padding: 1em; text-align: center"
             field="count"
             :header="texte4"
           ></Column>
           <Column
             header="Détails"
-            style="font-size: 1.8em; padding: 1em; text-align: center"
+            style="font-size: 1.5em; padding: 1em; text-align: center"
           >
             <template #body="{ data: { nom_offre } }">
               <div class="d-flex justify-content-center align-items-center">

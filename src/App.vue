@@ -341,5 +341,11 @@ html {
 .ant-input {
   padding: 0.7em !important;
 }
+.p-column-header-content{
+  justify-content: center;
+}
+.vue3-star-ratings__wrapper{
+  margin: 0 !important;
+}
 
 </style>

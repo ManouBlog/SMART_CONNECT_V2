@@ -127,7 +127,7 @@ export default {
       :key="index"
       :field="item.fieldName"
       :header="item.headerName"
-      style="font-size: 1.8em; padding: 1em; text-align: center"
+      style="font-size: 1.5em; padding: 1em; text-align: center"
     >
       <template #body="slotProps">
         <span v-if="item.fieldName === 'fin'">
@@ -159,7 +159,7 @@ export default {
           {{ slotProps.data.students[0].offre?.job_fin }}
           </span>
           <span v-else>
-             Néant
+             -
           </span>
          
         </span>
@@ -169,7 +169,7 @@ export default {
         </span>
       </template>
     </Column>
-    <Column :header="texte2" style="font-size: 1.8em; padding: 1em; text-align: center">
+    <Column :header="texte2" style="font-size: 1.5em; padding: 1em; text-align: center">
       <template #body="{ data }">
         <DetailsListeOffresDatatables
           :donnees="data"

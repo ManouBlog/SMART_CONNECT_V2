@@ -251,7 +251,7 @@ export default {
             <ul v-if="item.value[0].email_cc">
               <li class="my-3" v-for="(email_cc,index) in item.value" :key="index">- {{email_cc.email_cc}}</li>
             </ul>
-            <p v-else>Néant</p>
+            <p v-else>-</p>
             </div>
 
             <div

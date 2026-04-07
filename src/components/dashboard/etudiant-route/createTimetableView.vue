@@ -620,7 +620,7 @@ export default {
     this.texte14 = await this.handleTranslate("Nouvelle disponibilitée");
     this.texte15 = await this.handleTranslate("Premiere Plage Horaire");
     this.texte16 = await this.handleTranslate("Deuxième sélection");
-    this.texte17 = await this.handleTranslate("Néant");
+    this.texte17 = await this.handleTranslate("-");
     this.texte18 = await this.handleTranslate("Actions");
     this.texte19 = await this.handleTranslate("Détails");
     this.texte20 = await this.handleTranslate("Ajouter");

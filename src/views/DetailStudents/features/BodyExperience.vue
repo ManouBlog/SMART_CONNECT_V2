@@ -143,7 +143,7 @@ export default {
 
             <div v-for="(item, index) in timetable_for_student?.etoiles" :key="index">
               <div>
-                <p v-if="item?.entreprise">
+                <p v-if="item?.entreprise" style="padding: 0;margin:0;">
                   <span>Noter par : </span>
                   <span
                     style="
@@ -378,12 +378,13 @@ p {
   align-items: center;
 }
 .evaluation_avis {
-  margin-left: 0.5em;
+  margin-left: -0.5em;
   /* width: 160px; */
+  
   padding: 0.5em;
   font-weight:bold;
   border-radius: 5px;
-  font-size: 1.3em;
+  font-size: 18px;
   color: orange;
 }
 .evaluation_contenaire {
