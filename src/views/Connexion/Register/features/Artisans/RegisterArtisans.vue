@@ -453,7 +453,7 @@ export default {
     this.texte7 = await this.handleTranslate(
       "Compétences (plusieurs choix sont possibles)"
     );
-    this.texte8 = await this.handleTranslate("Niveau actuel");
+    this.texte8 = await this.handleTranslate("Niveau d'étude");
     this.texte9 = await this.handleTranslate("Carte national d'identité");
     this.texte909 = await this.handleTranslate("Charger votre permis de conduire");
     this.texte10 = await this.handleTranslate("Mot de passe");

@@ -135,7 +135,7 @@ if (payload?.statutId == 2) {
   if (payload?.code_ambassadeur) data.append("code_ambassadeur", payload.code_ambassadeur);
 }
 
-// 👇 Statut 5/6 : Expertise (logique INCHANGÉE)
+// 👇 Statut 5/6 : Expertise (professionell et veteran)
 if (payload?.statutId == 6 || payload?.statutId == 5) {
   if (payload?.niveauExpertise !== undefined) data.append("niveauExpertise", payload.niveauExpertise);
   if (payload?.modeTravail) data.append("modeTravail", payload.modeTravail);
