@@ -1,6 +1,7 @@
 <script>
 import Formels from './Formels.vue';
 import Informels from './Informels.vue';
+import instance from "../../../../../api/api";
 export default {
   name: "RegsiterEntreprise",
   components: {
@@ -10,17 +11,8 @@ export default {
   data() {
     return {
    optionsPaper:"Formel",
-   selectedCountry:"CI",
-    countries: [
-        { code: "CI", name: "Côte d'Ivoire", flag: "🇨🇮" },
-        { code: "FR", name: "France",         flag: "🇫🇷" },
-        { code: "US", name: "États‑Unis",     flag: "🇺🇸" },
-        { code: "GB", name: "Royaume‑Uni",    flag: "🇬🇧" },
-        { code: "DE", name: "Allemagne",      flag: "🇩🇪" },
-        { code: "SN", name: "Sénégal",        flag: "🇸🇳" },
-        { code: "ML", name: "Mali",           flag: "🇲🇱" },
-        { code: "BF", name: "Burkina Faso",   flag: "🇧🇫" },
-      ],
+   selectedCountry:"Côte d’Ivoire",
+    countries: [],
 options : [
    { value: "Informel", label: "Informel" },
   { value: "Formel", label: "Formel" }
@@ -38,13 +30,50 @@ options : [
     },
   },
   methods: {
+    async listerCountries() {
+    try {
+      const response = await instance.get("countries");
+      this.countries = response.data;
+      console.log("COUNTRIES", this.countries);
+    } catch (error) {
+      console.log(error);
+    }
+  },
     selectOne(value) {
     this.optionsPaper = value;
   },
-   selectCountry(country) {
-      this.selectedCountry = country.code;
-    }
+  isDisabled(country) {
+    return country.available !== 1
   },
+
+  handleCountryClick(country) {
+    if (this.isDisabled(country)) return
+    this.selectCountry(country)
+  },
+
+  getCountryStyle(country) {
+  const isSelected = this.selectedCountry === country.label
+  const isDisabled = this.isDisabled(country)
+
+  return {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    padding: '4px 8px',
+    borderRadius: '6px',
+
+    color: isSelected ? '#fff' : '#333',
+    fontWeight: isSelected ? 'bold' : 'normal',
+    backgroundColor: isSelected ? '#FFA500' : '#f5f5f5',
+
+    opacity: isDisabled ? 0.5 : 1,
+    cursor: isDisabled ? 'not-allowed' : 'pointer'
+  }
+}
+  },
+  created() {
+    this.listerCountries();
+  }
  
 };
 </script>
@@ -52,25 +81,14 @@ options : [
   <div
     style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 1em; margin-bottom: 1.5em"
   >
-    <div
-      v-for="country in countries"
-      :key="country.code"
-     :style="{
-        display: 'flex',
-        alignItems: 'center',
-        color: selectedCountry === country.code ? '#fff' : '#333',
-        fontWeight: selectedCountry === country.code ? 'bold': 'normal',
-        gap: '6px',
-        padding: '4px 8px',
-        borderRadius: '6px',
-        backgroundColor: selectedCountry === country.code ? '#FFA500' : '#f5f5f5',
-        cursor: 'pointer'
-      }"
-      @click="selectCountry(country)"
-    >
-      <!-- <span style="font-size: 1.2em">{{ country.flag }}</span> -->
-      <span>{{ country.name }}</span>
-    </div>
+  <button
+   v-for="country in countries"
+  :key="country.code"
+  :style="getCountryStyle(country)"
+  @click="handleCountryClick(country)">
+  <span>{{ country.label }}</span>
+  </button>
+
   </div>
    <div
   style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
