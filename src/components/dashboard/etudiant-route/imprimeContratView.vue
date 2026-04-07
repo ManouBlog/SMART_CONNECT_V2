@@ -221,7 +221,7 @@ h5 {
    this.texte5 = await this.handleTranslate("l'entreprise :");
 this.texte6 = await this.handleTranslate("Mr(Mme)");
 this.texte7 = await this.handleTranslate(
-  ", votre candidature a été retenue pour un poste au sein de"
+  ",votre candidature a été retenue pour le poste au sein de"
 );
     this.texte8 = await this.handleTranslate("Honoraire :");
     this.texte9 = await this.handleTranslate(`Contact du gérant :`);
@@ -266,25 +266,26 @@ this.texte7 = await this.handleTranslate(
         <h2 class="text-center">{{ texte3 }}</h2>
       </div>
       <div class="d-flex">
-        <h3>{{ texte4 }} {{ this.myOffre.nom_offre }}</h3>
+        <h4>{{ texte4 }} {{ this.myOffre.nom_offre }}</h4>
       </div>
 
       <p>
-       
         {{ texte6 }}
         <span class="mx-2">{{ user.nom }} {{ user.prenoms }}</span>
         {{ texte7 }}
-        {{ texte5 }}
+        {{ texte5 }} {{ this.entreprise.offre.entreprise.nom }}
          <span class="mx-2">{{ this.entreprise.Offre?.entreprise?.nom }}</span>
       </p>
 
       <div>
-        <h5 class="my-5">{{ texte8 }} {{ myOffre.salaire }} Fcfa</h5>
-        <h5 class="my-5">
+        <h5 class="my-5" v-if="myOffre.salaire != null">
+          {{ texte8 }} {{ myOffre.salaire }} Fcfa
+        </h5>
+        <h5 class="my-5" v-if="this.entreprise.offre.job_debut">
           Date de début de travail :
           {{ new Date(this.entreprise.offre.job_debut).toLocaleDateString("fr") }}
         </h5>
-        <h5 class="my-5">
+        <h5 class="my-5" v-if="this.entreprise.offre.job_fin">
           Date de fin de travail :
           {{ this.entreprise.offre.job_fin ? new Date(this.entreprise.offre.job_fin).toLocaleDateString("fr"):null }}
         </h5>
