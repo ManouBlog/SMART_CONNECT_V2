@@ -33,6 +33,12 @@ valueModeDeTravail: [
   { value: "Télétravail", label: "Télétravail" },
   { value: "Hybride", label: "Hybride" }
 ],
+StatutProfessionnel:[
+  { value: "Diplômé en quête d’emploi", label: "Diplômé en quête d’emploi" },
+  { value: "En fonction", label: "En fonction" },
+  { value: "Expert indépendant", label: "Expert indépendant" },
+  { value: "Consultant", label: "Consultant" },
+],
 //  SCHOOL_KEYWORDS :[
 //   // Carte étudiante (formes tolérantes OCR)
 //   'carte etudiant',
@@ -436,7 +442,7 @@ valueModeDeTravail: [
     this.texte7 = await this.handleTranslate(
       "Compétences (plusieurs choix sont possibles)"
     );
-    this.texte8 = await this.handleTranslate("Niveau actuel");
+    this.texte8 = await this.handleTranslate("Niveau d'étude");
     this.texte9 = await this.handleTranslate("Carte national d'identité");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
@@ -679,20 +685,20 @@ valueModeDeTravail: [
   </a-select>
             </a-form-item>
         </a-col> -->
-          <!-- <a-col :xs="24" :md="12">
+          <a-col :xs="24" :md="12">
             <a-form-item
-            :label="'Niveau de carrière'"
+            :label="'statut professionnel'"
             :rules="[{ required: true, message: 'Ajoutez  votre niveau de carrière' }]"
           >
             <a-select
             style="width: 100%;"
-    v-model:value="formState.niveauExpertise"
+    v-model:value="formState.statut_professionnel"
     placeholder="Sélectionnez votre Niveau de carrière"
     show-search
     option-filter-prop="label"
   >
     <a-select-option
-      v-for="item in valueTempsTravail"
+      v-for="item in StatutProfessionnel"
       :key="item.value"
       :value="item.value"
       :label="item.label"
@@ -701,7 +707,7 @@ valueModeDeTravail: [
     </a-select-option>
   </a-select>
             </a-form-item>
-        </a-col>  -->
+        </a-col> 
         <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />
         </a-col>

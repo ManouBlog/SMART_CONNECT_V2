@@ -155,6 +155,8 @@ if (payload?.niveauEtude) {
   const diplomeFull = payload.filiere ? `${payload.niveauEtude} ${payload.filiere}` : payload.niveauEtude;
   data.append("diplome", diplomeFull);
 }
+
+if(payload?.statut_professionnel) data.append("statut_professionnel", payload.statut_professionnel);
 if (payload?.password) data.append("password", payload.password);
 if (payload?.statutId !== undefined) data.append("statut_id", payload.statutId);
 if (payload?.photo_profil) data.append("photo_profil", payload.photo_profil);
