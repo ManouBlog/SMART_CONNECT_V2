@@ -23,6 +23,10 @@ export default {
     return {
        fileList : [],
  loading : false,
+ StatutArtisans:[
+  { value: "Maitre Artisan", label: "Maitre Artisan" },
+  { value: "Artisan", label: "Artisan" }
+],
   niveauxEtudes:[
   // Aucun / base
   { value: "aucun", label: "Aucun niveau" },
@@ -169,6 +173,7 @@ export default {
         photo: null,
         upload: [],
         bio: "",
+        statut_talent:"",
         statutId:7,
         photo_profil: null,
         uploadPhotoProfil: [],
@@ -226,7 +231,7 @@ export default {
         1: ["myCompetence"],
 
          // STEP 1 – Profil & compétences
-        2: ["niveauEtude"],
+        2: ["niveauEtude","statut_talent"],
 
         // STEP 4 – Validation finale
         3: ["upload", "password"],
@@ -653,7 +658,30 @@ export default {
             <!-- <a-input v-model:value="formState.filiere" placeholder="Filière" /> -->
           </a-form-item>
         </a-col>
-         <a-col :xs="24" :md="12">
+        <a-col :xs="24" :md="12">
+            <a-form-item
+            :label="'Statut professionnel'"
+            :rules="[{ required: true, message: 'Ajoutez  votre niveau de carrière' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.statut_talent"
+    placeholder="Sélectionnez votre Niveau de carrière"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in StatutArtisans"
+      :key="item.value"
+      :value="item.value"
+      :label="item.label"
+    >
+      {{ item.label }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col>
+         <a-col :xs="24" :md="24">
           <RegisterQualifications 
           :isRequired="false"
           @update:modelValue="handleQualifications" />

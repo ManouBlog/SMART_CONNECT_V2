@@ -138,6 +138,7 @@ StatutProfessionnel:[
         commune: "",
         quartier: "",
         diplome: "",
+        statut_talent:"",
         myCompetence: [],
         photo: null,
         upload: [],
@@ -211,7 +212,7 @@ StatutProfessionnel:[
         1: ["myCompetence"],
 
         // STEP 2 – Qualifications
-        2: ["qualifications", "niveauEtude", "filiere"],
+        2: ["qualifications", "niveauEtude", "filiere","statut_talent"],
 
         
         // STEP 3 – mode de travail
@@ -692,7 +693,7 @@ StatutProfessionnel:[
           >
             <a-select
             style="width: 100%;"
-    v-model:value="formState.statut_professionnel"
+    v-model:value="formState.statut_talent"
     placeholder="Sélectionnez votre Niveau de carrière"
     show-search
     option-filter-prop="label"
