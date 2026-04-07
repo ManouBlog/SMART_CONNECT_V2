@@ -127,12 +127,18 @@ valueModeDeTravail: [
   { label: "Sierra Leone", value: "+232", length: 8 },
   { label: "Togo", value: "+228", length: 8 },
 ],
+StatutVeterans:[
+  { value: "Vétéran Hors Grade", label: "Vétéran Hors Grade" },
+  { value: "Vétéran Senior", label: "Vétéran Senior" },
+  { value: "Vétéran", label: "Vétéran" }
+],
       formState: {
         code_ambassadeur:"",
         titreCv: "",
         nom: "",
         prenoms: "",
         phone: "",
+        statut_talent:"",
         ville: "",
         tempsTravail:"",
         commune: "",
@@ -157,21 +163,6 @@ valueModeDeTravail: [
 
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
-    isPasswordDisabled() {
-    return (
-      this.loading ||
-      (this.result && this.result.isStudentCard === false)
-    )
-  },
-    getFirstHeureStartFrom() {
-      return this.$store.state.First_heure_start_from;
-    },
-    getTableauDays() {
-      return this.$store.state.datesOfCalendar;
-    },
-    getFirstHeureFinFrom() {
-      return this.$store.state.First_heure_end_to;
-    },
     isNextDisabled() {
       // STEP 2 – Qualifications
       if (this.currentStep === 2) {
@@ -200,13 +191,13 @@ valueModeDeTravail: [
         1: ["myCompetence"],
 
         // STEP 2 – Qualifications
-        2: ["qualifications", "niveauEtude", "filiere"],
+        2: ["qualifications", "niveauEtude", "filiere","statut_talent"],
 
          // STEP 2 – mode de travail
         3: ["modeTravail","tempsTravail"],
 
         // STEP 4 – Validation finale
-        4: ["upload", "password"],
+        4: ["password"],
       };
     },
     isCurrentStepValid() {
@@ -393,17 +384,23 @@ valueModeDeTravail: [
       }
 
       if (this.configUtils.isValidEmail(this.formState.email)) {
-        if (this.formState.upload.length) {
-          this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          console.log("this.formState",this.formState)
-          this.changeValueIsPolitics({
+        this.changeValueIsPolitics({
             value: true,
             infoUser: "talents",
             payload: this.formState,
           });
-        } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre certificat de travail.");
-        }
+        // if (this.formState.upload.length) {
+        //   this.formState.photo = this.addPhotoInArray(this.formState.upload);
+        //   console.log("this.formState",this.formState)
+        //   this.changeValueIsPolitics({
+        //     value: true,
+        //     infoUser: "talents",
+        //     payload: this.formState,
+        //   });
+        // } 
+        // else {
+        //   this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre certificat de travail.");
+        // }
       } else {
         this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
       }
@@ -643,8 +640,31 @@ valueModeDeTravail: [
             <a-input v-model:value="formState.filiere" placeholder="Domaines" />
           </a-form-item>
         </a-col>
-
         <a-col :xs="24" :md="12">
+            <a-form-item
+            :label="'Statut professionnel'"
+            :rules="[{ required: true, message: 'Séléctionnez un statut' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.statut_talent"
+    placeholder="Sélectionnez votre Niveau de carrière"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in StatutVeterans"
+      :key="item.value"
+      :value="item.value"
+      :label="item.label"
+    >
+      {{ item.label }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col>
+
+        <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />
         </a-col>
       </a-row>
