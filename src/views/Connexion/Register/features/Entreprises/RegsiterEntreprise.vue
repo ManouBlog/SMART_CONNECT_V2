@@ -12,6 +12,7 @@ export default {
     return {
    optionsPaper:"Formel",
    selectedCountry:"Côte d’Ivoire",
+   isLoading: true,
     countries: [],
 options : [
    { value: "Informel", label: "Informel" },
@@ -37,6 +38,8 @@ options : [
       console.log("COUNTRIES", this.countries);
     } catch (error) {
       console.log(error);
+    }finally {
+      this.isLoading = false;
     }
   },
     selectOne(value) {
@@ -65,7 +68,6 @@ options : [
     color: isSelected ? '#fff' : '#333',
     fontWeight: isSelected ? 'bold' : 'normal',
     backgroundColor: isSelected ? '#FFA500' : '#f5f5f5',
-
     opacity: isDisabled ? 0.5 : 1,
     cursor: isDisabled ? 'not-allowed' : 'pointer'
   }
@@ -90,7 +92,8 @@ options : [
   </button>
 
   </div>
-   <div
+<section v-if="!isLoading">
+  <div
   style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
 >
  <label v-for="item in options" :key="item.value">
@@ -103,12 +106,16 @@ options : [
   {{ item.label }}
 </label>
 </div>
-
 <Formels 
 :optionsPaper="optionsPaper"
 v-if="optionsPaper === 'Formel'" />
 <Informels
 :optionsPaper="optionsPaper"
 v-else />
+</section>
+<section v-else style="margin-top: 2em;">
+ <p style="text-align: center;">Chargement...</p> 
+</section>
+
 
 </template>
