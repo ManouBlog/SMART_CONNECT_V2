@@ -355,7 +355,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 :placeholder="texte2"
                 v-model="searchLieu"
               />
-              <span class="glyphicon fa fa-location-arrow" aria-hidden="true"></span>
+              <!-- <span class="glyphicon fa fa-location-arrow" aria-hidden="true"></span> -->
             </div>
            <div>
         

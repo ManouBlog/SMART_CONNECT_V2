@@ -46,7 +46,7 @@ export default {
         //   this.showModal = true;
         // }
         loadingSpinner.launchLoading(false);
-        // // console.log("DETAILS_OFFRES", this.details_offre);
+        console.log("DETAILS_OFFRES", this.details_offre);
       });
     },
     getNumber(e) {
@@ -125,32 +125,46 @@ export default {
       </n-modal>
       <div class="container-fluid">
         <div class="details_entreprise card">
-          <h1>
+          <h5>
             Offre : {{ details_offre.nom_offre }}
             <span class="badge w-auto" :class="statutColor[details_offre.pivot.recruit]">{{
               Statut[details_offre.pivot.recruit]
             }}</span>
-          </h1>
-          <h4>
+          </h5>
+          <h5>
             Lieu : <b>{{ details_offre.lieu }}</b>
-          </h4>
+          </h5>
           <span v-if="details_offre.salaire != null" class="d-block badge bg-warning">
             Honoraire : {{ moneyFormat.format(details_offre.salaire) }} Fcfa</span
           >
           <span v-else class="d-block text-light badge bg-primary"
             >Honoraire pas fixé</span
           >
-          <hr />
-
-          <h3 style="color: white">Description complète de l'offre</h3>
+          
+         <div class="my-3">
+           <h5>Pays :</h5>
+          <div class="d-flex align-items-center flex-wrap">
+         <span 
+         v-for="country in details_offre?.countries" 
+         :key="country.id"
+        class="badge bg-warning text-dark mx-2 my-3"
+        style="border-radius: 3px;"
+        >
+          {{ country.label }}
+          </span>
+          </div>
+        
+        </div>
+        <div>
+         <h5>Description :</h5>
           <div class="p-5" v-html="details_offre.description"></div>
-          <hr />
-          <!-- <h6
+        </div>
+          <h6
             >Date et heure début  :
             <b>{{
-              details_offre.debut
+              details_offre?.debut
             }}</b></h6
-          > -->
+          >
           <h6>
             Date limite de candidature : <b>{{ details_offre.fin }}</b>
           </h6>
