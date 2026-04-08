@@ -168,7 +168,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 header="Entreprise"
                 style="font-size: 1.1em; text-align: center"
               >
-                <template #body="{ data }">{{ data.Offre?.entreprise?.nom }}</template>
+                <template #body="{ data }">{{ data.Offre?.owner?.nom }}</template>
               </Column>
 
               <Column
@@ -216,7 +216,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 </div>
 
                 <p><strong>Lieu :</strong> {{ item.offre.lieu }}</p>
-                <p><strong>Entreprise :</strong> {{ item.Offre?.entreprise?.nom }}</p>
+                <p><strong>Propriétaire :</strong> {{ item.Offre?.owner?.nom }}</p>
                 <p>
                   <strong>Rémuneration</strong>
                   {{ moneyFormat.format(item.offre.salaire) }} Fcfa

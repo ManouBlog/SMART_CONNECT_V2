@@ -62,7 +62,7 @@ export default {
           this.list_offre = res.data.data;
           this.Offre = this.list_offre.find((item) => item.id == this.$route.params.id);
           this.list_offre.forEach((el) => {
-            if (el?.entreprise?.nom === this.Offre?.entreprise?.nom) {
+            if (el?.owner?.nom === this.Offre?.owner?.nom) {
               this.listEntrepriseOffre.push(el);
             }
           });
@@ -242,9 +242,9 @@ Swal.fire({
                 </h4>
                 <h4
                   class="my-5"
-                  v-if="abonnements.some((item) => item.statut === 'success') && Offre?.entreprise?.nom"
+                  v-if="abonnements.some((item) => item.statut === 'success') && Offre?.owner?.nom"
                 >
-                  <em class="bi bi-building"></em> {{ Offre?.entreprise?.nom }}
+                  <em class="bi bi-building"></em> Propriétaire : {{ Offre?.owner?.nom }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="Offre.salaire != null" >

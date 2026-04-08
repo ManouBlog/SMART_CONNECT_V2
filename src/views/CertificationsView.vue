@@ -17,7 +17,7 @@
         <h1 class="title">CERTIFICAT DE TRAVAIL</h1>
         <div class="certificat-text">
           <p>
-            Nous soussignés, <strong>{{ job?.offre?.entreprise?.nom }}</strong>
+            Nous soussignés, <strong>{{ job?.offre?.owner?.nom }}</strong>
             <strong v-if="job?.offre?.entreprise?.adresse_postale">{{
               job?.offre?.entreprise?.adresse_postale
             }}</strong>

@@ -90,7 +90,7 @@ export default {
               <n-image width="100" :src="lienPhoto + item?.proof" />
             </div>
             <h3 class="text-start">
-              {{ item?.entreprise }}
+              {{ item?.owner }}
             </h3>
             <h6 class="text-start ms-2 fw-bold">
               <span class="badge bg-warning text-light fw-bold">{{ item?.poste }}</span>
@@ -143,7 +143,7 @@ export default {
 
             <div v-for="(item, index) in timetable_for_student?.etoiles" :key="index">
               <div>
-                <p v-if="item?.entreprise" style="padding: 0;margin:0;">
+                <p v-if="item?.owner" style="padding: 0;margin:0;">
                   <span>Noter par : </span>
                   <span
                     style="
@@ -152,7 +152,7 @@ export default {
                       font-size: 1.2em;
                     "
                   >
-                    {{ item?.entreprise?.nom }}
+                    {{ item?.owner?.nom }}
                   </span>
                 </p>
                 <vue3starRatings

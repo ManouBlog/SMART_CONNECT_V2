@@ -76,7 +76,7 @@ export default {
             }
           });
           this.detailsStudents.etoiles.forEach((item) => {
-            if (item.entreprise_id === this.user.id) {
+            if (item.user_id === this.user.id) {
               this.appreciationService = true;
             }
           });

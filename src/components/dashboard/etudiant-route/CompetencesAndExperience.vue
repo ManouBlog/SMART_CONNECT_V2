@@ -685,7 +685,7 @@ export default {
                           <n-image width="100" :src="lienPhoto + item.proof" />
                         </div>
                         <h3 class="text-start">
-                          {{ item.entreprise }}
+                          {{ item?.entreprise }}
                         </h3>
                         <h6 class="text-start ms-2 fw-bold">
                           <span class="badge bg-warning text-light fw-bold">{{
