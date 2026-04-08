@@ -101,7 +101,7 @@ export default {
     },
     attributes() {
       return [
-        ...this.schedule.map((time) => ({
+        ...this.schedule?.map((time) => ({
           dates: new Date(time.jour),
           highlight: {
             color: time.job == 3 ? "gray" : time.job == 1 ? "red" : "green",

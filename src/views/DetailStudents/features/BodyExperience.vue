@@ -140,7 +140,6 @@ export default {
                 <em class="bi bi-caret-right-fill"></em>
               </div>
             </template>
-
             <div v-for="(item, index) in timetable_for_student?.etoiles" :key="index">
               <div>
                 <p v-if="item?.owner" style="padding: 0;margin:0;">

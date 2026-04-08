@@ -309,11 +309,14 @@ export default {
                   Help.toADfirstTwo(item.student.nom)
                 }}</span>
               </span>
-              
-              <h1 style="color: white; font-weight: bold">
+              <div style="display: flex;flex-direction: column;">
+                 <h1 style="color: white; font-weight: bold;padding: 0;margin: 0;">
                 {{ item.student.nom }} {{ item.student.prenoms }}
-              
               </h1>
+              <span style="word-break: break-word;font-weight: bold;color:orange;">{{ item.student.user.statut.statut }}</span>
+              </div>
+             
+             
             </div>
             <button style="background-color: orange;font-weight: bold;
                    position:absolute;top:0.8em;right: 1em;border:none;" @click="VoirProfil(item)"> 
@@ -321,10 +324,10 @@ export default {
                   </button>
                   
             <section class="text-left">
-            <h4 style="margin:2em 0;padding:0.3em;">
+            <!-- <h4 style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">Statut :</span> 
-                <span style="word-break: break-word;padding: 0.4em;">{{ item.student.user.statut.statut }}</span> 
-              </h4>
+                
+              </h4> -->
               <h4 style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">{{ texte6 }} :</span> 
                 <span style="word-break: break-word;padding: 0.4em;">{{ item.student.email }}</span> 
