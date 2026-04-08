@@ -238,18 +238,18 @@ Swal.fire({
                   style="color: white"
                   v-if="abonnements.some((item) => item.statut === 'success')"
                 >
-                  <em class="bi bi-geo"></em> {{ Offre.lieu }}
+                   <em class="bi bi-geo"></em> Lieu : {{ Offre.lieu }}
                 </h4>
                 <h4
                   class="my-5"
-                  v-if="abonnements.some((item) => item.statut === 'success')"
+                  v-if="abonnements.some((item) => item.statut === 'success') && Offre?.entreprise?.nom"
                 >
                   <em class="bi bi-building"></em> {{ Offre?.entreprise?.nom }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="Offre.salaire != null" >
                     <em class="bi bi-cash-stack"></em>
-                    Rémuneration:
+                    Rémuneration :
                     <span style="color:orange;margin:0.5em;">{{ moneyFormat.format(Offre.salaire) }} Fcfa /
                     {{ Offre.pointage }}</span>
                   </h4>
@@ -259,8 +259,7 @@ Swal.fire({
                 </div>
                 <h4 class="my-5" v-if="Offre.nbre_person">
                   <span
-                    class="fw-bold"
-                    style="font-weight: 500 !important; color: white"
+                    style="font-weight: 400 !important; color: white"
                     >{{ texte1 }}</span
                   >
                   {{ Offre.nbre_person }}
