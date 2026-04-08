@@ -128,11 +128,11 @@ export default {
           <span class="badge my-2" :class="statutColor[details_offre.pivot.recruit]">{{
               Statut[details_offre.pivot.recruit]
             }}</span>
-          <h5>
-            Offre : {{ details_offre.nom_offre }}
-          </h5>
           <h4>
-            Lieu : <b>{{ details_offre.lieu }}</b>
+            Offre : <strong>{{ details_offre.nom_offre }}</strong>
+          </h4>
+          <h4>
+            Lieu : <strong>{{ details_offre.lieu }}</strong>
           </h4>
           <span v-if="details_offre.salaire != null" class="badge bg-warning">
             Honoraire : {{ moneyFormat.format(details_offre.salaire) }} Fcfa</span
@@ -198,6 +198,9 @@ export default {
 </template>
 
 <style scoped>
+h4{
+  margin: 1em 0;
+}
 .mt-5 {
   margin-top: 101px !important;
 }
