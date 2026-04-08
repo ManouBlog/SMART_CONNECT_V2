@@ -297,7 +297,7 @@ Swal.fire({
                 <button
                   class="btn bg-warning"
                   @click="sendDataPost(Offre.id)"
-                  style="width: auto !important"
+                  style="width: auto !important;padding: 0.6em !important;"
                 >
                   {{ texte6 }}
                   <em class="bi bi-send"></em>
