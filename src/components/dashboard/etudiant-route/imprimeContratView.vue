@@ -199,9 +199,9 @@ h5 {
           this.entreprise = this.offreDetail.find(
             (item) => Number(item.offre_id) === Number(this.$route.params.id)
           );
-          this.myOffre = this.entreprise.offre;
+          this.myOffre = this.entreprise?.offre;
           // // console.log("this.myOffre", this.myOffre);
-          this.created_at = this.entreprise.created_at;
+          this.created_at = this.entreprise?.created_at;
           // // console.log("this.entreprise", this.entreprise);
           loadingSpinner.launchLoading(false);
         })
@@ -255,11 +255,11 @@ this.texte7 = await this.handleTranslate(
       <div class="attestation_infos">
         <p>
           <span class="span_info">{{ texte1 }}</span>
-          <span>{{ this.entreprise.offre.entreprise.ville }}</span>
+          <span>{{ this.entreprise?.offre?.entreprise?.ville }}</span>
         </p>
         <p>
           <span class="span_info">{{ texte2 }}</span>
-          <span>{{ this.entreprise.offre.entreprise.contact }}</span>
+          <span>{{ this.entreprise?.offre?.entreprise?.contact }}</span>
         </p>
       </div>
       <div class="my-5">
@@ -273,23 +273,23 @@ this.texte7 = await this.handleTranslate(
         {{ texte6 }}
         <span class="mx-2">{{ user.nom }} {{ user.prenoms }}</span>
         {{ texte7 }}
-        {{ texte5 }} {{ this.entreprise.offre?.owner?.nom }}
-         <span class="mx-2">{{ this.entreprise.Offre?.owner?.nom }}</span>
+        {{ texte5 }} {{ this.entreprise?.offre?.owner?.nom }}
+         <span class="mx-2">{{ this.entreprise?.offre?.owner?.nom }}</span>
       </p>
 
       <div>
         <h5 class="my-5" v-if="myOffre.salaire != null">
           {{ texte8 }} {{ myOffre.salaire }} Fcfa
         </h5>
-        <h5 class="my-5" v-if="this.entreprise.offre.job_debut">
+        <h5 class="my-5" v-if="this.entreprise?.offre.job_debut">
           Date de début de travail :
-          {{ new Date(this.entreprise.offre.job_debut).toLocaleDateString("fr") }}
+          {{ new Date(this.entreprise?.offre.job_debut).toLocaleDateString("fr") }}
         </h5>
-        <h5 class="my-5" v-if="this.entreprise.offre.job_fin">
+        <h5 class="my-5" v-if="this.entreprise?.offre.job_fin">
           Date de fin de travail :
-          {{ this.entreprise.offre.job_fin ? new Date(this.entreprise.offre.job_fin).toLocaleDateString("fr"):null }}
+          {{ this.entreprise?.offre.job_fin ? new Date(this.entreprise?.offre.job_fin).toLocaleDateString("fr"):null }}
         </h5>
-        <h5>{{ texte9 }} {{ entreprise.offre.entreprise.contact }}</h5>
+        <h5>{{ texte9 }} {{ entreprise?.offre?.entreprise?.contact }}</h5>
         <h5 class="my-5">{{ texte10 }} {{ myOffre.lieu }}</h5>
       </div>
 
