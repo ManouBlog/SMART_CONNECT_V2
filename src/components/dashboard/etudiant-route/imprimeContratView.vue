@@ -192,7 +192,7 @@ h5 {
       await instance
         .get("get_who_contact_student")
         .then((res) => {
-          // console.log("get_who_contact_student", res);
+          console.log("get_who_contact_student", res);
           this.offreDetail = res.data;
           // // console.log("this.$route.params.id", this.$route.params.id);
           // // console.log("ENTREPRISES", this.list_entreprise_contact);
@@ -255,11 +255,11 @@ this.texte7 = await this.handleTranslate(
       <div class="attestation_infos">
         <p>
           <span class="span_info">{{ texte1 }}</span>
-          <span>{{ this.entreprise?.offre?.entreprise?.ville }}</span>
+          <span>{{ this.entreprise?.offre?.owner?.ville }}</span>
         </p>
         <p>
           <span class="span_info">{{ texte2 }}</span>
-          <span>{{ this.entreprise?.offre?.entreprise?.contact }}</span>
+          <span>{{ this.entreprise?.offre?.owner?.contact }}</span>
         </p>
       </div>
       <div class="my-5">
@@ -268,12 +268,11 @@ this.texte7 = await this.handleTranslate(
       <div class="d-flex">
         <h4>{{ texte4 }} {{ this.myOffre.nom_offre }}</h4>
       </div>
-
       <p>
         {{ texte6 }}
         <span class="mx-2">{{ user.nom }} {{ user.prenoms }}</span>
         {{ texte7 }}
-        {{ texte5 }} {{ this.entreprise?.offre?.owner?.nom }}
+        {{ texte5 }}
          <span class="mx-2">{{ this.entreprise?.offre?.owner?.nom }}</span>
       </p>
 
@@ -289,7 +288,7 @@ this.texte7 = await this.handleTranslate(
           Date de fin de travail :
           {{ this.entreprise?.offre.job_fin ? new Date(this.entreprise?.offre.job_fin).toLocaleDateString("fr"):null }}
         </h5>
-        <h5>{{ texte9 }} {{ entreprise?.offre?.entreprise?.contact }}</h5>
+        <h5>{{ texte9 }} {{ entreprise?.offre?.owner?.contact }}</h5>
         <h5 class="my-5">{{ texte10 }} {{ myOffre.lieu }}</h5>
       </div>
 
