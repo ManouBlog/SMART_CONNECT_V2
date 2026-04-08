@@ -172,7 +172,7 @@ export default {
     this.texte2 = await this.handleTranslate("Commentaire");
     this.texte3 = await this.handleTranslate("Envoyer");
     this.texte4 = await this.handleTranslate("Plus tard");
-    this.texte5 = await this.handleTranslate("Etudiant");
+    this.texte5 = await this.handleTranslate("Talent");
     this.texte6 = await this.handleTranslate("Email");
     this.texte7 = await this.handleTranslate("Ville");
     this.texte8 = await this.handleTranslate("Quartier");
@@ -309,39 +309,48 @@ export default {
                   Help.toADfirstTwo(item.student.nom)
                 }}</span>
               </span>
+              
               <h1 style="color: white; font-weight: bold">
                 {{ item.student.nom }} {{ item.student.prenoms }}
+              
               </h1>
             </div>
             <button style="background-color: orange;font-weight: bold;
                    position:absolute;top:0.8em;right: 1em;border:none;" @click="VoirProfil(item)"> 
-                    Voir le Profil
+                    Voir plus 
                   </button>
+                  
             <section class="text-left">
-              <h4 style="padding:0.3em;">
+            <h4 style="margin:2em 0;padding:0.3em;">
+                <span style="color: orange">Statut :</span> 
+                <span style="word-break: break-word;padding: 0.4em;">{{ item.student.user.statut.statut }}</span> 
+              </h4>
+              <h4 style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">{{ texte6 }} :</span> 
                 <span style="word-break: break-word;padding: 0.4em;">{{ item.student.email }}</span> 
               </h4>
-              <h4 style="padding:0.3em;">
+
+            
+              <h4 style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">{{ texte7 }} :</span> {{ item.student.ville }}
               </h4>
-              <h4 v-if="item.student.quartier" style="padding:0.3em;">
+              <h4 v-if="item.student.quartier" style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">{{ texte8 }} :</span>
                 {{ item.student.quartier }}
               </h4>
-              <h4 style="padding:0.3em;">
+              <h4 style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">{{ texte9 }} :</span>
                 {{ item.student.commune }}
               </h4>
-              <h4 style="padding:0.3em;">
+              <h4 style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">{{ texte10 }} :</span>
                 {{ item.student.phone }}
               </h4>
-              <h4 style="padding:0.3em;">
+              <h4 style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">{{ texte11 }} :</span>
                 {{ item.student.diplome }}
               </h4>
-              <h4 style="padding:0.3em;">
+              <h4 style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">{{ texte12 }} :</span>  
                 <n-image v-for="(item,index) in item.student.user.photos" 
           :key="index"
@@ -396,6 +405,7 @@ export default {
 </template>
 
 <style scoped>
+
 :deep(.n-avatar){
   height: 100px !important;
   width:190px !important;
