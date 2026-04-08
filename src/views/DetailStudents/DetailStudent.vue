@@ -1032,7 +1032,7 @@ h1 {
 .experience {
   cursor: pointer;
   padding: 0.5em 0.5em;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 .conteneur_student {
   margin-top: 6em;

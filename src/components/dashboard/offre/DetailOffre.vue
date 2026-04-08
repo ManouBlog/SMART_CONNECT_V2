@@ -376,7 +376,7 @@ export default {
 }
 form label,
 form select option {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 .mt-5 {

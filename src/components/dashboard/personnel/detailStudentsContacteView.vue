@@ -332,7 +332,7 @@ h4 {
   justify-content: center;
 }
 .btn_close_appreciation {
-  font-size: 1.5em;
+  font-size: 1.2em;
   width: 30px;
   height: 30px;
   background: gray;

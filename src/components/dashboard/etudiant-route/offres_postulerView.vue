@@ -314,7 +314,7 @@ if (!user.competences.length || !user.qualifications.length) {
 .bi-eye::before,
 .bi-file-earmark-text::before,
 .bi-award::before {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 /* Global padding pour petits écrans */

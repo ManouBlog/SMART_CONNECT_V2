@@ -302,7 +302,7 @@ export default {
     font-size: 3em;
 }
 .user_person::first-letter{
- font-size: 1.5em;
+ font-size: 1.2em;
  font-weight: bold;
  text-transform: capitalize;
 }

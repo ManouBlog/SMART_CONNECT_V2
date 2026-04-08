@@ -823,7 +823,7 @@ textarea {
   top:0.6em;
   color: crimson;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.2em;
   cursor: pointer;
 }
 .rond {
@@ -837,7 +837,7 @@ textarea {
 .bi-plus-lg {
   right: 0;
   top: 0;
-  font-size: 1.5em;
+  font-size: 1.2em;
   cursor: pointer;
 }
 .bi-trash3 {

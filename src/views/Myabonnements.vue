@@ -43,7 +43,7 @@
                 <i class="pi pi-search" />
               </InputIcon>
               <InputText
-                style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                style="width: 300px; font-size: 1.2em; border: 2px solid orange"
                 v-model="filters['global'].value"
                 :placeholder="texte9"
               />

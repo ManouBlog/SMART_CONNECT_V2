@@ -161,7 +161,7 @@ button {
   border-radius: 7px;
 }
 em {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 .conteneur {
   padding: 0.5em 0;

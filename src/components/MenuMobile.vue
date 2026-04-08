@@ -145,7 +145,7 @@ export default {
           "
           v-else
         >
-          <span style="font-size: 1.5em; color: black !important">{{
+          <span style="font-size: 1.2em; color: black !important">{{
             Help.toADfirstTwo(this.$store.state.user.nom)
           }}</span>
         </span>

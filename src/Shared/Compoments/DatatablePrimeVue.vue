@@ -114,7 +114,7 @@ export default {
             <i class="pi pi-search" />
           </InputIcon>
           <InputText
-            style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+            style="width: 300px; font-size: 1.2em; border: 2px solid orange"
             v-model="filters['global'].value"
             placeholder="Recherche:"
           />
@@ -127,7 +127,7 @@ export default {
       :key="index"
       :field="item.fieldName"
       :header="item.headerName"
-      style="font-size: 1.5em; padding: 1em; text-align: center"
+      style="font-size: 1.2em; padding: 1em; text-align: center"
     >
       <template #body="slotProps">
         <span v-if="item.fieldName === 'fin'">
@@ -169,7 +169,7 @@ export default {
         </span>
       </template>
     </Column>
-    <Column :header="texte2" style="font-size: 1.5em; padding: 1em; text-align: center">
+    <Column :header="texte2" style="font-size: 1.2em; padding: 1em; text-align: center">
       <template #body="{ data }">
         <DetailsListeOffresDatatables
           :donnees="data"

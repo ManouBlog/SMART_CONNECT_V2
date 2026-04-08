@@ -523,7 +523,7 @@ export default {
 
 h6 {
   text-align: left;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 h1 {
   text-align: left;
@@ -633,7 +633,7 @@ h1 {
 }
 h6 {
   text-align: left;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 h1 {
   text-align: left;

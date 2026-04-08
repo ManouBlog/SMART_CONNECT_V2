@@ -330,7 +330,7 @@ section > a {
   position: absolute;
   top: 20px;
   left: 110px;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 .bi-building {
   left: 130px;

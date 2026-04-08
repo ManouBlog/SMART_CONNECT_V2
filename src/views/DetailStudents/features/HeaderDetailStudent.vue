@@ -86,7 +86,7 @@ export default {
           "
           v-else
         >
-          <span style="font-size: 1.5em; font-weight: bold; color: white">{{
+          <span style="font-size: 1.2em; font-weight: bold; color: white">{{
             Help.toADfirstTwo(timetable_for_student.nom)
           }}</span>
         </span>

@@ -240,7 +240,7 @@ onMounted(async () => {
 
 /* Texte du témoignage */
 .testimonials__text {
-  font-size: 1.5em;
+  font-size: 1.2em;
   line-height: 1.6;
   color: #333;
   text-align: left;

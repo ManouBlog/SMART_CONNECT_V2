@@ -47,7 +47,7 @@ const notify = () => {
   padding: 1em;
   border-radius: 25px;
   border: 1px solid #ccc;
-  font-size: 1.5em;
+  font-size: 1.2em;
   width: 100%; /* occupe toute la largeur dispo */
   max-width: 500px; /* limite pour éviter qu’il devienne trop grand sur PC */
   outline: none;

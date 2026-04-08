@@ -236,7 +236,7 @@ export default {
                       <i class="pi pi-search" />
                     </InputIcon>
                     <InputText
-                      style="width: 300px; font-size: 1.5em; border: 2px solid orange"
+                      style="width: 300px; font-size: 1.2em; border: 2px solid orange"
                       v-model="filters['global'].value"
                       :placeholder="texte6"
                     />
@@ -244,7 +244,7 @@ export default {
                 </div>
               </template>
               <Column
-                style="font-size: 1.5em; padding: 1em; text-align: center"
+                style="font-size: 1.2em; padding: 1em; text-align: center"
                 field="id"
                 :header="texte7"
               >
@@ -255,7 +255,7 @@ export default {
                 </template>
               </Column>
               <Column
-                style="font-size: 1.5em; padding: 1em; text-align: center"
+                style="font-size: 1.2em; padding: 1em; text-align: center"
                 field="email"
                 :header="texte8"
               >
@@ -266,7 +266,7 @@ export default {
                 </template>
               </Column>
               <Column
-                style="font-size: 1.5em; padding: 1em; text-align: center"
+                style="font-size: 1.2em; padding: 1em; text-align: center"
                 field="id"
                 :header="texte9"
               >
@@ -277,7 +277,7 @@ export default {
                 </template>
               </Column>
               <Column
-                style="font-size: 1.5em; padding: 1em; text-align: center"
+                style="font-size: 1.2em; padding: 1em; text-align: center"
                 field="id"
                 header="Date de fin de travail"
               >
@@ -288,7 +288,7 @@ export default {
                 </template>
               </Column>
               <Column
-                style="font-size: 1.5em; padding: 1em; text-align: center"
+                style="font-size: 1.2em; padding: 1em; text-align: center"
                 field="id"
                 :header="texte90"
               >
@@ -299,7 +299,7 @@ export default {
                 </template>
               </Column>
               <Column
-                style="font-size: 1.5em; padding: 1em; text-align: center"
+                style="font-size: 1.2em; padding: 1em; text-align: center"
                 field="id"
                 header="Statut"
               >
@@ -320,7 +320,7 @@ export default {
                 </template>
               </Column>
               <!-- <Column
-                style="font-size: 1.5em; padding: 1em; text-align: center"
+                style="font-size: 1.2em; padding: 1em; text-align: center"
                 field="id"
                 header="Actions"
               >
@@ -355,7 +355,7 @@ export default {
                 </template>
               </Column> -->
               <Column
-                style="font-size: 1.5em; padding: 1em; text-align: center"
+                style="font-size: 1.2em; padding: 1em; text-align: center"
                 field="id"
                 :header="texte16"
               >
