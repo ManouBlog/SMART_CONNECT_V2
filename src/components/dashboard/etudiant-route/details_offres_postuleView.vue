@@ -125,19 +125,19 @@ export default {
       </n-modal>
       <div class="container-fluid">
         <div class="details_entreprise card">
-          <h5>
-            Offre : {{ details_offre.nom_offre }}
-            <span class="badge w-auto" :class="statutColor[details_offre.pivot.recruit]">{{
+          <span class="badge my-2" :class="statutColor[details_offre.pivot.recruit]">{{
               Statut[details_offre.pivot.recruit]
             }}</span>
+          <h5>
+            Offre : {{ details_offre.nom_offre }}
           </h5>
           <h4>
             Lieu : <b>{{ details_offre.lieu }}</b>
           </h4>
-          <span v-if="details_offre.salaire != null" class="d-block badge bg-warning">
+          <span v-if="details_offre.salaire != null" class="badge bg-warning">
             Honoraire : {{ moneyFormat.format(details_offre.salaire) }} Fcfa</span
           >
-          <span v-else class="d-block text-light badge bg-primary"
+          <span v-else class="text-light badge bg-primary"
             >Honoraire pas fixé</span
           >
           
@@ -238,7 +238,6 @@ td {
 }
 .badge {
   color: white !important;
-  width: 200px;
   font-weight: bold !important;
 }
 </style>
