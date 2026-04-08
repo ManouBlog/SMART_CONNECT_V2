@@ -157,7 +157,7 @@ if (!user.competences.length || !user.qualifications.length) {
                   </div>
                 </template>
 
-                <Column field="entreprise.nom" :header="texte89" />
+                <Column field="owner.nom" :header="texte89" />
                 <Column field="nom_offre" :header="texte1" />
                 <Column field="lieu" :header="texte2" />
                 <Column :header="texte3">

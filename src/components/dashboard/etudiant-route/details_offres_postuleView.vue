@@ -131,9 +131,9 @@ export default {
               Statut[details_offre.pivot.recruit]
             }}</span>
           </h5>
-          <h5>
+          <h4>
             Lieu : <b>{{ details_offre.lieu }}</b>
-          </h5>
+          </h4>
           <span v-if="details_offre.salaire != null" class="d-block badge bg-warning">
             Honoraire : {{ moneyFormat.format(details_offre.salaire) }} Fcfa</span
           >
@@ -142,8 +142,9 @@ export default {
           >
           
          <div class="my-3">
-           <h5>Pays :</h5>
+
           <div class="d-flex align-items-center flex-wrap">
+            Pays :
          <span 
          v-for="country in details_offre?.countries" 
          :key="country.id"
@@ -156,7 +157,7 @@ export default {
         
         </div>
         <div>
-         <h5>Description :</h5>
+         <h4>Description :</h4>
           <div class="p-5" v-html="details_offre.description"></div>
         </div>
           <h6
