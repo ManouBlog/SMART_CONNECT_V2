@@ -94,14 +94,14 @@ export default {
       this.identifiant = this.tableauRecruit.find(
         (item) => Number(item.student_id) === Number(id)
       );
-      // console.log("this.identifiant", this.identifiant);
+      console.log("this.identifiant", this.identifiant);
     },
     async sendAppreciation() {
       spinnerLoading.launchLoading(true);
       await instance
         .post("giveAvis", {
           notes: this.numberRate,
-          student_id: this.identifiant.student_id,
+          rated_id: this.identifiant.student.user.id,
           avis: this.avis,
           offre_id: this.identifiant.offre_id,
         })
