@@ -270,9 +270,7 @@ export default {
         >
           Activer mon compte
         </button>
-         <i class="bi bi-patch-check-fill" 
-          v-if="user?.user?.is_verified"
-          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
+        
       </div>
 
       <div class="d-flex" style="position: relative">
@@ -313,7 +311,11 @@ export default {
           >
             <span style="font-size: 2.5em">{{ Help.toADfirstTwo(user.nom) }}</span>
           </p>
+          
         </button>
+            <img v-if="user?.user?.is_verified" class="badge_star" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
+              <img class="badge_star" v-if="user?.user?.star_color === 'gold' && !user?.user?.is_verified" src="/star_gold.png" alt="star_3d.png" style="width: 25px;height: 25px;">
+              <img class="badge_star" v-if="user?.user?.star_color === 'yellow' && !user?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;">
         <i class="bi bi-camera-fill"></i>
       </div>
       <div>
@@ -504,6 +506,13 @@ export default {
 .btn_photo_profil {
   background: transparent;
   border: none;
+  margin-top: 1em;
+}
+.badge_star{
+   position: absolute;
+   top:3em;
+   left:5em;
+  z-index: 1;
 }
 
 .bi-camera-fill {
