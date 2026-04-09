@@ -120,7 +120,7 @@ export default {
     paginatedData() {
       let start = this.currentPage * this.perPage - this.perPage;
       let end = start + this.perPage;
-      return this.timetable_for_student.etoiles.slice(start, end);
+      return this.timetable_for_student?.user?.rated_users?.slice(start, end);
     },
     startPage() {
       if (this.currentPage === 1) return 1;
@@ -176,8 +176,9 @@ export default {
     },
 
     attributes() {
+      console.log("schedule23",this.schedule)
       return [
-        ...this.schedule.map((time) => ({
+        ...this.schedule?.map((time) => ({
           dates: new Date(time.jour),
           highlight: {
             color: time.job == 3 ? "gray" : time.job == 1 ? "red" : "green",
@@ -308,16 +309,16 @@ export default {
           });
 
           this.MyDateRendezVous = dateOfStudent;
-
+         console.log("this.MyDateRendezVous",this.MyDateRendezVous)
           this.timetable_for_student = this.NewListEmploi.find(
             (item) => item.id === Number(this.idParamsItem)
           );
           console.log("timetable_for_student", this.timetable_for_student);
-          this.totalPages = Math.ceil(this.timetable_for_student.etoiles.length / 2);
-          this.schedule = this.getDatesBetween(this.timetable_for_student.jours);
+          this.totalPages = Math.ceil(this.timetable_for_student?.user?.rated_users?.length / 2);
+          this.schedule = this.getDatesBetween(this.timetable_for_student?.jours);
 
-          this.schedule.forEach((item) => {
-            this.MyDateRendezVous.forEach((date) => {
+          this.schedule?.forEach((item) => {
+            this.MyDateRendezVous?.forEach((date) => {
               if (
                 item.jour === date.date_debut ||
                 item.jour === date.date_fin ||

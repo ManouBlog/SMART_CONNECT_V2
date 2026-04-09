@@ -122,10 +122,10 @@ export default {
     </div>
     <div
       class="conteneur_evaluation_experience"
-      v-if="timetable_for_student?.etoiles.length"
+      v-if="timetable_for_student?.user?.rated_users?.length"
     >
       <p class="text-left evaluation_avis">
-        <span> ( {{ timetable_for_student?.etoiles.length }} ){{ texte2 }}</span>
+        <span> ( {{ timetable_for_student?.user?.rated_users?.length }} ){{ texte2 }}</span>
       </p>
       <div class="container-testominal">
         <div class="carrousel_container_testominal">
@@ -140,7 +140,7 @@ export default {
                 <em class="bi bi-caret-right-fill"></em>
               </div>
             </template>
-            <div v-for="(item, index) in timetable_for_student?.etoiles" :key="index">
+            <div v-for="(item, index) in timetable_for_student?.user?.rated_users" :key="index">
               <div>
                 <p v-if="item?.owner" style="padding: 0;margin:0;">
                   <span>Noter par : </span>
