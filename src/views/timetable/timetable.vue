@@ -678,7 +678,7 @@ export default {
                 style="
                   border: 2px solid orange;
                   object-fit: cover;
-                  padding: 1em;
+                  padding: 0.8em 0.9em;
                   line-height: 50px;
                   text-align: center;
                   border-radius: 100%;
@@ -689,6 +689,7 @@ export default {
               >
                 <span style="font-size: 1em">{{ Help.toADfirstTwo(emploi.nom) }}</span>
               </span>
+              <img src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
               <i class="bi bi-patch-check-fill" 
               style="position:absolute;color:#34beff;
                font-size: 1.5em !important;"
