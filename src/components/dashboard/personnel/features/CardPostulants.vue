@@ -75,8 +75,8 @@ export default {
     title: `Voulez-vous vraiment ${actionText} cet étudiant ?`,
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: valueRecruit === 1 ? "#22c55e" : "#ef4444",
-    cancelButtonColor: "#6b7280",
+    confirmButtonColor: valueRecruit === 1 ? "#163239" : "#ef4444",
+    cancelButtonColor: "#e10000",
     confirmButtonText: "Oui, confirmer",
     cancelButtonText: "Annuler",
   })
