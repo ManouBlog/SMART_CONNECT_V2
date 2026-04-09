@@ -689,11 +689,9 @@ export default {
               >
                 <span style="font-size: 1em">{{ Help.toADfirstTwo(emploi.nom) }}</span>
               </span>
-              <img src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-              <i class="bi bi-patch-check-fill" 
-              style="position:absolute;color:#34beff;
-               font-size: 1.5em !important;"
-              v-if="emploi?.user?.is_verified"></i>
+              <img v-if="emploi?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
+              <img v-if="emploi?.user?.star_color === 'gold' && !emploi?.user?.is_verified" src="/star_gold.png" alt="star_3d.png" style="width: 25px;height: 25px;">
+              <img v-if="emploi?.user?.star_color === 'yellow' && !emploi?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;">
             </div>
             <div class="card-body">
               <h3 class="name" style="color: white; font-weight: bold">
@@ -760,6 +758,24 @@ export default {
   </section>
 </template>
 <style scoped>
+.badge-animate {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  animation: moveLeftRight 2s ease-in-out infinite;
+}
+
+@keyframes moveLeftRight {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 .ecriteau {
   color: orange;
 }
