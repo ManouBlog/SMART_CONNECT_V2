@@ -2,6 +2,7 @@
 import Formels from './Formels.vue';
 import Informels from './Informels.vue';
 import instance from "../../../../../api/api";
+import { lienPhoto } from '../../../../../api/api';
 export default {
   name: "RegsiterEntreprise",
   components: {
@@ -13,6 +14,7 @@ export default {
    optionsPaper:"Formel",
    selectedCountry:"Côte d’Ivoire",
    isLoading: true,
+   lienPhoto:lienPhoto,
     countries: [],
 options : [
    { value: "Informel", label: "Informel" },
@@ -55,7 +57,7 @@ options : [
   },
 
   getCountryStyle(country) {
-  const isSelected = this.selectedCountry === country.label
+  // const isSelected = this.selectedCountry === country.label
   const isDisabled = this.isDisabled(country)
 
   return {
@@ -65,9 +67,9 @@ options : [
     padding: '4px 8px',
     borderRadius: '6px',
 
-    color: isSelected ? '#fff' : '#333',
-    fontWeight: isSelected ? 'bold' : 'normal',
-    backgroundColor: isSelected ? '#FFA500' : '#f5f5f5',
+    // color: isSelected ? '#fff' : '#333',
+    // fontWeight: isSelected ? 'bold' : 'normal',
+    // backgroundColor: isSelected ? '#FFA500' : '#f5f5f5',
     opacity: isDisabled ? 0.5 : 1,
     cursor: isDisabled ? 'not-allowed' : 'pointer'
   }
@@ -81,6 +83,33 @@ options : [
 </script>
 <template>
   <div
+  style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 1em; margin-bottom: 1.5em"
+>
+  <div
+    v-for="country in countries"
+    :key="country.id"
+    @click="handleCountryClick(country)"
+    :style="{
+      cursor: 'pointer',
+      borderRadius: '12px',
+      padding: '10px',
+      width: '35px',
+      height:'35px',
+      textAlign: 'center',
+      transition: '0.2s',
+      ...getCountryStyle(country)
+    }"
+  >
+    <!-- Image -->
+    <img
+      v-if="country.fileCountry"
+      :src="lienPhoto + country.fileCountry"
+      alt="country"
+      style="width: 35px; height: 35px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;"
+    />
+  </div>
+</div>
+  <!-- <div
     style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 1em; margin-bottom: 1.5em"
   >
   <button
@@ -91,7 +120,7 @@ options : [
   <span>{{ country.label }}</span>
   </button>
 
-  </div>
+  </div> -->
 <section v-if="!isLoading">
   <div
   style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
