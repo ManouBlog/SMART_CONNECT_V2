@@ -1,5 +1,7 @@
 <script>
 import vue3starRatings from "vue3-star-ratings";
+import { lienPhoto } from "../../../api/api";
+import { Help } from "../../../utils";
 import CardOtherExperience from "./CardOtherExperience.vue";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
@@ -17,9 +19,11 @@ export default {
     return {
       toogleExperience: true,
       texte: "",
+      Help:Help,
       texte2: "",
       texte3: "",
       texte1: "",
+      lienPhoto:lienPhoto,
       texte4: "",
       texte5: "",
       texte6: "",
@@ -142,27 +146,49 @@ export default {
             </template>
             <div v-for="(item, index) in timetable_for_student?.user?.rated_users" :key="index">
               <div>
-                <p v-if="item?.owner" style="padding: 0;margin:0;">
-                  <span>Noter par : </span>
+                <p v-if="item?.nom" style="padding: 0;margin:0;">
+                  
+                  <n-avatar
+                v-if="item?.photo_profil"
+                style="border: 2px solid orange; object-fit: cover"
+                round
+                :size="45"
+                :src="lienPhoto + item?.photo_profil"
+              />
+              <span
+                style="
+                  border: 2px solid orange;
+                  object-fit: cover;
+                  padding: 0.6em;
+                  line-height: 45px;
+                  text-align: center;
+                  border-radius: 100%;
+                  background: gray;
+                  margin: -10px;
+                "
+                v-else
+              >
+                <span style="font-size: 1em">{{ Help.toADfirstTwo(item?.nom) }}</span>
+              </span>
                   <span
                     style="
-                      margin: 0;
+                      margin: 0 1em;
                       padding: 0;
                       font-size: 1.2em;
                     "
                   >
-                    {{ item?.owner?.nom }}
+                    {{ item?.nom }}
                   </span>
                 </p>
                 <vue3starRatings
-                  v-model="item.notes"
+                  v-model="item.pivot.notes"
                   :showControl="false"
                   :starSize="'13'"
                   :disableClick="true"
                 />
               </div>
 
-              <h4 style="text-align:left;">{{ item?.avis }}</h4>
+              <h4 style="text-align:left;">{{ item?.pivot.avis }}</h4>
             </div>
           </a-carousel>
         </div>
@@ -410,10 +436,10 @@ p {
   text-align: center;
   height: 100%;
   overflow: hidden;
-  border-radius: 20px;
-  padding: 1em;
-  background: rgb(94, 94, 94) !important;
-  color: rgb(194, 194, 194) !important;
+  border-radius: 10px;
+  padding: 1em 3em;
+  background: #24515e !important;
+  color: rgb(250, 250, 250) !important;
 }
 
 :deep(.slick-arrow.custom-slick-arrow) {
