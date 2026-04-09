@@ -662,11 +662,10 @@ export default {
                 :class="isWhished[emploi.id] ? 'text-danger' : 'null'"
                 class="bi bi-heart-fill"
               ></em>
+              
             </div>
-            <div class="verification_badge" v-if="emploi?.is_verified">
-              <i class="bi bi-patch-check-fill"></i>
-            </div>
-            <div style="text-align: center">
+            
+            <div style="text-align: center;position: relative;">
               <n-avatar
                 v-if="emploi.photo_profil"
                 style="border: 2px solid orange; object-fit: cover"
@@ -674,6 +673,7 @@ export default {
                 :size="50"
                 :src="lienPhoto + emploi.photo_profil"
               />
+  
               <span
                 style="
                   border: 2px solid orange;
@@ -683,11 +683,16 @@ export default {
                   text-align: center;
                   border-radius: 100%;
                   background: gray;
+                  margin: -10px;
                 "
                 v-else
               >
                 <span style="font-size: 1em">{{ Help.toADfirstTwo(emploi.nom) }}</span>
               </span>
+              <i class="bi bi-patch-check-fill" 
+              style="position:absolute;color:#34beff;
+               font-size: 1.5em !important;"
+              v-if="emploi?.user?.is_verified"></i>
             </div>
             <div class="card-body">
               <h3 class="name" style="color: white; font-weight: bold">
