@@ -215,7 +215,7 @@ export default {
       "
     >
       <div class="info-header" style="display: flex; justify-content: space-between">
-        <h1 class="fw-bold my-3">Informations personnelles</h1>
+        <h1 class="fw-bold my-3" style="color: orange">Informations personnelles</h1>
         <div>
           <!-- <button 
           v-if="user.user.statut.statut != 'etudiant' && !user.is_verified"
@@ -444,7 +444,7 @@ export default {
         margin: 2em 0;
       "
     >
-      <h1 class="fw-bold">Modifier mot de passe</h1>
+      <h1 class="fw-bold" style="color: orange">Modifier mot de passe</h1>
       <section>
         <div class="card-body text-left py-4">
           <div class="row">
