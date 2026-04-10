@@ -17,6 +17,10 @@ export default {
           loading : false,
           rawText : '',
         result : null,
+        allStatuts : [
+  { value: "Artisan", label: "Artisan" },
+],
+ optionsProfil: [],
       PIECE_KEYWORDS :[
   "republique de cote d ivoire",
   "signature du titulaire",
@@ -312,7 +316,22 @@ export default {
 </script>
 <template>
   <Politics v-if="isPolitics" />
-
+<div>
+    <label style="color: rgba(0, 0, 0, 0.88);
+    font-size: 14px;">Ajouter un statut supplémentaire</label>
+    <div
+  style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
+>
+  <label v-for="item in allStatuts" :key="item.value">
+    <input
+      type="checkbox"
+      :value="item.value"
+      v-model="optionsProfil"
+    />
+    {{ item.label }}
+  </label>
+</div>
+  </div>
   <a-form
     :layout="'vertical'"
     :model="formState"
