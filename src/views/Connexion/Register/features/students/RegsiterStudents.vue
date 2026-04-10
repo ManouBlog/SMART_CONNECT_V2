@@ -547,14 +547,17 @@ preprocessImage(file) {
   </a-steps>
 
   
-
   <a-form
     layout="vertical"
     :model="formState"
     @finish="onFinish"
     @finishFailed="onFinishFailed"
   >
-  <div>
+ 
+ 
+    <!-- STEP 1 -->
+    <div v-show="currentStep === 0">
+       <div>
     <label style="color: rgba(0, 0, 0, 0.88);
     font-size: 14px;">Ajouter des statuts supplémentaires</label>
     <div
@@ -570,9 +573,6 @@ preprocessImage(file) {
   </label>
 </div>
   </div>
- 
-    <!-- STEP 1 -->
-    <div v-show="currentStep === 0">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item label="Code de parrainage" name="code_ambassadeur">

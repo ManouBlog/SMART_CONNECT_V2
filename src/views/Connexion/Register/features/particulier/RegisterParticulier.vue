@@ -348,7 +348,20 @@ export default {
 </script>
 <template>
   <Politics v-if="isPolitics" />
-<div>
+
+  <a-form
+    :layout="'vertical'"
+    :model="formState"
+    name="basic"
+    autocomplete="on"
+    @finish="onFinish"
+    @finishFailed="onFinishFailed"
+  >
+  
+    <!-- Nom + Prénoms -->
+    <a-row :gutter="[16, 24]">
+      <a-col :xs="24" :md="24">
+        <div>
     <label style="color: rgba(0, 0, 0, 0.88);
     font-size: 14px;">Ajouter un statut supplémentaire</label>
     <div
@@ -364,17 +377,7 @@ export default {
   </label>
 </div>
   </div>
-  <a-form
-    :layout="'vertical'"
-    :model="formState"
-    name="basic"
-    autocomplete="on"
-    @finish="onFinish"
-    @finishFailed="onFinishFailed"
-  >
-   
-    <!-- Nom + Prénoms -->
-    <a-row :gutter="[16, 24]">
+      </a-col>
       <a-col :xs="24" :md="12">
         <a-form-item
           :label="texte"
