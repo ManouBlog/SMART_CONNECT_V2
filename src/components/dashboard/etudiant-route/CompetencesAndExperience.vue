@@ -223,12 +223,8 @@ export default {
     async getAllExperiences() {
       if (
   this.$store.state.token &&
-  (
-    this.$store.state.user.user.statut.statut === 'etudiant' ||
-    this.$store.state.user.user.statut.statut === 'professionnel' ||
-    this.$store.state.user.user.statut.statut === 'artisan' ||
-    this.$store.state.user.user.statut.statut === 'veteran'
-  )
+  (this.$store.state.user?.user?.statuses || [])
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
 ){
         this.spinnerExperience = true;
       await instance
@@ -569,12 +565,11 @@ export default {
         </div>
       </div>
       <div class="container-fluid default-dash" style="margin: -7em 0 0 0">
-        <div class="row" v-if="
-         user.user.statut.statut === 'etudiant' ||
-    user.user.statut.statut === 'professionnel' ||
-    user.user.statut.statut === 'artisan' ||
-    user.user.statut.statut === 'veteran'
-        "
+        <div class="row" 
+        v-if="
+  user.user?.statuses
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+"
         >
           <div class="col-xl-5 col-md-6 dash-xl-50 my-5">
             <div class="profile-greeting" id="content_competences">

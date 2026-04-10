@@ -313,7 +313,15 @@ export default {
                  <h1 style="color: white; font-weight: bold;padding: 0;margin: 0;">
                 {{ item.student.nom }} {{ item.student.prenoms }}
               </h1>
-              <span style="word-break: break-word;font-weight: bold;color:orange;">{{ item.student.user.statut.statut }}</span>
+           <div class="status-wrapper">
+  <span
+    v-for="(status, index) in item.student.user?.statuses || []"
+    :key="index"
+    class="status-badge"
+  >
+    {{ status.statut }}
+  </span>
+</div>
               </div>
              
              

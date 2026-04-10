@@ -84,17 +84,17 @@ export default {
   },
   computed: {
     isUserEtudiant() {
-       const statut = this.$store?.state?.user?.user?.statut?.statut;
-  return (
-    statut === "etudiant"
-  );
-    },
+    const statuses = this.$store?.state?.user?.user?.statuses || [];
+
+    return statuses?.some(s => s.statut === "etudiant");
+  },
     isUserParticulierEntreprise() {
-      return (
-        this.$store?.state?.user?.user?.statut?.statut === "particulier" ||
-        this.$store?.state?.user?.user?.statut?.statut === "entreprise"
-      );
-    },
+  const statuses = this.$store?.state?.user?.user?.statuses || [];
+
+  return statuses?.some(s =>
+    ['particulier', 'entreprise'].includes(s.statut)
+  );
+  },
     shouldShowPromo() {
       const limit = this.students !== null && this.students < 1000;
       return limit && this.isUserEtudiant;
@@ -109,41 +109,28 @@ export default {
         }
       },
       deep: true,
-    },
-    // isUserEtudiant:{
-    //   handler(newValue, oldValue) {
-    //     console.log("newValue", { newValue, oldValue });
-    //     if (newValue) {
-    //       console.log("USER_INFO",this.$store.state.user)
-    //       if(!this.$store.state.user.competences.length){
-    //         this.$router.replace('/upated/infos_personnelle')
-    //       }
-    //         }
-    //   },
-    //   deep: true,
-    // }
+    }
   },
   methods: {
     async getAllOffresCreatedByEntreprise() {
-      if (
-        this.$store?.state?.user?.user?.statut?.statut === "particulier" ||
-        this.$store?.state?.user?.user?.statut?.statut === "entreprise"
-      ) {
-        try {
-          const response = await instance.get("get_offres_entreprise");
-          
-          if (response["status"] === 200) {
-            if (!response.data.data.length) {
-              this.showPromoParticulierAndEntreprise = true;
-            }
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        return;
+  const hasAccess = this.$store?.state?.user?.user?.statuses?.some(
+    s => ['particulier', 'entreprise'].includes(s.statut)
+  );
+
+  if (!hasAccess) return;
+
+  try {
+    const response = await instance.get("get_offres_entreprise");
+
+    if (response.status === 200) {
+      if (!response.data.data.length) {
+        this.showPromoParticulierAndEntreprise = true;
       }
-    },
+    }
+  } catch (error) {
+    console.log(error);
+  }
+},
     async NbreEtudiantsInscritAndDoAbonnement() {
       try {
         const response = await instance.get("getUserDoAbonnement");

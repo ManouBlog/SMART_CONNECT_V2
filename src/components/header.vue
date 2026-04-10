@@ -233,12 +233,9 @@ export default {
                   <LiensNavBar :texte="texte1" :route_lien="'Bienvenue'" />
 
                   <LiensNavBar
-                    v-if="
-  this.$store.state.user &&
-  ( this.$store.state.user.user.statut.statut === 'etudiant' ||
-    this.$store.state.user.user.statut.statut === 'professionnel' ||
-    this.$store.state.user.user.statut.statut === 'artisan' ||
-    this.$store.state.user.user.statut.statut === 'veteran')
+       v-if="
+  ($store.state.user?.user?.statuses || [])
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
 "
                     :texte="texte2"
                     :route_lien="'jobs'"
@@ -248,10 +245,9 @@ export default {
 
                   <LiensNavBar
                     v-if="
-                      this.$store.state.user &&
-                      (this.$store.state.user.user.statut.statut === 'entreprise' ||
-                        this.$store.state.user.user.statut.statut === 'particulier')
-                    "
+  ($store.state.user?.user?.statuses || [])
+    .some(s => ['entreprise', 'particulier'].includes(s.statut))
+"
                     :texte="texte3"
                     :route_lien="'timetable'"
                     :statut_user="'entreprise'"
@@ -298,7 +294,7 @@ export default {
                 <ListeFavoris
                   v-if="
                     this.$store.state.user &&
-                    this.$store.state.user.user.statut.statut === 'entreprise'
+                    this.$store.state.user?.user?.statuses?.some(s=>s.statut == 'entreprise')
                   "
                 />
                 <!-- <ListeNotifications
@@ -311,16 +307,14 @@ export default {
                 <div>
                   <InfoEntreprise
                     v-if="
-                      this.$store.state.user &&
-                      (this.$store.state.user.user.statut.statut === 'entreprise' ||
-                        this.$store.state.user.user.statut.statut === 'particulier')
-                    "
+  ($store.state.user?.user?.statuses || [])
+    .some(s => ['entreprise', 'particulier'].includes(s.statut))
+"
                   />
                   <div
-                     v-if="this.$store.state.user && (this.$store.state.user.user.statut.statut === 'etudiant' ||
-    this.$store.state.user.user.statut.statut === 'professionnel' ||
-    this.$store.state.user.user.statut.statut === 'artisan' ||
-    this.$store.state.user.user.statut.statut === 'veteran')
+                v-if="
+  ($store.state.user?.user?.statuses || [])
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
 "
                     class="login_user"
                   >

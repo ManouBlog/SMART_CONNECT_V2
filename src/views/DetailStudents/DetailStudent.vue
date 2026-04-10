@@ -703,13 +703,10 @@ export default {
         });
     },
     verfEnter() {
-      if (
+     if (
   this.user &&
-  (
-    this.user.user.statut.statut === "etudiant" ||
-    this.user.user.statut.statut === "professionnel" ||
-    this.user.user.statut.statut === "artisan" ||
-    this.user.user.statut.statut === "veteran"
+  (this.user.user?.statuses || []).some(s =>
+    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
   )
 ) {
   this.$router.push("/");
@@ -798,7 +795,9 @@ export default {
 
       <BodyExperience :timetable_for_student="timetable_for_student" />
  <!--  ceci : timetable_for_student.user.statut_id === 2 est destine au étudiant -->
-      <section class="conteneur_calendar_student" v-if="timetable_for_student.user.statut_id == 2">
+      <section class="conteneur_calendar_student" v-if="
+  (timetable_for_student.user?.statuses || []).some(s => s.statut === 'etudiant')
+">
         <div class="jobs-result">
           <div class="disponibilite">
             <span>

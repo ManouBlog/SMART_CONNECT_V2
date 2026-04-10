@@ -252,9 +252,15 @@ export default {
         style="display: flex; align-items: center;"
       >
       
-      <span class="badge bg-warning"
-          >{{this.$store.state.infoUserConnected.user.statut.statut}}</span
-        >
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+  <span
+    v-for="(status, index) in $store.state.infoUserConnected?.user?.statuses || []"
+    :key="index"
+    class="badge bg-warning"
+  >
+    {{ status.statut }}
+  </span>
+</div>
         <span
           class="badge"
           style="text-align: center"

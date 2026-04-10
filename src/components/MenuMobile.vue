@@ -160,10 +160,16 @@ export default {
           <br />
           {{ this.$store.state.user.prenoms }} 
           <br />
-          <span class="badge bg-warning">
-            {{ this.$store.state.user.user?.statut?.statut }}</span>
-          </span
-        >
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+  <span
+    v-for="(status, index) in ($store.state.user?.user?.statuses || [])"
+    :key="index"
+    class="badge bg-warning"
+  >
+    {{ status.statut }}
+  </span>
+</div>
+          </span>
       </li>
       <!-- <SelectLanguage /> -->
       <li v-if="!this.$store.state.user">
@@ -182,29 +188,20 @@ export default {
       </li>
       <MenuMobileEntreprise
         v-if="
-          this.$store.state.user &&
-          (this.$store.state.user.user.statut.statut === 'entreprise' ||
-            this.$store.state.user.user.statut.statut === 'particulier')
-        "
+    ($store.state.user?.user?.statuses || [])
+    .some(s => ['entreprise', 'particulier'].includes(s.statut))
+    "
       />
       <MenuMobileStudent
-        v-if="
-  this.$store.state.user &&
-  [
-    'etudiant',
-    'professionnel',
-    'artisan',
-    'veteran'
-  ].includes(this.$store.state.user.user.statut.statut)
+       v-if="
+  ($store.state.user?.user?.statuses || [])
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
 "
       />
       <li
-           v-if="
-  this.$store.state.user &&
-  ( this.$store.state.user.user.statut.statut === 'etudiant' ||
-    this.$store.state.user.user.statut.statut === 'professionnel' ||
-    this.$store.state.user.user.statut.statut === 'artisan' ||
-    this.$store.state.user.user.statut.statut === 'veteran')
+        v-if="
+  ($store.state.user?.user?.statuses || [])
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
 "
       >
         <router-link

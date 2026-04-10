@@ -51,7 +51,7 @@ export default {
       </h3>
       <Buttons
         @created="goToRoute('/jobs')"
-        v-if="this.user && this.user?.user?.statut?.statut === 'etudiant'"
+        v-if="this.user && this.user?.user?.statuses.some(s=>s.statut == 'etudiant')"
         :elmentsOfBtn="elmentsOfBtn"
         :shapeBtn="'round'"
       />

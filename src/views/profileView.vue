@@ -6,43 +6,48 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
-      // role: this.$store.state.role,
-      // profil: this.$store.state.profil,
     };
   },
   methods: {
-    update_offre() {
-      if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
-        this.update_compte_entreprise();
-      }
-      if (
-  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
-) {
-        this.update_compte_etudiant();
-      }
-    },
+   update_offre() {
+  const user = this.$store.state.infoUserConnected?.user;
+  const statuses = user?.statuses || [];
+
+  const isEntrepriseOrParticulier = statuses?.some(s =>
+    ['entreprise', 'particulier'].includes(s.statut)
+  );
+
+  const isEtudiantGroup = statuses?.some(s =>
+    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+  );
+
+  if (isEntrepriseOrParticulier) {
+    this.update_compte_entreprise();
+  }
+
+  if (isEtudiantGroup) {
+    this.update_compte_etudiant();
+  }
+},
     update_compte_entreprise() {
       let compte_entreprise = {
-        nom: this.user.user.statut.statut,
+        nom: (this.user.user?.statuses || []).map(s => s.statut),
         registre_commerce: this.user.registre_commerce,
       };
       instance.put("modifier_profil", compte_entreprise)
         .then((res) => {
           // console.log(res);
-          if (res.data.status === true) {
-            // Swal.fire({
-            //   icon: "success",
-            //   title: res.data.message,
-            //   showConfirmButton: false,
-            //   timer: 1500,
-            // });
-            //setTimeout(() => {
-              //location.reload(true);
-            //}, 1500);
-          }
+          // if (res.data.status === true) {
+          //   // Swal.fire({
+          //   //   icon: "success",
+          //   //   title: res.data.message,
+          //   //   showConfirmButton: false,
+          //   //   timer: 1500,
+          //   // });
+          //   //setTimeout(() => {
+          //     //location.reload(true);
+          //   //}, 1500);
+          // }
           localStorage.setItem("user", JSON.stringify(res.data.data.user));
           this.$store.state.user = res.data.data.user;
        
@@ -134,12 +139,10 @@ export default {
                 </div>
               </div>
               <div class="card-body" 
-              v-if="
-         user.user.statut.statut === 'etudiant' ||
-    user.user.statut.statut === 'professionnel' ||
-    user.user.statut.statut === 'artisan' ||
-    user.user.statut.statut === 'veteran'
-        "
+             v-if="
+  user.user?.statuses
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+"
               >
                 <div class="row">
                   <div class="col-md-3">
@@ -225,7 +228,11 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="card-body" v-if="user.user.statut.statut == 'entreprise' || user.user.statut.statut == 'particulier' ">
+              <div class="card-body" 
+              v-if="
+  user.user?.statuses.some(s => ['particulier', 'entreprise'].includes(s.statut))
+"
+              >
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">
@@ -262,7 +269,7 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="card-body" v-if="user.user.statut.statut == 'admin'">
+              <div class="card-body" v-if="user.user?.statuses.some(s => s.statut === 'admin')">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">

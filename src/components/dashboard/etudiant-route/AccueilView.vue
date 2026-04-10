@@ -72,15 +72,11 @@ export default {
     ]),
     handleData(year) {
       
-      if (
+     if (
   this.$store.state.user &&
-  (
-    this.$store.state.user.user.statut.statut === "etudiant" ||
-    this.$store.state.user.user.statut.statut === "professionnel" ||
-    this.$store.state.user.user.statut.statut === "artisan" ||
-    this.$store.state.user.user.statut.statut === "veteran"
-  )
-) {
+  (this.$store.state.user?.user?.statuses || [])
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+){
         this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
       } else {
         this.filterOffreWithYear(year);
@@ -91,7 +87,7 @@ export default {
   const user = this.$store.state.infoUserConnected;
   console.log("USER_INFO",user)
   this.IsAmbassador = user.user.code_ambassadeur
-  if(user.user.statut.statut === 'etudiant'){
+  if (user.user?.statuses.some(s => s.statut === 'etudiant')){
 if (!user.competences.length || !user.qualifications.length) {
     this.$router.push('/dashboard/profil');
    }
@@ -109,12 +105,10 @@ if (!user.competences.length || !user.qualifications.length) {
     ...mapState(useEntreprisesStore, ["student", "studentRecruit", "list_students"]),
   },
   async created() {
-   if (
-  this.$store.state.user.user.statut.statut !== "etudiant" &&
-  this.$store.state.user.user.statut.statut !== "professionnel" &&
-  this.$store.state.user.user.statut.statut !== "artisan" &&
-  this.$store.state.user.user.statut.statut !== "veteran"
-) {
+   if(
+  !(this.$store.state.user?.user?.statuses || [])
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+){
       this.get_students_contact();
       this.get_offres_interess_by_student();
       this.getAllOffresCreatedByEntreprise();
@@ -147,14 +141,9 @@ if (!user.competences.length || !user.qualifications.length) {
       <a-date-picker v-model:value="date_filter" @change="handleData" picker="year" />
     </div>
     <TableauDeBord
-      v-if="
-  this.$store.state.user &&
-  [
-    'etudiant',
-    'professionnel',
-    'artisan',
-    'veteran'
-  ].includes(this.$store.state.user.user.statut.statut)
+     v-if="
+  (this.$store.state.user?.user?.statuses || [])
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
 "
       :infosArray="IsAmbassador ? [
          {
@@ -209,10 +198,9 @@ if (!user.competences.length || !user.qualifications.length) {
     />
     <TableauDeBord
       v-if="
-        this.$store.state.user &&
-        (this.$store.state.user.user.statut.statut === 'entreprise' ||
-          this.$store.state.user.user.statut.statut === 'particulier')
-      "
+  (this.$store.state.user?.user?.statuses || [])
+    .some(s => ['entreprise', 'particulier'].includes(s.statut))
+"
       :infosArray="[
         {
           libelle: texte5,

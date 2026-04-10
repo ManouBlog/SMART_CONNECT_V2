@@ -33,13 +33,13 @@ onMounted(async () => {
 
       <div class="testimonials__list">
         <n-carousel autoplay :interval="2500">
-          <div
-            class="testimonials__item"
-            v-for="(item, index) in testimonials.filter(
-              (item) => item.user.statut.statut === 'etudiant'
-            )"
-            :key="index"
-          >
+         <div
+  class="testimonials__item"
+  v-for="(item, index) in testimonials.filter(
+    item => (item.user?.statuses || []).some(s => s.statut === 'etudiant')
+  )"
+  :key="index"
+>
             <div class="testimonials__rating">
               <span
                 v-for="star in 5"
@@ -70,7 +70,14 @@ onMounted(async () => {
                   >{{ item?.student?.nom }} {{ item?.student?.prenoms }}</span
                 >
 
-                <span>{{ item.user.statut.statut }}</span>
+               <span
+    v-for="(status, index) in item.user?.statuses || []"
+    :key="index"
+    class="status-item"
+    
+  >
+    <span style="margin:0 1em;">{{ status.statut }}</span>
+  </span>
               </p>
             </div>
           </div>
@@ -96,14 +103,14 @@ onMounted(async () => {
       <div class="testimonials__list">
         <n-carousel autoplay :interval="2500">
           <div
-            class="testimonials__item"
-            v-for="(item, index) in testimonials.filter(
-              (item) =>
-                item.user.statut.statut === 'entreprise' ||
-                item.user.statut.statut === 'particulier'
-            )"
-            :key="index"
-          >
+  class="testimonials__item"
+  v-for="(item, index) in testimonials.filter(item =>
+    (item.user?.statuses || []).some(s =>
+      ['entreprise', 'particulier'].includes(s.statut)
+    )
+  )"
+  :key="index"
+>
             <div class="testimonials__rating">
               <span
                 v-for="star in 5"
@@ -124,13 +131,13 @@ onMounted(async () => {
             <div class="testimonials__author">
               <div class="author__avatar">
                 <img
-                  v-if="item.user.statut.statut === 'entreprise'"
+                 v-if="(item.user?.statuses || []).some(s => s.statut === 'entreprise')"
                   :src="lienPhoto + item.student.logo"
                   :alt="item.student.nom"
                   class="author__image"
                 />
                 <img
-                  v-if="item.user.statut.statut === 'particulier'"
+                  v-if="(item.user?.statuses || []).some(s => s.statut === 'particulier')"
                   src="../assets/brobroli_1.png"
                   :alt="item.student.nom"
                   class="author__image"
@@ -141,7 +148,14 @@ onMounted(async () => {
                   >{{ item?.student?.nom }} {{ item?.student?.prenoms }}</span
                 >
 
-                <span>{{ item.user.statut.statut }}</span>
+                   <span
+    v-for="(status, index) in item.user?.statuses || []"
+    :key="index"
+    class="status-item"
+    
+  >
+    <span style="margin:0 1em;">{{ status.statut }}</span>
+  </span>
               </p>
             </div>
           </div>

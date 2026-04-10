@@ -25,39 +25,58 @@ export default {
     };
   },
   methods: {
-    update_offre() {
-      if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
-        this.update_compte_entreprise();
-      }
-      if (
-  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
-) {
-        this.update_compte_etudiant();
-      }
-      
-      if (this.user.user.statut.statut === "admin") {
-        this.updateCompteAdmin();
-      }
-    },
-    modifyPassword() {
-      if (
-  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
-) {
-        this.modifyPasswordOfStudent();
-      }
-      if (this.user.user.statut.statut === "entreprise" || this.user.user.statut.statut === "particulier") {
-        this.modifyPasswordOfEntreprise();
-      }
-      if (this.user.user.statut.statut === "admin") {
-        this.modifyPasswordOfAdmin();
-      }
-    },
+   update_offre() {
+  const user = this.$store.state.infoUserConnected?.user;
+  const statuses = user?.statuses || [];
+
+  const isEntrepriseOrParticulier = statuses?.some(s =>
+    ['entreprise', 'particulier'].includes(s.statut)
+  );
+
+  const isEtudiantGroup = statuses?.some(s =>
+    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+  );
+
+  const isAdmin = statuses?.some(s => s.statut === 'admin');
+
+  if (isEntrepriseOrParticulier) {
+    this.update_compte_entreprise();
+  }
+
+  if (isEtudiantGroup) {
+    this.update_compte_etudiant();
+  }
+
+  if (isAdmin) {
+    this.updateCompteAdmin();
+  }
+},
+   modifyPassword() {
+  const user = this.$store.state.infoUserConnected?.user;
+  const statuses = user?.statuses || [];
+
+  const isStudentGroup = statuses?.some(s =>
+    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+  );
+
+  const isEntrepriseGroup = statuses?.some(s =>
+    ['entreprise', 'particulier'].includes(s.statut)
+  );
+
+  const isAdmin = statuses?.some(s => s.statut === 'admin');
+
+  if (isStudentGroup) {
+    this.modifyPasswordOfStudent();
+  }
+
+  if (isEntrepriseGroup) {
+    this.modifyPasswordOfEntreprise();
+  }
+
+  if (isAdmin) {
+    this.modifyPasswordOfAdmin();
+  }
+},
     modifyPasswordOfStudent() {
       let info = {
         oldPassword: this.oldPassword,
@@ -167,7 +186,7 @@ export default {
 <template>
     <div
     class="card-body text-left py-4"
-    v-if="this.user.user.statut.statut === 'particulier'"
+    v-if="user.user?.statuses.some(s => s.statut === 'particulier')"
   >
     <div class="row">
       <div class="col-md-12">

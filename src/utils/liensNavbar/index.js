@@ -6,3 +6,4 @@ export const StatutUser = {
     artisan:true,
     veteran:true
 }
+

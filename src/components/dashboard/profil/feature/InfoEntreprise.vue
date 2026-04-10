@@ -186,9 +186,15 @@ export default {
     >
       <h1 class="fw-bold" style="color: orange">{{ texte0 }}</h1>
       <div style="display: flex; align-items: center;">
-        <span class="badge bg-warning"
-          >{{ user.user.statut.statut}}</span
-        >
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+         <span
+          v-for="(status, index) in user.user?.statuses || []"
+          :key="index"
+          class="badge bg-warning"
+          >
+            {{ status.statut }}
+         </span>
+        </div>
         <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
           >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
         >

@@ -160,7 +160,7 @@ valueExpertise: [
     console.log("initForm",user)
     if (!user) return;
 
-    this.form.nom = this.$store.state.infoUserConnected.user.statut.statut !== 'entreprise' ? user.nom : this.form.optionsPaper === 'Formel' ? user.nom:user.nom_particulier;
+    this.form.nom = this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut !== 'entreprise') ? user.nom : this.form.optionsPaper === 'Formel' ? user.nom:user.nom_particulier;
     this.form.prenoms = user.prenoms || "";
     this.form.email = user.email || "";
     this.form.contact = user.contact || "";
@@ -169,7 +169,7 @@ valueExpertise: [
     this.form.commune = user.commune || "";
     this.form.quartier = user.quartier || "";
     this.form.statut_id = user.user.statut_id || "";
-    this.form.statut = user.user.statut.statut || "";
+    this.form.statuses  = user.user.statuses  || "";
     this.form.niveauExpertise = user.niveauExpertise || "";
 
     this.form.matricule_cc = user.matricule_cc || "";
@@ -203,27 +203,60 @@ valueExpertise: [
       "addAnLogo",
       "changeValueForToogleModalInfoPersonnelle"
     ]),
-    async lister_statut(){
-      const transitions = {
-  etudiant:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "artisan"],
-  professionnel:[this.$store.state.infoUserConnected.user.statut.statut,"artisan", "veteran"],
-  artisan:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "veteran"],
-  entreprise:[this.$store.state.infoUserConnected.user.statut.statut,'entreprise']
-};
-      try {
-        const response =  await instance.get("listStatut")
+    async lister_statut() {
+  const user = this.$store.state.infoUserConnected?.user;
+  const statuses = user?.statuses || [];
+
+  const currentRoles = statuses.map(s => s.statut);
+
+  const transitions = {
+    etudiant: ['etudiant', 'professionnel', 'artisan'],
+    professionnel: ['etudiant', 'professionnel', 'artisan', 'veteran'],
+    artisan: ['etudiant', 'professionnel', 'artisan', 'veteran'],
+    entreprise: ['entreprise']
+  };
+
+  const allowed = new Set(
+    currentRoles.flatMap(role => transitions[role] || [])
+  );
+
+  try {
+    const response = await instance.get("listStatut");
+
+    this.allStatuses = response.data.data.filter(item =>
+      allowed.has(item.statut)
+    );
+
+    console.log("allStatuses", {
+      statut: this.allStatuses,
+      profil: this.$store.state.infoUserConnected
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+},
+//     async lister_statut(){
+//       const transitions = {
+//   etudiant:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "artisan"],
+//   professionnel:[this.$store.state.infoUserConnected.user.statut.statut,"artisan", "veteran"],
+//   artisan:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "veteran"],
+//   entreprise:[this.$store.state.infoUserConnected.user.statut.statut,'entreprise']
+// };
+//       try {
+//         const response =  await instance.get("listStatut")
         
-        this.allStatuses = response.data.data.filter(item =>
-  transitions[this.$store.state.infoUserConnected.user.statut.statut]?.includes(item.statut)); 
-  console.log("allStatuses",{
-    statut:this.allStatuses,
-    profil:this.$store.state.infoUserConnected
-  })
-        // this.allStatuses = response.data.data.filter(item=>item.statut == 'professionnel' || item.statut == 'artisan' || item.statut == 'etudiant' || item.statut === 'veteran')
-      } catch (error) {
-        console.log(error);
-      }
-    },
+//         this.allStatuses = response.data.data.filter(item =>
+//   transitions[this.$store.state.infoUserConnected.user.statut.statut]?.includes(item.statut)); 
+//   console.log("allStatuses",{
+//     statut:this.allStatuses,
+//     profil:this.$store.state.infoUserConnected
+//   })
+//         // this.allStatuses = response.data.data.filter(item=>item.statut == 'professionnel' || item.statut == 'artisan' || item.statut == 'etudiant' || item.statut === 'veteran')
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     },
     async getInfoUser() {
       this.StoreLoading.launchLoading(true);
       await instance
@@ -232,25 +265,50 @@ valueExpertise: [
           if (resp.data.status === true) {
             
         // console.log("getInfoUser25",resp.data.user)
-        const statutUser = resp.data.user.user.statut.statut
-        if(statutUser === 'entreprise'){
-        this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
-        this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
-        // console.log("COMPANY_INFOS",resp.data.user) 
-        }
-        if(statutUser === 'etudiant' || statutUser === 'professionnel' || statutUser === 'artisan' || statutUser === 'veteran'){
-          resp.data.user.qualifications.map(item=>{
-            return {
-              date_debut:item.date_debut.split(' ')[0],
-              date_fin:item.date_fin.split(' ')[0],
-              objet:item.objet,
-              detail:item.detail
-            }
-          });
-          this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
+        const user = resp.data.user;
+const statuses = user?.statuses || [];
+const statusList = statuses.map(s => s.statut);
+
+const isEntreprise = statusList.includes('entreprise');
+
+const isStudentGroup = statusList.some(s =>
+  ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s)
+);
+
+if (isEntreprise) {
+  this.emails_cc = user.emails?.map(item => item.email_cc) || [];
+  this.$store.commit("UPDATE_INFO_CONPANY", user);
+}
+
+if (isStudentGroup) {
+  user.qualifications = (user.qualifications || []).map(item => ({
+    date_debut: item.date_debut?.split(' ')[0],
+    date_fin: item.date_fin?.split(' ')[0],
+    objet: item.objet,
+    detail: item.detail
+  }));
+
+  this.$store.commit("UPDATE_INFO_CONPANY", user);
+}
+        // const statutUser = resp.data.user.user.statut.statut
+        // if(statutUser === 'entreprise'){
+        // this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
+        // this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
+        // // console.log("COMPANY_INFOS",resp.data.user) 
+        // }
+        // if(statutUser === 'etudiant' || statutUser === 'professionnel' || statutUser === 'artisan' || statutUser === 'veteran'){
+        //   resp.data.user.qualifications.map(item=>{
+        //     return {
+        //       date_debut:item.date_debut.split(' ')[0],
+        //       date_fin:item.date_fin.split(' ')[0],
+        //       objet:item.objet,
+        //       detail:item.detail
+        //     }
+        //   });
+        //   this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
           
-          // console.log("STUDENT_INFOS",resp.data.user) 
-          }
+        //   // console.log("STUDENT_INFOS",resp.data.user) 
+        //   }
             // console.log("this.emails_cc",this.emails_cc)
           }
         })
@@ -309,22 +367,46 @@ valueExpertise: [
         this.changeValueForToogleModalInfoPersonnelle()
       }
     },
-   async handleUpdate(payload) {
-    console.log('handleUpdate',payload)
+    async handleUpdate(payload) {
+  console.log('handleUpdate', payload);
+
+  const user = this.$store.state.infoUserConnected?.user;
+  const statuses = user?.statuses || [];
+  const roles = statuses.map(s => s.statut);
+
+  const isEntreprise = roles.includes('entreprise');
+  const isParticulier = roles.includes('particulier');
+
+  if (isEntreprise) {
+    this.updateInfoEntreprise(payload);
+    return;
+  }
+
+  if (isParticulier) {
+    this.update_compte_particulier(payload);
+    await this.getInfoUser();
+    return;
+  }
+
+  this.updateInfoStudent(payload);
+  await this.getInfoUser();
+},
+  //  async handleUpdate(payload) {
+  //   console.log('handleUpdate',payload)
      
-      if (this.$store.state.infoUserConnected.user.statut.statut === "entreprise") {
-        this.updateInfoEntreprise(payload);
+  //     if (this.$store.state.infoUserConnected.user.statut.statut === "entreprise") {
+  //       this.updateInfoEntreprise(payload);
     
-      } else if (this.$store.state.infoUserConnected.user.statut.statut === "particulier") {
+  //     } else if (this.$store.state.infoUserConnected.user.statut.statut === "particulier") {
         
-        this.update_compte_particulier(payload);
-          await this.getInfoUser();
-      } else {
-        this.updateInfoStudent(payload);
-          await this.getInfoUser();
-      }
+  //       this.update_compte_particulier(payload);
+  //         await this.getInfoUser();
+  //     } else {
+  //       this.updateInfoStudent(payload);
+  //         await this.getInfoUser();
+  //     }
     
-    },
+  //   },
     onCreateQualification() {
       return { detail: "", date_debut: new Date(), date_fin: new Date() };
     },
@@ -349,7 +431,7 @@ valueExpertise: [
 <template>
   <div class="card-body text-left py-4" v-if="this.$store.state.infoUserConnected">
     <div class="row">
-      <legend>
+      <!-- <legend>
         Info personnelle
         {{
           this.$store.state.infoUserConnected &&
@@ -358,12 +440,27 @@ valueExpertise: [
             ? "sur l'entreprise"
             : null
         }}
-      </legend>
+      </legend> -->
+      <legend>
+  Info personnelle
+  {{
+    ($store.state.infoUserConnected?.user?.statuses || [])
+      .some(s => ['entreprise', 'particulier'].includes(s.statut))
+      ? 'sur l\'entreprise'
+      : ''
+  }}
+</legend>
       <p style="text-align: center; color: red;font-size: 1em;">
         Les champs avec astérisque (*) sont obligatoires.
       </p>
       <div class="col-md-12">
-      <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut !== 'entreprise'" >
+   <div
+  class="mb-3"
+  v-if="!(
+    ($store.state.infoUserConnected?.user?.statuses || [])
+      .some(s => s.statut === 'entreprise')
+  )"
+>
             <label class="form-label">Changer de statut</label>
             <select 
             name="statut_id" 
@@ -409,11 +506,14 @@ valueExpertise: [
             
             </div>
       </div>
-      <div
-      class="col-md-12"
-      v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'entreprise'"
-      style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
-     >
+     <div
+  class="col-md-12"
+  v-if="
+    ($store.state.infoUserConnected?.user?.statuses || [])
+      .some(s => s.statut === 'entreprise')
+  "
+  style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
+>
  <label v-for="item in options" :key="item.value">
   <input
     type="checkbox"
@@ -427,7 +527,7 @@ valueExpertise: [
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">{{
-            this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === "entreprise"
+            this.$store.state.infoUserConnected && $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'entreprise')
               ? "Raison sociale"
               : "Nom"
           }} <span style="color:red">*</span></label>
@@ -436,8 +536,7 @@ valueExpertise: [
       </div>
       <div class="col-md-12" 
       v-if='this.$store.state.infoUserConnected 
-      && this.$store.state.infoUserConnected.user.statut.statut === "entreprise" 
-      && this.form.optionsPaper === "Formel"'>
+      && $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === "entreprise") && this.form.optionsPaper === "Formel"'>
         <div class="mb-3">
           <label class="form-label"
             >RCCM (Registre du Commerce et du Crédit Mobilier)
@@ -464,7 +563,7 @@ valueExpertise: [
       </div>
       <div class="col-md-12" 
       v-if='this.$store.state.infoUserConnected 
-      && this.$store.state.infoUserConnected.user.statut.statut === "entreprise" &&
+      && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === "entreprise") &&
       this.form.optionsPaper === "Formel"
       '>
         <div class="mb-3">
@@ -474,7 +573,7 @@ valueExpertise: [
       </div>
       <div class="col-md-12" 
       v-if='this.$store.state.infoUserConnected && 
-      this.$store.state.infoUserConnected.user.statut.statut === "entreprise" 
+      this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === "entreprise")
       && this.form.optionsPaper === "Formel"
       ' >
         <div class="mb-3">
@@ -482,17 +581,16 @@ valueExpertise: [
           <input v-model="form.NCC" class="form-control" type="text" />
         </div>
       </div>
-      <div
-        class="col-md-12"
-        v-if="
-          this.$store.state.infoUserConnected &&
-          (this.$store.state.infoUserConnected.user.statut.statut == 'entreprise' ||
-            this.$store.state.infoUserConnected.user.statut.statut == 'particulier')
-        "
-      >
+     <div
+  class="col-md-12"
+  v-if="
+    ($store.state.infoUserConnected?.user?.statuses || [])
+      .some(s => ['entreprise', 'particulier'].includes(s.statut))
+  "
+>
         <div class="mb-3">
           <label class="form-label">{{
-            this.$store.state.infoUserConnected.user.statut.statut == "entreprise" 
+            this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut == "entreprise")
             && this.form.optionsPaper === "Formel"
               ? "Contact téléphonique de l'entreprise"
               : "Contact téléphonique"
@@ -501,15 +599,12 @@ valueExpertise: [
         </div>
       </div>
       <div
-        class="col-md-12"
-        v-if='this.$store.state.infoUserConnected && (
-  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
-)
-        '
-      >
+  class="col-md-12"
+  v-if="
+    ($store.state.infoUserConnected?.user?.statuses || [])
+      .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+  "
+>
         <div class="mb-3">
           <label class="form-label">Prénoms</label>
           <input v-model="form.prenoms" class="form-control" type="text" />
@@ -517,7 +612,7 @@ valueExpertise: [
       </div>
       <div
         class="col-md-12"
-        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected.user.statut.statut === 'particulier'"
+        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'particulier')"
       >
         <div class="mb-3">
           <label class="form-label">Prénoms</label>
@@ -528,7 +623,7 @@ valueExpertise: [
       <div class="col-md-12" v-if="this.$store.state.infoUserConnected">
         <div class="mb-3">
           <label class="form-label">{{
-            this.$store.state.infoUserConnected.user.statut.statut == "entreprise" 
+            this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'entreprise')
             && this.form.optionsPaper == "Formel"
               ? "Contact mail de l'entreprise"
               : "Email"
@@ -538,7 +633,7 @@ valueExpertise: [
       </div>
       <div class="col-md-12 my-2" 
       v-if="this.$store.state.infoUserConnected && 
-      this.$store.state.infoUserConnected.user.statut.statut == 'entreprise'
+     this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'entreprise')
       && this.form.optionsPaper === 'Formel'
       ">
       <label class="form-label">Emails secondaires(cc)</label>
@@ -552,21 +647,20 @@ valueExpertise: [
 />
       </div>
   
-      <div
-        class="col-md-12"
-        v-if='this.$store.state.infoUserConnected && (
-  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
-)
-        '
-      >
-        <div class="mb-3">
-          <label class="form-label">Contact</label>
-          <input v-model="form.phone" class="form-control" type="text" />
-        </div>
-      </div>
+     <div
+  class="col-md-12"
+  v-if="
+    $store.state.infoUserConnected &&
+    $store.state.infoUserConnected.user?.statuses?.some(s =>
+      ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    )
+  "
+>
+  <div class="mb-3">
+    <label class="form-label">Contact</label>
+    <input v-model="form.phone" class="form-control" type="text" />
+  </div>
+</div>
 
       <div class="col-md-12">
         <div class="mb-3">
@@ -586,21 +680,29 @@ valueExpertise: [
           <input v-model="form.quartier" class="form-control" type="text" />
         </div>
       </div>
-      <section v-if='this.$store.state.infoUserConnected && (
-  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
-)'>
+      <section 
+     v-if="
+    $store.state.infoUserConnected &&
+    $store.state.infoUserConnected.user?.statuses?.some(s =>
+      ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    )
+  ">
       
         <div class="col-md-12">
-          <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut === 'etudiant' && form.statut_id == 2">
+          <div class="mb-3"  
+          v-if="
+    $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'etudiant')
+    && form.statut_id == 2
+  ">
             <label class="form-label">Dernier diplôme academique</label>
             <input v-model="form.diplome" class="form-control" type="text" />
           </div>
           <div class="mb-3" 
-          v-if="this.$store.state.infoUserConnected.user.statut.statut === 'professionnel' 
-          || this.$store.state.infoUserConnected.user.statut.statut === 'veteran' || form.statut_id == 5 || form.statut_id == 6 || form.statut_id == 7">
+         v-if="
+    $store.state.infoUserConnected.user?.statuses?.some(s =>
+      ['professionnel', 'veteran'].includes(s.statut)
+    ).includes(form.statut_id)
+  ">
             <div>
      <label class="form-label">Niveau actuel + diplome</label>
             <input v-model="form.diplome" class="form-control" type="text" />
@@ -643,7 +745,8 @@ valueExpertise: [
             </div>
        
           </div>
-          <div class="mb-3" v-if="this.$store.state.infoUserConnected.user.statut.statut === 'veteran'">
+          <div class="mb-3" 
+          v-if="$store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'veteran')">
             
             <div>
             <label class="form-label">Traitement préférentiel</label>
@@ -677,13 +780,13 @@ valueExpertise: [
           </div>
         </div>
       </section>
-      <section v-if='this.$store.state.infoUserConnected && (
-  this.$store.state.infoUserConnected.user.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected.user.statut.statut === "veteran"
-)
-        '>
+      <section 
+     v-if="
+    $store.state.infoUserConnected &&
+    $store.state.infoUserConnected.user?.statuses?.some(s =>
+      ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    )
+    ">
         <div class="col-md-12">
           <div class="mb-3">
             <label class="form-label">Biographie – résumé de votre profil (max 300 caractères)</label>
@@ -700,7 +803,7 @@ valueExpertise: [
       </section>
       <section 
       v-if="this.$store.state.infoUserConnected 
-      && this.$store.state.infoUserConnected.user.statut.statut === 'entreprise'
+      && $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'entreprise')
       && this.form.optionsPaper === 'Formel'
       ">
         <div class="col-md-12">
@@ -725,7 +828,7 @@ valueExpertise: [
         </div>
       </section>
 
-      <div class="col-md-12">
+      <!-- <div class="col-md-12">
         <div class="my-3">
           <label for="add_file">
   {{
@@ -742,12 +845,12 @@ valueExpertise: [
             class="w-100"
           />
         </div>
-      </div>
+      </div> -->
       
     </div>
     <div class="text-right">
       <button
-      v-if="this.$store.state.infoUserConnected.user.statut.statut !== 'entreprise'"
+      v-if="$store.state.infoUserConnected.user?.statuses?.some(s => s.statut !== 'entreprise')"
        :class="{ 'disabled-custom': isDisabled }"
         class="btn bg-warning"
          :disabled="isDisabled"

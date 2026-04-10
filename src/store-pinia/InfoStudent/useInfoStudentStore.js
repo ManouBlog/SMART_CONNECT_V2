@@ -26,7 +26,7 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
                 // console.log(res);
                 this.offres = res.data;
                 const { offres } = res.data.data;
-                // console.log("OFFRES", offres);
+                console.log("get_all_student", offres);
                 this.list_offre = offres;
                 this.data_offre_filter = offres
                 // console.log("this.list_offre", this.list_offre);

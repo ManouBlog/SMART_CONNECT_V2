@@ -18,6 +18,11 @@ export default {
       StatutUser: StatutUser,
     };
   },
+  methods:{
+hasAnyStatus(statuses, map){
+  return (statuses || []).some(s => map[s.statut]);
+   }
+  },
   computed: {
     texte_lien() {
       return this.texte;
@@ -36,7 +41,10 @@ export default {
 </script>
 <template>
   <li
-    v-if="this.$store.state.user && StatutUser[this.$store.state.user.user.statut.statut]"
+    v-if="
+    this.$store.state.user &&
+    this.hasAnyStatus(this.$store.state.user.user?.statuses, this.StatutUser)
+  "
   >
     <router-link :to="{ name: route_lien }" class="d-block lien">
       {{ texte_lien }}

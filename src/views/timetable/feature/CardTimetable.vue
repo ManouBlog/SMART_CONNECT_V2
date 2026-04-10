@@ -18,8 +18,7 @@ export default {
           >
             <div class="icons_interesse">
               <em
-                v-if="user && user.user.statut.statut != 'etudiant'
-                "
+                v-if="user && !user.user?.statuses.some(s => s.statut === 'etudiant')"
                 @click="addPersonAtWishLit(emploi)"
                 :class="isWhished[emploi.id] ? 'text-danger' : 'null'"
                 class="fa-solid fa-heart"

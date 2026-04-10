@@ -130,9 +130,10 @@ Swal.fire({
     },
     verfEnter() {
       if (
-        (this.user && this.user.user.statut.statut === "entreprise") ||
-        this.user.user.statut.statut === "particulier"
-      ) {
+  (this.user?.user?.statuses || []).some(s =>
+    ['entreprise', 'particulier'].includes(s.statut)
+  )
+) {
         Swal.fire({
           icon: "error",
           title: "Vous n'êtes pas autorisé25.",

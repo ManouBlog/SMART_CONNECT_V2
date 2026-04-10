@@ -349,9 +349,11 @@ export default {
     },
     voirDetailTimetable(item) {
       if (
-        (this.user && this.user.user.statut.statut == "entreprise") ||
-        (this.user && this.user.user.statut.statut === "particulier")
-      ) {
+  this.user &&
+  (this.user.user?.statuses || []).some(s =>
+    ['entreprise', 'particulier'].includes(s.statut)
+  )
+) {
         if (
           this.$store.state.infoUserConnected.user.abonement.length &&
           this.$store.state.infoUserConnected.user.abonement.some(
@@ -497,13 +499,10 @@ export default {
     verfEnter() {
       if (
   this.user &&
-  (
-    this.user.user.statut.statut === "etudiant" ||
-    this.user.user.statut.statut === "professionnel" ||
-    this.user.user.statut.statut === "artisan" ||
-    this.user.user.statut.statut === "veteran"
+  (this.user.user?.statuses || []).some(s =>
+    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
   )
-) {
+){
   this.$router.push("/");
   Swal.fire({
     icon: "info",
@@ -699,7 +698,16 @@ export default {
                 {{ emploi.prenoms }}
               </h3>
               <p class="text-center p-0 m-0">
-                <span class="badge" style="background:orange;font-size:0.5em !important;">{{ emploi.user.statut.statut }}</span>
+             <span style="display:flex; flex-wrap:wrap; gap:6px;">
+  <span
+    v-for="(status, index) in emploi.user?.statuses || []"
+    :key="index"
+    class="badge"
+    style="background:orange; font-size:0.5em !important;"
+  >
+    {{ status.statut }}
+  </span>
+</span>
               </p>
               <div class="jour">
                 <span

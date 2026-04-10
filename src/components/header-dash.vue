@@ -192,12 +192,10 @@ export default {
           <li class="onhover-dropdown">
             <div class="notification-box">
               <svg
-                v-if="
-         user.user.statut.statut === 'etudiant' ||
-    user.user.statut.statut === 'professionnel' ||
-    user.user.statut.statut === 'artisan' ||
-    user.user.statut.statut === 'veteran'
-        "
+               v-if="
+  user.user?.statuses
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"

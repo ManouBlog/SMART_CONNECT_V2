@@ -29,7 +29,7 @@ export default {
     if (!userStr) return null;
     try {
       const user = JSON.parse(userStr);
-      return user.user?.statut.statut ?? null;
+      return user.user?.statuses ?? null;
     } catch (e) {
       return null;
     }
@@ -55,16 +55,21 @@ export default {
       const competences = userInfo.competences || [];
       const disponibilites = userInfo.jours || [];
 
-      if ( userInfo.user.statut.statut == 'etudiant' && (!qualifications.length || !competences.length)) {
-        this.$router.push("/dashboard/profil");
-        // console.log("lancer2");
-        return;
-      }
+      if (
+  (userInfo.user?.statuses || []).some(s => s.statut === 'etudiant') &&
+  (!qualifications.length || !competences.length)
+) {
+  this.$router.push("/dashboard/profil");
+  return;
+}
 
-      if (userInfo.user.statut.statut == 'etudiant' && !disponibilites.length) {
-        this.$router.push("/dashboard/emploi_du_temps");
-        return;
-      }
+if (
+  (userInfo.user?.statuses || []).some(s => s.statut === 'etudiant') &&
+  !disponibilites.length
+) {
+  this.$router.push("/dashboard/emploi_du_temps");
+  return;
+}
 
       this.$router.push(route);
     },
@@ -130,7 +135,7 @@ export default {
     </a>
   </li>
 
-  <li class="position-absolute deconnex" v-if="userStatut === 'etudiant'">
+  <li class="position-absolute deconnex" v-if="userStatut.some(s=>s.statut == 'etudiant') ">
     <a class="d-block" @click="goTo('/dashboard/emploi_du_temps')">
       {{ texte5 }}
     </a>

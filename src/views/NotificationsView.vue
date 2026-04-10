@@ -3,11 +3,11 @@
     <h2 class="app-title" v-if="dataAlarm.length || Notifications.isNotifications.length">
       Vous avez {{ dataAlarm.length ? dataAlarm.length+Notifications.isNotifications.length:Notifications.isNotifications.length }} Notification(s)
     </h2>
-    <div style="height:300px" v-if="dataAlarm.length+Notifications.isNotifications.length === 0 && user.user.statut.statut !== 'etudiant'">
+    <div style="height:300px" v-if="dataAlarm.length+Notifications.isNotifications.length === 0 && user.user?.statuses.some(s => s.statut !== 'etudiant')">
       <h2 style="text-align:center;">Pas de notifications</h2>
     </div>
     <div
-      v-if="!Notifications.isNotifications.length && user.user.statut.statut === 'etudiant'"
+      v-if="!Notifications.isNotifications.length && user.user?.statuses.some(s => s.statut === 'etudiant')"
       style="
         height: 300px;
         text-align: center;
@@ -87,7 +87,7 @@ async function getOffresInteressByStudent() {
 
   const user = vuexStore.state.infoUserConnected;
   //console.log("USER",user)
-  if(user.user.statut.statut === 'etudiant'){
+  if(user.user?.statuses.some(s => s.statut === 'etudiant')){
   if (!user.competences.length || !user.qualifications.length) {
     router.replace("/dashboard/profil");
   }

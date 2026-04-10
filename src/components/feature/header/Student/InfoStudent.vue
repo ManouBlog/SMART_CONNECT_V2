@@ -211,7 +211,7 @@ export default {
           </li>
         </a-menu-item> -->
 
-        <a-menu-item v-if="user.user.statut.statut === 'etudiant'">
+        <a-menu-item v-if="user.user?.statuses.some(s => s.statut === 'etudiant')">
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/emploi_du_temps" class="d-block">
               {{ texte4 }}

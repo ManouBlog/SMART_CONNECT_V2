@@ -88,13 +88,12 @@ onMounted(async () => {
       </div>
       <n-tabs type="line" size="large" animated justify-content="center">
         <n-tab-pane
-          v-if="
-            !store.state.user ||
-            (store.state.user.user.statut.statut === 'etudiant' ||
-             store.state.user.user.statut.statut === 'professionnel' ||
-             store.state.user.user.statut.statut === 'artisan' ||
-             store.state.user.user.statut.statut === 'veteran')
-          "
+           v-if="
+  !store.state.user ||
+  (store.state.user?.user?.statuses || []).some(s =>
+    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+  )
+"
           :name="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
           :tab="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
         >
@@ -104,13 +103,15 @@ onMounted(async () => {
           />
         </n-tab-pane>
         <n-tab-pane
+          
           v-if="
-            !store.state.user ||
-            store.state.user.user.statut.statut === 'entreprise' || 
-            store.state.user.user.statut.statut === 'particulier'
-          "
-          :name="defaulValueTranslate == 'fr' ? 'Entreprise/Particulier' :'Company'"
-          :tab="defaulValueTranslate == 'fr' ? 'Entreprise/Particulier' :'Company'"
+  !store.state.user ||
+  (store.state.user?.user?.statuses || []).some(s =>
+    ['entreprise'].includes(s.statut)
+  )
+"
+          :name="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
+          :tab="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
         >
           <ContainerAbonnements
             :abonnements="abonnements"

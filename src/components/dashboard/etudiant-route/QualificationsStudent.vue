@@ -557,11 +557,9 @@ export default {
       <div class="container-fluid default-dash" style="margin: -7em 0 0 0">
         <div class="row" 
         v-if="
-         user.user.statut.statut === 'etudiant' ||
-    user.user.statut.statut === 'professionnel' ||
-    user.user.statut.statut === 'artisan' ||
-    user.user.statut.statut === 'veteran'
-        "
+  user.user?.statuses
+    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+"
         >
           <div class="col-md-12" style="margin: 4em 0">
             <div class="weekly-column">

@@ -20,7 +20,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
 
       // Notifications d’hier
       yesterdayNotifications.value = (data.yesterday || []).map(item => ({
-        username: item.user && item.user.statut_id === 3 ? 'MonBrobroli': item.user?.entreprise?.nom || 'Une entreprise',
+        username: item.user && (item.user?.statuses || []).some(s => s.statut === 'admin') ? 'MonBrobroli': item.user?.owner?.nom || 'Une entreprise',
         time: new Date(item.created_at).toLocaleDateString('fr',{
   day: '2-digit',
   month: '2-digit',
@@ -29,7 +29,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
   minute: '2-digit',
   second: '2-digit',
 }),
-        avatar: item.user?.entreprise?.logo,
+        avatar: item.user?.owner?.logo,
         isNew: item.view,
         objet:item.objet,
         msg:item.msg
@@ -37,7 +37,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
 
       // Notifications d’aujourd’hui
       todayNotifications.value = (data.today || []).map(item => ({
-        username: item.user && item.user.statut_id === 3 ? 'MonBrobroli': item.user?.entreprise?.nom || 'Une entreprise',
+        username: item.user && (item.user?.statuses || []).some(s => s.statut === 'admin') ? 'MonBrobroli': item.user?.owner?.nom || 'Une entreprise',
         msg:item.msg,
          objet:item.objet,
         time: new Date(item.created_at).toLocaleDateString('fr',{
@@ -48,7 +48,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
   minute: '2-digit',
   second: '2-digit',
 }),
-        avatar: item.user?.entreprise?.logo || null,
+        avatar: item.user?.owner?.logo || null,
         isNew: item.view,
       }))
       isNotifications.value=[    

@@ -80,54 +80,72 @@ export default {
       msgErr: false,
     };
   },
+  computed:{
+userDocuments() {
+    const user = this.$store.state.infoUserConnected?.user;
+    const statuses = user?.statuses || [];
+
+    return statuses
+      .filter(s => this.documentLabels[s.statut])
+      .map(s => ({
+        libelle: this.documentLabels[s.statut],
+        value: user?.photos,
+        statut: s.statut
+      }));
+  }
+  },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     update_offre() {
-      if (
-        this.$store.state.infoUserConnected?.user?.statut.statut === "entreprise" ||
-        this.$store.state.infoUserConnected?.user?.statut.statut === "particulier"
-      ) {
-        this.update_compte_entreprise();
-      }
-      if (
-  this.$store.state.infoUserConnected?.user?.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected?.user?.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected?.user?.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected?.user?.statut.statut === "veteran"
-) {
-  this.update_compte_etudiant();
-}
+  const statuses = this.$store.state.infoUserConnected?.user?.statuses || [];
 
-      // if (this.$store.state.infoUserConnected?.user?.statut.statut === "etudiant") {
-      //   this.update_compte_etudiant();
-      // }
-      if (this.$store.state.infoUserConnected?.user?.statut.statut === "admin") {
-        this.updateCompteAdmin();
-      }
-    },
-    modifyPassword() {
-      // if (this.$store.state.infoUserConnected?.user?.statut.statut === "etudiant") {
-      //   this.modifyPasswordOfStudent();
-      // }
-      if (
-  this.$store.state.infoUserConnected?.user?.statut.statut === "etudiant" ||
-  this.$store.state.infoUserConnected?.user?.statut.statut === "professionnel" ||
-  this.$store.state.infoUserConnected?.user?.statut.statut === "artisan" ||
-  this.$store.state.infoUserConnected?.user?.statut.statut === "veteran"
-) {
- this.modifyPasswordOfStudent();
-}
+  const isEntrepriseOrParticulier = statuses?.some(s =>
+    ['entreprise', 'particulier'].includes(s.statut)
+  );
 
-      if (
-        this.$store.state.infoUserConnected?.user?.statut.statut === "entreprise" ||
-        this.$store.state.infoUserConnected?.user?.statut.statut === "particulier"
-      ) {
-        this.modifyPasswordOfEntreprise();
-      }
-      if (this.$store.state.infoUserConnected?.user?.statut.statut === "admin") {
-        this.modifyPasswordOfAdmin();
-      }
-    },
+  const isEtudiantOrProOrArtisanOrVeteran = statuses?.some(s =>
+    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+  );
+
+  const isAdmin = statuses?.some(s => s.statut === 'admin');
+
+  if (isEntrepriseOrParticulier) {
+    this.update_compte_entreprise();
+  }
+
+  if (isEtudiantOrProOrArtisanOrVeteran) {
+    this.update_compte_etudiant();
+  }
+
+  if (isAdmin) {
+    this.updateCompteAdmin();
+  }
+},
+   modifyPassword() {
+  const statuses = this.$store.state.infoUserConnected?.user?.statuses || [];
+
+  const isStudentGroup = statuses?.some(s =>
+    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+  );
+
+  const isEntrepriseGroup = statuses?.some(s =>
+    ['entreprise', 'particulier'].includes(s.statut)
+  );
+
+  const isAdmin = statuses?.some(s => s.statut === 'admin');
+
+  if (isStudentGroup) {
+    this.modifyPasswordOfStudent();
+  }
+
+  if (isEntrepriseGroup) {
+    this.modifyPasswordOfEntreprise();
+  }
+
+  if (isAdmin) {
+    this.modifyPasswordOfAdmin();
+  }
+},
     modifyPasswordOfStudent() {
       let info = {
         oldPassword: this.oldPassword,
@@ -276,7 +294,7 @@ export default {
       await this.$store.dispatch("getInfoUser");
       const infoUser = this.$store.state.infoUserConnected;
 
-      if(infoUser.user.statut.statut === 'etudiant'){
+      if (infoUser.user?.statuses?.some(s => s.statut === 'etudiant')){
       const competences = infoUser.competences;
       const qualifications = infoUser.qualifications;
       const jours = infoUser.jours;
@@ -340,7 +358,6 @@ export default {
     <ModalForModifyInfo />
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="page-body">
-      <!-- {{ JSON.stringify(this.$store.state.infoUserConnected?.user?.statut,null,2) }} -->
       <TabView v-if="this.$store.state.infoUserConnected">
         <TabPanel :header="texte1">
           <div>
@@ -350,9 +367,7 @@ export default {
                 this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'entreprise' || status.statut === 'particulier')
               "
               :infoPersonellesEntreprise="
-              this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'entreprise')
-                // this.$store.state.infoUserConnected?.user?.statut.statut === 'entreprise'
-                  ? [
+              this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'entreprise') ? [
                       {
                         libelle: 'Raison sociale',
                         value:  this.$store.state.infoUserConnected.is_company_verified === 'Formel' ? this.$store.state.infoUserConnected?.nom:this.$store.state.infoUserConnected?.nom_particulier,
@@ -449,7 +464,6 @@ export default {
               "
               :infoPersonellesGerant="
                this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'entreprise')
-                // this.$store.state.infoUserConnected?.user?.statut.statut === 'entreprise'
                   ? [
                       {
                         libelle: texte11,
@@ -486,10 +500,10 @@ export default {
                 { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut != 'etudiant') ? 'Mode de travail':null, value: this.$store.state.infoUserConnected?.modeTravail ?? '' },
                 { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'veteran') ? 'Traitement préférentiel':null, value: this.$store.state.infoUserConnected?.niveauExpertise ?? '' },
                 { libelle: this.$store.state.infoUserConnected?.user?.code_ambassadeur ? 'code parrainage':null , value: this.$store.state.infoUserConnected?.user?.code_ambassadeur ?? null },
-                {
-                  libelle: documentLabels[this.$store.state.infoUserConnected?.user?.statut?.statut],
-                  value: this.$store.state.infoUserConnected?.user?.photos,
-                },
+                // {
+                //   libelle: documentLabels[this.$store.state.infoUserConnected?.user?.statut?.statut],
+                //   value: this.$store.state.infoUserConnected?.user?.photos,
+                // },
                 { libelle: 
                   this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'professionnel') ? 'Curriculum Vitae':null, value: this.$store.state.infoUserConnected?.CVupload ?? null },
               ]"

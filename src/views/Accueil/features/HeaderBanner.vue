@@ -76,17 +76,16 @@ export default {
       />
       <ButtonsHeader
         v-if="
-          this.$store.state.user &&
-          this.$store.state.user.user.statut.statut == 'etudiant'
-        "
+  ($store.state.user?.user?.statuses || []).some(s => s.statut === 'etudiant')
+"
         @handleBtn="goToRoute('/jobs')"
         :title="texte6"
       />
       <ButtonsHeader
+       
         v-if="
-          this.$store.state.user &&
-          this.$store.state.user.user.statut.statut != 'etudiant'
-        "
+  ($store.state.user?.user?.statuses || []).some(s => s.statut !== 'etudiant')
+"
         @handleBtn="goToRoute('/timetable')"
         :title="texte7"
       />
