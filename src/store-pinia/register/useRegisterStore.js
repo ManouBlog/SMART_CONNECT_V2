@@ -242,7 +242,7 @@ Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre c
           // Photos gérant (array de fichiers)
 if (payload?.photo?.length > 0) {
   payload.photo.forEach((item) => {
-    if (item) {  // Sécurité supplémentaire par item
+    if (item) {  // Sécurité supplémentaires par item
       data.append("piece_gerant[]", item);
     }
   });

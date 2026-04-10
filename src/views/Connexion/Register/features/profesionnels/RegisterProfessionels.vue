@@ -24,6 +24,11 @@ export default {
  loading : false,
  rawText : '',
  result : null,
+  allStatuts : [
+  { value: "Particulier", label: "Particulier" },
+  { value: "Artisan", label: "Artisan" },
+],
+ optionsProfil: [],
  valueTempsTravail: [
   { value: "Temps partiel", label: "Temps partiel" },
   { value: "Temps plein", label: "Temps plein" },
@@ -493,6 +498,23 @@ StatutProfessionnel:[
     @finish="onFinish"
     @finishFailed="onFinishFailed"
   >
+
+    <div>
+    <label style="color: rgba(0, 0, 0, 0.88);
+    font-size: 14px;">Ajouter des statuts supplémentaires</label>
+    <div
+  style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
+>
+  <label v-for="item in allStatuts" :key="item.value">
+    <input
+      type="checkbox"
+      :value="item.value"
+      v-model="optionsProfil"
+    />
+    {{ item.label }}
+  </label>
+</div>
+  </div>
     <!-- STEP 0 -->
     <div v-show="currentStep === 0">
       <a-row :gutter="[16, 24]">

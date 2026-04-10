@@ -99,26 +99,7 @@ export default {
     <div style="padding: 0.5em 0; text-align: center; color: red">
       Les champs avec astérisque (*) sont obligatoires
     </div>
-    <!-- <div>
-      <span class="fw-bold">{{ texte0 }}</span>
-      <a-select
-        ref="select"
-        v-model:value="value1"
-        style="width: 100%; padding: 0; margin-top: 0.5em; margin-bottom: 1.5em"
-        :size="'large'"
-        @change="handleChange"
-      >
-        <a-select-option value="student">{{ texte1 }}</a-select-option>
-        <a-select-option value="entreprise">{{ texte2 }}</a-select-option>
-        <a-select-option value="particulier">{{ texte3 }}</a-select-option>
-         <a-select-option value="professionnels">Professionnels</a-select-option>
-          <a-select-option value="artisans">Artisans</a-select-option>
-           <a-select-option value="vétérans">Vétérans</a-select-option>
-      </a-select>
-      <div style="padding: 0.5em 0; text-align: center; color: gray;font-weight: bold;">
-      {{ this.descriptions[value1] }}
-    </div>
-    </div> -->
+    
     <div>
     <p class="fw-bold text-center" style="font-size: 1.em;">{{ texte0 }}</p>
 
