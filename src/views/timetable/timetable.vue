@@ -694,13 +694,11 @@ export default {
               >
                 <span style="font-size: 1em">{{ Help.toADfirstTwo(emploi.nom) }}</span>
               </span>
-             
-              <i class="bi bi-patch-check-fill" 
+               
+              <!-- <i class="bi bi-patch-check-fill" 
           v-if="emploi?.user?.is_verified"
-          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
-              <!-- <img v-if="emploi?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-              <img v-if="emploi?.user?.star_color === 'gold' && !emploi?.user?.is_verified" src="/star_gold.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-              <img v-if="emploi?.user?.star_color === 'yellow' && !emploi?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;"> -->
+          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i>  -->
+              <img v-if="emploi?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
             </div>
             <div class="card-body">
               <h3 class="name" style="color: white; font-weight: bold">
