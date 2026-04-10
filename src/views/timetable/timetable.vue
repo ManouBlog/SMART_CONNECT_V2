@@ -298,7 +298,7 @@ export default {
         element.acquis = competences;
 
         // Vérifier si dans la whishlist
-        this.isWhished[element.id] = this.$store.state.whistListPerson.some(
+        this.isWhished[element.id] = this.$store.state.whistListPerson?.some(
           (person) => person.id === element.id
         );
 
@@ -698,7 +698,13 @@ export default {
                 {{ emploi.prenoms }}
               </h3>
               <p class="text-center p-0 m-0">
-             <span style="display:flex; flex-wrap:wrap; gap:6px;">
+             <span 
+        :style="{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '6px',
+    justifyContent: emploi.user?.statuses?.length <= 2 ? 'center' : 'flex-start'
+  }">
   <span
     v-for="(status, index) in emploi.user?.statuses || []"
     :key="index"

@@ -570,7 +570,7 @@ export default {
             });
             element.acquis = competences;
             this.isWhished[element.id] = false;
-            this.$store.state.whistListPerson.forEach((person) => {
+            this.$store.state.whistListPerson?.forEach((person) => {
               if (element.id === person.id) {
                 this.isWhished[element.id] = true;
               }
