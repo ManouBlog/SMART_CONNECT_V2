@@ -84,7 +84,6 @@ export default {
   },
   computed: {
     isUserEtudiant() {
-      // return this.$store?.state?.user?.user?.statut?.statut === "etudiant";
        const statut = this.$store?.state?.user?.user?.statut?.statut;
   return (
     statut === "etudiant"
