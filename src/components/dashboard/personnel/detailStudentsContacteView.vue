@@ -66,7 +66,7 @@ export default {
           // console.log(res);
           this.list_students = res.data.data;
           // console.log("LIST", this.list_students);
-          this.student = this.list_students.students;
+          this.student = this.list_students?.students;
           this.student.find((item) => {
             if (
               item.nom === this.$route.params.name &&

@@ -192,6 +192,12 @@ export default {
     },
   },
   methods: {
+     starClass() {
+    const color = this.emploi?.user?.star_color
+
+    if (color === 'gold') return 'bi-star-fill text-gold'
+    return 'bi-star-fill text-yellow'
+  },
     async filterRecherche() {
       loadingSpinner.launchLoading(true);
       // 🔎 Construction des critères de recherche
@@ -688,9 +694,13 @@ export default {
               >
                 <span style="font-size: 1em">{{ Help.toADfirstTwo(emploi.nom) }}</span>
               </span>
-              <img v-if="emploi?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
+             
+              <i class="bi bi-patch-check-fill" 
+          v-if="emploi?.user?.is_verified"
+          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
+              <!-- <img v-if="emploi?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
               <img v-if="emploi?.user?.star_color === 'gold' && !emploi?.user?.is_verified" src="/star_gold.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-              <img v-if="emploi?.user?.star_color === 'yellow' && !emploi?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;">
+              <img v-if="emploi?.user?.star_color === 'yellow' && !emploi?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;"> -->
             </div>
             <div class="card-body">
               <h3 class="name" style="color: white; font-weight: bold">
@@ -724,9 +734,11 @@ export default {
                 </span>
                 <span v-if="emploi.competences.length > 3"> ... </span>
               </div>
-
               <span class="biStar">
-                <Rating v-model="emploi.average" readonly :cancel="false" />
+                <Rating 
+                 :class="emploi.user.star_color === 'yellow' ? 'color_yellow':'color_gold'" 
+                 v-model="emploi.average" 
+                 readonly :cancel="false"/>
               </span>
 
               <button
@@ -772,6 +784,8 @@ export default {
   </section>
 </template>
 <style scoped>
+
+
 .badge-animate {
   width: 25px;
   height: 25px;

@@ -319,9 +319,12 @@ export default {
           </p>
           
         </button>
-            <img v-if="user?.user?.is_verified" class="badge_star" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
+        <i class="bi bi-patch-check-fill" 
+          v-if="this.$store?.state?.user?.user?.is_verified"
+          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
+            <!-- <img v-if="user?.user?.is_verified" class="badge_star" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
               <img class="badge_star" v-if="user?.user?.star_color === 'gold' && !user?.user?.is_verified" src="/star_gold.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-              <img class="badge_star" v-if="user?.user?.star_color === 'yellow' && !user?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;">
+              <img class="badge_star" v-if="user?.user?.star_color === 'yellow' && !user?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;"> -->
         <i class="bi bi-camera-fill"></i>
       </div>
       <div>

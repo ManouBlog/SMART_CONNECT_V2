@@ -90,9 +90,12 @@ export default {
           }}</span>
             
         </span>
-         <img   v-if="timetable_for_student?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;margin:-10px;">
+        <i class="bi bi-patch-check-fill" 
+          v-if="this.$store?.state?.user?.user?.is_verified"
+          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
+         <!-- <img   v-if="timetable_for_student?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;margin:-10px;">
               <img v-if="timetable_for_student?.user?.star_color === 'gold' && !timetable_for_student?.user?.is_verified" src="/star_gold.png" alt="star_3d.png" style="width: 25px;height: 25px;margin:-10px;">
-              <img v-if="timetable_for_student?.user?.star_color === 'yellow' && !timetable_for_student?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;margin:-10px;">
+              <img v-if="timetable_for_student?.user?.star_color === 'yellow' && !timetable_for_student?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;margin:-10px;"> -->
         <!-- <i 
       v-if="timetable_for_student?.user.is_verified"
               class="bi bi-patch-check-fill"  

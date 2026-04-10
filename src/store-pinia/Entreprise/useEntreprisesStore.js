@@ -45,7 +45,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
           //  console.log("const_studentRecruit",studentRecruit)
            if(listStudent['status'] === 200 && studentRecruit['status'] === 200 ){
             this.list_students = listStudent.data.data;
-            this.student = this.list_students.students;
+            this.student = this.list_students?.students;
              this.studentRecruit = this.tableData(studentRecruit.data);
             // this.studentRecruit = elementFilter.map(item=> {
             //   return item.students;

@@ -151,12 +151,12 @@ export default {
         </span>
         <span style="color: black !important"
           >{{ this.$store.state.user.nom }} 
-            <img v-if="this.$store?.state?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
+            <!-- <img v-if="this.$store?.state?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
               <img v-if="this.$store?.state?.user?.star_color === 'gold' && !this.$store?.state?.user?.is_verified" src="/star_gold.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-              <img v-if="this.$store?.state?.user?.star_color === 'yellow' && !this.$store?.state?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-          <!-- <i class="bi bi-patch-check-fill" 
+              <img v-if="this.$store?.state?.user?.star_color === 'yellow' && !this.$store?.state?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;"> -->
+          <i class="bi bi-patch-check-fill" 
           v-if="this.$store?.state?.user?.user?.is_verified"
-          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i>  -->
+          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
           <br />
           {{ this.$store.state.user.prenoms }} 
           <br />

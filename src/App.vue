@@ -233,6 +233,7 @@ export default {
 };
 </script>
 <style>
+ 
 .disabled-custom {
   background-color: #e9ecef !important; /* gris bootstrap */
   color: #6c757d !important;
@@ -283,10 +284,16 @@ export default {
   color: green !important;
   border-color: green !important;
 }
-.p-rating .p-rating-item.p-rating-item-active .p-rating-icon,
+.color_yellow .p-rating-item.p-rating-item-active .p-rating-icon,
 .n-tabs.n-tabs--line-type .n-tabs-tab.n-tabs-tab--active {
-  color: orange !important;
+  color: yellow !important;
 }
+
+.color_gold .p-rating-item.p-rating-item-active .p-rating-icon,
+.n-tabs.n-tabs--line-type .n-tabs-tab.n-tabs-tab--active {
+  color: rgb(250, 163, 1) !important;
+}
+
 .n-tabs .n-tabs-bar,
 .multiselect__tag {
   background-color: orange !important;
