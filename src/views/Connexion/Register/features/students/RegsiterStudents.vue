@@ -24,7 +24,10 @@ export default {
   { value: "Particulier", label: "Particulier" },
   { value: "Artisan", label: "Artisan" },
 ],
- optionsProfil: [] ,
+ allAnwserProfilHybride: [
+  { label: "Oui", value: "oui" },
+  { label: "Non", value: "non" }
+],
  SCHOOL_KEYWORDS :[
   // Carte étudiante (formes tolérantes OCR)
   'carte etudiant',
@@ -126,6 +129,8 @@ export default {
         myCompetence: [],
         photo: null,
         upload: [],
+        optionsProfil: [] ,
+        optionsAnswer:null,
         bio: "",
         statutId:2,
         photo_profil: null,
@@ -186,14 +191,15 @@ export default {
 
     requiredFieldsByStep() {
       return {
+        0:["optionsAnswer"],
         // STEP 0 – Infos personnelles
-        0: ["nom", "prenoms", "phone", "email"],
+        1: ["nom", "prenoms", "phone", "email"],
 
         // STEP 1 – Profil & compétences
-        1: ["myCompetence"],
+        2: ["myCompetence"],
 
         // STEP 2 – Qualifications
-        2: ["qualifications", "niveauEtude", "filiere"],
+        3: ["qualifications", "niveauEtude", "filiere"],
 
         // STEP 3 – Disponibilités
         // 3: ["disponibiliteValid"],
@@ -527,6 +533,10 @@ preprocessImage(file) {
     :current="currentStep"
     class="mb-4"
   >
+  <a-step
+      title="Profil Hybride"
+      description=""
+    />
     <a-step
       title="Profil"
       description="Renseignez vos informations de base pour créer votre compte."
@@ -553,26 +563,60 @@ preprocessImage(file) {
     @finish="onFinish"
     @finishFailed="onFinishFailed"
   >
- 
- 
-    <!-- STEP 1 -->
-    <div v-show="currentStep === 0">
-       <div>
-    <label style="color: rgba(0, 0, 0, 0.88);
-    font-size: 14px;">Ajouter des statuts supplémentaires</label>
-    <div
-  style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
->
-  <label v-for="item in allStatuts" :key="item.value">
-    <input
-      type="checkbox"
-      :value="item.value"
-      v-model="optionsProfil"
-    />
-    {{ item.label }}
+  <!-- STEP 1 -->
+  <div v-show="currentStep === 0">
+    <div>
+  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+    Souhaitez-vous adopter un profil hybride ?
   </label>
-</div>
+
+  <div class="round-container">
+    <label 
+      v-for="item in allAnwserProfilHybride" 
+      :key="item.value"
+      class="round-item"
+    >
+      <input
+        type="radio"
+        name="profilHybride"
+        :value="item.value"
+        v-model="formState.optionsAnswer"
+      />
+      <span class="round-label">
+        {{ item.label }}
+      </span>
+    </label>
   </div>
+</div>
+   <transition name="fade-slide">
+  <div v-if="formState.optionsAnswer === 'oui'">
+    <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+      Sélectionnez un ou deux profils.
+    </label>
+
+    <div class="round-container">
+      <label 
+        v-for="item in allStatuts" 
+        :key="item.value"
+        class="round-item"
+      >
+        <input
+          type="checkbox"
+          :value="item.value"
+          v-model="formState.optionsProfil"
+        />
+        <span class="round-label">
+          {{ item.label }}
+        </span>
+      </label>
+    </div>
+  </div>
+</transition>
+  </div>
+ 
+    <!-- STEP 2 -->
+    <div v-show="currentStep === 1">
+       
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item label="Code de parrainage" name="code_ambassadeur">
@@ -666,8 +710,8 @@ preprocessImage(file) {
       </a-row>
     </div>
 
-    <!-- STEP 2 -->
-    <div v-show="currentStep === 1">
+    <!-- STEP 3 -->
+    <div v-show="currentStep === 2">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item
@@ -687,8 +731,8 @@ preprocessImage(file) {
       </a-row>
     </div>
 
-    <!-- STEP 3 -->
-    <div v-show="currentStep === 2">
+    <!-- STEP 4 -->
+    <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item
@@ -719,13 +763,13 @@ preprocessImage(file) {
       </a-row>
     </div>
 
-    <!-- STEP 4 -->
-    <div v-show="currentStep === 3">
+    <!-- STEP 5 -->
+    <div v-show="currentStep === 4">
       <CreateDisponibilite />
     </div>
 
-    <!-- STEP 5 -->
-    <div v-show="currentStep === 4">
+    <!-- STEP 6 -->
+    <div v-show="currentStep === 5">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -780,7 +824,7 @@ preprocessImage(file) {
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
       <a-button
-        v-if="currentStep < 4"
+        v-if="currentStep < 5"
         type="primary"
         @click.prevent="nextStep"
         :disabled="isNextDisabled"
@@ -789,7 +833,7 @@ preprocessImage(file) {
       </a-button>
 
       <a-button
-        v-if="currentStep === 4"
+        v-if="currentStep === 5"
         type="primary"
         html-type="submit"
         :disabled="!isCurrentStepValid || isPasswordDisabled"
@@ -801,6 +845,83 @@ preprocessImage(file) {
 </template>
 
 <style scoped>
+/* Entrée */
+.fade-slide-enter-active {
+  transition: all 0.4s ease;
+}
+
+/* Sortie */
+.fade-slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+/* Etat initial */
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+/* Etat final */
+.fade-slide-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Disparition */
+.fade-slide-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.round-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* Cache le checkbox natif */
+.round-item input {
+  display: none;
+}
+
+/* Le bouton rond */
+.round-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+
+  border: 2px solid #ccc;
+  background: #f5f5f5;
+
+  text-align: center;
+  font-size: 12px;
+  padding: 10px;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+.round-label:hover {
+  border-color: #007bff;
+  transform: scale(1.05);
+}
+
+/* Etat sélectionné */
+.round-item input:checked + .round-label {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0,123,255,0.5);
+}
 :deep(:where(.ant-steps-item-icon)) {
   background-color: #ff8819 !important;
   border-color: #ff8819 !important;
@@ -814,6 +935,13 @@ preprocessImage(file) {
 }
 :deep(.ant-spin-text) {
   font-size: 16px !important;
+}
+@media (max-width: 600px) {
+  .round-label {
+    width: 70px;
+    height: 70px;
+    font-size: 10px;
+  }
 }
 </style>
 
