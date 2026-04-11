@@ -318,7 +318,7 @@ export default {
     v-for="(status, index) in item.student.user?.statuses || []"
     :key="index"
     class="status-badge"
-    style="color:orange;margin: 0 0.5em;"
+    style="background-color:orange;margin:0 0.3em;border-radius: 2px;"
   >
     {{ status.statut }}
   </span>
