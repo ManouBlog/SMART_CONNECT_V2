@@ -262,8 +262,17 @@ export default {
 
     nextStep() {
       console.log("this.currentStep",this.currentStep)
+
+      if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.optionsProfil.length){
+        console.log("this.formState.optionsProfil",this.formState.optionsProfil)
+        this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Choisir un profil"
+          );
+          return;
+      }
       // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
-      if (this.currentStep === 2) {
+      if (this.currentStep === 3) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
 
         if (invalid) {
@@ -275,7 +284,7 @@ export default {
         }
       }
 
-        if (this.currentStep === 3) {
+        if (this.currentStep === 4) {
           console.log("this.currentStep4",this.getFirstHeureStartFrom)
         if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
           this.SWALPOPUP.declencheSwalPopup(
@@ -286,7 +295,7 @@ export default {
         }
       }
 
-      if (this.currentStep !== 2 && !this.isCurrentStepValid) {
+      if (this.currentStep !== 3 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Veuillez remplir les champs requis avant de continuer"
@@ -881,6 +890,7 @@ preprocessImage(file) {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
+  justify-content: center;
 }
 
 /* Cache le checkbox natif */
@@ -911,16 +921,16 @@ preprocessImage(file) {
 
 /* Hover */
 .round-label:hover {
-  border-color: #007bff;
+  border-color: orange;
   transform: scale(1.05);
 }
 
 /* Etat sélectionné */
 .round-item input:checked + .round-label {
-  background: #007bff;
+  background: orange;
   color: white;
-  border-color: #007bff;
-  box-shadow: 0 0 10px rgba(0,123,255,0.5);
+  border-color: orange;
+  box-shadow: 0 0 10px teal;
 }
 :deep(:where(.ant-steps-item-icon)) {
   background-color: #ff8819 !important;
