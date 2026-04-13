@@ -101,7 +101,6 @@ StatutArtisans:[
       texte19: "",
       texte96: "",
      niveauEtude:"",
-  
      filiere:"",
       configUtils,
       SWALPOPUP: useSwalPopup(),
