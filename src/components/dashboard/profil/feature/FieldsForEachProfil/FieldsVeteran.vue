@@ -1,7 +1,7 @@
 <script>
 import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
-
+import Abonnements from '../../../../../views/Abonnements/Abonnements.vue';
 import { configUtils } from "../../../../../Shared/Utils";
 
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
@@ -10,18 +10,16 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 
 export default {
   name: "FieldsVeteran",
-//   components: { 
-//     VueMultiselect, 
-//     Politics,
-//     RegisterQualifications 
-//   },
+  components: { 
+  Abonnements
+  },
   data() {
     return {
        fileList : [],
  loading : false,
  rawText : '',
  result : null,
- 
+ showModalAbonnements:false,
  allAnwserProfilHybride: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
@@ -298,6 +296,21 @@ StatutVeterans:[
 };
 </script>
 <template>
+  <n-modal 
+  style="width:100%; height: 400px; 
+    overflow-y: auto; 
+    max-height: 80vh;"
+       :closable="true"
+       :mask-closable="false"
+       @close="resetData"
+  v-model:show="showModalAbonnements">
+         <template #header>
+        <div class="modal-header">
+          <h3>Abonnement</h3>
+        </div>
+      </template>
+       <Abonnements />
+      </n-modal>
     <form action="" @submit.prevent="onFinish">
     <div class="row g-4">
       <div class="col-md-6">

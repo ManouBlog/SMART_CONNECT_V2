@@ -1,7 +1,7 @@
 <script>
 // import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
-
+import Abonnements from "../../../../../views/Abonnements/Abonnements.vue";
 import { configUtils } from "../../../../../Shared/Utils";
 
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
@@ -10,17 +10,15 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 
 export default {
   name: "FieldsArtisan",
-//   components: { 
-//     VueMultiselect, 
-//     Politics,
-//     RegisterQualifications 
-//   },
+  components: { 
+   Abonnements
+  },
   data() {
     return {
  loading : false,
  rawText : '',
  result : null,
- 
+ showModalAbonnements:false,
  allAnwserProfilHybride: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
@@ -229,12 +227,29 @@ StatutArtisans:[
 // },
     onHandleUpdateProfil() {
       console.log("this.formState",this.formState);
+      this.showModalAbonnements = true;
     }
   },
-
 };
 </script>
 <template>
+  <n-modal 
+   style="width:80%; 
+   height: 500px; 
+    overflow-y: auto; 
+    max-height: 80vh;"
+       :closable="false"
+       @close="resetData"
+  v-model:show="showModalAbonnements">
+         <template #header>
+        <div class="modal-header">
+          <h3>Abonnement</h3>
+        </div>
+      </template>
+      <div style="background-color: white;">
+       <Abonnements />
+      </div>
+      </n-modal>
     <form action="" @submit.prevent="onHandleUpdateProfil">
     <div class="row g-4">
       <div class="col-md-6 my-3">

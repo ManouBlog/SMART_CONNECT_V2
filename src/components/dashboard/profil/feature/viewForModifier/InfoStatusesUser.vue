@@ -2,6 +2,7 @@
 import instance from '../../../../../api/api';
 import FieldsVeteran from '../FieldsForEachProfil/FieldsVeteran.vue'
 import FieldsArtisan from '../FieldsForEachProfil/FieldsArtisan.vue';
+
 export default {
   name: 'InfoStatusesUser',
   components:{FieldsVeteran,FieldsArtisan},
@@ -14,6 +15,7 @@ export default {
   data() {
     return {
       showModalBadgeVerifi: false,
+      showModalAbonnements:false,
       allStatuts : [
   { value: "Particulier", label: "Particulier" },
   { value: "Artisan", label: "Artisan" },
@@ -79,7 +81,7 @@ this.allStatuses=[];
 </script>
 
 <template>
-
+     
        <n-modal v-model:show="showModalBadgeVerifi" 
        style="width:80%; height: 400px; 
     overflow-y: auto; 
@@ -94,6 +96,7 @@ this.allStatuses=[];
           <h3>Changer de profil</h3>
         </div>
       </template>
+      
       <section v-if="allStatuses.length"
   
       >
@@ -227,18 +230,16 @@ this.allStatuses=[];
         <h5>Aucun profil</h5>
       </div>
       
-      <div v-else class="row g-4">
+      <div v-else class="row g-2">
         <div v-for="(profil, index) in profils" :key="index" 
              class="col-12 col-md-4">
           
           <!-- Carte profil avec tes couleurs -->
-          <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden hover-card"
-               style="color: var(--third-color); background: rgba(255,255,255,0.05); transition: all 0.3s ease;">
-            
+          <div style="display: flex;">
             <!-- Header image/statut -->
             <div class="position-relative p-3 text-center">
               <div class="avatar-placeholder rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
-                   style="width: 15px; height: 25px; background: orange; color: white;">
+                   style="width: 55px; height: 55px; background: orange; color: white;border-radius: 10px;">
                 <i class="bi bi-person-fill fs-3"></i>
               </div>
               
