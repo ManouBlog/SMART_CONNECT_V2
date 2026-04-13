@@ -1,5 +1,5 @@
 <script>
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
 
 import { configUtils } from "../../../../../Shared/Utils";
@@ -9,7 +9,7 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 // import Tesseract from 'tesseract.js'
 
 export default {
-  name: "FieldsVeteran",
+  name: "FieldsArtisan",
 //   components: { 
 //     VueMultiselect, 
 //     Politics,
@@ -17,7 +17,6 @@ export default {
 //   },
   data() {
     return {
-       fileList : [],
  loading : false,
  rawText : '',
  result : null,
@@ -30,18 +29,9 @@ export default {
   { value: "Particulier", label: "Particulier" },
   { value: "Artisan", label: "Artisan" },
 ],
- valueExpertise: [
-  { value: "Privilége", label: "Privilége" },
-  { value: "Normal", label: "Normal" },
-],
- valueTempsTravail: [
-  { value: "Temps partiel", label: "Temps partiel" },
-  { value: "Temps plein", label: "Temps plein" },
-],
-valueModeDeTravail: [
-  { value: "Présentiel", label: "Présentiel" },
-  { value: "Télétravail", label: "Télétravail" },
-  { value: "Hybride", label: "Hybride" }
+StatutArtisans:[
+  { value: "Maitre Artisan", label: "Maitre Artisan" },
+  { value: "Artisan", label: "Artisan" }
 ],
 //  SCHOOL_KEYWORDS :[
 //   // Carte étudiante (formes tolérantes OCR)
@@ -115,55 +105,25 @@ valueModeDeTravail: [
      filiere:"",
       configUtils,
       SWALPOPUP: useSwalPopup(),
-StatutVeterans:[
-  { value: "Vétéran Hors Grade", label: "Vétéran Hors Grade" },
-  { value: "Vétéran Senior", label: "Vétéran Senior" },
-  { value: "Vétéran", label: "Vétéran" }
-],
       formState: {
-        code_ambassadeur:"",
-        titreCv: "",
-        nom: "",
-        prenoms: "",
-        phone: "",
-        statut_talent:"",
-        ville: "",
-        tempsTravail:"",
-        commune: "",
-        quartier: "",
-        diplome: "",
-        myCompetence: [],
-          optionsProfil: [] ,
-        optionsAnswer:null,
-        photo: null,
         upload: [],
-        bio: "",
-        statutId:6,
-        photo_profil: null,
-        uploadPhotoProfil: [],
-        email: "",
-        password: "",
         niveauExpertise:"",
-        countryCode: "+225",
-        qualifications: [],
-        disponibiliteValid: false,
       },
     };
   },
 
   computed: {
- isFormComplete() {
+
+   isFormComplete() {
       return (
-        this.formState.niveauExpertise?.trim() &&      // Champ texte non vide
-        this.formState.statut_talent &&                // Select sélectionné
+        this.formState.niveauExpertise?.trim() &&      // Select sélectionné
         this.formState.upload?.length > 0              // Fichier uploadé
       );
     }
-    
   },
  
   methods: {
-    onUploadChange(e) {
+     onUploadChange(e) {
     console.log('onUploadChange', e.target.files);
     this.formState.upload = Array.from(e.target.files);
     if (!e) return
@@ -268,40 +228,18 @@ StatutVeterans:[
 //     reader.readAsDataURL(file)
 //   })
 // },
-    onFinish() {
+    onHandleUpdateProfil() {
       console.log("this.formState",this.formState);
-      if (this.formState.uploadPhotoProfil.length) {
-        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
-      }
-
-      if (this.configUtils.isValidEmail(this.formState.email)) {
-        this.changeValueIsPolitics({
-            value: true,
-            infoUser: "talents",
-            payload: this.formState,
-          });
-        
-      } else {
-        this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
-      }
-    },
-
-    onFinishFailed(errorInfo) {
-      Swal.fire({
-        icon: "warning",
-        title: `${errorInfo.errorFields[0].errors[0]}`,
-        text: "Veuillez remplir tous les champs obligatoires (*)",
-      });
-    },
+    }
   },
 
 };
 </script>
 <template>
-    <form action="" @submit.prevent="onFinish">
+    <form action="" @submit.prevent="onHandleUpdateProfil">
     <div class="row g-4">
-      <div class="col-md-6">
-        <label for="treatment1" class="form-label fw-semibold mb-2">Traitement préférentiel</label>
+      <div class="col-md-6 my-3">
+        <label for="treatment1" class="form-label fw-semibold mb-2">Statut professionnel</label>
         <select 
           name="treatment" 
           id="treatment1" 
@@ -311,7 +249,7 @@ StatutVeterans:[
         >
           <option value="" disabled>Sélectionnez...</option>
           <option 
-            v-for="item in valueExpertise" 
+            v-for="item in StatutArtisans" 
             :key="item.id" 
             :value="item.label"
           >
@@ -320,28 +258,10 @@ StatutVeterans:[
         </select>
       </div>
       
-      <div class="col-md-6">
-        <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel</label>
-        <select 
-          name="statut" 
-          id="treatment2" 
-          v-model="formState.statut_talent"
-          class="form-control"
-          style="height: 40px;"
-        >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in StatutVeterans" 
-            :key="item.id" 
-            :value="item.value"
-          >
-            {{ item.label }}
-          </option>
-        </select>
-      </div>
+  
       
       <div class="col-md-6">
-        <label for="certificat" class="form-label fw-semibold mb-2">Certificat de travail</label>
+        <label for="certificat" class="form-label fw-semibold mb-2">Carte national d'identité</label>
         <input 
           type="file" 
           id="certificat"
@@ -362,4 +282,5 @@ StatutVeterans:[
       </div>
     </div>
   </form>
+
 </template>

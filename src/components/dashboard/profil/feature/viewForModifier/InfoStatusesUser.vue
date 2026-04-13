@@ -1,9 +1,10 @@
 <script>
 import instance from '../../../../../api/api';
 import FieldsVeteran from '../FieldsForEachProfil/FieldsVeteran.vue'
+import FieldsArtisan from '../FieldsForEachProfil/FieldsArtisan.vue';
 export default {
   name: 'InfoStatusesUser',
-  components:{FieldsVeteran},
+  components:{FieldsVeteran,FieldsArtisan},
   props: {
     profils: {
       type: Array,
@@ -174,6 +175,7 @@ this.allStatuses=[];
 
   <div v-if="optionsAnswer">
   <FieldsVeteran  v-if="selectedStatus.statut === 'veteran'"/>
+  <FieldsArtisan v-if="selectedStatus.statut === 'artisan'" />
   </div>
 
       </section>

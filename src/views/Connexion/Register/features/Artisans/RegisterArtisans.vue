@@ -661,12 +661,12 @@ export default {
         <a-col :xs="24" :md="12">
             <a-form-item
             :label="'Statut professionnel'"
-            :rules="[{ required: true, message: 'Ajoutez  votre niveau de carrière' }]"
+            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]"
           >
             <a-select
             style="width: 100%;"
     v-model:value="formState.statut_talent"
-    placeholder="Sélectionnez votre Niveau de carrière"
+    placeholder="Sélectionnez votre Statut professionnel"
     show-search
     option-filter-prop="label"
   >
