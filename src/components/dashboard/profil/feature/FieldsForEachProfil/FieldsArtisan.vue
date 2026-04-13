@@ -253,7 +253,7 @@ StatutArtisans:[
     <form action="" @submit.prevent="onHandleUpdateProfil">
     <div class="row g-4">
       <div class="col-md-6 my-3">
-        <label for="treatment1" class="form-label fw-semibold mb-2">Statut professionnel</label>
+        <label for="treatment1" class="form-label fw-semibold mb-2">Statut professionnel *</label>
         <select 
           name="treatment" 
           id="treatment1" 
@@ -271,11 +271,9 @@ StatutArtisans:[
           </option>
         </select>
       </div>
-      
-  
-      
+    
       <div class="col-md-6 my-4">
-        <label for="certificat" class="form-label fw-semibold mb-2">Carte national d'identité</label>
+        <label for="certificat" class="form-label fw-semibold mb-2">Carte national d'identité *</label>
         <input 
           type="file" 
           id="certificat"
