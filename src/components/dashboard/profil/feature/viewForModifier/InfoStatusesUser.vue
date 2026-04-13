@@ -1,7 +1,9 @@
 <script>
 import instance from '../../../../../api/api';
+import FieldsVeteran from '../FieldsForEachProfil/FieldsVeteran.vue'
 export default {
   name: 'InfoStatusesUser',
+  components:{FieldsVeteran},
   props: {
     profils: {
       type: Array,
@@ -78,7 +80,9 @@ this.allStatuses=[];
 <template>
 
        <n-modal v-model:show="showModalBadgeVerifi" 
-       style="width:80%" 
+       style="width:80%; height: 400px; 
+    overflow-y: auto; 
+    max-height: 80vh;" 
        preset="card" 
        :closable="true"
        :mask-closable="false"
@@ -89,8 +93,37 @@ this.allStatuses=[];
           <h3>Changer de profil</h3>
         </div>
       </template>
-      <section v-if="allStatuses.length">
- <div >
+      <section v-if="allStatuses.length"
+  
+      >
+        <div class="w-100 mb-4">
+            <label for="statusSelect">Séléctionnez un profil</label>
+            <select 
+      name="status" 
+      id="statusSelect"
+      v-model="selectedStatus"
+      class="form-select rounded-4 shadow-sm border-0 w-100"
+      style="min-height: 50px"
+      :disabled="!allStatuses.length"
+      required
+    >
+      <!-- Option placeholder -->
+      <option value="" disabled selected>
+        {{ allStatuses.length ? 'Sélectionnez un statut...' : 'Aucun statut disponible' }}
+      </option>
+      
+      <!-- Options dynamiques -->
+      <option 
+        v-for="value in allStatuses" 
+        :key="value.id" 
+        :value="value"
+      >
+        {{ value.statut }}
+      </option>
+           </select>
+        </div>
+  <transition name="fade-slide">
+ <div v-if="selectedStatus">
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
     Souhaitez-vous adopter un profil hybride ?
   </label>
@@ -113,6 +146,7 @@ this.allStatuses=[];
     </label>
   </div>
 </div>
+</transition>
    <transition name="fade-slide">
   <div v-if="optionsAnswer === 'oui'">
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
@@ -137,29 +171,11 @@ this.allStatuses=[];
     </div>
   </div>
 </transition>
-  <select 
-      name="status" 
-      id="statusSelect"
-      v-model="selectedStatus"
-      class="form-select rounded-4 shadow-sm border-0 w-100"
-      style="min-height: 50px"
-      :disabled="!allStatuses.length"
-      required
-    >
-      <!-- Option placeholder -->
-      <option value="" disabled selected>
-        {{ allStatuses.length ? 'Sélectionnez un statut...' : 'Aucun statut disponible' }}
-      </option>
-      
-      <!-- Options dynamiques -->
-      <option 
-        v-for="value in allStatuses" 
-        :key="value.id" 
-        :value="value.id"
-      >
-        {{ value.statut }}
-      </option>
-    </select>
+
+  <div v-if="optionsAnswer">
+  <FieldsVeteran  v-if="selectedStatus.statut === 'veteran'"/>
+  </div>
+
       </section>
       <section v-else style="text-align: center;">
         Chargement des profils....
