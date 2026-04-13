@@ -215,7 +215,7 @@ export default {
       "
     >
       <div class="info-header" style="display: flex; justify-content: space-between">
-        <h1 class="fw-bold my-3" style="color: orange">Informations personnelles</h1>
+        <h1 class="fw-bold my-3" style="color: orange">Infos personnelles</h1>
         <div>
           <!-- <button 
           v-if="user.user.statut.statut != 'etudiant' && !user.is_verified"

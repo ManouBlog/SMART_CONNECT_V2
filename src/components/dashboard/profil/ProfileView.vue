@@ -4,6 +4,7 @@ import instance, { lienPhoto } from "../../../api/api";
 import InfoEntreprise from "./feature/InfoEntreprise.vue";
 import InfoStudents from "./feature/InfoStudents.vue";
 // import InfoParticulier from "./feature/InfoParticulier.vue"
+import InfoStatusesUser from './feature/viewForModifier/InfoStatusesUser.vue'
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import ModalForModifyInfo from "./feature/ModalForModifyInfo.vue";
 import CompetencesAndExperience from "../etudiant-route/CompetencesAndExperience.vue";
@@ -26,6 +27,7 @@ export default {
     TabView,
     TabPanel,
     MonPlanAbonnement,
+    InfoStatusesUser
   },
   data() {
     return {
@@ -523,6 +525,16 @@ userDocuments() {
 "
             />
           </div>
+        </TabPanel>
+        <TabPanel :header="'Profils'" 
+        v-if="
+     this.$store.state.infoUserConnected?.user?.statuses?.some(
+    s => ['etudiant', 'professionnel', 'artisan'].includes(s.statut)
+     )
+    ">
+         <InfoStatusesUser
+         :profils="this.$store.state.infoUserConnected?.user?.statuses"
+         />
         </TabPanel>
         <TabPanel
        v-if="

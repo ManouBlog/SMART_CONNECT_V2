@@ -168,7 +168,7 @@ valueExpertise: [
     this.form.ville = user.ville || "";
     this.form.commune = user.commune || "";
     this.form.quartier = user.quartier || "";
-    this.form.statuses  = user.user.statuses  || "";
+    this.form.statuses  = user.user.statuses.map(item=>item.id)  || "";
     this.form.niveauExpertise = user.niveauExpertise || "";
 
     this.form.matricule_cc = user.matricule_cc || "";
@@ -430,16 +430,7 @@ if (isStudentGroup) {
 <template>
   <div class="card-body text-left py-4" v-if="this.$store.state.infoUserConnected">
     <div class="row">
-      <!-- <legend>
-        Info personnelle
-        {{
-          this.$store.state.infoUserConnected &&
-          (this.$store.state.infoUserConnected.user.statut.statut === "entreprise" ||
-            this.$store.state.infoUserConnected.user.statut.statut === "particulier")
-            ? "sur l'entreprise"
-            : null
-        }}
-      </legend> -->
+     
       <legend>
   Info personnelle
   {{
@@ -452,7 +443,7 @@ if (isStudentGroup) {
       <p style="text-align: center; color: red;font-size: 1em;">
         Les champs avec astérisque (*) sont obligatoires.
       </p>
-      <div class="col-md-12">
+      <!-- <div class="col-md-12">
    <div
   class="mb-3"
   v-if="!(
@@ -461,9 +452,11 @@ if (isStudentGroup) {
   )"
 >
             <label class="form-label">Changer de statut</label>
+           
             <select 
             name="statut_id" 
             id="statut_id"
+            multiple
             :class="{ 'disabled-custom': form.statut === 'veteran' }"
             :disabled="form.statut === 'veteran'"
             style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
@@ -504,7 +497,7 @@ if (isStudentGroup) {
             </select>
             
             </div>
-      </div>
+      </div> -->
      <div
   class="col-md-12"
   v-if="
