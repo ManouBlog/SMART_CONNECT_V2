@@ -17,6 +17,10 @@ export default {
           loading : false,
           rawText : '',
         result : null,
+        allAnwserProfilHybride: [
+  { label: "Oui", value: "oui" },
+  { label: "Non", value: "non" }
+],
         allStatuts : [
   { value: "Artisan", label: "Artisan" },
 ],
@@ -115,6 +119,8 @@ export default {
         diplome: "",
         carte_student: "",
         myCompetence: [],
+         optionsProfil: [] ,
+        optionsAnswer:null,
         Logo: [],
         upload: [],
         password: "",
@@ -316,7 +322,29 @@ export default {
 </script>
 <template>
   <Politics v-if="isPolitics" />
-<div>
+   <div>
+  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+    Souhaitez-vous adopter un profil hybride ?
+  </label>
+  <div class="round-container">
+    <label 
+      v-for="item in allAnwserProfilHybride" 
+      :key="item.value"
+      class="round-item"
+    >
+      <input
+        type="radio"
+        name="profilHybride"
+        :value="item.value"
+        v-model="formState.optionsAnswer"
+      />
+      <span class="round-label">
+        {{ item.label }}
+      </span>
+    </label>
+  </div>
+</div>
+<!-- <div>
     <label style="color: rgba(0, 0, 0, 0.88);
     font-size: 14px;">Ajouter un statut supplémentaire</label>
     <div
@@ -331,7 +359,7 @@ export default {
     {{ item.label }}
   </label>
 </div>
-  </div>
+  </div> -->
   <a-form
     :layout="'vertical'"
     :model="formState"
