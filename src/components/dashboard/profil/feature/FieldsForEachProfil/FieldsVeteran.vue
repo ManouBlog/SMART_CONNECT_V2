@@ -119,32 +119,10 @@ StatutVeterans:[
   { value: "Vétéran", label: "Vétéran" }
 ],
       formState: {
-        code_ambassadeur:"",
-        titreCv: "",
-        nom: "",
-        prenoms: "",
-        phone: "",
         statut_talent:"",
-        ville: "",
-        tempsTravail:"",
-        commune: "",
-        quartier: "",
-        diplome: "",
-        myCompetence: [],
-          optionsProfil: [] ,
-        optionsAnswer:null,
-        photo: null,
         upload: [],
-        bio: "",
-        statutId:6,
-        photo_profil: null,
-        uploadPhotoProfil: [],
-        email: "",
-        password: "",
         niveauExpertise:"",
-        countryCode: "+225",
-        qualifications: [],
-        disponibiliteValid: false,
+       
       },
     };
   },
@@ -266,22 +244,9 @@ StatutVeterans:[
 //     reader.readAsDataURL(file)
 //   })
 // },
-    onFinish() {
+    onHandleProfil() {
       console.log("this.formState",this.formState);
-      if (this.formState.uploadPhotoProfil.length) {
-        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
-      }
-
-      if (this.configUtils.isValidEmail(this.formState.email)) {
-        this.changeValueIsPolitics({
-            value: true,
-            infoUser: "talents",
-            payload: this.formState,
-          });
-        
-      } else {
-        this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
-      }
+     
     },
 
     onFinishFailed(errorInfo) {
@@ -311,7 +276,7 @@ StatutVeterans:[
       </template>
        <Abonnements />
       </n-modal>
-    <form action="" @submit.prevent="onFinish">
+    <form action="" @submit.prevent="onHandleProfil">
     <div class="row g-4">
       <div class="col-md-6">
         <label for="treatment1" class="form-label fw-semibold mb-2">Traitement préférentiel</label>
