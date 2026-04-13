@@ -266,68 +266,244 @@ StatutVeterans:[
       </template>
        <Abonnements />
       </n-modal>
-    <form action="" @submit.prevent="onHandleProfil">
-    <div class="row g-4">
-      <div class="col-md-6 my-4">
-        <label for="treatment1" class="form-label fw-semibold mb-2">Traitement préférentiel</label>
-        <select 
-          name="treatment" 
-          id="treatment1" 
-          v-model="formState.niveauExpertise"
-          class="form-control"
-          style="height: 50px;"
+    <form @submit.prevent="onFinish" autocomplete="off">
+
+  <!-- Raison sociale + RCCM -->
+  <div class="row">
+    <div class="col-lg-6 my-3">
+      <label>Raison sociale de l’entreprise</label>
+      <input
+        type="text"
+        class="form-control"
+        v-model="formState.nom"
+        placeholder="Entrez la raison sociale"
+        required
+      />
+    </div>
+
+    <div class="col-lg-6 my-3">
+      <label>Numéro RCCM</label>
+      <input
+        type="text"
+        class="form-control"
+        v-model="formState.matricule_cc"
+        placeholder="Entrez le numéro RCCM"
+        required
+      />
+
+      <label>Registre de commerce (PDF)</label>
+      <input
+        type="file"
+        class="form-control"
+        @change="handleChangeCardStudent"
+        name="Registre"
+        accept=".pdf"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- Forme juridique + NCC -->
+  <div class="row">
+    <div class="col-lg-6 my-3">
+      <label>Forme juridique</label>
+      <input
+        type="text"
+        class="form-control"
+        v-model="formState.juridique"
+        placeholder="Ex : SARL, SA, SAS..."
+        required
+      />
+    </div>
+
+    <div class="col-lg-6 my-3">
+      <label>Numéro de Compte Contribuable (NCC)</label>
+      <input
+        type="text"
+        class="form-control"
+        v-model="formState.ncc"
+        placeholder="Entrez le NCC"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- Contact + Ville -->
+  <div class="row">
+    <div class="col-lg-6 my-3">
+      <label>Numéro de téléphone principal</label>
+
+      <div style="display:flex; gap:5px;">
+        <select v-model="formState.countryCode"
+        
+        class="form-control"
         >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in valueExpertise" 
-            :key="item.id" 
-            :value="item.label"
+          <option
+            v-for="code in westAfricaCodes"
+            :key="code.value"
+            :value="code.value"
           >
-            {{ item.label }}
+            {{ code.label }}
           </option>
         </select>
-      </div>
-      
-      <div class="col-md-6 my-4">
-        <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel</label>
-        <select 
-          name="statut" 
-          id="treatment2" 
-          v-model="formState.statut_talent"
+
+        <input
+          type="tel"
           class="form-control"
-          style="height: 50px;"
-        >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in StatutVeterans" 
-            :key="item.id" 
-            :value="item.value"
-          >
-            {{ item.label }}
-          </option>
-        </select>
-      </div>
-      
-      <div class="col-md-6 my-4">
-        <label for="certificat" class="form-label fw-semibold mb-2">Certificat de travail</label>
-        <input 
-          type="file" 
-          id="certificat"
-          accept="image/*"
-          @change="onUploadChange"
-          class="form-control"
-          style="height: 40px;border: none !important;"
+          v-model="formState.contact"
+          placeholder="Numéro de téléphone"
+          required
         />
       </div>
-      <div class="col-md-12 my-4">
-      <a-button
-        type="primary"
-        html-type="submit"
-        :disabled="!isFormComplete"
-      >
-        Enregistrer
-      </a-button>
+    </div>
+
+    <div class="col-lg-6 my-3">
+      <label>Ville</label>
+      <input
+        type="text"
+        class="form-control"
+        v-model="formState.ville"
+        placeholder="Entrez la ville"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- Commune + Quartier -->
+  <div class="row">
+    <div class="col-lg-6 my-3">
+      <label>Commune</label>
+      <input
+        type="text"
+        class="form-control"
+        v-model="formState.commune"
+        placeholder="Entrez la commune"
+        required
+      />
+    </div>
+
+    <div class="col-lg-6 my-3">
+      <label>Quartier</label>
+      <input
+        type="text"
+        class="form-control"
+        v-model="formState.quartier"
+        placeholder="Entrez le quartier"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- Email + Email secondaires -->
+  <div class="row">
+    <div class="col-lg-6 my-3">
+      <label>Adresse email principale</label>
+      <input
+        type="email"
+        class="form-control"
+        v-model="formState.email"
+        placeholder="exemple@email.com"
+        required
+      />
+    </div>
+
+    <div class="col-lg-6 my-3">
+      <label>Emails secondaires (copie)</label>
+
+      <div v-for="(email, index) in formState.email_cc" :key="index" style="display:flex; gap:5px;">
+        <input type="email"  v-model="formState.email_cc[index]" placeholder="Email secondaire" />
+        <button type="button" @click="removeEmail(index)">Supprimer</button>
+      </div>
+
+      <button type="button" @click="addEmail">Ajouter un email</button>
+    </div>
+  </div>
+
+  <!-- Gérant + Téléphone -->
+  <div class="row">
+    <div class="col-lg-6 my-3">
+      <label>Nom du gérant / responsable</label>
+      <input
+        type="text"
+        class="form-control"
+        v-model="formState.gerant"
+        placeholder="Nom complet du gérant"
+        required
+      />
+    </div>
+
+    <div class="col-lg-6 my-3">
+      <label>Téléphone du gérant</label>
+
+      <div style="display:flex; gap:5px;">
+        <select
+        class="form-control"
+        v-model="formState.countryCodePhoneGerant">
+          <option
+            v-for="code in westAfricaCodes"
+            :key="code.value"
+            :value="code.value"
+          >
+            {{ code.label }}
+          </option>
+        </select>
+
+        <input
+          type="tel"
+          class="form-control"
+          v-model="formState.Phonegerant"
+          placeholder="Numéro du gérant"
+          required
+        />
       </div>
     </div>
-  </form>
+  </div>
+
+  <!-- Uploads -->
+  <div class="row">
+    <div class="col-lg-6 my-3">
+      <label>Pièce d’identité (CNI, Passeport, etc.)</label>
+      <input
+        type="file"
+        multiple
+        class="form-control"
+        @change="handleChangeCardStudent"
+        required
+      />
+    </div>
+
+    <div class="col-lg-6 my-3">
+      <label>Logo de l’entreprise (JPG, PNG, WEBP)</label>
+      <input
+        type="file"
+        class="form-control"
+        accept=".jpg,.jpeg,.png,.webp"
+        @change="handleChangeCardStudent"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div class="row">
+    <div class="col-lg-6 my-3">
+      <label>Mot de passe</label>
+      <input
+        type="password"
+        class="form-control"
+        v-model="formState.password"
+        placeholder="Entrez un mot de passe sécurisé"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div style="text-align:center; margin-top:20px;">
+    <button type="submit">
+      Créer le compte entreprise
+    </button>
+  </div>
+
+</form>
 </template>
