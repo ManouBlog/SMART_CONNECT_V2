@@ -246,7 +246,7 @@ StatutVeterans:[
 // },
     onHandleProfil() {
       console.log("this.formState",this.formState);
-     
+      this.showModalAbonnements = !this.showModalAbonnements
     },
 
     onFinishFailed(errorInfo) {
@@ -265,8 +265,7 @@ StatutVeterans:[
   style="width:100%; height: 400px; 
     overflow-y: auto; 
     max-height: 80vh;"
-       :closable="true"
-       :mask-closable="false"
+       :closable="false"
        @close="resetData"
   v-model:show="showModalAbonnements">
          <template #header>
