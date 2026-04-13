@@ -20,6 +20,7 @@ export default {
   { label: "Non", value: "non" }
 ],
 optionsAnswer:null,
+selectedStatus:"",
 optionsProfil:[],
 allStatuses:[]
     }
@@ -27,6 +28,12 @@ allStatuses:[]
   methods: {
     openVerification(userStatut) {
       this.$emit('open-verification', userStatut);
+    },
+    resetData(){
+this.optionsAnswer=null;
+this.selectedStatus="";
+this.optionsProfil=[];
+this.allStatuses=[];
     },
      async lister_statut() {
   const user = this.$store.state.infoUserConnected?.user;
@@ -73,7 +80,9 @@ allStatuses:[]
        <n-modal v-model:show="showModalBadgeVerifi" 
        style="width:80%" 
        preset="card" 
-       :closable="false"
+       :closable="true"
+       :mask-closable="false"
+       @close="resetData"
        >
       <template #header>
         <div class="modal-header">
@@ -152,7 +161,7 @@ allStatuses:[]
       </option>
     </select>
       </section>
-      <section>
+      <section v-else style="text-align: center;">
         Chargement des profils....
       </section>
       
@@ -177,7 +186,10 @@ allStatuses:[]
             border-radius: 10%;
             padding:0.5em;
           "
-          @click="()=>showModalBadgeVerifi = !showModalBadgeVerifi"
+          @click="async()=>{
+            showModalBadgeVerifi = !showModalBadgeVerifi
+             await this.lister_statut();
+          }"
         >
           Modifier
         </button>
