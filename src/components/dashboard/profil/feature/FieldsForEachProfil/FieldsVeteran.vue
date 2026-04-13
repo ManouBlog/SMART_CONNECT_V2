@@ -268,14 +268,14 @@ StatutVeterans:[
       </n-modal>
     <form action="" @submit.prevent="onHandleProfil">
     <div class="row g-4">
-      <div class="col-md-6">
+      <div class="col-md-6 my-4">
         <label for="treatment1" class="form-label fw-semibold mb-2">Traitement préférentiel</label>
         <select 
           name="treatment" 
           id="treatment1" 
           v-model="formState.niveauExpertise"
           class="form-control"
-          style="height: 40px;"
+          style="height: 50px;"
         >
           <option value="" disabled>Sélectionnez...</option>
           <option 
@@ -288,14 +288,14 @@ StatutVeterans:[
         </select>
       </div>
       
-      <div class="col-md-6">
+      <div class="col-md-6 my-4">
         <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel</label>
         <select 
           name="statut" 
           id="treatment2" 
           v-model="formState.statut_talent"
           class="form-control"
-          style="height: 40px;"
+          style="height: 50px;"
         >
           <option value="" disabled>Sélectionnez...</option>
           <option 
@@ -308,7 +308,7 @@ StatutVeterans:[
         </select>
       </div>
       
-      <div class="col-md-6">
+      <div class="col-md-6 my-4">
         <label for="certificat" class="form-label fw-semibold mb-2">Certificat de travail</label>
         <input 
           type="file" 

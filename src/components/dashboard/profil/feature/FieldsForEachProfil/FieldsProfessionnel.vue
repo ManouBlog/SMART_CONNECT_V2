@@ -292,7 +292,7 @@ valueModeDeTravail: [
           id="treatment1" 
           v-model="formState.niveauExpertise"
           class="form-control"
-          style="height: 40px;"
+          style="height: 50px;"
         >
           <option value="" disabled>Sélectionnez...</option>
           <option 
@@ -312,7 +312,7 @@ valueModeDeTravail: [
           id="treatment2" 
           v-model="formState.statut_talent"
           class="form-control"
-          style="height: 40px;"
+          style="height: 50px;"
         >
           <option value="" disabled>Sélectionnez...</option>
           <option 
@@ -332,7 +332,7 @@ valueModeDeTravail: [
           id="treatment2" 
           v-model="formState.modeTravail"
           class="form-control"
-          style="height: 40px;"
+          style="height: 50px;"
         >
           <option value="" disabled>Sélectionnez...</option>
           <option 
@@ -352,7 +352,7 @@ valueModeDeTravail: [
           id="treatment2" 
           v-model="formState.tempsTravail"
           class="form-control"
-          style="height: 40px;"
+          style="height: 50px;"
         >
           <option value="" disabled>Sélectionnez...</option>
           <option 

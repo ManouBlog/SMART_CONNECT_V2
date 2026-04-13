@@ -259,7 +259,7 @@ StatutArtisans:[
           id="treatment1" 
           v-model="formState.niveauExpertise"
           class="form-control"
-          style="height: 40px;"
+          style="height: 50px;"
         >
           <option value="" disabled>Sélectionnez...</option>
           <option 
