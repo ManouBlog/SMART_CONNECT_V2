@@ -85,7 +85,6 @@ valueExpertise: [
       gerant: "",
       numero_gerant: "",
       particulier_prenoms: "",
-      statut_id:"",
       statut:"",
       niveauExpertise:"aucun",
       nom_particulier:"",
@@ -110,11 +109,12 @@ valueExpertise: [
     return requiredFields.some(field => !this.form[field]);
     },
      isDisabled() {
-    const statutId = Number(this.form.statut_id);
+
 
     // Statuts concernés
     const idsToCheck = [5, 6, 7];
-    if (!idsToCheck.includes(statutId)) return false;
+     const statutsUser = this.$store.state.infoUserConnected?.user?.statuses.map(item=>item.id)
+    if(!idsToCheck.some(el=>statutsUser.includes(el))) return false;
 
     // Champs obligatoires par statut
     const rules = {
@@ -123,8 +123,8 @@ valueExpertise: [
       7: ["niveauExpertise", "tempsTravail", "modeTravail"]
     };
 
-    const requiredFields = rules[statutId] || [];
-
+    const requiredFields = rules.statutsUser || [];
+    
     return requiredFields.some(field => !this.form[field]);
   }
   },
@@ -168,7 +168,6 @@ valueExpertise: [
     this.form.ville = user.ville || "";
     this.form.commune = user.commune || "";
     this.form.quartier = user.quartier || "";
-    this.form.statut_id = user.user.statut_id || "";
     this.form.statuses  = user.user.statuses  || "";
     this.form.niveauExpertise = user.niveauExpertise || "";
 
@@ -468,7 +467,7 @@ if (isStudentGroup) {
             :class="{ 'disabled-custom': form.statut === 'veteran' }"
             :disabled="form.statut === 'veteran'"
             style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
-            v-model="form.statut_id"
+            v-model="form.statuses"
             @change="()=>{
               form.tempsTravail = '';
               form.modeTravail = '';
@@ -490,7 +489,7 @@ if (isStudentGroup) {
             name="statut_id" 
             id="statut_id"
             style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
-            v-model="form.statut_id"
+            v-model="form.statuses"
             @change="()=>{
               console.log('hello world')
             }"
@@ -692,16 +691,16 @@ if (isStudentGroup) {
           <div class="mb-3"  
           v-if="
     $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'etudiant')
-    && form.statut_id == 2
   ">
             <label class="form-label">Dernier diplôme academique</label>
             <input v-model="form.diplome" class="form-control" type="text" />
           </div>
           <div class="mb-3" 
+          
          v-if="
     $store.state.infoUserConnected.user?.statuses?.some(s =>
       ['professionnel', 'veteran'].includes(s.statut)
-    ).includes(form.statut_id)
+    )
   ">
             <div>
      <label class="form-label">Niveau actuel + diplome</label>
