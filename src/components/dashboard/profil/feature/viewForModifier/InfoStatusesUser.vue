@@ -3,10 +3,10 @@ import instance from '../../../../../api/api';
 import FieldsVeteran from '../FieldsForEachProfil/FieldsVeteran.vue'
 import FieldsArtisan from '../FieldsForEachProfil/FieldsArtisan.vue';
 import FieldsProfessionnel from '../FieldsForEachProfil/FieldsProfessionnel.vue'
-
+import FieldsCompany from '../FieldsForEachProfil/FieldsCompany.vue';
 export default {
   name: 'InfoStatusesUser',
-  components:{FieldsVeteran,FieldsArtisan,FieldsProfessionnel},
+  components:{FieldsVeteran,FieldsArtisan,FieldsProfessionnel,FieldsCompany},
   props: {
     profils: {
       type: Array,
@@ -196,6 +196,7 @@ this.allStatuses=[];
   <FieldsVeteran  v-if="selectedStatus.statut === 'veteran'"/>
   <FieldsArtisan v-if="selectedStatus.statut === 'artisan'" />
   <FieldsProfessionnel v-if="selectedStatus.statut === 'professionnel'" />
+  <FieldsCompany v-if="selectedStatus.statut === 'entreprise'" />
   </div>
 
       </section>
