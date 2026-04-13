@@ -1,5 +1,5 @@
 <script>
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
 import Abonnements from '../../../../../views/Abonnements/Abonnements.vue';
 import { configUtils } from "../../../../../Shared/Utils";
@@ -248,16 +248,7 @@ StatutVeterans:[
       console.log("this.formState",this.formState);
       this.showModalAbonnements = !this.showModalAbonnements
     },
-
-    onFinishFailed(errorInfo) {
-      Swal.fire({
-        icon: "warning",
-        title: `${errorInfo.errorFields[0].errors[0]}`,
-        text: "Veuillez remplir tous les champs obligatoires (*)",
-      });
-    },
   },
-
 };
 </script>
 <template>

@@ -87,9 +87,8 @@ this.allStatuses=[];
     overflow-y: auto; 
     max-height: 80vh;" 
        preset="card" 
-       :closable="true"
-       :mask-closable="false"
-       @close="resetData"
+       :closable="false"
+      @after-leave="resetData"
        >
       <template #header>
         <div class="modal-header">
