@@ -16,10 +16,13 @@ export default {
  loading : false,
  rawText : '',
  result : null,
+ allAnwserProfilHybride: [
+  { label: "Oui", value: "oui" },
+  { label: "Non", value: "non" }
+],
   allStatuts : [
   { value: "Artisan", label: "Artisan" },
 ],
- optionsProfil: [],
       PIECE_KEYWORDS :[
   "republique de cote d ivoire",
   "signature du titulaire",
@@ -113,6 +116,8 @@ export default {
         diplome: "",
         carte_student: "",
         myCompetence: [],
+         optionsProfil: [] ,
+        optionsAnswer:null,
         Logo: [],
         upload: [],
         password: "",
@@ -349,7 +354,55 @@ export default {
 <template>
   <Politics v-if="isPolitics" />
 
+  <div>
+  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+    Souhaitez-vous adopter un profil hybride ?
+  </label>
+  <div class="round-container">
+    <label 
+      v-for="item in allAnwserProfilHybride" 
+      :key="item.value"
+      class="round-item"
+    >
+      <input
+        type="radio"
+        name="profilHybride"
+        :value="item.value"
+        v-model="formState.optionsAnswer"
+      />
+      <span class="round-label">
+        {{ item.label }}
+      </span>
+    </label>
+  </div>
+</div>
+   <transition name="fade-slide">
+  <div v-if="formState.optionsAnswer === 'oui'">
+    <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+      Profils disponibles
+    </label>
+
+    <div class="round-container">
+      <label 
+        v-for="item in allStatuts" 
+        :key="item.value"
+        class="round-item"
+      >
+        <input
+          type="checkbox"
+          :value="item.value"
+          v-model="formState.optionsProfil"
+        />
+        <span class="round-label">
+          {{ item.label }}
+        </span>
+      </label>
+    </div>
+  </div>
+</transition>
+<transition name="fade-slide">
   <a-form
+  v-if="formState.optionsAnswer"
     :layout="'vertical'"
     :model="formState"
     name="basic"
@@ -357,10 +410,9 @@ export default {
     @finish="onFinish"
     @finishFailed="onFinishFailed"
   >
-  
     <!-- Nom + Prénoms -->
     <a-row :gutter="[16, 24]">
-      <a-col :xs="24" :md="24">
+      <!-- <a-col :xs="24" :md="24">
         <div>
     <label style="color: rgba(0, 0, 0, 0.88);
     font-size: 14px;">Ajouter un statut supplémentaire</label>
@@ -376,8 +428,8 @@ export default {
     {{ item.label }}
   </label>
 </div>
-  </div>
-      </a-col>
+       </div>
+      </a-col> -->
       <a-col :xs="24" :md="12">
         <a-form-item
           :label="texte"
@@ -569,4 +621,5 @@ export default {
       </div>
     </a-form-item>
   </a-form>
+</transition>
 </template>

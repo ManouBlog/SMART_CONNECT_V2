@@ -28,6 +28,10 @@ export default {
   { value: "Particulier", label: "Particulier" },
   { value: "Artisan", label: "Artisan" },
 ],
+ allAnwserProfilHybride: [
+  { label: "Oui", value: "oui" },
+  { label: "Non", value: "non" }
+],
  optionsProfil: [],
  valueTempsTravail: [
   { value: "Temps partiel", label: "Temps partiel" },
@@ -149,6 +153,8 @@ StatutProfessionnel:[
         upload: [],
         modeTravail:"",
         // niveauExpertise:"",
+         optionsProfil: [] ,
+        optionsAnswer:null,
         tempsTravail:"",
         bio: "",
         statutId:5,
@@ -182,7 +188,7 @@ StatutProfessionnel:[
     // },
     isNextDisabled() {
       // STEP 2 – Qualifications
-      if (this.currentStep === 2) {
+      if (this.currentStep === 3) {
         // au moins une qualification
         if (!this.formState.qualifications.length) {
           return true;
@@ -210,21 +216,22 @@ StatutProfessionnel:[
 
     requiredFieldsByStep() {
       return {
-        // STEP 0 – Infos personnelles
-        0: ["nom", "prenoms", "phone", "email"],
+         0:["optionsAnswer"],
+        // STEP 1 – Infos personnelles
+        1: ["nom", "prenoms", "phone", "email"],
 
-        // STEP 1 – Profil & compétences
-        1: ["myCompetence"],
+        // STEP 2 – Profil & compétences
+        2: ["myCompetence"],
 
-        // STEP 2 – Qualifications
-        2: ["qualifications", "niveauEtude", "filiere","statut_talent"],
+        // STEP 3 – Qualifications
+        3: ["qualifications", "niveauEtude", "filiere","statut_talent"],
 
         
-        // STEP 3 – mode de travail
-        3: ["modeTravail","tempsTravail"],
+        // STEP 4 – mode de travail
+        4: ["modeTravail","tempsTravail"],
 
-        // STEP 4 – Validation finale
-        4: ["upload", "password"],
+        // STEP 5 – Validation finale
+        5: ["upload", "password"],
       };
     },
     isCurrentStepValid() {
@@ -257,8 +264,16 @@ StatutProfessionnel:[
 
     nextStep() {
       console.log("this.currentStep",this.currentStep)
+       if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.optionsProfil.length){
+        console.log("this.formState.optionsProfil",this.formState.optionsProfil)
+        this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Choisir un profil"
+          );
+          return;
+      }
       // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
-      if (this.currentStep === 2) {
+      if (this.currentStep === 3) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
 
         if (invalid) {
@@ -281,7 +296,7 @@ StatutProfessionnel:[
       //   }
       // }
 
-      if (this.currentStep !== 2 && !this.isCurrentStepValid) {
+      if (this.currentStep !== 3 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Veuillez remplir les champs requis avant de continuer"
@@ -473,6 +488,10 @@ StatutProfessionnel:[
     :current="currentStep"
     class="mb-4"
   >
+  <a-step
+      title="Profil Hybride"
+      description=""
+    />
     <a-step
       title="Profil"
       description="Renseignez vos informations de base pour créer votre compte."
@@ -498,24 +517,58 @@ StatutProfessionnel:[
     @finish="onFinish"
     @finishFailed="onFinishFailed"
   >
-    <!-- STEP 0 -->
-    <div v-show="currentStep === 0">
-      <div>
-    <label style="color: rgba(0, 0, 0, 0.88);
-    font-size: 14px;">Ajouter des statuts supplémentaires</label>
-    <div
-  style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
->
-  <label v-for="item in allStatuts" :key="item.value">
-    <input
-      type="checkbox"
-      :value="item.value"
-      v-model="optionsProfil"
-    />
-    {{ item.label }}
+  <!-- STEP 0 -->
+   <div v-show="currentStep === 0">
+    <div>
+  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+    Souhaitez-vous adopter un profil hybride ?
   </label>
-</div>
+
+  <div class="round-container">
+    <label 
+      v-for="item in allAnwserProfilHybride" 
+      :key="item.value"
+      class="round-item"
+    >
+      <input
+        type="radio"
+        name="profilHybride"
+        :value="item.value"
+        v-model="formState.optionsAnswer"
+      />
+      <span class="round-label">
+        {{ item.label }}
+      </span>
+    </label>
   </div>
+</div>
+   <transition name="fade-slide">
+  <div v-if="formState.optionsAnswer === 'oui'">
+    <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+     Profils disponibles
+    </label>
+
+    <div class="round-container">
+      <label 
+        v-for="item in allStatuts" 
+        :key="item.value"
+        class="round-item"
+      >
+        <input
+          type="checkbox"
+          :value="item.value"
+          v-model="formState.optionsProfil"
+        />
+        <span class="round-label">
+          {{ item.label }}
+        </span>
+      </label>
+    </div>
+  </div>
+</transition>
+  </div>
+    <!-- STEP 1 -->
+    <div v-show="currentStep === 1">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item label="Code de parrainage" name="code_ambassadeur">
@@ -609,8 +662,8 @@ StatutProfessionnel:[
       </a-row>
     </div>
 
-    <!-- STEP 1 -->
-    <div v-show="currentStep === 1">
+    <!-- STEP 2 -->
+    <div v-show="currentStep === 2">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item
@@ -631,8 +684,8 @@ StatutProfessionnel:[
       </a-row>
     </div>
 
-    <!-- STEP 2 -->
-    <div v-show="currentStep === 2">
+    <!-- STEP 3 -->
+    <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item
@@ -737,8 +790,8 @@ StatutProfessionnel:[
       </a-row>
     </div>
 
-    <!-- STEP 3 -->
-    <div v-show="currentStep === 3">
+    <!-- STEP 4 -->
+    <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
          <a-col :xs="24" :md="12">
            <a-form-item
@@ -790,8 +843,8 @@ StatutProfessionnel:[
       </a-row>
     </div>
 
-    <!-- STEP 4 -->
-    <div v-show="currentStep === 4">
+    <!-- STEP 5 -->
+    <div v-show="currentStep === 5">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="8">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -859,7 +912,7 @@ StatutProfessionnel:[
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
       <a-button
-        v-if="currentStep < 4"
+        v-if="currentStep < 5"
         type="primary"
         @click.prevent="nextStep"
         :disabled="isNextDisabled"
@@ -868,7 +921,7 @@ StatutProfessionnel:[
       </a-button>
 
       <a-button
-        v-if="currentStep === 4"
+        v-if="currentStep === 5"
         type="primary"
         html-type="submit"
         :disabled="!isCurrentStepValid || isPasswordDisabled"

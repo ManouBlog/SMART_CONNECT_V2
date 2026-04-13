@@ -233,6 +233,84 @@ export default {
 };
 </script>
 <style>
+/* Entrée */
+.fade-slide-enter-active {
+  transition: all 0.4s ease;
+}
+
+/* Sortie */
+.fade-slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+/* Etat initial */
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+/* Etat final */
+.fade-slide-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Disparition */
+.fade-slide-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.round-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Cache le checkbox natif */
+.round-item input {
+  display: none;
+}
+
+/* Le bouton rond */
+.round-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+
+  border: 2px solid #ccc;
+  background: #f5f5f5;
+
+  text-align: center;
+  font-size: 12px;
+  padding: 10px;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+.round-label:hover {
+  border-color: orange;
+  transform: scale(1.05);
+}
+
+/* Etat sélectionné */
+.round-item input:checked + .round-label {
+  background: orange;
+  color: white;
+  border-color: orange;
+  box-shadow: 0 0 10px teal;
+}
  
 .disabled-custom {
   background-color: #e9ecef !important; /* gris bootstrap */
