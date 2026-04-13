@@ -21,6 +21,7 @@ export default {
   { value: "Particulier", label: "Particulier" },
   { value: "Artisan", label: "Artisan" },
 ],
+allStatutsCompany:[{ value: "Artisan", label: "Artisan" }],
  allAnwserProfilHybride: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
@@ -51,7 +52,7 @@ this.allStatuses=[];
     etudiant: ['professionnel', 'artisan'],
     professionnel: ['artisan', 'veteran'],
     artisan: ['professionnel','veteran'],
-    // entreprise: ['entreprise']
+    particulier: ['entreprise']
   };
 
   const allowed = new Set(
@@ -157,9 +158,25 @@ this.allStatuses=[];
      Profils disponibles
     </label>
 
-    <div class="round-container">
+    <div class="round-container" v-if="selectedStatus.statut !== 'entreprise'">
       <label 
         v-for="item in allStatuts" 
+        :key="item.value"
+        class="round-item"
+      >
+        <input
+          type="checkbox"
+          :value="item.value"
+          v-model="optionsProfil"
+        />
+        <span class="round-label">
+          {{ item.label }}
+        </span>
+      </label>
+    </div>
+    <div class="round-container" v-else>
+      <label 
+        v-for="item in allStatutsCompany" 
         :key="item.value"
         class="round-item"
       >

@@ -529,7 +529,7 @@ userDocuments() {
         <TabPanel :header="'Profils'" 
         v-if="
      this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['etudiant', 'professionnel', 'artisan'].includes(s.statut)
+    s => ['etudiant', 'professionnel', 'artisan' , 'particulier'].includes(s.statut)
      )
     ">
          <InfoStatusesUser
