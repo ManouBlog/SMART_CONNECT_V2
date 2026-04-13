@@ -274,7 +274,7 @@ StatutArtisans:[
       
   
       
-      <div class="col-md-6">
+      <div class="col-md-6 my-4">
         <label for="certificat" class="form-label fw-semibold mb-2">Carte national d'identité</label>
         <input 
           type="file" 
