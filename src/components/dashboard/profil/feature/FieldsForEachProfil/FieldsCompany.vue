@@ -10,6 +10,12 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 
 export default {
   name: "FieldsCompany",
+  props: {
+  optionsAnswer: {
+    type: String,
+    required: true
+  }
+},
   components: { 
   Abonnements
   },
@@ -19,6 +25,23 @@ export default {
  loading : false,
  rawText : '',
  result : null,
+  westAfricaCodes: [
+  { label: "Bénin", value: "+229", length: 8 },
+  { label: "Burkina Faso", value: "+226", length: 8 },
+  { label: "Cap‑Vert", value: "+238", length: 7 },
+  { label: "Côte d’Ivoire", value: "+225", length: 10 },
+  { label: "Gambie", value: "+220", length: 7 },
+  { label: "Ghana", value: "+233", length: 9 },
+  { label: "Guinée", value: "+224", length: 7 },
+  { label: "Guinée‑Bissau", value: "+245", length: 9 },
+  { label: "Liberia", value: "+231", length: 9 },
+  { label: "Mali", value: "+223", length: 8 },
+  { label: "Niger", value: "+227", length: 8 },
+  { label: "Nigeria", value: "+234", length: 10 },
+  { label: "Sénégal", value: "+221", length: 8 },
+  { label: "Sierra Leone", value: "+232", length: 8 },
+  { label: "Togo", value: "+228", length: 8 },
+],
  showModalAbonnements:false,
  allAnwserProfilHybride: [
   { label: "Oui", value: "oui" },
@@ -122,6 +145,7 @@ StatutVeterans:[
         statut_talent:"",
         upload: [],
         niveauExpertise:"",
+        email_cc:[""],
        
       },
     };
@@ -266,35 +290,35 @@ StatutVeterans:[
       </template>
        <Abonnements />
       </n-modal>
-    <form @submit.prevent="onFinish" autocomplete="off">
+    <form @submit.prevent="onFinish" autocomplete="off" v-if="optionsAnswer == 'non'">
 
   <!-- Raison sociale + RCCM -->
   <div class="row">
-    <div class="col-lg-6 my-3">
-      <label>Raison sociale de l’entreprise</label>
+    <div class="col-md-6 my-3">
+      <label>Raison sociale</label>
       <input
         type="text"
         class="form-control"
+        style="height: 45px;"
         v-model="formState.nom"
         placeholder="Entrez la raison sociale"
         required
       />
     </div>
 
-    <div class="col-lg-6 my-3">
+    <div class="col-md-6 my-3">
       <label>Numéro RCCM</label>
       <input
         type="text"
         class="form-control"
+        style="height: 45px;"
         v-model="formState.matricule_cc"
         placeholder="Entrez le numéro RCCM"
         required
       />
-
-      <label>Registre de commerce (PDF)</label>
+      <label class="my-3">Registre de commerce (PDF)</label>
       <input
         type="file"
-        class="form-control"
         @change="handleChangeCardStudent"
         name="Registre"
         accept=".pdf"
@@ -305,22 +329,24 @@ StatutVeterans:[
 
   <!-- Forme juridique + NCC -->
   <div class="row">
-    <div class="col-lg-6 my-3">
+    <div class="col-md-6 my-3">
       <label>Forme juridique</label>
       <input
         type="text"
         class="form-control"
+        style="height: 45px;"
         v-model="formState.juridique"
         placeholder="Ex : SARL, SA, SAS..."
         required
       />
     </div>
 
-    <div class="col-lg-6 my-3">
+    <div class="col-md-6 my-3">
       <label>Numéro de Compte Contribuable (NCC)</label>
       <input
         type="text"
         class="form-control"
+        style="height: 45px;"
         v-model="formState.ncc"
         placeholder="Entrez le NCC"
         required
@@ -330,13 +356,14 @@ StatutVeterans:[
 
   <!-- Contact + Ville -->
   <div class="row">
-    <div class="col-lg-6 my-3">
+    <!-- <div class="col-md-6 my-3">
       <label>Numéro de téléphone principal</label>
 
       <div style="display:flex; gap:5px;">
         <select v-model="formState.countryCode"
         
         class="form-control"
+        style="height: 45px;"
         >
           <option
             v-for="code in westAfricaCodes"
@@ -350,18 +377,20 @@ StatutVeterans:[
         <input
           type="tel"
           class="form-control"
+          style="height: 45px;"
           v-model="formState.contact"
           placeholder="Numéro de téléphone"
           required
         />
       </div>
-    </div>
+    </div> -->
 
-    <div class="col-lg-6 my-3">
+    <div class="col-md-6 my-3">
       <label>Ville</label>
       <input
         type="text"
         class="form-control"
+        style="height: 45px;"
         v-model="formState.ville"
         placeholder="Entrez la ville"
         required
@@ -371,22 +400,24 @@ StatutVeterans:[
 
   <!-- Commune + Quartier -->
   <div class="row">
-    <div class="col-lg-6 my-3">
+    <div class="col-md-6 my-3">
       <label>Commune</label>
       <input
         type="text"
         class="form-control"
+        style="height: 45px;"
         v-model="formState.commune"
         placeholder="Entrez la commune"
         required
       />
     </div>
 
-    <div class="col-lg-6 my-3">
+    <div class="col-md-6 my-3">
       <label>Quartier</label>
       <input
         type="text"
         class="form-control"
+        style="height: 45px;"
         v-model="formState.quartier"
         placeholder="Entrez le quartier"
         required
@@ -396,48 +427,52 @@ StatutVeterans:[
 
   <!-- Email + Email secondaires -->
   <div class="row">
-    <div class="col-lg-6 my-3">
+    <div class="col-md-6 my-3">
       <label>Adresse email principale</label>
       <input
         type="email"
         class="form-control"
+        style="height: 45px;"
         v-model="formState.email"
         placeholder="exemple@email.com"
         required
       />
     </div>
 
-    <div class="col-lg-6 my-3">
-      <label>Emails secondaires (copie)</label>
+    <div class="col-md-6 my-3">
+      <label>Emails secondaires (cc)</label>
 
-      <div v-for="(email, index) in formState.email_cc" :key="index" style="display:flex; gap:5px;">
-        <input type="email"  v-model="formState.email_cc[index]" placeholder="Email secondaire" />
-        <button type="button" @click="removeEmail(index)">Supprimer</button>
-      </div>
-
-      <button type="button" @click="addEmail">Ajouter un email</button>
+      <n-dynamic-input
+            v-model:value="formState.email_cc"
+            placeholder="Ajouter un email en copie"
+            :min="1"
+            :max="6"
+            :item-style="{ borderColor: 'gray' }"
+          />
     </div>
   </div>
 
   <!-- Gérant + Téléphone -->
   <div class="row">
-    <div class="col-lg-6 my-3">
-      <label>Nom du gérant / responsable</label>
+    <div class="col-md-6 my-3">
+      <label>Nom du gérant</label>
       <input
         type="text"
         class="form-control"
+        style="height: 45px;"
         v-model="formState.gerant"
         placeholder="Nom complet du gérant"
         required
       />
     </div>
 
-    <div class="col-lg-6 my-3">
+    <div class="col-md-6 my-3">
       <label>Téléphone du gérant</label>
 
       <div style="display:flex; gap:5px;">
         <select
         class="form-control"
+        style="height: 45px;"
         v-model="formState.countryCodePhoneGerant">
           <option
             v-for="code in westAfricaCodes"
@@ -451,6 +486,7 @@ StatutVeterans:[
         <input
           type="tel"
           class="form-control"
+          style="height: 45px;"
           v-model="formState.Phonegerant"
           placeholder="Numéro du gérant"
           required
@@ -461,22 +497,20 @@ StatutVeterans:[
 
   <!-- Uploads -->
   <div class="row">
-    <div class="col-lg-6 my-3">
-      <label>Pièce d’identité (CNI, Passeport, etc.)</label>
+    <div class="col-md-6 my-3">
+      <label>Pièce d’identité (CNI)</label>
       <input
         type="file"
         multiple
-        class="form-control"
         @change="handleChangeCardStudent"
         required
       />
     </div>
 
-    <div class="col-lg-6 my-3">
+    <div class="col-md-6 my-3">
       <label>Logo de l’entreprise (JPG, PNG, WEBP)</label>
       <input
         type="file"
-        class="form-control"
         accept=".jpg,.jpeg,.png,.webp"
         @change="handleChangeCardStudent"
         required
@@ -486,11 +520,12 @@ StatutVeterans:[
 
   <!-- Password -->
   <div class="row">
-    <div class="col-lg-6 my-3">
+    <div class="col-md-6 my-3">
       <label>Mot de passe</label>
       <input
         type="password"
         class="form-control"
+        style="height: 45px;"
         v-model="formState.password"
         placeholder="Entrez un mot de passe sécurisé"
         required
@@ -499,11 +534,27 @@ StatutVeterans:[
   </div>
 
   <!-- Submit -->
-  <div style="text-align:center; margin-top:20px;">
-    <button type="submit">
-      Créer le compte entreprise
-    </button>
-  </div>
+   <div class="col-md-12 my-4">
+      <a-button
+        type="primary"
+        html-type="submit"
+      >
+        Enregistrer
+      </a-button>
+      </div>
 
 </form>
+<section v-else>
+<div class="col-md-12 my-4">
+      <a-button
+        type="primary"
+        html-type="submit"
+      >
+        Enregistrer
+      </a-button>
+      </div>
+</section>
 </template>
+<style scoped>
+
+</style>

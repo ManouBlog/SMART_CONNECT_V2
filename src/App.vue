@@ -233,6 +233,17 @@ export default {
 };
 </script>
 <style>
+.n-input {
+  --n-border: 1px solid rgb(167, 167, 167) !important;
+  --n-border-hover: 1px solid rgb(167, 167, 167) !important;
+  --n-border-focus: 1px solid rgb(216, 216, 216) !important;
+  --n-box-shadow-focus: none !important;
+}
+.n-button--primary {
+  --n-color: #333 !important;
+  --n-color-hover: #555 !important;
+  --n-color-pressed: #111 !important;
+}
 /* Entrée */
 .fade-slide-enter-active {
   transition: all 0.4s ease;

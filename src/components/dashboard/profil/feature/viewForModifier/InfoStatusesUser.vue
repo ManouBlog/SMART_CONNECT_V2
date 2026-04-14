@@ -196,7 +196,10 @@ this.allStatuses=[];
   <FieldsVeteran  v-if="selectedStatus.statut === 'veteran'"/>
   <FieldsArtisan v-if="selectedStatus.statut === 'artisan'" />
   <FieldsProfessionnel v-if="selectedStatus.statut === 'professionnel'" />
-  <FieldsCompany v-if="selectedStatus.statut === 'entreprise'" />
+  <FieldsCompany 
+  v-if="selectedStatus.statut === 'entreprise'"
+  :optionsAnswer="optionsAnswer"
+  />
   </div>
 
       </section>
