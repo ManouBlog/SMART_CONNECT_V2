@@ -1,19 +1,15 @@
 <script setup>
 import { defineProps, ref, onMounted, watch, computed } from "vue";
-import { Help } from "../../../utils";
-import Buttons from "../../../Shared/Compoments/Buttons.vue";
-import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
-import { useAbonnementsStore } from "../../../store-pinia/Abonnements/useAbonnementsStore";
-import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
-import contentAbonnement from './contentAbonnement.vue'
-import SubAbonnementsEntreprise from "./subAbonnements/SubAbonnementsEntreprise.vue"
+import { Help } from "../../../../utils";
+import Buttons from "../../../../Shared/Compoments/Buttons.vue";
+import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
+import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
+import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
+import contentAbonnement from '../contentAbonnement.vue'
 defineProps({
   abonnements: Array,
   type_abonnements: String,
-  tabsSubAbonnement: {
-    type: Array,
-    default: () => []
-  }
+
 });
 
 
@@ -25,7 +21,6 @@ const elmentsOfBtn = ref(null);
 const texte = ref(null);
 
 
-const select_mode_payment_tab = ref("year");
 
 const handleCreateEntreprise=(payload)=>{
   const randomPart = Math.random().toString(36).substring(2);
@@ -36,12 +31,6 @@ const handleCreateEntreprise=(payload)=>{
             transaction_id:randomPart
         }
   storeAbonnement.createAbonement(data)
-}
-
-
-
-function handleSelect_mode_Payement(val) {
-  select_mode_payment_tab.value = val
 }
 
 // Détecte si le user est connecté et possède un statut
@@ -77,24 +66,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div style="display: flex;justify-content: center;" v-if="tabsSubAbonnement.length">
-  <n-tabs
-  v-model:value="select_mode_payment_tab"
-  type="segment"
-  @update:value="handleSelect_mode_Payement"
-  style="margin:1em 0;max-width: 300px;"
-  >
-  <n-tab-pane
-    v-for="tab in tabsSubAbonnement"
-    :key="tab.id"
-    :name="tab.id"
-    :tab="tab.label"
-  />
-</n-tabs>
-
-<SubAbonnementsEntreprise />
-  </div>
-     
+ 
   <div class="conteneur-flex">
     <div
       v-for="item in abonnements.filter(
