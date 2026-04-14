@@ -688,7 +688,7 @@ export default {
     justifyContent: 'center',
     gap: '6px',
 
-    padding: emploi?.user?.is_verified ? '0px' : '30px',
+    padding: emploi?.user?.is_verified ? '0px' : '35px',
 
     border: '2px solid orange',
     borderRadius: '50%',

@@ -101,7 +101,6 @@ onMounted(async () => {
           />
         </n-tab-pane>
         <n-tab-pane
-          
           v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
@@ -116,6 +115,67 @@ onMounted(async () => {
             :type_abonnements="'Entreprise'"
           />
         </n-tab-pane>
+           <n-tab-pane
+          v-if="
+  !store.state.user ||
+  (store.state.user?.user?.statuses || []).some(s =>
+    ['entreprise'].includes(s.statut)
+  )
+"
+          :name="defaulValueTranslate == 'fr' ? 'Particulier' :'Company'"
+          :tab="defaulValueTranslate == 'fr' ? 'Particulier' :'Company'"
+        >
+          <ContainerAbonnements
+            :abonnements="abonnements"
+            :type_abonnements="'Particulier'"
+          />
+        </n-tab-pane>
+           <n-tab-pane
+          v-if="
+  !store.state.user ||
+  (store.state.user?.user?.statuses || []).some(s =>
+    ['entreprise'].includes(s.statut)
+  )
+"
+          :name="defaulValueTranslate == 'fr' ? 'Artisans' :'Company'"
+          :tab="defaulValueTranslate == 'fr' ? 'Artisans' :'Company'"
+        >
+          <ContainerAbonnements
+            :abonnements="abonnements"
+            :type_abonnements="'Artisans'"
+          />
+        </n-tab-pane>
+           <n-tab-pane
+          v-if="
+  !store.state.user ||
+  (store.state.user?.user?.statuses || []).some(s =>
+    ['entreprise'].includes(s.statut)
+  )
+"
+          :name="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
+          :tab="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
+        >
+          <ContainerAbonnements
+            :abonnements="abonnements"
+            :type_abonnements="'Professionnel'"
+          />
+        </n-tab-pane>
+           <n-tab-pane
+          v-if="
+  !store.state.user ||
+  (store.state.user?.user?.statuses || []).some(s =>
+    ['entreprise'].includes(s.statut)
+  )
+"
+          :name="defaulValueTranslate == 'fr' ? 'Vétéran' :'Company'"
+          :tab="defaulValueTranslate == 'fr' ? 'Vétéran' :'Company'"
+        >
+          <ContainerAbonnements
+            :abonnements="abonnements"
+            :type_abonnements="'Vétéran'"
+          />
+        </n-tab-pane>
+          
       </n-tabs>
     </n-card>
   </div>
