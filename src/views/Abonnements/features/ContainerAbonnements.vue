@@ -84,7 +84,8 @@ onMounted(async () => {
       <h1 class="text-center main-color">
         {{ item.libelle }}
       </h1>
-    <div v-if="item?.categorie && item?.categorie?.categorie == 'Etudiant'">
+      
+    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisans','Professionnel'].some(role=>role === item?.categorie?.categorie)">
       <contentAbonnement 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
