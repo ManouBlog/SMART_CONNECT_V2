@@ -749,13 +749,13 @@ export default {
               </div>
               <span class="biStar">
                 <span style="display: flex; gap: 3px;margin-left:-1px ;" 
-                 v-if="emploi.user.star_color === 'color_gold'">
+                 v-if="emploi.user.star_color === 'gold'">
            <img
             v-for="n in 5"
           :key="n"
     src="/etoile.png"
     alt="etoile"
-    style="width:15px"
+    style="width:18px"
   />
                  </span>
                 <Rating 
