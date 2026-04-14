@@ -714,10 +714,6 @@ export default {
   </span>
 </span>
                
-              <!-- <i class="bi bi-patch-check-fill" 
-          v-if="emploi?.user?.is_verified"
-          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i>  -->
-              <!-- <img v-if="emploi?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;"> -->
             </div>
             <div class="card-body">
               <h3 class="name" style="color: white; font-weight: bold">
@@ -752,10 +748,22 @@ export default {
                 <span v-if="emploi.competences.length > 3"> ... </span>
               </div>
               <span class="biStar">
+                <span style="display: flex; gap: 3px;margin-left:-1px ;" 
+                 v-if="emploi.user.star_color === 'color_gold'">
+           <img
+            v-for="n in 5"
+          :key="n"
+    src="/etoile.png"
+    alt="etoile"
+    style="width:15px"
+  />
+                 </span>
                 <Rating 
-                 :class="emploi.user.star_color === 'yellow' ? 'color_yellow':'color_gold'" 
+                v-else
+                 :class="'color_yellow'" 
                  v-model="emploi.average" 
                  readonly :cancel="false"/>
+                 
               </span>
 
               <button
