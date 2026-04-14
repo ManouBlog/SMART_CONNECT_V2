@@ -277,7 +277,7 @@ StatutVeterans:[
 </script>
 <template>
   <n-modal 
-  style="width:100%; height: 400px; 
+  style="width:80%; height: 600px; 
     overflow-y: auto; 
     max-height: 80vh;"
        :closable="false"

@@ -235,7 +235,8 @@ StatutArtisans:[
 <template>
   <n-modal 
    style="width:80%; 
-   height: 500px; 
+   height: 600px;
+   
     overflow-y: auto; 
     max-height: 80vh;"
        :closable="false"
