@@ -679,21 +679,36 @@ export default {
                 :src="lienPhoto + emploi.photo_profil"
               />
   
-              <span
-                style="
-                  border: 2px solid orange;
-                  object-fit: cover;
-                  padding: 0.8em 0.9em;
-                  line-height: 50px;
-                  text-align: center;
-                  border-radius: 100%;
-                  background: gray;
-                  margin: -10px;
-                "
-                v-else
-              >
-                <span style="font-size: 1em">{{ Help.toADfirstTwo(emploi.nom) }}</span>
-              </span>
+             <span
+  v-else
+  style="
+  position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 2px solid orange;
+    border-radius: 100%;
+    background: gray;
+
+    width: auto;
+    height: auto;
+  "
+>
+  <img
+    src="/profil_verified.png"
+    alt="profil_verified"
+    style="
+      display: block;
+      object-fit: contain;
+      width: 90px;
+    "
+  />
+
+  <span style="font-size: 14px; color: white;position: absolute;">
+    {{ Help.toADfirstTwo(emploi.nom) }}
+  </span>
+</span>
                
               <!-- <i class="bi bi-patch-check-fill" 
           v-if="emploi?.user?.is_verified"
