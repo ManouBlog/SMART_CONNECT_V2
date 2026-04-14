@@ -152,8 +152,8 @@ onMounted(async () => {
     ['entreprise'].includes(s.statut)
   )
 "
-          :name="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
-          :tab="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
+          :name="defaulValueTranslate == 'fr' ? 'Professionnel' :'Company'"
+          :tab="defaulValueTranslate == 'fr' ? 'Professionnel' :'Company'"
         >
           <ContainerAbonnements
             :abonnements="abonnements"
