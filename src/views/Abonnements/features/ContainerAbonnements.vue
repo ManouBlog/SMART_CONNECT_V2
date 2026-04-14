@@ -19,6 +19,11 @@ const userConnected = ref(localStorage.getItem('user'))
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
 
+const tabs = [
+  { id: 'year', label: 'Année' },
+  { id: 'month', label: 'Mois' }
+]
+const select_mode_payment_tab = ref("year");
 
 const handleCreateEntreprise=(payload)=>{
   const randomPart = Math.random().toString(36).substring(2);
@@ -33,7 +38,9 @@ const handleCreateEntreprise=(payload)=>{
 
 
 
-
+function handleSelect_mode_Payement(val) {
+  select_mode_payment_tab.value = val
+}
 
 // Détecte si le user est connecté et possède un statut
 const isUserConnected = computed(() => {
@@ -68,6 +75,22 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div style="display: flex;justify-content: center;">
+<n-tabs
+  v-model:value="select_mode_payment_tab"
+  type="segment"
+  @update:value="handleSelect_mode_Payement"
+  style="margin:1em 0;max-width: 300px;"
+>
+  <n-tab-pane
+    v-for="tab in tabs"
+    :key="tab.id"
+    :name="tab.id"
+    :tab="tab.label"
+  />
+</n-tabs>
+  </div>
+     
   <div class="conteneur-flex">
     <div
       v-for="item in abonnements.filter(
@@ -84,6 +107,7 @@ onMounted(async () => {
       <h1 class="text-center main-color">
         {{ item.libelle }}
       </h1>
+      
       
     <div v-if="item?.categorie && ['Etudiant','Particulier','Artisans','Professionnel'].some(role=>role === item?.categorie?.categorie)">
       <contentAbonnement 
