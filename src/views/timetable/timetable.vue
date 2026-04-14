@@ -679,29 +679,33 @@ export default {
                 :src="lienPhoto + emploi.photo_profil"
               />
   
-             <span
+          <span
   v-else
-  style="
-  position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    border: 2px solid orange;
-    border-radius: 100%;
-    background: gray;
+  :style="{
+    position: 'relative',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '6px',
 
-    width: auto;
-    height: auto;
-  "
+    padding: emploi?.user?.is_verified ? '0px' : '30px',
+
+    border: '2px solid orange',
+    borderRadius: '50%',
+    background: 'gray',
+
+    minWidth: '40px',
+    minHeight: '40px'
+  }"
 >
   <img
+   v-if="emploi?.user?.is_verified"
     src="/profil_verified.png"
     alt="profil_verified"
     style="
       display: block;
       object-fit: contain;
-      width: 90px;
+      width: 80px;
     "
   />
 
@@ -713,7 +717,7 @@ export default {
               <!-- <i class="bi bi-patch-check-fill" 
           v-if="emploi?.user?.is_verified"
           style="color:rgb(0, 171, 251);font-size: 1em !important;"></i>  -->
-              <img v-if="emploi?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
+              <!-- <img v-if="emploi?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;"> -->
             </div>
             <div class="card-body">
               <h3 class="name" style="color: white; font-weight: bold">
