@@ -154,9 +154,9 @@ StatutVeterans:[
   computed: {
  isFormComplete() {
       return (
-        this.formState.niveauExpertise?.trim() &&      // Champ texte non vide
-        this.formState.statut_talent &&                // Select sélectionné
-        this.formState.upload?.length > 0              // Fichier uploadé
+        this.formState.niveauExpertise?.trim() &&     
+        this.formState.statut_talent &&                
+        this.formState.upload?.length > 0              
       );
     }
     
@@ -288,7 +288,9 @@ StatutVeterans:[
           <h3>Abonnement</h3>
         </div>
       </template>
+      <div style="background-color: white;">
        <Abonnements />
+      </div>
       </n-modal>
     <form @submit.prevent="onFinish" autocomplete="off" v-if="optionsAnswer == 'non'">
 
@@ -538,6 +540,7 @@ StatutVeterans:[
       <a-button
         type="primary"
         html-type="submit"
+        
       >
         Enregistrer
       </a-button>
@@ -549,6 +552,7 @@ StatutVeterans:[
       <a-button
         type="primary"
         html-type="submit"
+        @click="onHandleProfil"
       >
         Enregistrer
       </a-button>

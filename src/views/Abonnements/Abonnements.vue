@@ -89,7 +89,7 @@ onMounted(async () => {
            v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    ['etudiant', 'professionnel', 'artisan', 'veteran','particulier'].includes(s.statut)
   )
 "
           :name="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
