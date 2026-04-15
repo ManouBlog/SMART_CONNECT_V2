@@ -127,6 +127,7 @@ idStatutChoice:Object
         commune: "",
         quartier: "",
         diplome: "",
+        uploadCNI:null,
         myCompetence: [],
         photo: null,
         upload: [],
@@ -301,7 +302,14 @@ idStatutChoice:Object
         if(!this.formState.ville || !this.formState.commune){
          this.SWALPOPUP.declencheSwalPopup(
             "warning",
-            "Les champs ville et commune sont obligatoires"
+            "Les champs ville et commune sont obligatoires."
+          );
+          return;
+        }
+        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_talent){
+          this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Ajoutez votre statut professionnel."
           );
           return;
         }
@@ -903,6 +911,33 @@ preprocessImage(file) {
           </span>
           <!-- {{ this.result }} -->
         </a-col>
+          <a-col :xs="24" :md="12" v-if="this.formState.profilHybride.length">
+        <a-form-item
+          name="uploadCNI"
+          label="Carte nationale d'identité"
+          :rules="[{ required: true, message: texte10 }]"
+        >
+          <a-upload
+            v-model:fileList="formState.uploadCNI"
+            name="uploadCNI"
+            list-type="picture"
+            :multiple="true"
+            :maxCount="1"
+            accept=".jpg,.jpeg,.png,.webp"
+            @change="onUploadChange"
+          >
+            <a-button> Clique pour charger </a-button>
+          </a-upload>
+        </a-form-item>
+
+        <!-- <a-spin v-if="loading" tip="Vérification de la carte d'identité" /> -->
+        <!-- <span
+          style="color:red;"
+          v-if="this.result && this.result.isCardIdentity === false"
+        >
+          Veuillez ajouter une carte d'identité bien visible
+        </span> -->
+      </a-col>
       </a-row>
 
       <a-row :gutter="[16, 24]">
