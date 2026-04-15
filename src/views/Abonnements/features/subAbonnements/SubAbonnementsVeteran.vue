@@ -1,26 +1,14 @@
 <script setup>
 import { defineProps, ref, onMounted, watch, computed } from "vue";
-import { Help } from "../../../utils";
-import Buttons from "../../../Shared/Compoments/Buttons.vue";
-import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
-import { useAbonnementsStore } from "../../../store-pinia/Abonnements/useAbonnementsStore";
-import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
-import contentAbonnement from './contentAbonnement.vue'
-import SubAbonnementsEntreprise from "./subAbonnements/SubAbonnementsEntreprise.vue"
-import SubAbonnementsArtisans from "./subAbonnements/SubAbonnementsArtisans.vue"
-import SubAbonnementsVeteran from "./subAbonnements/SubAbonnementsVeteran.vue";
-const props = defineProps({
+import { Help } from "../../../../utils";
+import Buttons from "../../../../Shared/Compoments/Buttons.vue";
+import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
+import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
+import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
+import contentAbonnement from '../contentAbonnement.vue'
+defineProps({
   abonnements: Array,
   type_abonnements: String,
-  subAbonnement:{
-   type: Array,
-    default: () => []
-  },
-  tabsSubAbonnement: {
-    type: Array,
-    default: () => []
-  },
-  
 });
 
 
@@ -32,22 +20,16 @@ const elmentsOfBtn = ref(null);
 const texte = ref(null);
 
 
-const select_mode_payment_tab = ref("");
 
 const handleCreateEntreprise=(payload)=>{
   const randomPart = Math.random().toString(36).substring(2);
+        // console.log("payload",payload)
         const data = {
             abonement_id:payload.id,
             channels:"undefined",
             transaction_id:randomPart
         }
   storeAbonnement.createAbonement(data)
-}
-
-
-
-function handleSelect_mode_Payement(val) {
-  select_mode_payment_tab.value = val
 }
 
 // Détecte si le user est connecté et possède un statut
@@ -68,7 +50,6 @@ watch(
 );
 
 onMounted(async () => {
-  select_mode_payment_tab.value = props.tabsSubAbonnement[0].id
   elmentsOfBtn.value = [
     {
       name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
@@ -84,80 +65,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div  v-if="tabsSubAbonnement.length">
-    {{ tabsSubAbonnement }}
-   <div style="display: flex;justify-content: center;">
-     <n-tabs
-     v-if="tabsSubAbonnement.some(item=>item.id.includes('Vétéran'))"
-  v-model:value="select_mode_payment_tab"
-  type="segment"
-  @update:value="handleSelect_mode_Payement"
-  style="margin:1em 0;max-width: 400px;"
-  >
-  <n-tab-pane
-    v-for="tab in Array.from(new Map(
-  tabsSubAbonnement.map(item => [item.id, item])
-).values())"
-    :key="tab.id"
-    :name="tab.id"
-    :tab="tab.label"
-  />
- </n-tabs>
-  <n-tabs
-  v-else
-  v-model:value="select_mode_payment_tab"
-  type="segment"
-  @update:value="handleSelect_mode_Payement"
-  style="margin:1em 0;max-width: 300px;"
-  >
-  <n-tab-pane
-    v-for="tab in Array.from(new Map(
-  tabsSubAbonnement.map(item => [item.id, item])
-).values())"
-    :key="tab.id"
-    :name="tab.id"
-    :tab="tab.label.split(' ')[1]"
-  />
- </n-tabs>
-   </div>
-
- <SubAbonnementsEntreprise 
- v-if="select_mode_payment_tab === 'Entreprise Informelle'"
- :abonnements="subAbonnement"
- :type_abonnements="'Entreprise Informelle'"
- />
- <SubAbonnementsEntreprise 
- v-if="select_mode_payment_tab === 'Entreprise Formelle'"
- :abonnements="subAbonnement"
- :type_abonnements="'Entreprise Formelle'"
- />
- <SubAbonnementsArtisans 
- v-if="select_mode_payment_tab === 'Maitre-Artisans'"
- :abonnements="subAbonnement"
- :type_abonnements="'Maitre-Artisans'"
- />
- <SubAbonnementsArtisans 
- v-if="select_mode_payment_tab === 'Artisans'"
- :abonnements="subAbonnement"
- :type_abonnements="'Artisans'"
- />
- <SubAbonnementsVeteran
- v-if="select_mode_payment_tab === 'Vétéran Hors Grade'"
- :abonnements="subAbonnement"
- :type_abonnements="'Vétéran Hors Grade'"
- />
- <SubAbonnementsVeteran
- v-if="select_mode_payment_tab === 'Vétéran Senior'"
- :abonnements="subAbonnement"
- :type_abonnements="'Vétéran Senior'"
- />
- <SubAbonnementsVeteran
- v-if="select_mode_payment_tab === 'Vétéran'"
- :abonnements="subAbonnement"
- :type_abonnements="'Vétéran'"
- />
-</div>
-  <div class="conteneur-flex" v-else>
+ 
+  <div class="conteneur-flex">
     <div
       v-for="item in abonnements.filter(
         (item) => item.categorie.categorie === type_abonnements

@@ -79,7 +79,7 @@ onMounted(async () => {
   <div class="wrapped myconteneur">
     <h1 class="text-center main-color">{{text0}}</h1>
     {{ abonnements.filter(item => 
-  item.categorie.categorie.toLowerCase().includes('artisans')
+  item.categorie.categorie.toLowerCase().includes('vétéran')
 ) }}
     <n-card>
        <div class="d-flex justify-content-center">
@@ -186,12 +186,20 @@ onMounted(async () => {
     ['entreprise'].includes(s.statut)
   )
 "
-          :name="defaulValueTranslate == 'fr' ? 'Vétéran' :'Company'"
-          :tab="defaulValueTranslate == 'fr' ? 'Vétéran' :'Company'"
+          :name="defaulValueTranslate == 'fr' ? 'Vétéran' :'Vétéran'"
+          :tab="defaulValueTranslate == 'fr' ? 'Vétéran' :'Vétéran'"
         >
           <ContainerAbonnements
             :abonnements="abonnements"
             :type_abonnements="'Vétéran'"
+                :tabsSubAbonnement="abonnements.filter(item => 
+  item.categorie.categorie.toLowerCase().includes('vétéran')
+).map(item=>{
+  return {label:item.categorie.categorie,id:item.categorie.categorie}
+})"
+  :subAbonnement="abonnements.filter(item => 
+  item.categorie.categorie.toLowerCase().includes('vétéran')
+ )"
           />
         </n-tab-pane>
           
