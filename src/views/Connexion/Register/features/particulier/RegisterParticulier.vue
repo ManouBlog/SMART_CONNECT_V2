@@ -122,6 +122,7 @@ idStatutChoice:Object
         myCompetence: [],
          profilHybride: [] ,
         optionsAnswer:null,
+        statut_talent:"",
         Logo: [],
         upload: [],
         password: "",
@@ -139,11 +140,14 @@ idStatutChoice:Object
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
      isPasswordDisabled() {
-    return (
-      this.loading ||
-      (this.result && this.result.isCardIdentity === false)
-    )
-  },
+  const isLoading = this.loading;
+
+  const isIdentityInvalid = this.result?.isCardIdentity === false;
+
+  const isProfilRequiredButEmpty = this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0;
+
+  return isLoading || isIdentityInvalid || isProfilRequiredButEmpty;
+},
   },
   watch: {
     'formState.countryCode'(newVal, oldVal) {
@@ -586,7 +590,6 @@ idStatutChoice:Object
     v-model:value="formState.statut_talent"
     placeholder="Sélectionnez votre Statut professionnel"
     show-search
-    option-filter-prop="label"
   >
     <a-select-option
       v-for="item in ['Maitre Artisan','Artisan']"
