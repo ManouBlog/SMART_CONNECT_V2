@@ -78,9 +78,9 @@ onMounted(async () => {
 <template>
   <div class="wrapped myconteneur">
     <h1 class="text-center main-color">{{text0}}</h1>
-    {{ abonnements.filter(item => 
+    <!-- {{ abonnements.filter(item => 
   item.categorie.categorie.toLowerCase().includes('vétéran')
-) }}
+) }} -->
     <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">

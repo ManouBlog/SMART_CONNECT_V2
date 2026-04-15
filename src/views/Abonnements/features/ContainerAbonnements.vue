@@ -85,7 +85,6 @@ onMounted(async () => {
 
 <template>
   <div  v-if="tabsSubAbonnement.length">
-    {{ tabsSubAbonnement }}
    <div style="display: flex;justify-content: center;">
      <n-tabs
      v-if="tabsSubAbonnement.some(item=>item.id.includes('Vétéran'))"
