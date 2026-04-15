@@ -47,7 +47,7 @@ export default {
       texte13: "",
       texte14: "",
       open: true,
-    
+      selectedOption:"",
       descriptions: {
       Etudiant: "Cette étape est réservée aux étudiants qui souhaitent acquérir une expérience de travail.",
       Entreprise: "Cette étape est destinée aux entreprises qui souhaitent recruter.",
@@ -57,6 +57,20 @@ export default {
       Veteran: "Cette étape est exclusivement réservée aux retraités disposant de compétences expertes."
     },
     };
+  },
+  watch: {
+    value1(newVal) {
+      console.log(newVal)
+      const found = this.options.find(
+        item => item.statut === newVal
+      );
+
+      if (found) {
+        this.selectedOption = found;
+      } else {
+        this.selectedOption = null;
+      }
+    }
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -124,7 +138,7 @@ export default {
       <a-select-option
         v-for="item in options"
         :key="item.statut"
-        :value="item"
+        :value="item.statut"
         style="text-transform: capitalize;"
       >
         {{ item.statut }}
@@ -143,7 +157,7 @@ export default {
       <a-radio-button
         v-for="item in options"
         :key="item.statut"
-        :value="item"
+        :value="item.statut"
         style="text-transform: capitalize;"
       >
         {{ item.statut }}
@@ -151,16 +165,16 @@ export default {
     </a-radio-group>
 
     <div style="padding: 0.5em 0; text-align: center; color: gray; font-weight: bold;">
-      {{ descriptions[value1.statut] }}
+      {{ descriptions[value1] }}
     </div>
   </div>
     <RegsiterStudents 
-    :idStatutChoice="value1.id"
-    v-if="value1.statut === 'Etudiant'" />
-    <RegsiterEntreprise v-if="value1.statut === 'Entreprise'" />
-    <RegisterProfessionels v-if="value1.statut === 'Professionnel'"  />
-    <RegisterParticulier v-if="value1.statut === 'Particulier'" />
-    <RegisterArtisans  v-if="value1.statut === 'Artisan'"  />
-    <RegisterVeterans  v-if="value1.statut === 'Veteran'"  />
+    :idStatutChoice="selectedOption"
+    v-if="value1 === 'Etudiant'" />
+    <RegsiterEntreprise v-if="value1 === 'Entreprise'" />
+    <RegisterProfessionels v-if="value1 === 'Professionnel'"  />
+    <RegisterParticulier v-if="value1 === 'Particulier'" />
+    <RegisterArtisans  v-if="value1 === 'Artisan'"  />
+    <RegisterVeterans  v-if="value1 === 'Veteran'"  />
   </a-form>
 </template>

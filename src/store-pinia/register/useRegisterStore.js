@@ -165,7 +165,7 @@ if (payload?.niveauEtude) {
 
 if(payload?.statut_talent) data.append("statut_talent", payload.statut_talent);
 if (payload?.password) data.append("password", payload.password);
-if (payload?.statutId !== undefined) data.append("statut_id", payload.statutId);
+if (payload?.statutId !== undefined) data.append("statut_base", payload.statutId);
 if (payload?.photo_profil) data.append("photo_profil", payload.photo_profil);
 if (payload?.bio) data.append("bio", payload.bio);
 if (payload?.titreCv) data.append("titreCv", payload.titreCv);
