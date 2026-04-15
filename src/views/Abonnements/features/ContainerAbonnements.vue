@@ -7,13 +7,18 @@ import { useAbonnementsStore } from "../../../store-pinia/Abonnements/useAbonnem
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
 import contentAbonnement from './contentAbonnement.vue'
 import SubAbonnementsEntreprise from "./subAbonnements/SubAbonnementsEntreprise.vue"
-defineProps({
+const props = defineProps({
   abonnements: Array,
   type_abonnements: String,
+  subAbonnement:{
+   type: Array,
+    default: () => []
+  },
   tabsSubAbonnement: {
     type: Array,
     default: () => []
-  }
+  },
+  
 });
 
 
@@ -25,11 +30,10 @@ const elmentsOfBtn = ref(null);
 const texte = ref(null);
 
 
-const select_mode_payment_tab = ref("year");
+const select_mode_payment_tab = ref("");
 
 const handleCreateEntreprise=(payload)=>{
   const randomPart = Math.random().toString(36).substring(2);
-        // console.log("payload",payload)
         const data = {
             abonement_id:payload.id,
             channels:"undefined",
@@ -62,6 +66,7 @@ watch(
 );
 
 onMounted(async () => {
+  select_mode_payment_tab.value = props.tabsSubAbonnement[0].id
   elmentsOfBtn.value = [
     {
       name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
@@ -77,7 +82,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div style="display: flex;justify-content: center;" v-if="tabsSubAbonnement.length">
+  <div  v-if="tabsSubAbonnement.length">
+   <div style="display: flex;justify-content: center;">
   <n-tabs
   v-model:value="select_mode_payment_tab"
   type="segment"
@@ -85,15 +91,24 @@ onMounted(async () => {
   style="margin:1em 0;max-width: 300px;"
   >
   <n-tab-pane
-    v-for="tab in tabsSubAbonnement"
+    v-for="tab in Array.from(new Map(
+  tabsSubAbonnement.map(item => [item.id, item])
+).values())"
     :key="tab.id"
     :name="tab.id"
-    :tab="tab.label"
+    :tab="tab.label.split(' ')[1]"
   />
  </n-tabs>
+   </div>
  <SubAbonnementsEntreprise 
- v-if="select_mode_payment_tab === 'Entreprise informelle'"
-
+ v-if="select_mode_payment_tab === 'Entreprise Informelle'"
+ :abonnements="subAbonnement"
+ :type_abonnements="'Entreprise Informelle'"
+ />
+ <SubAbonnementsEntreprise 
+ v-if="select_mode_payment_tab === 'Entreprise Formelle'"
+ :abonnements="subAbonnement"
+ :type_abonnements="'Entreprise Formelle'"
  />
 </div>
   <div class="conteneur-flex" v-else>
