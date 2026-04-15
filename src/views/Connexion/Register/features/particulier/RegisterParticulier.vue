@@ -583,6 +583,7 @@ idStatutChoice:Object
   >
             <a-form-item
             :label="'Statut professionnel'"
+            name="statut_talent"
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]"
           >
             <a-select
