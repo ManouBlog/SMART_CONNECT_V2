@@ -110,19 +110,19 @@ onMounted(async () => {
     ['Entreprise'].includes(s.statut)
   )
 "
-          :name="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
-          :tab="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
+          :name="defaulValueTranslate == 'fr' ? 'Entreprise' :'Entreprise'"
+          :tab="defaulValueTranslate == 'fr' ? 'Entreprise' :'Entreprise'"
         >
           <ContainerAbonnements
             :abonnements="abonnements"
             :type_abonnements="'Entreprise'"
             :tabsSubAbonnement="abonnements.filter(item => 
-  item.categorie.categorie.toLowerCase().includes('Entreprise')
+  item.categorie.categorie.toLowerCase().includes('entreprise')
 ).map(item=>{
   return {label:item.categorie.categorie,id:item.categorie.categorie}
 })"
   :subAbonnement="abonnements.filter(item => 
-  item.categorie.categorie.toLowerCase().includes('Entreprise')
+  item.categorie.categorie.toLowerCase().includes('entreprise')
  )"
           />
         </n-tab-pane>
