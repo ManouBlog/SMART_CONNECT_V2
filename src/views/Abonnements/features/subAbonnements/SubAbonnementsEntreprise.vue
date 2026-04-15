@@ -9,7 +9,6 @@ import contentAbonnement from '../contentAbonnement.vue'
 defineProps({
   abonnements: Array,
   type_abonnements: String,
-
 });
 
 

@@ -90,12 +90,13 @@ onMounted(async () => {
     :name="tab.id"
     :tab="tab.label"
   />
-</n-tabs>
+ </n-tabs>
+ <SubAbonnementsEntreprise 
+ v-if="select_mode_payment_tab === 'Entreprise informelle'"
 
-<SubAbonnementsEntreprise />
-  </div>
-     
-  <div class="conteneur-flex">
+ />
+</div>
+  <div class="conteneur-flex" v-else>
     <div
       v-for="item in abonnements.filter(
         (item) => item.categorie.categorie === type_abonnements
