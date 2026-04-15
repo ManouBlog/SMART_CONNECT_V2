@@ -34,10 +34,10 @@ export default {
             <i class="bi bi-house-door position-absolute"></i
             ><router-link :to="{ name: 'Accueil' }">Accueil</router-link>
           </li>
-          <li v-if="role == 'entreprise'">
+          <li v-if="role == 'Entreprise'">
             <router-link :to="{ name: 'offres' }">Offres</router-link>
           </li>
-          <li v-if="role == 'etudiant'">
+          <li v-if="role == 'Etudiant'">
             <router-link :to="{ name: 'create_timetable' }"
               >Emploi du temps</router-link
             >

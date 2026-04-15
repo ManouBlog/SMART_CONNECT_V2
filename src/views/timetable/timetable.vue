@@ -357,7 +357,7 @@ export default {
       if (
   this.user &&
   (this.user.user?.statuses || []).some(s =>
-    ['entreprise', 'particulier'].includes(s.statut)
+    ['Entreprise', 'particulier'].includes(s.statut)
   )
 ) {
         if (
@@ -506,7 +506,7 @@ export default {
       if (
   this.user &&
   (this.user.user?.statuses || []).some(s =>
-    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
   )
 ){
   this.$router.push("/");

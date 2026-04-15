@@ -92,7 +92,7 @@ onMounted(async () => {
            v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['etudiant', 'professionnel', 'artisan', 'veteran','particulier'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran','particulier'].includes(s.statut)
   )
 "
           :name="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
@@ -107,7 +107,7 @@ onMounted(async () => {
           v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['entreprise'].includes(s.statut)
+    ['Entreprise'].includes(s.statut)
   )
 "
           :name="defaulValueTranslate == 'fr' ? 'Entreprise' :'Company'"
@@ -117,12 +117,12 @@ onMounted(async () => {
             :abonnements="abonnements"
             :type_abonnements="'Entreprise'"
             :tabsSubAbonnement="abonnements.filter(item => 
-  item.categorie.categorie.toLowerCase().includes('entreprise')
+  item.categorie.categorie.toLowerCase().includes('Entreprise')
 ).map(item=>{
   return {label:item.categorie.categorie,id:item.categorie.categorie}
 })"
   :subAbonnement="abonnements.filter(item => 
-  item.categorie.categorie.toLowerCase().includes('entreprise')
+  item.categorie.categorie.toLowerCase().includes('Entreprise')
  )"
           />
         </n-tab-pane>
@@ -130,7 +130,7 @@ onMounted(async () => {
           v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['entreprise'].includes(s.statut)
+    ['Entreprise'].includes(s.statut)
   )
 "
           :name="defaulValueTranslate == 'fr' ? 'Particulier' :'Company'"
@@ -145,7 +145,7 @@ onMounted(async () => {
           v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['entreprise'].includes(s.statut)
+    ['Entreprise'].includes(s.statut)
   )
 "
           :name="defaulValueTranslate == 'fr' ? 'Artisans' :'Company'"
@@ -168,7 +168,7 @@ onMounted(async () => {
           v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['entreprise'].includes(s.statut)
+    ['Entreprise'].includes(s.statut)
   )
 "
           :name="defaulValueTranslate == 'fr' ? 'Professionnel' :'Company'"
@@ -183,7 +183,7 @@ onMounted(async () => {
           v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['entreprise'].includes(s.statut)
+    ['Entreprise'].includes(s.statut)
   )
 "
           :name="defaulValueTranslate == 'fr' ? 'Vétéran' :'Vétéran'"

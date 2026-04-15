@@ -132,7 +132,7 @@ export default {
         );
       }
     },
-    onFinishFailed(errorInfo) {
+    onHandleFailed(errorInfo) {
       console.log("Failed:", errorInfo);
       Swal.fire({
         icon: "warning",
@@ -195,7 +195,7 @@ export default {
     name="basic"
     autocomplete="off"
     @finish="onFinish"
-    @finishFailed="onFinishFailed"
+    @finishFailed="onHandleFailed"
   >
     <!-- Première ligne : Raison sociale + RCCM -->
     <a-row :gutter="[16, 24]">

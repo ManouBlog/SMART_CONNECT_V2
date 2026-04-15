@@ -171,7 +171,7 @@ export default {
           this.launchLoading(false);
         });
     },
-    onFinishFailed(errorInfo) {
+    onHandleFailed(errorInfo) {
       console.log("Failed:", errorInfo);
     },
   },
@@ -214,7 +214,7 @@ export default {
     name="basic"
     autocomplete="on"
     @finish="onFinish"
-    @finishFailed="onFinishFailed"
+    @finishFailed="onHandleFailed"
   >
     <div style="padding: 0.5em 0; text-align: center; color: red">
       Les champs avec astérisque (*) sont obligatoires

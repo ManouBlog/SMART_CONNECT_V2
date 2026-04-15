@@ -8,6 +8,7 @@ import RegisterVeterans from './features/Veterans/RegisterVeterans.vue'
 import RegisterProfessionels from './features/profesionnels/RegisterProfessionels.vue'
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import instance from "../../../api/api";
 export default {
   name: "RegisterView",
   components: {
@@ -23,16 +24,15 @@ export default {
       texte0: "",
       texte2: "",
       texte3: "",
-      value1 :"student",
+      value1 :"Etudiant",
       isMobile:false,
       options : [
-  { value: "student", label: "Étudiant" },
-  { value: "professionnels", label: "Professionnel" },
-  { value: "artisans", label: "Artisan" },
-  { value: "vétérans", label: "Vétéran" },
-  { value: "particulier", label: "Particulier" },
-  { value: "entreprise", label: "Entreprise" },
-
+  // { value: "student", label: "Étudiant" },
+  // { value: "professionnels", label: "Professionnel" },
+  // { value: "artisans", label: "Artisan" },
+  // { value: "vétérans", label: "Vétéran" },
+  // { value: "particulier", label: "Particulier" },
+  // { value: "entreprise", label: "Entreprise" },
 ],
       texte1: "",
       texte4: "",
@@ -49,12 +49,12 @@ export default {
       open: true,
     
       descriptions: {
-      student: "Cette étape est réservée aux étudiants qui souhaitent acquérir une expérience de travail.",
-      entreprise: "Cette étape est destinée aux entreprises qui souhaitent recruter.",
-      particulier: "Cette étape concerne les particuliers qui souhaitent recruter des artisans et professionnels.",
-      professionnels: "Cette étape est réservée aux diplômés et consultants, qu’ils soient en activité ou sans emploi.",
-      artisans: "Cette étape concerne les artisans qui souhaitent promouvoir leur savoir‑faire.",
-      vétérans: "Cette étape est exclusivement réservée aux retraités disposant de compétences expertes."
+      Etudiant: "Cette étape est réservée aux étudiants qui souhaitent acquérir une expérience de travail.",
+      Entreprise: "Cette étape est destinée aux entreprises qui souhaitent recruter.",
+      Particulier: "Cette étape concerne les particuliers qui souhaitent recruter des artisans et professionnels.",
+      Professionnel: "Cette étape est réservée aux diplômés et consultants, qu’ils soient en activité ou sans emploi.",
+      Artisan: "Cette étape concerne les artisans qui souhaitent promouvoir leur savoir‑faire.",
+      Veteran: "Cette étape est exclusivement réservée aux retraités disposant de compétences expertes."
     },
     };
   },
@@ -63,7 +63,7 @@ export default {
     onFinish(values) {
       console.log("Success:", values);
     },
-    onFinishFailed(errorInfo) {
+    onHandleFailed(errorInfo) {
       console.log("Failed:", errorInfo);
       Swal.fire({
         icon: "warning",
@@ -76,7 +76,16 @@ export default {
 
     handleChange(val) {
       console.log(val);
-    }
+    },
+    async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+        this.options = response.data.data.filter(item=>item.statut !== 'admin')
+        console.log("this.allStatuts",response.data.data)
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
    mounted() {
     this.handleResize();
@@ -87,6 +96,7 @@ export default {
     window.removeEventListener("resize", this.handleResize);
   },
   async created() {
+    await this.lister_statut()
     this.texte0 = await this.handleTranslate("Sélectionner un statut");
     this.texte1 = await this.handleTranslate("Etudiant");
     this.texte2 = await this.handleTranslate("Entreprise");
@@ -113,10 +123,11 @@ export default {
     >
       <a-select-option
         v-for="item in options"
-        :key="item.value"
-        :value="item.value"
+        :key="item.statut"
+        :value="item"
+        style="text-transform: capitalize;"
       >
-        {{ item.label }}
+        {{ item.statut }}
       </a-select-option>
     </a-select>
 
@@ -131,22 +142,25 @@ export default {
     >
       <a-radio-button
         v-for="item in options"
-        :key="item.value"
-        :value="item.value"
+        :key="item.statut"
+        :value="item"
+        style="text-transform: capitalize;"
       >
-        {{ item.label }}
+        {{ item.statut }}
       </a-radio-button>
     </a-radio-group>
 
     <div style="padding: 0.5em 0; text-align: center; color: gray; font-weight: bold;">
-      {{ descriptions[value1] }}
+      {{ descriptions[value1.statut] }}
     </div>
   </div>
-    <RegsiterStudents v-if="value1 === 'student'" />
-    <RegsiterEntreprise v-if="value1 === 'entreprise'" />
-    <RegisterProfessionels v-if="value1 === 'professionnels'"  />
-    <RegisterParticulier v-if="value1 === 'particulier'" />
-    <RegisterArtisans  v-if="value1 === 'artisans'"  />
-    <RegisterVeterans  v-if="value1 === 'vétérans'"  />
+    <RegsiterStudents 
+    :idStatutChoice="value1.id"
+    v-if="value1.statut === 'Etudiant'" />
+    <RegsiterEntreprise v-if="value1.statut === 'Entreprise'" />
+    <RegisterProfessionels v-if="value1.statut === 'Professionnel'"  />
+    <RegisterParticulier v-if="value1.statut === 'Particulier'" />
+    <RegisterArtisans  v-if="value1.statut === 'Artisan'"  />
+    <RegisterVeterans  v-if="value1.statut === 'Veteran'"  />
   </a-form>
 </template>

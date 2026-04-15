@@ -189,19 +189,19 @@ export default {
       <MenuMobileEntreprise
         v-if="
     ($store.state.user?.user?.statuses || [])
-    .some(s => ['entreprise', 'particulier'].includes(s.statut))
+    .some(s => ['Entreprise', 'particulier'].includes(s.statut))
     "
       />
       <MenuMobileStudent
        v-if="
   ($store.state.user?.user?.statuses || [])
-    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
 "
       />
       <li
         v-if="
   ($store.state.user?.user?.statuses || [])
-    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
 "
       >
         <router-link

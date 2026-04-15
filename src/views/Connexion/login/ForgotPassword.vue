@@ -45,7 +45,7 @@ export default {
           this.launchLoading(true);
         });
     },
-    onFinishFailed(errorInfo) {
+    onHandleFailed(errorInfo) {
       console.log("Failed:", errorInfo);
     },
   },
@@ -58,7 +58,7 @@ export default {
     name="basic"
     autocomplete="on"
     @finish="onFinish"
-    @finishFailed="onFinishFailed"
+    @finishFailed="onHandleFailed"
   >
     <a-form-item
       label="Email"

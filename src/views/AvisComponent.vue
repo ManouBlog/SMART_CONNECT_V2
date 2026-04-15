@@ -60,7 +60,7 @@ function verifUserProfilEtudiantComplet() {
 
   const user = vuexStore.state.infoUserConnected;
   // console.log("USER",user)
-  if(user.user?.statuses.some(s => s.statut === 'etudiant')){
+  if(user.user?.statuses.some(s => s.statut === 'Etudiant')){
   if (!user.competences.length || !user.qualifications.length) {
     router.replace("/dashboard/profil");
   }

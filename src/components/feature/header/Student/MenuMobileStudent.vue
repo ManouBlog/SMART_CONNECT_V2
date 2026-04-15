@@ -56,7 +56,7 @@ export default {
       const disponibilites = userInfo.jours || [];
 
       if (
-  (userInfo.user?.statuses || []).some(s => s.statut === 'etudiant') &&
+  (userInfo.user?.statuses || []).some(s => s.statut === 'Etudiant') &&
   (!qualifications.length || !competences.length)
 ) {
   this.$router.push("/dashboard/profil");
@@ -64,7 +64,7 @@ export default {
 }
 
 if (
-  (userInfo.user?.statuses || []).some(s => s.statut === 'etudiant') &&
+  (userInfo.user?.statuses || []).some(s => s.statut === 'Etudiant') &&
   !disponibilites.length
 ) {
   this.$router.push("/dashboard/emploi_du_temps");
@@ -135,7 +135,7 @@ if (
     </a>
   </li>
 
-  <li class="position-absolute deconnex" v-if="userStatut.some(s=>s.statut == 'etudiant') ">
+  <li class="position-absolute deconnex" v-if="userStatut.some(s=>s.statut == 'Etudiant') ">
     <a class="d-block" @click="goTo('/dashboard/emploi_du_temps')">
       {{ texte5 }}
     </a>

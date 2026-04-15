@@ -39,7 +39,7 @@ export default {
     name="basic"
     autocomplete="off"
     @finish="onFinish"
-    @finishFailed="onFinishFailed"
+    @finishFailed="onHandleFailed"
   >
     <a-form-item>
       <a-input

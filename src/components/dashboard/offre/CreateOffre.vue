@@ -537,7 +537,7 @@ export default {
       <label><span style="color: red">*</span>Choisir un profil</label>
       <VueMultiselect 
       v-model="chooseStatut" 
-      :options="userInfo && userInfo?.statut?.statut === 'entreprise' ? allStatuses.filter(item => item.statut !== 'particulier') : allStatuses.filter(item => item.statut == 'etudiant' || item.statut == 'artisan')" 
+      :options="userInfo && userInfo?.statut?.statut === 'Entreprise' ? allStatuses.filter(item => item.statut !== 'particulier') : allStatuses.filter(item => item.statut == 'Etudiant' || item.statut == 'Artisan')" 
       placeholder="Choix multiples" 
       :multiple="true" 
       label="statut" 
@@ -549,7 +549,7 @@ export default {
   <!-- Ligne 7 : Mode travail (centré)+ PAYS -->
   <div class="row g-3">
     <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3"
-    v-if="userInfo?.statut?.statut === 'entreprise'"
+    v-if="userInfo?.statut?.statut === 'Entreprise'"
     >
       <label><span style="color: red">*</span>Choisir un mode de travail</label>
       <VueMultiselect v-model="offre_mode_travail" 

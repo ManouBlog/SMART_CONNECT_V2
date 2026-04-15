@@ -194,7 +194,7 @@ export default {
               <svg
                v-if="
   user.user?.statuses
-    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
 "
                 width="24"
                 height="24"

@@ -92,7 +92,7 @@ export default {
   const statuses = this.$store?.state?.user?.user?.statuses || [];
 
   return statuses?.some(s =>
-    ['particulier', 'entreprise'].includes(s.statut)
+    ['particulier', 'Entreprise'].includes(s.statut)
   );
   },
     shouldShowPromo() {
@@ -114,7 +114,7 @@ export default {
   methods: {
     async getAllOffresCreatedByEntreprise() {
   const hasAccess = this.$store?.state?.user?.user?.statuses?.some(
-    s => ['particulier', 'entreprise'].includes(s.statut)
+    s => ['particulier', 'Entreprise'].includes(s.statut)
   );
 
   if (!hasAccess) return;

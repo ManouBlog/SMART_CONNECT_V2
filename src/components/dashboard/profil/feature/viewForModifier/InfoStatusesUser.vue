@@ -49,10 +49,10 @@ this.allStatuses=[];
   const currentRoles = statuses.map(s => s.statut);
 
   const transitions = {
-    etudiant: ['professionnel', 'artisan'],
-    professionnel: ['artisan', 'veteran'],
-    artisan: ['professionnel','veteran'],
-    particulier: ['entreprise']
+    etudiant: ['Professionnel', 'Artisan'],
+    professionnel: ['Artisan', 'Veteran'],
+    artisan: ['Professionnel','Veteran'],
+    particulier: ['Entreprise']
   };
 
   const allowed = new Set(
@@ -158,7 +158,7 @@ this.allStatuses=[];
      Profils disponibles
     </label>
 
-    <div class="round-container" v-if="selectedStatus.statut !== 'entreprise'">
+    <div class="round-container" v-if="selectedStatus.statut !== 'Entreprise'">
       <label 
         v-for="item in allStatuts" 
         :key="item.value"
@@ -193,11 +193,11 @@ this.allStatuses=[];
   </div>
 </transition>
   <div v-if="optionsAnswer">
-  <FieldsVeteran  v-if="selectedStatus.statut === 'veteran'"/>
-  <FieldsArtisan v-if="selectedStatus.statut === 'artisan'" />
-  <FieldsProfessionnel v-if="selectedStatus.statut === 'professionnel'" />
+  <FieldsVeteran  v-if="selectedStatus.statut === 'Veteran'"/>
+  <FieldsArtisan v-if="selectedStatus.statut === 'Artisan'" />
+  <FieldsProfessionnel v-if="selectedStatus.statut === 'Professionnel'" />
   <FieldsCompany 
-  v-if="selectedStatus.statut === 'entreprise'"
+  v-if="selectedStatus.statut === 'Entreprise'"
   :optionsAnswer="optionsAnswer"
   />
   </div>

@@ -80,6 +80,13 @@ if (payload?.photo?.length > 0) {
   });
 }
 
+// Photos (array fichiers)
+if (payload?.profilHybride?.length > 0) {
+  payload.profilHybride.forEach((item) => {
+    if (item) data.append("profilHybride[]", item);
+  });
+}
+
 
 
 if(payload?.CVupload){
@@ -162,54 +169,7 @@ if (payload?.statutId !== undefined) data.append("statut_id", payload.statutId);
 if (payload?.photo_profil) data.append("photo_profil", payload.photo_profil);
 if (payload?.bio) data.append("bio", payload.bio);
 if (payload?.titreCv) data.append("titreCv", payload.titreCv);
-       
-          // payload?.myCompetence.forEach((item) => {
-          //   data.append("competence[]", item.id);
-          // });
-          // payload?.photo.forEach((item) => {
-          //   data.append("photo[]", item);
-          // });
-          // payload?.qualifications.forEach((item) => {
-          //   data.append("qualifications[]", JSON.stringify(item));
-          // });
-          // data.append("nom", payload?.nom);
-
-          // if(payload?.statutId == 2){
-          //     payload?.jour?.forEach((item) => {
-          //   data.append("jour[]", item);
-          // });
-          //  data.append("First_horaire", this.splithourWithDate(payload?.First_horaire));
-          //  data.append("Second_horaire", payload?.Second_horaire ? this.splithourWithDate(payload?.Second_horaire):payload?.Second_horaire);
-          //  data.append("totalHour", payload?.totalHour);
-          //  data.append("hour_periode_debut", payload?.hour_periode_debut);
-          //  data.append("hour_periode_fin", payload?.hour_periode_fin);
-          //   data.append("periode_debut", payload?.periode_debut);
-          //   data.append("periode_fin", payload?.periode_fin);
-          //   data.append("periode", payload?.periode);
-          //   data.append("code_ambassadeur", payload?.code_ambassadeur);
-          // }
-          // if(payload?.statutId == 6 || payload?.statutId == 5){
-          //   data.append("niveauExpertise", payload?.niveauExpertise);
-          //   data.append("modeTravail",payload.modeTravail);
-          //   data.append("tempsTravail", payload?.tempsTravail);
-          // }
-          
-          // data.append("prenoms", payload?.prenoms);
-           
-          // data.append("email", payload?.email);
-          // data.append("commune", payload?.commune);
-          // data.append("quartier", payload?.quartier);
-          // data.append("phone",`${payload?.countryCode}${payload?.phone}`);
-          // data.append("ville", payload?.ville);
-          // data.append("diplome", payload?.niveauEtude && payload?.filiere ? payload?.niveauEtude + ' ' + payload?.filiere:payload?.niveauEtude);
-          // data.append("password", payload?.password);
-          // data.append("statut_id", payload?.statutId);
-          // data.append("photo_profil", payload?.photo_profil);
-          // data.append("bio", payload?.bio);
-          // data.append("titreCv", payload?.titreCv);
-         
-          // data.append("appareil", "iphone x");
-          // data.append("token_push", "xhdf58ehhf85shdhe8554shedhe545shdh");
+      
           try{
           const response = await instance.post("list_users", data);
             if (response.data.status === true) {

@@ -56,7 +56,7 @@ StatutProfessionnel:[
 //   'carte etudiante',
 
 //   // Étudiant (avec ou sans accents, fautes OCR)
-//   'etudiant',
+//   'Etudiant',
 //   'etudiante',
 //   'etudant',
 //   'etud',
@@ -442,7 +442,7 @@ StatutProfessionnel:[
       }
     },
 
-    onFinishFailed(errorInfo) {
+    onHandleFailed(errorInfo) {
       Swal.fire({
         icon: "warning",
         title: `${errorInfo.errorFields[0].errors[0]}`,
@@ -515,7 +515,7 @@ StatutProfessionnel:[
     layout="vertical"
     :model="formState"
     @finish="onFinish"
-    @finishFailed="onFinishFailed"
+    @finishFailed="onHandleFailed"
   >
   <!-- STEP 0 -->
    <div v-show="currentStep === 0">

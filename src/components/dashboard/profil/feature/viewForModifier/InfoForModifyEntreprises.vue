@@ -160,7 +160,7 @@ valueExpertise: [
     console.log("initForm",user)
     if (!user) return;
 
-    this.form.nom = this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut !== 'entreprise') ? user.nom : this.form.optionsPaper === 'Formel' ? user.nom:user.nom_particulier;
+    this.form.nom = this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut !== 'Entreprise') ? user.nom : this.form.optionsPaper === 'Formel' ? user.nom:user.nom_particulier;
     this.form.prenoms = user.prenoms || "";
     this.form.email = user.email || "";
     this.form.contact = user.contact || "";
@@ -209,10 +209,10 @@ valueExpertise: [
   const currentRoles = statuses.map(s => s.statut);
 
   const transitions = {
-    etudiant: ['etudiant', 'professionnel', 'artisan'],
-    professionnel: ['etudiant', 'professionnel', 'artisan', 'veteran'],
-    artisan: ['etudiant', 'professionnel', 'artisan', 'veteran'],
-    entreprise: ['entreprise']
+    etudiant: ['Etudiant', 'Professionnel', 'Artisan'],
+    professionnel: ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'],
+    artisan: ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'],
+    entreprise: ['Entreprise']
   };
 
   const allowed = new Set(
@@ -240,7 +240,7 @@ valueExpertise: [
 //   etudiant:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "artisan"],
 //   professionnel:[this.$store.state.infoUserConnected.user.statut.statut,"artisan", "veteran"],
 //   artisan:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "veteran"],
-//   entreprise:[this.$store.state.infoUserConnected.user.statut.statut,'entreprise']
+//   entreprise:[this.$store.state.infoUserConnected.user.statut.statut,'Entreprise']
 // };
 //       try {
 //         const response =  await instance.get("listStatut")
@@ -251,7 +251,7 @@ valueExpertise: [
 //     statut:this.allStatuses,
 //     profil:this.$store.state.infoUserConnected
 //   })
-//         // this.allStatuses = response.data.data.filter(item=>item.statut == 'professionnel' || item.statut == 'artisan' || item.statut == 'etudiant' || item.statut === 'veteran')
+//         // this.allStatuses = response.data.data.filter(item=>item.statut == 'Professionnel' || item.statut == 'Artisan' || item.statut == 'Etudiant' || item.statut === 'Veteran')
 //       } catch (error) {
 //         console.log(error);
 //       }
@@ -268,10 +268,10 @@ valueExpertise: [
 const statuses = user?.statuses || [];
 const statusList = statuses.map(s => s.statut);
 
-const isEntreprise = statusList.includes('entreprise');
+const isEntreprise = statusList.includes('Entreprise');
 
 const isStudentGroup = statusList.some(s =>
-  ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s)
+  ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s)
 );
 
 if (isEntreprise) {
@@ -290,12 +290,12 @@ if (isStudentGroup) {
   this.$store.commit("UPDATE_INFO_CONPANY", user);
 }
         // const statutUser = resp.data.user.user.statut.statut
-        // if(statutUser === 'entreprise'){
+        // if(statutUser === 'Entreprise'){
         // this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
         // this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
         // // console.log("COMPANY_INFOS",resp.data.user) 
         // }
-        // if(statutUser === 'etudiant' || statutUser === 'professionnel' || statutUser === 'artisan' || statutUser === 'veteran'){
+        // if(statutUser === 'Etudiant' || statutUser === 'Professionnel' || statutUser === 'Artisan' || statutUser === 'Veteran'){
         //   resp.data.user.qualifications.map(item=>{
         //     return {
         //       date_debut:item.date_debut.split(' ')[0],
@@ -373,7 +373,7 @@ if (isStudentGroup) {
   const statuses = user?.statuses || [];
   const roles = statuses.map(s => s.statut);
 
-  const isEntreprise = roles.includes('entreprise');
+  const isEntreprise = roles.includes('Entreprise');
   const isParticulier = roles.includes('particulier');
 
   if (isEntreprise) {
@@ -435,8 +435,8 @@ if (isStudentGroup) {
   Info personnelle
   {{
     ($store.state.infoUserConnected?.user?.statuses || [])
-      .some(s => ['entreprise', 'particulier'].includes(s.statut))
-      ? 'sur l\'entreprise'
+      .some(s => ['Entreprise', 'particulier'].includes(s.statut))
+      ? 'sur l\'Entreprise'
       : ''
   }}
 </legend>
@@ -448,7 +448,7 @@ if (isStudentGroup) {
   class="mb-3"
   v-if="!(
     ($store.state.infoUserConnected?.user?.statuses || [])
-      .some(s => s.statut === 'entreprise')
+      .some(s => s.statut === 'Entreprise')
   )"
 >
             <label class="form-label">Changer de statut</label>
@@ -457,8 +457,8 @@ if (isStudentGroup) {
             name="statut_id" 
             id="statut_id"
             multiple
-            :class="{ 'disabled-custom': form.statut === 'veteran' }"
-            :disabled="form.statut === 'veteran'"
+            :class="{ 'disabled-custom': form.statut === 'Veteran' }"
+            :disabled="form.statut === 'Veteran'"
             style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
             v-model="form.statuses"
             @change="()=>{
@@ -502,7 +502,7 @@ if (isStudentGroup) {
   class="col-md-12"
   v-if="
     ($store.state.infoUserConnected?.user?.statuses || [])
-      .some(s => s.statut === 'entreprise')
+      .some(s => s.statut === 'Entreprise')
   "
   style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
 >
@@ -519,7 +519,7 @@ if (isStudentGroup) {
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">{{
-            this.$store.state.infoUserConnected && $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'entreprise')
+            this.$store.state.infoUserConnected && $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')
               ? "Raison sociale"
               : "Nom"
           }} <span style="color:red">*</span></label>
@@ -577,7 +577,7 @@ if (isStudentGroup) {
   class="col-md-12"
   v-if="
     ($store.state.infoUserConnected?.user?.statuses || [])
-      .some(s => ['entreprise', 'particulier'].includes(s.statut))
+      .some(s => ['Entreprise', 'particulier'].includes(s.statut))
   "
 >
         <div class="mb-3">
@@ -594,7 +594,7 @@ if (isStudentGroup) {
   class="col-md-12"
   v-if="
     ($store.state.infoUserConnected?.user?.statuses || [])
-      .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+      .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
   "
 >
         <div class="mb-3">
@@ -615,7 +615,7 @@ if (isStudentGroup) {
       <div class="col-md-12" v-if="this.$store.state.infoUserConnected">
         <div class="mb-3">
           <label class="form-label">{{
-            this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'entreprise')
+            this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')
             && this.form.optionsPaper == "Formel"
               ? "Contact mail de l'entreprise"
               : "Email"
@@ -625,7 +625,7 @@ if (isStudentGroup) {
       </div>
       <div class="col-md-12 my-2" 
       v-if="this.$store.state.infoUserConnected && 
-     this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'entreprise')
+     this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')
       && this.form.optionsPaper === 'Formel'
       ">
       <label class="form-label">Emails secondaires(cc)</label>
@@ -644,7 +644,7 @@ if (isStudentGroup) {
   v-if="
     $store.state.infoUserConnected &&
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+      ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
     )
   "
 >
@@ -676,14 +676,14 @@ if (isStudentGroup) {
      v-if="
     $store.state.infoUserConnected &&
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+      ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
     )
   ">
       
         <div class="col-md-12">
           <div class="mb-3"  
           v-if="
-    $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'etudiant')
+    $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Etudiant')
   ">
             <label class="form-label">Dernier diplôme academique</label>
             <input v-model="form.diplome" class="form-control" type="text" />
@@ -692,7 +692,7 @@ if (isStudentGroup) {
           
          v-if="
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['professionnel', 'veteran'].includes(s.statut)
+      ['Professionnel', 'Veteran'].includes(s.statut)
     )
   ">
             <div>
@@ -738,7 +738,7 @@ if (isStudentGroup) {
        
           </div>
           <div class="mb-3" 
-          v-if="$store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'veteran')">
+          v-if="$store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Veteran')">
             
             <div>
             <label class="form-label">Traitement préférentiel</label>
@@ -776,7 +776,7 @@ if (isStudentGroup) {
      v-if="
     $store.state.infoUserConnected &&
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+      ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
     )
     ">
         <div class="col-md-12">
@@ -795,7 +795,7 @@ if (isStudentGroup) {
       </section>
       <section 
       v-if="this.$store.state.infoUserConnected 
-      && $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'entreprise')
+      && $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Entreprise')
       && this.form.optionsPaper === 'Formel'
       ">
         <div class="col-md-12">
@@ -842,7 +842,7 @@ if (isStudentGroup) {
     </div>
     <div class="text-right">
       <button
-      v-if="$store.state.infoUserConnected.user?.statuses?.some(s => s.statut !== 'entreprise')"
+      v-if="$store.state.infoUserConnected.user?.statuses?.some(s => s.statut !== 'Entreprise')"
        :class="{ 'disabled-custom': isDisabled }"
         class="btn bg-warning"
          :disabled="isDisabled"

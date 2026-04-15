@@ -78,7 +78,7 @@ export default {
 //   'carte etudiante',
 
 //   // Étudiant (avec ou sans accents, fautes OCR)
-//   'etudiant',
+//   'Etudiant',
 //   'etudiante',
 //   'etudant',
 //   'etud',
@@ -437,7 +437,7 @@ export default {
       }
     },
 
-    onFinishFailed(errorInfo) {
+    onHandleFailed(errorInfo) {
       Swal.fire({
         icon: "warning",
         title: `${errorInfo.errorFields[0].errors[0]}`,
@@ -500,7 +500,7 @@ export default {
     layout="vertical"
     :model="formState"
     @finish="onFinish"
-    @finishFailed="onFinishFailed"
+    @finishFailed="onHandleFailed"
   >
     <!-- STEP 1 -->
     <div v-show="currentStep === 0">

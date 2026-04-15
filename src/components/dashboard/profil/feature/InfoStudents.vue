@@ -218,7 +218,7 @@ export default {
         <h1 class="fw-bold my-3" style="color: orange">Infos personnelles</h1>
         <div>
           <!-- <button 
-          v-if="user.user.statut.statut != 'etudiant' && !user.is_verified"
+          v-if="user.user.statut.statut != 'Etudiant' && !user.is_verified"
           style="
           width:auto;
           padding:0.5em;

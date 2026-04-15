@@ -15,6 +15,9 @@ import instance from "../../../../../api/api";
 export default {
   name: "RegsiterStudents",
   components: { VueMultiselect, Politics, CreateDisponibilite, RegisterQualifications },
+  props:{
+idStatutChoice:String
+  },
   data() {
     return {
        fileList : [],
@@ -34,7 +37,7 @@ export default {
   'carte etudiante',
 
   // Étudiant (avec ou sans accents, fautes OCR)
-  'etudiant',
+  'Etudiant',
   'etudiante',
   'etudant',
   'etud',
@@ -130,7 +133,7 @@ export default {
         profilHybride: [] ,
         optionsAnswer:null,
         bio: "",
-        statutId:2,
+        statutId:this.idStatutChoice,
         photo_profil: null,
         uploadPhotoProfil: [],
         email: "",
@@ -256,8 +259,8 @@ export default {
     async lister_statut(){
       try {
         const response =  await instance.get("listStatut")
-        this.allStatuts = response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'artisan')
-        console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'artisan'))
+        this.allStatuts = response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan')
+        console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan'))
       } catch (error) {
         console.log(error);
       }
@@ -430,81 +433,81 @@ preprocessImage(file) {
 },
     onFinish() {
       console.log("this.formState",this.formState);
-      // if (this.formState.uploadPhotoProfil.length) {
-      //   this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
-      // }
+      if (this.formState.uploadPhotoProfil.length) {
+        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
+      }
 
-      // if (this.configUtils.isValidEmail(this.formState.email)) {
-      //   if (this.formState.upload.length) {
-      //     this.formState.photo = this.addPhotoInArray(this.formState.upload);
+      if (this.configUtils.isValidEmail(this.formState.email)) {
+        if (this.formState.upload.length) {
+          this.formState.photo = this.addPhotoInArray(this.formState.upload);
 
-      //     if (this.$store.state.handleHoraire !== "Periode") {
-      //       const TOTALHOURHORAIRE = 0;
-      //       const FIRST_HORRAIRE =
-      //         this.$store.state.First_heure_start_from +
-      //         "-" +
-      //         this.$store.state.First_heure_end_to;
-      //       let SECOND_HORRAIRE = null;
-      //       if (this.$store.state.Second_heure_start_from) {
-      //         SECOND_HORRAIRE =
-      //           this.$store.state.Second_heure_start_from +
-      //           "-" +
-      //           this.$store.state.Second_heure_end_to;
-      //       }
-      //       this.formState.jour =
-      //         this.$store.state.handleHoraire !== "Periode"
-      //           ? this.$store.state.datesOfCalendar
-      //           : [];
-      //       this.formState.periode = 0;
-      //       this.formState.First_horaire = FIRST_HORRAIRE;
-      //       this.formState.Second_horaire = SECOND_HORRAIRE;
-      //       this.formState.totalHour = TOTALHOURHORAIRE;
-      //     } else {
-      //       // console.log("fhf");
-      //       // console.log("DISPONIBILITE", {
-      //       //   dateTime_debut:
-      //       //     this.$store.state.handleHoraire === "Periode"
-      //       //       ? this.$store.state.dateTime_debut
-      //       //       : null,
-      //       //   dateTime_fin:
-      //       //     this.$store.state.handleHoraire === "Periode"
-      //       //       ? this.$store.state.dateTime_fin
-      //       //       : null,
-      //       // });
-      //       this.formState.jour = [
-      //         this.$store.state.dateTime_debut.split("T")[0] +
-      //           " A " +
-      //           this.$store.state.dateTime_fin.split("T")[0],
-      //       ];
-      //       this.formState.First_horaire =
-      //         this.$store.state.dateTime_debut.split("T")[1] +
-      //         "-" +
-      //         this.$store.state.dateTime_fin.split("T")[1];
-      //       this.formState.hour_periode_debut = this.$store.state.dateTime_debut.split(
-      //         "T"
-      //       )[1];
-      //       this.formState.hour_periode_fin = this.$store.state.dateTime_fin.split(
-      //         "T"
-      //       )[1];
-      //       this.formState.periode = 1;
-      //       this.formState.periode_debut = this.$store.state.dateTime_debut.split("T")[0];
-      //       this.formState.periode_fin = this.$store.state.dateTime_fin.split("T")[0];
-      //       this.formState.totalHour = 0;
-      //     }
-      //     this.changeValueIsPolitics({
-      //       value: true,
-      //       infoUser: "talents",
-      //       payload: this.formState,
-      //     });
-      //   } else {
-      //     this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre carte étudiant.");
-      //   }
-      // } else {
-      //   this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
-      // }
+          if (this.$store.state.handleHoraire !== "Periode") {
+            const TOTALHOURHORAIRE = 0;
+            const FIRST_HORRAIRE =
+              this.$store.state.First_heure_start_from +
+              "-" +
+              this.$store.state.First_heure_end_to;
+            let SECOND_HORRAIRE = null;
+            if (this.$store.state.Second_heure_start_from) {
+              SECOND_HORRAIRE =
+                this.$store.state.Second_heure_start_from +
+                "-" +
+                this.$store.state.Second_heure_end_to;
+            }
+            this.formState.jour =
+              this.$store.state.handleHoraire !== "Periode"
+                ? this.$store.state.datesOfCalendar
+                : [];
+            this.formState.periode = 0;
+            this.formState.First_horaire = FIRST_HORRAIRE;
+            this.formState.Second_horaire = SECOND_HORRAIRE;
+            this.formState.totalHour = TOTALHOURHORAIRE;
+          } else {
+            // console.log("fhf");
+            // console.log("DISPONIBILITE", {
+            //   dateTime_debut:
+            //     this.$store.state.handleHoraire === "Periode"
+            //       ? this.$store.state.dateTime_debut
+            //       : null,
+            //   dateTime_fin:
+            //     this.$store.state.handleHoraire === "Periode"
+            //       ? this.$store.state.dateTime_fin
+            //       : null,
+            // });
+            this.formState.jour = [
+              this.$store.state.dateTime_debut.split("T")[0] +
+                " A " +
+                this.$store.state.dateTime_fin.split("T")[0],
+            ];
+            this.formState.First_horaire =
+              this.$store.state.dateTime_debut.split("T")[1] +
+              "-" +
+              this.$store.state.dateTime_fin.split("T")[1];
+            this.formState.hour_periode_debut = this.$store.state.dateTime_debut.split(
+              "T"
+            )[1];
+            this.formState.hour_periode_fin = this.$store.state.dateTime_fin.split(
+              "T"
+            )[1];
+            this.formState.periode = 1;
+            this.formState.periode_debut = this.$store.state.dateTime_debut.split("T")[0];
+            this.formState.periode_fin = this.$store.state.dateTime_fin.split("T")[0];
+            this.formState.totalHour = 0;
+          }
+          this.changeValueIsPolitics({
+            value: true,
+            infoUser: "talents",
+            payload: this.formState,
+          });
+        } else {
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre carte étudiant.");
+        }
+      } else {
+        this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
+      }
     },
 
-    onFinishFailed(errorInfo) {
+    onHandleFailed(errorInfo) {
       Swal.fire({
         icon: "warning",
         title: `${errorInfo.errorFields[0].errors[0]}`,
@@ -579,7 +582,7 @@ preprocessImage(file) {
     layout="vertical"
     :model="formState"
     @finish="onFinish"
-    @finishFailed="onFinishFailed"
+    @finishFailed="onHandleFailed"
   >
   <!-- STEP 1 -->
   <div v-show="currentStep === 0">

@@ -14,11 +14,11 @@ export default {
   const statuses = user?.statuses || [];
 
   const isEntrepriseOrParticulier = statuses?.some(s =>
-    ['entreprise', 'particulier'].includes(s.statut)
+    ['Entreprise', 'particulier'].includes(s.statut)
   );
 
   const isEtudiantGroup = statuses?.some(s =>
-    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
   );
 
   if (isEntrepriseOrParticulier) {
@@ -141,7 +141,7 @@ export default {
               <div class="card-body" 
              v-if="
   user.user?.statuses
-    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
 "
               >
                 <div class="row">
@@ -230,7 +230,7 @@ export default {
               </div>
               <div class="card-body" 
               v-if="
-  user.user?.statuses.some(s => ['particulier', 'entreprise'].includes(s.statut))
+  user.user?.statuses.some(s => ['particulier', 'Entreprise'].includes(s.statut))
 "
               >
                 <div class="row">

@@ -102,11 +102,11 @@ userDocuments() {
   const statuses = this.$store.state.infoUserConnected?.user?.statuses || [];
 
   const isEntrepriseOrParticulier = statuses?.some(s =>
-    ['entreprise', 'particulier'].includes(s.statut)
+    ['Entreprise', 'particulier'].includes(s.statut)
   );
 
   const isEtudiantOrProOrArtisanOrVeteran = statuses?.some(s =>
-    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
   );
 
   const isAdmin = statuses?.some(s => s.statut === 'admin');
@@ -127,11 +127,11 @@ userDocuments() {
   const statuses = this.$store.state.infoUserConnected?.user?.statuses || [];
 
   const isStudentGroup = statuses?.some(s =>
-    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
   );
 
   const isEntrepriseGroup = statuses?.some(s =>
-    ['entreprise', 'particulier'].includes(s.statut)
+    ['Entreprise', 'particulier'].includes(s.statut)
   );
 
   const isAdmin = statuses?.some(s => s.statut === 'admin');
@@ -296,7 +296,7 @@ userDocuments() {
       await this.$store.dispatch("getInfoUser");
       const infoUser = this.$store.state.infoUserConnected;
 
-      if (infoUser.user?.statuses?.some(s => s.statut === 'etudiant')){
+      if (infoUser.user?.statuses?.some(s => s.statut === 'Etudiant')){
       const competences = infoUser.competences;
       const qualifications = infoUser.qualifications;
       const jours = infoUser.jours;
@@ -366,10 +366,10 @@ userDocuments() {
             <InfoEntreprise
               v-if="
                 this.$store.state.infoUserConnected && 
-                this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'entreprise' || status.statut === 'particulier')
+                this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'Entreprise' || status.statut === 'particulier')
               "
               :infoPersonellesEntreprise="
-              this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'entreprise') ? [
+              this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'Entreprise') ? [
                       {
                         libelle: 'Raison sociale',
                         value:  this.$store.state.infoUserConnected.is_company_verified === 'Formel' ? this.$store.state.infoUserConnected?.nom:this.$store.state.infoUserConnected?.nom_particulier,
@@ -465,7 +465,7 @@ userDocuments() {
                     ]
               "
               :infoPersonellesGerant="
-               this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'entreprise')
+               this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'Entreprise')
                   ? [
                       {
                         libelle: texte11,
@@ -497,17 +497,17 @@ userDocuments() {
                 { libelle: texte8, value: this.$store.state.infoUserConnected?.quartier ?? '' },
                 { libelle: texte5, value: this.$store.state.infoUserConnected?.phone },
                 { libelle: texte13, value: this.$store.state.infoUserConnected?.diplome ?? 'Pas de diplome' },
-                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut != 'etudiant')
+                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut != 'Etudiant')
                 ? 'Temps de travail':null, value: this.$store.state.infoUserConnected?.tempsTravail ?? '' },
-                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut != 'etudiant') ? 'Mode de travail':null, value: this.$store.state.infoUserConnected?.modeTravail ?? '' },
-                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'veteran') ? 'Traitement préférentiel':null, value: this.$store.state.infoUserConnected?.niveauExpertise ?? '' },
+                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut != 'Etudiant') ? 'Mode de travail':null, value: this.$store.state.infoUserConnected?.modeTravail ?? '' },
+                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'Veteran') ? 'Traitement préférentiel':null, value: this.$store.state.infoUserConnected?.niveauExpertise ?? '' },
                 { libelle: this.$store.state.infoUserConnected?.user?.code_ambassadeur ? 'code parrainage':null , value: this.$store.state.infoUserConnected?.user?.code_ambassadeur ?? null },
                 // {
                 //   libelle: documentLabels[this.$store.state.infoUserConnected?.user?.statut?.statut],
                 //   value: this.$store.state.infoUserConnected?.user?.photos,
                 // },
                 { libelle: 
-                  this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'professionnel') ? 'Curriculum Vitae':null, value: this.$store.state.infoUserConnected?.CVupload ?? null },
+                  this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'Professionnel') ? 'Curriculum Vitae':null, value: this.$store.state.infoUserConnected?.CVupload ?? null },
               ]"
               :infoPersonellesQualifications="
                 this.$store.state.infoUserConnected?.qualifications.length
@@ -520,7 +520,7 @@ userDocuments() {
               "
          v-if="
   this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
   )
 "
             />
@@ -529,7 +529,7 @@ userDocuments() {
         <TabPanel :header="'Profils'" 
         v-if="
      this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['etudiant', 'professionnel', 'artisan' , 'particulier'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan' , 'particulier'].includes(s.statut)
      )
     ">
          <InfoStatusesUser
@@ -539,7 +539,7 @@ userDocuments() {
         <TabPanel
        v-if="
   this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
   )
 "
           header="Compétences et Expériences"
@@ -549,7 +549,7 @@ userDocuments() {
         <TabPanel
          v-if="
   this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
   )
 "
           header="Qualifications"

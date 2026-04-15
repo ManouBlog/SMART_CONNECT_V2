@@ -131,7 +131,7 @@ Swal.fire({
     verfEnter() {
       if (
   (this.user?.user?.statuses || []).some(s =>
-    ['entreprise', 'particulier'].includes(s.statut)
+    ['Entreprise', 'particulier'].includes(s.statut)
   )
 ) {
         Swal.fire({

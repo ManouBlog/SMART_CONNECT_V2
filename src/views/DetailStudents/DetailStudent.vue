@@ -706,7 +706,7 @@ export default {
      if (
   this.user &&
   (this.user.user?.statuses || []).some(s =>
-    ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
   )
 ) {
   this.$router.push("/");
@@ -796,7 +796,7 @@ export default {
       <BodyExperience :timetable_for_student="timetable_for_student" />
  <!--  ceci : timetable_for_student.user.statut_id === 2 est destine au étudiant -->
       <section class="conteneur_calendar_student" v-if="
-  (timetable_for_student.user?.statuses || []).some(s => s.statut === 'etudiant')
+  (timetable_for_student.user?.statuses || []).some(s => s.statut === 'Etudiant')
 ">
         <div class="jobs-result">
           <div class="disponibilite">

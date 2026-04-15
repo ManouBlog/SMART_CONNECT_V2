@@ -558,7 +558,7 @@ export default {
         <div class="row" 
         v-if="
   user.user?.statuses
-    .some(s => ['etudiant', 'professionnel', 'artisan', 'veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
 "
         >
           <div class="col-md-12" style="margin: 4em 0">

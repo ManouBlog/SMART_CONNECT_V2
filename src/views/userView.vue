@@ -190,12 +190,12 @@ export default {
                   <td>{{ item.email }}</td>
                   <td>
                     <span
-                      v-if="item.statut.statut == 'entreprise' || item.statut.statut == 'particulier'"
+                      v-if="item.statut.statut == 'Entreprise' || item.statut.statut == 'particulier'"
                       class="badge bg-primary"
                       >Entreprise</span
                     >
                     <span
-                      v-if="item.statut.statut == 'etudiant'"
+                      v-if="item.statut.statut == 'Etudiant'"
                       class="badge bg-warning"
                       >Etudiant</span
                     >

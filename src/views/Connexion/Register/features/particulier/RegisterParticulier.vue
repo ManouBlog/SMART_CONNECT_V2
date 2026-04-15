@@ -200,7 +200,7 @@ export default {
       }
       // this.changeValueIsPolitics({value:true,infoUser:'particulier',payload:this.formState});
     },
-    onFinishFailed(errorInfo) {
+    onHandleFailed(errorInfo) {
       // console.log("Failed:", errorInfo);
       Swal.fire({
         icon: "warning",
@@ -408,7 +408,7 @@ export default {
     name="basic"
     autocomplete="on"
     @finish="onFinish"
-    @finishFailed="onFinishFailed"
+    @finishFailed="onHandleFailed"
   >
     <!-- Nom + Prénoms -->
     <a-row :gutter="[16, 24]">
@@ -449,7 +449,7 @@ export default {
     <a-row :gutter="[16, 24]">
       <!-- <a-col :xs="24" :md="12">
         <a-form-item
-          :label="'Nom de l\'entreprise'"
+          :label="'Nom de l\'Entreprise'"
           name="nom_particulier"
         >
           <a-input

@@ -36,7 +36,7 @@ onMounted(async () => {
          <div
   class="testimonials__item"
   v-for="(item, index) in testimonials.filter(
-    item => (item.user?.statuses || []).some(s => s.statut === 'etudiant')
+    item => (item.user?.statuses || []).some(s => s.statut === 'Etudiant')
   )"
   :key="index"
 >
@@ -106,7 +106,7 @@ onMounted(async () => {
   class="testimonials__item"
   v-for="(item, index) in testimonials.filter(item =>
     (item.user?.statuses || []).some(s =>
-      ['entreprise', 'particulier'].includes(s.statut)
+      ['Entreprise', 'particulier'].includes(s.statut)
     )
   )"
   :key="index"
@@ -131,7 +131,7 @@ onMounted(async () => {
             <div class="testimonials__author">
               <div class="author__avatar">
                 <img
-                 v-if="(item.user?.statuses || []).some(s => s.statut === 'entreprise')"
+                 v-if="(item.user?.statuses || []).some(s => s.statut === 'Entreprise')"
                   :src="lienPhoto + item.student.logo"
                   :alt="item.student.nom"
                   class="author__image"

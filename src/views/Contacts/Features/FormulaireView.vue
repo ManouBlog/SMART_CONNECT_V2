@@ -40,7 +40,7 @@ export default {
       console.log("Success:", values);
       this.sendUsEmail();
     },
-    onFinishFailed(errorInfo) {
+    onHandleFailed(errorInfo) {
       console.log("Failed:", errorInfo);
     },
      sendUsEmail() {
@@ -131,7 +131,7 @@ export default {
           name="basic"
           autocomplete="off"
           @finish="onFinish"
-          @finishFailed="onFinishFailed"
+          @finishFailed="onHandleFailed"
         >
           <a-form-item 
           :label="text13"

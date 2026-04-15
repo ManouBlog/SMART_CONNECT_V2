@@ -72,7 +72,7 @@ valueModeDeTravail: [
 //   'carte etudiante',
 
 //   // Étudiant (avec ou sans accents, fautes OCR)
-//   'etudiant',
+//   'Etudiant',
 //   'etudiante',
 //   'etudant',
 //   'etud',
