@@ -153,6 +153,20 @@ idStatutChoice:Object
       this.$refs.formRef?.validateFields(['phone']);
     }
     },
+    "formState.optionsAnswer":{
+      handler(value) {
+        if(value === 'non'){
+          this.formState.profilHybride = [];
+          this.formState.ville = "";
+          this.formState.commune = "";
+          this.formState.statut_talent = "";
+          // this.formState.uploadCNI = null
+        }
+        console.log("formState.optionsAnswer", value);
+        
+      },
+      immediate: true,
+    }
   },
   methods: {
     async lister_statut(){
@@ -558,6 +572,33 @@ idStatutChoice:Object
           />
         </a-form-item>
       </a-col>
+       <a-col
+  :xs="24"
+  :md="12"
+  v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'"
+  >
+            <a-form-item
+            :label="'Statut professionnel'"
+            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.statut_talent"
+    placeholder="Sélectionnez votre Statut professionnel"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in ['Maitre Artisan','Artisan']"
+      :key="item"
+      :value="item"
+      :label="item"
+    >
+      {{ item }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col>
       <a-col :xs="24" :md="12">
         <a-form-item
           name="upload"
