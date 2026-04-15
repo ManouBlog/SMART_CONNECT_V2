@@ -253,8 +253,11 @@ idStatutChoice:Object
     },
     "formState.optionsAnswer":{
       handler(value) {
-        if(value == 'non'){
-          this.formState.profilHybride = []
+        if(value === 'non'){
+          this.formState.profilHybride = [];
+          this.formState.ville = "";
+          this.formState.commune = "";
+          this.formState.statut_talent = ""
         }
         console.log("formState.optionsAnswer", value);
         
@@ -338,8 +341,12 @@ idStatutChoice:Object
           return;
         }
       }
+      if (this.currentStep === 4) {
+          console.log("this.currentStep5",this.currentStep)
+        
+      }
 
-      if (this.currentStep !== 5 && !this.isCurrentStepValid) {
+      if (this.currentStep !== 4 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Veuillez remplir les champs requis avant de continuer"
@@ -762,7 +769,7 @@ preprocessImage(file) {
       </a-row>
       <!-- {{ this.allStatuts }}
       {{ this.formState.profilHybride }} -->
-      <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length">
+      <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
           <a-col :xs="24" :md="12">
         <a-form-item
           label="ville"
@@ -792,7 +799,7 @@ preprocessImage(file) {
       <a-col
   :xs="24"
   :md="12"
-  v-if="this.formState.profilHybride.some(el=>el == 7)"
+  v-if="this.formState.profilHybride.some(el=>el == 7) && this.formState.optionsAnswer === 'oui'"
   >
             <a-form-item
             :label="'Statut professionnel'"
@@ -911,11 +918,11 @@ preprocessImage(file) {
           </span>
           <!-- {{ this.result }} -->
         </a-col>
-          <a-col :xs="24" :md="12" v-if="this.formState.profilHybride.length">
+          <a-col :xs="24" :md="12" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
         <a-form-item
           name="uploadCNI"
           label="Carte nationale d'identité"
-          :rules="[{ required: true, message: texte10 }]"
+          :rules="[{ required: true, message: 'Ajoutez une CNI' }]"
         >
           <a-upload
             v-model:fileList="formState.uploadCNI"
@@ -929,14 +936,6 @@ preprocessImage(file) {
             <a-button> Clique pour charger </a-button>
           </a-upload>
         </a-form-item>
-
-        <!-- <a-spin v-if="loading" tip="Vérification de la carte d'identité" /> -->
-        <!-- <span
-          style="color:red;"
-          v-if="this.result && this.result.isCardIdentity === false"
-        >
-          Veuillez ajouter une carte d'identité bien visible
-        </span> -->
       </a-col>
       </a-row>
 
