@@ -225,6 +225,7 @@ idStatutChoice:Object
         return value !== null && value !== undefined && value !== "";
       });
     },
+    
   },
   watch: {
     // Fonction qui retourne la valeur du store à observer
@@ -249,6 +250,16 @@ idStatutChoice:Object
       },
       immediate: true, // si tu veux déclencher au montage
     },
+    "formState.optionsAnswer":{
+      handler(value) {
+        if(value == 'non'){
+          this.formState.profilHybride = []
+        }
+        console.log("formState.optionsAnswer", value);
+        
+      },
+      immediate: true,
+    }
   },
 
   methods: {
@@ -258,6 +269,7 @@ idStatutChoice:Object
       getCompetences: "getAllCompetences",
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
+    
     async lister_statut(){
       try {
         const response =  await instance.get("listStatut")
@@ -740,6 +752,8 @@ preprocessImage(file) {
           </a-form-item>
         </a-col>
       </a-row>
+      <!-- {{ this.allStatuts }}
+      {{ this.formState.profilHybride }} -->
       <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length">
           <a-col :xs="24" :md="12">
         <a-form-item
@@ -767,6 +781,33 @@ preprocessImage(file) {
           />
         </a-form-item>
       </a-col>
+      <a-col
+  :xs="24"
+  :md="12"
+  v-if="this.formState.profilHybride.some(el=>el == 7)"
+  >
+            <a-form-item
+            :label="'Statut professionnel'"
+            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.statut_talent"
+    placeholder="Sélectionnez votre Statut professionnel"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in ['Maitre Artisan','Artisan']"
+      :key="item"
+      :value="item"
+      :label="item"
+    >
+      {{ item }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col>
       </a-row>
    
     </div>
