@@ -10,6 +10,7 @@ import { useRegisterStore } from "../../../../../store-pinia/register/useRegiste
 import CreateDisponibilite from "./CreateDisponibilite.vue";
 import RegisterQualifications from "./RegisterQualifications.vue";
 import Tesseract from 'tesseract.js'
+import instance from "../../../../../api/api";
 
 export default {
   name: "RegsiterStudents",
@@ -20,10 +21,7 @@ export default {
  loading : false,
  rawText : '',
  result : null,
- allStatuts : [
-  { value: "Particulier", label: "Particulier" },
-  { value: "Artisan", label: "Artisan" },
-],
+ allStatuts : [],
  allAnwserProfilHybride: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
@@ -129,7 +127,7 @@ export default {
         myCompetence: [],
         photo: null,
         upload: [],
-        optionsProfil: [] ,
+        profilHybride: [] ,
         optionsAnswer:null,
         bio: "",
         statutId:2,
@@ -162,8 +160,9 @@ export default {
       return this.$store.state.First_heure_end_to;
     },
     isNextDisabled() {
+      console.log("this.currentStep",this.currentStep)
       // STEP 2 – Qualifications
-      if (this.currentStep === 2) {
+      if (this.currentStep === 3) {
         // au moins une qualification
         if (!this.formState.qualifications.length) {
           return true;
@@ -176,7 +175,7 @@ export default {
       }
 
       // STEP 3 – Disponibilités
-      if (this.currentStep === 3) {
+      if (this.currentStep === 4) {
         if(!this.getFirstHeureStartFrom ||
           !this.getFirstHeureFinFrom ||
           !this.getTableauDays.length){
@@ -205,7 +204,7 @@ export default {
         // 3: ["disponibiliteValid"],
 
         // STEP 4 – Validation finale
-        4: ["upload", "password"],
+        5: ["upload", "password"],
       };
     },
     isCurrentStepValid() {
@@ -254,6 +253,15 @@ export default {
       getCompetences: "getAllCompetences",
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
+    async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+        this.allStatuts = response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'artisan')
+        console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'artisan'))
+      } catch (error) {
+        console.log(error);
+      }
+    },
     handleQualifications(payload) {
       // console.log("handleQualifications", payload);
 
@@ -263,8 +271,8 @@ export default {
     nextStep() {
       console.log("this.currentStep",this.currentStep)
 
-      if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.optionsProfil.length){
-        console.log("this.formState.optionsProfil",this.formState.optionsProfil)
+      if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length){
+        console.log("this.formState.profilHybride",this.formState.profilHybride)
         this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Choisir un profil"
@@ -295,7 +303,7 @@ export default {
         }
       }
 
-      if (this.currentStep !== 3 && !this.isCurrentStepValid) {
+      if (this.currentStep !== 5 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Veuillez remplir les champs requis avant de continuer"
@@ -422,78 +430,78 @@ preprocessImage(file) {
 },
     onFinish() {
       console.log("this.formState",this.formState);
-      if (this.formState.uploadPhotoProfil.length) {
-        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
-      }
+      // if (this.formState.uploadPhotoProfil.length) {
+      //   this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
+      // }
 
-      if (this.configUtils.isValidEmail(this.formState.email)) {
-        if (this.formState.upload.length) {
-          this.formState.photo = this.addPhotoInArray(this.formState.upload);
+      // if (this.configUtils.isValidEmail(this.formState.email)) {
+      //   if (this.formState.upload.length) {
+      //     this.formState.photo = this.addPhotoInArray(this.formState.upload);
 
-          if (this.$store.state.handleHoraire !== "Periode") {
-            const TOTALHOURHORAIRE = 0;
-            const FIRST_HORRAIRE =
-              this.$store.state.First_heure_start_from +
-              "-" +
-              this.$store.state.First_heure_end_to;
-            let SECOND_HORRAIRE = null;
-            if (this.$store.state.Second_heure_start_from) {
-              SECOND_HORRAIRE =
-                this.$store.state.Second_heure_start_from +
-                "-" +
-                this.$store.state.Second_heure_end_to;
-            }
-            this.formState.jour =
-              this.$store.state.handleHoraire !== "Periode"
-                ? this.$store.state.datesOfCalendar
-                : [];
-            this.formState.periode = 0;
-            this.formState.First_horaire = FIRST_HORRAIRE;
-            this.formState.Second_horaire = SECOND_HORRAIRE;
-            this.formState.totalHour = TOTALHOURHORAIRE;
-          } else {
-            // console.log("fhf");
-            // console.log("DISPONIBILITE", {
-            //   dateTime_debut:
-            //     this.$store.state.handleHoraire === "Periode"
-            //       ? this.$store.state.dateTime_debut
-            //       : null,
-            //   dateTime_fin:
-            //     this.$store.state.handleHoraire === "Periode"
-            //       ? this.$store.state.dateTime_fin
-            //       : null,
-            // });
-            this.formState.jour = [
-              this.$store.state.dateTime_debut.split("T")[0] +
-                " A " +
-                this.$store.state.dateTime_fin.split("T")[0],
-            ];
-            this.formState.First_horaire =
-              this.$store.state.dateTime_debut.split("T")[1] +
-              "-" +
-              this.$store.state.dateTime_fin.split("T")[1];
-            this.formState.hour_periode_debut = this.$store.state.dateTime_debut.split(
-              "T"
-            )[1];
-            this.formState.hour_periode_fin = this.$store.state.dateTime_fin.split(
-              "T"
-            )[1];
-            this.formState.periode = 1;
-            this.formState.periode_debut = this.$store.state.dateTime_debut.split("T")[0];
-            this.formState.periode_fin = this.$store.state.dateTime_fin.split("T")[0];
-            this.formState.totalHour = 0;
-          }
-          this.changeValueIsPolitics({
-            value: true,
-            infoUser: "talents",
-            payload: this.formState,
-          });
-        } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre carte étudiant.");
-        }
-      } else {
-        this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
-      }
+      //     if (this.$store.state.handleHoraire !== "Periode") {
+      //       const TOTALHOURHORAIRE = 0;
+      //       const FIRST_HORRAIRE =
+      //         this.$store.state.First_heure_start_from +
+      //         "-" +
+      //         this.$store.state.First_heure_end_to;
+      //       let SECOND_HORRAIRE = null;
+      //       if (this.$store.state.Second_heure_start_from) {
+      //         SECOND_HORRAIRE =
+      //           this.$store.state.Second_heure_start_from +
+      //           "-" +
+      //           this.$store.state.Second_heure_end_to;
+      //       }
+      //       this.formState.jour =
+      //         this.$store.state.handleHoraire !== "Periode"
+      //           ? this.$store.state.datesOfCalendar
+      //           : [];
+      //       this.formState.periode = 0;
+      //       this.formState.First_horaire = FIRST_HORRAIRE;
+      //       this.formState.Second_horaire = SECOND_HORRAIRE;
+      //       this.formState.totalHour = TOTALHOURHORAIRE;
+      //     } else {
+      //       // console.log("fhf");
+      //       // console.log("DISPONIBILITE", {
+      //       //   dateTime_debut:
+      //       //     this.$store.state.handleHoraire === "Periode"
+      //       //       ? this.$store.state.dateTime_debut
+      //       //       : null,
+      //       //   dateTime_fin:
+      //       //     this.$store.state.handleHoraire === "Periode"
+      //       //       ? this.$store.state.dateTime_fin
+      //       //       : null,
+      //       // });
+      //       this.formState.jour = [
+      //         this.$store.state.dateTime_debut.split("T")[0] +
+      //           " A " +
+      //           this.$store.state.dateTime_fin.split("T")[0],
+      //       ];
+      //       this.formState.First_horaire =
+      //         this.$store.state.dateTime_debut.split("T")[1] +
+      //         "-" +
+      //         this.$store.state.dateTime_fin.split("T")[1];
+      //       this.formState.hour_periode_debut = this.$store.state.dateTime_debut.split(
+      //         "T"
+      //       )[1];
+      //       this.formState.hour_periode_fin = this.$store.state.dateTime_fin.split(
+      //         "T"
+      //       )[1];
+      //       this.formState.periode = 1;
+      //       this.formState.periode_debut = this.$store.state.dateTime_debut.split("T")[0];
+      //       this.formState.periode_fin = this.$store.state.dateTime_fin.split("T")[0];
+      //       this.formState.totalHour = 0;
+      //     }
+      //     this.changeValueIsPolitics({
+      //       value: true,
+      //       infoUser: "talents",
+      //       payload: this.formState,
+      //     });
+      //   } else {
+      //     this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre carte étudiant.");
+      //   }
+      // } else {
+      //   this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
+      // }
     },
 
     onFinishFailed(errorInfo) {
@@ -506,6 +514,7 @@ preprocessImage(file) {
   },
 
   async created() {
+    await this.lister_statut();
     this.getCompetences();
     this.texte = await this.handleTranslate("Nom");
     this.texte1 = await this.handleTranslate("Prénoms");
@@ -606,16 +615,16 @@ preprocessImage(file) {
     <div class="round-container">
       <label 
         v-for="item in allStatuts" 
-        :key="item.value"
+        :key="item.id"
         class="round-item"
       >
         <input
           type="checkbox"
-          :value="item.value"
-          v-model="formState.optionsProfil"
+          :value="item.id"
+          v-model="formState.profilHybride"
         />
         <span class="round-label">
-          {{ item.label }}
+          {{ item.statut }}
         </span>
       </label>
     </div>
