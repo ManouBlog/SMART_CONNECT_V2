@@ -24,8 +24,9 @@ export default {
       texte0: "",
       texte2: "",
       texte3: "",
-      value1 :"Etudiant",
+      value1 :"",
       isMobile:false,
+      isLoading:true,
       options : [
   // { value: "student", label: "Étudiant" },
   // { value: "professionnels", label: "Professionnel" },
@@ -66,6 +67,7 @@ export default {
       );
 
       if (found) {
+        console.log("found",found)
         this.selectedOption = found;
       } else {
         this.selectedOption = null;
@@ -96,8 +98,21 @@ export default {
         const response =  await instance.get("listStatut")
         this.options = response.data.data.filter(item=>item.statut !== 'admin')
         console.log("this.allStatuts",response.data.data)
+        this.value1 = this.options[1].statut
+        console.log("this.value1",this.value1)
+         const found = this.options.find(
+        item => item.statut === this.value1
+      );
+      if (found) {
+        console.log("found",found)
+        this.selectedOption = found;
+      } else {
+        this.selectedOption = null;
+      }
       } catch (error) {
         console.log(error);
+      }finally{
+        this.isLoading = false
       }
     },
   },
@@ -119,7 +134,7 @@ export default {
 };
 </script>
 <template>
-  <a-form :layout="'vertical'" name="basic">
+  <a-form :layout="'vertical'" name="basic" v-if="!isLoading">
     <div style="padding: 0.5em 0; text-align: center; color: red">
       Les champs avec astérisque (*) sont obligatoires
     </div>
@@ -177,4 +192,31 @@ export default {
     <RegisterArtisans  v-if="value1 === 'Artisan'"  />
     <RegisterVeterans  v-if="value1 === 'Veteran'"  />
   </a-form>
+  <section v-else class="shimmer-text" style="text-align: center;font-size:1.5em;" >
+    Chargement des profils...
+  </section>
 </template>
+<style scoped>
+.shimmer-text {
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    #999 0%,
+    #fff 50%,
+    #999 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+</style>
