@@ -161,8 +161,8 @@ idStatutChoice:Object
       handler(value) {
         if(value === 'non'){
           this.formState.profilHybride = [];
-          this.formState.ville = "";
-          this.formState.commune = "";
+          // this.formState.ville = "";
+          // this.formState.commune = "";
           this.formState.statut_talent = "";
           // this.formState.uploadCNI = null
         }
