@@ -186,11 +186,21 @@ export default {
     <RegsiterStudents 
     :idStatutChoice="selectedOption"
     v-if="value1 === 'Etudiant'" />
-    <RegsiterEntreprise v-if="value1 === 'Entreprise'" />
-    <RegisterProfessionels v-if="value1 === 'Professionnel'"  />
-    <RegisterParticulier v-if="value1 === 'Particulier'" />
-    <RegisterArtisans  v-if="value1 === 'Artisan'"  />
-    <RegisterVeterans  v-if="value1 === 'Veteran'"  />
+    <RegsiterEntreprise 
+    :idStatutChoice="selectedOption"
+    v-if="value1 === 'Entreprise'" />
+    <RegisterProfessionels 
+    :idStatutChoice="selectedOption"
+    v-if="value1 === 'Professionnel'"  />
+    <RegisterParticulier 
+    :idStatutChoice="selectedOption"
+    v-if="value1 === 'Particulier'" />
+    <RegisterArtisans  
+    :idStatutChoice="selectedOption"
+    v-if="value1 === 'Artisan'"  />
+    <RegisterVeterans  
+    :idStatutChoice="selectedOption"
+    v-if="value1 === 'Veteran'"  />
   </a-form>
   <section v-else class="shimmer-text" style="text-align: center;font-size:1.5em;" >
     Chargement des profils...

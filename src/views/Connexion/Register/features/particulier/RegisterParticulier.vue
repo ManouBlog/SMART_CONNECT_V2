@@ -4,9 +4,13 @@ import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
 import { useTranslateStore } from "../../../../../store-pinia/Translate/useTranslateStore";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
+import instance from "../../../../../api/api";
 // import Tesseract from 'tesseract.js'
 export default {
   name: "RegisterParticulier",
+  props:{
+idStatutChoice:Object
+  },
   components: {
     Politics,
   },
@@ -21,7 +25,7 @@ export default {
   { label: "Non", value: "non" }
 ],
   allStatuts : [
-  { value: "Artisan", label: "Artisan" },
+  // { value: "Artisan", label: "Artisan" },
 ],
       PIECE_KEYWORDS :[
   "republique de cote d ivoire",
@@ -116,7 +120,7 @@ export default {
         diplome: "",
         carte_student: "",
         myCompetence: [],
-         optionsProfil: [] ,
+         profilHybride: [] ,
         optionsAnswer:null,
         Logo: [],
         upload: [],
@@ -125,8 +129,8 @@ export default {
         myLogo: "",
         photo: null,
         countryCode: "+225",
-        statutId:4
-      
+        statutId:this.idStatutChoice.id,
+        
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -151,6 +155,15 @@ export default {
     },
   },
   methods: {
+    async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+        this.allStatuts = response.data.data.filter(item=>item.statut === 'Artisan')
+        console.log("this.allStatuts",response.data.data.filter(item=> item.statut === 'Artisan'))
+      } catch (error) {
+        console.log(error);
+      }
+    },
     validatePhone(_, value) {
   
     // Trouver le pays sélectionné
@@ -185,6 +198,7 @@ export default {
     },
     onFinish(values) {
       console.log("Success:", values);
+      this.formState.profilHybride.push(this.idStatutChoice.id);
       if (this.formState.upload.length) {
         this.formState.photo = this.addPhotoInArray(this.formState.upload);
         this.changeValueIsPolitics({
@@ -328,6 +342,7 @@ export default {
 // },
   },
   async created() {
+     await this.lister_statut();
     this.texte = await this.handleTranslate("Nom");
     this.texte1 = await this.handleTranslate("Prénoms");
     this.texte2 = await this.handleTranslate("Numéro de téléphone");
@@ -385,16 +400,16 @@ export default {
     <div class="round-container">
       <label 
         v-for="item in allStatuts" 
-        :key="item.value"
+        :key="item.statut"
         class="round-item"
       >
         <input
           type="checkbox"
-          :value="item.value"
-          v-model="formState.optionsProfil"
+          :value="item.statut"
+          v-model="formState.profilHybride"
         />
         <span class="round-label">
-          {{ item.label }}
+          {{ item.statut }}
         </span>
       </label>
     </div>

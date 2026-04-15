@@ -141,6 +141,7 @@ idStatutChoice:Object
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
+       
       },
     };
   },
@@ -164,6 +165,7 @@ idStatutChoice:Object
     },
     isNextDisabled() {
       console.log("this.currentStep",this.currentStep)
+      
       // STEP 2 – Qualifications
       if (this.currentStep === 3) {
         // au moins une qualification
@@ -281,6 +283,17 @@ idStatutChoice:Object
             "Choisir un profil"
           );
           return;
+      }
+      if (this.currentStep === 1 && this.formState.profilHybride.length) {
+        console.log("this.formState.profilHybride",this.formState.profilHybride)
+        if(!this.formState.ville || !this.formState.commune){
+         this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Les champs ville et commune sont obligatoires"
+          );
+          return;
+        }
+        
       }
       // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
       if (this.currentStep === 3) {
@@ -701,7 +714,7 @@ preprocessImage(file) {
           </a-form-item>
         </a-col>
       </a-row>
-
+      
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item
@@ -715,22 +728,47 @@ preprocessImage(file) {
             <a-input v-model:value="formState.email" />
           </a-form-item>
         </a-col>
-
         <a-col :xs="24" :md="12">
           <a-form-item label="Profil">
             <a-input v-model:value="formState.titreCv" />
             <!-- <a-textarea v-model:value="formState.titreCv" :maxlength="300" /> -->
           </a-form-item>
         </a-col>
-      </a-row>
-
-      <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item label="Biographie – résumé de votre profil">
             <a-textarea v-model:value="formState.bio" :maxlength="300" />
           </a-form-item>
         </a-col>
       </a-row>
+      <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length">
+          <a-col :xs="24" :md="12">
+        <a-form-item
+          label="ville"
+          name="ville"
+          :rules="[{ required: true, message: 'Ajouter une ville' }]"
+        >
+          <a-input v-model:value="formState.ville" placeholder="Ajouter votre ville" />
+        </a-form-item>
+      </a-col>
+    <a-col :xs="24" :md="12">
+        <a-form-item
+          label="Commune"
+          name="commune"
+          :rules="[{ required: true, message: 'Ajouter une commune' }]"
+        >
+          <a-input v-model:value="formState.commune" placeholder="Ajouter votre commune" />
+        </a-form-item>
+      </a-col>
+      <a-col :xs="24" :md="12">
+        <a-form-item label="Quartier" name="quartier">
+          <a-input 
+            v-model:value="formState.quartier"
+            placeholder="Ajouter votre quartier"
+          />
+        </a-form-item>
+      </a-col>
+      </a-row>
+   
     </div>
 
     <!-- STEP 3 -->
