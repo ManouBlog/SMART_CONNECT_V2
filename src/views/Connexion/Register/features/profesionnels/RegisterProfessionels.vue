@@ -152,7 +152,8 @@ StatutProfessionnel:[
         upload: [],
         modeTravail:"",
         statut_talent_artisan:"",
-         profilHybride: [] ,
+        uploadCNI:null,
+        profilHybride: [] ,
         optionsAnswer:null,
         tempsTravail:"",
         bio: "",
@@ -246,6 +247,23 @@ StatutProfessionnel:[
         return value !== null && value !== undefined && value !== "";
       });
     },
+  },
+   watch: {
+    "formState.optionsAnswer":{
+      handler(value) {
+        if(value === 'non'){
+          this.formState.profilHybride = [];
+          this.formState.ville = "";
+          this.formState.commune = "";
+          this.formState.statut_talent = "";
+          this.formState.statut_talent_artisan=""
+          this.formState.uploadCNI = null
+        }
+        console.log("formState.optionsAnswer", value);
+        
+      },
+      immediate: true,
+    }
   },
  
   methods: {
@@ -774,7 +792,7 @@ StatutProfessionnel:[
        
           <a-col :xs="24" :md="12">
             <a-form-item
-            :label="'statut professionnel'"
+            :label="'Statut professionnel'"
             :rules="[{ required: true, message: 'Ajoutez  votre niveau de carrière' }]"
           >
             <a-select
@@ -927,6 +945,7 @@ StatutProfessionnel:[
           </span>
           <!-- {{ this.result }} -->
         </a-col>
+        
        
       </a-row>
       <a-row :gutter="[16, 24]">
