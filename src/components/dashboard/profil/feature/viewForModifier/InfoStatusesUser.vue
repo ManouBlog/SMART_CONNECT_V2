@@ -28,6 +28,20 @@ profilHybride:[],
 allStatuses:[]
     }
   },
+ watch: {
+    selectedStatus: {
+      handler(newValue) {
+        console.log("newValue",newValue.statut)
+        if (newValue.statut === 'Artisan') {
+          this.optionsAnswer = null
+          this.profilHybride = [];
+          // this.allStatuses = []
+          return;
+        }
+      },
+      immediate: true
+    }
+  },
   methods: {
     openVerification(userStatut) {
       this.$emit('open-verification', userStatut);
@@ -120,8 +134,9 @@ this.allStatuses=[];
       </option>
            </select>
         </div>
+        {{ selectedStatus }}
   <transition name="fade-slide">
- <div v-if="selectedStatus">
+ <div v-if="selectedStatus && selectedStatus.statut !== 'Artisan'">
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
     Souhaitez-vous adopter un profil hybride ?
   </label>
@@ -185,7 +200,7 @@ this.allStatuses=[];
     </div>
   </div>
 </transition>
-  <div v-if="optionsAnswer">
+  <div v-if="optionsAnswer || (selectedStatus && selectedStatus.statut === 'Artisan')">
   <FieldsVeteran 
    v-if="selectedStatus.statut === 'Veteran'"/>
   <FieldsArtisan v-if="selectedStatus.statut === 'Artisan'" />
