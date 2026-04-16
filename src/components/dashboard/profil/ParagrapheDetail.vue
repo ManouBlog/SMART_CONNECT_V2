@@ -1,5 +1,6 @@
 <!-- Composant: ProfileField.vue -->
 <template>
+    
     <div v-if="item.value || item.valueArray">
  <p 
     style="color: orange; font-weight: bold"

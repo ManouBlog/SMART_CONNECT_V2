@@ -319,10 +319,10 @@ export default {
           style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
         <i class="bi bi-camera-fill"></i>
       </div>
-      <!-- <div>
-        <p v-if="infoBioStudent" style="color: orange; font-weight: bold">Bio</p>
+      <div v-if="infoPersonnelles?.bio">
+        <p  style="color: orange; font-weight: bold">Biographie de votre profil</p>
         <p
-          v-if="infoBioStudent"
+         
           style="
             text-align: justify;
             padding: 0.4em;
@@ -331,9 +331,9 @@ export default {
             border-radius: 10px;
           "
         >
-          {{ infoBioStudent }}
+          {{ infoPersonnelles?.bio }}
         </p>
-      </div> -->
+      </div>
       <section class="my-5">
         {{ infoPersonnelles }}
         
@@ -359,7 +359,9 @@ export default {
     <!-- <ParagrapheDetail :item="{libelle:'Logo entreprise', value: 'logo_innovtech.png'}" /> -->
     <ParagrapheDetail :item="{libelle:'Pièces Jointes', value:null,valueArray:this.infoPersonnelles.user.photos}" />
     <ParagrapheDetail :item="{libelle:'Statut Professionnel', value:[this.infoPersonnelles.statut_talent,this.infoPersonnelles.user.statut_professionnel_hybride]}" />
-    <ParagrapheDetail :item="{libelle:'Niveau d\'etude', value: 'Master Développement Logiciel'}" />
+    <ParagrapheDetail :item="{libelle:'Niveau d\'etude', value: this.infoPersonnelles.diplome}" />
+    <ParagrapheDetail :item="{libelle:'Mode de travail', value: this.infoPersonnelles.modeTravail}" />
+    <ParagrapheDetail :item="{libelle:'Temps de travail', value: this.infoPersonnelles.tempsTravail}" />
             <!-- <p style="color: orange; font-weight: bold"
             v-if="
                 item.libelle !== null 
