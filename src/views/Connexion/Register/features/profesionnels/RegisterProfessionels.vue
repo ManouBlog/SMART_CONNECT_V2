@@ -151,7 +151,7 @@ StatutProfessionnel:[
         photo: null,
         upload: [],
         modeTravail:"",
-        statut_talent_artisan:"",
+        statut_professionnel_hybride:"",
         uploadCNI:null,
         profilHybride: [] ,
         optionsAnswer:null,
@@ -256,7 +256,7 @@ StatutProfessionnel:[
           this.formState.ville = "";
           this.formState.commune = "";
           // this.formState.statut_talent = "";
-          this.formState.statut_talent_artisan=""
+          this.formState.statut_professionnel_hybride=""
           this.formState.uploadCNI = null
         }
         console.log("formState.optionsAnswer", value);
@@ -323,7 +323,7 @@ StatutProfessionnel:[
           return;
         }
 
-        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_talent_artisan){
+        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_professionnel_hybride){
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Ajoutez votre statut professionnel artisan."
@@ -830,12 +830,12 @@ StatutProfessionnel:[
   >
             <a-form-item
             :label="'Statut professionnel artisan'"
-            name="statut_talent_artisan"
+            name="statut_professionnel_hybride"
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]"
           >
             <a-select
             style="width: 100%;"
-    v-model:value="formState.statut_talent_artisan"
+    v-model:value="formState.statut_professionnel_hybride"
     placeholder="Sélectionnez votre Statut professionnel"
     show-search
     option-filter-prop="label"

@@ -100,7 +100,7 @@ export default createStore({
         })
         .then((response) => {
           // console.log("get_who_contact_student",response.data.entreprises.filter(item=>item.pivot.alarm === 1).length);
-            const element =  response.data.entreprises.filter(item=>item.pivot.alarm === 1).length
+            const element =  response.data?.entreprises?.filter(item=>item?.pivot?.alarm === 1).length
             state.contratStudent = element;
             localStorage.setItem("alarm", element);
         })

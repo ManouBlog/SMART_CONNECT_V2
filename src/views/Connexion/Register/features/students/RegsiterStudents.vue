@@ -366,6 +366,9 @@ idStatutChoice:Object
     addPhotoInArray(allPhotos) {
       return allPhotos.map((item) => item.originFileObj);
     },
+    onUploadCNIChange({ fileList: newList }){
+   console.log('onUploadChange', newList);
+    },
     onUploadChange({ fileList: newList }) {
   // fileList.value = newList
   console.log('onUploadChange', newList);
@@ -483,7 +486,10 @@ preprocessImage(file) {
       if (this.configUtils.isValidEmail(this.formState.email)) {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
-
+          if(this.formState.uploadCNI.length){
+           const otherPiece = this.addPhotoInArray(this.formState.uploadCNI);
+            this.formState.photo.push(otherPiece)
+          }
           if (this.$store.state.handleHoraire !== "Periode") {
             const TOTALHOURHORAIRE = 0;
             const FIRST_HORRAIRE =
@@ -931,7 +937,7 @@ preprocessImage(file) {
             :multiple="true"
             :maxCount="1"
             accept=".jpg,.jpeg,.png,.webp"
-            @change="onUploadChange"
+            @change="onUploadCNIChange"
           >
             <a-button> Clique pour charger </a-button>
           </a-upload>
