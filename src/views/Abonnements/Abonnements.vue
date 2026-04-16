@@ -90,7 +90,7 @@ onMounted(async () => {
   item.categorie.categorie.toLowerCase().includes('vétéran')
 ) }} -->
   <!-- {{ props.ProfilAbonnement }} -->
-    {{ store.state.user.user }}
+    <!-- {{ store.state.user.user }} -->
     <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
