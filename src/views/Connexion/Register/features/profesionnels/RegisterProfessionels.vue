@@ -255,7 +255,7 @@ StatutProfessionnel:[
           this.formState.profilHybride = [];
           this.formState.ville = "";
           this.formState.commune = "";
-          this.formState.statut_talent = "";
+          // this.formState.statut_talent = "";
           this.formState.statut_talent_artisan=""
           this.formState.uploadCNI = null
         }
