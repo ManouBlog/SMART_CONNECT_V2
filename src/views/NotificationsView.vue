@@ -3,10 +3,10 @@
     <h2 class="app-title" v-if="dataAlarm.length || Notifications.isNotifications.length">
       Vous avez {{ dataAlarm.length ? dataAlarm.length+Notifications.isNotifications.length:Notifications.isNotifications.length }} Notification(s)
     </h2>
-    <div style="height:300px" v-if="dataAlarm.length+Notifications.isNotifications.length === 0 && user.user?.statuses.some(s => s.statut !== 'Etudiant')">
+    <div style="height:300px" v-if="dataAlarm.length+Notifications.isNotifications.length === 0">
       <h2 style="text-align:center;">Pas de notifications</h2>
     </div>
-    <div
+    <!-- <div
       v-if="!Notifications.isNotifications.length && user.user?.statuses.some(s => s.statut === 'Etudiant')"
       style="
         height: 300px;
@@ -17,8 +17,8 @@
         color: black;
       "
     >
-      <h2 style="text-align:center;">Pas de notifications</h2>
-    </div>
+      <h2 style="text-align:center;">Pas de notifications2</h2>
+    </div> -->
     <NotificationSection
       v-if="Notifications.todayNotifications.length"
       title="Aujourd’hui"
@@ -44,9 +44,9 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
 import instance from "../api/api";
 
 // Components
@@ -58,11 +58,11 @@ import { useNotificationsStore } from "../store-pinia/useNotificationsStore";
 
 // === Initialisations ===
 const router = useRouter();
-const vuexStore = useStore();
+// const vuexStore = useStore();
 const Notifications = useNotificationsStore();
 
 // === State ===
-const user = computed(() => vuexStore.state.user);
+// const user = computed(() => vuexStore.state.user);
 const dataAlarm = ref([]);
 
 // === Fonctions ===
@@ -81,21 +81,21 @@ async function getOffresInteressByStudent() {
     console.error("Erreur lors du chargement des offres :", error);
   }
 }
-  async function verifUserProfilEtudiantComplet() {
-  // Charger l'utilisateur et attendre la fin
-  await vuexStore.dispatch("getInfoUser");
+//   async function verifUserProfilEtudiantComplet() {
+//   // Charger l'utilisateur et attendre la fin
+//   // await vuexStore.dispatch("getInfoUser");
 
-  const user = vuexStore.state.infoUserConnected;
-  //console.log("USER",user)
-  if(user.user?.statuses.some(s => s.statut === 'Etudiant')){
-  if (!user.competences.length || !user.qualifications.length) {
-    router.replace("/dashboard/profil");
-  }
-  if(!user.jours.length){
-    this.$router.push('/dashboard/emploi_du_temps');
-   }
-  }
-}
+//   const user = vuexStore.state.infoUserConnected;
+//   //console.log("USER",user)
+//   if(user.user?.statuses.some(s => s.statut === 'Etudiant')){
+//   if (!user.competences.length || !user.qualifications.length) {
+//     router.replace("/dashboard/profil");
+//   }
+//   if(!user.jours.length){
+//     this.$router.push('/dashboard/emploi_du_temps');
+//    }
+//   }
+// }
 
 
 function voirDetailPostulants(nameOffre) {
@@ -109,7 +109,7 @@ function voirDetailPostulants(nameOffre) {
   });
 }
 
-verifUserProfilEtudiantComplet()
+// verifUserProfilEtudiantComplet()
 
 // === Lifecycle ===
 onMounted(async () => {

@@ -66,7 +66,7 @@ this.allStatuses=[];
       allowed.has(item.statut)
     );
 
-    console.log("allStatuses", {
+    console.log("allStatuses2", {
       statut: this.allStatuses,
       profil: this.$store.state.infoUserConnected
     });

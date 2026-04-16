@@ -226,7 +226,7 @@ valueExpertise: [
       allowed.has(item.statut)
     );
 
-    console.log("allStatuses", {
+    console.log("allStatuses1", {
       statut: this.allStatuses,
       profil: this.$store.state.infoUserConnected
     });
