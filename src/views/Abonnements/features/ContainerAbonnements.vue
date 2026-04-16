@@ -132,14 +132,14 @@ onMounted(async () => {
  :type_abonnements="'Entreprise Formelle'"
  />
  <SubAbonnementsArtisans 
- v-if="select_mode_payment_tab === 'Maitre-Artisans'"
+ v-if="select_mode_payment_tab === 'Maitre-Artisan'"
  :abonnements="subAbonnement"
- :type_abonnements="'Maitre-Artisans'"
+ :type_abonnements="'Maitre-Artisan'"
  />
  <SubAbonnementsArtisans 
- v-if="select_mode_payment_tab === 'Artisans'"
+ v-if="select_mode_payment_tab === 'Artisan'"
  :abonnements="subAbonnement"
- :type_abonnements="'Artisans'"
+ :type_abonnements="'Artisan'"
  />
  <SubAbonnementsVeteran
  v-if="select_mode_payment_tab === 'Vétéran Hors Grade'"
@@ -175,7 +175,7 @@ onMounted(async () => {
       </h1>
       
       
-    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisans','Professionnel'].some(role=>role === item?.categorie?.categorie)">
+    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
       <contentAbonnement 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"

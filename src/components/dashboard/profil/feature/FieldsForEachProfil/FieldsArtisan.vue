@@ -10,6 +10,9 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 
 export default {
   name: "FieldsArtisan",
+  props:{
+profilOfAbonnement:String
+  },
   components: { 
    Abonnements
   },
@@ -289,7 +292,9 @@ StatutArtisans:[
         </div>
       </template>
       <div style="background-color: white;">
-       <Abonnements />
+       <Abonnements 
+       :ProfilAbonnement="this.profilOfAbonnement"
+       />
       </div>
       </n-modal>
     <form action="" @submit.prevent="onHandleUpdateProfil">

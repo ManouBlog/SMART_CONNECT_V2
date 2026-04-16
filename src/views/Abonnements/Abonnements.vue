@@ -1,6 +1,6 @@
 <script setup>
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
-import { ref, onMounted } from "vue";
+import { ref, onMounted ,defineProps} from "vue";
 import { useStore } from 'vuex'
 import { useRouter,useRoute} from 'vue-router'
 import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
@@ -13,6 +13,14 @@ import Swal from "sweetalert2";
 
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 // const { t } = i18n.global;
+const props = defineProps({
+  ProfilAbonnement: {
+    type: String,
+    required: false,
+    default: null
+  },
+})
+
 const text0 = ref("")
 const store = useStore();
 const reference = ref(null);
@@ -81,6 +89,7 @@ onMounted(async () => {
     <!-- {{ abonnements.filter(item => 
   item.categorie.categorie.toLowerCase().includes('vétéran')
 ) }} -->
+  {{ props.ProfilAbonnement }}
     <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
@@ -91,9 +100,9 @@ onMounted(async () => {
         <n-tab-pane
            v-if="
   !store.state.user ||
-  (store.state.user?.user?.statuses || []).some(s =>
-    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran','particulier'].includes(s.statut)
-  )
+  (store.state.user?.user?.statuses).some(s =>
+    ['Etudiant'].includes(s.statut)
+  ) && props.ProfilAbonnement == 'Etudiant'
 "
           :name="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
           :tab="defaulValueTranslate == 'fr' ? 'Etudiant' :'Student'"
@@ -108,7 +117,7 @@ onMounted(async () => {
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
     ['Entreprise'].includes(s.statut)
-  )
+  ) && props.ProfilAbonnement == 'Entreprise'
 "
           :name="defaulValueTranslate == 'fr' ? 'Entreprise' :'Entreprise'"
           :tab="defaulValueTranslate == 'fr' ? 'Entreprise' :'Entreprise'"
@@ -130,8 +139,8 @@ onMounted(async () => {
           v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['Entreprise'].includes(s.statut)
-  )
+    ['Particulier'].includes(s.statut)
+  ) && props.ProfilAbonnement == 'Particulier'
 "
           :name="defaulValueTranslate == 'fr' ? 'Particulier' :'Company'"
           :tab="defaulValueTranslate == 'fr' ? 'Particulier' :'Company'"
@@ -145,22 +154,22 @@ onMounted(async () => {
           v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['Entreprise'].includes(s.statut)
-  )
+    ['Artisan'].includes(s.statut)
+  ) && props.ProfilAbonnement == 'Artisan'
 "
-          :name="defaulValueTranslate == 'fr' ? 'Artisans' :'Company'"
-          :tab="defaulValueTranslate == 'fr' ? 'Artisans' :'Company'"
+          :name="defaulValueTranslate == 'fr' ? 'Artisan' :'Company'"
+          :tab="defaulValueTranslate == 'fr' ? 'Artisan' :'Company'"
         >
           <ContainerAbonnements
             :abonnements="abonnements"
-            :type_abonnements="'Artisans'"
+            :type_abonnements="'Artisan'"
              :tabsSubAbonnement="abonnements.filter(item => 
-  item.categorie.categorie.toLowerCase().includes('artisans')
+  item.categorie.categorie.toLowerCase().includes('Artisan')
 ).map(item=>{
   return {label:item.categorie.categorie,id:item.categorie.categorie}
 })"
   :subAbonnement="abonnements.filter(item => 
-  item.categorie.categorie.toLowerCase().includes('artisans')
+  item.categorie.categorie.toLowerCase().includes('Artisan')
  )"
           />
         </n-tab-pane>
@@ -168,8 +177,8 @@ onMounted(async () => {
           v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['Entreprise'].includes(s.statut)
-  )
+    ['Professionnel'].includes(s.statut)
+  ) && props.ProfilAbonnement == 'Professionnel'
 "
           :name="defaulValueTranslate == 'fr' ? 'Professionnel' :'Company'"
           :tab="defaulValueTranslate == 'fr' ? 'Professionnel' :'Company'"
@@ -183,8 +192,8 @@ onMounted(async () => {
           v-if="
   !store.state.user ||
   (store.state.user?.user?.statuses || []).some(s =>
-    ['Entreprise'].includes(s.statut)
-  )
+    ['Vétéran','veteran'].includes(s.statut)
+  ) && props.ProfilAbonnement == 'veteran'
 "
           :name="defaulValueTranslate == 'fr' ? 'Vétéran' :'Vétéran'"
           :tab="defaulValueTranslate == 'fr' ? 'Vétéran' :'Vétéran'"

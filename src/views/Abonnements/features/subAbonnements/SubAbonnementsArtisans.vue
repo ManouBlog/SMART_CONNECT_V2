@@ -84,7 +84,7 @@ onMounted(async () => {
       </h1>
       
       
-    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisans','Professionnel','Maitre-Artisans'].some(role=>role === item?.categorie?.categorie)">
+    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel','Maitre-Artisan'].some(role=>role === item?.categorie?.categorie)">
       <contentAbonnement 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"

@@ -203,7 +203,9 @@ this.allStatuses=[];
   <div v-if="optionsAnswer || (selectedStatus && selectedStatus.statut === 'Artisan')">
   <FieldsVeteran 
    v-if="selectedStatus.statut === 'Veteran'"/>
-  <FieldsArtisan v-if="selectedStatus.statut === 'Artisan'" />
+  <FieldsArtisan 
+  :profilOfAbonnement="selectedStatus.statut"
+  v-if="selectedStatus.statut === 'Artisan'" />
   <FieldsProfessionnel 
   :profilHybride="profilHybride"
   v-if="selectedStatus.statut === 'Professionnel'" />
