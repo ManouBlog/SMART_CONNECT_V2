@@ -6,27 +6,32 @@ import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInf
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { mapActions } from "pinia";
 import { Help } from "../../../../utils";
-import VerificationUpload from "../../../VerificationUpload.vue";
+import ParagrapheDetail from "../ParagrapheDetail.vue";
+
 export default {
   name: "InfoStudents",
   components: {
     Buttons,
-    VerificationUpload
+    ParagrapheDetail
   },
   props: {
-    infoBioStudent: {
-      type: String,
+    infoPersonnelles:{
+      type: Object,
       required: false,
     },
-    infoPersonellesStudents: {
-      type: Array,
-    },
-    infoPersonellesCompetences: {
-      type: Array,
-    },
-    infoPersonellesQualifications: {
-      type: Array,
-    },
+    // infoBioStudent: {
+    //   type: String,
+    //   required: false,
+    // },
+    // infoPersonellesStudents: {
+    //   type: Array,
+    // },
+    // infoPersonellesCompetences: {
+    //   type: Array,
+    // },
+    // infoPersonellesQualifications: {
+    //   type: Array,
+    // },
   },
   data() {
     return {
@@ -192,17 +197,7 @@ export default {
 
 <template>
   <section>
-     <!-- Modal de certification -->
-    <n-modal v-model:show="showModalBadgeVerifi" style="width:auto" preset="card" :closable="false">
-      <template #header>
-        <div class="modal-header">
-          <h3>Vérification d'identité</h3>
-        </div>
-      </template>
-      <VerificationUpload 
-      :userProfil="this.$store.state.infoUserConnected?.user?.statut?.statut"
-      />
-    </n-modal>
+   
     <div v-if="isLoading">
       <h5 style="text-align: center" class="shimmer-text">Chargement...</h5>
     </div>
@@ -322,12 +317,9 @@ export default {
         <i class="bi bi-patch-check-fill" 
           v-if="this.$store?.state?.user?.user?.is_verified"
           style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
-            <!-- <img v-if="user?.user?.is_verified" class="badge_star" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-              <img class="badge_star" v-if="user?.user?.star_color === 'gold' && !user?.user?.is_verified" src="/star_gold.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-              <img class="badge_star" v-if="user?.user?.star_color === 'yellow' && !user?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;"> -->
         <i class="bi bi-camera-fill"></i>
       </div>
-      <div>
+      <!-- <div>
         <p v-if="infoBioStudent" style="color: orange; font-weight: bold">Bio</p>
         <p
           v-if="infoBioStudent"
@@ -341,44 +333,46 @@ export default {
         >
           {{ infoBioStudent }}
         </p>
-      </div>
+      </div> -->
       <section class="my-5">
+        {{ infoPersonnelles }}
+        
         <div class="row">
           <div
-            v-for="(item, index) in infoPersonellesStudents"
-            :key="index"
             class="col-lg-4 col-sm-6"
           >
-            <p style="color: orange; font-weight: bold"
+          <ParagrapheDetail :item="{libelle:'Nom', value: this.infoPersonnelles.nom}" />
+    <ParagrapheDetail :item="{libelle:'Prénoms', value: this.infoPersonnelles.prenoms}" />
+    <!-- <ParagrapheDetail :item="{libelle:'Gérant', value: 'ADJOBI KADJO PIERRE'}" /> -->
+    
+    <ParagrapheDetail :item="{libelle:'Email', value: this.infoPersonnelles.email}" />
+    <ParagrapheDetail :item="{libelle:'Contact', value: this.infoPersonnelles.phone}" />
+    
+    <ParagrapheDetail :item="{libelle:'Ville', value: this.infoPersonnelles.ville}" />
+    <ParagrapheDetail :item="{libelle:'Commune', value: this.infoPersonnelles.commune}" />
+    <ParagrapheDetail :item="{libelle:'Quartier', value: this.infoPersonnelles.quartier}" />
+    
+    <!-- <ParagrapheDetail :item="{libelle:'Matricule/cc', value: 'CI-ABJ-2024-B-12345'}" />
+    <ParagrapheDetail :item="{libelle:'Registre', value: 'RCCM CI-ABJ-20241234'}" />
+    <ParagrapheDetail :item="{libelle:'Forme juridique', value: 'SARL'}" /> -->
+    
+    <!-- <ParagrapheDetail :item="{libelle:'Logo entreprise', value: 'logo_innovtech.png'}" /> -->
+    <ParagrapheDetail :item="{libelle:'Pièces Jointes', value:null,valueArray:this.infoPersonnelles.user.photos}" />
+    <ParagrapheDetail :item="{libelle:'Statut Professionnel', value:[this.infoPersonnelles.statut_talent,this.infoPersonnelles.user.statut_professionnel_hybride]}" />
+    <ParagrapheDetail :item="{libelle:'Niveau d\'etude', value: 'Master Développement Logiciel'}" />
+            <!-- <p style="color: orange; font-weight: bold"
             v-if="
                 item.libelle !== null 
               "
             >{{ item.libelle }} :</p>
             <h6
-              v-if="
-                item.libelle !== null &&
-                item.value !== null &&
-                item.value !== 'null' &&
-                item.value !== 'undefined' &&
-                item.libelle !== 'Pièce d\'identité' &&
-                item.libelle !== 'Carte étudiant' &&
-                item.libelle !== 'Diplôme' &&
-                item.libelle !== 'CNI' &&
-                item.libelle !== 'Certificat de travail' && 
-                item.libelle !== 'Curriculum Vitae'
-              "
+             
               class="fw-bold"
             >
               {{ item.value }}
-            </h6>
-            <div
-              v-if="
-                item.libelle === 'Pièce d\'identité' || 
-                item.libelle === 'Carte étudiant' ||
-                item.libelle === 'Diplôme' ||
-                item.libelle === 'CNI' ||
-                item.libelle === 'Certificat de travail'
-              "
+            </h6> -->
+            <!-- <div
+             
               style="display: flex; justify-content: flex-start; gap: 1em"
             >
               <section v-for="(element, index) in item.value" :key="index">
@@ -432,7 +426,7 @@ export default {
                   </n-button>
                 </div>
                 </section>
-            </div>
+            </div> -->
           </div>
         </div>
       </section>

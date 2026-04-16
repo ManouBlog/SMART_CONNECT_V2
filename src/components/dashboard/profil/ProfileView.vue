@@ -488,7 +488,16 @@ userDocuments() {
               "
             />
             <InfoStudents
-              :infoPersonellesStudents="[
+              :infoPersonnelles="this.$store.state.infoUserConnected"
+         v-if="
+  this.$store.state.infoUserConnected?.user?.statuses?.some(
+    s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+  )
+"
+            />
+            <!-- <InfoStudents
+              :infoPersonellesStudents="
+              [
                 { libelle: texte2, value: this.$store.state.infoUserConnected?.nom },
                 { libelle: texte14, value: this.$store.state.infoUserConnected?.prenoms },
                 { libelle: texte3, value: this.$store.state.infoUserConnected?.email ?? '' },
@@ -497,9 +506,11 @@ userDocuments() {
                 { libelle: texte8, value: this.$store.state.infoUserConnected?.quartier ?? '' },
                 { libelle: texte5, value: this.$store.state.infoUserConnected?.phone },
                 { libelle: texte13, value: this.$store.state.infoUserConnected?.diplome ?? 'Pas de diplome' },
-                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut != 'Etudiant')
+                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status =>
+                        ['Vétéran', 'Professionnel'].includes(status?.statut))
                 ? 'Temps de travail':null, value: this.$store.state.infoUserConnected?.tempsTravail ?? '' },
-                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut != 'Etudiant') ? 'Mode de travail':null, value: this.$store.state.infoUserConnected?.modeTravail ?? '' },
+                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status =>
+                        ['Vétéran', 'Professionnel'].includes(status?.statut)) ? 'Mode de travail':null, value: this.$store.state.infoUserConnected?.modeTravail ?? '' },
                 { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'Veteran') ? 'Traitement préférentiel':null, value: this.$store.state.infoUserConnected?.niveauExpertise ?? '' },
                 { libelle: this.$store.state.infoUserConnected?.user?.code_ambassadeur ? 'code parrainage':null , value: this.$store.state.infoUserConnected?.user?.code_ambassadeur ?? null },
                 // {
@@ -523,7 +534,7 @@ userDocuments() {
     s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
   )
 "
-            />
+            /> -->
           </div>
         </TabPanel>
         <TabPanel :header="'Profils'" 
