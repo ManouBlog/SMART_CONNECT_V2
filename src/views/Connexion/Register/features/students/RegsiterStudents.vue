@@ -257,7 +257,7 @@ idStatutChoice:Object
           this.formState.profilHybride = [];
           this.formState.ville = "";
           this.formState.commune = "";
-          this.formState.statut_talent = "";
+          this.formState.statut_professionnel_hybride = "";
           this.formState.uploadCNI = null
         }
         console.log("formState.optionsAnswer", value);
@@ -310,7 +310,7 @@ idStatutChoice:Object
           );
           return;
         }
-        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_talent){
+        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_professionnel_hybride){
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Ajoutez votre statut professionnel."
@@ -488,7 +488,10 @@ preprocessImage(file) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
           if(this.formState.uploadCNI.length){
            const otherPiece = this.addPhotoInArray(this.formState.uploadCNI);
-            this.formState.photo.push(otherPiece)
+           otherPiece.forEach(pice=>{
+            this.formState.photo.push(pice)
+           })
+          
           }
           if (this.$store.state.handleHoraire !== "Periode") {
             const TOTALHOURHORAIRE = 0;
@@ -813,7 +816,7 @@ preprocessImage(file) {
           >
             <a-select
             style="width: 100%;"
-    v-model:value="formState.statut_talent"
+    v-model:value="formState.statut_professionnel_hybride"
     placeholder="Sélectionnez votre Statut professionnel"
     show-search
     option-filter-prop="label"
