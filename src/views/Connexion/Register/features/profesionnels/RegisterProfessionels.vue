@@ -565,7 +565,7 @@ StatutProfessionnel:[
       >
         <input
           type="checkbox"
-          :value="item.statut"
+          :value="item.id"
           v-model="formState.profilHybride"
         />
         <span class="round-label">
@@ -638,10 +638,12 @@ StatutProfessionnel:[
             </a-input>
           </a-form-item>
         </a-col>
+       
       </a-row>
 
+      
       <a-row :gutter="[16, 24]">
-        <a-col :xs="24" :md="12">
+          <a-col :xs="24" :md="12">
           <a-form-item
             :label="texte6"
             name="email"
@@ -653,10 +655,14 @@ StatutProfessionnel:[
             <a-input v-model:value="formState.email" />
           </a-form-item>
         </a-col>
-
         <a-col :xs="24" :md="12">
           <a-form-item label="Profil">
             <a-input v-model:value="formState.titreCv" />
+          </a-form-item>
+        </a-col>
+        <a-col :xs="24" :md="24">
+          <a-form-item label="Biographie – résumé de votre profil">
+            <a-textarea v-model:value="formState.bio" :maxlength="300" />
           </a-form-item>
         </a-col>
       </a-row>
@@ -687,18 +693,7 @@ StatutProfessionnel:[
           />
         </a-form-item>
       </a-col>
-      
       </a-row>
-
-      <a-row :gutter="[16, 24]">
-        <a-col :xs="24" :md="24">
-          <a-form-item label="Biographie – résumé de votre profil">
-            <a-textarea v-model:value="formState.bio" :maxlength="300" />
-          </a-form-item>
-        </a-col>
-      </a-row>
-
-     
     </div>
 
     <!-- STEP 2 -->
@@ -776,7 +771,7 @@ StatutProfessionnel:[
             <a-input v-model:value="formState.filiere" placeholder="Ajoutez votre domaine" />
             </a-form-item>
         </a-col>
-        {{ this.formState.profilHybride }}
+       
           <a-col :xs="24" :md="12">
             <a-form-item
             :label="'statut professionnel'"
