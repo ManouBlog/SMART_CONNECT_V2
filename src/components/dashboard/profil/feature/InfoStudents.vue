@@ -204,7 +204,7 @@ export default {
       />
     </n-modal>
     <div v-if="isLoading">
-      <h5 style="text-align: center">Chargement...</h5>
+      <h5 style="text-align: center" class="shimmer-text">Chargement...</h5>
     </div>
     <a-card
       v-if="user"

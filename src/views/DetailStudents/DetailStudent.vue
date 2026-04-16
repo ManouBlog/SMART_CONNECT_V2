@@ -982,7 +982,7 @@ export default {
         </div>
         </section>
     </div>
-    <div class="conteneur_student py-5" v-else>
+    <div class="conteneur_student py-5 shimmer-text" v-else>
       <h3>Chargement...</h3>
     </div>
   </div>

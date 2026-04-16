@@ -632,7 +632,7 @@ export default {
                     </div>
 
                     <div v-if="spinner">
-                      <h4 class="text-center">{{ texte26 }}</h4>
+                      <h4 class="text-center shimmer-text">{{ texte26 }}</h4>
                     </div>
                     <div
                       v-else-if="!userQualifications?.qualifications?.length && !spinner"

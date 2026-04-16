@@ -653,7 +653,7 @@ export default {
       </div>
 
       <div>
-        <span v-if="spinner" class="h1 char">{{ texte4 }}</span>
+        <span v-if="spinner" class="h1 char shimmer-text">{{ texte4 }}</span>
 
         <div class="container-fuid d-grid px-3" v-if="list_emploi.length">
           <div
@@ -803,6 +803,7 @@ export default {
         padding: 2em;
         font-weight: bold;
       "
+      class="shimmer-text"
     >
       Chargement....
     </div>

@@ -323,7 +323,7 @@ Swal.fire({
         </div>
       </div>
     </div>
-    <div v-else class="container main-container" style="padding: 8em">chargement...</div>
+    <div v-else class="container main-container shimmer-text" style="padding: 8em">chargement...</div>
   </div>
 </template>
 <style scoped>

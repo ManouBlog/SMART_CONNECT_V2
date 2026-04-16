@@ -70,7 +70,7 @@
       </n-button>
     </div>
   </div>
-  <div style="text-align:center;" v-if="isChargement && !job">
+  <div style="text-align:center;" class="shimmer-text" v-if="isChargement && !job">
     <h2>Chargement...</h2>
   </div>
   <div style="text-align:center;" v-if="!isChargement && !job">

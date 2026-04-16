@@ -203,7 +203,7 @@ this.allStatuses=[];
   </div>
 
       </section>
-      <section v-else style="text-align: center;">
+      <section v-else style="text-align: center;" class="shimmer-text">
         Chargement des profils....
       </section>
       

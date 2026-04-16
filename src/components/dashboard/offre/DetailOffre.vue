@@ -364,7 +364,7 @@ export default {
             </div>
       </form>
       <div v-if="spinnerModify" class="container">
-       <h3 class="text-center">Chargement...</h3>
+       <h3 class="text-center shimmer-text">Chargement...</h3>
       </div>
     </div>
   </div>

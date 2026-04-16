@@ -863,7 +863,7 @@ if (isStudentGroup) {
       </button>
     </div>
   </div>
-  <div v-else style="text-align:center;">
+  <div v-else style="text-align:center;" class="shimmer-text">
    Chargement...
   </div>
 </template>

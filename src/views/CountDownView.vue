@@ -36,7 +36,7 @@
       <EmailInput @notify="SendMailBienvenueNewsletter" />
     </div>
     <p v-else style="color: white">Email stocké</p>
-    <p v-if="isloading" style="color: white">Chargement...</p>
+    <p v-if="isloading" style="color: white" class="shimmer-text">Chargement...</p>
     <footer>
       <h2 class="coming-soon">Coming Soon</h2>
     </footer>

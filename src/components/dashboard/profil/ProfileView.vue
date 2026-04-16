@@ -560,7 +560,7 @@ userDocuments() {
           <MonPlanAbonnement />
         </TabPanel>
       </TabView>
-      <div v-else style="text-align:center;padding:2em;">
+      <div v-else style="text-align:center;padding:2em;" class="shimmer-text">
       Chargement...
       </div>
     </div>

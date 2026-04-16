@@ -143,7 +143,7 @@ v-if="optionsPaper === 'Formel'" />
 v-else />
 </section>
 <section v-else style="margin-top: 2em;">
- <p style="text-align: center;">Chargement...</p> 
+ <p style="text-align: center;" class="shimmer-text">Chargement...</p> 
 </section>
 
 
