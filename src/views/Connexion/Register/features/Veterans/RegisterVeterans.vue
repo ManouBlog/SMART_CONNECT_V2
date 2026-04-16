@@ -7,7 +7,7 @@ import { configUtils } from "../../../../../Shared/Utils";
 import { useTranslateStore } from "../../../../../store-pinia/Translate/useTranslateStore";
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
-
+import instance from "../../../../../api/api";
 import RegisterQualifications from "../students/RegisterQualifications.vue";
 // import Tesseract from 'tesseract.js'
 
@@ -29,8 +29,8 @@ export default {
   { label: "Non", value: "non" }
 ],
  allStatuts : [
-  { value: "Particulier", label: "Particulier" },
-  { value: "Artisan", label: "Artisan" },
+  // { value: "Particulier", label: "Particulier" },
+  // { value: "Artisan", label: "Artisan" },
 ],
  valueExpertise: [
   { value: "Privilége", label: "Privilége" },
@@ -152,9 +152,11 @@ StatutVeterans:[
         commune: "",
         quartier: "",
         diplome: "",
+        
         myCompetence: [],
-          optionsProfil: [] ,
+          profilHybride: [] ,
         optionsAnswer:null,
+        uploadCNI:null,
         photo: null,
         upload: [],
         bio: "",
@@ -167,10 +169,27 @@ StatutVeterans:[
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
+        statut_talent_artisan:""
       },
     };
   },
-
+ watch: {
+    "formState.optionsAnswer":{
+      handler(value) {
+        if(value === 'non'){
+          this.formState.profilHybride = [];
+          this.formState.ville = "";
+          this.formState.commune = "";
+          // this.formState.statut_talent = "";
+          this.formState.statut_talent_artisan=""
+          this.formState.uploadCNI = null
+        }
+        console.log("formState.optionsAnswer", value);
+        
+      },
+      immediate: true,
+    }
+  },
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
     isNextDisabled() {
@@ -233,6 +252,15 @@ StatutVeterans:[
       getCompetences: "getAllCompetences",
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
+    async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+        this.allStatuts = response.data.data.filter(item=>item.statut === 'Particulier' || item.statut === 'Artisan')
+        console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan'))
+      } catch (error) {
+        console.log(error);
+      }
+    },
     handleQualifications(payload) {
       // console.log("handleQualifications", payload);
 
@@ -242,13 +270,25 @@ StatutVeterans:[
     nextStep() {
       console.log("this.currentStep",this.currentStep)
 
-       if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.optionsProfil.length){
-        console.log("this.formState.optionsProfil",this.formState.optionsProfil)
+       if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length){
+        console.log("this.formState.profilHybride",this.formState.profilHybride)
         this.SWALPOPUP.declencheSwalPopup(
             "warning",
-            "Choisir un profil"
+            "Choisissez un profil"
           );
           return;
+      }
+
+      if (this.currentStep === 1 && this.formState.profilHybride.length) {
+        console.log("this.formState.profilHybride",this.formState.profilHybride)
+        if(!this.formState.ville || !this.formState.commune){
+         this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Les champs ville et commune sont obligatoires."
+          );
+          return;
+        }
+        
       }
       // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
       if (this.currentStep === 3) {
@@ -258,6 +298,13 @@ StatutVeterans:[
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Chaque qualification doit avoir un titre"
+          );
+          return;
+        }
+        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_talent_artisan){
+          this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Ajoutez votre statut professionnel artisan."
           );
           return;
         }
@@ -274,7 +321,7 @@ StatutVeterans:[
       //   }
       // }
 
-      if (this.currentStep !== 2 && !this.isCurrentStepValid) {
+      if (this.currentStep !== 3 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Veuillez remplir les champs requis avant de continuer"
@@ -436,6 +483,7 @@ StatutVeterans:[
   },
 
   async created() {
+    await this.lister_statut();
     this.getCompetences();
     this.texte = await this.handleTranslate("Nom");
     this.texte1 = await this.handleTranslate("Prénoms");
@@ -447,7 +495,7 @@ StatutVeterans:[
     this.texte7 = await this.handleTranslate(
       "Compétences (plusieurs choix sont possibles)"
     );
-    this.texte8 = await this.handleTranslate("Niveau actuel + Domaine");
+    this.texte8 = await this.handleTranslate("Niveau actuel");
     this.texte9 = await this.handleTranslate("Certificat de travail");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
@@ -532,20 +580,19 @@ StatutVeterans:[
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils disponibles
     </label>
-
     <div class="round-container">
       <label 
         v-for="item in allStatuts" 
-        :key="item.value"
+        :key="item.id"
         class="round-item"
       >
         <input
           type="checkbox"
-          :value="item.value"
-          v-model="formState.optionsProfil"
+          :value="item.id"
+          v-model="formState.profilHybride"
         />
         <span class="round-label">
-          {{ item.label }}
+          {{ item.statut }}
         </span>
       </label>
     </div>
@@ -646,6 +693,34 @@ StatutVeterans:[
           </a-form-item>
         </a-col>
       </a-row>
+       <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
+          <a-col :xs="24" :md="12">
+        <a-form-item
+          label="Ville"
+          name="ville"
+          :rules="[{ required: true, message: 'Ajoutez une ville' }]"
+        >
+          <a-input v-model:value="formState.ville" placeholder="Ajoutez votre ville" />
+        </a-form-item>
+      </a-col>
+    <a-col :xs="24" :md="12">
+        <a-form-item
+          label="Commune"
+          name="commune"
+          :rules="[{ required: true, message: 'Ajoutez une commune' }]"
+        >
+          <a-input v-model:value="formState.commune" placeholder="Ajoutez votre commune" />
+        </a-form-item>
+      </a-col>
+      <a-col :xs="24" :md="12">
+        <a-form-item label="Quartier" name="quartier">
+          <a-input 
+            v-model:value="formState.quartier"
+            placeholder="Ajoutez votre quartier"
+          />
+        </a-form-item>
+      </a-col>
+      </a-row>
     </div>
 
     <!-- STEP 2 -->
@@ -701,7 +776,6 @@ StatutVeterans:[
             :rules="[{ required: true, message: texte13 }]"
           >
             <a-select
-              style="margin:1em 0"
               v-model:value="formState.niveauEtude"
               placeholder="Sélectionnez un diplôme"
             >
@@ -713,8 +787,16 @@ StatutVeterans:[
                 {{ item.value }}
               </a-select-option>
             </a-select>
-            <a-input v-model:value="formState.filiere" placeholder="Domaines" />
+            
           </a-form-item>
+          <a-form-item
+            label="Domaine"
+            name="filiere"
+            :rules="[{ required: true, message: 'Ajoutez votre domaine' }]"
+          >
+          <a-input v-model:value="formState.filiere" placeholder="Domaine" />
+          </a-form-item>
+          
         </a-col>
         <a-col :xs="24" :md="12">
             <a-form-item
@@ -738,7 +820,37 @@ StatutVeterans:[
     </a-select-option>
   </a-select>
             </a-form-item>
+            <a-form-item
+            v-if="this.formState.profilHybride.some(el=>el == 7) && this.formState.optionsAnswer === 'oui'"
+            :label="'Statut professionnel artisan'"
+            name="statut_talent_artisan"
+            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.statut_talent_artisan"
+    placeholder="Sélectionnez votre Statut professionnel"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in ['Maitre Artisan','Artisan']"
+      :key="item"
+      :value="item"
+      :label="item"
+    >
+      {{ item }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
         </a-col>
+        <!-- <a-col
+  :xs="24"
+  :md="12"
+  
+  >
+            
+        </a-col> -->
 
         <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />
@@ -824,13 +936,32 @@ StatutVeterans:[
               <a-button> Clique pour charger </a-button>
             </a-upload>
           </a-form-item>
-
           <a-spin v-if="loading" tip="Vérification de la carte d'étudiant" />
           <span style="color:red;" v-if="this.result && this.result.isStudentCard === false">
             Veuillez ajouter une carte bien visible
           </span>
           <!-- {{ this.result }} -->
         </a-col>
+        <a-col :xs="24" :md="12"
+           v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
+        <a-form-item
+          name="uploadCNI"
+          label="Carte nationale d'identité"
+          :rules="[{ required: true, message: 'Ajoutez une CNI' }]"
+        >
+          <a-upload
+            v-model:fileList="formState.uploadCNI"
+            name="uploadCNI"
+            list-type="picture"
+            :multiple="true"
+            :maxCount="1"
+            accept=".jpg,.jpeg,.png,.webp"
+            @change="onUploadChange"
+          >
+            <a-button> Clique pour charger </a-button>
+          </a-upload>
+        </a-form-item>
+      </a-col>
       </a-row>
 
       <a-row :gutter="[16, 24]">

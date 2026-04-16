@@ -534,7 +534,7 @@ export default {
       <input class="form-control" type="datetime-local" v-model="job_fin" :min="job_debut" />
     </div>
     <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
-      <label><span style="color: red">*</span>Choisir un profil</label>
+      <label><span style="color: red">*</span>Choisissez un profil</label>
       <VueMultiselect 
       v-model="chooseStatut" 
       :options="userInfo && userInfo?.statut?.statut === 'Entreprise' ? allStatuses.filter(item => item.statut !== 'particulier') : allStatuses.filter(item => item.statut == 'Etudiant' || item.statut == 'Artisan')" 

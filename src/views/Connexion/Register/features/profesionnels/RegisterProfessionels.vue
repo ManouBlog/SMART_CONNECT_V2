@@ -294,7 +294,7 @@ StatutProfessionnel:[
         console.log("this.formState.profilHybride",this.formState.profilHybride)
         this.SWALPOPUP.declencheSwalPopup(
             "warning",
-            "Choisir un profil"
+            "Choisissez un profil"
           );
           return;
       }
@@ -830,6 +830,7 @@ StatutProfessionnel:[
   >
             <a-form-item
             :label="'Statut professionnel artisan'"
+            name="statut_talent_artisan"
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]"
           >
             <a-select

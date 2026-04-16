@@ -297,7 +297,7 @@ idStatutChoice:Object
         console.log("this.formState.profilHybride",this.formState.profilHybride)
         this.SWALPOPUP.declencheSwalPopup(
             "warning",
-            "Choisir un profil"
+            "Choisissez un profil"
           );
           return;
       }
