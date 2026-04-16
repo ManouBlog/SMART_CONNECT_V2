@@ -70,6 +70,7 @@ watch(
 onMounted(async () => {
   
   select_mode_payment_tab.value = props.tabsSubAbonnement[0]?.id
+  console.log("props.tabsSubAbonnement",props.tabsSubAbonnement)
   elmentsOfBtn.value = [
     {
       name_btn: await transalteStore.handleTranslate("Choisir cette formule"),

@@ -1,6 +1,6 @@
 <script setup>
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
-import { ref, onMounted ,defineProps} from "vue";
+import { ref, onMounted ,defineProps,watch,computed } from "vue";
 import { useStore } from 'vuex'
 import { useRouter,useRoute} from 'vue-router'
 import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
@@ -22,8 +22,10 @@ const props = defineProps({
 })
 
 const text0 = ref("")
+const activeTab = ref('')
 const store = useStore();
 const reference = ref(null);
+const profileAbonnement = ref(null);
 const router = useRouter();
 const route = useRoute();
 // const storeEntreprise = useEntreprisesStore();
@@ -33,18 +35,54 @@ const defaulValueTranslate = ref(translateStore.defaultLocale);
 const abonnements = ref([]);
 const loadingSpinner = useLoadingSpinner();
 
+const abonnementsArtisan = computed(() => {
+  return (abonnements.value || [])
+    .filter(item =>
+      item?.categorie?.categorie?.toLowerCase().includes('artisan')
+    )
+    .map(item => ({
+      label: item.categorie.categorie,
+      id: item.categorie.categorie
+    }))
+})
+
 const handleAbonement = async () => {
   loadingSpinner.launchLoading(true);
   try {
     const response = await instance.get("getAbonnement");
     // console.log("response",response)
     abonnements.value = response.data.data;
-    loadingSpinner.launchLoading(false);
+    return response.data.data;
   } catch (error) {
     console.log(error);
     loadingSpinner.launchLoading(false);
+  }finally{
+     loadingSpinner.launchLoading(false);
   }
 };
+
+watch(
+   profileAbonnement,
+  async (newValue) => {
+    if (!newValue) return
+    
+    const response = await handleAbonement()
+    
+    abonnementsArtisan.value = response
+      .filter(item =>
+        item?.categorie?.categorie?.toLowerCase().includes('artisan')
+      )
+      .map(item => ({
+        label: item.categorie.categorie,
+        id: item.categorie.categorie
+      }))
+console.log("abonnementsArtisan.value",abonnementsArtisan.value)
+    console.log("newValue", abonnements.value)
+  },
+  {
+    immediate: true,
+  }
+)
 
 async function doVerificationAbonnement(payload){
 try {
@@ -75,7 +113,9 @@ try {
 onMounted(async () => {
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
   reference.value = route.params.reference
-  console.log("route.params.reference",route.params.reference)
+  profileAbonnement.value = props.ProfilAbonnement ? props.ProfilAbonnement:store.state.user?.user?.statut?.statut
+  activeTab.value = props.ProfilAbonnement ? props.ProfilAbonnement:'Etudiant'
+  console.log("storeUSER",store.state.user?.user?.statut?.statut)
     if(reference.value){
     doVerificationAbonnement(reference.value)
     } 
@@ -89,7 +129,7 @@ onMounted(async () => {
     <!-- {{ abonnements.filter(item => 
   item.categorie.categorie.toLowerCase().includes('vétéran')
 ) }} -->
-  <!-- {{ props.ProfilAbonnement }} -->
+  <!-- {{ profileAbonnement }} -->
     <!-- {{ store.state.user.user }} -->
     <n-card>
        <div class="d-flex justify-content-center">
@@ -97,15 +137,16 @@ onMounted(async () => {
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
      </p>
       </div>
-      <n-tabs type="line" size="large" animated justify-content="center">
+      <n-tabs type="line" size="large" animated justify-content="center"
+      v-model:value="activeTab"
+      >
 
   <!-- Etudiant -->
   <n-tab-pane
     v-if="
       !store.state.user ||
       (
-        store.state.user?.user?.statuses.some(s => ['Etudiant'].includes(s.statut)) &&
-        (props.ProfilAbonnement === 'Etudiant' || store.state.user?.user?.statut?.statut === 'Etudiant')
+        store.state.user?.user?.statuses.some(s => ['Etudiant'].includes(s.statut)) && profileAbonnement === 'Etudiant'
       )
     "
     :name="defaulValueTranslate === 'fr' ? 'Etudiant' : 'Student'"
@@ -122,8 +163,7 @@ onMounted(async () => {
     v-if="
       !store.state.user ||
       (
-        store.state.user?.user?.statuses.some(s => ['Entreprise'].includes(s.statut)) &&
-        (props.ProfilAbonnement === 'Entreprise' || store.state.user?.user?.statut?.statut === 'Entreprise')
+        store.state.user?.user?.statuses.some(s => ['Entreprise'].includes(s.statut)) && profileAbonnement === 'Entreprise'
       )
     "
     :name="'Entreprise'"
@@ -150,8 +190,7 @@ onMounted(async () => {
     v-if="
       !store.state.user ||
       (
-        store.state.user?.user?.statuses.some(s => ['Particulier'].includes(s.statut)) &&
-        (props.ProfilAbonnement === 'Particulier' || store.state.user?.user?.statut?.statut === 'Particulier')
+        store.state.user?.user?.statuses.some(s => ['Particulier'].includes(s.statut)) && profileAbonnement === 'Particulier'
       )
     "
     :name="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
@@ -168,8 +207,7 @@ onMounted(async () => {
     v-if="
       !store.state.user ||
       (
-        store.state.user?.user?.statuses.some(s => ['Artisan'].includes(s.statut)) &&
-        (props.ProfilAbonnement === 'Artisan' || store.state.user?.user?.statut?.statut === 'Artisan')
+        store.state.user?.user?.statuses.some(s => ['Artisan'].includes(s.statut)) && profileAbonnement === 'Artisan'
       )
     "
     :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
@@ -178,13 +216,7 @@ onMounted(async () => {
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Artisan"
-      :tabsSubAbonnement="abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))
-        .map(item => ({
-          label: item.categorie.categorie,
-          id: item.categorie.categorie
-        }))
-      "
+      :tabsSubAbonnement="abonnementsArtisan"
       :subAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))
       "
@@ -196,8 +228,7 @@ onMounted(async () => {
     v-if="
       !store.state.user ||
       (
-        store.state.user?.user?.statuses.some(s => ['Professionnel'].includes(s.statut)) &&
-        (props.ProfilAbonnement === 'Professionnel' || store.state.user?.user?.statut?.statut === 'Professionnel')
+        store.state.user?.user?.statuses.some(s => ['Professionnel'].includes(s.statut)) && profileAbonnement === 'Professionnel'
       )
     "
     :name="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
@@ -216,8 +247,7 @@ onMounted(async () => {
       (
         store.state.user?.user?.statuses.some(s =>
           ['Vétéran', 'veteran'].includes(s.statut)
-        ) &&
-        (props.ProfilAbonnement === 'veteran' || store.state.user?.user?.statut?.statut === 'veteran')
+        ) && profileAbonnement === 'veteran'
       )
     "
     :name="'Vétéran'"
