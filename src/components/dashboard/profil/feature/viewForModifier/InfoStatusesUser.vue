@@ -44,31 +44,32 @@ this.allStatuses=[];
     },
      async lister_statut() {
   const user = this.$store.state.infoUserConnected?.user;
-  const statuses = user?.statuses || [];
+  const statutUser = user?.statut.statut;
 
-  const currentRoles = statuses.map(s => s.statut);
+  // const currentRoles = statuses.map(s => s.statut);
+
+  // console.log("currentRoles",currentRoles)
 
   const transitions = {
-    etudiant: ['Professionnel', 'Artisan'],
-    professionnel: ['Artisan', 'Veteran'],
-    artisan: ['Professionnel','Veteran'],
-    particulier: ['Entreprise']
+    Etudiant: ['Professionnel', 'Artisan'],
+    Professionnel: ['Artisan', 'Veteran'],
+    Artisan: ['Professionnel','Veteran'],
+    Particulier: ['Entreprise']
   };
 
-  const allowed = new Set(
-    currentRoles.flatMap(role => transitions[role] || [])
-  );
+  const allowed = transitions[statutUser]
+  console.log("allowed",allowed)
 
   try {
     const response = await instance.get("listStatut");
 
     this.allStatuses = response.data.data.filter(item =>
-      allowed.has(item.statut)
+      allowed.includes(item.statut)
     );
 
     console.log("allStatuses2", {
       statut: this.allStatuses,
-      profil: this.$store.state.infoUserConnected
+      profil: this.$store.state.infoUserConnected.user.statut
     });
 
   } catch (error) {
@@ -282,9 +283,9 @@ this.allStatuses=[];
   font-weight: 600;
   background: linear-gradient(
     90deg,
-    #999 0%,
+    #080808 0%,
     #fff 50%,
-    #999 100%
+    #2e2e2e 100%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
