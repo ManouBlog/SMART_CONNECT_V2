@@ -18,7 +18,7 @@ export default {
       showModalBadgeVerifi: false,
       showModalAbonnements:false,
 // allStatutsCompany:[{ value: "Artisan", label: "Artisan" }],
- allAnwserProfilHybride: [
+ allProfilHybrideAnswer: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
 ],
@@ -128,7 +128,7 @@ this.allStatuses=[];
 
   <div class="round-container">
     <label 
-      v-for="item in allAnwserProfilHybride" 
+      v-for="item in allProfilHybrideAnswer" 
       :key="item.value"
       class="round-item"
     >
@@ -153,7 +153,7 @@ this.allStatuses=[];
 
     <div class="round-container" v-if="selectedStatus.statut !== 'Entreprise'">
       <label 
-        v-for="item in allStatuses" 
+        v-for="item in allStatuses.filter(item=>item.statut !== selectedStatus.statut)" 
         :key="item.id"
         class="round-item"
       >
