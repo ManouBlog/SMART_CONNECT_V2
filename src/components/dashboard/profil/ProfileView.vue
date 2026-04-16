@@ -332,7 +332,7 @@ userDocuments() {
     },
   },
   async created() {
-    this.texte = await this.handleTranslate("Mon profil");
+    this.texte = await this.handleTranslate("Mon compte");
     this.texte1 = await this.handleTranslate(`Infos personnelles`);
     this.texte2 = await this.handleTranslate("Nom");
     this.texte3 = await this.handleTranslate("Email");

@@ -212,19 +212,6 @@ export default {
       <div class="info-header" style="display: flex; justify-content: space-between">
         <h1 class="fw-bold my-3" style="color: orange">Infos personnelles</h1>
         <div>
-          <!-- <button 
-          v-if="user.user.statut.statut != 'Etudiant' && !user.is_verified"
-          style="
-          width:auto;
-          padding:0.5em;
-          margin:0 1em;
-          border-radius: 5%;
-          border:1px dashed orange; 
-          background-color: transparent;
-          color:orange"
-          @click="showModalBadgeVerifi = !showModalBadgeVerifi"
-          > <i class="bi bi-patch-check-fill"></i> Ajouter un badge de vérification
-        </button> -->
          <button
           style="
             height: auto;
@@ -246,16 +233,6 @@ export default {
         class="conteneur_activation"
         style="display: flex; align-items: center;"
       >
-      
-      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-  <span
-    v-for="(status, index) in $store.state.infoUserConnected?.user?.statuses || []"
-    :key="index"
-    class="badge bg-warning"
-  >
-    {{ status.statut }}
-  </span>
-</div>
         <span
           class="badge"
           style="text-align: center"
@@ -273,6 +250,15 @@ export default {
         </button>
         
       </div>
+      <!-- <div style="display: flex; flex-wrap: wrap; gap: 6px;margin: 1em 0;">
+  <span
+    v-for="(status, index) in $store.state.infoUserConnected?.user?.statuses || []"
+    :key="index"
+    class="badge bg-warning"
+  >
+    {{ status.statut }}
+  </span>
+      </div> -->
 
       <div class="d-flex" style="position: relative">
         <input
@@ -334,9 +320,7 @@ export default {
           {{ infoPersonnelles?.bio }}
         </p>
       </div>
-      <section class="my-5">
-        {{ infoPersonnelles }}
-        
+      <section class="my-5">    
         <div class="row">
           <div
             class="col-lg-4 col-sm-6"
