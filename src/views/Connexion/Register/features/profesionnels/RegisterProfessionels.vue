@@ -298,6 +298,24 @@ StatutProfessionnel:[
           );
           return;
       }
+      if (this.currentStep === 1 && this.formState.profilHybride.length) {
+        console.log("this.formState.profilHybride",this.formState.profilHybride)
+        if(!this.formState.ville || !this.formState.commune){
+         this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Les champs ville et commune sont obligatoires."
+          );
+          return;
+        }
+        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_talent){
+          this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Ajoutez votre statut professionnel."
+          );
+          return;
+        }
+        
+      }
       // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
       if (this.currentStep === 3) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
@@ -687,7 +705,7 @@ StatutProfessionnel:[
        <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
           <a-col :xs="24" :md="12">
         <a-form-item
-          label="ville"
+          label="Ville"
           name="ville"
           :rules="[{ required: true, message: 'Ajouter une ville' }]"
         >

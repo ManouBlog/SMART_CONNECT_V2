@@ -772,7 +772,7 @@ preprocessImage(file) {
       <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
           <a-col :xs="24" :md="12">
         <a-form-item
-          label="ville"
+          label="Ville"
           name="ville"
           :rules="[{ required: true, message: 'Ajouter une ville' }]"
         >
