@@ -15,6 +15,47 @@ export default {
   },
   data() {
     return {
+       niveauxEtudes:[
+  // Aucun / base
+  { value: "aucun", label: "Aucun niveau" },
+
+  // Primaire
+  { value: "cepe", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
+
+  // Collège
+  { value: "6eme", label: "6ème" },
+  { value: "5eme", label: "5ème" },
+  { value: "4eme", label: "4ème" },
+  { value: "3eme", label: "3ème" },
+  { value: "bepc", label: "BEPC (Brevet d'Études du Premier Cycle)" },
+
+  // Lycée
+  { value: "2nde", label: "Seconde" },
+  { value: "1ere", label: "Première" },
+  { value: "terminale", label: "Terminale" },
+  { value: "bac", label: "BAC" },
+
+  // Professionnel / technique
+  { value: "cap", label: "CAP (Certificat d'Aptitude Professionnelle)" },
+  { value: "cqp", label: "CQP (Certificat de Qualification Professionnelle)" },
+  { value: "bt", label: "BT (Brevet de Technicien)" },
+  { value: "bp", label: "BP (Brevet Professionnel)" },
+  { value: "bep", label: "BEP (Brevet d'Études Professionnelles)" },
+  { value: "bts", label: "BTS (Brevet de Technicien Supérieur)" },
+  { value: "dut", label: "DUT (Diplôme Universitaire de Technologie)" },
+  { value: "licence_pro", label: "Licence professionnelle" },
+  { value: "ingenieur", label: "Diplôme d'ingénieur" },
+
+  // Supérieur général
+  { value: "bac+1", label: "BAC+1" },
+  { value: "bac+2", label: "BAC+2" },
+  { value: "bac+3", label: "BAC+3 (Licence)" },
+  { value: "bac+4", label: "BAC+4 (Maîtrise)" },
+  { value: "bac+5", label: "BAC+5 (Master)" },
+  { value: "bac+6", label: "BAC+6" },
+  { value: "bac+7", label: "BAC+7" },
+  { value: "doctorat", label: "Doctorat (BAC+8 et plus)" },
+],
  loading : false,
  rawText : '',
  result : null,
@@ -98,12 +139,12 @@ StatutArtisans:[
       texte18: "",
       texte19: "",
       texte96: "",
-     niveauEtude:"",
      filiere:"",
       configUtils,
       SWALPOPUP: useSwalPopup(),
       formState: {
         upload: [],
+        niveauEtude:"",
         niveauExpertise:"",
       },
     };
@@ -253,6 +294,25 @@ StatutArtisans:[
       </n-modal>
     <form action="" @submit.prevent="onHandleUpdateProfil">
     <div class="row g-4">
+      <div class="col-md-6 my-3">
+        <label for="treatment1" class="form-label fw-semibold mb-2">Niveau d'étude *</label>
+        <select 
+          name="treatment" 
+          id="treatment1" 
+          v-model="formState.niveauEtude"
+          class="form-control"
+          style="height: 50px;"
+        >
+          <option value="" disabled>Sélectionnez...</option>
+          <option 
+            v-for="item in niveauxEtudes" 
+            :key="item.id" 
+            :value="item.label"
+          >
+            {{ item.label }}
+          </option>
+        </select>
+      </div>
       <div class="col-md-6 my-3">
         <label for="treatment1" class="form-label fw-semibold mb-2">Statut professionnel *</label>
         <select 

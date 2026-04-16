@@ -134,7 +134,7 @@ this.allStatuses=[];
       </option>
            </select>
         </div>
-        {{ selectedStatus }}
+        <!-- {{ selectedStatus }} -->
   <transition name="fade-slide">
  <div v-if="selectedStatus && selectedStatus.statut !== 'Artisan'">
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
