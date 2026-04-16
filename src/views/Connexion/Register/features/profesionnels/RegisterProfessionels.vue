@@ -7,7 +7,7 @@ import { configUtils } from "../../../../../Shared/Utils";
 import { useTranslateStore } from "../../../../../store-pinia/Translate/useTranslateStore";
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
-
+import instance from "../../../../../api/api";
 import RegisterQualifications from "../students/RegisterQualifications.vue";
 // import Tesseract from 'tesseract.js'
 
@@ -25,14 +25,13 @@ export default {
  rawText : '',
  result : null,
   allStatuts : [
-  { value: "Particulier", label: "Particulier" },
-  { value: "Artisan", label: "Artisan" },
+  // { value: "Particulier", label: "Particulier" },
+  // { value: "Artisan", label: "Artisan" },
 ],
  allAnwserProfilHybride: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
 ],
- optionsProfil: [],
  valueTempsTravail: [
   { value: "Temps partiel", label: "Temps partiel" },
   { value: "Temps plein", label: "Temps plein" },
@@ -152,8 +151,8 @@ StatutProfessionnel:[
         photo: null,
         upload: [],
         modeTravail:"",
-        // niveauExpertise:"",
-         optionsProfil: [] ,
+        statut_talent_artisan:"",
+         profilHybride: [] ,
         optionsAnswer:null,
         tempsTravail:"",
         bio: "",
@@ -256,6 +255,15 @@ StatutProfessionnel:[
       getCompetences: "getAllCompetences",
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
+    async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+        this.allStatuts = response.data.data.filter(item=>item.statut === 'Particulier' || item.statut === 'Artisan')
+        console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan'))
+      } catch (error) {
+        console.log(error);
+      }
+    },
     handleQualifications(payload) {
       // console.log("handleQualifications", payload);
 
@@ -264,8 +272,8 @@ StatutProfessionnel:[
 
     nextStep() {
       console.log("this.currentStep",this.currentStep)
-       if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.optionsProfil.length){
-        console.log("this.formState.optionsProfil",this.formState.optionsProfil)
+       if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length){
+        console.log("this.formState.profilHybride",this.formState.profilHybride)
         this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Choisir un profil"
@@ -452,6 +460,7 @@ StatutProfessionnel:[
   },
 
   async created() {
+    await this.lister_statut();
     this.getCompetences();
     this.texte = await this.handleTranslate("Nom");
     this.texte1 = await this.handleTranslate("Prénoms");
@@ -557,7 +566,7 @@ StatutProfessionnel:[
         <input
           type="checkbox"
           :value="item.value"
-          v-model="formState.optionsProfil"
+          v-model="formState.profilHybride"
         />
         <span class="round-label">
           {{ item.label }}
@@ -659,6 +668,36 @@ StatutProfessionnel:[
             <a-textarea v-model:value="formState.bio" :maxlength="300" />
           </a-form-item>
         </a-col>
+      </a-row>
+
+      <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
+          <a-col :xs="24" :md="12">
+        <a-form-item
+          label="ville"
+          name="ville"
+          :rules="[{ required: true, message: 'Ajouter une ville' }]"
+        >
+          <a-input v-model:value="formState.ville" placeholder="Ajouter votre ville" />
+        </a-form-item>
+      </a-col>
+    <a-col :xs="24" :md="12">
+        <a-form-item
+          label="Commune"
+          name="commune"
+          :rules="[{ required: true, message: 'Ajouter une commune' }]"
+        >
+          <a-input v-model:value="formState.commune" placeholder="Ajouter votre commune" />
+        </a-form-item>
+      </a-col>
+      <a-col :xs="24" :md="12">
+        <a-form-item label="Quartier" name="quartier">
+          <a-input 
+            v-model:value="formState.quartier"
+            placeholder="Ajouter votre quartier"
+          />
+        </a-form-item>
+      </a-col>
+      
       </a-row>
     </div>
 
@@ -783,6 +822,33 @@ StatutProfessionnel:[
   </a-select>
             </a-form-item>
         </a-col> 
+        <a-col
+  :xs="24"
+  :md="12"
+  v-if="this.formState.profilHybride.some(el=>el == 7) && this.formState.optionsAnswer === 'oui'"
+  >
+            <a-form-item
+            :label="'Statut professionnel artisan'"
+            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]"
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.statut_talent_artisan"
+    placeholder="Sélectionnez votre Statut professionnel"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in ['Maitre Artisan','Artisan']"
+      :key="item"
+      :value="item"
+      :label="item"
+    >
+      {{ item }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col>
         <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />
         </a-col>
