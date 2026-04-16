@@ -145,6 +145,29 @@ v-else />
 <section v-else style="margin-top: 2em;">
  <p style="text-align: center;" class="shimmer-text">Chargement...</p> 
 </section>
-
-
 </template>
+<style scoped>
+.shimmer-text {
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    #999 0%,
+    #fff 50%,
+    #999 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+</style>
