@@ -307,17 +307,12 @@ StatutProfessionnel:[
           );
           return;
         }
-        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_talent){
-          this.SWALPOPUP.declencheSwalPopup(
-            "warning",
-            "Ajoutez votre statut professionnel."
-          );
-          return;
-        }
+        
         
       }
+      
       // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
-      if (this.currentStep === 3) {
+      if (this.currentStep == 3) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
 
         if (invalid) {
@@ -327,18 +322,15 @@ StatutProfessionnel:[
           );
           return;
         }
-      }
 
-      //   if (this.currentStep === 3) {
-      //     console.log("this.currentStep4",this.getFirstHeureStartFrom)
-      //   if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
-      //     this.SWALPOPUP.declencheSwalPopup(
-      //       "warning",
-      //       "Veuillez remplir les champs obligatoire"
-      //     );
-      //     return;
-      //   }
-      // }
+        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_talent_artisan){
+          this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Ajoutez votre statut professionnel artisan."
+          );
+          return;
+        }
+      }
 
       if (this.currentStep !== 3 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
@@ -479,10 +471,10 @@ StatutProfessionnel:[
             payload: this.formState,
           });
         } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre Carte national d'identité.");
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité.");
         }
       } else {
-        this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
+        this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
       }
     },
 
@@ -707,25 +699,25 @@ StatutProfessionnel:[
         <a-form-item
           label="Ville"
           name="ville"
-          :rules="[{ required: true, message: 'Ajouter une ville' }]"
+          :rules="[{ required: true, message: 'Ajoutez une ville' }]"
         >
-          <a-input v-model:value="formState.ville" placeholder="Ajouter votre ville" />
+          <a-input v-model:value="formState.ville" placeholder="Ajoutez votre ville" />
         </a-form-item>
       </a-col>
     <a-col :xs="24" :md="12">
         <a-form-item
           label="Commune"
           name="commune"
-          :rules="[{ required: true, message: 'Ajouter une commune' }]"
+          :rules="[{ required: true, message: 'Ajoutez une commune' }]"
         >
-          <a-input v-model:value="formState.commune" placeholder="Ajouter votre commune" />
+          <a-input v-model:value="formState.commune" placeholder="Ajoutez votre commune" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :md="12">
         <a-form-item label="Quartier" name="quartier">
           <a-input 
             v-model:value="formState.quartier"
-            placeholder="Ajouter votre quartier"
+            placeholder="Ajoutez votre quartier"
           />
         </a-form-item>
       </a-col>
@@ -959,7 +951,7 @@ StatutProfessionnel:[
 
           <a-spin v-if="loading" tip="Vérification de la carte d'étudiant" />
           <span style="color:red;" v-if="this.result && this.result.isStudentCard === false">
-            Veuillez ajouter une carte bien visible
+            Veuillez ajoutez une carte bien visible
           </span>
           <!-- {{ this.result }} -->
         </a-col>
