@@ -17,18 +17,14 @@ export default {
     return {
       showModalBadgeVerifi: false,
       showModalAbonnements:false,
-      allStatuts : [
-  { value: "Particulier", label: "Particulier" },
-  { value: "Artisan", label: "Artisan" },
-],
-allStatutsCompany:[{ value: "Artisan", label: "Artisan" }],
+// allStatutsCompany:[{ value: "Artisan", label: "Artisan" }],
  allAnwserProfilHybride: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
 ],
 optionsAnswer:null,
 selectedStatus:"",
-optionsProfil:[],
+profilHybride:[],
 allStatuses:[]
     }
   },
@@ -39,16 +35,12 @@ allStatuses:[]
     resetData(){
 this.optionsAnswer=null;
 this.selectedStatus="";
-this.optionsProfil=[];
+this.profilHybride=[];
 this.allStatuses=[];
     },
      async lister_statut() {
   const user = this.$store.state.infoUserConnected?.user;
   const statutUser = user?.statut.statut;
-
-  // const currentRoles = statuses.map(s => s.statut);
-
-  // console.log("currentRoles",currentRoles)
 
   const transitions = {
     Etudiant: ['Professionnel', 'Artisan'],
@@ -115,7 +107,7 @@ this.allStatuses=[];
     >
       <!-- Option placeholder -->
       <option value="" disabled selected>
-        {{ allStatuses.length ? 'Sélectionnez un statut...' : 'Aucun statut disponible' }}
+        {{ allStatuses.length ? 'Sélectionnez un profil...' : 'Aucun profil disponible' }}
       </option>
       
       <!-- Options dynamiques -->
@@ -161,17 +153,17 @@ this.allStatuses=[];
 
     <div class="round-container" v-if="selectedStatus.statut !== 'Entreprise'">
       <label 
-        v-for="item in allStatuts" 
-        :key="item.value"
+        v-for="item in allStatuses" 
+        :key="item.id"
         class="round-item"
       >
         <input
           type="checkbox"
-          :value="item.value"
-          v-model="optionsProfil"
+          :value="item"
+          v-model="profilHybride"
         />
         <span class="round-label">
-          {{ item.label }}
+          {{ item.statut }}
         </span>
       </label>
     </div>
@@ -184,7 +176,7 @@ this.allStatuses=[];
         <input
           type="checkbox"
           :value="item.value"
-          v-model="optionsProfil"
+          v-model="profilHybride"
         />
         <span class="round-label">
           {{ item.label }}
@@ -194,9 +186,12 @@ this.allStatuses=[];
   </div>
 </transition>
   <div v-if="optionsAnswer">
-  <FieldsVeteran  v-if="selectedStatus.statut === 'Veteran'"/>
+  <FieldsVeteran 
+   v-if="selectedStatus.statut === 'Veteran'"/>
   <FieldsArtisan v-if="selectedStatus.statut === 'Artisan'" />
-  <FieldsProfessionnel v-if="selectedStatus.statut === 'Professionnel'" />
+  <FieldsProfessionnel 
+  :profilHybride="profilHybride"
+  v-if="selectedStatus.statut === 'Professionnel'" />
   <FieldsCompany 
   v-if="selectedStatus.statut === 'Entreprise'"
   :optionsAnswer="optionsAnswer"

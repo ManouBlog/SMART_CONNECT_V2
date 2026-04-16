@@ -10,6 +10,9 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 
 export default {
   name: "FieldsProfessionnel",
+  props:{
+  profilHybride:Array
+  },
   components: { 
   Abonnements
   },
@@ -25,8 +28,8 @@ export default {
   { label: "Non", value: "non" }
 ],
  allStatuts : [
-  { value: "Particulier", label: "Particulier" },
-  { value: "Artisan", label: "Artisan" },
+  // { value: "Particulier", label: "Particulier" },
+  // { value: "Artisan", label: "Artisan" },
 ],
 StatutProfessionnel:[
   { value: "Diplômé en quête d’emploi", label: "Diplômé en quête d’emploi" },
@@ -121,6 +124,7 @@ valueModeDeTravail: [
       SWALPOPUP: useSwalPopup(),
       formState: {
         statut_talent:"",
+        statut_professionnel_hybride:"",
         upload: [],
         niveauExpertise:"",
         CVupload:null,
@@ -144,6 +148,7 @@ valueModeDeTravail: [
   },
  
   methods: {
+
     onUploadChangeCV(e) {
     console.log('onUploadChange', e.target.files);
     this.formState.CVupload = Array.from(e.target.files);
@@ -283,34 +288,55 @@ valueModeDeTravail: [
       <Abonnements />
       </div>
       </n-modal>
-    <form action="" @submit.prevent="onHandleProfil">
+    <form  @submit.prevent="onHandleProfil">
+      {{ profilHybride }}
     <div class="row g-4">
       <div class="col-md-6 my-2">
-        <label for="treatment1" class="form-label fw-semibold mb-2">Traitement préférentiel</label>
+        <label for="treatment1" class="form-label fw-semibold mb-2">Niveau d'etude + Domaine</label>
         <select 
           name="treatment" 
           id="treatment1" 
-          v-model="formState.niveauExpertise"
+          v-model="formState.niveauEtude"
           class="form-control"
           style="height: 50px;"
         >
           <option value="" disabled>Sélectionnez...</option>
           <option 
-            v-for="item in valueExpertise" 
-            :key="item.id" 
-            :value="item.label"
+            v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
+            :key="item.value" 
+            :value="item.value"
           >
-            {{ item.label }}
+            {{ item.value }}
           </option>
         </select>
+        <input type="text" placeholder="Ajoutez votre Domaine" class="form-control my-2" />
       </div>
-      
       <div class="col-md-6 my-2">
         <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel</label>
         <select 
           name="statut" 
           id="treatment2" 
           v-model="formState.statut_talent"
+          class="form-control"
+          style="height: 50px;"
+        >
+          <option value="" disabled>Sélectionnez...</option>
+          <option 
+            v-for="item in StatutProfessionnel" 
+            :key="item.id" 
+            :value="item.value"
+          >
+            {{ item.label }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="col-md-6 my-2" v-if="this.profilHybride.some(item=>item.statut.includes('Artisan'))">
+        <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel artisan</label>
+        <select 
+          name="statut" 
+          id="treatment2" 
+          v-model="formState.statut_professionnel_hybride"
           class="form-control"
           style="height: 50px;"
         >
