@@ -560,16 +560,16 @@ StatutProfessionnel:[
     <div class="round-container">
       <label 
         v-for="item in allStatuts" 
-        :key="item.value"
+        :key="item.id"
         class="round-item"
       >
         <input
           type="checkbox"
-          :value="item.value"
+          :value="item.statut"
           v-model="formState.profilHybride"
         />
         <span class="round-label">
-          {{ item.label }}
+          {{ item.statut }}
         </span>
       </label>
     </div>
@@ -657,20 +657,10 @@ StatutProfessionnel:[
         <a-col :xs="24" :md="12">
           <a-form-item label="Profil">
             <a-input v-model:value="formState.titreCv" />
-            <!-- <a-textarea v-model:value="formState.titreCv" :maxlength="300" /> -->
           </a-form-item>
         </a-col>
       </a-row>
-
-      <a-row :gutter="[16, 24]">
-        <a-col :xs="24" :md="24">
-          <a-form-item label="Biographie – résumé de votre profil">
-            <a-textarea v-model:value="formState.bio" :maxlength="300" />
-          </a-form-item>
-        </a-col>
-      </a-row>
-
-      <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
+       <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
           <a-col :xs="24" :md="12">
         <a-form-item
           label="ville"
@@ -699,6 +689,16 @@ StatutProfessionnel:[
       </a-col>
       
       </a-row>
+
+      <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="24">
+          <a-form-item label="Biographie – résumé de votre profil">
+            <a-textarea v-model:value="formState.bio" :maxlength="300" />
+          </a-form-item>
+        </a-col>
+      </a-row>
+
+     
     </div>
 
     <!-- STEP 2 -->
@@ -776,29 +776,7 @@ StatutProfessionnel:[
             <a-input v-model:value="formState.filiere" placeholder="Ajoutez votre domaine" />
             </a-form-item>
         </a-col>
-         <!-- <a-col :xs="24" :md="12">
-           <a-form-item
-            :label="'Mode de travail'"
-            :rules="[{ required: true, message: 'Ajoutez  votre mode de travail' }]"
-          >
-            <a-select
-            style="width: 100%;"
-    v-model:value="formState.modeTravail"
-    placeholder="Sélectionnez votre mode de travail"
-    show-search
-    option-filter-prop="label"
-  >
-    <a-select-option
-      v-for="item in valueModeDeTravail"
-      :key="item.value"
-      :value="item.value"
-      :label="item.label"
-    >
-      {{ item.label }}
-    </a-select-option>
-  </a-select>
-            </a-form-item>
-        </a-col> -->
+        {{ this.formState.profilHybride }}
           <a-col :xs="24" :md="12">
             <a-form-item
             :label="'statut professionnel'"
