@@ -233,7 +233,9 @@ export default {
 };
 </script>
 <style>
-
+.anticon{
+  color:#333 !important;
+}
 :where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
   height: 40px !important;
 }
