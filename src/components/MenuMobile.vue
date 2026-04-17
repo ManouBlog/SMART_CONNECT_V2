@@ -34,6 +34,7 @@ export default {
       texte9: "",
       texte10: "",
       photo_profil: "",
+      userInfos:""
     };
   },
   computed: {
@@ -88,6 +89,7 @@ export default {
           
             if (resp.data.status === true) {
               this.photo_profil = resp.data.user.photo_profil;
+              this.userInfos = resp.data.user
             window.localStorage.setItem("user", JSON.stringify(resp.data.user));
             }
           })
@@ -151,9 +153,6 @@ export default {
         </span>
         <span style="color: black !important"
           >{{ this.$store.state.user.nom }} 
-            <!-- <img v-if="this.$store?.state?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-              <img v-if="this.$store?.state?.user?.star_color === 'gold' && !this.$store?.state?.user?.is_verified" src="/star_gold.png" alt="star_3d.png" style="width: 25px;height: 25px;">
-              <img v-if="this.$store?.state?.user?.star_color === 'yellow' && !this.$store?.state?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;"> -->
           <i class="bi bi-patch-check-fill" 
           v-if="this.$store?.state?.user?.user?.is_verified"
           style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
@@ -162,7 +161,7 @@ export default {
           <br />
           <div style="display: flex; flex-wrap: wrap; gap: 6px;">
   <span
-    v-for="(status, index) in ($store.state.user?.user?.statuses || [])"
+    v-for="status, index in userInfos.user?.statuses"
     :key="index"
     class="badge bg-warning"
   >
