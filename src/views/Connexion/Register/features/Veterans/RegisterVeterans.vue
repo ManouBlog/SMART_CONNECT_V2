@@ -279,7 +279,7 @@ StatutVeterans:[
           return;
       }
 
-      if (this.currentStep === 1 && this.formState.profilHybride.length) {
+      if (this.currentStep === 1 && this.formState.profilHybride.length && this.formState.optionsAnswer == "oui") {
         console.log("this.formState.profilHybride",this.formState.profilHybride)
         if(!this.formState.ville || !this.formState.commune){
          this.SWALPOPUP.declencheSwalPopup(
