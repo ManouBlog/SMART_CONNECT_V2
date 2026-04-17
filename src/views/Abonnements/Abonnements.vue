@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 const props = defineProps({
   ProfilAbonnement: {
-    type: Object,
+    type: String,
     required: false,
     default: null
   },
@@ -78,7 +78,7 @@ try {
 }
 
 onMounted(async () => {
-  console.log(" props.ProfilAbonnement", props.ProfilAbonnement)
+  console.log("props.ProfilAbonnement", props.ProfilAbonnement)
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
 
   reference.value = route.params.reference
@@ -110,8 +110,156 @@ onMounted(async () => {
 <template>
   <div class="wrapped myconteneur">
     <h1 class="text-center main-color">{{text0}}</h1>
-      <div>
+      <div v-if="props.ProfilAbonnement">
     <n-card>
+       <div class="d-flex justify-content-center">
+     <p style="background:#df3535;color:white;">
+      Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
+     </p>
+      </div>
+      
+      <n-tabs type="line" size="large" animated justify-content="center"
+      v-model:value="activeTab"
+      >
+
+  <!-- Etudiant -->
+  <n-tab-pane
+    v-if="
+      !store.state.user ||
+      (
+        store.state.user?.user?.statuses.some(s => ['Etudiant'].includes(s.statut)) 
+        || profileAbonnement === 'Etudiant'
+      )
+    "
+    :name="defaulValueTranslate === 'fr' ? 'Etudiant' : 'Student'"
+    :tab="defaulValueTranslate === 'fr' ? 'Etudiant' : 'Student'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Etudiant"
+    />
+  </n-tab-pane>
+
+  <!-- Entreprise -->
+  <n-tab-pane
+    v-if="
+      !store.state.user ||
+      (
+        store.state.user?.user?.statuses.some(s => ['Entreprise'].includes(s.statut)) 
+        || profileAbonnement === 'Entreprise'
+      )
+    "
+    :name="'Entreprise'"
+    :tab="'Entreprise'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Entreprise"
+      :tabsSubAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
+        .map(item => ({
+          label: item.categorie.categorie,
+          id: item.categorie.categorie
+        }))
+      "
+      :subAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
+      "
+    />
+  </n-tab-pane>
+
+  <!-- Particulier -->
+  <n-tab-pane
+    v-if="
+      !store.state.user ||
+      (
+        store.state.user?.user?.statuses.some(s => ['Particulier'].includes(s.statut)) 
+        || profileAbonnement === 'Particulier'
+      )
+    "
+    :name="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
+    :tab="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Particulier"
+    />
+  </n-tab-pane>
+
+  <!-- Artisan -->
+  <n-tab-pane
+    v-if="
+      !store.state.user ||
+      (
+        store.state.user?.user?.statuses.some(s => ['Artisan'].includes(s.statut)) 
+        || profileAbonnement === 'Artisan'
+      )
+    "
+    :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
+    :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Artisan"
+      :tabsSubAbonnement="abonnementsArtisan"
+      :subAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))
+      "
+    />
+  </n-tab-pane>
+
+  <!-- Professionnel -->
+  <n-tab-pane
+    v-if="
+      !store.state.user ||
+      (
+        store.state.user?.user?.statuses.some(s => ['Professionnel'].includes(s.statut)) 
+        || profileAbonnement === 'Professionnel'
+      )
+    "
+    :name="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
+    :tab="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Professionnel"
+    />
+  </n-tab-pane>
+
+  <!-- Vétéran -->
+  <n-tab-pane
+    v-if="
+      !store.state.user ||
+      (
+        store.state.user?.user?.statuses.some(s =>
+          ['Vétéran', 'veteran'].includes(s.statut)
+        ) || profileAbonnement === 'veteran'
+      )
+    "
+    :name="'Vétéran'"
+    :tab="'Vétéran'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Vétéran"
+      :tabsSubAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
+        .map(item => ({
+          label: item.categorie.categorie,
+          id: item.categorie.categorie
+        }))
+      "
+      :subAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
+      "
+    />
+  </n-tab-pane>
+
+</n-tabs>
+    </n-card>
+      </div>
+      <div v-else>
+<n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix

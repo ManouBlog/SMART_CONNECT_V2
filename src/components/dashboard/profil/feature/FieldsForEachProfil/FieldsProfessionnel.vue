@@ -292,7 +292,7 @@ valueModeDeTravail: [
       </div>
       </n-modal>
     <form  @submit.prevent="onHandleProfil">
-      {{ profilHybride }}
+      <!-- {{ profilHybride }} -->
     <div class="row g-4">
       <div class="col-md-6 my-2">
         <label for="treatment1" class="form-label fw-semibold mb-2">Niveau d'etude + Domaine</label>

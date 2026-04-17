@@ -195,7 +195,7 @@ this.allStatuses=[];
 </div>
 </transition>
    <transition name="fade-slide">
-  <div v-if="optionsAnswer === 'oui'">
+  <div v-if="optionsAnswer === 'oui' && selectedParseStatus.statut !== 'Artisan'">
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils disponibles
     </label>
