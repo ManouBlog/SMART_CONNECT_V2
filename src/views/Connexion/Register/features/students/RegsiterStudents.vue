@@ -479,7 +479,9 @@ preprocessImage(file) {
   })
 },
     onFinish() {
-      this.formState.profilHybride.push(this.idStatutChoice.id);
+      if(this.formState.profilHybride.length){
+    this.formState.profilHybride.push(this.idStatutChoice.id);
+      }
       // console.log("this.formState",this.formState);
       // console.log("this.idStatutChoice.id",this.idStatutChoice)
       if (this.formState.uploadPhotoProfil.length) {
@@ -658,6 +660,12 @@ preprocessImage(file) {
         name="profilHybride"
         :value="item.value"
         v-model="formState.optionsAnswer"
+        @change="(e)=>{
+          if(e.target.value === 'non'){
+            this.formState.profilHybride = [];
+          }
+          console.log('this.formState.profilHybride',this.formState.profilHybride)
+        }"
       />
       <span class="round-label">
         {{ item.label }}
