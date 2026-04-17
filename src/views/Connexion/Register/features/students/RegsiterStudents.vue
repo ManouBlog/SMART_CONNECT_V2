@@ -127,7 +127,7 @@ idStatutChoice:Object
         commune: "",
         quartier: "",
         diplome: "",
-        uploadCNI:null,
+        uploadCNI:[],
         myCompetence: [],
         photo: null,
         upload: [],
@@ -254,11 +254,7 @@ idStatutChoice:Object
     "formState.optionsAnswer":{
       handler(value) {
         if(value === 'non'){
-          this.formState.profilHybride = [];
-          this.formState.ville = "";
-          this.formState.commune = "";
-          this.formState.statut_professionnel_hybride = "";
-          this.formState.uploadCNI = null
+          this.resetData()
         }
         console.log("formState.optionsAnswer", value);
         
@@ -274,7 +270,13 @@ idStatutChoice:Object
       getCompetences: "getAllCompetences",
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
-    
+    resetData(){
+this.formState.profilHybride = [];
+          this.formState.ville = "";
+          this.formState.commune = "";
+          this.formState.statut_professionnel_hybride = "";
+          this.formState.uploadCNI = []
+    },
     async lister_statut(){
       try {
         const response =  await instance.get("listStatut")
@@ -301,9 +303,10 @@ idStatutChoice:Object
           );
           return;
       }
-      if (this.currentStep === 1 && this.formState.profilHybride.length) {
+      if (this.currentStep === 1 && this.formState.profilHybride.length && this.formState.optionsAnswer == "oui") {
         console.log("this.formState.profilHybride",this.formState.profilHybride)
         if(!this.formState.ville || !this.formState.commune){
+          console.log("this.formState",this.formState)
          this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Les champs ville et commune sont obligatoires."
@@ -484,9 +487,9 @@ preprocessImage(file) {
       }
 
       if (this.configUtils.isValidEmail(this.formState.email)) {
-        if (this.formState.upload.length) {
+        if (this.formState?.upload?.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          if(this.formState.uploadCNI.length){
+          if(this.formState?.uploadCNI?.length){
            const otherPiece = this.addPhotoInArray(this.formState.uploadCNI);
            otherPiece.forEach(pice=>{
             this.formState.photo.push(pice)
@@ -560,6 +563,7 @@ preprocessImage(file) {
     },
 
     onHandleFailed(errorInfo) {
+      console.log("errorInfo",errorInfo)
       Swal.fire({
         icon: "warning",
         title: `${errorInfo.errorFields[0].errors[0]}`,

@@ -303,7 +303,9 @@ this.allStatuses=[];
             <div class="position-relative p-3 text-center">
               <div class="avatar-placeholder rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
                    style="width: 55px; height: 55px; background: orange; color: white;border-radius: 10px;">
+                   
                 <i class="bi bi-person-fill fs-3"></i>
+               
               </div>
               
               <!-- Badge statut -->
