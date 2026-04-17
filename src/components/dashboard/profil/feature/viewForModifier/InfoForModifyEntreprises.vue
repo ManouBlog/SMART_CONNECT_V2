@@ -262,7 +262,7 @@ valueExpertise: [
         .get("voirInfoUserConnect")
         .then((resp) => {
           if (resp.data.status === true) {
-            
+            window.localStorage.setItem("user", JSON.stringify(resp.data.user));
         // console.log("getInfoUser25",resp.data.user)
         const user = resp.data.user;
 const statuses = user?.statuses || [];

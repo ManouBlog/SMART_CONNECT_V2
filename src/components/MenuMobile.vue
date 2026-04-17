@@ -88,7 +88,7 @@ export default {
           
             if (resp.data.status === true) {
               this.photo_profil = resp.data.user.photo_profil;
-            
+            window.localStorage.setItem("user", JSON.stringify(resp.data.user));
             }
           })
           .catch((error) => {

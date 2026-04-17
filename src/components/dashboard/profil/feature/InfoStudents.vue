@@ -93,7 +93,9 @@ export default {
           if (resp.data.status === true) {
             this.user = resp.data.user;
             this.addInfoUserConnected(resp.data.user);
+            
              this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
+             window.localStorage.setItem("user", JSON.stringify(resp.data.user));
           }
         })
         .catch((error) => {

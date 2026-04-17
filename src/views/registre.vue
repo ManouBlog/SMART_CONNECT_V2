@@ -244,69 +244,69 @@ export default {
         this.inscriptionParticulier();
       }
     },
-    async connexionUser() {
-      this.showLoader = true;
+    // async connexionUser() {
+    //   this.showLoader = true;
+    //   console.log('route 1 pour se connecter')
+    //   instance
+    //     .post("auth_login", {
+    //       email: this.email,
+    //       password: this.password,
+    //     })
+    //     .then((response) => {
+    //       const data = response.data;
 
-      instance
-        .post("auth_login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then((response) => {
-          const data = response.data;
+    //       if (data.status === true) {
+    //         Swal.fire({
+    //           icon: "success",
+    //           title: data.message,
+    //           showConfirmButton: true,
+    //         });
 
-          if (data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: data.message,
-              showConfirmButton: true,
-            });
+    //         // 🔹 Sauvegarde dans le localStorage
+    //         localStorage.setItem("user", JSON.stringify(data.user));
+    //         localStorage.setItem("token", JSON.stringify(data.access_token));
 
-            // 🔹 Sauvegarde dans le localStorage
-            localStorage.setItem("user", JSON.stringify(data.user));
-            localStorage.setItem("token", JSON.stringify(data.access_token));
+    //         // 🔹 Mise à jour du store
+    //         this.$store.commit("ADD_ITEM");
+    //         this.$store.state.user = data.user;
+    //         this.$store.state.token = data.access_token;
 
-            // 🔹 Mise à jour du store
-            this.$store.commit("ADD_ITEM");
-            this.$store.state.user = data.user;
-            this.$store.state.token = data.access_token;
+    //         this.showLoader = false;
 
-            this.showLoader = false;
+    //         // if (this.$store.state.token) {
+    //         //   await this.$store.dispatch("getInfoUser");
+    //         // }
 
-            // if (this.$store.state.token) {
-            //   await this.$store.dispatch("getInfoUser");
-            // }
-
-            // 🔹 Vérifie s’il existe un paramètre redirect dans l’URL
-            const redirect = this.$route.query.redirect;
-            //  console.log("Redirection détectée :", redirect)
-            if (redirect) {
-              // console.log("Redirection détectée :", redirect)
-              // 👉 Lancer une méthode ou rediriger directement
-              this.$router.replace(redirect);
-            } else {
-              // Sinon redirection par défaut
-              this.$router.replace("/");
-            }
-          } else {
-            this.showLoader = false;
-            Swal.fire({
-              icon: "info",
-              title: data.message,
-              showConfirmButton: true,
-            });
-          }
-        })
-        .catch((error) => {
-          this.showLoader = false;
-          Swal.fire({
-            icon: "error",
-            title: error.response?.data?.message || "Une erreur est survenue",
-            showConfirmButton: true,
-          });
-          console.error(error);
-        });
-    },
+    //         // 🔹 Vérifie s’il existe un paramètre redirect dans l’URL
+    //         const redirect = this.$route.query.redirect;
+    //         //  console.log("Redirection détectée :", redirect)
+    //         if (redirect) {
+    //           // console.log("Redirection détectée :", redirect)
+    //           // 👉 Lancer une méthode ou rediriger directement
+    //           this.$router.replace(redirect);
+    //         } else {
+    //           // Sinon redirection par défaut
+    //           this.$router.replace("/");
+    //         }
+    //       } else {
+    //         this.showLoader = false;
+    //         Swal.fire({
+    //           icon: "info",
+    //           title: data.message,
+    //           showConfirmButton: true,
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       this.showLoader = false;
+    //       Swal.fire({
+    //         icon: "error",
+    //         title: error.response?.data?.message || "Une erreur est survenue",
+    //         showConfirmButton: true,
+    //       });
+    //       console.error(error);
+    //     });
+    // },
     // connexionUser() {
     //   // console.log("connex1")
     //   instance

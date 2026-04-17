@@ -167,6 +167,7 @@ export default {
         .then((resp) => {
           if (resp.data.status === true) {
             this.userQualifications = resp.data.user;
+            window.localStorage.setItem("user", JSON.stringify(resp.data.user));
             // console.log("this.userQualifications", this.userQualifications);
           }
         })

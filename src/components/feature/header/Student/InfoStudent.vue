@@ -119,6 +119,7 @@ export default {
           console.log("voirInfoUserConnect",resp);
           if (resp.data.status === true) {
             this.user = resp.data.user;
+            window.localStorage.setItem("user", JSON.stringify(resp.data.user));
           }
         })
         .catch((error) => {
