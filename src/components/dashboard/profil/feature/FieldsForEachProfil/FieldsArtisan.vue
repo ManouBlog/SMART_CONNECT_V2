@@ -11,7 +11,7 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 export default {
   name: "FieldsArtisan",
   props:{
-profilOfAbonnement:String
+profilOfAbonnement:Object
   },
   components: { 
    Abonnements
@@ -284,7 +284,6 @@ StatutArtisans:[
     overflow-y: auto; 
     max-height: 80vh;"
        :closable="false"
-       @close="resetData"
   v-model:show="showModalAbonnements">
          <template #header>
         <div class="modal-header">
@@ -293,7 +292,7 @@ StatutArtisans:[
       </template>
       <div style="background-color: white;">
        <Abonnements 
-       :ProfilAbonnement="this.profilOfAbonnement"
+       :ProfilAbonnement="this.profilOfAbonnement.statut"
        />
       </div>
       </n-modal>

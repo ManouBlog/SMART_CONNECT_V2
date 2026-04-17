@@ -4,6 +4,7 @@ import FieldsVeteran from '../FieldsForEachProfil/FieldsVeteran.vue'
 import FieldsArtisan from '../FieldsForEachProfil/FieldsArtisan.vue';
 import FieldsProfessionnel from '../FieldsForEachProfil/FieldsProfessionnel.vue'
 import FieldsCompany from '../FieldsForEachProfil/FieldsCompany.vue';
+import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
 export default {
   name: 'InfoStatusesUser',
   components:{FieldsVeteran,FieldsArtisan,FieldsProfessionnel,FieldsCompany},
@@ -17,6 +18,7 @@ export default {
     return {
       showModalBadgeVerifi: false,
       showModalAbonnements:false,
+      selectedParseStatus:"",
 // allStatutsCompany:[{ value: "Artisan", label: "Artisan" }],
  allProfilHybrideAnswer: [
   { label: "Oui", value: "oui" },
@@ -40,12 +42,43 @@ allStatuses:[]
         }
       },
       immediate: true
+    },
+    showModalBadgeVerifi:{
+       handler(newValue) {
+        
+        if (!newValue) {
+         this.loadActiveChangedProfil(false)
+         this.addIdOfProfilBase(null)
+          return;
+        }
+      },
+      immediate: true
     }
   },
   methods: {
+    loadActiveChangedProfil(payload) {
+      const abonnementsStore = useAbonnementsStore()
+
+       abonnementsStore.handleChangeProfil(payload)
+
+      console.log("isChangeProfil",abonnementsStore.isChangeProfil)
+    },
+    addIdOfProfilBase(payload) {
+      const abonnementsStore = useAbonnementsStore()
+
+       abonnementsStore.handleMyStatutOfBase(payload)
+
+      console.log("statutOfBase",abonnementsStore.statutOfBase)
+    },
     openVerification(userStatut) {
       this.$emit('open-verification', userStatut);
     },
+    handleStatutProfil(e){
+       console.log('VALUE selectedStatus',e.target.value)
+       this.selectedParseStatus = JSON.parse(e.target.value)
+       this.addIdOfProfilBase(this.selectedParseStatus.id)
+       console.log('this.selectedParseStatus',this.selectedParseStatus)
+      },
     resetData(){
 this.optionsAnswer=null;
 this.selectedStatus="";
@@ -117,6 +150,7 @@ this.allStatuses=[];
       class="form-select rounded-4 shadow-sm border-0 w-100"
       style="min-height: 50px"
       :disabled="!allStatuses.length"
+      @change="handleStatutProfil"
       required
     >
       <!-- Option placeholder -->
@@ -128,15 +162,15 @@ this.allStatuses=[];
       <option 
         v-for="value in allStatuses" 
         :key="value.id" 
-        :value="value"
+        :value="JSON.stringify(value)"
       >
         {{ value.statut }}
       </option>
            </select>
         </div>
-        <!-- {{ selectedStatus }} -->
+        {{ selectedParseStatus }}
   <transition name="fade-slide">
- <div v-if="selectedStatus && selectedStatus.statut !== 'Artisan'">
+ <div v-if="selectedParseStatus && selectedParseStatus.statut !== 'Artisan'">
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
     Souhaitez-vous adopter un profil hybride ?
   </label>
@@ -166,9 +200,9 @@ this.allStatuses=[];
      Profils disponibles
     </label>
 
-    <div class="round-container" v-if="selectedStatus.statut !== 'Entreprise'">
+    <div class="round-container" v-if="selectedParseStatus.statut !== 'Entreprise'">
       <label 
-        v-for="item in allStatuses.filter(item=>item.statut !== selectedStatus.statut)" 
+        v-for="item in allStatuses.filter(item=>item.statut !== selectedParseStatus.statut)" 
         :key="item.id"
         class="round-item"
       >
@@ -200,17 +234,17 @@ this.allStatuses=[];
     </div>
   </div>
 </transition>
-  <div v-if="optionsAnswer || (selectedStatus && selectedStatus.statut === 'Artisan')">
+  <div v-if="optionsAnswer || (selectedParseStatus && selectedParseStatus.statut === 'Artisan')">
   <FieldsVeteran 
-   v-if="selectedStatus.statut === 'Veteran'"/>
+   v-if="selectedParseStatus.statut === 'Veteran'"/>
   <FieldsArtisan 
-  :profilOfAbonnement="selectedStatus.statut"
-  v-if="selectedStatus.statut === 'Artisan'" />
+  :profilOfAbonnement="selectedParseStatus"
+  v-if="selectedParseStatus.statut === 'Artisan'" />
   <FieldsProfessionnel 
   :profilHybride="profilHybride"
-  v-if="selectedStatus.statut === 'Professionnel'" />
+  v-if="selectedParseStatus.statut === 'Professionnel'" />
   <FieldsCompany 
-  v-if="selectedStatus.statut === 'Entreprise'"
+  v-if="selectedParseStatus.statut === 'Entreprise'"
   :optionsAnswer="optionsAnswer"
   />
   </div>
@@ -242,19 +276,14 @@ this.allStatuses=[];
             padding:0.5em;
           "
           @click="async()=>{
+            loadActiveChangedProfil(true);
             showModalBadgeVerifi = !showModalBadgeVerifi
              await this.lister_statut();
+             
           }"
         >
           Modifier
         </button>
-      <!-- <button
-        class="btn btn-warning fw-bold rounded-pill px-4 py-2 shadow-sm"
-        style="background: orange; color: white; border: none;"
-        
-      >
-        Modifier
-      </button> -->
     </div>
 
     <!-- Grille profils responsive -->

@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 const props = defineProps({
   ProfilAbonnement: {
-    type: String,
+    type: Object,
     required: false,
     default: null
   },
@@ -82,12 +82,12 @@ onMounted(async () => {
 
   reference.value = route.params.reference
 
-  profileAbonnement.value = props.ProfilAbonnement
-    ? props.ProfilAbonnement
+  profileAbonnement.value = props.ProfilAbonnement.statut
+    ? props.ProfilAbonnement.statut
     : store.state.user?.user?.statut?.statut
 
-  activeTab.value = props.ProfilAbonnement
-    ? props.ProfilAbonnement
+  activeTab.value = props.ProfilAbonnement.statut
+    ? props.ProfilAbonnement.statut
     : 'Etudiant'
 
   if (reference.value) {

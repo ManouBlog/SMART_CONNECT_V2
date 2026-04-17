@@ -17,7 +17,11 @@ const select_mode_payment_tab = ref('year')
 
 const props = defineProps({
   item: Object,
-  elmentsOfBtn: Array
+  elmentsOfBtn: Array,
+  // isChangeProfil:{
+  //   type:Boolean,
+  //   default:false
+  // }
 })
 
 const tabs = [
@@ -65,7 +69,8 @@ const handleCreateMonth =(payload)=>{
             abonement_id:payload.id,
             channels:"undefined",
             mode_payment:select_mode_payment_tab.value,
-            transaction_id:randomPart
+            transaction_id:randomPart,
+            change_profil:storeAbonnement.isChangeProfil
         }
   // console.log("handleConfirmationPayement",data)
 storeAbonnement.createAbonement(data)
@@ -78,7 +83,8 @@ const handleCreateYear =(payload)=>{
             abonement_id:payload.id,
             channels:"undefined",
             mode_payment:select_mode_payment_tab.value,
-            transaction_id:randomPart
+            transaction_id:randomPart,
+            change_profil:storeAbonnement.isChangeProfil
         }
   // console.log("handleConfirmationPayement",data)
   storeAbonnement.createAbonement(data)
