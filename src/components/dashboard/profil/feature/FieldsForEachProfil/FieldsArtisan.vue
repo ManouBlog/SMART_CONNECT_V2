@@ -11,7 +11,7 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 export default {
   name: "FieldsArtisan",
   props:{
-profilOfAbonnement:Object
+profilOfAbonnement:String
   },
   components: { 
    Abonnements
@@ -292,7 +292,7 @@ StatutArtisans:[
       </template>
       <div style="background-color: white;">
        <Abonnements 
-       :ProfilAbonnement="this.profilOfAbonnement.statut"
+       :ProfilAbonnement="this.profilOfAbonnement"
        />
       </div>
       </n-modal>
