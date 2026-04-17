@@ -479,10 +479,8 @@ preprocessImage(file) {
   })
 },
     onFinish() {
-      if(this.formState.profilHybride.length){
-    this.formState.profilHybride.push(this.idStatutChoice.id);
-      }
-      // console.log("this.formState",this.formState);
+      this.formState.profilHybride.push(this.idStatutChoice.id);
+      console.log("this.formState",this.formState);
       // console.log("this.idStatutChoice.id",this.idStatutChoice)
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
