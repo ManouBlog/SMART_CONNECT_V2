@@ -30,7 +30,7 @@ const storeAbonnementUser = useEntreprisesStore();
 const userConnected = ref(localStorage.getItem('user'))
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
-
+const localTabs = ref([])
 
 const select_mode_payment_tab = ref("");
 
@@ -67,22 +67,40 @@ watch(
   { immediate: true }
 );
 
+watch(
+  () => props.tabsSubAbonnement,
+  async (newVal) => {
+    if (!Array.isArray(newVal) || newVal.length === 0) return
+
+    localTabs.value = newVal
+
+    // ✅ Assure que la sélection par défaut est toujours définie
+    if (!select_mode_payment_tab.value) {
+      select_mode_payment_tab.value = newVal[0]?.id
+    }
+
+    console.log("tabsSubAbonnement updated", newVal)
+  },
+  { immediate: true }
+)
+
 onMounted(async () => {
-  
-  select_mode_payment_tab.value = props.tabsSubAbonnement[0]?.id
-  console.log("props.tabsSubAbonnement",props.tabsSubAbonnement)
+  console.log("props.tabsSubAbonnement", props.tabsSubAbonnement)
+  console.log("localTabs.value", localTabs.value)
+
   elmentsOfBtn.value = [
     {
       name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
       color_btn: "primary",
     },
-  ];
+  ]
 
-  texte.value = await transalteStore.handleTranslate("année");
+  texte.value = await transalteStore.handleTranslate("année")
+
   if (isUserConnected.value) {
-      await storeAbonnementUser.get_all_abonnement();
-    }
-});
+    await storeAbonnementUser.get_all_abonnement()
+  }
+})
 </script>
 
 <template>

@@ -11,7 +11,8 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 export default {
   name: "FieldsProfessionnel",
   props:{
-  profilHybride:Array
+  profilHybride:Array,
+  profilOfAbonnement:String
   },
   components: { 
   Abonnements
@@ -285,7 +286,9 @@ valueModeDeTravail: [
         </div>
       </template>
       <div style="background-color: white;">
-      <Abonnements />
+      <Abonnements 
+      :ProfilAbonnement="this.profilOfAbonnement"
+      />
       </div>
       </n-modal>
     <form  @submit.prevent="onHandleProfil">
