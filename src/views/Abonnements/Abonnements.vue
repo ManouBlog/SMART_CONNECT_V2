@@ -78,17 +78,21 @@ try {
 }
 
 onMounted(async () => {
+  console.log(" props.ProfilAbonnement", props.ProfilAbonnement)
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
 
   reference.value = route.params.reference
 
-  profileAbonnement.value = props.ProfilAbonnement.statut
-    ? props.ProfilAbonnement.statut
+  profileAbonnement.value = props.ProfilAbonnement
+    ? props.ProfilAbonnement
     : store.state.user?.user?.statut?.statut
+    console.log("profileAbonnement.value", profileAbonnement.value)
 
-  activeTab.value = props.ProfilAbonnement.statut
-    ? props.ProfilAbonnement.statut
+  activeTab.value = props.ProfilAbonnement
+    ? props.ProfilAbonnement
     : 'Etudiant'
+
+    console.log("activeTab.value", activeTab.value)
 
   if (reference.value) {
     await doVerificationAbonnement(reference.value)
@@ -132,7 +136,7 @@ onMounted(async () => {
     v-if="
       !store.state.user ||
       (
-        store.state.user?.user?.statuses.some(s => ['Etudiant'].includes(s.statut)) && profileAbonnement === 'Etudiant'
+        store.state.user?.user?.statuses.some(s => ['Etudiant'].includes(s.statut)) || profileAbonnement === 'Etudiant'
       )
     "
     :name="defaulValueTranslate === 'fr' ? 'Etudiant' : 'Student'"
@@ -149,7 +153,7 @@ onMounted(async () => {
     v-if="
       !store.state.user ||
       (
-        store.state.user?.user?.statuses.some(s => ['Entreprise'].includes(s.statut)) && profileAbonnement === 'Entreprise'
+        store.state.user?.user?.statuses.some(s => ['Entreprise'].includes(s.statut)) || profileAbonnement === 'Entreprise'
       )
     "
     :name="'Entreprise'"
@@ -176,7 +180,7 @@ onMounted(async () => {
     v-if="
       !store.state.user ||
       (
-        store.state.user?.user?.statuses.some(s => ['Particulier'].includes(s.statut)) && profileAbonnement === 'Particulier'
+        store.state.user?.user?.statuses.some(s => ['Particulier'].includes(s.statut)) || profileAbonnement === 'Particulier'
       )
     "
     :name="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
@@ -193,7 +197,7 @@ onMounted(async () => {
     v-if="
       !store.state.user ||
       (
-        store.state.user?.user?.statuses.some(s => ['Artisan'].includes(s.statut)) && profileAbonnement === 'Artisan'
+        store.state.user?.user?.statuses.some(s => ['Artisan'].includes(s.statut)) || profileAbonnement === 'Artisan'
       )
     "
     :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
@@ -214,7 +218,7 @@ onMounted(async () => {
     v-if="
       !store.state.user ||
       (
-        store.state.user?.user?.statuses.some(s => ['Professionnel'].includes(s.statut)) && profileAbonnement === 'Professionnel'
+        store.state.user?.user?.statuses.some(s => ['Professionnel'].includes(s.statut)) || profileAbonnement === 'Professionnel'
       )
     "
     :name="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
@@ -233,7 +237,7 @@ onMounted(async () => {
       (
         store.state.user?.user?.statuses.some(s =>
           ['Vétéran', 'veteran'].includes(s.statut)
-        ) && profileAbonnement === 'veteran'
+        ) || profileAbonnement === 'veteran'
       )
     "
     :name="'Vétéran'"

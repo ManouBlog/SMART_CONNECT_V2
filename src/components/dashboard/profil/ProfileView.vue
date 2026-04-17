@@ -296,7 +296,7 @@ userDocuments() {
       await this.$store.dispatch("getInfoUser");
       const infoUser = this.$store.state.infoUserConnected;
 
-      if (infoUser.user?.statuses?.some(s => s.statut === 'Etudiant')){
+      if (infoUser?.user?.statuses?.some(s => s.statut === 'Etudiant')){
       const competences = infoUser.competences;
       const qualifications = infoUser.qualifications;
       const jours = infoUser.jours;

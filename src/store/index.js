@@ -13,7 +13,7 @@ export default createStore({
     colorForlikePerson:false,
     compteUser:false,
     translate:"FR",
-    contratStudent:JSON.parse(localStorage.getItem("alarm")) || '',
+    contratStudent:'',
     abonnement:false,
     infoUserConnected:"",
      datesOfCalendar:[],

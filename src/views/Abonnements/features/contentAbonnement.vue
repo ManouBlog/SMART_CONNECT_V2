@@ -70,9 +70,10 @@ const handleCreateMonth =(payload)=>{
             channels:"undefined",
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart,
-            change_profil:storeAbonnement.isChangeProfil
+            isChangeProfil:storeAbonnement.isChangeProfil,
+            statut_base:storeAbonnement.statutOfBase
         }
-  // console.log("handleConfirmationPayement",data)
+  console.log("handleConfirmationPayement",data)
 storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
@@ -84,9 +85,10 @@ const handleCreateYear =(payload)=>{
             channels:"undefined",
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart,
-            change_profil:storeAbonnement.isChangeProfil
+            isChangeProfil:storeAbonnement.isChangeProfil,
+            statut_base:storeAbonnement.statutOfBase
         }
-  // console.log("handleConfirmationPayement",data)
+  console.log("handleConfirmationPayement",data)
   storeAbonnement.createAbonement(data)
 }
 
