@@ -71,7 +71,13 @@ const handleCreateMonth =(payload)=>{
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart,
             isChangeProfil:storeAbonnement.isChangeProfil,
-            statut_base:storeAbonnement.statutOfBase
+            statut_base:storeAbonnement.statutOfBase,
+             niveauExpertise : storeAbonnement.niveauExpertise ,
+        modeTravail : storeAbonnement.modeTravail ,
+        tempsTravail : storeAbonnement.tempsTravail ,
+        niveauEtude : storeAbonnement.niveauEtude ,
+        CVupload : storeAbonnement.CVupload ,
+        statut_talent : storeAbonnement.statut_talent ,
         }
   console.log("handleConfirmationPayement",data)
 storeAbonnement.createAbonement(data)
@@ -86,7 +92,13 @@ const handleCreateYear =(payload)=>{
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart,
             isChangeProfil:storeAbonnement.isChangeProfil,
-            statut_base:storeAbonnement.statutOfBase
+            statut_base:storeAbonnement.statutOfBase,
+             niveauExpertise : storeAbonnement.niveauExpertise ,
+        modeTravail : storeAbonnement.modeTravail ,
+        tempsTravail : storeAbonnement.tempsTravail ,
+        niveauEtude : storeAbonnement.niveauEtude ,
+        CVupload : storeAbonnement.CVupload ,
+        statut_talent : storeAbonnement.statut_talent ,
         }
   console.log("handleConfirmationPayement",data)
   storeAbonnement.createAbonement(data)

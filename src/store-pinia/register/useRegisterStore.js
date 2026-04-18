@@ -163,8 +163,8 @@ if (payload?.countryCode && payload?.phone) {
 }
 if (payload?.ville) data.append("ville", payload.ville);
 if (payload?.niveauEtude) {
-  const diplomeFull = payload.filiere ? `${payload.niveauEtude} ${payload.filiere}` : payload.niveauEtude;
-  data.append("diplome", diplomeFull);
+  const niveauEtude = payload.filiere ? `${payload.niveauEtude} ${payload.filiere}` : payload.niveauEtude;
+  data.append("niveauEtude", niveauEtude);
 }
 
 if(payload?.statut_talent) data.append("statut_talent", payload.statut_talent);

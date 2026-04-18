@@ -74,6 +74,7 @@ allStatuses:[]
       this.$emit('open-verification', userStatut);
     },
     handleStatutProfil(e){
+    
        console.log('VALUE selectedStatus',e.target.value)
        this.selectedParseStatus = JSON.parse(e.target.value)
        this.addIdOfProfilBase(this.selectedParseStatus.id)
