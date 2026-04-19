@@ -12,9 +12,25 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
 
    const isChangeProfil = ref(false);
    const statutOfBase = ref(null);
+    const niveauExpertise =  ref(null);
+        const modeTravail =  ref(null);
+        const tempsTravail =  ref(null);
+        const niveauEtude =  ref(null);
+        const CVupload =  ref(null);
+        const statut_talent = ref(null);
+        const upload = ref(null);
 
    const handleChangeProfil = (payload)=>{
     isChangeProfil.value = payload
+   }
+   const handleChangeInfoForAbonnement=(payload)=>{
+     niveauExpertise.value =  payload.niveauExpertise;
+         modeTravail.value =  payload.modeTravail;
+         tempsTravail.value =  payload.tempsTravail;
+         niveauEtude.value =  payload.niveauEtude;
+         CVupload.value =  payload.CVupload;
+          upload.value =  payload.upload;
+         statut_talent.value = payload.statut_talent;
    }
    const handleMyStatutOfBase = (payload)=>{
     statutOfBase.value = payload;
@@ -28,6 +44,14 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
     };
     return{
       isChangeProfil,
+      handleChangeInfoForAbonnement,
+      niveauExpertise,
+         modeTravail,
+         tempsTravail,
+         niveauEtude,
+         CVupload,
+         upload,
+         statut_talent,
       handleMyStatutOfBase,
       statutOfBase,
       handleChangeProfil,

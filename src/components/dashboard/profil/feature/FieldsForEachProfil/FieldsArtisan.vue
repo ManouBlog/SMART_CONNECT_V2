@@ -5,7 +5,7 @@ import Abonnements from "../../../../../views/Abonnements/Abonnements.vue";
 import { configUtils } from "../../../../../Shared/Utils";
 
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
-
+import { useAbonnementsStore } from "../../../../../store-pinia/Abonnements/useAbonnementsStore";
 // import Tesseract from 'tesseract.js'
 
 export default {
@@ -271,6 +271,8 @@ StatutArtisans:[
 // },
     onHandleUpdateProfil() {
       console.log("this.formState",this.formState);
+      const storeAbonnement = useAbonnementsStore();
+       storeAbonnement.handleChangeInfoForAbonnement(this.formState);
       this.showModalAbonnements = true;
     }
   },

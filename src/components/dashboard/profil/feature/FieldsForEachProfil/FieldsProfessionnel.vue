@@ -130,6 +130,7 @@ valueModeDeTravail: [
         niveauExpertise:"",
         CVupload:null,
         modeTravail:"",
+        diplome:"",
         tempsTravail:""
       },
     };
@@ -138,7 +139,7 @@ valueModeDeTravail: [
   computed: {
  isFormComplete() {
       return (
-        this.formState.niveauExpertise?.trim() &&      // Champ texte non vide
+        // this.formState.niveauExpertise?.trim() &&      // Champ texte non vide
         this.formState.statut_talent &&                // Select sélectionné
         this.formState.upload?.length > 0 && 
         this.formState.modeTravail && 
@@ -265,6 +266,10 @@ valueModeDeTravail: [
 //   })
 // },
     onHandleProfil() {
+      
+      // if(this.formState.diplome){
+      //   this.formState.niveauEtude = this.formState.diplome+ " " + this.formState.niveauEtude
+      // }
       console.log("this.formState",this.formState);
       this.showModalAbonnements = !this.showModalAbonnements
     },
@@ -278,7 +283,6 @@ valueModeDeTravail: [
     overflow-y: auto; 
     max-height: 80vh;"
        :closable="false"
-       @close="resetData"
   v-model:show="showModalAbonnements">
          <template #header>
         <div class="modal-header">
@@ -287,7 +291,7 @@ valueModeDeTravail: [
       </template>
       <div style="background-color: white;">
       <Abonnements 
-      :ProfilAbonnement="this.profilOfAbonnement"
+      :ProfilAbonnement="this.profilOfAbonnement.statut"
       />
       </div>
       </n-modal>
@@ -312,7 +316,7 @@ valueModeDeTravail: [
             {{ item.value }}
           </option>
         </select>
-        <input type="text" placeholder="Ajoutez votre Domaine" class="form-control my-2" />
+        <input type="text" v-model="formState.diplome" placeholder="Ajoutez votre Domaine" class="form-control my-2" />
       </div>
       <div class="col-md-6 my-2">
         <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel</label>
@@ -416,6 +420,7 @@ valueModeDeTravail: [
           style="height: 40px;border: none !important;"
         />
       </div>
+      {{ formState }}
       <div class="col-md-12 my-4">
       <a-button
         type="primary"

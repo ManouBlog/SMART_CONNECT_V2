@@ -237,12 +237,14 @@ this.allStatuses=[];
 </transition>
   <div v-if="optionsAnswer || (selectedParseStatus && selectedParseStatus.statut === 'Artisan')">
   <FieldsVeteran 
+  :profilOfAbonnement="selectedParseStatus"
    v-if="selectedParseStatus.statut === 'Veteran'"/>
   <FieldsArtisan 
   :profilOfAbonnement="selectedParseStatus"
   v-if="selectedParseStatus.statut === 'Artisan'" />
   <FieldsProfessionnel 
   :profilHybride="profilHybride"
+  :profilOfAbonnement="selectedParseStatus"
   v-if="selectedParseStatus.statut === 'Professionnel'" />
   <FieldsCompany 
   v-if="selectedParseStatus.statut === 'Entreprise'"

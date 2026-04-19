@@ -111,6 +111,8 @@ onMounted(async () => {
   <div class="wrapped myconteneur">
     <h1 class="text-center main-color">{{text0}}</h1>
       <div v-if="props.ProfilAbonnement">
+        {{ profileAbonnement }}
+        {{ store.state.user?.user?.statuses }}
     <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
@@ -125,11 +127,7 @@ onMounted(async () => {
   <!-- Etudiant -->
   <n-tab-pane
     v-if="
-      !store.state.user ||
-      (
-        store.state.user?.user?.statuses.some(s => ['Etudiant'].includes(s.statut)) 
-        || profileAbonnement === 'Etudiant'
-      )
+     profileAbonnement === 'Etudiant'
     "
     :name="defaulValueTranslate === 'fr' ? 'Etudiant' : 'Student'"
     :tab="defaulValueTranslate === 'fr' ? 'Etudiant' : 'Student'"
@@ -143,11 +141,7 @@ onMounted(async () => {
   <!-- Entreprise -->
   <n-tab-pane
     v-if="
-      !store.state.user ||
-      (
-        store.state.user?.user?.statuses.some(s => ['Entreprise'].includes(s.statut)) 
-        || profileAbonnement === 'Entreprise'
-      )
+     profileAbonnement === 'Entreprise'
     "
     :name="'Entreprise'"
     :tab="'Entreprise'"
@@ -171,11 +165,7 @@ onMounted(async () => {
   <!-- Particulier -->
   <n-tab-pane
     v-if="
-      !store.state.user ||
-      (
-        store.state.user?.user?.statuses.some(s => ['Particulier'].includes(s.statut)) 
-        || profileAbonnement === 'Particulier'
-      )
+       profileAbonnement === 'Particulier'
     "
     :name="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
     :tab="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
@@ -189,11 +179,7 @@ onMounted(async () => {
   <!-- Artisan -->
   <n-tab-pane
     v-if="
-      !store.state.user ||
-      (
-        store.state.user?.user?.statuses.some(s => ['Artisan'].includes(s.statut)) 
-        || profileAbonnement === 'Artisan'
-      )
+       profileAbonnement === 'Artisan'
     "
     :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
     :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
@@ -211,11 +197,7 @@ onMounted(async () => {
   <!-- Professionnel -->
   <n-tab-pane
     v-if="
-      !store.state.user ||
-      (
-        store.state.user?.user?.statuses.some(s => ['Professionnel'].includes(s.statut)) 
-        || profileAbonnement === 'Professionnel'
-      )
+     profileAbonnement === 'Professionnel'
     "
     :name="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
     :tab="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
@@ -229,12 +211,7 @@ onMounted(async () => {
   <!-- Vétéran -->
   <n-tab-pane
     v-if="
-      !store.state.user ||
-      (
-        store.state.user?.user?.statuses.some(s =>
-          ['Vétéran', 'veteran'].includes(s.statut)
-        ) || profileAbonnement === 'veteran'
-      )
+      profileAbonnement === 'veteran'
     "
     :name="'Vétéran'"
     :tab="'Vétéran'"
