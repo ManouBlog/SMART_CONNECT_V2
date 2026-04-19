@@ -706,7 +706,7 @@ export default {
      if (
   this.user &&
   (this.user.user?.statuses || []).some(s =>
-    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   )
 ) {
   this.$router.push("/");

@@ -200,7 +200,7 @@ export default {
     v-if="value1 === 'Artisan'"  />
     <RegisterVeterans  
     :idStatutChoice="selectedOption"
-    v-if="value1 === 'Veteran'"  />
+    v-if="value1 === 'Vétéran'"  />
   </a-form>
   <section v-else class="shimmer-text" style="text-align: center;font-size:1.5em;" >
     Chargement des profils...

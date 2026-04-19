@@ -34,7 +34,7 @@ export default {
   );
 
   const isEtudiantGroup = statuses?.some(s =>
-    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   );
 
   const isAdmin = statuses?.some(s => s.statut === 'admin');
@@ -56,7 +56,7 @@ export default {
   const statuses = user?.statuses || [];
 
   const isStudentGroup = statuses?.some(s =>
-    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   );
 
   const isEntrepriseGroup = statuses?.some(s =>

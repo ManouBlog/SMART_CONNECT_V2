@@ -3,7 +3,7 @@ import { defineProps, ref, onMounted, watch, computed } from "vue";
 import { Help } from "../../../../utils";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
-import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
+// import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
 import contentAbonnement from '../contentAbonnement.vue'
 defineProps({
@@ -13,7 +13,7 @@ defineProps({
 
 
 const transalteStore = useTranslateStore();
-const storeAbonnement = useAbonnementsStore();
+// const storeAbonnement = useAbonnementsStore();
 const storeAbonnementUser = useEntreprisesStore();
 const userConnected = ref(localStorage.getItem('user'))
 const elmentsOfBtn = ref(null);
@@ -22,14 +22,15 @@ const texte = ref(null);
 
 
 const handleCreateEntreprise=(payload)=>{
-  const randomPart = Math.random().toString(36).substring(2);
-        // console.log("payload",payload)
-        const data = {
-            abonement_id:payload.id,
-            channels:"undefined",
-            transaction_id:randomPart
-        }
-  storeAbonnement.createAbonement(data)
+     console.log("payload sub abonnement artisan",payload)
+  // const randomPart = Math.random().toString(36).substring(2);
+     
+  //       const data = {
+  //           abonement_id:payload.id,
+  //           channels:"undefined",
+  //           transaction_id:randomPart
+  //       }
+  // storeAbonnement.createAbonement(data)
 }
 
 // Détecte si le user est connecté et possède un statut

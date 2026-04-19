@@ -75,7 +75,7 @@ export default {
      if (
   this.$store.state.user &&
   (this.$store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
 ){
         this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
       } else {
@@ -107,7 +107,7 @@ if (!user.competences.length || !user.qualifications.length) {
   async created() {
    if(
   !(this.$store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
 ){
       this.get_students_contact();
       this.get_offres_interess_by_student();
@@ -143,7 +143,7 @@ if (!user.competences.length || !user.qualifications.length) {
     <TableauDeBord
      v-if="
   (this.$store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
 "
       :infosArray="IsAmbassador ? [
          {

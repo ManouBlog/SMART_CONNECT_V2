@@ -5,7 +5,7 @@ import Abonnements from '../../../../../views/Abonnements/Abonnements.vue';
 import { configUtils } from "../../../../../Shared/Utils";
 
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
-
+import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
 // import Tesseract from 'tesseract.js'
 
 export default {
@@ -111,8 +111,6 @@ valueModeDeTravail: [
       texte18: "",
       texte19: "",
       texte96: "",
-     niveauEtude:"",
-  
      filiere:"",
       configUtils,
       SWALPOPUP: useSwalPopup(),
@@ -125,7 +123,10 @@ StatutVeterans:[
         statut_talent:"",
         upload: [],
         treatment_preferentiel:"",
-       
+       niveauEtude:"",
+       tempsTravail:"",
+       modeTravail:"",
+       diplome:""
       },
     };
   },
@@ -135,7 +136,10 @@ StatutVeterans:[
       return (
         this.formState.treatment_preferentiel?.trim() &&      // Champ texte non vide
         this.formState.statut_talent &&                // Select sélectionné
-        this.formState.upload?.length > 0              // Fichier uploadé
+        this.formState.niveauEtude && 
+         this.formState.tempsTravail &&   
+         this.formState.modeTravail  &&
+          this.formState.diplome      
       );
     }
     
@@ -248,8 +252,10 @@ StatutVeterans:[
 //   })
 // },
     onHandleProfil() {
-      console.log("this.formState",this.formState);
-      this.showModalAbonnements = !this.showModalAbonnements
+      console.log("this.formState veteran",this.formState);
+      const STORE_ABONNEMENT = useAbonnementsStore();
+      STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
+      this.showModalAbonnements = true
     },
   },
 };
@@ -275,6 +281,65 @@ StatutVeterans:[
       </n-modal>
     <form action="" @submit.prevent="onHandleProfil">
     <div class="row g-4">
+        <div class="col-md-6 my-2">
+        <label for="treatment1" class="form-label fw-semibold mb-2">Niveau d'etude + Domaine</label>
+        <select 
+          name="treatment" 
+          id="treatment1" 
+          v-model="formState.niveauEtude"
+          class="form-control"
+          style="height: 50px;"
+        >
+          <option value="" disabled>Sélectionnez...</option>
+          <option 
+            v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
+            :key="item.value" 
+            :value="item.value"
+          >
+            {{ item.value }}
+          </option>
+        </select>
+        <input type="text" v-model="formState.diplome" placeholder="Ajoutez votre Domaine" class="form-control my-2" />
+      </div>
+       <div class="col-md-6 my-2">
+        <label for="treatment2" class="form-label fw-semibold mb-2">Mode de travail</label>
+        <select 
+          name="statut" 
+          id="treatment2" 
+          v-model="formState.modeTravail"
+          class="form-control"
+          style="height: 50px;"
+        >
+          <option value="" disabled>Sélectionnez...</option>
+          <option 
+            v-for="item in valueModeDeTravail" 
+            :key="item.id" 
+            :value="item.value"
+          >
+            {{ item.label }}
+          </option>
+        </select>
+      </div>
+
+       <div class="col-md-6 my-2">
+        <label for="treatment2" class="form-label fw-semibold mb-2">Temps de travail</label>
+        <select 
+          name="statut" 
+          id="treatment2" 
+          v-model="formState.tempsTravail"
+          class="form-control"
+          style="height: 50px;"
+        >
+          <option value="" disabled>Sélectionnez...</option>
+          <option 
+            v-for="item in valueTempsTravail" 
+            :key="item.id" 
+            :value="item.value"
+          >
+            {{ item.label }}
+          </option>
+        </select>
+      </div>
       <div class="col-md-6 my-4">
         <label for="treatment1" class="form-label fw-semibold mb-2">Traitement préférentiel</label>
         <select 

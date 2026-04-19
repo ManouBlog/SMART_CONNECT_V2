@@ -224,7 +224,7 @@ export default {
       if (
   this.$store.state.token &&
   (this.$store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
 ){
         this.spinnerExperience = true;
       await instance
@@ -568,7 +568,7 @@ export default {
         <div class="row" 
         v-if="
   user.user?.statuses
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
 "
         >
           <div class="col-xl-5 col-md-6 dash-xl-50 my-5">

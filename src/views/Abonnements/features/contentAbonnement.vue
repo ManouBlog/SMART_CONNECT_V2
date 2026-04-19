@@ -83,7 +83,7 @@ const handleCreateMonth =(payload)=>{
         statut_talent : storeAbonnement.statut_talent ,
         }
   console.log("handleConfirmationPayement",data)
-storeAbonnement.createAbonement(data)
+// storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateYear",payload)
@@ -106,7 +106,7 @@ const handleCreateYear =(payload)=>{
         statut_talent : storeAbonnement.statut_talent ,
         }
   console.log("handleConfirmationPayement",data)
-  storeAbonnement.createAbonement(data)
+  // storeAbonnement.createAbonement(data)
 }
 
 

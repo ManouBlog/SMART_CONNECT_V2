@@ -211,7 +211,7 @@ onMounted(async () => {
   <!-- Vétéran -->
   <n-tab-pane
     v-if="
-      profileAbonnement === 'Veteran' ||  profileAbonnement === 'Vétéran'
+      profileAbonnement === 'Vétéran' ||  profileAbonnement === 'Vétéran'
     "
     :name="'Vétéran'"
     :tab="'Vétéran'"
@@ -357,8 +357,8 @@ onMounted(async () => {
       !store.state.user ||
       (
         store.state.user?.user?.statuses.some(s =>
-          ['Vétéran', 'veteran'].includes(s.statut)
-        ) && profileAbonnement === 'veteran'
+          ['Vétéran', 'Vétéran'].includes(s.statut)
+        ) && profileAbonnement === 'Vétéran'
       )
     "
     :name="'Vétéran'"

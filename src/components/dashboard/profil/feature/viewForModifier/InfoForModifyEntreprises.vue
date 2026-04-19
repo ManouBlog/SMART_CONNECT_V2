@@ -210,8 +210,8 @@ valueExpertise: [
 
   const transitions = {
     etudiant: ['Etudiant', 'Professionnel', 'Artisan'],
-    professionnel: ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'],
-    artisan: ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'],
+    professionnel: ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'],
+    artisan: ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'],
     entreprise: ['Entreprise']
   };
 
@@ -251,7 +251,7 @@ valueExpertise: [
 //     statut:this.allStatuses,
 //     profil:this.$store.state.infoUserConnected
 //   })
-//         // this.allStatuses = response.data.data.filter(item=>item.statut == 'Professionnel' || item.statut == 'Artisan' || item.statut == 'Etudiant' || item.statut === 'Veteran')
+//         // this.allStatuses = response.data.data.filter(item=>item.statut == 'Professionnel' || item.statut == 'Artisan' || item.statut == 'Etudiant' || item.statut === 'Vétéran')
 //       } catch (error) {
 //         console.log(error);
 //       }
@@ -271,7 +271,7 @@ const statusList = statuses.map(s => s.statut);
 const isEntreprise = statusList.includes('Entreprise');
 
 const isStudentGroup = statusList.some(s =>
-  ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s)
+  ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s)
 );
 
 if (isEntreprise) {
@@ -295,7 +295,7 @@ if (isStudentGroup) {
         // this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
         // // console.log("COMPANY_INFOS",resp.data.user) 
         // }
-        // if(statutUser === 'Etudiant' || statutUser === 'Professionnel' || statutUser === 'Artisan' || statutUser === 'Veteran'){
+        // if(statutUser === 'Etudiant' || statutUser === 'Professionnel' || statutUser === 'Artisan' || statutUser === 'Vétéran'){
         //   resp.data.user.qualifications.map(item=>{
         //     return {
         //       date_debut:item.date_debut.split(' ')[0],
@@ -457,8 +457,8 @@ if (isStudentGroup) {
             name="statut_id" 
             id="statut_id"
             multiple
-            :class="{ 'disabled-custom': form.statut === 'Veteran' }"
-            :disabled="form.statut === 'Veteran'"
+            :class="{ 'disabled-custom': form.statut === 'Vétéran' }"
+            :disabled="form.statut === 'Vétéran'"
             style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
             v-model="form.statuses"
             @change="()=>{
@@ -594,7 +594,7 @@ if (isStudentGroup) {
   class="col-md-12"
   v-if="
     ($store.state.infoUserConnected?.user?.statuses || [])
-      .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
+      .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
   "
 >
         <div class="mb-3">
@@ -644,7 +644,7 @@ if (isStudentGroup) {
   v-if="
     $store.state.infoUserConnected &&
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
     )
   "
 >
@@ -676,7 +676,7 @@ if (isStudentGroup) {
      v-if="
     $store.state.infoUserConnected &&
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
     )
   ">
       
@@ -692,7 +692,7 @@ if (isStudentGroup) {
           
          v-if="
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['Professionnel', 'Veteran'].includes(s.statut)
+      ['Professionnel', 'Vétéran'].includes(s.statut)
     )
   ">
             <div>
@@ -738,7 +738,7 @@ if (isStudentGroup) {
        
           </div>
           <div class="mb-3" 
-          v-if="$store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Veteran')">
+          v-if="$store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Vétéran')">
             
             <div>
             <label class="form-label">Traitement préférentiel</label>
@@ -776,7 +776,7 @@ if (isStudentGroup) {
      v-if="
     $store.state.infoUserConnected &&
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
     )
     ">
         <div class="col-md-12">

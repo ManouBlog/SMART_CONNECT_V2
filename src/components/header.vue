@@ -235,11 +235,11 @@ export default {
                   <LiensNavBar
        v-if="
   ($store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
 "
                     :texte="texte2"
                     :route_lien="'jobs'"
-                    :statut_user="'Etudiant' || 'Professionnel' || 'Artisan' || 'Veteran'"
+                    :statut_user="'Etudiant' || 'Professionnel' || 'Artisan' || 'Vétéran'"
                     :isNeedConnection="true"
                   />
 
@@ -266,7 +266,7 @@ export default {
     'Etudiant',
     'Professionnel',
     'Artisan',
-    'Veteran'
+    'Vétéran'
   ].includes(this.$store.state.user.user.statut.statut)
 "
                   >
@@ -314,7 +314,7 @@ export default {
                   <div
                 v-if="
   ($store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
 "
                     class="login_user"
                   >

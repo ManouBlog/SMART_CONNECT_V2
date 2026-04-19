@@ -21,15 +21,32 @@ const texte = ref(null);
 
 
 
-const handleCreateEntreprise=(payload)=>{
+const handleInitialiserPayement=(payload)=>{
+  const STORE_ABONNEMENT = useAbonnementsStore();
   const randomPart = Math.random().toString(36).substring(2);
-        // console.log("payload",payload)
+  console.log('STORE_ABONNEMENT.diplome',STORE_ABONNEMENT.diplome)
         const data = {
             abonement_id:payload.id,
             channels:"undefined",
-            transaction_id:randomPart
+            transaction_id:randomPart,
+            mode_payment:"year",
+            isChangeProfil:STORE_ABONNEMENT.isChangeProfil,
+            statut_base:STORE_ABONNEMENT.statutOfBase,
+            treatment_preferentiel:STORE_ABONNEMENT.treatment_preferentiel,
+             niveauExpertise : STORE_ABONNEMENT.niveauExpertise ,
+        modeTravail : STORE_ABONNEMENT.modeTravail ,
+        tempsTravail : STORE_ABONNEMENT.tempsTravail ,
+        niveauEtude : STORE_ABONNEMENT.niveauEtude +" "+ STORE_ABONNEMENT.diplome,
+        CVupload : STORE_ABONNEMENT.CVupload ,
+        statut_talent : STORE_ABONNEMENT.statut_talent ,
         }
-  storeAbonnement.createAbonement(data)
+       console.log("payload sub abonnement veteran",{
+        payload:payload,
+        data:data,
+        storeAbonnement:STORE_ABONNEMENT
+       })
+       
+    storeAbonnement.createAbonement(data)
 }
 
 // Détecte si le user est connecté et possède un statut
@@ -117,7 +134,7 @@ onMounted(async () => {
           :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id"
           :elmentsOfBtn="elmentsOfBtn"
           :shapeBtn="'round'"
-          @created="handleCreateEntreprise(item)"
+          @created="handleInitialiserPayement(item)"
         />
       </div>
     </section>

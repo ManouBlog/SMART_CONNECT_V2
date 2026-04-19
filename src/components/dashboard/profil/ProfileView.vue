@@ -106,7 +106,7 @@ userDocuments() {
   );
 
   const isEtudiantOrProOrArtisanOrVeteran = statuses?.some(s =>
-    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   );
 
   const isAdmin = statuses?.some(s => s.statut === 'admin');
@@ -127,7 +127,7 @@ userDocuments() {
   const statuses = this.$store.state.infoUserConnected?.user?.statuses || [];
 
   const isStudentGroup = statuses?.some(s =>
-    ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+    ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   );
 
   const isEntrepriseGroup = statuses?.some(s =>
@@ -491,7 +491,7 @@ userDocuments() {
               :infoPersonnelles="this.$store.state.infoUserConnected"
          v-if="
   this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   )
 "
             />
@@ -511,7 +511,7 @@ userDocuments() {
                 ? 'Temps de travail':null, value: this.$store.state.infoUserConnected?.tempsTravail ?? '' },
                 { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status =>
                         ['Vétéran', 'Professionnel'].includes(status?.statut)) ? 'Mode de travail':null, value: this.$store.state.infoUserConnected?.modeTravail ?? '' },
-                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'Veteran') ? 'Traitement préférentiel':null, value: this.$store.state.infoUserConnected?.niveauExpertise ?? '' },
+                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'Vétéran') ? 'Traitement préférentiel':null, value: this.$store.state.infoUserConnected?.niveauExpertise ?? '' },
                 { libelle: this.$store.state.infoUserConnected?.user?.code_ambassadeur ? 'code parrainage':null , value: this.$store.state.infoUserConnected?.user?.code_ambassadeur ?? null },
                 // {
                 //   libelle: documentLabels[this.$store.state.infoUserConnected?.user?.statut?.statut],
@@ -531,7 +531,7 @@ userDocuments() {
               "
          v-if="
   this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   )
 "
             /> -->
@@ -550,7 +550,7 @@ userDocuments() {
         <TabPanel
        v-if="
   this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   )
 "
           header="Compétences et Expériences"
@@ -560,7 +560,7 @@ userDocuments() {
         <TabPanel
          v-if="
   this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan', 'Veteran'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   )
 "
           header="Qualifications"
