@@ -66,17 +66,17 @@ const props = defineProps({
  * CONFIG
  */
 const verificationConfig = {
-  professionnel: {
+  Professionnel: {
     label: "Téléverser votre diplôme",
     accepted: ["pdf", "jpg", "png"],
     description: "Diplôme ou attestation de réussite"
   },
-  artisan: {
+  Artisan: {
     label: "Téléverser votre CNI et certificat métier",
     accepted: ["pdf", "jpg", "png"],
     description: "Carte d’identité et document attestant votre activité"
   },
-  veteran: {
+  Vétéran: {
     label: "Téléverser votre attestation officielle",
     accepted: ["pdf", "jpg", "png"],
     description: "Attestation de fonction ou lettre officielle"

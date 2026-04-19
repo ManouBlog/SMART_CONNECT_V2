@@ -37,10 +37,10 @@ export default {
       texte3: "",
       texte1: "",
       documentLabels : {
-  etudiant: "Carte étudiant",
-  professionnel: "Diplôme",
-  artisan: "CNI",
-  veteran: "Certificat de travail"
+  Etudiant: "Carte étudiant",
+  Professionnel: "Diplôme",
+  Artisan: "CNI",
+  Vétéran: "Certificat de travail"
 },
       texte4: "",
       texte5: "",
@@ -540,7 +540,7 @@ userDocuments() {
         <TabPanel :header="'Profils'" 
         v-if="
      this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan' , 'particulier'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan' , 'particulier','Vétéran'].includes(s.statut)
      )
     ">
          <InfoStatusesUser

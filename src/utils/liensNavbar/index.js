@@ -1,9 +1,9 @@
 export const StatutUser = {
-    entreprise:true,
-    etudiant:true,
-    particulier:true,
-    professionnel:true,
-    artisan:true,
-    veteran:true
+    Entreprise:true,
+    Etudiant:true,
+    Particulier:true,
+    Professionnel:true,
+    Artisan:true,
+    Vétéran:true
 }
 

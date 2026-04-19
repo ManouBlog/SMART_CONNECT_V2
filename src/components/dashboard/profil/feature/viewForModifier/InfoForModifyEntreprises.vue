@@ -38,10 +38,10 @@ valueExpertise: [
       StoreLoading: useLoadingSpinner(),
       itemsQualificationDynamicInput: [],
       documentLabels : {
-  etudiant: "Nouvelle carte d'étudiant",
-  professionnel: "Copie du diplôme",
-  artisan: "Copie de la CNI",
-  veteran: "Certificat de travail"
+  Etudiant: "Nouvelle carte d'étudiant",
+  Professionnel: "Copie du diplôme",
+  Artisan: "Copie de la CNI",
+  Vétéran: "Certificat de travail"
 },
       placeholderDynamicInput: ["05-02-2020", "05-03-2025"],
       westAfricaCodes: [

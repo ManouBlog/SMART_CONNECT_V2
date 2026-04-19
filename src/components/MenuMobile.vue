@@ -161,7 +161,7 @@ export default {
           <br />
           <div style="display: flex; flex-wrap: wrap; gap: 6px;">
   <span
-    v-for="status, index in userInfos.user?.statuses"
+    v-for="(status,index) in userInfos.user?.statuses"
     :key="index"
     class="badge bg-warning"
   >

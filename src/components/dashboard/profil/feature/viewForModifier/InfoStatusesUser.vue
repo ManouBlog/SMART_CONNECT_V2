@@ -271,6 +271,7 @@ this.selectedParseStatus = ""
     <div class="info-header d-flex justify-content-between align-items-center p-4 mb-5">
       <h1 class="fw-bold my-3 mb-0" style="color: orange">Mes Profils</h1>
       <button
+      v-if="profils.some(item=>item.statut != 'Vétéran')"
           style="
             height: auto;
             width: auto;

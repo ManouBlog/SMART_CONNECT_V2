@@ -35,17 +35,17 @@ const ACCESS_RAPIDE = ref([
     link: true,
     name_link: "jobs",
     img: false,
-    isVisible: Statut.value === "etudiant" ||
-           Statut.value === "professionnel" ||
-           Statut.value === "artisan" ||
-           Statut.value === "veteran",
+    isVisible: Statut.value === "Etudiant" ||
+           Statut.value === "Professionnel" ||
+           Statut.value === "Artisan" ||
+           Statut.value === "Vétéran",
   },
   {
     libelle: "Talents",
     link: true,
     name_link: "timetable",
     img: false,
-    isVisible: Statut.value === "entreprise" || Statut.value === "particulier",
+    isVisible: Statut.value === "Entreprise" || Statut.value === "Particulier",
   },
 ]);
 const ABOUTUS = ref([

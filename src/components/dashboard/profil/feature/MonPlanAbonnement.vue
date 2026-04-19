@@ -16,16 +16,6 @@ export default {
       texte7: "",
       texte8: "",
       texte9: "",
-      texte10: "",
-      texte11: "",
-      texte12: "",
-      texte13: "",
-      texte14: "",
-      texte15: "",
-      texte16: "",
-      texte17: "",
-      texte18: "",
-      texte19: "",
       texte20: "",
       texte21: "",
       texte22: "",
@@ -34,6 +24,10 @@ export default {
       texte25: "",
       texte26: "",
       texte27:"",
+      periodePayment:{
+        year:'An',
+        month:'Mois'
+      }
     };
   },
   computed: { ...mapState(useEntreprisesStore, ["list_abonnement","planAbonnement"]) },
@@ -55,6 +49,7 @@ export default {
 
 </script>
 <template>
+  {{ planAbonnement }}
   <div class="conteneur_tableau_de_bord d-flex justify-content-center" v-if="planAbonnement">
     <!-- {{ JSON.stringify(planAbonnement,null,2) }} -->
     <a-card :title="planAbonnement?.abonement?.libelle" :bordered="false" style="width: 400px">
@@ -65,7 +60,7 @@ export default {
       <div class="d-flex align-items-center gap-5 justify-content-center main-color">
         <h1 class="text-start" style="font-size: 4em">{{ planAbonnement.mode_payment === 'year' || !planAbonnement.mode_payment ? new Intl.NumberFormat('de-DE').format(planAbonnement?.abonement?.prix):new Intl.NumberFormat('de-DE').format(planAbonnement?.abonement?.price_month) }}F</h1>
         <span class="mx-2">/</span>
-        <span style="font-size: 2em">{{texte1}}</span>
+        <span style="font-size: 2em">{{periodePayment[planAbonnement.mode_payment]}}</span>
       </div>
       <div>
         <p style="color:gray">Fin de l'abonnement:</p>
