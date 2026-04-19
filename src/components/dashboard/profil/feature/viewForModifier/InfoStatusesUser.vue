@@ -81,10 +81,12 @@ allStatuses:[]
        console.log('this.selectedParseStatus',this.selectedParseStatus)
       },
     resetData(){
+      console.log("reset data")
 this.optionsAnswer=null;
 this.selectedStatus="";
 this.profilHybride=[];
 this.allStatuses=[];
+this.selectedParseStatus = ""
     },
      async lister_statut() {
   const user = this.$store.state.infoUserConnected?.user;
@@ -169,7 +171,7 @@ this.allStatuses=[];
       </option>
            </select>
         </div>
-        <!-- {{ selectedParseStatus }} -->
+        {{ selectedParseStatus }}
   <transition name="fade-slide">
  <div v-if="selectedParseStatus && selectedParseStatus.statut !== 'Artisan'">
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">

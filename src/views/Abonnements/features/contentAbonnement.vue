@@ -54,6 +54,8 @@ const currentConfig = computed(() => {
 })
 
 function handleCreate(type) {
+  console.log("ITEM",props.item)
+  console.log('TYPE',type)
   if (type === 'year') {
     handleCreateYear(props.item)
   } else {
@@ -61,8 +63,8 @@ function handleCreate(type) {
   }
 }
 const handleCreateMonth =(payload)=>{
-  // console.log("handleCreateMonth",payload)
-
+  console.log("handleCreateMonth",payload)
+  console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   const randomPart = Math.random().toString(36).substring(2);
        
         const data = {
@@ -84,6 +86,7 @@ storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateYear",payload)
+  console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
    const randomPart = Math.random().toString(36).substring(2);
        
         const data = {
