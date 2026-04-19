@@ -153,6 +153,8 @@ if (payload?.statutId == 6 || payload?.statutId == 5) {
   if (payload?.tempsTravail !== undefined) data.append("tempsTravail", payload.tempsTravail);
 }
 
+if (payload?.treatment_preferentiel) data.append("treatment_preferentiel", payload.treatment_preferentiel);
+
 // Champs finaux
 if (payload?.prenoms) data.append("prenoms", payload.prenoms);
 if (payload?.email) data.append("email", payload.email);

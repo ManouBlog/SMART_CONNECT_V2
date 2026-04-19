@@ -165,7 +165,7 @@ StatutVeterans:[
         uploadPhotoProfil: [],
         email: "",
         password: "",
-        niveauExpertise:"",
+        treatment_preferentiel:"",
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
@@ -747,8 +747,8 @@ StatutVeterans:[
           >
             <a-select
             style="width: 100%;"
-    v-model:value="formState.niveauExpertise"
-    placeholder="Sélectionnez votre niveau d’expertise"
+    v-model:value="formState.treatment_preferentiel"
+    placeholder="Sélectionnez votre traitement préférentiel"
     show-search
     option-filter-prop="label"
   >

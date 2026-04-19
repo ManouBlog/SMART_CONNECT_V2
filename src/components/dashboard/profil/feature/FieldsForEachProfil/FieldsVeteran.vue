@@ -124,7 +124,7 @@ StatutVeterans:[
       formState: {
         statut_talent:"",
         upload: [],
-        niveauExpertise:"",
+        treatment_preferentiel:"",
        
       },
     };
@@ -133,7 +133,7 @@ StatutVeterans:[
   computed: {
  isFormComplete() {
       return (
-        this.formState.niveauExpertise?.trim() &&      // Champ texte non vide
+        this.formState.treatment_preferentiel?.trim() &&      // Champ texte non vide
         this.formState.statut_talent &&                // Select sélectionné
         this.formState.upload?.length > 0              // Fichier uploadé
       );
@@ -280,7 +280,7 @@ StatutVeterans:[
         <select 
           name="treatment" 
           id="treatment1" 
-          v-model="formState.niveauExpertise"
+          v-model="formState.treatment_preferentiel"
           class="form-control"
           style="height: 50px;"
         >

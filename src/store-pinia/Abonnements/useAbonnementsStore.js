@@ -19,6 +19,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const CVupload =  ref(null);
         const statut_talent = ref(null);
         const upload = ref(null);
+        const treatment_preferentiel = ref(null);
 
    const handleChangeProfil = (payload)=>{
     isChangeProfil.value = payload
@@ -31,6 +32,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
          CVupload.value =  payload.CVupload;
           upload.value =  payload.upload;
          statut_talent.value = payload.statut_talent;
+         treatment_preferentiel.value = payload.treatment_preferentiel
    }
    const handleMyStatutOfBase = (payload)=>{
     statutOfBase.value = payload;
