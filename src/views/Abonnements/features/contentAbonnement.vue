@@ -34,10 +34,11 @@ const tabs = [
 const currentConfig = computed(() => {
   const formule = storeAbonnementUser?.planAbonnement?.mode_payment;
   console.log('storeAbonnement.profilHybride',storeAbonnement.profilHybride)
+  const countprofilHybride = storeAbonnement.profilHybride.length
   if (select_mode_payment_tab.value === 'year') {
      
     return {
-      price: Help.calculateAbonnementPrice(props.item.prix,storeAbonnement.profilHybride),
+      price: Help.calculateAbonnementPrice(props.item.prix,countprofilHybride),
       isFormule: formule === 'year' || !formule,
       description: props.item.description,
       suffix: 'an',
@@ -46,7 +47,7 @@ const currentConfig = computed(() => {
   }
 
   return {
-    price: Help.calculateAbonnementPrice(props.item.price_month,storeAbonnement.profilHybride),
+    price: Help.calculateAbonnementPrice(props.item.price_month,countprofilHybride),
     isFormule: formule === 'month',
     description: props.item.description_month,
     suffix: 'mois',
