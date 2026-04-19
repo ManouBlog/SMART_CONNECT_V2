@@ -111,8 +111,8 @@ onMounted(async () => {
   <div class="wrapped myconteneur">
     <h1 class="text-center main-color">{{text0}}</h1>
       <div v-if="props.ProfilAbonnement">
-        {{ profileAbonnement }}
-        {{ store.state.user?.user?.statuses }}
+        <!-- {{ profileAbonnement }}
+        {{ store.state.user?.user?.statuses }} -->
     <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
