@@ -10,6 +10,9 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 
 export default {
   name: "FieldsVeteran",
+  props:{
+profilOfAbonnement:Object
+  },
   components: { 
   Abonnements
   },
@@ -257,14 +260,18 @@ StatutVeterans:[
     overflow-y: auto; 
     max-height: 80vh;"
        :closable="false"
-       @close="resetData"
   v-model:show="showModalAbonnements">
          <template #header>
         <div class="modal-header">
           <h3>Abonnement</h3>
         </div>
       </template>
-       <Abonnements />
+      <div style="background-color: white;">
+<Abonnements 
+       :ProfilAbonnement="this.profilOfAbonnement.statut"
+       />
+      </div>
+      
       </n-modal>
     <form action="" @submit.prevent="onHandleProfil">
     <div class="row g-4">

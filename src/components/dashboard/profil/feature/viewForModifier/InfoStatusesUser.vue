@@ -92,8 +92,8 @@ this.allStatuses=[];
 
   const transitions = {
     Etudiant: ['Professionnel', 'Artisan'],
-    Professionnel: ['Artisan', 'Veteran'],
-    Artisan: ['Professionnel','Veteran'],
+    Professionnel: ['Artisan', 'Vétéran'],
+    Artisan: ['Professionnel','Vétéran'],
     Particulier: ['Entreprise']
   };
 
@@ -238,7 +238,7 @@ this.allStatuses=[];
   <div v-if="optionsAnswer || (selectedParseStatus && selectedParseStatus.statut === 'Artisan')">
   <FieldsVeteran 
   :profilOfAbonnement="selectedParseStatus"
-   v-if="selectedParseStatus.statut === 'Veteran'"/>
+   v-if="selectedParseStatus.statut === 'Vétéran'"/>
   <FieldsArtisan 
   :profilOfAbonnement="selectedParseStatus"
   v-if="selectedParseStatus.statut === 'Artisan'" />

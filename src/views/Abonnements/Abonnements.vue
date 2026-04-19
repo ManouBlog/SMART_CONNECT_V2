@@ -211,7 +211,7 @@ onMounted(async () => {
   <!-- Vétéran -->
   <n-tab-pane
     v-if="
-      profileAbonnement === 'veteran'
+      profileAbonnement === 'Veteran' ||  profileAbonnement === 'Vétéran'
     "
     :name="'Vétéran'"
     :tab="'Vétéran'"
