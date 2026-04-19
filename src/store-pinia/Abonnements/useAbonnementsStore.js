@@ -21,6 +21,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const upload = ref(null);
         const treatment_preferentiel = ref(null);
         const diplome = ref(null);
+        const profilHybride = ref([]);
 
    const handleChangeProfil = (payload)=>{
     isChangeProfil.value = payload
@@ -35,6 +36,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
          statut_talent.value = payload.statut_talent;
          treatment_preferentiel.value = payload.treatment_preferentiel,
          diplome.value = payload.diplome
+         profilHybride.value = payload.profilHybride
    }
    const handleMyStatutOfBase = (payload)=>{
     statutOfBase.value = payload;
@@ -58,6 +60,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
          statut_talent,
          diplome,
          treatment_preferentiel,
+         profilHybride,
       handleMyStatutOfBase,
       statutOfBase,
       handleChangeProfil,

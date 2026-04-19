@@ -3,16 +3,17 @@
 // import VueMultiselect from "vue-multiselect";
 import Abonnements from '../../../../../views/Abonnements/Abonnements.vue';
 import { configUtils } from "../../../../../Shared/Utils";
-
+import Swal from 'sweetalert2';
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
-
+import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
 // import Tesseract from 'tesseract.js'
 
 export default {
   name: "FieldsProfessionnel",
   props:{
   profilHybride:Array,
-  profilOfAbonnement:String
+  optionsAnswer:String,
+  profilOfAbonnement:Object
   },
   components: { 
   Abonnements
@@ -24,6 +25,7 @@ export default {
  rawText : '',
  result : null,
  showModalAbonnements:false,
+ 
  allAnwserProfilHybride: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
@@ -131,7 +133,8 @@ valueModeDeTravail: [
         CVupload:null,
         modeTravail:"",
         diplome:"",
-        tempsTravail:""
+        tempsTravail:"",
+        profilHybride:[]
       },
     };
   },
@@ -143,14 +146,30 @@ valueModeDeTravail: [
         this.formState.statut_talent &&                // Select sélectionné
         this.formState.upload?.length > 0 && 
         this.formState.modeTravail && 
-        this.formState.tempsTravail           // Fichier uploadé
+        this.formState.tempsTravail &&
+        this.formState.diplome
       );
-    }
+    },
+isProfilHybrideADD(){
+  if(this.optionsAnswer === 'oui'){
+   return this.profilHybride.length > 0
+  }
+  return true;
+}
     
   },
- 
+  //  watch: {
+  //   isHybridValid(newVal) {
+  //     console.log('Condition:', newVal);
+  //   }
+  // },
   methods: {
-
+    resetData(){
+      this.formState.profilHybride = [];
+      const STORE_ABONNEMENT = useAbonnementsStore();
+      console.log("this.formState.profilHybride",this.formState.profilHybride)
+      STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
+    },
     onUploadChangeCV(e) {
     console.log('onUploadChange', e.target.files);
     this.formState.CVupload = Array.from(e.target.files);
@@ -266,12 +285,22 @@ valueModeDeTravail: [
 //   })
 // },
     onHandleProfil() {
-      
-      // if(this.formState.diplome){
-      //   this.formState.niveauEtude = this.formState.diplome+ " " + this.formState.niveauEtude
-      // }
-      console.log("this.formState",this.formState);
-      this.showModalAbonnements = !this.showModalAbonnements
+       if(!this.isProfilHybrideADD){
+        Swal.fire({
+    icon: 'info',
+    text: 'Ajoutez un profil'
+  });
+       }else{
+        if(this.profilHybride.length){
+      this.formState.profilHybride = this.profilHybride.map(item=>item.id);
+        }
+       console.log("this.formState professionnel",this.formState);
+        const STORE_ABONNEMENT = useAbonnementsStore();
+      STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
+     this.showModalAbonnements = true
+       }
+     
+     
     },
   },
 };
@@ -282,6 +311,7 @@ valueModeDeTravail: [
   height: 600px;
     overflow-y: auto; 
     max-height: 80vh;"
+     @after-leave="resetData"
        :closable="false"
   v-model:show="showModalAbonnements">
          <template #header>

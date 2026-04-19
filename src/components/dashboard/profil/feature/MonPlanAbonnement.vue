@@ -49,7 +49,7 @@ export default {
 
 </script>
 <template>
-  {{ planAbonnement }}
+  <!-- {{ planAbonnement }} -->
   <div class="conteneur_tableau_de_bord d-flex justify-content-center" v-if="planAbonnement">
     <!-- {{ JSON.stringify(planAbonnement,null,2) }} -->
     <a-card :title="planAbonnement?.abonement?.libelle" :bordered="false" style="width: 400px">
@@ -63,8 +63,8 @@ export default {
         <span style="font-size: 2em">{{periodePayment[planAbonnement.mode_payment]}}</span>
       </div>
       <div>
-        <p style="color:gray">Fin de l'abonnement:</p>
-        <span>{{planAbonnement.echeance}}</span>
+        <p> <span style="color:gray">Fin de l'abonnement:</span><span>{{planAbonnement.echeance}}</span></p>
+       
       </div>
     </a-card>
   </div>

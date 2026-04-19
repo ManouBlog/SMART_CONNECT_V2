@@ -31,6 +31,17 @@ allStatuses:[]
     }
   },
  watch: {
+  optionsAnswer: {
+      handler(newValue) {
+        if (newValue === 'non') {
+          // const STORE_ABONNEMENT = useAbonnementsStore();
+          this.profilHybride = [];
+          // STORE_ABONNEMENT.handleChangeInfoForAbonnement();
+          return;
+        }
+      },
+      immediate: true
+    },
     selectedStatus: {
       handler(newValue) {
         console.log("newValue",newValue.statut)
@@ -246,6 +257,7 @@ this.selectedParseStatus = ""
   v-if="selectedParseStatus.statut === 'Artisan'" />
   <FieldsProfessionnel 
   :profilHybride="profilHybride"
+  :optionsAnswer="optionsAnswer"
   :profilOfAbonnement="selectedParseStatus"
   v-if="selectedParseStatus.statut === 'Professionnel'" />
   <FieldsCompany 

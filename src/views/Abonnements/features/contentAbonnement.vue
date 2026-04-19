@@ -33,10 +33,11 @@ const tabs = [
 
 const currentConfig = computed(() => {
   const formule = storeAbonnementUser?.planAbonnement?.mode_payment;
+  console.log('storeAbonnement.profilHybride',storeAbonnement.profilHybride)
   if (select_mode_payment_tab.value === 'year') {
      
     return {
-      price: props.item.prix,
+      price: Help.calculateAbonnementPrice(props.item.prix,storeAbonnement.profilHybride),
       isFormule: formule === 'year' || !formule,
       description: props.item.description,
       suffix: 'an',
@@ -45,7 +46,7 @@ const currentConfig = computed(() => {
   }
 
   return {
-    price: props.item.price_month,
+    price: Help.calculateAbonnementPrice(props.item.price_month,storeAbonnement.profilHybride),
     isFormule: formule === 'month',
     description: props.item.description_month,
     suffix: 'mois',
@@ -81,9 +82,10 @@ const handleCreateMonth =(payload)=>{
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload ,
         statut_talent : storeAbonnement.statut_talent ,
+        profilHybride:storeAbonnement.profilHybride
         }
   console.log("handleConfirmationPayement",data)
-// storeAbonnement.createAbonement(data)
+storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateYear",payload)
@@ -104,9 +106,10 @@ const handleCreateYear =(payload)=>{
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload ,
         statut_talent : storeAbonnement.statut_talent ,
+        profilHybride:storeAbonnement.profilHybride
         }
   console.log("handleConfirmationPayement",data)
-  // storeAbonnement.createAbonement(data)
+  storeAbonnement.createAbonement(data)
 }
 
 
