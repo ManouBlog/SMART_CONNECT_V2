@@ -10,12 +10,9 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 
 export default {
   name: "FieldsCompany",
-  props: {
-  optionsAnswer: {
-    type: String,
-    required: true
-  }
-},
+  props:{
+  profilOfAbonnement:Object
+  },
   components: { 
   Abonnements
   },
@@ -142,27 +139,74 @@ StatutVeterans:[
   { value: "Vétéran", label: "Vétéran" }
 ],
       formState: {
-        statut_talent:"",
+       statut_entreprise: "Formelle",
+        nom: "",
+        prenoms: "",
+        phone: "",
+        ville: "",
+        ncc: "",
+        email:"",
+        commune: "",
+        quartier: "",
+        diplome: "",
+        carte_student: "",
+        myCompetence: [],
+        Logo: [],
+        password: "",
+        myRegister: "",
+        myLogo: "",
         upload: [],
-        niveauExpertise:"",
+        photo: null,
+        Phonegerant: null,
+        countryCode: "+225",
+        countryCodePhoneGerant: "+225",
         email_cc:[""],
-       
+        statut_id:1,
       },
     };
   },
 
   computed: {
- isFormComplete() {
-      return (
-        this.formState.niveauExpertise?.trim() &&     
-        this.formState.statut_talent &&                
-        this.formState.upload?.length > 0              
-      );
-    }
+ isFormValid() {
+    const f = this.formState
+
+    return (
+      f.nom?.trim() &&
+      f.matricule_cc?.trim() &&
+      f.juridique?.trim() &&
+      f.ncc?.trim() &&
+      f.contact?.trim() &&
+      f.ville?.trim() &&
+      f.commune?.trim() &&
+      f.email?.trim() &&
+      f.gerant?.trim() &&
+      f.Phonegerant?.toString().trim() &&
+      f.countryCode &&
+      f.countryCodePhoneGerant &&
+
+      // fichier registre (PDF)
+      f.myRegister
+    )
+  }
     
   },
  
   methods: {
+    handleChangeCardStudent(e, type) {
+    const files = e.target.files
+
+    if (type === 'registre') {
+      this.formState.myRegister = files
+    }
+
+    // if (type === 'cni') {
+    //   this.formState.CNI = files
+    // }
+
+    if (type === 'logo') {
+      this.formState.myLogo = files
+    }
+  },
     onUploadChange(e) {
     console.log('onUploadChange', e.target.files);
     this.formState.upload = Array.from(e.target.files);
@@ -281,18 +325,19 @@ StatutVeterans:[
     overflow-y: auto; 
     max-height: 80vh;"
        :closable="false"
-       @close="resetData"
   v-model:show="showModalAbonnements">
          <template #header>
         <div class="modal-header">
           <h3>Abonnement</h3>
         </div>
       </template>
-      <div style="background-color: white;">
-       <Abonnements />
+     <div style="background-color: white;">
+      <Abonnements 
+      :ProfilAbonnement="this.profilOfAbonnement.statut"
+      />
       </div>
       </n-modal>
-    <form @submit.prevent="onFinish" autocomplete="off">
+    <form @submit.prevent="onHandleProfil">
 
   <!-- Raison sociale + RCCM -->
   <div class="row">
@@ -304,7 +349,7 @@ StatutVeterans:[
         style="height: 45px;"
         v-model="formState.nom"
         placeholder="Entrez la raison sociale"
-        required
+        
       />
     </div>
 
@@ -316,15 +361,15 @@ StatutVeterans:[
         style="height: 45px;"
         v-model="formState.matricule_cc"
         placeholder="Entrez le numéro RCCM"
-        required
+        
       />
       <label class="my-3">Charger le registre de commerce (PDF)</label>
       <input
         type="file"
-        @change="handleChangeCardStudent"
+        @change="e => handleChangeCardStudent(e, 'registre')"
         name="Registre"
         accept=".pdf"
-        required
+        
       />
     </div>
   </div>
@@ -339,7 +384,7 @@ StatutVeterans:[
         style="height: 45px;"
         v-model="formState.juridique"
         placeholder="Ex : SARL, SA, SAS..."
-        required
+        
       />
     </div>
 
@@ -351,7 +396,7 @@ StatutVeterans:[
         style="height: 45px;"
         v-model="formState.ncc"
         placeholder="Entrez le NCC"
-        required
+        
       />
     </div>
     
@@ -383,7 +428,7 @@ StatutVeterans:[
           style="height: 45px;"
           v-model="formState.contact"
           placeholder="Numéro de téléphone"
-          required
+          
         />
       </div>
     </div>
@@ -396,7 +441,7 @@ StatutVeterans:[
         style="height: 45px;"
         v-model="formState.ville"
         placeholder="Entrez la ville"
-        required
+        
       />
     </div>
   </div>
@@ -411,7 +456,7 @@ StatutVeterans:[
         style="height: 45px;"
         v-model="formState.commune"
         placeholder="Entrez la commune"
-        required
+        
       />
     </div>
 
@@ -423,7 +468,7 @@ StatutVeterans:[
         style="height: 45px;"
         v-model="formState.quartier"
         placeholder="Entrez le quartier"
-        required
+        
       />
     </div>
   </div>
@@ -438,7 +483,7 @@ StatutVeterans:[
         style="height: 45px;"
         v-model="formState.email"
         placeholder="exemple@email.com"
-        required
+        
       />
     </div>
 
@@ -465,7 +510,7 @@ StatutVeterans:[
         style="height: 45px;"
         v-model="formState.gerant"
         placeholder="Nom complet du gérant"
-        required
+        
       />
     </div>
 
@@ -492,7 +537,7 @@ StatutVeterans:[
           style="height: 45px;"
           v-model="formState.Phonegerant"
           placeholder="Numéro du gérant"
-          required
+          
         />
       </div>
     </div>
@@ -500,23 +545,23 @@ StatutVeterans:[
 
   <!-- Uploads -->
   <div class="row">
-    <div class="col-md-6 my-3">
+    <!-- <div class="col-md-6 my-3">
       <label>Pièce d’identité (CNI)</label>
       <input
         type="file"
         multiple
-        @change="handleChangeCardStudent"
-        required
+       @change="e => handleChangeCardStudent(e, 'cni')"
+        
       />
-    </div>
+    </div> -->
 
     <div class="col-md-6 my-3">
       <label>Logo de l’entreprise (JPG, PNG, WEBP)</label>
       <input
         type="file"
         accept=".jpg,.jpeg,.png,.webp"
-        @change="handleChangeCardStudent"
-        required
+        @change="e => handleChangeCardStudent(e, 'logo')"
+        
       />
     </div>
   </div>
@@ -526,7 +571,7 @@ StatutVeterans:[
       <a-button
         type="primary"
         html-type="submit"
-        
+        :disabled="!isFormValid"
       >
         Enregistrer
       </a-button>

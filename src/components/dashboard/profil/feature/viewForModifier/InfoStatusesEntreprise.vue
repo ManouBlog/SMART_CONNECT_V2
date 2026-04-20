@@ -176,12 +176,12 @@ this.selectedParseStatus = ""
       </option>
            </select>
         </div>
-        <!-- {{ selectedParseStatus }} -->
+        {{ selectedParseStatus }}
   
   <div v-if="selectedStatus">
   <FieldsCompany 
   v-if="selectedParseStatus.statut === 'Entreprise'"
-  :optionsAnswer="optionsAnswer"
+  :profilOfAbonnement="selectedParseStatus"
   />
   </div>
 
