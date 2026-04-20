@@ -90,10 +90,10 @@ onMounted(async () => {
 
   activeTab.value = props.ProfilAbonnement
     ? props.ProfilAbonnement
-    : 'Etudiant'
+    : store.state.user ? store.state.user?.user?.statut.statut:'Etudiant'
 
     console.log("activeTab.value", activeTab.value)
-
+   console.log('USERInfo',store.state.user?.user?.statut.statut)
   if (reference.value) {
     await doVerificationAbonnement(reference.value)
   }
@@ -113,6 +113,7 @@ onMounted(async () => {
       <div v-if="props.ProfilAbonnement">
         <!-- {{ profileAbonnement }}
         {{ store.state.user?.user?.statuses }} -->
+      
     <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
