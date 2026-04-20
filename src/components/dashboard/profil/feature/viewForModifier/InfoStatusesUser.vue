@@ -182,7 +182,7 @@ this.selectedParseStatus = ""
       </option>
            </select>
         </div>
-        {{ selectedParseStatus }}
+        <!-- {{ selectedParseStatus }} -->
   <transition name="fade-slide">
  <div v-if="selectedParseStatus && selectedParseStatus.statut !== 'Artisan'">
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
