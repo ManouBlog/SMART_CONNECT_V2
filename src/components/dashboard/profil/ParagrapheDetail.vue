@@ -1,15 +1,19 @@
 <!-- Composant: ProfileField.vue -->
 <template>
-    
-    <div v-if="item.value || item.valueArray">
+<div v-if="item.value || item.valueArray">
  <p 
     style="color: orange; font-weight: bold"
         v-if="libelle !== null"
       >
         {{ item.libelle }} :
       </p>
-
-      <h6 class="fw-bold" v-if="!item.valueArray">
+      
+        <div v-if="typeof item.value == 'object' && item.emailCC">
+          <span v-for="(element,index) in item.value" :key="index">
+           <span class="badge bg-warning">{{ element }}</span>
+          </span>
+        </div>
+      <h6 class="fw-bold" v-if="!item.valueArray && typeof item.value != 'object'">
         <span v-if="typeof item.value == 'string'">{{ item.value }}</span>
         <span v-else>
             <span v-for="el in item.value"
@@ -21,6 +25,7 @@
             </span>
         
       </h6>
+      
       <div
       v-else
         style="display: flex; justify-content: flex-start; gap: 1em"
@@ -29,7 +34,7 @@
                 <div>
                   <div v-if="Help.splitFilename(element?.path) === 'pdf'">
                     <n-button type="warning" @click="showModal = true">
-                      Voir la carte étudiant.
+                      Voir Plus.
                     </n-button>
                     <n-modal
                       v-model:show="showModal"
@@ -67,15 +72,16 @@ export default {
   props: {
     item: {
       type: Object,
-      required: false,
-      default: () => ({})
+      required: true,
+       default: () => ({ libelle: '', value: '' })
     }
   },
   data() {
     return {
       textes: {},
       lienPhoto:lienPhoto,
-      Help:Help
+      Help:Help,
+      showModal:false
     }
   },
 

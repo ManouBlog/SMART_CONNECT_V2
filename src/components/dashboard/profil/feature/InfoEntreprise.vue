@@ -6,18 +6,24 @@ import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInf
 import { mapActions } from "pinia";
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
+import ParagrapheDetail from "../ParagrapheDetail.vue";
 export default {
   name: "InfoEntreprise",
   components: {
     Buttons,
+    ParagrapheDetail
   },
   props: {
-    infoPersonellesEntreprise: {
-      type: Array,
+    infoPersonnelles:{
+      type: Object,
+      required: false,
     },
-    infoPersonellesGerant: {
-      type: Array,
-    },
+    // infoPersonellesEntreprise: {
+    //   type: Array,
+    // },
+    // infoPersonellesGerant: {
+    //   type: Array,
+    // },
   },
   data() {
     return {
@@ -186,15 +192,6 @@ export default {
     >
       <h1 class="fw-bold" style="color: orange">{{ texte0 }}</h1>
       <div style="display: flex; align-items: center;">
-        <!-- <div style="display:flex; flex-wrap:wrap; gap:8px;">
-         <span
-          v-for="(status, index) in user.user?.statuses || []"
-          :key="index"
-          class="badge bg-warning"
-          >
-            {{ status.statut }}
-         </span>
-        </div> -->
         <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
           >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
         >
@@ -208,128 +205,59 @@ export default {
       </div>
 
       <section class="my-5">
+        {{ this.infoPersonnelles }}
         <div class="row">
           <div
-            v-for="(item, index) in infoPersonellesEntreprise"
-            :key="index"
             class="col-lg-4 col-sm-6"
           >
-            <p style="color: orange" 
-            v-if="item.value !== null">{{ item.libelle }} :</p>
-            <h6
-              v-if="
-                item.value !== null &&
-                item.value !== 'null' &&
-                item.value !== 'undefined' &&
-                item.libelle !== 'Registre' &&
-                item.libelle !== 'Logo entreprise' &&
-                item.libelle !== 'Pièce d\'identité' &&
-                item.libelle !== 'Emails en copie'  &&
-                item.libelle !== 'Pièce du gérant'
-              "
-              class="fw-bold"
-            >
-              {{ item.value }}
-            </h6>
-            <div style="display: flex; justify-content: flex-start">
-              <n-image
-                :alt="item.value"
-                v-if="item.libelle === 'Logo entreprise :'"
-                width="100"
-                :src="lienPhoto + item.value"
-              />
-            </div>
-            <div
-              v-if="item.libelle === 'Pièce d\'identité :'"
-              style="display: flex; justify-content: flex-start"
-            >
-              <n-image
-                v-for="(piece, index) in item.value"
-                :key="index"
-                :alt="piece.path"
-                width="100"
-                :src="lienPhoto + piece.path"
-              />
-            </div>
-            
-            <div v-if="item.libelle === 'Emails en copie :' && item.value"
-            >
-            <ul v-if="item.value[0].email_cc">
-              <li class="my-3" v-for="(email_cc,index) in item.value" :key="index">- {{email_cc.email_cc}}</li>
-            </ul>
-            <p v-else>-</p>
-            </div>
+         <ParagrapheDetail :item="{libelle:'Nom', value: this.infoPersonnelles?.nom}" />
+          <ParagrapheDetail :item="{libelle:'Prénoms', value: this.infoPersonnelles?.prenoms}" />
+          <ParagrapheDetail :item="{libelle:'Email', value: this.infoPersonnelles?.prenoms}" />
+          <ParagrapheDetail :item="{libelle:'Ville', value: this.infoPersonnelles?.ville}" />
+          <ParagrapheDetail :item="{libelle:'Commune', value: this.infoPersonnelles?.commune}" />
+          <ParagrapheDetail :item="{libelle:'Quartier', value: this.infoPersonnelles?.quartier}" />
+          <ParagrapheDetail :item="{libelle:'Contact téléphonique', value: this.infoPersonnelles?.phone}" />
+         <ParagrapheDetail v-if="this.infoPersonnelles.user.statut.statut === 'Particulier'" :item="{libelle:'Pièces chargées',value:null,
+          valueArray:this.infoPersonnelles?.user?.photos}" />
 
-            <div
-              v-if="item.libelle === 'Registre :' && item.value"
-              style="display: flex; justify-content: flex-start"
-            >
-              <div>
-                <n-button type="warning" @click="showModal = true">
-                  Voir le registre
-                </n-button>
 
-                <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px">
-                  <n-card title="Document PDF" closable @close="showModal = false">
-                    <iframe
-                      :src="lienPDF + item.value"
-                      style="width: 100%; height: 600px; border: none"
-                    ></iframe>
-                  </n-card>
-                </n-modal>
-              </div>
-            </div>
-          </div>
+
+          <ParagrapheDetail :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
+          value:this.infoPersonnelles?.matricule_cc}" />
+
+          <ParagrapheDetail :item="{libelle:'Registre',
+          value:null,valueArray:[{path:this.infoPersonnelles.registre}]}" />
+
+          <ParagrapheDetail :item="{libelle:'NCC (Numéro de compte contribuable)',
+          value:this.infoPersonnelles?.NCC}" />
+
+          <ParagrapheDetail :item="{libelle:'Logo',
+          value:null,valueArray:[{path:this.infoPersonnelles?.logo}]}" />
+
+          <ParagrapheDetail :item="{libelle:'Forme Juridique',
+          value:this.infoPersonnelles?.forme_juridique}" />
+
+
+          <ParagrapheDetail :item="{libelle:'Emails en copies',
+          value:[emmanue],emailCC:true}" />
+
+
+ 
+        
+        </div>
         </div>
       </section>
-      <h1 class="fw-bold" style="color: orange" v-if="infoPersonellesGerant.length">
+      <h1 class="fw-bold" style="color: orange" v-if="this.infoPersonnelles?.gerant">
         {{ texte1 }}
       </h1>
       <section>
-        <div class="row" v-if="infoPersonellesGerant.length">
-          <div
-            v-for="(item, index) in infoPersonellesGerant"
-            :key="index"
-            class="col-lg-4 col-sm-6"
-          >
-            <p style="color: orange">{{ item.libelle }}</p>
-            <h6 class="fw-bold" 
-            
-            
-            v-if="item.libelle !== 'Pièce d\'identité :' && 
-            item.libelle !== 'Pièce du gérant'">
-              {{ item.value }}
-            </h6>
-            <div
-              v-if="item.libelle === 'Pièce d\'identité :'"
-              style="display: flex; justify-content: flex-start; gap: 1em"
-            >
-              <n-image
-                v-for="(photo, index) in item.value"
-                :key="index"
-                :alt="photo.path"
-                width="120"
-                height="100"
-                :src="lienPhoto + photo.path"
-              />
-              <span v-if="!item.value.length"
-                >Veuillez ajouter une pièce d'identité.</span
-              >
-            </div>
-             <div
-              v-if="item.libelle === 'Pièce du gérant'"
-              style="display: flex; justify-content: flex-start"
-            >
-              <n-image
-                v-for="(piece, index) in item.value"
-                :key="index"
-                :alt="piece.path"
-                width="100"
-                :src="lienPhoto + piece.path"
-              />
-            </div>
-          </div>
-        </div>
+       <ParagrapheDetail :item="{libelle:'Nom du gérant',
+          value:this.infoPersonnelles?.gerant}" />
+          <ParagrapheDetail :item="{libelle:'Numéro du gérant',
+          value:this.infoPersonnelles?.numero_gerant}" />
+          <ParagrapheDetail :item="{libelle:'Pièces chargées',value:null,
+          valueArray:this.infoPersonnelles?.user?.photos}" />
+          
       </section>
       <section style="display: flex; justify-content: center; padding: 1.5em">
         <Buttons

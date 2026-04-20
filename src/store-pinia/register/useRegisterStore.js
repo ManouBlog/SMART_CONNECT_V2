@@ -245,7 +245,7 @@ if (payload?.Phonegerant && payload?.countryCodePhoneGerant) {
 }
 if (payload?.matricule_cc) data.append("matricule_cc", payload.matricule_cc);
 if (payload?.password) data.append("password", payload.password);
-if (payload?.statut_id !== undefined) data.append("statut_id", payload.statut_id);
+if (payload?.statut_id !== undefined) data.append("statut_base", payload.statut_id);
 if (payload?.ncc) data.append("NCC", payload.ncc);
 
 // Logo (fichier unique)

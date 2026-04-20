@@ -115,7 +115,7 @@ export default {
       ) {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          // // console.log("this.formState",this.formState)
+          console.log("this.formState",this.formState)
           // alert(JSON.stringify(this.formState,null,2))
           this.changeValueIsPolitics({
             value: true,

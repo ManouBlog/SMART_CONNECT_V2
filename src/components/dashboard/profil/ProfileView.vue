@@ -363,130 +363,15 @@ userDocuments() {
       <TabView v-if="this.$store.state.infoUserConnected">
         <TabPanel :header="texte1">
           <div>
-            <InfoEntreprise
-              v-if="
-                this.$store.state.infoUserConnected && 
-                this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'Entreprise' || status.statut === 'Particulier')
-              "
-              :infoPersonellesEntreprise="
-              this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'Entreprise') ? [
-                      {
-                        libelle: 'Raison sociale',
-                        value:  this.$store.state.infoUserConnected.is_company_verified === 'Formel' ? this.$store.state.infoUserConnected?.nom:this.$store.state.infoUserConnected?.nom_particulier,
-                      },
-                      {
-                        libelle: 'Contact mail',
-                        value: this.$store.state.infoUserConnected?.email,
-                      },
-                      {
-                        libelle: 'RCCM (Registre du Commerce et du Crédit Mobilier)',
-                        value: this.$store.state.infoUserConnected?.matricule_cc
-                          ? this.$store.state.infoUserConnected?.matricule_cc
-                          : null,
-                      },
-                      {
-                        libelle: 'NCC (Numéro de compte contribuable)',
-                        value: this.$store.state.infoUserConnected?.NCC
-                          ? this.$store.state.infoUserConnected?.NCC
-                          : null,
-                      },
-                      {
-                        libelle: texte5,
-                        value: this.$store.state.infoUserConnected?.contact,
-                      },
-                      {
-                        libelle: texte6,
-                        value: this.$store.state.infoUserConnected?.ville,
-                      },
-                      {
-                        libelle: texte7,
-                        value: this.$store.state.infoUserConnected?.commune,
-                      },
-                      {
-                        libelle: texte8,
-                        value: this.$store.state.infoUserConnected?.quartier,
-                      },
-                      {
-                        libelle: texte88,
-                        value: this.$store.state.infoUserConnected?.logo,
-                      },
-                      {
-                        libelle: texte9,
-                        value: this.$store.state.infoUserConnected?.registre
-                          ? this.$store.state.infoUserConnected?.registre
-                          : null,
-                      },
-                      {
-                        libelle: texte10,
-                        value: this.$store.state.infoUserConnected?.forme_juridique
-                          ? this.$store.state.infoUserConnected?.forme_juridique
-                          : null,
-                      },
-                      {
-                        libelle: 'Emails en copie',
-                        value: this.$store.state.infoUserConnected?.emails.length
-                          ? this.$store.state.infoUserConnected?.emails
-                          : null,
-                      },
-                    ]
-                  : [
-                      {
-                        libelle: 'Nom',
-                        value: this.$store.state.infoUserConnected?.nom,
-                      },
-                      {
-                        libelle: 'Prénoms',
-                        value: this.$store.state.infoUserConnected?.particulier_prenoms,
-                      },
-                      {
-                        libelle: 'Email',
-                        value: this.$store.state.infoUserConnected?.email,
-                      },
-                      {
-                        libelle: texte5,
-                        value: this.$store.state.infoUserConnected?.contact,
-                      },
-                      {
-                        libelle: texte6,
-                        value: this.$store.state.infoUserConnected?.ville,
-                      },
-                      {
-                        libelle: texte7,
-                        value: this.$store.state.infoUserConnected?.commune,
-                      },
-                      {
-                        libelle: texte8,
-                        value: this.$store.state.infoUserConnected?.quartier,
-                      },
-                      {
-                        libelle: texte12,
-                        value: this.$store.state.infoUserConnected?.user?.photos,
-                      },
-                    ]
-              "
-              :infoPersonellesGerant="
-               this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'Entreprise')
-                  ? [
-                      {
-                        libelle: texte11,
-                        value: this.$store.state.infoUserConnected?.gerant && this.$store.state.infoUserConnected?.user?.is_company_verified === 'Formel'
-                          ? this.$store.state.infoUserConnected?.gerant
-                          : this.$store.state.infoUserConnected?.nom+' '+this.$store.state.infoUserConnected?.particulier_prenoms,
-                      },
-                      {
-                        libelle: 'Contact téléphonique du gérant',
-                        value: this.$store.state.infoUserConnected?.numero_gerant && this.$store.state.infoUserConnected?.user?.is_company_verified === 'Formel'
-                          ? this.$store.state.infoUserConnected?.numero_gerant
-                          :  this.$store.state.infoUserConnected?.contact,
-                      },
-                      {
-                        libelle: 'Pièce du gérant',
-                        value: this.$store.state.infoUserConnected?.user?.photos,
-                      },
-                    ]
-                  : []
-              "
+            <InfoEntreprise 
+            :infoPersonnelles="this.$store.state.infoUserConnected"
+               v-if="
+  this.$store.state.infoUserConnected?.user?.statuses?.some(
+    s => ['Entreprise', 'Particulier'].includes(s.statut)
+  )
+"
             />
+           
             <InfoStudents
               :infoPersonnelles="this.$store.state.infoUserConnected"
          v-if="
@@ -540,7 +425,7 @@ userDocuments() {
         <TabPanel :header="'Profils'" 
         v-if="
      this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan' , 'Particulier','Vétéran'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan' , 'Particulier','Vétéran','Entreprise'].includes(s.statut)
      )
     ">
          <InfoStatusesUser
