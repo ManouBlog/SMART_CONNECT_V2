@@ -113,9 +113,12 @@ this.selectedParseStatus = ""
     this.allStatuses = response.data.data.filter(item =>
       allowed.includes(item.statut)
     );
-
+//    this.handleStatutProfil(JSON.stringify(this.allStatuses[0]))
+   this.selectedParseStatus = this.allStatuses[0]
+       this.addIdOfProfilBase(this.selectedParseStatus.id)
     console.log("allStatuses2", {
       statut: this.allStatuses,
+      selectedParseStatus:this.selectedParseStatus,
       profil: this.$store.state.infoUserConnected.user.statut
     });
 
@@ -126,6 +129,7 @@ this.selectedParseStatus = ""
   },
   async created() {
     await this.lister_statut();
+    
   },
 }
 </script>
@@ -149,7 +153,7 @@ this.selectedParseStatus = ""
       <section v-if="allStatuses.length"
   
 >
-        <div class="w-100 mb-4">
+        <!-- <div class="w-100 mb-4">
             <label for="statusSelect">Séléctionnez un profil</label>
             <select 
       name="status" 
@@ -161,12 +165,9 @@ this.selectedParseStatus = ""
       @change="handleStatutProfil"
       required
     >
-      <!-- Option placeholder -->
       <option value="" disabled selected>
         {{ allStatuses.length ? 'Sélectionnez un profil...' : 'Aucun profil disponible' }}
       </option>
-      
-      <!-- Options dynamiques -->
       <option 
         v-for="value in allStatuses" 
         :key="value.id" 
@@ -175,12 +176,11 @@ this.selectedParseStatus = ""
         {{ value.statut }}
       </option>
            </select>
-        </div>
-        {{ selectedParseStatus }}
+        </div> -->
+        <!-- {{ selectedParseStatus }} -->
   
-  <div v-if="selectedStatus">
+  <div>
   <FieldsCompany 
-  v-if="selectedParseStatus.statut === 'Entreprise'"
   :profilOfAbonnement="selectedParseStatus"
   />
   </div>

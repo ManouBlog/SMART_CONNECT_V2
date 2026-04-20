@@ -338,11 +338,13 @@ StatutVeterans:[
       </div>
       </n-modal>
     <form @submit.prevent="onHandleProfil">
-
+   <p style="text-align: center; color: red;font-size: 0.9em;">
+        Les champs avec astérisque (*) sont obligatoires.
+      </p>
   <!-- Raison sociale + RCCM -->
   <div class="row">
     <div class="col-md-6 my-3">
-      <label>Raison sociale</label>
+      <label><span style="color: red;margin:0 0.1em">*</span>Raison sociale</label>
       <input
         type="text"
         class="form-control"
@@ -354,7 +356,7 @@ StatutVeterans:[
     </div>
 
     <div class="col-md-6 my-3">
-      <label>RCCM (Registre du Commerce et du Crédit Mobilier)</label>
+      <label> <span style="color: red;margin:0 0.1em">*</span>RCCM (Registre du Commerce et du Crédit Mobilier)</label>
       <input
         type="text"
         class="form-control"
@@ -363,7 +365,7 @@ StatutVeterans:[
         placeholder="Entrez le numéro RCCM"
         
       />
-      <label class="my-3">Charger le registre de commerce (PDF)</label>
+      <label class="my-3"> <span style="color: red;margin:0 0.1em">*</span> Charger le registre de commerce (PDF)</label>
       <input
         type="file"
         @change="e => handleChangeCardStudent(e, 'registre')"
@@ -377,7 +379,7 @@ StatutVeterans:[
   <!-- Forme juridique + NCC -->
   <div class="row">
     <div class="col-md-6 my-3">
-      <label>Forme juridique</label>
+      <label> <span style="color: red;margin:0 0.1em">*</span> Forme juridique</label>
       <input
         type="text"
         class="form-control"
@@ -389,7 +391,7 @@ StatutVeterans:[
     </div>
 
     <div class="col-md-6 my-3">
-      <label>NCC (Numéro de compte contribuable)</label>
+      <label> <span style="color: red;margin:0 0.1em">*</span> NCC (Numéro de compte contribuable)</label>
       <input
         type="text"
         class="form-control"
@@ -405,7 +407,7 @@ StatutVeterans:[
   <!-- Contact + Ville -->
   <div class="row">
     <div class="col-md-6 my-3">
-      <label>Contact téléphonique de l'entreprise</label>
+      <label> <span style="color: red;margin:0 0.1em">*</span>Contact téléphonique de l'entreprise</label>
 
       <div style="display:flex; gap:5px;">
         <select v-model="formState.countryCode"
@@ -421,7 +423,7 @@ StatutVeterans:[
             {{ code.label }}
           </option>
         </select>
-
+       
         <input
           type="tel"
           class="form-control"
@@ -434,7 +436,7 @@ StatutVeterans:[
     </div>
 
     <div class="col-md-6 my-3">
-      <label>Ville</label>
+      <label> <span style="color: red;margin:0 0.1em">*</span> Ville</label>
       <input
         type="text"
         class="form-control"
@@ -449,7 +451,7 @@ StatutVeterans:[
   <!-- Commune + Quartier -->
   <div class="row">
     <div class="col-md-6 my-3">
-      <label>Commune</label>
+      <label> <span style="color: red;margin:0 0.1em">*</span> Commune</label>
       <input
         type="text"
         class="form-control"
@@ -476,7 +478,7 @@ StatutVeterans:[
   <!-- Email + Email secondaires -->
   <div class="row">
     <div class="col-md-6 my-3">
-      <label>Contact mail de l'entreprise</label>
+      <label><span style="color: red;margin:0 0.1em">*</span> Contact mail de l'entreprise</label>
       <input
         type="email"
         class="form-control"
@@ -503,7 +505,7 @@ StatutVeterans:[
   <!-- Gérant + Téléphone -->
   <div class="row">
     <div class="col-md-6 my-3">
-      <label>Nom du gérant</label>
+      <label><span style="color: red;margin:0 0.1em">*</span>Nom du gérant</label>
       <input
         type="text"
         class="form-control"
@@ -515,7 +517,7 @@ StatutVeterans:[
     </div>
 
     <div class="col-md-6 my-3">
-      <label>Téléphone du gérant</label>
+      <label><span style="color: red;margin:0 0.1em">*</span>Contact Téléphonique du gérant</label>
 
       <div style="display:flex; gap:5px;">
         <select
