@@ -4,7 +4,8 @@ import instance, { lienPhoto } from "../../../api/api";
 import InfoEntreprise from "./feature/InfoEntreprise.vue";
 import InfoStudents from "./feature/InfoStudents.vue";
 // import InfoParticulier from "./feature/InfoParticulier.vue"
-import InfoStatusesUser from './feature/viewForModifier/InfoStatusesUser.vue'
+import InfoStatusesUser from './feature/viewForModifier/InfoStatusesUser.vue';
+import InfoStatusesEntreprise from "./feature/viewForModifier/InfoStatusesEntreprise.vue";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
 import ModalForModifyInfo from "./feature/ModalForModifyInfo.vue";
 import CompetencesAndExperience from "../etudiant-route/CompetencesAndExperience.vue";
@@ -27,7 +28,8 @@ export default {
     TabView,
     TabPanel,
     MonPlanAbonnement,
-    InfoStatusesUser
+    InfoStatusesUser,
+    InfoStatusesEntreprise
   },
   data() {
     return {
@@ -381,14 +383,22 @@ userDocuments() {
 "/>
           </div>
         </TabPanel>
-        <TabPanel :header="'Profils'" 
-        v-if="
-     this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan' , 'Particulier','Vétéran','Entreprise'].includes(s.statut)
-     )
-    ">
+        <TabPanel :header="'Profils'">
          <InfoStatusesUser
-         :profils="this.$store.state.infoUserConnected?.user?.statuses"
+         v-if="
+     this.$store.state.infoUserConnected?.user?.statuses?.some(
+    s => ['Etudiant', 'Professionnel', 'Artisan' , 'Particulier','Vétéran'].includes(s.statut)
+     )
+    "
+         :profils="this.$store.state.infoUserConnected"
+         />
+         <InfoStatusesEntreprise 
+         v-if="
+     this.$store.state.infoUserConnected?.user?.statuses?.some(
+    s => ['Entreprise'].includes(s.statut)
+     )
+    "
+         :profils="this.$store.state.infoUserConnected"
          />
         </TabPanel>
         <TabPanel

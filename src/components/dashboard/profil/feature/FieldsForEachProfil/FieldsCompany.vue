@@ -292,7 +292,7 @@ StatutVeterans:[
        <Abonnements />
       </div>
       </n-modal>
-    <form @submit.prevent="onFinish" autocomplete="off" v-if="optionsAnswer == 'non'">
+    <form @submit.prevent="onFinish" autocomplete="off">
 
   <!-- Raison sociale + RCCM -->
   <div class="row">
@@ -309,7 +309,7 @@ StatutVeterans:[
     </div>
 
     <div class="col-md-6 my-3">
-      <label>Numéro RCCM</label>
+      <label>RCCM (Registre du Commerce et du Crédit Mobilier)</label>
       <input
         type="text"
         class="form-control"
@@ -318,7 +318,7 @@ StatutVeterans:[
         placeholder="Entrez le numéro RCCM"
         required
       />
-      <label class="my-3">Registre de commerce (PDF)</label>
+      <label class="my-3">Charger le registre de commerce (PDF)</label>
       <input
         type="file"
         @change="handleChangeCardStudent"
@@ -344,7 +344,7 @@ StatutVeterans:[
     </div>
 
     <div class="col-md-6 my-3">
-      <label>Numéro de Compte Contribuable (NCC)</label>
+      <label>NCC (Numéro de compte contribuable)</label>
       <input
         type="text"
         class="form-control"
@@ -354,12 +354,13 @@ StatutVeterans:[
         required
       />
     </div>
+    
   </div>
 
   <!-- Contact + Ville -->
   <div class="row">
-    <!-- <div class="col-md-6 my-3">
-      <label>Numéro de téléphone principal</label>
+    <div class="col-md-6 my-3">
+      <label>Contact téléphonique de l'entreprise</label>
 
       <div style="display:flex; gap:5px;">
         <select v-model="formState.countryCode"
@@ -385,7 +386,7 @@ StatutVeterans:[
           required
         />
       </div>
-    </div> -->
+    </div>
 
     <div class="col-md-6 my-3">
       <label>Ville</label>
@@ -430,7 +431,7 @@ StatutVeterans:[
   <!-- Email + Email secondaires -->
   <div class="row">
     <div class="col-md-6 my-3">
-      <label>Adresse email principale</label>
+      <label>Contact mail de l'entreprise</label>
       <input
         type="email"
         class="form-control"
@@ -520,21 +521,6 @@ StatutVeterans:[
     </div>
   </div>
 
-  <!-- Password -->
-  <div class="row">
-    <div class="col-md-6 my-3">
-      <label>Mot de passe</label>
-      <input
-        type="password"
-        class="form-control"
-        style="height: 45px;"
-        v-model="formState.password"
-        placeholder="Entrez un mot de passe sécurisé"
-        required
-      />
-    </div>
-  </div>
-
   <!-- Submit -->
    <div class="col-md-12 my-4">
       <a-button
@@ -547,17 +533,7 @@ StatutVeterans:[
       </div>
 
 </form>
-<section v-else>
-<div class="col-md-12 my-4">
-      <a-button
-        type="primary"
-        html-type="submit"
-        @click="onHandleProfil"
-      >
-        Enregistrer
-      </a-button>
-      </div>
-</section>
+
 </template>
 <style scoped>
 

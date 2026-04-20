@@ -1,13 +1,10 @@
 <script>
 import instance from '../../../../../api/api';
-import FieldsVeteran from '../FieldsForEachProfil/FieldsVeteran.vue'
-import FieldsArtisan from '../FieldsForEachProfil/FieldsArtisan.vue';
-import FieldsProfessionnel from '../FieldsForEachProfil/FieldsProfessionnel.vue'
 import FieldsCompany from '../FieldsForEachProfil/FieldsCompany.vue';
 import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
 export default {
   name: 'InfoStatusesUser',
-  components:{FieldsVeteran,FieldsArtisan,FieldsProfessionnel,FieldsCompany},
+  components:{FieldsCompany},
   props: {
     profils: {
       type: Object,
@@ -104,10 +101,6 @@ this.selectedParseStatus = ""
   const statutUser = user?.statut.statut;
 
   const transitions = {
-    Etudiant: ['Professionnel', 'Artisan'],
-    Professionnel: ['Artisan', 'Vétéran'],
-    Artisan: ['Professionnel','Vétéran'],
-    Particulier: ['Entreprise'],
     Entreprise:['Entreprise']
   };
 
@@ -155,7 +148,7 @@ this.selectedParseStatus = ""
       
       <section v-if="allStatuses.length"
   
-      >
+>
         <div class="w-100 mb-4">
             <label for="statusSelect">Séléctionnez un profil</label>
             <select 
@@ -184,83 +177,8 @@ this.selectedParseStatus = ""
            </select>
         </div>
         <!-- {{ selectedParseStatus }} -->
-  <transition name="fade-slide">
- <div v-if="selectedParseStatus && selectedParseStatus.statut !== 'Artisan'">
-  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
-    Souhaitez-vous adopter un profil hybride ?
-  </label>
-
-  <div class="round-container">
-    <label 
-      v-for="item in allProfilHybrideAnswer" 
-      :key="item.value"
-      class="round-item"
-    >
-      <input
-        type="radio"
-        name="profilHybride"
-        :value="item.value"
-        v-model="optionsAnswer"
-      />
-      <span class="round-label">
-        {{ item.label }}
-      </span>
-    </label>
-  </div>
-</div>
-</transition>
-   <transition name="fade-slide">
-  <div v-if="optionsAnswer === 'oui' && selectedParseStatus.statut !== 'Artisan'">
-    <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
-     Profils disponibles
-    </label>
-
-    <div class="round-container" v-if="selectedParseStatus.statut !== 'Entreprise'">
-      <label 
-        v-for="item in allStatuses.filter(item=>item.statut !== selectedParseStatus.statut)" 
-        :key="item.id"
-        class="round-item"
-      >
-        <input
-          type="checkbox"
-          :value="item"
-          v-model="profilHybride"
-        />
-        <span class="round-label">
-          {{ item.statut }}
-        </span>
-      </label>
-    </div>
-    <div class="round-container" v-else>
-      <label 
-        v-for="item in allStatutsCompany" 
-        :key="item.value"
-        class="round-item"
-      >
-        <input
-          type="checkbox"
-          :value="item.value"
-          v-model="profilHybride"
-        />
-        <span class="round-label">
-          {{ item.label }}
-        </span>
-      </label>
-    </div>
-  </div>
-</transition>
-  <div v-if="optionsAnswer || (selectedParseStatus && selectedParseStatus.statut === 'Artisan')">
-  <FieldsVeteran 
-  :profilOfAbonnement="selectedParseStatus"
-   v-if="selectedParseStatus.statut === 'Vétéran'"/>
-  <FieldsArtisan 
-  :profilOfAbonnement="selectedParseStatus"
-  v-if="selectedParseStatus.statut === 'Artisan'" />
-  <FieldsProfessionnel 
-  :profilHybride="profilHybride"
-  :optionsAnswer="optionsAnswer"
-  :profilOfAbonnement="selectedParseStatus"
-  v-if="selectedParseStatus.statut === 'Professionnel'" />
+  
+  <div v-if="selectedStatus">
   <FieldsCompany 
   v-if="selectedParseStatus.statut === 'Entreprise'"
   :optionsAnswer="optionsAnswer"
