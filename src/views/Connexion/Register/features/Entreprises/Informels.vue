@@ -178,11 +178,11 @@ export default {
       if (this.formState.upload.length) {
         this.formState.photo = this.addPhotoInArray(this.formState.upload);
         console.log("this.formState",this.formState)
-        // this.changeValueIsPolitics({
-        //   value: true,
-        //   infoUser: "entreprise",
-        //   payload: this.formState,
-        // });
+        this.changeValueIsPolitics({
+          value: true,
+          infoUser: "entreprise",
+          payload: this.formState,
+        });
       } else {
         this.SWALPOPUP.declencheSwalPopup(
           "info",
