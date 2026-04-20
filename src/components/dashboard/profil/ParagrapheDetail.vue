@@ -32,7 +32,7 @@
         >
               <section v-for="(element, index) in item.valueArray" :key="index">
                 <div>
-                  <div v-if="Help.splitFilename(element?.path) === 'pdf'">
+                  <div v-if="Help?.splitFilename(element?.path) === 'pdf'">
                     <n-button type="warning" @click="showModal = true">
                       Voir
                     </n-button>

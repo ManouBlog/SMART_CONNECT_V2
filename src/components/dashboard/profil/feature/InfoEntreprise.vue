@@ -204,9 +204,17 @@ export default {
           <div
             class="col-lg-4 col-sm-6"
           >
-         <ParagrapheDetail :item="{libelle:'Nom', value: this.infoPersonnelles?.nom}" />
+           <ParagrapheDetail v-if="this.infoPersonnelles?.statut_entreprise" :item="{libelle:'Statut',
+          value:this.infoPersonnelles?.statut_entreprise}" />
+
+           <ParagrapheDetail v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Entreprise')" 
+            :item="{libelle:'Raison social', value: this.infoPersonnelles?.nom}" />
+          <ParagrapheDetail 
+          v-if="this.infoPersonnelles.statut_entreprise == 'Informelle'"
+          :item="{libelle:'Nom du gérant', value: this.infoPersonnelles?.nom}" />
+          <ParagrapheDetail v-if="this.infoPersonnelles?.particulier_prenoms" :item="{libelle:'prenoms', value: this.infoPersonnelles?.particulier_prenoms}" />
           <ParagrapheDetail :item="{libelle:'Prénoms', value: this.infoPersonnelles?.prenoms}" />
-          <ParagrapheDetail :item="{libelle:'Email', value: this.infoPersonnelles?.prenoms}" />
+          <ParagrapheDetail :item="{libelle:'Email', value: this.infoPersonnelles?.email}" />
           <ParagrapheDetail :item="{libelle:'Ville', value: this.infoPersonnelles?.ville}" />
           <ParagrapheDetail :item="{libelle:'Commune', value: this.infoPersonnelles?.commune}" />
           <ParagrapheDetail :item="{libelle:'Quartier', value: this.infoPersonnelles?.quartier}" />
@@ -214,31 +222,26 @@ export default {
          <ParagrapheDetail v-if="this.infoPersonnelles.user.statut.statut === 'Particulier'" :item="{libelle:'Pièces chargées',value:null,
           valueArray:this.infoPersonnelles?.user?.photos}" />
 
-       <ParagrapheDetail :item="{libelle:'Statut',
-          value:this.infoPersonnelles?.statut_entreprise}" />
 
-          <ParagrapheDetail :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
+         
+
+          <ParagrapheDetail v-if="this.infoPersonnelles?.matricule_cc" :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
           value:this.infoPersonnelles?.matricule_cc}" />
 
-          <ParagrapheDetail :item="{libelle:'Registre Pdf',
+           <ParagrapheDetail v-if="this.infoPersonnelles.registre" :item="{libelle:'Registre Pdf',
           value:null,valueArray:[{path:this.infoPersonnelles.registre}]}" />
 
-          <ParagrapheDetail :item="{libelle:'NCC (Numéro de compte contribuable)',
+           <ParagrapheDetail v-if="this.infoPersonnelles?.NCC" :item="{libelle:'NCC (Numéro de compte contribuable)',
           value:this.infoPersonnelles?.NCC}" />
 
-          <ParagrapheDetail :item="{libelle:'Logo',
+           <ParagrapheDetail v-if="this.infoPersonnelles?.logo" :item="{libelle:'Logo',
           value:null,valueArray:[{path:this.infoPersonnelles?.logo}]}" />
 
-          <ParagrapheDetail :item="{libelle:'Forme Juridique',
+           <ParagrapheDetail :item="{libelle:'Forme Juridique',
           value:this.infoPersonnelles?.forme_juridique}" />
 
-
-          <ParagrapheDetail :item="{libelle:'Emails en copies',
-          value:this.infoPersonnelles?.emails,emailCC:true}" />
-
-
- 
-        
+           <ParagrapheDetail v-if="this.infoPersonnelles?.emails.length" :item="{libelle:'Emails en copies',
+          value:this.infoPersonnelles?.emails,emailCC:true}" /> 
         </div>
         </div>
       </section>

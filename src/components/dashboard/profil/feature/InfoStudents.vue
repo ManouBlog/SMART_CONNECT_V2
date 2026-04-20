@@ -350,73 +350,7 @@ export default {
     <ParagrapheDetail :item="{libelle:'Niveau d\'etude', value: this.infoPersonnelles.diplome}" />
     <ParagrapheDetail :item="{libelle:'Mode de travail', value: this.infoPersonnelles.modeTravail}" />
     <ParagrapheDetail :item="{libelle:'Temps de travail', value: this.infoPersonnelles.tempsTravail}" />
-            <!-- <p style="color: orange; font-weight: bold"
-            v-if="
-                item.libelle !== null 
-              "
-            >{{ item.libelle }} :</p>
-            <h6
-             
-              class="fw-bold"
-            >
-              {{ item.value }}
-            </h6> -->
-            <!-- <div
-             
-              style="display: flex; justify-content: flex-start; gap: 1em"
-            >
-              <section v-for="(element, index) in item.value" :key="index">
-                <div>
-                  <div v-if="Help.splitFilename(element?.path) === 'pdf'">
-                    <n-button type="warning" @click="showModal = true">
-                      Voir la carte étudiant.
-                    </n-button>
-                    <n-modal
-                      v-model:show="showModal"
-                      style="width: 80%; max-width: 900px"
-                    >
-                      <n-card title="Document PDF" closable @close="showModal = false">
-                        <iframe
-                          :src="lienPhoto + element.path"
-                          style="width: 100%; height: 600px; border: none"
-                        ></iframe>
-                      </n-card>
-                    </n-modal>
-                  </div>
-                  <n-image
-                    v-else
-                    v-for="(photo, index) in [element.path]"
-                    :key="index"
-                    :alt="photo"
-                    width="100"
-                    height="150"
-                    :src="lienPhoto + photo"
-                  />
-                </div>
-              </section>
-            </div>
-            <div v-if="item.libelle === 'Curriculum Vitae'">
-              <n-modal v-model:show="showCvModal" 
-              preset="card" style="width: 80vw; max-width: 1000px;">
-    <template #header>
-      Mon CV chargé
-    </template>
-
-    <div style="height: 80vh;">
-      <iframe
-        :src="this.lienPhoto+item.value"
-        style="width: 100%; height: 100%; border: none;"
-      ></iframe>
-    </div>
-  </n-modal>
-              <section >
-                <div v-if="item.value">
-                  <n-button type="warning" @click="()=> showCvModal = true">
-                     Mon CV chargé
-                  </n-button>
-                </div>
-                </section>
-            </div> -->
+           
           </div>
         </div>
       </section>
