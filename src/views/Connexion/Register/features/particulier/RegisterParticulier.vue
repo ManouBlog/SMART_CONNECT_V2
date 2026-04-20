@@ -25,7 +25,6 @@ idStatutChoice:Object
   { label: "Non", value: "non" }
 ],
   allStatuts : [
-  // { value: "Artisan", label: "Artisan" },
 ],
       PIECE_KEYWORDS :[
   "republique de cote d ivoire",
@@ -216,7 +215,10 @@ idStatutChoice:Object
     },
     onFinish(values) {
       console.log("Success:", values);
+      if(this.formState.profilHybride.length){
       this.formState.profilHybride.push(this.idStatutChoice.id);
+      }
+      
       if (this.formState.upload.length) {
         this.formState.photo = this.addPhotoInArray(this.formState.upload);
         this.changeValueIsPolitics({
@@ -224,6 +226,7 @@ idStatutChoice:Object
           infoUser: "talents",
           payload: this.formState,
         });
+        console.log("this.formState.profilHybride",this.formState)
       } else {
         this.SWALPOPUP.declencheSwalPopup(
           "info",

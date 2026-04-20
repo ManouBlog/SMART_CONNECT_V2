@@ -102,7 +102,7 @@ userDocuments() {
   const statuses = this.$store.state.infoUserConnected?.user?.statuses || [];
 
   const isEntrepriseOrParticulier = statuses?.some(s =>
-    ['Entreprise', 'particulier'].includes(s.statut)
+    ['Entreprise', 'Particulier'].includes(s.statut)
   );
 
   const isEtudiantOrProOrArtisanOrVeteran = statuses?.some(s =>
@@ -131,7 +131,7 @@ userDocuments() {
   );
 
   const isEntrepriseGroup = statuses?.some(s =>
-    ['Entreprise', 'particulier'].includes(s.statut)
+    ['Entreprise', 'Particulier'].includes(s.statut)
   );
 
   const isAdmin = statuses?.some(s => s.statut === 'admin');
@@ -366,7 +366,7 @@ userDocuments() {
             <InfoEntreprise
               v-if="
                 this.$store.state.infoUserConnected && 
-                this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'Entreprise' || status.statut === 'particulier')
+                this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'Entreprise' || status.statut === 'Particulier')
               "
               :infoPersonellesEntreprise="
               this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut === 'Entreprise') ? [
@@ -540,7 +540,7 @@ userDocuments() {
         <TabPanel :header="'Profils'" 
         v-if="
      this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan' , 'particulier','Vétéran'].includes(s.statut)
+    s => ['Etudiant', 'Professionnel', 'Artisan' , 'Particulier','Vétéran'].includes(s.statut)
      )
     ">
          <InfoStatusesUser

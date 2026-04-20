@@ -246,7 +246,7 @@ export default {
                   <LiensNavBar
                     v-if="
   ($store.state.user?.user?.statuses || [])
-    .some(s => ['Entreprise', 'particulier'].includes(s.statut))
+    .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
 "
                     :texte="texte3"
                     :route_lien="'timetable'"
@@ -308,7 +308,7 @@ export default {
                   <InfoEntreprise
                     v-if="
   ($store.state.user?.user?.statuses || [])
-    .some(s => ['Entreprise', 'particulier'].includes(s.statut))
+    .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
 "
                   />
                   <div

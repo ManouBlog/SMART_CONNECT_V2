@@ -188,7 +188,7 @@ export default {
       <MenuMobileEntreprise
         v-if="
     ($store.state.user?.user?.statuses || [])
-    .some(s => ['Entreprise', 'particulier'].includes(s.statut))
+    .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
     "
       />
       <MenuMobileStudent

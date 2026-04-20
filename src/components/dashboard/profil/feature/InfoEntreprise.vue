@@ -164,7 +164,7 @@ export default {
     },
   },
   async created() {
-    this.texte0 = await this.handleTranslate("Informations personnelles");
+    this.texte0 = await this.handleTranslate("Infos personnelles");
     this.texte1 = await this.handleTranslate(`Gérant`);
     this.texte2 = await this.handleTranslate("Modifier mot de passe");
     this.texte3 = await this.handleTranslate("Ancien mot de passe");
@@ -186,7 +186,7 @@ export default {
     >
       <h1 class="fw-bold" style="color: orange">{{ texte0 }}</h1>
       <div style="display: flex; align-items: center;">
-        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <!-- <div style="display:flex; flex-wrap:wrap; gap:8px;">
          <span
           v-for="(status, index) in user.user?.statuses || []"
           :key="index"
@@ -194,7 +194,7 @@ export default {
           >
             {{ status.statut }}
          </span>
-        </div>
+        </div> -->
         <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
           >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span
         >
