@@ -399,6 +399,8 @@ userDocuments() {
         <TabPanel
        v-if="['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(
     this.$store.state.infoUserConnected?.user?.statut?.statut
+  ) || this.$store.state.infoUserConnected?.user?.statuses?.some(
+    s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   )
       " 
           header="Compétences et Expériences"
@@ -408,7 +410,9 @@ userDocuments() {
         <TabPanel
         v-if="['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(
          this.$store.state.infoUserConnected?.user?.statut?.statut
-         )
+         ) || this.$store.state.infoUserConnected?.user?.statuses?.some(
+    s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
+  )
          "
           header="Qualifications"
         >
