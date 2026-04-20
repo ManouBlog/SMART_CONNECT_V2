@@ -3,6 +3,7 @@ import Formels from './Formels.vue';
 import Informels from './Informels.vue';
 import instance from "../../../../../api/api";
 import { lienPhoto } from '../../../../../api/api';
+
 export default {
   name: "RegsiterEntreprise",
   components: {
@@ -17,8 +18,8 @@ export default {
    lienPhoto:lienPhoto,
     countries: [],
 options : [
-   { value: "Informel", label: "Informel" },
-  { value: "Formel", label: "Formel" }
+   { value: "Informelle", label: "Informelle" },
+  { value: "Formelle", label: "Formelle" }
  
 ]
     };
@@ -27,7 +28,7 @@ options : [
     optionsPaper(newValue) {
       console.log("Selected option:", newValue);
       if(!newValue){
-        this.optionsPaper = "Formel";
+        this.optionsPaper = "Formelle";
       }
       console.log("Selected option:", newValue);
     },
@@ -46,6 +47,7 @@ options : [
   },
     selectOne(value) {
     this.optionsPaper = value;
+     
   },
   isDisabled(country) {
     return country.available !== 1
@@ -77,6 +79,7 @@ options : [
   },
   created() {
     this.listerCountries();
+    this.optionsPaper = 'Informelle'
   }
  
 };
@@ -137,7 +140,7 @@ options : [
 </div>
 <Formels 
 :optionsPaper="optionsPaper"
-v-if="optionsPaper === 'Formel'" />
+v-if="optionsPaper === 'Formelle'" />
 <Informels
 :optionsPaper="optionsPaper"
 v-else />

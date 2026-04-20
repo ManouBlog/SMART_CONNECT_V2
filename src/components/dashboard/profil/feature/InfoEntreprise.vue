@@ -214,7 +214,8 @@ export default {
          <ParagrapheDetail v-if="this.infoPersonnelles.user.statut.statut === 'Particulier'" :item="{libelle:'Pièces chargées',value:null,
           valueArray:this.infoPersonnelles?.user?.photos}" />
 
-
+       <ParagrapheDetail :item="{libelle:'Statut',
+          value:this.infoPersonnelles?.statut_entreprise}" />
 
           <ParagrapheDetail :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
           value:this.infoPersonnelles?.matricule_cc}" />

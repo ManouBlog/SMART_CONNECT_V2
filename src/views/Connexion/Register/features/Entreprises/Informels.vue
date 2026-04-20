@@ -2,9 +2,11 @@
 import Swal from "sweetalert2";
 import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
+import instance from "../../../../../api/api";
 import { useTranslateStore } from "../../../../../store-pinia/Translate/useTranslateStore";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 // import Tesseract from 'tesseract.js'
+
 export default {
   name: "Informels",
    props: ['optionsPaper'],
@@ -22,9 +24,8 @@ export default {
   { label: "Non", value: "non" }
 ],
         allStatuts : [
-  { value: "Artisan", label: "Artisan" },
+  // { value: "Artisan", label: "Artisan" },
 ],
- optionsProfil: [],
       PIECE_KEYWORDS :[
   "republique de cote d ivoire",
   "signature du titulaire",
@@ -108,7 +109,7 @@ export default {
   { label: "Togo", value: "+228", length: 8 },
 ],
       formState: {
-        optionsPaperChoose: this.optionsPaper,
+        statut_entreprise: this.optionsPaper,
       nom_particulier:"",
         nom: "",
         prenoms: "",
@@ -119,7 +120,7 @@ export default {
         diplome: "",
         carte_student: "",
         myCompetence: [],
-         optionsProfil: [] ,
+         profilHybride: [] ,
         optionsAnswer:null,
         Logo: [],
         upload: [],
@@ -143,8 +144,28 @@ export default {
     )
   },
   },
+  watch:{
+   'formState.optionsAnswer':{
+      handler(newValue) {
+        if(newValue == 'non'){
+          this.formState.profilHybride = []
+        }
+        // ta logique ici
+      },
+      immediate: true // si tu veux déclencher au montage aussi
+    }
+  },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+     async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+        this.allStatuts = response.data.data.filter(item=>item.statut === 'Artisan')
+        console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'Artisan'))
+      } catch (error) {
+        console.log(error);
+      }
+    },
     addPhotoInArray(allPhotos) {
       const element = [];
       allPhotos.forEach((item) => {
@@ -156,11 +177,12 @@ export default {
       console.log("Success:", values);
       if (this.formState.upload.length) {
         this.formState.photo = this.addPhotoInArray(this.formState.upload);
-        this.changeValueIsPolitics({
-          value: true,
-          infoUser: "entreprise",
-          payload: this.formState,
-        });
+        console.log("this.formState",this.formState)
+        // this.changeValueIsPolitics({
+        //   value: true,
+        //   infoUser: "entreprise",
+        //   payload: this.formState,
+        // });
       } else {
         this.SWALPOPUP.declencheSwalPopup(
           "info",
@@ -297,6 +319,7 @@ export default {
 // },
   },
   async created() {
+    await this.lister_statut()
     this.texte = await this.handleTranslate("Nom");
     this.texte1 = await this.handleTranslate("Prénoms");
     this.texte2 = await this.handleTranslate("Numéro de téléphone");
@@ -353,16 +376,16 @@ export default {
     <div class="round-container">
       <label 
         v-for="item in allStatuts" 
-        :key="item.value"
+        :key="item.id"
         class="round-item"
       >
         <input
           type="checkbox"
-          :value="item.value"
-          v-model="formState.optionsProfil"
+          :value="item.id"
+          v-model="formState.profilHybride"
         />
         <span class="round-label">
-          {{ item.label }}
+          {{ item.statut }}
         </span>
       </label>
     </div>

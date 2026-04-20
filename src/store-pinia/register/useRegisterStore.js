@@ -15,8 +15,12 @@ export const useRegisterStore = defineStore('register', {
       isLoading:false,
       infoUser:"",
       payload:"",
+      answerForProfilHybride:""
     }),
     actions: {
+      handleAnswerForProfilHybride(payload){
+      this.answerForProfilHybride = payload
+      },
        async getAllCompetences() {
             try{
            const response = await instance.get("GetAllCompetences");
@@ -227,6 +231,8 @@ if (payload?.email_cc?.length > 0) {
 if (payload?.Registre?.[0]?.originFileObj) {
   data.append("registre", payload.Registre[0].originFileObj);
 }
+
+if (payload?.statut_entreprise) data.append("statut_entreprise", payload.statut_entreprise);
 
 // Champs texte simples
 if (payload?.nom) data.append("nom", payload.nom);

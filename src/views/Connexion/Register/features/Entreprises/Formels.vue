@@ -47,7 +47,7 @@ export default {
       open: true,
       optionsPaper:"",
       formState: {
-       optionsPaperChoose: this.optionsPaperChoosse,
+       statut_entreprise: this.optionsPaperChoosse,
         nom: "",
         prenoms: "",
         phone: "",
