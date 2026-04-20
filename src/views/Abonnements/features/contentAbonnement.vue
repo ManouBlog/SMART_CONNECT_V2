@@ -1,7 +1,8 @@
 <script setup>
-import { ref, computed ,defineProps,onMounted} from 'vue';
+import { ref, computed ,defineProps,onMounted,watch } from 'vue';
 
 import { Help } from '../../../utils';
+import { useStore } from 'vuex'
 import Buttons from "../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../store-pinia/Abonnements/useAbonnementsStore";
@@ -12,6 +13,7 @@ const storeAbonnement = useAbonnementsStore();
 const storeAbonnementUser = useEntreprisesStore();
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
+const store = useStore();
 
 const select_mode_payment_tab = ref('year')
 
@@ -28,6 +30,19 @@ const tabs = [
   { id: 'year', label: 'Année' },
   { id: 'month', label: 'Mois' }
 ]
+
+ watch(
+      () => store.state.user,
+      (newUser,oldUser) => {
+        console.log('User changé:', oldUser)
+        if(!newUser){
+          
+          const payload = {profilHybride:[]}
+       storeAbonnement.handleChangeInfoForAbonnement(payload)
+        }
+      },
+      { immediate: true, deep: true }
+    )
 
 // console.log("PROPSITEM",props.item)
 
@@ -119,6 +134,12 @@ function handleSelect_mode_Payement(val) {
   select_mode_payment_tab.value = val
 }
 onMounted(async () => {
+  console.log("INFO_SUR_USER",store.state.user?.user)
+  const statutBase = store.state.user?.user.statut.statut;
+  const AllProfilHybride = store.state.user?.user.statuses.filter(item=>item.statut !== statutBase)
+  console.log("AllProfilHybride",AllProfilHybride)
+   const payload = {profilHybride:AllProfilHybride}
+  storeAbonnement.handleChangeInfoForAbonnement(payload)
   elmentsOfBtn.value = [
     {
       name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
