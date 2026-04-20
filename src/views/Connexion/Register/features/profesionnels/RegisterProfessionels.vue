@@ -460,6 +460,9 @@ StatutProfessionnel:[
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
       }
+      if(this.formState.profilHybride.length){
+        this.formState.profilHybride.push(this.formState.statutId)
+      }
 
       if (this.configUtils.isValidEmail(this.formState.email)) {
         if (this.formState.upload.length) {
