@@ -88,7 +88,8 @@ export default {
           .then((resp) => {
           
             if (resp.data.status === true) {
-              this.photo_profil = resp.data.user.photo_profil;
+              console.log("MYphoto_profil",resp.data.user)
+              this.photo_profil = resp.data.user.photo_profil || resp.data.user.logo;
               this.userInfos = resp.data.user
             window.localStorage.setItem("user", JSON.stringify(resp.data.user));
             }
@@ -121,6 +122,7 @@ export default {
     @close="changeValueForshowMenuMobile"
   >
     <ul>
+     
       <li
         v-if="this.$store.state.user"
         style="display: flex; align-items: center; gap: 1em"
@@ -151,15 +153,10 @@ export default {
             Help.toADfirstTwo(this.$store.state.user.nom)
           }}</span>
         </span>
-        <span style="color: black !important"
+        <span style="color: black !important;text-transform: capitalize;"
           >{{ this.$store.state.user.nom }} 
-          <i class="bi bi-patch-check-fill" 
-          v-if="this.$store?.state?.user?.user?.is_verified"
-          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
-          <br />
           {{ this.$store.state.user.prenoms }} 
-          <br />
-          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin:0.5em 0">
   <span
     v-for="(status,index) in userInfos.user?.statuses"
     :key="index"

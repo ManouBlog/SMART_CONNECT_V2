@@ -378,48 +378,7 @@ userDocuments() {
   this.$store.state.infoUserConnected?.user?.statuses?.some(
     s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
   )
-"
-            />
-            <!-- <InfoStudents
-              :infoPersonellesStudents="
-              [
-                { libelle: texte2, value: this.$store.state.infoUserConnected?.nom },
-                { libelle: texte14, value: this.$store.state.infoUserConnected?.prenoms },
-                { libelle: texte3, value: this.$store.state.infoUserConnected?.email ?? '' },
-                { libelle: texte6, value: this.$store.state.infoUserConnected?.ville ?? '' },
-                { libelle: texte7, value: this.$store.state.infoUserConnected?.commune ?? '' },
-                { libelle: texte8, value: this.$store.state.infoUserConnected?.quartier ?? '' },
-                { libelle: texte5, value: this.$store.state.infoUserConnected?.phone },
-                { libelle: texte13, value: this.$store.state.infoUserConnected?.diplome ?? 'Pas de diplome' },
-                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status =>
-                        ['Vétéran', 'Professionnel'].includes(status?.statut))
-                ? 'Temps de travail':null, value: this.$store.state.infoUserConnected?.tempsTravail ?? '' },
-                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status =>
-                        ['Vétéran', 'Professionnel'].includes(status?.statut)) ? 'Mode de travail':null, value: this.$store.state.infoUserConnected?.modeTravail ?? '' },
-                { libelle: this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'Vétéran') ? 'Traitement préférentiel':null, value: this.$store.state.infoUserConnected?.niveauExpertise ?? '' },
-                { libelle: this.$store.state.infoUserConnected?.user?.code_ambassadeur ? 'code parrainage':null , value: this.$store.state.infoUserConnected?.user?.code_ambassadeur ?? null },
-                // {
-                //   libelle: documentLabels[this.$store.state.infoUserConnected?.user?.statut?.statut],
-                //   value: this.$store.state.infoUserConnected?.user?.photos,
-                // },
-                { libelle: 
-                  this.$store.state.infoUserConnected?.user?.statuses?.some(status => status.statut == 'Professionnel') ? 'Curriculum Vitae':null, value: this.$store.state.infoUserConnected?.CVupload ?? null },
-              ]"
-              :infoPersonellesQualifications="
-                this.$store.state.infoUserConnected?.qualifications.length
-                  ? this.$store.state.infoUserConnected?.qualifications
-                  : []
-              "
-              :infoBioStudent="this.$store.state.infoUserConnected?.bio"
-              :infoPersonellesCompetences="
-                this.$store.state.infoUserConnected?.competences
-              "
-         v-if="
-  this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
-  )
-"
-            /> -->
+"/>
           </div>
         </TabPanel>
         <TabPanel :header="'Profils'" 

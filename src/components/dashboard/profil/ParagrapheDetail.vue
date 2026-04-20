@@ -34,7 +34,7 @@
                 <div>
                   <div v-if="Help.splitFilename(element?.path) === 'pdf'">
                     <n-button type="warning" @click="showModal = true">
-                      Voir Plus.
+                      Voir
                     </n-button>
                     <n-modal
                       v-model:show="showModal"

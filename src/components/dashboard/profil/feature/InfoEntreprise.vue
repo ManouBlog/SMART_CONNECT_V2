@@ -18,12 +18,6 @@ export default {
       type: Object,
       required: false,
     },
-    // infoPersonellesEntreprise: {
-    //   type: Array,
-    // },
-    // infoPersonellesGerant: {
-    //   type: Array,
-    // },
   },
   data() {
     return {
@@ -205,7 +199,7 @@ export default {
       </div>
 
       <section class="my-5">
-        {{ this.infoPersonnelles }}
+        <!-- {{ this.infoPersonnelles }} -->
         <div class="row">
           <div
             class="col-lg-4 col-sm-6"
@@ -225,7 +219,7 @@ export default {
           <ParagrapheDetail :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
           value:this.infoPersonnelles?.matricule_cc}" />
 
-          <ParagrapheDetail :item="{libelle:'Registre',
+          <ParagrapheDetail :item="{libelle:'Registre Pdf',
           value:null,valueArray:[{path:this.infoPersonnelles.registre}]}" />
 
           <ParagrapheDetail :item="{libelle:'NCC (Numéro de compte contribuable)',
@@ -239,7 +233,7 @@ export default {
 
 
           <ParagrapheDetail :item="{libelle:'Emails en copies',
-          value:[emmanue],emailCC:true}" />
+          value:this.infoPersonnelles?.emails,emailCC:true}" />
 
 
  
