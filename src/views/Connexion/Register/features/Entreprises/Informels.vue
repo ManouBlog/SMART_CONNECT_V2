@@ -175,6 +175,10 @@ export default {
     },
     onFinish(values) {
       console.log("Success:", values);
+      if(this.formState.profilHybride.length){
+        this.formState.profilHybride.push(this.formState.statut_id)
+      }
+      console.log("this.formState",this.formState)
       if (this.formState.upload.length) {
         this.formState.photo = this.addPhotoInArray(this.formState.upload);
         console.log("this.formState",this.formState)

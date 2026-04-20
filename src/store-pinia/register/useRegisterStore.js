@@ -227,6 +227,12 @@ if (payload?.email_cc?.length > 0) {
   });
 }
 
+if (payload?.profilHybride?.length > 0) {
+  payload.profilHybride.forEach((item) => {
+    if (item) data.append("profilHybride[]", item);
+  });
+}
+
 // Registre (fichier unique)
 if (payload?.Registre?.[0]?.originFileObj) {
   data.append("registre", payload.Registre[0].originFileObj);
