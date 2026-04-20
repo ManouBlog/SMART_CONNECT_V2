@@ -367,56 +367,49 @@ userDocuments() {
           <div>
             <InfoEntreprise 
             :infoPersonnelles="this.$store.state.infoUserConnected"
-               v-if="
-  this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Entreprise', 'Particulier'].includes(s.statut)
+              v-if="
+  ['Entreprise', 'Particulier'].includes(
+    this.$store.state.infoUserConnected?.user?.statut?.statut
   )
 "
             />
            
             <InfoStudents
               :infoPersonnelles="this.$store.state.infoUserConnected"
-         v-if="
-  this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
-  )
-"/>
+         v-if="['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(
+               this.$store.state.infoUserConnected?.user?.statut?.statut
+                 )" />
           </div>
         </TabPanel>
         <TabPanel :header="'Profils'">
          <InfoStatusesUser
-         v-if="
-     this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan' , 'Particulier','Vétéran'].includes(s.statut)
-     )
-    "
+       v-if="['Etudiant', 'Professionnel', 'Artisan', 'Particulier', 'Vétéran'].includes(
+    this.$store.state.infoUserConnected?.user?.statut?.statut
+  )
+"
          :profils="this.$store.state.infoUserConnected"
          />
          <InfoStatusesEntreprise 
          v-if="
-     this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Entreprise'].includes(s.statut)
-     )
-    "
+          this.$store.state.infoUserConnected?.user?.statut.statut === 'Entreprise'
+         "
          :profils="this.$store.state.infoUserConnected"
          />
         </TabPanel>
         <TabPanel
-       v-if="
-  this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
+       v-if="['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(
+    this.$store.state.infoUserConnected?.user?.statut?.statut
   )
-"
+      " 
           header="Compétences et Expériences"
         >
           <CompetencesAndExperience />
         </TabPanel>
         <TabPanel
-         v-if="
-  this.$store.state.infoUserConnected?.user?.statuses?.some(
-    s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
-  )
-"
+        v-if="['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(
+         this.$store.state.infoUserConnected?.user?.statut?.statut
+         )
+         "
           header="Qualifications"
         >
           <QualificationsStudent />

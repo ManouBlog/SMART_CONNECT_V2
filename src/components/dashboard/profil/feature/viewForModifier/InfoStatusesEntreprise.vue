@@ -3,7 +3,7 @@ import instance from '../../../../../api/api';
 import FieldsCompany from '../FieldsForEachProfil/FieldsCompany.vue';
 import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
 export default {
-  name: 'InfoStatusesUser',
+  name: 'InfoStatusesEntreprise',
   components:{FieldsCompany},
   props: {
     profils: {
@@ -201,9 +201,9 @@ this.selectedParseStatus = ""
     <!-- Header avec tes couleurs -->
     <div class="info-header d-flex justify-content-between align-items-center p-4 mb-5">
       <h1 class="fw-bold my-3 mb-0" style="color: orange">Mes Profils</h1>
-      {{ profils }}
+      <!-- {{ profils.statut_entreprise }} -->
       <button
-      v-if="profils?.user?.statuses.some(item=>item.statut != 'Vétéran')"
+      v-if="profils.statut_entreprise === 'Informelle'"
           style="
             height: auto;
             width: auto;
