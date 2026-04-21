@@ -272,23 +272,38 @@ export default {
    async get_list_Talents() {
   loadingSpinner.launchLoading(true);
   try {
-    const res = await instance.get("list_emplois_temps");
-    console.log("res_ALL", res);
+    const response = await instance.get("list_emplois_temps");
+    console.log("res_ALL", response);
 
     const UserConnected = localStorage.getItem("user");
-    const profil = UserConnected ? JSON.parse(UserConnected)?.user?.statut?.statut : null;
-    console.log("profilUserConnected", profil);
 
-    let data = res.data.data;
+const statuses = UserConnected
+  ? JSON.parse(UserConnected)?.user?.statuses || []
+  : [];
 
-    if (profil === "particulier") {
-      data = data.filter(
-        (emploi) =>
-          emploi?.user?.statut?.statut === "artisan" ||
-          emploi?.user?.statut?.statut === "etudiant"
-      );
-    }
+console.log("statusesUserConnected", statuses);
 
+let data = response.data.data;
+
+console.log("DATA_LISTE", data);
+
+// vérifier si l'utilisateur est particulier
+const isParticulier = statuses.some(s =>
+  s.statut?.toLowerCase() === "particulier"
+);
+
+// const isEntreprise = statuses.some(s =>
+//   s.statut?.toLowerCase() === "entreprise"
+// );
+
+if (isParticulier) {
+  const allowed = ["Artisan", "Etudiant", "Professionnel"];
+
+  data = data.filter((emploi) => {
+    const statut = emploi?.user?.statut?.statut?.toLowerCase();
+    return allowed.includes(statut);
+  });
+}
     this.list = this.addOtherElement(data);
     console.log("get_list_Talents", this.list);
 
