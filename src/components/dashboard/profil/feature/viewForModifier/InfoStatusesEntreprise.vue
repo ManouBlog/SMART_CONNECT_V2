@@ -180,7 +180,7 @@ this.selectedParseStatus = ""
         <!-- {{ selectedParseStatus }} -->
   
   <div>
-  <FieldsCompany 
+  <FieldsCompany
   :profilOfAbonnement="selectedParseStatus"
   />
   </div>
