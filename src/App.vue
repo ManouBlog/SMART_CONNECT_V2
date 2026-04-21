@@ -233,13 +233,20 @@ export default {
 };
 </script>
 <style>
-.n-tabs.n-tabs--line-type .n-tabs-tab:hover{
+:where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+  color: orange !important;
+  text-shadow:0 0 0.25px orange !important;
+}
+:deep(.ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)){
+  background-color: orange !important;;
+}
+:deep(.n-tabs.n-tabs--line-type .n-tabs-tab:hover){
   color: orange !important;
 }
-.anticon{
+:deep(.anticon){
   color:#333 !important;
 }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector){
   height: 40px !important;
 }
 .n-input {
@@ -345,14 +352,14 @@ export default {
 .stars svg{
   margin:0 0.1em !important;
 }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-btn-primary {
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-btn-primary) {
     background-color: #ff8819 !important;
 }
 
-:where(.n-button:not(.n-button--disabled):active,.n-button:not(.n-button--disabled):hover){
+:deep(:where(.n-button:not(.n-button--disabled):active,.n-button:not(.n-button--disabled):hover)){
     color:orange !important;
   }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus {
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus) {
   border-color: orange !important;
 }
 .p-tooltip-text {

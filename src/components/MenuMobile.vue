@@ -240,11 +240,13 @@ if (
         </router-link>
       </li>
       <LiensNavBar
+      v-if="$store.state.user"
     @click.prevent="changeValueForshowMenuMobile"
     :texte="'Mon tableau de bord'"
     :route_lien="'dash-accueil'"
      />
       <LiensNavBar
+      v-if="$store.state.user"
     @click.prevent="changeValueForshowMenuMobile"
     :texte="'Mon compte'"
     :route_lien="'profil'"
@@ -354,7 +356,7 @@ if (
   </li>
 
   <li 
-  class="position-absolute deconnex" v-if="userStatut.some(s=>s.statut == 'Etudiant') ">
+  class="position-absolute deconnex" v-if="$store.state.user && userStatut.some(s=>s.statut == 'Etudiant') ">
     <a class="d-block" @click="goTo('/dashboard/emploi_du_temps')">
       Mes disponibilités
     </a>
@@ -376,6 +378,7 @@ if (
 
 
        <LiensNavBar
+       v-if="$store.state.user"
     @click.prevent="changeValueForshowMenuMobile"
     :texte="`Mes abonnements`"
     :route_lien="'dashboard-abonnements'"
@@ -407,7 +410,7 @@ if (
           CGU
         </router-link>
       </li>
-       <li class="position-absolute">
+       <li class="position-absolute" v-if="$store.state.user">
     <router-link @click.prevent="changeValueForshowMenuMobile" 
     to="/avis" class="d-block">
       Votre avis

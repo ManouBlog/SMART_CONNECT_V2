@@ -65,7 +65,9 @@ export default {
         <h2 class="text-center" style="color: orange">{{ texte2 }}</h2>
         <span>{{ texte3 }}</span>
       </div>
-      <a-tabs centered :size="'default'" @change="seeTabsChange">
+      <a-tabs centered :size="'default'" @change="seeTabsChange"
+      tabBarStyle="style_tabs"
+      >
         <a-tab-pane key="1" :tab="texte4">
           <LoginView />
         </a-tab-pane>
@@ -77,6 +79,16 @@ export default {
   </a-modal>
 </template>
 <style scoped>
+.style_tabs{
+  color: orange !important;
+  text-shadow:0 0 0.25px orange !important;
+}
+:deep(.ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)){
+  background-color: orange !important;;
+}
+:deep(.n-tabs.n-tabs--line-type .n-tabs-tab:hover){
+  color: orange !important;
+}
 :deep(.full-modal .ant-modal) {
   max-width: 100%;
   top: 0;
