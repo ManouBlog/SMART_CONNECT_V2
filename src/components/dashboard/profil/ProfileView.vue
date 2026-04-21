@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 import instance, { lienPhoto } from "../../../api/api";
 import InfoEntreprise from "./feature/InfoEntreprise.vue";
 import InfoStudents from "./feature/InfoStudents.vue";
-// import InfoParticulier from "./feature/InfoParticulier.vue"
 import InfoStatusesUser from './feature/viewForModifier/InfoStatusesUser.vue';
 import InfoStatusesEntreprise from "./feature/viewForModifier/InfoStatusesEntreprise.vue";
 import HeaderDashboard from "../../../Shared/Compoments/HeaderDashboard.vue";
