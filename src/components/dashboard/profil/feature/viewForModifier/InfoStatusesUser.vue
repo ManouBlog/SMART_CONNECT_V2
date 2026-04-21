@@ -328,7 +328,7 @@ this.selectedParseStatus = ""
             padding:1em;
             border-radius: 10px;
             position: relative;
-            height: 150px;
+            height: 200px;
             margin: 1em;
             width: 300px;
             ">
