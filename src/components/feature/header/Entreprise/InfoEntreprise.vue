@@ -126,7 +126,6 @@ export default {
         v-if="this.$store.state.user"
         class="bi bi-person-workspace text-primary h3 compte_sup"
       ></em>
-      <!-- <span v-if="dataAlarm" class="badge bg-danger">{{ dataAlarm }}</span> -->
     </a>
     <template #overlay>
       <a-menu>

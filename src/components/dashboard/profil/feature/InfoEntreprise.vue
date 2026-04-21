@@ -210,7 +210,7 @@ export default {
            <ParagrapheDetail v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Entreprise')" 
             :item="{libelle:'Raison social', value: this.infoPersonnelles?.nom}" />
           <ParagrapheDetail 
-          v-if="this.infoPersonnelles.statut_entreprise == 'Informelle'"
+          v-if="this.infoPersonnelles?.statut_entreprise == 'Informelle'"
           :item="{libelle:'Nom du gérant', value: this.infoPersonnelles?.nom}" />
           <ParagrapheDetail v-if="this.infoPersonnelles?.particulier_prenoms" :item="{libelle:'prenoms', value: this.infoPersonnelles?.particulier_prenoms}" />
           <ParagrapheDetail :item="{libelle:'Prénoms', value: this.infoPersonnelles?.prenoms}" />
@@ -240,7 +240,7 @@ export default {
            <ParagrapheDetail :item="{libelle:'Forme Juridique',
           value:this.infoPersonnelles?.forme_juridique}" />
 
-           <ParagrapheDetail v-if="this.infoPersonnelles?.emails.length" :item="{libelle:'Emails en copies',
+           <ParagrapheDetail v-if="this.infoPersonnelles?.emails?.length" :item="{libelle:'Emails en copies',
           value:this.infoPersonnelles?.emails,emailCC:true}" /> 
         </div>
         </div>
