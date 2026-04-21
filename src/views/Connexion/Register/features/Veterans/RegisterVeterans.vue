@@ -169,7 +169,7 @@ StatutVeterans:[
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
-        statut_professionnel_hybride:""
+        statut_professionnel_artisan :""
       },
     };
   },
@@ -181,7 +181,7 @@ StatutVeterans:[
           this.formState.ville = "";
           this.formState.commune = "";
           // this.formState.statut_talent = "";
-          this.formState.statut_professionnel_hybride=""
+          this.formState.statut_professionnel_artisan =""
           this.formState.uploadCNI = null
         }
         console.log("formState.optionsAnswer", value);
@@ -301,7 +301,7 @@ StatutVeterans:[
           );
           return;
         }
-        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_professionnel_hybride){
+        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_professionnel_artisan ){
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Ajoutez votre statut professionnel artisan."
@@ -823,12 +823,12 @@ StatutVeterans:[
             <a-form-item
             v-if="this.formState.profilHybride.some(el=>el == 7) && this.formState.optionsAnswer === 'oui'"
             :label="'Statut professionnel artisan'"
-            name="statut_professionnel_hybride"
+            name="statut_professionnel_artisan "
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]"
           >
             <a-select
             style="width: 100%;"
-    v-model:value="formState.statut_professionnel_hybride"
+    v-model:value="formState.statut_professionnel_artisan "
     placeholder="Sélectionnez votre Statut professionnel"
     show-search
     option-filter-prop="label"

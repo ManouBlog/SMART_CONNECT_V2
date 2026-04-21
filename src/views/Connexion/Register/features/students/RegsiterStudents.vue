@@ -274,7 +274,7 @@ idStatutChoice:Object
 this.formState.profilHybride = [];
           this.formState.ville = "";
           this.formState.commune = "";
-          this.formState.statut_professionnel_hybride = "";
+          this.formState.statut_professionnel_artisan  = "";
           this.formState.uploadCNI = []
     },
     async lister_statut(){
@@ -313,7 +313,7 @@ this.formState.profilHybride = [];
           );
           return;
         }
-        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_professionnel_hybride){
+        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_professionnel_artisan ){
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Ajoutez votre statut professionnel."
@@ -826,7 +826,7 @@ preprocessImage(file) {
           >
             <a-select
             style="width: 100%;"
-    v-model:value="formState.statut_professionnel_hybride"
+    v-model:value="formState.statut_professionnel_artisan "
     placeholder="Sélectionnez votre Statut professionnel"
     show-search
     option-filter-prop="label"

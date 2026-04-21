@@ -127,7 +127,7 @@ valueModeDeTravail: [
       SWALPOPUP: useSwalPopup(),
       formState: {
         statut_talent:"",
-        statut_professionnel_hybride:"",
+        statut_professionnel_artisan :"",
         upload: [],
         niveauExpertise:"",
         CVupload:null,
@@ -373,7 +373,7 @@ isProfilHybrideADD(){
         <select 
           name="statut" 
           id="treatment2" 
-          v-model="formState.statut_professionnel_hybride"
+          v-model="formState.statut_professionnel_artisan "
           class="form-control"
           style="height: 50px;"
         >

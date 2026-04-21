@@ -84,8 +84,8 @@ if (payload?.photo?.length > 0) {
   });
 }
 
-if(payload.statut_professionnel_hybride){
-  data.append("statut_professionnel_hybride", payload.statut_professionnel_hybride);
+if(payload.statut_professionnel_artisan ){
+  data.append("statut_professionnel_artisan ", payload.statut_professionnel_artisan );
 }
 
 // Photos (array fichiers)

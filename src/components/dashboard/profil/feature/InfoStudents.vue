@@ -345,8 +345,8 @@ export default {
     <!-- <ParagrapheDetail :item="{libelle:'Logo entreprise', value: 'logo_innovtech.png'}" /> -->
     <ParagrapheDetail :item="{libelle:'Pièces Jointes', value:null,valueArray:this.infoPersonnelles.user.photos}" />
     <ParagrapheDetail
-    v-if="this.infoPersonnelles.statut_talent || this.infoPersonnelles.user.statut_professionnel_hybride"
-    :item="{libelle: 'Statut Professionnel', value:[this.infoPersonnelles.statut_talent,this.infoPersonnelles.user.statut_professionnel_hybride]}" />
+    v-if="this.infoPersonnelles.statut_talent || this.infoPersonnelles.user.statut_professionnel_artisan "
+    :item="{libelle: 'Statut Professionnel', value:[this.infoPersonnelles.statut_talent,this.infoPersonnelles.user.statut_professionnel_artisan ]}" />
     <ParagrapheDetail :item="{libelle:'Niveau d\'etude', value: this.infoPersonnelles.diplome}" />
     <ParagrapheDetail :item="{libelle:'Mode de travail', value: this.infoPersonnelles.modeTravail}" />
     <ParagrapheDetail :item="{libelle:'Temps de travail', value: this.infoPersonnelles.tempsTravail}" />
