@@ -31,8 +31,6 @@ export default {
   { label: "Non", value: "non" }
 ],
  allStatuts : [
-  // { value: "Particulier", label: "Particulier" },
-  // { value: "Artisan", label: "Artisan" },
 ],
 StatutProfessionnel:[
   { value: "Diplômé en quête d’emploi", label: "Diplômé en quête d’emploi" },
@@ -450,7 +448,7 @@ isProfilHybrideADD(){
           style="height: 40px;border: none !important;"
         />
       </div>
-      {{ formState }}
+      <!-- {{ formState }} -->
       <div class="col-md-12 my-4">
       <a-button
         type="primary"

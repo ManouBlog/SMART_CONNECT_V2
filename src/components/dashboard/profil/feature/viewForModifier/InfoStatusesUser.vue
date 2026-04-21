@@ -93,7 +93,10 @@ descriptionProfil:{
     
        console.log('VALUE selectedStatus',e.target.value)
        this.selectedParseStatus = JSON.parse(e.target.value)
+       
        this.addIdOfProfilBase(this.selectedParseStatus.id)
+       this.optionsAnswer = null;
+       this.profilHybride=[];
        console.log('this.selectedParseStatus',this.selectedParseStatus)
       },
     resetData(){
