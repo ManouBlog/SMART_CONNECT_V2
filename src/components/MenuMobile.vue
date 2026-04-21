@@ -5,18 +5,21 @@ import Swal from "sweetalert2";
 import { mapState, mapActions } from "pinia";
 import { useMenuMobile } from "../store-pinia/MenuMobile/useMenuMobileStore";
 // import SelectLanguage from "./feature/header/SelectLanguage.vue";
+import LiensNavBar from "./feature/header/LiensNavBar.vue";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
-import MenuMobileEntreprise from "./feature/header/Entreprise/MenuMobileEntreprise";
-import MenuMobileStudent from "./feature/header/Student/MenuMobileStudent.vue";
+// import MenuMobileEntreprise from "./feature/header/Entreprise/MenuMobileEntreprise";
+// import MenuMobileStudent from "./feature/header/Student/MenuMobileStudent.vue";
 import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
+import { useNotificationsStore } from "../store-pinia/useNotificationsStore";
 
 export default {
   name: "MenuMobile",
   components: {
     // SelectLanguage,
-    MenuMobileEntreprise,
-    MenuMobileStudent,
+    // MenuMobileEntreprise,
+    // MenuMobileStudent,
+    LiensNavBar
   },
   data() {
     return {
@@ -39,6 +42,17 @@ export default {
   },
   computed: {
     ...mapState(useMenuMobile, ["showMenuMobile"]),
+    ...mapState(useNotificationsStore, ["unreadNotifications"]),
+     userStatut() {
+    const userStr = localStorage.getItem('user');
+    if (!userStr) return null;
+    try {
+      const user = JSON.parse(userStr);
+      return user.user?.statuses ?? null;
+    } catch (e) {
+      return null;
+    }
+  }
   },
   methods: {
     ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
@@ -98,6 +112,49 @@ export default {
             console.log(error);
           });
       }
+    },
+     async seeMyNotifications() {
+      try {
+        const response = await instance.get("markAllAsRead");
+        if (response.status === 200) {
+          this.getListNotification();
+          this.goTo({ name: "notifications" });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+     async goTo(route) {
+      if (!route) return;
+      // console.log("lancer1");
+      this.changeValueForshowMenuMobile();
+
+      await this.$store.dispatch("getInfoUser");
+      const userInfo = this.$store.state.infoUserConnected;
+      // console.log("lancer25", userInfo);
+      if (!userInfo) return;
+
+      const qualifications = userInfo.qualifications || [];
+      const competences = userInfo.competences || [];
+      const disponibilites = userInfo.jours || [];
+
+      if (
+  (userInfo.user?.statuses || []).some(s => s.statut === 'Etudiant') &&
+  (!qualifications.length || !competences.length)
+) {
+  this.$router.push("/dashboard/profil");
+  return;
+}
+
+if (
+  (userInfo.user?.statuses || []).some(s => s.statut === 'Etudiant') &&
+  !disponibilites.length
+) {
+  this.$router.push("/dashboard/emploi_du_temps");
+  return;
+}
+
+      this.$router.push(route);
     },
   },
   async created() {
@@ -170,7 +227,7 @@ export default {
       <!-- <SelectLanguage /> -->
       <li v-if="!this.$store.state.user">
         <a href="#" class="login_user_mobile" @click.prevent="changeValueIsModal">
-          {{ texte }}
+          Connexion
         </a>
       </li>
       <li>
@@ -179,42 +236,157 @@ export default {
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          {{ texte1 }}
+         Accueil
         </router-link>
       </li>
-      <MenuMobileEntreprise
-        v-if="
+      <LiensNavBar
+    @click.prevent="changeValueForshowMenuMobile"
+    :texte="'Mon tableau de bord'"
+    :route_lien="'dash-accueil'"
+     />
+      <LiensNavBar
+    @click.prevent="changeValueForshowMenuMobile"
+    :texte="'Mon compte'"
+    :route_lien="'profil'"
+     />
+    
+      <!-- Entreprise et particulier menu -->
+       <li  v-if="
     ($store.state.user?.user?.statuses || [])
     .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
-    "
-      />
-      <MenuMobileStudent
-       v-if="
+    ">
+    <router-link
+      :to="{ name: 'timetable' }"
+      @click.prevent="changeValueForshowMenuMobile"
+      class="d-block lien"
+    >
+      Talents
+    </router-link>
+    </li>
+
+    <li  v-if="
+    ($store.state.user?.user?.statuses || [])
+    .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
+    ">
+    <router-link
+      @click.prevent="changeValueForshowMenuMobile"
+      to="/dashboard/offre"
+      class="d-block"
+    >
+      Liste des offres
+    </router-link>
+  </li>
+  <li  v-if="
+    ($store.state.user?.user?.statuses || [])
+    .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
+    ">
+    <router-link
+      @click.prevent="changeValueForshowMenuMobile"
+      to="/dashboard/creation_offre"
+      class="d-block"
+    >
+      Créer une offre
+    </router-link>
+  </li>
+   <li  v-if="
+    ($store.state.user?.user?.statuses || [])
+    .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
+    ">
+    <router-link
+      @click.prevent="changeValueForshowMenuMobile"
+      to="/dashboard/personnel"
+      class="d-block"
+    >
+      Talents sélectionnés
+     </router-link>
+  </li>
+  <li  v-if="
+    ($store.state.user?.user?.statuses || [])
+    .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
+    ">
+    <router-link
+      @click.prevent="changeValueForshowMenuMobile"
+      to="/dashboard/postulants"
+      class="d-block"
+    >
+      Postulants
+    </router-link>
+  </li>
+
+
+       <!-- Talents(particulier,Professionnel,artisan,Vétéran,etudiant) menu -->
+
+    <li 
+    v-if="
   ($store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
+    .some(s => ['Etudiant', 'Professionnel', 
+    'Artisan', 'Vétéran'].includes(s.statut))
 "
-      />
+    class="position-absolute deconnex">
+    <a class="d-block" @click="seeMyNotifications">
+      Mes Notifications
+      <span v-if="unreadNotifications.length > 0" class="badge bg-danger">
+        {{ unreadNotifications.length }}
+      </span>
+    </a>
+  </li>
+  <li 
+  v-if="
+  ($store.state.user?.user?.statuses || [])
+    .some(s => ['Etudiant', 'Professionnel', 
+    'Artisan', 'Vétéran'].includes(s.statut))
+"
+  class="position-absolute deconnex">
+    <a class="d-block" @click="goTo('/dashboard/entreprises_interessees')">
+     Entreprises intéressées
+    </a>
+  </li>
+  <li 
+  v-if="
+  ($store.state.user?.user?.statuses || [])
+    .some(s => ['Etudiant', 'Professionnel', 
+    'Artisan', 'Vétéran'].includes(s.statut))
+"
+  class="position-absolute deconnex">
+    <a class="d-block" @click="goTo('/dashboard/offre_postule')">
+      Mes candidatures
+    </a>
+  </li>
+
+  <li 
+  class="position-absolute deconnex" v-if="userStatut.some(s=>s.statut == 'Etudiant') ">
+    <a class="d-block" @click="goTo('/dashboard/emploi_du_temps')">
+      Mes disponibilités
+    </a>
+  </li>
       <li
         v-if="
   ($store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
-"
-      >
+    .some(s => ['Etudiant', 'Professionnel', 
+    'Artisan', 'Vétéran'].includes(s.statut))
+">
         <router-link
           :to="{ name: 'jobs' }"
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          {{ texte2 }}
+          Offre d'emploi
         </router-link>
       </li>
+
+
+       <LiensNavBar
+    @click.prevent="changeValueForshowMenuMobile"
+    :texte="`Mes abonnements`"
+    :route_lien="'dashboard-abonnements'"
+    />
       <li>
         <router-link
           :to="{ name: 'abonnements' }"
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          {{ texte3 }}
+          Abonnements
         </router-link>
       </li>
       <li>
@@ -223,7 +395,7 @@ export default {
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          {{ texte4 }}
+          Contactez-nous
         </router-link>
       </li>
       <li>
@@ -232,11 +404,17 @@ export default {
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          {{ texte6 }}
+          CGU
         </router-link>
       </li>
+       <li class="position-absolute">
+    <router-link @click.prevent="changeValueForshowMenuMobile" 
+    to="/avis" class="d-block">
+      Votre avis
+    </router-link>
+  </li>
       <li v-if="this.$store.state.user">
-        <a href="#" @click="deconnexUser" class="fw-bold"> {{ texte5 }}</a>
+        <a href="#" @click="deconnexUser" class="fw-bold"> Déconnexion</a>
       </li>
     </ul>
   </a-drawer>

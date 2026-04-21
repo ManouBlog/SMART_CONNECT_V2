@@ -503,30 +503,47 @@ export default {
         });
     },
     verfEnter() {
-      if (
-  this.user &&
-  (this.user.user?.statuses || []).some(s =>
-    ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
-  )
-){
-  this.$router.push("/");
-  Swal.fire({
-    icon: "info",
-    title: "Vous n'êtes pas autorisé",
-    showConfirmButton: false,
-    timer: 1000,
-  });
-}
-      // if (this.user && this.user.user.statut.statut === "etudiant") {
-      //   this.$router.push("/");
-      //   Swal.fire({
-      //     icon: "error",
-      //     title: "Vous n'êtes pas autorisé.",
-      //     showConfirmButton: false,
-      //     timer: 1000,
-      //   });
-      // }
-    },
+  console.log("verfEnter", this.user);
+
+  if (!this.user) return;
+
+  const statutPrincipal = this.user?.user?.statut?.statut;
+  const statuses = this.user?.user?.statuses || [];
+
+  const hasParticulierOrArtisan = statuses.some(s =>
+    ['Particulier', 'Artisan'].includes(s.statut)
+  );
+
+  if (statutPrincipal === 'Etudiant' && !hasParticulierOrArtisan) {
+    this.$router.push("/");
+
+    Swal.fire({
+      icon: "info",
+      title: "Vous n'êtes pas autorisé",
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  }
+},
+//     verfEnter() {
+//       console.log("verfEnter", this.user);
+//       if (
+//   this.user &&
+//   (this.user.user?.statuses || []).some(s =>
+//     ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
+//   )
+// ){
+//   this.$router.push("/");
+//   Swal.fire({
+//     icon: "info",
+//     title: "Vous n'êtes pas autorisé",
+//     showConfirmButton: false,
+//     timer: 1000,
+//   });
+// }else{
+//   return;
+// }
+//     },
     addDate() {
       this.datesPickers.push({
         date: new Date(),

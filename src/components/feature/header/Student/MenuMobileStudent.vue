@@ -125,19 +125,19 @@ if (
 
   <li class="position-absolute deconnex">
     <a class="d-block" @click="goTo('/dashboard/entreprises_interessees')">
-      {{ texte40 }}
+     Entreprises intéressées
     </a>
   </li>
 
   <li class="position-absolute deconnex">
     <a class="d-block" @click="goTo('/dashboard/offre_postule')">
-      {{ texte3 }}
+      Mes candidatures
     </a>
   </li>
 
   <li class="position-absolute deconnex" v-if="userStatut.some(s=>s.statut == 'Etudiant') ">
     <a class="d-block" @click="goTo('/dashboard/emploi_du_temps')">
-      {{ texte5 }}
+      Mes disponibilités
     </a>
   </li>
 
