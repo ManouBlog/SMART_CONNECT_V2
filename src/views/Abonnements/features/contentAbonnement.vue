@@ -178,9 +178,16 @@ onMounted(async () => {
         </span>
   </p>
  
-  <div class="d-flex gap-5 justify-content-center main-color">
-      <div style="display: flex;flex-direction: column;gap:1em;">
-   <h1 style="font-size: 2em; font-weight: bold;padding: 0;margin: 0;">
+  <div class="d-flex gap-5 align-items-center justify-content-center main-color">
+      <div style="display: flex;flex-direction: column;">
+   <h1 
+    :style="{
+    fontSize: '2em',
+    fontWeight: 'bold',
+    padding: '0',
+    margin: '0',
+    textDecoration: currentConfig.priceWithProfilHybride != currentConfig.price ? 'line-through' : 'none'
+  }">
       {{ Help.convertInMoney(currentConfig.price) }} F
     </h1>
     <h1 
@@ -189,13 +196,11 @@ onMounted(async () => {
       {{ Help.convertInMoney(currentConfig.priceWithProfilHybride) }} F
     </h1>
   </div>
-    <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
+    <h3 class="mx-2" style="font-size: 1.3em; color: orange">/</h3>
     <h3 style="font-size: 2em; color: orange">
       {{ currentConfig.suffix }}
     </h3>
   </div>
-  
-
   <div style="height: 310px; position: relative; padding: 1em">
     <div class="px-5" v-html="currentConfig.description"></div>
   </div>

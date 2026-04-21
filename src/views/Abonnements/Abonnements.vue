@@ -247,7 +247,7 @@ onMounted(async () => {
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
      </p>
       </div>
-      <span>{{ store.state.user?.user?.statuses }}</span>
+      <!-- <span>{{ store.state.user?.user?.statuses }}</span> -->
       <n-tabs type="line" size="large" animated justify-content="center"
       v-model:value="activeTab"
       >
