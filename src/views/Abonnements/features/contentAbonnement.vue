@@ -53,7 +53,8 @@ const currentConfig = computed(() => {
   if (select_mode_payment_tab.value === 'year') {
      
     return {
-      price: Help.calculateAbonnementPrice(props.item.prix,countprofilHybride),
+      price: props.item.prix,
+      priceWithProfilHybride: Help.calculateAbonnementPrice(props.item.prix,countprofilHybride),
       isFormule: formule === 'year' || !formule,
       description: props.item.description,
       suffix: 'an',
@@ -62,7 +63,8 @@ const currentConfig = computed(() => {
   }
 
   return {
-    price: Help.calculateAbonnementPrice(props.item.price_month,countprofilHybride),
+    price: props.item.price_month,
+    priceWithProfilHybride: Help.calculateAbonnementPrice(props.item.price_month,countprofilHybride),
     isFormule: formule === 'month',
     description: props.item.description_month,
     suffix: 'mois',

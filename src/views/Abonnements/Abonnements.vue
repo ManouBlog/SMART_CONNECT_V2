@@ -113,12 +113,15 @@ onMounted(async () => {
       <div v-if="props.ProfilAbonnement">
         <!-- {{ profileAbonnement }}
         {{ store.state.user?.user?.statuses }} -->
-      
+
     <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
      </p>
+
+     
+    
       </div>
       
       <n-tabs type="line" size="large" animated justify-content="center"
@@ -237,13 +240,14 @@ onMounted(async () => {
     </n-card>
       </div>
       <div v-else>
+
 <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
      </p>
       </div>
-      
+      <span>{{ store.state.user?.user?.statuses }}</span>
       <n-tabs type="line" size="large" animated justify-content="center"
       v-model:value="activeTab"
       >
