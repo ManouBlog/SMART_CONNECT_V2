@@ -1,5 +1,5 @@
 <script>
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
 import Abonnements from '../../../../../views/Abonnements/Abonnements.vue';
 import { configUtils } from "../../../../../Shared/Utils";
@@ -11,7 +11,9 @@ import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useA
 export default {
   name: "FieldsVeteran",
   props:{
-profilOfAbonnement:Object
+     profilHybride:Array,
+profilOfAbonnement:Object,
+optionsAnswer:String,
   },
   components: { 
   Abonnements
@@ -26,10 +28,6 @@ profilOfAbonnement:Object
  allAnwserProfilHybride: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
-],
- allStatuts : [
-  { value: "Particulier", label: "Particulier" },
-  { value: "Artisan", label: "Artisan" },
 ],
  valueExpertise: [
   { value: "Privilége", label: "Privilége" },
@@ -126,7 +124,8 @@ StatutVeterans:[
        niveauEtude:"",
        tempsTravail:"",
        modeTravail:"",
-       diplome:""
+       diplome:"",
+      profilHybride:[]
       },
     };
   },
@@ -141,11 +140,22 @@ StatutVeterans:[
          this.formState.modeTravail  &&
           this.formState.diplome      
       );
-    }
-    
+    },
+    isProfilHybrideADD(){
+  if(this.optionsAnswer === 'oui'){
+   return this.profilHybride.length > 0
+  }
+  return true;
+}
   },
  
   methods: {
+    resetData(){
+      this.formState.profilHybride = [];
+      const STORE_ABONNEMENT = useAbonnementsStore();
+      console.log("this.formState.profilHybride",this.formState.profilHybride)
+      STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
+    },
     onUploadChange(e) {
     console.log('onUploadChange', e.target.files);
     this.formState.upload = Array.from(e.target.files);
@@ -252,10 +262,27 @@ StatutVeterans:[
 //   })
 // },
     onHandleProfil() {
-      console.log("this.formState veteran",this.formState);
-      const STORE_ABONNEMENT = useAbonnementsStore();
+      console.log("FIELDVETERAN")
+      console.log("this.isProfilHybrideADD", this.isProfilHybrideADD)
+      console.log("this.formState", this.formState)
+       if(!this.isProfilHybrideADD){
+        Swal.fire({
+    icon: 'info',
+    text: 'Ajoutez un profil'
+  });
+       }else{
+        console.log("this.profilHybride", this.profilHybride)
+        if(this.profilHybride.length){
+      this.formState.profilHybride = this.profilHybride.map(item=>item.id);
+        }
+       console.log("this.formState professionnel",this.formState);
+        const STORE_ABONNEMENT = useAbonnementsStore();
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
-      this.showModalAbonnements = true
+    console.log("STORE", STORE_ABONNEMENT.profilHybride)
+     this.showModalAbonnements = true
+       }
+     
+     
     },
   },
 };

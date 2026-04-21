@@ -59,6 +59,7 @@ export default {
     ...mapActions(useRegisterStore, ["changeValueIsModal"]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+     ...mapActions(useNotificationsStore, ["getListNotification"]),
     async deconnexUser() {
       this.launchLoading(true);
       await instance
@@ -389,7 +390,7 @@ if (
           @click.prevent="changeValueForshowMenuMobile"
           class="d-block lien"
         >
-          Abonnements
+          {{$store.state.user ? 'Formule d\'abonnement' : 'Abonnements'}}
         </router-link>
       </li>
       <li>

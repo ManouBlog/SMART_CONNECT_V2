@@ -41,9 +41,7 @@ descriptionProfil:{
   optionsAnswer: {
       handler(newValue) {
         if (newValue === 'non') {
-          // const STORE_ABONNEMENT = useAbonnementsStore();
           this.profilHybride = [];
-          // STORE_ABONNEMENT.handleChangeInfoForAbonnement();
           return;
         }
       },
@@ -55,7 +53,6 @@ descriptionProfil:{
         if (newValue.statut === 'Artisan') {
           this.optionsAnswer = null
           this.profilHybride = [];
-          // this.allStatuses = []
           return;
         }
       },
@@ -117,6 +114,7 @@ this.selectedParseStatus = ""
     Etudiant: ['Professionnel', 'Artisan'],
     Professionnel: ['Artisan', 'Vétéran'],
     Artisan: ['Professionnel','Vétéran'],
+    Vétéran: ['Particulier','Artisan'],
     Particulier: ['Entreprise'],
     Entreprise:['Entreprise']
   };
@@ -224,8 +222,7 @@ this.selectedParseStatus = ""
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils disponibles
     </label>
-
-    <div class="round-container" v-if="selectedParseStatus.statut !== 'Entreprise'">
+    <div class="round-container">
       <label 
         v-for="item in allStatuses.filter(item=>item.statut !== selectedParseStatus.statut)" 
         :key="item.id"
@@ -241,7 +238,7 @@ this.selectedParseStatus = ""
         </span>
       </label>
     </div>
-    <div class="round-container" v-else>
+    <!-- <div class="round-container" v-else>
       <label 
         v-for="item in allStatutsCompany" 
         :key="item.value"
@@ -256,11 +253,13 @@ this.selectedParseStatus = ""
           {{ item.label }}
         </span>
       </label>
-    </div>
+    </div> -->
   </div>
 </transition>
   <div v-if="optionsAnswer || (selectedParseStatus && selectedParseStatus.statut === 'Artisan')">
   <FieldsVeteran 
+  :profilHybride="profilHybride"
+  :optionsAnswer="optionsAnswer"
   :profilOfAbonnement="selectedParseStatus"
    v-if="selectedParseStatus.statut === 'Vétéran'"/>
   <FieldsArtisan 

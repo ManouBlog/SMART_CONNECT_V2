@@ -30,8 +30,6 @@ export default {
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
 ],
- allStatuts : [
-],
 StatutProfessionnel:[
   { value: "Diplômé en quête d’emploi", label: "Diplômé en quête d’emploi" },
   { value: "En fonction", label: "En fonction" },
