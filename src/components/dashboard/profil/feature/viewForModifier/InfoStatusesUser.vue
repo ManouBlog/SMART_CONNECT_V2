@@ -193,7 +193,7 @@ this.selectedParseStatus = ""
         </div>
         <!-- {{ selectedParseStatus }} -->
   <transition name="fade-slide">
- <div v-if="selectedParseStatus && selectedParseStatus.statut !== 'Artisan'">
+ <div v-if="selectedParseStatus && ['Particulier', 'Vétéran',''].includes(selectedParseStatus.statut)">
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
     Souhaitez-vous adopter un profil hybride ?
   </label>
@@ -218,11 +218,11 @@ this.selectedParseStatus = ""
 </div>
 </transition>
    <transition name="fade-slide">
-  <div v-if="optionsAnswer === 'oui' && selectedParseStatus.statut !== 'Artisan'">
+  <div v-if="optionsAnswer === 'oui' && ['Particulier', 'Vétéran',''].includes(selectedParseStatus.statut)">
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils disponibles
     </label>
-    <div class="round-container">
+    <div class="round-container" v-if="selectedParseStatus.statut !== 'Entreprise'">
       <label 
         v-for="item in allStatuses.filter(item=>item.statut !== selectedParseStatus.statut)" 
         :key="item.id"
@@ -238,7 +238,7 @@ this.selectedParseStatus = ""
         </span>
       </label>
     </div>
-    <!-- <div class="round-container" v-else>
+    <div class="round-container" v-else>
       <label 
         v-for="item in allStatutsCompany" 
         :key="item.value"
@@ -253,10 +253,10 @@ this.selectedParseStatus = ""
           {{ item.label }}
         </span>
       </label>
-    </div> -->
+    </div>
   </div>
 </transition>
-  <div v-if="optionsAnswer || (selectedParseStatus && selectedParseStatus.statut === 'Artisan')">
+  <div v-if="optionsAnswer || selectedParseStatus">
   <FieldsVeteran 
   :profilHybride="profilHybride"
   :optionsAnswer="optionsAnswer"
@@ -275,8 +275,7 @@ this.selectedParseStatus = ""
   :optionsAnswer="optionsAnswer"
   />
   </div>
-
-      </section>
+    </section>
       <section v-else style="text-align: center;" class="shimmer-text">
         Chargement des profils....
       </section>

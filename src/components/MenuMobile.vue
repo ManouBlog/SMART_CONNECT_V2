@@ -37,7 +37,8 @@ export default {
       texte9: "",
       texte10: "",
       photo_profil: "",
-      userInfos:""
+      userInfos:"",
+      StatutUser:[]
     };
   },
   computed: {
@@ -160,6 +161,9 @@ if (
   },
   async created() {
     this.getInfoUser();
+    const userStr = localStorage.getItem('user');
+    this.StatutUser = userStr ? JSON.parse(userStr).user?.statuses : null;
+    console.log("StatutUser", this.StatutUser)
     this.texte = await this.handleTranslate("Connexion");
     this.texte1 = await this.handleTranslate("Accueil");
     this.texte2 = await this.handleTranslate("Offre d'emploi");
@@ -214,9 +218,11 @@ if (
         <span style="color: black !important;text-transform: capitalize;"
           >{{ this.$store.state.user.nom }} 
           {{ this.$store.state.user.prenoms }} 
-          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin:0.5em 0">
+          <div 
+          v-if="this.StatutUser.length"
+          style="display: flex; flex-wrap: wrap; gap: 6px; margin:0.5em 0">
   <span
-    v-for="(status,index) in userInfos.user?.statuses"
+    v-for="(status,index) in StatutUser"
     :key="index"
     class="badge bg-warning"
   >
