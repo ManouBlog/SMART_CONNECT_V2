@@ -235,18 +235,18 @@ export default {
 <style>
 :where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
   color: orange !important;
-  text-shadow:0 0 0.25px orange !important;
+  text-shadow:0 0 0.25px orange;
 }
-:deep(.ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)){
+.ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
   background-color: orange !important;;
 }
-:deep(.n-tabs.n-tabs--line-type .n-tabs-tab:hover){
+.n-tabs.n-tabs--line-type .n-tabs-tab:hover{
   color: orange !important;
 }
-:deep(.anticon){
+.anticon{
   color:#333 !important;
 }
-:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector){
+:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
   height: 40px !important;
 }
 .n-input {
