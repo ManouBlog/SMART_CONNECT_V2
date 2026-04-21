@@ -398,40 +398,40 @@ export default {
           </div>
         </div>
         <form @submit.prevent="saveExperience">
-          <div class="row p-5 mt-3">
+          <div class="row" style="padding: 25px;">
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>
                 <span style="color:red">*</span>
                 {{texte1}}</label>
-              <input  type="text" style="padding:1em" v-model="poste" required />
+              <input  type="text" style="height: 45px;" v-model="poste" required />
             </div>
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label><span style="color:red;">*</span>{{texte2}}</label>
-              <input type="text"  style="padding:1em" v-model="entreprise" required />
+              <input type="text"  style="height: 45px;" v-model="entreprise" required />
             </div>
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label><span style="color:red;">*</span>{{texte3}}</label>
-              <input type="text" style="padding:1em" v-model="lieu" required />
+              <input type="text" style="height: 45px;" v-model="lieu" required />
             </div>
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label><span style="color:red;">*</span>{{texte4}}</label>
-              <input type="date" style="padding:1em" v-model="dateDebut" required />
+              <input type="date" style="height: 45px;" v-model="dateDebut" required />
             </div>
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>{{texte5}}</label>
-              <input type="date" style="padding:1em" v-model="dateFin" :min="dateDebut" required />
+              <input type="date" style="height: 45px;" v-model="dateFin" :min="dateDebut" required />
             </div>
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>{{texte6}}</label>
-              <input type="file" style="padding:1em" accept="image/*" @change="onFileProof" />
+              <input type="file" style="height: 45px;" accept="image/*" @change="onFileProof" />
             </div>
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>{{texte7}}</label>
               <textarea name="expereience" id="experience" cols="20" v-model="experience" rows="10"></textarea>
             </div>
           </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-warning">{{texte8}}</button>
+          <div class="text-center my-5">
+            <button type="submit" class="btn btn-warning" style="width: 100px;">{{texte8}}</button>
           </div>
         </form>
       </div>
@@ -455,7 +455,7 @@ export default {
                 v-model="updateExperience.poste"
                 placeholder="Ex : Barman,serveuse"
                 required
-                style="padding:1em"
+                style="height: 45px;"
               />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
@@ -465,7 +465,7 @@ export default {
                 v-model="updateExperience.entreprise"
                 placeholder="Ex : la locomotive"
                 required
-                style="padding:1em"
+                style="height: 45px;"
               />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
@@ -475,13 +475,13 @@ export default {
                 v-model="updateExperience.lieu"
                 placeholder="Ex : Cocody angré"
                 required
-                style="padding:1em"
+                style="height: 45px;"
               />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
               <label>{{texte4}}</label>
               <input type="date"
-              style="padding:1em"
+              style="height: 45px;"
               v-model="updateExperience.dateDebut" required />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
@@ -492,7 +492,7 @@ export default {
                 :min="dateDebut"
                 placeholder="Ex : Cocody angré"
                 required
-                style="padding:1em"
+                style="height: 45px;"
               />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
@@ -506,7 +506,7 @@ export default {
                 accept="image/*"
                 @change="onFileProof"
                 placeholder="Ex :Cocody angré"
-                style="padding:1em"
+                style="height: 45px;"
               />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
@@ -653,7 +653,7 @@ export default {
                       {{texte24}}
                     </h1>
                     <button
-                      style="background: orange; color: white; border: none"
+                      style="background: orange; color: white; border: none;padding: 0.5em; width: 200px"
                       @click="addNouvelExperience"
                     >
                       {{texte25}}
