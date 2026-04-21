@@ -32,6 +32,8 @@ descriptionProfil:{
   Etudiant:"Ce profil vous permet d'accéder à des offres d'emploi,ainsi que de bénéficier de tarifs préférentiels sur nos services.",
   Artisan:"Ce profil vous permet de mettre en avant votre savoir-faire artisanal, d'accéder à des offres d'emploi spécifiques et de bénéficier de tarifs préférentiels sur nos services.",
   Particulier:"Ce profil vous permet de rechercher des personnes à contacter tel que les artisans,etudiants et professionnels.",
+  Professionnel:"Ce profil vous permet d'accéder à des offres d'emploi, de mettre en avant votre expérience professionnelle et de bénéficier de tarifs préférentiels sur nos services.",
+  Vétéran:"Ce profil vous permet de mettre en avant votre expérience et vos compétences acquises au cours de votre carrière, d'accéder à des offres d'emploi spécifiques et de bénéficier de tarifs préférentiels sur nos services.",
 }
     }
   },
