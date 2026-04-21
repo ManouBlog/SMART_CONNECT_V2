@@ -233,6 +233,9 @@ export default {
 };
 </script>
 <style>
+.n-tabs.n-tabs--line-type .n-tabs-tab:hover{
+  color: orange !important;
+}
 .anticon{
   color:#333 !important;
 }

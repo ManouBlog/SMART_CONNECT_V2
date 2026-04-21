@@ -134,18 +134,19 @@ function handleSelect_mode_Payement(val) {
   select_mode_payment_tab.value = val
 }
 onMounted(async () => {
+   elmentsOfBtn.value = [
+    {
+      name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
+      color_btn: "primary",
+    },
+  ];
   console.log("INFO_SUR_USER",store.state.user?.user)
   const statutBase = store.state.user?.user.statut.statut;
   const AllProfilHybride = store.state.user?.user.statuses.filter(item=>item.statut !== statutBase)
   console.log("AllProfilHybride",AllProfilHybride)
    const payload = {profilHybride:AllProfilHybride}
   storeAbonnement.handleChangeInfoForAbonnement(payload)
-  elmentsOfBtn.value = [
-    {
-      name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
-      color_btn: "primary",
-    },
-  ];
+ 
 
   texte.value = await transalteStore.handleTranslate("année");
 });

@@ -221,8 +221,6 @@ onMounted(async () => {
       </div>
 
       <div class="conteneur-btn">
-       
-
         <Buttons
           :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id"
           :elmentsOfBtn="elmentsOfBtn"
