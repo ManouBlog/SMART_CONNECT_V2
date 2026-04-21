@@ -393,6 +393,12 @@ if (
           {{$store.state.user ? 'Formule d\'abonnement' : 'Abonnements'}}
         </router-link>
       </li>
+       <li class="position-absolute" v-if="$store.state.user">
+    <router-link @click.prevent="changeValueForshowMenuMobile" 
+    to="/avis" class="d-block">
+      Votre avis
+    </router-link>
+  </li>
       <li>
         <router-link
           :to="{ name: 'contact' }"
@@ -411,12 +417,7 @@ if (
           CGU
         </router-link>
       </li>
-       <li class="position-absolute" v-if="$store.state.user">
-    <router-link @click.prevent="changeValueForshowMenuMobile" 
-    to="/avis" class="d-block">
-      Votre avis
-    </router-link>
-  </li>
+      
       <li v-if="this.$store.state.user">
         <a href="#" @click="deconnexUser" class="fw-bold"> Déconnexion</a>
       </li>
