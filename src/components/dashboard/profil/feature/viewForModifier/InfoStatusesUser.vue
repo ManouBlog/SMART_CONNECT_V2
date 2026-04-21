@@ -154,7 +154,7 @@ this.selectedParseStatus = ""
        >
       <template #header>
         <div class="modal-header">
-          <h3>Changer de profil</h3>
+          <h3>Changer le profil de base </h3>
         </div>
       </template>
       
