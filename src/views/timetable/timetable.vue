@@ -6,19 +6,9 @@ import "primeicons/primeicons.css";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
-// import Multiselect from 'vue-multiselect'
-// import { Calendar} from "v-calendar";
 
-// import "v-calendar/dist/style.css";
-
-// import vue3starRatings from "vue3-star-ratings";
-// import { KCheckbox } from '@kong/kongponents'
-// import '@kong/kongponents/dist/style.css'
 const loadingSpinner = useLoadingSpinner();
 export default {
-  // compoments:{
-  //   vue3starRatings
-  // },
   data() {
     return {
       lienPhoto: lienPhoto,
@@ -79,7 +69,7 @@ export default {
       length: 8,
       hideButtons: false,
       isWhished: [],
-      lengthOfMylistEmploi: "",
+      lengthOfTalents: "",
       spinner: false,
       dateDebut: null,
       dateFin: null,
@@ -99,39 +89,6 @@ export default {
       checkboxDate: false,
       checkbox: false,
       option: "",
-      // jourOfMois: [
-      //   { jour: "1" },
-      //   { jour: "2" },
-      //   { jour: "3" },
-      //   { jour: "4" },
-      //   { jour: "5" },
-      //   { jour: "6" },
-      //   { jour: "7" },
-      //   { jour: "8" },
-      //   { jour: "9" },
-      //   { jour: "10" },
-      //   { jour: "11" },
-      //   { jour: "12" },
-      //   { jour: "13" },
-      //   { jour: "14" },
-      //   { jour: "15" },
-      //   { jour: "16" },
-      //   { jour: "17" },
-      //   { jour: "18" },
-      //   { jour: "19" },
-      //   { jour: "20" },
-      //   { jour: "21" },
-      //   { jour: "22" },
-      //   { jour: "23" },
-      //   { jour: "24" },
-      //   { jour: "25" },
-      //   { jour: "26" },
-      //   { jour: "27" },
-      //   { jour: "28" },
-      //   { jour: "29" },
-      //   { jour: "30" },
-      //   { jour: "31" },
-      // ],
       MyJour: null,
       moreExist: false,
       nextPage: 0,
@@ -187,7 +144,7 @@ export default {
     hasAnyValue(newVal) {
       if (!newVal) {
         // Tous les champs sont vides
-        this.get_list_emploi();
+        this.get_list_Talents();
       }
     },
   },
@@ -216,7 +173,7 @@ export default {
           const transformed = this.addOtherElement(response.data.students);
           // Mise à jour de la liste et de sa longueur
           this.list = transformed;
-          this.lengthOfMylistEmploi = transformed.length;
+          this.lengthOfTalents = transformed.length;
         })
         .catch((error) => {
           console.log(error);
@@ -312,7 +269,7 @@ export default {
       });
     },
 
-   async get_list_emploi() {
+   async get_list_Talents() {
   loadingSpinner.launchLoading(true);
   try {
     const res = await instance.get("list_emplois_temps");
@@ -333,10 +290,10 @@ export default {
     }
 
     this.list = this.addOtherElement(data);
-    console.log("get_list_emploi", this.list);
+    console.log("get_list_Talents", this.list);
 
-    this.lengthOfMylistEmploi = this.list.length;
-    console.log("this.lengthOfMylistEmploi", this.lengthOfMylistEmploi);
+    this.lengthOfTalents = this.list.length;
+    console.log("this.lengthOfTalents", this.lengthOfTalents);
   } catch (err) {
     console.log(err);
     alert(err.response?.data?.message || "Erreur serveur");
@@ -572,12 +529,12 @@ export default {
     // },
   },
   async created() {
+    this.verfEnter();
     await this.$store.dispatch("getInfoUser");
     this.$store.dispatch("handleListeFavoris");
-    this.get_list_emploi();
+    this.get_list_Talents();
     this.getAllCompetences();
     this.AllCompetencesPredf();
-    this.verfEnter();
     this.path = window.location.pathname;
     this.texte = await this.handleTranslate("Vous rechercher un talent ?");
     this.texte1 = await this.handleTranslate("Talents disponibles");
@@ -656,6 +613,7 @@ export default {
         {{ list.length }} {{ list.length > 1 ? texte1 : texte01 }}
       </h2>
     </div>
+   <p>ELEMENTS: {{ this.$store.state.user.user.statuses }} </p> 
 
     <div
       class="container-fluid timetableSchedule"
@@ -664,7 +622,7 @@ export default {
       <div class="timetable_disponible" v-if="list_emploi.length">
         <h6>
           {{ texte2 }}
-          {{ datesSelect.length ? list.length : lengthOfMylistEmploi }}
+          {{ datesSelect.length ? list.length : lengthOfTalents }}
           {{ texte3 }}
         </h6>
       </div>
