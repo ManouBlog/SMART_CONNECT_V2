@@ -303,7 +303,7 @@ if (!user.competences.length || !user.qualifications.length) {
     this.texte3 = await this.handleTranslate("Offres");
     this.texte4 = await this.handleTranslate("Nous avons trouvé");
     this.texte5 = await this.handleTranslate("Nouveauté");
-    this.texte6 = await this.handleTranslate("Voir les Détails");
+    this.texte6 = await this.handleTranslate("Voir les détails");
     this.texte7 = await this.handleTranslate("Offre Expirée");
     this.texte8 = await this.handleTranslate("Charger plus");
     this.texte9 = await this.handleTranslate(`Vous avez atteint la fin`);
@@ -311,7 +311,6 @@ if (!user.competences.length || !user.qualifications.length) {
     this.texte11 = await this.handleTranslate("Offres");
     this.texte12 = await this.handleTranslate("Nous avons trouvé");
     this.texte13 = await this.handleTranslate("Nouveauté");
-    this.texte14 = await this.handleTranslate("Voir les Détails");
     this.texte15 = await this.handleTranslate("Offre Expirée");
     this.texte16 = await this.handleTranslate("Charger plus");
   },
@@ -463,22 +462,22 @@ if (!user.competences.length || !user.qualifications.length) {
                 >
               </div>
             </section>
-            <div class="two my-1">
+            <div class="two my-1" style="position: relative;">
               <div>
                 <h6 style="font-size: 0.9em;">
                   <em class="bi bi-calendar-date"></em>
                   Date limite pour postuler :
                   {{ new Date(offre.fin).toLocaleDateString("fr") }}
                 </h6>
+                <div style="position: relative;bottom:0;right:-250px">
                 <router-link class="see_detail" :to="{ name: 'OffreDetail', params: { id: offre.id } }">
                   <button
                     class="btn btn-Conex mt-3" style="padding:0.4em">
                     {{ texte6 }} <em class="bi bi-eye"></em>
                   </button>
                 </router-link>
-                <!-- <strong class="text-danger" v-if="configUtils.ifJobIsEnd(offre.fin)">{{
-                  texte7
-                }}</strong> -->
+                </div>
+               
               </div>
             </div>
           </div>
