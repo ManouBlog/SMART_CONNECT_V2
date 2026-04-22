@@ -28,10 +28,10 @@ allStatuses:[],
 descriptionProfil:{
   Etudiant:"Ce profil vous permet d'accéder à des offres d'emploi,ainsi que de bénéficier de tarifs préférentiels sur nos services.",
   Artisan:"Ce profil vous permet de mettre en avant votre savoir-faire artisanal, d'accéder à des offres d'emploi spécifiques et de bénéficier de tarifs préférentiels sur nos services.",
-  Particulier:"Ce profil vous permet de rechercher des personnes à contacter tel que les artisans,etudiants et professionnels.",
+  Particulier:"Ce profil vous permet de rechercher des personnes à contacter tel que les Artisans,Etudiants et Professionnels.",
   Professionnel:"Ce profil vous permet d'accéder à des offres d'emploi, de mettre en avant votre expérience professionnelle et de bénéficier de tarifs préférentiels sur nos services.",
   Vétéran:"Ce profil vous permet de mettre en avant votre expérience et vos compétences acquises au cours de votre carrière, d'accéder à des offres d'emploi spécifiques et de bénéficier de tarifs préférentiels sur nos services.",
-  Entreprise:"Ce profil vous permet de mettre en avant votre entreprise, d'accéder à des Talents (Etudiants, professionnels,Artisans,Vétérans) et de bénéficier de tarifs préférentiels sur nos services."
+  Entreprise:"Ce profil vous permet de mettre en avant votre entreprise, d'accéder à des Talents (Etudiants, Professionnels,Artisans,Vétérans) et de bénéficier de tarifs préférentiels sur nos services."
 }
     }
   },
@@ -256,11 +256,12 @@ this.selectedParseStatus = ""
             padding:1em;
             border-radius: 10px;
             position: relative;
-            height: 200px;
+            height: 250px;
             margin: 1em;
             width: 300px;
             ">
           <h3 style="color: white;">{{ profil.statut }}</h3>
+          <p style="padding: 0;margin: 0;" v-if="profil.statut.includes('Entreprise')">({{ profils.statut_entreprise }})</p>
           <span 
           v-if="profils?.user.statut.statut == profil.statut"
           class="badge" 
