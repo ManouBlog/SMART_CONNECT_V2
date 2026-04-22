@@ -590,7 +590,7 @@ export default {
                     @update:model-value="addTag"
                     label="competence"
                     track-by="competence"
-                    placeholder="selectionne une competence"
+                    placeholder="Séléctionnez une compétence"
                     class="vuemulti"
                   >
                   </VueMultiselect>

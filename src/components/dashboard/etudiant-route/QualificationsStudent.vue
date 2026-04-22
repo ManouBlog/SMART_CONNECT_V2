@@ -685,9 +685,7 @@ button {
   border: 1px solid orange;
   border-radius: 5px !important;
 }
-:deep(.multiselect__input) {
-  padding: 0 !important;
-}
+
 :deep(.multiselect__option--highlight) {
   background: orange;
 }
