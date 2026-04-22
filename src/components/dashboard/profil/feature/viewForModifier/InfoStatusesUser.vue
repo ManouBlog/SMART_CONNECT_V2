@@ -16,6 +16,7 @@ export default {
   },
   data() {
     return {
+      choiceProfilHybrideForAdd:[],
       allProfilsHybrides:[],
       profilhybrideUserConnected:[],
       showModalChangeProfilOfBase: false,
@@ -169,8 +170,9 @@ this.selectedParseStatus = ""
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils hybrides
     </label>
-    {{ profils.user?.statuses }}
-    {{ profils.user.statut.statut }}
+    <!-- {{ profils.user?.statuses }}
+    {{ profils.user.statut.statut }} -->
+     <!-- {{ choiceProfilHybrideForAdd }} -->
     <div class="round-container">
       <label 
         v-for="item in allProfilsHybrides" 
@@ -180,7 +182,7 @@ this.selectedParseStatus = ""
         <input
           type="checkbox"
           :value="item"
-          v-model="profilHybride"
+          v-model="choiceProfilHybrideForAdd"
           :disabled="profilhybrideUserConnected.some(profil => profil.statut === item.statut)"
         />
         <span class="round-label">
@@ -189,10 +191,30 @@ this.selectedParseStatus = ""
       </label>
     </div>
   </div> 
+  <div v-if="choiceProfilHybrideForAdd.length">
+     <section  v-if="choiceProfilHybrideForAdd.some(item => item.statut.includes('Artisan'))">
+       <select>
+        <option value="" disabled selected>Choisissez un niveau d'etude...</option>
+        <option value="bac">Bac</option>
+        <option value="bac+2">Bac +2</option>
+        <option value="bac+3">Bac +3</option>
+      </select>
+      <select>
+        <option value="" disabled selected>Choisissez un statut professionnel artisan...</option>
+        <option value="bac">Bac</option>
+        <option value="bac+2">Bac +2</option>
+        <option value="bac+3">Bac +3</option>
+      </select>
+      </section>
+      <section v-if="choiceProfilHybrideForAdd.some(item => item.statut.includes('Particulier'))">
+       <input type='text' v-model="VilleProfilHybride" placeholder='Entrez un nouveau profil hybride...' />
+       <input type='text' v-model="QuatierProfilHybride" placeholder='Entrez un nouveau profil hybride...' />
+      <input type='text' v-model="CommuneProfilHybride" placeholder='Entrez un nouveau profil hybride...' />
+      </section>
+  
+      <input type="file" @change="handleFileChange" />
+  </div>
     </section>
-      <!-- <section v-else style="text-align: center;" class="shimmer-text">
-        Chargement des profils....
-      </section> -->
       
     </n-modal>
      
