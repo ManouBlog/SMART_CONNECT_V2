@@ -540,7 +540,9 @@ export default {
       <input class="form-control" 
       type="datetime-local" 
       v-model="job_debut" 
-      :min="debut" />
+      :min="debut"
+      :max="fin"
+       />
     </div>
   </div>
 
@@ -548,7 +550,11 @@ export default {
   <div class="row g-3">
     <div class="col-lg-6 col-md-6 col-12 text-left my-3">
       <label>{{ texte17 }}</label>
-      <input class="form-control" type="datetime-local" v-model="job_fin" :min="job_debut" />
+      <input class="form-control" type="datetime-local" 
+      v-model="job_fin" 
+      :min="job_debut"
+      
+      />
     </div>
     <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
       <label><span style="color: red">*</span>Choisissez un profil 
