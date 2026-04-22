@@ -125,6 +125,16 @@ export default {
         this.chooseStatut.length > 0
       );
     },
+     filteredOptions() {
+    // Si "TOUS" est sélectionné, n'affiche que "TOUS"
+    if (this.chooseStatut.some(item => item.statut === 'Tous')) {
+      return this.allStatuses.filter(item => item.statut === 'Tous');
+    }
+    if (this.chooseStatut.some(item => item.statut !== 'Tous')) {
+      return this.allStatuses.filter(item => item.statut !== 'Tous');
+    }
+    return this.allStatuses;
+  }
     
   },
   methods: {
@@ -327,7 +337,8 @@ export default {
     async lister_statut(){
       try {
         const response =  await instance.get("listStatut")
-        this.allStatuses = response.data.data.filter(item=>item.statut != 'admin')
+        this.allStatuses = response.data.data.filter(item=>item.statut != 'admin' && item.statut != 'Entreprise')
+        this.allStatuses.push({id:"Tous",statut:"Tous"})
       } catch (error) {
         console.log(error);
       }
@@ -545,7 +556,7 @@ export default {
       </label>
       <VueMultiselect 
       v-model="chooseStatut" 
-      :options="allStatuses.filter(item => item.statut != 'Entreprise')" 
+      :options="filteredOptions" 
       placeholder="Choix multiples" 
       :multiple="true" 
       label="statut" 
