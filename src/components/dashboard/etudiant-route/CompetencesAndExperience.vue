@@ -393,8 +393,8 @@ export default {
             class="bi bi-x-lg"
             @click="toogleNouvelleExperience = !toogleNouvelleExperience"
           ></em>
-          <div style="padding: 1em;">
-            <h3>{{texte0}}</h3>
+          <div style="padding: 0.8em;">
+            <h3 style="font-weight: bold !important;">{{texte0}}</h3>
           </div>
         </div>
         <form @submit.prevent="saveExperience">
@@ -425,13 +425,17 @@ export default {
               <label>{{texte6}}</label>
               <input type="file" style="height: 45px;" accept="image/*" @change="onFileProof" />
             </div>
-            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
+            <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start">
               <label>{{texte7}}</label>
-              <textarea name="expereience" id="experience" cols="20" v-model="experience" rows="10"></textarea>
+              <textarea 
+              name="expereience" 
+              id="experience" 
+              cols="20" v-model="experience" rows="10"></textarea>
             </div>
           </div>
           <div class="text-center my-5">
-            <button type="submit" class="btn btn-warning" style="width: 100px;">{{texte8}}</button>
+            <button type="submit" 
+            class="btn btn-warning" style="width: auto;">{{texte8}}</button>
           </div>
         </form>
       </div>
@@ -509,7 +513,7 @@ export default {
                 style="height: 45px;"
               />
             </div>
-            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
+            <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start">
               <label>{{texte15}}</label>
               <textarea
                 name="description"
@@ -517,6 +521,7 @@ export default {
                 cols="20"
                 v-model="updateExperience.experience"
                 rows="10"
+                
               ></textarea>
             </div>
           </div>
@@ -653,7 +658,7 @@ export default {
                       {{texte24}}
                     </h1>
                     <button
-                      style="background: orange; color: white; border: none;padding: 0.5em; width: 200px"
+                      style="background: orange; color: white; border: none;padding: 0.2em; width: 250px"
                       @click="addNouvelExperience"
                     >
                       {{texte25}}
@@ -720,7 +725,7 @@ export default {
                       <h4 class="text-center shimmer-text">{{texte26}}</h4>
                     </div>
                     <div v-else-if="!MyExperiences.length && !spinner">
-                      <h4 class="text-center">{{texte27}}</h4>
+                      <h4 class="text-center" style="color: gray !important;">{{texte27}}</h4>
                     </div>
                   </div>
                 </div>
