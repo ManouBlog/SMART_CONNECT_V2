@@ -441,7 +441,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
                 <br />
                 <span><em class="bi bi-cash"></em> Rémuneration :</span>
-                <span style="font-weight: bold; color: orange; margin: 0 0.5em"
+                <span style="font-weight: bold; color: orange; margin: 0 0.5em;display: inline-block;"
                   >{{ new Intl.NumberFormat("fr-FR").format(offre.salaire) }} Fcfa /
                   {{ offre.pointage }}</span
                 >
@@ -449,9 +449,8 @@ if (!user.competences.length || !user.qualifications.length) {
             </section>
             <div class="two my-1">
               <div>
-                <h6>
+                <h6 style="font-size: 0.7em;">
                   <em class="bi bi-calendar-date"></em>
-                  <!-- {{ new Date(offre.debut).toLocaleDateString("fr") }} au -->
                   Date limite pour postuler :
                   {{ new Date(offre.fin).toLocaleDateString("fr") }}
                 </h6>

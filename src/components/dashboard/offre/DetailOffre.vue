@@ -189,8 +189,8 @@ export default {
     this.texte12 = await this.handleTranslate("Lieu de l'emploi");
     this.texte13 = await this.handleTranslate("Date et heure de début de l'offre");
     this.texte14 = await this.handleTranslate("Date et heure d'expiration de l'offre");
-    this.texte15 = await this.handleTranslate("Date d'entrée en fonction");
-    this.texte16 = await this.handleTranslate("Date de fin d'activité");
+    this.texte15 = await this.handleTranslate("Date et heure de début de travail");
+    this.texte16 = await this.handleTranslate("Date et heure de fin de travail");
     this.texte17 = await this.handleTranslate("Description");
     this.texte18 = await this.handleTranslate("Modifier");
    
@@ -208,9 +208,10 @@ export default {
     <div>
       <form v-if="offre_id" class="container">
         <div class="row">
- <div class="text-left my-3 col-lg-6">
+          <div class="text-left my-3 col-md-6">
             <label for="categorie">{{texte1}}</label>
-            <select id="categorie" v-model="offre_id.categorie_offre_id" @change="selectCategorie">
+            <select id="categorie" 
+            v-model="offre_id.categorie_offre_id" @change="selectCategorie">
               <option value="" disabled>{{texte2}}</option>
               <option
                 :value="item.id"
@@ -222,9 +223,10 @@ export default {
             </select>
           </div>
          
-          <div class="text-left my-3 col-lg-6">
+          <div class="text-left my-3 col-md-6">
             <label for="competences">{{texte3}}</label>
-            <select id="competences"  v-model="offre_id.competence_id">
+            <select id="competences"  
+            v-model="offre_id.competence_id">
               <option value="" disabled>{{texte4}}</option>
               <option
                 :value="item.id"
@@ -244,7 +246,7 @@ export default {
         </div>
         <div class="row">
  
-          <div class="text-left my-3 col-lg-6">
+          <div class="text-left my-3 col-md-6">
             <label>{{texte7}}</label>
             <input
               class="form-control"
@@ -254,7 +256,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-6">
+          <div class="text-left my-3 col-md-6">
             <label>{{texte8}}</label>
             <input
               class="form-control"
@@ -266,7 +268,7 @@ export default {
           </div>
         </div>
         <div class="row">
- <div class="text-left my-3 col-lg-6">
+ <div class="text-left my-3 col-md-6">
             <label>{{texte9}}</label>
             <select v-model="offre_id.pointage">
               <option value="" disabled>{{texte10}}</option>
@@ -279,7 +281,7 @@ export default {
               </option>
             </select>
           </div>
-          <div class="text-left my-3 col-lg-6">
+          <div class="text-left my-3 col-md-6">
             <label>{{texte11}}</label>
             <input
               class="form-control"
@@ -292,7 +294,7 @@ export default {
           </div>
         </div>
         <div class="row">
-   <div class="text-left my-3 col-lg-6">
+   <div class="text-left my-3 col-md-6">
             <label>{{texte12}}</label>
             <input
               class="form-control"
@@ -303,7 +305,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-6">
+          <div class="text-left my-3 col-md-6">
             <label>{{texte13}}</label>
             <input
               class="form-control"
@@ -316,7 +318,7 @@ export default {
           </div>
         </div>
         <div class="row">
-<div class="text-left my-3 col-lg-6">
+      <div class="text-left my-3 col-md-6">
             <label>{{texte14}}</label>
             <input
               class="form-control"
@@ -326,7 +328,7 @@ export default {
               required
             />
           </div>
-          <div class="text-left my-3 col-lg-6">
+          <div class="text-left my-3 col-md-6">
             <label>{{texte15}}</label>
             <input
               class="form-control"
@@ -338,7 +340,7 @@ export default {
           </div>
         </div>
         <div class="row">
-          <div class="text-left my-3 col-lg-6">
+          <div class="text-left my-3 col-md-6">
             <label>{{texte16}}</label>
             <input
               class="form-control"
@@ -346,7 +348,7 @@ export default {
               v-model="offre_id.job_fin"
             />
           </div>
-          <div class="text-left my-3 col-lg-12">
+          <div class="text-left my-3 col-md-12">
             <label>{{texte17}}</label>
             <div class="conteneur_editor">
               <editor :modelValue="offre_id.description" v-model="offre_id.description" />

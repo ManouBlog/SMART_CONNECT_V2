@@ -277,6 +277,8 @@ export default {
             this.categorie = null;
             this.competence = null;
             this.creer = true;
+            this.job_debut = null;
+              this.job_fin = null;
           }
           if (res.data.status === false) {
             Swal.fire({
