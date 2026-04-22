@@ -24,7 +24,15 @@ export default {
 optionsAnswer:null,
 selectedStatus:"",
 profilHybride:[],
-allStatuses:[]
+allStatuses:[],
+descriptionProfil:{
+  Etudiant:"Ce profil vous permet d'accéder à des offres d'emploi,ainsi que de bénéficier de tarifs préférentiels sur nos services.",
+  Artisan:"Ce profil vous permet de mettre en avant votre savoir-faire artisanal, d'accéder à des offres d'emploi spécifiques et de bénéficier de tarifs préférentiels sur nos services.",
+  Particulier:"Ce profil vous permet de rechercher des personnes à contacter tel que les artisans,etudiants et professionnels.",
+  Professionnel:"Ce profil vous permet d'accéder à des offres d'emploi, de mettre en avant votre expérience professionnelle et de bénéficier de tarifs préférentiels sur nos services.",
+  Vétéran:"Ce profil vous permet de mettre en avant votre expérience et vos compétences acquises au cours de votre carrière, d'accéder à des offres d'emploi spécifiques et de bénéficier de tarifs préférentiels sur nos services.",
+  Entreprise:"Ce profil vous permet de mettre en avant votre entreprise, d'accéder à des Talents (Etudiants, professionnels,Artisans,Vétérans) et de bénéficier de tarifs préférentiels sur nos services."
+}
     }
   },
  watch: {
@@ -231,29 +239,36 @@ this.selectedParseStatus = ""
         <h5>Aucun profil</h5>
       </div>
       
-      <div v-else class="row g-2">
-        <div v-for="(profil, index) in profils?.user?.statuses" :key="index" 
-             class="col-12 col-md-4">
-          
-          <!-- Carte profil avec tes couleurs -->
-          <div style="display: flex;">
-            <!-- Header image/statut -->
-            <div class="position-relative p-3 text-center">
-              <div class="avatar-placeholder rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
-                   style="width: 55px; height: 55px; background: orange; color: white;border-radius: 10px;">
-                   
-                <i class="bi bi-person-fill fs-3"></i>
-               
-              </div>
-              
-              <!-- Badge statut -->
-              <span class="badge position-absolute top-0 end-0" 
-                    style="background: orange; color: white;">
-                {{ profil.statut }}
-              </span>
-            </div>
+     <div v-else 
+     :style="{
+       display: 'flex', 
+       gap: '1em',
+       width: '100%',
+       flexWrap: 'wrap',
+       placeContent: profils?.user?.statuses.length == 1 ? 'flex-start' : 'center'
+     }">
+
+            <div 
+            v-for="(profil, index) in profils?.user?.statuses" :key="index"
+            style="
+            border: 3px solid white;
+            background-color: #ffa500c2;
+            padding:1em;
+            border-radius: 10px;
+            position: relative;
+            height: 200px;
+            margin: 1em;
+            width: 300px;
+            ">
+          <h3 style="color: white;">{{ profil.statut }}</h3>
+          <span 
+          v-if="profils?.user.statut.statut == profil.statut"
+          class="badge" 
+          style="position: absolute;top:0.3em;right:0;font-size: 0.8em;background-color: #25535f;font-weight: bold;">
+           Profil de base</span>
+          <span>{{ descriptionProfil[profil.statut] }}</span>
           </div>
-        </div>
+          
       </div>
     </div>
   </a-card>
