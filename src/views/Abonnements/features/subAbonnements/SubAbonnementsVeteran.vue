@@ -74,7 +74,7 @@ onMounted(async () => {
       color_btn: "primary",
     },
   ];
-  console.log("PROFILE_ABONNEMENT",storeAbonnement.profilHybride)
+  console.log("PROFILE_ABONNEMENT_SUB_VETERAN",storeAbonnement.profilHybride)
 profilHybrideRecuperer.value = storeAbonnement.profilHybride.length
   texte.value = await transalteStore.handleTranslate("année");
   if (isUserConnected.value) {
@@ -136,9 +136,6 @@ profilHybrideRecuperer.value = storeAbonnement.profilHybride.length
       {{ Help.convertInMoney(Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer)) }} F
     </h1>
   </div>
-          <!-- <h1 style="font-size: 2em; font-weight: bold">
-            {{ Help.convertInMoney(item.prix) }} F
-          </h1> -->
           <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
           <h3 style="font-size: 2em; color: orange">an</h3>
         </div>

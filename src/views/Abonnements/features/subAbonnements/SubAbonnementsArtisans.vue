@@ -3,7 +3,7 @@ import { defineProps, ref, onMounted, watch, computed } from "vue";
 import { Help } from "../../../../utils";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
-// import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
+import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
 import contentAbonnement from '../contentAbonnement.vue'
 defineProps({
@@ -13,11 +13,12 @@ defineProps({
 
 
 const transalteStore = useTranslateStore();
-// const storeAbonnement = useAbonnementsStore();
+const storeAbonnement = useAbonnementsStore();
 const storeAbonnementUser = useEntreprisesStore();
 const userConnected = ref(localStorage.getItem('user'))
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
+const profilHybrideRecuperer = ref(0)
 
 
 
@@ -59,6 +60,8 @@ onMounted(async () => {
   ];
 
   texte.value = await transalteStore.handleTranslate("année");
+  console.log("PROFILE_ABONNEMENT_SUB_ARTISAN",storeAbonnement.profilHybride)
+profilHybrideRecuperer.value = storeAbonnement.profilHybride.length
   if (isUserConnected.value) {
       await storeAbonnementUser.get_all_abonnement();
     }
@@ -101,9 +104,26 @@ onMounted(async () => {
         </span>
   </p>
        <div class="d-flex align-items-center gap-5 justify-content-center main-color">
-          <h1 style="font-size: 2em; font-weight: bold">
+        <div style="display: flex;flex-direction: column;">
+   <h1 
+    :style="{
+    fontSize: '2em',
+    fontWeight: 'bold',
+    padding: '0',
+    margin: '0',
+    textDecoration: Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer) != item.prix ? 'line-through' : 'none'
+  }">
+      {{ Help.convertInMoney(item.prix) }} F
+    </h1>
+    <h1 
+     v-if="Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer) != item.prix"
+    style="font-size: 2em; font-weight: bold;padding: 0;margin: 0;">
+      {{ Help.convertInMoney(Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer)) }} F
+    </h1>
+  </div>
+          <!-- <h1 style="font-size: 2em; font-weight: bold">
             {{ Help.convertInMoney(item.prix) }} F
-          </h1>
+          </h1> -->
           <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
           <h3 style="font-size: 2em; color: orange">an</h3>
         </div>
