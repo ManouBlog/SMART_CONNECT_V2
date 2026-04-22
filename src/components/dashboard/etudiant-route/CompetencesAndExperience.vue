@@ -612,7 +612,7 @@ export default {
                     class="vuemulti"
                   >
                   </VueMultiselect>
-                  <p style="color: black;">{{ competence }}</p>
+                  <!-- <p style="color: black;">{{ competence }}</p> -->
                   <div v-if="competence.some(c => c.competence === 'Autres')">
                     <label for="autreCompetence">Ajoutez une compétence :</label>
                     <input id="autreCompetence" v-model="appendCompetence" type="text" placeholder="Ajoutez" 
