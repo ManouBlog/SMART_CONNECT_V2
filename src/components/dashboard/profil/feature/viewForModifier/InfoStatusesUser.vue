@@ -16,10 +16,12 @@ export default {
   },
   data() {
     return {
-      showModalBadgeVerifi: false,
+      allProfilsHybrides:[],
+      profilhybrideUserConnected:[],
+      showModalChangeProfilOfBase: false,
       showModalAbonnements:false,
       selectedParseStatus:"",
-// allStatutsCompany:[{ value: "Artisan", label: "Artisan" }],
+ showModalAddProfilHybride:false,
  allProfilHybrideAnswer: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
@@ -58,7 +60,7 @@ descriptionProfil:{
       },
       immediate: true
     },
-    showModalBadgeVerifi:{
+    showModalChangeProfilOfBase:{
        handler(newValue) {
         
         if (!newValue) {
@@ -128,11 +130,13 @@ this.selectedParseStatus = ""
     this.allStatuses = response.data.data.filter(item =>
       allowed.includes(item.statut)
     );
-
+    this.allProfilsHybrides = response.data.data.filter(item =>item.statut === 'Particulier' || item.statut === 'Artisan');
+    this.profilhybrideUserConnected = this.profils.user?.statuses.filter(item => item.statut !==  this.profils.user.statut.statut); 
     console.log("allStatuses2", {
       statut: this.allStatuses,
       profil: this.$store.state.infoUserConnected.user.statut
     });
+    console.log("allProfilsHybrides", this.allProfilsHybrides);
 
   } catch (error) {
     console.log(error);
@@ -146,8 +150,53 @@ this.selectedParseStatus = ""
 </script>
 
 <template>
+  <n-modal v-model:show="showModalAddProfilHybride" 
+       style="width:80%; height: 400px; 
+    overflow-y: auto; 
+    max-height: 80vh;" 
+       preset="card" 
+       :closable="false"
+      @after-leave="resetData"
+       >
+      <template #header>
+        <div class="modal-header">
+          <h3>Ajouter un profil hybride</h3>
+        </div>
+      </template>
+      
+      <section>
+  <div>
+    <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+     Profils hybrides
+    </label>
+    {{ profils.user?.statuses }}
+    {{ profils.user.statut.statut }}
+    <div class="round-container">
+      <label 
+        v-for="item in allProfilsHybrides" 
+        :key="item.id"
+        class="round-item"
+      >
+        <input
+          type="checkbox"
+          :value="item"
+          v-model="profilHybride"
+          :disabled="profilhybrideUserConnected.some(profil => profil.statut === item.statut)"
+        />
+        <span class="round-label">
+          {{ item.statut }}
+        </span>
+      </label>
+    </div>
+  </div> 
+    </section>
+      <!-- <section v-else style="text-align: center;" class="shimmer-text">
+        Chargement des profils....
+      </section> -->
+      
+    </n-modal>
      
-       <n-modal v-model:show="showModalBadgeVerifi" 
+       <n-modal v-model:show="showModalChangeProfilOfBase" 
        style="width:80%; height: 400px; 
     overflow-y: auto; 
     max-height: 80vh;" 
@@ -160,10 +209,7 @@ this.selectedParseStatus = ""
           <h3>Changer le profil de base </h3>
         </div>
       </template>
-      
-      <section v-if="allStatuses.length"
-  
-      >
+      <section v-if="allStatuses.length">
         <div class="w-100 mb-4">
             <label for="statusSelect">Séléctionnez un profil</label>
             <select 
@@ -193,7 +239,7 @@ this.selectedParseStatus = ""
         </div>
         <!-- {{ selectedParseStatus }} -->
   <transition name="fade-slide">
- <div v-if="selectedParseStatus && ['Particulier', 'Vétéran',''].includes(selectedParseStatus.statut)">
+ <div v-if="selectedParseStatus && ['Particulier', 'Vétéran','Etudiant'].includes(selectedParseStatus.statut)">
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
     Souhaitez-vous adopter un profil hybride ?
   </label>
@@ -238,7 +284,7 @@ this.selectedParseStatus = ""
         </span>
       </label>
     </div>
-    <div class="round-container" v-else>
+    <!-- <div class="round-container" v-else>
       <label 
         v-for="item in allStatutsCompany" 
         :key="item.value"
@@ -253,7 +299,7 @@ this.selectedParseStatus = ""
           {{ item.label }}
         </span>
       </label>
-    </div>
+    </div> -->
   </div>
 </transition>
   <div v-if="optionsAnswer || selectedParseStatus">
@@ -290,10 +336,11 @@ this.selectedParseStatus = ""
     "
   >
     <!-- Header avec tes couleurs -->
-    <div class="info-header d-flex justify-content-between align-items-center p-4 mb-5">
+    <div class="info-header d-flex justify-content-between align-items-center p-4 mb-5 flex-wrap">
       <h1 class="fw-bold my-3 mb-0" style="color: orange">Mes Profils</h1>
-      <!-- {{ profils }} -->
-      <button
+      {{ profils.user?.statuses}}
+        <div style="display: flex; gap:1em;flex-wrap: wrap;">
+<button
       v-if="profils?.user?.statuses.some(item=>item.statut != 'Vétéran')"
           style="
             height: auto;
@@ -306,13 +353,36 @@ this.selectedParseStatus = ""
           "
           @click="async()=>{
             loadActiveChangedProfil(true);
-            showModalBadgeVerifi = !showModalBadgeVerifi
+            showModalChangeProfilOfBase = !showModalChangeProfilOfBase
              await this.lister_statut();
              
           }"
         >
-          Modifier
+          Changer le profil de base
         </button>
+        <button
+      v-if="profils?.user?.statuses.some(item=>item.statut != 'Vétéran')"
+          style="
+            height: auto;
+            width: auto;
+            background: orange;
+            color: white;
+            font-weight: bold;
+            border-radius: 10%;
+            padding:0.5em;
+          "
+          :disabled="profils.user?.statuses.length >= 2"
+          @click="async()=>{
+            loadActiveChangedProfil(true);
+            showModalAddProfilHybride = !showModalAddProfilHybride
+             await this.lister_statut();
+             
+          }"
+        >
+          Ajouter un profil hybride
+        </button>
+        </div>
+      
     </div>
 
     <!-- Grille profils responsive -->
