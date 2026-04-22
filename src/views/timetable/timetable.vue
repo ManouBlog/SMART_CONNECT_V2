@@ -208,7 +208,7 @@ export default {
     async getAllCompetences() {
       try {
         const reponse = await instance.get("GetAllCompetences");
-        this.competences = reponse.data.data;
+        this.competences = reponse.data.data.filter(c => c.categorie_id !== null);
       } catch (e) {
         console.log(e);
       }
@@ -472,7 +472,7 @@ if (isParticulier) {
         .get("GetAllCompetences")
         .then((res) => {
           // console.log("competencesPredefini", res);
-          this.competencesPredefini = res.data.data;
+          this.competencesPredefini = res.data.data.filter(c => c.categorie_id !== null);
         })
         .catch((err) => {
           console.log(err);

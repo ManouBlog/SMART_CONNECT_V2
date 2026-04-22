@@ -132,7 +132,7 @@ export const useOffreStore = defineStore('offres', {
             Spinner.launchLoading(false)
             try {
               const reponse = await instance.get("GetAllCompetences");
-              this.allCompetences = reponse.data.data;
+              this.allCompetences = reponse.data.data.filter(c => c.categorie_id !== null);
               // console.log("GetAllCompetences", this.competences);
               Spinner.launchLoading(false)
             } catch (e) {

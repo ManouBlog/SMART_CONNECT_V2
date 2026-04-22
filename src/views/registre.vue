@@ -500,7 +500,7 @@ Un caractère spécial
         .get("GetAllCompetences")
         .then((res) => {
           // console.log("COMPETENCE", res);
-          this.competences = res.data.data;
+          this.competences = res.data.data.filter(c => c.categorie_id !== null);
         })
         .catch((err) => {
           console.log(err);

@@ -546,7 +546,7 @@ export default {
         .get("GetAllCompetences")
         .then((res) => {
           // console.log("COMPETENCE", res.data.data);
-          this.competencesPredf = res.data.data;
+          this.competencesPredf = res.data.data.filter(c => c.categorie_id !== null);
         })
         .catch((err) => {
           console.log(err);

@@ -55,7 +55,7 @@ export default {
       spinnerExperience: false,
       spinnerModifyExperience: false,
       comp: [],
-      competence: null,
+      competence:[],
       comfirmationForDeleteCompetence: false,
       toogleNouvelleExperience: false,
       detailOfExperience: "",
@@ -72,6 +72,7 @@ export default {
       toogleScreenYouWantDelete: false,
       fileProofAttestation: null,
       spinnerCompetence: false,
+      appendCompetence:null
     };
   },
   methods: {
@@ -91,10 +92,12 @@ export default {
     },
     addCompetences() {
       loadingSpinner.launchLoading(true);
+      console.log("this.comp", this.comp);
       this.spinnerCompetence = true;
       instance
         .post("addCompetences", {
           competence: this.comp,
+      appendCompetence: this.appendCompetence
         })
 
         .then((response) => {
@@ -133,13 +136,21 @@ export default {
           loadingSpinner.launchLoading(false);
         })
     },
+    generateUniqueId() {
+  return `autre_${Date.now()}_${Math.floor(Math.random() * 100000)}`
+   },
     getAllCompetences() {
       instance
         .get("GetAllCompetences")
 
         .then((res) => {
-          
-          this.competencesPredf = res.data.data;
+          console.log("GetAllCompetences_12", res);
+          this.competencesPredf = res.data.data.filter(c => c.categorie_id !== null);
+          this.competencesPredf.push({
+         id: this.generateUniqueId(),
+         competence: "Autres",
+         categorie_id: null,
+         })
         })
         .catch((err) => {
           console.log(err)
@@ -344,6 +355,13 @@ export default {
       return this.MyExperiences.slice(startIndex, endIndex);
     },
   },
+  watch: {
+    competence(newVal) {
+      if (!newVal.some(c => c.competence === 'Autres')) {
+        this.appendCompetence = null;
+      }
+    },
+  },
   async created() {
     this.getAllExperiences();
     this.getAllCompetences();
@@ -369,7 +387,7 @@ export default {
     this.texte18 = await this.handleTranslate('Annuler'); 
     this.texte19 = await this.handleTranslate("Voulez-vous vraiment supprimer l'expérience ?"); 
     this.texte20 = await this.handleTranslate('Mes compétences'); 
-    this.texte21 = await this.handleTranslate('Ajoutez'); 
+    this.texte21 = await this.handleTranslate('Ajouter'); 
     this.texte22 = await this.handleTranslate('Compétences'); 
     this.texte23 = await this.handleTranslate('Action'); 
     this.texte24 = await this.handleTranslate('Mes expériences'); 
@@ -594,10 +612,18 @@ export default {
                     class="vuemulti"
                   >
                   </VueMultiselect>
+                  <p style="color: black;">{{ competence }}</p>
+                  <div v-if="competence.some(c => c.competence === 'Autres')">
+                    <label for="autreCompetence">Ajoutez une compétence :</label>
+                    <input id="autreCompetence" v-model="appendCompetence" type="text" placeholder="Ajoutez" 
+                    style="color: black;height: 45px;">
+                  </div>
                   <div class="d-flex justify-content-start my-2">
+                    
                     <button
                       class="btn bg-warning addCompetences"
                       @click="addCompetences"
+                      :disabled="competence.some(c => c.competence === 'Autres') && !appendCompetence"
                       v-if="comp.length"
                     >
                       <span v-if="this.spinnerCompetence">
@@ -623,7 +649,7 @@ export default {
                             <tbody>
                               <tr v-for="(item, index) in competences" :key="index">
                                 <td>
-                                  {{ item.competence }}
+                                  {{ item.categorie_id == null ? `${item.competence} (Non classé)` : item.competence }}
                                 </td>
                                 <td
                                   style="text-align:center;"

@@ -371,7 +371,7 @@ export default {
     async getAllCompetences() {
       try {
         const reponse = await instance.get("GetAllCompetences");
-        this.competences = reponse.data.data;
+        this.competences = reponse.data.data.filter(c => c.categorie_id !== null);
       } catch (e) {
         console.log(e);
       }
