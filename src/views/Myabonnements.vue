@@ -60,6 +60,15 @@
             <span>{{ configUtils.getFormatDateFr(slotProps.data.created_at) }}</span>
           </template>
         </Column>
+        <Column
+          style="font-size: 1.3em; padding: 1em; text-align: center"
+          field="created_at"
+          :header="'Moyen de paiement'"
+        >
+          <template #body="slotProps">
+            <span>{{ slotProps.data.moyen_paiement }}</span>
+          </template>
+        </Column>
 
         <Column
           style="font-size: 1.3em; padding: 1em; text-align: center"

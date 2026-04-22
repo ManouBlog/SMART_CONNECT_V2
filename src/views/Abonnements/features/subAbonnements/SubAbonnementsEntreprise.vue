@@ -94,8 +94,8 @@ onMounted(async () => {
       :elmentsOfBtn="elmentsOfBtn"
       />
     </div>
-    <section v-else>
-      <p style="text-align:center;">
+    <section v-else >
+      <p style="text-align:center;position: absolute;top: 10px;right: 10px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
           class="badge bg-warning"
