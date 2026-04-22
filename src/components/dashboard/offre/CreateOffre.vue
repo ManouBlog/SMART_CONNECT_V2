@@ -250,7 +250,7 @@ export default {
         nbre_person: this.nbre_person,
         job_fin: this.job_fin,
         job_debut: this.job_debut,
-        status_id:this.chooseStatut.map(item=>item.id)
+        status_id:this.chooseStatut.some(item=>item.statut === 'Tous') ? this.allStatuses.filter(item=>item.statut !== 'Tous').map(item=>item.id) : this.chooseStatut.map(item=>item.id)
       };
       await instance
         .post("create_offre", data)
