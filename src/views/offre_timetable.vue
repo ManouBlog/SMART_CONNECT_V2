@@ -403,15 +403,16 @@ if (!user.competences.length || !user.qualifications.length) {
             {{ lengthOfMylistOffre > 1 ? texte3 : "Offre" }}
           </span>
         </div>
-        <section
-          style="
-            display: flex;
-            justify-content: center;
-            place-content: center;
-            gap: 1em;
-            flex-wrap: wrap;
-          "
-        >
+        <section 
+  :style="{
+    display: 'flex',
+    justifyContent: list_offre.length == 1 ? 'flex-start' : 'center',
+    placeContent: list_offre.length == 1 ? 'flex-start' : 'center',
+    gap: '1em',
+    flexWrap: 'wrap',
+    width: '100%'
+  }"
+>
           <div
             class="container_result"
             v-for="(offre, index) in list_offre"
@@ -449,17 +450,14 @@ if (!user.competences.length || !user.qualifications.length) {
             </section>
             <div class="two my-1">
               <div>
-                <h6 style="font-size: 0.7em;">
+                <h6 style="font-size: 0.9em;">
                   <em class="bi bi-calendar-date"></em>
                   Date limite pour postuler :
                   {{ new Date(offre.fin).toLocaleDateString("fr") }}
                 </h6>
                 <router-link class="see_detail" :to="{ name: 'OffreDetail', params: { id: offre.id } }">
                   <button
-                   
-                    class="btn btn-Conex"
-                  >
-                  
+                    class="btn btn-Conex mt-3" style="padding:0.4em">
                     {{ texte6 }} <em class="bi bi-eye"></em>
                   </button>
                 </router-link>
@@ -565,7 +563,7 @@ form {
 }
 .logo_img_offre {
   width: auto;
-  height: auto;
+  height: 100px;
   padding: 0.5em;
   text-align: center;
   line-height: 80px;
@@ -621,7 +619,7 @@ select {
   align-items: center;
   background: var(--secondary-color) !important;
   color: var(--third-color) !important;
-  padding: 2em 1em;
+  padding: 2em 1em 1em 1em;
   border-radius: 10px;
   flex-wrap: wrap;
   margin: 1em 0;
