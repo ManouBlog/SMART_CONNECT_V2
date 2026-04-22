@@ -77,6 +77,17 @@ export default {
       pageSize: 5,
     };
   },
+  watch: {
+    'isFormValid': {
+      handler(newUser) {
+        if(!newUser){
+          this.get_list_offre();
+        }
+      },
+      immediate: true,
+      deep: true
+    }
+  },
   computed: {
     isFormValid() {
     return (
@@ -94,14 +105,8 @@ export default {
       console.log("computed_listOffre",this.MylistOffre);
       return this.MylistOffre.slice(start, end);
     },
-    fieldSearch() {
-      return !this.searchName || !this.categorie || !this.searchLieu;
-    },
   },
   methods: {
-    handleSearchClick() {
-      this.list_offre.length > 0 ? this.searchOffres() : this.get_list_offre();
-    },
     searchOffres() {
       const dataSearch = {
         categorie: this.categorie.length ? this.categorie?.map((item) => item?.id) : [],
@@ -171,12 +176,16 @@ export default {
         .then((res) => {
           // console.log("search_offres", res);
           if (res.data.status) {
-            // this.listOffre = res.data.data;
-            this.MylistOffre = res.data.data.filter((item) => {
-            
+             const profilALL = this.$store.state.user ?  this.$store.state.user.user.statuses.map((s) => s.id) : [];
+          const OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
+            return item.statuses.some(statut =>{
+              return profilALL.some(s => statut.id == s)
+            })
+          });
+            this.MylistOffre = OFFRES_FILTER_BY_PROFIL.filter((item) => {
              return new Date(item.fin) >= new Date();
             });
-            this.MylistsOffres = res.data.data.filter((item) => {
+            this.MylistsOffres = OFFRES_FILTER_BY_PROFIL.filter((item) => {
               return new Date(item.fin) >= new Date();
             });
             this.lengthOfMylistOffre = this.MylistsOffres.length;
@@ -190,6 +199,7 @@ export default {
         });
     },
     get_list_offre(search = null) {
+    
       if (!search) {
         this.handleListOffresWithoutSearch();
       } else {
@@ -378,25 +388,17 @@ if (!user.competences.length || !user.qualifications.length) {
             <button
          class="btn-search btn"
          :disabled="!isFormValid"
-         @click.prevent="handleSearchClick"
+         @click.prevent="searchOffres"
          >
          Rechercher
          </button>
-            <!-- <button
-              :disabled="!fieldSearch && !list_offre.length"
-              :class="!fieldSearch ? null : 'bg-primary'"
-              class="btn"
-              @click.prevent="handleSearchClick"
-            >
-              Rechercher
-            </button> -->
-            <span
+            <!-- <span
               v-if="!list_offre.length"
-              @click.prevent="handleSearchClick"
+              @click.prevent="get_list_offre"
               style="color: orange; font-weight: bold; cursor: pointer"
             >
                Toutes
-            </span>
+            </span> -->
           </div>
         </form>
       </div> 
