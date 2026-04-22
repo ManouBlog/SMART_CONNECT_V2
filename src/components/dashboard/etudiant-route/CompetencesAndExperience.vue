@@ -416,7 +416,7 @@ export default {
           </div>
         </div>
         <form @submit.prevent="saveExperience">
-          <div class="row" style="padding: 25px;">
+          <div class="row" style="padding: 5px 25px;">
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>
                 <span style="color:red">*</span>
@@ -431,14 +431,17 @@ export default {
               <label><span style="color:red;">*</span>{{texte3}}</label>
               <input type="text" style="height: 45px;" v-model="lieu" required />
             </div>
-            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
+            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start periode_experience" style="display: flex; gap:1em;">
+              <div>
               <label><span style="color:red;">*</span>{{texte4}}</label>
               <input type="date" style="height: 45px;" v-model="dateDebut" required />
-            </div>
-            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
+              </div>
+              <div>
               <label>{{texte5}}</label>
               <input type="date" style="height: 45px;" v-model="dateFin" :min="dateDebut" required />
             </div>
+            </div>
+            
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>{{texte6}}</label>
               <input type="file" style="height: 45px;" accept="image/*" @change="onFileProof" />
@@ -822,6 +825,7 @@ textarea {
   left: 0;
   top: 0;
   width: 100%;
+  min-width: 300px;
   height: 100%;
   z-index: 99;
   background: rgba(0, 0, 0, 0.338);
@@ -1100,6 +1104,10 @@ p {
 }
 
 @media screen and (max-width: 576px) {
+  .periode_experience{
+    flex-direction: column !important;
+    gap:0.5em !important;
+  }
   .conteneur_nouvelle_experience form {
   padding: 0.1em;
   margin-top: 6em;
