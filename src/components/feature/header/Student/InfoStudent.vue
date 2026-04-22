@@ -83,8 +83,8 @@ export default {
             // console.log("RESPONSE", response.data);
             this.$store.state.user = null;
             this.$store.state.token = null;
-            // console.log("this.$store.state.user", this.$store.state.user);
-            // console.log("this.$store.state.token", this.$store.state.token);
+            this.$store.commit("UPDATE_INFO_COMPANY", null);
+           
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             Swal.fire({
@@ -99,14 +99,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          if (err.response.data.message === "Unauthenticated.") {
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$router.replace("/");
-           
-          }
-
-         
+        
         })
         .finally(()=>{
            this.launchLoading(false);

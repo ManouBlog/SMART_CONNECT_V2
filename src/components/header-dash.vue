@@ -18,20 +18,10 @@ export default {
           if (res) {
             localStorage.removeItem("token");
             localStorage.removeItem("user");
-
+          this.$store.commit("UPDATE_INFO_COMPANY", null);
             this.$store.state.user = null;
             this.$store.state.token = null;
-            
-            // Swal.fire({
-            //   icon: "success",
-            //   title: res.data.message,
-            //   showConfirmButton: false,
-            //   timer: 1500,
-            // });
             this.$router.push("/");
-            // setTimeout(() => {
-            //   this.$router.push("/");
-            // }, 1500);
           }
         })
         .catch((err) => {
