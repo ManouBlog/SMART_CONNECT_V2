@@ -213,6 +213,9 @@ this.selectedParseStatus = ""
       </section>
   
       <input type="file" @change="handleFileChange" />
+      <div>
+        <button type="button" @click="addProfilHybride">Ajouter</button>
+      </div>
   </div>
     </section>
       
