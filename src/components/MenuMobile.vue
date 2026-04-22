@@ -157,6 +157,7 @@ if (
   async created() {
     this.getInfoUser();
     const userStr = localStorage.getItem('user');
+    console.log("userStr", userStr)
     this.StatutUser = userStr ? JSON.parse(userStr).user?.statuses : null;
     console.log("StatutUser", this.StatutUser)
     this.texte = await this.handleTranslate("Connexion");
@@ -214,10 +215,10 @@ if (
           >{{ this.$store.state.user.nom }} 
           {{ this.$store.state.user.prenoms }} 
           <div 
-          v-if="this.StatutUser.length"
+          v-if="this.$store.state.user"
           style="display: flex; flex-wrap: wrap; gap: 6px; margin:0.5em 0">
   <span
-    v-for="(status,index) in StatutUser"
+    v-for="(status,index) in this.$store.state.user.user.statuses"
     :key="index"
     class="badge bg-warning"
   >

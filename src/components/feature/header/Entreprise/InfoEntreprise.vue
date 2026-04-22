@@ -3,7 +3,7 @@ import instance from "../../../../api/api";
 import Swal from "sweetalert2";
 import LiensNavBar from "../../../feature/header/LiensNavBar.vue";
 import { mapActions } from "pinia";
-
+import { useMenuMobile } from "../../../../store-pinia/MenuMobile/useMenuMobileStore";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 export default {
@@ -70,6 +70,7 @@ export default {
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
+    ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
     deconnexUser() {
       this.launchLoading(true);
       instance
@@ -83,6 +84,7 @@ export default {
             this.$store.commit("UPDATE_INFO_COMPANY", null);
             localStorage.removeItem("token");
             localStorage.removeItem("user");
+            this.changeValueForshowMenuMobile();
             Swal.fire({
               icon: "success",
               title: response.data.message,

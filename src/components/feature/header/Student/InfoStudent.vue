@@ -4,6 +4,7 @@ import LiensNavBar from "../LiensNavBar.vue";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
 import { Help } from "../../../../utils";
+import { useMenuMobile } from "../../../../store-pinia/MenuMobile/useMenuMobileStore";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 export default {
@@ -73,6 +74,7 @@ export default {
   methods: {
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+    ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
     deconnexUser() {
       this.launchLoading(true);
       instance
