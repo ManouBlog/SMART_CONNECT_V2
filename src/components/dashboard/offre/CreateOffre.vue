@@ -114,16 +114,18 @@ export default {
   computed: {
     ...mapState(useOffreStore, ["categoriesOffres", "allCompetences"]),
     verifIfAllField() {
-      return (
+      return !(
         this.salaire &&
         this.description &&
         this.debut &&
         this.fin &&
         this.lieu &&
         this.pointage &&
-        this.competence
+        this.competence &&
+        this.chooseStatut.length > 0
       );
     },
+    
   },
   methods: {
   async listerCountries() {
@@ -524,7 +526,10 @@ export default {
     </div>
     <div class="col-lg-6 col-md-6 col-12 text-left my-3">
       <label>{{ texte16 }}</label>
-      <input class="form-control" type="datetime-local" v-model="job_debut" :min="fin" />
+      <input class="form-control" 
+      type="datetime-local" 
+      v-model="job_debut" 
+      :min="debut" />
     </div>
   </div>
 
@@ -535,10 +540,12 @@ export default {
       <input class="form-control" type="datetime-local" v-model="job_fin" :min="job_debut" />
     </div>
     <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
-      <label><span style="color: red">*</span>Choisissez un profil</label>
+      <label><span style="color: red">*</span>Choisissez un profil 
+        <i class="bi bi-info-circle text-info" style="font-size: 0.3em;margin-left: -0.1em;"></i>
+      </label>
       <VueMultiselect 
       v-model="chooseStatut" 
-      :options="userInfo && userInfo?.statut?.statut === 'Entreprise' ? allStatuses.filter(item => item.statut !== 'particulier') : allStatuses.filter(item => item.statut == 'Etudiant' || item.statut == 'Artisan')" 
+      :options="allStatuses.filter(item => item.statut != 'Entreprise')" 
       placeholder="Choix multiples" 
       :multiple="true" 
       label="statut" 
@@ -580,7 +587,8 @@ export default {
   <!-- Bouton centré -->
   <div class="row g-3 my-5">
     <div class="col-12 text-center">
-      <button class="btn btn-warning btn-designer" type="submit" :disabled="loading">
+      <button class="btn btn-warning btn-designer" 
+      type="submit" :disabled="verifIfAllField">
         {{ loading ? texte20 : texte19 }}
       </button>
     </div>
