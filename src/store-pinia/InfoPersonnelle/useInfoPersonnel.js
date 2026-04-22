@@ -330,7 +330,7 @@ if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
         }else if(!payload.password || !payload.confirmation_password){
           Swal.fire({
             icon: "info",
-            title: "Veuillez ajouter un mot de passe",
+            title: "Veuillez Ajoutez un mot de passe",
             showConfirmButton: false,
             timer: 1500,
           });

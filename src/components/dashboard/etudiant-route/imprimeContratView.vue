@@ -173,7 +173,7 @@ h5 {
   }
 }
       </style>`);
-      printWindow.document.write(divContents); // Ajouter le contenu à imprimer
+      printWindow.document.write(divContents); // Ajoutez le contenu à imprimer
       printWindow.document.write("</body></html>");
 
       // Fermer le flux d'écriture

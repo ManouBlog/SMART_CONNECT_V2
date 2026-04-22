@@ -622,7 +622,7 @@ export default {
     this.texte2 = await this.handleTranslate("Supprimer");
     this.texte3 = await this.handleTranslate(`Annuler`);
     this.texte4 = await this.handleTranslate("Modifier l'emploi du temps");
-    this.texte5 = await this.handleTranslate("+ Ajouter une date");
+    this.texte5 = await this.handleTranslate("+ Ajoutez une date");
     this.texte6 = await this.handleTranslate("Première sélection");
     this.texte7 = await this.handleTranslate(`Heure de début`);
     this.texte8 = await this.handleTranslate(`Heure de fin`);
@@ -637,10 +637,10 @@ export default {
     this.texte17 = await this.handleTranslate("-");
     this.texte18 = await this.handleTranslate("Actions");
     this.texte19 = await this.handleTranslate("Détails");
-    this.texte20 = await this.handleTranslate("Ajouter");
+    this.texte20 = await this.handleTranslate("Ajoutez");
     this.texte21 = await this.handleTranslate("Compétences");
     this.texte22 = await this.handleTranslate("Détails");
-    this.texte23 = await this.handleTranslate("Ajouter");
+    this.texte23 = await this.handleTranslate("Ajoutez");
     this.texte24 = await this.handleTranslate("Jours");
   },
 };

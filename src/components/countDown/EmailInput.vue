@@ -20,7 +20,7 @@ const notify = () => {
   } else {
     Swal.fire({
       icon: "info",
-      title: "Veuillez-ajouter un email",
+      title: "Veuillez-Ajoutez un email",
       showConfirmButton: true,
     });
   }

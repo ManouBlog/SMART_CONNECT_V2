@@ -135,14 +135,14 @@ export default {
         >
           <a-form-item 
           :label="text13"
-          :rules="[{ required: true, message: 'Ajouter le nom' }]"
+          :rules="[{ required: true, message: 'Ajoutez le nom' }]"
           name="nom"
           >
             <a-input :placeholder="texte5" v-model:value="formState.nom" />
           </a-form-item>
           <a-form-item 
           :label="'Prénoms'"
-          :rules="[{ required: true, message: 'Ajouter vos prénoms' }]"
+          :rules="[{ required: true, message: 'Ajoutez vos prénoms' }]"
           name="prenoms"
           >
             <a-input :placeholder="'Entrer vos prénoms'" v-model:value="formState.prenoms" />
@@ -151,14 +151,14 @@ export default {
           <a-form-item 
           :label="text14" 
           name="email"
-          :rules="[{ required: true, message: 'Ajouter l\'adresse email' }]"
+          :rules="[{ required: true, message: 'Ajoutez l\'adresse email' }]"
           >
             <a-input :placeholder="text6" v-model:value="formState.email" />
           </a-form-item>
           <a-form-item 
           :label="text15"
           name="objet"
-          :rules="[{ required: true, message: 'Ajouter un objet' }]"
+          :rules="[{ required: true, message: 'Ajoutez un objet' }]"
            >
             <a-input :placeholder="texte7" v-model:value="formState.objet" />
           </a-form-item>
@@ -166,7 +166,7 @@ export default {
           <a-form-item 
           :label="texte16"
           name="message"
-          :rules="[{ required: true, message: 'Ajouter un message' }]"
+          :rules="[{ required: true, message: 'Ajoutez un message' }]"
           >
             <a-textarea style="height:150px;" 
             :placeholder="texte8" v-model:value="formState.message" />

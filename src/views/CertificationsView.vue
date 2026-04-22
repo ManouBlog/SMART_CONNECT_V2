@@ -133,7 +133,7 @@ const downloadCertification = async () => {
   pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
   heightLeft -= pdfHeight;
 
-  // ajouter les pages si nécessaire
+  // Ajoutez les pages si nécessaire
   while (heightLeft > 0) {
     position = heightLeft - imgHeight;
     pdf.addPage();

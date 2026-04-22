@@ -623,10 +623,10 @@ export default {
     this.texte17 = await this.handleTranslate("-");
     this.texte18 = await this.handleTranslate("Actions");
     this.texte19 = await this.handleTranslate("Détails");
-    this.texte20 = await this.handleTranslate("Ajouter");
+    this.texte20 = await this.handleTranslate("Ajoutez");
     this.texte21 = await this.handleTranslate("Compétences");
     this.texte22 = await this.handleTranslate("Détails");
-    this.texte23 = await this.handleTranslate("Ajouter");
+    this.texte23 = await this.handleTranslate("Ajoutez");
   },
 };
 </script>

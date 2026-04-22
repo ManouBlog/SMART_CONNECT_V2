@@ -123,7 +123,7 @@ export default {
             payload: this.formState,
           });
         } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter la Pièce du gérant");
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez la Pièce du gérant");
         }
       } else {
         this.SWALPOPUP.declencheSwalPopup(
@@ -218,7 +218,7 @@ export default {
           <a-input v-model:value="formState.matricule_cc" placeholder="Entrez le RCCM" />
         </a-form-item>
          <a-form-item
-          :rules="[{ required: true, message: `Ajouter un registre de commerce` }]"
+          :rules="[{ required: true, message: `Ajoutez un registre de commerce` }]"
           name="Registre"
           label=""
         >
@@ -256,7 +256,7 @@ export default {
         <a-form-item
           label="NCC (Numéro de compte contribuable)"
           name="ncc"
-          :rules="[{ required: true, message: 'Ajouter le Numéro de compte contribuable' }]"
+          :rules="[{ required: true, message: 'Ajoutez le Numéro de compte contribuable' }]"
         >
           <a-input
             v-model:value="formState.ncc"
@@ -353,7 +353,7 @@ export default {
         <a-form-item :label="'Email secondaires (CC)'">
           <n-dynamic-input
             v-model:value="formState.email_cc"
-            placeholder="Ajouter un email en copie"
+            placeholder="Ajoutez un email en copie"
             :min="1"
             :max="6"
             :item-style="{ borderColor: 'gray' }"
@@ -405,7 +405,7 @@ export default {
       <a-col :xs="24" :md="12">
         <a-form-item
           name="upload"
-          :rules="[{ required: true, message: `Veuilez ajouter une pièce d'identité.` }]"
+          :rules="[{ required: true, message: `Veuilez Ajoutez une pièce d'identité.` }]"
           :label="texte10"
         >
           <a-upload
@@ -424,7 +424,7 @@ export default {
 
       <a-col :xs="24" :md="12">
         <a-form-item
-          :rules="[{ required: true, message: `Veuilez ajouter un logo.` }]"
+          :rules="[{ required: true, message: `Veuilez Ajoutez un logo.` }]"
           name="Logo"
           :label="'Logo(jpg,png,webp)'"
         >

@@ -256,7 +256,7 @@ export default {
         // Transform competences
         const competences = element.competences.map((comp) => comp.competence);
 
-        // Ajouter les nouvelles propriétés
+        // Ajoutez les nouvelles propriétés
         element.days = days;
         element.hours = hours;
         element.acquis = competences;

@@ -2,7 +2,7 @@
   <form @submit.prevent="submit">
     <div class="my-3">
       <n-dynamic-input v-model:value="localItems" :on-create="onCreateQualification">
-        <!-- Bouton ajouter -->
+        <!-- Bouton Ajoutez -->
         <template #create-button-default>
           <slot name="create-button"> Diplomes ou certifications obtenues </slot>
         </template>

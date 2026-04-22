@@ -348,7 +348,7 @@ export default {
     this.getAllExperiences();
     this.getAllCompetences();
     this.getAllCompetencesByStudents();
-    this.texte0 = await this.handleTranslate('Ajouter une nouvelle experience');
+    this.texte0 = await this.handleTranslate('Ajoutez une nouvelle experience');
     this.texte1 = await this.handleTranslate(`Poste`);
     this.texte2 = await this.handleTranslate("Nom de l'entreprise");
     this.texte3 = await this.handleTranslate('Lieu');
@@ -362,18 +362,18 @@ export default {
     this.texte11 = await this.handleTranslate("Nom de l'entreprise");
     this.texte12 = await this.handleTranslate('Lieu');
     this.texte13 = await this.handleTranslate('Document');
-    this.texte14 = await this.handleTranslate('Ajouter un fichier');
+    this.texte14 = await this.handleTranslate('Ajoutez un fichier');
     this.texte15 = await this.handleTranslate('Description (facultatif)');
     this.texte16 = await this.handleTranslate('Voulez-vous vraiment supprimer la compétence?');
     this.texte17 = await this.handleTranslate('Supprimer'); 
     this.texte18 = await this.handleTranslate('Annuler'); 
     this.texte19 = await this.handleTranslate("Voulez-vous vraiment supprimer l'expérience ?"); 
     this.texte20 = await this.handleTranslate('Mes compétences'); 
-    this.texte21 = await this.handleTranslate('Ajouter'); 
+    this.texte21 = await this.handleTranslate('Ajoutez'); 
     this.texte22 = await this.handleTranslate('Compétences'); 
     this.texte23 = await this.handleTranslate('Action'); 
     this.texte24 = await this.handleTranslate('Mes expériences'); 
-    this.texte25 = await this.handleTranslate('Ajouter une expérience'); 
+    this.texte25 = await this.handleTranslate('Ajoutez une expérience'); 
     this.texte26 = await this.handleTranslate('Chargement...'); 
     this.texte27 = await this.handleTranslate("Pas d'expérience"); 
    

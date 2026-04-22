@@ -10,7 +10,7 @@
     :model="fileList">
       <a-form-item
         name="fileList"
-        label="Ajouter une image de la carte étudiant (jpg, png)"
+        label="Ajoutez une image de la carte étudiant (jpg, png)"
         :rules="[{ required: true, message: 'Ajoute une image' }]"
       >
         <a-upload

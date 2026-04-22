@@ -495,7 +495,7 @@ StatutVeterans:[
 
       <n-dynamic-input
             v-model:value="formState.email_cc"
-            placeholder="Ajouter un email en copie"
+            placeholder="Ajoutez un email en copie"
             :min="1"
             :max="6"
             :item-style="{ borderColor: 'gray' }"

@@ -631,7 +631,7 @@ if (isStudentGroup) {
       <label class="form-label">Emails secondaires(cc)</label>
       <n-dynamic-input
        v-model:value="emails_cc"
-         placeholder="Ajouter un email en copie"
+         placeholder="Ajoutez un email en copie"
   :max="6"
   :item-style="{
     borderColor: 'gray'

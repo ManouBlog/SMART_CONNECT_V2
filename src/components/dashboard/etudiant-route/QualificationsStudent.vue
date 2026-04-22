@@ -296,7 +296,7 @@ export default {
   },
   async created() {
     this.getInfoUser();
-    this.texte0 = await this.handleTranslate("Ajouter une nouvelle qualification");
+    this.texte0 = await this.handleTranslate("Ajoutez une nouvelle qualification");
     this.texte1 = await this.handleTranslate(`Poste`);
     this.texte2 = await this.handleTranslate("Nom de l'entreprise");
     this.texte3 = await this.handleTranslate("Lieu");
@@ -310,7 +310,7 @@ export default {
     this.texte11 = await this.handleTranslate("Nom de l'entreprise");
     this.texte12 = await this.handleTranslate("Lieu");
     this.texte13 = await this.handleTranslate("Document");
-    this.texte14 = await this.handleTranslate("Ajouter un fichier");
+    this.texte14 = await this.handleTranslate("Ajoutez un fichier");
     this.texte15 = await this.handleTranslate("Description (facultatif)");
     this.texte16 = await this.handleTranslate(
       "Voulez-vous vraiment supprimer la qualification?"
@@ -321,11 +321,11 @@ export default {
       "Voulez-vous vraiment supprimer la qualification ?"
     );
 
-    this.texte21 = await this.handleTranslate("Ajouter");
+    this.texte21 = await this.handleTranslate("Ajoutez");
     this.texte22 = await this.handleTranslate("Compétences");
     this.texte23 = await this.handleTranslate("Action");
     this.texte24 = await this.handleTranslate("Mes qualifications");
-    this.texte25 = await this.handleTranslate("Ajouter une qualification");
+    this.texte25 = await this.handleTranslate("Ajoutez une qualification");
     this.texte26 = await this.handleTranslate("Chargement...");
     this.texte27 = await this.handleTranslate("Pas de qualifications");
   },
@@ -353,7 +353,7 @@ export default {
               v-model:value="itemsQualificationDynamicInput"
               :on-create="onCreateQualification"
             >
-              <!-- Bouton ajouter -->
+              <!-- Bouton Ajoutez -->
               <template #create-button-default>
                 <slot name="create-button"> Diplomes ou certification obtenues </slot>
               </template>
@@ -438,7 +438,7 @@ export default {
             :min="1"
             v-model:value="itemQualification"
              :on-create="onCreateQualification">
-        <!-- Bouton ajouter -->
+        <!-- Bouton Ajoutez -->
         <template #create-button-default>
           <slot name="create-button"> Diplomes ou certifications obtenues </slot>
         </template>

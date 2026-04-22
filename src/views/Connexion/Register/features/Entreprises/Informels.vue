@@ -190,7 +190,7 @@ export default {
       } else {
         this.SWALPOPUP.declencheSwalPopup(
           "info",
-          "Ajouter votre carte etudiante ou une preuve"
+          "Ajoutez votre carte etudiante ou une preuve"
         );
       }
       // this.changeValueIsPolitics({value:true,infoUser:'particulier',payload:this.formState});
@@ -412,7 +412,7 @@ export default {
           :label="texte"
           name="nom"
           :rules="[
-            { required: true, message: 'Ajouter votre nom' },
+            { required: true, message: 'Ajoutez votre nom' },
             {
               pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
               message: 'Veuillez saisir uniquement des lettres.'
@@ -428,7 +428,7 @@ export default {
           :label="texte1"
           name="prenoms"
           :rules="[
-            { required: true, message: 'Ajouter vos prénoms' },
+            { required: true, message: 'Ajoutez vos prénoms' },
             {
               pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
               message: 'Veuillez saisir uniquement des lettres.'
@@ -459,7 +459,7 @@ export default {
           :label="texte2"
           name="contact"
           :rules="[
-            { required: true, message: 'Ajouter un contact' },
+            { required: true, message: 'Ajoutez un contact' },
             {
               pattern: /^\d{10}$/,
               message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
@@ -492,9 +492,9 @@ export default {
         <a-form-item
           :label="texte3"
           name="ville"
-          :rules="[{ required: true, message: 'Ajouter une ville' }]"
+          :rules="[{ required: true, message: 'Ajoutez une ville' }]"
         >
-          <a-input v-model:value="formState.ville" placeholder="Ajouter votre ville" />
+          <a-input v-model:value="formState.ville" placeholder="Ajoutez votre ville" />
         </a-form-item>
       </a-col>
 
@@ -502,9 +502,9 @@ export default {
         <a-form-item
           :label="texte4"
           name="commune"
-          :rules="[{ required: true, message: 'Ajouter une commune' }]"
+          :rules="[{ required: true, message: 'Ajoutez une commune' }]"
         >
-          <a-input v-model:value="formState.commune" placeholder="Ajouter votre commune" />
+          <a-input v-model:value="formState.commune" placeholder="Ajoutez votre commune" />
         </a-form-item>
       </a-col>
     </a-row>
@@ -515,7 +515,7 @@ export default {
         <a-form-item :label="texte5" name="quartier">
           <a-input
             v-model:value="formState.quartier"
-            placeholder="Ajouter votre quartier"
+            placeholder="Ajoutez votre quartier"
           />
         </a-form-item>
       </a-col>
@@ -525,13 +525,13 @@ export default {
           :label="texte6"
           name="email"
           :rules="[
-            { required: true, message: 'Ajouter un email' },
+            { required: true, message: 'Ajoutez un email' },
             { type: 'email', message: 'Veuillez entrer un email valide' }
           ]"
         >
           <a-input
             v-model:value="formState.email"
-            placeholder="Ajouter votre adresse email"
+            placeholder="Ajoutez votre adresse email"
           />
         </a-form-item>
       </a-col>
@@ -565,7 +565,7 @@ export default {
         //   && this.result.isCardIdentity === false
           "
         >
-          Veuillez ajouter une carte d'identité bien visible
+          Veuillez Ajoutez une carte d'identité bien visible
         </span>
       </a-col>
     </a-row>
@@ -576,11 +576,11 @@ export default {
         <a-form-item
           :label="texte12"
           name="password"
-          :rules="[{ required: true, message: 'Ajouter un mot de passe' }]"
+          :rules="[{ required: true, message: 'Ajoutez un mot de passe' }]"
         >
           <a-input-password
             v-model:value="formState.password"
-            placeholder="Ajouter votre mot de passe"
+            placeholder="Ajoutez votre mot de passe"
           />
         </a-form-item>
       </a-col>

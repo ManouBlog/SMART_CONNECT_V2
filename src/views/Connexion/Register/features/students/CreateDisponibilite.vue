@@ -514,10 +514,10 @@ export default {
     this.texte17 = "-";
     this.texte18 = "Actions";
     this.texte19 = "Détails";
-    this.texte20 = "Ajouter";
+    this.texte20 = "Ajoutez";
     this.texte21 = "Compétences";
     this.texte22 = "Détails";
-    this.texte23 = "Ajouter";
+    this.texte23 = "Ajoutez";
   },
 };
 </script>

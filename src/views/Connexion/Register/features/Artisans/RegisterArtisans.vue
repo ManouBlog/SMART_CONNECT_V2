@@ -430,10 +430,10 @@ export default {
             payload: this.formState,
           });
         } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre Carte national d'identité.");
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité.");
         }
       } else {
-        this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
+        this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
       }
     },
 
@@ -717,7 +717,7 @@ export default {
 
           <a-spin v-if="loading" tip="Vérification de la carte d'étudiant" />
           <span style="color:red;" v-if="this.result && this.result.isStudentCard === false">
-            Veuillez ajouter une carte bien visible
+            Veuillez Ajoutez une carte bien visible
           </span>
           <!-- {{ this.result }} -->
         </a-col>

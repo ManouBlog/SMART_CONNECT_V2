@@ -555,10 +555,10 @@ preprocessImage(file) {
             payload: this.formState,
           });
         } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajouter votre carte étudiant.");
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre carte étudiant.");
         }
       } else {
-        this.SWALPOPUP.declencheSwalPopup("info", "Ajouter un email correct");
+        this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
       }
     },
 
@@ -793,25 +793,25 @@ preprocessImage(file) {
         <a-form-item
           label="Ville"
           name="ville"
-          :rules="[{ required: true, message: 'Ajouter une ville' }]"
+          :rules="[{ required: true, message: 'Ajoutez une ville' }]"
         >
-          <a-input v-model:value="formState.ville" placeholder="Ajouter votre ville" />
+          <a-input v-model:value="formState.ville" placeholder="Ajoutez votre ville" />
         </a-form-item>
       </a-col>
     <a-col :xs="24" :md="12">
         <a-form-item
           label="Commune"
           name="commune"
-          :rules="[{ required: true, message: 'Ajouter une commune' }]"
+          :rules="[{ required: true, message: 'Ajoutez une commune' }]"
         >
-          <a-input v-model:value="formState.commune" placeholder="Ajouter votre commune" />
+          <a-input v-model:value="formState.commune" placeholder="Ajoutez votre commune" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :md="12">
         <a-form-item label="Quartier" name="quartier">
           <a-input 
             v-model:value="formState.quartier"
-            placeholder="Ajouter votre quartier"
+            placeholder="Ajoutez votre quartier"
           />
         </a-form-item>
       </a-col>
@@ -933,7 +933,7 @@ preprocessImage(file) {
 
           <a-spin v-if="loading" tip="Vérification de la carte d'étudiant" />
           <span style="color:red;" v-if="this.result && this.result.isStudentCard === false">
-            Veuillez ajouter une carte bien visible
+            Veuillez Ajoutez une carte bien visible
           </span>
           <!-- {{ this.result }} -->
         </a-col>

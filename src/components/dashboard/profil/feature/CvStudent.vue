@@ -26,11 +26,11 @@
         </h3>
 
 <h3 style="text-transform: uppercase;color:#d0eefc;" v-if="(!titreCv || titreCv === 'null' || titreCv === '') && isbtnPdf">
-Ajouter un profil
+Ajoutez un profil
 </h3>
         <p style="border-bottom: 3px solid black;padding-bottom:10px" v-if="description != null && description !== '' && description !== 'null'">{{ description }}</p>
         <p v-else style="color:#d0eefc;">
-          <span v-if="isbtnPdf">Ajouter une description à votre CV</span>
+          <span v-if="isbtnPdf">Ajoutez une description à votre CV</span>
         </p>
       </div>
        <!-- Compétences -->
@@ -123,7 +123,7 @@ const downloadCV = async () => {
   pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
   heightLeft -= pdfHeight;
 
-  // ajouter les pages si nécessaire
+  // Ajoutez les pages si nécessaire
   while (heightLeft > 0) {
     position = heightLeft - imgHeight;
     pdf.addPage();
