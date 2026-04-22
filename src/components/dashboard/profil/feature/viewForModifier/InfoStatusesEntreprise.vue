@@ -260,7 +260,7 @@ this.selectedParseStatus = ""
             margin: 1em;
             width: 300px;
             ">
-          <h3 style="color: white;">{{ profil.statut }}</h3>
+          <h3 style="color: white;margin: 0;">{{ profil.statut }}</h3>
           <p style="padding: 0;margin: 0;" v-if="profil.statut.includes('Entreprise')">({{ profils.statut_entreprise }})</p>
           <span 
           v-if="profils?.user.statut.statut == profil.statut"
