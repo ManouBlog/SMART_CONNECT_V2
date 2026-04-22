@@ -687,6 +687,15 @@ select {
   color: white;
   border: 1px solid black;
 }
+@media (max-width: 450px) {
+  form {
+  display: block;
+}
+form>div {
+  margin: 1em 0;
+}
+}
+
 @media (max-width: 768px) {
   .see_detail{
     display:none;
