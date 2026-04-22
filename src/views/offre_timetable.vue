@@ -384,7 +384,7 @@ if (!user.competences.length || !user.qualifications.length) {
            <div>
         
     </div>
-          <div>
+          <div class="conteneur_btn_search">
             <button
          class="btn-search btn"
          :disabled="!isFormValid"
@@ -693,6 +693,10 @@ select {
 }
 form>div {
   margin: 1em 0;
+}
+.conteneur_btn_search{
+  display: flex;
+  justify-content: flex-end;
 }
 }
 
