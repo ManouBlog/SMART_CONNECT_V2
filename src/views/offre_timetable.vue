@@ -6,9 +6,9 @@ import { configUtils } from "../Shared/Utils";
 import { mapActions } from "pinia";
 import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
-import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
+// import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
 
-const RegisterStore = useRegisterStore();
+// const RegisterStore = useRegisterStore();
 const loadingSpinner = useLoadingSpinner();
 export default {
   name: "Offre_timetable",
@@ -123,26 +123,41 @@ export default {
     //   });
     // },
     async handleListOffresWithoutSearch() {
+      // console.log("this.$store.state.user", this.$store.state.user);
+      
       loadingSpinner.launchLoading(true);
       await instance
         .get("list_offres")
         .then((res) => {
-          console.log("list_offres23", res.data.data);
+         
+          // console.log("list_offres23", {
+          //   offres:res.data.data.filter((item) => {
+          //     return item.statuses.some(statut =>{
+          //       return profilALL.some(s => statut.id == s)
+          //     })
+          //   }),
+          //   profilALL:profilALL
+          // });
           if (res.data.status) {
-            this.MylistOffre = res.data.data.filter((item) => {
+             const profilALL = this.$store.state.user ?  this.$store.state.user.user.statuses.map((s) => s.id) : [];
+          const OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
+            return item.statuses.some(statut =>{
+              return profilALL.some(s => statut.id == s)
+            })
+          });
+            this.MylistOffre = OFFRES_FILTER_BY_PROFIL.filter((item) => {
              return new Date(item.fin) >= new Date();
             });
             console.log("MylistOffre23", this.MylistOffre);
-            this.MylistsOffres = res.data.data.filter((item) => {
+            this.MylistsOffres = OFFRES_FILTER_BY_PROFIL.filter((item) => {
              return new Date(item.fin) >= new Date();
             });
             this.lengthOfMylistOffre = this.MylistsOffres.length;
           }
         })
         .catch((err) => {
-          // console.log(err)
           console.log(err);
-          RegisterStore.changeValueIsModal();
+          // RegisterStore.changeValueIsModal();
         })
         .finally(() => {
           loadingSpinner.launchLoading(false);
