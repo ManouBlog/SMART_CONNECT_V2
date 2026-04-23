@@ -101,8 +101,8 @@ const handleCreateMonth =(payload)=>{
         profilHybride:storeAbonnement.profilHybride,
         addProfilHybrideOnly:storeAbonnement.addProfilHybride
         }
-  console.log("handleConfirmationPayement",data)
-storeAbonnement.createAbonement(data)
+  console.log("handleConfirmationPayement_month",data)
+// storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateYear",payload)
@@ -122,12 +122,12 @@ const handleCreateYear =(payload)=>{
         tempsTravail : storeAbonnement.tempsTravail ,
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload ,
-        statut_talent : storeAbonnement.statut_talent ,
+        statut_talent : storeAbonnement.statut_talent,
         profilHybride:storeAbonnement.profilHybride,
         addProfilHybrideOnly:storeAbonnement.addProfilHybride
         }
-  console.log("handleConfirmationPayement",data)
-  storeAbonnement.createAbonement(data)
+  console.log("handleConfirmationPayement_year",data)
+//   storeAbonnement.createAbonement(data)
 }
 
 
