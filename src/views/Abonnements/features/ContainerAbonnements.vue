@@ -6,6 +6,7 @@ import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateSt
 import { useAbonnementsStore } from "../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
 import contentAbonnement from './contentAbonnement.vue'
+import ContentAbonnementForAddProfilHybride from './ContentAbonnementForAddProfilHybride.vue'
 import { useStore } from 'vuex'
 import SubAbonnementsEntreprise from "./subAbonnements/SubAbonnementsEntreprise.vue"
 import SubAbonnementsArtisans from "./subAbonnements/SubAbonnementsArtisans.vue"
@@ -38,7 +39,7 @@ const store = useStore();
 
 const select_mode_payment_tab = ref("");
 
-const handleCreateEntreprise=(payload)=>{
+const handleCreateAbonnement=(payload)=>{
   const randomPart = Math.random().toString(36).substring(2);
         const data = {
             abonement_id:payload.id,
@@ -254,7 +255,7 @@ profilHybrideRecuperer.value = storeAbonnement.profilHybride.length
           :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id"
           :elmentsOfBtn="elmentsOfBtn"
           :shapeBtn="'round'"
-          @created="handleCreateEntreprise(item)"
+          @created="handleCreateAbonnement(item)"
         />
       </div>
     </section>
@@ -279,7 +280,7 @@ profilHybrideRecuperer.value = storeAbonnement.profilHybride.length
       
       
     <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
-      <contentAbonnement 
+      <ContentAbonnementForAddProfilHybride 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
       />
@@ -323,7 +324,7 @@ profilHybrideRecuperer.value = storeAbonnement.profilHybride.length
           :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id"
           :elmentsOfBtn="elmentsOfBtn"
           :shapeBtn="'round'"
-          @created="handleCreateEntreprise(item)"
+          @created="handleCreateAbonnement(item)"
         />
       </div>
     </section>
