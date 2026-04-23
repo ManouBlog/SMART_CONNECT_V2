@@ -75,7 +75,7 @@ onMounted(async () => {
     },
   ];
   console.log("PROFILE_ABONNEMENT_SUB_VETERAN",storeAbonnement.profilHybride)
-profilHybrideRecuperer.value = storeAbonnement.profilHybride.length
+profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
   texte.value = await transalteStore.handleTranslate("année");
   if (isUserConnected.value) {
       await storeAbonnementUser.get_all_abonnement();

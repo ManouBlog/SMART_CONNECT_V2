@@ -100,11 +100,11 @@ onMounted(async () => {
       color_btn: "primary",
     },
   ]
-profilHybrideRecuperer.value = storeAbonnement.profilHybride.length
+profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
   texte.value = await transalteStore.handleTranslate("année")
 
      if(storeAbonnement.addProfilHybride.length){
-    const profilUserCurrent = store.state.user.user.abonement.find(item=>item.statut === 'success')
+    const profilUserCurrent = store.state?.user?.user?.abonement.find(item=>item.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent.abonement.libelle;
 
     console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)

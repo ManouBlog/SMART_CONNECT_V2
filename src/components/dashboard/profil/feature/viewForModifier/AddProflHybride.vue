@@ -2,6 +2,7 @@
 import instance from '../../../../../api/api';
 import Abonnements from '../../../../../views/Abonnements/Abonnements.vue';
 import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
+import { mapActions } from 'pinia';
 export default {
   name: 'AddProflHybride',
   components: {
@@ -70,7 +71,6 @@ export default {
 ],
    formData: {
         niveauEtude: "",
-        statutProArtisan: "",
         ville: "",
         quartier: "",
         commune: "",
@@ -84,14 +84,6 @@ export default {
           {
             required: true,
             message: "Veuillez choisir un niveau d'étude",
-            type: "string",
-            trigger: "change",
-          },
-        ],
-        statutProArtisan: [
-          {
-            required: true,
-            message: "Veuillez choisir un statut professionnel artisan",
             type: "string",
             trigger: "change",
           },
@@ -191,17 +183,20 @@ descriptionProfil:{
 //     }
 //   },
   methods: {
+    ...mapActions(useAbonnementsStore, ['handleChangeInfoForAbonnement','handleHybrideAddProfil']),
     handleFileChange(info) {
         console.log("file info",info)
       this.formData.upload = info.file.originFileObj;
     },
     async validateAndSubmit() {
+      
       try {
-        const abonnementsStore = useAbonnementsStore()
         console.log("Validation réussie, données du formulaire :", this.formData);
+        this.handleChangeInfoForAbonnement(this.formData)
         console.log("Profil hybride choisi pour ajout :", this.choiceProfilHybrideForAdd);
-        abonnementsStore.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
-        console.log('addProfilHybride',abonnementsStore.addProfilHybride)
+        this.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
+       
+        // console.log('statut_professionnel_artisan',abonnementsStore?.statut_professionnel_artisan)
         this.showModalAbonnements = true;
       } catch (error) {
         console.log("Validation échouée :", error);
@@ -216,11 +211,9 @@ descriptionProfil:{
     //   console.log("isChangeProfil",abonnementsStore.isChangeProfil)
     // },
     addIdOfProfilBase(payload) {
-      const abonnementsStore = useAbonnementsStore()
+      this.handleMyStatutOfBase(payload)
 
-       abonnementsStore.handleMyStatutOfBase(payload)
-
-      console.log("statutOfBase",abonnementsStore.statutOfBase)
+    //   console.log("statutOfBase",abonnementsStore?.statutOfBase)
     },
     openVerification(userStatut) {
       this.$emit('open-verification', userStatut);

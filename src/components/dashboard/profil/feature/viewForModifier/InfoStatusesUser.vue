@@ -82,14 +82,14 @@ descriptionProfil:{
 
        abonnementsStore.handleChangeProfil(payload)
 
-      console.log("isChangeProfil",abonnementsStore.isChangeProfil)
+      console.log("isChangeProfil",abonnementsStore?.isChangeProfil)
     },
     addIdOfProfilBase(payload) {
       const abonnementsStore = useAbonnementsStore()
 
        abonnementsStore.handleMyStatutOfBase(payload)
 
-      console.log("statutOfBase",abonnementsStore.statutOfBase)
+      console.log("statutOfBase",abonnementsStore?.statutOfBase)
     },
     openVerification(userStatut) {
       this.$emit('open-verification', userStatut);
@@ -107,7 +107,7 @@ descriptionProfil:{
       resetProfilHybrideData(){
         const abonnementsStore = useAbonnementsStore()
          abonnementsStore.handleHybrideAddProfil([])
-         console.log('addProfilHybride',abonnementsStore.addProfilHybride)
+         console.log('addProfilHybride',abonnementsStore?.addProfilHybride)
       },
     resetData(){
       console.log("reset data")

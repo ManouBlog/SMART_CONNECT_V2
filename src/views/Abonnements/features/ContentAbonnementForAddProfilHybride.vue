@@ -82,6 +82,7 @@ function handleCreate(type) {
 const handleCreateMonth =(payload)=>{
   console.log("handleCreateMonth",payload)
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+  const storeAbonnement = useAbonnementsStore();
   const randomPart = Math.random().toString(36).substring(2);
        
         const data = {
@@ -97,9 +98,14 @@ const handleCreateMonth =(payload)=>{
         tempsTravail : storeAbonnement.tempsTravail ,
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload ,
+        upload : storeAbonnement.upload ,
+        commune:storeAbonnement.commune,
+        ville:storeAbonnement.ville,
+        quartier:storeAbonnement.quartier,
+        statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
         statut_talent : storeAbonnement.statut_talent ,
         profilHybride:storeAbonnement.profilHybride,
-        addProfilHybrideOnly:storeAbonnement.addProfilHybride
+        addProfilHybrideOnly:storeAbonnement.addProfilHybride.map(item=>item.id),
         }
   console.log("handleConfirmationPayement_month",data)
 // storeAbonnement.createAbonement(data)
@@ -107,6 +113,7 @@ const handleCreateMonth =(payload)=>{
 const handleCreateYear =(payload)=>{
   console.log("handleCreateYear",payload)
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+  console.log("storeAbonnement",storeAbonnement)
    const randomPart = Math.random().toString(36).substring(2);
        
         const data = {
@@ -121,10 +128,15 @@ const handleCreateYear =(payload)=>{
         modeTravail : storeAbonnement.modeTravail ,
         tempsTravail : storeAbonnement.tempsTravail ,
         niveauEtude : storeAbonnement.niveauEtude ,
-        CVupload : storeAbonnement.CVupload ,
+        CVupload : storeAbonnement.CVupload,
+        upload : storeAbonnement.upload ,
+        commune:storeAbonnement.commune,
+        ville:storeAbonnement.ville,
+        quartier:storeAbonnement.quartier,
+        statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
         statut_talent : storeAbonnement.statut_talent,
         profilHybride:storeAbonnement.profilHybride,
-        addProfilHybrideOnly:storeAbonnement.addProfilHybride
+        addProfilHybrideOnly:storeAbonnement.addProfilHybride.map(item=>item.id)
         }
   console.log("handleConfirmationPayement_year",data)
 //   storeAbonnement.createAbonement(data)

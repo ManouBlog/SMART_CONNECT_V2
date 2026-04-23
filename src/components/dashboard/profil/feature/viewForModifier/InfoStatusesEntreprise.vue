@@ -77,14 +77,14 @@ descriptionProfil:{
 
        abonnementsStore.handleChangeProfil(payload)
 
-      console.log("isChangeProfil",abonnementsStore.isChangeProfil)
+      console.log("isChangeProfil",abonnementsStore?.isChangeProfil)
     },
     addIdOfProfilBase(payload) {
       const abonnementsStore = useAbonnementsStore()
 
        abonnementsStore.handleMyStatutOfBase(payload)
 
-      console.log("statutOfBase",abonnementsStore.statutOfBase)
+      console.log("statutOfBase",abonnementsStore?.statutOfBase)
     },
     openVerification(userStatut) {
       this.$emit('open-verification', userStatut);
