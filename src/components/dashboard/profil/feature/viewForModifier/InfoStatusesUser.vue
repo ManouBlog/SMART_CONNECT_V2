@@ -306,7 +306,7 @@ this.selectedParseStatus = ""
     <!-- Header avec tes couleurs -->
     <div class="info-header d-flex justify-content-between align-items-center p-4 mb-5 flex-wrap">
       <h1 class="fw-bold my-3 mb-0" style="color: orange">Mes Profils</h1>
-      {{ profils.user?.statuses}}
+      <!-- {{ profils.user?.statuses}} -->
         <div style="display: flex; gap:1em;flex-wrap: wrap;">
 <button
       v-if="profils?.user?.statuses.some(item=>item.statut != 'Vétéran')"

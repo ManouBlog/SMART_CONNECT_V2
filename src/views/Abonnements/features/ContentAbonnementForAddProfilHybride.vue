@@ -90,7 +90,8 @@ const handleCreateMonth =(payload)=>{
             channels:"undefined",
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart,
-            isChangeProfil:storeAbonnement.isChangeProfil,
+            // isChangeProfil:storeAbonnement.isChangeProfil,
+            isAddProfilHybride:true,
             statut_base:storeAbonnement.statutOfBase,
             treatment_preferentiel:storeAbonnement.treatment_preferentiel,
              niveauExpertise : storeAbonnement.niveauExpertise ,
@@ -108,7 +109,7 @@ const handleCreateMonth =(payload)=>{
         addProfilHybrideOnly:storeAbonnement.addProfilHybride.map(item=>item.id),
         }
   console.log("handleConfirmationPayement_month",data)
-// storeAbonnement.createAbonement(data)
+storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateYear",payload)
@@ -121,7 +122,8 @@ const handleCreateYear =(payload)=>{
             channels:"undefined",
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart,
-            isChangeProfil:storeAbonnement.isChangeProfil,
+            // isChangeProfil:storeAbonnement.isChangeProfil,
+            isAddProfilHybride:true,
             statut_base:storeAbonnement.statutOfBase,
             treatment_preferentiel:storeAbonnement.treatment_preferentiel,
              niveauExpertise : storeAbonnement.niveauExpertise ,
@@ -139,7 +141,7 @@ const handleCreateYear =(payload)=>{
         addProfilHybrideOnly:storeAbonnement.addProfilHybride.map(item=>item.id)
         }
   console.log("handleConfirmationPayement_year",data)
-//   storeAbonnement.createAbonement(data)
+  storeAbonnement.createAbonement(data)
 }
 
 
@@ -161,9 +163,9 @@ onMounted(async () => {
    const payload = {profilHybride:AllProfilHybride}
   storeAbonnement.handleChangeInfoForAbonnement(payload)
   if(storeAbonnement.addProfilHybride.length){
-    const profilUserCurrent = store.state.user?.user.abonement.find(item=>item?.statut === 'success')
-    formuleAbonnementOfUserConnected.value = profilUserCurrent.abonement.libelle;
-    modePaymentForFormuleAbonnementOfUserConnected.value = profilUserCurrent.mode_payment;
+    const profilUserCurrent = store.state.user?.user?.abonement?.find(item=>item?.statut === 'success')
+    formuleAbonnementOfUserConnected.value = profilUserCurrent?.abonement?.libelle;
+    modePaymentForFormuleAbonnementOfUserConnected.value = profilUserCurrent?.mode_payment;
     tabs.value = tabs.value.filter(tab=>tab.id === modePaymentForFormuleAbonnementOfUserConnected.value)
     console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
     console.log("profilUserCurrent",profilUserCurrent)
