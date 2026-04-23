@@ -218,7 +218,7 @@ if (
           v-if="this.$store.state.user"
           style="display: flex; flex-wrap: wrap; gap: 6px; margin:0.5em 0">
   <span
-    v-for="(status,index) in this.$store.state.user.user.statuses"
+    v-for="(status,index) in this.$store.state.user?.user.statuses"
     :key="index"
     class="badge bg-warning"
   >

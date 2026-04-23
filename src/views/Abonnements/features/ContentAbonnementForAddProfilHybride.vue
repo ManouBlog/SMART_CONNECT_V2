@@ -155,13 +155,13 @@ onMounted(async () => {
     },
   ];
   console.log("INFO_SUR_USER",store.state.user)
-  const statutBase = store.state.user?.user.statut.statut;
+  const statutBase = store.state.user?.user?.statut?.statut;
   const AllProfilHybride = store.state.user?.user.statuses.filter(item=>item.statut !== statutBase)
   console.log("AllProfilHybride",AllProfilHybride)
    const payload = {profilHybride:AllProfilHybride}
   storeAbonnement.handleChangeInfoForAbonnement(payload)
   if(storeAbonnement.addProfilHybride.length){
-    const profilUserCurrent = store.state.user.user.abonement.find(item=>item.statut === 'success')
+    const profilUserCurrent = store.state.user?.user.abonement.find(item=>item?.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent.abonement.libelle;
     modePaymentForFormuleAbonnementOfUserConnected.value = profilUserCurrent.mode_payment;
     tabs.value = tabs.value.filter(tab=>tab.id === modePaymentForFormuleAbonnementOfUserConnected.value)

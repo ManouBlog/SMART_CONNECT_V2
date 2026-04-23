@@ -330,7 +330,7 @@ if (isParticulier) {
     ['Entreprise', 'Particulier'].includes(s.statut)
   )
 ) {
- const AllProfilHybride = this.user.user.statuses.filter(s => s.statut !== this.user.user.statut.statut);
+ const AllProfilHybride = this.user.user.statuses.filter(s => s.statut !== this.user.user?.statut?.statut);
               console.log("voirDetailTimetable_profil_hybride", AllProfilHybride);
         if (
           this.$store.state.infoUserConnected.user.abonement.length &&
@@ -354,7 +354,7 @@ if (isParticulier) {
             cancelButtonColor: "#6c757d", // gris neutre
           }).then((result) => {
             if (result.isConfirmed) {
-              const AllProfilHybride = this.user.user.statuses.filter(s => s.statut !== this.user.user.statut.statut);
+              const AllProfilHybride = this.user.user.statuses.filter(s => s.statut !== this.user.user?.statut?.statut);
               console.log("voirDetailTimetable_profil_hybride", AllProfilHybride);
               const payload = {profilHybride:AllProfilHybride};
               abonnementsStore.handleChangeInfoForAbonnement(payload);
@@ -632,7 +632,7 @@ if (isParticulier) {
         {{ list.length }} {{ list.length > 1 ? texte1 : texte01 }}
       </h2>
     </div>
-   <!-- <p>ELEMENTS: {{ this.$store.state.user.user.statuses }} </p>  -->
+   <!-- <p>ELEMENTS: {{ this.$store.state.user?.user.statuses }} </p>  -->
 
     <div
       class="container-fluid timetableSchedule"

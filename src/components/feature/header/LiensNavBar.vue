@@ -43,7 +43,7 @@ hasAnyStatus(statuses, map){
   <li
     v-if="
     this.$store.state.user &&
-    this.hasAnyStatus(this.$store.state.user.user?.statuses, this.StatutUser)
+    this.hasAnyStatus(this.$store.state.user?.user?.statuses, this.StatutUser)
   "
   >
     <router-link :to="{ name: route_lien }" class="d-block lien">

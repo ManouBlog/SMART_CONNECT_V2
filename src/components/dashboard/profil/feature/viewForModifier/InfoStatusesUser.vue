@@ -140,7 +140,7 @@ this.selectedParseStatus = ""
       allowed.includes(item.statut)
     );
     this.allProfilsHybrides = response.data.data.filter(item =>item.statut === 'Particulier' || item.statut === 'Artisan');
-    this.profilhybrideUserConnected = this.profils.user?.statuses.filter(item => item.statut !==  this.profils.user.statut.statut); 
+    this.profilhybrideUserConnected = this.profils.user?.statuses.filter(item => item.statut !==  this.profils.user?.statut?.statut); 
     console.log("allStatuses2", {
       statut: this.allStatuses,
       profil: this.$store.state.infoUserConnected.user.statut
@@ -376,7 +376,7 @@ this.selectedParseStatus = ""
             ">
           <h3 style="color: white;">{{ profil.statut }}</h3>
           <span 
-          v-if="profils?.user.statut.statut == profil.statut"
+          v-if="profils?.user?.statut?.statut == profil.statut"
           class="badge" 
           style="position: absolute;top:0.3em;right:0;font-size: 0.8em;background-color: #25535f;font-weight: bold;">
            Profil de base</span>

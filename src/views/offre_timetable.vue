@@ -144,7 +144,7 @@ export default {
           //   profilALL:profilALL
           // });
           if (res.data.status) {
-             const profilALL = this.$store.state.user ?  this.$store.state.user.user.statuses.map((s) => s.id) : [];
+             const profilALL = this.$store.state.user ?  this.$store.state.user?.user.statuses.map((s) => s.id) : [];
           const OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
             return item.statuses.some(statut =>{
               return profilALL.some(s => statut.id == s)
@@ -176,7 +176,7 @@ export default {
         .then((res) => {
           // console.log("search_offres", res);
           if (res.data.status) {
-             const profilALL = this.$store.state.user ?  this.$store.state.user.user.statuses.map((s) => s.id) : [];
+             const profilALL = this.$store.state.user ?  this.$store.state.user?.user.statuses.map((s) => s.id) : [];
           const OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
             return item.statuses.some(statut =>{
               return profilALL.some(s => statut.id == s)

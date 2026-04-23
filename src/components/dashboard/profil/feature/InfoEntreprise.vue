@@ -219,7 +219,7 @@ export default {
           <ParagrapheDetail :item="{libelle:'Commune', value: this.infoPersonnelles?.commune}" />
           <ParagrapheDetail :item="{libelle:'Quartier', value: this.infoPersonnelles?.quartier}" />
           <ParagrapheDetail :item="{libelle:'Contact téléphonique', value: this.infoPersonnelles?.phone}" />
-         <ParagrapheDetail v-if="this.infoPersonnelles.user.statut.statut === 'Particulier'" :item="{libelle:'Pièces chargées',value:null,
+         <ParagrapheDetail v-if="this.infoPersonnelles.user?.statut?.statut === 'Particulier'" :item="{libelle:'Pièces chargées',value:null,
           valueArray:this.infoPersonnelles?.user?.photos}" />
 
 

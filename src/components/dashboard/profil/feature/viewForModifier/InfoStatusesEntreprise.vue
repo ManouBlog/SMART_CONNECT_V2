@@ -263,7 +263,7 @@ this.selectedParseStatus = ""
           <h3 style="color: white;margin: 0;">{{ profil.statut }}</h3>
           <p style="padding: 0;margin: 0;" v-if="profil.statut.includes('Entreprise')">({{ profils.statut_entreprise }})</p>
           <span 
-          v-if="profils?.user.statut.statut == profil.statut"
+          v-if="profils?.user?.statut?.statut == profil.statut"
           class="badge" 
           style="position: absolute;top:0.3em;right:0;font-size: 0.8em;background-color: #25535f;font-weight: bold;">
            Profil de base</span>

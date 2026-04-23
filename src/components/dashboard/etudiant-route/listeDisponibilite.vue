@@ -584,7 +584,7 @@ export default {
     //   await this.$store.dispatch("getInfoUser");
     //   const user = this.$store.state.infoUserConnected;
     //   console.log("USER_INFO", user);
-    //   if (user.user.statut.statut === "etudiant") {
+    //   if (user.user?.statut?.statut === "etudiant") {
     //     if (!user.jours.length) {
     //       Swal.fire({
     //         icon: "info",

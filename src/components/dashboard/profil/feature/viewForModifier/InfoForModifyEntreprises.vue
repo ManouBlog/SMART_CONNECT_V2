@@ -237,16 +237,16 @@ valueExpertise: [
 },
 //     async lister_statut(){
 //       const transitions = {
-//   etudiant:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "artisan"],
-//   professionnel:[this.$store.state.infoUserConnected.user.statut.statut,"artisan", "veteran"],
-//   artisan:[this.$store.state.infoUserConnected.user.statut.statut,"professionnel", "veteran"],
-//   entreprise:[this.$store.state.infoUserConnected.user.statut.statut,'Entreprise']
+//   etudiant:[this.$store.state.infoUserConnected.user?.statut?.statut,"professionnel", "artisan"],
+//   professionnel:[this.$store.state.infoUserConnected.user?.statut?.statut,"artisan", "veteran"],
+//   artisan:[this.$store.state.infoUserConnected.user?.statut?.statut,"professionnel", "veteran"],
+//   entreprise:[this.$store.state.infoUserConnected.user?.statut?.statut,'Entreprise']
 // };
 //       try {
 //         const response =  await instance.get("listStatut")
         
 //         this.allStatuses = response.data.data.filter(item =>
-//   transitions[this.$store.state.infoUserConnected.user.statut.statut]?.includes(item.statut)); 
+//   transitions[this.$store.state.infoUserConnected.user?.statut?.statut]?.includes(item.statut)); 
 //   console.log("allStatuses",{
 //     statut:this.allStatuses,
 //     profil:this.$store.state.infoUserConnected
@@ -289,7 +289,7 @@ if (isStudentGroup) {
 
   this.$store.commit("UPDATE_INFO_CONPANY", user);
 }
-        // const statutUser = resp.data.user.user.statut.statut
+        // const statutUser = resp.data.user.user?.statut?.statut
         // if(statutUser === 'Entreprise'){
         // this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
         // this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
@@ -393,10 +393,10 @@ if (isStudentGroup) {
   //  async handleUpdate(payload) {
   //   console.log('handleUpdate',payload)
      
-  //     if (this.$store.state.infoUserConnected.user.statut.statut === "entreprise") {
+  //     if (this.$store.state.infoUserConnected.user?.statut?.statut === "entreprise") {
   //       this.updateInfoEntreprise(payload);
     
-  //     } else if (this.$store.state.infoUserConnected.user.statut.statut === "particulier") {
+  //     } else if (this.$store.state.infoUserConnected.user?.statut?.statut === "particulier") {
         
   //       this.update_compte_particulier(payload);
   //         await this.getInfoUser();

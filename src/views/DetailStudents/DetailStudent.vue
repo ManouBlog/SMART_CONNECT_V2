@@ -717,7 +717,7 @@ export default {
     timer: 1000,
   });
 }
-      // if (this.user && this.user.user.statut.statut === "etudiant") {
+      // if (this.user && this.user.user?.statut?.statut === "etudiant") {
       //   this.$router.push("/");
       //   Swal.fire({
       //     icon: "info",

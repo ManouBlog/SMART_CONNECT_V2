@@ -267,7 +267,7 @@ export default {
     'Professionnel',
     'Artisan',
     'Vétéran'
-  ].includes(this.$store.state.user.user.statut.statut)
+  ].includes(this.$store.state.user?.user?.statut?.statut)
 "
                   >
                     <router-link class="lien position-relative" :to="{ name: 'contrat' }">
@@ -300,7 +300,7 @@ export default {
                 <!-- <ListeNotifications
                   v-if="
                     this.$store.state.user &&
-                    this.$store.state.user.user.statut.statut === 'Entreprise'
+                    this.$store.state.user?.user?.statut?.statut === 'Entreprise'
                   "
                 /> -->
                 <ListeAlarmStudent v-if="this.$store.state.user" />

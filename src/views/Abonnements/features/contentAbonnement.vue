@@ -140,13 +140,13 @@ onMounted(async () => {
     },
   ];
   console.log("INFO_SUR_USER",store.state.user)
-  const statutBase = store.state.user?.user.statut.statut;
+  const statutBase = store.state.user?.user?.statut?.statut;
   const AllProfilHybride = store.state.user?.user.statuses.filter(item=>item.statut !== statutBase)
   console.log("AllProfilHybride",AllProfilHybride)
    const payload = {profilHybride:AllProfilHybride}
   storeAbonnement.handleChangeInfoForAbonnement(payload)
   if(storeAbonnement.addProfilHybride.length){
-    const profilUserCurrent = store.state.user.user.abonement.find(item=>item.statut === 'success')
+    const profilUserCurrent = store.state.user?.user.abonement.find(item=>item.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent.abonement.libelle;
 
     console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
@@ -158,8 +158,8 @@ onMounted(async () => {
 });
 </script>
 <template>
-  {{ item }}
-  {{ formuleAbonnementOfUserConnected }}
+  <!-- {{ item }}
+  {{ formuleAbonnementOfUserConnected }} -->
   <div v-if="!storeAbonnement.addProfilHybride.length">
  <n-tabs
   v-model:value="select_mode_payment_tab"

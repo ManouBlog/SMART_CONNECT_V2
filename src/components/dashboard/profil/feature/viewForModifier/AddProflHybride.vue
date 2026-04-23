@@ -259,7 +259,7 @@ console.log("this.ProfilsUser", this.ProfilsUser)
       allowed.includes(item.statut)
     );
     this.allProfilsHybrides = response.data.data.filter(item =>item.statut === 'Particulier' || item.statut === 'Artisan');
-    this.profilhybrideUserConnected = this.ProfilsUser.user?.statuses.filter(item => item.statut !==  this.ProfilsUser.user.statut.statut); 
+    this.profilhybrideUserConnected = this.ProfilsUser.user?.statuses.filter(item => item.statut !==  this.ProfilsUser.user?.statut?.statut); 
     console.log("allStatuses2", {
       statut: this.allStatuses,
       profil: this.$store.state.infoUserConnected.user.statut
@@ -307,7 +307,7 @@ console.log("this.ProfilsUser", this.ProfilsUser)
      Profils hybrides
     </label>
     <!-- {{ ProfilsUser.user?.statuses }}
-    {{ ProfilsUser.user.statut.statut }} -->
+    {{ ProfilsUser.user?.statut?.statut }} -->
      <!-- {{ choiceProfilHybrideForAdd }} -->
     <div class="round-container">
       <label 
