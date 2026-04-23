@@ -233,6 +233,9 @@ export default {
 };
 </script>
 <style>
+.ant-select-dropdown {
+  z-index: 100000 !important;
+}
 
 :where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
   color: orange !important;
