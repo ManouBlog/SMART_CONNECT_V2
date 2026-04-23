@@ -98,7 +98,8 @@ const handleCreateMonth =(payload)=>{
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload ,
         statut_talent : storeAbonnement.statut_talent ,
-        profilHybride:storeAbonnement.profilHybride
+        profilHybride:storeAbonnement.profilHybride,
+        addProfilHybrideOnly:storeAbonnement.addProfilHybride
         }
   console.log("handleConfirmationPayement",data)
 storeAbonnement.createAbonement(data)
@@ -122,7 +123,8 @@ const handleCreateYear =(payload)=>{
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload ,
         statut_talent : storeAbonnement.statut_talent ,
-        profilHybride:storeAbonnement.profilHybride
+        profilHybride:storeAbonnement.profilHybride,
+        addProfilHybrideOnly:storeAbonnement.addProfilHybride
         }
   console.log("handleConfirmationPayement",data)
   storeAbonnement.createAbonement(data)
@@ -136,7 +138,7 @@ function handleSelect_mode_Payement(val) {
 onMounted(async () => {
    elmentsOfBtn.value = [
     {
-      name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
+      name_btn: await transalteStore.handleTranslate("Ajouter +"),
       color_btn: "primary",
     },
   ];
