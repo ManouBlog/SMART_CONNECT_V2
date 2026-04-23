@@ -46,13 +46,13 @@ const tabs = ref([
 
 const currentConfig = computed(() => {
   const formule = storeAbonnementUser?.planAbonnement?.mode_payment;
-  console.log('storeAbonnement.profilHybride',storeAbonnement.profilHybride)
-  const countprofilHybride = storeAbonnement?.profilHybride?.length
+  console.log('storeAbonnement.addProfilHybride',storeAbonnement.addProfilHybride)
+  const countprofilHybride = storeAbonnement?.addProfilHybride?.length
   if (select_mode_payment_tab.value === 'year') {
      
     return {
       price: props.item.prix,
-      priceWithProfilHybride: Help.calculateAbonnementPrice(props.item.prix,countprofilHybride),
+      priceWithProfilHybride: Help.calculateAbonnementForAddProfilHybridePrice(props.item.prix,countprofilHybride),
       isFormule: formule === 'year' || !formule,
       description: props.item.description,
       suffix: 'an',
@@ -62,7 +62,7 @@ const currentConfig = computed(() => {
 
   return {
     price: props.item.price_month,
-    priceWithProfilHybride: Help.calculateAbonnementPrice(props.item.price_month,countprofilHybride),
+    priceWithProfilHybride: Help.calculateAbonnementForAddProfilHybridePrice(props.item.price_month,countprofilHybride),
     isFormule: formule === 'month',
     description: props.item.description_month,
     suffix: 'mois',
@@ -217,7 +217,6 @@ onMounted(async () => {
 
   <div class="conteneur-btn">
     <Buttons
-      :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
       :elmentsOfBtn="elmentsOfBtn"
       shapeBtn="round"
       @created="currentConfig.action"
@@ -279,7 +278,6 @@ onMounted(async () => {
 
   <div class="conteneur-btn">
     <Buttons
-      :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
       :elmentsOfBtn="elmentsOfBtn"
       shapeBtn="round"
       @created="currentConfig.action"

@@ -10,13 +10,21 @@ export const Help = {
       return msgError;
     },
      calculateAbonnementPrice(basePrice, profilsCount = 0) {
-  let multiplier = 1;
+     let multiplier = 1;
 
-  if (profilsCount == 1) multiplier = 1.3;
-  else if (profilsCount >= 2) multiplier = 1.5;
+      if (profilsCount == 1) multiplier = 1.3;
+     else if (profilsCount >= 2) multiplier = 1.5;
 
-  return Math.round(basePrice * multiplier);
-},
+      return Math.round(basePrice * multiplier);
+    },
+    calculateAbonnementForAddProfilHybridePrice(basePrice, profilsCount = 0) {
+     let multiplier = 1;
+
+      if (profilsCount == 1) multiplier = 1.3;
+     else if (profilsCount >= 2) multiplier = 1.5;
+
+      return Math.round(basePrice * multiplier)-basePrice;
+    },
     convertInMoney(value){
         return new Intl.NumberFormat('de-DE').format(value)
     },
