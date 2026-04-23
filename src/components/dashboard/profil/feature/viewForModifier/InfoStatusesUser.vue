@@ -266,22 +266,7 @@ this.selectedParseStatus = ""
         </span>
       </label>
     </div>
-    <!-- <div class="round-container" v-else>
-      <label 
-        v-for="item in allStatutsCompany" 
-        :key="item.value"
-        class="round-item"
-      >
-        <input
-          type="checkbox"
-          :value="item.value"
-          v-model="profilHybride"
-        />
-        <span class="round-label">
-          {{ item.label }}
-        </span>
-      </label>
-    </div> -->
+  
   </div>
 </transition>
   <div v-if="optionsAnswer || selectedParseStatus">

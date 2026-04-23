@@ -1,8 +1,12 @@
 <script>
 import instance from '../../../../../api/api';
+import Abonnements from '../../../../../views/Abonnements/Abonnements.vue';
 import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
 export default {
   name: 'AddProflHybride',
+  components: {
+    Abonnements
+  },
   props: {
     ProfilsUser: {
       type: Object,
@@ -198,18 +202,19 @@ descriptionProfil:{
         console.log("Profil hybride choisi pour ajout :", this.choiceProfilHybrideForAdd);
         abonnementsStore.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
         console.log('addProfilHybride',abonnementsStore.addProfilHybride)
+        this.showModalAbonnements = true;
       } catch (error) {
         console.log("Validation échouée :", error);
         // validation failed
       }
     },
-    loadActiveChangedProfil(payload) {
-      const abonnementsStore = useAbonnementsStore()
+    // loadActiveChangedProfil(payload) {
+    //   const abonnementsStore = useAbonnementsStore()
 
-       abonnementsStore.handleChangeProfil(payload)
+    //    abonnementsStore.handleChangeProfil(payload)
 
-      console.log("isChangeProfil",abonnementsStore.isChangeProfil)
-    },
+    //   console.log("isChangeProfil",abonnementsStore.isChangeProfil)
+    // },
     addIdOfProfilBase(payload) {
       const abonnementsStore = useAbonnementsStore()
 
@@ -282,6 +287,25 @@ console.log("this.ProfilsUser", this.ProfilsUser)
 </script>
 <template>
     <section>
+         <n-modal 
+   style="width:80%; 
+   height: 600px;
+   
+    overflow-y: auto; 
+    max-height: 80vh;"
+       :closable="false"
+  v-model:show="showModalAbonnements">
+         <template #header>
+        <div class="modal-header">
+          <h3>Abonnement</h3>
+        </div>
+      </template>
+      <div style="background-color: white;">
+       <Abonnements 
+       :ProfilAbonnement="this.ProfilsUser.user?.statut?.statut"
+       />
+      </div>
+      </n-modal>
     <div v-if="isLoading">
     <p class="shimmer-text" style="text-align:center;padding:2em;">Chargement...</p>
   </div>
