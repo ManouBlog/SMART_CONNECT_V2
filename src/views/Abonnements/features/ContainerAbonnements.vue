@@ -104,12 +104,12 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
   texte.value = await transalteStore.handleTranslate("année")
 
      if(storeAbonnement.addProfilHybride.length){
-    const profilUserCurrent = store.state?.user?.user?.abonement.find(item=>item.statut === 'success')
-    formuleAbonnementOfUserConnected.value = profilUserCurrent.abonement.libelle;
+    const profilUserCurrent = store.state?.user?.user?.abonement?.find(item=>item.statut === 'success')
+    formuleAbonnementOfUserConnected.value = profilUserCurrent?.abonement?.libelle;
 
     console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
     console.log("profilUserCurrent",profilUserCurrent)
-    console.log("formuleAbonnementOfUserConnected",formuleAbonnementOfUserConnected.value)
+    console.log("formuleAbonnementOfUserConnected12",formuleAbonnementOfUserConnected.value)
   }
 
   if (isUserConnected.value) {
@@ -262,6 +262,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
     </div>
     </section>
     <section v-if="storeAbonnement.addProfilHybride.length">
+      <div v-if="formuleAbonnementOfUserConnected">
  <div
       v-for="item in abonnements.filter(
         (item) => item.categorie.categorie === type_abonnements && item.libelle === formuleAbonnementOfUserConnected
@@ -329,6 +330,77 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       </div>
     </section>
     </div>
+      </div>
+      <div v-if="!formuleAbonnementOfUserConnected">
+    <div
+      v-for="item in abonnements.filter(
+        (item) => item.categorie.categorie === type_abonnements
+      )"
+      :key="item.id"
+      :class="
+        item?.categorie?.categorie == 'Etudiant'
+          ? 'abonnement-classique_etudiant'
+          : 'abonnement-classique_entreprise'
+      "
+    >
+   
+      <h1 class="text-center main-color">
+        {{ item.libelle }}
+      </h1>
+      
+      
+    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
+      <ContentAbonnementForAddProfilHybride 
+      :item="item"
+      :elmentsOfBtn="elmentsOfBtn"
+      />
+    </div>
+    <section v-else>
+      <p style="text-align:center;position: absolute;top: 10px;right: 10px;">
+     <span
+          v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
+          class="badge bg-warning"
+        >
+          Formule
+        </span>
+  </p>
+       <div class="d-flex align-items-center gap-5 justify-content-center main-color">
+         <div style="display: flex;flex-direction: column;">
+   <h1 
+    :style="{
+    fontSize: '2em',
+    fontWeight: 'bold',
+    padding: '0',
+    margin: '0',
+    textDecoration: Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer) != item.prix ? 'line-through' : 'none'
+  }">
+      {{ Help.convertInMoney(item.prix) }} F
+    </h1>
+    <h1 
+     v-if="Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer) != item.prix"
+    style="font-size: 2em; font-weight: bold;padding: 0;margin: 0;">
+      {{ Help.convertInMoney(Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer)) }} F
+    </h1>
+  </div>
+          <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
+          <h3 style="font-size: 2em; color: orange">an</h3>
+        </div>
+       <div style="height: 310px; position: relative; padding: 1em">
+        <div class="px-5" v-html="item.description"></div>
+      </div>
+
+      <div class="conteneur-btn">
+        <Buttons
+          :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id"
+          :elmentsOfBtn="elmentsOfBtn"
+          :shapeBtn="'round'"
+          @created="handleCreateAbonnement(item)"
+        />
+      </div>
+    </section>
+    </div>
+      </div>
+   
     </section>
    
   </div>

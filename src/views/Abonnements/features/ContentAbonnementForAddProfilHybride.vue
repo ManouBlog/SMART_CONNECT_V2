@@ -70,6 +70,32 @@ const currentConfig = computed(() => {
   }
 })
 
+const currentNotAbonnamentSuccessConfig = computed(() => {
+  const formule = storeAbonnementUser?.planAbonnement?.mode_payment;
+  console.log('storeAbonnement.addProfilHybride',storeAbonnement.addProfilHybride)
+  const countprofilHybride = storeAbonnement?.addProfilHybride?.length
+  if (select_mode_payment_tab.value === 'year') {
+     
+    return {
+      price: props.item.prix,
+      priceWithProfilHybride: Help.calculateAbonnementPrice(props.item.prix,countprofilHybride),
+      isFormule: formule === 'year' || !formule,
+      description: props.item.description,
+      suffix: 'an',
+      action: () => handleCreate('year')
+    }
+  }
+
+  return {
+    price: props.item.price_month,
+    priceWithProfilHybride: Help.calculateAbonnementPrice(props.item.price_month,countprofilHybride),
+    isFormule: formule === 'month',
+    description: props.item.description_month,
+    suffix: 'mois',
+    action: () => handleCreate('month')
+  }
+})
+
 function handleCreate(type) {
   console.log("ITEM",props.item)
   console.log('TYPE',type)
@@ -166,12 +192,14 @@ onMounted(async () => {
     const profilUserCurrent = store.state.user?.user?.abonement?.find(item=>item?.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent?.abonement?.libelle;
     modePaymentForFormuleAbonnementOfUserConnected.value = profilUserCurrent?.mode_payment;
-    tabs.value = tabs.value.filter(tab=>tab.id === modePaymentForFormuleAbonnementOfUserConnected.value)
+    if(formuleAbonnementOfUserConnected.value){
+   tabs.value = tabs.value.filter(tab=>tab.id === modePaymentForFormuleAbonnementOfUserConnected.value)
+    }
     console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
     console.log("profilUserCurrent",profilUserCurrent)
     console.log("tabs",tabs.value)
     console.log("modePaymentForFormuleAbonnementOfUserConnected",modePaymentForFormuleAbonnementOfUserConnected.value)
-    console.log("formuleAbonnementOfUserConnected",formuleAbonnementOfUserConnected.value)
+    console.log("formuleAbonnementOfUserConnected25",formuleAbonnementOfUserConnected.value)
   }
 
   texte.value = await transalteStore.handleTranslate("année");
@@ -297,6 +325,72 @@ onMounted(async () => {
       :elmentsOfBtn="elmentsOfBtn"
       shapeBtn="round"
       @created="currentConfig.action"
+    />
+  </div>
+</section>
+  </div>
+  <div v-if="storeAbonnement.addProfilHybride.length && !formuleAbonnementOfUserConnected">
+   <n-tabs
+  v-model:value="select_mode_payment_tab"
+  type="segment"
+  @update:value="handleSelect_mode_Payement"
+  style="margin:1em 0;"
+>
+  <n-tab-pane
+    v-for="tab in tabs"
+    :key="tab.id"
+    :name="tab.id"
+    :tab="tab.label"
+  />
+</n-tabs>
+
+<section>
+  <p style="text-align:center;position: absolute;right: 0;top: 100px;">
+     <span
+          v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
+          class="badge bg-warning"
+        >
+          Formule
+        </span>
+  </p>
+ 
+  <div class="d-flex gap-5 align-items-center justify-content-center main-color">
+      <div style="display: flex;flex-direction: column;">
+   <h1 
+    :style="{
+    fontSize: '2em',
+    fontWeight: 'bold',
+    padding: '0',
+    margin: '0',
+    textDecoration: currentNotAbonnamentSuccessConfig.priceWithProfilHybride != currentNotAbonnamentSuccessConfig.price ? 'line-through' : 'none'
+  }">
+      {{ Help.convertInMoney(currentNotAbonnamentSuccessConfig.price) }} F
+    </h1>
+    <h1 
+     v-if="currentNotAbonnamentSuccessConfig.priceWithProfilHybride != currentNotAbonnamentSuccessConfig.price"
+    style="font-size: 2em; font-weight: bold;padding: 0;margin: 0;">
+      {{ Help.convertInMoney(currentNotAbonnamentSuccessConfig.priceWithProfilHybride) }} F
+    </h1>
+  </div>
+    <h3 class="mx-2" style="font-size: 1.3em; color: orange">/</h3>
+    <h3 style="font-size: 2em; color: orange">
+      {{ currentNotAbonnamentSuccessConfig.suffix }}
+    </h3>
+  </div>
+  <div style="height: 310px; position: relative; padding: 1em">
+    <div class="px-5" v-html="currentNotAbonnamentSuccessConfig.description"></div>
+  </div>
+
+  <div class="conteneur-btn">
+    <Buttons
+      :elmentsOfBtn='[
+    {
+      name_btn: "Choisir cette formule",
+      color_btn: "primary",
+    },
+  ]'
+      shapeBtn="round"
+      @created="currentNotAbonnamentSuccessConfig.action"
     />
   </div>
 </section>

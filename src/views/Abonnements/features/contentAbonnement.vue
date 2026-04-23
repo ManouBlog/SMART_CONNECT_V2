@@ -151,7 +151,7 @@ onMounted(async () => {
 
     console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
     console.log("profilUserCurrent",profilUserCurrent)
-    console.log("formuleAbonnementOfUserConnected",formuleAbonnementOfUserConnected.value)
+    console.log("formuleAbonnementOfUserConnected23",formuleAbonnementOfUserConnected.value)
   }
 
   texte.value = await transalteStore.handleTranslate("année");

@@ -236,16 +236,28 @@ export default {
 .ant-select-dropdown {
   z-index: 100000 !important;
 }
+.ant-radio-group-solid :where(.css-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+  background: orange !important;
+  color: rgb(239, 239, 239) !important;
+  border-color:orange !important;
+}
 
 :where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
   color: orange !important;
-  text-shadow:0 0 0.25px orange;
+  text-shadow:0 0 0.25px orange !important;
 }
 .ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
-  background-color: orange !important;;
+  background-color: orange !important;
 }
-.n-tabs.n-tabs--line-type .n-tabs-tab:hover{
+.ant-radio-group-solid :where(.css-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before{
+  background-color: orange !important;
+}
+.n-tabs.n-tabs--line-type .n-tabs-tab:hover,:where(.css-17yhhjv).ant-radio-button-wrapper:hover{
   color: orange !important;
+}
+:where(.css-17yhhjv).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+  color: #ffa500 !important;
+  text-shadow:0 0 0.25px orange !important;
 }
 .anticon{
   color:#333 !important;
