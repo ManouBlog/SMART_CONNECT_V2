@@ -169,7 +169,7 @@ onMounted(async () => {
 </n-tabs>
 
 <section >
-  <p style="text-align:center;position: absolute;">
+  <p style="text-align:center;position: absolute;right: 0;top: 100px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
           class="badge bg-warning"

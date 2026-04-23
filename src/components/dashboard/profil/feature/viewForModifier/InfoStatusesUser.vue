@@ -104,6 +104,11 @@ descriptionProfil:{
        this.profilHybride=[];
        console.log('this.selectedParseStatus',this.selectedParseStatus)
       },
+      resetProfilHybrideData(){
+        const abonnementsStore = useAbonnementsStore()
+         abonnementsStore.handleHybrideAddProfil([])
+         console.log('addProfilHybride',abonnementsStore.addProfilHybride)
+      },
     resetData(){
       console.log("reset data")
 this.optionsAnswer=null;
@@ -160,11 +165,7 @@ this.selectedParseStatus = ""
     max-height: 80vh;" 
        preset="card" 
        :closable="false"
-      @after-leave="()=>{
-         const abonnementsStore = useAbonnementsStore()
-         abonnementsStore.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
-         console.log('addProfilHybride',abonnementsStore.addProfilHybride)
-      }"
+      @after-leave="resetProfilHybrideData"
        >
       <template #header>
         <div class="modal-header">
