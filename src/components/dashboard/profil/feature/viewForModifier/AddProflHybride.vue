@@ -72,6 +72,7 @@ export default {
         commune: "",
         statut_professionnel_artisan:"",
         upload: null,
+        file:null
       },
       rules: {
         // Champs Artisan
@@ -114,7 +115,7 @@ export default {
           },
         ],
         // Fichier
-        upload: [
+        file: [
           {
             required: true,
             validator: (_, value) => {
@@ -186,6 +187,22 @@ descriptionProfil:{
 //     }
 //   },
   methods: {
+    handleFileChange(info) {
+        console.log("file info",info)
+      this.formData.upload = info.file.originFileObj;
+    },
+    async validateAndSubmit() {
+      try {
+        const abonnementsStore = useAbonnementsStore()
+        console.log("Validation réussie, données du formulaire :", this.formData);
+        console.log("Profil hybride choisi pour ajout :", this.choiceProfilHybrideForAdd);
+        abonnementsStore.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
+        console.log('addProfilHybride',abonnementsStore.addProfilHybride)
+      } catch (error) {
+        console.log("Validation échouée :", error);
+        // validation failed
+      }
+    },
     loadActiveChangedProfil(payload) {
       const abonnementsStore = useAbonnementsStore()
 
@@ -301,10 +318,13 @@ console.log("this.ProfilsUser", this.ProfilsUser)
   :model="formData"
   :rules="rules"
 >
-    <!-- Artisan -->
+   <!-- Artisan -->
+<a-row :gutter="[16, 24]">
+    <a-col :xs="24" :md="12">
+       
     <a-form-item v-if="hasArtisanProfil" label="Niveau d'étude" name="niveauEtude">
       <a-select
-    v-model:value="formState.niveauEtude"
+    v-model:value="formData.niveauEtude"
     placeholder="Sélectionnez votre niveau d’étude"
     show-search
     option-filter-prop="label"
@@ -319,11 +339,13 @@ console.log("this.ProfilsUser", this.ProfilsUser)
     </a-select-option>
   </a-select>
     </a-form-item>
-
-    <a-form-item  v-if="hasArtisanProfil" label="Statut professionnel artisan" name="statut_professionnel_artisan">
+    </a-col>
+     <a-col :xs="24" :md="12">
+ <a-form-item  v-if="hasArtisanProfil" label="Statut professionnel artisan"
+  name="statut_professionnel_artisan">
     <a-select
     style="width: 100%;"
-    v-model:value="formState.statut_professionnel_artisan"
+    v-model:value="formData.statut_professionnel_artisan"
     placeholder="Sélectionnez votre Statut professionnel"
     show-search
     option-filter-prop="label"
@@ -338,22 +360,33 @@ console.log("this.ProfilsUser", this.ProfilsUser)
     </a-select-option>
   </a-select>
     </a-form-item>
+     </a-col>
+</a-row>
 
-    <!-- Particulier -->
-    <a-form-item v-if="hasParticulierProfil" label="Ville" name="ville">
+<!-- Particulier -->
+<a-row :gutter="[16, 24]">
+<a-col :xs="24" :md="12">
+ <a-form-item v-if="hasParticulierProfil" label="Ville" name="ville">
       <a-input v-model:value="formData.ville" />
     </a-form-item>
-    <a-form-item v-if="hasParticulierProfil" label="Quartier" name="quartier">
+</a-col>
+<a-col :xs="24" :md="12">
+ <a-form-item v-if="hasParticulierProfil" label="Quartier" name="quartier">
       <a-input v-model:value="formData.quartier" />
     </a-form-item>
-    <a-form-item v-if="hasParticulierProfil" label="Commune" name="commune">
+</a-col>
+<a-col :xs="24" :md="12">
+<a-form-item v-if="hasParticulierProfil" label="Commune" name="commune">
       <a-input v-model:value="formData.commune" />
     </a-form-item>
+</a-col>
 
-    <a-form-item label="Ajouter votre CNI (carte nationale d'identité)" name="file">
-      <!-- <input type="file" @change="handleFileChange" /> -->
+<a-col :xs="24" :md="12">
+
+ <a-form-item label="Ajouter votre CNI (carte nationale d'identité)" 
+ name="file">
       <a-upload
-              v-model:fileList="formState.upload"
+              v-model:fileList="formData.file"
               :maxCount="1"
               accept="image/*"
               @change="handleFileChange"
@@ -362,39 +395,17 @@ console.log("this.ProfilsUser", this.ProfilsUser)
             </a-upload>
     </a-form-item>
 
-    <a-form-item>
+</a-col>
+
+</a-row>
+<a-form-item>
       <a-button type="primary" @click="validateAndSubmit">
         Ajouter
       </a-button>
     </a-form-item>
+   
 </a-form>
   </div>
-  <!-- <div v-if="choiceProfilHybrideForAdd.length">
-     <section  v-if="choiceProfilHybrideForAdd.some(item => item.statut.includes('Artisan'))">
-       <select>
-        <option value="" disabled selected>Choisissez un niveau d'etude...</option>
-        <option value="bac">Bac</option>
-        <option value="bac+2">Bac +2</option>
-        <option value="bac+3">Bac +3</option>
-      </select>
-      <select>
-        <option value="" disabled selected>Choisissez un statut professionnel artisan...</option>
-        <option value="bac">Bac</option>
-        <option value="bac+2">Bac +2</option>
-        <option value="bac+3">Bac +3</option>
-      </select>
-      </section>
-      <section v-if="choiceProfilHybrideForAdd.some(item => item.statut.includes('Particulier'))">
-       <input type='text' v-model="ville" placeholder='Entrez un nouveau profil hybride...' />
-       <input type='text' v-model="quartier" placeholder='Entrez un nouveau profil hybride...' />
-      <input type='text' v-model="commune" placeholder='Entrez un nouveau profil hybride...' />
-      </section>
-  
-      <input type="file" @change="handleFileChange" />
-      <div>
-        <button type="button" @click="addProfilHybride">Ajouter</button>
-      </div>
-  </div> -->
     </section>
 </template>
 <style scoped>

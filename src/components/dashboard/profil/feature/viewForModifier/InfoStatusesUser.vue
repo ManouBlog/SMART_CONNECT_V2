@@ -160,7 +160,11 @@ this.selectedParseStatus = ""
     max-height: 80vh;" 
        preset="card" 
        :closable="false"
-      @after-leave="resetData"
+      @after-leave="()=>{
+         const abonnementsStore = useAbonnementsStore()
+         abonnementsStore.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
+         console.log('addProfilHybride',abonnementsStore.addProfilHybride)
+      }"
        >
       <template #header>
         <div class="modal-header">

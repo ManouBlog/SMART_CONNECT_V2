@@ -12,6 +12,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
 
    const isChangeProfil = ref(false);
    const statutOfBase = ref(null);
+   const addProfilHybride = ref([]);
     const niveauExpertise =  ref(null);
         const modeTravail =  ref(null);
         const tempsTravail =  ref(null);
@@ -25,6 +26,9 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
 
    const handleChangeProfil = (payload)=>{
     isChangeProfil.value = payload
+   }
+   const handleHybrideAddProfil = (payload)=>{
+    addProfilHybride.value = payload
    }
    const handleChangeInfoForAbonnement=(payload)=>{
      niveauExpertise.value =  payload.niveauExpertise;
@@ -65,5 +69,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
       statutOfBase,
       handleChangeProfil,
         createAbonement,
+        handleHybrideAddProfil,
+        addProfilHybride
     }
 })
