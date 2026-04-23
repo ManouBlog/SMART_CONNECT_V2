@@ -5,9 +5,12 @@ import FieldsArtisan from '../FieldsForEachProfil/FieldsArtisan.vue';
 import FieldsProfessionnel from '../FieldsForEachProfil/FieldsProfessionnel.vue'
 import FieldsCompany from '../FieldsForEachProfil/FieldsCompany.vue';
 import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
+import AddProfilHybride from './AddProflHybride.vue';
 export default {
   name: 'InfoStatusesUser',
-  components:{FieldsVeteran,FieldsArtisan,FieldsProfessionnel,FieldsCompany},
+  components:{FieldsVeteran,
+    FieldsArtisan,FieldsProfessionnel,
+    FieldsCompany,AddProfilHybride},
   props: {
     profils: {
       type: Object,
@@ -165,59 +168,9 @@ this.selectedParseStatus = ""
         </div>
       </template>
       
-      <section>
-  <div>
-    <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
-     Profils hybrides
-    </label>
-    <!-- {{ profils.user?.statuses }}
-    {{ profils.user.statut.statut }} -->
-     <!-- {{ choiceProfilHybrideForAdd }} -->
-    <div class="round-container">
-      <label 
-        v-for="item in allProfilsHybrides" 
-        :key="item.id"
-        class="round-item"
-      >
-        <input
-          type="checkbox"
-          :value="item"
-          v-model="choiceProfilHybrideForAdd"
-          :disabled="profilhybrideUserConnected.some(profil => profil.statut === item.statut)"
-        />
-        <span class="round-label">
-          {{ item.statut }}
-        </span>
-      </label>
-    </div>
-  </div> 
-  <div v-if="choiceProfilHybrideForAdd.length">
-     <section  v-if="choiceProfilHybrideForAdd.some(item => item.statut.includes('Artisan'))">
-       <select>
-        <option value="" disabled selected>Choisissez un niveau d'etude...</option>
-        <option value="bac">Bac</option>
-        <option value="bac+2">Bac +2</option>
-        <option value="bac+3">Bac +3</option>
-      </select>
-      <select>
-        <option value="" disabled selected>Choisissez un statut professionnel artisan...</option>
-        <option value="bac">Bac</option>
-        <option value="bac+2">Bac +2</option>
-        <option value="bac+3">Bac +3</option>
-      </select>
-      </section>
-      <section v-if="choiceProfilHybrideForAdd.some(item => item.statut.includes('Particulier'))">
-       <input type='text' v-model="VilleProfilHybride" placeholder='Entrez un nouveau profil hybride...' />
-       <input type='text' v-model="QuatierProfilHybride" placeholder='Entrez un nouveau profil hybride...' />
-      <input type='text' v-model="CommuneProfilHybride" placeholder='Entrez un nouveau profil hybride...' />
-      </section>
-  
-      <input type="file" @change="handleFileChange" />
-      <div>
-        <button type="button" @click="addProfilHybride">Ajouter</button>
-      </div>
-  </div>
-    </section>
+      <AddProfilHybride 
+      :ProfilsUser="profils"
+      />
       
     </n-modal>
      
@@ -373,8 +326,8 @@ this.selectedParseStatus = ""
             background: orange;
             color: white;
             font-weight: bold;
-            border-radius: 10%;
-            padding:0.5em;
+            border-radius: 5%;
+            padding:0.3em;
           "
           @click="async()=>{
             loadActiveChangedProfil(true);
@@ -393,8 +346,8 @@ this.selectedParseStatus = ""
             background: orange;
             color: white;
             font-weight: bold;
-            border-radius: 10%;
-            padding:0.5em;
+            border-radius: 5%;
+            padding:0.3em;
           "
           :disabled="profils.user?.statuses.length >= 2"
           @click="async()=>{
