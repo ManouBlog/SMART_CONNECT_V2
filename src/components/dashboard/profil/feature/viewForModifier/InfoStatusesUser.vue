@@ -6,6 +6,8 @@ import FieldsProfessionnel from '../FieldsForEachProfil/FieldsProfessionnel.vue'
 import FieldsCompany from '../FieldsForEachProfil/FieldsCompany.vue';
 import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
 import AddProfilHybride from './AddProflHybride.vue';
+import Swal from 'sweetalert2';
+import { useLoadingSpinner } from '../../../../../store-pinia/LoadingSpinner/useLoadingSpinner';
 export default {
   name: 'InfoStatusesUser',
   components:{FieldsVeteran,
@@ -78,9 +80,56 @@ descriptionProfil:{
     }
   },
   methods: {
-     handleModeChange(checked) {
-      console.log('Mode actif:', checked); // true = Actif, false = Inactif
+    async getInfoUser() {
+      await this.$store.dispatch("getInfoUser");
     },
+     async handleModeChange(checked) {
+  console.log('Mode actif:', checked);
+  const loadingSpinner = useLoadingSpinner()
+
+  Swal.fire({
+    icon: 'warning',
+    title: checked
+      ? 'En activant ce mode, les entreprises ne pourront pas voir votre profil. Voulez-vous continuer ?'
+      : 'En désactivant ce mode, les entreprises pourront voir votre profil. Voulez-vous continuer ?',
+    confirmButtonText: 'Oui, valider',
+    showCancelButton: true,
+    cancelButtonText: 'Annuler',
+    confirmButtonColor: '#f39c12',
+    cancelButtonColor: '#e74c3c',
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      loadingSpinner.launchLoading(true);
+
+      const data = {
+        mode_discret: checked,
+      }
+
+      try {
+        const response = await instance.post('mode-discret', data)
+        console.log("responsehandleModeChange", response)
+
+        if (response.status === 201 || response.status === 200) {
+          Swal.fire({
+            icon: 'info',
+            title: response.data.message,
+            confirmButtonText: 'OK',
+          });
+          this.modeActif = response.data.mode_discret
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        loadingSpinner.launchLoading(false);
+      }
+    }else{
+      await this.getInfoUser()
+      console.log('profil',this.profils?.mode_discret)
+      this.modeActif = this.profils?.mode_discret == 1 ? true:false;
+      console.log('mode disd pas accpete')
+    }
+  });
+},
     loadActiveChangedProfil(payload) {
       const abonnementsStore = useAbonnementsStore()
 
@@ -121,6 +170,14 @@ this.profilHybride=[];
 this.allStatuses=[];
 this.selectedParseStatus = ""
     },
+    resetDataModeDiscret(){
+      console.log("this.profils?.mode_discret",this.profils?.mode_discret)
+      if(this.profils?.mode_discret == 1){
+     this.modeActif = true
+      }else{
+        this.modeActif = false
+      }
+    },
      async lister_statut() {
   const user = this.$store.state.infoUserConnected?.user;
   const statutUser = user?.statut.statut;
@@ -158,6 +215,8 @@ this.selectedParseStatus = ""
   },
   async created() {
     await this.lister_statut();
+    console.log("USERPROFIL",this.profils)
+    this.resetDataModeDiscret();
   },
 }
 </script>
@@ -366,7 +425,7 @@ this.selectedParseStatus = ""
     checked-children="Actif"
     un-checked-children="Inactif"
     @change="handleModeChange"
-    size="large"
+     size="large" 
     class="switch-green"
   />
       </div>
