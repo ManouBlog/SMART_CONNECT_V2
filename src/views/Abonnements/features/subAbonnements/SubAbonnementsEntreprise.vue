@@ -23,6 +23,7 @@ const profilHybrideRecuperer = ref(0)
 
 
 const handleCreateEntreprise=(payload)=>{
+  console.log("handleCreateAbonnement7686")
   const randomPart = Math.random().toString(36).substring(2);
         // console.log("payload",payload)
         const data = {

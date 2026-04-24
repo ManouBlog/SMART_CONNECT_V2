@@ -106,6 +106,7 @@ function handleCreate(type) {
   }
 }
 const handleCreateMonth =(payload)=>{
+  console.log("handleCreateAbonnement123")
   console.log("handleCreateMonth",payload)
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   const storeAbonnement = useAbonnementsStore();
@@ -138,6 +139,7 @@ const handleCreateMonth =(payload)=>{
 storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
+  console.log("handleCreateAbonnement90")
   console.log("handleCreateYear",payload)
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   console.log("storeAbonnement",storeAbonnement)
