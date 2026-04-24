@@ -316,7 +316,8 @@ export default {
       <h1 class="fw-bold" style="color: orange" v-if="this.infoPersonnelles?.gerant">
         {{ texte1 }}
       </h1>
-      <section>
+      <section class="container">
+
         <div class="row gy-2">
             <div class="col-md-6" style="flex:1">
     <ParagrapheDetail :item="{libelle:'Nom du gérant',

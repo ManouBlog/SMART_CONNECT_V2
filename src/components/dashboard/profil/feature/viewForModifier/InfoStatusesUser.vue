@@ -413,10 +413,8 @@ this.selectedParseStatus = ""
             padding:0.3em;
           "
           @click="async()=>{
-            loadActiveChangedProfil(true);
             showModalAddProfilHybride = !showModalAddProfilHybride
              await this.lister_statut();
-             
           }"
         >
           Ajouter un profil hybride

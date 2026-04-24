@@ -1,10 +1,11 @@
 <script>
 import instance from '../../../../../api/api';
 import FieldsCompany from '../FieldsForEachProfil/FieldsCompany.vue';
+import AddProflHybride from './AddProflHybride.vue';
 import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
 export default {
   name: 'InfoStatusesEntreprise',
-  components:{FieldsCompany},
+  components:{FieldsCompany,AddProflHybride},
   props: {
     profils: {
       type: Object,
@@ -16,6 +17,7 @@ export default {
       showModalBadgeVerifi: false,
       showModalAbonnements:false,
       selectedParseStatus:"",
+      showModalAddProfilHybride:false,
 // allStatutsCompany:[{ value: "Artisan", label: "Artisan" }],
  allProfilHybrideAnswer: [
   { label: "Oui", value: "oui" },
@@ -143,6 +145,25 @@ this.selectedParseStatus = ""
 </script>
 
 <template>
+   <n-modal v-model:show="showModalAddProfilHybride" 
+       style="width:80%; height: 400px; 
+    overflow-y: auto; 
+    max-height: 80vh;" 
+       preset="card" 
+       :closable="false"
+      @after-leave="resetProfilHybrideData"
+       >
+      <template #header>
+        <div class="modal-header">
+          <h3>Ajouter un profil hybride</h3>
+        </div>
+      </template>
+      
+      <AddProflHybride 
+      :ProfilsUser="this.$store.state.infoUserConnected"
+      />
+      
+    </n-modal>
      
        <n-modal v-model:show="showModalBadgeVerifi" 
        style="width:80%; height: 400px; 
@@ -210,7 +231,8 @@ this.selectedParseStatus = ""
     <div class="info-header d-flex justify-content-between align-items-center p-4 mb-5">
       <h1 class="fw-bold my-3 mb-0" style="color: orange">Mes Profils</h1>
       <!-- {{ profils.statut_entreprise }} -->
-      <button
+        <div>
+<button
       v-if="profils.statut_entreprise === 'Informelle'"
           style="
             height: auto;
@@ -230,6 +252,29 @@ this.selectedParseStatus = ""
         >
           Modifier
         </button>
+      <button
+      v-if="profils.statut_entreprise === 'informelle'"
+          style="
+            height: auto;
+            width: auto;
+            background: orange;
+            color: white;
+            font-weight: bold;
+            border-radius: 5%;
+            padding:0.3em;
+          "
+          @click="async()=>{
+            loadActiveChangedProfil(true);
+            showModalAddProfilHybride = !showModalAddProfilHybride
+             await this.lister_statut();
+             
+          }"
+        >
+          Ajouter un profil hybride
+        </button>
+        </div>
+      
+        
     </div>
 
     <!-- Grille profils responsive -->
