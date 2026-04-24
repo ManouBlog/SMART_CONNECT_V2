@@ -484,9 +484,7 @@ this.selectedParseStatus = ""
 </template>
 
 <style scoped>
-.switch-green.ant-switch-checked {
-  background-color: #52c41a !important; /* vert Ant Design */
-}
+
 
 .shimmer-text {
   font-weight: 600;

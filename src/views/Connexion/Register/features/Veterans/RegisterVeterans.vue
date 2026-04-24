@@ -169,7 +169,8 @@ StatutVeterans:[
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
-        statut_professionnel_artisan :""
+        statut_professionnel_artisan :"",
+        mode_discret:false
       },
     };
   },
@@ -789,6 +790,8 @@ StatutVeterans:[
             </a-select>
             
           </a-form-item>
+        </a-col>
+        <a-col :xs="24" :md="12">
           <a-form-item
             label="Domaine"
             name="filiere"
@@ -796,7 +799,6 @@ StatutVeterans:[
           >
           <a-input v-model:value="formState.filiere" placeholder="Domaine" />
           </a-form-item>
-          
         </a-col>
         <a-col :xs="24" :md="12">
             <a-form-item
@@ -844,13 +846,31 @@ StatutVeterans:[
   </a-select>
             </a-form-item>
         </a-col>
-        <!-- <a-col
-  :xs="24"
-  :md="12"
-  
-  >
-            
-        </a-col> -->
+         <a-col :xs="24" :md="12" v-if="formState.statut_talent !== 'Vétéran Hors Grade'">
+            <a-form-item label="Voulez-vous activer le mode discret ?" name="mode_discret">
+    <a-tooltip 
+      title="Mode discret : Masquer votre profil des recherches publiques. 
+Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres et pouvez postuler."
+      placement="right"
+    >
+      <template #title>
+        <span>
+          Voulez-vous activer le mode discret ? 
+          <i class="bi bi-info-circle ms-2 text-primary fs-6" style="cursor: help;"></i>
+        </span>
+      </template>
+      
+      <a-switch
+        v-model:checked="formState.mode_discret"
+        checked-children="Actif"
+        un-checked-children="Inactif"
+        size="large" 
+        class="switch-green"
+      />
+    </a-tooltip>
+  </a-form-item>
+
+        </a-col>
 
         <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />

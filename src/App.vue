@@ -233,6 +233,9 @@ export default {
 };
 </script>
 <style>
+.switch-green.ant-switch-checked {
+  background-color: #52c41a !important; /* vert Ant Design */
+}
 .ant-select-dropdown {
   z-index: 100000 !important;
 }
