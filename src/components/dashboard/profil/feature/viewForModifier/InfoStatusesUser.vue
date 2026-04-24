@@ -399,8 +399,10 @@ this.selectedParseStatus = ""
         >
           Changer le profil de base
         </button>
-        <button
-      v-if="profils?.user?.statuses.some(item=>item.statut != 'Vétéran')"
+        {{ profils?.user?.statuses }}
+        <div>
+      <button
+      v-if="profils?.user?.statuses.some(item=>item.statut != 'Vétéran' && (item.statut != 'Particulier' || item.statut != 'Artisan'))"
           style="
             height: auto;
             width: auto;
@@ -410,7 +412,6 @@ this.selectedParseStatus = ""
             border-radius: 5%;
             padding:0.3em;
           "
-          :disabled="profils.user?.statuses.length >= 2"
           @click="async()=>{
             loadActiveChangedProfil(true);
             showModalAddProfilHybride = !showModalAddProfilHybride
@@ -420,6 +421,8 @@ this.selectedParseStatus = ""
         >
           Ajouter un profil hybride
         </button>
+        </div>
+       
         </div>
       
     </div>
