@@ -120,7 +120,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 </script>
 
 <template>
-  <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
+  <!-- <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p> -->
   <div v-if="tabsSubAbonnement.length">
    <div style="display: flex;justify-content: center;">
      <n-tabs
@@ -264,7 +264,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
     </section>
     </div>
     </section>
-    <p>formuleAbonnementOfUserConnected:{{ formuleAbonnementOfUserConnected }}</p>
+    <!-- <p>formuleAbonnementOfUserConnected:{{ formuleAbonnementOfUserConnected }}</p> -->
     <section v-if="storeAbonnement.addProfilHybride.length"
     style="display: flex;place-content: center;gap:0.5em;flex-wrap:wrap;" 
     >
