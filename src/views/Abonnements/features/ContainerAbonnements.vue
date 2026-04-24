@@ -120,7 +120,8 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 </script>
 
 <template>
-  <div  v-if="tabsSubAbonnement.length">
+  <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
+  <div v-if="tabsSubAbonnement.length">
    <div style="display: flex;justify-content: center;">
      <n-tabs
      v-if="tabsSubAbonnement.some(item=>item.id.includes('Vétéran'))"
@@ -192,9 +193,9 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
  :type_abonnements="'Vétéran'"
  />
 </div>
-
-    <div class="conteneur-flex" v-else>
-    <section v-if="!storeAbonnement.addProfilHybride.length">
+    <div v-if="!tabsSubAbonnement.length" >
+    <section v-if="!storeAbonnement.addProfilHybride.length" 
+    style="display: flex;place-content: center;gap:0.5em;flex-wrap:wrap;">
     <div
       v-for="item in abonnements.filter(
         (item) => item.categorie.categorie === type_abonnements
@@ -205,7 +206,6 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
           ? 'abonnement-classique_etudiant'
           : 'abonnement-classique_entreprise'
       "
-      style="flex: 1;"
     >
    
       <h1 class="text-center main-color">
@@ -264,10 +264,12 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
     </section>
     </div>
     </section>
-    <section v-if="storeAbonnement.addProfilHybride.length">
-      <div v-if="formuleAbonnementOfUserConnected">
-        
- <div
+    <p>formuleAbonnementOfUserConnected:{{ formuleAbonnementOfUserConnected }}</p>
+    <section v-if="storeAbonnement.addProfilHybride.length"
+    style="display: flex;place-content: center;gap:0.5em;flex-wrap:wrap;" 
+    >
+      <div v-if="formuleAbonnementOfUserConnected">  
+      <div
       v-for="item in abonnements.filter(
         (item) => item.categorie.categorie === type_abonnements && item.libelle === formuleAbonnementOfUserConnected
       )"
@@ -277,7 +279,6 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
           ? 'abonnement-classique_etudiant'
           : 'abonnement-classique_entreprise'
       "
-      style="flex: 1;"
     >
    
       <h1 class="text-center main-color">
@@ -337,7 +338,6 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
     </div>
       </div>
       <div v-if="!formuleAbonnementOfUserConnected">
-     
        <div
       v-for="item in abonnements.filter(
         (item) => item.categorie.categorie === type_abonnements
