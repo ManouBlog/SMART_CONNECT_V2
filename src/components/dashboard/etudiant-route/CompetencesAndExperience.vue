@@ -652,7 +652,7 @@ export default {
                             <tbody>
                               <tr v-for="(item, index) in competences" :key="index">
                                 <td>
-                                  {{ item.categorie_id == null ? `${item.competence} (Non classé)` : item.competence }}
+                                  {{ item.categorie_id == null ? `${item.competence} (Vérification en cours)` : item.competence }}
                                 </td>
                                 <td
                                   style="text-align:center;"

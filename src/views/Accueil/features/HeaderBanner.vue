@@ -22,6 +22,7 @@ export default {
       texte7: "",
       texte88: "",
       texte99: "",
+      texte100:""
     };
   },
   methods: {
@@ -37,8 +38,6 @@ export default {
    this.texte3 = await this.handleTranslate(
   `
   Vous avez les compétences. Nous avons les clients. MonBrobroli vous connecte en un clic.
-
-  Étudiants · Artisans · Particuliers · Professionnels · Consultants · Retraités : inscrivez-vous gratuitement.
   `
 );
     this.texte88 = await this.handleTranslate(
@@ -47,6 +46,11 @@ export default {
   `
 );
     this.texte4 = await this.handleTranslate(`MonBrobroli. Simple. Sûr. Payé.`);
+    this.texte100 = await this.handleTranslate(
+  `
+  Étudiants · Artisans · Particuliers · Professionnels · Consultants · Retraités : inscrivez-vous gratuitement.
+  `
+);
     this.texte99 = await this.handleTranslate(
   `
   MonBrobroli met en relation les entreprises, les particuliers et les talents de toutes compétences — du petit métier au conseil senior — avec un paiement garanti sur le canal de votre choix (Mobile Money, Wave, Virement Bancaire,…).
@@ -70,6 +74,7 @@ export default {
       <!-- <DefilementText /> -->
       <div class="my-5" >
         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte3 }}</h4>
+        <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte100 }}</h4>
          <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte88 }}</h4>
          <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte99 }}</h4>
         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte4 }}</h4>
