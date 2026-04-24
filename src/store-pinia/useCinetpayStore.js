@@ -19,13 +19,13 @@ const storeLoading = useLoadingSpinner();
         
         try{
            const RESPONSEINITALISATION = await instance.post("payStack/paiement",payload);
-            //  console.log("RESPONSEINITALISATION",RESPONSEINITALISATION)
+             console.log("RESPONSEINITALISATION",RESPONSEINITALISATION)
              if(RESPONSEINITALISATION.data.status){
                 Swal.fire({
               icon: "success",
               title: "Veuillez patienter...",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 3500,
             });
             //  localStorage.setItem('@reference',JSON.stringify(randomPart))
              window.location.href = RESPONSEINITALISATION.data.data.authorization_url;
