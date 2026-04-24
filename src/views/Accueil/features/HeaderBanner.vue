@@ -34,20 +34,26 @@ export default {
   async created() {
     this.texte0 = await this.handleTranslate("Mon Brobroli");
     this.texte2 = await this.handleTranslate("en un clic");
-    this.texte3 = await this.handleTranslate(
-      `
-      Vous êtes étudiant, entreprise ou particulier, 
-      Vous recherchez probablement une alternative plus simple,
-      sûre et plus performante pour donner un nouveau souffle à vos finances,
-       à votre activité. 
-       MonBrobroli est la nouvelle plateforme unifiée qui lie entreprises/particuliers et talents.
-        En quelques clics, vous allez vivre une expérience de classe mondiale.
-       `
-    );
-    this.texte88 = await this.handleTranslate(`MonBrobroli est la nouvelle plateforme unifiée qui lie entreprises/particuliers et talents.
-        En quelques clics, vous allez vivre une expérience de classe mondiale.`);
-    this.texte4 = await this.handleTranslate(`Chez nous, les petits jobs pour nous soutra, on dit MonBrobroli.`);
-    this.texte99 = await this.handleTranslate("");
+   this.texte3 = await this.handleTranslate(
+  `
+  Vous avez les compétences. Nous avons les clients. MonBrobroli vous connecte en un clic.
+
+  Étudiants · Artisans · Particuliers · Professionnels · Consultants · Retraités : inscrivez-vous gratuitement.
+  `
+);
+    this.texte88 = await this.handleTranslate(
+  `
+  TPE · PME · Grandes Entreprises · ONG · Institutions : trouvez votre talent immédiatement.
+  `
+);
+    this.texte4 = await this.handleTranslate(`MonBrobroli. Simple. Sûr. Payé.`);
+    this.texte99 = await this.handleTranslate(
+  `
+  MonBrobroli met en relation les entreprises, les particuliers et les talents de toutes compétences — du petit métier au conseil senior — avec un paiement garanti sur le canal de votre choix (Mobile Money, Wave, Virement Bancaire,…).
+
+  Immédiatement. Pas de mauvaises surprises. Des profils vérifiés. Des missions réelles.
+  `
+);
     this.texte5 = await this.handleTranslate("Connexion");
     this.texte6 = await this.handleTranslate("Offres");
     this.texte7 = await this.handleTranslate("Talents disponibles");
@@ -63,11 +69,10 @@ export default {
       </h1>
       <!-- <DefilementText /> -->
       <div class="my-5" >
-        <h4 style="letter-spacing: 0.1em">{{ texte3 }}</h4>
-        <!-- <h4>{{ texte88 }}</h4> -->
-        <!-- <br /> -->
-        <h4>{{ texte4 }}</h4>
-        <h4>{{ texte99 }}</h4>
+        <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte3 }}</h4>
+         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte88 }}</h4>
+         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte99 }}</h4>
+        <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte4 }}</h4>
       </div>
       <ButtonsHeader
         @handleBtn="changeValueIsModal"

@@ -199,22 +199,21 @@ export default {
       </div>
 
       <section class="my-5">
-        <!-- {{ this.infoPersonnelles }} -->
         <div class="container">
-          <div class="row gy-2">
+          <div class="row">
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.statut_entreprise">
     <ParagrapheDetail  :item="{libelle:'Statut',
           value:this.infoPersonnelles?.statut_entreprise}" />
             </div>
 
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Entreprise') && this.infoPersonnelles?.statut_entreprise == 'Formelle'">
-<ParagrapheDetail  
+    <ParagrapheDetail  
             :item="{libelle:'Raison social', value: this.infoPersonnelles?.nom}" />
             </div>
      
           </div>
 
-           <div class="row gy-2" >
+           <div class="row" >
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.statut_entreprise == 'Informelle'">
     <ParagrapheDetail 
           
@@ -230,7 +229,7 @@ export default {
           
 
           
-           <div class="row gy-2">
+           <div class="row">
             <div class="col-md-6" style="flex:1">
   <ParagrapheDetail :item="{libelle:'Prénoms', value: this.infoPersonnelles?.prenoms}" />
             </div>
@@ -241,7 +240,7 @@ export default {
      
           </div>
 
-           <div class="row gy-2">
+           <div class="row">
             <div class="col-md-6" style="flex:1">
   <ParagrapheDetail :item="{libelle:'Ville', value: this.infoPersonnelles?.ville}" />
             </div>
@@ -252,7 +251,7 @@ export default {
      
           </div>
 
-           <div class="row gy-2">
+           <div class="row">
             <div class="col-md-6" style="flex:1">
   <ParagrapheDetail :item="{libelle:'Quartier', value: this.infoPersonnelles?.quartier}" />
             </div>
@@ -263,7 +262,7 @@ export default {
      
           </div>
       
-          <div class="row gy-2">
+          <div class="row">
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user?.statut?.statut === 'Particulier'">
   <ParagrapheDetail  :item="{libelle:'Pièces chargées',value:null,
           valueArray:this.infoPersonnelles?.user?.photos}" />
@@ -274,8 +273,8 @@ export default {
           value:this.infoPersonnelles?.matricule_cc}" />
             </div>
           </div>
-          
-         <div class="row gy-2">
+
+         <div class="row">
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.registre">
    <ParagrapheDetail  :item="{libelle:'Registre Pdf',
           value:null,valueArray:[{path:this.infoPersonnelles.registre}]}" />
@@ -288,7 +287,7 @@ export default {
      
           </div>
 
-          <div class="row gy-2">
+          <div class="row">
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.logo">
    <ParagrapheDetail  :item="{libelle:'Logo',
           value:null,valueArray:[{path:this.infoPersonnelles?.logo}]}" />
@@ -301,7 +300,7 @@ export default {
      
           </div>
 
-          <div class="row gy-2">
+          <div class="row">
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.emails?.length">
      <ParagrapheDetail  :item="{libelle:'Emails en copies',
           value:this.infoPersonnelles?.emails,emailCC:true}" /> 
@@ -316,7 +315,7 @@ export default {
       </h1>
       <section class="container">
 
-        <div class="row gy-2">
+        <div class="row">
             <div class="col-md-6" style="flex:1">
     <ParagrapheDetail :item="{libelle:'Nom du gérant',
           value:this.infoPersonnelles?.gerant}" />
@@ -327,7 +326,7 @@ export default {
             </div>
           </div>
 
-           <div class="row gy-2">
+           <div class="row">
             <div class="col-md-6" style="flex:1">
      <ParagrapheDetail :item="{libelle:'Pièces chargées',value:null,
           valueArray:this.infoPersonnelles?.user?.photos}" />
