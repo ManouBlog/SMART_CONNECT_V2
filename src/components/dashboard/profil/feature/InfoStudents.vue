@@ -39,6 +39,7 @@ export default {
       Help: Help,
       user: "",
       nom: "",
+      modeActif: false,
       lienPDF: lienPDF,
       showCvModal : false,
       showModalBadgeVerifi:false,
@@ -74,6 +75,7 @@ export default {
       "addInfoUserConnected",
     ]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
+   
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
@@ -252,15 +254,7 @@ export default {
         </button>
         
       </div>
-      <!-- <div style="display: flex; flex-wrap: wrap; gap: 6px;margin: 1em 0;">
-  <span
-    v-for="(status, index) in $store.state.infoUserConnected?.user?.statuses || []"
-    :key="index"
-    class="badge bg-warning"
-  >
-    {{ status.statut }}
-  </span>
-      </div> -->
+     
 
       <div class="d-flex" style="position: relative">
         <input
@@ -322,6 +316,7 @@ export default {
           {{ infoPersonnelles?.bio }}
         </p>
       </div>
+     
       <section class="my-5">    
         <div class="row">
           <div

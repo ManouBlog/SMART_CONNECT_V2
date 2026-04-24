@@ -25,6 +25,7 @@ export default {
       showModalChangeProfilOfBase: false,
       showModalAbonnements:false,
       selectedParseStatus:"",
+      modeActif:false,
  showModalAddProfilHybride:false,
  allProfilHybrideAnswer: [
   { label: "Oui", value: "oui" },
@@ -77,6 +78,9 @@ descriptionProfil:{
     }
   },
   methods: {
+     handleModeChange(checked) {
+      console.log('Mode actif:', checked); // true = Actif, false = Inactif
+    },
     loadActiveChangedProfil(payload) {
       const abonnementsStore = useAbonnementsStore()
 
@@ -352,6 +356,20 @@ this.selectedParseStatus = ""
         </div>
       
     </div>
+    
+     <div style="padding:0 1em;">
+       <label class="ant-form-item-label" style="display:flex;flex-direction: column;">
+      <span style="font-size:1em;">Mode Discret</span>
+    </label>
+         <a-switch
+    v-model:checked="modeActif"
+    checked-children="Actif"
+    un-checked-children="Inactif"
+    @change="handleModeChange"
+    size="large"
+    class="switch-green"
+  />
+      </div>
 
     <!-- Grille profils responsive -->
     <div class="p-4">
@@ -360,7 +378,16 @@ this.selectedParseStatus = ""
         <h5>Aucun profil</h5>
       </div>
       
-      <div v-else style="display: flex; gap:1em;width: 100%;flex-wrap: wrap;place-content: center;">
+      <div
+  v-else
+  :style="{
+    display: 'flex',
+    gap: '1em',
+    width: '100%',
+    flexWrap: 'wrap',
+    placeContent: profils?.user?.statuses?.length > 1 ? 'center' : 'flex-start',
+  }"
+>
 
             <div 
             v-for="(profil, index) in profils?.user?.statuses" :key="index"
@@ -371,6 +398,7 @@ this.selectedParseStatus = ""
             border-radius: 10px;
             position: relative;
             height: 200px;
+            min-height: 100%;
             margin: 1em;
             width: 300px;
             ">
@@ -389,6 +417,10 @@ this.selectedParseStatus = ""
 </template>
 
 <style scoped>
+.switch-green.ant-switch-checked {
+  background-color: #52c41a !important; /* vert Ant Design */
+}
+
 .shimmer-text {
   font-weight: 600;
   background: linear-gradient(
