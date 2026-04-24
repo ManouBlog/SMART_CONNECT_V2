@@ -14,6 +14,7 @@ const storeLoading = useLoadingSpinner();
     // const PAYSTACK_PUBLIC_KEY = ref(process.env.VUE_APP_PAYSTACK_PUBLIC_KEY);
 
     const paymentCinetpay = async (payload)=>{
+        console.log("paymentCinetpaylancer",payload)
         storeLoading.launchLoading(true);
         
         try{

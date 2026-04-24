@@ -99,7 +99,7 @@ const handleCreateMonth =(payload)=>{
         statut_talent : storeAbonnement.statut_talent ,
         profilHybride:storeAbonnement.profilHybride
         }
-  console.log("handleConfirmationPayement",data)
+  console.log("handleConfirmationPayement23",data)
 storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
@@ -123,7 +123,7 @@ const handleCreateYear =(payload)=>{
         statut_talent : storeAbonnement.statut_talent ,
         profilHybride:storeAbonnement.profilHybride
         }
-  console.log("handleConfirmationPayement",data)
+  console.log("handleConfirmationPayement25",data)
   storeAbonnement.createAbonement(data)
 }
 

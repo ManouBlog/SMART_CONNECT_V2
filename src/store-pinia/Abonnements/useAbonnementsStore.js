@@ -91,6 +91,7 @@ const handleChangeInfoForAbonnement = (payload) => {
     statutOfBase.value = payload;
    }
    const createAbonement = async (payload)=>{
+    console.log("createAbonementlance",payload)
       if(!store.state.token){
         RegisterStore.changeValueIsModal()
       }else{
