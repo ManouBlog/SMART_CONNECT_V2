@@ -103,12 +103,12 @@ onMounted(async () => {
   ]
 profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
   texte.value = await transalteStore.handleTranslate("année")
-
+  console.log("storeAbonnement.addProfilHybride_container",storeAbonnement?.addProfilHybride)
      if(storeAbonnement.addProfilHybride.length){
     const profilUserCurrent = store.state?.user?.user?.abonement?.find(item=>item.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent?.abonement?.libelle;
 
-    console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
+    console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement?.addProfilHybride)
     console.log("profilUserCurrent",profilUserCurrent)
     console.log("formuleAbonnementOfUserConnected12",formuleAbonnementOfUserConnected.value)
   }
@@ -192,7 +192,8 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
  :type_abonnements="'Vétéran'"
  />
 </div>
-  <div class="conteneur-flex" v-else>
+
+    <div class="conteneur-flex" v-else>
     <section v-if="!storeAbonnement.addProfilHybride.length">
     <div
       v-for="item in abonnements.filter(
@@ -265,6 +266,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
     </section>
     <section v-if="storeAbonnement.addProfilHybride.length">
       <div v-if="formuleAbonnementOfUserConnected">
+        
  <div
       v-for="item in abonnements.filter(
         (item) => item.categorie.categorie === type_abonnements && item.libelle === formuleAbonnementOfUserConnected
@@ -335,7 +337,8 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
     </div>
       </div>
       <div v-if="!formuleAbonnementOfUserConnected">
-    <div
+     
+       <div
       v-for="item in abonnements.filter(
         (item) => item.categorie.categorie === type_abonnements
       )"
@@ -352,7 +355,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       </h1>
       
       
-    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
+    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel','Entreprise'].some(role=>role === item?.categorie?.categorie)">
       <ContentAbonnementForAddProfilHybride 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
@@ -403,7 +406,6 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
     </section>
     </div>
       </div>
-   
     </section>
    
   </div>

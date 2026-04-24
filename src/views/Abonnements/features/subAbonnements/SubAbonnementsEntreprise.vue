@@ -61,6 +61,7 @@ onMounted(async () => {
 
   texte.value = await transalteStore.handleTranslate("année");
    console.log("PROFILE_ABONNEMENT_SUB_ARTISAN",storeAbonnement.profilHybride)
+   console.log("storeAbonnement.addProfilHybrideSUBABONNEMENTENTREPRISE",storeAbonnement.addProfilHybride)
   profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 
   if (isUserConnected.value) {
@@ -89,7 +90,7 @@ onMounted(async () => {
       </h1>
       
       
-    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
+    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel','Entreprise'].some(role=>role === item?.categorie?.categorie)">
       <contentAbonnement 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
@@ -122,9 +123,6 @@ onMounted(async () => {
       {{ Help.convertInMoney(Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer)) }} F
     </h1>
   </div>
-          <!-- <h1 style="font-size: 2em; font-weight: bold">
-            {{ Help.convertInMoney(item.prix) }} F
-          </h1> -->
           <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
           <h3 style="font-size: 2em; color: orange">an</h3>
         </div>

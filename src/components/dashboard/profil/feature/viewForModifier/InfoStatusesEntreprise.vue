@@ -250,7 +250,7 @@ this.selectedParseStatus = ""
              
           }"
         >
-          Changer la structure
+          Changer le profil de base
         </button>
       <button
       v-if="profils.statut_entreprise === 'Informelle'"
