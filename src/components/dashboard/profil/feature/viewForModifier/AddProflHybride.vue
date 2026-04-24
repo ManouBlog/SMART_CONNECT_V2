@@ -261,6 +261,7 @@ console.log('user',user)
     <!-- {{ ProfilsUser.user?.statuses }}
     {{ ProfilsUser.user?.statut?.statut }} -->
      <!-- {{ choiceProfilHybrideForAdd }} -->
+       <!-- {{ profilhybrideUserConnected }} -->
     <div class="round-container">
       <label 
         v-for="item in allProfilsHybrides" 
@@ -268,12 +269,17 @@ console.log('user',user)
         class="round-item"
       >
         <input
+        v-if="profilhybrideUserConnected.some(profil => profil.statut !== item.statut)"
           type="checkbox"
           :value="item"
           v-model="choiceProfilHybrideForAdd"
           :disabled="profilhybrideUserConnected.some(profil => profil.statut === item.statut)"
+           :class="{
+          'input-disabled': profilhybrideUserConnected.some(profil => profil.statut === item.statut)
+         }"
         />
-        <span class="round-label">
+
+        <span class="round-label" v-if="profilhybrideUserConnected.some(profil => profil.statut !== item.statut)">
           {{ item.statut }}
         </span>
       </label>
@@ -378,6 +384,12 @@ console.log('user',user)
     </section>
 </template>
 <style scoped>
+.input-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(100%);
+}
 .shimmer-text {
   font-weight: 600;
   background: linear-gradient(

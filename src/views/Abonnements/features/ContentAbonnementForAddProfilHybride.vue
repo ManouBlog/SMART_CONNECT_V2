@@ -111,7 +111,8 @@ const handleCreateMonth =(payload)=>{
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   const storeAbonnement = useAbonnementsStore();
   const randomPart = Math.random().toString(36).substring(2);
-       
+  const statutBaseUser = store.state.user?.statut?.statut;
+  console.log('statutBaseUser',statutBaseUser)
         const data = {
             abonement_id:payload.id,
             channels:"undefined",
@@ -144,7 +145,8 @@ const handleCreateYear =(payload)=>{
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   console.log("storeAbonnement",storeAbonnement)
    const randomPart = Math.random().toString(36).substring(2);
-       
+  const statutBaseUser = store.state.user?.statut?.statut;
+  console.log('statutBaseUser',statutBaseUser)
         const data = {
             abonement_id:payload.id,
             channels:"undefined",
@@ -166,10 +168,10 @@ const handleCreateYear =(payload)=>{
         statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
         statut_talent : storeAbonnement.statut_talent,
         profilHybride:storeAbonnement.profilHybride,
-        addProfilHybrideOnly:storeAbonnement.addProfilHybride.map(item=>item.id)
+        addProfilHybrideOnly:storeAbonnement.addProfilHybride.map(item=>item.id).push(statutBaseUser.id)
         }
   console.log("handleConfirmationPayement_year98",data)
-  storeAbonnement.createAbonement(data)
+  // storeAbonnement.createAbonement(data)
 }
 
 
