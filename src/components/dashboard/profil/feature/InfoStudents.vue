@@ -317,37 +317,76 @@ export default {
         </p>
       </div>
      
-      <section class="my-5">    
-        <div class="row">
-          <div
-            class="col-lg-4 col-sm-6"
-          >
-          <ParagrapheDetail :item="{libelle:'Nom', value: this.infoPersonnelles.nom}" />
-    <ParagrapheDetail :item="{libelle:'Prénoms', value: this.infoPersonnelles.prenoms}" />
-    <!-- <ParagrapheDetail :item="{libelle:'Gérant', value: 'ADJOBI KADJO PIERRE'}" /> -->
-    
-    <ParagrapheDetail :item="{libelle:'Email', value: this.infoPersonnelles.email}" />
-    <ParagrapheDetail :item="{libelle:'Contact', value: this.infoPersonnelles.phone}" />
-    
-    <ParagrapheDetail :item="{libelle:'Ville', value: this.infoPersonnelles.ville}" />
-    <ParagrapheDetail :item="{libelle:'Commune', value: this.infoPersonnelles.commune}" />
-    <ParagrapheDetail :item="{libelle:'Quartier', value: this.infoPersonnelles.quartier}" />
-    
-    <!-- <ParagrapheDetail :item="{libelle:'Matricule/cc', value: 'CI-ABJ-2024-B-12345'}" />
-    <ParagrapheDetail :item="{libelle:'Registre', value: 'RCCM CI-ABJ-20241234'}" />
-    <ParagrapheDetail :item="{libelle:'Forme juridique', value: 'SARL'}" /> -->
-    
-    <!-- <ParagrapheDetail :item="{libelle:'Logo entreprise', value: 'logo_innovtech.png'}" /> -->
-    <ParagrapheDetail :item="{libelle:'Pièces Jointes', value:null,valueArray:this.infoPersonnelles.user.photos}" />
-    <ParagrapheDetail
-    v-if="this.infoPersonnelles.statut_talent || this.infoPersonnelles.user.statut_professionnel_artisan "
-    :item="{libelle: 'Statut Professionnel', value:[this.infoPersonnelles.statut_talent,this.infoPersonnelles.user.statut_professionnel_artisan ]}" />
-    <ParagrapheDetail :item="{libelle:'Niveau d\'etude', value: this.infoPersonnelles.diplome}" />
-    <ParagrapheDetail :item="{libelle:'Mode de travail', value: this.infoPersonnelles.modeTravail}" />
-    <ParagrapheDetail :item="{libelle:'Temps de travail', value: this.infoPersonnelles.tempsTravail}" />
-           
-          </div>
-        </div>
+      <section class="my-5">     
+       <div class="container">
+  <div class="row gy-2">
+    <div class="col-md-6" style="flex:1">
+      <ParagrapheDetail :item="{ libelle: 'Nom', value: infoPersonnelles.nom }" />
+    </div>
+    <div class="col-md-6" style="flex:1">
+      <ParagrapheDetail :item="{ libelle: 'Prénoms', value: infoPersonnelles.prenoms }" />
+    </div>
+  </div>
+
+  <!-- Ligne 2 -->
+  <div class="row gy-2">
+    <div class="col-md-6" style="flex:1">
+      <ParagrapheDetail :item="{ libelle: 'Email', value: infoPersonnelles.email }" />
+    </div>
+    <div class="col-md-6" style="flex:1">
+      <ParagrapheDetail :item="{ libelle: 'Contact', value: infoPersonnelles.phone }" />
+    </div>
+  </div>
+
+  <!-- Ligne 3 -->
+  <div class="row gy-2">
+    <div class="col-md-6" style="flex:1">
+      <ParagrapheDetail :item="{ libelle: 'Ville', value: infoPersonnelles.ville }" />
+    </div>
+    <div class="col-md-6" style="flex:1">
+      <ParagrapheDetail :item="{ libelle: 'Commune', value: infoPersonnelles.commune }" />
+    </div>
+  </div>
+
+  <!-- Ligne 4 -->
+  <div class="row gy-2">
+    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.quartier">
+      <ParagrapheDetail  :item="{ libelle: 'Quartier', value: infoPersonnelles.quartier }" />
+    </div>
+    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.user.photos.length">
+      <ParagrapheDetail
+      
+        :item="{ libelle: 'Pièces Jointes', value: null, valueArray: infoPersonnelles.user.photos }"
+      />
+    </div>
+  </div>
+
+  <!-- Ligne 5 -->
+  <div class="row gy-2">
+    <div class="col-md-6" style="flex:1">
+      <ParagrapheDetail
+        v-if="infoPersonnelles.statut_talent || infoPersonnelles.user.statut_professionnel_artisan"
+        :item="{
+          libelle: 'Statut Professionnel',
+          value: [infoPersonnelles.statut_talent, infoPersonnelles.user.statut_professionnel_artisan],
+        }"
+      />
+    </div>
+    <div class="col-md-6" style="flex:1">
+      <ParagrapheDetail :item="{ libelle: 'Niveau d\'étude', value: infoPersonnelles.diplome }" />
+    </div>
+  </div>
+
+  <!-- Ligne 6 -->
+  <div class="row gy-2">
+    <div class="col-md-6" style="flex:1">
+      <ParagrapheDetail :item="{ libelle: 'Mode de travail', value: infoPersonnelles.modeTravail }" />
+    </div>
+    <div class="col-md-6" style="flex:1">
+      <ParagrapheDetail :item="{ libelle: 'Temps de travail', value: infoPersonnelles.tempsTravail }" />
+    </div>
+  </div>
+</div>
       </section>
       <section class="my-5 text-center">
         <Buttons
