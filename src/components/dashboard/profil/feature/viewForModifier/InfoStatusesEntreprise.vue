@@ -232,7 +232,7 @@ this.selectedParseStatus = ""
       <h1 class="fw-bold my-3 mb-0" style="color: orange">Mes Profils</h1>
       <!-- {{ profils.statut_entreprise }} -->
         <div>
-<button
+  <button
       v-if="profils.statut_entreprise === 'Informelle'"
           style="
             height: auto;
@@ -240,7 +240,7 @@ this.selectedParseStatus = ""
             background: orange;
             color: white;
             font-weight: bold;
-            border-radius: 10%;
+            border-radius: 5%;
             padding:0.5em;
           "
           @click="async()=>{
@@ -250,10 +250,10 @@ this.selectedParseStatus = ""
              
           }"
         >
-          Modifier
+          Changer la structure
         </button>
       <button
-      v-if="profils.statut_entreprise === 'informelle'"
+      v-if="profils.statut_entreprise === 'Informelle'"
           style="
             height: auto;
             width: auto;
@@ -261,7 +261,7 @@ this.selectedParseStatus = ""
             color: white;
             font-weight: bold;
             border-radius: 5%;
-            padding:0.3em;
+            padding:0.5em;
           "
           @click="async()=>{
             loadActiveChangedProfil(true);
