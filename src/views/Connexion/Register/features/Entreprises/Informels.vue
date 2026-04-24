@@ -111,6 +111,7 @@ export default {
       formState: {
         statut_entreprise: this.optionsPaper,
       nom_particulier:"",
+      statut_professionnel_artisan:"",
         nom: "",
         prenoms: "",
         phone: "",
@@ -539,7 +540,30 @@ export default {
 
     <!-- Upload pièce d'identité (souvent mieux en pleine largeur) -->
     <a-row :gutter="[16, 24]">
-      <a-col :xs="24" :md="24">
+      <a-col :xs="24" :md="12"  v-if="formState.profilHybride.length">
+            <a-form-item
+            :label="'Statut professionnel artisan'"
+           
+          >
+            <a-select
+            style="width: 100%;"
+    v-model:value="formState.statut_professionnel_artisan "
+    placeholder="Sélectionnez votre Statut professionnel"
+    show-search
+    option-filter-prop="label"
+  >
+    <a-select-option
+      v-for="item in ['Maitre Artisan','Artisan']"
+      :key="item"
+      :value="item"
+      :label="item"
+    >
+      {{ item }}
+    </a-select-option>
+  </a-select>
+            </a-form-item>
+        </a-col>
+      <a-col :xs="24" :md="12">
         <a-form-item
           name="upload"
           :label="texte10"
