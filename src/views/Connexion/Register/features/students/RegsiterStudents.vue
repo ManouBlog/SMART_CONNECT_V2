@@ -1017,7 +1017,7 @@ preprocessImage(file) {
 }
 @media (max-width: 600px) {
   .round-label {
-    width: 70px;
+    width: 50px;
     height: 70px;
     font-size: 10px;
   }

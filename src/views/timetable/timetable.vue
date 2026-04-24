@@ -929,7 +929,7 @@ if (isParticulier) {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
 }
 .rondProfil {
-  width: 70px;
+  width: 50px;
   height: 70px;
   background: rgba(122, 121, 121, 0.232);
   border-radius: 100%;
