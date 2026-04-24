@@ -865,7 +865,7 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
         v-model:checked="formState.mode_discret"
         checked-children="Actif"
         un-checked-children="Inactif"
-        size="large" 
+        size="default" 
         class="switch-green"
       />
     </a-tooltip>

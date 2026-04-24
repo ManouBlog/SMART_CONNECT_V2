@@ -399,7 +399,7 @@ this.selectedParseStatus = ""
         >
           Changer le profil de base
         </button>
-        {{ profils?.user?.statuses }}
+        <!-- {{ profils?.user?.statuses }} -->
         <div>
       <button
       v-if="profils?.user?.statuses.some(item=>item.statut != 'Vétéran' && (item.statut != 'Particulier' || item.statut != 'Artisan'))"
@@ -436,7 +436,7 @@ this.selectedParseStatus = ""
     checked-children="Actif"
     un-checked-children="Inactif"
     @change="handleModeChange"
-     size="large" 
+     size="default" 
     class="switch-green"
   />
       </div>

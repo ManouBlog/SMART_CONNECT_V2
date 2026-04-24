@@ -200,72 +200,24 @@ descriptionProfil:{
         this.showModalAbonnements = true;
       } catch (error) {
         console.log("Validation échouée :", error);
-        // validation failed
+       
       }
     },
-    // loadActiveChangedProfil(payload) {
-    //   const abonnementsStore = useAbonnementsStore()
-
-    //    abonnementsStore.handleChangeProfil(payload)
-
-    //   console.log("isChangeProfil",abonnementsStore.isChangeProfil)
-    // },
-    addIdOfProfilBase(payload) {
-      this.handleMyStatutOfBase(payload)
-
-    //   console.log("statutOfBase",abonnementsStore?.statutOfBase)
-    },
-    openVerification(userStatut) {
-      this.$emit('open-verification', userStatut);
-    },
-    handleStatutProfil(e){
-    
-       console.log('VALUE selectedStatus',e.target.value)
-       this.selectedParseStatus = JSON.parse(e.target.value)
-       
-       this.addIdOfProfilBase(this.selectedParseStatus.id)
-       this.optionsAnswer = null;
-       this.profilHybride=[];
-       console.log('this.selectedParseStatus',this.selectedParseStatus)
-      },
-    resetData(){
-      console.log("reset data")
-this.optionsAnswer=null;
-this.selectedStatus="";
-this.profilHybride=[];
-this.allStatuses=[];
-this.selectedParseStatus = ""
-    },
+   
+  
      async lister_statut() {
     
   const user = this.$store.state.infoUserConnected?.user;
   const statutUser = user?.statut.statut;
 
-  const transitions = {
-    Etudiant: ['Professionnel', 'Artisan'],
-    Professionnel: ['Artisan', 'Vétéran'],
-    Artisan: ['Professionnel','Vétéran'],
-    Vétéran: ['Particulier','Artisan'],
-    Particulier: ['Entreprise'],
-    Entreprise:['Entreprise']
-  };
-
-  const allowed = transitions[statutUser]
-  console.log("allowed",allowed)
-console.log("this.ProfilsUser", this.ProfilsUser)
+console.log('statutUser',statutUser)
+console.log('user',user)
   try {
     const response = await instance.get("listStatut");
-    this.allStatuses = response.data.data.filter(item =>
-      allowed.includes(item.statut)
-    );
+    console.log('response',response.data.data)
     this.allProfilsHybrides = response.data.data.filter(item =>item.statut === 'Particulier' || item.statut === 'Artisan');
     this.profilhybrideUserConnected = this.ProfilsUser.user?.statuses.filter(item => item.statut !==  this.ProfilsUser.user?.statut?.statut); 
-    console.log("allStatuses2", {
-      statut: this.allStatuses,
-      profil: this.$store.state.infoUserConnected.user.statut
-    });
     console.log("allProfilsHybrides", this.allProfilsHybrides);
-
   } catch (error) {
     console.log(error);
   }finally{
