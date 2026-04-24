@@ -122,6 +122,7 @@ idStatutChoice:Object
          profilHybride: [] ,
         optionsAnswer:null,
         statut_talent:"",
+        statut_professionnel_artisan:"",
         Logo: [],
         upload: [],
         password: "",
@@ -162,7 +163,7 @@ idStatutChoice:Object
           this.formState.profilHybride = [];
           // this.formState.ville = "";
           // this.formState.commune = "";
-          this.formState.statut_talent = "";
+          this.formState.statut_professionnel_artisan = "";
           // this.formState.uploadCNI = null
         }
         console.log("formState.optionsAnswer", value);
@@ -585,14 +586,14 @@ idStatutChoice:Object
   v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'"
   >
             <a-form-item
-            :label="'Statut professionnel'"
-            name="statut_talent"
-            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]"
+            :label="'Statut professionnel artisan'"
+            name="statut_professionnel_artisan"
+            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]"
           >
             <a-select
             style="width: 100%;"
-    v-model:value="formState.statut_talent"
-    placeholder="Sélectionnez votre Statut professionnel"
+    v-model:value="formState.statut_professionnel_artisan"
+    placeholder="Sélectionnez votre Statut professionnel artisan"
     show-search
   >
     <a-select-option
