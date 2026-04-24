@@ -200,62 +200,140 @@ export default {
 
       <section class="my-5">
         <!-- {{ this.infoPersonnelles }} -->
-        <div class="row">
-          <div
-            class="col-lg-4 col-sm-6"
-          >
-           <ParagrapheDetail v-if="this.infoPersonnelles?.statut_entreprise" :item="{libelle:'Statut',
+        <div class="container">
+          <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+    <ParagrapheDetail v-if="this.infoPersonnelles?.statut_entreprise" :item="{libelle:'Statut',
           value:this.infoPersonnelles?.statut_entreprise}" />
+            </div>
 
-           <ParagrapheDetail v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Entreprise')" 
+            <div class="col-md-6" style="flex:1">
+<ParagrapheDetail v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Entreprise')" 
             :item="{libelle:'Raison social', value: this.infoPersonnelles?.nom}" />
-          <ParagrapheDetail 
+            </div>
+     
+          </div>
+
+           <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+    <ParagrapheDetail 
           v-if="this.infoPersonnelles?.statut_entreprise == 'Informelle'"
           :item="{libelle:'Nom du gérant', value: this.infoPersonnelles?.nom}" />
-          <ParagrapheDetail v-if="this.infoPersonnelles?.particulier_prenoms" :item="{libelle:'prenoms', value: this.infoPersonnelles?.particulier_prenoms}" />
-          <ParagrapheDetail :item="{libelle:'Prénoms', value: this.infoPersonnelles?.prenoms}" />
-          <ParagrapheDetail :item="{libelle:'Email', value: this.infoPersonnelles?.email}" />
-          <ParagrapheDetail :item="{libelle:'Ville', value: this.infoPersonnelles?.ville}" />
-          <ParagrapheDetail :item="{libelle:'Commune', value: this.infoPersonnelles?.commune}" />
-          <ParagrapheDetail :item="{libelle:'Quartier', value: this.infoPersonnelles?.quartier}" />
-          <ParagrapheDetail :item="{libelle:'Contact téléphonique', value: this.infoPersonnelles?.phone}" />
-         <ParagrapheDetail v-if="this.infoPersonnelles.user?.statut?.statut === 'Particulier'" :item="{libelle:'Pièces chargées',value:null,
+            </div>
+
+            <div class="col-md-6" style="flex:1">
+     <ParagrapheDetail v-if="this.infoPersonnelles?.particulier_prenoms" 
+          :item="{libelle:'prenoms', value: this.infoPersonnelles?.particulier_prenoms}" />
+            </div>
+     
+          </div>
+          
+
+          
+           <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+  <ParagrapheDetail :item="{libelle:'Prénoms', value: this.infoPersonnelles?.prenoms}" />
+            </div>
+
+            <div class="col-md-6" style="flex:1">
+     <ParagrapheDetail :item="{libelle:'Email', value: this.infoPersonnelles?.email}" />
+            </div>
+     
+          </div>
+
+           <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+  <ParagrapheDetail :item="{libelle:'Ville', value: this.infoPersonnelles?.ville}" />
+            </div>
+
+            <div class="col-md-6" style="flex:1">
+       <ParagrapheDetail :item="{libelle:'Commune', value: this.infoPersonnelles?.commune}" />
+            </div>
+     
+          </div>
+
+           <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+  <ParagrapheDetail :item="{libelle:'Quartier', value: this.infoPersonnelles?.quartier}" />
+            </div>
+
+            <div class="col-md-6" style="flex:1">
+     <ParagrapheDetail :item="{libelle:'Contact téléphonique', value: this.infoPersonnelles?.phone}" />
+            </div>
+     
+          </div>
+      
+          <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+  <ParagrapheDetail v-if="this.infoPersonnelles.user?.statut?.statut === 'Particulier'" :item="{libelle:'Pièces chargées',value:null,
           valueArray:this.infoPersonnelles?.user?.photos}" />
+            </div>
 
-
-         
-
-          <ParagrapheDetail v-if="this.infoPersonnelles?.matricule_cc" :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
+            <div class="col-md-6" style="flex:1">
+ <ParagrapheDetail v-if="this.infoPersonnelles?.matricule_cc" :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
           value:this.infoPersonnelles?.matricule_cc}" />
+            </div>
+     
+          </div>
 
-           <ParagrapheDetail v-if="this.infoPersonnelles.registre" :item="{libelle:'Registre Pdf',
+           
+         <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+   <ParagrapheDetail v-if="this.infoPersonnelles.registre" :item="{libelle:'Registre Pdf',
           value:null,valueArray:[{path:this.infoPersonnelles.registre}]}" />
+            </div>
 
-           <ParagrapheDetail v-if="this.infoPersonnelles?.NCC" :item="{libelle:'NCC (Numéro de compte contribuable)',
+            <div class="col-md-6" style="flex:1">
+ <ParagrapheDetail v-if="this.infoPersonnelles?.NCC" :item="{libelle:'NCC (Numéro de compte contribuable)',
           value:this.infoPersonnelles?.NCC}" />
+            </div>
+     
+          </div>
 
-           <ParagrapheDetail v-if="this.infoPersonnelles?.logo" :item="{libelle:'Logo',
+          <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+   <ParagrapheDetail v-if="this.infoPersonnelles?.logo" :item="{libelle:'Logo',
           value:null,valueArray:[{path:this.infoPersonnelles?.logo}]}" />
+            </div>
 
-           <ParagrapheDetail :item="{libelle:'Forme Juridique',
+            <div class="col-md-6" style="flex:1">
+ <ParagrapheDetail :item="{libelle:'Forme Juridique',
           value:this.infoPersonnelles?.forme_juridique}" />
+            </div>
+     
+          </div>
 
-           <ParagrapheDetail v-if="this.infoPersonnelles?.emails?.length" :item="{libelle:'Emails en copies',
+          <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+     <ParagrapheDetail v-if="this.infoPersonnelles?.emails?.length" :item="{libelle:'Emails en copies',
           value:this.infoPersonnelles?.emails,emailCC:true}" /> 
+            </div>
+          </div>
+
         </div>
-        </div>
+
       </section>
       <h1 class="fw-bold" style="color: orange" v-if="this.infoPersonnelles?.gerant">
         {{ texte1 }}
       </h1>
       <section>
-       <ParagrapheDetail :item="{libelle:'Nom du gérant',
+        <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+    <ParagrapheDetail :item="{libelle:'Nom du gérant',
           value:this.infoPersonnelles?.gerant}" />
-          <ParagrapheDetail :item="{libelle:'Numéro du gérant',
+            </div>
+            <div class="col-md-6" style="flex:1">
+    <ParagrapheDetail :item="{libelle:'Numéro du gérant',
           value:this.infoPersonnelles?.numero_gerant}" />
-          <ParagrapheDetail :item="{libelle:'Pièces chargées',value:null,
+            </div>
+          </div>
+
+           <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+     <ParagrapheDetail :item="{libelle:'Pièces chargées',value:null,
           valueArray:this.infoPersonnelles?.user?.photos}" />
-          
+            </div>
+          </div>
       </section>
       <section style="display: flex; justify-content: center; padding: 1.5em">
         <Buttons
