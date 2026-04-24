@@ -545,6 +545,7 @@ export default {
       v-if="formState.profilHybride.length">
             <a-form-item
             :label="'Statut professionnel artisan'"
+            name="statut_professionnel_artisan"
            :rules="[{ required: true, message: 'Ajoutez un statut professionnel artisan' }]"
           >
             <a-select
