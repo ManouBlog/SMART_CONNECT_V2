@@ -95,7 +95,7 @@ if (payload?.profilHybride?.length > 0) {
   });
 }
 
-
+data.append("mode_discret", payload?.mode_discret ? 1 : 0);
 
 if(payload?.CVupload){
   data.append("CVupload", payload?.CVupload[0]?.originFileObj);

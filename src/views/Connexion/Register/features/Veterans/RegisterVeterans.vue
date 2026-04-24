@@ -869,10 +869,8 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
         class="switch-green"
       />
     </a-tooltip>
-  </a-form-item>
-
+       </a-form-item>
         </a-col>
-
         <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />
         </a-col>
