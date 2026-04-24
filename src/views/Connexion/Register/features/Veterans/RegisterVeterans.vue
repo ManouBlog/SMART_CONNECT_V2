@@ -820,7 +820,8 @@ StatutVeterans:[
     >
       {{ item.label }}
     </a-select-option>
-  </a-select>
+        </a-select>
+       <span v-if="formState.statut_talent == 'Vétéran Hors Grade'" style="padding:1em;color: red;">Nous activons le mode discret par défaut pour votre confidentialité</span>
             </a-form-item>
             <a-form-item
             v-if="this.formState.profilHybride.some(el=>el == 7) && this.formState.optionsAnswer === 'oui'"
