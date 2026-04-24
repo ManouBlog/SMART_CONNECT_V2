@@ -202,8 +202,8 @@ export default {
         <!-- {{ this.infoPersonnelles }} -->
         <div class="container">
           <div class="row gy-2">
-            <div class="col-md-6" style="flex:1">
-    <ParagrapheDetail v-if="this.infoPersonnelles?.statut_entreprise" :item="{libelle:'Statut',
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.statut_entreprise">
+    <ParagrapheDetail  :item="{libelle:'Statut',
           value:this.infoPersonnelles?.statut_entreprise}" />
             </div>
 
@@ -214,15 +214,15 @@ export default {
      
           </div>
 
-           <div class="row gy-2">
-            <div class="col-md-6" style="flex:1">
+           <div class="row gy-2" >
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.statut_entreprise == 'Informelle'">
     <ParagrapheDetail 
-          v-if="this.infoPersonnelles?.statut_entreprise == 'Informelle'"
+          
           :item="{libelle:'Nom du gérant', value: this.infoPersonnelles?.nom}" />
             </div>
 
-            <div class="col-md-6" style="flex:1">
-     <ParagrapheDetail v-if="this.infoPersonnelles?.particulier_prenoms" 
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.particulier_prenoms">
+     <ParagrapheDetail  
           :item="{libelle:'prenoms', value: this.infoPersonnelles?.particulier_prenoms}" />
             </div>
      
@@ -264,13 +264,13 @@ export default {
           </div>
       
           <div class="row gy-2">
-            <div class="col-md-6" style="flex:1">
-  <ParagrapheDetail v-if="this.infoPersonnelles.user?.statut?.statut === 'Particulier'" :item="{libelle:'Pièces chargées',value:null,
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user?.statut?.statut === 'Particulier'">
+  <ParagrapheDetail  :item="{libelle:'Pièces chargées',value:null,
           valueArray:this.infoPersonnelles?.user?.photos}" />
             </div>
 
-            <div class="col-md-6" style="flex:1">
- <ParagrapheDetail v-if="this.infoPersonnelles?.matricule_cc" :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.matricule_cc">
+     <ParagrapheDetail  :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
           value:this.infoPersonnelles?.matricule_cc}" />
             </div>
      
@@ -278,21 +278,21 @@ export default {
 
            
          <div class="row gy-2">
-            <div class="col-md-6" style="flex:1">
-   <ParagrapheDetail v-if="this.infoPersonnelles.registre" :item="{libelle:'Registre Pdf',
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.registre">
+   <ParagrapheDetail  :item="{libelle:'Registre Pdf',
           value:null,valueArray:[{path:this.infoPersonnelles.registre}]}" />
             </div>
 
-            <div class="col-md-6" style="flex:1">
- <ParagrapheDetail v-if="this.infoPersonnelles?.NCC" :item="{libelle:'NCC (Numéro de compte contribuable)',
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.NCC">
+ <ParagrapheDetail  :item="{libelle:'NCC (Numéro de compte contribuable)',
           value:this.infoPersonnelles?.NCC}" />
             </div>
      
           </div>
 
           <div class="row gy-2">
-            <div class="col-md-6" style="flex:1">
-   <ParagrapheDetail v-if="this.infoPersonnelles?.logo" :item="{libelle:'Logo',
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.logo">
+   <ParagrapheDetail  :item="{libelle:'Logo',
           value:null,valueArray:[{path:this.infoPersonnelles?.logo}]}" />
             </div>
 
@@ -304,8 +304,8 @@ export default {
           </div>
 
           <div class="row gy-2">
-            <div class="col-md-6" style="flex:1">
-     <ParagrapheDetail v-if="this.infoPersonnelles?.emails?.length" :item="{libelle:'Emails en copies',
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.emails?.length">
+     <ParagrapheDetail  :item="{libelle:'Emails en copies',
           value:this.infoPersonnelles?.emails,emailCC:true}" /> 
             </div>
           </div>
@@ -400,52 +400,6 @@ export default {
           </div>
         </div>
       </section>
-
-      <!-- <section>
-        <div class="card-body text-left py-4">
-          <div class="row">
-            <div class="col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label">{{ texte3 }}</label>
-                <input v-model="password" class="form-control" type="password" />
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label">{{ texte4 }}</label>
-                <input v-model="nouveau_password" class="form-control" type="password" />
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-sm-6">
-              <div class="mb-3">
-                <label class="form-label">{{ texte5 }}</label>
-                <input
-                  v-model="confirmation_password"
-                  class="form-control"
-                  type="password"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="text-center">
-            <button
-              class="btn bg-warning"
-              style="border: none"
-              @click.prevent="
-                verifIfPasswordIsExact({
-                  confirmation_password: confirmation_password,
-                  password: nouveau_password,
-                  oldPassword: password,
-                })
-              "
-            >
-              {{ texte6 }}
-            </button>
-          </div>
-        </div>
-      </section> -->
     </a-card>
   </section>
 </template>
