@@ -540,10 +540,12 @@ export default {
 
     <!-- Upload pièce d'identité (souvent mieux en pleine largeur) -->
     <a-row :gutter="[16, 24]">
-      <a-col :xs="24" :md="12"  v-if="formState.profilHybride.length">
+      <a-col :xs="24" :md="12"  
+      
+      v-if="formState.profilHybride.length">
             <a-form-item
             :label="'Statut professionnel artisan'"
-           
+           :rules="[{ required: true, message: 'Ajoutez un statut professionnel artisan' }]"
           >
             <a-select
             style="width: 100%;"
