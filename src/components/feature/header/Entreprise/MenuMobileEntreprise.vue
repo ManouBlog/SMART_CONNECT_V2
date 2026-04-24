@@ -32,7 +32,7 @@ export default {
   </li> -->
   <LiensNavBar
     @click.prevent="changeValueForshowMenuMobile"
-    :texte="'Mon compte'"
+    :texte="'Mon espace'"
     :route_lien="'profil'"
   />
   <li>

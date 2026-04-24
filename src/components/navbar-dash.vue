@@ -45,7 +45,7 @@ export default {
           <li>
             <i class="bi bi-person-plus"></i>
             <router-link :to="{ name: 'modify_profil' }"
-              >Mon compte</router-link
+              >Mon espace</router-link
             >
           </li>
           <li v-if="role == 'admin'">

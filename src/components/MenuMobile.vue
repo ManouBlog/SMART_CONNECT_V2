@@ -251,7 +251,7 @@ if (
       <LiensNavBar
       v-if="$store.state.user"
     @click.prevent="changeValueForshowMenuMobile"
-    :texte="'Mon compte'"
+    :texte="'Mon espace'"
     :route_lien="'profil'"
      />
     
