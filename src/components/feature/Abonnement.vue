@@ -67,6 +67,7 @@ onMounted(async () => {
               )"
               :key="item.id"
               class="abonnement-classique"
+              style="flex:1 !important;"
             >
               <h1 class="text-start">{{ item.libelle }}</h1>
               <h3 class="text-start">{{ item.prix }} Fcfa</h3>
@@ -89,6 +90,7 @@ onMounted(async () => {
               )"
               :key="index"
               class="abonnement-classique"
+              style="flex:1 !important;"
             >
               <h1 class="text-start">{{ item.libelle }}</h1>
               <h3 class="text-start">{{ item.prix }} Fcfa</h3>

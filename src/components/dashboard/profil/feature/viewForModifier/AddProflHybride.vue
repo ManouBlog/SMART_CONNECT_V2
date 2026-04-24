@@ -263,25 +263,30 @@ console.log('user',user)
     <!-- {{ ProfilsUser.user?.statuses }}
     {{ ProfilsUser.user?.statut?.statut }} -->
      <!-- {{ choiceProfilHybrideForAdd }} -->
-       {{ profilhybrideUserConnected }}
-         {{ allProfilsHybrides }}
-    <div class="round-container">
-      <label 
-        v-for="item in allProfilsHybrides" 
-        :key="item.id"
-        class="round-item"
-      >
-        <input
-          type="checkbox"
-          :value="item"
-          v-model="choiceProfilHybrideForAdd"
-        />
+       <!-- {{ profilhybrideUserConnected }}
+         {{ allProfilsHybrides }} -->
+    <div class="round-container" v-if=' allProfilsHybrides.filter(item =>
+    !profilhybrideUserConnected.some(profil => profil.statut === item.statut)
+  ).length'>
+      <label
+  v-for="item in allProfilsHybrides.filter(item =>
+    !profilhybrideUserConnected.some(profil => profil.statut === item.statut)
+  )"
+  :key="item.id"
+  class="round-item"
+>
+  <input
+    type="checkbox"
+    :value="item"
+    v-model="choiceProfilHybrideForAdd"
+  />
 
-        <span class="round-label">
-          {{ item.statut }}
-        </span>
-      </label>
+  <span class="round-label">
+    {{ item.statut }}
+  </span>
+</label>
     </div>
+    <div style="text-align: center;">Pas de profils trouvés</div>
   </div> 
  
   <div v-if="choiceProfilHybrideForAdd.length" >

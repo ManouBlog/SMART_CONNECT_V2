@@ -204,6 +204,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
           ? 'abonnement-classique_etudiant'
           : 'abonnement-classique_entreprise'
       "
+      style="flex: 1;"
     >
    
       <h1 class="text-center main-color">
@@ -274,6 +275,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
           ? 'abonnement-classique_etudiant'
           : 'abonnement-classique_entreprise'
       "
+      style="flex: 1;"
     >
    
       <h1 class="text-center main-color">
