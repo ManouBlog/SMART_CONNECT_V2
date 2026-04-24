@@ -207,8 +207,8 @@ export default {
           value:this.infoPersonnelles?.statut_entreprise}" />
             </div>
 
-            <div class="col-md-6" style="flex:1">
-<ParagrapheDetail v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Entreprise')" 
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Entreprise') && this.infoPersonnelles?.statut_entreprise == 'Formelle'">
+<ParagrapheDetail  
             :item="{libelle:'Raison social', value: this.infoPersonnelles?.nom}" />
             </div>
      
@@ -223,7 +223,7 @@ export default {
 
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.particulier_prenoms">
      <ParagrapheDetail  
-          :item="{libelle:'prenoms', value: this.infoPersonnelles?.particulier_prenoms}" />
+          :item="{libelle:'Prénoms du gérant', value: this.infoPersonnelles?.particulier_prenoms}" />
             </div>
      
           </div>
@@ -273,10 +273,8 @@ export default {
      <ParagrapheDetail  :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
           value:this.infoPersonnelles?.matricule_cc}" />
             </div>
-     
           </div>
-
-           
+          
          <div class="row gy-2">
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.registre">
    <ParagrapheDetail  :item="{libelle:'Registre Pdf',
