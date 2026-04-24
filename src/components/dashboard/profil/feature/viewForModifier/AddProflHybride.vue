@@ -218,6 +218,8 @@ console.log('user',user)
     this.allProfilsHybrides = response.data.data.filter(item =>item.statut === 'Particulier' || item.statut === 'Artisan');
     this.profilhybrideUserConnected = this.ProfilsUser.user?.statuses.filter(item => item.statut !==  this.ProfilsUser.user?.statut?.statut); 
     console.log("allProfilsHybrides", this.allProfilsHybrides);
+    console.log("this.ProfilsUser.user?.statuses",this.ProfilsUser.user?.statuses)
+    console.log('this.profilhybrideUserConnected',this.profilhybrideUserConnected)
   } catch (error) {
     console.log(error);
   }finally{
@@ -261,7 +263,8 @@ console.log('user',user)
     <!-- {{ ProfilsUser.user?.statuses }}
     {{ ProfilsUser.user?.statut?.statut }} -->
      <!-- {{ choiceProfilHybrideForAdd }} -->
-       <!-- {{ profilhybrideUserConnected }} -->
+       {{ profilhybrideUserConnected }}
+         {{ allProfilsHybrides }}
     <div class="round-container">
       <label 
         v-for="item in allProfilsHybrides" 
@@ -269,17 +272,12 @@ console.log('user',user)
         class="round-item"
       >
         <input
-        v-if="profilhybrideUserConnected.some(profil => profil.statut !== item.statut)"
           type="checkbox"
           :value="item"
           v-model="choiceProfilHybrideForAdd"
-          :disabled="profilhybrideUserConnected.some(profil => profil.statut === item.statut)"
-           :class="{
-          'input-disabled': profilhybrideUserConnected.some(profil => profil.statut === item.statut)
-         }"
         />
 
-        <span class="round-label" v-if="profilhybrideUserConnected.some(profil => profil.statut !== item.statut)">
+        <span class="round-label">
           {{ item.statut }}
         </span>
       </label>
