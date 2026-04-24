@@ -8,7 +8,7 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 export default {
   name: "Formels",
-  props: ['optionsPaperChoosse'],
+  props: ['optionsPaper'],
   components: {
     Politics,
   },
@@ -45,9 +45,8 @@ export default {
       texte25: "",
       texte26: "",
       open: true,
-      optionsPaper:"",
       formState: {
-       statut_entreprise: this.optionsPaperChoosse,
+        statut_entreprise: this.optionsPaper,
         nom: "",
         prenoms: "",
         phone: "",
@@ -96,9 +95,9 @@ export default {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
   },
   methods: {
-    selectOne(value) {
-    this.optionsPaper = value;
-  },
+  //   selectOne(value) {
+  //   this.optionsPaper = value;
+  // },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     addPhotoInArray(allPhotos) {
       const element = [];
