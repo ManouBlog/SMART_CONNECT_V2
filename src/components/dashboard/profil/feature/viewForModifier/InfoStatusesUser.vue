@@ -123,10 +123,18 @@ descriptionProfil:{
         loadingSpinner.launchLoading(false);
       }
     }else{
-      await this.getInfoUser()
+       loadingSpinner.launchLoading(true);
+      try{
+       await this.getInfoUser()
       console.log('profil',this.profils?.mode_discret)
       this.modeActif = this.profils?.mode_discret == 1 ? true:false;
       console.log('mode disd pas accpete')
+      }catch(error){
+        console.log(error)
+      }finally{
+        loadingSpinner.launchLoading(false);
+      }
+      
     }
   });
 },
