@@ -14,6 +14,16 @@ import SubAbonnementsVeteran from "./subAbonnements/SubAbonnementsVeteran.vue";
 const props = defineProps({
   abonnements: Array,
   type_abonnements: String,
+  statut_talent_choice_entreprise:{
+ type:String,
+  required:false,
+  default:null
+  },
+  statut_talent_choice_artisan:{
+  type:String,
+  required:false,
+  default:null
+  },
   statut_talent_choice:{
   type:String,
   required:false,
@@ -67,16 +77,21 @@ const isUserConnected = computed(() => {
 });
 
 const filteredTabsSubAbonnement = computed(() => {
-  // if(store.state.user && store.state.user?.statut?.statut?.includes('Vétéran')){
-  //   console.log('lancer avec user')
-  //    return props.tabsSubAbonnement.filter(
-  //   item => item.id === props.store.state.user?.statut_talent
-  // );
-  // }
+ 
   if (props.statut_talent_choice) {
     console.log('lancer avec user')
     return props.tabsSubAbonnement.filter(
     item => item.id === props.statut_talent_choice
+  );
+  }
+  if(props.statut_talent_choice_entreprise){
+    return props.tabsSubAbonnement.filter(
+    item => item.id.includes(props.statut_talent_choice_entreprise)
+  );
+  }
+  if(props.statut_talent_choice_artisan){
+     return props.tabsSubAbonnement.filter(
+    item => item.id.includes(props.statut_talent_choice_artisan)
   );
   }
 
@@ -87,8 +102,9 @@ return props.tabsSubAbonnement.some(item =>
 });
 
 const tabsToDisplay = computed(() => {
-  return props.statut_talent_choice
-    ? Array.from(
+  if(props.statut_talent_choice || props.statut_talent_choice_entreprise 
+  || props.statut_talent_choice_artisan){
+return Array.from(
         new Map(
           (filteredTabsSubAbonnement.value || []).map(item => [
             item.id,
@@ -96,7 +112,9 @@ const tabsToDisplay = computed(() => {
           ])
         ).values()
       )
-    : Array.from(
+    
+  }
+  return Array.from(
         new Map(
           (props.tabsSubAbonnement || []).map(item => [
             item.id,
@@ -104,6 +122,8 @@ const tabsToDisplay = computed(() => {
           ])
         ).values()
       );
+  
+  
 });
 
 // Watch déclenche le chargement des abonnements
@@ -177,9 +197,9 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 </script>
 
 <template>
-  <!-- <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
+  <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
-  <p>statut_talent_choice:{{ statut_talent_choice }}</p> -->
+  <p>statut_talent_choice_entreprise:{{ statut_talent_choice_artisan }}</p>
   <div v-if="tabsSubAbonnement.length">
    <div style="display: flex;justify-content: center;">
      <n-tabs
@@ -225,9 +245,9 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
  :type_abonnements="'Entreprise Formelle'"
  />
  <SubAbonnementsArtisans 
- v-if="select_mode_payment_tab === 'Maitre-Artisan'"
+ v-if="select_mode_payment_tab === 'Maitre Artisan'"
  :abonnements="subAbonnement"
- :type_abonnements="'Maitre-Artisan'"
+ :type_abonnements="'Maitre Artisan'"
  />
  <SubAbonnementsArtisans 
  v-if="select_mode_payment_tab === 'Artisan'"

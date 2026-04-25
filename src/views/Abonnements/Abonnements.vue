@@ -308,6 +308,7 @@ onMounted(async () => {
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Entreprise"
+      :statut_talent_choice_entreprise="store.state.user?.statut_entreprise"
       :tabsSubAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
         .map(item => ({
@@ -354,6 +355,7 @@ onMounted(async () => {
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Artisan"
+      :statut_talent_choice_artisan="store.state.user?.statut_talent"
       :tabsSubAbonnement="abonnementsArtisan"
       :subAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))

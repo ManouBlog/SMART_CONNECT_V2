@@ -396,7 +396,7 @@ this.selectedParseStatus = ""
         >
           Changer le profil de base
         </button>
-        <!-- {{ profils?.user?.statuses }} -->
+        {{ profils?.user }}
         <div>
       <button
       v-if="profils?.user?.statuses.some(item=>item.statut != 'Vétéran' && (item.statut != 'Particulier' || item.statut != 'Artisan'))"
@@ -469,6 +469,7 @@ this.selectedParseStatus = ""
             ">
           <h3 style="color: white;">{{ profil.statut }}</h3>
           <p v-if="profils?.statut_talent && profils?.user?.statut?.statut.includes('Vétéran') ">({{ profils?.statut_talent }})</p>
+                    <p v-if="profils?.statut_talent && profils?.user?.statut?.statut.includes('Artisan') ">({{ profils?.statut_talent }})</p>
           <span 
           v-if="profils?.user?.statut?.statut == profil.statut"
           class="badge" 
