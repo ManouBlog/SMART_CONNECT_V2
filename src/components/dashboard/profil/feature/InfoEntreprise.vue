@@ -164,7 +164,7 @@ export default {
     },
   },
   async created() {
-    this.texte0 = await this.handleTranslate("Infos personnelles");
+    this.texte0 = await this.handleTranslate("Infos sur l’entreprise");
     this.texte1 = await this.handleTranslate(`Gérant`);
     this.texte2 = await this.handleTranslate("Modifier mot de passe");
     this.texte3 = await this.handleTranslate("Ancien mot de passe");

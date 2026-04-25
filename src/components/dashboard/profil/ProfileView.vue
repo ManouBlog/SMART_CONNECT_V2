@@ -37,6 +37,7 @@ export default {
       texte2: "",
       texte3: "",
       texte1: "",
+      texte0989:"",
       documentLabels : {
   Etudiant: "Carte étudiant",
   Professionnel: "Diplôme",
@@ -335,6 +336,7 @@ userDocuments() {
   async created() {
     this.texte = await this.handleTranslate("Mon espace");
     this.texte1 = await this.handleTranslate(`Infos personnelles`);
+     this.texte0989 = await this.handleTranslate(`Infos sur l’entreprise`);
     this.texte2 = await this.handleTranslate("Nom");
     this.texte3 = await this.handleTranslate("Email");
     this.texte4 = await this.handleTranslate("Matricule/cc");
@@ -362,7 +364,7 @@ userDocuments() {
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="page-body">
       <TabView v-if="this.$store.state.infoUserConnected">
-        <TabPanel :header="texte1">
+        <TabPanel :header="this.$store.state.infoUserConnected.user.statut.statut != 'Entreprise' ? texte1:texte0989">
           <div>
             <InfoEntreprise 
             :infoPersonnelles="this.$store.state.infoUserConnected"

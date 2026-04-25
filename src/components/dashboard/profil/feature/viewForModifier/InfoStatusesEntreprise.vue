@@ -151,7 +151,6 @@ this.selectedParseStatus = ""
     max-height: 80vh;" 
        preset="card" 
        :closable="false"
-      @after-leave="resetProfilHybrideData"
        >
       <template #header>
         <div class="modal-header">
