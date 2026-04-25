@@ -19,19 +19,19 @@
 
       <!-- Description -->
       <div class="section">
-        <h3 style="text-transform: uppercase">
+        <h3 style="text-transform: uppercase" v-if="titreCv">
           {{
-            titreCv && titreCv != 'null' && isbtnPdf ? titreCv : description != 'null' ? "Description":null
+            titreCv && titreCv != 'null' && isbtnPdf ? titreCv : description != 'null' ? "Profil":null
           }}
         </h3>
 
-<h3 style="text-transform: uppercase;color:#d0eefc;" v-if="(!titreCv || titreCv === 'null' || titreCv === '') && isbtnPdf">
+<!-- <h3 style="text-transform: uppercase;color:#d0eefc;" v-if="(!titreCv || titreCv === 'null' || titreCv === '') && isbtnPdf">
 Ajoutez un profil
-</h3>
+</h3> -->
         <p style="border-bottom: 3px solid black;padding-bottom:10px" v-if="description != null && description !== '' && description !== 'null'">{{ description }}</p>
-        <p v-else style="color:#d0eefc;">
+        <!-- <p v-else style="color:#d0eefc;">
           <span v-if="isbtnPdf">Ajoutez une description à votre CV</span>
-        </p>
+        </p> -->
       </div>
        <!-- Compétences -->
       <div class="section" style="margin:1em 0;" v-if="competences.length">

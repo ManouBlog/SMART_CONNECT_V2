@@ -125,7 +125,8 @@ StatutVeterans:[
        tempsTravail:"",
        modeTravail:"",
        diplome:"",
-      profilHybride:[]
+      profilHybride:[],
+      statut_professionnel_artisan:""
       },
     };
   },
@@ -155,6 +156,7 @@ StatutVeterans:[
       const STORE_ABONNEMENT = useAbonnementsStore();
       console.log("this.formState.profilHybride",this.formState.profilHybride)
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
+      console.log("RESETDATA",STORE_ABONNEMENT)
     },
     onUploadChange(e) {
     console.log('onUploadChange', e.target.files);
@@ -278,7 +280,7 @@ StatutVeterans:[
        console.log("this.formState professionnel",this.formState);
         const STORE_ABONNEMENT = useAbonnementsStore();
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
-    console.log("STORE", STORE_ABONNEMENT.profilHybride)
+    console.log("STORE", STORE_ABONNEMENT)
      this.showModalAbonnements = true
        }
      
@@ -293,6 +295,7 @@ StatutVeterans:[
     overflow-y: auto; 
     max-height: 80vh;"
        :closable="false"
+     @after-leave="resetData"
   v-model:show="showModalAbonnements">
          <template #header>
         <div class="modal-header">
@@ -403,6 +406,25 @@ StatutVeterans:[
             :value="item.value"
           >
             {{ item.label }}
+          </option>
+        </select>
+      </div>
+       <div class="col-md-6 my-4" v-if="profilHybride.length">
+        <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel artisan</label>
+        <select 
+          name="statut" 
+          id="treatment2" 
+          v-model="formState.statut_professionnel_artisan"
+          class="form-control"
+          style="height: 50px;"
+        >
+          <option value="" disabled>Sélectionnez votre statut professionnel artisan</option>
+          <option 
+            v-for="item in ['Maitre Artisan','Artisan']" 
+            :key="item" 
+            :value="item"
+          >
+            {{ item }}
           </option>
         </select>
       </div>

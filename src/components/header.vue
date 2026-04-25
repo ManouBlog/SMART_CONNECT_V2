@@ -454,7 +454,7 @@ export default {
   text-transform: capitalize !important;
 }
 .rondProfil {
-  width: 50px;
+  width: 65px;
   height: 70px;
   background: rgba(122, 121, 121, 0.232);
   border-radius: 100%;

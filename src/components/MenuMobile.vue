@@ -196,7 +196,7 @@ if (
           style="
             border: 1px solid white;
             object-fit: cover;
-            width: 50px;
+            width: 65px;
             height: 50px;
             line-height: 50px;
             text-align: center;
