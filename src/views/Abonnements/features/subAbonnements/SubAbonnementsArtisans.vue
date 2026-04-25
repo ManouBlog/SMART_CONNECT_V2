@@ -5,7 +5,7 @@ import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
-import contentAbonnement from '../contentAbonnement.vue'
+import ContainerAbonnementsArtisans from '../ContainerAbonnementsArtisans.vue'
 defineProps({
   abonnements: Array,
   type_abonnements: String,
@@ -61,7 +61,7 @@ onMounted(async () => {
 
   texte.value = await transalteStore.handleTranslate("année");
   console.log("PROFILE_ABONNEMENT_SUB_ARTISAN",storeAbonnement.profilHybride)
-profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
+   profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
   if (isUserConnected.value) {
       await storeAbonnementUser.get_all_abonnement();
     }
@@ -89,7 +89,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       
       
     <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel','Maitre-Artisan'].some(role=>role === item?.categorie?.categorie)">
-      <contentAbonnement 
+      <ContainerAbonnementsArtisans 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
       />
@@ -104,7 +104,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
         </span>
   </p>
        <div class="d-flex align-items-center gap-5 justify-content-center main-color">
-        <div style="display: flex;flex-direction: column;">
+        <!-- <div style="display: flex;flex-direction: column;">
    <h1 
     :style="{
     fontSize: '2em',
@@ -120,10 +120,10 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
     style="font-size: 2em; font-weight: bold;padding: 0;margin: 0;">
       {{ Help.convertInMoney(Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer)) }} F
     </h1>
-  </div>
-          <!-- <h1 style="font-size: 2em; font-weight: bold">
+  </div> -->
+          <h1 style="font-size: 2em; font-weight: bold">
             {{ Help.convertInMoney(item.prix) }} F
-          </h1> -->
+          </h1>
           <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
           <h3 style="font-size: 2em; color: orange">an</h3>
         </div>

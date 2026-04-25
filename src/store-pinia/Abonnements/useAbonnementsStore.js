@@ -34,6 +34,9 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
    const handleHybrideAddProfil = (payload)=>{
     addProfilHybride.value = payload
    }
+   const cleanProfilHybide = (payload)=>{
+    profilHybride.value = payload
+   }
 const handleChangeInfoForAbonnement = (payload) => {
   // Toujours vérifier que payload est un objet
   if (!payload || typeof payload !== "object") {
@@ -120,6 +123,7 @@ const handleChangeInfoForAbonnement = (payload) => {
         commune,
         ville,
         quartier,
-        statut_professionnel_artisan
+        statut_professionnel_artisan,
+        cleanProfilHybide
     }
 })

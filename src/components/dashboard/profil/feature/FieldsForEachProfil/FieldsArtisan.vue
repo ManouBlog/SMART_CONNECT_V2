@@ -1,5 +1,5 @@
 <script>
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 // import VueMultiselect from "vue-multiselect";
 import Abonnements from "../../../../../views/Abonnements/Abonnements.vue";
 import { configUtils } from "../../../../../Shared/Utils";
@@ -149,6 +149,7 @@ StatutArtisans:[
         upload: [],
         niveauEtude:"",
         niveauExpertise:"",
+        profilHybride:[]
       },
     };
   },
@@ -269,13 +270,39 @@ StatutArtisans:[
 //     reader.readAsDataURL(file)
 //   })
 // },
-    onHandleUpdateProfil() {
-      console.log("this.formState",this.formState);
+   onHandleUpdateProfil() {
+    this.resetData();
+  Swal.fire({
+    icon: 'warning',
+    title: 'Confirmation',
+    text: 'Voulez-vous vraiment continuer avec cette mise à jour de profil ?',
+    confirmButtonText: 'Oui, valider',
+    cancelButtonText: 'Annuler',
+    showCancelButton: true,
+    confirmButtonColor: '#f39c12',
+    cancelButtonColor: '#e74c3c',
+  }).then((result) => {
+    if (result.isConfirmed) {
       const storeAbonnement = useAbonnementsStore();
-       storeAbonnement.handleChangeInfoForAbonnement(this.formState);
+   console.log("this.formState",this.formState)
+   storeAbonnement.cleanProfilHybide([]);
+   console.log('PROFIL HYBRIDE',storeAbonnement.profilHybride)
+      storeAbonnement.handleChangeInfoForAbonnement(this.formState);
+     console.log("storeAbonnement_fieldsartisan",storeAbonnement)
       this.showModalAbonnements = true;
     }
+  });
+},
+resetData(){
+      this.formState.profilHybride = [];
+      const STORE_ABONNEMENT = useAbonnementsStore();
+      console.log("this.formState.profilHybride",this.formState.profilHybride)
+      STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
+      console.log("RESETDATA_artisan_field",STORE_ABONNEMENT)
+    },
   },
+ 
+  
 };
 </script>
 <template>
@@ -356,7 +383,7 @@ StatutArtisans:[
         html-type="submit"
         :disabled="!isFormComplete"
       >
-        Enregistrer
+        Enregistrer artisan
       </a-button>
       </div>
     </div>

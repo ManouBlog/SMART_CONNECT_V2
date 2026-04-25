@@ -465,7 +465,7 @@ StatutVeterans:[
         html-type="submit"
         :disabled="!isFormComplete"
       >
-        Enregistrer
+        Enregistrer veteran
       </a-button>
       </div>
     </div>

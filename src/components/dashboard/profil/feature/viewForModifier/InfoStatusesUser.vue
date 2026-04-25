@@ -152,9 +152,6 @@ descriptionProfil:{
 
       console.log("statutOfBase",abonnementsStore?.statutOfBase)
     },
-    openVerification(userStatut) {
-      this.$emit('open-verification', userStatut);
-    },
     handleStatutProfil(e){
     
        console.log('VALUE selectedStatus',e.target.value)

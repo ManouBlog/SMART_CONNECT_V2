@@ -102,6 +102,7 @@ onMounted(async () => {
     },
   ]
 profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
+console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
   texte.value = await transalteStore.handleTranslate("année")
   console.log("storeAbonnement.addProfilHybride_container",storeAbonnement?.addProfilHybride)
      if(storeAbonnement.addProfilHybride.length){

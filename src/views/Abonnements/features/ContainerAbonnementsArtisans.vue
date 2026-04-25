@@ -142,12 +142,6 @@ onMounted(async () => {
       color_btn: "primary",
     },
   ];
-  console.log("INFO_SUR_USER",store.state.user)
-  const statutBase = store.state.user?.user?.statut?.statut;
-  const AllProfilHybride = store.state.user?.user.statuses.filter(item=>item.statut !== statutBase)
-  console.log("AllProfilHybride",AllProfilHybride)
-   const payload = {profilHybride:AllProfilHybride}
-  storeAbonnement.handleChangeInfoForAbonnement(payload)
   if(storeAbonnement.addProfilHybride.length){
     const profilUserCurrent = store.state.user?.user?.abonement?.find(item=>item.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent.abonement.libelle;
