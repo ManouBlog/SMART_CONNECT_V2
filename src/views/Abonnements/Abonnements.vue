@@ -51,6 +51,24 @@ const handleAbonement = async () => {
   }
 }
 
+ async function getInfoUser(){
+      if (this.$store.state.token) {
+        await instance
+          .get("voirInfoUserConnect")
+          .then((resp) => {
+            if (resp.data.status === true) {
+              console.log("MYphoto_profil",resp.data.user)
+            window.localStorage.setItem("user", JSON.stringify(resp.data.user));
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          }).finally(()=>{
+            router.push('/')
+          })
+      }
+    }
+
 async function doVerificationAbonnement(payload){
 try {
     const response = await instance.get("payStack/payment/callback/"+payload); 
@@ -60,7 +78,7 @@ try {
               title: "Paiement reussi.",
               showConfirmButton: true,
             });
-            router.push('/')
+            await getInfoUser();
     }
     if(!response.data.status){
       Swal.fire({

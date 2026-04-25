@@ -139,7 +139,8 @@ StatutVeterans:[
         this.formState.niveauEtude && 
          this.formState.tempsTravail &&   
          this.formState.modeTravail  &&
-          this.formState.diplome      
+          this.formState.diplome    &&
+          this.optionsAnswer  
       );
     },
     isProfilHybrideADD(){
