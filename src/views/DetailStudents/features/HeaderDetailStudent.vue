@@ -4,7 +4,7 @@ import ModalForModifyInfo from "../../../components/dashboard/profil/feature/Mod
 import { Help } from "../../../utils";
 import { useInfoPersonnel } from "../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { mapActions } from "pinia";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 export default {
   name: "HeaderDetailStudent",
   components: {
@@ -26,31 +26,32 @@ export default {
       "addInfoUserConnected",
     ]),
     handleModalInfo() {
-      if (
-        this.$store.state.infoUserConnected.user.abonement.length &&
-        this.$store.state.infoUserConnected.user.abonement.some(
-          (item) => item.statut === "success" && item.abonement.libelle === "PLATINUM"
-        )
-      ) {
         this.addInfoUserConnected(this.timetable_for_student);
         console.log('this.timetable_for_student',this.timetable_for_student)
         this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: false });
-      } else {
-        Swal.fire({
-          icon: "info",
-          title: "Veuillez souscrire à l’abonnement PLATINUM.",
-          text: "Accédez aux fonctionnalités premium.",
-          confirmButtonText: "Voir les abonnements",
-          showCancelButton: true,
-          cancelButtonText: "Plus tard",
-          confirmButtonColor: "orange", // violet / premium
-          cancelButtonColor: "#6c757d", // gris neutre
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.$router.push({ name: "abonnements" });
-          }
-        });
-      }
+      // if (
+      //   this.$store.state.infoUserConnected.user.abonement.length &&
+      //   this.$store.state.infoUserConnected.user.abonement.some(
+      //     (item) => item.statut === "success"
+      //   )
+      // ) {
+      
+      // } else {
+      //   Swal.fire({
+      //     icon: "info",
+      //     title: "Veuillez souscrire à l’abonnement PLATINUM.",
+      //     text: "Accédez aux fonctionnalités premium.",
+      //     confirmButtonText: "Voir les abonnements",
+      //     showCancelButton: true,
+      //     cancelButtonText: "Plus tard",
+      //     confirmButtonColor: "orange", // violet / premium
+      //     cancelButtonColor: "#6c757d", // gris neutre
+      //   }).then((result) => {
+      //     if (result.isConfirmed) {
+      //       this.$router.push({ name: "abonnements" });
+      //     }
+      //   });
+      // }
     },
   },
   async created() {

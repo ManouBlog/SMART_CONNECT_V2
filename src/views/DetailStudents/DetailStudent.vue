@@ -952,7 +952,7 @@ export default {
           </div>
         </div>
         <div v-else class="conteneur_date" style="color: red; text-align: center">
-          Veuillez souscrire à l’abonnement PLATINUM.
+          Veuillez souscrire à une formule d'abonnement
           <div>
             <button
               style="
@@ -964,7 +964,7 @@ export default {
               "
               @click.prevent="seeAllAbonnement"
             >
-              Voir les abonnements
+              Souscrire
             </button>
           </div>
         </div>
