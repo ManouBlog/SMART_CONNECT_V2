@@ -822,7 +822,7 @@ export default {
           v-if="
             this.$store.state.infoUserConnected.user.abonement.length &&
             this.$store.state.infoUserConnected.user.abonement.some(
-              (item) => item.statut === 'success' && item.abonement.libelle === 'PLATINUM'
+              (item) => item.statut === 'success'
             )
           "
         >
@@ -875,7 +875,7 @@ export default {
           </div>
         </div>
         <div v-else class="conteneur_date" style="color: red; text-align: center">
-          Veuillez souscrire à l’abonnement PLATINUM.
+          Veuillez souscrire à un abonnement
           <div>
             <button
               style="

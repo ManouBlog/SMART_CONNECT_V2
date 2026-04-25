@@ -174,7 +174,7 @@ export default {
       <h3 class="my-3" v-if="timetable_for_student.commune">
         <em class="bi bi-geo-alt"></em> {{ timetable_for_student.commune }}
       </h3>
-      <h4 class="my-3">
+      <h4 class="my-3" v-if="timetable_for_student.diplome">
         <em class="bi bi-mortarboard"></em>
         {{ timetable_for_student.diplome }}
       </h4>
