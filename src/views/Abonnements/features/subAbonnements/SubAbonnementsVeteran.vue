@@ -1,12 +1,13 @@
 <script setup>
 import { defineProps, ref, onMounted, watch, computed } from "vue";
 import { Help } from "../../../../utils";
+import { useStore } from 'vuex';
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
 import ContainerAbonnementVeterans from '../ContainerAbonnementVeterans.vue'
-defineProps({
+const props = defineProps({
   abonnements: Array,
   type_abonnements: String,
 });
@@ -15,7 +16,8 @@ defineProps({
 const transalteStore = useTranslateStore();
 const storeAbonnement = useAbonnementsStore();
 const storeAbonnementUser = useEntreprisesStore();
-const userConnected = ref(localStorage.getItem('user'))
+// const userConnected = ref(localStorage.getItem('user'))
+ const store = useStore();
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
 const profilHybrideRecuperer = ref(0)
@@ -52,7 +54,15 @@ const handleInitialiserPayement=(payload)=>{
 
 // Détecte si le user est connecté et possède un statut
 const isUserConnected = computed(() => {
-  return userConnected.value;
+  return store.state.user;
+});
+
+const filteredAbonnementsByTalent = computed(() => {
+  // if (isUserConnected.value){
+  //    return props.abonnements.filter((item) => item?.categorie?.categorie === store.state?.user?.statut_talent);
+  // }
+
+  return props.abonnements.filter((item) => item.categorie.categorie === props.type_abonnements)
 });
 
 // Watch déclenche le chargement des abonnements
@@ -84,15 +94,15 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 </script>
 
 <template>
- {{ abonnements.filter(
+  <!-- <p>isUserConnected:{{ isUserConnected.statut_talent }}</p>
+  <p>filteredAbonnementsByTalent:{{ filteredAbonnementsByTalent }}</p>
+ <p> abonneùments sub abonnement :{{ abonnements.filter(
         (item) => item.categorie.categorie === type_abonnements
       ) }}
- {{ type_abonnements }}
+ {{ type_abonnements }} </p> -->
   <div class="conteneur-flex">
     <div
-      v-for="item in abonnements.filter(
-        (item) => item.categorie.categorie === type_abonnements
-      )"
+      v-for="item in filteredAbonnementsByTalent"
       :key="item.id"
       :class="
         item?.categorie?.categorie == 'Etudiant'

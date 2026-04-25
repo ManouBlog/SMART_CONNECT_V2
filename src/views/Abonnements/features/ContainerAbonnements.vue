@@ -34,7 +34,7 @@ const props = defineProps({
 const transalteStore = useTranslateStore();
 const storeAbonnement = useAbonnementsStore();
 const storeAbonnementUser = useEntreprisesStore();
-const userConnected = ref(localStorage.getItem('user'))
+// const userConnected = ref(localStorage.getItem('user'))
 const formuleAbonnementOfUserConnected = ref(null)
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
@@ -63,11 +63,18 @@ function handleSelect_mode_Payement(val) {
 
 // Détecte si le user est connecté et possède un statut
 const isUserConnected = computed(() => {
-  return userConnected.value;
+  return store.state.user;
 });
 
 const filteredTabsSubAbonnement = computed(() => {
+  // if(store.state.user && store.state.user?.statut?.statut?.includes('Vétéran')){
+  //   console.log('lancer avec user')
+  //    return props.tabsSubAbonnement.filter(
+  //   item => item.id === props.store.state.user?.statut_talent
+  // );
+  // }
   if (props.statut_talent_choice) {
+    console.log('lancer avec user')
     return props.tabsSubAbonnement.filter(
     item => item.id === props.statut_talent_choice
   );
@@ -170,9 +177,9 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 </script>
 
 <template>
-  <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
+  <!-- <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
-  <p>statut_talent_choice:{{ statut_talent_choice }}</p>
+  <p>statut_talent_choice:{{ statut_talent_choice }}</p> -->
   <div v-if="tabsSubAbonnement.length">
    <div style="display: flex;justify-content: center;">
      <n-tabs

@@ -395,6 +395,7 @@ onMounted(async () => {
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Vétéran"
+      :statut_talent_choice="store.state.user?.statut_talent"
       :tabsSubAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
         .map(item => ({
