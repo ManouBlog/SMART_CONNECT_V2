@@ -263,30 +263,47 @@ StatutVeterans:[
 //     reader.readAsDataURL(file)
 //   })
 // },
-    onHandleProfil() {
-      console.log("FIELDVETERAN")
-      console.log("this.isProfilHybrideADD", this.isProfilHybrideADD)
-      console.log("this.formState", this.formState)
-       if(!this.isProfilHybrideADD){
-        Swal.fire({
-    icon: 'info',
-    text: 'Ajoutez un profil'
-  });
-       }else{
+   onHandleProfil() {
+  console.log("FIELDVETERAN")
+  console.log("this.isProfilHybrideADD", this.isProfilHybrideADD)
+  console.log("this.formState", this.formState)
+
+  if (!this.isProfilHybrideADD) {
+    Swal.fire({
+      icon: 'info',
+      text: 'Ajoutez un profil'
+    });
+  } else {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Confirmation',
+      text: 'Voulez-vous vraiment continuer avec ce profil ?',
+      confirmButtonText: 'Oui, valider',
+      cancelButtonText: 'Annuler',
+      showCancelButton: true,
+      confirmButtonColor: '#f39c12',
+      cancelButtonColor: '#e74c3c',
+    }).then((result) => {
+      if (result.isConfirmed) {
         console.log("this.profilHybride", this.profilHybride)
-        console.log("this.profilOfAbonnement?.id",this.profilOfAbonnement?.id)
-        if(this.profilHybride.length){
-        this.formState.profilHybride = this.profilHybride.map(item=>item.id);
+        console.log("this.profilOfAbonnement?.id", this.profilOfAbonnement?.id)
+
+        if (this.profilHybride.length) {
+          this.formState.profilHybride = this.profilHybride.map(item => item.id);
         }
-       console.log("this.formState professionnel",this.formState);
+
+        console.log("this.formState professionnel", this.formState);
+
         const STORE_ABONNEMENT = useAbonnementsStore();
-      STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
-    console.log("STORE", STORE_ABONNEMENT)
-     this.showModalAbonnements = true
-       }
-     
-     
-    },
+        STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
+
+        console.log("STORE", STORE_ABONNEMENT)
+
+        this.showModalAbonnements = true
+      }
+    });
+  }
+},
   },
 };
 </script>
