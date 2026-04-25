@@ -436,7 +436,7 @@ export default {
       instance.get("getCompetenceByStudents").then((res) => {
         // // console.log("AllCompetences", res.data.data);
         if (res.data.status === true) {
-          this.competences = res.data.data.competences;
+          this.competences = res?.data?.data?.competences || [];
         }
       });
     },

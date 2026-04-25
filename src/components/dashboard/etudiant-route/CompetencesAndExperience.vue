@@ -86,7 +86,7 @@ export default {
         .then((res) => {
      
           if (res.data.status === true) {
-            this.competences = res.data.data.competences;
+            this.competences = res?.data?.data?.competences || [];
           }
         });
     },
