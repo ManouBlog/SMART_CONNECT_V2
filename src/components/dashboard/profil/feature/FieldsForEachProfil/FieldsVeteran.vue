@@ -42,6 +42,49 @@ valueModeDeTravail: [
   { value: "Télétravail", label: "Télétravail" },
   { value: "Hybride", label: "Hybride" }
 ],
+rules: {
+  niveau: [
+    {
+      required: true,
+      message: "Veuillez sélectionner le niveau d'étude"
+    }
+  ],
+  diplome: [
+    {
+      required: true,
+      message: "Veuillez renseigner le domaine"
+    }
+  ],
+  modeTravail: [
+    {
+      required: true,
+      message: "Veuillez sélectionner le mode de travail"
+    }
+  ],
+  tempsTravail: [
+    {
+      required: true,
+      message: "Veuillez sélectionner le temps de travail"
+    }
+  ],
+  treatment_preferentiel: [
+    {
+      required: true,
+      message: "Veuillez sélectionner le traitement préférentiel"
+    }
+  ],
+  statut_talent: [
+    {
+      required: true,
+      message: "Veuillez sélectionner le statut professionnel"
+    }
+  ],
+  statut_professionnel_artisan: [
+    {
+      required: false
+    }
+  ]
+},
 //  SCHOOL_KEYWORDS :[
 //   // Carte étudiante (formes tolérantes OCR)
 //   'carte etudiant',
@@ -122,6 +165,7 @@ StatutVeterans:[
         upload: [],
         treatment_preferentiel:"",
        niveauEtude:"",
+       niveau:"",
        tempsTravail:"",
        modeTravail:"",
        diplome:"",
@@ -136,7 +180,7 @@ StatutVeterans:[
       return (
         this.formState.treatment_preferentiel?.trim() &&      // Champ texte non vide
         this.formState.statut_talent &&                // Select sélectionné
-        this.formState.niveauEtude && 
+        this.formState.niveau && 
          this.formState.tempsTravail &&   
          this.formState.modeTravail  &&
           this.formState.diplome    &&
@@ -160,6 +204,15 @@ if(newValue == 'non'){
 }
       },
       immediate: true
+    },
+     profilHybride: {
+      handler(newValue) {
+        if (!newValue.includes(7)) {
+          this.formState.statut_professionnel_artisan = ""
+        }
+      },
+      immediate: true,
+      deep: true
     }
   },
  
@@ -279,7 +332,11 @@ if(newValue == 'non'){
    onHandleProfil() {
   console.log("FIELDVETERAN")
   console.log("this.isProfilHybrideADD", this.isProfilHybrideADD)
-  console.log("this.formState", this.formState)
+  if (this.profilHybride.length) {
+          this.formState.profilHybride = this.profilHybride.map(item => item.id);
+        }
+        this.formState.niveauEtude = this.formState.niveau+''+this.formState.diplome
+        console.log("this.formState professionnel", this.formState);
 
   if (!this.isProfilHybrideADD) {
     Swal.fire({
@@ -300,13 +357,6 @@ if(newValue == 'non'){
       if (result.isConfirmed) {
         console.log("this.profilHybride", this.profilHybride)
         console.log("this.profilOfAbonnement?.id", this.profilOfAbonnement?.id)
-
-        if (this.profilHybride.length) {
-          this.formState.profilHybride = this.profilHybride.map(item => item.id);
-        }
-
-        console.log("this.formState professionnel", this.formState);
-
         const STORE_ABONNEMENT = useAbonnementsStore();
         STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
 
@@ -341,139 +391,168 @@ if(newValue == 'non'){
       </div>
       
       </n-modal>
-    <form action="" @submit.prevent="onHandleProfil">
-      <!-- {{ this.profilOfAbonnement }} -->
-    <div class="row g-4">
-        <div class="col-md-6 my-2">
-        <label for="treatment1" class="form-label fw-semibold mb-2">Niveau d'etude + Domaine</label>
-        <select 
-          name="treatment" 
-          id="treatment1" 
-          v-model="formState.niveauEtude"
-          class="form-control"
-          style="height: 50px;"
+    <a-form
+  ref="formRef"
+  :model="formState"
+  :rules="rules"
+  layout="vertical"
+  @finish="onHandleProfil"
+>
+  <a-row :gutter="[16, 16]">
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Niveau d'etude + Domaine"
+        name="niveau"
+      >
+        <a-select
+          v-model:value="formState.niveau"
+          placeholder="Sélectionnez..."
+          size="large"
         >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
+          <a-select-option
             v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
-            :key="item.value" 
+            :key="item.value"
             :value="item.value"
           >
             {{ item.value }}
-          </option>
-        </select>
-        <input type="text" v-model="formState.diplome" placeholder="Ajoutez votre Domaine" class="form-control my-2" />
-      </div>
-       <div class="col-md-6 my-2">
-        <label for="treatment2" class="form-label fw-semibold mb-2">Mode de travail</label>
-        <select 
-          name="statut" 
-          id="treatment2" 
-          v-model="formState.modeTravail"
-          class="form-control"
-          style="height: 50px;"
-        >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in valueModeDeTravail" 
-            :key="item.id" 
-            :value="item.value"
-          >
-            {{ item.label }}
-          </option>
-        </select>
-      </div>
+          </a-select-option>
+        </a-select>
+      </a-form-item>
 
-       <div class="col-md-6 my-2">
-        <label for="treatment2" class="form-label fw-semibold mb-2">Temps de travail</label>
-        <select 
-          name="statut" 
-          id="treatment2" 
-          v-model="formState.tempsTravail"
-          class="form-control"
-          style="height: 50px;"
+      <a-form-item name="diplome">
+        <a-input
+          v-model:value="formState.diplome"
+          placeholder="Ajoutez votre Domaine"
+          size="large"
+        />
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Mode de travail"
+        name="modeTravail"
+      >
+        <a-select
+          v-model:value="formState.modeTravail"
+          placeholder="Sélectionnez..."
+          size="large"
         >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in valueTempsTravail" 
-            :key="item.id" 
+          <a-select-option
+            v-for="item in valueModeDeTravail"
+            :key="item.id"
             :value="item.value"
           >
             {{ item.label }}
-          </option>
-        </select>
-      </div>
-      <div class="col-md-6 my-4">
-        <label for="treatment1" class="form-label fw-semibold mb-2">Traitement préférentiel</label>
-        <select 
-          name="treatment" 
-          id="treatment1" 
-          v-model="formState.treatment_preferentiel"
-          class="form-control"
-          style="height: 50px;"
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Temps de travail"
+        name="tempsTravail"
+      >
+        <a-select
+          v-model:value="formState.tempsTravail"
+          placeholder="Sélectionnez..."
+          size="large"
         >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in valueExpertise" 
-            :key="item.id" 
+          <a-select-option
+            v-for="item in valueTempsTravail"
+            :key="item.id"
+            :value="item.value"
+          >
+            {{ item.label }}
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Traitement préférentiel"
+        name="treatment_preferentiel"
+      >
+        <a-select
+          v-model:value="formState.treatment_preferentiel"
+          placeholder="Sélectionnez..."
+          size="large"
+        >
+          <a-select-option
+            v-for="item in valueExpertise"
+            :key="item.id"
             :value="item.label"
           >
             {{ item.label }}
-          </option>
-        </select>
-      </div>
-      
-      <div class="col-md-6 my-4">
-        <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel</label>
-        <select 
-          name="statut" 
-          id="treatment2" 
-          v-model="formState.statut_talent"
-          class="form-control"
-          style="height: 50px;"
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Statut professionnel"
+        name="statut_talent"
+      >
+        <a-select
+          v-model:value="formState.statut_talent"
+          placeholder="Sélectionnez..."
+          size="large"
         >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in StatutVeterans" 
-            :key="item.id" 
+          <a-select-option
+            v-for="item in StatutVeterans"
+            :key="item.id"
             :value="item.value"
           >
             {{ item.label }}
-          </option>
-        </select>
-      </div>
-       <div class="col-md-6 my-4" v-if="profilHybride.some(item=>item.statut.includes('Artisan'))">
-        <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel artisan</label>
-        <select 
-          name="statut" 
-          id="treatment2" 
-          v-model="formState.statut_professionnel_artisan"
-          class="form-control"
-          style="height: 50px;"
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+
+    <a-col
+      :xs="24"
+      :md="12"
+      v-if="profilHybride.some(item => item.statut.includes('Artisan'))"
+    >
+      <a-form-item
+        label="Statut professionnel artisan"
+        name="statut_professionnel_artisan"
+      >
+        <a-select
+          v-model:value="formState.statut_professionnel_artisan"
+          placeholder="Sélectionnez votre statut professionnel artisan"
+          size="large"
         >
-          <option value="" disabled>Sélectionnez votre statut professionnel artisan</option>
-          <option 
-            v-for="item in ['Maitre Artisan','Artisan']" 
-            :key="item" 
+          <a-select-option
+            v-for="item in ['Maitre Artisan', 'Artisan']"
+            :key="item"
             :value="item"
           >
             {{ item }}
-          </option>
-        </select>
-      </div>
-      
-      <div class="col-md-6 my-4">
-        <label for="certificat" class="form-label fw-semibold mb-2">Certificat de travail</label>
-        <input 
-          type="file" 
-          id="certificat"
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Certificat de travail"
+        name="certificat"
+      >
+        <a-input
+          type="file"
           accept="image/*"
           @change="onUploadChange"
-          class="form-control"
-          style="height: 40px;border: none !important;"
+          size="large"
         />
-      </div>
-      <div class="col-md-12 my-4">
+      </a-form-item>
+    </a-col>
+
+    <a-col :span="24">
       <a-button
         type="primary"
         html-type="submit"
@@ -481,7 +560,8 @@ if(newValue == 'non'){
       >
         Enregistrer veteran
       </a-button>
-      </div>
-    </div>
-  </form>
+    </a-col>
+
+  </a-row>
+</a-form>
 </template>
