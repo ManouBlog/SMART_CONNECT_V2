@@ -274,8 +274,9 @@ StatutVeterans:[
   });
        }else{
         console.log("this.profilHybride", this.profilHybride)
+        console.log("this.profilOfAbonnement?.id",this.profilOfAbonnement?.id)
         if(this.profilHybride.length){
-      this.formState.profilHybride = this.profilHybride.map(item=>item.id);
+        this.formState.profilHybride = this.profilHybride.map(item=>item.id);
         }
        console.log("this.formState professionnel",this.formState);
         const STORE_ABONNEMENT = useAbonnementsStore();
@@ -310,6 +311,7 @@ StatutVeterans:[
       
       </n-modal>
     <form action="" @submit.prevent="onHandleProfil">
+      <!-- {{ this.profilOfAbonnement }} -->
     <div class="row g-4">
         <div class="col-md-6 my-2">
         <label for="treatment1" class="form-label fw-semibold mb-2">Niveau d'etude + Domaine</label>
