@@ -430,7 +430,7 @@ StatutVeterans:[
           </option>
         </select>
       </div>
-       <div class="col-md-6 my-4" v-if="profilHybride.length">
+       <div class="col-md-6 my-4" v-if="profilHybride.some(item=>item.statut.includes('Artisan'))">
         <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel artisan</label>
         <select 
           name="statut" 

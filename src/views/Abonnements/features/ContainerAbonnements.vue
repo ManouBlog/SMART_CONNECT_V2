@@ -197,9 +197,9 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 </script>
 
 <template>
-  <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
+  <!-- <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
-  <p>statut_talent_choice_entreprise:{{ statut_talent_choice_artisan }}</p>
+  <p>statut_talent_choice_entreprise:{{ statut_talent_choice_artisan }}</p> -->
   <div v-if="tabsSubAbonnement.length">
    <div style="display: flex;justify-content: center;">
      <n-tabs
