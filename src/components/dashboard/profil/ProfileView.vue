@@ -351,7 +351,7 @@ userDocuments() {
     this.texte12 = await this.handleTranslate("Pièce d'identité");
     this.texte13 = await this.handleTranslate("Niveau d'etude");
     this.texte14 = await this.handleTranslate("Prénoms");
-    this.texte15 = await this.handleTranslate("Formule d'abonnement");
+    this.texte15 = await this.handleTranslate("Ma formule");
     this.getInfoUser();
     this.seeMessageUploadProfil();
   },
