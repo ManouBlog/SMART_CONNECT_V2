@@ -150,6 +150,18 @@ StatutVeterans:[
   return true;
 }
   },
+  watch: {
+    optionsAnswer: {
+      handler(newValue) {
+        
+if(newValue == 'non'){
+  console.log("this.formState.statut_professionnel_artisan", this.formState.statut_professionnel_artisan)
+  this.formState.statut_professionnel_artisan = ""
+}
+      },
+      immediate: true
+    }
+  },
  
   methods: {
     resetData(){
