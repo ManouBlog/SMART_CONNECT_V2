@@ -6,9 +6,9 @@ import "primeicons/primeicons.css";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
-import { useAbonnementsStore } from "../../store-pinia/Abonnements/useAbonnementsStore";
+// import { useAbonnementsStore } from "../../store-pinia/Abonnements/useAbonnementsStore";
 const loadingSpinner = useLoadingSpinner();
-const abonnementsStore = useAbonnementsStore();
+// const abonnementsStore = useAbonnementsStore();
 export default {
   data() {
     return {
@@ -330,38 +330,11 @@ if (isParticulier) {
     ['Entreprise', 'Particulier'].includes(s.statut)
   )
 ) {
- const AllProfilHybride = this.user?.user?.statuses?.filter(s => s.statut !== this.user.user?.statut?.statut);
-              console.log("voirDetailTimetable_profil_hybride", AllProfilHybride);
-        if (
-          this.$store.state.infoUserConnected.user.abonement.length &&
-          this.$store.state.infoUserConnected.user.abonement.some(
-            (item) => item.statut === "success" && item.abonement.libelle === "PLATINUM"
-          )
-        ) {
-          this.$router.push({
+ this.$router.push({
             name: "detailStudent",
             params: { id: item.id, user_id: item.user_id },
           });
-        } else {
-          Swal.fire({
-            icon: "info",
-            title: "Veuillez souscrire à l’abonnement PLATINUM.",
-            text: "Accédez aux fonctionnalités premium.",
-            confirmButtonText: "Voir les abonnements",
-            showCancelButton: true,
-            cancelButtonText: "Plus tard",
-            confirmButtonColor: "orange", // violet / premium
-            cancelButtonColor: "#6c757d", // gris neutre
-          }).then((result) => {
-            if (result.isConfirmed) {
-              const AllProfilHybride = this.user?.user?.statuses?.filter(s => s.statut !== this.user.user?.statut?.statut);
-              console.log("voirDetailTimetable_profil_hybride", AllProfilHybride);
-              const payload = {profilHybride:AllProfilHybride};
-              abonnementsStore.handleChangeInfoForAbonnement(payload);
-              this.$router.push({ name: "abonnements" });
-            }
-          });
-        }
+        
       } else {
         Swal.fire({
           icon: "info",

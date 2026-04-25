@@ -704,10 +704,7 @@ export default {
     },
     verfEnter() {
      if (
-  this.user &&
-  (this.user.user?.statuses || []).some(s =>
-    ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
-  )
+  this.user && ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(this.user.user?.statut.statut)
 ) {
   this.$router.push("/");
   Swal.fire({
@@ -717,15 +714,6 @@ export default {
     timer: 1000,
   });
 }
-      // if (this.user && this.user.user?.statut?.statut === "etudiant") {
-      //   this.$router.push("/");
-      //   Swal.fire({
-      //     icon: "info",
-      //     title: "Vous n'êtes pas autorisé",
-      //     showConfirmButton: false,
-      //     timer: 1000,
-      //   });
-      // }
     },
     async selectOffreEntreprise() {
       try {

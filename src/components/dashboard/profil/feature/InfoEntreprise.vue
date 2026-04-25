@@ -53,7 +53,7 @@ export default {
       texte27: "",
       user: this.$store.state.infoUserConnected,
       nom: "",
-
+texte0989:"",
       prenoms: "",
       lienPhoto: lienPhoto,
       password: null,
@@ -165,6 +165,7 @@ export default {
   },
   async created() {
     this.texte0 = await this.handleTranslate("Infos sur l’entreprise");
+     this.texte0989 = await this.handleTranslate(`Infos personnelle`);
     this.texte1 = await this.handleTranslate(`Gérant`);
     this.texte2 = await this.handleTranslate("Modifier mot de passe");
     this.texte3 = await this.handleTranslate("Ancien mot de passe");
@@ -184,7 +185,7 @@ export default {
         background: var(--secondary-color) !important;
       "
     >
-      <h1 class="fw-bold" style="color: orange">{{ texte0 }}</h1>
+      <h1 class="fw-bold" style="color: orange">{{ user.user.statut.statut != 'Entreprise' ? texte0989:texte0 }}</h1>
       <div style="display: flex; align-items: center;">
         <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
           >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span

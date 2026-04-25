@@ -207,9 +207,11 @@ if(newValue == 'non'){
     },
      profilHybride: {
       handler(newValue) {
+           
         if (!newValue.includes(7)) {
           this.formState.statut_professionnel_artisan = ""
         }
+        
       },
       immediate: true,
       deep: true

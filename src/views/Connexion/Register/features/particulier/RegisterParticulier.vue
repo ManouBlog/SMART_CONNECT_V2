@@ -26,43 +26,6 @@ idStatutChoice:Object
 ],
   allStatuts : [
 ],
-      PIECE_KEYWORDS :[
-  "republique de cote d ivoire",
-  "signature du titulaire",
-   "CARTE NATIONALE D IDENTITE",
-   "carte nationale d'identité",
-   "REPUbLIQUE DE COTE D IVOIRE",
-   "DATE ET LIEU DE NAISSANCE",
-    "lieu de naissance",
-    "ivoirienne",
-    "SEXE",
-    "nom du père",
-    "nom de la mère", 
-    "sexe",
-    "Nationalité",
-    "nni",
-    "NNI",
-    "Date d'emission",
-    "Signature de l'autorité",
-     "date d'émission",
-     "date d'emission",
-     "Date d'expiration",
-     "date d'expiration",
-     "date dexpiration",
-     "carte nationale d'identite",
-     "carte nationale d'identité",
-     "carte nationale d'identité",
-     "union",
-     "discipline",
-     "travail",
-     "date de delivrance",
-     "Date d expiratione",
-     "Nom/surname",
-     "passeport",
-     "passport",
-     "code du pays",
-     "CIV",
-],
       texte: "",
       texte2: "",
       texte3: "",
@@ -427,7 +390,7 @@ idStatutChoice:Object
       >
         <input
           type="checkbox"
-          :value="item.statut"
+          :value="item.id"
           v-model="formState.profilHybride"
         />
         <span class="round-label">
