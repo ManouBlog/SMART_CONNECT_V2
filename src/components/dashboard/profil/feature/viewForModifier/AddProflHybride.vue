@@ -148,40 +148,36 @@ descriptionProfil:{
         item.statut?.includes("Particulier")
       );
     },
+    filteredProfilsHybrides() {
+    const userStatut = this.ProfilsUser?.user?.statut.statut;
+
+    const result = (this.allProfilsHybrides || []).filter(
+      item =>
+        item.statut !== userStatut &&
+        !(this.profilhybrideUserConnected || []).some(
+          profil => profil.statut === item.statut
+        )
+    );
+
+    return result.length ? result : [];
+  }
   },
-//  watch: {
-//   optionsAnswer: {
-//       handler(newValue) {
-//         if (newValue === 'non') {
-//           this.profilHybride = [];
-//           return;
-//         }
-//       },
-//       immediate: true
-//     },
-//     selectedStatus: {
-//       handler(newValue) {
-//         console.log("newValue",newValue.statut)
-//         if (newValue.statut === 'Artisan') {
-//           this.optionsAnswer = null
-//           this.profilHybride = [];
-//           return;
-//         }
-//       },
-//       immediate: true
-//     },
-//     showModalChangeProfilOfBase:{
-//        handler(newValue) {
-        
-//         if (!newValue) {
-//          this.loadActiveChangedProfil(false)
-//          this.addIdOfProfilBase(null)
-//           return;
-//         }
-//       },
-//       immediate: true
-//     }
-//   },
+ watch: {
+   choiceProfilHybrideForAdd: {
+      handler(newValue) {
+        const hasArtisan = (newValue || []).some(
+          item => item.statut === "Artisan"
+        );
+
+        if (!hasArtisan) {
+          this.formData.statut_professionnel_artisan = '';
+          this.formData.niveauEtude = ""
+        }
+      },
+      deep: true,
+      immediate: true
+    }
+  },
   methods: {
     ...mapActions(useAbonnementsStore, ['handleChangeInfoForAbonnement','handleHybrideAddProfil']),
     handleFileChange(info) {
@@ -268,13 +264,12 @@ console.log('user',user)
        <!-- {{ profilhybrideUserConnected }}
          {{ allProfilsHybrides }} -->
           <div v-if="ProfilsUser.user?.statut?.statut !== 'Entreprise'">
- <div class="round-container" v-if=' allProfilsHybrides.filter(item =>
-    !profilhybrideUserConnected.some(profil => profil.statut === item.statut)
-  ).length'>
+ <div class="round-container" v-if='filteredProfilsHybrides.length'>
+   <p>allProfilsHybrides:{{ allProfilsHybrides }}</p>
+   <p>profilhybrideUserConnected:{{ profilhybrideUserConnected }}</p>
+   <p>choiceProfilHybrideForAdd:{{ choiceProfilHybrideForAdd }}</p>
       <label
-  v-for="item in allProfilsHybrides.filter(item =>
-    !profilhybrideUserConnected.some(profil => profil.statut === item.statut)
-  )"
+  v-for="item in filteredProfilsHybrides"
   :key="item.id"
   class="round-item"
 >
@@ -289,12 +284,14 @@ console.log('user',user)
   </span>
 </label>
     </div>
+    
     <div v-else style="text-align: center;">Pas de profils trouvés</div>
           </div>
           <div v-if="ProfilsUser.user?.statut?.statut === 'Entreprise'">
  <div class="round-container" v-if=' allProfilsHybrides.filter(item =>
     !profilhybrideUserConnected.some(profil => profil.statut === item.statut)
   ).length'>
+ 
       <label
   v-for="item in allProfilsHybrides.filter(item =>
     !profilhybrideUserConnected.some(profil => profil.statut === item.statut) && item.statut == 'Artisan'
