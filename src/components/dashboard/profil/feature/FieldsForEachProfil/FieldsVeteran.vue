@@ -324,6 +324,7 @@ StatutVeterans:[
       <div style="background-color: white;">
 <Abonnements 
        :ProfilAbonnement="this.profilOfAbonnement.statut"
+       :statut_talent_choice="this.formState.statut_talent"
        />
       </div>
       

@@ -13,6 +13,11 @@ const props = defineProps({
     required: false,
     default: null
   },
+  statut_talent_choice:{
+    type:String,
+    required:false,
+    default:null
+  }
 })
 
 const text0 = ref("")
@@ -59,12 +64,11 @@ const handleAbonement = async () => {
             if (resp.data.status === true) {
               console.log("MYphoto_profil",resp.data.user)
             window.localStorage.setItem("user", JSON.stringify(resp.data.user));
+            router.push('/')
             }
           })
           .catch((error) => {
             console.log(error);
-          }).finally(()=>{
-            router.push('/')
           })
       }
     }
@@ -233,7 +237,7 @@ onMounted(async () => {
   <!-- Vétéran -->
   <n-tab-pane
     v-if="
-      profileAbonnement === 'Vétéran' ||  profileAbonnement === 'Vétéran'
+      profileAbonnement === 'Vétéran'
     "
     :name="'Vétéran'"
     :tab="'Vétéran'"
@@ -241,6 +245,7 @@ onMounted(async () => {
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Vétéran"
+      :statut_talent_choice="statut_talent_choice"
       :tabsSubAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
         .map(item => ({

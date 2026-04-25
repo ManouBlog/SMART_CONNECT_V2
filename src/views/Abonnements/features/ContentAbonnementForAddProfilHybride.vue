@@ -194,7 +194,7 @@ onMounted(async () => {
   ];
   console.log("INFO_SUR_USER",store.state.user)
   const statutBase = store.state.user?.user?.statut?.statut;
-  const AllProfilHybride = store.state.user?.user.statuses.filter(item=>item.statut !== statutBase)
+  const AllProfilHybride = store.state.user?.user?.statuses?.filter(item=>item.statut !== statutBase)
   console.log("AllProfilHybride",AllProfilHybride)
    const payload = {profilHybride:AllProfilHybride}
   storeAbonnement.handleChangeInfoForAbonnement(payload)

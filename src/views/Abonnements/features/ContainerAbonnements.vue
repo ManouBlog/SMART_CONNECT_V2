@@ -14,6 +14,11 @@ import SubAbonnementsVeteran from "./subAbonnements/SubAbonnementsVeteran.vue";
 const props = defineProps({
   abonnements: Array,
   type_abonnements: String,
+  statut_talent_choice:{
+  type:String,
+  required:false,
+  default:null
+  },
   subAbonnement:{
    type: Array,
     default: () => []
@@ -61,6 +66,39 @@ const isUserConnected = computed(() => {
   return userConnected.value;
 });
 
+const filteredTabsSubAbonnement = computed(() => {
+  if (props.statut_talent_choice) {
+    return props.tabsSubAbonnement.filter(
+    item => item.id === props.statut_talent_choice
+  );
+  }
+
+return props.tabsSubAbonnement.some(item =>
+      item.id.includes("Vétéran")
+    );
+  
+});
+
+const tabsToDisplay = computed(() => {
+  return props.statut_talent_choice
+    ? Array.from(
+        new Map(
+          (filteredTabsSubAbonnement.value || []).map(item => [
+            item.id,
+            item
+          ])
+        ).values()
+      )
+    : Array.from(
+        new Map(
+          (props.tabsSubAbonnement || []).map(item => [
+            item.id,
+            item
+          ])
+        ).values()
+      );
+});
+
 // Watch déclenche le chargement des abonnements
 watch(
   isUserConnected,
@@ -89,7 +127,18 @@ watch(
   },
   { immediate: true }
 )
-
+watch(
+  filteredTabsSubAbonnement,
+  (newTabs) => {
+    if (
+      Array.isArray(newTabs) &&
+      newTabs.length > 0
+    ) {
+      select_mode_payment_tab.value = newTabs[0].id;
+    }
+  },
+  { immediate: true }
+);
 onMounted(async () => {
   console.log("props.tabsSubAbonnement", props.tabsSubAbonnement)
   console.log("localTabs.value", localTabs.value)
@@ -121,20 +170,20 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 </script>
 
 <template>
-  <!-- <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p> -->
+  <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
+  <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
+  <p>statut_talent_choice:{{ statut_talent_choice }}</p>
   <div v-if="tabsSubAbonnement.length">
    <div style="display: flex;justify-content: center;">
      <n-tabs
-     v-if="tabsSubAbonnement.some(item=>item.id.includes('Vétéran'))"
+     v-if="filteredTabsSubAbonnement"
   v-model:value="select_mode_payment_tab"
   type="segment"
   @update:value="handleSelect_mode_Payement"
   style="margin:1em 0;max-width: 400px;"
   >
   <n-tab-pane
-    v-for="tab in Array.from(new Map(
-  tabsSubAbonnement.map(item => [item.id, item])
-).values())"
+    v-for="tab in tabsToDisplay"
     :key="tab.id"
     :name="tab.id"
     :tab="tab.label"

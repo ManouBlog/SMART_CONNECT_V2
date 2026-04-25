@@ -5,7 +5,7 @@ import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
-import contentAbonnement from '../contentAbonnement.vue'
+import ContainerAbonnementVeterans from '../ContainerAbonnementVeterans.vue'
 defineProps({
   abonnements: Array,
   type_abonnements: String,
@@ -84,7 +84,10 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 </script>
 
 <template>
- 
+ {{ abonnements.filter(
+        (item) => item.categorie.categorie === type_abonnements
+      ) }}
+ {{ type_abonnements }}
   <div class="conteneur-flex">
     <div
       v-for="item in abonnements.filter(
@@ -104,7 +107,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       
       
     <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
-      <contentAbonnement 
+      <ContainerAbonnementVeterans 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
       />
