@@ -341,7 +341,7 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
-     <p class="shadow-sm p-2 small" 
+     <p class="shadow-sm small" 
      style="font-weight: bold;
      text-align:center;
      background-color: rgb(255 255 255 / 40%);
