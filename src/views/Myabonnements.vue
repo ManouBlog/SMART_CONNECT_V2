@@ -1,5 +1,100 @@
 <template>
   <div class="page-body position-relative">
+   <n-modal
+  v-model:show="showModalDetailAbonnement"
+  :closable="false"
+  preset="card"
+  style="width: 80%; max-width: 900px;"
+>
+  <template #header>
+    <div style="padding:12px 16px;border-radius:6px;">
+      <h3 style="margin:0;">Détails de l'abonnement</h3>
+    </div>
+  </template>
+
+  <div style="max-height:70vh; overflow-y:auto; padding:10px;">
+
+    <div class="card">
+
+      <div class="card-body" v-if="detailsAbonnement">
+        <div class="row mb-3">
+          <div class="col-md-4 mb-3">
+            <strong>Formule de l’abonnement :</strong>
+            <div>{{ detailsAbonnement?.abonement?.libelle }}</div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <strong>Statut de l'abonnement :</strong>
+            <div>
+              <span
+         class="badge"
+         :style="{
+          background: detailsAbonnement?.statut === 'success' ? '#28a745' : '#dc3545',
+           color: 'white'
+             }"
+            >{{ detailsAbonnement?.statut }} 
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col-md-4 mb-3">
+  <strong>Montant payé :</strong>
+  <div>{{ detailsAbonnement?.montant }} Fcfa</div>
+
+  <small v-if="detailsAbonnement?.add_profil_hybrides?.length">
+    Montant initial : 
+    <strong>{{ detailsAbonnement.mode_payment == 'year' ? detailsAbonnement.abonement.prix:detailsAbonnement.abonement.price_month  }}</strong>
+    Fcfa
+  </small>
+
+  <div v-if="detailsAbonnement?.add_profil_hybrides?.length" class="mt-2">
+    <small>Profils hybrides inclus :</small>
+    <div>
+      <span
+        v-for="(item, index) in detailsAbonnement.add_profil_hybrides"
+        :key="index"
+        class="badge bg-warning me-1"
+      >
+        {{ item.profil_hybride_add?.statut  }}
+      </span>
+    </div>
+  </div>
+</div>
+
+          <div class="col-md-4 mb-3">
+            <strong>Moyen de paiement :</strong>
+            <div>{{detailsAbonnement?.moyen_paiement}}</div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col-md-4 mb-3">
+            <strong>Date de paiement :</strong>
+            <div>{{ configUtils.getFormatDateFr(detailsAbonnement?.created_at) }}</div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <strong>Fin de l'abonnement :</strong>
+            <div>{{ detailsAbonnement?.echeance }}</div>
+          </div>
+        </div>
+         <div class="row mb-3">
+         <div class="col-md-4 mb-3">
+            <strong>Référence de la transaction :</strong>
+            <div>{{ detailsAbonnement?.transaction_id }}</div>
+          </div>
+         </div>
+         
+      </div>
+    </div>
+
+  </div>
+
+</n-modal>
     <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
 
     <div class="tab-content" id="top-tabContent">
@@ -60,7 +155,7 @@
             <span>{{ configUtils.getFormatDateFr(slotProps.data.created_at) }}</span>
           </template>
         </Column>
-        <Column
+        <!-- <Column
           style="font-size: 1.3em; padding: 1em; text-align: center"
           field="created_at"
           :header="'Moyen de paiement'"
@@ -68,18 +163,18 @@
           <template #body="slotProps">
             <span>{{ slotProps.data.moyen_paiement }}</span>
           </template>
-        </Column>
+        </Column> -->
 
         <Column
           style="font-size: 1.3em; padding: 1em; text-align: center"
           field="abonement.libelle"
           :header="texte4"
         />
-        <Column
+        <!-- <Column
           style="font-size: 1.3em; padding: 1em; text-align: center"
           field="montant"
           :header="texte5"
-        />
+        /> -->
         <Column
           style="font-size: 1.3em; padding: 1em; text-align: center"
           field="echeance"
@@ -97,6 +192,15 @@
             >
               {{ STATUTABONNEMENT[slotProps.data.statut] }}
             </span>
+          </template>
+        </Column>
+         <Column
+          style="font-size: 1.3em; padding: 1em; text-align: center"
+          field="statut"
+          :header="'Détail'"
+        >
+          <template #body="slotProps">
+            <i class="bi bi-eye" @click="handleDetailAbonnement(slotProps.data)"></i> 
           </template>
         </Column>
       </DataTable>
@@ -144,6 +248,7 @@ import Column from "primevue/column";
 import { FilterMatchMode } from "primevue/api";
 import { mapActions, mapState } from "pinia";
 import { configUtils } from "../Shared/Utils";
+import { Help } from "../utils";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
@@ -168,9 +273,12 @@ export default {
       texte6: "",
       texte7: "",
       texte9: "",
+      Help:Help,
       texte10: "",
       configUtils,
       STATUTABONNEMENT,
+      showModalDetailAbonnement:false,
+      detailsAbonnement:null,
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
       },
@@ -201,6 +309,11 @@ if (!user.competences.length || !user.qualifications.length) {
     this.$router.push('/dashboard/emploi_du_temps');
    }
   }
+},
+handleDetailAbonnement(payload){
+  this.detailsAbonnement = payload;
+  console.log("handleDetailAbonnement",payload)
+  this.showModalDetailAbonnement=true
 }
   },
   async created() {

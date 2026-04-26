@@ -111,9 +111,8 @@ export const useEntreprisesStore = defineStore('entreprise', {
            const response = await instance.get("abonnement_user")
            console.log("abonnement_user_response23",response)
            if(response["status"] === 200){
-            this.list_abonnement = response.data.data.filter(item=>item.statut === 'success' || item.statut === 'expired')
+            this.list_abonnement = response.data.data
            this.handlePlanAbonnement(this.list_abonnement)
-            // console.log("this.list_abonnement",this.list_abonnement.filter(item=>item.statut === 'success'))
            }
            
            }catch(error){
