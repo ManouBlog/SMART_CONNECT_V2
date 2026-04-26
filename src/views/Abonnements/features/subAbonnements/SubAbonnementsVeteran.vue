@@ -6,7 +6,7 @@ import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
-import ContainerAbonnementVeterans from '../ContainerAbonnementVeterans.vue'
+// import ContainerAbonnementVeterans from '../ContainerAbonnementVeterans.vue'
 const props = defineProps({
   abonnements: Array,
   type_abonnements: String,
@@ -66,6 +66,70 @@ const filteredAbonnementsByTalent = computed(() => {
   return props.abonnements.filter((item) => item.categorie.categorie === props.type_abonnements)
 });
 
+const messageAbonnement = computed(() => {
+  const type = props.type_abonnements;
+  const libelle = props.item?.libelle?.trim().toUpperCase();
+  console.log('MESSAGE_ABONNEMENT',type)
+  console.log('libelle_abonnement_message',libelle)
+
+  if (type === "Etudiant") {
+    const mapMessages = {
+      "BROBROLI PRO": "Commence maintenant",
+      "BROBROLI PRO MAX": "Je passe à BROBROLI PRO MAX",
+    };
+    return mapMessages[libelle] || "Je passe à Brobroli";
+  }
+
+  if (type === "Professionnel") {
+    const mapMessages = {
+      "BROBROLI PRO": "Créer mon profil BROBROLI PRO",
+      "BROBROLI PRO MAX": "Accéder à BROBROLI PRO MAX",
+    };
+    return mapMessages[libelle] || "Je passe à Brobroli";
+  }
+
+   if (type.includes("Vétéran")) {
+    const mapMessages = {
+      "BROBROLI PRO": "Créer mon profil BROBROLI PRO",
+      "BROBROLI PRO MAX": "Accéder à BROBROLI PRO MAX",
+    };
+    return mapMessages[libelle] || "Je passsdde à Brobroli";
+  }
+
+  return "Choisirsezd cette formule";
+});
+
+const ecriteauFormule = (item) => {
+  const categorie = item?.categorie?.categorie?.toLowerCase();
+  const libelle = item?.libelle?.toUpperCase();
+
+  const rules = {
+    vétéran:{
+      "BROBROLI PRO MAX":
+        "Pour que les organisations qui cherchent une expertise rare vous trouvent directement.",
+
+      "BROBROLI PRO":
+        "Pour que les bonnes organisations trouvent votre expertise. Chaque engagement payé avant exécution.",
+    },
+    'vétéran hors grade':{
+      "BROBROLI PRO MAX":
+        "Pour que les organisations qui cherchent une expertise rare vous trouvent directement.",
+
+      "BROBROLI PRO":
+        "Pour que les bonnes organisations trouvent votre expertise. Chaque engagement payé avant exécution.",
+    },
+  'vétéran senior':{
+      "BROBROLI PRO MAX":
+        "Pour que les organisations qui cherchent une expertise rare vous trouvent directement.",
+
+      "BROBROLI PRO":
+        "Pour que les bonnes organisations trouvent votre expertise. Chaque engagement payé avant exécution.",
+    },
+  };
+
+  return rules?.[categorie]?.[libelle] || "Choisire cette formule";
+};
+
 // Watch déclenche le chargement des abonnements
 watch(
   isUserConnected,
@@ -81,7 +145,7 @@ watch(
 onMounted(async () => {
   elmentsOfBtn.value = [
     {
-      name_btn: await transalteStore.handleTranslate("Choisirsez cette formule"),
+      name_btn: await transalteStore.handleTranslate(messageAbonnement.value),
       color_btn: "primary",
     },
   ];
@@ -115,15 +179,18 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
+      <p class="shadow-sm p-0 small" style="font-weight: bold;">
+      {{ ecriteauFormule(item) }}
+     </p>
       
       
-    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
+    <!-- <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
       <ContainerAbonnementVeterans 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
       />
-    </div>
-    <section v-else>
+    </div> -->
+    <section>
       <p style="text-align:center;position: absolute;top: 10px;right: 10px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
@@ -158,8 +225,6 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       </div>
 
       <div class="conteneur-btn">
-       
-
         <Buttons
           :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id"
           :elmentsOfBtn="elmentsOfBtn"
