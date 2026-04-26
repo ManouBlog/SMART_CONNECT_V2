@@ -144,7 +144,7 @@ onMounted(async () => {
   ];
   if(storeAbonnement.addProfilHybride.length){
     const profilUserCurrent = store.state.user?.user?.abonement?.find(item=>item.statut === 'success')
-    formuleAbonnementOfUserConnected.value = profilUserCurrent.abonement.libelle;
+    formuleAbonnementOfUserConnected.value = profilUserCurrent?.abonement?.libelle || null;
 
     console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
     console.log("profilUserCurrent",profilUserCurrent)
@@ -155,6 +155,11 @@ onMounted(async () => {
 });
 </script>
 <template>
+  <!-- <p>tabs:{{ tabs }}</p> -->
+  <!-- <p>currentConfig:{{ currentConfig }}</p>
+  <p>select_mode_payment_tab:{{ select_mode_payment_tab }}</p>
+  <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
+<p>formuleAbonnementOfUserConnected:{{ formuleAbonnementOfUserConnected }}</p> -->
   <!-- {{ item }}
   {{ formuleAbonnementOfUserConnected }} -->
   <div v-if="!storeAbonnement.addProfilHybride.length">
@@ -221,6 +226,69 @@ onMounted(async () => {
 </section>
 </div>
   <div v-if="storeAbonnement.addProfilHybride.length && formuleAbonnementOfUserConnected == item.libelle">
+   <n-tabs
+  v-model:value="select_mode_payment_tab"
+  type="segment"
+  @update:value="handleSelect_mode_Payement"
+  style="margin:1em 0;"
+>
+  <n-tab-pane
+    v-for="tab in tabs"
+    :key="tab.id"
+    :name="tab.id"
+    :tab="tab.label"
+  />
+</n-tabs>
+
+<section>
+  <p style="text-align:center;position: absolute;right: 0;top: 100px;">
+     <span
+          v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
+          class="badge bg-warning"
+        >
+          Formule
+        </span>
+  </p>
+ 
+  <div class="d-flex gap-5 align-items-center justify-content-center main-color">
+      <div style="display: flex;flex-direction: column;">
+   <h1 
+    :style="{
+    fontSize: '2em',
+    fontWeight: 'bold',
+    padding: '0',
+    margin: '0',
+    textDecoration: currentConfig.priceWithProfilHybride != currentConfig.price ? 'line-through' : 'none'
+  }">
+      {{ Help.convertInMoney(currentConfig.price) }} F
+    </h1>
+    <h1 
+     v-if="currentConfig.priceWithProfilHybride != currentConfig.price"
+    style="font-size: 2em; font-weight: bold;padding: 0;margin: 0;">
+      {{ Help.convertInMoney(currentConfig.priceWithProfilHybride) }} F
+    </h1>
+  </div>
+    <h3 class="mx-2" style="font-size: 1.3em; color: orange">/</h3>
+    <h3 style="font-size: 2em; color: orange">
+      {{ currentConfig.suffix }}
+    </h3>
+  </div>
+  <div style="height: 310px; position: relative; padding: 1em">
+    <div class="px-5" v-html="currentConfig.description"></div>
+  </div>
+
+  <div class="conteneur-btn">
+    <Buttons
+      :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
+      :elmentsOfBtn="elmentsOfBtn"
+      shapeBtn="round"
+      @created="currentConfig.action"
+    />
+  </div>
+</section>
+  </div>
+
+  <div v-if="storeAbonnement.addProfilHybride.length && !formuleAbonnementOfUserConnected">
    <n-tabs
   v-model:value="select_mode_payment_tab"
   type="segment"

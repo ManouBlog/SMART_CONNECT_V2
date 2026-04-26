@@ -1,7 +1,8 @@
 <script setup>
 import { defineProps, ref, onMounted, watch, computed } from "vue";
-import { Help } from "../../../../utils";
-import Buttons from "../../../../Shared/Compoments/Buttons.vue";
+// import { Help } from "../../../../utils";
+// import Buttons from "../../../../Shared/Compoments/Buttons.vue";
+import {useStore} from "vuex"
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
@@ -15,29 +16,30 @@ defineProps({
 const transalteStore = useTranslateStore();
 const storeAbonnement = useAbonnementsStore();
 const storeAbonnementUser = useEntreprisesStore();
-const userConnected = ref(localStorage.getItem('user'))
+// const userConnected = ref(localStorage.getItem('user'))
+const store = useStore();
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
 const profilHybrideRecuperer = ref(0)
 
 
 
-const handleCreateEntreprise=(payload)=>{
-     console.log("payload sub abonnement artisan",payload)
-  const randomPart = Math.random().toString(36).substring(2);
+// const handleCreateEntreprise=(payload)=>{
+//      console.log("payload sub abonnement artisan",payload)
+//   const randomPart = Math.random().toString(36).substring(2);
      
-        const data = {
-            abonement_id:payload.id,
-            channels:"undefined",
-            transaction_id:randomPart
-        }
-        console.log("subabonnementARtisan23",data)
-  // storeAbonnement.createAbonement(data)
-}
+//         const data = {
+//             abonement_id:payload.id,
+//             channels:"undefined",
+//             transaction_id:randomPart
+//         }
+//         console.log("subabonnementARtisan23",data)
+//   // storeAbonnement.createAbonement(data)
+// }
 
 // Détecte si le user est connecté et possède un statut
 const isUserConnected = computed(() => {
-  return userConnected.value;
+  return store.state?.user;
 });
 
 // Watch déclenche le chargement des abonnements
@@ -70,6 +72,8 @@ onMounted(async () => {
 </script>
 
 <template>
+  <!-- <p>abonnements:{{ abonnements }}</p>
+  <p>type_abonnements:{{ type_abonnements }}</p> -->
  
   <div class="conteneur-flex">
     <div
@@ -95,7 +99,7 @@ onMounted(async () => {
       :elmentsOfBtn="elmentsOfBtn"
       />
     </div>
-    <section v-else>
+    <!-- <section v-else>
       <p style="text-align:center;position: absolute;top: 10px;right: 10px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
@@ -105,23 +109,7 @@ onMounted(async () => {
         </span>
   </p>
        <div class="d-flex align-items-center gap-5 justify-content-center main-color">
-        <!-- <div style="display: flex;flex-direction: column;">
-   <h1 
-    :style="{
-    fontSize: '2em',
-    fontWeight: 'bold',
-    padding: '0',
-    margin: '0',
-    textDecoration: Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer) != item.prix ? 'line-through' : 'none'
-  }">
-      {{ Help.convertInMoney(item.prix) }} F
-    </h1>
-    <h1 
-     v-if="Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer) != item.prix"
-    style="font-size: 2em; font-weight: bold;padding: 0;margin: 0;">
-      {{ Help.convertInMoney(Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer)) }} F
-    </h1>
-  </div> -->
+       
           <h1 style="font-size: 2em; font-weight: bold">
             {{ Help.convertInMoney(item.prix) }} F
           </h1>
@@ -142,7 +130,7 @@ onMounted(async () => {
           @created="handleCreateEntreprise(item)"
         />
       </div>
-    </section>
+    </section> -->
     </div>
   </div>
 </template>

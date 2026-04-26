@@ -95,7 +95,7 @@ const filteredTabsSubAbonnement = computed(() => {
     item => item.id.includes(props.statut_talent_choice_artisan)
   );
   }
-  if(props.type_abonnements === 'Artisan'){
+  if(props.type_abonnements.includes('Artisan')){
     return props.tabsSubAbonnement.some(item =>
       item.id.includes("Artisan")
     );
@@ -205,7 +205,8 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 <template>
    <!-- <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
-  <p>statut_talent_choice_entreprise:{{ statut_talent_choice_artisan }}</p> -->
+  <p>statut_talent_choice_entreprise:{{ statut_talent_choice_artisan }}</p>
+  <p>statut_talent_choice_artisan:{{ statut_talent_choice_artisan }}</p> -->
   <div v-if="tabsSubAbonnement.length">
    <div style="display: flex;justify-content: center;">
      <n-tabs

@@ -215,6 +215,7 @@ onMounted(async () => {
       :abonnements="abonnements"
       type_abonnements="Artisan"
       :tabsSubAbonnement="abonnementsArtisan"
+      :statut_talent_choice_artisan="store.state.user?.statut_talent"
       :subAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))
       "
@@ -353,7 +354,8 @@ onMounted(async () => {
     :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
     :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
   >
-  
+<!-- <p>abonnementsArtisan:{{ abonnementsArtisan }}</p> 
+<p>store.state.user?.statut_talent:{{ store.state.user?.statut_talent }}</p> -->
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Artisan"

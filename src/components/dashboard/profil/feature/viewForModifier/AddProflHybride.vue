@@ -244,7 +244,7 @@ console.log('user',user)
         </div>
       </template>
       <div style="background-color: white;">
-        <!-- {{ this.ProfilsUser.user?.statut?.statut }} -->
+        <!-- <p>profilUser :{{ this.ProfilsUser.user?.statut?.statut }}</p> -->
        <Abonnements 
        :ProfilAbonnement="this.ProfilsUser.user?.statut?.statut"
        />
