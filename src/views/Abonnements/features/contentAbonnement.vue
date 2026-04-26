@@ -65,6 +65,14 @@ const messageAbonnement = computed(() => {
     return mapMessages[libelle] || "Je passe à Brobroli";
   }
 
+  if (type === "Particulier") {
+    const mapMessages = {
+      "BROBROLI PRO": "Créer mon compte BROBROLI PRO",
+      "BROBROLI PRO MAX": "Passer à BROBROLI PRO MAX",
+    };
+    return mapMessages[libelle] || "Je passe à Brobroli";
+  }
+
   return "Choisir cette formule";
 });
 

@@ -163,10 +163,18 @@ const ecriteauFormule = (item) => {
 
       "BROBROLI PRO":
         "Pour que les bonnes organisations trouvent votre expertise. Chaque engagement payé avant exécution.",
+    },
+    particulier:{
+      "BROBROLI PRO MAX":
+        "Publication illimitée. Vos annonces en tête. Les meilleurs profils vous trouvent en premier..",
+
+      "BROBROLI PRO":
+        `Accédez aux profils vérifiés. Publiez vos besoins. Payez facilement.
+        `,
     }
   };
 
-  return rules?.[categorie]?.[libelle] || "Choisire cette formule";
+  return rules?.[categorie]?.[libelle] || "Choisir cette formule";
 };
 
 // Watch déclenche le chargement des abonnements

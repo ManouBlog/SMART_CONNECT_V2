@@ -99,7 +99,7 @@ const getMessageAbonnement = (type, item) => {
     return map[libelle] || "Je passe à Brobroli";
   }
 
-  return "Choisir cette formule";
+  return "Choisirsdzsd cette formule";
 };
 
 const ecriteauFormule = (item) => {
@@ -130,7 +130,7 @@ const ecriteauFormule = (item) => {
     },
   };
 
-  return rules?.[categorie]?.[libelle] || "Choisire cette formule";
+  return rules?.[categorie]?.[libelle] || "Choisiretrois cette formule";
 };
 
 // Watch déclenche le chargement des abonnements
