@@ -216,7 +216,7 @@ onMounted(async () => {
 
   elmentsOfBtn.value = [
     {
-      name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
+      name_btn: await transalteStore.handleTranslate("Choisires cette formule"),
       color_btn: "primary",
     },
   ]

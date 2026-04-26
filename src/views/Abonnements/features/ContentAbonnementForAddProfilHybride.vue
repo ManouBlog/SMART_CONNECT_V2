@@ -392,7 +392,7 @@ onMounted(async () => {
     <Buttons
       :elmentsOfBtn='[
     {
-      name_btn: "Choisir cette formule",
+      name_btn: "Choisirxc cette formule",
       color_btn: "primary",
     },
   ]'

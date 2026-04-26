@@ -63,10 +63,10 @@ const tabs = [
       "BROBROLI PRO MAX": "Deviens PLUS dans ta zone",
     };
 
-    return mapMessages[libelle] || "Choisir cette formule";
+    return mapMessages[libelle] || "Choisirzs cette formule";
   }
 
-  return "Choisir cette formule";
+  return "Choisirdf cette formule";
 });
 
 // console.log("PROPSITEM",props.item)
