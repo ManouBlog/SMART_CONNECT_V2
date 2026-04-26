@@ -203,11 +203,11 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 </script>
 
 <template>
-  <!-- <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
+  <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
   <p>statut_talent_choice_entreprise:{{ statut_talent_choice_artisan }}</p>
-  <p>statut_talent_choice_artisan:{{ statut_talent_choice_artisan }}</p> -->
+  <p>statut_talent_choice_artisan:{{ statut_talent_choice_artisan }}</p>
   <div v-if="tabsSubAbonnement.length">
    <div style="display: flex;justify-content: center;">
      <n-tabs
@@ -287,9 +287,9 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       )"
       :key="item.id"
       :class="
-        item?.categorie?.categorie == 'Etudiant'
-          ? 'abonnement-classique_etudiant'
-          : 'abonnement-classique_entreprise'
+        item?.libelle == 'BROBROLI PRO'
+          ? 'color_brobroli_pro'
+          : 'color_brobroli_pro_max'
       "
     >
    
@@ -302,6 +302,7 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       <contentAbonnement 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
+      :type_abonnements="type_abonnements"
       />
     </div>
     <section v-else>
@@ -331,8 +332,8 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       {{ Help.convertInMoney(Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer)) }} F
     </h1>
   </div>
-          <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
-          <h3 style="font-size: 2em; color: orange">an</h3>
+          <h3 class="mx-2" style="font-size: 1em; color:white">/</h3>
+          <h3 style="font-size: 2em; color:white">an</h3>
         </div>
        <div style="height: 310px; position: relative; padding: 1em">
         <div class="px-5" v-html="item.description"></div>
@@ -359,9 +360,9 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       )"
       :key="item.id"
       :class="
-        item?.categorie?.categorie == 'Etudiant'
-          ? 'abonnement-classique_etudiant'
-          : 'abonnement-classique_entreprise'
+        item?.libelle == 'BROBROLI PRO'
+          ? 'color_brobroli_pro'
+          : 'color_brobroli_pro_max'
       "
     >
    
@@ -403,8 +404,8 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       {{ Help.convertInMoney(Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer)) }} F
     </h1>
   </div>
-          <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
-          <h3 style="font-size: 2em; color: orange">an</h3>
+          <h3 class="mx-2" style="font-size: 1em; color:white">/</h3>
+          <h3 style="font-size: 2em; color:white">an</h3>
         </div>
        <div style="height: 310px; position: relative; padding: 1em">
         <div class="px-5" v-html="item.description"></div>
@@ -428,9 +429,9 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       )"
       :key="item.id"
       :class="
-        item?.categorie?.categorie == 'Etudiant'
-          ? 'abonnement-classique_etudiant'
-          : 'abonnement-classique_entreprise'
+        item?.libelle == 'BROBROLI PRO'
+          ? 'color_brobroli_pro'
+          : 'color_brobroli_pro_max'
       "
     >
    
@@ -472,8 +473,8 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       {{ Help.convertInMoney(Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer)) }} F
     </h1>
   </div>
-          <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
-          <h3 style="font-size: 2em; color: orange">an</h3>
+          <h3 class="mx-2" style="font-size: 1em; color:white">/</h3>
+          <h3 style="font-size: 2em; color:white">an</h3>
         </div>
        <div style="height: 310px; position: relative; padding: 1em">
         <div class="px-5" v-html="item.description"></div>
@@ -497,9 +498,7 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 </template>
 
 <style scoped>
-:deep(.n-tabs .n-tabs-rail .n-tabs-tab-wrapper .n-tabs-tab.n-tabs-tab--active){
-  background-color:#25535f !important;
-}
+
 .btn-confirm {
   background-color: orange;
   cursor: pointer;
@@ -557,7 +556,7 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
   background-color: rgba(0, 0, 0, 0.299);
 }
 .main-color {
-  color: orange;
+  color: rgb(254, 254, 254);
 }
 .conteneur-btn {
   height: 120px;

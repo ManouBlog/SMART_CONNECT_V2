@@ -40,7 +40,6 @@
     height: 990px;
     margin-bottom: 2em;
     text-align: left;
-    background-color: var(--secondary-color) !important;
     color: var(--third-color) !important;
     border-radius: 10px;
     box-shadow: 3px 3px 6px 6px rgba(0, 0, 0, 0.126);
@@ -53,13 +52,39 @@
     height: 880px;
     margin-bottom: 2em;
     text-align: left;
-    background-color: var(--secondary-color) !important;
+    
     color: var(--third-color) !important;
     border-radius: 10px;
     box-shadow: 3px 3px 6px 6px rgba(0, 0, 0, 0.126);
     transition: all 1s ease-in-out;
     position: relative;
     padding: 1em;
+  }
+  .color_brobroli_pro{
+     width: 300px;
+    height: 990px;
+    margin-bottom: 2em;
+    text-align: left;
+    color: var(--third-color) !important;
+    border-radius: 10px;
+    box-shadow: 3px 3px 6px 6px rgba(0, 0, 0, 0.126);
+    transition: all 1s ease-in-out;
+    position: relative;
+    padding: 1em;
+   background-color: #07071a;
+  }
+  .color_brobroli_pro_max{
+     width: 300px;
+    height: 990px;
+    margin-bottom: 2em;
+    text-align: left;
+    color: var(--third-color) !important;
+    border-radius: 10px;
+    box-shadow: 3px 3px 6px 6px rgba(0, 0, 0, 0.126);
+    transition: all 1s ease-in-out;
+    position: relative;
+    padding: 1em;
+    background-color: orange;
   }
   .hidden {
     display: none;

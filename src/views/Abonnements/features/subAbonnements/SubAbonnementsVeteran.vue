@@ -106,9 +106,9 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       v-for="item in filteredAbonnementsByTalent"
       :key="item.id"
       :class="
-        item?.categorie?.categorie == 'Etudiant'
-          ? 'abonnement-classique_etudiant'
-          : 'abonnement-classique_entreprise'
+        item?.libelle == 'BROBROLI PRO'
+          ? 'color_brobroli_pro'
+          : 'color_brobroli_pro_max'
       "
     >
    
@@ -150,8 +150,8 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       {{ Help.convertInMoney(Help.calculateAbonnementPrice(item.prix,profilHybrideRecuperer)) }} F
     </h1>
   </div>
-          <h3 class="mx-2" style="font-size: 1em; color: orange">/</h3>
-          <h3 style="font-size: 2em; color: orange">an</h3>
+          <h3 class="mx-2" style="font-size: 1em; color:white">/</h3>
+          <h3 style="font-size: 2em; color:white">an</h3>
         </div>
        <div style="height: 310px; position: relative; padding: 1em">
         <div class="px-5" v-html="item.description"></div>
@@ -173,9 +173,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 </template>
 
 <style scoped>
-:deep(.n-tabs .n-tabs-rail .n-tabs-tab-wrapper .n-tabs-tab.n-tabs-tab--active){
-  background-color:#25535f !important;
-}
+
 .btn-confirm {
   background-color: orange;
   cursor: pointer;
@@ -233,7 +231,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
   background-color: rgba(0, 0, 0, 0.299);
 }
 .main-color {
-  color: orange;
+  color: rgb(254, 254, 254);
 }
 .conteneur-btn {
   height: 120px;

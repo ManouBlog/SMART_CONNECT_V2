@@ -20,7 +20,11 @@ const select_mode_payment_tab = ref('year')
 
 const props = defineProps({
   item: Object,
-  elmentsOfBtn: Array
+  elmentsOfBtn: Array,
+  type_abonnements:{
+    type:String,
+    required:false
+  }
 })
 
 const tabs = [
@@ -40,6 +44,12 @@ const tabs = [
       },
       { immediate: true, deep: true }
     )
+
+const messageAbonnement = computed(() => {
+  return props.type_abonnements === "Etudiant"
+    ? "Je passe à Brobroli"
+    : "Choisir cette formule";
+});
 
 // console.log("PROPSITEM",props.item)
 
@@ -127,7 +137,7 @@ const handleCreateYear =(payload)=>{
         profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
         }
   console.log("paiement_contentAbonnement_year",data)
-  // storeAbonnement.createAbonement(data)
+  storeAbonnement.createAbonement(data)
 }
 
 
@@ -136,12 +146,13 @@ function handleSelect_mode_Payement(val) {
   select_mode_payment_tab.value = val
 }
 onMounted(async () => {
-   elmentsOfBtn.value = [
-    {
-      name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
-      color_btn: "primary",
-    },
-  ];
+  console.log("type_abonnements_lancer",props.type_abonnements)
+  elmentsOfBtn.value = [
+  {
+    name_btn: await transalteStore.handleTranslate(messageAbonnement.value),
+    color_btn: "primary",
+  },
+];
   console.log("INFO_SUR_USER",store.state.user)
   // if(storeAbonnement.isChangeProfil){
   //  const statutBase = store.state.user?.user?.statut?.statut;
@@ -210,8 +221,8 @@ onMounted(async () => {
       {{ Help.convertInMoney(currentConfig.priceWithProfilHybride) }} F
     </h1>
   </div>
-    <h3 class="mx-2" style="font-size: 1.3em; color: orange">/</h3>
-    <h3 style="font-size: 2em; color: orange">
+    <h3 class="mx-2" style="font-size: 1.3em; color: white">/</h3>
+    <h3 style="font-size: 2em; color:white">
       {{ currentConfig.suffix }}
     </h3>
   </div>
@@ -272,8 +283,8 @@ onMounted(async () => {
       {{ Help.convertInMoney(currentConfig.priceWithProfilHybride) }} F
     </h1>
   </div>
-    <h3 class="mx-2" style="font-size: 1.3em; color: orange">/</h3>
-    <h3 style="font-size: 2em; color: orange">
+    <h3 class="mx-2" style="font-size: 1.3em; color: white">/</h3>
+    <h3 style="font-size: 2em; color:white">
       {{ currentConfig.suffix }}
     </h3>
   </div>
@@ -295,9 +306,7 @@ onMounted(async () => {
 
 </template>
 <style scoped>
-:deep(.n-tabs .n-tabs-rail .n-tabs-tab-wrapper .n-tabs-tab.n-tabs-tab--active){
-  background-color:#25535f !important;
-}
+
 .btn-confirm {
   background-color: orange;
   cursor: pointer;
@@ -355,7 +364,7 @@ onMounted(async () => {
   background-color: rgba(0, 0, 0, 0.299);
 }
 .main-color {
-  color: orange;
+  color: rgb(254, 254, 254);
 }
 .conteneur-btn {
   height: 120px;
