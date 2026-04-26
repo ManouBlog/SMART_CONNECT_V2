@@ -211,14 +211,14 @@ clients post-mandat est inclus. L'abonnement est proposé à
   </span>
 </p>
 <p>
-La formule BROBROLI+ inclut l'intégralité des avantages de la 
+La formule BROBROLI PRO MAX inclut l'intégralité des avantages de la 
 formule BROBROLI, auxquels s'ajoutent : 
 (1) Positionnement prioritaire du profil dans les résultats de recherche,
  positionné dans le premier quintile pour l'expertise et le secteur renseignés. 
  (2) Réception d'alertes de missions ciblées en temps réel,
-  transmises aux abonnés BROBROLI+ avant diffusion aux abonnés BROBROLI.
+  transmises aux abonnés BROBROLI PRO MAX avant diffusion aux abonnés BROBROLI.
    (3) Accès aux missions d'une valeur supérieure ou égale à 150 000 FCFA, 
-   diffusés exclusivement aux abonnés BROBROLI+. 
+   diffusés exclusivement aux abonnés BROBROLI PRO MAX. 
    (4) Envoi d'offres ciblées par notification et email selon le secteur 
    d'expertise 
 et les compétences renseignés dans le profil. 
@@ -288,6 +288,71 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
         ABONNEMENT ENTREPRISES ET PARTICULIERS
       </p>
       <p>
+  -<span style="font-weight: bold">
+   Formule BROBROLI PRO 
+  </span>
+  <span style="font-weight: bold;display: block;">
+   Particuliers : 2000 F /mois ou 20 000 F / an
+  </span>
+  <span style="font-weight: bold;display: block;">
+    Entreprises informelles : 15 000 F / an 
+  </span>
+  <span style="font-weight: bold;display: block;">
+   Entreprises formelles : 25 000 F / an
+  </span>
+</p>
+<p>
+  La formule BROBROLI Entreprises & Particuliers donne accès, 
+  pendant toute la durée de l'abonnement annuel actif, 
+  à la base de données des profils talents qualifiés et
+   vérifiés disponibles sur la plateforme MonBrobroli, 
+   à la fonctionnalité de publication d'offres de missions,
+    à la réception des candidatures correspondantes 
+    via le tableau de bord, ainsi qu'au système de paiement
+     sécurisé digital applicable à chaque mission validée. 
+     L'abonnement est proposé à 15 000 F par an pour les 
+     entreprises informelles et 25 000 FCFA par an pour 
+     les entreprises formelles, sans reconduction 
+     automatique sauf instruction explicite de l'abonné. 
+     La résiliation est possible à tout moment depuis l'espace personnel, 
+  avec effet à la fin de la période annuelle en cours.
+</p>
+    <p>
+  -<span style="font-weight: bold">
+   Formule BROBROLI PRO MAX
+  </span>
+  <span style="font-weight: bold;display: block;">
+   Particuliers : 5000F/mois ou 50 000 F / an
+  </span>
+  <span style="font-weight: bold;display: block;">
+    Entreprises informelles : 40 000 F / an
+  </span>
+  <span style="font-weight: bold;display: block;">
+  Entreprises formelles : 50 000 F / an
+  </span>
+</p>
+<p>
+  La formule BROBROLI PRO MAX Entreprises & Particuliers 
+  inclut l'intégralité des avantages de la formule BROBROLI, 
+  auxquels s'ajoutent : 
+  (1) Publication illimitée d'offres de missions sans restriction de volume. 
+  (2) Positionnement prioritaire des annonces publiées en tête de liste lors des recherches effectuées 
+  par les talents sur la plateforme. 
+  (3) Accès élargi à la base de profils, 
+  incluant les profils Experts Vérifiés et Vétérans. 
+  (4) Tableau de bord analytics avancé incluant les 
+  statistiques de performance des annonces et les profils consultés. 
+  (5) Réception prioritaire des candidatures des profils abonnés BROBROLI PRO MAX. 
+  (6) Facturation mensuelle consolidée regroupant l'ensemble des missions 
+  du mois en une seule facture. 
+  (7) Support prioritaire avec délai de réponse 
+  garanti inférieur à 4 heures. 
+  L'abonnement est proposé à 40 000FCFA par pour 
+  les entreprises informelles et à 50 000 FCFA 
+  par an pour les entreprises formelles. 
+  Les conditions de résiliation sont identiques à celles de la formule BROBROLI.
+</p>
+      <!-- <p>
         -<span style="font-weight: bold">Formule ECO 25.000 Fcfa / an</span> Donne accès à
         la base de données des profils étudiants qualifiés. Possibilité de publier des
         offres de mission. Le premier recrutement est gratuit.
@@ -309,7 +374,7 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
         procéder à la résiliation du contrat d’abonnement sans qu’aucune indemnité de
         quelque nature que ce soit ne soit mise à sa charge. En cas de non utilisation des
         prestations liées à l abonnement, aucun rembousement ne sera effectué.
-      </p>
+      </p> -->
       <h2 class="text-left">
         <code>ARTICLE 4-UTILISATION DE LA PLATEFORME</code>
       </h2>
