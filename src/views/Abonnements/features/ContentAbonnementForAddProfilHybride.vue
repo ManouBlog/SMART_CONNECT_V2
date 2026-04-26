@@ -118,9 +118,8 @@ const handleCreateMonth =(payload)=>{
             channels:"undefined",
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart,
-            // isChangeProfil:storeAbonnement.isChangeProfil,
             isAddProfilHybride:true,
-            statut_base:storeAbonnement.statutOfBase,
+            statut_base:storeAbonnement.statutOfBase || statutBaseUser,
             treatment_preferentiel:storeAbonnement.treatment_preferentiel,
              niveauExpertise : storeAbonnement.niveauExpertise ,
         modeTravail : storeAbonnement.modeTravail ,
@@ -133,14 +132,11 @@ const handleCreateMonth =(payload)=>{
         quartier:storeAbonnement.quartier,
         statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
         statut_talent : storeAbonnement.statut_talent ,
-        profilHybride:storeAbonnement.profilHybride,
-         addProfilHybrideOnly: [
-  ...storeAbonnement.addProfilHybride.map(item => item.id),
-  statutBaseUser
-],
+        profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
+      addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
         }
-  console.log("handleConfirmationPayement_month45",data)
-storeAbonnement.createAbonement(data)
+  console.log("paiement_month_pouraddprofilhybride",data)
+// storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateAbonnement90")
@@ -155,29 +151,25 @@ const handleCreateYear =(payload)=>{
             channels:"undefined",
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart,
-            // isChangeProfil:storeAbonnement.isChangeProfil,
             isAddProfilHybride:true,
-            statut_base:storeAbonnement.statutOfBase,
+            statut_base:storeAbonnement.statutOfBase || statutBaseUser,
             treatment_preferentiel:storeAbonnement.treatment_preferentiel,
              niveauExpertise : storeAbonnement.niveauExpertise ,
         modeTravail : storeAbonnement.modeTravail ,
         tempsTravail : storeAbonnement.tempsTravail ,
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload,
-        upload : storeAbonnement.upload ,
+        upload : storeAbonnement.upload,
         commune:storeAbonnement.commune,
         ville:storeAbonnement.ville,
         quartier:storeAbonnement.quartier,
         statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
         statut_talent : storeAbonnement.statut_talent,
-        profilHybride:storeAbonnement.profilHybride,
-      addProfilHybrideOnly: [
-  ...storeAbonnement.addProfilHybride.map(item => item.id),
-  statutBaseUser
-]
+        profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
+      addProfilHybrideOnly: storeAbonnement.addProfilHybride?.map(item => item.id)
         }
-  console.log("handleConfirmationPayement_year98",data)
-  storeAbonnement.createAbonement(data)
+  console.log("veux_ajouter_des_profils_hybrides_year98",data)
+  // storeAbonnement.createAbonement(data)
 }
 
 
@@ -193,11 +185,15 @@ onMounted(async () => {
     },
   ];
   console.log("INFO_SUR_USER",store.state.user)
-  const statutBase = store.state.user?.user?.statut?.statut;
+  console.log("ISCHANGE_PROFIL_INCONTENTABONNENEMENT_FORADDHYBRIDES",storeAbonnement.isChangeProfil)
+  if(storeAbonnement.isChangeProfil){
+ const statutBase = store.state.user?.user?.statut?.statut;
   const AllProfilHybride = store.state.user?.user?.statuses?.filter(item=>item.statut !== statutBase)
   console.log("AllProfilHybride",AllProfilHybride)
    const payload = {profilHybride:AllProfilHybride}
   storeAbonnement.handleChangeInfoForAbonnement(payload)
+  }
+
   if(storeAbonnement.addProfilHybride.length){
     const profilUserCurrent = store.state.user?.user?.abonement?.find(item=>item?.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent?.abonement?.libelle;
@@ -216,6 +212,7 @@ onMounted(async () => {
 });
 </script>
 <template>
+  <!-- <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p> -->
   <div v-if="!storeAbonnement.addProfilHybride.length">
  <n-tabs
   v-model:value="select_mode_payment_tab"

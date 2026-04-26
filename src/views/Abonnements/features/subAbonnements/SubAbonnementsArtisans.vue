@@ -24,13 +24,14 @@ const profilHybrideRecuperer = ref(0)
 
 const handleCreateEntreprise=(payload)=>{
      console.log("payload sub abonnement artisan",payload)
-  // const randomPart = Math.random().toString(36).substring(2);
+  const randomPart = Math.random().toString(36).substring(2);
      
-  //       const data = {
-  //           abonement_id:payload.id,
-  //           channels:"undefined",
-  //           transaction_id:randomPart
-  //       }
+        const data = {
+            abonement_id:payload.id,
+            channels:"undefined",
+            transaction_id:randomPart
+        }
+        console.log("subabonnementARtisan23",data)
   // storeAbonnement.createAbonement(data)
 }
 
@@ -83,7 +84,7 @@ onMounted(async () => {
       "
     >
    
-      <h1 class="text-center main-color">
+      <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
       

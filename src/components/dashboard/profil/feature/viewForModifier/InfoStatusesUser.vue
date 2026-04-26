@@ -183,6 +183,11 @@ this.selectedParseStatus = ""
         this.modeActif = false
       }
     },
+    cleanProfilHybride(){
+       const STOREABONNEMENT = useAbonnementsStore()
+            STOREABONNEMENT.handleChangeInfoForAbonnement({profilHybride:[]})
+            STOREABONNEMENT.handleChangeProfil(false)
+    },
      async lister_statut() {
   const user = this.$store.state.infoUserConnected?.user;
   const statutUser = user?.statut.statut;
@@ -217,6 +222,7 @@ this.selectedParseStatus = ""
     console.log(error);
   }
 },
+
   },
   async created() {
     await this.lister_statut();
@@ -412,6 +418,7 @@ this.selectedParseStatus = ""
             padding:0.3em;
           "
           @click="async()=>{
+           this.cleanProfilHybride()
             showModalAddProfilHybride = !showModalAddProfilHybride
              await this.lister_statut();
           }"

@@ -99,10 +99,10 @@ const handleCreateMonth =(payload)=>{
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload ,
         statut_talent : storeAbonnement.statut_talent ,
-        profilHybride:storeAbonnement.profilHybride
+        profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
         }
-  console.log("handleConfirmationPayement23",data)
-storeAbonnement.createAbonement(data)
+  console.log("paiement_content_month_contentabonnement",data)
+// storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateAbonnement56")
@@ -124,10 +124,10 @@ const handleCreateYear =(payload)=>{
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload ,
         statut_talent : storeAbonnement.statut_talent ,
-        profilHybride:storeAbonnement.profilHybride
+        profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
         }
-  console.log("handleConfirmationPayement25",data)
-  storeAbonnement.createAbonement(data)
+  console.log("paiement_contentAbonnement_year",data)
+  // storeAbonnement.createAbonement(data)
 }
 
 

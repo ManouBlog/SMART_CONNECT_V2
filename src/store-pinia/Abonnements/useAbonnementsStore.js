@@ -63,7 +63,7 @@ const handleChangeInfoForAbonnement = (payload) => {
     CVupload.value = payload.CVupload;
   }
   if ("upload" in payload) {
-    upload.value = [payload.upload];
+    upload.value = payload.upload;
   }
   if ("statut_talent" in payload) {
     statut_talent.value = payload.statut_talent;

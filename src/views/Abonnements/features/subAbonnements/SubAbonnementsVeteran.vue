@@ -48,8 +48,9 @@ const handleInitialiserPayement=(payload)=>{
         data:data,
         storeAbonnement:STORE_ABONNEMENT
        })
+      
        
-    storeAbonnement.createAbonement(data)
+    // storeAbonnement.createAbonement(data)
 }
 
 // Détecte si le user est connecté et possède un statut
@@ -111,7 +112,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       "
     >
    
-      <h1 class="text-center main-color">
+      <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
       

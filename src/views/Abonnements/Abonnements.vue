@@ -64,7 +64,7 @@ const handleAbonement = async () => {
             if (resp.data.status === true) {
               console.log("MYphoto_profil",resp.data.user)
             window.localStorage.setItem("user", JSON.stringify(resp.data.user));
-            router.push('/')
+            
             }
           })
           .catch((error) => {
@@ -83,6 +83,7 @@ try {
               showConfirmButton: true,
             });
             await getInfoUser();
+            router.push('/')
     }
     if(!response.data.status){
       Swal.fire({
@@ -131,7 +132,7 @@ onMounted(async () => {
 
 <template>
   <div class="wrapped myconteneur">
-    <h1 class="text-center main-color">{{text0}}</h1>
+    <h1 class="text-center main-color" style="font-size: 1.5em;">{{text0}}</h1>
       <div v-if="props.ProfilAbonnement">
         <!-- {{ profileAbonnement }}
         {{ store.state.user?.user?.statuses }} -->
@@ -352,6 +353,7 @@ onMounted(async () => {
     :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
     :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
   >
+  
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Artisan"

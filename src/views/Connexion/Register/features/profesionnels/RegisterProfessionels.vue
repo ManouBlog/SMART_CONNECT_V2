@@ -833,7 +833,7 @@ StatutProfessionnel:[
   >
             <a-form-item
             :label="'Statut professionnel artisan'"
-            name="statut_professionnel_artisan "
+            name="statut_professionnel_artisan"
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]"
           >
             <a-select

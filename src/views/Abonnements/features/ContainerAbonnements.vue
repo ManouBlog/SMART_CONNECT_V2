@@ -62,7 +62,8 @@ const handleCreateAbonnement=(payload)=>{
             channels:"undefined",
             transaction_id:randomPart
         }
-  storeAbonnement.createAbonement(data)
+        console.log('containerabonnement1234556',data)
+  // storeAbonnement.createAbonement(data)
 }
 
 
@@ -93,6 +94,11 @@ const filteredTabsSubAbonnement = computed(() => {
      return props.tabsSubAbonnement.filter(
     item => item.id.includes(props.statut_talent_choice_artisan)
   );
+  }
+  if(props.type_abonnements === 'Artisan'){
+    return props.tabsSubAbonnement.some(item =>
+      item.id.includes("Artisan")
+    );
   }
 
 return props.tabsSubAbonnement.some(item =>
@@ -197,7 +203,7 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 </script>
 
 <template>
-  <!-- <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
+   <!-- <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
   <p>statut_talent_choice_entreprise:{{ statut_talent_choice_artisan }}</p> -->
   <div v-if="tabsSubAbonnement.length">
@@ -285,7 +291,7 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       "
     >
    
-      <h1 class="text-center main-color">
+      <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
       
@@ -358,7 +364,7 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       "
     >
    
-      <h1 class="text-center main-color">
+      <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
       
@@ -427,7 +433,7 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       "
     >
    
-      <h1 class="text-center main-color">
+      <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
       

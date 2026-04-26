@@ -23,7 +23,7 @@ const profilHybrideRecuperer = ref(0)
 
 
 const handleCreateEntreprise=(payload)=>{
-  console.log("handleCreateAbonnement7686")
+  console.log("paiement_entreprise2398")
   const randomPart = Math.random().toString(36).substring(2);
         // console.log("payload",payload)
         const data = {
@@ -85,7 +85,7 @@ onMounted(async () => {
       "
     >
    
-      <h1 class="text-center main-color">
+      <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
       
