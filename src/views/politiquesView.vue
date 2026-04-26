@@ -70,8 +70,8 @@
         de profils qualifiés. Afin de garantir la qualité des services proposés et
         d'assurer le bon déroulement des missions, l’accès à certaines fonctionnalités de
         la plateforme est soumis à un abonnement annuel obligatoire, selon deux formules
-        disponibles : <span style="font-weight: bold">ECO</span> et
-        <span style="font-weight: bold">PLATINUM</span>
+        disponibles : <span style="font-weight: bold">BROBROLI PRO</span> et
+        <span style="font-weight: bold">BROBROLI PRO MAX</span>
       </p>
       <h2 class="text-left">
         <code>ARTICLE 3-ABONNEMENT</code>
@@ -358,7 +358,7 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
         offres de mission. Le premier recrutement est gratuit.
       </p>
       <p>
-        -<span style="font-weight: bold">Formule PLATINUM 50.000 Fcfa / an </span>Accès à
+        -<span style="font-weight: bold">Formule BROBROLI PRO MAX 50.000 Fcfa / an </span>Accès à
         la base de profils. Publication illimitée d’offres. Positionnement prioritaire des
         annonces en tête de liste lors des recherches effectuées sur la plateforme. Le
         premier recrutement est gratuit
@@ -394,11 +394,11 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
       </p>
       <p>1b) Dépôt de candidature ou invitation à postuler</p>
       <p>
-        Les étudiants ayant souscrit à un abonnement actif (ECO ou Platinum) peuvent
+        Les étudiants ayant souscrit à un abonnement actif (BROBROLI ou BROBROLI PRO MAX) peuvent
         consulter les offres disponibles et y postuler selon leurs compétences, intérêts
         et disponibilités. Par ailleurs, les entreprises ont la possibilité de
         sélectionner certains profils à postuler, après consultation des informations
-        présentes sur les profils étudiants.Les abonnés Platinum bénéficient d’une
+        présentes sur les profils étudiants.Les abonnés BROBROLI PRO MAX bénéficient d’une
         visibilité accrue, ce qui augmente significativement leurs chances d’être
         sélectionnés directement par les recruteurs.
       </p>
