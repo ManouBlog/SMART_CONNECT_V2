@@ -69,6 +69,31 @@ const tabs = [
   return "Choisirdf cette formule";
 });
 
+const ecriteauFormule = (item) => {
+  const categorie = item?.categorie?.categorie?.toLowerCase();
+  const libelle = item?.libelle?.toUpperCase();
+
+  const rules = {
+   
+    'maitre artisan':{
+      "BROBROLI PRO MAX":
+        "Pour être le premier appelé. Sur les urgences comme sur les gros chantiers.",
+
+      "BROBROLI PRO":
+        "Pour que tes clients te trouvent. Pour que tes marchés te croisent.",
+    },
+  'artisan':{
+      "BROBROLI PRO MAX":
+        "Pour être le premier appelé. Sur les urgences comme sur les gros chantiers.",
+
+      "BROBROLI PRO":
+        "Pour que tes clients te trouvent. Pour que tes marchés te croisent.",
+    },
+  };
+
+  return rules?.[categorie]?.[libelle] || "Choisiref cette formule";
+};
+
 // console.log("PROPSITEM",props.item)
 
 const currentConfig = computed(() => {
@@ -186,7 +211,14 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <!-- <p>tabs:{{ tabs }}</p> -->
+  <!-- <p>tabs:{{ item.libelle }}</p> -->
+  <p class="shadow-sm p-2 small" 
+      style="font-weight: bold;
+      text-align:center;
+      background-color: rgb(255 255 255 / 40%);
+      padding:1em;">
+      {{ ecriteauFormule(item) }}
+     </p>
   <!-- <p>currentConfig:{{ currentConfig }}</p>
   <p>select_mode_payment_tab:{{ select_mode_payment_tab }}</p>
   <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
