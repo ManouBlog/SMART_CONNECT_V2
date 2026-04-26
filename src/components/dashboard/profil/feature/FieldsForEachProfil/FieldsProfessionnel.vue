@@ -175,11 +175,19 @@ isProfilHybrideADD(){
 }
     
   },
-  //  watch: {
-  //   isHybridValid(newVal) {
-  //     console.log('Condition:', newVal);
-  //   }
-  // },
+   watch: {
+     profilHybride: {
+      handler(newValue) {
+           
+        if (!newValue.includes(7)) {
+          this.formState.statut_professionnel_artisan = ""
+        }
+        
+      },
+      immediate: true,
+      deep: true
+    }
+  },
   methods: {
     resetData(){
       this.formState.profilHybride = [];

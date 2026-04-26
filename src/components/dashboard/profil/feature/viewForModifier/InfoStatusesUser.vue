@@ -343,7 +343,7 @@ this.selectedParseStatus = ""
         </span>
       </label>
     </div>
-  <!-- <p>profilHybride:{{ profilHybride }}</p> -->
+  <p>profilHybride:{{ profilHybride }}</p>
   </div>
 </transition>
   <div v-if="optionsAnswer || selectedParseStatus">
