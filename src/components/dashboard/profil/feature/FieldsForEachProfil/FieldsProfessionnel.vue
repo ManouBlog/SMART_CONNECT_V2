@@ -316,6 +316,17 @@ isProfilHybrideADD(){
     text: 'Ajoutez un profil'
   });
        }else{
+     Swal.fire({
+      icon: 'warning',
+      title: 'Confirmation',
+      text: 'Voulez-vous vraiment continuer avec ce profil ?',
+      confirmButtonText: 'Oui, valider',
+      cancelButtonText: 'Annuler',
+      showCancelButton: true,
+      confirmButtonColor: '#f39c12',
+      cancelButtonColor: '#e74c3c',
+    }).then((result) => {
+      if (result.isConfirmed) {
         console.log('profilHybride',this.profilHybride)
         if(this.profilHybride.length){
       this.formState.profilHybride = this.profilHybride.map(item=>item.id);
@@ -324,6 +335,8 @@ isProfilHybrideADD(){
         const STORE_ABONNEMENT = useAbonnementsStore();
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
      this.showModalAbonnements = true
+      }
+    });
        }
      
      
@@ -428,11 +441,11 @@ isProfilHybrideADD(){
           size="large"
         >
           <a-select-option
-            v-for="item in StatutProfessionnel"
-            :key="item.id"
-            :value="item.value"
+            v-for="item in ['Maitre Artisan', 'Artisan']"
+            :key="item"
+            :value="item"
           >
-            {{ item.label }}
+            {{ item }}
           </a-select-option>
         </a-select>
       </a-form-item>
