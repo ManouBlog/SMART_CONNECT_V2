@@ -133,7 +133,7 @@ export default {
           </li>
         </a-menu-item>
         <a-menu-item>
-          <LiensNavBar :texte="$t('Header.Menu.Profil')" :route_lien="'profil'" />
+          <LiensNavBar :texte="'Mon espace'" :route_lien="'profil'" />
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">

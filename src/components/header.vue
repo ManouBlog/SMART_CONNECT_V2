@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import "@kong/kongponents/dist/style.css";
 // import SelectLanguage from "./feature/header/SelectLanguage.vue";
 import LiensNavBar from "./feature/header/LiensNavBar.vue";
-// import InfoEntreprise from "./feature/header/Entreprise/InfoEntreprise.vue";
+import InfoEntreprise from "./feature/header/Entreprise/InfoEntreprise.vue";
 import InfoStudent from "./feature/header/Student/InfoStudent.vue";
 import ListeFavoris from "./feature/header/ListeFavoris.vue";
 // import ListeNotifications from "./feature/header/ListeNotifications.vue";
@@ -22,7 +22,7 @@ export default {
     MenuMobile,
     // SelectLanguage,
     LiensNavBar,
-    // InfoEntreprise,
+    InfoEntreprise,
     InfoStudent,
     ListeFavoris,
     // ListeNotifications,
@@ -305,17 +305,17 @@ export default {
                 /> -->
                 <ListeAlarmStudent v-if="this.$store.state.user" />
                 <div>
-                  <!-- <InfoEntreprise
+                  <InfoEntreprise
                     v-if="
   ($store.state.user?.user?.statuses || [])
     .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
 "
-                  /> -->
+                  />
                   <div
                 v-if="
   ($store.state.user?.user?.statuses || [])
     .some(s => ['Etudiant', 'Professionnel', 
-    'Artisan','Vétéran','Particulier','Entreprise'].includes(s.statut))
+    'Artisan','Vétéran','Particulier'].includes(s.statut))
 "
                     class="login_user"
                   >

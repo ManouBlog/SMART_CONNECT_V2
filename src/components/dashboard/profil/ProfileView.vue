@@ -369,7 +369,7 @@ userDocuments() {
             <InfoEntreprise 
             :infoPersonnelles="this.$store.state.infoUserConnected"
               v-if="
-  ['Entreprise', 'Particulier'].includes(
+  ['Entreprise','Particulier'].includes(
     this.$store.state.infoUserConnected?.user?.statut?.statut
   )
 "

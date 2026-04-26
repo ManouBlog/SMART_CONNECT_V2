@@ -126,7 +126,6 @@ export default {
     this.getInfoUser();
     this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte2 = await this.handleTranslate("Mes candidatures");
-    // this.texte3 = await this.handleTranslate("Mes Contrats");
     this.texte40 = await this.handleTranslate("Entreprises intéressées");
     this.texte4 = await this.handleTranslate("Mes disponibilités");
     this.texte5 = await this.handleTranslate("Mes abonnements");
