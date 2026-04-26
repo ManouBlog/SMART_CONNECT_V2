@@ -333,7 +333,11 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
       <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
-     <p class="shadow-sm p-0 small" style="font-weight: bold;">
+     <p class="shadow-sm p-2 small" 
+     style="font-weight: bold;
+     text-align:center;
+     background-color: rgb(255 255 255 / 40%);
+     padding:1em;">
       {{ ecriteauFormule(item) }}
      </p>
       
