@@ -265,9 +265,9 @@ console.log('user',user)
          {{ allProfilsHybrides }} -->
           <div v-if="ProfilsUser.user?.statut?.statut !== 'Entreprise'">
  <div class="round-container" v-if='filteredProfilsHybrides.length'>
-   <p>allProfilsHybrides:{{ allProfilsHybrides }}</p>
+   <!-- <p>allProfilsHybrides:{{ allProfilsHybrides }}</p>
    <p>profilhybrideUserConnected:{{ profilhybrideUserConnected }}</p>
-   <p>choiceProfilHybrideForAdd:{{ choiceProfilHybrideForAdd }}</p>
+   <p>choiceProfilHybrideForAdd:{{ choiceProfilHybrideForAdd }}</p> -->
       <label
   v-for="item in filteredProfilsHybrides"
   :key="item.id"

@@ -49,48 +49,69 @@ valueModeDeTravail: [
   { value: "Télétravail", label: "Télétravail" },
   { value: "Hybride", label: "Hybride" }
 ],
-//  SCHOOL_KEYWORDS :[
-//   // Carte étudiante (formes tolérantes OCR)
-//   'carte etudiant',
-//   'carte d etudiant',
-//   'carte a etudiant',
-//   'carte etudiante',
+rules: {
+  niveauEtude: [
+    {
+      required: true,
+      message: "Veuillez sélectionner le niveau d'étude",
+      trigger: "change"
+    }
+  ],
 
-//   // Étudiant (avec ou sans accents, fautes OCR)
-//   'Etudiant',
-//   'etudiante',
-//   'etudant',
-//   'etud',
+  diplome: [
+    {
+      required: true,
+      message: "Veuillez renseigner votre domaine",
+      trigger: "blur"
+    }
+  ],
 
-//   // Institution / enseignement
-//   'ministere de l enseignement',
-//   "ministere de l'enseignement",
-//   'enseignement superieur',
-//   'ufr',
-//   'faculte',
-//   'faculté',
-//   'ecole',
-//   'institut',
+  statut_talent: [
+    {
+      required: true,
+      message: "Veuillez sélectionner le statut professionnel",
+      trigger: "change"
+    }
+  ],
 
-//   // Scolarité
-//   'filiere',
-//   'filiere',
-//   'niveau',
-//   'licence',
-//   'master',
-//   'doctorat',
+  statut_professionnel_artisan: [
+    {
+      required: false
+    }
+  ],
 
-//   // Niveaux courts (attention : à combiner avec d’autres mots)
-//   'l1',
-//   'l2',
-//   'l3',
-//   'm1',
-//   'm2',
+  modeTravail: [
+    {
+      required: true,
+      message: "Veuillez sélectionner le mode de travail",
+      trigger: "change"
+    }
+  ],
 
-//   // Identifiant
-//   'matricule'
-// ],
+  tempsTravail: [
+    {
+      required: true,
+      message: "Veuillez sélectionner le temps de travail",
+      trigger: "change"
+    }
+  ],
 
+  cv: [
+    {
+      required: true,
+      message: "Veuillez ajouter votre CV",
+      trigger: "change"
+    }
+  ],
+
+  cni: [
+    {
+      required: true,
+      message: "Veuillez ajouter votre carte nationale d'identité",
+      trigger: "change"
+    }
+  ]
+},
       availabilityDates: [],
       startTime: null,
       endTime: null,
@@ -321,133 +342,164 @@ isProfilHybrideADD(){
       />
       </div>
       </n-modal>
-    <form  @submit.prevent="onHandleProfil">
-      <!-- {{ profilHybride }} -->
-    <div class="row g-4">
-      <div class="col-md-6 my-2">
-        <label for="treatment1" class="form-label fw-semibold mb-2">Niveau d'etude + Domaine</label>
-        <select 
-          name="treatment" 
-          id="treatment1" 
-          v-model="formState.niveauEtude"
-          class="form-control"
-          style="height: 50px;"
+    
+  <a-form
+  ref="formRef"
+  :model="formState"
+  :rules="rules"
+  layout="vertical"
+  @finish="onHandleProfil"
+>
+  <a-row :gutter="[16, 16]">
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Niveau d'etude + Domaine"
+        name="niveauEtude"
+      >
+        <a-select
+          v-model:value="formState.niveauEtude"
+          placeholder="Sélectionnez..."
+          size="large"
         >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
+          <a-select-option
             v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
-            :key="item.value" 
+            :key="item.value"
             :value="item.value"
           >
             {{ item.value }}
-          </option>
-        </select>
-        <input type="text" v-model="formState.diplome" placeholder="Ajoutez votre Domaine" class="form-control my-2" />
-      </div>
-      <div class="col-md-6 my-2">
-        <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel</label>
-        <select 
-          name="statut" 
-          id="treatment2" 
-          v-model="formState.statut_talent"
-          class="form-control"
-          style="height: 50px;"
-        >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in StatutProfessionnel" 
-            :key="item.id" 
-            :value="item.value"
-          >
-            {{ item.label }}
-          </option>
-        </select>
-      </div>
-      
-      <div class="col-md-6 my-2" v-if="this.profilHybride.some(item=>item.statut.includes('Artisan'))">
-        <label for="treatment2" class="form-label fw-semibold mb-2">Statut professionnel artisan</label>
-        <select 
-          name="statut" 
-          id="treatment2" 
-          v-model="formState.statut_professionnel_artisan "
-          class="form-control"
-          style="height: 50px;"
-        >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in StatutProfessionnel" 
-            :key="item.id" 
-            :value="item.value"
-          >
-            {{ item.label }}
-          </option>
-        </select>
-      </div>
+          </a-select-option>
+        </a-select>
+      </a-form-item>
 
-      <div class="col-md-6 my-2">
-        <label for="treatment2" class="form-label fw-semibold mb-2">Mode de travail</label>
-        <select 
-          name="statut" 
-          id="treatment2" 
-          v-model="formState.modeTravail"
-          class="form-control"
-          style="height: 50px;"
-        >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in valueModeDeTravail" 
-            :key="item.id" 
-            :value="item.value"
-          >
-            {{ item.label }}
-          </option>
-        </select>
-      </div>
+      <a-form-item
+        name="diplome"
+      >
+        <a-input
+          v-model:value="formState.diplome"
+          placeholder="Ajoutez votre Domaine"
+          size="large"
+        />
+      </a-form-item>
+    </a-col>
 
-       <div class="col-md-6 my-2">
-        <label for="treatment2" class="form-label fw-semibold mb-2">Temps de travail</label>
-        <select 
-          name="statut" 
-          id="treatment2" 
-          v-model="formState.tempsTravail"
-          class="form-control"
-          style="height: 50px;"
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Statut professionnel"
+        name="statut_talent"
+      >
+        <a-select
+          v-model:value="formState.statut_talent"
+          placeholder="Sélectionnez..."
+          size="large"
         >
-          <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in valueTempsTravail" 
-            :key="item.id" 
+          <a-select-option
+            v-for="item in StatutProfessionnel"
+            :key="item.id"
             :value="item.value"
           >
             {{ item.label }}
-          </option>
-        </select>
-      </div>
-      
-      <div class="col-md-6 my-2">
-        <label for="certificat" class="form-label fw-semibold mb-2">CV (Curriculum Vitae)</label>
-        <input 
-          type="file" 
-          id="certificat"
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+
+    <a-col
+      :xs="24"
+      :md="12"
+      v-if="profilHybride.some(item => item.statut.includes('Artisan'))"
+    >
+      <a-form-item
+        label="Statut professionnel artisan"
+        name="statut_professionnel_artisan"
+      >
+        <a-select
+          v-model:value="formState.statut_professionnel_artisan"
+          placeholder="Sélectionnez..."
+          size="large"
+        >
+          <a-select-option
+            v-for="item in StatutProfessionnel"
+            :key="item.id"
+            :value="item.value"
+          >
+            {{ item.label }}
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Mode de travail"
+        name="modeTravail"
+      >
+        <a-select
+          v-model:value="formState.modeTravail"
+          placeholder="Sélectionnez..."
+          size="large"
+        >
+          <a-select-option
+            v-for="item in valueModeDeTravail"
+            :key="item.id"
+            :value="item.value"
+          >
+            {{ item.label }}
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Temps de travail"
+        name="tempsTravail"
+      >
+        <a-select
+          v-model:value="formState.tempsTravail"
+          placeholder="Sélectionnez..."
+          size="large"
+        >
+          <a-select-option
+            v-for="item in valueTempsTravail"
+            :key="item.id"
+            :value="item.value"
+          >
+            {{ item.label }}
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="CV (Curriculum Vitae)"
+        name="cv"
+      >
+        <a-input
+          type="file"
           accept="image/*"
           @change="onUploadChangeCV"
-          class="form-control"
-          style="height: 40px;border: none !important;"
+          size="large"
         />
-      </div>
-      <div class="col-md-6 my-2">
-        <label for="certificat" class="form-label fw-semibold mb-2">Carte national d'identité</label>
-        <input 
-          type="file" 
-          id="certificat"
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item
+        label="Carte national d'identité"
+        name="cni"
+      >
+        <a-input
+          type="file"
           accept="image/*"
           @change="onUploadChangeCNI"
-          class="form-control"
-          style="height: 40px;border: none !important;"
+          size="large"
         />
-      </div>
-      <!-- {{ formState }} -->
-      <div class="col-md-12 my-4">
+      </a-form-item>
+    </a-col>
+
+    <a-col :span="24">
       <a-button
         type="primary"
         html-type="submit"
@@ -455,7 +507,8 @@ isProfilHybrideADD(){
       >
         Enregistrer
       </a-button>
-      </div>
-    </div>
-  </form>
+    </a-col>
+
+  </a-row>
+</a-form>
 </template>

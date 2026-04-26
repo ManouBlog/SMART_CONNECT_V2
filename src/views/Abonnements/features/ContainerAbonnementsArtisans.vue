@@ -109,15 +109,16 @@ const handleCreateYear =(payload)=>{
   console.log("handleCreateAbonnement56")
   console.log("handleCreateYear",payload)
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+    const statutBaseUser = store.state.user.user.statut_base;
    const randomPart = Math.random().toString(36).substring(2);
-       
         const data = {
             abonement_id:payload.id,
             channels:"undefined",
             mode_payment:select_mode_payment_tab.value,
             transaction_id:randomPart,
+            isAddProfilHybride:storeAbonnement.addProfilHybride.map(item => item.id).length ? true:false,
+            statut_base:storeAbonnement.statutOfBase || statutBaseUser,
             isChangeProfil:storeAbonnement.isChangeProfil,
-            statut_base:storeAbonnement.statutOfBase,
             treatment_preferentiel:storeAbonnement.treatment_preferentiel,
              niveauExpertise : storeAbonnement.niveauExpertise ,
         modeTravail : storeAbonnement.modeTravail ,
@@ -126,6 +127,7 @@ const handleCreateYear =(payload)=>{
         CVupload : storeAbonnement.CVupload ,
         statut_talent : storeAbonnement.statut_talent ,
         profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
+        addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
         }
   console.log("paymentabonnement_year",data)
   // storeAbonnement.createAbonement(data)

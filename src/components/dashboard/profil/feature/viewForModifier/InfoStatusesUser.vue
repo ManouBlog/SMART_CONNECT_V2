@@ -266,7 +266,7 @@ this.selectedParseStatus = ""
           <h3>Changer le profil de base </h3>
         </div>
       </template>
-      <p>Séléctionnez un profil:{{ allStatuses }}</p>
+      <!-- <p>Séléctionnez un profil:{{ allStatuses }}</p> -->
       <section v-if="allStatuses.length">
         <div class="w-100 mb-4">
             <label for="statusSelect">Séléctionnez un profil</label>
@@ -297,7 +297,7 @@ this.selectedParseStatus = ""
         </div>
         <!-- {{ selectedParseStatus }} -->
   <transition name="fade-slide">
- <div v-if="selectedParseStatus && ['Particulier', 'Vétéran','Etudiant'].includes(selectedParseStatus.statut)">
+ <div v-if="selectedParseStatus && ['Particulier', 'Vétéran','Etudiant','Professionnel'].includes(selectedParseStatus.statut)">
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
     Souhaitez-vous adopter un profil hybride ?
   </label>
@@ -322,11 +322,11 @@ this.selectedParseStatus = ""
 </div>
 </transition>
    <transition name="fade-slide">
-  <div v-if="optionsAnswer === 'oui' && ['Particulier', 'Vétéran'].includes(selectedParseStatus.statut)">
+  <div v-if="optionsAnswer === 'oui' && ['Particulier', 'Vétéran','Professionnel'].includes(selectedParseStatus.statut)">
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils disponibles
     </label>
-    <p>Profils dispo : {{ allProfilsHybrides }}</p>
+    <!-- <p>Profils dispo : {{ allProfilsHybrides }}</p> -->
     <div class="round-container">
       <label 
         v-for="item in allProfilsHybrides" 
@@ -343,7 +343,7 @@ this.selectedParseStatus = ""
         </span>
       </label>
     </div>
-  <p>profilHybride:{{ profilHybride }}</p>
+  <!-- <p>profilHybride:{{ profilHybride }}</p> -->
   </div>
 </transition>
   <div v-if="optionsAnswer || selectedParseStatus">
