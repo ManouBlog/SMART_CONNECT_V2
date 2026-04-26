@@ -2,10 +2,10 @@
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { ref, onMounted ,defineProps,computed } from "vue";
 import { useStore } from 'vuex'
-import { useRouter,useRoute} from 'vue-router'
+import { useRoute} from 'vue-router'
 import {useTranslateStore} from "../../store-pinia/Translate/useTranslateStore"
 import instance from "../../api/api";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import ContainerAbonnements from "./features/ContainerAbonnements.vue";
 const props = defineProps({
   ProfilAbonnement: {
@@ -25,7 +25,7 @@ const activeTab = ref('')
 const store = useStore();
 const reference = ref(null);
 const profileAbonnement = ref(null);
-const router = useRouter();
+// const router = useRouter();
 const route = useRoute();
 const translateStore = useTranslateStore();
 const defaulValueTranslate = ref(translateStore.defaultLocale);
@@ -56,49 +56,49 @@ const handleAbonement = async () => {
   }
 }
 
- async function getInfoUser(){
-      if (this.$store.state.token) {
-        await instance
-          .get("voirInfoUserConnect")
-          .then((resp) => {
-            if (resp.data.status === true) {
-              console.log("MYphoto_profil",resp.data.user)
-            window.localStorage.setItem("user", JSON.stringify(resp.data.user));
+//  async function getInfoUser(){
+//       if (this.$store.state.token) {
+//         await instance
+//           .get("voirInfoUserConnect")
+//           .then((resp) => {
+//             if (resp.data.status === true) {
+//               console.log("MYphoto_profil",resp.data.user)
+//             window.localStorage.setItem("user", JSON.stringify(resp.data.user));
             
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      }
-    }
+//             }
+//           })
+//           .catch((error) => {
+//             console.log(error);
+//           })
+//       }
+//     }
 
-async function doVerificationAbonnement(payload){
-try {
-    const response = await instance.get("payStack/payment/callback/"+payload); 
-    if(response.data.status){
-       Swal.fire({
-              icon: "success",
-              title: "Paiement reussi.",
-              showConfirmButton: true,
-            });
-            await getInfoUser();
-            router.push('/')
-    }
-    if(!response.data.status){
-      Swal.fire({
-              icon: "error",
-              title: "Paiement échoué.",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-    }
-  } catch (error) {
-    console.log(error);
-  }finally{
-    await handleAbonement();
-  }
-}
+// async function doVerificationAbonnement(payload){
+// try {
+//     const response = await instance.get("payStack/payment/callback/"+payload); 
+//     if(response.data.status){
+//        Swal.fire({
+//               icon: "success",
+//               title: "Paiement reussi.",
+//               showConfirmButton: true,
+//             });
+//             await getInfoUser();
+//             router.push('/')
+//     }
+//     if(!response.data.status){
+//       Swal.fire({
+//               icon: "error",
+//               title: "Paiement échoué.",
+//               showConfirmButton: false,
+//               timer: 1500,
+//             });
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }finally{
+//     await handleAbonement();
+//   }
+// }
 
 onMounted(async () => {
   console.log("props.ProfilAbonnement", props.ProfilAbonnement)
@@ -117,9 +117,9 @@ onMounted(async () => {
 
     console.log("activeTab.value", activeTab.value)
    console.log('USERInfo',store.state.user?.user?.statut.statut)
-  if (reference.value) {
-    await doVerificationAbonnement(reference.value)
-  }
+  // if (reference.value) {
+  //   await doVerificationAbonnement(reference.value)
+  // }
 
   // 🔥 IMPORTANT : un seul appel API
   await handleAbonement()
