@@ -95,6 +95,7 @@ onMounted(async () => {
       <ContainerAbonnementsArtisans 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
+      :type_abonnements="type_abonnements"
       />
     </div>
     <!-- <section v-else>

@@ -20,7 +20,11 @@ const select_mode_payment_tab = ref('year')
 
 const props = defineProps({
   item: Object,
-  elmentsOfBtn: Array
+  elmentsOfBtn: Array,
+  type_abonnements:{
+    type:String,
+    required:false
+  }
 })
 
 const tabs = [
@@ -40,6 +44,30 @@ const tabs = [
       },
       { immediate: true, deep: true }
     )
+
+    const messageAbonnement = computed(() => {
+  const type = props.type_abonnements;
+  const libelle = props.item?.libelle?.trim().toUpperCase();
+
+  if (type === "Etudiant") {
+    const mapMessages = {
+      "BROBROLI PRO": "Commence maintenant",
+      "BROBROLI PRO MAX": "Je passe à BROBROLI PRO MAX",
+    };
+
+    return mapMessages[libelle] || "Je passe à Brobroli";
+  }
+   if (type.includes("Artisan")) {
+    const mapMessages = {
+      "BROBROLI PRO": "Trouve tes premiers clients",
+      "BROBROLI PRO MAX": "Deviens PLUS dans ta zone",
+    };
+
+    return mapMessages[libelle] || "Choisir cette formule";
+  }
+
+  return "Choisir cette formule";
+});
 
 // console.log("PROPSITEM",props.item)
 
@@ -141,7 +169,7 @@ function handleSelect_mode_Payement(val) {
 onMounted(async () => {
    elmentsOfBtn.value = [
     {
-      name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
+      name_btn: await transalteStore.handleTranslate(messageAbonnement.value),
       color_btn: "primary",
     },
   ];

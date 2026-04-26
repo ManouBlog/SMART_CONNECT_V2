@@ -132,6 +132,43 @@ return Array.from(
   
 });
 
+const ecriteauFormule = (item) => {
+  const categorie = item?.categorie?.categorie?.toLowerCase();
+  const libelle = item?.libelle?.toUpperCase();
+
+  const rules = {
+    etudiant: {
+      "BROBROLI PRO MAX":
+        "Pour être vu avant les autres. Et décrocher plus.",
+
+      "BROBROLI PRO":
+        "Pour commencer à décrocher tes premières missions.",
+    },
+    artisan:{
+      "BROBROLI PRO MAX":
+        "Pour être le premier appelé. Sur les urgences comme sur les gros chantiers.",
+
+      "BROBROLI PRO":
+        "Pour que tes clients te trouvent. Pour que tes marchés te croisent.",
+    },
+    professionnel:{
+      "BROBROLI PRO MAX":
+        "Pour que les DRH et décideurs vous trouvent en premier. Même si vous êtes déjà en poste.",
+      "BROBROLI PRO":
+        "Pour que les bonnes entreprises trouvent votre profil. Chaque mission payée à l’exécution.",
+    },
+    vétéran:{
+      "BROBROLI PRO MAX":
+        "Pour que les organisations qui cherchent une expertise rare vous trouvent directement.",
+
+      "BROBROLI PRO":
+        "Pour que les bonnes organisations trouvent votre expertise. Chaque engagement payé avant exécution.",
+    }
+  };
+
+  return rules?.[categorie]?.[libelle] || "Choisire cette formule";
+};
+
 // Watch déclenche le chargement des abonnements
 watch(
   isUserConnected,
@@ -203,11 +240,11 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 </script>
 
 <template>
-  <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
+  <!-- <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
   <p>statut_talent_choice_entreprise:{{ statut_talent_choice_artisan }}</p>
-  <p>statut_talent_choice_artisan:{{ statut_talent_choice_artisan }}</p>
+  <p>statut_talent_choice_artisan:{{ statut_talent_choice_artisan }}</p> -->
   <div v-if="tabsSubAbonnement.length">
    <div style="display: flex;justify-content: center;">
      <n-tabs
@@ -292,11 +329,13 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
           : 'color_brobroli_pro_max'
       "
     >
-   
+  
       <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
-      
+     <p class="shadow-sm p-0 small" style="font-weight: bold;">
+      {{ ecriteauFormule(item) }}
+     </p>
       
     <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
       <contentAbonnement 

@@ -46,9 +46,19 @@ const tabs = [
     )
 
 const messageAbonnement = computed(() => {
-  return props.type_abonnements === "Etudiant"
-    ? "Je passe à Brobroli"
-    : "Choisir cette formule";
+  const type = props.type_abonnements;
+  const libelle = props.item?.libelle?.trim().toUpperCase();
+
+  if (type === "Etudiant") {
+    const mapMessages = {
+      "BROBROLI PRO": "Commence maintenant",
+      "BROBROLI PRO MAX": "Je passe à BROBROLI PRO MAX",
+    };
+
+    return mapMessages[libelle] || "Je passe à Brobroli";
+  }
+
+  return "Choisir cette formule";
 });
 
 // console.log("PROPSITEM",props.item)
@@ -170,7 +180,7 @@ onMounted(async () => {
     console.log("profilUserCurrent",profilUserCurrent)
     console.log("formuleAbonnementOfUserConnected23",formuleAbonnementOfUserConnected.value)
   }
-
+ console.log("ITEM_ABONNEMENT",props.item)
   texte.value = await transalteStore.handleTranslate("année");
 });
 </script>
