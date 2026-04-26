@@ -337,7 +337,7 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
           : 'color_brobroli_pro_max'
       "
     >
-  
+  <!-- {{ item }} -->
       <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
@@ -345,7 +345,12 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
      style="font-weight: bold;
      text-align:center;
      background-color: rgb(255 255 255 / 40%);
-     padding:1em;">
+     padding:1em;"
+     :style="{
+    margin: item.libelle === 'BROBROLI PRO' 
+    && item?.categorie?.categorie == 'Particulier' ? '1em' : null
+     }"
+     >
       {{ ecriteauFormule(item) }}
      </p>
       

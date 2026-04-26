@@ -211,12 +211,17 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <!-- <p>tabs:{{ item.libelle }}</p> -->
+  <!-- <p>tabs:{{ item }}</p> -->
   <p class="shadow-sm p-2 small" 
       style="font-weight: bold;
       text-align:center;
       background-color: rgb(255 255 255 / 40%);
-      padding:1em;">
+      padding:0.5em;"
+      :style="{
+    margin: item.libelle === 'BROBROLI PRO' 
+    && item?.categorie?.categorie.includes('Artisan') ? '1em' : null
+     }"
+      >
       {{ ecriteauFormule(item) }}
      </p>
   <!-- <p>currentConfig:{{ currentConfig }}</p>

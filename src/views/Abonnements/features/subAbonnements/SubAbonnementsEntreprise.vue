@@ -39,6 +39,30 @@ const isUserConnected = computed(() => {
   return userConnected.value;
 });
 
+const ecriteauFormule = (item) => {
+  const categorie = item?.categorie?.categorie?.toLowerCase();
+  const libelle = item?.libelle?.toUpperCase();
+
+  const rules = {
+    'entreprise formelle': {
+      "BROBROLI PRO MAX":
+        "Publication illimitée. Vos annonces en tête. Les meilleurs profils vous trouvent en premier.",
+
+      "BROBROLI PRO":
+        "Accédez aux profils vérifiés. Publiez vos besoins. Payez facilement.",
+    },
+    'entreprise informelle': {
+      "BROBROLI PRO MAX":
+        "Publication illimitée. Vos annonces en tête. Les meilleurs profils vous trouvent en premier.",
+
+      "BROBROLI PRO":
+        "Accédez aux profils vérifiés. Publiez vos besoins. Payez facilement.",
+    },
+  };
+
+  return rules?.[categorie]?.[libelle] || "Choisir cette formule";
+};
+
 // Watch déclenche le chargement des abonnements
 watch(
   isUserConnected,
@@ -84,10 +108,24 @@ onMounted(async () => {
           : 'color_brobroli_pro_max'
       "
     >
-   
+  
       <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
+      <p
+      class="shadow-sm small"
+     style="
+    font-weight: bold;
+    text-align: center;
+    background-color: rgb(255 255 255 / 40%);
+    padding: 1em;
+     "
+     :style="{
+    margin: item.libelle === 'BROBROLI PRO' ? '1.1em' : null
+     }"
+    >
+      {{ ecriteauFormule(item) }}
+      </p>
       
       
     <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel','Entreprise'].some(role=>role === item?.categorie?.categorie)">
