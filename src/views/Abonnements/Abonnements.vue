@@ -423,5 +423,14 @@ onMounted(async () => {
 </template>
 <style scoped>
 @import "./style/index.css";
+.myconteneur {
+  margin-top: 8em;
+}
+
+@media (max-width: 980px) {
+  .myconteneur {
+    margin-top: 1em;
+  }
+}
 
 </style>

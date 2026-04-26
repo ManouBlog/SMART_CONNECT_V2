@@ -308,6 +308,7 @@ isProfilHybrideADD(){
     text: 'Ajoutez un profil'
   });
        }else{
+        console.log('profilHybride',this.profilHybride)
         if(this.profilHybride.length){
       this.formState.profilHybride = this.profilHybride.map(item=>item.id);
         }
@@ -474,7 +475,7 @@ isProfilHybrideADD(){
     <a-col :xs="24" :md="12">
       <a-form-item
         label="CV (Curriculum Vitae)"
-        name="cv"
+        name="CVupload"
       >
         <a-input
           type="file"
@@ -488,7 +489,7 @@ isProfilHybrideADD(){
     <a-col :xs="24" :md="12">
       <a-form-item
         label="Carte national d'identité"
-        name="cni"
+        name="upload"
       >
         <a-input
           type="file"
