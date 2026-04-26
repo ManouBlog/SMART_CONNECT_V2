@@ -72,9 +72,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <!-- <p>abonnements:{{ abonnements }}</p>
-  <p>type_abonnements:{{ type_abonnements }}</p> -->
- 
+
   <div class="conteneur-flex">
     <div
       v-for="item in abonnements.filter(

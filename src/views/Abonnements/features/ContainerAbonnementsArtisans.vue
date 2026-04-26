@@ -46,8 +46,9 @@ const tabs = [
 const currentConfig = computed(() => {
   const formule = storeAbonnementUser?.planAbonnement?.mode_payment;
   console.log('currentConfig',storeAbonnement)
-  console.log('storeAbonnement.profilHybridecurrentconfig',storeAbonnement.profilHybride)
-  const countprofilHybride = storeAbonnement?.profilHybride?.length
+  console.log('sprofilHybridecurrentconfigabonnementartisan',storeAbonnement.profilHybride)
+  console.log('storeAbonnementAddProfilhybride',storeAbonnement?.addProfilHybride)
+  const countprofilHybride = storeAbonnement?.profilHybride?.length || storeAbonnement?.addProfilHybride.length
   if (select_mode_payment_tab.value === 'year') {
      
     return {

@@ -203,10 +203,11 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 </script>
 
 <template>
-   <!-- <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
+  <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
+   <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
   <p>statut_talent_choice_entreprise:{{ statut_talent_choice_artisan }}</p>
-  <p>statut_talent_choice_artisan:{{ statut_talent_choice_artisan }}</p> -->
+  <p>statut_talent_choice_artisan:{{ statut_talent_choice_artisan }}</p>
   <div v-if="tabsSubAbonnement.length">
    <div style="display: flex;justify-content: center;">
      <n-tabs
@@ -277,7 +278,7 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
  :type_abonnements="'Vétéran'"
  />
 </div>
-    <div v-if="!tabsSubAbonnement.length" >
+    <div v-if="!tabsSubAbonnement.length">
     <section v-if="!storeAbonnement.addProfilHybride.length" 
     style="display: flex;place-content: center;gap:0.5em;flex-wrap:wrap;">
     <div
@@ -348,7 +349,6 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
     </section>
     </div>
     </section>
-    <!-- <p>formuleAbonnementOfUserConnected:{{ formuleAbonnementOfUserConnected }}</p> -->
     <section v-if="storeAbonnement.addProfilHybride.length"
     style="display: flex;place-content: center;gap:0.5em;flex-wrap:wrap;" 
     >
@@ -491,8 +491,9 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
     </div>
       </div>
     </section>
-   
   </div>
+  
+  
 </template>
 
 <style scoped>
