@@ -18,11 +18,11 @@
 
       <div class="card-body" v-if="detailsAbonnement">
         <div class="row mb-3">
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <strong>Formule de l’abonnement :</strong>
             <div>{{ detailsAbonnement?.abonement?.libelle }}</div>
           </div>
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <strong>Statut de l'abonnement :</strong>
             <div>
               <span
@@ -40,16 +40,15 @@
 
         <div class="row mb-3">
 
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
   <strong>Montant payé :</strong>
-  <div>{{ detailsAbonnement?.montant }} Fcfa</div>
+  <div>{{ moneyFormat.format(detailsAbonnement?.montant) }} Fcfa</div>
 
   <small v-if="detailsAbonnement?.add_profil_hybrides?.length">
     Montant initial : 
-    <strong>{{ detailsAbonnement.mode_payment == 'year' ? detailsAbonnement.abonement.prix:detailsAbonnement.abonement.price_month  }}</strong>
+    <strong>{{ detailsAbonnement.mode_payment == 'year' ? moneyFormat.format(detailsAbonnement.abonement.prix):moneyFormat.format(detailsAbonnement.abonement.price_month)  }}</strong>
     Fcfa
   </small>
-
   <div v-if="detailsAbonnement?.add_profil_hybrides?.length" class="mt-2">
     <small>Profils hybrides inclus :</small>
     <div>
@@ -64,7 +63,7 @@
   </div>
 </div>
 
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <strong>Moyen de paiement :</strong>
             <div>{{detailsAbonnement?.moyen_paiement}}</div>
           </div>
@@ -72,18 +71,18 @@
 
         <div class="row mb-3">
 
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <strong>Date de paiement :</strong>
             <div>{{ configUtils.getFormatDateFr(detailsAbonnement?.created_at) }}</div>
           </div>
 
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <strong>Fin de l'abonnement :</strong>
             <div>{{ detailsAbonnement?.echeance }}</div>
           </div>
         </div>
          <div class="row mb-3">
-         <div class="col-md-4 mb-3">
+         <div class="col-md-6 mb-3">
             <strong>Référence de la transaction :</strong>
             <div>{{ detailsAbonnement?.transaction_id }}</div>
           </div>
@@ -200,7 +199,7 @@
           :header="'Détail'"
         >
           <template #body="slotProps">
-            <i class="bi bi-eye" @click="handleDetailAbonnement(slotProps.data)"></i> 
+            <i class="bi bi-eye" style="cursor: pointer;" @click="handleDetailAbonnement(slotProps.data)"></i> 
           </template>
         </Column>
       </DataTable>
@@ -276,6 +275,7 @@ export default {
       Help:Help,
       texte10: "",
       configUtils,
+      moneyFormat: new Intl.NumberFormat("de-DE"),
       STATUTABONNEMENT,
       showModalDetailAbonnement:false,
       detailsAbonnement:null,
