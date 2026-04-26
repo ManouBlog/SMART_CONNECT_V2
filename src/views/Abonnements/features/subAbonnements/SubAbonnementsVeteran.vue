@@ -18,7 +18,7 @@ const storeAbonnement = useAbonnementsStore();
 const storeAbonnementUser = useEntreprisesStore();
 // const userConnected = ref(localStorage.getItem('user'))
  const store = useStore();
-const elmentsOfBtn = ref(null);
+// const elmentsOfBtn = ref(null);
 const texte = ref(null);
 const profilHybrideRecuperer = ref(0)
 
@@ -66,38 +66,41 @@ const filteredAbonnementsByTalent = computed(() => {
   return props.abonnements.filter((item) => item.categorie.categorie === props.type_abonnements)
 });
 
-const messageAbonnement = computed(() => {
-  const type = props.type_abonnements;
-  const libelle = props.item?.libelle?.trim().toUpperCase();
-  console.log('MESSAGE_ABONNEMENT',type)
-  console.log('libelle_abonnement_message',libelle)
+const getMessageAbonnement = (type, item) => {
+  const libelle = item?.libelle?.trim().toUpperCase();
+
+  console.log("MESSAGE_ABONNEMENT", type);
+  console.log("libelle_abonnement_message", libelle);
 
   if (type === "Etudiant") {
-    const mapMessages = {
+    const map = {
       "BROBROLI PRO": "Commence maintenant",
       "BROBROLI PRO MAX": "Je passe à BROBROLI PRO MAX",
     };
-    return mapMessages[libelle] || "Je passe à Brobroli";
+
+    return map[libelle] || "Je passe à Brobroli";
   }
 
   if (type === "Professionnel") {
-    const mapMessages = {
+    const map = {
       "BROBROLI PRO": "Créer mon profil BROBROLI PRO",
       "BROBROLI PRO MAX": "Accéder à BROBROLI PRO MAX",
     };
-    return mapMessages[libelle] || "Je passe à Brobroli";
+
+    return map[libelle] || "Je passe à Brobroli";
   }
 
-   if (type.includes("Vétéran")) {
-    const mapMessages = {
+  if (type?.includes("Vétéran")) {
+    const map = {
       "BROBROLI PRO": "Créer mon profil BROBROLI PRO",
       "BROBROLI PRO MAX": "Accéder à BROBROLI PRO MAX",
     };
-    return mapMessages[libelle] || "Je passsdde à Brobroli";
+
+    return map[libelle] || "Je passe à Brobroli";
   }
 
-  return "Choisirsezd cette formule";
-});
+  return "Choisir cette formule";
+};
 
 const ecriteauFormule = (item) => {
   const categorie = item?.categorie?.categorie?.toLowerCase();
@@ -143,12 +146,7 @@ watch(
 );
 
 onMounted(async () => {
-  elmentsOfBtn.value = [
-    {
-      name_btn: await transalteStore.handleTranslate(messageAbonnement.value),
-      color_btn: "primary",
-    },
-  ];
+  
   console.log("PROFILE_ABONNEMENT_SUB_VETERAN",storeAbonnement.profilHybride)
 profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
   texte.value = await transalteStore.handleTranslate("année");
@@ -231,7 +229,12 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       <div class="conteneur-btn">
         <Buttons
           :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id"
-          :elmentsOfBtn="elmentsOfBtn"
+          :elmentsOfBtn=" [
+    {
+      name_btn: getMessageAbonnement(props.type_abonnements,item),
+      color_btn: 'primary',
+    }
+  ]"
           :shapeBtn="'round'"
           @created="handleInitialiserPayement(item)"
         />
