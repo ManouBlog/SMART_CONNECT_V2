@@ -95,16 +95,7 @@ rules: {
       trigger: "change"
     }
   ],
-
-  cv: [
-    {
-      required: true,
-      message: "Veuillez ajouter votre CV",
-      trigger: "change"
-    }
-  ],
-
-  cni: [
+  upload: [
     {
       required: true,
       message: "Veuillez ajouter votre carte nationale d'identité",
