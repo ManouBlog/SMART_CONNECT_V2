@@ -181,7 +181,7 @@ const ecriteauFormule = (item) => {
         "Publication illimitée. Vos annonces en tête. Les meilleurs profils vous trouvent en premier..",
 
       "BROBROLI PRO":
-        `Accédez aux profils vérifiés. Publiez vos besoins. Payez facilement.
+        `Accédez aux profils vérifiésfr. Publiez vos besoins. Payez facilement.
         `,
     }
   };
@@ -271,7 +271,8 @@ console.log('store.state?.user',store.state?.user)
 </script>
 
 <template>
-  
+  <!-- <p>{{ tabsToDisplay }}</p>
+  <p>{{ filteredTabsSubAbonnement }}</p> -->
   <!-- <P>store.state?.user?.user/{{ store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user.statut.statut) }}</P>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
    <P>storeAbonnement.addProfilHybride/{{storeAbonnement.addProfilHybride }}</P> -->
