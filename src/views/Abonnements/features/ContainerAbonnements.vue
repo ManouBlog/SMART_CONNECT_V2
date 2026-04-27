@@ -230,7 +230,15 @@ onMounted(async () => {
   ]
 profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
+console.log('store.state?.user',store.state?.user)
   texte.value = await transalteStore.handleTranslate("année")
+  const profilHybridesIfUserConnected = store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user.statut.statut)
+  if(store.state?.user && profilHybridesIfUserConnected.length){
+    storeAbonnement.handleChangeInfoForAbonnement({profilHybride:profilHybridesIfUserConnected})
+    storeAbonnement.handleMyStatutOfBase(store.state?.user?.user?.statut_base)
+  }
+  console.log("PROFIL_HYBRIDES_AJOUTES",storeAbonnement?.profilHybride)
+  console.log("IS_CHANGE_PROFIL",storeAbonnement?.isChangeProfil)
   console.log("storeAbonnement.addProfilHybride_container",storeAbonnement?.addProfilHybride)
      if(storeAbonnement.addProfilHybride.length){
     const profilUserCurrent = store.state?.user?.user?.abonement?.find(item=>item.statut === 'success')
@@ -248,6 +256,9 @@ console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 </script>
 
 <template>
+  <P>store.state?.user?.user/{{ store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user.statut.statut) }}</P>
+   <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
+   <P>storeAbonnement.addProfilHybride/{{storeAbonnement.addProfilHybride }}</P>
   <!-- <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
