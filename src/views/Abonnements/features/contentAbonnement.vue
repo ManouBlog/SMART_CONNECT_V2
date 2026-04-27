@@ -159,7 +159,7 @@ const handleCreateYear =(payload)=>{
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload ,
         statut_talent : storeAbonnement.statut_talent ,
-        profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
+        profilHybride:storeAbonnement.profilHybride,
         }
   console.log("paiement_contentAbonnement_year",data)
   storeAbonnement.createAbonement(data)

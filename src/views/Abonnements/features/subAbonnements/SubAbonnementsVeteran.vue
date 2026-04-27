@@ -157,7 +157,6 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
     }else{
       profilHybrideRecuperer.value = storeAbonnement?.addProfilHybride?.length
     }
-
   texte.value = await transalteStore.handleTranslate("année");
   if (isUserConnected.value) {
       await storeAbonnementUser.get_all_abonnement();
