@@ -56,50 +56,6 @@ const handleAbonement = async () => {
   }
 }
 
-//  async function getInfoUser(){
-//       if (this.$store.state.token) {
-//         await instance
-//           .get("voirInfoUserConnect")
-//           .then((resp) => {
-//             if (resp.data.status === true) {
-//               console.log("MYphoto_profil",resp.data.user)
-//             window.localStorage.setItem("user", JSON.stringify(resp.data.user));
-            
-//             }
-//           })
-//           .catch((error) => {
-//             console.log(error);
-//           })
-//       }
-//     }
-
-// async function doVerificationAbonnement(payload){
-// try {
-//     const response = await instance.get("payStack/payment/callback/"+payload); 
-//     if(response.data.status){
-//        Swal.fire({
-//               icon: "success",
-//               title: "Paiement reussi.",
-//               showConfirmButton: true,
-//             });
-//             await getInfoUser();
-//             router.push('/')
-//     }
-//     if(!response.data.status){
-//       Swal.fire({
-//               icon: "error",
-//               title: "Paiement échoué.",
-//               showConfirmButton: false,
-//               timer: 1500,
-//             });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }finally{
-//     await handleAbonement();
-//   }
-// }
-
 onMounted(async () => {
   console.log("props.ProfilAbonnement", props.ProfilAbonnement)
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
@@ -136,6 +92,7 @@ onMounted(async () => {
       <div v-if="props.ProfilAbonnement">
         <!-- {{ profileAbonnement }}
         {{ store.state.user?.user?.statuses }} -->
+         <!-- <p>statut_talent_choice:{{ statut_talent_choice }}</p> -->
 
     <n-card>
        <div class="d-flex justify-content-center">

@@ -27,30 +27,34 @@ const profilHybrideRecuperer = ref(0)
 const handleInitialiserPayement=(payload)=>{
   const STORE_ABONNEMENT = useAbonnementsStore();
   const randomPart = Math.random().toString(36).substring(2);
+  const statutBaseUser = store.state?.user?.user?.statut_base;
   console.log('STORE_ABONNEMENT.diplome',STORE_ABONNEMENT.diplome)
-        const data = {
+         const data = {
             abonement_id:payload.id,
             channels:"undefined",
+            mode_payment:'year',
             transaction_id:randomPart,
-            mode_payment:"year",
-            isChangeProfil:STORE_ABONNEMENT.isChangeProfil,
-            statut_base:STORE_ABONNEMENT.statutOfBase,
-            treatment_preferentiel:STORE_ABONNEMENT.treatment_preferentiel,
-             niveauExpertise : STORE_ABONNEMENT.niveauExpertise,
-        modeTravail : STORE_ABONNEMENT.modeTravail,
-        tempsTravail : STORE_ABONNEMENT.tempsTravail ,
-        niveauEtude : STORE_ABONNEMENT.niveauEtude +" "+ STORE_ABONNEMENT.diplome,
-        CVupload : STORE_ABONNEMENT.CVupload ,
-        statut_talent : STORE_ABONNEMENT.statut_talent ,
+            isAddProfilHybride:storeAbonnement.addProfilHybride.map(item => item.id).length ? true:false,
+            statut_base:storeAbonnement.statutOfBase || statutBaseUser,
+            isChangeProfil:storeAbonnement.isChangeProfil,
+            treatment_preferentiel:storeAbonnement.treatment_preferentiel,
+             niveauExpertise : storeAbonnement.niveauExpertise ,
+        modeTravail : storeAbonnement.modeTravail ,
+        tempsTravail : storeAbonnement.tempsTravail ,
+        niveauEtude : storeAbonnement.niveauEtude ,
+        CVupload : storeAbonnement.CVupload ,
+        statut_talent : storeAbonnement.statut_talent ,
+        profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
+        addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
         }
        console.log("payload sub abonnement veteran",{
-        payload:payload,
+        // payload:payload,
         data:data,
-        storeAbonnement:STORE_ABONNEMENT
+        // storeAbonnement:STORE_ABONNEMENT
        })
       
        
-    // storeAbonnement.createAbonement(data)
+    storeAbonnement.createAbonement(data)
 }
 
 // Détecte si le user est connecté et possède un statut
@@ -146,9 +150,14 @@ watch(
 );
 
 onMounted(async () => {
-  
-  console.log("PROFILE_ABONNEMENT_SUB_VETERAN",storeAbonnement.profilHybride)
+  console.log("PROFILE_HYBRIDE_ABONNEMENT_SUB_VETERAN",storeAbonnement.profilHybride)
+    console.log("ADDPROFILE_HYBRIDE_ABONNEMENT_SUB_VETERAN",storeAbonnement.addProfilHybride)
+    if(storeAbonnement.isChangeProfil){
 profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
+    }else{
+      profilHybrideRecuperer.value = storeAbonnement?.addProfilHybride?.length
+    }
+
   texte.value = await transalteStore.handleTranslate("année");
   if (isUserConnected.value) {
       await storeAbonnementUser.get_all_abonnement();
@@ -185,13 +194,6 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       {{ ecriteauFormule(item) }}
      </p>
       
-      
-    <!-- <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
-      <ContainerAbonnementVeterans 
-      :item="item"
-      :elmentsOfBtn="elmentsOfBtn"
-      />
-    </div> -->
     <section>
       <p style="text-align:center;position: absolute;top: 10px;right: 10px;">
      <span

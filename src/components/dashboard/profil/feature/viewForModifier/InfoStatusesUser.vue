@@ -382,9 +382,10 @@ this.selectedParseStatus = ""
     <div class="info-header d-flex justify-content-between align-items-center p-4 mb-5 flex-wrap">
       <h1 class="fw-bold my-3 mb-0" style="color: orange">Mes Profils</h1>
       <!-- {{ profils.user}} -->
+        <!-- <p>VOUEBC:{{ profils.user}}</p> -->
         <div style="display: flex; gap:1em;flex-wrap: wrap;">
 <button
-      v-if="profils?.user?.statuses.some(item=>item.statut != 'Vétéran')"
+      v-if="profils?.user?.statut?.statut !== 'Vétéran'"
           style="
             height: auto;
             width: auto;
@@ -406,7 +407,7 @@ this.selectedParseStatus = ""
         <!-- {{ profils?.user }} -->
         <div>
       <button
-      v-if="profils?.user?.statuses.some(item=>item.statut != 'Vétéran' && (item.statut != 'Particulier' || item.statut != 'Artisan'))"
+      v-if="profils?.user?.statuses.some(item=> item.statut != 'Particulier' || item.statut != 'Artisan')"
           style="
             height: auto;
             width: auto;

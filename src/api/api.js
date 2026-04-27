@@ -47,6 +47,19 @@ instance.interceptors.response.use(
       // optionnel : d'autres clés locales
       localStorage.removeItem("user");
     }
+     /*
+    |--------------------------------------------------------------------------
+    | 429 - Too Many Attempts
+    |--------------------------------------------------------------------------
+    */
+    if (
+      error.response?.status === 429 &&
+      error.response?.data?.message === "Too Many Attempts."
+    ) {
+      alert(
+        "Trop de tentatives détectées. Veuillez patienter quelques instants avant de réessayer."
+      );
+    }
     return Promise.reject(error);
   }
 );

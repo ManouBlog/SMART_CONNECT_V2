@@ -26,7 +26,7 @@ const profilHybrideRecuperer = ref(0)
 
 const handleCreateEntreprise=(payload)=>{
   console.log("paiement_entreprise2398")
-    const statutBaseUser = store.state.user.user.statut_base;
+    const statutBaseUser = store.state.user?.user?.statut_base;
      const randomPart = Math.random().toString(36).substring(2);
         const data = {
             abonement_id:payload.id,
@@ -54,7 +54,7 @@ const handleCreateEntreprise=(payload)=>{
 //   console.log("handleCreateAbonnement56")
 //   console.log("handleCreateYear",payload)
 //   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
-//     const statutBaseUser = store.state.user.user.statut_base;
+//     const statutBaseUser = store.state.user?.user?.statut_base;
 //    const randomPart = Math.random().toString(36).substring(2);
 //         const data = {
 //             abonement_id:payload.id,

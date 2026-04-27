@@ -256,9 +256,10 @@ console.log('store.state?.user',store.state?.user)
 </script>
 
 <template>
-  <P>store.state?.user?.user/{{ store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user.statut.statut) }}</P>
+  
+  <!-- <P>store.state?.user?.user/{{ store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user.statut.statut) }}</P>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
-   <P>storeAbonnement.addProfilHybride/{{storeAbonnement.addProfilHybride }}</P>
+   <P>storeAbonnement.addProfilHybride/{{storeAbonnement.addProfilHybride }}</P> -->
   <!-- <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
