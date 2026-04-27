@@ -148,8 +148,8 @@ StatutArtisans:[
       formState: {
         upload: [],
         niveauEtude:"",
-        niveauExpertise:"",
-        profilHybride:[]
+        profilHybride:[],
+        statut_talent:""
       },
     };
   },
@@ -158,7 +158,7 @@ StatutArtisans:[
 
    isFormComplete() {
       return (
-        this.formState.niveauExpertise?.trim() &&      // Select sélectionné
+        this.formState.statut_talent?.trim() &&      // Select sélectionné
         this.formState.upload?.length > 0              // Fichier uploadé
       );
     }
@@ -322,6 +322,8 @@ resetData(){
       <div style="background-color: white;">
        <Abonnements 
        :ProfilAbonnement="this.profilOfAbonnement.statut"
+       :statut_talent_artisan="formState.statut_talent"
+       :notUseIncludesForArtisan="true"
        />
       </div>
       </n-modal>
@@ -351,7 +353,7 @@ resetData(){
         <select 
           name="treatment" 
           id="treatment1" 
-          v-model="formState.niveauExpertise"
+          v-model="formState.statut_talent"
           class="form-control"
           style="height: 50px;"
         >

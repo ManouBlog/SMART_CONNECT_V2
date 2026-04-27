@@ -13,9 +13,19 @@ const props = defineProps({
     required: false,
     default: null
   },
+  notUseIncludesForArtisan:{
+  type:Boolean,
+  required:false,
+  default:false
+  },
   statut_talent_choice:{
     type:String,
     required:false,
+    default:null
+  },
+  statut_talent_artisan:{
+    type:String,
+     required:false,
     default:null
   }
 })
@@ -168,11 +178,14 @@ onMounted(async () => {
     :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
     :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
   >
+  <p>store.state.user?.statut_talent:{{ store.state.user?.statut_talent }}</p>
+<p>statut_talent_artisan:{{ statut_talent_artisan }}</p>
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Artisan"
       :tabsSubAbonnement="abonnementsArtisan"
-      :statut_talent_choice_artisan="store.state.user?.statut_talent"
+      :notUseIncludesForArtisan="notUseIncludesForArtisan"
+      :statut_talent_choice_artisan="statut_talent_artisan ? statut_talent_artisan : store.state.user?.statut_talent"
       :subAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))
       "
@@ -311,12 +324,12 @@ onMounted(async () => {
     :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
     :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
   >
-<!-- <p>abonnementsArtisan:{{ abonnementsArtisan }}</p> 
-<p>store.state.user?.statut_talent:{{ store.state.user?.statut_talent }}</p> -->
+
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Artisan"
-      :statut_talent_choice_artisan="store.state.user?.statut_talent"
+      :notUseIncludesForArtisan="notUseIncludesForArtisan"
+      :statut_talent_choice_artisan="statut_talent_artisan ? statut_talent_artisan : store.state.user?.statut_talent"
       :tabsSubAbonnement="abonnementsArtisan"
       :subAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))

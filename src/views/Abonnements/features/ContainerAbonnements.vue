@@ -29,6 +29,11 @@ const props = defineProps({
   required:false,
   default:null
   },
+  notUseIncludesForArtisan:{
+  type:Boolean,
+  required:false,
+  default:false
+  },
   subAbonnement:{
    type: Array,
     default: () => []
@@ -91,9 +96,16 @@ const filteredTabsSubAbonnement = computed(() => {
   );
   }
   if(props.statut_talent_choice_artisan){
-     return props.tabsSubAbonnement.filter(
+    if(props.notUseIncludesForArtisan){
+ return props.tabsSubAbonnement.filter(
+    item => item.id == props.statut_talent_choice_artisan
+  );
+    }else{
+ return props.tabsSubAbonnement.filter(
     item => item.id.includes(props.statut_talent_choice_artisan)
   );
+    }
+    
   }
   if(props.type_abonnements.includes('Artisan')){
     return props.tabsSubAbonnement.some(item =>
@@ -232,11 +244,14 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
 console.log('store.state?.user',store.state?.user)
   texte.value = await transalteStore.handleTranslate("année")
-  const profilHybridesIfUserConnected = store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user.statut.statut)
+  if(!props.notUseIncludesForArtisan){
+ const profilHybridesIfUserConnected = store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user.statut.statut)
   if(store.state?.user && profilHybridesIfUserConnected.length){
     storeAbonnement.handleChangeInfoForAbonnement({profilHybride:profilHybridesIfUserConnected})
     storeAbonnement.handleMyStatutOfBase(store.state?.user?.user?.statut_base)
   }
+  }
+  
   console.log("PROFIL_HYBRIDES_AJOUTES",storeAbonnement?.profilHybride)
   console.log("IS_CHANGE_PROFIL",storeAbonnement?.isChangeProfil)
   console.log("storeAbonnement.addProfilHybride_container",storeAbonnement?.addProfilHybride)
