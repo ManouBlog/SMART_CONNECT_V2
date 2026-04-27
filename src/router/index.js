@@ -6,6 +6,11 @@ import offresView from "../views/offresView.vue";
 import createTimetableView from "../views/createTimetableView.vue";
 
 const routes = [
+   {
+        path: '/PayementSuccessful',
+        name: 'PayementSuccessful',
+        component: () => import( '../views/PayementSuccessful.vue')
+      },
   {
     path: '/',
     name: 'Home',
@@ -24,12 +29,7 @@ const routes = [
         path:'/:email/:token',
         name:'Bienvenue-verification',
         component: () => import( '../views/Accueil/Bienvenue.vue')
-      },
-      // {
-      //   path: '/registre',
-      //   name: 'registre',
-      //   component: () => import( '../views/registre.vue')
-      // }, 
+      }, 
       {
         path: '/conditions-generales',
         name: 'condition',
