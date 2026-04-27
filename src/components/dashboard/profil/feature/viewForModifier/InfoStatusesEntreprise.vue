@@ -181,31 +181,7 @@ this.selectedParseStatus = ""
       <section v-if="allStatuses.length"
   
 >
-        <!-- <div class="w-100 mb-4">
-            <label for="statusSelect">Séléctionnez un profil</label>
-            <select 
-      name="status" 
-      id="statusSelect"
-      v-model="selectedStatus"
-      class="form-select rounded-4 shadow-sm border-0 w-100"
-      style="min-height: 50px"
-      :disabled="!allStatuses.length"
-      @change="handleStatutProfil"
-      required
-    >
-      <option value="" disabled selected>
-        {{ allStatuses.length ? 'Sélectionnez un profil...' : 'Aucun profil disponible' }}
-      </option>
-      <option 
-        v-for="value in allStatuses" 
-        :key="value.id" 
-        :value="JSON.stringify(value)"
-      >
-        {{ value.statut }}
-      </option>
-           </select>
-        </div> -->
-        <!-- {{ selectedParseStatus }} -->
+     
   
   <div>
   <FieldsCompany
