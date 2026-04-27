@@ -99,10 +99,10 @@ export default {
           .then((resp) => {
           
             if (resp.data.status === true) {
-              console.log("MYphoto_profil",resp.data.user)
-              this.photo_profil = resp.data.user.photo_profil || resp.data.user.logo;
-              this.userInfos = resp.data.user
-            window.localStorage.setItem("user", JSON.stringify(resp.data.user));
+              console.log("MYphoto_profil",resp.data?.user)
+              this.photo_profil = resp.data?.user?.photo_profil || resp.data?.user?.logo;
+              this.userInfos = resp.data?.user
+            window.localStorage.setItem("user", JSON.stringify(resp.data?.user));
             }
           })
           .catch((error) => {
@@ -156,9 +156,9 @@ if (
   },
   async created() {
     this.getInfoUser();
-    const userStr = localStorage.getItem('user');
+    const userStr = this.$store.state.user;
     console.log("userStr", userStr)
-    this.StatutUser = userStr ? JSON.parse(userStr).user?.statuses : null;
+    this.StatutUser = userStr ? userStr?.user?.statuses : null;
     console.log("StatutUser", this.StatutUser)
     this.texte = await this.handleTranslate("Connexion");
     this.texte1 = await this.handleTranslate("Accueil");
@@ -359,7 +359,7 @@ if (
   </li>
 
   <li 
-  class="position-absolute deconnex" v-if="$store.state.user && userStatut.some(s=>s.statut == 'Etudiant') ">
+  class="position-absolute deconnex" v-if="$store.state.user && userStatut?.some(s=>s.statut == 'Etudiant') ">
     <a class="d-block" @click="goTo('/dashboard/emploi_du_temps')">
       Mes disponibilités
     </a>

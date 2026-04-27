@@ -168,6 +168,7 @@ export default createStore({
         .get("voirInfoUserConnect")
         .then((resp) => {
           if (resp.data.status === true) {
+            console.log("getInfoUser_store",resp.data.user)
             commit("UPDATE_INFO_CONPANY",resp.data.user)
           }
         })

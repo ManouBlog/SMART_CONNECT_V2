@@ -29,10 +29,8 @@ export default {
 
   methods: {
     goToHome() {
-      this.$router.push("/").then(() => {
-        window.location.reload();
-      });
-    }
+    window.location.href = "/";
+  }
   }
 };
 </script>

@@ -332,6 +332,7 @@ userDocuments() {
       //   this.$store.state.infoUserConnected
       // );
     },
+    
   },
   async created() {
     this.texte = await this.handleTranslate("Mon espace");
@@ -352,8 +353,8 @@ userDocuments() {
     this.texte13 = await this.handleTranslate("Niveau d'etude");
     this.texte14 = await this.handleTranslate("Prénoms");
     this.texte15 = await this.handleTranslate("Ma formule");
-    this.getInfoUser();
-    this.seeMessageUploadProfil();
+    await this.getInfoUser();
+    await this.seeMessageUploadProfil();
   },
 };
 </script>

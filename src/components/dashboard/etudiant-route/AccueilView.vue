@@ -86,7 +86,7 @@ export default {
       await this.$store.dispatch("getInfoUser")
   const user = this.$store.state.infoUserConnected;
   console.log("USER_INFO",user)
-  this.IsAmbassador = user.user.code_ambassadeur
+  this.IsAmbassador = user?.user?.code_ambassadeur
   if (user.user?.statuses.some(s => s.statut === 'Etudiant')){
 if (!user.competences.length || !user.qualifications.length) {
     this.$router.push('/dashboard/profil');

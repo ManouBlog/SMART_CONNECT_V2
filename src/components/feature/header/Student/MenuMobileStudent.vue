@@ -135,7 +135,7 @@ if (
     </a>
   </li>
 
-  <li class="position-absolute deconnex" v-if="userStatut.some(s=>s.statut == 'Etudiant') ">
+  <li class="position-absolute deconnex" v-if="userStatut?.some(s=>s.statut == 'Etudiant') ">
     <a class="d-block" @click="goTo('/dashboard/emploi_du_temps')">
       Mes disponibilités
     </a>

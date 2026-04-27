@@ -2,11 +2,12 @@
 import { defineProps, ref, onMounted, watch, computed } from "vue";
 import { Help } from "../../../../utils";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
+import { useStore } from 'vuex'
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
-import contentAbonnement from '../contentAbonnement.vue'
-defineProps({
+// import contentAbonnement from '../contentAbonnement.vue'
+const props = defineProps({
   abonnements: Array,
   type_abonnements: String,
 });
@@ -15,8 +16,9 @@ defineProps({
 const transalteStore = useTranslateStore();
 const storeAbonnement = useAbonnementsStore();
 const storeAbonnementUser = useEntreprisesStore();
-const userConnected = ref(localStorage.getItem('user'))
-const elmentsOfBtn = ref(null);
+// const userConnected = ref(localStorage.getItem('user'))
+const store = useStore();
+// const elmentsOfBtn = ref(null);
 const texte = ref(null);
 const profilHybrideRecuperer = ref(0)
 
@@ -24,19 +26,61 @@ const profilHybrideRecuperer = ref(0)
 
 const handleCreateEntreprise=(payload)=>{
   console.log("paiement_entreprise2398")
-  const randomPart = Math.random().toString(36).substring(2);
-        // console.log("payload",payload)
+    const statutBaseUser = store.state.user.user.statut_base;
+     const randomPart = Math.random().toString(36).substring(2);
         const data = {
             abonement_id:payload.id,
             channels:"undefined",
-            transaction_id:randomPart
+            mode_payment:'year',
+            transaction_id:randomPart,
+            isAddProfilHybride:storeAbonnement.addProfilHybride.map(item => item.id).length ? true:false,
+            statut_base:storeAbonnement.statutOfBase || statutBaseUser,
+            isChangeProfil:storeAbonnement.isChangeProfil,
+            treatment_preferentiel:storeAbonnement.treatment_preferentiel,
+             niveauExpertise : storeAbonnement.niveauExpertise ,
+        modeTravail : storeAbonnement.modeTravail ,
+        tempsTravail : storeAbonnement.tempsTravail ,
+        niveauEtude : storeAbonnement.niveauEtude ,
+        CVupload : storeAbonnement.CVupload ,
+        statut_talent : storeAbonnement.statut_talent,
+        profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
+        addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
         }
+  console.log("paymentabonnement_year",data)
   storeAbonnement.createAbonement(data)
 }
 
+// const handleCreateYear =(payload)=>{
+//   console.log("handleCreateAbonnement56")
+//   console.log("handleCreateYear",payload)
+//   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+//     const statutBaseUser = store.state.user.user.statut_base;
+//    const randomPart = Math.random().toString(36).substring(2);
+//         const data = {
+//             abonement_id:payload.id,
+//             channels:"undefined",
+//             mode_payment:select_mode_payment_tab.value,
+//             transaction_id:randomPart,
+//             isAddProfilHybride:storeAbonnement.addProfilHybride.map(item => item.id).length ? true:false,
+//             statut_base:storeAbonnement.statutOfBase || statutBaseUser,
+//             isChangeProfil:storeAbonnement.isChangeProfil,
+//             treatment_preferentiel:storeAbonnement.treatment_preferentiel,
+//              niveauExpertise : storeAbonnement.niveauExpertise ,
+//         modeTravail : storeAbonnement.modeTravail ,
+//         tempsTravail : storeAbonnement.tempsTravail ,
+//         niveauEtude : storeAbonnement.niveauEtude ,
+//         CVupload : storeAbonnement.CVupload ,
+//         statut_talent : storeAbonnement.statut_talent ,
+//         profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
+//         addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
+//         }
+//   console.log("paymentabonnement_year",data)
+//   storeAbonnement.createAbonement(data)
+// }
+
 // Détecte si le user est connecté et possède un statut
 const isUserConnected = computed(() => {
-  return userConnected.value;
+  return store.state.user;
 });
 
 const ecriteauFormule = (item) => {
@@ -63,6 +107,27 @@ const ecriteauFormule = (item) => {
   return rules?.[categorie]?.[libelle] || "Choisir cette formule";
 };
 
+const messageAbonnement = (item) => {
+ const type = props.type_abonnements;
+  const libelle = item?.libelle?.trim().toUpperCase();
+
+  if (
+    type === "Entreprise Formelle" ||
+    type === "Entreprise Informelle"
+  ) {
+    const mapMessages = {
+      "BROBROLI PRO": "Créer mon compte BROBROLI",
+      "BROBROLI PRO MAX": "Passe à BROBROLI PRO MAX",
+    };
+
+    return mapMessages[libelle] || "Je passe à Brobroli";
+  }
+
+  return "Choisi entreprise cette formule";
+};
+
+
+
 // Watch déclenche le chargement des abonnements
 watch(
   isUserConnected,
@@ -76,13 +141,6 @@ watch(
 );
 
 onMounted(async () => {
-  elmentsOfBtn.value = [
-    {
-      name_btn: await transalteStore.handleTranslate("Choisirsdc cette formule"),
-      color_btn: "primary",
-    },
-  ];
-
   texte.value = await transalteStore.handleTranslate("année");
    console.log("PROFILE_ABONNEMENT_SUB_ARTISAN",storeAbonnement.profilHybride)
    console.log("storeAbonnement.addProfilHybrideSUBABONNEMENTENTREPRISE",storeAbonnement.addProfilHybride)
@@ -128,13 +186,13 @@ onMounted(async () => {
       </p>
       
       
-    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel','Entreprise'].some(role=>role === item?.categorie?.categorie)">
+    <!-- <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel','Entreprise'].some(role=>role === item?.categorie?.categorie)">
       <contentAbonnement 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
       />
-    </div>
-    <section v-else >
+    </div> -->
+    <section>
       <p style="text-align:center;position: absolute;top: 10px;right: 10px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
@@ -173,7 +231,12 @@ onMounted(async () => {
 
         <Buttons
           :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id"
-          :elmentsOfBtn="elmentsOfBtn"
+          :elmentsOfBtn='[
+    {
+      name_btn: messageAbonnement(item),
+      color_btn: "primary",
+    },
+  ]'
           :shapeBtn="'round'"
           @created="handleCreateEntreprise(item)"
         />

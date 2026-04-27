@@ -363,7 +363,6 @@ this.selectedParseStatus = ""
   <FieldsCompany 
   v-if="selectedParseStatus.statut === 'Entreprise'"
   :profilOfAbonnement="selectedParseStatus"
-  :optionsAnswer="optionsAnswer"
   />
   </div>
     </section>
