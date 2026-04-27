@@ -452,12 +452,13 @@ console.log('store.state?.user',store.state?.user)
       <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
-      
+      <!-- <p>type_abonnements1:{{ type_abonnements }}</p> -->
       
     <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
       <ContentAbonnementForAddProfilHybride 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
+      :type_abonnements="type_abonnements"
       />
     </div>
     <section v-else>
@@ -522,11 +523,12 @@ console.log('store.state?.user',store.state?.user)
         {{ item.libelle }}
       </h1>
       
-      
+      <!-- <p>type_abonnements2:{{ type_abonnements }}</p> -->
     <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel','Entreprise'].some(role=>role === item?.categorie?.categorie)">
       <ContentAbonnementForAddProfilHybride 
       :item="item"
       :elmentsOfBtn="elmentsOfBtn"
+      :type_abonnements="type_abonnements"
       />
     </div>
     <section v-else>

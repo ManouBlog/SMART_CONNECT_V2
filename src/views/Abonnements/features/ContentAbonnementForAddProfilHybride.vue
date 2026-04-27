@@ -21,7 +21,8 @@ const select_mode_payment_tab = ref('year')
 
 const props = defineProps({
   item: Object,
-  elmentsOfBtn: Array
+  elmentsOfBtn: Array,
+  type_abonnements:String
 })
 
 const tabs = ref([
@@ -69,6 +70,39 @@ const currentConfig = computed(() => {
     action: () => handleCreate('month')
   }
 })
+
+ const messageAbonnement = computed(() => {
+  const type = props.type_abonnements;
+  const libelle = props.item?.libelle?.trim().toUpperCase();
+
+  if (type === "Etudiant") {
+    const mapMessages = {
+      "BROBROLI PRO": "Commence maintenant",
+      "BROBROLI PRO MAX": "Je passe à BROBROLI PRO MAX",
+    };
+
+    return mapMessages[libelle] || "Je passe à Brobroli";
+  }
+   if (type.includes("Artisan")) {
+    const mapMessages = {
+      "BROBROLI PRO": "Trouve tes premiers clients",
+      "BROBROLI PRO MAX": "Deviens PLUS dans ta zone",
+    };
+
+    return mapMessages[libelle] || "Choisir cette formule";
+  }
+
+  if (type.includes("Particulier")) {
+    const mapMessages = {
+      "BROBROLI PRO": "Créer mon compte BROBROLI PRO",
+      "BROBROLI PRO MAX": "Passer à BROBROLI PRO MAX",
+    };
+
+    return mapMessages[libelle] || "Choisir cette formule";
+  }
+
+  return "Choisir cette formule";
+});
 
 const currentNotAbonnamentSuccessConfig = computed(() => {
   const formule = storeAbonnementUser?.planAbonnement?.mode_payment;
@@ -180,7 +214,7 @@ function handleSelect_mode_Payement(val) {
 onMounted(async () => {
    elmentsOfBtn.value = [
     {
-      name_btn: await transalteStore.handleTranslate("Ajouter +"),
+      name_btn: await transalteStore.handleTranslate(messageAbonnement.value),
       color_btn: "primary",
     },
   ];
@@ -390,12 +424,7 @@ onMounted(async () => {
 
   <div class="conteneur-btn">
     <Buttons
-      :elmentsOfBtn='[
-    {
-      name_btn: "Choisirxc cette formule",
-      color_btn: "primary",
-    },
-  ]'
+      :elmentsOfBtn='elmentsOfBtn'
       shapeBtn="round"
       @created="currentNotAbonnamentSuccessConfig.action"
     />
