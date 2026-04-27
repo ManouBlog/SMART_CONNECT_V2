@@ -13,7 +13,7 @@
   </template>
 
   <div style="max-height:70vh; overflow-y:auto; padding:10px;">
-
+<!-- {{ detailsAbonnement }} -->
     <div class="card">
 
       <div class="card-body" v-if="detailsAbonnement">
@@ -49,6 +49,17 @@
     <strong>{{ detailsAbonnement.mode_payment == 'year' ? moneyFormat.format(detailsAbonnement.abonement.prix):moneyFormat.format(detailsAbonnement.abonement.price_month)  }}</strong>
     Fcfa
   </small>
+  <div>
+    <small>Profil de base :</small>
+    <div>
+<span
+        class="badge me-1"
+      >
+        {{ detailsAbonnement?.abonement?.categorie?.categorie }}
+      </span>
+    </div>
+    
+  </div>
   <div v-if="detailsAbonnement?.add_profil_hybrides?.length" class="mt-2">
     <small>Profils hybrides inclus :</small>
     <div>

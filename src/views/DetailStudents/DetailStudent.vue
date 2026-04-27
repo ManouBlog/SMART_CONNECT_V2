@@ -899,7 +899,7 @@ export default {
           v-if="
             this.$store.state.infoUserConnected.user.abonement.length &&
             this.$store.state.infoUserConnected.user.abonement.some(
-              (item) => item.statut === 'success' && item.abonement.libelle === 'PLATINUM'
+              (item) => item.statut === 'success'
             )
           "
         >

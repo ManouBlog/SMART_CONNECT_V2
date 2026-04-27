@@ -258,7 +258,8 @@ console.log('user',user)
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils hybrides
     </label>
-    <!-- {{ ProfilsUser.user?.statut?.statut }} -->
+    <!-- {{ ProfilsUser.user }} -->
+    <!-- {{ filteredProfilsHybrides }} -->
     <!-- {{ ProfilsUser.user?.statuses }}
     {{ ProfilsUser.user?.statut?.statut }} -->
      <!-- {{ choiceProfilHybrideForAdd }} -->
@@ -289,14 +290,10 @@ console.log('user',user)
     <div v-else style="text-align: center;">Pas de profils trouvés</div>
           </div>
           <div v-if="ProfilsUser.user?.statut?.statut === 'Entreprise'">
- <div class="round-container" v-if=' allProfilsHybrides.filter(item =>
-    !profilhybrideUserConnected.some(profil => profil.statut === item.statut)
-  ).length'>
+ <div class="round-container" v-if='filteredProfilsHybrides.filter(item=>item.statut == "Artisan").length'>
  
       <label
-  v-for="item in allProfilsHybrides.filter(item =>
-    !profilhybrideUserConnected.some(profil => profil.statut === item.statut) && item.statut == 'Artisan'
-  )"
+  v-for="item in filteredProfilsHybrides.filter(item=>item.statut == 'Artisan')"
   :key="item.id"
   class="round-item"
 >
