@@ -165,20 +165,25 @@ onMounted(async () => {
           : 'color_brobroli_pro_max'
       "
     >
-  
-      <h1 class="text-center main-color" style="font-size: 1.5em;">
+  <div style="position: relative;padding: 1em;">
+     <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
+       <p 
+      v-if="item.libelle === 'BROBROLI PRO MAX'"
+      style="padding: 0;position: absolute;top:30px;margin-right: -50px;transform: translateX(38px);">
+        <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small></p>
+    </div>
       <p
       class="shadow-sm small"
      style="
     font-weight: bold;
     text-align: center;
     background-color: rgb(255 255 255 / 40%);
-    padding: 1em;
      "
      :style="{
-    margin: item.libelle === 'BROBROLI PRO' ? '1.1em' : null
+    margin: item.libelle === 'BROBROLI PRO' ? '0.8em' : null,
+    padding:item.libelle === 'BROBROLI PRO' ? '0.9em' : '0.6em',
      }"
     >
       {{ ecriteauFormule(item) }}
