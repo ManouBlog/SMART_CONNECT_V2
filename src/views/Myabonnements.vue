@@ -44,12 +44,7 @@
   <strong>Montant payé :</strong>
   <div>{{ moneyFormat.format(detailsAbonnement?.montant) }} Fcfa</div>
 
-  <small v-if="detailsAbonnement?.add_profil_hybrides?.length">
-    Montant initial : 
-    <strong>{{ detailsAbonnement.mode_payment == 'year' ? moneyFormat.format(detailsAbonnement.abonement.prix):moneyFormat.format(detailsAbonnement.abonement.price_month)  }}</strong>
-    Fcfa
-  </small>
-  <div>
+  <!-- <div>
     <small>Profil de base :</small>
     <div>
 <span
@@ -59,19 +54,7 @@
       </span>
     </div>
     
-  </div>
-  <div v-if="detailsAbonnement?.add_profil_hybrides?.length" class="mt-2">
-    <small>Profils hybrides inclus :</small>
-    <div>
-      <span
-        v-for="(item, index) in detailsAbonnement.add_profil_hybrides"
-        :key="index"
-        class="badge bg-warning me-1"
-      >
-        {{ item.profil_hybride_add?.statut  }}
-      </span>
-    </div>
-  </div>
+  </div> -->
 </div>
 
           <div class="col-md-6 mb-3">
@@ -79,6 +62,16 @@
             <div>{{detailsAbonnement?.moyen_paiement}}</div>
           </div>
         </div>
+         <div class="row mb-3">
+          <div class="col-md-6 mb-3">
+            <strong>Profil de base :</strong>
+            <div>
+       <span class="badge bg-warning">
+        {{ detailsAbonnement?.abonement?.categorie?.categorie }}
+      </span>
+       </div>
+          </div>
+         </div>
 
         <div class="row mb-3">
 
@@ -98,7 +91,69 @@
             <div>{{ detailsAbonnement?.transaction_id }}</div>
           </div>
          </div>
-         
+         <div v-if="detailsAbonnement?.add_profil_hybrides?.length" class="mt-2">
+  <h5>Profils hybrides inclus :</h5>
+  <div class="table-container mt-2">
+  <table class="profil-hybride-table" style="width: 100%;">
+    <thead style="border: 2px solid #dee2e6; border-bottom: none;">
+      <tr style="background: linear-gradient(135deg, #495057, #6c757d);">
+        <th style="
+          color: white; 
+          padding: 16px 12px; 
+          font-weight: 600; 
+          border-right: 1px solid rgba(255,255,255,0.2);
+          text-align: left;
+        ">Profil</th>
+        <th style="
+          color: white; 
+          padding: 16px 12px; 
+          font-weight: 600; 
+          border-right: 1px solid rgba(255,255,255,0.2);
+          text-align: left;
+        ">Moyen de paiement</th>
+        <!-- <th style="
+          color: white; 
+          padding: 16px 12px; 
+          font-weight: 600; 
+          border-right: 1px solid rgba(255,255,255,0.2);
+          text-align: left;
+        ">Mode de paiement</th> -->
+        <th style="
+          color: white; 
+          padding: 16px 12px; 
+          font-weight: 600; 
+          border-right: 1px solid rgba(255,255,255,0.2);
+          text-align: right;
+        ">Montant (Fcfa)</th>
+        <th style="
+          color: white; 
+          padding: 16px 12px; 
+          font-weight: 600; 
+          text-align: right;
+        ">Référence</th>
+      </tr>
+    </thead>
+    <tbody style="border: 2px solid #dee2e6; border-top: none;">
+      <tr v-for="(item, index) in detailsAbonnement.add_profil_hybrides" :key="index"
+          style="border-bottom: 1px solid #e9ecef;">
+        <td style="padding: 12px;">
+          <span class="badge bg-warning">
+            {{ item.profil_hybride_add?.statut || 'N/A' }}
+          </span>
+        </td>
+        <td style="padding: 12px;">{{ item.moyen_paiement || 'Non spécifié' }}</td>
+        <!-- <td style="padding: 12px;">{{ item.mode_paiement || 'Non spécifié' }}</td> -->
+        <td style="padding: 12px; text-align: right; font-weight: 600; color: #198754;">
+          {{ item.montant ? item.montant + ' FCFA' : '0 FCFA' }}
+        </td>
+        <td style="padding: 12px; text-align: right;">
+          {{ item.transaction_id || '-' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
       </div>
     </div>
 
