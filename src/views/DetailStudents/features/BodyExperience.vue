@@ -186,6 +186,10 @@ export default {
                   :starSize="'13'"
                   :disableClick="true"
                 />
+                <!-- <Rating 
+                 :class="emploi.star_color === 'gold' ? 'color_gold':'color_yellow'" 
+                 v-model="emploi.average" 
+                 readonly :cancel="false"/> -->
               </div>
 
               <h4 style="text-align:left;">{{ item?.pivot.avis }}</h4>
