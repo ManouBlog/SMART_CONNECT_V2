@@ -270,10 +270,12 @@ this.texte7 = await this.handleTranslate(
       </div>
       <p>
         {{ texte6 }}
-        <span class="mx-2" style="font-weight: bold;">{{ user.nom }} {{ user.prenoms }}</span>
+        <span  style="font-weight: bold;">{{ user.nom }} {{ user.prenoms }}</span>
         {{ texte7 }}
         {{ texte5 }}
-         <span class="mx-2" style="font-weight: bold;">{{ this.entreprise?.offre?.owner?.nom }}</span>
+         <span style="font-weight: bold;">{{ this.entreprise?.offre?.owner?.nom }} </span>
+         <span class="mx-1">pour effectuer un travail vu votre disponibilité. Merci de contacter l'entreprise
+pour plus de détail.</span>
       </p>
 
       <div>
