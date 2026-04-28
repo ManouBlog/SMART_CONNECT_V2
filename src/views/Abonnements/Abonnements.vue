@@ -34,6 +34,7 @@ const text0 = ref("")
 const activeTab = ref('')
 const store = useStore();
 const reference = ref(null);
+
 const profileAbonnement = ref(null);
 // const router = useRouter();
 const route = useRoute();
@@ -67,6 +68,7 @@ const handleAbonement = async () => {
 }
 
 onMounted(async () => {
+  store.dispatch("getInfoUser");
   console.log("props.ProfilAbonnement", props.ProfilAbonnement)
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
 
@@ -89,7 +91,7 @@ onMounted(async () => {
 
   // 🔥 IMPORTANT : un seul appel API
   await handleAbonement()
-
+  
   console.log("abonnements chargés", abonnements.value)
   console.log("artisan ready", abonnementsArtisan.value)
 })
@@ -100,6 +102,7 @@ onMounted(async () => {
   <div class="wrapped myconteneur">
     <h1 class="text-center main-color" style="font-size: 1.5em;">{{text0}}</h1>
       <div v-if="props.ProfilAbonnement">
+       
         <!-- {{ profileAbonnement }}
         {{ store.state.user?.user?.statuses }} -->
          <!-- <p>statut_talent_choice:{{ statut_talent_choice }}</p> -->
@@ -140,10 +143,17 @@ onMounted(async () => {
     :name="'Entreprise'"
     :tab="'Entreprise'"
   >
+  
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Entreprise"
-      :tabsSubAbonnement="abonnements
+      :tabsSubAbonnement="store.state.user ? abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
+        .map(item => ({
+          label: item.categorie.categorie,
+          id: item.categorie.categorie
+        })).filter(item=>item.id === 'Entreprise '+store.state?.user?.statut_entreprise)
+        :abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
         .map(item => ({
           label: item.categorie.categorie,
@@ -235,7 +245,15 @@ onMounted(async () => {
     </n-card>
       </div>
       <div v-else>
-
+<!-- <p>
+          PEORJF:{{ abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
+        .map(item => ({
+          label: item.categorie.categorie,
+          id: item.categorie.categorie
+        })).filter(item=>item.id === 'Entreprise '+store.state?.user?.statut_entreprise) }}
+        </p>
+        <p>store.state.user?.user?:{{ store.state?.user?.statut_entreprise }}</p> -->
 <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
@@ -281,7 +299,13 @@ onMounted(async () => {
       :abonnements="abonnements"
       type_abonnements="Entreprise"
       :statut_talent_choice_entreprise="store.state.user?.statut_entreprise"
-      :tabsSubAbonnement="abonnements
+      :tabsSubAbonnement="store.state.user ? abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
+        .map(item => ({
+          label: item.categorie.categorie,
+          id: item.categorie.categorie
+        })).filter(item=>item.id === 'Entreprise '+store.state?.user?.statut_entreprise)
+        :abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
         .map(item => ({
           label: item.categorie.categorie,

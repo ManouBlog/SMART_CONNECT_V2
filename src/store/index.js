@@ -26,6 +26,9 @@ export default createStore({
         Second_heure_end_to:null
   },
   mutations: {
+    SET_INFO_USER(state,payload){
+    state.user = payload
+    },
     SET_TABS_CONNEXION(state,payloadNumber){
      state.tabsActive = payloadNumber;
     },
@@ -170,10 +173,13 @@ export default createStore({
           if (resp.data.status === true) {
             console.log("getInfoUser_store",resp.data.user)
             commit("UPDATE_INFO_CONPANY",resp.data.user)
+            commit("SET_INFO_USER",resp.data.user)
           }
         })
         .catch((error) => {
           console.log(error);
+           commit("UPDATE_INFO_CONPANY",null)
+            commit("SET_INFO_USER",null)
         });
     },
   },
