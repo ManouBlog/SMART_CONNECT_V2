@@ -200,7 +200,7 @@ onMounted(async () => {
       <p style="text-align:center;position: absolute;top: 10px;right: 10px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
-          class="badge bg-warning"
+          class="badge"
         >
           Formule
         </span>
