@@ -151,7 +151,7 @@ export default {
   },
   methods: {
      starClass() {
-    const color = this.emploi?.user?.star_color
+    const color = this.emploi?.star_color
 
     if (color === 'gold') return 'bi-star-fill text-gold'
     return 'bi-star-fill text-yellow'
@@ -250,11 +250,11 @@ export default {
     addOtherElement(payload) {
       return payload?.map((element) => {
         // Transform jours
-        const days = element.jours.map((day) => day.jour);
-        const hours = element.jours.map((day) => day.totalHour);
+        const days = element.student.jours.map((day) => day.jour);
+        const hours = element.student.jours.map((day) => day.totalHour);
 
         // Transform competences
-        const competences = element.competences.map((comp) => comp.competence);
+        const competences = element.student.competences.map((comp) => comp.competence);
 
         // Ajoutez les nouvelles propriétés
         element.days = days;
@@ -298,7 +298,7 @@ console.log("isParticulier", isParticulier);
 if (isParticulier) {
   const allowed = ["artisan", "etudiant", "professionnel"];
   data = data.filter((emploi) => {
-    const statut = emploi?.user?.statut?.statut?.toLowerCase();
+    const statut = emploi?.statut?.statut?.toLowerCase();
     return allowed.includes(statut);
   });
 }
@@ -307,9 +307,9 @@ if (isParticulier) {
 
     this.lengthOfTalents = this.list.length;
     console.log("this.lengthOfTalents", this.lengthOfTalents);
-  } catch (err) {
-    console.log(err);
-    alert(err.response?.data?.message || "Erreur serveur");
+  } catch (error) {
+    console.log(error);
+    // alert(err.response?.data?.message || "Erreur serveur");
   } finally {
     loadingSpinner.launchLoading(false);
     this.isLoading = false;
@@ -639,11 +639,11 @@ if (isParticulier) {
             
             <div style="text-align: center;position: relative;">
               <n-avatar
-                v-if="emploi.photo_profil"
+                v-if="emploi.student.photo_profil"
                 style="border: 2px solid orange; object-fit: cover"
                 round
                 :size="50"
-                :src="lienPhoto + emploi.photo_profil"
+                :src="lienPhoto + emploi.student.photo_profil"
               />
   
           <span
@@ -655,7 +655,7 @@ if (isParticulier) {
     justifyContent: 'center',
     gap: '6px',
 
-    padding: emploi?.user?.is_verified ? '0px' : '35px',
+    padding: emploi?.is_verified ? '0px' : '35px',
 
     border: '2px solid orange',
     borderRadius: '50%',
@@ -666,7 +666,7 @@ if (isParticulier) {
   }"
 >
   <img
-   v-if="emploi?.user?.is_verified"
+   v-if="emploi?.is_verified"
     src="/profil_verified.png"
     alt="profil_verified"
     style="
@@ -677,15 +677,15 @@ if (isParticulier) {
   />
 
   <span style="font-size: 14px; color: white;position: absolute;">
-    {{ Help.toADfirstTwo(emploi.nom) }}
+    {{ Help.toADfirstTwo(emploi.student.nom) }}
   </span>
 </span>
                
             </div>
             <div class="card-body">
               <h3 class="name" style="color: white; font-weight: bold">
-                {{ emploi.nom }}
-                {{ emploi.prenoms }}
+                {{ emploi.student.nom }}
+                {{ emploi.student.prenoms }}
               </h3>
               <p class="text-center p-0 m-0">
              <span 
@@ -693,10 +693,11 @@ if (isParticulier) {
     display: 'flex',
     flexWrap: 'wrap',
     gap: '6px',
-    justifyContent: emploi.user?.statuses?.length <= 2 ? 'center' : 'flex-start'
+    justifyContent:'center', 
+    marginTop:'2px'
   }">
   <span
-    v-for="(status, index) in emploi.user?.statuses || []"
+    v-for="(status, index) in emploi.statuses || []"
     :key="index"
     class="badge"
     style="background:orange; font-size:0.5em !important;"
@@ -707,16 +708,16 @@ if (isParticulier) {
               </p>
               <div class="jour">
                 <span
-                  v-for="(item, index) in emploi.competences.slice(0, 3)"
+                  v-for="(item, index) in emploi.student?.competences.slice(0, 3)"
                   :key="index"
                 >
                   <strong class="bg-teal cpt">{{ item.competence }}</strong>
                 </span>
-                <span v-if="emploi.competences.length > 3"> ... </span>
+                <span v-if="emploi.student?.competences?.length > 3"> ... </span>
               </div>
               <span class="biStar">
                 <span style="display: flex; gap: 3px;margin-left:-1px ;" 
-                 v-if="emploi.user.star_color === 'gold'">
+                 v-if="emploi.star_color === 'gold'">
            <img
             v-for="n in 5"
           :key="n"
@@ -728,14 +729,14 @@ if (isParticulier) {
                 <Rating 
                 v-else
                  :class="'color_yellow'" 
-                 v-model="emploi.average" 
+                 v-model="emploi.student.average" 
                  readonly :cancel="false"/>
                  
               </span>
 
               <button
                 class="btn bg-primary voirPlus"
-                @click="voirDetailTimetable({ id: emploi.id, user_id: emploi.user_id })"
+                @click="voirDetailTimetable({ id: emploi.student.id, user_id: emploi.student.user_id })"
               >
                 {{ texte5 }}
 
@@ -751,15 +752,15 @@ if (isParticulier) {
       </div>
       </div>
     </div>
-    <div v-if="list.length">
+    <div v-if="list.length" style="display: flex;justify-content: center;">
       <button
         @click="loadMore"
         v-if="length < list.length"
         class="btn bg-primary loadPlus"
       >
-        {{ texte6 }} <em class="bi bi-chevron-down"></em>
+        {{ texte6 }} 
+        <!-- <em class="bi bi-chevron-down"></em> -->
       </button>
-      <!-- <h2 v-if="length >= list.length" class="endResearch">{{ texte7 }}</h2> -->
     </div>
   </section>
   <section v-else>
