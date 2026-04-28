@@ -715,7 +715,7 @@ if (isParticulier) {
                 </span>
                 <span v-if="emploi.student?.competences?.length > 3"> ... </span>
               </div>
-              {{ emploi.star_color }}
+              <!-- {{ emploi.star_color }} -->
               <span class="biStar">
                 <!-- <span style="display: flex; gap: 3px;margin-left:-1px ;" 
                  v-if="emploi.star_color === 'gold'">
