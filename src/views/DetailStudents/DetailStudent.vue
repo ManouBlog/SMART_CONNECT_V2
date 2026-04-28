@@ -559,19 +559,19 @@ export default {
             let hours = [];
             let competences = [];
 
-            element.jours.forEach((day) => {
+            element.student.jours.forEach((day) => {
               days.push(day.jour);
               hours.push(day.totalHour);
             });
-            element.days = days;
-            element.hours = hours;
-            element.competences.forEach((comp) => {
+            element.student.days = days;
+            element.student.hours = hours;
+            element.student.competences.forEach((comp) => {
               competences.push(comp.competence);
             });
-            element.acquis = competences;
+            element.student.acquis = competences;
             this.isWhished[element.id] = false;
             this.$store.state.whistListPerson?.forEach((person) => {
-              if (element.id === person.id) {
+              if (element.id == person.id) {
                 this.isWhished[element.id] = true;
               }
             });
