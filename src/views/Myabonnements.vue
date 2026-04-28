@@ -103,6 +103,13 @@
           font-weight: 600; 
           border-right: 1px solid rgba(255,255,255,0.2);
           text-align: left;
+        ">Date de paiement</th>
+        <th style="
+          color: white; 
+          padding: 16px 12px; 
+          font-weight: 600; 
+          border-right: 1px solid rgba(255,255,255,0.2);
+          text-align: left;
         ">Profil</th>
         <th style="
           color: white; 
@@ -136,17 +143,22 @@
     <tbody style="border: 2px solid #dee2e6; border-top: none;">
       <tr v-for="(item, index) in detailsAbonnement.add_profil_hybrides" :key="index"
           style="border-bottom: 1px solid #e9ecef;">
-        <td style="padding: 12px;">
+          <td style="padding: 10px;text-align: center;">
+          <span>
+            {{ new Date(item.created_at).toLocaleDateString('fr') }}
+          </span>
+        </td>
+        <td style="padding: 10px;text-align: center;">
           <span class="badge bg-warning">
             {{ item.profil_hybride_add?.statut || 'N/A' }}
           </span>
         </td>
-        <td style="padding: 12px;">{{ item.moyen_paiement || 'Non spécifié' }}</td>
-        <!-- <td style="padding: 12px;">{{ item.mode_paiement || 'Non spécifié' }}</td> -->
-        <td style="padding: 12px; text-align: right; font-weight: 600; color: #198754;">
+        <td style="padding: 10px;text-align: center;">{{ item.moyen_paiement || 'Non spécifié' }}</td>
+        <!-- <td style="padding: 10px;text-align: center;">{{ item.mode_paiement || 'Non spécifié' }}</td> -->
+        <td style="padding: 10px;text-align: center; text-align: right; font-weight: 600; color: #198754;">
           {{ item.montant ? item.montant + ' FCFA' : '0 FCFA' }}
         </td>
-        <td style="padding: 12px; text-align: right;">
+        <td style="padding: 10px;text-align: center; text-align: right;">
           {{ item.transaction_id || '-' }}
         </td>
       </tr>
