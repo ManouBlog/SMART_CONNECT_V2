@@ -182,9 +182,18 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       "
     >
    
-      <h1 class="text-center main-color" style="font-size: 1.5em;">
+      <!-- <h1 class="text-center main-color" style="font-size: 1.5em;">
+        {{ item.libelle }}
+      </h1> -->
+      <div style="position: relative;padding: 1em;">
+     <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
+       <p 
+      v-if="item.libelle === 'BROBROLI PRO MAX'"
+      style="padding: 0;position: absolute;top:30px;margin-right: -50px;transform: translateX(38px);">
+        <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small></p>
+    </div>
       <p class="shadow-sm p-2 small" 
       style="font-weight: bold;
       text-align:center;
