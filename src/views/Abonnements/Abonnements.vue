@@ -178,8 +178,8 @@ onMounted(async () => {
     :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
     :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
   >
-  <p>store.state.user?.statut_talent:{{ store.state.user?.statut_talent }}</p>
-<p>statut_talent_artisan:{{ statut_talent_artisan }}</p>
+  <!-- <p>store.state.user?.statut_talent:{{ store.state.user?.statut_talent }}</p>
+<p>statut_talent_artisan:{{ statut_talent_artisan }}</p> -->
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Artisan"
