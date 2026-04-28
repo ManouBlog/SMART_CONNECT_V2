@@ -177,16 +177,16 @@ const ecriteauFormule = (item) => {
         "Pour que les bonnes organisations trouvent votre expertise. Chaque engagement payé avant exécution.",
     },
     particulier:{
-      "BROBROLI PRO MAX":
+      "BROBROLI HOME MAX":
         "Publication illimitée. Vos annonces en tête. Les meilleurs profils vous trouvent en premier..",
 
-      "BROBROLI PRO":
+      "BROBROLI HOME":
         `Accédez aux profils vérifiés. Publiez vos besoins. Payez facilement.
         `,
     }
   };
 
-  return rules?.[categorie]?.[libelle] || "Choisir cette formule";
+  return rules?.[categorie]?.[libelle] || "Choisiraze cette formule";
 };
 
 // Watch déclenche le chargement des abonnements
@@ -360,7 +360,7 @@ console.log('store.state?.user',store.state?.user)
       )"
       :key="item.id"
       :class="
-        item?.libelle == 'BROBROLI PRO'
+        item?.libelle == 'BROBROLI PRO' || item.libelle === 'BROBROLI HOME'
           ? 'color_brobroli_pro'
           : 'color_brobroli_pro_max'
       "
@@ -370,8 +370,8 @@ console.log('store.state?.user',store.state?.user)
         {{ item.libelle }}
       </h1>
        <p 
-      v-if="item.libelle === 'BROBROLI PRO MAX'"
-      style="padding: 0;position: absolute;top:30px;margin-right: -50px;transform: translateX(38px);">
+      v-if="item.libelle === 'BROBROLI PRO MAX' || item.libelle === 'BROBROLI HOME MAX'"
+      style="padding: 0;position: absolute;top:34px;margin-right: -50px;transform: translateX(38px);">
         <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small></p>
     </div>
       
@@ -452,7 +452,7 @@ console.log('store.state?.user',store.state?.user)
       )"
       :key="item.id"
       :class="
-        item?.libelle == 'BROBROLI PRO'
+        item?.libelle == 'BROBROLI PRO' || item.libelle === 'BROBROLI HOME'
           ? 'color_brobroli_pro'
           : 'color_brobroli_pro_max'
       "
@@ -522,7 +522,7 @@ console.log('store.state?.user',store.state?.user)
       )"
       :key="item.id"
       :class="
-        item?.libelle == 'BROBROLI PRO'
+        item?.libelle == 'BROBROLI PRO' || item.libelle === 'BROBROLI HOME'
           ? 'color_brobroli_pro'
           : 'color_brobroli_pro_max'
       "

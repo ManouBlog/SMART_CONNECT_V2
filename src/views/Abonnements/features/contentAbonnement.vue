@@ -73,7 +73,7 @@ const messageAbonnement = computed(() => {
     return mapMessages[libelle] || "Je passe à Brobroli";
   }
 
-  return "Choisir cette formule";
+  return "Choisirsde cette formule";
 });
 
 // console.log("PROPSITEM",props.item)

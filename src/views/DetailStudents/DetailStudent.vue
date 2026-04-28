@@ -598,6 +598,16 @@ export default {
     },
     choiceOtherTalentNotStudent(studentId){
      console.log("choiceOtherTalentNotStudent",studentId)
+  //    try{
+  // const response = await instance.post("entreprise_student", {
+  //         student_id: studentId,
+  //         date: VerfDoublonInDate,
+  //         option: "date",
+  //         offre_id: this.selectedOffreWithDate,
+  //       })
+  //    }catch(error){
+  //     console.log(error);
+  //    }
     },
     choiceStudentWithDisponibilite(studentId) {
       loadingSpinner.launchLoading(true);

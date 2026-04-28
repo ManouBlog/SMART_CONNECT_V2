@@ -89,7 +89,7 @@ const currentConfig = computed(() => {
       "BROBROLI PRO MAX": "Deviens PLUS dans ta zone",
     };
 
-    return mapMessages[libelle] || "Choisir cette formule";
+    return mapMessages[libelle] || "Choisirqsdf cette formule";
   }
 
   if (type.includes("Particulier")) {
@@ -98,10 +98,10 @@ const currentConfig = computed(() => {
       "BROBROLI PRO MAX": "Passer à BROBROLI PRO MAX",
     };
 
-    return mapMessages[libelle] || "Choisir cette formule";
+    return mapMessages[libelle] || "Choisircvb cette formule";
   }
 
-  return "Choisir cette formule";
+  return "Choisirpoiu cette formule";
 });
 
 const currentNotAbonnamentSuccessConfig = computed(() => {

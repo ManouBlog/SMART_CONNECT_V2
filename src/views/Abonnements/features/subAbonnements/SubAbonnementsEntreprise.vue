@@ -104,7 +104,7 @@ const ecriteauFormule = (item) => {
     },
   };
 
-  return rules?.[categorie]?.[libelle] || "Choisir cette formule";
+  return rules?.[categorie]?.[libelle] || "Choisirwxcvbn cette formule";
 };
 
 const messageAbonnement = (item) => {
@@ -171,7 +171,7 @@ onMounted(async () => {
       </h1>
        <p 
       v-if="item.libelle === 'BROBROLI PRO MAX'"
-      style="padding: 0;position: absolute;top:30px;margin-right: -50px;transform: translateX(38px);">
+      style="padding: 0;position: absolute;top:34px;margin-right: -50px;transform: translateX(38px);">
         <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small></p>
     </div>
       <p
