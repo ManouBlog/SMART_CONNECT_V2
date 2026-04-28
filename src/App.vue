@@ -399,7 +399,10 @@ export default {
   color: orange !important;
   border: 1px solid orange !important;
 }
-
+.badge{
+  background-color: #837979;
+  font-weight: bold !important;
+}
 .swal2-container {
   z-index: 999999 !important;
 }

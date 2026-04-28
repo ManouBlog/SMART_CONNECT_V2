@@ -596,7 +596,10 @@ export default {
       this.checkboxDate = false;
       this.checkbox = false;
     },
-    optionDate(studentId) {
+    choiceOtherTalentNotStudent(studentId){
+     console.log("choiceOtherTalentNotStudent",studentId)
+    },
+    choiceStudentWithDisponibilite(studentId) {
       loadingSpinner.launchLoading(true);
 
       let date = [];
@@ -784,8 +787,7 @@ export default {
       <BodyExperience :timetable_for_student="timetable_for_student" />
  <!--  ceci : timetable_for_student.user.statut_id === 2 est destine au étudiant -->
       <section class="conteneur_calendar_student" v-if="
-  (timetable_for_student.user?.statuses || []).some(s => s.statut === 'Etudiant')
-">
+  timetable_for_student.user?.statuses.some(s => s.statut === 'Etudiant')">
         <div class="jobs-result">
           <div class="disponibilite">
             <span>
@@ -838,13 +840,7 @@ export default {
 
           <div class="selecte_service my-3">
             <label class="d-block">{{ texte4 }}</label>
-            <!-- <a-auto-complete
-            v-model:value="selectedOffreWithDate"
-            :options="selectedService"
-            style="width: 100%"
-            placeholder="input here"
-            :filter-option="filterOption"
-          /> -->
+           
             <select
               name="select_offre"
               id="select_offre"
@@ -868,7 +864,7 @@ export default {
               class="btn btn-warning btn-designer my-3"
               type="submit"
               :disabled="!this.selectedOffreWithDate || !this.datesChoice.length"
-              @click="optionDate(timetable_for_student.id)"
+              @click="choiceStudentWithDisponibilite(timetable_for_student.id)"
             >
               {{ texte7 }}
             </button>
@@ -903,25 +899,9 @@ export default {
             )
           "
         >
-          <!-- <label class="d-block">{{ texte3 }}</label>
-          <PrimeCalendar
-            v-model="datesChoice"
-            :minDate="new Date()"
-            inputClass="prime_calendar"
-            selectionMode="multiple"
-            :manualInput="false"
-            dateFormat="dd/mm/yy"
-          /> -->
-
           <div class="selecte_service my-3">
             <label class="d-block">{{ texte4 }}</label>
-            <!-- <a-auto-complete
-            v-model:value="selectedOffreWithDate"
-            :options="selectedService"
-            style="width: 100%"
-            placeholder="input here"
-            :filter-option="filterOption"
-          /> -->
+         
             <select
               name="select_offre"
               id="select_offre"
@@ -944,8 +924,8 @@ export default {
             <button
               class="btn btn-warning btn-designer my-3"
               type="submit"
-              :disabled="!this.selectedOffreWithDate || !this.datesChoice.length"
-              @click="optionDate(timetable_for_student.id)"
+              :disabled="!this.selectedOffreWithDate"
+              @click="choiceOtherTalentNotStudent(timetable_for_student.id)"
             >
               {{ texte7 }}
             </button>
@@ -970,8 +950,8 @@ export default {
         </div>
         </section>
     </div>
-    <div class="conteneur_student py-5 shimmer-text" v-else>
-      <h3>Chargement...</h3>
+    <div class="conteneur_student py-5 " v-else>
+      <h3 class="shimmer-text">Chargement...</h3>
     </div>
   </div>
 </template>
@@ -1092,6 +1072,28 @@ hr {
   width: 10px;
   height: 10px;
   border-radius: 100%;
+}
+.shimmer-text {
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    #999 0%,
+    #fff 50%,
+    #999 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 @media (max-width: 1200px) {
   .space-talent {
