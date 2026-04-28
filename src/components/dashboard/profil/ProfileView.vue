@@ -365,7 +365,7 @@ userDocuments() {
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="page-body">
       <TabView v-if="this.$store.state.infoUserConnected">
-        <TabPanel :header="this.$store.state.infoUserConnected.user.statut.statut != 'Entreprise' ? texte1:texte0989">
+        <TabPanel :header="this.$store.state.infoUserConnected.user?.statut?.statut != 'Entreprise' ? texte1:texte0989">
           <div>
             <InfoEntreprise 
             :infoPersonnelles="this.$store.state.infoUserConnected"

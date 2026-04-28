@@ -185,7 +185,7 @@ texte0989:"",
         background: var(--secondary-color) !important;
       "
     >
-      <h1 class="fw-bold" style="color: orange">{{ user.user.statut.statut != 'Entreprise' ? texte0989:texte0 }}</h1>
+      <h1 class="fw-bold" style="color: orange">{{ user.user?.statut?.statut != 'Entreprise' ? texte0989:texte0 }}</h1>
       <div style="display: flex; align-items: center;">
         <span class="badge" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
           >Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}</span

@@ -306,11 +306,11 @@ export default {
                 <ListeAlarmStudent v-if="this.$store.state.user" />
                 <div>
                   <InfoEntreprise
-                  v-if="['Entreprise', 'Particulier'].includes($store.state.user?.user.statut.statut)"
+                  v-if="['Entreprise', 'Particulier'].includes($store.state.user?.user?.statut?.statut)"
                   />
                   <div
                 v-if="['Etudiant', 'Professionnel', 
-    'Artisan','Vétéran','Particulier'].includes($store.state.user?.user.statut.statut)
+    'Artisan','Vétéran','Particulier'].includes($store.state.user?.user?.statut?.statut)
 "
                     class="login_user"
                   >
