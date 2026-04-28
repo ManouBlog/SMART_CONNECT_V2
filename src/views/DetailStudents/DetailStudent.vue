@@ -964,8 +964,14 @@ export default {
   width: 500px !important;
 }
 
+.selecte_service {
+  width: 100%;  /* ✅ Pleine largeur parent */
+}
+
 .selecte_service select {
-  width: 500px !important;
+  width: 100% !important;  /* ✅ Responsive auto */
+  max-width: 500px;        /* ✅ Limite max */
+  min-width: 250px;        /* ✅ Min mobile */
 }
 .conteneur_calendar_student {
   display: flex;
