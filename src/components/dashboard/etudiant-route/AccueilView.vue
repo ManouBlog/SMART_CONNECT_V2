@@ -141,10 +141,7 @@ if (!user.competences.length || !user.qualifications.length) {
       <a-date-picker v-model:value="date_filter" @change="handleData" picker="year" />
     </div>
     <TableauDeBord
-     v-if="
-  (this.$store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
-"
+     v-if="['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(this.$store.state.user?.user?.statut.statut)"
       :infosArray="IsAmbassador ? [
          {
           libelle: 'Personnes parrainées',
@@ -197,10 +194,7 @@ if (!user.competences.length || !user.qualifications.length) {
       ]"
     />
     <TableauDeBord
-      v-if="
-  (this.$store.state.user?.user?.statuses || [])
-    .some(s => ['Entreprise', 'particulier'].includes(s.statut))
-"
+      v-if="['Entreprise', 'Particulier'].includes(this.$store.state.user?.user?.statut.statut)"
       :infosArray="[
         {
           libelle: texte5,

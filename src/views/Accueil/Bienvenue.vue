@@ -109,8 +109,6 @@ export default {
     this.launchTestimonials();
     this.email = this.$route.params.email;
     this.token = this.$route.params.token;
-    // console.log("this.token", this.token);
-    // console.log("this.email", this.email);
     const redirect = this.$route.query.redirect;
     if (redirect) {
       this.changeValueIsModal();
@@ -123,41 +121,11 @@ export default {
   async mounted() {
     try {
       await this.STOREPARTENAIRE.getAllPartenaires();
+      await this.$store.dispatch('getInfoUser')
     } catch (error) {
       console.error("Erreur lors du chargement des partenaires :", error);
     }
   },
-  // methods: {
-  //   async doVerificationMail(email, token) {
-  //     try {
-  //       const response = await instance.post("verificationEmail", {
-  //         email: email,
-  //         token: token,
-  //       });
-  //       if (response.data.status) {
-  //         Swal.fire({
-  //           icon: "success",
-  //           title: "Compte activé",
-  //           showConfirmButton: false,
-  //           timer: 1500,
-  //         });
-  //       }
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   },
-  // },
-  // created() {
-  //   this.email = this.$route.params.email;
-  //   this.token = this.$route.params.token;
-
-  //   if (this.email && this.token) {
-  //     this.doVerificationMail(this.email, this.token);
-  //   }
-  // },
-  // async mounted() {
-  //   await this.STOREPARTENAIRE.getAllPartenaires();
-  // },
 };
 </script>
 <template>
