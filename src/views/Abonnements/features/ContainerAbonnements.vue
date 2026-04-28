@@ -365,10 +365,11 @@ console.log('store.state?.user',store.state?.user)
           : 'color_brobroli_pro_max'
       "
     >
-  <!-- {{ item }} -->
       <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
+      
+      
      <p class="shadow-sm small" 
      style="font-weight: bold;
      text-align:center;
@@ -381,7 +382,12 @@ console.log('store.state?.user',store.state?.user)
      >
       {{ ecriteauFormule(item) }}
      </p>
-      
+      <p 
+      v-if="item.libelle === 'BROBROLI PRO MAX'"
+      style="margin-left: -50px;
+      transform: translateX(50px);
+      margin: 42px 0 2px 0;padding: 0;position: absolute;">
+        <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small></p>
     <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
       <contentAbonnement 
       :item="item"
