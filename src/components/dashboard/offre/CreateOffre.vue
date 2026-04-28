@@ -585,8 +585,9 @@ export default {
     </div>
     <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3" v-if="countries.length > 0">
       <label><span style="color: red">*</span>Choisir un pays</label>
+      <!-- {{ countries }} -->
       <VueMultiselect v-model="offre_pays" 
-                      :options="countries" 
+                      :options="countries.filter(item=>item.label === 'Côte d’Ivoire')" 
                       label="label" 
                       multiple
                       track-by="label" />
