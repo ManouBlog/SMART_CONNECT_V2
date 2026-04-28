@@ -380,10 +380,11 @@ console.log('store.state?.user',store.state?.user)
      style="font-weight: bold;
      text-align:center;
      background-color: rgb(255 255 255 / 40%);
-     padding:1em;"
+    "
      :style="{
     margin: item.libelle === 'BROBROLI PRO' 
-    && item?.categorie?.categorie == 'Particulier' ? '0.8em' : null
+    && item?.categorie?.categorie == 'Particulier' ? '0.8em' : null,
+    padding:item.libelle === 'BROBROLI PRO' ? '0.9em' : '0.6em',
      }"
      >
       {{ ecriteauFormule(item) }}
