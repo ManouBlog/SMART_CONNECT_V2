@@ -35,25 +35,26 @@ export default {
       {{ item.title }}
     </h3>
     <div v-if="item.text_one || item.text_two || item.text_three">
-      <p v-if="item.text_one && item.text_one.split(' : ')[0] === 'Etudiant'">
-        <span style="color: orange; font-weight: bold">
+      <p v-if="item.text_one && item.text_one.split(' : ')[0] === 'Etudiants,Professionnels,Artisans,Vétérans'">
+        <span style="color: orange; font-weight: bold;word-wrap: break-word;">
           {{ item.text_one.split(" : ")[0] }} :
         </span>
-        <span>
+        <span style="word-wrap: break-word;">
           {{ item.text_one.split(" : ")[1] }}
         </span>
       </p>
-      <p v-if="item.text_three">
+      <p v-if="item.text_three" style="word-wrap: break-word;">
         {{ item.text_three }}
       </p>
 
       <p
-        v-if="item.text_two && item.text_two.split(' : ')[0] === 'Entreprise/Particulier'"
+      style="word-wrap: break-word;"
+        v-if="item.text_two && item.text_two.split(' : ')[0] === 'Entreprises'"
       >
-        <span style="color: orange; font-weight: bold">
+        <span style="color: orange; font-weight: bold;word-wrap: break-word;">
           {{ item.text_two.split(" : ")[0] }} :
         </span>
-        <span>
+        <span style="word-wrap: break-word;">
           {{ item.text_two.split(" : ")[1] }}
         </span>
       </p>

@@ -55,7 +55,7 @@ export default {
 <style scoped>
 @import "../styles/stylesShared.css";
 .counter {
-  font-size: 5em;
+  font-size: 4em;
   color: var(--main-color) !important;
 }
 

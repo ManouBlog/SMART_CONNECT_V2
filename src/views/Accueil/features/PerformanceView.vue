@@ -146,6 +146,39 @@ onUnmounted(() => {
             :decimals="Number(student) > 1000  ? 1:null"
           />
           <CardPerformance
+            :myStyle="'card_perfor_nbre_student_save'"
+            :icone_name="'bi bi-person-lines-fill'"
+            :texte="'Professionnels inscrits'"
+            :nbre="Number(formatNumber(Number(student)))"
+            :class="{ 'fade-in': cardPerfVisible }"
+            :isPayement="false"
+            :suffix="formatSuffix(Number(student))"
+            :tooltip="student.toString()"
+            :decimals="Number(student) > 1000  ? 1:null"
+          />
+          <CardPerformance
+            :myStyle="'card_perfor_nbre_student_save'"
+            :icone_name="'bi bi-person-lines-fill'"
+            :texte="'Artisans inscrits'"
+            :nbre="Number(formatNumber(Number(student)))"
+            :class="{ 'fade-in': cardPerfVisible }"
+            :isPayement="false"
+            :suffix="formatSuffix(Number(student))"
+            :tooltip="student.toString()"
+            :decimals="Number(student) > 1000  ? 1:null"
+          />
+          <CardPerformance
+            :myStyle="'card_perfor_nbre_student_save'"
+            :icone_name="'bi bi-person-lines-fill'"
+            :texte="'Vétérans inscrits'"
+            :nbre="Number(formatNumber(Number(student)))"
+            :class="{ 'fade-in': cardPerfVisible }"
+            :isPayement="false"
+            :suffix="formatSuffix(Number(student))"
+            :tooltip="student.toString()"
+            :decimals="Number(student) > 1000  ? 1:null"
+          />
+          <CardPerformance
             v-if="Number(timetable) > 100"
             :myStyle="'card_perfor_three'"
             :icone_name="'bi bi-person-lines-fill'"
@@ -207,31 +240,27 @@ onUnmounted(() => {
   border-radius: 0px 100px 0px 100px;
 }
 .card_perfor_two {
-   width: 250px;
-    height: 250px;
-   line-height: 55px;
+   width: 200px;
+    height: 200px;
   color: white;
-     padding: 3.9em 1.1em;
      text-align:center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
 }
 .card_perfor_nbre_student_save{
-      width: 250px;
-    height: 250px;
-    line-height: 55px;
+     width: 200px;
+    height: 200px;
   color: white;
-     padding: 3.9em 1.1em;
      text-align:center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
 }
 .card_perfor_payment{
-      width: 250px;
-    height: 250px;
-    line-height: 55px;
+      width: 200px;
+    height: 200px;
+    font-size:0.9em;
   color: white;
-    padding: 3.9em 1.1em;
+    padding: 1.9em 1em;
      text-align:center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
