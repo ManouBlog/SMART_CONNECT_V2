@@ -642,7 +642,7 @@ if (isParticulier) {
                 v-if="emploi.student.photo_profil"
                 style="border: 2px solid orange; object-fit: cover"
                 round
-                :size="50"
+                :size="70"
                 :src="lienPhoto + emploi.student.photo_profil"
               />
   
@@ -715,8 +715,9 @@ if (isParticulier) {
                 </span>
                 <span v-if="emploi.student?.competences?.length > 3"> ... </span>
               </div>
+              {{ emploi.star_color }}
               <span class="biStar">
-                <span style="display: flex; gap: 3px;margin-left:-1px ;" 
+                <!-- <span style="display: flex; gap: 3px;margin-left:-1px ;" 
                  v-if="emploi.star_color === 'gold'">
            <img
             v-for="n in 5"
@@ -725,11 +726,10 @@ if (isParticulier) {
     alt="etoile"
     style="width:18px"
   />
-                 </span>
+                 </span> -->
                 <Rating 
-                v-else
-                 :class="'color_yellow'" 
-                 v-model="emploi.student.average" 
+                 :class="emploi.star_color === 'gold' ? 'color_gold':'color_yellow'" 
+                 v-model="emploi.average" 
                  readonly :cancel="false"/>
                  
               </span>

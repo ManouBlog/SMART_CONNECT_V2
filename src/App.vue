@@ -410,7 +410,7 @@ export default {
 }
 .color_yellow .p-rating-item.p-rating-item-active .p-rating-icon,
 .n-tabs.n-tabs--line-type .n-tabs-tab.n-tabs-tab--active {
-  color: rgb(255, 234, 0) !important;
+  color: rgb(255, 208, 0) !important;
 }
 
 .color_gold .p-rating-item.p-rating-item-active .p-rating-icon,

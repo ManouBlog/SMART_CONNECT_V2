@@ -203,8 +203,9 @@ export default {
             role="dialog"
             aria-modal="true"
           >
-            <h1>{{ texte1 }}</h1>
-            <h2 class="text-center my-3" style="text-transform: capitalize">
+            <h1 style="font-size: 1.5em;">
+              {{ texte1 }}</h1>
+            <h2 class="text-center my-3" style="text-transform: capitalize;font-size: 1.5em;">
               {{ this.identifiant.student.nom }} {{ this.identifiant.student.prenoms }}
             </h2>
             <div class="text-center my-3">
@@ -420,7 +421,7 @@ export default {
 
 :deep(.n-avatar){
   height: 100px !important;
-  width:190px !important;
+  width:100px !important;
 }
 :deep(.ant-card-body) {
   height: 900px !important;
