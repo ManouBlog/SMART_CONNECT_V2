@@ -65,35 +65,76 @@ const handleCreateEntrepriseByYear=(payload)=>{
         matricule_cc:storeAbonnement.matricule_cc,
         contact:storeAbonnement.contact
         }
-        console.log('DATA FOR SEND23',{
-        nomEntreprise: storeAbonnement.nom,
-        expertise : storeAbonnement.niveauExpertise,
-        modeTravail:storeAbonnement.modeTravail,
-        tempsTravail:storeAbonnement.tempsTravail,
-        niveauEtude:storeAbonnement.niveauEtude,
-        CVupload:storeAbonnement.CVupload,
-        upload:storeAbonnement.upload,
-        statut_talent:storeAbonnement.statut_talent,
-        treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-        diplome:storeAbonnement.diplome,
-        ville:storeAbonnement.ville,
-        commune:storeAbonnement.commune,
-        profilHybride:storeAbonnement.profilHybride,
-        quartier:storeAbonnement.quartier,
-        statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
-        statut_entreprise:storeAbonnement.statut_entreprise,
-        email_cc:storeAbonnement.email_cc,
-        Phonegerant:storeAbonnement.Phonegerant,
-        gerant:storeAbonnement.gerant,
-        email:storeAbonnement.email,
-        phone:storeAbonnement.phone,
-        ncc:storeAbonnement.ncc,
-        juridique:storeAbonnement.juridique,
-        matricule_cc:storeAbonnement.matricule_cc,
-        contact:storeAbonnement.contact
-      })
-  console.log("paymentabonnement_year",data)
-  // storeAbonnement.createAbonement(data)
+        const formData = new FormData();
+
+// On vérifie chaque valeur avant l'ajout
+if (data.abonement_id) formData.append('abonement_id', data.abonement_id);
+if (data.channels && data.channels !== 'undefined') formData.append('channels', data.channels);
+if (data.mode_payment) formData.append('mode_payment', data.mode_payment);
+if (data.transaction_id) formData.append('transaction_id', data.transaction_id);
+if (data.isAddProfilHybride !== undefined) formData.append('isAddProfilHybride', data.isAddProfilHybride);
+if (data.statut_base) formData.append('statut_base', data.statut_base);
+if (data.isChangeProfil !== undefined) formData.append('isChangeProfil', data.isChangeProfil);
+if (data.treatment_preferentiel) formData.append('treatment_preferentiel', data.treatment_preferentiel);
+if (data.niveauExpertise) formData.append('niveauExpertise', data.niveauExpertise);
+if (data.modeTravail) formData.append('modeTravail', data.modeTravail);
+if (data.tempsTravail) formData.append('tempsTravail', data.tempsTravail);
+if (data.niveauEtude) formData.append('niveauEtude', data.niveauEtude);
+if (data.CVupload) formData.append('CVupload', data.CVupload);
+if (data.statut_talent) formData.append('statut_talent', data.statut_talent);
+
+// Pour les tableaux, on utilise JSON.stringify
+if (data.profilHybride) formData.append('profilHybride', JSON.stringify(data.profilHybride));
+if (data.addProfilHybrideOnly) formData.append('addProfilHybrideOnly', JSON.stringify(data.addProfilHybrideOnly));
+
+// Autres champs
+if (data.nom) formData.append('nom', data.nom);
+if (data.expertise) formData.append('expertise', data.expertise);
+if (data.upload) formData.append('upload', data.upload);
+if (data.diplome) formData.append('diplome', data.diplome);
+if (data.ville) formData.append('ville', data.ville);
+if (data.commune) formData.append('commune', data.commune);
+if (data.quartier) formData.append('quartier', data.quartier);
+if (data.statut_professionnel_artisan) formData.append('statut_professionnel_artisan', data.statut_professionnel_artisan);
+if (data.statut_entreprise) formData.append('statut_entreprise', data.statut_entreprise);
+if (data.email_cc) formData.append('email_cc', data.email_cc);
+if (data.Phonegerant) formData.append('Phonegerant', data.Phonegerant);
+if (data.gerant) formData.append('gerant', data.gerant);
+if (data.email) formData.append('email', data.email);
+if (data.phone) formData.append('phone', data.phone);
+if (data.ncc) formData.append('ncc', data.ncc);
+if (data.juridique) formData.append('juridique', data.juridique);
+if (data.matricule_cc) formData.append('matricule_cc', data.matricule_cc);
+if (data.contact) formData.append('contact', data.contact);
+      //   console.log('DATA FOR SEND23',{
+      //   nomEntreprise: storeAbonnement.nom,
+      //   expertise : storeAbonnement.niveauExpertise,
+      //   modeTravail:storeAbonnement.modeTravail,
+      //   tempsTravail:storeAbonnement.tempsTravail,
+      //   niveauEtude:storeAbonnement.niveauEtude,
+      //   CVupload:storeAbonnement.CVupload,
+      //   upload:storeAbonnement.upload,
+      //   statut_talent:storeAbonnement.statut_talent,
+      //   treatment_preferentiel:storeAbonnement.treatment_preferentiel,
+      //   diplome:storeAbonnement.diplome,
+      //   ville:storeAbonnement.ville,
+      //   commune:storeAbonnement.commune,
+      //   profilHybride:storeAbonnement.profilHybride,
+      //   quartier:storeAbonnement.quartier,
+      //   statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
+      //   statut_entreprise:storeAbonnement.statut_entreprise,
+      //   email_cc:storeAbonnement.email_cc,
+      //   Phonegerant:storeAbonnement.Phonegerant,
+      //   gerant:storeAbonnement.gerant,
+      //   email:storeAbonnement.email,
+      //   phone:storeAbonnement.phone,
+      //   ncc:storeAbonnement.ncc,
+      //   juridique:storeAbonnement.juridique,
+      //   matricule_cc:storeAbonnement.matricule_cc,
+      //   contact:storeAbonnement.contact
+      // })
+  // console.log("paymentabonnement_year",data)
+  storeAbonnement.createAbonement(formData)
 }
 
 // const handleCreateYear =(payload)=>{

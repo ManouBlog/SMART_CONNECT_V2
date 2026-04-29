@@ -198,10 +198,10 @@ if (storeAbonnement.statut_talent) {
 }
 
 if (storeAbonnement.profilHybride?.length) {
-  formData.append("profilHybride", storeAbonnement.profilHybride);
+  formData.append("profilHybride", JSON.stringify(storeAbonnement.profilHybride));
 }
   console.log("PAIEMENT_ARTISAN_month",formData)
-// storeAbonnement.createAbonement(formData)
+storeAbonnement.createAbonement(formData)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateAbonnement56")
@@ -209,27 +209,56 @@ const handleCreateYear =(payload)=>{
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
     const statutBaseUser = store.state.user?.user?.statut_base;
    const randomPart = Math.random().toString(36).substring(2);
-        const data = {
-            abonement_id:payload.id,
-            channels:"undefined",
-            mode_payment:select_mode_payment_tab.value,
-            transaction_id:randomPart,
-            isAddProfilHybride:storeAbonnement.addProfilHybride.map(item => item.id).length ? true:false,
-            statut_base:storeAbonnement.statutOfBase || statutBaseUser,
-            isChangeProfil:storeAbonnement.isChangeProfil,
-            treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-             niveauExpertise : storeAbonnement.niveauExpertise ,
-        modeTravail : storeAbonnement.modeTravail ,
-        tempsTravail : storeAbonnement.tempsTravail ,
-        niveauEtude : storeAbonnement.niveauEtude ,
-        CVupload : storeAbonnement.CVupload ,
-        statut_talent : storeAbonnement.statut_talent ,
-        profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
-        addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
-        }
+        // const data = {
+        //     abonement_id:payload.id,
+        //     channels:"undefined",
+        //     mode_payment:select_mode_payment_tab.value,
+        //     transaction_id:randomPart,
+        //     isAddProfilHybride:storeAbonnement.addProfilHybride.map(item => item.id).length ? true:false,
+        //     statut_base:storeAbonnement.statutOfBase || statutBaseUser,
+        //     isChangeProfil:storeAbonnement.isChangeProfil,
+        //     treatment_preferentiel:storeAbonnement.treatment_preferentiel,
+        //      niveauExpertise : storeAbonnement.niveauExpertise ,
+        // modeTravail : storeAbonnement.modeTravail ,
+        // tempsTravail : storeAbonnement.tempsTravail ,
+        // niveauEtude : storeAbonnement.niveauEtude ,
+        // CVupload : storeAbonnement.CVupload ,
+        // statut_talent : storeAbonnement.statut_talent ,
+        // profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
+        // addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
+        // }
+        const formData = new FormData();
+
+// Ajout des champs simples
+if (payload.id) formData.append('abonement_id', payload.id);
+if (select_mode_payment_tab?.value) formData.append('mode_payment', select_mode_payment_tab.value);
+if (randomPart) formData.append('transaction_id', randomPart);
+
+// Ajout des booléens et statuts
+formData.append('isAddProfilHybride', storeAbonnement.addProfilHybride.map(item => item.id).length > 0);
+formData.append('statut_base', storeAbonnement.statutOfBase || statutBaseUser);
+formData.append('isChangeProfil', storeAbonnement.isChangeProfil);
+
+// Ajout des autres propriétés
+if (storeAbonnement.treatment_preferentiel) formData.append('treatment_preferentiel', storeAbonnement.treatment_preferentiel);
+if (storeAbonnement.niveauExpertise) formData.append('niveauExpertise', storeAbonnement.niveauExpertise);
+if (storeAbonnement.modeTravail) formData.append('modeTravail', storeAbonnement.modeTravail);
+if (storeAbonnement.tempsTravail) formData.append('tempsTravail', storeAbonnement.tempsTravail);
+if (storeAbonnement.niveauEtude) formData.append('niveauEtude', storeAbonnement.niveauEtude);
+if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVupload);
+if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
+
+// Ajout des tableaux avec JSON.stringify pour Laravel
+if (storeAbonnement.profilHybride) {
+    formData.append('profilHybride', JSON.stringify(storeAbonnement.profilHybride.map(item => item.id)));
+}
+
+if (storeAbonnement.addProfilHybrideOnly) {
+    formData.append('addProfilHybrideOnly', JSON.stringify(storeAbonnement.addProfilHybride.map(item => item.id)));
+}
   
-  console.log("paymentabonnement_year",data)
-  // storeAbonnement.createAbonement(data)
+  // console.log("paymentabonnement_year",data)
+  storeAbonnement.createAbonement(formData)
 }
 
 

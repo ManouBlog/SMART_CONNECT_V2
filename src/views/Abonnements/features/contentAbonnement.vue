@@ -120,25 +120,51 @@ const handleCreateMonth =(payload)=>{
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   const randomPart = Math.random().toString(36).substring(2);
        
-        const data = {
-            abonement_id:payload.id,
-            channels:"undefined",
-            mode_payment:select_mode_payment_tab.value,
-            transaction_id:randomPart,
-            isChangeProfil:storeAbonnement.isChangeProfil,
-            statut_base:storeAbonnement.statutOfBase,
-            treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-             niveauExpertise : storeAbonnement.niveauExpertise ,
-        modeTravail : storeAbonnement.modeTravail ,
-        tempsTravail : storeAbonnement.tempsTravail ,
-        niveauEtude : storeAbonnement.niveauEtude ,
-        CVupload : storeAbonnement.CVupload ,
-        statut_talent : storeAbonnement.statut_talent ,
-        // profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
-          profilHybride:storeAbonnement.profilHybride.every(item => typeof item === "number") ? storeAbonnement.profilHybride:storeAbonnement.profilHybride.map(item => item.id),
-        }
-  console.log("paiement_content_month_contentabonnement",data)
-// storeAbonnement.createAbonement(data)
+        // const data = {
+        //     abonement_id:payload.id,
+        //     channels:"undefined",
+        //     mode_payment:select_mode_payment_tab.value,
+        //     transaction_id:randomPart,
+        //     isChangeProfil:storeAbonnement.isChangeProfil,
+        //     statut_base:storeAbonnement.statutOfBase,
+        //     treatment_preferentiel:storeAbonnement.treatment_preferentiel,
+        //      niveauExpertise : storeAbonnement.niveauExpertise ,
+        // modeTravail : storeAbonnement.modeTravail ,
+        // tempsTravail : storeAbonnement.tempsTravail ,
+        // niveauEtude : storeAbonnement.niveauEtude ,
+        // CVupload : storeAbonnement.CVupload ,
+        // statut_talent : storeAbonnement.statut_talent ,
+        //   profilHybride:storeAbonnement.profilHybride.every(item => typeof item === "number") ? storeAbonnement.profilHybride:storeAbonnement.profilHybride.map(item => item.id),
+        // }
+        const formData = new FormData();
+
+// Champs de base
+if (payload.id) formData.append('abonement_id', payload.id);
+formData.append('channels', "undefined"); // Conservé selon votre besoin
+if (select_mode_payment_tab?.value) formData.append('mode_payment', select_mode_payment_tab.value);
+if (randomPart) formData.append('transaction_id', randomPart);
+
+// Configuration profil
+if (storeAbonnement.isChangeProfil !== undefined) formData.append('isChangeProfil', storeAbonnement.isChangeProfil);
+if (storeAbonnement.statutOfBase) formData.append('statut_base', storeAbonnement.statutOfBase);
+if (storeAbonnement.treatment_preferentiel) formData.append('treatment_preferentiel', storeAbonnement.treatment_preferentiel);
+if (storeAbonnement.niveauExpertise) formData.append('niveauExpertise', storeAbonnement.niveauExpertise);
+if (storeAbonnement.modeTravail) formData.append('modeTravail', storeAbonnement.modeTravail);
+if (storeAbonnement.tempsTravail) formData.append('tempsTravail', storeAbonnement.tempsTravail);
+if (storeAbonnement.niveauEtude) formData.append('niveauEtude', storeAbonnement.niveauEtude);
+if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVupload);
+if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
+
+// Logique profilHybride préservée
+if (storeAbonnement.profilHybride) {
+    const profils = storeAbonnement.profilHybride.every(item => typeof item === "number") 
+        ? storeAbonnement.profilHybride 
+        : storeAbonnement.profilHybride.map(item => item.id);
+    
+    formData.append('profilHybride', JSON.stringify(profils));
+}
+  console.log("paiement_content_month_contentabonnement",formData)
+storeAbonnement.createAbonement(formData)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateAbonnement56")
@@ -146,24 +172,51 @@ const handleCreateYear =(payload)=>{
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
    const randomPart = Math.random().toString(36).substring(2);
        
-        const data = {
-            abonement_id:payload.id,
-            channels:"undefined",
-            mode_payment:select_mode_payment_tab.value,
-            transaction_id:randomPart,
-            isChangeProfil:storeAbonnement.isChangeProfil,
-            statut_base:storeAbonnement.statutOfBase,
-            treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-             niveauExpertise : storeAbonnement.niveauExpertise ,
-        modeTravail : storeAbonnement.modeTravail ,
-        tempsTravail : storeAbonnement.tempsTravail ,
-        niveauEtude : storeAbonnement.niveauEtude ,
-        CVupload : storeAbonnement.CVupload ,
-        statut_talent : storeAbonnement.statut_talent ,
-        profilHybride:storeAbonnement.profilHybride.every(item => typeof item === "number") ? storeAbonnement.profilHybride:storeAbonnement.profilHybride.map(item => item.id),
-        }
-  console.log("paiement_contentAbonnement_year",data)
-  // storeAbonnement.createAbonement(data)
+        // const data = {
+        //     abonement_id:payload.id,
+        //     channels:"undefined",
+        //     mode_payment:select_mode_payment_tab.value,
+        //     transaction_id:randomPart,
+        //     isChangeProfil:storeAbonnement.isChangeProfil,
+        //     statut_base:storeAbonnement.statutOfBase,
+        //     treatment_preferentiel:storeAbonnement.treatment_preferentiel,
+        //      niveauExpertise : storeAbonnement.niveauExpertise ,
+        // modeTravail : storeAbonnement.modeTravail ,
+        // tempsTravail : storeAbonnement.tempsTravail ,
+        // niveauEtude : storeAbonnement.niveauEtude ,
+        // CVupload : storeAbonnement.CVupload ,
+        // statut_talent : storeAbonnement.statut_talent ,
+        // profilHybride:storeAbonnement.profilHybride.every(item => typeof item === "number") ? storeAbonnement.profilHybride:storeAbonnement.profilHybride.map(item => item.id),
+        // }
+        const formData = new FormData();
+
+// Champs de base
+if (payload.id) formData.append('abonement_id', payload.id);
+formData.append('channels', "undefined"); // Conservé selon votre besoin
+if (select_mode_payment_tab?.value) formData.append('mode_payment', select_mode_payment_tab.value);
+if (randomPart) formData.append('transaction_id', randomPart);
+
+// Configuration profil
+if (storeAbonnement.isChangeProfil !== undefined) formData.append('isChangeProfil', storeAbonnement.isChangeProfil);
+if (storeAbonnement.statutOfBase) formData.append('statut_base', storeAbonnement.statutOfBase);
+if (storeAbonnement.treatment_preferentiel) formData.append('treatment_preferentiel', storeAbonnement.treatment_preferentiel);
+if (storeAbonnement.niveauExpertise) formData.append('niveauExpertise', storeAbonnement.niveauExpertise);
+if (storeAbonnement.modeTravail) formData.append('modeTravail', storeAbonnement.modeTravail);
+if (storeAbonnement.tempsTravail) formData.append('tempsTravail', storeAbonnement.tempsTravail);
+if (storeAbonnement.niveauEtude) formData.append('niveauEtude', storeAbonnement.niveauEtude);
+if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVupload);
+if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
+
+// Logique profilHybride préservée
+if (storeAbonnement.profilHybride) {
+    const profils = storeAbonnement.profilHybride.every(item => typeof item === "number") 
+        ? storeAbonnement.profilHybride 
+        : storeAbonnement.profilHybride.map(item => item.id);
+    
+    formData.append('profilHybride', JSON.stringify(profils));
+}
+  console.log("paiement_contentAbonnement_year",formData)
+  storeAbonnement.createAbonement(formData)
 }
 
 
