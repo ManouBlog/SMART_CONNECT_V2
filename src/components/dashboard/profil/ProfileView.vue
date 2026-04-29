@@ -325,16 +325,11 @@ userDocuments() {
       
     },
 
-    async getInfoUser() {
-      await this.$store.dispatch("getInfoUser");
-      // console.log(
-      //   "this.$store.state.infoUserConnected",
-      //   this.$store.state.infoUserConnected
-      // );
-    },
-    
+ 
   },
   async created() {
+    await this.$store.dispatch("getInfoUser");
+    await this.seeMessageUploadProfil();
     this.texte = await this.handleTranslate("Mon espace");
     this.texte1 = await this.handleTranslate(`Infos personnelles`);
      this.texte0989 = await this.handleTranslate(`Infos sur l’entreprise`);
@@ -352,9 +347,7 @@ userDocuments() {
     this.texte12 = await this.handleTranslate("Pièce d'identité");
     this.texte13 = await this.handleTranslate("Niveau d'etude");
     this.texte14 = await this.handleTranslate("Prénoms");
-    this.texte15 = await this.handleTranslate("Ma formule");
-    await this.getInfoUser();
-    await this.seeMessageUploadProfil();
+    this.texte15 = await this.handleTranslate("Ma formule");    
   },
 };
 </script>

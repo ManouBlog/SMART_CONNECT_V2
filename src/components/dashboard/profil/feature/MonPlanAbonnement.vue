@@ -39,6 +39,7 @@ export default {
     },
   },
   async mounted() {
+    await this.$store.dispatch("getInfoUser");
      await this.get_all_abonnement();
     this.texte = await this.handleTranslate('année');
     this.texte1 = await this.handleTranslate('an');

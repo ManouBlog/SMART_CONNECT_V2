@@ -66,7 +66,6 @@ export default {
         <span>{{ texte3 }}</span>
       </div>
       <a-tabs centered :size="'default'" @change="seeTabsChange"
-      tabBarStyle="style_tabs"
       >
         <a-tab-pane key="1" :tab="texte4">
           <LoginView />
