@@ -81,7 +81,7 @@ onMounted(async () => {
 
   activeTab.value = props.ProfilAbonnement
     ? props.ProfilAbonnement
-    : store.state.user ? store.state.user?.user?.statut.statut:'Etudiant'
+    : store.state.user ? store.state.user?.user?.statut.statut:'Particulier'
 
     console.log("activeTab.value", activeTab.value)
    console.log('USERInfo',store.state.user?.user?.statut.statut)
