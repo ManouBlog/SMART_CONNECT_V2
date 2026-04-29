@@ -72,7 +72,7 @@ export default {
       "changeValueForToogleModalInfoPersonnelle",
       "verifIfPasswordIsExact",
       "update_compte_student",
-      "addInfoUserConnected",
+      // "addInfoUserConnected",
     ]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
    
@@ -83,10 +83,10 @@ export default {
         this.update_compte_student({
           photo_profil: file,
         });
-        this.getInfoUser(1);
+        this.getInfoUser();
       }
     },
-    async getInfoUser(value = null) {
+    async getInfoUser() {
       this.isLoading = true;
       await instance
         .get("voirInfoUserConnect")
@@ -94,19 +94,17 @@ export default {
           // console.log("voirInfoUserConnect", resp);
           if (resp.data.status === true) {
             this.user = resp.data.user;
-            this.addInfoUserConnected(resp.data.user);
-            
-             this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
-             window.localStorage.setItem("user", JSON.stringify(resp.data.user));
+            // this.addInfoUserConnected(resp.data.user);
+             this.$store.dispatch("getInfoUser");
           }
         })
         .catch((error) => {
           console.log(error);
         })
         .finally(() => {
-          if (value) {
-            location.reload(true);
-          }
+          // if (value) {
+          //   location.reload(true);
+          // }
           this.isLoading = false;
         });
     },
@@ -254,7 +252,7 @@ export default {
         </button>
         
       </div>
-     
+     {{ user }}
 
       <div class="d-flex" style="position: relative">
         <input

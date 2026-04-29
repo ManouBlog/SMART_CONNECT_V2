@@ -274,7 +274,7 @@ if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
 
   try {
     const res = await instance.post("modifier_profil", data);
-    // console.log("update_compte_student", res.data);
+    console.log("update_compte_student", res.data);
     if (res.data.status === true) {
       Swal.fire({
         icon: "success",
@@ -300,10 +300,10 @@ if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
     Spinner.launchLoading(false);
   }
 },
-      addInfoUserConnected(payload){
-        this.infoUserConnected = payload;
-        // console.log("addInfoUserConnected",payload)
-      },
+      // addInfoUserConnected(payload){
+      //   this.infoUserConnected = payload;
+      //   // console.log("addInfoUserConnected",payload)
+      // },
       addAnRegistreDoc(payload){
         // console.log(payload.target.files[0])
        this.registre = payload.target.files[0]
