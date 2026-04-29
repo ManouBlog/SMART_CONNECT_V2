@@ -263,11 +263,11 @@ onMounted(async () => {
 </n-tabs>
 
 <section>
-  <p style="text-align:center;position: absolute;right: 0;top: 200px;">
+  <p style="text-align:center;position: absolute;right: 0;top: 220px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
           class="badge"
-        
+        style="background-color: white;color:black;"
         >
           Formule
         </span>
@@ -325,10 +325,11 @@ onMounted(async () => {
 </n-tabs>
 
 <section>
-  <p style="text-align:center;position: absolute;right: 0;top: 200px;">
+  <p style="text-align:center;position: absolute;right: 0;top: 220px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
           class="badge"
+          style="background-color: white;color:black;"
         >
           Formule
         </span>
@@ -386,10 +387,11 @@ onMounted(async () => {
 </n-tabs>
 
 <section>
-  <p style="text-align:center;position: absolute;right: 0;top: 200px;">
+  <p style="text-align:center;position: absolute;right: 0;top: 220px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
           class="badge"
+          style="background-color: white;color:black;"
         >
           Formule
         </span>
