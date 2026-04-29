@@ -27,6 +27,21 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const commune = ref(null);
         const quartier = ref(null);
         const statut_professionnel_artisan = ref(null);
+        
+
+        const Phonegerant = ref(null);
+        const contact = ref(null);
+        const matricule_cc = ref(null);
+        const juridique = ref(null);
+        const ncc = ref(null);
+        const phone = ref(null);
+        const email = ref(null);
+        const gerant = ref(null);
+        const countryCodePhoneGerant = ref(null);
+        const countryCode = ref(null);
+        const email_cc = ref(null);
+        const statut_entreprise = ref(null)
+        const nom = ref(null);
 
    const handleChangeProfil = (payload)=>{
     isChangeProfil.value = payload
@@ -45,7 +60,9 @@ const handleChangeInfoForAbonnement = (payload) => {
   }
 
   console.log("payload_handleChangeInfoForAbonnement ", payload);
-
+if ("nom" in payload) {
+    nom.value = payload.nom;
+  }
   // Assigner seulement si la propriété existe dans payload
   if ("niveauExpertise" in payload) {
     niveauExpertise.value = payload.niveauExpertise;
@@ -89,6 +106,43 @@ const handleChangeInfoForAbonnement = (payload) => {
   if ("statut_professionnel_artisan" in payload) {
     statut_professionnel_artisan.value = payload.statut_professionnel_artisan;
   }
+ if ("contact" in payload) {
+  contact.value = payload.countryCode+payload.contact;
+}
+
+if ("matricule_cc" in payload) {
+  matricule_cc.value = payload.matricule_cc;
+}
+
+if ("juridique" in payload) {
+  juridique.value = payload.juridique;
+}
+
+if ("ncc" in payload) {
+  ncc.value = payload.ncc;
+}
+
+if ("phone" in payload) {
+  phone.value = payload.phone;
+}
+
+if ("email" in payload) {
+  email.value = payload.email;
+}
+
+if ("gerant" in payload) {
+  gerant.value = payload.gerant;
+}
+
+if ("Phonegerant" in payload) {
+  Phonegerant.value = payload.countryCodePhoneGerant+payload.Phonegerant;
+}
+if("email_cc" in payload){
+  email_cc.value = payload.email_cc
+}
+if("statut_entreprise" in payload){
+  statut_entreprise.value = payload.statut_entreprise
+}
 };
    const handleMyStatutOfBase = (payload)=>{
     statutOfBase.value = payload;
@@ -124,6 +178,19 @@ const handleChangeInfoForAbonnement = (payload) => {
         ville,
         quartier,
         statut_professionnel_artisan,
-        cleanProfilHybide
+        cleanProfilHybide,
+        Phonegerant,
+         contact ,
+         matricule_cc ,
+         juridique ,
+         ncc ,
+         phone ,
+         email ,
+         gerant ,
+         countryCodePhoneGerant,
+         countryCode,
+         email_cc,
+         statut_entreprise,
+         nom
     }
 })

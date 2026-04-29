@@ -138,7 +138,7 @@ const handleCreateMonth =(payload)=>{
           profilHybride:storeAbonnement.profilHybride.every(item => typeof item === "number") ? storeAbonnement.profilHybride:storeAbonnement.profilHybride.map(item => item.id),
         }
   console.log("paiement_content_month_contentabonnement",data)
-storeAbonnement.createAbonement(data)
+// storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateAbonnement56")
@@ -163,7 +163,7 @@ const handleCreateYear =(payload)=>{
         profilHybride:storeAbonnement.profilHybride.every(item => typeof item === "number") ? storeAbonnement.profilHybride:storeAbonnement.profilHybride.map(item => item.id),
         }
   console.log("paiement_contentAbonnement_year",data)
-  storeAbonnement.createAbonement(data)
+  // storeAbonnement.createAbonement(data)
 }
 
 

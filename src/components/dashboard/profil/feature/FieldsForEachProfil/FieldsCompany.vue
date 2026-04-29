@@ -5,7 +5,7 @@ import Abonnements from '../../../../../views/Abonnements/Abonnements.vue';
 import { configUtils } from "../../../../../Shared/Utils";
 
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
-
+import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
 // import Tesseract from 'tesseract.js'
 
 export default {
@@ -185,18 +185,18 @@ StatutVeterans:[
       f.countryCodePhoneGerant &&
 
       // fichier registre (PDF)
-      f.myRegister
+      f.upload
     )
   }
     
   },
  
   methods: {
-    handleChangeCardStudent(e, type) {
+    handleChangeCardEntreprise(e, type) {
     const files = e.target.files
 
     if (type === 'registre') {
-      this.formState.myRegister = files
+      this.formState.upload = files
     }
 
     // if (type === 'cni') {
@@ -313,8 +313,37 @@ StatutVeterans:[
 //   })
 // },
     onHandleProfil() {
+      const STORE_ABONNEMENT = useAbonnementsStore()
       console.log("this.formState",this.formState);
-      this.showModalAbonnements = !this.showModalAbonnements
+      STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
+      console.log('DATA FOR SEND',{
+        nomEntreprise: STORE_ABONNEMENT.nom,
+        expertise : STORE_ABONNEMENT.niveauExpertise,
+        modeTravail:STORE_ABONNEMENT.modeTravail,
+        tempsTravail:STORE_ABONNEMENT.tempsTravail,
+        niveauEtude:STORE_ABONNEMENT.niveauEtude,
+        CVupload:STORE_ABONNEMENT.CVupload,
+        upload:STORE_ABONNEMENT.upload,
+        statut_talent:STORE_ABONNEMENT.statut_talent,
+        treatment_preferentiel:STORE_ABONNEMENT.treatment_preferentiel,
+        diplome:STORE_ABONNEMENT.diplome,
+        ville:STORE_ABONNEMENT.ville,
+        commune:STORE_ABONNEMENT.commune,
+        profilHybride:STORE_ABONNEMENT.profilHybride,
+        quartier:STORE_ABONNEMENT.quartier,
+        statut_professionnel_artisan:STORE_ABONNEMENT.statut_professionnel_artisan,
+        statut_entreprise:STORE_ABONNEMENT.statut_entreprise,
+        email_cc:STORE_ABONNEMENT.email_cc,
+        Phonegerant:STORE_ABONNEMENT.Phonegerant,
+        gerant:STORE_ABONNEMENT.gerant,
+        email:STORE_ABONNEMENT.email,
+        phone:STORE_ABONNEMENT.phone,
+        ncc:STORE_ABONNEMENT.ncc,
+        juridique:STORE_ABONNEMENT.juridique,
+        matricule_cc:STORE_ABONNEMENT.matricule_cc,
+        contact:STORE_ABONNEMENT.contact
+      })
+      // this.showModalAbonnements = !this.showModalAbonnements
     },
   },
 };
@@ -369,7 +398,7 @@ StatutVeterans:[
       <label class="my-3"> <span style="color: red;margin:0 0.1em">*</span> Charger le registre de commerce (PDF)</label>
       <input
         type="file"
-        @change="e => handleChangeCardStudent(e, 'registre')"
+        @change="e => handleChangeCardEntreprise(e, 'registre')"
         name="Registre"
         accept=".pdf"
         
@@ -553,7 +582,7 @@ StatutVeterans:[
       <input
         type="file"
         multiple
-       @change="e => handleChangeCardStudent(e, 'cni')"
+       @change="e => handleChangeCardEntreprise(e, 'cni')"
         
       />
     </div> -->
@@ -563,7 +592,7 @@ StatutVeterans:[
       <input
         type="file"
         accept=".jpg,.jpeg,.png,.webp"
-        @change="e => handleChangeCardStudent(e, 'logo')"
+        @change="e => handleChangeCardEntreprise(e, 'logo')"
         
       />
     </div>

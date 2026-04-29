@@ -24,7 +24,7 @@ const profilHybrideRecuperer = ref(0)
 
 
 
-const handleCreateEntreprise=(payload)=>{
+const handleCreateEntrepriseByYear=(payload)=>{
   console.log("paiement_entreprise2398")
     const statutBaseUser = store.state.user?.user?.statut_base;
      const randomPart = Math.random().toString(36).substring(2);
@@ -47,7 +47,7 @@ const handleCreateEntreprise=(payload)=>{
         addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
         }
   console.log("paymentabonnement_year",data)
-  storeAbonnement.createAbonement(data)
+  // storeAbonnement.createAbonement(data)
 }
 
 // const handleCreateYear =(payload)=>{
@@ -246,7 +246,7 @@ onMounted(async () => {
     },
   ]'
           :shapeBtn="'round'"
-          @created="handleCreateEntreprise(item)"
+          @created="handleCreateEntrepriseByYear(item)"
         />
       </div>
     </section>

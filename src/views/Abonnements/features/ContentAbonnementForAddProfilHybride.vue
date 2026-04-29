@@ -170,7 +170,7 @@ const handleCreateMonth =(payload)=>{
       addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
         }
   console.log("paiement_month_pouraddprofilhybride",data)
-storeAbonnement.createAbonement(data)
+// storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateAbonnement90")
@@ -203,7 +203,7 @@ const handleCreateYear =(payload)=>{
       addProfilHybrideOnly: storeAbonnement.addProfilHybride?.map(item => item.id)
         }
   console.log("veux_ajouter_des_profils_hybrides_year98",data)
-  storeAbonnement.createAbonement(data)
+  // storeAbonnement.createAbonement(data)
 }
 
 
