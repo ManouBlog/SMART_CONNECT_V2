@@ -210,16 +210,12 @@ onMounted(async () => {
   texte.value = await transalteStore.handleTranslate("année");
 });
 </script>
-<template>
-  <!-- <p>tabs:{{ item }}</p> -->
-   
+<template>   
   <p class="shadow-sm p-2 small" 
       style="font-weight: bold;
       text-align:center;
       background-color: rgb(255 255 255 / 40%);
-      padding:0.5em;"
-      
-      >
+      padding:0.5em;">
       {{ ecriteauFormule(item) }}
      </p>
  

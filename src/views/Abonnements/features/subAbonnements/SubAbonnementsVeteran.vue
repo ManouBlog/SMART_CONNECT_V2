@@ -79,7 +79,7 @@ const getMessageAbonnement = (type, item) => {
   if (type === "Etudiant") {
     const map = {
       "BROBROLI": "Commence maintenant",
-      "BROBROLI+": "Je passe à BROBROLI PRO MAX",
+      "BROBROLI+": "Je passe à BROBROLI+",
     };
 
     return map[libelle] || "Je passe à Brobroli";
@@ -87,8 +87,8 @@ const getMessageAbonnement = (type, item) => {
 
   if (type === "Professionnel") {
     const map = {
-      "BROBROLI": "Créer mon profil BROBROLI PRO",
-      "BROBROLI+": "Accéder à BROBROLI PRO MAX",
+      "BROBROLI": "Créer mon profil BROBROLI",
+      "BROBROLI+": "Accéder à BROBROLI+",
     };
 
     return map[libelle] || "Je passe à Brobroli";
@@ -96,8 +96,8 @@ const getMessageAbonnement = (type, item) => {
 
   if (type?.includes("Vétéran")) {
     const map = {
-      "BROBROLI": "Créer mon profil BROBROLI PRO",
-      "BROBROLI+": "Accéder à BROBROLI PRO MAX",
+      "BROBROLI": "Créer mon profil BROBROLI",
+      "BROBROLI+": "Accéder à BROBROLI+",
     };
 
     return map[libelle] || "Je passe à Brobroli";
@@ -112,24 +112,24 @@ const ecriteauFormule = (item) => {
 
   const rules = {
     vétéran:{
-      "BROBROLI PRO MAX":
+      "BROBROLI+":
         "Pour que les organisations qui cherchent une expertise rare vous trouvent directement.",
 
-      "BROBROLI PRO":
+      "BROBROLI":
         "Pour que les bonnes organisations trouvent votre expertise. Chaque engagement payé avant exécution.",
     },
     'vétéran hors grade':{
-      "BROBROLI PRO MAX":
+      "BROBROLI+":
         "Pour que les organisations qui cherchent une expertise rare vous trouvent directement.",
 
-      "BROBROLI PRO":
+      "BROBROLI":
         "Pour que les bonnes organisations trouvent votre expertise. Chaque engagement payé avant exécution.",
     },
   'vétéran senior':{
-      "BROBROLI PRO MAX":
+      "BROBROLI+":
         "Pour que les organisations qui cherchent une expertise rare vous trouvent directement.",
 
-      "BROBROLI PRO":
+      "BROBROLI":
         "Pour que les bonnes organisations trouvent votre expertise. Chaque engagement payé avant exécution.",
     },
   };
@@ -176,7 +176,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       v-for="item in filteredAbonnementsByTalent"
       :key="item.id"
       :class="
-        item?.libelle == 'BROBROLI PRO'
+        item?.libelle == 'BROBROLI'
           ? 'color_brobroli_pro'
           : 'color_brobroli_pro_max'
       "
@@ -190,7 +190,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
         {{ item.libelle }}
       </h1>
        <p 
-      v-if="item.libelle === 'BROBROLI PRO MAX'"
+      v-if="item.libelle === 'BROBROLI+'"
       style="padding: 0;position: absolute;top:34px;margin-right: -50px;transform: translateX(38px);">
         <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small></p>
     </div>
