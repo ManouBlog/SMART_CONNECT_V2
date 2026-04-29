@@ -216,7 +216,7 @@ onMounted(async () => {
       text-align:center;
       background-color: rgb(255 255 255 / 40%);
       padding:0.5em;
-      height: 90px;
+      height: 80px;
      display: flex;
      flex-direction: column;
      justify-content: center;

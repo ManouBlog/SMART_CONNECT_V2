@@ -171,7 +171,7 @@ onMounted(async () => {
       </h1>
        <p 
       v-if="item.libelle === 'BROBROLI PRO MAX'"
-      style="padding: 0;position: absolute;top:34px;margin-right: -50px;transform: translateX(38px);">
+      style="padding: 0;position: absolute;top:34px;margin-right: -50px;transform: translateX(50px);">
         <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small></p>
     </div>
       <p
@@ -180,7 +180,7 @@ onMounted(async () => {
     font-weight: bold;
     text-align: center;
     background-color: rgb(255 255 255 / 40%);
-    height: 90px;
+    height: 80px;
      display: flex;
      flex-direction: column;
      justify-content: center;
