@@ -343,7 +343,7 @@ StatutVeterans:[
         matricule_cc:STORE_ABONNEMENT.matricule_cc,
         contact:STORE_ABONNEMENT.contact
       })
-      // this.showModalAbonnements = !this.showModalAbonnements
+      this.showModalAbonnements = true
     },
   },
 };
@@ -364,6 +364,7 @@ StatutVeterans:[
      <div style="background-color: white;">
       <Abonnements 
       :ProfilAbonnement="this.profilOfAbonnement.statut"
+    
       />
       </div>
       </n-modal>

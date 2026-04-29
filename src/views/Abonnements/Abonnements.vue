@@ -67,8 +67,32 @@ const handleAbonement = async () => {
   }
 }
 
+const entrepriseAbonnements = computed(() => {
+  const abonnementsEntreprise = abonnements.value
+    .filter(item =>
+      item.categorie.categorie.toLowerCase().includes("entreprise")
+    )
+    .map(item => ({
+      label: item.categorie.categorie,
+      id: item.categorie.categorie,
+    }));
+
+  if (
+    store.state.user &&
+    store.state?.user?.statut_entreprise
+  ) {
+    return abonnementsEntreprise.filter(
+      item =>
+        item.id ===
+        `Entreprise ${store.state.user.statut_entreprise}`
+    );
+  }
+
+  return abonnementsEntreprise;
+});
+
 onMounted(async () => {
-  store.dispatch("getInfoUser");
+  await store.dispatch("getInfoUser");
   console.log("props.ProfilAbonnement", props.ProfilAbonnement)
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
 
@@ -104,17 +128,21 @@ onMounted(async () => {
       <div v-if="props.ProfilAbonnement">
        
         <!-- {{ profileAbonnement }}
-        {{ store.state.user?.user?.statuses }} -->
-         <!-- <p>statut_talent_choice:{{ statut_talent_choice }}</p> -->
+        <p>USEREFD/{{ store.state.user?.user }}</p>
+        <p>zczcyuzc:{{ store.state?.user?.statut_entreprise }}</p>
+          <p>statut_talent_choice:{{ statut_talent_choice }}</p>
+          <p>zeizechuie:{{ abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
+        .map(item => ({
+          label: item.categorie.categorie,
+          id: item.categorie.categorie
+        })).filter(item=>item.id === 'Entreprise '+store.state?.user?.statut_entreprise) }}</p> -->
 
     <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
      </p>
-
-     
-    
       </div>
       
       <n-tabs type="line" size="large" animated justify-content="center"
@@ -220,19 +248,7 @@ onMounted(async () => {
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Entreprise"
-      :tabsSubAbonnement="store.state.user ? abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
-        .map(item => ({
-          label: item.categorie.categorie,
-          id: item.categorie.categorie
-        })).filter(item=>item.id === 'Entreprise '+store.state?.user?.statut_entreprise)
-        :abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
-        .map(item => ({
-          label: item.categorie.categorie,
-          id: item.categorie.categorie
-        }))
-      "
+      :tabsSubAbonnement="entrepriseAbonnements"
       :subAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
       "
