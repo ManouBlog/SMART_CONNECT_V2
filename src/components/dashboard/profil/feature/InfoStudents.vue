@@ -76,14 +76,18 @@ export default {
     ]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
    
-    handleFileChange(event) {
+    async handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
         // console.log("Fichier choisi :", file);
-        this.update_compte_student({
+        const reponse = await this.update_compte_student({
           photo_profil: file,
         });
-        this.getInfoUser();
+        if(reponse.status){
+         this.user = reponse?.compte
+         this.getInfoUser()
+        }
+        console.log("reponsehandleFileChange",reponse) 
       }
     },
     async getInfoUser() {
@@ -247,7 +251,7 @@ export default {
         </button>
         
       </div>
-     {{ user }}
+     <!-- {{ user }} -->
 
       <div class="d-flex" style="position: relative">
         <input

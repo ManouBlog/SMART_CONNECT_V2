@@ -300,10 +300,7 @@ if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
     Spinner.launchLoading(false);
   }
 },
-      // addInfoUserConnected(payload){
-      //   this.infoUserConnected = payload;
-      //   // console.log("addInfoUserConnected",payload)
-      // },
+     
       addAnRegistreDoc(payload){
         // console.log(payload.target.files[0])
        this.registre = payload.target.files[0]
