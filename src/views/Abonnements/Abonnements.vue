@@ -244,7 +244,7 @@ onMounted(async () => {
 
  </n-tabs>
     </n-card>
-    <p class="shimmer-text" style="text-align: center;">Chargement...</p>
+    <p v-else class="shimmer-text" style="text-align: center;">Chargement...</p>
   </div>
 
 
@@ -396,7 +396,7 @@ onMounted(async () => {
 
 </n-tabs>
     </n-card>
-     <p class="shimmer-text" style="text-align: center;">Chargement...</p>
+     <p v-else class="shimmer-text" style="text-align: center;">Chargement...</p>
       </div>
    
   </div>
