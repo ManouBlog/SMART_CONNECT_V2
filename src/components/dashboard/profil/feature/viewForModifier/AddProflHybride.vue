@@ -191,7 +191,7 @@ descriptionProfil:{
         this.handleChangeInfoForAbonnement(this.formData)
         console.log("Profil hybride choisi pour ajout :", this.choiceProfilHybrideForAdd);
         this.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
-       
+         
         // console.log('statut_professionnel_artisan',abonnementsStore?.statut_professionnel_artisan)
         this.showModalAbonnements = true;
       } catch (error) {

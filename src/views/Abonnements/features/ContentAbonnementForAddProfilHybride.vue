@@ -234,6 +234,7 @@ onMounted(async () => {
     modePaymentForFormuleAbonnementOfUserConnected.value = profilUserCurrent?.mode_payment;
     if(formuleAbonnementOfUserConnected.value){
    tabs.value = tabs.value.filter(tab=>tab.id === modePaymentForFormuleAbonnementOfUserConnected.value)
+    select_mode_payment_tab.value = tabs.value[0].id
     }
     console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
     console.log("profilUserCurrent",profilUserCurrent)
@@ -241,13 +242,15 @@ onMounted(async () => {
     console.log("modePaymentForFormuleAbonnementOfUserConnected",modePaymentForFormuleAbonnementOfUserConnected.value)
     console.log("formuleAbonnementOfUserConnected25",formuleAbonnementOfUserConnected.value)
   }
-
+ 
   texte.value = await transalteStore.handleTranslate("année");
 });
 </script>
 <template>
-  <!-- <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p> -->
+ 
   <div v-if="!storeAbonnement.addProfilHybride.length">
+     <p>zedfzefhze87:{{ formuleAbonnementOfUserConnected }}</p>
+  <p>tabs:{{ tabs }}</p>
  <n-tabs
   v-model:value="select_mode_payment_tab"
   type="segment"
@@ -309,7 +312,10 @@ onMounted(async () => {
   </div>
 </section>
 </div>
-  <div v-if="storeAbonnement.addProfilHybride.length && formuleAbonnementOfUserConnected == item.libelle">
+  <div v-if="storeAbonnement.addProfilHybride.length && 
+  formuleAbonnementOfUserConnected == item.libelle">
+   <p>zedfzefhze34:{{ formuleAbonnementOfUserConnected }}</p>
+  <p>tabs:{{ tabs }}</p>
    <n-tabs
   v-model:value="select_mode_payment_tab"
   type="segment"
@@ -371,7 +377,10 @@ onMounted(async () => {
   </div>
 </section>
   </div>
-  <div v-if="storeAbonnement.addProfilHybride.length && !formuleAbonnementOfUserConnected">
+  <div v-if="storeAbonnement.addProfilHybride.length &&
+   !formuleAbonnementOfUserConnected">
+    <p>zedfzefhze23:{{ formuleAbonnementOfUserConnected }}</p>
+  <p>tabs:{{ tabs }}</p>
    <n-tabs
   v-model:value="select_mode_payment_tab"
   type="segment"

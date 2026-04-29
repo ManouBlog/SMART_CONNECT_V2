@@ -134,10 +134,11 @@ const handleCreateMonth =(payload)=>{
         niveauEtude : storeAbonnement.niveauEtude ,
         CVupload : storeAbonnement.CVupload ,
         statut_talent : storeAbonnement.statut_talent ,
-        profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
+        // profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
+          profilHybride:storeAbonnement.profilHybride.every(item => typeof item === "number") ? storeAbonnement.profilHybride:storeAbonnement.profilHybride.map(item => item.id),
         }
   console.log("paiement_content_month_contentabonnement",data)
-// storeAbonnement.createAbonement(data)
+storeAbonnement.createAbonement(data)
 }
 const handleCreateYear =(payload)=>{
   console.log("handleCreateAbonnement56")
