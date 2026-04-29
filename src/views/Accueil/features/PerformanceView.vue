@@ -91,7 +91,7 @@ onMounted(async () => {
   texte2.value = await translateStore.handleTranslate("Offre(s) enregistrées");
   texte3.value = await translateStore.handleTranslate("Talent(s)");
   texte4.value = await translateStore.handleTranslate("Visiteur(s)");
-  texte55.value = await translateStore.handleTranslate("Étudiants inscrits");
+  texte55.value = await translateStore.handleTranslate("Étudiants");
   await seePerformanceNbre();
   initIntersectionObserver();
 });

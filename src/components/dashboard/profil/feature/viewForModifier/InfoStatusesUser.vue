@@ -266,7 +266,7 @@ this.selectedParseStatus = ""
           <h3>Changer le profil de base </h3>
         </div>
       </template>
-      <!-- <p>Séléctionnez un profil:{{ allStatuses }}</p> -->
+     
       <section v-if="allStatuses.length">
         <div class="w-100 mb-4">
             <label for="statusSelect">Séléctionnez un profil</label>
@@ -385,7 +385,7 @@ this.selectedParseStatus = ""
         <!-- <p>VOUEBC:{{ profils.user}}</p> -->
         <div style="display: flex; gap:1em;flex-wrap: wrap;">
 <button
-      v-if="profils?.user?.statut?.statut !== 'Vétéran'"
+      v-if="profils?.user?.statut?.statut !== 'Vétéran' || profils?.user?.statut?.statut !== 'Particulier'"
           style="
             height: auto;
             width: auto;
