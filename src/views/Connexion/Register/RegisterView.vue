@@ -98,7 +98,7 @@ export default {
         const response =  await instance.get("listStatut")
         this.options = response.data.data.filter(item=>item.statut !== 'admin')
         console.log("this.allStatuts",response.data.data)
-        this.value1 = this.options[1].statut
+        this.value1 = this.options.find(item=>item.statut === 'Particulier').statut
         console.log("this.value1",this.value1)
          const found = this.options.find(
         item => item.statut === this.value1
