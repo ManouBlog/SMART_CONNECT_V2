@@ -188,9 +188,9 @@ watch(
 
 onMounted(async () => {
   texte.value = await transalteStore.handleTranslate("année");
-   console.log("PROFILE_ABONNEMENT_SUB_ARTISAN",storeAbonnement.profilHybride)
+   console.log("PROFILE_ABONNEMENT_SUB_ENTREPRISE",storeAbonnement.profilHybride)
    console.log("storeAbonnement.addProfilHybrideSUBABONNEMENTENTREPRISE",storeAbonnement.addProfilHybride)
-  profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
+  // profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 
   if (isUserConnected.value) {
       await storeAbonnementUser.get_all_abonnement();

@@ -386,19 +386,7 @@ onMounted(async () => {
       :abonnements="abonnements"
       type_abonnements="Entreprise"
       :statut_talent_choice_entreprise="store.state.user?.statut_entreprise"
-      :tabsSubAbonnement="store.state.user ? abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
-        .map(item => ({
-          label: item.categorie.categorie,
-          id: item.categorie.categorie
-        })).filter(item=>item.id === 'Entreprise '+store.state?.user?.statut_entreprise)
-        :abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
-        .map(item => ({
-          label: item.categorie.categorie,
-          id: item.categorie.categorie
-        }))
-      "
+      :tabsSubAbonnement="entrepriseAbonnements"
       :subAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
       "

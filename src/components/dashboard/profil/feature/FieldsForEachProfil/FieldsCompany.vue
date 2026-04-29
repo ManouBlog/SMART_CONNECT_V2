@@ -241,6 +241,7 @@ export default {
       const STORE_ABONNEMENT = useAbonnementsStore()
       console.log("this.formState",this.formState);
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
+      STORE_ABONNEMENT.cleanProfilHybide([])
       console.log('DATA FOR SEND1',{
         statutOfBase:STORE_ABONNEMENT.statutOfBase,
         nomEntreprise: STORE_ABONNEMENT.nom,
