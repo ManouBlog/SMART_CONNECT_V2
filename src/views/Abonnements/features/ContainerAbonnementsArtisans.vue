@@ -215,7 +215,12 @@ onMounted(async () => {
       style="font-weight: bold;
       text-align:center;
       background-color: rgb(255 255 255 / 40%);
-      padding:0.5em;">
+      padding:0.5em;
+      height: 90px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+      ">
       {{ ecriteauFormule(item) }}
      </p>
  

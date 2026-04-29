@@ -89,7 +89,7 @@ onMounted(async () => {
       <!-- <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1> -->
- <div style="position: relative;padding: 1em;">
+ <div style="position: relative;height:70px;">
 <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>

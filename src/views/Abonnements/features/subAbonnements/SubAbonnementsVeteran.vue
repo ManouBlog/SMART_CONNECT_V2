@@ -185,7 +185,7 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       <!-- <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1> -->
-      <div style="position: relative;padding: 1em;">
+      <div style="position: relative;height:70px;">
      <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
@@ -198,7 +198,12 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       style="font-weight: bold;
       text-align:center;
       background-color: rgb(255 255 255 / 40%);
-      padding:1em;">
+      padding:1em;
+      height: 90px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     ">
       {{ ecriteauFormule(item) }}
      </p>
       

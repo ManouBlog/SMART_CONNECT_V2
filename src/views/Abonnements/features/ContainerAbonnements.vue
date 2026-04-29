@@ -365,7 +365,12 @@ console.log('store.state?.user',store.state?.user)
           : 'color_brobroli_pro_max'
       "
     >
-    <div style="position: relative;padding: 1em;">
+    <div
+  :style="{
+    position: 'relative',
+    height: item.libelle === 'BROBROLI HOME' ? '60px' : '70px'
+  }"
+  >
 <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
@@ -380,6 +385,10 @@ console.log('store.state?.user',store.state?.user)
      style="font-weight: bold;
      text-align:center;
      background-color: rgb(255 255 255 / 40%);
+     height: 90px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
     "
      :style="{
     margin: item.libelle === 'BROBROLI HOME' 
