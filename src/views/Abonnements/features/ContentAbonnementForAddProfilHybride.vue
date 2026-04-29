@@ -249,8 +249,8 @@ onMounted(async () => {
 <template>
  
   <div v-if="!storeAbonnement.addProfilHybride.length">
-     <p>zedfzefhze87:{{ formuleAbonnementOfUserConnected }}</p>
-  <p>tabs:{{ tabs }}</p>
+     <!-- <p>zedfzefhze87:{{ formuleAbonnementOfUserConnected }}</p>
+  <p>tabs:{{ tabs }}</p> -->
  <n-tabs
   v-model:value="select_mode_payment_tab"
   type="segment"
@@ -314,8 +314,8 @@ onMounted(async () => {
 </div>
   <div v-if="storeAbonnement.addProfilHybride.length && 
   formuleAbonnementOfUserConnected == item.libelle">
-   <p>zedfzefhze34:{{ formuleAbonnementOfUserConnected }}</p>
-  <p>tabs:{{ tabs }}</p>
+   <!-- <p>zedfzefhze34:{{ formuleAbonnementOfUserConnected }}</p>
+  <p>tabs:{{ tabs }}</p> -->
    <n-tabs
   v-model:value="select_mode_payment_tab"
   type="segment"
@@ -379,8 +379,8 @@ onMounted(async () => {
   </div>
   <div v-if="storeAbonnement.addProfilHybride.length &&
    !formuleAbonnementOfUserConnected">
-    <p>zedfzefhze23:{{ formuleAbonnementOfUserConnected }}</p>
-  <p>tabs:{{ tabs }}</p>
+    <!-- <p>zedfzefhze23:{{ formuleAbonnementOfUserConnected }}</p>
+  <p>tabs:{{ tabs }}</p> -->
    <n-tabs
   v-model:value="select_mode_payment_tab"
   type="segment"
