@@ -191,12 +191,9 @@ descriptionProfil:{
         this.handleChangeInfoForAbonnement(this.formData)
         console.log("Profil hybride choisi pour ajout :", this.choiceProfilHybrideForAdd);
         this.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
-         
-        // console.log('statut_professionnel_artisan',abonnementsStore?.statut_professionnel_artisan)
         this.showModalAbonnements = true;
       } catch (error) {
         console.log("Validation échouée :", error);
-       
       }
     },
    
@@ -258,7 +255,7 @@ console.log('user',user)
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils hybrides
     </label>
-    <!-- {{ ProfilsUser.user }} -->
+  <p>PRFILUSER:{{ ProfilsUser }}</p>  
     <!-- {{ filteredProfilsHybrides }} -->
     <!-- {{ ProfilsUser.user?.statuses }}
     {{ ProfilsUser.user?.statut?.statut }} -->
@@ -320,11 +317,11 @@ console.log('user',user)
   :model="formData"
   :rules="rules"
 >
-   <!-- Artisan -->
+
+<!-- Particulier -->
 <a-row :gutter="[16, 24]">
-    <a-col :xs="24" :md="12">
-       
-    <a-form-item v-if="hasArtisanProfil" label="Niveau d'étude" name="niveauEtude">
+   <a-col :xs="24" :md="12" v-if="hasArtisanProfil && !ProfilsUser.niveauEtude">
+    <a-form-item  label="Niveau d'étude" name="niveauEtude">
       <a-select
     v-model:value="formData.niveauEtude"
     placeholder="Sélectionnez votre niveau d’étude"
@@ -342,8 +339,8 @@ console.log('user',user)
   </a-select>
     </a-form-item>
     </a-col>
-     <a-col :xs="24" :md="12">
- <a-form-item  v-if="hasArtisanProfil" label="Statut professionnel artisan"
+     <a-col :xs="24" :md="12" v-if="hasArtisanProfil">
+ <a-form-item   label="Statut professionnel artisan"
   name="statut_professionnel_artisan">
     <a-select
     style="width: 100%;"
@@ -363,27 +360,23 @@ console.log('user',user)
   </a-select>
     </a-form-item>
      </a-col>
-</a-row>
-
-<!-- Particulier -->
-<a-row :gutter="[16, 24]">
-<a-col :xs="24" :md="12">
- <a-form-item v-if="hasParticulierProfil" label="Ville" name="ville">
+<a-col :xs="24" :md="12" v-if="hasParticulierProfil && !ProfilsUser.ville">
+ <a-form-item  label="Ville" name="ville">
       <a-input v-model:value="formData.ville" />
     </a-form-item>
 </a-col>
-<a-col :xs="24" :md="12">
- <a-form-item v-if="hasParticulierProfil" label="Quartier" name="quartier">
+<a-col :xs="24" :md="12" v-if="hasParticulierProfil && !ProfilsUser.quartier">
+ <a-form-item label="Quartier" name="quartier">
       <a-input v-model:value="formData.quartier" />
     </a-form-item>
 </a-col>
-<a-col :xs="24" :md="12">
-<a-form-item v-if="hasParticulierProfil" label="Commune" name="commune">
+<a-col :xs="24" :md="12" v-if="hasParticulierProfil && !ProfilsUser.commune">
+<a-form-item   label="Commune" name="commune">
       <a-input v-model:value="formData.commune" />
     </a-form-item>
 </a-col>
 
-<a-col :xs="24" :md="12">
+<a-col :xs="24" :md="12" v-if="!ProfilsUser.user.photos.length">
 
  <a-form-item label="Ajouter votre CNI (carte nationale d'identité)" 
  name="file">

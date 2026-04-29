@@ -123,13 +123,12 @@ onMounted(async () => {
 </script>
 
 <template>
+  <!-- {{ props.ProfilAbonnement }}
+  <p>abonnementssde:{{ abonnements }}</p> -->
   <div class="wrapped myconteneur">
     <h1 class="text-center main-color" style="font-size: 1.5em;">{{text0}}</h1>
       <div v-if="props.ProfilAbonnement">
-       
-
-
-    <n-card>
+    <n-card v-if="abonnements.length">
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
@@ -139,7 +138,6 @@ onMounted(async () => {
       <n-tabs type="line" size="large" animated justify-content="center"
       v-model:value="activeTab"
       >
-      
   <!-- Particulier -->
   <n-tab-pane
     v-if="
@@ -153,8 +151,6 @@ onMounted(async () => {
       type_abonnements="Particulier"
     />
   </n-tab-pane>
-
-
   <!-- Etudiant -->
   <n-tab-pane
     v-if="
@@ -248,10 +244,13 @@ onMounted(async () => {
 
  </n-tabs>
     </n-card>
-      </div>
-      <div v-else>
+    <p class="shimmer-text" style="text-align: center;">Chargement...</p>
+  </div>
 
-  <n-card>
+
+
+      <div v-else>
+     <n-card v-if="abonnements.length">
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
@@ -397,6 +396,7 @@ onMounted(async () => {
 
 </n-tabs>
     </n-card>
+     <p class="shimmer-text" style="text-align: center;">Chargement...</p>
       </div>
    
   </div>
@@ -412,5 +412,26 @@ onMounted(async () => {
     margin-top: 1em;
   }
 }
+.shimmer-text {
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    #999 0%,
+    #fff 50%,
+    #999 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 1.5s infinite;
+}
 
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
 </style>

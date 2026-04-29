@@ -197,7 +197,7 @@ this.selectedParseStatus = ""
     Professionnel: ['Artisan', 'Vétéran'],
     Artisan: ['Professionnel','Vétéran'],
     Vétéran: ['Particulier','Artisan'],
-    Particulier: ['Entreprise'],
+    // Particulier: ['Entreprise'],
     Entreprise:['Entreprise']
   };
 
