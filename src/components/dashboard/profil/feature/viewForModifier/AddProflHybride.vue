@@ -255,7 +255,7 @@ console.log('user',user)
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils hybrides
     </label>
-  <p>PRFILUSER:{{ ProfilsUser }}</p>  
+  <!-- <p>PRFILUSER:{{ ProfilsUser }}</p>   -->
     <!-- {{ filteredProfilsHybrides }} -->
     <!-- {{ ProfilsUser.user?.statuses }}
     {{ ProfilsUser.user?.statut?.statut }} -->

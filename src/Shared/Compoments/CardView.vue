@@ -21,8 +21,8 @@ export default {
   <a-card
     :class="cardPerfVisible ? item.class : null"
     style="
-      width: 300px;
-      height: 300px;
+      max-width: 320px;
+      max-height: 330px;
       color: var(--third-color) !important;
       background: var(--secondary-color) !important;
       position: relative;
@@ -31,21 +31,24 @@ export default {
     <div class="div_conteneur">
       <h6>{{ item.id }}</h6>
     </div>
-    <h3 class="texte-center" style="color: var(--third-color) !important">
+    <h3 class="texte-center p-0 m-0" style="color: var(--third-color) !important;text-align: center;">
       {{ item.title }}
     </h3>
-    <div v-if="item.text_one || item.text_two || item.text_three">
-      <p v-if="item.text_one && item.text_one.split(' : ')[0] === 'Etudiants,Professionnels,Artisans,Vétérans'">
+    <div :style="item.text_one ? { padding: '0.5em' } : null">
+      <p>
         <span style="color: orange; font-weight: bold;word-wrap: break-word;">
-          {{ item.text_one.split(" : ")[0] }} :
+          {{ item.text_colorie1 }}
         </span>
-        <span style="word-wrap: break-word;">
-          {{ item.text_one.split(" : ")[1] }}
+        <span>
+          {{ item.text_one }}
+        </span>
+        <span style="word-wrap: break-word;display: block;">
+        <span style="color: orange; font-weight: bold;word-wrap: break-word;">
+          {{ item.text_colorie2 }}
+        </span>  {{ item.text_two }}
         </span>
       </p>
-      <p v-if="item.text_three" style="word-wrap: break-word;">
-        {{ item.text_three }}
-      </p>
+    
 
       <p
       style="word-wrap: break-word;"

@@ -308,6 +308,15 @@
             <p>
               <strong>{{ texte6 }} :</strong> {{ item.echeance }}
             </p>
+            <div style="display: flex;justify-content: flex-end;"
+            
+            >
+              <button 
+              @click="handleDetailAbonnement(item)"
+              style="background-color: orange;">Détail <i class="bi bi-eye" 
+              style="cursor: pointer;" 
+              ></i></button>
+            </div>
           </div>
         </div>
 

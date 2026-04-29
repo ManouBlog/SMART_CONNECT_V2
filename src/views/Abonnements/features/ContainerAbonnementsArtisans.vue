@@ -249,12 +249,21 @@ if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVuplo
 if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
 
 // Ajout des tableaux avec JSON.stringify pour Laravel
-if (storeAbonnement.profilHybride) {
-    formData.append('profilHybride', JSON.stringify(storeAbonnement.profilHybride.map(item => item.id)));
+// Ajout des tableaux avec JSON.stringify pour Laravel
+if (storeAbonnement.profilHybride?.length) {
+  storeAbonnement.profilHybride
+    .map(item => item.id)
+    .forEach(id => {
+      formData.append("profilHybride[]", id);
+    });
 }
 
-if (storeAbonnement.addProfilHybrideOnly) {
-    formData.append('addProfilHybrideOnly', JSON.stringify(storeAbonnement.addProfilHybride.map(item => item.id)));
+if (storeAbonnement.addProfilHybride?.length) {
+  storeAbonnement.addProfilHybride
+    .map(item => item.id)
+    .forEach(id => {
+      formData.append("addProfilHybrideOnly[]", id);
+    });
 }
   
   // console.log("paymentabonnement_year",data)

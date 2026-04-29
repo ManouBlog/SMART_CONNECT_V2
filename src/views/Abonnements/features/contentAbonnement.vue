@@ -208,12 +208,21 @@ if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVuplo
 if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
 
 // Logique profilHybride préservée
-if (storeAbonnement.profilHybride) {
-    const profils = storeAbonnement.profilHybride.every(item => typeof item === "number") 
-        ? storeAbonnement.profilHybride 
-        : storeAbonnement.profilHybride.map(item => item.id);
-    
-    formData.append('profilHybride', JSON.stringify(profils));
+// Ajout des tableaux avec JSON.stringify pour Laravel
+if (storeAbonnement.profilHybride?.length) {
+  storeAbonnement.profilHybride
+    .map(item => item.id)
+    .forEach(id => {
+      formData.append("profilHybride[]", id);
+    });
+}
+
+if (storeAbonnement.addProfilHybride?.length) {
+  storeAbonnement.addProfilHybride
+    .map(item => item.id)
+    .forEach(id => {
+      formData.append("addProfilHybrideOnly[]", id);
+    });
 }
   console.log("paiement_contentAbonnement_year",formData)
   storeAbonnement.createAbonement(formData)

@@ -78,31 +78,33 @@ export default {
     this.dataCard = [
       {
         id: 1,
-        title: await this.handleTranslate("Créer mon compte"),
-        text_three: await this.handleTranslate("Remplissez le formulaire"),
+        title: await this.handleTranslate("Je crée mon profil"),
+        text_colorie1: await this.handleTranslate("En 5 minutes,Gratuitement.Depuis mon App mobile ou web. "),
         class: "slide-from-left",
         footer_btn: true,
       },
       {
         id: 2,
-        title: await this.handleTranslate("Choisir une option"),
+        title: await this.handleTranslate("Je trouve ce que je cherche "),
+        text_colorie1:'Talent',
+        text_colorie2:'Entreprise',
         text_one: await this.handleTranslate(
-          "Etudiants,Professionnels,Artisans,Vétérans : Obtenir un emploi à temps partiel selon mes disponibilités."
+          ": Les missions disponibles m'attendent. Je fais valoir mes compétences, partout."
         ),
         text_two: await this.handleTranslate(
-          "Entreprises : Besoin d'employés à temps partiel."
+          ": J'exprime mon besoin, mon budget, ma deadline. Des profils vérifiés sont disponibles immédiatement pour moi."
         ),
         class: "fade-in",
         footer_btn: false,
       },
       {
         id: 3,
-        title: await this.handleTranslate("Vivez une expérience unique"),
+        title: await this.handleTranslate("C'est fait. Je suis payé."),
         text_one: await this.handleTranslate(
-          "Etudiants,Professionnels,Artisans,Vétérans : Démarrez une nouvelle expérience inédite..."
+          "Talent : l'argent arrive sur mon téléphone dès validation de la mission."
         ),
         text_two: await this.handleTranslate(
-          "Entreprises : Choisir le meilleur profil."
+          "Entreprise : Je paie uniquement quand c'est fait."
         ),
         class: "slide-from-right",
         footer_btn: false,

@@ -385,7 +385,7 @@ resetData(){
         html-type="submit"
         :disabled="!isFormComplete"
       >
-        Enregistrer artisan
+        Enregistrer
       </a-button>
       </div>
     </div>

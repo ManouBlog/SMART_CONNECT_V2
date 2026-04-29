@@ -383,7 +383,7 @@ this.selectedParseStatus = ""
       <h1 class="fw-bold my-3 mb-0" style="color: orange">Mes Profils</h1>
       <!-- {{ profils.user}} -->
         <!-- <p>VOUEBC:{{ profils.user}}</p> -->
-        <div style="display: flex; gap:1em;flex-wrap: wrap;">
+        <div style="display: flex; gap:1em;flex-wrap: wrap;" class="my-container">
 <button
       v-if="profils?.user?.statut?.statut !== 'Vétéran' || profils?.user?.statut?.statut !== 'Particulier'"
           style="

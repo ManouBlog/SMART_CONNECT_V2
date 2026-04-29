@@ -84,8 +84,22 @@ if (data.CVupload) formData.append('CVupload', data.CVupload);
 if (data.statut_talent) formData.append('statut_talent', data.statut_talent);
 
 // Pour les tableaux, on utilise JSON.stringify
-if (data.profilHybride) formData.append('profilHybride', JSON.stringify(data.profilHybride));
-if (data.addProfilHybrideOnly) formData.append('addProfilHybrideOnly', JSON.stringify(data.addProfilHybrideOnly));
+// Ajout des tableaux avec JSON.stringify pour Laravel
+if (storeAbonnement.profilHybride?.length) {
+  storeAbonnement.profilHybride
+    .map(item => item.id)
+    .forEach(id => {
+      formData.append("profilHybride[]", id);
+    });
+}
+
+if (storeAbonnement.addProfilHybride?.length) {
+  storeAbonnement.addProfilHybride
+    .map(item => item.id)
+    .forEach(id => {
+      formData.append("addProfilHybrideOnly[]", id);
+    });
+}
 
 // Autres champs
 if (data.nom) formData.append('nom', data.nom);
@@ -106,34 +120,7 @@ if (data.ncc) formData.append('ncc', data.ncc);
 if (data.juridique) formData.append('juridique', data.juridique);
 if (data.matricule_cc) formData.append('matricule_cc', data.matricule_cc);
 if (data.contact) formData.append('contact', data.contact);
-      //   console.log('DATA FOR SEND23',{
-      //   nomEntreprise: storeAbonnement.nom,
-      //   expertise : storeAbonnement.niveauExpertise,
-      //   modeTravail:storeAbonnement.modeTravail,
-      //   tempsTravail:storeAbonnement.tempsTravail,
-      //   niveauEtude:storeAbonnement.niveauEtude,
-      //   CVupload:storeAbonnement.CVupload,
-      //   upload:storeAbonnement.upload,
-      //   statut_talent:storeAbonnement.statut_talent,
-      //   treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-      //   diplome:storeAbonnement.diplome,
-      //   ville:storeAbonnement.ville,
-      //   commune:storeAbonnement.commune,
-      //   profilHybride:storeAbonnement.profilHybride,
-      //   quartier:storeAbonnement.quartier,
-      //   statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
-      //   statut_entreprise:storeAbonnement.statut_entreprise,
-      //   email_cc:storeAbonnement.email_cc,
-      //   Phonegerant:storeAbonnement.Phonegerant,
-      //   gerant:storeAbonnement.gerant,
-      //   email:storeAbonnement.email,
-      //   phone:storeAbonnement.phone,
-      //   ncc:storeAbonnement.ncc,
-      //   juridique:storeAbonnement.juridique,
-      //   matricule_cc:storeAbonnement.matricule_cc,
-      //   contact:storeAbonnement.contact
-      // })
-  // console.log("paymentabonnement_year",data)
+     
   storeAbonnement.createAbonement(formData)
 }
 

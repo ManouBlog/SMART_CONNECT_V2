@@ -224,8 +224,12 @@ if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVuplo
 if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
 
 // Ajout des tableaux avec JSON.stringify pour Laravel
-if (storeAbonnement.profilHybride) {
-    formData.append('profilHybride', JSON.stringify(storeAbonnement.profilHybride.map(item => item.id)));
+if (storeAbonnement.profilHybride?.length) {
+  storeAbonnement.profilHybride
+    .map(item => item.id)
+    .forEach(id => {
+      formData.append("profilHybride[]", id);
+    });
 }
 
 if (storeAbonnement.addProfilHybride?.length) {
@@ -235,6 +239,25 @@ if (storeAbonnement.addProfilHybride?.length) {
       formData.append("addProfilHybrideOnly[]", id);
     });
 }
+// Autres champs
+if (storeAbonnement.nom) formData.append('nom', storeAbonnement.nom);
+if (storeAbonnement.expertise) formData.append('expertise', storeAbonnement.expertise);
+if (storeAbonnement.upload) formData.append('upload', storeAbonnement.upload);
+if (storeAbonnement.diplome) formData.append('diplome', storeAbonnement.diplome);
+if (storeAbonnement.ville) formData.append('ville', storeAbonnement.ville);
+if (storeAbonnement.commune) formData.append('commune', storeAbonnement.commune);
+if (storeAbonnement.quartier) formData.append('quartier', storeAbonnement.quartier);
+if (storeAbonnement.statut_professionnel_artisan) formData.append('statut_professionnel_artisan', storeAbonnement.statut_professionnel_artisan);
+if (storeAbonnement.statut_entreprise) formData.append('statut_entreprise', storeAbonnement.statut_entreprise);
+if (storeAbonnement.email_cc) formData.append('email_cc', storeAbonnement.email_cc);
+if (storeAbonnement.Phonegerant) formData.append('Phonegerant', storeAbonnement.Phonegerant);
+if (storeAbonnement.gerant) formData.append('gerant', storeAbonnement.gerant);
+if (storeAbonnement.email) formData.append('email', storeAbonnement.email);
+if (storeAbonnement.phone) formData.append('phone', storeAbonnement.phone);
+if (storeAbonnement.ncc) formData.append('ncc', storeAbonnement.ncc);
+if (storeAbonnement.juridique) formData.append('juridique', storeAbonnement.juridique);
+if (storeAbonnement.matricule_cc) formData.append('matricule_cc', storeAbonnement.matricule_cc);
+if (storeAbonnement.contact) formData.append('contact', storeAbonnement.contact);
   
   console.log("veux_ajouter_des_profils_hybrides_year98",formData)
   storeAbonnement.createAbonement(formData)

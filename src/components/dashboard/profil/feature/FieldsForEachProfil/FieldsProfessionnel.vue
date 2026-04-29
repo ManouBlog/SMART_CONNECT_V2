@@ -50,7 +50,7 @@ valueModeDeTravail: [
   { value: "Hybride", label: "Hybride" }
 ],
 rules: {
-  niveauEtude: [
+  niveau: [
     {
       required: true,
       message: "Veuillez sélectionner le niveau d'étude",
@@ -95,7 +95,7 @@ rules: {
       trigger: "change"
     }
   ],
-  upload: [
+  photo: [
     {
       required: true,
       message: "Veuillez ajouter votre carte nationale d'identité",
@@ -128,7 +128,7 @@ rules: {
       texte18: "",
       texte19: "",
       texte96: "",
-     niveauEtude:"",
+     niveau:"",
   
      filiere:"",
       configUtils,
@@ -136,13 +136,14 @@ rules: {
       formState: {
         statut_talent:"",
         statut_professionnel_artisan :"",
-        upload: [],
-        niveauExpertise:"",
+        photo:null,
         CVupload:null,
         modeTravail:"",
         diplome:"",
         tempsTravail:"",
-        profilHybride:[]
+        profilHybride:[],
+        niveau:"",
+        niveauEtude:""
       },
     };
   },
@@ -150,12 +151,12 @@ rules: {
   computed: {
  isFormComplete() {
       return (
-        // this.formState.niveauExpertise?.trim() &&      // Champ texte non vide
         this.formState.statut_talent &&                // Select sélectionné
-        this.formState.upload?.length > 0 && 
+        this.formState.photo && 
         this.formState.modeTravail && 
         this.formState.tempsTravail &&
-        this.formState.diplome
+        this.formState.diplome &&
+        this.formState.niveau
       );
     },
 isProfilHybrideADD(){
@@ -188,7 +189,7 @@ isProfilHybrideADD(){
     },
     onUploadChangeCV(e) {
     console.log('onUploadChange', e.target.files);
-    this.formState.CVupload = Array.from(e.target.files);
+    this.formState.CVupload = Array.from(e.target.files)[0];
     if (!e) return
     this.rawText = ''
     this.result = null
@@ -197,7 +198,7 @@ isProfilHybrideADD(){
 },
     onUploadChangeCNI(e) {
     console.log('onUploadChange', e.target.files);
-    this.formState.upload = Array.from(e.target.files);
+    this.formState.photo = Array.from(e.target.files)[0];
     if (!e) return
     this.rawText = ''
     this.result = null
@@ -322,7 +323,8 @@ isProfilHybrideADD(){
         if(this.profilHybride.length){
       this.formState.profilHybride = this.profilHybride.map(item=>item.id);
         }
-       console.log("this.formState professionnel",this.formState);
+        this.formState.niveauEtude = this.formState.niveau +' '+this.formState.diplome
+       console.log("this.formState_professionnel",this.formState);
         const STORE_ABONNEMENT = useAbonnementsStore();
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
      this.showModalAbonnements = true
@@ -368,10 +370,10 @@ isProfilHybrideADD(){
     <a-col :xs="24" :md="12">
       <a-form-item
         label="Niveau d'etude + Domaine"
-        name="niveauEtude"
+        name="niveau"
       >
         <a-select
-          v-model:value="formState.niveauEtude"
+          v-model:value="formState.niveau"
           placeholder="Sélectionnez..."
           size="large"
         >
@@ -491,7 +493,7 @@ isProfilHybrideADD(){
       >
         <a-input
           type="file"
-          accept="image/*"
+          accept="image/*,.pdf"
           @change="onUploadChangeCV"
           size="large"
         />
@@ -501,7 +503,7 @@ isProfilHybrideADD(){
     <a-col :xs="24" :md="12">
       <a-form-item
         label="Carte national d'identité"
-        name="upload"
+        name="photo"
       >
         <a-input
           type="file"
