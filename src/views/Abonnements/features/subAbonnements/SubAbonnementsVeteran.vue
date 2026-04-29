@@ -78,8 +78,8 @@ const getMessageAbonnement = (type, item) => {
 
   if (type === "Etudiant") {
     const map = {
-      "BROBROLI PRO": "Commence maintenant",
-      "BROBROLI PRO MAX": "Je passe à BROBROLI PRO MAX",
+      "BROBROLI": "Commence maintenant",
+      "BROBROLI+": "Je passe à BROBROLI PRO MAX",
     };
 
     return map[libelle] || "Je passe à Brobroli";
@@ -87,8 +87,8 @@ const getMessageAbonnement = (type, item) => {
 
   if (type === "Professionnel") {
     const map = {
-      "BROBROLI PRO": "Créer mon profil BROBROLI PRO",
-      "BROBROLI PRO MAX": "Accéder à BROBROLI PRO MAX",
+      "BROBROLI": "Créer mon profil BROBROLI PRO",
+      "BROBROLI+": "Accéder à BROBROLI PRO MAX",
     };
 
     return map[libelle] || "Je passe à Brobroli";
@@ -96,14 +96,14 @@ const getMessageAbonnement = (type, item) => {
 
   if (type?.includes("Vétéran")) {
     const map = {
-      "BROBROLI PRO": "Créer mon profil BROBROLI PRO",
-      "BROBROLI PRO MAX": "Accéder à BROBROLI PRO MAX",
+      "BROBROLI": "Créer mon profil BROBROLI PRO",
+      "BROBROLI+": "Accéder à BROBROLI PRO MAX",
     };
 
     return map[libelle] || "Je passe à Brobroli";
   }
 
-  return "Choisirsdzsd cette formule";
+  return "Choisir cette formule";
 };
 
 const ecriteauFormule = (item) => {

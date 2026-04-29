@@ -128,28 +128,43 @@ export default {
     //   });
     // },
     async handleListOffresWithoutSearch() {
-      // console.log("this.$store.state.user", this.$store.state.user);
-      
       loadingSpinner.launchLoading(true);
       await instance
         .get("list_offres")
         .then((res) => {
-         
-          // console.log("list_offres23", {
-          //   offres:res.data.data.filter((item) => {
-          //     return item.statuses.some(statut =>{
-          //       return profilALL.some(s => statut.id == s)
-          //     })
-          //   }),
-          //   profilALL:profilALL
-          // });
           if (res.data.status) {
-             const profilALL = this.$store.state.user ?  this.$store.state.user?.user.statuses.map((s) => s.id) : [];
-          const OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
-            return item.statuses.some(statut =>{
-              return profilALL.some(s => statut.id == s)
-            })
-          });
+            let OFFRES_FILTER_BY_PROFIL = [];
+             const profilALL = this.$store.state.user?.user.statuses;
+             console.log('profilALL',profilALL)
+             console.log('statusesUser',this.$store.state.user?.user.statuses)
+             const isProfessionnel = profilALL.some(s => 
+  s.statut?.toLowerCase() === "professionnel"
+);
+const isArtisan = profilALL.some(s => 
+  s.statut?.toLowerCase() === "artisan"
+);
+
+console.log('isProfessionnel', isProfessionnel);
+console.log('isArtisan', isArtisan);
+
+let allowedStatuts = [];
+
+if (isProfessionnel && isArtisan) {
+  // ✅ Les 2 : voit offres pro + artisan
+  allowedStatuts = ['professionnel', 'artisan'];
+} else if (isProfessionnel) {
+  allowedStatuts = ['professionnel'];
+} else if (isArtisan) {
+  allowedStatuts = ['artisan'];
+}
+
+OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
+  const offres_status = item.statuses || [];
+  return offres_status.some(statut => {
+    return allowedStatuts.includes(statut.statut?.toLowerCase());
+  });
+});
+console.log('OFFRES_FILTER_BY_PROFIL',OFFRES_FILTER_BY_PROFIL)
             this.MylistOffre = OFFRES_FILTER_BY_PROFIL.filter((item) => {
              return new Date(item.fin) >= new Date();
             });

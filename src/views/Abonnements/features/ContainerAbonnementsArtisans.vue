@@ -51,16 +51,16 @@ const tabs = [
 
   if (type === "Etudiant") {
     const mapMessages = {
-      "BROBROLI PRO": "Commence maintenant",
-      "BROBROLI PRO MAX": "Je passe à BROBROLI PRO MAX",
+      "BROBROLI": "Commence maintenant",
+      "BROBROLI+": "Je passe à BROBROLI+",
     };
 
     return mapMessages[libelle] || "Je passe à Brobroli";
   }
    if (type.includes("Artisan")) {
     const mapMessages = {
-      "BROBROLI PRO": "Trouve tes premiers clients",
-      "BROBROLI PRO MAX": "Deviens PLUS dans ta zone",
+      "BROBROLI": "Trouve tes premiers clients",
+      "BROBROLI+": "Deviens PLUS dans ta zone",
     };
 
     return mapMessages[libelle] || "Choisirzs cette formule";
@@ -76,17 +76,17 @@ const ecriteauFormule = (item) => {
   const rules = {
    
     'maitre artisan':{
-      "BROBROLI PRO MAX":
+      "BROBROLI+":
         "Pour être le premier appelé. Sur les urgences comme sur les gros chantiers.",
 
-      "BROBROLI PRO":
+      "BROBROLI":
         "Pour que tes clients te trouvent. Pour que tes marchés te croisent.",
     },
   'artisan':{
-      "BROBROLI PRO MAX":
+      "BROBROLI+":
         "Pour être le premier appelé. Sur les urgences comme sur les gros chantiers.",
 
-      "BROBROLI PRO":
+      "BROBROLI":
         "Pour que tes clients te trouvent. Pour que tes marchés te croisent.",
     },
   };
@@ -242,9 +242,7 @@ onMounted(async () => {
   <p style="text-align:center;position: absolute;right: 0;top: 200px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
-          class="badge"
-        
-        >
+          class="badge">
           Formule
         </span>
   </p>

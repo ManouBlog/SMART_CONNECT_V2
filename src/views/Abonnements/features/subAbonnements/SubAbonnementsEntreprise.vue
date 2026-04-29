@@ -120,10 +120,10 @@ const messageAbonnement = (item) => {
       "BROBROLI PRO MAX": "Passe à BROBROLI PRO MAX",
     };
 
-    return mapMessages[libelle] || "Je passe à Brobroli";
+    return mapMessages[libelle] || "Choisir cette formule";
   }
 
-  return "Choisi entreprise cette formule";
+  return "Choisir cette formule";
 };
 
 

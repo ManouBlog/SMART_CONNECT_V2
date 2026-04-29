@@ -51,24 +51,24 @@ const messageAbonnement = computed(() => {
 
   if (type === "Etudiant") {
     const mapMessages = {
-      "BROBROLI PRO": "Commence maintenant",
-      "BROBROLI PRO MAX": "Je passe à BROBROLI PRO MAX",
+      "BROBROLI": "Commence maintenant",
+      "BROBROLI+": "Je passe à BROBROLI+",
     };
     return mapMessages[libelle] || "Je passe à Brobroli";
   }
 
   if (type === "Professionnel") {
     const mapMessages = {
-      "BROBROLI PRO": "Créer mon profil BROBROLI PRO",
-      "BROBROLI PRO MAX": "Accéder à BROBROLI PRO MAX",
+      "BROBROLI": "Créer mon profil BROBROLI",
+      "BROBROLI+": "Accéder à BROBROLI+",
     };
     return mapMessages[libelle] || "Je passe à Brobroli";
   }
 
   if (type === "Particulier") {
     const mapMessages = {
-      "BROBROLI PRO": "Créer mon compte BROBROLI PRO",
-      "BROBROLI PRO MAX": "Passer à BROBROLI PRO MAX",
+      "BROBROLI HOME": "Créer mon compte BROBROLI HOME",
+      "BROBROLI HOME MAX": "Passer à BROBROLI HOME MAX",
     };
     return mapMessages[libelle] || "Je passe à Brobroli";
   }

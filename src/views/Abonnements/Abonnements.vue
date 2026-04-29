@@ -120,6 +120,21 @@ onMounted(async () => {
       <n-tabs type="line" size="large" animated justify-content="center"
       v-model:value="activeTab"
       >
+      
+  <!-- Particulier -->
+  <n-tab-pane
+    v-if="
+       profileAbonnement === 'Particulier'
+    "
+    :name="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
+    :tab="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Particulier"
+    />
+  </n-tab-pane>
+
 
   <!-- Etudiant -->
   <n-tab-pane
@@ -132,6 +147,64 @@ onMounted(async () => {
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Etudiant"
+    />
+  </n-tab-pane>
+  <!-- Professionnel -->
+  <n-tab-pane
+    v-if="
+     profileAbonnement === 'Professionnel'
+    "
+    :name="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
+    :tab="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Professionnel"
+    />
+  </n-tab-pane>
+    <!-- Artisan -->
+  <n-tab-pane
+    v-if="
+       profileAbonnement === 'Artisan'
+    "
+    :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
+    :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
+  >
+  <!-- <p>store.state.user?.statut_talent:{{ store.state.user?.statut_talent }}</p>
+<p>statut_talent_artisan:{{ statut_talent_artisan }}</p> -->
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Artisan"
+      :tabsSubAbonnement="abonnementsArtisan"
+      :notUseIncludesForArtisan="notUseIncludesForArtisan"
+      :statut_talent_choice_artisan="statut_talent_artisan ? statut_talent_artisan : store.state.user?.statut_talent"
+      :subAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))
+      "
+    />
+  </n-tab-pane>
+ <!-- Vétéran -->
+  <n-tab-pane
+    v-if="
+      profileAbonnement === 'Vétéran'
+    "
+    :name="'Vétéran'"
+    :tab="'Vétéran'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Vétéran"
+      :statut_talent_choice="statut_talent_choice"
+      :tabsSubAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
+        .map(item => ({
+          label: item.categorie.categorie,
+          id: item.categorie.categorie
+        }))
+      "
+      :subAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
+      "
     />
   </n-tab-pane>
 
@@ -166,95 +239,12 @@ onMounted(async () => {
     />
   </n-tab-pane>
 
-  <!-- Particulier -->
-  <n-tab-pane
-    v-if="
-       profileAbonnement === 'Particulier'
-    "
-    :name="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
-    :tab="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
-  >
-    <ContainerAbonnements
-      :abonnements="abonnements"
-      type_abonnements="Particulier"
-    />
-  </n-tab-pane>
-
-  <!-- Artisan -->
-  <n-tab-pane
-    v-if="
-       profileAbonnement === 'Artisan'
-    "
-    :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
-    :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
-  >
-  <!-- <p>store.state.user?.statut_talent:{{ store.state.user?.statut_talent }}</p>
-<p>statut_talent_artisan:{{ statut_talent_artisan }}</p> -->
-    <ContainerAbonnements
-      :abonnements="abonnements"
-      type_abonnements="Artisan"
-      :tabsSubAbonnement="abonnementsArtisan"
-      :notUseIncludesForArtisan="notUseIncludesForArtisan"
-      :statut_talent_choice_artisan="statut_talent_artisan ? statut_talent_artisan : store.state.user?.statut_talent"
-      :subAbonnement="abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))
-      "
-    />
-  </n-tab-pane>
-
-  <!-- Professionnel -->
-  <n-tab-pane
-    v-if="
-     profileAbonnement === 'Professionnel'
-    "
-    :name="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
-    :tab="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
-  >
-    <ContainerAbonnements
-      :abonnements="abonnements"
-      type_abonnements="Professionnel"
-    />
-  </n-tab-pane>
-
-  <!-- Vétéran -->
-  <n-tab-pane
-    v-if="
-      profileAbonnement === 'Vétéran'
-    "
-    :name="'Vétéran'"
-    :tab="'Vétéran'"
-  >
-    <ContainerAbonnements
-      :abonnements="abonnements"
-      type_abonnements="Vétéran"
-      :statut_talent_choice="statut_talent_choice"
-      :tabsSubAbonnement="abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
-        .map(item => ({
-          label: item.categorie.categorie,
-          id: item.categorie.categorie
-        }))
-      "
-      :subAbonnement="abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
-      "
-    />
-  </n-tab-pane>
-
-</n-tabs>
+ </n-tabs>
     </n-card>
       </div>
       <div v-else>
-<!-- <p>
-          PEORJF:{{ abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
-        .map(item => ({
-          label: item.categorie.categorie,
-          id: item.categorie.categorie
-        })).filter(item=>item.id === 'Entreprise '+store.state?.user?.statut_entreprise) }}
-        </p>
-        <p>store.state.user?.user?:{{ store.state?.user?.statut_entreprise }}</p> -->
-<n-card>
+
+  <n-card>
        <div class="d-flex justify-content-center">
      <p style="background:#df3535;color:white;">
       Tout abonnement existant sera automatiquement remplacé par votre nouveau choix
@@ -264,6 +254,24 @@ onMounted(async () => {
       <n-tabs type="line" size="large" animated justify-content="center"
       v-model:value="activeTab"
       >
+      
+  <!-- Particulier -->
+  <n-tab-pane
+    v-if="
+      !store.state.user ||
+      (
+        store.state.user?.user?.statuses.some(s => ['Particulier'].includes(s.statut)) 
+        && profileAbonnement === 'Particulier'
+      )
+    "
+    :name="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
+    :tab="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Particulier"
+    />
+  </n-tab-pane>
 
   <!-- Etudiant -->
   <n-tab-pane
@@ -280,6 +288,78 @@ onMounted(async () => {
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Etudiant"
+    />
+  </n-tab-pane>
+   <!-- Professionnel -->
+  <n-tab-pane
+    v-if="
+      !store.state.user ||
+      (
+        store.state.user?.user?.statuses.some(s => ['Professionnel'].includes(s.statut)) 
+        && profileAbonnement === 'Professionnel'
+      )
+    "
+    :name="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
+    :tab="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Professionnel"
+    />
+  </n-tab-pane>
+
+  <!-- Artisan -->
+  <n-tab-pane
+    v-if="
+      !store.state.user ||
+      (
+        store.state.user?.user?.statuses.some(s => ['Artisan'].includes(s.statut)) 
+        && profileAbonnement === 'Artisan'
+      )
+    "
+    :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
+    :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
+  >
+
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Artisan"
+      :notUseIncludesForArtisan="notUseIncludesForArtisan"
+      :statut_talent_choice_artisan="statut_talent_artisan ? statut_talent_artisan : store.state.user?.statut_talent"
+      :tabsSubAbonnement="abonnementsArtisan"
+      :subAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))
+      "
+    />
+  </n-tab-pane>
+  
+  <!-- Vétéran -->
+  <n-tab-pane
+    v-if="
+      !store.state.user ||
+      (
+        store.state.user?.user?.statuses.some(s =>
+          ['Vétéran', 'Vétéran'].includes(s.statut)
+        ) && profileAbonnement === 'Vétéran'
+      )
+    "
+    :name="'Vétéran'"
+    :tab="'Vétéran'"
+  >
+    <ContainerAbonnements
+      :abonnements="abonnements"
+      type_abonnements="Vétéran"
+      :statut_talent_choice="store.state.user?.statut_talent"
+      :tabsSubAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
+        .map(item => ({
+          label: item.categorie.categorie,
+          id: item.categorie.categorie
+        }))
+      "
+      :subAbonnement="abonnements
+        .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
+      "
     />
   </n-tab-pane>
 
@@ -318,96 +398,7 @@ onMounted(async () => {
     />
   </n-tab-pane>
 
-  <!-- Particulier -->
-  <n-tab-pane
-    v-if="
-      !store.state.user ||
-      (
-        store.state.user?.user?.statuses.some(s => ['Particulier'].includes(s.statut)) 
-        && profileAbonnement === 'Particulier'
-      )
-    "
-    :name="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
-    :tab="defaulValueTranslate === 'fr' ? 'Particulier' : 'Company'"
-  >
-    <ContainerAbonnements
-      :abonnements="abonnements"
-      type_abonnements="Particulier"
-    />
-  </n-tab-pane>
-
-  <!-- Artisan -->
-  <n-tab-pane
-    v-if="
-      !store.state.user ||
-      (
-        store.state.user?.user?.statuses.some(s => ['Artisan'].includes(s.statut)) 
-        && profileAbonnement === 'Artisan'
-      )
-    "
-    :name="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
-    :tab="defaulValueTranslate === 'fr' ? 'Artisan' : 'Company'"
-  >
-
-    <ContainerAbonnements
-      :abonnements="abonnements"
-      type_abonnements="Artisan"
-      :notUseIncludesForArtisan="notUseIncludesForArtisan"
-      :statut_talent_choice_artisan="statut_talent_artisan ? statut_talent_artisan : store.state.user?.statut_talent"
-      :tabsSubAbonnement="abonnementsArtisan"
-      :subAbonnement="abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('artisan'))
-      "
-    />
-  </n-tab-pane>
-
-  <!-- Professionnel -->
-  <n-tab-pane
-    v-if="
-      !store.state.user ||
-      (
-        store.state.user?.user?.statuses.some(s => ['Professionnel'].includes(s.statut)) 
-        && profileAbonnement === 'Professionnel'
-      )
-    "
-    :name="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
-    :tab="defaulValueTranslate === 'fr' ? 'Professionnel' : 'Company'"
-  >
-    <ContainerAbonnements
-      :abonnements="abonnements"
-      type_abonnements="Professionnel"
-    />
-  </n-tab-pane>
-
-  <!-- Vétéran -->
-  <n-tab-pane
-    v-if="
-      !store.state.user ||
-      (
-        store.state.user?.user?.statuses.some(s =>
-          ['Vétéran', 'Vétéran'].includes(s.statut)
-        ) && profileAbonnement === 'Vétéran'
-      )
-    "
-    :name="'Vétéran'"
-    :tab="'Vétéran'"
-  >
-    <ContainerAbonnements
-      :abonnements="abonnements"
-      type_abonnements="Vétéran"
-      :statut_talent_choice="store.state.user?.statut_talent"
-      :tabsSubAbonnement="abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
-        .map(item => ({
-          label: item.categorie.categorie,
-          id: item.categorie.categorie
-        }))
-      "
-      :subAbonnement="abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('vétéran'))
-      "
-    />
-  </n-tab-pane>
+ 
 
 </n-tabs>
     </n-card>

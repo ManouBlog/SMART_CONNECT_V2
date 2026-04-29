@@ -150,30 +150,30 @@ const ecriteauFormule = (item) => {
 
   const rules = {
     etudiant: {
-      "BROBROLI PRO MAX":
+      "BROBROLI+":
         "Pour être vu avant les autres. Et décrocher plus.",
 
-      "BROBROLI PRO":
+      "BROBROLI":
         "Pour commencer à décrocher tes premières missions.",
     },
     artisan:{
-      "BROBROLI PRO MAX":
+      "BROBROLI+":
         "Pour être le premier appelé. Sur les urgences comme sur les gros chantiers.",
 
-      "BROBROLI PRO":
+      "BROBROLI":
         "Pour que tes clients te trouvent. Pour que tes marchés te croisent.",
     },
     professionnel:{
-      "BROBROLI PRO MAX":
+      "BROBROLI+":
         "Pour que les DRH et décideurs vous trouvent en premier. Même si vous êtes déjà en poste.",
-      "BROBROLI PRO":
+      "BROBROLI":
         "Pour que les bonnes entreprises trouvent votre profil. Chaque mission payée à l’exécution.",
     },
     vétéran:{
-      "BROBROLI PRO MAX":
+      "BROBROLI+":
         "Pour que les organisations qui cherchent une expertise rare vous trouvent directement.",
 
-      "BROBROLI PRO":
+      "BROBROLI":
         "Pour que les bonnes organisations trouvent votre expertise. Chaque engagement payé avant exécution.",
     },
     particulier:{
@@ -360,7 +360,7 @@ console.log('store.state?.user',store.state?.user)
       )"
       :key="item.id"
       :class="
-        item?.libelle == 'BROBROLI PRO' || item.libelle === 'BROBROLI HOME'
+        item?.libelle == 'BROBROLI PRO' || item.libelle === 'BROBROLI HOME' || item?.libelle == 'BROBROLI' 
           ? 'color_brobroli_pro'
           : 'color_brobroli_pro_max'
       "
@@ -370,7 +370,7 @@ console.log('store.state?.user',store.state?.user)
         {{ item.libelle }}
       </h1>
        <p 
-      v-if="item.libelle === 'BROBROLI PRO MAX' || item.libelle === 'BROBROLI HOME MAX'"
+       v-if="['BROBROLI+','BROBROLI PRO MAX','BROBROLI HOME MAX'].includes(item.libelle)"
       style="padding: 0;position: absolute;top:34px;margin-right: -50px;transform: translateX(38px);">
         <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small></p>
     </div>
@@ -382,9 +382,9 @@ console.log('store.state?.user',store.state?.user)
      background-color: rgb(255 255 255 / 40%);
     "
      :style="{
-    margin: item.libelle === 'BROBROLI PRO' 
+    margin: item.libelle === 'BROBROLI HOME' 
     && item?.categorie?.categorie == 'Particulier' ? '0.8em' : null,
-    padding:item.libelle === 'BROBROLI PRO' ? '0.9em' : '0.6em',
+    padding:item.libelle === 'BROBROLI' ? '0.9em' : '0.6em',
      }"
      >
       {{ ecriteauFormule(item) }}
@@ -452,7 +452,7 @@ console.log('store.state?.user',store.state?.user)
       )"
       :key="item.id"
       :class="
-        item?.libelle == 'BROBROLI PRO' || item.libelle === 'BROBROLI HOME'
+        item?.libelle == 'BROBROLI PRO' || item.libelle === 'BROBROLI HOME' || item?.libelle == 'BROBROLI'
           ? 'color_brobroli_pro'
           : 'color_brobroli_pro_max'
       "
@@ -461,8 +461,7 @@ console.log('store.state?.user',store.state?.user)
       <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1>
-      <!-- <p>type_abonnements1:{{ type_abonnements }}</p> -->
-      
+     
     <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel'].some(role=>role === item?.categorie?.categorie)">
       <ContentAbonnementForAddProfilHybride 
       :item="item"
@@ -522,7 +521,7 @@ console.log('store.state?.user',store.state?.user)
       )"
       :key="item.id"
       :class="
-        item?.libelle == 'BROBROLI PRO' || item.libelle === 'BROBROLI HOME'
+        item?.libelle == 'BROBROLI PRO' || item.libelle === 'BROBROLI HOME' || item?.libelle == 'BROBROLI'
           ? 'color_brobroli_pro'
           : 'color_brobroli_pro_max'
       "

@@ -77,16 +77,16 @@ const currentConfig = computed(() => {
 
   if (type === "Etudiant") {
     const mapMessages = {
-      "BROBROLI PRO": "Commence maintenant",
-      "BROBROLI PRO MAX": "Je passe à BROBROLI PRO MAX",
+      "BROBROLI": "Commence maintenant",
+      "BROBROLI+": "Je passe à BROBROLI+",
     };
 
     return mapMessages[libelle] || "Je passe à Brobroli";
   }
    if (type.includes("Artisan")) {
     const mapMessages = {
-      "BROBROLI PRO": "Trouve tes premiers clients",
-      "BROBROLI PRO MAX": "Deviens PLUS dans ta zone",
+      "BROBROLI": "Trouve tes premiers clients",
+      "BROBROLI+": "Deviens PLUS dans ta zone",
     };
 
     return mapMessages[libelle] || "Choisirqsdf cette formule";
@@ -94,14 +94,14 @@ const currentConfig = computed(() => {
 
   if (type.includes("Particulier")) {
     const mapMessages = {
-      "BROBROLI PRO": "Créer mon compte BROBROLI PRO",
-      "BROBROLI PRO MAX": "Passer à BROBROLI PRO MAX",
+      "BROBROLI HOME": "Créer mon compte BROBROLI PRO",
+      "BROBROLI HOME MAX": "Passer à BROBROLI PRO MAX",
     };
 
     return mapMessages[libelle] || "Choisircvb cette formule";
   }
 
-  return "Choisirpoiu cette formule";
+  return "Choisir cette formule";
 });
 
 const currentNotAbonnamentSuccessConfig = computed(() => {

@@ -52,7 +52,7 @@ export default {
       console.log('route 1 pour se connecter')
       instance
         .post("auth_login", dataValue)
-        .then((response) => {
+        .then(async (response) => {
           if (response.data.status === true) {
             
             Swal.fire({
@@ -69,11 +69,9 @@ export default {
             );
             this.$store.state.user = response.data.user;
             this.$store.state.token = response.data.access_token;
-           
+              await this.$store.dispatch("getInfoUser");
             this.toogleModal();
-            // if (this.$store.state.token) {
-            //   await this.$store.dispatch("getInfoUser");
-            // }
+           
             const redirect = this.$route.query.redirect;
             if (redirect) {
               this.$router.replace(redirect);

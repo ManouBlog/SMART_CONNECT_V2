@@ -339,8 +339,35 @@ export default {
     async lister_statut(){
       try {
         const response =  await instance.get("listStatut")
-        this.allStatuses = response.data.data.filter(item=>item.statut != 'admin' && item.statut != 'Entreprise')
-        this.allStatuses.push({id:"Tous",statut:"Tous"})
+        
+          if (response.data.status) {
+  console.log('userInfo', this.userInfo);
+  
+  let allStatuses = [];
+  
+  // Statut connecté
+  const monStatut = this.userInfo?.user?.statut?.statut.toLowerCase() || '';
+  
+  if (monStatut === 'entreprise') {
+    // ✅ Entreprise voit TOUS sauf admin/entreprise/particulier
+    allStatuses = response.data.data.filter(item => 
+      item.statut?.toLowerCase() !== 'admin' &&
+      item.statut?.toLowerCase() !== 'entreprise' &&
+      item.statut?.toLowerCase() !== 'particulier'
+    );
+  } else if (monStatut === 'particulier') {
+    // ✅ Particulier voit SEULEMENT artisans
+    allStatuses = response.data.data.filter(item => 
+      item.statut?.toLowerCase() === 'artisan'
+    );
+  }
+  
+  // ✅ Ajoute "Tous"
+  allStatuses.push({ id: "Tous", statut: "Tous" });
+  
+  this.allStatuses = allStatuses;
+          }
+
       } catch (error) {
         console.log(error);
       }
@@ -406,11 +433,11 @@ export default {
     },
   },
   async created() {
-     this.getInfoUser();
+    await this.getInfoUser();
     this.get_categorie();
     this.getAllCompetences();
-    this.lister_statut();
-     this.listerCountries();
+    await  this.lister_statut();
+    await this.listerCountries();
     this.texte0 = await this.handleTranslate("Enregistrer une Offre");
     this.texte1 = await this.handleTranslate("Domaines");
     this.texte2 = await this.handleTranslate("Sélectionnez un domaine");
@@ -562,6 +589,7 @@ export default {
       <label><span style="color: red">*</span>Choisissez un profil 
         <i class="bi bi-info-circle text-info" style="font-size: 0.3em;margin-left: -0.1em;"></i>
       </label>
+      <!-- {{ filteredOptions }} -->
       <VueMultiselect 
       v-model="chooseStatut" 
       :options="filteredOptions" 

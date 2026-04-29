@@ -292,15 +292,29 @@ console.log("DATA_LISTE", data);
 const isParticulier = statuses.some(s =>
   s.statut?.toLowerCase() === "particulier"
 );
+const isEtudiant = statuses.some(s =>
+  s.statut?.toLowerCase() === "etudiant"
+);
 
 console.log("isParticulier", isParticulier);
+console.log('USER_CONNECTED',this.user)
 
 if (isParticulier) {
-  const allowed = ["artisan", "etudiant", "professionnel"];
+  const allowed = ['artisan'];
   data = data.filter((emploi) => {
-    const statut = emploi?.statut?.statut?.toLowerCase();
-    return allowed.includes(statut);
-  });
+  const ALL_statut = emploi?.statuses || [];
+  return ALL_statut.some(item => 
+    allowed.includes(item.statut?.toLowerCase())
+  );
+}).filter(item=>item.id !== this.user?.user?.id);
+}
+if(isEtudiant){
+  const allowedStatuts = ['entreprise', 'particulier'];
+  data = data.filter((emploi) => {
+    return emploi?.statuses?.some(status => 
+      allowedStatuts.includes(status.statut?.toLowerCase())
+    );
+  }).filter(item=>item.id !== this.user?.user?.id);
 }
     this.list = this.addOtherElement(data);
     console.log("get_list_Talents", this.list);
