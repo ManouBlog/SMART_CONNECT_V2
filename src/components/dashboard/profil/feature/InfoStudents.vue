@@ -91,10 +91,8 @@ export default {
       await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
-          // console.log("voirInfoUserConnect", resp);
           if (resp.data.status === true) {
             this.user = resp.data.user;
-            // this.addInfoUserConnected(resp.data.user);
              this.$store.dispatch("getInfoUser");
           }
         })
@@ -102,9 +100,6 @@ export default {
           console.log(error);
         })
         .finally(() => {
-          // if (value) {
-          //   location.reload(true);
-          // }
           this.isLoading = false;
         });
     },
