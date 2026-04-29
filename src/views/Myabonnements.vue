@@ -437,4 +437,97 @@ handleDetailAbonnement(payload){
 .btn {
   padding: 0.5em 1em;
 }
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+}
+
+.profil-hybride-table {
+  width: 100%;
+  min-width: 750px;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.profil-hybride-table th,
+.profil-hybride-table td {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* ========================= */
+/* TABLET */
+/* ========================= */
+@media (max-width: 992px) {
+  .profil-hybride-table {
+    min-width: 650px;
+  }
+
+  .profil-hybride-table th {
+    font-size: 14px !important;
+    padding: 12px 8px !important;
+  }
+
+  .profil-hybride-table td {
+    font-size: 14px;
+    padding: 10px 8px !important;
+  }
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+@media (max-width: 768px) {
+  .table-container {
+    border-radius: 10px;
+  }
+
+  .profil-hybride-table {
+    min-width: 600px;
+  }
+
+  .profil-hybride-table th {
+    font-size: 13px !important;
+    padding: 10px 6px !important;
+  }
+
+  .profil-hybride-table td {
+    font-size: 13px;
+    padding: 8px 6px !important;
+  }
+
+  .profil-hybride-table .badge {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+}
+
+/* ========================= */
+/* PETIT MOBILE */
+/* ========================= */
+@media (max-width: 480px) {
+  .profil-hybride-table {
+    min-width: 520px;
+  }
+
+  .profil-hybride-table th {
+    font-size: 12px !important;
+    padding: 8px 5px !important;
+  }
+
+  .profil-hybride-table td {
+    font-size: 12px;
+    padding: 7px 5px !important;
+  }
+
+  .profil-hybride-table .badge {
+    font-size: 10px;
+    padding: 5px 6px;
+  }
+}
 </style>
