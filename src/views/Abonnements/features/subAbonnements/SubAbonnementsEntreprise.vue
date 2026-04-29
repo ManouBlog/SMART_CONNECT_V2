@@ -27,6 +27,7 @@ const profilHybrideRecuperer = ref(0)
 const handleCreateEntrepriseByYear=(payload)=>{
   console.log("paiement_entreprise2398")
     const statutBaseUser = store.state.user?.user?.statut_base;
+    console.log("storeAbonnement.statutOfBase",storeAbonnement.statutOfBase )
      const randomPart = Math.random().toString(36).substring(2);
         const data = {
             abonement_id:payload.id,
@@ -34,18 +35,63 @@ const handleCreateEntrepriseByYear=(payload)=>{
             mode_payment:'year',
             transaction_id:randomPart,
             isAddProfilHybride:storeAbonnement.addProfilHybride.map(item => item.id).length ? true:false,
-            statut_base:storeAbonnement.statutOfBase || statutBaseUser,
+            statut_base:storeAbonnement.statutOfBase ? storeAbonnement.statutOfBase:statutBaseUser,
             isChangeProfil:storeAbonnement.isChangeProfil,
             treatment_preferentiel:storeAbonnement.treatment_preferentiel,
              niveauExpertise : storeAbonnement.niveauExpertise ,
         modeTravail : storeAbonnement.modeTravail ,
         tempsTravail : storeAbonnement.tempsTravail ,
         niveauEtude : storeAbonnement.niveauEtude ,
-        CVupload : storeAbonnement.CVupload ,
+        CVupload : storeAbonnement.CVupload,
         statut_talent : storeAbonnement.statut_talent,
-        profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
-        addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
+        profilHybride:storeAbonnement.statutOfBase == 1 ? []:storeAbonnement.profilHybride?.map(item => item.id),
+        addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id),
+        nom: storeAbonnement.nom,
+        expertise : storeAbonnement.niveauExpertise,
+        upload:storeAbonnement.upload,
+        diplome:storeAbonnement.diplome,
+        ville:storeAbonnement.ville,
+        commune:storeAbonnement.commune,
+        quartier:storeAbonnement.quartier,
+        statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
+        statut_entreprise:storeAbonnement.statut_entreprise,
+        email_cc:storeAbonnement.email_cc,
+        Phonegerant:storeAbonnement.Phonegerant,
+        gerant:storeAbonnement.gerant,
+        email:storeAbonnement.email,
+        phone:storeAbonnement.phone,
+        ncc:storeAbonnement.ncc,
+        juridique:storeAbonnement.juridique,
+        matricule_cc:storeAbonnement.matricule_cc,
+        contact:storeAbonnement.contact
         }
+        console.log('DATA FOR SEND23',{
+        nomEntreprise: storeAbonnement.nom,
+        expertise : storeAbonnement.niveauExpertise,
+        modeTravail:storeAbonnement.modeTravail,
+        tempsTravail:storeAbonnement.tempsTravail,
+        niveauEtude:storeAbonnement.niveauEtude,
+        CVupload:storeAbonnement.CVupload,
+        upload:storeAbonnement.upload,
+        statut_talent:storeAbonnement.statut_talent,
+        treatment_preferentiel:storeAbonnement.treatment_preferentiel,
+        diplome:storeAbonnement.diplome,
+        ville:storeAbonnement.ville,
+        commune:storeAbonnement.commune,
+        profilHybride:storeAbonnement.profilHybride,
+        quartier:storeAbonnement.quartier,
+        statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
+        statut_entreprise:storeAbonnement.statut_entreprise,
+        email_cc:storeAbonnement.email_cc,
+        Phonegerant:storeAbonnement.Phonegerant,
+        gerant:storeAbonnement.gerant,
+        email:storeAbonnement.email,
+        phone:storeAbonnement.phone,
+        ncc:storeAbonnement.ncc,
+        juridique:storeAbonnement.juridique,
+        matricule_cc:storeAbonnement.matricule_cc,
+        contact:storeAbonnement.contact
+      })
   console.log("paymentabonnement_year",data)
   // storeAbonnement.createAbonement(data)
 }

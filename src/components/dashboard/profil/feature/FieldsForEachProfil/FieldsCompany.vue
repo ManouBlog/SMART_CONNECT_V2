@@ -40,73 +40,6 @@ export default {
   { label: "Togo", value: "+228", length: 8 },
 ],
  showModalAbonnements:false,
- allAnwserProfilHybride: [
-  { label: "Oui", value: "oui" },
-  { label: "Non", value: "non" }
-],
- allStatuts : [
-  { value: "Particulier", label: "Particulier" },
-  { value: "Artisan", label: "Artisan" },
-],
- valueExpertise: [
-  { value: "Privilége", label: "Privilége" },
-  { value: "Normal", label: "Normal" },
-],
- valueTempsTravail: [
-  { value: "Temps partiel", label: "Temps partiel" },
-  { value: "Temps plein", label: "Temps plein" },
-],
-valueModeDeTravail: [
-  { value: "Présentiel", label: "Présentiel" },
-  { value: "Télétravail", label: "Télétravail" },
-  { value: "Hybride", label: "Hybride" }
-],
-//  SCHOOL_KEYWORDS :[
-//   // Carte étudiante (formes tolérantes OCR)
-//   'carte etudiant',
-//   'carte d etudiant',
-//   'carte a etudiant',
-//   'carte etudiante',
-
-//   // Étudiant (avec ou sans accents, fautes OCR)
-//   'Etudiant',
-//   'etudiante',
-//   'etudant',
-//   'etud',
-
-//   // Institution / enseignement
-//   'ministere de l enseignement',
-//   "ministere de l'enseignement",
-//   'enseignement superieur',
-//   'ufr',
-//   'faculte',
-//   'faculté',
-//   'ecole',
-//   'institut',
-
-//   // Scolarité
-//   'filiere',
-//   'filiere',
-//   'niveau',
-//   'licence',
-//   'master',
-//   'doctorat',
-
-//   // Niveaux courts (attention : à combiner avec d’autres mots)
-//   'l1',
-//   'l2',
-//   'l3',
-//   'm1',
-//   'm2',
-
-//   // Identifiant
-//   'matricule'
-// ],
-
-      availabilityDates: [],
-      startTime: null,
-      endTime: null,
-      currentStep: 0, // 👈 ajout
       texte: "",
       texte1: "",
       texte2: "",
@@ -128,16 +61,8 @@ valueModeDeTravail: [
       texte18: "",
       texte19: "",
       texte96: "",
-     niveauEtude:"",
-  
-     filiere:"",
       configUtils,
       SWALPOPUP: useSwalPopup(),
-StatutVeterans:[
-  { value: "Vétéran Hors Grade", label: "Vétéran Hors Grade" },
-  { value: "Vétéran Senior", label: "Vétéran Senior" },
-  { value: "Vétéran", label: "Vétéran" }
-],
       formState: {
        statut_entreprise: "Formelle",
         nom: "",
@@ -161,7 +86,7 @@ StatutVeterans:[
         countryCode: "+225",
         countryCodePhoneGerant: "+225",
         email_cc:[""],
-        statut_id:1,
+        profilHybride:[]
       },
     };
   },
@@ -316,7 +241,8 @@ StatutVeterans:[
       const STORE_ABONNEMENT = useAbonnementsStore()
       console.log("this.formState",this.formState);
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
-      console.log('DATA FOR SEND',{
+      console.log('DATA FOR SEND1',{
+        statutOfBase:STORE_ABONNEMENT.statutOfBase,
         nomEntreprise: STORE_ABONNEMENT.nom,
         expertise : STORE_ABONNEMENT.niveauExpertise,
         modeTravail:STORE_ABONNEMENT.modeTravail,
@@ -364,7 +290,7 @@ StatutVeterans:[
      <div style="background-color: white;">
       <Abonnements 
       :ProfilAbonnement="this.profilOfAbonnement.statut"
-    
+     
       />
       </div>
       </n-modal>

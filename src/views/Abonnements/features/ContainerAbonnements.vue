@@ -246,9 +246,14 @@ console.log('store.state?.user',store.state?.user)
   texte.value = await transalteStore.handleTranslate("année")
   if(!props.notUseIncludesForArtisan){
  const profilHybridesIfUserConnected = store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user?.statut?.statut)
+ console.log("profilHybridesIfUserConnected",profilHybridesIfUserConnected)
   if(store.state?.user && profilHybridesIfUserConnected.length){
     storeAbonnement.handleChangeInfoForAbonnement({profilHybride:profilHybridesIfUserConnected})
-    storeAbonnement.handleMyStatutOfBase(store.state?.user?.user?.statut_base)
+    if(!storeAbonnement.statutOfBase){
+      // si la personne ne veut pas changer de statut de base on recupere lui son statut de base
+   storeAbonnement.handleMyStatutOfBase(store.state?.user?.user?.statut_base)
+    }
+    
   }
   }
   

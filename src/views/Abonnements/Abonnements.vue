@@ -127,16 +127,7 @@ onMounted(async () => {
     <h1 class="text-center main-color" style="font-size: 1.5em;">{{text0}}</h1>
       <div v-if="props.ProfilAbonnement">
        
-        <!-- {{ profileAbonnement }}
-        <p>USEREFD/{{ store.state.user?.user }}</p>
-        <p>zczcyuzc:{{ store.state?.user?.statut_entreprise }}</p>
-          <p>statut_talent_choice:{{ statut_talent_choice }}</p>
-          <p>zeizechuie:{{ abonnements
-        .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
-        .map(item => ({
-          label: item.categorie.categorie,
-          id: item.categorie.categorie
-        })).filter(item=>item.id === 'Entreprise '+store.state?.user?.statut_entreprise) }}</p> -->
+
 
     <n-card>
        <div class="d-flex justify-content-center">
