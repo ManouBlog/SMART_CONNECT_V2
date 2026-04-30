@@ -119,23 +119,7 @@ const handleCreateMonth =(payload)=>{
   console.log("handleCreateMonth",payload)
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   const randomPart = Math.random().toString(36).substring(2);
-       
-        // const data = {
-        //     abonement_id:payload.id,
-        //     channels:"undefined",
-        //     mode_payment:select_mode_payment_tab.value,
-        //     transaction_id:randomPart,
-        //     isChangeProfil:storeAbonnement.isChangeProfil,
-        //     statut_base:storeAbonnement.statutOfBase,
-        //     treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-        //      niveauExpertise : storeAbonnement.niveauExpertise ,
-        // modeTravail : storeAbonnement.modeTravail ,
-        // tempsTravail : storeAbonnement.tempsTravail ,
-        // niveauEtude : storeAbonnement.niveauEtude ,
-        // CVupload : storeAbonnement.CVupload ,
-        // statut_talent : storeAbonnement.statut_talent ,
-        //   profilHybride:storeAbonnement.profilHybride.every(item => typeof item === "number") ? storeAbonnement.profilHybride:storeAbonnement.profilHybride.map(item => item.id),
-        // }
+      
         const formData = new FormData();
 
 // Champs de base
@@ -154,6 +138,7 @@ if (storeAbonnement.tempsTravail) formData.append('tempsTravail', storeAbonnemen
 if (storeAbonnement.niveauEtude) formData.append('niveauEtude', storeAbonnement.niveauEtude);
 if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVupload);
 if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
+if (storeAbonnement.photo) formData.append('photo', storeAbonnement.photo);
 
 // Logique profilHybride préservée
 if (storeAbonnement.profilHybride?.length) {
@@ -190,6 +175,7 @@ if (storeAbonnement.tempsTravail) formData.append('tempsTravail', storeAbonnemen
 if (storeAbonnement.niveauEtude) formData.append('niveauEtude', storeAbonnement.niveauEtude);
 if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVupload);
 if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
+if (storeAbonnement.photo) formData.append('photo', storeAbonnement.photo);
 
 // Logique profilHybride préservée
 // Ajout des tableaux avec JSON.stringify pour Laravel
@@ -265,7 +251,7 @@ onMounted(async () => {
 </n-tabs>
 
 <section>
-  <p style="text-align:center;position: absolute;right: 0;top: 220px;">
+  <p style="text-align:center;position: absolute;right: 0;top: 0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
           class="badge"
@@ -328,7 +314,7 @@ onMounted(async () => {
 </n-tabs>
 
 <section>
-  <p style="text-align:center;position: absolute;right: 0;top: 220px;">
+  <p style="text-align:center;position: absolute;right: 0;top: 0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
           class="badge"

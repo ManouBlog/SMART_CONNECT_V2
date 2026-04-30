@@ -46,10 +46,8 @@ export default {
 }
 
 .payment-card {
-  background: white;
   padding: 40px 30px;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   text-align: center;
   max-width: 450px;
   width: 100%;

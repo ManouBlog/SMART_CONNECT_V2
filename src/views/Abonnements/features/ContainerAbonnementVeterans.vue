@@ -258,7 +258,7 @@ onMounted(async () => {
 </n-tabs>
 
 <section>
-  <p style="text-align:center;position: absolute;right: 0;top: 220px;">
+  <p style="text-align:center;position: absolute;right: 0;top: 0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
           class="badge"
@@ -321,7 +321,7 @@ onMounted(async () => {
 </n-tabs>
 
 <section>
-  <p style="text-align:center;position: absolute;right: 0;top: 220px;">
+  <p style="text-align:center;position: absolute;right: 0;top: 0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
           class="badge"
