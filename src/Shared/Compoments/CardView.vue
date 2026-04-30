@@ -22,7 +22,7 @@ export default {
     :class="cardPerfVisible ? item.class : null"
     style="
       max-width: 320px;
-      max-height: 330px;
+      height: 310px;
       color: var(--third-color) !important;
       background: var(--secondary-color) !important;
       position: relative;
@@ -35,7 +35,7 @@ export default {
       {{ item.title }}
     </h3>
     <div :style="item.text_one ? { padding: '0.5em' } : null">
-      <p>
+      <p :style="!item.text_one ? { marginTop: '30px',padding:'0 10px',fontSize:'1.1em' } : null">
         <span style="color: orange; font-weight: bold;word-wrap: break-word;">
           {{ item.text_colorie1 }}
         </span>
@@ -46,19 +46,6 @@ export default {
         <span style="color: orange; font-weight: bold;word-wrap: break-word;">
           {{ item.text_colorie2 }}
         </span>  {{ item.text_two }}
-        </span>
-      </p>
-    
-
-      <p
-      style="word-wrap: break-word;"
-        v-if="item.text_two && item.text_two.split(' : ')[0] === 'Entreprises'"
-      >
-        <span style="color: orange; font-weight: bold;word-wrap: break-word;">
-          {{ item.text_two.split(" : ")[0] }} :
-        </span>
-        <span style="word-wrap: break-word;">
-          {{ item.text_two.split(" : ")[1] }}
         </span>
       </p>
     </div>

@@ -89,7 +89,7 @@ export default {
         text_colorie1:'Talent',
         text_colorie2:'Entreprise',
         text_one: await this.handleTranslate(
-          ": Les missions disponibles m'attendent. Je fais valoir mes compétences, partout."
+          " : Les missions disponibles m'attendent. Je fais valoir mes compétences, partout."
         ),
         text_two: await this.handleTranslate(
           ": J'exprime mon besoin, mon budget, ma deadline. Des profils vérifiés sont disponibles immédiatement pour moi."
@@ -100,11 +100,13 @@ export default {
       {
         id: 3,
         title: await this.handleTranslate("C'est fait. Je suis payé."),
+         text_colorie1:'Talent',
+        text_colorie2:'Entreprise',
         text_one: await this.handleTranslate(
-          "Talent : l'argent arrive sur mon téléphone dès validation de la mission."
+          " : l'argent arrive sur mon téléphone dès validation de la mission."
         ),
         text_two: await this.handleTranslate(
-          "Entreprise : Je paie uniquement quand c'est fait."
+          " : Je paie uniquement quand c'est fait."
         ),
         class: "slide-from-right",
         footer_btn: false,
@@ -132,16 +134,23 @@ export default {
         :footer_btn="item.footer_btn"
         :cardPerfVisible="cardPerfVisible"
       >
-        <a-button type="primary" style="position: absolute; bottom: 1em; width: 80%"
+      <div style="position: absolute; bottom: 1em; width: 100%;">
+     <a-button type="primary" 
+     style="width: 93%;"
         @click.prevent="changeValueIsModal"
         >
           Créer
         </a-button>
+      </div>
+        
       </CardView>
     </div>
   </div>
 </template>
 <style scoped>
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-body) {
+  padding: 10px;
+}
 .conteneur-card {
   display: flex;
   justify-items: center;
