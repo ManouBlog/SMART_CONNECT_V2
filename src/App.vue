@@ -233,6 +233,9 @@ export default {
 };
 </script>
 <style>
+:where(.css-dev-only-do-not-override-17yhhjv).ant-btn-primary{
+  background-color: orange !important;
+}
 :where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-tab:hover {
   color: orange !important;
 }
@@ -358,6 +361,21 @@ export default {
   border-color: orange;
   transform: scale(1.05);
 }
+
+.myconteneur{
+  margin-top: 9em;
+}
+@media screen and (max-width:1200px) {
+ .myconteneur{
+  margin-top: 2.5em;
+}
+}
+@media screen and (max-width:900px) {
+ .myconteneur{
+  margin-top: 2em;
+}
+}
+
 
 /* Etat sélectionné */
 .round-item input:checked + .round-label {
