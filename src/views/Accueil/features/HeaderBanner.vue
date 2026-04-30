@@ -111,9 +111,9 @@ export default {
 </template>
 <style scoped>
 h4{
-  text-align:justify;
-  padding:1em;
+  padding:1.5em;
   color:black;
+  text-align: left;
 }
 .image {
   top: 0;
@@ -149,7 +149,9 @@ h4{
 @media screen and (max-width: 500px) {
   h4{
     padding:1em;
-    text-align: center;
+    text-align: left;
+    font-size: 1em;
+    
   }
   .header_banner {
     margin-top: 4em;
