@@ -65,12 +65,14 @@
       </h2>
       <p>
         Le fonctionnement de la plateforme repose sur un processus clair et sécurisé,
-        visant à assurer des échanges équitables et transparents entre les étudiants en
-        recherche d’un emploi à temps partiel et les entreprises ou particuliers en quête
+        visant à assurer des échanges équitables et transparents entre les talents en
+        recherche d’un emploi ou d'une mission à temps partiel et les entreprises (informelles,formelles) en quête
         de profils qualifiés. Afin de garantir la qualité des services proposés et
         d'assurer le bon déroulement des missions, l’accès à certaines fonctionnalités de
-        la plateforme est soumis à un abonnement annuel obligatoire, selon deux formules
-        disponibles : <span style="font-weight: bold">BROBROLI PRO</span> et
+        la plateforme est soumis à un abonnement annuel ou mensuel obligatoire, selon six formules
+        disponibles : <span style="font-weight: bold">BROBROLI</span>,
+        <span style="font-weight: bold">BROBROLI+</span>,<span style="font-weight: bold">BROBROLI HOME</span>,
+        <span style="font-weight: bold">BROBROLI HOME MAX</span>,<span style="font-weight: bold">BROBROLI PRO</span>,
         <span style="font-weight: bold">BROBROLI PRO MAX</span>
       </p>
       <h2 class="text-left">
@@ -86,10 +88,10 @@
         (1) Deux (02) abonnements au choix en fonction du type d’utilisateur
       </p>
 
-      <p style="text-align: center; font-weight: bold">ABONNEMENT ETUDIANT</p>
+      <p style="text-align: center; font-weight: bold">ABONNEMENT ETUDIANTS</p>
       <p>
   -<span style="font-weight: bold">
-    Formule BROBROLI PRO 1 000 FCFA / mois ou 10 000 FCFA / an
+    Formule BROBROLI 1 000 FCFA / mois ou 10 000 FCFA / an
   </span>
 </p>
      <p>
@@ -106,7 +108,7 @@
 </p>
 <p>
   -<span style="font-weight: bold">
-    Formule BROBROLI PRO MAX 2 000 FCFA/mois ou 20 000 FCFA/an
+    Formule BROBROLI+ 2 000 FCFA/mois ou 20 000 FCFA/an
   </span>
 </p>
 <p>
@@ -123,10 +125,10 @@
   Les conditions de résiliation sont identiques à celles de la formule BROBROLI PRO
 </p>
 <p style="text-align: center; font-weight: bold">
-  ABONNEMENT ARTISAN & MAÎTRE ARTISAN</p>
+  ABONNEMENT ARTISANS & MAÎTRE ARTISANS</p>
  <p>
   -<span style="font-weight: bold">
-   Formule BROBROLI PRO
+   Formule BROBROLI
   </span>
   <span style="display: block;font-weight: bold">
     Artisan : 2 000 F / mois · 20 000 F / an
@@ -136,7 +138,7 @@
   </span>
 </p>
 <p>
-  La formule BROBROLI PRO donne accès, 
+  La formule BROBROLI donne accès, 
   pendant toute la durée de l'abonnement actif,
    à l'intégralité des offres de missions publiées sur 
    la plateforme MonBrobroli correspondant au profil Artisan, 
@@ -152,7 +154,7 @@
 
 <p>
   -<span style="font-weight: bold">
-   Formule BROBROLI PRO MAX
+   Formule BROBROLI+
   </span>
   <span style="display: block;font-weight: bold">
    Artisan : 4 000 F / mois · 40 000 F / an
@@ -162,12 +164,12 @@
   </span>
 </p>
 <p>
-  La formule BROBROLI PRO MAX inclut l'intégralité des avantages de la formule BROBROLI, 
+  La formule BROBROLI+ inclut l'intégralité des avantages de la formule BROBROLI, 
   auxquels s'ajoutent : 
   (1) Positionnement prioritaire du profil dans les résultats de recherche, 
   positionné dans le premier quintile pour le métier et la zone géographique 
   renseignés. (2) Réception d'alertes de missions urgentes en temps réel, 
-  transmises aux abonnés BROBROLI PRO MAX avec un avantage de 15 minutes avant diffusion 
+  transmises aux abonnés BROBROLI+ avec un avantage de 15 minutes avant diffusion 
   aux abonnés BROBROLI. 
   (3) Envoi d'offres ciblées par notification et email selon le métier 
   et la zone de travail renseignés dans le profil. 
@@ -175,17 +177,17 @@
   le profil au cours des 30 derniers jours. 
   (5) Accès prioritaire aux missions à délai urgent 
   (exécution inférieure à 24 heures), 
-  notifiées en exclusivité aux abonnés BROBROLI PRO MAX 
+  notifiées en exclusivité aux abonnés BROBROLI+
   pendant une fenêtre de 15 minutes. 
   L'abonnement est proposé à 4 000 FCFA par mois et 40 000 FCFA par an. 
-  Les conditions de résiliation sont identiques à celles de la formule BROBROLI PRO.
+  Les conditions de résiliation sont identiques à celles de la formule BROBROLI.
 </p>
 
 <p style="text-align: center; font-weight: bold">
-  ABONNEMENT PROFESSIONNEL/EXPERT</p>
+  ABONNEMENT PROFESSIONNELS/EXPERTS</p>
  <p>
   -<span style="font-weight: bold">
-   Formule BROBROLI PRO 5 000 F / mois ou 50 000 F / an
+   Formule BROBROLI 5 000 F / mois ou 50 000 F / an
   </span>
 </p>
 <p>
@@ -207,18 +209,18 @@ clients post-mandat est inclus. L'abonnement est proposé à
 
 <p>
   -<span style="font-weight: bold">
-   Formule BROBROLI PRO MAX 10 000 F / mois ou 100 000 F / an
+   Formule BROBROLI+ 10 000 F / mois ou 100 000 F / an
   </span>
 </p>
 <p>
-La formule BROBROLI PRO MAX inclut l'intégralité des avantages de la 
+La formule BROBROLI+ inclut l'intégralité des avantages de la 
 formule BROBROLI, auxquels s'ajoutent : 
 (1) Positionnement prioritaire du profil dans les résultats de recherche,
  positionné dans le premier quintile pour l'expertise et le secteur renseignés. 
  (2) Réception d'alertes de missions ciblées en temps réel,
-  transmises aux abonnés BROBROLI PRO MAX avant diffusion aux abonnés BROBROLI.
+  transmises aux abonnés BROBROLI+ avant diffusion aux abonnés BROBROLI.
    (3) Accès aux missions d'une valeur supérieure ou égale à 150 000 FCFA, 
-   diffusés exclusivement aux abonnés BROBROLI PRO MAX. 
+   diffusés exclusivement aux abonnés BROBROLI+. 
    (4) Envoi d'offres ciblées par notification et email selon le secteur 
    d'expertise 
 et les compétences renseignés dans le profil. 
@@ -228,17 +230,17 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
 </p>
 
 <p style="text-align: center; font-weight: bold">
-  ABONNEMENT VÉTÉRAN</p>
+  ABONNEMENT VÉTÉRANS</p>
   <p>
   -<span style="font-weight: bold">
-   Formule BROBROLI PRO 
+   Formule BROBROLI 
   </span>
   <span style="font-weight: bold;display: block;">
     Vétéran : 75 000 F / an Vétéran Senior : 100 000 F /an
   </span>
 </p>
 <p>
-  La formule BROBROLI PRO donne accès, 
+  La formule BROBROLI donne accès, 
   pendant toute la durée de l'abonnement annuel actif, 
   à l'intégralité des mandats et missions publiées sur 
   la plateforme MonBrobroli correspondant au profil Vétéran,
@@ -254,23 +256,23 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
 </p>
  <p>
   -<span style="font-weight: bold">
-   Formule BROBROLI PRO MAX 
+   Formule BROBROLI+ 
   </span>
   <span style="font-weight: bold;display: block;">
     Vétéran : 200 000 F / an et Vétéran Senior : 250 000 F /an
   </span>
 </p>
 <p>
-  La formule BROBROLI PRO MAX inclut l'intégralité des avantages de la formule BROBROLI PRO,
+  La formule BROBROLI+ inclut l'intégralité des avantages de la formule BROBROLI,
    auxquels s'ajoutent : 
    (1) Positionnement prioritaire du profil dans les résultats de 
    recherche effectués par les clients et organisations, 
    avec présentation prioritaire aux décideurs de niveau C-level 
    (PDG, DG, membres de Conseil d'administration). 
    (2) Accès aux mandats stratégiques d'une valeur supérieure ou égale 
-   à 500 000 FCFA, diffusés exclusivement aux abonnés BROBROLI PRO MAX Vétéran. 
+   à 500 000 FCFA, diffusés exclusivement aux abonnés BROBROLI+ Vétéran. 
    (3) Réception d'alertes de mandats ciblés en temps réel, 
-   transmises aux abonnés BROBROLI PRO MAX Vétéran avant diffusion aux abonnés BROBROLI PRO. 
+   transmises aux abonnés BROBROLI+ Vétéran avant diffusion aux abonnés BROBROLI. 
    (4) Possibilité de mise en relation directe avec les décideurs C-level pour 
    les mandats non publiés publiquement. 
    (5) Activation optionnelle du mode profil discret,
@@ -284,8 +286,58 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
      L'abonnement est proposé à 200 000 F par an et 250 000 FCFA par an. 
   Les conditions de résiliation sont identiques à celles de la formule BROBROLI.
 </p>
+
+<p style="text-align: center; font-weight: bold">
+  ABONNEMENT PARTICULIERS</p>
+  <P>
+    MonBrobroli Home est la formule d’abonnement à la marketplace MonBrobroli des 
+    particuliers souhaitant accéder à des prestataires de services à domicile vérifiés — aide-ménagère, plomberie, électricité, baby-sitting, gardiennage, sécurité, déménagement et tout autre service domestique ponctuel.
+L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est soumis à un abonnement mensuel ou annuel selon deux formules : BROBROLI HOME et BROBROLI HOME MAX, dont les conditions sont définies aux présentes.
+  </P>
+  <p>
+  -<span style="font-weight: bold">
+   Formule BROBROLI HOME : 1 000 FCFA/mois ou 10 000 FCFA/an
+  </span>
+</p>
+<p>
+  La formule BROBROLI HOME donne accès, 
+  pendant toute la durée de l'abonnement actif, 
+  à l'intégralité des profils de prestataires 
+  disponibles sur la plateforme MonBrobroli, 
+  à la fonctionnalité de publication 
+  de demandes de service, 
+  à la réception des propositions de 
+  prestataires correspondants, 
+  aux notifications de disponibilité des prestataires. 
+  Le système d'évaluation et d'avis post-prestation est inclus dans cette formule. L'abonnement mensuel est proposé à 1 000 FCFA par mois. L'abonnement annuel est proposé à 10 000 FCFA par an, soit l'équivalent de 10 mois facturés pour 12 mois d'accès — 2 mois offerts. L'abonnement annuel
+   est sans reconduction automatique sauf instruction explicite de l'abonné.
+</p>
+<p>
+  -<span style="font-weight: bold">
+   Formule BROBROLI HOME MAX : 2 000 FCFA / mois ou 20 000 FCFA / an
+  </span>
+</p>
+<p>
+  La formule BROBROLI HOME MAX inclut 
+  l'intégralité des avantages de la formule BROBROLI HOME,
+   auxquels s'ajoutent les fonctionnalités suivantes : 
+   (1) Positionnement prioritaire des demandes de 
+   service publiées dans les résultats présentés aux prestataires,
+    augmentant significativement la probabilité d'obtenir une réponse rapide. 
+    (2) Réception d'alertes de disponibilité de prestataires en temps réel,
+     transmises aux abonnés BROBROLI HOME MAX avant diffusion standard 
+     aux abonnés BROBROLI HOME, permettant 
+     d'accéder en priorité aux prestataires disponibles. 
+     (3) Envoi d'offres de service ciblées par notification push, 
+     sélectionnées automatiquement en fonction des besoins habituels
+      renseignés dans le profil de l'abonné. 
+      (4) Accès prioritaire aux prestataires disponibles 
+      pour des interventions urgentes (délai d'exécution inférieur à 24 heures), 
+      notifiés en exclusivité aux abonnés BROBROLI HOME MAX pendant une fenêtre de 30 minutes avant diffusion générale. (5) Accès à l'historique complet des prestataires consultés et évalués au cours des 90 derniers jours, permettant de solliciter directement un prestataire déjà utilisé et satisfaisant. L'abonnement mensuel est proposé à 2 000 FCFA par mois. L'abonnement annuel est proposé à 20 000 FCFA par an, 
+  soit l'équivalent de 10 mois facturés pour 12 mois d'accès.
+</p>
       <p style="text-align: center; font-weight: bold">
-        ABONNEMENT ENTREPRISES ET PARTICULIERS
+        ABONNEMENT ENTREPRISES
       </p>
       <p>
   -<span style="font-weight: bold">
@@ -394,11 +446,11 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
       </p>
       <p>1b) Dépôt de candidature ou invitation à postuler</p>
       <p>
-        Les étudiants ayant souscrit à un abonnement actif (BROBROLI ou BROBROLI PRO MAX) peuvent
+        Les étudiants ayant souscrit à un abonnement actif (BROBROLI ou BROBROLI+) peuvent
         consulter les offres disponibles et y postuler selon leurs compétences, intérêts
         et disponibilités. Par ailleurs, les entreprises ont la possibilité de
         sélectionner certains profils à postuler, après consultation des informations
-        présentes sur les profils étudiants.Les abonnés BROBROLI PRO MAX bénéficient d’une
+        présentes sur les profils étudiants.Les abonnés BROBROLI+ bénéficient d’une
         visibilité accrue, ce qui augmente significativement leurs chances d’être
         sélectionnés directement par les recruteurs.
       </p>
