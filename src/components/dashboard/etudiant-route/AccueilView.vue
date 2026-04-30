@@ -207,9 +207,9 @@ console.log('this.student',this.student)
 
     this.texte0 = await this.handleTranslate("Tableau de bord");
     this.texte1 = await this.handleTranslate(`Nombre d'offres postulées`);
-    this.texte2 = await this.handleTranslate(`Offres en attente de réponse`);
-    this.texte3 = await this.handleTranslate(`Offres acceptées`);
-    this.texte4 = await this.handleTranslate(`Offres rejetées`);
+    this.texte2 = await this.handleTranslate(`Candidatures en attente de réponse`);
+    this.texte3 = await this.handleTranslate(`Candidatures acceptées`);
+    this.texte4 = await this.handleTranslate(`Candidatures rejetées`);
     this.texte5 = await this.handleTranslate(`Nombre d'offres publiées`);
     this.texte6 = await this.handleTranslate(`Candidatures reçues`);
     this.texte7 = await this.handleTranslate(`Candidatures rejetées`);
