@@ -229,9 +229,9 @@ export default {
       return result;
     },
     getDatesBetween(data) {
-      const dates = [];
-
-      for (const item of data) {
+      if(data){
+        const dates = [];
+for (const item of data) {
         if (item.periode) {
           const [startDate, endDate] = item.jour.split(" A ");
           let currentDate = new Date(startDate);
@@ -252,6 +252,10 @@ export default {
       }
 
       return dates;
+      }else{
+        return;
+      }
+      
     },
     splitDateRangeObjects(data) {
       const result = [];
@@ -717,7 +721,8 @@ export default {
     },
     verfEnter() {
      if (
-  this.user && ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(this.user.user?.statut.statut)
+  this.user && ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(this.user.user?.statut?.statut) 
+  && !this.user.user?.statuses.some(item=>item.statut === 'Particulier')
 ) {
   this.$router.push("/");
   Swal.fire({

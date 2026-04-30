@@ -355,16 +355,14 @@ export default {
       item.statut?.toLowerCase() !== 'entreprise' &&
       item.statut?.toLowerCase() !== 'particulier'
     );
-  } else if (monStatut === 'particulier') {
+    allStatuses.push({ id: "Tous", statut: "Tous" });
+  } else if (monStatut === 'particulier' || this.userInfo?.user.statuses.some(itm=>itm.statut == 'Particulier') ) {
     // ✅ Particulier voit SEULEMENT artisans
     allStatuses = response.data.data.filter(item => 
       item.statut?.toLowerCase() === 'artisan'
     );
   }
-  
-  // ✅ Ajoute "Tous"
-  allStatuses.push({ id: "Tous", statut: "Tous" });
-  
+   
   this.allStatuses = allStatuses;
           }
 

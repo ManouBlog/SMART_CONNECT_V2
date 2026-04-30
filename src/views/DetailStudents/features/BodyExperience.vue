@@ -69,11 +69,11 @@ export default {
     <div class="conteneur_section_experience">
       <p
         class="w-100 experience text-left fw-bold"
-        style="color: orange; cursor: pointer"
+        style="color: orange; cursor: pointer;font-size: 1.3em !important;"
         v-if="timetable_for_student.experiences.length"
         @click.prevent="toogleExperience = !toogleExperience"
       >
-        {{ texte }}
+       <span class="text-underlines">{{ texte }}</span>
         <em
           class="bi bi-chevron-down"
           v-if="toogleExperience == false"
@@ -83,11 +83,13 @@ export default {
         <em class="bi bi-chevron-up" v-if="toogleExperience == true"></em>
       </p>
       <div v-if="toogleExperience && timetable_for_student.experiences.length">
+        
         <div
           class="experiences position-relative px-4 my-4"
           v-for="(item, index) in timetable_for_student.experiences.slice(0, 1)"
           :key="index"
         >
+        <!-- {{ item }} -->
           <div class="rond position-absolute"></div>
           <div class="contenteur_experience">
             <div class="proof_experience" v-if="item?.proof">
@@ -112,7 +114,7 @@ export default {
                 ).toLocaleDateString()}`
               }}
             </h6>
-            <p class="text-start ms-2" v-if="item?.experience">
+            <p class="text-start ms-2" v-if="item?.experience || item.experience !== 'null' || item.experience !== null">
               {{ item?.experience }}
             </p>
           </div>
@@ -201,6 +203,20 @@ export default {
   </section>
 </template>
 <style scoped>
+.text-underlines {
+  position: relative;
+  display: inline-block;
+}
+
+.text-underlines::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* espace sous le texte */
+  width: 100%;
+  height: 1px;
+  background: orange;
+}
 :deep(.stars){
   margin:0 0 1em 0 !important;
 }
