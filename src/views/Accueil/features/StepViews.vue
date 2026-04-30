@@ -136,7 +136,7 @@ export default {
       >
       <div style="position: absolute; bottom: 1em; width: 100%;">
      <a-button type="primary" 
-     style="width: 93%;"
+     style="width: 93% !important;"
         @click.prevent="changeValueIsModal"
         >
           Créer
