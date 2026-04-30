@@ -71,7 +71,7 @@ export default {
       :key="index"
       :title="item.libelle"
       :bordered="false"
-      style="width: 300px"
+      :style="{width: '300px',display:item.isVisible  ? 'block':'none'}"
     >
       <h1>{{ item.nbre }}</h1>
 

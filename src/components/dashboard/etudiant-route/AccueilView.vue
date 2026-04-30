@@ -103,6 +103,93 @@ if (!user.competences.length || !user.qualifications.length) {
     ...mapState(useOffreStore, ["offreCreatedByEntreprise"]),
     ...mapState(useEntreprisesStore, ["offresInteressByStudents"]),
     ...mapState(useEntreprisesStore, ["student", "studentRecruit", "list_students"]),
+     userStatuses() {
+    return this.$store.state.user?.user?.statuses || [];
+  },
+
+  isStudentProfile() {
+    return this.userStatuses.some(item =>
+      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(item.statut)
+    );
+  },
+
+  isEntrepriseProfile() {
+    return this.userStatuses.some(item =>
+      ['Entreprise', 'Particulier'].includes(item.statut)
+    );
+  },
+
+  tableauDeBordInfos() {
+    const referral = this.statistiqueDashboard?.personreferral || [];
+
+    const baseStats = [
+      {
+        libelle: this.texte1,
+        isVisible: this.isStudentProfile,
+        nbre: Number(this.statistiqueDashboard?.offrePostule || 0),
+        infosReferrals: []
+      },
+      {
+        libelle: this.texte2,
+        isVisible: this.isStudentProfile,
+        nbre: this.statistiqueDashboard?.offrePending || 0,
+        infosReferrals: []
+      },
+      {
+        libelle: this.texte3,
+        isVisible: this.isStudentProfile,
+        nbre: this.statistiqueDashboard?.offreAccepted || 0,
+        infosReferrals: []
+      },
+      {
+        libelle: this.texte4,
+        isVisible: this.isStudentProfile,
+        nbre: this.statistiqueDashboard?.offreCancel || 0,
+        infosReferrals: []
+      },
+      {
+        libelle: this.texte5,
+        isVisible: this.isEntrepriseProfile,
+        nbre: `${this.offreCreatedByEntreprise?.length || 0}`
+      },
+      {
+        libelle: this.texte6,
+        isVisible: this.isEntrepriseProfile,
+        nbre: Object.keys(this.offresInteressByStudents || {}).length
+      },
+      {
+        libelle: this.texte7,
+        isVisible: this.isEntrepriseProfile,
+        nbre: configUtils.statistiqueEntreprise(this.student, 2)
+      },
+      {
+        libelle: this.texte8,
+        isVisible: this.isEntrepriseProfile,
+        nbre:
+          Object.keys(this.offresInteressByStudents || {}).length -
+          configUtils.statistiqueEntreprise(this.student, 2)
+      }
+    ];
+
+    if (this.IsAmbassador) {
+      baseStats.unshift({
+        libelle: 'Personnes parrainées',
+        nbre: referral.length,
+        btn: true,
+        infosReferrals: referral.map(item => ({
+          name:
+            item?.referred?.student?.nom +
+            ' ' +
+            item?.referred?.student?.prenoms,
+          is_registered: item?.referred?.id,
+          has_subscription: item?.subscription_paid,
+          formule: item?.formule
+        }))
+      });
+    }
+
+    return baseStats;
+  }
   },
   async created() {
    if(
@@ -140,79 +227,8 @@ if (!user.competences.length || !user.qualifications.length) {
     <div class="conteneur_filter">
       <a-date-picker v-model:value="date_filter" @change="handleData" picker="year" />
     </div>
-    <TableauDeBord
-     v-if="['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(this.$store.state.user?.user?.statut.statut)"
-      :infosArray="IsAmbassador ? [
-         {
-          libelle: 'Personnes parrainées',
-          nbre: statistiqueDashboard?.personreferral.length,
-          btn:true,
-          infosReferrals:statistiqueDashboard?.personreferral.map(item=>{
-            return  {
-      name: item.referred.student.nom + ' ' + item.referred.student.prenoms,
-      is_registered: item.referred.id,
-      has_subscription: item.subscription_paid,
-      formule:item.formule
-         }
-          })
-        },
-        { libelle: texte1, nbre: Number(statistiqueDashboard?.offrePostule),infosReferrals:[] },
-        {
-          libelle: texte2,
-          nbre: statistiqueDashboard?.offrePending,
-          infosReferrals:[]
-        },
-        {
-          libelle: texte3,
-          nbre: statistiqueDashboard?.offreAccepted,
-          infosReferrals:[]
-        },
-        {
-          libelle: texte4,
-          nbre: statistiqueDashboard?.offreCancel,
-          infosReferrals:[]
-        },
-       
-      ]:[
-        { libelle: texte1, nbre: Number(statistiqueDashboard?.offrePostule),infosReferrals:[] },
-        {
-          libelle: texte2,
-          nbre: statistiqueDashboard?.offrePending,
-          infosReferrals:[]
-        },
-        {
-          libelle: texte3,
-          nbre: statistiqueDashboard?.offreAccepted,
-          infosReferrals:[]
-        },
-        {
-          libelle: texte4,
-          nbre: statistiqueDashboard?.offreCancel,
-          infosReferrals:[]
-        },
-       
-      ]"
-    />
-    <TableauDeBord
-      v-if="['Entreprise', 'Particulier'].includes(this.$store.state.user?.user?.statut.statut)"
-      :infosArray="[
-        {
-          libelle: texte5,
-          nbre: `${offreCreatedByEntreprise.length}`,
-        },
-        { libelle: texte6, nbre: Object.keys(this.offresInteressByStudents).length },
-        {
-          libelle: texte7,
-          nbre: configUtils.statistiqueEntreprise(this.student, 2),
-        },
-        {
-          libelle: texte8,
-          nbre:
-            Object.keys(this.offresInteressByStudents).length -
-            configUtils.statistiqueEntreprise(this.student, 2),
-        },
-      ]"
-    />
+    <TableauDeBord :infosArray="tableauDeBordInfos" />
+   
   </section>
 </template>
 <style scoped>
