@@ -266,6 +266,19 @@ export default {
   </div>
 </template>
 <style scoped>
+.offres_disponible{
+  margin-top: 9em;
+}
+@media screen and (max-width:1200px) {
+ .offres_disponible{
+  margin-top: 2.5em;
+}
+}
+@media screen and (max-width:900px) {
+ .offres_disponible{
+  margin-top: 2em;
+}
+}
 button {
   padding: 1.3em;
   font-size: 1.1em;

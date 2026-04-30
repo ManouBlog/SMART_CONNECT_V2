@@ -330,6 +330,19 @@ button {
   font-size: 1.1em;
   font-weight: bold;
 }
+.offres_disponible{
+  margin-top: 9em;
+}
+@media screen and (max-width:1200px) {
+ .offres_disponible{
+  margin-top: 2.5em;
+}
+}
+@media screen and (max-width:900px) {
+ .offres_disponible{
+  margin-top: 2em;
+}
+}
 
 
 #conteneur_description {
