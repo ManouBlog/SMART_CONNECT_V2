@@ -210,6 +210,19 @@ h1 {
   flex-wrap: wrap;
   padding: 2em;
 }
+.conteneur_message_formulaire{
+  margin-top: 9em;
+}
+@media screen and (max-width:1200px) {
+ .conteneur_message_formulaire{
+  margin-top: 2.5em;
+}
+}
+@media screen and (max-width:900px) {
+ .conteneur_message_formulaire{
+  margin-top: 2em;
+}
+}
 .conteneur_message {
   display: flex;
   justify-content: center;

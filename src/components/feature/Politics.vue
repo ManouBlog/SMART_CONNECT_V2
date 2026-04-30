@@ -47,7 +47,7 @@ const handleRegister = () => {
       :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
     >
       <div>
-         <div class="myconteneur">
+         <div class="myconteneur_container">
     <h1
       style="
         text-align: center;
@@ -707,6 +707,8 @@ L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est sou
   </div>
 </template>
 <style scoped>
+
+
 .conteneur {
   display: flex;
   justify-content: center;

@@ -136,7 +136,7 @@ export default {
     //  this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte20 = await this.handleTranslate("Liste des offres");
     this.texte30 = await this.handleTranslate("Créer une offre");
-    this.texte40 = await this.handleTranslate("Talents sélectionnés");
+    this.texte24 = await this.handleTranslate("Talents sélectionnés");
     this.texte50 = await this.handleTranslate("Postulants");
     // this.texte6 = await this.handleTranslate("Mes abonnements");
     // this.texte7 = await this.handleTranslate("Déconnexion");
@@ -194,7 +194,7 @@ export default {
             </router-link>
           </li>
         </a-menu-item>
-        <a-menu-item>
+        <a-menu-item v-if="user.user.statuses.some(s=>['Etudiant','Professionnel','Vétéran','Artisan'].includes(s.statut))">
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/entreprises_interessees" class="d-block">
               {{ texte40 }}
@@ -202,7 +202,7 @@ export default {
           </li>
         </a-menu-item>
       
-        <a-menu-item v-if="user.user?.statuses.some(s => s.statut === 'Etudiant')">
+        <a-menu-item v-if="user.user?.statuses.some(s =>['Etudiant'].includes(s.statut))">
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/emploi_du_temps" class="d-block">
               {{ texte4 }}
@@ -210,28 +210,28 @@ export default {
           </li>
         </a-menu-item>
 
-        <a-menu-item>
+        <a-menu-item v-if="user.user.statuses.some(s=>['Entreprise','Particulier'].includes(s.statut))">
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/offre" class="d-block">
               {{ texte20 }}
             </router-link>
           </li>
         </a-menu-item>
-        <a-menu-item>
+        <a-menu-item v-if="user.user.statuses.some(s=>['Entreprise','Particulier'].includes(s.statut))">
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/creation_offre" class="d-block">
               {{ texte30 }}
             </router-link>
           </li>
         </a-menu-item>
-        <a-menu-item>
+        <a-menu-item v-if="user.user.statuses.some(s=>['Entreprise','Particulier'].includes(s.statut))">
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/personnel" class="d-block">
-              {{ texte40 }}
+              {{ texte24 }}
             </router-link>
           </li>
         </a-menu-item>
-        <a-menu-item>
+        <a-menu-item v-if="user.user.statuses.some(s=>['Entreprise','Particulier'].includes(s.statut))">
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/postulants" class="d-block">
               {{ texte50 }} <span class="badge bg-danger" v-if="dataAlarm">{{dataAlarm}}</span>

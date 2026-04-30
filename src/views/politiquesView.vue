@@ -1,6 +1,6 @@
 <script setup></script>
 <template>
-  <div class="myconteneur">
+  <div class="myconteneur_container">
     <h1
       style="
         text-align: center;
@@ -652,6 +652,19 @@ L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est sou
   </div>
 </template>
 <style scoped>
+.myconteneur_container{
+  margin-top: 9em;
+}
+@media screen and (max-width:1200px) {
+ .myconteneur_container{
+  margin-top: 2.5em;
+}
+}
+@media screen and (max-width:900px) {
+ .myconteneur_container{
+  margin-top: 2em;
+}
+}
 .conteneur {
   display: flex;
   justify-content: center;

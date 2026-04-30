@@ -77,14 +77,14 @@ const ecriteauFormule = (item) => {
    
     'maitre artisan':{
       "BROBROLI+":
-        "Pour être le premier appelé. Sur les urgences comme sur les gros chantiers.",
+        "Pour être le premier appelé , sur les urgences comme sur les gros chantiers.",
 
       "BROBROLI":
         "Pour que tes clients te trouvent. Pour que tes marchés te croisent.",
     },
   'artisan':{
       "BROBROLI+":
-        "Pour être le premier appelé. Sur les urgences comme sur les gros chantiers.",
+        "Pour être le premier appelé,sur les urgences comme sur les gros chantiers.",
 
       "BROBROLI":
         "Pour que tes clients te trouvent. Pour que tes marchés te croisent.",

@@ -221,7 +221,7 @@ export default {
               
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav_lien_nav_bar">
-                  <LiensNavBar :texte="texte1" :route_lien="'Bienvenue'" />
+                  <LiensNavBar v-if="!$store.state.user" :texte="texte1" :route_lien="'Bienvenue'" />
 
                   <LiensNavBar
        v-if="
@@ -244,7 +244,7 @@ export default {
                     :statut_user="'Entreprise'"
                     :isNeedConnection="true"
                   />
-                  <LiensNavBar :texte="texte" :route_lien="'abonnements'" />
+                  <LiensNavBar v-if="!$store.state.user" :texte="texte" :route_lien="'abonnements'" />
                   <LiensNavBar :texte="texte4" :route_lien="'contact'" />
                   <LiensNavBar :texte="texte6" :route_lien="'politiques'" />
                   <!-- <li>

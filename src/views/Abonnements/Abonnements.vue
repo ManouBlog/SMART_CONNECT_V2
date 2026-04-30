@@ -125,7 +125,7 @@ onMounted(async () => {
 <template>
   <!-- {{ props.ProfilAbonnement }}
   <p>abonnementssde:{{ abonnements }}</p> -->
-  <div class="wrapped myconteneur">
+  <div class="wrapped">
     <h1 class="text-center main-color" style="font-size: 1.5em;">{{text0}}</h1>
       <div v-if="props.ProfilAbonnement">
     <n-card v-if="abonnements.length">
@@ -402,16 +402,22 @@ onMounted(async () => {
   </div>
 </template>
 <style scoped>
-@import "./style/index.css";
-.myconteneur {
+.wrapped{
+  margin-top: 9em;
+}
+@media screen and (max-width:1200px) {
+ .wrapped{
+  margin-top: 2.5em;
+}
+}
+@media screen and (max-width:900px) {
+ .wrapped{
   margin-top: 2em;
 }
-
-@media (max-width: 980px) {
-  .myconteneur {
-    margin-top: 1em;
-  }
 }
+
+@import "./style/index.css";
+
 .shimmer-text {
   font-weight: 600;
   background: linear-gradient(
