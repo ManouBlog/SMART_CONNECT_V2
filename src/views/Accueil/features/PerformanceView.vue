@@ -18,6 +18,10 @@ const offres = ref(0);
 const timetable = ref(0);
 const visiteur = ref(0);
 const student = ref(0);
+const veterans = ref(0);
+const artisans = ref(0);
+const particuliers = ref(0)
+const professionnels = ref(0)
 const cardPerfVisible = ref(false);
 
 let observer = null;
@@ -37,6 +41,7 @@ const formatNumber = (value) => {
   return v
 }
 
+
 const formatSuffix = (value) => {
   const v = Math.floor(value)
 
@@ -55,11 +60,16 @@ const seePerformanceNbre = async () => {
   try {
     const response = await instance.get("seePerformance");
     if (response.data.status) {
+      console.log("RESPONSE",response.data)
       entreprises.value = response.data.partenairePerf;
       offres.value = response.data.offrePerf;
       timetable.value = response.data.talentPerf;
       visiteur.value = response.data.visiteurPerf;
       student.value = response.data.students;
+      veterans.value = response.data.veterans;
+      artisans.value = response.data.artisans;
+      professionnels.value = response.data.professionnels
+      particuliers.value = response.data.particuliers
     }
   } catch (error) {
     console.log(error);
@@ -116,25 +126,14 @@ onUnmounted(() => {
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Particulier(s)'"
-            :nbre="Number(formatNumber(Number(student)))"
+            :nbre="Number(formatNumber(Number(particuliers)))"
             :class="{ 'fade-in': cardPerfVisible }"
             :isPayement="false"
-            :suffix="formatSuffix(Number(student))"
-            :tooltip="student.toString()"
-            :decimals="Number(student) > 1000  ? 1:null"
+            :suffix="formatSuffix(Number(particuliers))"
+            :tooltip="particuliers.toString()"
+            :decimals="Number(particuliers) > 1000  ? 1:null"
           />
-          <CardPerformance
-            v-if="Number(entreprises) > 100"
-            :myStyle="'card_perfor_one'"
-            :icone_name="'bi bi-building icon'"
-            :texte="texte1"
-            :nbre="Number(formatNumber(Number(entreprises)))"
-            :class="{ 'slide-from-left': cardPerfVisible }"
-             :isPayement="false"
-             :suffix="'K'"
-            :tooltip="entreprises.toString()"
-            :decimals="Number(entreprises) > 1000  ? 1:null"
-          />
+          
           
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
@@ -151,36 +150,47 @@ onUnmounted(() => {
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Professionnel(s)'"
-            :nbre="Number(formatNumber(Number(student)))"
+            :nbre="Number(formatNumber(Number(professionnels)))"
             :class="{ 'fade-in': cardPerfVisible }"
             :isPayement="false"
-            :suffix="formatSuffix(Number(student))"
-            :tooltip="student.toString()"
-            :decimals="Number(student) > 1000  ? 1:null"
+            :suffix="formatSuffix(Number(professionnels))"
+            :tooltip="professionnels.toString()"
+            :decimals="Number(professionnels) > 1000  ? 1:null"
           />
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Artisan(s)'"
-            :nbre="Number(formatNumber(Number(student)))"
+            :nbre="Number(formatNumber(Number(artisans)))"
             :class="{ 'fade-in': cardPerfVisible }"
             :isPayement="false"
-            :suffix="formatSuffix(Number(student))"
-            :tooltip="student.toString()"
-            :decimals="Number(student) > 1000  ? 1:null"
+            :suffix="formatSuffix(Number(artisans))"
+            :tooltip="artisans.toString()"
+            :decimals="Number(artisans) > 1000  ? 1:null"
           />
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Vétéran(s)'"
-            :nbre="Number(formatNumber(Number(student)))"
+            :nbre="Number(formatNumber(Number(veterans)))"
             :class="{ 'fade-in': cardPerfVisible }"
             :isPayement="false"
-            :suffix="formatSuffix(Number(student))"
-            :tooltip="student.toString()"
-            :decimals="Number(student) > 1000  ? 1:null"
+            :suffix="formatSuffix(Number(veterans))"
+            :tooltip="veterans.toString()"
+            :decimals="Number(veterans) > 1000  ? 1:null"
           />
-          
+          <CardPerformance
+            v-if="Number(entreprises) > 100"
+            :myStyle="'card_perfor_one'"
+            :icone_name="'bi bi-building icon'"
+            :texte="texte1"
+            :nbre="Number(formatNumber(Number(entreprises)))"
+            :class="{ 'slide-from-left': cardPerfVisible }"
+             :isPayement="false"
+             :suffix="'K'"
+            :tooltip="entreprises.toString()"
+            :decimals="Number(entreprises) > 1000  ? 1:null"
+          />
           </div>
           <div style="display: flex;gap: 0.5em;" class="circles-container">
             <CardPerformance
