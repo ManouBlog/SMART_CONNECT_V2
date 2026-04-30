@@ -129,11 +129,11 @@ selectedStatus:"",
 profilHybride:[],
 allStatuses:[],
 descriptionProfil:{
-  Etudiant:"Ce profil vous permet d'accéder à des offres d'emploi,ainsi que de bénéficier de tarifs préférentiels sur nos services.",
-  Artisan:"Ce profil vous permet de mettre en avant votre savoir-faire artisanal, d'accéder à des offres d'emploi spécifiques et de bénéficier de tarifs préférentiels sur nos services.",
-  Particulier:"Ce profil vous permet de contacter les artisans.",
-  Professionnel:"Ce profil vous permet d'accéder à des offres d'emploi, de mettre en avant votre expérience professionnelle et de bénéficier de tarifs préférentiels sur nos services.",
-  Vétéran:"Ce profil vous permet de mettre en avant votre expérience et vos compétences acquises au cours de votre carrière, d'accéder à des offres d'emploi spécifiques et de bénéficier de tarifs préférentiels sur nos services.",
+  Etudiant:"Tu as les compétences. Nous avons les clients. Postule aux missions disponibles partout en CI . Tu es payé sur le digital dès la première mission validée. Zéro agence. Zéro intermédiaire.",
+  Artisan:"Ton métier mérite des clients sérieux. Publie tes compétences, reçois des missions partout. Tu arrives. C'est fait. Le client paye.",
+  Particulier:"Trouvez un prestataire vérifié par d'autres particuliers. Paiement digital uniquement si le travail est fait. Zéro risque",
+  Professionnel:"Votre expertise mérite d'être trouvée par les bonnes entreprises. Accédez aux mandats disponibles partout en CI, candidatez directement et recevez votre paiement digitalisé après chaque mission.",
+  Vétéran:"Votre parcours est rare. Les organisations qui cherchent une expertise comme la vôtre sont sur MonBrobroli. Accédez aux mandats stratégiques, entrez en contact direct avec les décideurs et recevez votre paiement après chaque mandat. Votre expérience a enfin la plateforme qu'elle mérite.",
 }
     }
   },
