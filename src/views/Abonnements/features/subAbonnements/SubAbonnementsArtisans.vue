@@ -109,7 +109,7 @@ onMounted(async () => {
       />
     </div>
     <!-- <section v-else>
-      <p style="text-align:center;position: absolute;right: 10px;">
+      <p style="text-align:center;position: absolute;right: 0px;top:0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
           class="badge bg-warning"

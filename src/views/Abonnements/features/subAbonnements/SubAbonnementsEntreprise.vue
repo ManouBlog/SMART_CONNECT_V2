@@ -100,7 +100,7 @@ if (storeAbonnement.addProfilHybride?.length) {
       formData.append("addProfilHybrideOnly[]", id);
     });
 }
-
+console.log("DATA",data)
 // Autres champs
 if (data.nom) formData.append('nom', data.nom);
 if (data.expertise) formData.append('expertise', data.expertise);
@@ -251,7 +251,7 @@ onMounted(async () => {
       />
     </div> -->
     <section>
-      <p style="text-align:center;position: absolute;right: 10px;">
+      <p style="text-align:center;position: absolute;right: 0px;top:0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
           class="badge"

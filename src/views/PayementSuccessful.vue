@@ -10,7 +10,7 @@
       </h1>
 
       <span class="description">
-        Ton paiement est réussi.
+        Votre paiement a été effectué avec succès.
       </span>
 
       <button

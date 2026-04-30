@@ -412,7 +412,7 @@ console.log('store.state?.user',store.state?.user)
       />
     </div>
     <section v-else>
-      <p style="text-align:center;position: absolute;right: 10px;">
+      <p style="text-align:center;position: absolute;right: 0px;top:0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
           class="badge"
@@ -484,7 +484,7 @@ console.log('store.state?.user',store.state?.user)
       />
     </div>
     <section v-else>
-      <p style="text-align:center;position: absolute;right: 10px;">
+      <p style="text-align:center;position: absolute;right: 0px;top:0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
           class="badge"
@@ -554,7 +554,7 @@ console.log('store.state?.user',store.state?.user)
       />
     </div>
     <section v-else>
-      <p style="text-align:center;position: absolute;right: 10px;">
+      <p style="text-align:center;position: absolute;right: 0px;top:0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
           class="badge"
