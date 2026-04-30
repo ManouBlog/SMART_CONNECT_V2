@@ -75,47 +75,6 @@ StatutArtisans:[
   { value: "Maitre Artisan", label: "Maitre Artisan" },
   { value: "Artisan", label: "Artisan" }
 ],
-//  SCHOOL_KEYWORDS :[
-//   // Carte étudiante (formes tolérantes OCR)
-//   'carte etudiant',
-//   'carte d etudiant',
-//   'carte a etudiant',
-//   'carte etudiante',
-
-//   // Étudiant (avec ou sans accents, fautes OCR)
-//   'Etudiant',
-//   'etudiante',
-//   'etudant',
-//   'etud',
-
-//   // Institution / enseignement
-//   'ministere de l enseignement',
-//   "ministere de l'enseignement",
-//   'enseignement superieur',
-//   'ufr',
-//   'faculte',
-//   'faculté',
-//   'ecole',
-//   'institut',
-
-//   // Scolarité
-//   'filiere',
-//   'filiere',
-//   'niveau',
-//   'licence',
-//   'master',
-//   'doctorat',
-
-//   // Niveaux courts (attention : à combiner avec d’autres mots)
-//   'l1',
-//   'l2',
-//   'l3',
-//   'm1',
-//   'm2',
-
-//   // Identifiant
-//   'matricule'
-// ],
 
       availabilityDates: [],
       startTime: null,
@@ -146,7 +105,7 @@ StatutArtisans:[
       configUtils,
       SWALPOPUP: useSwalPopup(),
       formState: {
-        upload: [],
+        photo: null,
         niveauEtude:"",
         profilHybride:[],
         statut_talent:""
@@ -159,7 +118,7 @@ StatutArtisans:[
    isFormComplete() {
       return (
         this.formState.statut_talent?.trim() &&      // Select sélectionné
-        this.formState.upload?.length > 0              // Fichier uploadé
+        this.formState.photo              // Fichier uploadé
       );
     }
   },
@@ -167,7 +126,7 @@ StatutArtisans:[
   methods: {
      onUploadChange(e) {
     console.log('onUploadChange', e.target.files);
-    this.formState.upload = Array.from(e.target.files);
+    this.formState.photo = Array.from(e.target.files)[0];
     if (!e) return
     this.rawText = ''
     this.result = null

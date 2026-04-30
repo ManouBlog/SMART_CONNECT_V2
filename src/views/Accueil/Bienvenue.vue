@@ -121,7 +121,10 @@ export default {
   async mounted() {
     try {
       await this.STOREPARTENAIRE.getAllPartenaires();
-      await this.$store.dispatch('getInfoUser')
+      if(this.$store.state.user){
+     await this.$store.dispatch('getInfoUser')
+      }
+     
     } catch (error) {
       console.error("Erreur lors du chargement des partenaires :", error);
     }

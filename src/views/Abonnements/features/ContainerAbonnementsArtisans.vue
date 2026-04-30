@@ -191,7 +191,7 @@ if (storeAbonnement.profilHybride?.length) {
 storeAbonnement.createAbonement(formData)
 }
 const handleCreateYear =(payload)=>{
-  console.log("handleCreateAbonnement56")
+  console.log("handleCreateAbonnement56HS")
   console.log("handleCreateYear",payload)
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
     const statutBaseUser = store.state.user?.user?.statut_base;
@@ -217,6 +217,7 @@ if (storeAbonnement.tempsTravail) formData.append('tempsTravail', storeAbonnemen
 if (storeAbonnement.niveauEtude) formData.append('niveauEtude', storeAbonnement.niveauEtude);
 if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVupload);
 if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
+if (storeAbonnement.photo) formData.append('photo', storeAbonnement.photo);
 
 // Ajout des tableaux avec JSON.stringify pour Laravel
 if (storeAbonnement.profilHybride?.length) {

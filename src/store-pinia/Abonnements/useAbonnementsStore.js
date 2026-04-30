@@ -19,7 +19,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const niveauEtude =  ref(null);
         const CVupload =  ref(null);
         const statut_talent = ref(null);
-        const upload = ref(null);
+        const photo = ref(null);
         const treatment_preferentiel = ref(null);
         const diplome = ref(null);
         const profilHybride = ref([]);
@@ -79,8 +79,8 @@ if ("nom" in payload) {
   if ("CVupload" in payload) {
     CVupload.value = payload.CVupload;
   }
-  if ("upload" in payload) {
-    upload.value = payload.upload;
+  if ("photo" in payload) {
+    photo.value = payload.photo;
   }
   if ("statut_talent" in payload) {
     statut_talent.value = payload.statut_talent;
@@ -164,7 +164,7 @@ if("statut_entreprise" in payload){
          tempsTravail,
          niveauEtude,
          CVupload,
-         upload,
+         photo,
          statut_talent,
          diplome,
          treatment_preferentiel,
