@@ -471,7 +471,11 @@ export default {
         Les champs avec astérisque (*) sont obligatoires.
       </p>
       <div>
-       <form @submit.prevent="create_offre" class="container">
+       <form 
+       @submit.prevent="create_offre"
+        class="container"
+        v-if="competenceWithCategorie.length || categoriesOffres.length || countries.length"
+        >
   <!-- Ligne 1 : Catégorie + Compétence -->
   <div class="row g-3">
     <div class="col-lg-6 col-md-6 col-12 text-left my-3">
@@ -496,7 +500,8 @@ export default {
               :class="{ 'select-disabled': !categorie || categorie === 'autre' }"
               v-model="competence" name="select_comp" id="select_comp" @change="chooseCompetence">
         <option value="" disabled style="color: brown">{{ texte4 }}</option>
-        <option :value="item.id" v-for="(item, index) in competenceWithCategorie" :key="index">
+        <option :value="item.id" 
+        v-for="(item, index) in competenceWithCategorie" :key="index">
           {{ item.competence }}
         </option>
         <option style="color: brown" v-if="!competenceWithCategorie.length && !categorie" disabled>
@@ -639,12 +644,37 @@ export default {
       </button>
     </div>
   </div>
-</form>
+      </form>
+   <div v-else style="text-align:center;padding:1em;font-size: 1.5em;" class="shimmer-text">
+      Chargement...
+      </div>
       </div>
     </div>
   </section>
 </template>
 <style scoped>
+.shimmer-text {
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    #999 0%,
+    #fff 50%,
+    #999 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
 .select-disabled {
   background-color: #e5e5e5;
   color: #666;
