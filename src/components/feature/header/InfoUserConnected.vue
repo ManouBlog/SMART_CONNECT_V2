@@ -1,12 +1,12 @@
 <script>
-import instance, { lienPhoto } from "../../../../api/api";
-import LiensNavBar from "../LiensNavBar.vue";
+import instance, { lienPhoto } from "../../../api/api";
+import LiensNavBar from "./LiensNavBar.vue";
 import Swal from "sweetalert2";
 import { mapActions } from "pinia";
-import { Help } from "../../../../utils";
-import { useMenuMobile } from "../../../../store-pinia/MenuMobile/useMenuMobileStore";
-import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
-import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
+import { Help } from "../../../utils";
+import { useMenuMobile } from "../../../store-pinia/MenuMobile/useMenuMobileStore";
+import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 export default {
   name: "InfoStudent",
   components: {
@@ -55,6 +55,8 @@ export default {
       texte40: "",
       data: null,
       user: null,
+      texte30 :"",
+      texte50 :"" 
     };
   },
   computed: {
@@ -130,6 +132,14 @@ export default {
     this.texte4 = await this.handleTranslate("Mes disponibilités");
     this.texte5 = await this.handleTranslate("Mes abonnements");
     this.texte6 = await this.handleTranslate("Déconnexion");
+
+    //  this.texte1 = await this.handleTranslate(`Tableau de bord`);
+    this.texte20 = await this.handleTranslate("Liste des offres");
+    this.texte30 = await this.handleTranslate("Créer une offre");
+    this.texte40 = await this.handleTranslate("Talents sélectionnés");
+    this.texte50 = await this.handleTranslate("Postulants");
+    // this.texte6 = await this.handleTranslate("Mes abonnements");
+    // this.texte7 = await this.handleTranslate("Déconnexion");
   },
 };
 </script>
@@ -196,6 +206,35 @@ export default {
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/emploi_du_temps" class="d-block">
               {{ texte4 }}
+            </router-link>
+          </li>
+        </a-menu-item>
+
+        <a-menu-item>
+          <li class="position-absolute deconnex">
+            <router-link to="/dashboard/offre" class="d-block">
+              {{ texte20 }}
+            </router-link>
+          </li>
+        </a-menu-item>
+        <a-menu-item>
+          <li class="position-absolute deconnex">
+            <router-link to="/dashboard/creation_offre" class="d-block">
+              {{ texte30 }}
+            </router-link>
+          </li>
+        </a-menu-item>
+        <a-menu-item>
+          <li class="position-absolute deconnex">
+            <router-link to="/dashboard/personnel" class="d-block">
+              {{ texte40 }}
+            </router-link>
+          </li>
+        </a-menu-item>
+        <a-menu-item>
+          <li class="position-absolute deconnex">
+            <router-link to="/dashboard/postulants" class="d-block">
+              {{ texte50 }} <span class="badge bg-danger" v-if="dataAlarm">{{dataAlarm}}</span>
             </router-link>
           </li>
         </a-menu-item>

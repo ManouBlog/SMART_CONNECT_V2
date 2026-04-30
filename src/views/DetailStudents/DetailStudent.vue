@@ -600,18 +600,19 @@ for (const item of data) {
       this.checkboxDate = false;
       this.checkbox = false;
     },
-    choiceOtherTalentNotStudent(studentId){
+    async choiceOtherTalentNotStudent(studentId){
      console.log("choiceOtherTalentNotStudent",studentId)
-  //    try{
-  // const response = await instance.post("entreprise_student", {
-  //         student_id: studentId,
-  //         date: VerfDoublonInDate,
-  //         option: "date",
-  //         offre_id: this.selectedOffreWithDate,
-  //       })
-  //    }catch(error){
-  //     console.log(error);
-  //    }
+     console.log("this.selectedOffreWithDate",this.selectedOffreWithDate)
+     try{
+  const response = await instance.post("entreprise_student", {
+          student_id: studentId,
+          option: "date",
+          offre_id: this.selectedOffreWithDate,
+    })
+    console.log("choiceOtherTalentNotStudent",response)
+     }catch(error){
+      console.log(error);
+     }
     },
     choiceStudentWithDisponibilite(studentId) {
       loadingSpinner.launchLoading(true);

@@ -4,8 +4,9 @@ import Swal from "sweetalert2";
 import "@kong/kongponents/dist/style.css";
 // import SelectLanguage from "./feature/header/SelectLanguage.vue";
 import LiensNavBar from "./feature/header/LiensNavBar.vue";
-import InfoEntreprise from "./feature/header/Entreprise/InfoEntreprise.vue";
-import InfoStudent from "./feature/header/Student/InfoStudent.vue";
+import InfoUserConnected from "./feature/header/InfoUserConnected.vue"
+// import InfoEntreprise from "./feature/header/Entreprise/InfoEntreprise.vue";
+// import InfoStudent from "./feature/header/Student/InfoStudent.vue";
 import ListeFavoris from "./feature/header/ListeFavoris.vue";
 // import ListeNotifications from "./feature/header/ListeNotifications.vue";
 import ListeAlarmStudent from "./feature/header/ListeAlarmStudent.vue";
@@ -22,8 +23,9 @@ export default {
     MenuMobile,
     // SelectLanguage,
     LiensNavBar,
-    InfoEntreprise,
-    InfoStudent,
+    InfoUserConnected,
+    // InfoEntreprise,
+    // InfoStudent,
     ListeFavoris,
     // ListeNotifications,
     ListeAlarmStudent,
@@ -210,24 +212,13 @@ export default {
       <div class="row">
         <div class="top_header">
           <nav class="navbar navbar-fixed-top">
-            <div class="container conteneur-flex_nav">
+            <div class="conteneur-flex_nav">
               <div class="logo">
                 <router-link :to="{ name: 'Bienvenue' }">
                   <img class="img-fluid" src="../assets/brobroli_1.png" alt="Photo" />
                 </router-link>
               </div>
-              <div class="navbar-header">
-                <button
-                  type="button"
-                  class="navbar-toggle collapsed"
-                  @click="changeValueForshowMenuMobile"
-                >
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-              </div>
-
+              
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav_lien_nav_bar">
                   <LiensNavBar :texte="texte1" :route_lien="'Bienvenue'" />
@@ -285,7 +276,8 @@ export default {
                   href="#"
                   v-if="!this.$store.state.user"
                   class="login_user mx-3"
-                  style="font-family: 'Poppins', sans-serif; font-weight: bold"
+                  style="font-family: 'Poppins', sans-serif; 
+                  font-weight: bold;font-size:1.2em !important;color:black;"
                   @click.prevent="changeValueIsModal"
                 >
                   {{ texte5 }}
@@ -297,26 +289,24 @@ export default {
                     this.$store.state.user?.user?.statuses?.some(s=>s.statut == 'Entreprise' || s.statut == 'Particulier')
                   "
                 />
-                <!-- <ListeNotifications
-                  v-if="
-                    this.$store.state.user &&
-                    this.$store.state.user?.user?.statut?.statut === 'Entreprise'
-                  "
-                /> -->
+                
                 <ListeAlarmStudent v-if="this.$store.state.user" />
                 <div>
-                  <InfoEntreprise
-                  v-if="['Entreprise', 'Particulier'].includes($store.state.user?.user?.statut?.statut)"
-                  />
-                  <div
-                v-if="['Etudiant', 'Professionnel', 
-    'Artisan','Vétéran','Particulier'].includes($store.state.user?.user?.statut?.statut)
-"
-                    class="login_user"
-                  >
-                    <InfoStudent />
+                  <div class="login_user">
+                    <InfoUserConnected />
                   </div>
                 </div>
+              </div>
+              <div class="navbar-header">
+                <button
+                  type="button"
+                  class="navbar-toggle collapsed"
+                  @click="changeValueForshowMenuMobile"
+                >
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
               </div>
             </div>
           </nav>
@@ -325,10 +315,32 @@ export default {
     </div>
   </section>
 </template>
-<style>
+<style scoped>
 .navbar-header {
-  text-align: center;
+  display: none;
 }
+
+/* Visible uniquement sur mobile */
+@media (max-width: 1240px) {
+  .navbar-header {
+    display: block;
+    text-align: center;
+  }
+}
+
+@media (max-width:1177){
+  .navbar-collapse{
+    display: none !important;
+  }
+}
+
+@media (max-width: 1197px) {
+  .conteneur-flex_nav{
+   justify-content: flex-start !important;
+   height: 90px !important;
+  }
+}
+
 .ant-dropdown-link {
   font-size: 1.2em;
 }
@@ -345,7 +357,7 @@ export default {
 }
 .conteneur-flex_nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5em;
@@ -528,7 +540,6 @@ export default {
   place-items: center;
   z-index: 99;
 }
-.login_user,
 .login_user_mobile {
   padding: 0.3em;
   border-radius: 10px;
@@ -539,6 +550,15 @@ export default {
   .login_user {
     display: none;
   }
+  .conteneur-favoris-name_user{
+    display: none;
+  }
+}
+@media screen and (min-width:1745px) {
+  .conteneur-flex_nav{
+   padding: 1em !important;
+  }
+  
 }
 
 .see_details_emploi {

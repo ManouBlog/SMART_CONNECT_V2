@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      texte2: "",
+      texte20: "",
       texte3: "",
       texte1: "",
       texte4: "",
@@ -105,7 +105,7 @@ export default {
   },
   async created() {
     this.texte1 = await this.handleTranslate(`Tableau de bord`);
-    this.texte2 = await this.handleTranslate("Liste des offres");
+    this.texte20 = await this.handleTranslate("Liste des offres");
     this.texte3 = await this.handleTranslate("Créer une offre");
     this.texte4 = await this.handleTranslate("Talents sélectionnés");
     this.texte5 = await this.handleTranslate("Postulants");
@@ -125,59 +125,39 @@ export default {
     </a>
     <template #overlay>
       <a-menu>
-        <a-menu-item>
+        <!-- <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/accueil" class="d-block">
               {{ texte1 }}
             </router-link>
           </li>
-        </a-menu-item>
-        <a-menu-item>
+        </a-menu-item> -->
+        <!-- <a-menu-item>
           <LiensNavBar :texte="'Mon espace'" :route_lien="'profil'" />
-        </a-menu-item>
-        <a-menu-item>
-          <li class="position-absolute deconnex">
-            <router-link to="/dashboard/offre" class="d-block">
-              {{ texte2 }}
-            </router-link>
-          </li>
-        </a-menu-item>
-        <a-menu-item>
-          <li class="position-absolute deconnex">
-            <router-link to="/dashboard/creation_offre" class="d-block">
-              {{ texte3 }}
-            </router-link>
-          </li>
-        </a-menu-item>
-        <a-menu-item>
-          <li class="position-absolute deconnex">
-            <router-link to="/dashboard/personnel" class="d-block">
-              {{ texte4 }}
-            </router-link>
-          </li>
-        </a-menu-item>
-        <a-menu-item>
+        </a-menu-item> -->
+        
+        <!-- <a-menu-item>
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/postulants" class="d-block">
-              {{ texte5 }} <span class="badge bg-danger" v-if="dataAlarm">{{dataAlarm}}</span>
+              {{ texte50 }} <span class="badge bg-danger" v-if="dataAlarm">{{dataAlarm}}</span>
             </router-link>
           </li>
-        </a-menu-item>
-         <a-menu-item>
+        </a-menu-item> -->
+         <!-- <a-menu-item>
           <li>
             <router-link to="/avis" class="d-block">
               Votre avis 
             </router-link>
           </li>
-        </a-menu-item>
-        <a-menu-item>
+        </a-menu-item> -->
+        <!-- <a-menu-item>
           <LiensNavBar :texte="texte6" :route_lien="'dashboard-abonnements'" />
-        </a-menu-item>
-        <a-menu-item>
+        </a-menu-item> -->
+        <!-- <a-menu-item>
           <li class="position-absolute deconnex">
             <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{ texte7 }}</a>
           </li>
-        </a-menu-item>
+        </a-menu-item> -->
       </a-menu>
     </template>
   </a-dropdown>
