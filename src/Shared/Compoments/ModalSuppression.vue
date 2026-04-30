@@ -42,7 +42,7 @@ export default {
     @cancel="changeValueForShowModalSuppression"
     @ok="changeValueForShowModalSuppression"
   >
-    <h4>{{texte}}</h4>
+    <h4 style="text-align: center;">{{texte}}</h4>
     <div class="p-5 d-flex justify-content-center g-3 my-3">
       <button
         class="btn rounded-5 bg-warning mx-3"
