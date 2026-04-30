@@ -233,6 +233,15 @@ export default {
 };
 </script>
 <style>
+:where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-tab:hover {
+  color: orange !important;
+}
+:where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-ink-bar  {
+  background: orange !important;
+}
+:where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper:hover{
+  color: orange !important;
+}
 .switch-green.ant-switch-checked {
   background-color: #52c41a !important; /* vert Ant Design */
 }
