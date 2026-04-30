@@ -46,9 +46,9 @@ export default {
       <em :class="icone_name" class="mx-3"></em>
       <span style="font-weight:bold;">{{ texte }} </span>
     </div>
-    <div  v-if="isPayement">
+    <div  v-if="isPayement" style="margin-top: 23px;">
       <h1 style="color:orange;font-size:3.9em;">100%</h1>
-      <span style="font-weight:bold;">{{ texte }}</span>
+      <span style="font-weight:bold">{{ texte }}</span>
     </div>
   </section>
 </template>

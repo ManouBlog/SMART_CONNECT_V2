@@ -88,10 +88,10 @@ const initIntersectionObserver = () => {
 onMounted(async () => {
   texte0.value = await translateStore.handleTranslate("Nos chiffres clés");
   texte1.value = await translateStore.handleTranslate("Entreprise(s)");
-  texte2.value = await translateStore.handleTranslate("Offre(s) enregistrées");
+  texte2.value = await translateStore.handleTranslate("Offre(s)");
   texte3.value = await translateStore.handleTranslate("Talent(s)");
   texte4.value = await translateStore.handleTranslate("Visiteur(s)");
-  texte55.value = await translateStore.handleTranslate("Étudiants");
+  texte55.value = await translateStore.handleTranslate("Étudiant(s)");
   await seePerformanceNbre();
   initIntersectionObserver();
 });
@@ -111,6 +111,18 @@ onUnmounted(() => {
     <div class="row">
       <div class="container">
         <div class="conteneur-card-performance" id="cardPerf">
+          <div style="display: flex;gap: 0.5em;" class="circles-container">
+<CardPerformance
+            :myStyle="'card_perfor_nbre_student_save'"
+            :icone_name="'bi bi-person-lines-fill'"
+            :texte="'Particulier(s)'"
+            :nbre="Number(formatNumber(Number(student)))"
+            :class="{ 'fade-in': cardPerfVisible }"
+            :isPayement="false"
+            :suffix="formatSuffix(Number(student))"
+            :tooltip="student.toString()"
+            :decimals="Number(student) > 1000  ? 1:null"
+          />
           <CardPerformance
             v-if="Number(entreprises) > 100"
             :myStyle="'card_perfor_one'"
@@ -123,17 +135,7 @@ onUnmounted(() => {
             :tooltip="entreprises.toString()"
             :decimals="Number(entreprises) > 1000  ? 1:null"
           />
-          <CardPerformance
-            :myStyle="'card_perfor_two'"
-            :icone_name="'bi bi-briefcase-fill'"
-            :texte="texte2"
-            :nbre="Number(formatNumber(Number(offres)))"
-            :class="{ 'fade-in': cardPerfVisible }"
-             :isPayement="false"
-             :suffix="formatSuffix(Number(offres))"
-             :tooltip="offres.toString()"
-             :decimals="Number(offres) > 1000  ? 1:null"
-          />
+          
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
@@ -148,7 +150,7 @@ onUnmounted(() => {
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Professionnels inscrits'"
+            :texte="'Professionnel(s)'"
             :nbre="Number(formatNumber(Number(student)))"
             :class="{ 'fade-in': cardPerfVisible }"
             :isPayement="false"
@@ -159,7 +161,7 @@ onUnmounted(() => {
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Artisans inscrits'"
+            :texte="'Artisan(s)'"
             :nbre="Number(formatNumber(Number(student)))"
             :class="{ 'fade-in': cardPerfVisible }"
             :isPayement="false"
@@ -170,7 +172,7 @@ onUnmounted(() => {
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Vétérans inscrits'"
+            :texte="'Vétéran(s)'"
             :nbre="Number(formatNumber(Number(student)))"
             :class="{ 'fade-in': cardPerfVisible }"
             :isPayement="false"
@@ -178,9 +180,23 @@ onUnmounted(() => {
             :tooltip="student.toString()"
             :decimals="Number(student) > 1000  ? 1:null"
           />
-          <CardPerformance
+          
+          </div>
+          <div style="display: flex;gap: 0.5em;" class="circles-container">
+            <CardPerformance
+            :myStyle="'card_perfor_nbre_student_save'"
+            :icone_name="'bi bi-briefcase-fill'"
+            :texte="texte2"
+            :nbre="Number(formatNumber(Number(offres)))"
+            :class="{ 'fade-in': cardPerfVisible }"
+             :isPayement="false"
+             :suffix="formatSuffix(Number(offres))"
+             :tooltip="offres.toString()"
+             :decimals="Number(offres) > 1000  ? 1:null"
+          />
+       <CardPerformance
             v-if="Number(timetable) > 100"
-            :myStyle="'card_perfor_three'"
+            :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte3"
             :nbre="Number(formatNumber(Number(timetable)))"
@@ -192,7 +208,7 @@ onUnmounted(() => {
           />
 
           <CardPerformance
-            :myStyle="'card_perfor_two'"
+            :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte4"
             :nbre="Number(formatNumber(Number(visiteur)))"
@@ -203,12 +219,13 @@ onUnmounted(() => {
              :decimals="Number(visiteur) > 1000  ? 1:null"
           />
           <CardPerformance
-            :myStyle="'card_perfor_payment'"
-          
+            :myStyle="'card_perfor_nbre_student_save'"
             :texte="'Paiement garanti'"
              :class="{ 'fade-in': cardPerfVisible }"
             :isPayement="true"
           />
+          </div>
+          
         </div>
       </div>
     </div>
@@ -247,13 +264,58 @@ onUnmounted(() => {
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
 }
-.card_perfor_nbre_student_save{
-     width: 200px;
-    height: 200px;
+/* Desktop */
+.circles-container {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .circles-container {
+    overflow-x: auto;
+    padding: 10px;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    justify-content: flex-start;
+  }
+
+  /* Scrollbar visible et stylée */
+  .circles-container::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .circles-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  .circles-container::-webkit-scrollbar-thumb {
+    background: #6c757d;
+    border-radius: 10px;
+  }
+
+  .circles-container::-webkit-scrollbar-thumb:hover {
+    background: #495057;
+  }
+
+  .card_perfor_nbre_student_save {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+}
+
+.card_perfor_nbre_student_save {
+  flex: 0 0 auto; /* important pour empêcher le wrap */
+  width: 200px;
+  height: 200px;
   color: white;
-     text-align:center;
+  text-align: center;
   background: rgba(4, 3, 1, 0.649);
-  border-radius: 100%;
+  border-radius: 50%;
+  padding: 1.9em 1em;
+  scroll-snap-align: start;
 }
 .card_perfor_payment{
       width: 200px;
