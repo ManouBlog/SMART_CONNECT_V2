@@ -38,6 +38,7 @@ export default {
       texte3: "",
       texte1: "",
       texte0989:"",
+      isLoading:true,
       documentLabels : {
   Etudiant: "Carte étudiant",
   Professionnel: "Diplôme",
@@ -295,10 +296,11 @@ userDocuments() {
     },
    
     async seeMessageUploadProfil() {
-      await this.$store.dispatch("getInfoUser");
-      const infoUser = this.$store.state.infoUserConnected;
+  try {
+    await this.$store.dispatch("getInfoUser");
+    const infoUser = this.$store.state.infoUserConnected;
 
-      if (infoUser?.user?.statuses?.some(s => s.statut === 'Etudiant')){
+    if (infoUser?.user?.statuses?.some(s => s.statut === 'Etudiant')) {
       const competences = infoUser.competences;
       const qualifications = infoUser.qualifications;
       const jours = infoUser.jours;
@@ -321,9 +323,11 @@ userDocuments() {
           showConfirmButton: true,
         });
       }
-      }
-      
-    },
+    }
+  } finally {
+    this.isLoading = false;
+  }
+}
 
  
   },
@@ -357,7 +361,7 @@ userDocuments() {
     <ModalForModifyInfo />
     <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div class="page-body">
-      <TabView v-if="this.$store.state.infoUserConnected">
+      <TabView v-if="!isLoading">
         <TabPanel :header="this.$store.state.infoUserConnected.user?.statut?.statut != 'Entreprise' ? texte1:texte0989">
           <div>
             <InfoEntreprise 
