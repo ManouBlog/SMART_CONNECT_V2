@@ -785,7 +785,7 @@ for (const item of data) {
     this.texte4 = await this.handleTranslate("Choisir une offre");
     this.texte5 = await this.handleTranslate("Sélectionner une offre");
     this.texte6 = await this.handleTranslate("Pas d'offres");
-    this.texte7 = await this.handleTranslate("Séléctionner");
+    this.texte7 = await this.handleTranslate("Séléctionner ce talent");
     this.texte8 = await this.handleTranslate(
       "Ce talent n'a pas encore fait un abonnement."
     );
@@ -1121,7 +1121,7 @@ hr {
     margin: 1em 0;
   }
   .conteneur_calendar_student {
-    margin-top: 9em !important;
+    margin-top: 6em !important;
   }
   .conteneur_student {
     padding: 0 1em;

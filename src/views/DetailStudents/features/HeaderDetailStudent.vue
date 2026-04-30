@@ -71,15 +71,16 @@ export default {
           v-if="timetable_for_student.photo_profil"
           style="border: 2px solid orange; object-fit: cover"
           round
-          :size="50"
+          :size="100"
           :src="lienPhoto + timetable_for_student.photo_profil"
         />
         <span
           style="
             border: 2px solid orange;
             object-fit: cover;
-            padding: 1em;
-            /* line-height: 50px; */
+            padding: 35px;
+            min-width: 40px;
+            min-height: 40px;
             text-align: center;
             border-radius: 100%;
             background: gray;
@@ -107,10 +108,13 @@ export default {
         <div style="display: flex; flex-direction: column; gap: 0.5em; align-items: flex-start">
           <h3 class="text-left my-3">
             {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
-        
-             
           </h3>
-          <span class="badge bg-warning">{{ timetable_for_student?.user?.statut?.statut }}</span>
+          <!-- Conteneur avec flex et gap -->
+<div v-for="item in timetable_for_student?.user.statuses"
+ :key="item.id">
+    <span class="badge bg-warning">{{ item.statut }}</span>
+</div>
+          
           <n-rate
             v-if="timetable_for_student.average"
             readonly
