@@ -54,6 +54,7 @@ export default {
       texte25: "",
       texte26: "",
       IsAmbassador:"",
+      statistiquesEntreprise:""
     };
   },
   methods: {
@@ -63,23 +64,20 @@ export default {
       "filterOffreWithYear",
     ]),
     ...mapActions(useEntreprisesStore, [
-      "get_students_contact",
-      "get_offres_interess_by_student",
+      // "get_students_contact",
+      // "get_offres_interess_by_student",
+      "handleStatistiquesEntreprise",
     ]),
     ...mapActions(useInfoStudentStore, [
       "filterDataWithYear",
       "getStatistiqueDashboardStudent",
     ]),
     handleData(year) {
-      
-     if (
-  this.$store.state.user &&
-  (this.$store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
-){
+      console.log('shandleDatatatuses',this.$store.state.user?.user?.statuses)
+     if (this.isStudentProfile){
         this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
-      } else {
-        this.filterOffreWithYear(year);
+      } else{
+         this.filterOffreWithYear(year);
       }
     },
     async verifUserProfilEtudiantComplet() {
@@ -96,13 +94,13 @@ if (!user.competences.length || !user.qualifications.length) {
    }
   }
   
-}
+},
+
   },
   computed: {
     ...mapState(useInfoStudentStore, ["statistiqueDashboard"]),
     ...mapState(useOffreStore, ["offreCreatedByEntreprise"]),
-    ...mapState(useEntreprisesStore, ["offresInteressByStudents"]),
-    ...mapState(useEntreprisesStore, ["student", "studentRecruit", "list_students"]),
+    ...mapState(useEntreprisesStore, ["student","offresInteressByStudents","studentRecruit", "list_students","statistiquesFormelleOrInformelleEntreprise"]),
      userStatuses() {
     return this.$store.state.user?.user?.statuses || [];
   },
@@ -116,6 +114,12 @@ if (!user.competences.length || !user.qualifications.length) {
   isEntrepriseProfile() {
     return this.userStatuses.some(item =>
       ['Entreprise', 'Particulier'].includes(item.statut)
+    );
+  },
+
+  isEntrepriseInformelleOrFormelleProfile() {
+    return this.userStatuses.some(item =>
+      ['Entreprise'].includes(item.statut)
     );
   },
 
@@ -150,24 +154,22 @@ if (!user.competences.length || !user.qualifications.length) {
       {
         libelle: this.texte5,
         isVisible: this.isEntrepriseProfile,
-        nbre: `${this.offreCreatedByEntreprise?.length || 0}`
+        nbre:this.statistiquesFormelleOrInformelleEntreprise?.offrePostule
       },
       {
         libelle: this.texte6,
         isVisible: this.isEntrepriseProfile,
-        nbre: Object.keys(this.offresInteressByStudents || {}).length
+        nbre: this.statistiquesFormelleOrInformelleEntreprise?.offrePending
       },
       {
         libelle: this.texte7,
         isVisible: this.isEntrepriseProfile,
-        nbre: configUtils.statistiqueEntreprise(this.student, 2)
+        nbre: this.statistiquesFormelleOrInformelleEntreprise?.offreCancel
       },
       {
         libelle: this.texte8,
         isVisible: this.isEntrepriseProfile,
-        nbre:
-          Object.keys(this.offresInteressByStudents || {}).length -
-          configUtils.statistiqueEntreprise(this.student, 2)
+        nbre:this.statistiquesFormelleOrInformelleEntreprise?.offreAccepted
       }
     ];
 
@@ -192,17 +194,16 @@ if (!user.competences.length || !user.qualifications.length) {
   }
   },
   async created() {
-   if(
-  !(this.$store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
-){
-      this.get_students_contact();
-      this.get_offres_interess_by_student();
-      this.getAllOffresCreatedByEntreprise();
-     
+   if(this.isEntrepriseProfile){
+   await this.handleStatistiquesEntreprise({ annee: this.date_filter.$y })
     }
+    if(this.isStudentProfile){
      this.verifUserProfilEtudiantComplet()
     this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
+}
+
+console.log("this.offresInteressByStudents",this.offresInteressByStudents)
+console.log('this.student',this.student)
 
     this.texte0 = await this.handleTranslate("Tableau de bord");
     this.texte1 = await this.handleTranslate(`Nombre d'offres postulées`);
@@ -223,6 +224,7 @@ if (!user.competences.length || !user.qualifications.length) {
 
 <template>
   <section>
+    
     <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
     <div class="conteneur_filter">
       <a-date-picker v-model:value="date_filter" @change="handleData" picker="year" />

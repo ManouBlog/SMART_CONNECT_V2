@@ -14,6 +14,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
         list_abonnement:[],
         planAbonnement:null,
         dataAlarm:null,
+        statistiquesFormelleOrInformelleEntreprise:null
     }),
     actions: {
        async getEntreprise() {
@@ -92,6 +93,20 @@ export const useEntreprisesStore = defineStore('entreprise', {
                 console.log(error)
             }
           },
+          async handleStatistiquesEntreprise(payload){
+   await instance
+              .post("statistiqueDashboard/entreprise",payload)
+              .then((res) => {
+                console.log("statistiqueDashboard",res.data);
+                this.statistiquesFormelleOrInformelleEntreprise = res.data;
+              })
+              .catch((err) => {
+                console.log(err);
+              })
+              .finally(()=>{
+                 loadingSpinner.launchLoading(false);
+              })
+},
           handlePlanAbonnement(payload) {
     
       payload.forEach((item) => {
