@@ -48,7 +48,7 @@ const handleCreateEntrepriseByYear=(payload)=>{
         addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id),
         nom: storeAbonnement.nom,
         expertise : storeAbonnement.niveauExpertise,
-        upload:storeAbonnement.upload,
+        photo:storeAbonnement.photo,
         diplome:storeAbonnement.diplome,
         ville:storeAbonnement.ville,
         commune:storeAbonnement.commune,
@@ -104,7 +104,7 @@ if (storeAbonnement.addProfilHybride?.length) {
 // Autres champs
 if (data.nom) formData.append('nom', data.nom);
 if (data.expertise) formData.append('expertise', data.expertise);
-if (data.upload) formData.append('upload', data.upload);
+if (data.photo) formData.append('photo', data.photo);
 if (data.diplome) formData.append('diplome', data.diplome);
 if (data.ville) formData.append('ville', data.ville);
 if (data.commune) formData.append('commune', data.commune);
@@ -124,33 +124,6 @@ if (data.contact) formData.append('contact', data.contact);
   storeAbonnement.createAbonement(formData)
 }
 
-// const handleCreateYear =(payload)=>{
-//   console.log("handleCreateAbonnement56")
-//   console.log("handleCreateYear",payload)
-//   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
-//     const statutBaseUser = store.state.user?.user?.statut_base;
-//    const randomPart = Math.random().toString(36).substring(2);
-//         const data = {
-//             abonement_id:payload.id,
-//             channels:"undefined",
-//             mode_payment:select_mode_payment_tab.value,
-//             transaction_id:randomPart,
-//             isAddProfilHybride:storeAbonnement.addProfilHybride.map(item => item.id).length ? true:false,
-//             statut_base:storeAbonnement.statutOfBase || statutBaseUser,
-//             isChangeProfil:storeAbonnement.isChangeProfil,
-//             treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-//              niveauExpertise : storeAbonnement.niveauExpertise ,
-//         modeTravail : storeAbonnement.modeTravail ,
-//         tempsTravail : storeAbonnement.tempsTravail ,
-//         niveauEtude : storeAbonnement.niveauEtude ,
-//         CVupload : storeAbonnement.CVupload ,
-//         statut_talent : storeAbonnement.statut_talent ,
-//         profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
-//         addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
-//         }
-//   console.log("paymentabonnement_year",data)
-//   storeAbonnement.createAbonement(data)
-// }
 
 // Détecte si le user est connecté et possède un statut
 const isUserConnected = computed(() => {

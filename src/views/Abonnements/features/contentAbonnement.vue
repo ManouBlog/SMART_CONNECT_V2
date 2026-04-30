@@ -156,12 +156,12 @@ if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVuplo
 if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
 
 // Logique profilHybride préservée
-if (storeAbonnement.profilHybride) {
-    const profils = storeAbonnement.profilHybride.every(item => typeof item === "number") 
-        ? storeAbonnement.profilHybride 
-        : storeAbonnement.profilHybride.map(item => item.id);
-    
-    formData.append('profilHybride', JSON.stringify(profils));
+if (storeAbonnement.profilHybride?.length) {
+  storeAbonnement.profilHybride
+    .map(item => item.id)
+    .forEach(id => {
+      formData.append("profilHybride[]", id);
+    });
 }
   console.log("paiement_content_month_contentabonnement",formData)
 storeAbonnement.createAbonement(formData)
@@ -171,24 +171,8 @@ const handleCreateYear =(payload)=>{
   console.log("handleCreateYear",payload)
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
    const randomPart = Math.random().toString(36).substring(2);
-       
-        // const data = {
-        //     abonement_id:payload.id,
-        //     channels:"undefined",
-        //     mode_payment:select_mode_payment_tab.value,
-        //     transaction_id:randomPart,
-        //     isChangeProfil:storeAbonnement.isChangeProfil,
-        //     statut_base:storeAbonnement.statutOfBase,
-        //     treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-        //      niveauExpertise : storeAbonnement.niveauExpertise ,
-        // modeTravail : storeAbonnement.modeTravail ,
-        // tempsTravail : storeAbonnement.tempsTravail ,
-        // niveauEtude : storeAbonnement.niveauEtude ,
-        // CVupload : storeAbonnement.CVupload ,
-        // statut_talent : storeAbonnement.statut_talent ,
-        // profilHybride:storeAbonnement.profilHybride.every(item => typeof item === "number") ? storeAbonnement.profilHybride:storeAbonnement.profilHybride.map(item => item.id),
-        // }
-        const formData = new FormData();
+      
+  const formData = new FormData();
 
 // Champs de base
 if (payload.id) formData.append('abonement_id', payload.id);

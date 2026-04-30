@@ -138,24 +138,7 @@ const handleCreateMonth =(payload)=>{
   console.log("handleCreateMonth",payload)
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   const randomPart = Math.random().toString(36).substring(2);
-       
-        // const data = {
-        //     abonement_id:payload.id,
-        //     channels:"undefined",
-        //     mode_payment:select_mode_payment_tab.value,
-        //     transaction_id:randomPart,
-        //     isChangeProfil:storeAbonnement.isChangeProfil,
-        //     statut_base:storeAbonnement.statutOfBase,
-        //     treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-        //      niveauExpertise : storeAbonnement.niveauExpertise ,
-        // modeTravail : storeAbonnement.modeTravail ,
-        // tempsTravail : storeAbonnement.tempsTravail ,
-        // niveauEtude : storeAbonnement.niveauEtude ,
-        // CVupload : storeAbonnement.CVupload ,
-        // statut_talent : storeAbonnement.statut_talent ,
-        // profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
-        // }
-        const formData = new FormData();
+  const formData = new FormData();
 
 if (payload.id) formData.append("abonement_id", payload.id);
 if (select_mode_payment_tab.value) formData.append("mode_payment", select_mode_payment_tab.value);
@@ -198,7 +181,11 @@ if (storeAbonnement.statut_talent) {
 }
 
 if (storeAbonnement.profilHybride?.length) {
-  formData.append("profilHybride", JSON.stringify(storeAbonnement.profilHybride));
+  storeAbonnement.profilHybride
+    .map(item => item.id)
+    .forEach(id => {
+      formData.append("profilHybride[]", id);
+    });
 }
   console.log("PAIEMENT_ARTISAN_month",formData)
 storeAbonnement.createAbonement(formData)
@@ -209,24 +196,7 @@ const handleCreateYear =(payload)=>{
   console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
     const statutBaseUser = store.state.user?.user?.statut_base;
    const randomPart = Math.random().toString(36).substring(2);
-        // const data = {
-        //     abonement_id:payload.id,
-        //     channels:"undefined",
-        //     mode_payment:select_mode_payment_tab.value,
-        //     transaction_id:randomPart,
-        //     isAddProfilHybride:storeAbonnement.addProfilHybride.map(item => item.id).length ? true:false,
-        //     statut_base:storeAbonnement.statutOfBase || statutBaseUser,
-        //     isChangeProfil:storeAbonnement.isChangeProfil,
-        //     treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-        //      niveauExpertise : storeAbonnement.niveauExpertise ,
-        // modeTravail : storeAbonnement.modeTravail ,
-        // tempsTravail : storeAbonnement.tempsTravail ,
-        // niveauEtude : storeAbonnement.niveauEtude ,
-        // CVupload : storeAbonnement.CVupload ,
-        // statut_talent : storeAbonnement.statut_talent ,
-        // profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
-        // addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
-        // }
+        
         const formData = new FormData();
 
 // Ajout des champs simples
@@ -248,7 +218,6 @@ if (storeAbonnement.niveauEtude) formData.append('niveauEtude', storeAbonnement.
 if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVupload);
 if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
 
-// Ajout des tableaux avec JSON.stringify pour Laravel
 // Ajout des tableaux avec JSON.stringify pour Laravel
 if (storeAbonnement.profilHybride?.length) {
   storeAbonnement.profilHybride

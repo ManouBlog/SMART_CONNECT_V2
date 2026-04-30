@@ -123,7 +123,6 @@ if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVuplo
 if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
 
 // Ajout des tableaux avec JSON.stringify pour Laravel
-// Ajout des tableaux avec JSON.stringify pour Laravel
 if (storeAbonnement.profilHybride?.length) {
   storeAbonnement.profilHybride
     .map(item => item.id)
