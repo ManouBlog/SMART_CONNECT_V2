@@ -188,18 +188,21 @@ watch(
 );
 
 onMounted(async () => {
+  // await store.dispatch('getInfoUser');
   texte.value = await transalteStore.handleTranslate("année");
    console.log("PROFILE_ABONNEMENT_SUB_ENTREPRISE",storeAbonnement.profilHybride)
    console.log("storeAbonnement.addProfilHybrideSUBABONNEMENTENTREPRISE",storeAbonnement.addProfilHybride)
-  // profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
-
-  if (isUserConnected.value) {
+  if (store.state.user) {
+    if(store.state.user?.user?.statuses.some(item=>item.statut === 'Entreprise')){
+    profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
+    }
       await storeAbonnementUser.get_all_abonnement();
     }
 });
 </script>
 
 <template>
+  <!-- {{  store.state.user }} -->
   <div class="conteneur-flex">
     <div
       v-for="item in abonnements.filter(

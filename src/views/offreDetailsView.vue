@@ -129,14 +129,12 @@ Swal.fire({
         });
     },
     verfEnter() {
-      if (
-  (this.user?.user?.statuses || []).some(s =>
-    ['Entreprise', 'particulier'].includes(s.statut)
-  )
+      if (this.user?.user?.statuses.some(s =>['Entreprise', 'particulier'].includes(s.statut))
+      && !this.user?.user?.statuses.some(s =>['Artisan'].includes(s.statut))
 ) {
         Swal.fire({
           icon: "error",
-          title: "Vous n'êtes pas autorisé25.",
+          title: "Vous n'êtes pas autorisé.",
           showConfirmButton: false,
           timer: 3000,
         });
