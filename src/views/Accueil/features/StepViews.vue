@@ -79,7 +79,7 @@ export default {
       {
         id: 1,
         title: await this.handleTranslate("Je crée mon profil"),
-        text_colorie1: await this.handleTranslate("En 5 minutes,Gratuitement.Depuis mon App mobile ou web. "),
+        text_colorie1: await this.handleTranslate("En 5 minutes.Gratuitement.Depuis mon App mobile ou web. "),
         class: "slide-from-left",
         footer_btn: true,
       },
