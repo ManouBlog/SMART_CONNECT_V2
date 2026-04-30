@@ -14,6 +14,9 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
         infoUserConnected:null,
     }),
     actions: {
+      addInfoUserConnected(payload){
+      this.infoUserConnected=payload
+      },
        changeValueForToogleModalInfoPersonnelle(payload){
         // console.log("this.toogleModalInfoPersonnelle",this.toogleModalInfoPersonnelle)
         this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
