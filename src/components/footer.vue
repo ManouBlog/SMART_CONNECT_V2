@@ -54,11 +54,7 @@ export default {
     <div class="container-fluid footer">
       <div class="row conteneur-footer">
         <div class="container main-container-footer">
-          <CardFooter
-            :isWhite="true"
-            :title="texte6"
-            :listLien="['Cocody, abidjan, cote d’ivoire']"
-          />
+          
           <CardFooter
             :isLinkObject="true"
             :isWhite="true"
@@ -81,6 +77,11 @@ export default {
               },
               { text: 'contact@monbrobroli.com', icone: 'bi bi-envelope-fill' },
             ]"
+          />
+          <CardFooter
+            :isWhite="true"
+            :title="texte6"
+            :listLien="['Cocody, abidjan, cote d’ivoire']"
           />
           <LogoComponent />
         </div>

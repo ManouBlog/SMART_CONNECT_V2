@@ -72,7 +72,7 @@ export default {
         {{ texte2 }}
       </h1>
       <!-- <DefilementText /> -->
-      <div class="my-5" >
+      <div class="my-5" style="padding: 0 2em;" >
         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte3 }}</h4>
         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte100 }}</h4>
          <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte88 }}</h4>
