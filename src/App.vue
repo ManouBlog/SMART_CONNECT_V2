@@ -233,6 +233,9 @@ export default {
 };
 </script>
 <style>
+:where(.css-17yhhjv).ant-tabs .ant-tabs-ink-bar{
+  background-color: orange !important;
+}
 :where(.css-dev-only-do-not-override-17yhhjv).ant-btn-primary{
   background-color: orange !important;
 }
