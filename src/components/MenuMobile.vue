@@ -290,7 +290,7 @@ if (
       to="/dashboard/creation_offre"
       class="d-block"
     >
-      Créer une offre
+     {{ $store.state.user?.user.statut.statut == 'Entreprise'?'Créer une offre':'Poster une mission' }} 
     </router-link>
   </li>
    <li  v-if="

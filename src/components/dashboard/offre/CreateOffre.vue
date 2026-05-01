@@ -808,7 +808,7 @@ chooseCompetenceFormState(value) {
       <div class="Myspinner" v-show="spinner">
         <div class="spinner-border text-primary" role="status"></div>
       </div>
-      <HeaderDashboard :TitleHeader="'Ajouter une mission'" :subTitleHeader="'Ajouter une mission'" />
+      <HeaderDashboard :TitleHeader="'Poster une mission'" :subTitleHeader="'Poster une mission'" />
       <p style="text-align: center; color: red">
         Les champs avec astérisque (*) sont obligatoires.
       </p>

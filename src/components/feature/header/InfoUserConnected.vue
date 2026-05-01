@@ -220,7 +220,7 @@ export default {
         <a-menu-item v-if="user.user.statuses.some(s=>['Entreprise','Particulier'].includes(s.statut))">
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/creation_offre" class="d-block">
-              {{ texte30 }}
+              {{user.user.statut.statut === 'Entreprise' ? texte30:'Poster une mission' }}
             </router-link>
           </li>
         </a-menu-item>

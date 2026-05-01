@@ -214,7 +214,7 @@ Swal.fire({
                     {{ Offre.nom_offre }}
                   </h1>
                 </div>
-                <div class="d-flex flex-wrap gap-2 mt-2">
+                <div class="d-flex flex-wrap gap-2 mt-2" v-if="Offre.countries.length">
                   <h4
                   class="my-5"
                   style="color: white"
@@ -235,13 +235,11 @@ Swal.fire({
                 <h4
                   class="my-5"
                   style="color: white"
-                  v-if="abonnements.some((item) => item.statut === 'success')"
                 >
                    <em class="bi bi-geo"></em> Lieu : {{ Offre.lieu }}
                 </h4>
                 <h4
                   class="my-5"
-                  v-if="abonnements.some((item) => item.statut === 'success') && Offre?.owner?.nom"
                 >
                   <em class="bi bi-building"></em> Propriétaire : {{ Offre?.owner?.nom }}
                 </h4>
@@ -249,8 +247,8 @@ Swal.fire({
                   <h4 class="my-5" v-if="Offre.salaire != null" >
                     <em class="bi bi-cash-stack"></em>
                     Rémuneration :
-                    <span style="color:orange;margin:0.5em;">{{ moneyFormat.format(Offre.salaire) }} Fcfa /
-                    {{ Offre.pointage }}</span>
+                    <span style="color:orange;margin:0.5em;">{{ moneyFormat.format(Offre.salaire) }} Fcfa
+                     <span v-if="Offre.pointage"> / {{ Offre.pointage }}</span></span>
                   </h4>
                   <h4 class="my-5" v-else>
                     <em class="bi bi-cash-stack"></em> {{ texte }}
@@ -287,7 +285,7 @@ Swal.fire({
                   {{ configUtils.getFormatDateFr(Offre.job_fin) }}
                 </h4>
               </section>
-              <section>
+              <section v-if="Offre.fin">
                 <span class="my-2 fw-bold" style="color: orange"
                   >{{ texte5 }} {{ configUtils.getFormatDateFr(Offre.fin) }}</span
                 >

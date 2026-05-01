@@ -164,15 +164,10 @@ OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
     return allowedStatuts.includes(statut.statut?.toLowerCase());
   });
 });
-console.log('OFFRES_FILTER_BY_PROFIL',OFFRES_FILTER_BY_PROFIL)
-            this.MylistOffre = OFFRES_FILTER_BY_PROFIL.filter((item) => {
-             return new Date(item.fin) >= new Date();
-            });
-            console.log("MylistOffre23", this.MylistOffre);
-            this.MylistsOffres = OFFRES_FILTER_BY_PROFIL.filter((item) => {
-             return new Date(item.fin) >= new Date();
-            });
-            this.lengthOfMylistOffre = this.MylistsOffres.length;
+            // console.log("MylistOffre23", this.MylistOffre);
+            // this.MylistsOffres = OFFRES_FILTER_BY_PROFIL
+            this.MylistOffre=OFFRES_FILTER_BY_PROFIL
+            this.lengthOfMylistOffre = this.MylistOffre.length;
           }
         })
         .catch((err) => {
@@ -394,7 +389,6 @@ if (!user.competences.length || !user.qualifications.length) {
                 :placeholder="texte2"
                 v-model="searchLieu"
               />
-              <!-- <span class="glyphicon fa fa-location-arrow" aria-hidden="true"></span> -->
             </div>
            <div>
         
@@ -481,7 +475,7 @@ if (!user.competences.length || !user.qualifications.length) {
             </section>
             <div class="two my-1" style="position: relative;">
               <div>
-                <h6 style="font-size: 0.9em;">
+                <h6 style="font-size: 0.9em;" v-if="offre.fin">
                   <em class="bi bi-calendar-date"></em>
                   Date limite pour postuler :
                   {{ new Date(offre.fin).toLocaleDateString("fr") }}

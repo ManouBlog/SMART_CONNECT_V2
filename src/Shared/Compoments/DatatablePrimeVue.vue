@@ -131,10 +131,14 @@ export default {
     >
       <template #body="slotProps">
         <span v-if="item.fieldName === 'fin'">
-          {{ configUtils.getFormatDateFr(slotProps.data.fin) }}
+         <span v-if="slotProps.data.fin">{{ configUtils.getFormatDateFr(slotProps.data.fin) }}</span>
+         <span v-else>-</span> 
         </span>
         <span v-else-if="item.fieldName === 'salaire'">
-          {{ Help.convertInMoney(slotProps.data.salaire) }}/{{ slotProps.data.pointage }}
+          <span>
+            {{ Help.convertInMoney(slotProps.data.salaire) }}
+            </span>
+            <span v-if="slotProps.data.pointage">/{{ slotProps.data.pointage }}</span>
         </span>
         <span v-else-if="item.fieldName === 'statut'">
           <StatutForDatatable :dataStatut="slotProps.data" />
