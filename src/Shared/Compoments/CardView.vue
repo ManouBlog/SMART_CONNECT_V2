@@ -34,7 +34,7 @@ export default {
     <h3 class="texte-center p-0 m-0" style="color: var(--third-color) !important;text-align: center;">
       {{ item.title }}
     </h3>
-    <div :style="item.text_one ? { padding: '0.5em' } : null">
+    <div>
       <p :style="!item.text_one ? { marginTop: '30px',padding:'0 10px',fontSize:'1.1em' } : null">
         <span style="color: orange; font-weight: bold;word-wrap: break-word;">
           {{ item.text_colorie1 }}

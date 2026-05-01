@@ -134,7 +134,7 @@ export default {
         :footer_btn="item.footer_btn"
         :cardPerfVisible="cardPerfVisible"
       >
-      <div style="position: absolute; bottom: 1em; width: 100%;">
+      <div style="position: absolute; bottom: 1em; width: 90%;">
      <a-button type="primary" 
      style="width: 93% !important;"
         @click.prevent="changeValueIsModal"
