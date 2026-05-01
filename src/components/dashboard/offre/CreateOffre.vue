@@ -54,6 +54,23 @@ export default {
       trigger: "change"
     }
   ],
+
+  categorie_offre_id: [
+    {
+      required: true,
+      message: "Veuillez sélectionner une catégorie",
+      trigger: "change"
+    }
+  ],
+
+  competence_id: [
+    {
+      required: true,
+      message: "Veuillez sélectionner une compétence",
+      trigger: "change"
+    }
+  ],
+
   description: [
     {
       required: true,
@@ -827,6 +844,7 @@ chooseCompetenceFormState(value) {
       <a-select
         v-model:value="formState.categorie_offre_id"
         @change="selectCategorieFormState"
+        name="categorie_offre_id"
         placeholder="texte2"
       >
         <a-select-option
@@ -858,6 +876,7 @@ chooseCompetenceFormState(value) {
     >
       <a-select
         v-model:value="formState.competence_id"
+        name="competence_id"
         @change="chooseCompetenceFormState"
         :disabled="!formState.categorie_offre_id || formState.categorie_offre_id === 'autre'"
       >
