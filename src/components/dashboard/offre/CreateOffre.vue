@@ -440,6 +440,7 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
+            this.resetDataFormState()
           }
           if (res.data.status === false) {
             Swal.fire({
@@ -562,6 +563,16 @@ export default {
         (item) => item.categorie.id === Number(value)
       );
 
+},
+resetDataFormState(){
+ this.formState.categorie = "";
+  this.formState.competence = '';
+  this.formState.otherDomaine = "";
+  this.formState.otherPoste = "";
+  this.formState.dateMission="";
+  this.formState.job_debut="";
+  this.formState.job_fin="";
+  this.formState.nom_offre=""
 },
 chooseCompetenceFormState(value) {
   console.log('Choisir le poste',value)

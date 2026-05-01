@@ -139,7 +139,7 @@ export default {
           
         </div>
        <div 
-       class="px-5">
+       class="px-5" v-if="entreprise.countries.length">
           Pays :
           <div class="d-flex align-items-center flex-wrap">
          <span 
@@ -163,7 +163,7 @@ export default {
         
         <div class="px-5">
           <!-- <span class="d-block px-3">{{texte4}}: {{ entreprise.debut }}</span> -->
-          <span class="px-3">{{ texte5 }} : {{ entreprise.fin }}</span>
+          <span class="px-3" v-if="entreprise.fin">{{ texte5 }} : {{ entreprise.fin }}</span>
           <!-- <span class="d-block px-3"
             >{{texte6}}:
             {{ diffForHumans(new Date(entreprise.created_at).toISOString()) }}</span
@@ -171,7 +171,7 @@ export default {
         </div>
         <div class="px-5">
           <span class="d-block px-3">{{ texte8 }}: {{ entreprise?.job_debut }}</span>
-          <span class="px-3">{{ texte9 }} : {{ entreprise?.job_fin }}</span>
+          <span class="px-3" v-if="entreprise?.job_fin">{{ texte9 }} : {{ entreprise?.job_fin }}</span>
           <span class="d-block px-3"
             >{{ texte6 }}:
             {{ diffForHumans(new Date(entreprise.created_at).toISOString()) }}</span
