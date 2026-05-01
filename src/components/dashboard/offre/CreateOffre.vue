@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       rules: {
-  offre: [
+  nom_offre: [
     {
       required: true,
       message: "Le nom de la mission est obligatoire",
@@ -74,8 +74,8 @@ export default {
   typeMission: null,   // "immediat" ou "date"
   dateMission: null,   // utilisé seulement si typeMission === "date"
   description: "",
-  categorie:"",
-  competence:"",
+  categorie_offre_id:"",
+  competence_id:"",
   job_debut:"",
   job_fin:""
 },
@@ -190,13 +190,13 @@ export default {
      isDisabled() {
     return (
       this.loading ||
-      !this.formState.offre ||
+      !this.formState.nom_offre ||
       !this.formState.salaire ||
       !this.formState.lieu ||
       !this.formState.typeMission ||
       !this.formState.description ||
-       !this.formState.categorie 
-      || !this.formState.competence
+       !this.formState.categorie_offre_id 
+      || !this.formState.competence_id
     )},
      filteredOptions() {
     // Si "TOUS" est sélectionné, n'affiche que "TOUS"
@@ -427,6 +427,37 @@ export default {
 
     this.formState.job_debut = `${yyyy}-${mm}-${dd}`;
   }
+  await instance
+        .post("create_offre", this.formState)
+        .then((res) => {
+          this.spinner = true;
+          this.loading = false;
+          // console.log(res);
+          if (res.data.status === true) {
+            Swal.fire({
+              icon: "success",
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+          if (res.data.status === false) {
+            Swal.fire({
+              icon: "error",
+              title: res.data.message,
+              showConfirmButton: true,
+            });
+          }
+        })
+        .catch((res) => {
+         
+          Swal.fire({
+            icon: "error",
+            title: res.response.data.message,
+            showConfirmButton: true,
+          });
+          
+        });
     },
     async lister_statut(){
       try {
@@ -781,9 +812,9 @@ chooseCompetenceFormState(value) {
 <a-row :gutter="[16, 16]">
   <!-- Catégorie -->
   <a-col :xs="24" :md="12">
-    <a-form-item name="categorie" :label="texte1">
+    <a-form-item name="categorie_offre_id" :label="texte1">
       <a-select
-        v-model:value="formState.categorie"
+        v-model:value="formState.categorie_offre_id"
         @change="selectCategorieFormState"
         placeholder="texte2"
       >
@@ -800,7 +831,7 @@ chooseCompetenceFormState(value) {
     </a-form-item>
 
     <!-- Autre domaine -->
-    <div v-if="formState.categorie === 'autre'" style="margin:0.5em 0">
+    <div v-if="formState.categorie_offre_id === 'autre'" style="margin:0.5em 0">
       <a-form-item name="otherDomaine" label="Autre domaine">
         <a-input v-model:value="formState.otherDomaine" style="height:30px !important;border:1px solid #cdcccc !important" />
       </a-form-item>
@@ -810,14 +841,14 @@ chooseCompetenceFormState(value) {
   <!-- Compétence -->
   <a-col :xs="24" :md="12">
     <a-form-item
-      v-if="formState.categorie !== 'autre'"
+      v-if="formState.categorie_offre_id !== 'autre'"
       name="competence"
       :label="texte3"
     >
       <a-select
-        v-model:value="formState.competence"
+        v-model:value="formState.competence_id"
         @change="chooseCompetenceFormState"
-        :disabled="!formState.categorie || formState.categorie === 'autre'"
+        :disabled="!formState.categorie_offre_id || formState.categorie_offre_id === 'autre'"
       >
         <a-select-option
           v-for="(item, index) in competenceWithCategorie"
@@ -834,8 +865,8 @@ chooseCompetenceFormState(value) {
     <!-- Autre poste -->
     <div
       v-if="
-        formState.categorie === 'autre' ||
-        (formState.categorie && formState.competence === 'autre')
+        formState.categorie_offre_id === 'autre' ||
+        (formState.categorie_offre_id && formState.competence_id === 'autre')
       "
       style="margin:0.5em 0"
     >
@@ -848,8 +879,8 @@ chooseCompetenceFormState(value) {
   <!-- Offre + Salaire -->
   <a-row :gutter="[16, 16]">
     <a-col :xs="24" :md="12">
-      <a-form-item name="offre" :label="'Nom de la mission'">
-        <a-input v-model:value="formState.offre" style="height:30px !important;border:1px solid #cdcccc !important" />
+      <a-form-item name="nom_offre" :label="'Nom de la mission'">
+        <a-input v-model:value="formState.nom_offre" style="height:30px !important;border:1px solid #cdcccc !important" />
       </a-form-item>
     </a-col>
 
@@ -920,7 +951,7 @@ chooseCompetenceFormState(value) {
         type="submit"
         :disabled="isDisabled"
       >
-        {{ loading ? texte20 : texte19 }}
+        {{ loading ? texte20 : 'Poster' }}
       </button>
     </a-col>
   </a-row>
