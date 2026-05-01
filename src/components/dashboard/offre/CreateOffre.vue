@@ -54,19 +54,6 @@ export default {
       trigger: "change"
     }
   ],
-
-  dateMission: [
-    {
-      validator: (_, value) => {
-        if (this.formState.typeMission === "date" && !value) {
-          return Promise.reject("La date est obligatoire");
-        }
-        return Promise.resolve();
-      },
-      trigger: "change"
-    }
-  ],
-
   description: [
     {
       required: true,
@@ -89,6 +76,8 @@ export default {
   description: "",
   categorie:"",
   competence:"",
+  job_debut:"",
+  job_fin:""
 },
        countries: [],
       texte0: "",
@@ -221,6 +210,13 @@ export default {
   }
     
   },
+  watch: {
+  "formState.typeMission"(newValue) {
+    if (newValue === "immediat") {
+      this.formState.job_fin = null;
+    }
+  }
+},
   methods: {
   async listerCountries() {
     try {
@@ -418,6 +414,19 @@ export default {
         this.loading = false;
         this.StoreLoading.launchLoading(false);
       }
+    },
+    async post_mission(){
+      console.log('FORMSTATE',this.formState)
+      // Si mission immédiate → date du jour
+  if (this.formState.typeMission === "immediat") {
+    const today = new Date();
+
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+
+    this.formState.job_debut = `${yyyy}-${mm}-${dd}`;
+  }
     },
     async lister_statut(){
       try {
@@ -875,7 +884,7 @@ chooseCompetenceFormState(value) {
       :md="12"
       v-if="formState.typeMission === 'date'"
     >
-      <a-form-item name="dateMission" label="Date de début">
+      <a-form-item name="job_debut" label="Date de début">
         <a-input type="date" v-model:value="formState.job_debut" style="height:30px !important;border:1px solid #cdcccc !important" />
       </a-form-item>
     </a-col>
@@ -884,8 +893,8 @@ chooseCompetenceFormState(value) {
       :md="12"
       v-if="formState.typeMission === 'date'"
     >
-      <a-form-item name="dateMission" label="Date de fin">
-        <a-input type="date" v-model:value="formState.job_fin" style="height:30px !important;border:1px solid #cdcccc !important" />
+      <a-form-item name="job_fin" label="Date de fin">
+        <a-input type="date" :min="formState.job_debut" v-model:value="formState.job_fin" style="height:30px !important;border:1px solid #cdcccc !important" />
       </a-form-item>
     </a-col>
   </a-row>
