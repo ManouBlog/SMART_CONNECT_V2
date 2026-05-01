@@ -17,6 +17,79 @@ export default {
   },
   data() {
     return {
+      rules: {
+  offre: [
+    {
+      required: true,
+      message: "Le nom de la mission est obligatoire",
+      trigger: "blur"
+    }
+  ],
+
+  salaire: [
+    {
+      required: true,
+      message: "Le prix est obligatoire",
+      trigger: "blur"
+    },
+    {
+      pattern: /^[0-9]+$/,
+      message: "Le prix doit contenir uniquement des chiffres",
+      trigger: "blur"
+    }
+  ],
+
+  lieu: [
+    {
+      required: true,
+      message: "Le lieu est obligatoire",
+      trigger: "blur"
+    }
+  ],
+
+  typeMission: [
+    {
+      required: true,
+      message: "Veuillez choisir la disponibilité",
+      trigger: "change"
+    }
+  ],
+
+  dateMission: [
+    {
+      validator: (_, value) => {
+        if (this.formState.typeMission === "date" && !value) {
+          return Promise.reject("La date est obligatoire");
+        }
+        return Promise.resolve();
+      },
+      trigger: "change"
+    }
+  ],
+
+  description: [
+    {
+      required: true,
+      message: "La description est obligatoire",
+      trigger: "blur"
+    },
+    {
+      min: 10,
+      message: "La description doit contenir au moins 10 caractères",
+      trigger: "blur"
+    }
+  ]
+},
+      formState: {
+  offre: "",
+  salaire: "",
+  lieu: "",
+  typeMission: null,   // "immediat" ou "date"
+  dateMission: null,   // utilisé seulement si typeMission === "date"
+  description: "",
+  categorie:"",
+  competence:"",
+},
        countries: [],
       texte0: "",
       StoreLoading: useLoadingSpinner(),
@@ -125,6 +198,17 @@ export default {
         this.chooseStatut.length > 0
       );
     },
+     isDisabled() {
+    return (
+      this.loading ||
+      !this.formState.offre ||
+      !this.formState.salaire ||
+      !this.formState.lieu ||
+      !this.formState.typeMission ||
+      !this.formState.description ||
+       !this.formState.categorie 
+      || !this.formState.competence
+    )},
      filteredOptions() {
     // Si "TOUS" est sélectionné, n'affiche que "TOUS"
     if (this.chooseStatut.some(item => item.statut === 'Tous')) {
@@ -231,7 +315,6 @@ export default {
         return { status: false };
       }
     },
-
     async postOffre(categorienew = null, competencenew = null) {
       let capitalizeFirstLetterOffre = this.offre[0].toUpperCase();
       let offreConcat = capitalizeFirstLetterOffre + this.offre.substring(1);
@@ -429,6 +512,24 @@ export default {
         (item) => item.categorie.id === Number(e.target.value)
       );
     },
+    selectCategorieFormState(value) {
+      console.log("VALUEDFE",value)
+  this.formState.categorie = value;
+  this.formState.competence = '';
+  this.formState.otherDomaine = "";
+  this.formState.otherPoste = "";
+  this.competenceWithCategorie = this.allCompetences.filter(
+        (item) => item.categorie.id === Number(value)
+      );
+
+},
+chooseCompetenceFormState(value) {
+  console.log('Choisir le poste',value)
+  this.formState.competence = value;
+
+  // Reset champ "autre poste" si changement
+  this.formState.otherPoste = "";
+}
   },
   async created() {
     await this.getInfoUser();
@@ -461,7 +562,7 @@ export default {
 };
 </script>
 <template>
-  <section>
+  <section v-if="userInfo && userInfo.user?.statut?.statut === 'Entreprise'">
     <div class="page-body position-relative">
       <div class="Myspinner" v-show="spinner">
         <div class="spinner-border text-primary" role="status"></div>
@@ -648,6 +749,173 @@ export default {
    <div v-else style="text-align:center;padding:1em;font-size: 1.5em;" class="shimmer-text">
       Chargement...
       </div>
+      </div>
+    </div>
+  </section>
+   <section v-else>
+    <div class="page-body position-relative">
+      <div class="Myspinner" v-show="spinner">
+        <div class="spinner-border text-primary" role="status"></div>
+      </div>
+      <HeaderDashboard :TitleHeader="'Ajouter une mission'" :subTitleHeader="'Ajouter une mission'" />
+      <p style="text-align: center; color: red">
+        Les champs avec astérisque (*) sont obligatoires.
+      </p>
+      <div>
+     <a-form
+  :model="formState"
+  :rules="rules"
+  layout="vertical"
+  @finish="post_mission"
+  class="container"
+>
+<a-row :gutter="[16, 16]">
+  <!-- Catégorie -->
+  <a-col :xs="24" :md="12">
+    <a-form-item name="categorie" :label="texte1">
+      <a-select
+        v-model:value="formState.categorie"
+        @change="selectCategorieFormState"
+        placeholder="texte2"
+      >
+        <a-select-option
+          v-for="(item, index) in categoriesOffres"
+          :key="index"
+          :value="item.id"
+        >
+          {{ item.categorie }}
+        </a-select-option>
+
+        <a-select-option value="autre">Autre</a-select-option>
+      </a-select>
+    </a-form-item>
+
+    <!-- Autre domaine -->
+    <div v-if="formState.categorie === 'autre'" style="margin:0.5em 0">
+      <a-form-item name="otherDomaine" label="Autre domaine">
+        <a-input v-model:value="formState.otherDomaine" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </div>
+  </a-col>
+
+  <!-- Compétence -->
+  <a-col :xs="24" :md="12">
+    <a-form-item
+      v-if="formState.categorie !== 'autre'"
+      name="competence"
+      :label="texte3"
+    >
+      <a-select
+        v-model:value="formState.competence"
+        @change="chooseCompetenceFormState"
+        :disabled="!formState.categorie || formState.categorie === 'autre'"
+      >
+        <a-select-option
+          v-for="(item, index) in competenceWithCategorie"
+          :key="index"
+          :value="item.id"
+        >
+          {{ item.competence }}
+        </a-select-option>
+
+        <a-select-option value="autre">Autre</a-select-option>
+      </a-select>
+    </a-form-item>
+
+    <!-- Autre poste -->
+    <div
+      v-if="
+        formState.categorie === 'autre' ||
+        (formState.categorie && formState.competence === 'autre')
+      "
+      style="margin:0.5em 0"
+    >
+      <a-form-item name="otherPoste" label="Autre poste">
+        <a-input v-model:value="formState.otherPoste" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </div>
+  </a-col>
+</a-row>
+  <!-- Offre + Salaire -->
+  <a-row :gutter="[16, 16]">
+    <a-col :xs="24" :md="12">
+      <a-form-item name="offre" :label="'Nom de la mission'">
+        <a-input v-model:value="formState.offre" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item name="salaire" :label="'Prix de la mission (Fcfa)'">
+        <a-input v-model:value="formState.salaire" min="1" type="number" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+  </a-row>
+
+  <!-- Lieu -->
+  <a-row :gutter="[16, 16]">
+    <a-col :xs="24" :md="12">
+      <a-form-item name="lieu" :label="'Lieu de la mission'">
+        <a-input v-model:value="formState.lieu" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+    <a-col :xs="24" :md="12">
+      <a-form-item name="typeMission" label="Disponibilité de la mission">
+        <a-select v-model:value="formState.typeMission">
+          <a-select-option value="immediat">Immédiat</a-select-option>
+          <a-select-option value="date">Choisir une date</a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+  </a-row>
+
+  <!-- Type mission -->
+  <a-row :gutter="[16, 16]">
+    <a-col
+      :xs="24"
+      :md="12"
+      v-if="formState.typeMission === 'date'"
+    >
+      <a-form-item name="dateMission" label="Date de début">
+        <a-input type="date" v-model:value="formState.job_debut" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+    <a-col
+      :xs="24"
+      :md="12"
+      v-if="formState.typeMission === 'date'"
+    >
+      <a-form-item name="dateMission" label="Date de fin">
+        <a-input type="date" v-model:value="formState.job_fin" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+  </a-row>
+
+  <!-- Description -->
+  <a-row :gutter="[16, 16]">
+    <a-col :span="24">
+      <a-form-item name="description" :label="texte18">
+        <a-textarea
+          v-model:value="formState.description"
+          :rows="6"
+          style="border:1px solid #cdcccc !important"
+        />
+      </a-form-item>
+    </a-col>
+  </a-row>
+
+  <!-- Bouton -->
+  <a-row :gutter="[16, 16]" class="my-5">
+    <a-col :span="24" style="text-align: center">
+      <button
+        class="btn btn-warning btn-designer"
+        type="submit"
+        :disabled="isDisabled"
+      >
+        {{ loading ? texte20 : texte19 }}
+      </button>
+    </a-col>
+  </a-row>
+</a-form>
       </div>
     </div>
   </section>
