@@ -6,10 +6,13 @@ import "primeicons/primeicons.css";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
-// import { useAbonnementsStore } from "../../store-pinia/Abonnements/useAbonnementsStore";
+import ShimmerCard from "./feature/ShimmerCard.vue";
 const loadingSpinner = useLoadingSpinner();
 // const abonnementsStore = useAbonnementsStore();
 export default {
+  components:{
+    ShimmerCard
+  },
   data() {
     return {
       lienPhoto: lienPhoto,
@@ -604,6 +607,7 @@ if(isEtudiant){
 
       <div>
         <span v-if="spinner" class="h1 char shimmer-text">{{ texte4 }}</span>
+        
         <div class="container-fuid d-grid px-3" v-if="list_emploi.length">
           <div
             v-for="(emploi, index) in list_emploi"
@@ -734,15 +738,22 @@ if(isEtudiant){
   <section v-else>
     <div
       style="
-        min-height: 100vh !important;
+        min-height: 60vh !important;
         text-align: center;
         padding: 2em;
         font-weight: bold;
       "
       class="shimmer-text"
     >
-      Chargement....
+     <p style="margin:1em 0;text-align: center;">Chargement....</p> 
+       <div class="container-fuid d-grid px-3"
+    >
+        <ShimmerCard />
+        <ShimmerCard />
+        <ShimmerCard />
+        </div>
     </div>
+   
   </section>
 </template>
 <style scoped>
