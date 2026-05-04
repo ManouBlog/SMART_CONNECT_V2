@@ -668,9 +668,9 @@ if(isEtudiant){
             </div>
             
             <div class="card-body">
-              <h3 class="name" style="color: white; font-weight: bold">
+              <h5 class="name" style="color: white; font-weight: bold;text-align: center;">
                 {{ emploi.student.nom }}
-              </h3>
+              </h5>
               <p class="biStar">
                 <Rating 
                  :class="emploi.star_color === 'gold' ? 'color_gold':'color_yellow'" 
