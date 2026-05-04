@@ -6,13 +6,11 @@ import "primeicons/primeicons.css";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
-import ShimmerCard from "./feature/ShimmerCard.vue";
+
 const loadingSpinner = useLoadingSpinner();
 // const abonnementsStore = useAbonnementsStore();
 export default {
-  components:{
-    ShimmerCard
-  },
+    name:"ListFavoris",
   data() {
     return {
       lienPhoto: lienPhoto,
@@ -66,6 +64,7 @@ export default {
       compte: 4,
       hideButton: false,
       MylistEmploi: null,
+      allFavoris:[],
       location: "",
       list: [],
       contrat: false,
@@ -111,135 +110,13 @@ export default {
       showCalenderFilter: false,
       selectedCompetenceWithDate: "",
       selectedCompetenceWithPeriode: "",
-      perPage: 3,
-      currentPage: 1,
       totalPages: "",
       maxVisibleButtons: "2",
       myWhilistUserConnected:[],
     };
   },
-  computed: {
-    hasAnyValue() {
-      return (
-        (this.datesSelect && this.datesSelect.length > 0) ||
-        (this.competence && this.competence.length > 0) ||
-        (this.location && this.location.trim() !== "")
-      );
-    },
-    pages() {
-      let range = [];
-      for (let i = this.startPage; i <= this.endPage; i++) {
-        range.push({ number: i, isDisabled: i === this.currentPage });
-      }
-      return range;
-    },
-    isInFirstPage() {
-      return this.currentPage === 1;
-    },
-    isInLastPage() {
-      return this.currentPage === this.totalPages;
-    },
-    list_emploi() {
-      
-      return this.list.slice(0, this.length);
-    },
-  },
-  watch: {
-    // Watch sur la computed property hasAnyValue
-    hasAnyValue(newVal) {
-      if (!newVal) {
-        // Tous les champs sont vides
-        this.get_list_Talents();
-      }
-    },
-  },
   methods: {
-     starClass() {
-    const color = this.emploi?.star_color
-
-    if (color === 'gold') return 'bi-star-fill text-gold'
-    return 'bi-star-fill text-yellow'
-  },
-    async filterRecherche() {
-      loadingSpinner.launchLoading(true);
-      // 🔎 Construction des critères de recherche
-      const filtres = {
-        dates: this.dateSelectConvert,
-        competences: this.competenceAdd,
-        location: this.location?.trim(),
-      };
-
-      // Exemple de filtrage local
-      // console.log("🔍 Filtres de recherche :", filtres);
-      await instance
-        .post("filterStudents", filtres)
-        .then((response) => {
-          // console.log("RESPONSE FILTRE STUDENT", response.data.students);
-          const transformed = this.addOtherElement(response.data.students);
-          // Mise à jour de la liste et de sa longueur
-          this.list = transformed;
-          this.lengthOfTalents = transformed.length;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          loadingSpinner.launchLoading(false);
-        });
-    },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-    onPageChange(page) {
-      this.currentPage = page;
-    },
-    onClickFirstPage() {
-      this.onPageChange(this.currentPage - 1);
-    },
-    onClickPreviousPage() {
-      this.onPageChange(this.currentPage - 1);
-    },
-    onClickPage(page) {
-      this.onPageChange(page);
-    },
-    onClickNextPage() {
-      this.onPageChange(this.currentPage + 1);
-    },
-    onClickLastPage() {
-      this.onPageChange(this.totalPages);
-    },
-    isPageActive(page) {
-      return this.currentPage === page;
-    },
-    async getAllCompetences() {
-      try {
-        const reponse = await instance.get("GetAllCompetences");
-        this.competences = reponse.data.data.filter(c => c.categorie_id !== null);
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    showCalenderDate() {
-      this.showCalenderFilter = !this.showCalenderFilter;
-    },
-    convertDate(items) {
-      let dateConvert = [];
-
-      items.forEach((el) => {
-        dateConvert.push(new Date(el).toISOString().substring(0, 10));
-      });
-      return dateConvert;
-    },
-    selectDate() {
-      this.dateSelectConvert = this.convertDate(this.datesSelect);
-      // console.log("this.dateSelectConvert", this.dateSelectConvert);
-    },
-    getCompetenceIds(competences) {
-      return competences.map((c) => c.id);
-    },
-    addComp(newTag) {
-      this.competenceAdd = this.getCompetenceIds(newTag);
-      // console.log("competenceAdd", this.competenceAdd);
-    },
-
    async addPersonAtWishLit(person) {
      loadingSpinner.launchLoading(true);
     try{
@@ -247,16 +124,11 @@ export default {
     }catch(error){
       console.log(error);
     }finally{
-        loadingSpinner.launchLoading(false);
+        await this.$store.dispatch("handleListeFavoris");
+        await this.get_list_Talents(1)
     }
     },
-    loadMore() {
-      if (this.length > this.list.length) return;
-      this.length = this.length + 8;
-      if (this.length === this.list.length) {
-        this.showEndResearch = !this.showEndResearch;
-      }
-    },
+   
     addOtherElement(payload) {
       return payload?.map((element) => {
         // Transform jours
@@ -276,73 +148,26 @@ export default {
       });
     },
 
-   async get_list_Talents() {
-  loadingSpinner.launchLoading(true);
+   async get_list_Talents(launch=null) {
+    if(!launch){
+    loadingSpinner.launchLoading(true);
+    }
   try {
     const response = await instance.get("list_emplois_temps");
     console.log("res_ALL", response);
+   this.allFavoris = response.data.data.filter(item=>this.$store.state.whistListPerson.includes(item.id));
 
-    const UserConnected = localStorage.getItem("user");
+   console.log("DATA_LISTE", this.allFavoris);
 
-const statuses = UserConnected
-  ? JSON.parse(UserConnected)?.user?.statuses || []
-  : [];
-
-console.log("statusesUserConnected", statuses);
-
-let data = response.data.data;
-
-console.log("DATA_LISTE", data);
-
-// vérifier si l'utilisateur est particulier
-const isParticulier = statuses.some(s =>
-  s.statut?.toLowerCase() === "particulier"
-);
-const isEtudiant = statuses.some(s =>
-  s.statut?.toLowerCase() === "etudiant"
-);
-
-console.log("isParticulier", isParticulier);
-console.log('USER_CONNECTED',this.user.user.usersadded_by_me)
-
-if (isParticulier) {
-  const allowed = ['artisan'];
-  data = data.filter((emploi) => {
-  const ALL_statut = emploi?.statuses || [];
-  return ALL_statut.some(item => 
-    allowed.includes(item.statut?.toLowerCase())
-  );
-}).filter(item=>item.id !== this.user?.user?.id);
-}
-if(isEtudiant){
-  const allowedStatuts = ['entreprise', 'particulier'];
-  data = data.filter((emploi) => {
-    return emploi?.statuses?.some(status => 
-      allowedStatuts.includes(status.statut?.toLowerCase())
-    );
-  }).filter(item=>item.id !== this.user?.user?.id);
-}
-    this.list = this.addOtherElement(data);
+    this.list = this.addOtherElement(this.allFavoris);
     console.log("get_list_Talents", this.list);
-
-    this.lengthOfTalents = this.list.length;
-    console.log("this.lengthOfTalents", this.lengthOfTalents);
   } catch (error) {
     console.log(error);
-    // alert(err.response?.data?.message || "Erreur serveur");
   } finally {
     loadingSpinner.launchLoading(false);
     this.isLoading = false;
   }
 },
-    closeDetailTimetable() {
-      this.details_timetable = !this.details_timetable;
-      this.id_detail_timetable = "";
-      this.selectedCompetenceWithDate = "";
-      this.selectedCompetenceWithPeriode = "";
-      this.checkboxDate = false;
-      this.checkbox = false;
-    },
     voirDetailTimetable(item) {
       if (
   this.user &&
@@ -370,105 +195,6 @@ if(isEtudiant){
         }, 2000);
       }
     },
-    optionDate(studentId) {
-      this.loadSpinner = true;
-      let date = [];
-      this.datesPickers.forEach((item) => {
-        date.push(item.date.toISOString().slice(0, 10));
-      });
-      let VerfDoublonInDate = [...new Set(date)];
-
-      instance
-        .post("entreprise_student", {
-          student_id: studentId,
-          date: VerfDoublonInDate,
-          option: "date",
-          service: this.selectedCompetenceWithDate,
-        })
-        .then((res) => {
-          // console.log(res);
-          if (res.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 3000,
-            });
-            this.loadSpinner = false;
-          }
-          if (res.data.status === false) {
-            Swal.fire({
-              icon: "error",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            this.loadSpinner = false;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          this.loadSpinner = false;
-          Swal.fire({
-            icon: "info",
-            title: "Vérifier votre connexion ou les informations que vous envoyer.",
-            showConfirmButton: true,
-          });
-        });
-    },
-    optionPeriode(EntrepriseId) {
-      this.loadSpinner = true;
-      instance
-        .post("entreprise_student", {
-          student_id: EntrepriseId,
-          date_debut: this.range.start.toISOString().slice(0, 10),
-          date_fin: this.range.end.toISOString().slice(0, 10),
-          option: "periode",
-          service: this.selectedCompetenceWithPeriode,
-        })
-        .then((res) => {
-          if (res.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 3000,
-            });
-            this.loadSpinner = false;
-          
-          }
-          if (res.data.status === false) {
-            Swal.fire({
-              icon: "error",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            this.loadSpinner = false;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          Swal.fire({
-            icon: "info",
-            title: "Vérifier votre connexion ou les informations que vous envoyer",
-            showConfirmButton: true,
-          });
-          this.loadSpinner = false;
-        });
-    },
-
-    AllCompetencesPredf() {
-      instance
-        .get("GetAllCompetences")
-        .then((res) => {
-          // console.log("competencesPredefini", res);
-          this.competencesPredefini = res.data.data.filter(c => c.categorie_id !== null);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     verfEnter() {
   console.log("verfEnter", this.user);
 
@@ -492,35 +218,13 @@ if(isEtudiant){
     });
   }
 },
-    addDate() {
-      this.datesPickers.push({
-        date: new Date(),
-      });
-      // console.log("mes Dates", this.datesPickers);
-      this.$nextTick(() => {
-        const btn = this.$refs.button[this.$refs.button.length - 1];
-        btn.click();
-      });
-    },
-    removeDate(date, hide) {
-      this.datesPickers = this.datesPickers.filter((d) => d !== date);
-      hide();
-    },
-    dateSelected(e, date, toggle) {
-      this.selecteDatepickers = date;
-      toggle({ ref: e.target });
-    },
   },
   async created() {
     this.verfEnter();
     await this.$store.dispatch("getInfoUser");
-    this.$store.dispatch("handleListeFavoris");
+    await this.$store.dispatch("handleListeFavoris");
     this.get_list_Talents();
-    this.getAllCompetences();
-    this.AllCompetencesPredf();
-     this.myWhilistUserConnected = this.user?.user?.usersadded_by_me?.map(item=>item?.wishlisted_user.id)
-    this.path = window.location.pathname;
-    this.texte = await this.handleTranslate("Vous rechercher un talent ?");
+    this.texte = await this.handleTranslate("Mes favoris");
     this.texte1 = await this.handleTranslate("Talents disponibles");
     this.texte01 = await this.handleTranslate("Talent disponible");
     this.texte2 = await this.handleTranslate(" Nous avons trouvé");
@@ -536,89 +240,29 @@ if(isEtudiant){
 };
 </script>
 <template>
-  <section v-if="!isLoading">
+  <section>
     <div class="jobs_filters">
-      <h3 class="fw-bold ecriteau text-left">{{ texte }}</h3>
-      <form class="row justify-content-center align-items-center g-3 text-center">
-        <!-- Sélecteur de dates -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <PrimeCalendar
-            v-model="datesSelect"
-            :minDate="new Date()"
-            selectionMode="multiple"
-            dateFormat="dd/mm/yy"
-            :manualInput="false"
-            :showIcon="true"
-            @update:modelValue="selectDate"
-            :placeholder="texte8"
-            class="w-100"
-          />
-        </div>
-
-        <!-- Sélecteur de compétences -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <multiselect
-            v-model="competence"
-            :options="competences"
-            :multiple="true"
-            :taggable="true"
-            :tag="addComp"
-            @update:model-value="addComp"
-            label="competence"
-            track-by="competence"
-            :placeholder="texte9"
-            class="w-100"
-          ></multiselect>
-        </div>
-
-        <!-- Localisation -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <input
-            type="text"
-            class="form-control"
-            style="height: 40px; padding: 1em; margin-top: 0.5em"
-            :placeholder="texte10"
-            v-model="location"
-          />
-        </div>
-      </form>
-      <!-- Bouton Rechercher -->
-      <div
-        v-if="hasAnyValue"
-        style="display: flex; justify-content: flex-end; margin-top: 1em"
-      >
-        <button type="button" class="btn btn-warning px-4" @click="filterRecherche">
-          Rechercher
-        </button>
-      </div>
-    </div>
-    <div v-if="list.length">
-      <h2 class="fw-bold ecriteau text-left px-3">
-        {{ list.length }} {{ list.length > 1 ? texte1 : texte01 }}
-      </h2>
+      <h2 class="fw-bold ecriteau text-left">{{ texte }}</h2>
     </div>
     <div
       class="container-fluid timetableSchedule"
       :class="spinner ? 'conteneur_offre' : null"
     >
-      <div class="timetable_disponible" v-if="list_emploi.length">
+      <div class="timetable_disponible" v-if="this.allFavoris.length">
         <h6>
           {{ texte2 }}
-          {{ datesSelect.length ? list.length : lengthOfTalents }}
+          {{ this.allFavoris.length }}
           {{ texte3 }}
         </h6>
       </div>
 
-      <div>
-        <span v-if="spinner" class="h1 char shimmer-text">{{ texte4 }}</span>
-        
-        <div class="container-fuid d-grid px-3" v-if="list_emploi.length">
+      <div>        
+        <div class="container-fuid d-grid px-3" v-if="this.allFavoris.length">
           <div
-            v-for="(emploi, index) in list_emploi"
+            v-for="(emploi, index) in this.allFavoris"
             :key="index"
             class="card Mycard-body"
           >
-          <!-- {{ this.$store.state.whistListPerson }} -->
             <div class="icons_interesse">
               <em
                 @click="addPersonAtWishLit(emploi)"
@@ -629,11 +273,11 @@ if(isEtudiant){
             </div>
             <div style="position: absolute;top:1em;left: 1em;">
               <n-avatar
-                v-if="emploi.student.photo_profil"
+                v-if="emploi?.student?.photo_profil"
                 style="border: 2px solid orange; object-fit: cover"
                 round
                 :size="60"
-                :src="lienPhoto + emploi.student.photo_profil"
+                :src="lienPhoto + emploi?.student?.photo_profil"
               />
           <span
      v-else
@@ -722,86 +366,19 @@ if(isEtudiant){
             </div>
           </div>
         </div>
-       <div v-else>
+      <div v-else>
         <p class="text-center text-muted py-4">
         Aucun talents disponibles
        </p>
       </div>
       </div>
     </div>
-    <div v-if="list.length" style="display: flex;justify-content: center;">
-      <button
-        @click="loadMore"
-        v-if="length < list.length"
-        class="btn bg-primary loadPlus"
-      >
-        {{ texte6 }} 
-      </button>
-    </div>
-  </section>
-  <section v-else>
-    <div
-      style="
-        min-height: 60vh !important;
-        text-align: center;
-        padding: 2em;
-        font-weight: bold;
-      "
-      class="shimmer-text"
-    >
-     <p style="margin:1em 0;text-align: center;">Chargement....</p> 
-       <div class="container-fuid d-grid px-3"
-    >
-        <ShimmerCard />
-        <ShimmerCard />
-        <ShimmerCard />
-        </div>
-    </div>
    
   </section>
+
 </template>
 <style scoped>
-.shimmer-text {
-  font-weight: 600;
-  background: linear-gradient(
-    90deg,
-    #999 0%,
-    #fff 50%,
-    #999 100%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 1.5s infinite;
-}
 
-@keyframes shine {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-.badge-animate {
-  width: 25px;
-  height: 25px;
-  display: inline-block;
-  animation: moveLeftRight 2s ease-in-out infinite;
-}
-
-@keyframes moveLeftRight {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
 .ecriteau {
   color: orange;
 }

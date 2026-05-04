@@ -261,6 +261,19 @@ if (
     .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
     ">
     <router-link
+      :to="{ name: 'favoris' }"
+      @click.prevent="changeValueForshowMenuMobile"
+      class="d-block lien"
+    >
+      Mes favoris
+    </router-link>
+    </li>
+       
+       <li  v-if="
+    ($store.state.user?.user?.statuses || [])
+    .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
+    ">
+    <router-link
       :to="{ name: 'timetable' }"
       @click.prevent="changeValueForshowMenuMobile"
       class="d-block lien"

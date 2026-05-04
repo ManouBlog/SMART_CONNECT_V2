@@ -54,7 +54,7 @@ export default {
     <div class="container-fluid footer">
       <div class="row conteneur-footer">
         <div class="container main-container-footer">
-          
+           <LogoComponent />
           <CardFooter
             :isLinkObject="true"
             :isWhite="true"
@@ -83,7 +83,7 @@ export default {
             :title="texte6"
             :listLien="['Cocody, abidjan, cote d’ivoire']"
           />
-          <LogoComponent />
+         
         </div>
       </div>
     </div>

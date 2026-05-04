@@ -78,6 +78,7 @@ const routes = [
         path: '/jobs',
         name: 'jobs',
          meta: {
+          requiresAuth:true,
       title: 'Offres d\'emploi et stages — MonBrobroli',
       description: 'Trouvez les meilleures offres d’emploi et de stage en Côte d’Ivoire sur MonBrobroli.'
     },
@@ -88,9 +89,18 @@ const routes = [
         name: 'timetable',
          meta: {
       title: 'MonBrobroli',
+      requiresAuth:true,
       description: 'Trouvez les meilleures offres d’emploi et de stage en Côte d’Ivoire sur MonBrobroli.'
     },
         component: () => import( '../views/timetable/timetable.vue')
+      },
+       {
+        path: '/favoris',
+        name: 'favoris',
+        meta:{
+          requiresAuth:true
+        },
+        component: () => import( '../views/timetable/ListFavoris.vue')
       },
       {
         path: '/DetailsOffre/:id',
