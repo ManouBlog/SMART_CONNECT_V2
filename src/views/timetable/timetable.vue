@@ -115,6 +115,7 @@ export default {
       currentPage: 1,
       totalPages: "",
       maxVisibleButtons: "2",
+      myWhilistUserConnected:[],
     };
   },
   computed: {
@@ -239,9 +240,15 @@ export default {
       // console.log("competenceAdd", this.competenceAdd);
     },
 
-    addPersonAtWishLit(person) {
-      this.$store.dispatch("addListFavoris", person);
-      this.isWhished[person.id] = !this.isWhished[person.id];
+   async addPersonAtWishLit(person) {
+     loadingSpinner.launchLoading(true);
+    try{
+   await this.$store.dispatch("addListFavoris", person);
+    }catch(error){
+      console.log(error);
+    }finally{
+        loadingSpinner.launchLoading(false);
+    }
     },
     loadMore() {
       if (this.length > this.list.length) return;
@@ -264,10 +271,6 @@ export default {
         element.hours = hours;
         element.acquis = competences;
 
-        // Vérifier si dans la whishlist
-        this.isWhished[element.id] = this.$store.state.whistListPerson?.some(
-          (person) => person.id === element.id
-        );
 
         return element;
       });
@@ -300,7 +303,7 @@ const isEtudiant = statuses.some(s =>
 );
 
 console.log("isParticulier", isParticulier);
-console.log('USER_CONNECTED',this.user)
+console.log('USER_CONNECTED',this.user.user.usersadded_by_me)
 
 if (isParticulier) {
   const allowed = ['artisan'];
@@ -515,6 +518,7 @@ if(isEtudiant){
     this.get_list_Talents();
     this.getAllCompetences();
     this.AllCompetencesPredf();
+     this.myWhilistUserConnected = this.user?.user?.usersadded_by_me?.map(item=>item?.wishlisted_user.id)
     this.path = window.location.pathname;
     this.texte = await this.handleTranslate("Vous rechercher un talent ?");
     this.texte1 = await this.handleTranslate("Talents disponibles");
@@ -614,10 +618,12 @@ if(isEtudiant){
             :key="index"
             class="card Mycard-body"
           >
+          <!-- {{ this.$store.state.whistListPerson }} -->
             <div class="icons_interesse">
               <em
                 @click="addPersonAtWishLit(emploi)"
-                :class="isWhished[emploi.id] ? 'text-danger' : 'null'"
+                style="cursor: pointer;"
+                :class="this.$store.state.whistListPerson?.some(item=>item == emploi.id) ? 'text-danger' : 'null'"
                 class="bi bi-heart-fill"
               ></em>
             </div>
@@ -629,7 +635,6 @@ if(isEtudiant){
                 :size="60"
                 :src="lienPhoto + emploi.student.photo_profil"
               />
-  
           <span
      v-else
   :style="{
@@ -731,7 +736,6 @@ if(isEtudiant){
         class="btn bg-primary loadPlus"
       >
         {{ texte6 }} 
-        <!-- <em class="bi bi-chevron-down"></em> -->
       </button>
     </div>
   </section>

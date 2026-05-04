@@ -66,7 +66,6 @@ export default createStore({
      deletePersonAtWishList(state,idPerson){
       instance.delete("deletePersonInMyWishlist/"+idPerson)
       .then((res) => {
-        // console.log(res);
         if(res.data.status === true){
           Swal.fire({
             icon: "success",
@@ -74,9 +73,6 @@ export default createStore({
             showConfirmButton: false,
             timer: 1500,
           });
-          setTimeout(()=>{
-            location.reload(true);
-          },1500)
         }
       })
       .catch((error) => {
@@ -88,8 +84,23 @@ export default createStore({
      },
      GET_ALL_WISH_LIST(state,payload){
       state.whistListPerson = payload
-      // console.log("GET_ALL_WISH_LIST",state.whistListPerson)
      },
+     ADD_USER_WISH_LIST(state,payload){
+      console.log('ADD_USER_WISH_LIST',payload)
+     if (!state.whistListPerson) state.whistListPerson = [];
+      state.whistListPerson.push(payload);
+     },
+     RETIRE_USER_WISH_LIST(state, payload) {
+  const IDPerson = payload;
+  console.log("IDPerson",IDPerson)
+  const index = state.whistListPerson.findIndex(
+    (id) => id === IDPerson
+  );
+  console.log("index233",index)
+  if (index !== -1) {
+    state.whistListPerson.splice(index, 1);
+  }
+},
      CHANGE_LANGAGE_WEB(state,langue){
       state.translate = langue;
      },
@@ -124,40 +135,44 @@ export default createStore({
      }
   },
   actions: {   
-   async addListFavoris({commit,state},payload){
-    // console.log("addListFavoris",payload)
-      await instance.post("saveWishlist",{
-        student_id: payload.id,
-      }, {
+  async addListFavoris({ commit, state }, payload) {
+    console.log("addListFavoris",payload)
+  try {
+    const response = await instance.post(
+      "saveWishlist",
+      { user_id: payload.id },
+      {
         headers: {
           Authorization: "Bearer " + state.token,
         },
-      })
-      .then((response) => {
-        if(response.data.status === true){
-          // state.colorHeart = true;
-          state.whistListPerson.push(payload)
-          commit("GET_ALL_WISH_LIST",state.whistListPerson)
-        }
-        if(response.data.status === false){
-          // state.colorHeart = false;
-          const Deleteperson = state.whistListPerson.findIndex(p=>p.id === payload.id)
-          state.whistListPerson.splice(Deleteperson,1)
-          commit("GET_ALL_WISH_LIST",state.whistListPerson)
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      }
+    );
+
+    // Ne modifie pas la logique métier
+    if (response.data.status === true) {
+      commit("ADD_USER_WISH_LIST", payload.id);
+    }
     
-   },
+    if (response.data.status === false) {
+        commit("RETIRE_USER_WISH_LIST", payload.id);
+    }
+
+    console.log("state.whistListPerson",state.whistListPerson)
+
+    // return response.data;
+  } catch (error) {
+    console.error("addListFavoris error:", error);
+    // Garde ton format de retour exact
+    return error?.response?.data?.exception || error;
+  }
+},
    async handleListeFavoris({commit,state}) {
     if (state.token) {
       await instance
         .get("getAllWishlist")
         .then((response) => {
-          // console.log("WISHLIST", response.data.data);
-          commit('GET_ALL_WISH_LIST',response?.data?.data?.wishlists)
+          console.log("GET_ALL_WISH_LISTd", response?.data?.data.map(item=>item.wishlisted_user.id));
+          commit('GET_ALL_WISH_LIST',response?.data?.data.map(item=>item.wishlisted_user.id))
         })
         .catch((error) => {
           console.log("error", error);

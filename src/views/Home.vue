@@ -9,7 +9,7 @@ import FooterView from "@/components/footer";
 import LoadingSpinner from "../Shared/Compoments/LoadingSpinner.vue";
 import Connexion from "./Connexion/Connexion.vue";
 import { useRegisterStore } from "../store-pinia/register/useRegisterStore";
-import { useListeFavoris } from "../store-pinia/ListeFavoris/useListeFavoris";
+// import { useListeFavoris } from "../store-pinia/ListeFavoris/useListeFavoris";
 // import { useVerificationStore } from "../store-pinia/Verification/useVerificationStore";
 // import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
 import { storeToRefs } from "pinia";
@@ -21,7 +21,7 @@ const registerStore = useRegisterStore();
 const loadingSpinnerStore = useLoadingSpinner();
 // const translateStore = useTranslateStore();
 // const verificationStore = useVerificationStore();
-const listeFavorisStore = useListeFavoris();
+// const listeFavorisStore = useListeFavoris();
 
 // State from stores
 const { isModal } = storeToRefs(registerStore);
@@ -34,11 +34,11 @@ const dateActive = ref(null);
 // Methods
 // const toogleModal = () => registerStore.changeValueIsModal();
 // const verifIfAbonementIsExpied = () => verificationStore.verifIfAbonementIsExpied();
-const handleListeFavoris = (token) => listeFavorisStore.handleListeFavoris(token);
+// const handleListeFavoris = (token) => listeFavorisStore.handleListeFavoris(token);
 
 const getDateAbonementActive = () => {
-  if (useStore().state.user && useStore().state.user.user.abonement) {
-    useStore().state.user.user.abonement.forEach((item) => {
+  if (store.state.user && store.state.user.user.abonement) {
+    store.state.user.user.abonement.forEach((item) => {
       if (item.statut === "success") {
         dateActive.value = item.echeance;
       }
@@ -49,9 +49,9 @@ const getDateAbonementActive = () => {
 // Lifecycle hooks
 onMounted(() => {
   localStorage.setItem("translate", "fr");
-  handleListeFavoris(store.state.token);
+  // handleListeFavoris(store.state.token);
   getDateAbonementActive();
-  store.dispatch("handleListeFavoris");
+  // store.dispatch("handleListeFavoris");
 });
 
 // Note: Vous devrez probablement importer/accéder à votre store Vuex global différemment
