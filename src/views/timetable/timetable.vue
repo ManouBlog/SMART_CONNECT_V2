@@ -70,7 +70,7 @@ export default {
       list: [],
       contrat: false,
       NewListEmploi: "",
-      length: 8,
+      length: 9,
       hideButtons: false,
       isWhished: [],
       lengthOfTalents: "",
