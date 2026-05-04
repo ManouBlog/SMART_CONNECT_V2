@@ -429,9 +429,7 @@ if(isEtudiant){
               timer: 3000,
             });
             this.loadSpinner = false;
-            //setTimeout(() => {
-            //location.reload(true);
-            //}, 3000);
+          
           }
           if (res.data.status === false) {
             Swal.fire({
@@ -488,25 +486,6 @@ if(isEtudiant){
     });
   }
 },
-//     verfEnter() {
-//       console.log("verfEnter", this.user);
-//       if (
-//   this.user &&
-//   (this.user.user?.statuses || []).some(s =>
-//     ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
-//   )
-// ){
-//   this.$router.push("/");
-//   Swal.fire({
-//     icon: "info",
-//     title: "Vous n'êtes pas autorisé",
-//     showConfirmButton: false,
-//     timer: 1000,
-//   });
-// }else{
-//   return;
-// }
-//     },
     addDate() {
       this.datesPickers.push({
         date: new Date(),
@@ -525,14 +504,6 @@ if(isEtudiant){
       this.selecteDatepickers = date;
       toggle({ ref: e.target });
     },
-    // jourSelect() {
-    //   return this.jourOfMois.forEach((element) => {
-    //     let month = new Date().getMonth() + 1;
-    //     let year = new Date().getFullYear();
-    //     // console.log(element.jour + "-" + month + "-" + year);
-    //     return element.jour + "-" + month + "-" + year;
-    //   });
-    // },
   },
   async created() {
     this.verfEnter();
@@ -619,8 +590,6 @@ if(isEtudiant){
         {{ list.length }} {{ list.length > 1 ? texte1 : texte01 }}
       </h2>
     </div>
-   <!-- <p>ELEMENTS: {{ this.$store.state.user?.user.statuses }} </p>  -->
-
     <div
       class="container-fluid timetableSchedule"
       :class="spinner ? 'conteneur_offre' : null"
@@ -635,7 +604,6 @@ if(isEtudiant){
 
       <div>
         <span v-if="spinner" class="h1 char shimmer-text">{{ texte4 }}</span>
-
         <div class="container-fuid d-grid px-3" v-if="list_emploi.length">
           <div
             v-for="(emploi, index) in list_emploi"
@@ -648,20 +616,18 @@ if(isEtudiant){
                 :class="isWhished[emploi.id] ? 'text-danger' : 'null'"
                 class="bi bi-heart-fill"
               ></em>
-              
             </div>
-            
-            <div style="text-align: center;position: relative;">
+            <div style="position: absolute;top:1em;left: 1em;">
               <n-avatar
                 v-if="emploi.student.photo_profil"
                 style="border: 2px solid orange; object-fit: cover"
                 round
-                :size="70"
+                :size="50"
                 :src="lienPhoto + emploi.student.photo_profil"
               />
   
           <span
-  v-else
+     v-else
   :style="{
     position: 'relative',
     display: 'inline-flex',
@@ -669,7 +635,7 @@ if(isEtudiant){
     justifyContent: 'center',
     gap: '6px',
 
-    padding: emploi?.is_verified ? '0px' : '35px',
+    padding: emploi?.is_verified ? '0px' : '15px',
 
     border: '2px solid orange',
     borderRadius: '50%',
@@ -686,7 +652,7 @@ if(isEtudiant){
     style="
       display: block;
       object-fit: contain;
-      width: 80px;
+      width: 60px;
     "
   />
 
@@ -696,29 +662,35 @@ if(isEtudiant){
 </span>
                
             </div>
+            
             <div class="card-body">
               <h3 class="name" style="color: white; font-weight: bold">
                 {{ emploi.student.nom }}
-                {{ emploi.student.prenoms }}
               </h3>
+              <p class="biStar">
+                <Rating 
+                 :class="emploi.star_color === 'gold' ? 'color_gold':'color_yellow'" 
+                 v-model="emploi.average" 
+                 readonly :cancel="false"/>
+              </p>
               <p class="text-center p-0 m-0">
-             <span 
-        :style="{
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '6px',
-    justifyContent:'center', 
-    marginTop:'2px'
-  }">
-  <span
-    v-for="(status, index) in emploi.statuses || []"
+               <span 
+           :style="{
+          display: 'flex',
+           flexWrap: 'wrap',
+           gap: '6px',
+           justifyContent:'center', 
+            marginTop:'2px'
+             }">
+        <span
+        v-for="(status, index) in emploi.statuses || []"
     :key="index"
     class="badge"
     style="background:orange; font-size:0.5em !important;"
   >
     {{ status.statut }}
-  </span>
-</span>
+     </span>
+     </span>
               </p>
               <div class="jour">
                 <span
@@ -729,25 +701,7 @@ if(isEtudiant){
                 </span>
                 <span v-if="emploi.student?.competences?.length > 3"> ... </span>
               </div>
-              <!-- {{ emploi.star_color }} -->
-              <span class="biStar">
-                <!-- <span style="display: flex; gap: 3px;margin-left:-1px ;" 
-                 v-if="emploi.star_color === 'gold'">
-           <img
-            v-for="n in 5"
-          :key="n"
-    src="/etoile.png"
-    alt="etoile"
-    style="width:18px"
-  />
-                 </span> -->
-                <Rating 
-                 :class="emploi.star_color === 'gold' ? 'color_gold':'color_yellow'" 
-                 v-model="emploi.average" 
-                 readonly :cancel="false"/>
-                 
-              </span>
-
+              
               <button
                 class="btn bg-primary voirPlus"
                 @click="voirDetailTimetable({ id: emploi.student.id, user_id: emploi.student.user_id })"
@@ -760,9 +714,9 @@ if(isEtudiant){
           </div>
         </div>
        <div v-else>
-    <p class="text-center text-muted py-4">
-      Aucun talent disponible
-    </p>
+        <p class="text-center text-muted py-4">
+        Aucun talents disponible
+       </p>
       </div>
       </div>
     </div>
@@ -1082,7 +1036,7 @@ if(isEtudiant){
 .icons_interesse {
   position: absolute !important;
   top: 1em;
-  left: 1em;
+  right: 1em;
 }
 
 .totalHour {
@@ -1091,10 +1045,9 @@ if(isEtudiant){
   right: 1em;
 }
 .biStar {
-  position: absolute !important;
-  top: 3.3em;
-  left: 1.25em;
-  font-size: 1em;
+   display: flex;
+   justify-content: center;
+   margin: 0.8em 0;
 }
 .biStar .color_star,
 .biStar strong {

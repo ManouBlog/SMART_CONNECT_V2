@@ -433,9 +433,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior() {
-    // 🔥 chaque navigation → top de la page
-    return { left: 0, top: 0 };
+  scrollBehavior(to,from) {
+    console.log({to:to,from:from})
+    // always scroll to top
+    return { top: 0 }
   },
 });
 
