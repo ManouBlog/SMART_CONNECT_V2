@@ -652,7 +652,7 @@ if(isEtudiant){
     style="
       display: block;
       object-fit: contain;
-      width: 60px;
+      width: 50px;
     "
   />
 
