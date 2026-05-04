@@ -357,9 +357,9 @@ if (
       Mes candidatures
     </a>
   </li>
-
   <li 
-  class="position-absolute deconnex" v-if="$store.state.user && userStatut?.some(s=>s.statut == 'Etudiant') ">
+  class="position-absolute deconnex" 
+  v-if="$store.state.user && userStatut?.some(s=>s.statut == 'Etudiant') ">
     <a class="d-block" @click="goTo('/dashboard/emploi_du_temps')">
       Mes disponibilités
     </a>
