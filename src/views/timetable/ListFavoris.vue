@@ -6,11 +6,12 @@ import "primeicons/primeicons.css";
 import { mapActions } from "pinia";
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
-
+import ShimmerCard from "./feature/ShimmerCard.vue";
 const loadingSpinner = useLoadingSpinner();
 // const abonnementsStore = useAbonnementsStore();
 export default {
     name:"ListFavoris",
+    components:{ShimmerCard},
   data() {
     return {
       lienPhoto: lienPhoto,
@@ -149,6 +150,7 @@ export default {
     },
 
    async get_list_Talents(launch=null) {
+    
     if(!launch){
     loadingSpinner.launchLoading(true);
     }
@@ -245,17 +247,10 @@ export default {
       <h2 class="fw-bold ecriteau text-left">{{ texte }}</h2>
     </div>
     <div
+    v-if="!isLoading"
       class="container-fluid timetableSchedule"
-      :class="spinner ? 'conteneur_offre' : null"
+      :class="isLoading ? 'conteneur_offre' : null"
     >
-      <div class="timetable_disponible" v-if="this.allFavoris.length">
-        <h6>
-          {{ texte2 }}
-          {{ this.allFavoris.length }}
-          {{ texte3 }}
-        </h6>
-      </div>
-
       <div>        
         <div class="container-fuid d-grid px-3" v-if="this.allFavoris.length">
           <div
@@ -373,6 +368,26 @@ export default {
       </div>
       </div>
     </div>
+     <section v-else>
+    <div
+      style="
+        min-height: 60vh !important;
+        text-align: center;
+        padding: 2em;
+        font-weight: bold;
+      "
+      class="shimmer-text"
+    >
+     <p style="margin:1em 0;text-align: center;">Chargement....</p> 
+       <div class="container-fuid d-grid px-3"
+    >
+        <ShimmerCard />
+        <ShimmerCard />
+        <ShimmerCard />
+        </div>
+    </div>
+   
+  </section>
    
   </section>
 

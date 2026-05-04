@@ -122,12 +122,13 @@ onUnmounted(() => {
       <div class="container">
         <div class="conteneur-card-performance" id="cardPerf">
           <div style="display: flex;gap: 0.5em;" class="circles-container">
-<CardPerformance
+             <div class="circles-wrapper">
+               <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Particulier(s)'"
             :nbre="Number(formatNumber(Number(particuliers)))"
-            :class="{ 'fade-in': cardPerfVisible }"
+            :class="{ 'fade-in circle-item': cardPerfVisible}"
             :isPayement="false"
             :suffix="formatSuffix(Number(particuliers))"
             :tooltip="particuliers.toString()"
@@ -140,7 +141,7 @@ onUnmounted(() => {
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte55"
             :nbre="Number(formatNumber(Number(student)))"
-            :class="{ 'fade-in': cardPerfVisible }"
+            :class="{ 'fade-in circle-item': cardPerfVisible }"
             :isPayement="false"
             :suffix="formatSuffix(Number(student))"
             :tooltip="student.toString()"
@@ -151,7 +152,7 @@ onUnmounted(() => {
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Professionnel(s)'"
             :nbre="Number(formatNumber(Number(professionnels)))"
-            :class="{ 'fade-in': cardPerfVisible }"
+            :class="{ 'fade-in circle-item': cardPerfVisible }"
             :isPayement="false"
             :suffix="formatSuffix(Number(professionnels))"
             :tooltip="professionnels.toString()"
@@ -162,7 +163,7 @@ onUnmounted(() => {
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Artisan(s)'"
             :nbre="Number(formatNumber(Number(artisans)))"
-            :class="{ 'fade-in': cardPerfVisible }"
+            :class="{ 'fade-in circle-item': cardPerfVisible }"
             :isPayement="false"
             :suffix="formatSuffix(Number(artisans))"
             :tooltip="artisans.toString()"
@@ -173,7 +174,7 @@ onUnmounted(() => {
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Vétéran(s)'"
             :nbre="Number(formatNumber(Number(veterans)))"
-            :class="{ 'fade-in': cardPerfVisible }"
+            :class="{ 'fade-in circle-item': cardPerfVisible }"
             :isPayement="false"
             :suffix="formatSuffix(Number(veterans))"
             :tooltip="veterans.toString()"
@@ -185,20 +186,18 @@ onUnmounted(() => {
             :icone_name="'bi bi-building icon'"
             :texte="texte1"
             :nbre="Number(formatNumber(Number(entreprises)))"
-            :class="{ 'slide-from-left': cardPerfVisible }"
+            :class="{ 'slide-from-left circle-item': cardPerfVisible }"
              :isPayement="false"
              :suffix="'K'"
             :tooltip="entreprises.toString()"
             :decimals="Number(entreprises) > 1000  ? 1:null"
           />
-          </div>
-          <div style="display: flex;gap: 0.5em;" class="circles-container">
             <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-briefcase-fill'"
             :texte="texte2"
             :nbre="Number(formatNumber(Number(offres)))"
-            :class="{ 'fade-in': cardPerfVisible }"
+            :class="{ 'fade-in circle-item': cardPerfVisible }"
              :isPayement="false"
              :suffix="formatSuffix(Number(offres))"
              :tooltip="offres.toString()"
@@ -210,7 +209,7 @@ onUnmounted(() => {
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte3"
             :nbre="Number(formatNumber(Number(timetable)))"
-            :class="{ 'fade-in': cardPerfVisible }"
+            :class="{ 'fade-in circle-item': cardPerfVisible }"
              :isPayement="false"
              :suffix="formatSuffix(Number(timetable))"
              :tooltip="timetable.toString()"
@@ -222,7 +221,7 @@ onUnmounted(() => {
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte4"
             :nbre="Number(formatNumber(Number(visiteur)))"
-            :class="{ 'slide-from-right': cardPerfVisible }"
+            :class="{ 'slide-from-right circle-item': cardPerfVisible }"
              :isPayement="false"
              :suffix="formatSuffix(Number(visiteur))"
              :tooltip="visiteur.toString()"
@@ -231,11 +230,12 @@ onUnmounted(() => {
           <CardPerformance
             :myStyle="'card_perfor_nbre_student_save'"
             :texte="'Paiement garanti'"
-             :class="{ 'fade-in': cardPerfVisible }"
+             :class="{ 'fade-in circle-item': cardPerfVisible }"
             :isPayement="true"
           />
+             </div>
+    
           </div>
-          
         </div>
       </div>
     </div>
@@ -274,48 +274,50 @@ onUnmounted(() => {
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
 }
-/* Desktop */
 .circles-container {
+  width: 100%;
+  padding: 10px 0;
+  white-space: nowrap;
+}
+
+.circles-wrapper {
   display: flex;
-  gap: 12px;
-  justify-content: center;
+  gap: 0.5em;
+  animation: scrollLoop 10s linear infinite;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-  .circles-container {
-    overflow-x: auto;
-    padding: 10px;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    justify-content: flex-start;
+@keyframes scrollLoop {
+  0% {
+    transform: translateX(0%);
   }
-
-  /* Scrollbar visible et stylée */
-  .circles-container::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .circles-container::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-  }
-
-  .circles-container::-webkit-scrollbar-thumb {
-    background: #6c757d;
-    border-radius: 10px;
-  }
-
-  .circles-container::-webkit-scrollbar-thumb:hover {
-    background: #495057;
-  }
-
-  .card_perfor_nbre_student_save {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
+  100% {
+    transform: translateX(-50%); /* 50% = la largeur de tout le contenu répété */
   }
 }
+@media (max-width: 800px) {
+  .circles-wrapper {
+    animation: scrollLoopMobile 10s linear infinite;
+  }
 
+  @keyframes scrollLoopMobile {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+}
+.circles-container:hover .circles-wrapper {
+  animation-play-state: paused;
+}
+.circle-item {
+  min-width: 70px;   /* plus petit sur mobile */
+  border-radius: 16px;
+  background: #ff8c42;
+  color: white;
+  text-align: center;
+}
 .card_perfor_nbre_student_save {
   flex: 0 0 auto; /* important pour empêcher le wrap */
   width: 200px;
