@@ -622,7 +622,7 @@ if(isEtudiant){
                 v-if="emploi.student.photo_profil"
                 style="border: 2px solid orange; object-fit: cover"
                 round
-                :size="50"
+                :size="60"
                 :src="lienPhoto + emploi.student.photo_profil"
               />
   
@@ -635,7 +635,7 @@ if(isEtudiant){
     justifyContent: 'center',
     gap: '6px',
 
-    padding: emploi?.is_verified ? '0px' : '15px',
+    padding: emploi?.is_verified ? '0px' : '25px',
 
     border: '2px solid orange',
     borderRadius: '50%',
