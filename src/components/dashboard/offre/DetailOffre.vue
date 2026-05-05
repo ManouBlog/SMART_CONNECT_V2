@@ -309,7 +309,7 @@ export default {
     show_offre_id() {
       this.loadingSpinner.launchLoading(true);
       instance
-        .get("get_offres_entreprise/"+this.$route.params.id)
+        .get("show_detail_offre_entreprise/"+this.$route.params.id)
         .then((res) => {
           this.offre_id = res.data.data;
           this.getCompetenceWithCategorie(this.offre_id.categorie_offre_id)
@@ -572,7 +572,7 @@ chooseCompetenceFormState(value) {
   show-search
   :options="categoriesOffres"
   :filter-option="filterOption"
-  :disabled="!categoriesOffres.length"
+  disabled
   option-filter-prop="label"
   :field-names="{ label: 'categorie', value: 'id' }"
 >
@@ -609,7 +609,7 @@ chooseCompetenceFormState(value) {
         v-model:value="formState.competence_id"
         name="competence_id"
         @change="chooseCompetenceFormState"
-        :disabled="!formState.categorie_offre_id || formState.categorie_offre_id === 'autre'"
+        disabled
       >
         <a-select-option
           v-for="(item, index) in competenceWithCategorie"
