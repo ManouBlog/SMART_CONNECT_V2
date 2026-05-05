@@ -81,7 +81,8 @@ descriptionProfil:{
 </script>
 
 <template>
-  <a-card 
+  <section v-if="this.profilHybride?.length">
+ <a-card 
   v-if="!isLoading"
     style="
       width: auto;
@@ -89,7 +90,7 @@ descriptionProfil:{
       background: var(--secondary-color) !important;
     "
   >
-    <div class="p-4" v-if="this.profilHybride?.length">
+    <div class="p-4" >
       <div
   :style="{
     display: 'flex',
@@ -147,14 +148,17 @@ descriptionProfil:{
           
       </div>
     </div>
-    <div v-else class="text-center h3">
-        Pas de profils hybrides
-    </div>
+  
     
   </a-card>
   <div class="shimmer-text" style="text-align: center;" v-else>
         Chargement...
     </div>
+  </section>
+    <div v-else class="text-center h5">
+        Pas de profils hybrides
+    </div>
+ 
 </template>
 
 <style scoped>

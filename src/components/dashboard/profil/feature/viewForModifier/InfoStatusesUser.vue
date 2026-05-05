@@ -28,6 +28,7 @@ export default {
       profilhybrideUserConnected:[],
       showModalChangeProfilOfBase: false,
       showModalAbonnements:false,
+      isLoading:true,
       selectedParseStatus:"",
       modeActif:false,
  showModalAddProfilHybride:false,
@@ -222,6 +223,8 @@ this.selectedParseStatus = ""
 
   } catch (error) {
     console.log(error);
+  }finally{
+    this.isLoading = false
   }
 },
 
@@ -286,8 +289,9 @@ this.selectedParseStatus = ""
           <h3>Changer le profil de base </h3>
         </div>
       </template>
-     
-      <section v-if="allStatuses.length">
+
+      <div v-if="!isLoading">
+<section v-if="allStatuses.length">
         <div class="w-100 mb-4">
             <label for="statusSelect">Séléctionnez un profil</label>
             <select 
@@ -346,7 +350,6 @@ this.selectedParseStatus = ""
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils disponibles
     </label>
-    <!-- <p>Profils dispo : {{ allProfilsHybrides }}</p> -->
     <div class="round-container">
       <label 
         v-for="item in allProfilsHybrides" 
@@ -363,7 +366,6 @@ this.selectedParseStatus = ""
         </span>
       </label>
     </div>
-  <!-- <p>profilHybride:{{ profilHybride }}</p> -->
   </div>
 </transition>
   <div v-if="optionsAnswer || selectedParseStatus">
@@ -386,10 +388,13 @@ this.selectedParseStatus = ""
   />
   </div>
     </section>
-      <section v-else style="text-align: center;" class="shimmer-text">
-        Chargement des profils....
+      <section v-else style="text-align: center;">
+        Pas de profils hybrides disponibles.
       </section>
-      
+      </div>
+      <div v-else style="text-align: center;" class="shimmer-text">
+      Chargement...
+      </div>
     </n-modal>
   <a-card 
     style="
