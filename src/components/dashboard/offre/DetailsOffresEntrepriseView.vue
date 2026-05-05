@@ -80,11 +80,9 @@ export default {
     get_offres() {
       this.launchLoading(true);
       instance
-        .get("get_offres_entreprise")
+        .get("show_detail_offre_entreprise/"+this.$route.params.id)
         .then((res) => {
-          // console.log(res);
-          this.offres = res.data.data;
-          this.entreprise = this.offres.find((item) => item.id == this.$route.params.id);
+          this.entreprise = res.data.data;
           console.log("ENTREPRISE", this.entreprise);
           this.spinner = false;
         })

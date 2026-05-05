@@ -409,6 +409,9 @@ const routes = [
       {
         path: "/details/:id",
         name: "details",
+        meta:{
+          requiresAuth:true
+        },
         component: () => import("../views/detailStudentView.vue"),
       },
       {
@@ -419,11 +422,17 @@ const routes = [
       {
         path: "/contrats/:id",
         name: "detail_contrat",
+        meta:{
+          requiresAuth:true
+        },
         component: () => import("../views/detailsContactView.vue"),
       },
       {
         path: "/details_entreprise/:id",
         name: "detail_entreprise",
+        meta:{
+          requiresAuth:true
+        },
         component: () => import("../views/detailsEntrepriseView.vue"),
       },
       {
