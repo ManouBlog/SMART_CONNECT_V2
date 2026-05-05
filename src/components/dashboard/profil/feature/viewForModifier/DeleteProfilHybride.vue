@@ -1,5 +1,5 @@
 <script>
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import instance from '../../../../../api/api';
 import { useLoadingSpinner } from '../../../../../store-pinia/LoadingSpinner/useLoadingSpinner';
 export default {
@@ -32,27 +32,47 @@ descriptionProfil:{
         }
        
     },
-    async deletOneProfilHybride(){
-        if(!this.profilhyrideAtDelete){
-       const STORE_LOADING = useLoadingSpinner();
-        STORE_LOADING.launchLoading(true)
-        try{
-         const response = await instance.delete('deletemyProfilHybride',{
-            profilhyrideAtDelete:this.profilhyrideAtDelete
-         })
-         if(response.data.status){
-            await this.$store.dispatch("getInfoUser");
-         }
-        }catch(error){
-            console.log(error)
-        }finally{
-        STORE_LOADING.launchLoading(false)
-        }
-        }else{
-            return;
-        }
-        
+   async deletOneProfilHybride(payloadId,index) {
+    console.log("payloadId",payloadId)
+  if (payloadId) {
+    // Confirmation SweetAlert
+      const result = await Swal.fire({
+        title: "Êtes‑vous sûr ?",
+        text: "Cette action supprimera ce profil hybride.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Oui, supprimer",
+        cancelButtonText: "Annuler",
+        reverseButtons: true,
+        confirmButtonColor: "#28a745", // vert (style Bootstrap)
+        cancelButtonColor: "#dc3545",  // rouge
+      });
+
+      // Si l'utilisateur clique sur "Annuler", on s'arrête
+      if (!result.isConfirmed) {
+        return;
+      }else{
+        const STORE_LOADING = useLoadingSpinner();
+    STORE_LOADING.launchLoading(true);
+
+    try {
+      const response = await instance.delete("deletemyProfilHybride/" + payloadId);
+
+      if (response.data.status) {
+        this.profilHybride.splice(index, 1);
+        await this.$store.dispatch("getInfoUser");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      STORE_LOADING.launchLoading(false);
     }
+      }
+    
+  } else {
+    return;
+  }
+}
   },
   async created() {
  await this.getProfilHybride()
@@ -69,7 +89,7 @@ descriptionProfil:{
       background: var(--secondary-color) !important;
     "
   >
-    <div class="p-4">
+    <div class="p-4" v-if="this.profilHybride?.length">
       <div
   :style="{
     display: 'flex',
@@ -119,15 +139,16 @@ descriptionProfil:{
       padding: 0;
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     "
-    @click="() => {
-    console.log(profil.id)
-    }"
+    @click="deletOneProfilHybride(profil.id,index)"
   >
     <i class="bi bi-trash"></i>
   </button>
 </div>
           
       </div>
+    </div>
+    <div v-else class="text-center h3">
+        Pas de profils hybrides
     </div>
     
   </a-card>
@@ -137,6 +158,9 @@ descriptionProfil:{
 </template>
 
 <style scoped>
+:deep(.swal2-container){
+  z-index: 999999 !important;
+}
 
 :deep(.ant-dropdown-trigger){
 background-color: #f8f8f8;
