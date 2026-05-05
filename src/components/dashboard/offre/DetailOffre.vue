@@ -238,6 +238,7 @@ export default {
   }
 },
     async loadDetailOffre() {
+      this.loadingSpinner.launchLoading(true);
       try{
      const id = this.$route.params.id
       const { data } = await instance.get(`show_detail_offre_entreprise/${id}`)
@@ -260,6 +261,7 @@ export default {
         console.log(error)
       }finally{
         this.spinnerModify = false
+        this.loadingSpinner.launchLoading(false);
       }
       
     },
@@ -392,7 +394,7 @@ chooseCompetenceFormState(value) {
       :TitleHeader="this.$store.state.user.user.statut.statut === 'Entreprise' ? texte0:'Modifier Ma mission'"
       :subTitleHeader="this.$store.state.user.user.statut.statut === 'Entreprise' ? texte0:'Modifier Ma mission'"
     />
-    <div>
+    <div v-if="!spinnerModify">
       <form v-if="offre_id && this.$store.state.user.user.statut.statut === 'Entreprise'" class="container">
         <div class="row">
           <div class="text-left my-3 col-md-6">
@@ -718,10 +720,10 @@ chooseCompetenceFormState(value) {
   </a-row>
 </a-form>
       </div>
-      <div v-if="spinnerModify" class="container">
+    </div>
+     <div v-else class="container">
        <h3 class="text-center shimmer-text">Chargement...</h3>
       </div>
-    </div>
   </div>
 </template>
 
