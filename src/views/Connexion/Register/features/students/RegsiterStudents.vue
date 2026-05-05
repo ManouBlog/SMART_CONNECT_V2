@@ -29,47 +29,47 @@ idStatutChoice:Object
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
 ],
- SCHOOL_KEYWORDS :[
-  // Carte étudiante (formes tolérantes OCR)
-  'carte etudiant',
-  'carte d etudiant',
-  'carte a etudiant',
-  'carte etudiante',
+//  SCHOOL_KEYWORDS :[
+//   // Carte étudiante (formes tolérantes OCR)
+//   'carte etudiant',
+//   'carte d etudiant',
+//   'carte a etudiant',
+//   'carte etudiante',
 
-  // Étudiant (avec ou sans accents, fautes OCR)
-  'Etudiant',
-  'etudiante',
-  'etudant',
-  'etud',
+//   // Étudiant (avec ou sans accents, fautes OCR)
+//   'Etudiant',
+//   'etudiante',
+//   'etudant',
+//   'etud',
 
-  // Institution / enseignement
-  'ministere de l enseignement',
-  "ministere de l'enseignement",
-  'enseignement superieur',
-  'ufr',
-  'faculte',
-  'faculté',
-  'ecole',
-  'institut',
+//   // Institution / enseignement
+//   'ministere de l enseignement',
+//   "ministere de l'enseignement",
+//   'enseignement superieur',
+//   'ufr',
+//   'faculte',
+//   'faculté',
+//   'ecole',
+//   'institut',
 
-  // Scolarité
-  'filiere',
-  'filiere',
-  'niveau',
-  'licence',
-  'master',
-  'doctorat',
+//   // Scolarité
+//   'filiere',
+//   'filiere',
+//   'niveau',
+//   'licence',
+//   'master',
+//   'doctorat',
 
-  // Niveaux courts (attention : à combiner avec d’autres mots)
-  'l1',
-  'l2',
-  'l3',
-  'm1',
-  'm2',
+//   // Niveaux courts (attention : à combiner avec d’autres mots)
+//   'l1',
+//   'l2',
+//   'l3',
+//   'm1',
+//   'm2',
 
-  // Identifiant
-  'matricule'
-],
+//   // Identifiant
+//   'matricule'
+// ],
       availabilityDates: [],
       startTime: null,
       endTime: null,
