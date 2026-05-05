@@ -188,10 +188,19 @@ export default {
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
-     async post_mission() {
-      this.StoreLoading.launchLoading(true);
+     async update_mission() {
+      this.loadingSpinner.launchLoading(true);
   console.log("FORMSTATE", this.formState);
-
+  if (this.formState.typeMission === 'date') {
+      if (!this.formState.job_debut || !this.formState.job_fin) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Dates obligatoires',
+          text: 'Veuillez renseigner la date de début et la date de fin.'
+        })
+        return
+      }
+    }
   // Si mission immédiate → date du jour
   if (this.formState.typeMission === "immediat") {
     const today = new Date();
@@ -204,11 +213,7 @@ export default {
   }
 
   try {
-    const res = await instance.post("create_offre", this.formState);
-
-    this.spinner = true;
-    // this.loading = false;
-
+    const res = await instance.put("modify_offre_entreprise/"+this.$route.params.id,this.formState);
     if (res.data.status === true) {
       Swal.fire({
         icon: "success",
@@ -216,7 +221,6 @@ export default {
         showConfirmButton: false,
         timer: 1500,
       });
-      this.resetDataFormState();
     }
 
     if (res.data.status === false) {
@@ -229,12 +233,11 @@ export default {
   } catch (error) {
     Swal.fire({
       icon: "error",
-      title: error.response?.data?.message || "Une erreur est survenue",
+      title: error.response?.data?.message,
       showConfirmButton: true,
     });
   } finally {
-    // this.loading = false; // ou toute autre chose à systématiquement faire
-    this.StoreLoading.launchLoading(false);
+    this.loadingSpinner.launchLoading(false);
   }
 },
     async loadDetailOffre() {
@@ -559,7 +562,7 @@ chooseCompetenceFormState(value) {
      :model="formState"
      :rules="rules"
      layout="vertical"
-     @finish="post_mission"
+     @finish="update_mission"
     class="container"
     >
    <a-row :gutter="[16, 16]">
@@ -663,7 +666,14 @@ chooseCompetenceFormState(value) {
     </a-col>
     <a-col :xs="24" :md="12">
       <a-form-item name="typeMission" label="Disponibilité de la mission">
-        <a-select v-model:value="formState.typeMission">
+        <a-select v-model:value="formState.typeMission"
+        @change="()=>{
+         if(formState.typeMission === 'immediat'){
+          formState.job_fin = null;
+          formState.job_debut = null;
+         }
+        }"
+        >
           <a-select-option value="immediat">Immédiat</a-select-option>
           <a-select-option value="date">Choisir une date</a-select-option>
         </a-select>
@@ -679,7 +689,12 @@ chooseCompetenceFormState(value) {
       v-if="formState.typeMission === 'date'"
     >
       <a-form-item name="job_debut" label="Date de début">
-        <a-input type="date" v-model:value="formState.job_debut" style="height:30px !important;border:1px solid #cdcccc !important" />
+        <a-input type="date" v-model:value="formState.job_debut" 
+        @change="(e)=>{
+        //  console.log(e.target.value)
+         if(e.target.value)formState.job_fin = null
+        }"
+        style="height:30px !important;border:1px solid #cdcccc !important" />
       </a-form-item>
     </a-col>
     <a-col
