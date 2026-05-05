@@ -642,9 +642,7 @@ chooseCompetenceFormState(value) {
 <template>
   <section v-if="userInfo && userInfo.user?.statut?.statut === 'Entreprise'">
     <div class="page-body position-relative">
-      <div class="Myspinner" v-show="spinner">
-        <div class="spinner-border text-primary" role="status"></div>
-      </div>
+      
       <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
       <p style="text-align: center; color: red">
         Les champs avec astérisque (*) sont obligatoires.
@@ -832,9 +830,7 @@ chooseCompetenceFormState(value) {
   </section>
    <section v-else>
     <div class="page-body position-relative">
-      <div class="Myspinner" v-show="spinner">
-        <div class="spinner-border text-primary" role="status"></div>
-      </div>
+      
       <HeaderDashboard :TitleHeader="'Poster une mission'" :subTitleHeader="'Poster une mission'" />
       <p style="text-align: center; color: red">
         Les champs avec astérisque (*) sont obligatoires.
@@ -1091,18 +1087,7 @@ td {
 th {
   text-align: center;
 }
-.Myspinner {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background: transparent !important;
-  display: flex;
-  place-items: center;
-  justify-content: center;
-}
+
 .plan-modify {
   position: fixed;
   left: 0;
