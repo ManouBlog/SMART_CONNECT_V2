@@ -9,7 +9,7 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 import CreateDisponibilite from "./CreateDisponibilite.vue";
 import RegisterQualifications from "./RegisterQualifications.vue";
-import Tesseract from 'tesseract.js'
+// import Tesseract from 'tesseract.js'
 import instance from "../../../../../api/api";
 
 export default {
@@ -380,104 +380,104 @@ this.formState.profilHybride = [];
   this.rawText = ''
   this.result = null
 
-  this.runOCR(newList)
+  // this.runOCR(newList)
 },
-async runOCR(files) {
-  this.loading = true
-  let fullText = ''
+// async runOCR(files) {
+//   this.loading = true
+//   let fullText = ''
 
-  for (const f of files) {
-    const file = f.originFileObj
-    if (!file || !file.type.startsWith('image/')) continue
+//   for (const f of files) {
+//     const file = f.originFileObj
+//     if (!file || !file.type.startsWith('image/')) continue
 
-    const canvas = await this.preprocessImage(file)
-    const { data } = await Tesseract.recognize(canvas, 'fra')
-    fullText += '\n' + (data.text || '')
-  }
+//     const canvas = await this.preprocessImage(file)
+//     const { data } = await Tesseract.recognize(canvas, 'fra')
+//     fullText += '\n' + (data.text || '')
+//   }
 
-  this.rawText = this.cleanOCRText(fullText)
+//   this.rawText = this.cleanOCRText(fullText)
 
-  if (!this.hasReadableText(fullText)) {
-    this.result = {
-      score: 0,
-      isStudentCard: false,
-      reason: 'Aucun texte exploitable détecté'
-    }
-    this.loading = false
-    return
-  }
+//   if (!this.hasReadableText(fullText)) {
+//     this.result = {
+//       score: 0,
+//       isStudentCard: false,
+//       reason: 'Aucun texte exploitable détecté'
+//     }
+//     this.loading = false
+//     return
+//   }
 
-  this.analyzeText(fullText)
-  this.loading = false
-},
-hasReadableText(text) {
-  const lettersOnly = text
-    .replace(/\s/g, '')
-    .replace(/[^a-zA-ZÀ-ÿ]/g, '')
+//   this.analyzeText(fullText)
+//   this.loading = false
+// },
+// hasReadableText(text) {
+//   const lettersOnly = text
+//     .replace(/\s/g, '')
+//     .replace(/[^a-zA-ZÀ-ÿ]/g, '')
 
-  return lettersOnly.length >= 5
-},
-normalizeText(text) {
-  return text
-    .toLowerCase()
-    .normalize('NFD')              // enlève les accents
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
-    .replace(/\s+/g, ' ')
-},
-analyzeText(text) {
-  const cleanText = this.normalizeText(text)
-  let score = 0
+//   return lettersOnly.length >= 5
+// },
+// normalizeText(text) {
+//   return text
+//     .toLowerCase()
+//     .normalize('NFD')              // enlève les accents
+//     .replace(/[\u0300-\u036f]/g, '')
+//     .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
+//     .replace(/\s+/g, ' ')
+// },
+// analyzeText(text) {
+//   const cleanText = this.normalizeText(text)
+//   let score = 0
 
-  if (cleanText.length > 80) score += 20
+//   if (cleanText.length > 80) score += 20
 
-  const keywordHits = this.SCHOOL_KEYWORDS.filter(k =>
-    cleanText.includes(k)
-  ).length
+//   const keywordHits = this.SCHOOL_KEYWORDS.filter(k =>
+//     cleanText.includes(k)
+//   ).length
 
-  score += Math.min(keywordHits * 10, 40)
+//   score += Math.min(keywordHits * 10, 40)
 
-  if (cleanText.includes('matricule')) score += 20
-  if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
+//   if (cleanText.includes('matricule')) score += 20
+//   if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
 
-  this.result = {
-    score,
-    isStudentCard: score >= 60
-  }
-},
-cleanOCRText(text) {
-  return text
-    // supprimer caractères parasites fréquents OCR
-    .replace(/[|«»“”]/g, '')
-    .replace(/_{2,}/g, ' ')
-    .replace(/-{2,}/g, ' ')
-    .replace(/\s{2,}/g, ' ')
-    .replace(/\n{2,}/g, '\n')
-    .trim()
-},
-preprocessImage(file) {
-  return new Promise(resolve => {
-    const img = new Image()
-    const reader = new FileReader()
+//   this.result = {
+//     score,
+//     isStudentCard: score >= 60
+//   }
+// },
+// cleanOCRText(text) {
+//   return text
+//     // supprimer caractères parasites fréquents OCR
+//     .replace(/[|«»“”]/g, '')
+//     .replace(/_{2,}/g, ' ')
+//     .replace(/-{2,}/g, ' ')
+//     .replace(/\s{2,}/g, ' ')
+//     .replace(/\n{2,}/g, '\n')
+//     .trim()
+// },
+// preprocessImage(file) {
+//   return new Promise(resolve => {
+//     const img = new Image()
+//     const reader = new FileReader()
 
-    reader.onload = () => (img.src = reader.result)
+//     reader.onload = () => (img.src = reader.result)
 
-    img.onload = () => {
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
+//     img.onload = () => {
+//       const canvas = document.createElement('canvas')
+//       const ctx = canvas.getContext('2d')
 
-      canvas.width = img.width
-      canvas.height = img.height
+//       canvas.width = img.width
+//       canvas.height = img.height
 
-      ctx.filter = 'grayscale(1) contrast(1.5)'
-      ctx.drawImage(img, 0, 0)
+//       ctx.filter = 'grayscale(1) contrast(1.5)'
+//       ctx.drawImage(img, 0, 0)
 
-      resolve(canvas)
-    }
+//       resolve(canvas)
+//     }
 
-    reader.readAsDataURL(file)
-  })
-},
+//     reader.readAsDataURL(file)
+//   })
+// },
     onFinish() {
       this.formState.profilHybride.push(this.idStatutChoice.id);
       console.log("this.formState",this.formState);
@@ -586,7 +586,7 @@ preprocessImage(file) {
       "Compétences (plusieurs choix sont possibles)"
     );
     this.texte8 = await this.handleTranslate("Niveau actuel + Filière");
-    this.texte9 = await this.handleTranslate("Carte étudiant bien lisible,texte lisible,sans flou,image bien rognée sans fond noir (.jpg, .png)");
+    this.texte9 = await this.handleTranslate("Carte étudiante ou justificatif de scolarité");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
     this.texte12 = await this.handleTranslate("Mot de passe requis");

@@ -118,15 +118,6 @@ export default {
       this.get_list_offre(dataSearch);
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-    // selectCategorie(cat) {
-    //   this.MylistOffre = [];
-    //   this.hideButtons = true;
-    //   this.MylistsOffres.find((element) => {
-    //     if (element.categorie.categorie === cat) {
-    //       this.MylistOffre.push(element);
-    //     }
-    //   });
-    // },
     async handleListOffresWithoutSearch() {
       loadingSpinner.launchLoading(true);
       await instance
@@ -135,8 +126,7 @@ export default {
           if (res.data.status) {
             let OFFRES_FILTER_BY_PROFIL = [];
              const profilALL = this.$store.state.user?.user.statuses;
-             console.log('profilALL',profilALL)
-             console.log('statusesUser',this.$store.state.user?.user.statuses)
+             console.log('handleListOffresWithoutSearch_profilALL',profilALL)
              const isProfessionnel = profilALL.some(s => 
   s.statut?.toLowerCase() === "professionnel"
 );
@@ -144,18 +134,43 @@ const isArtisan = profilALL.some(s =>
   s.statut?.toLowerCase() === "artisan"
 );
 
+const isStudent = profilALL.some(s => 
+  s.statut?.toLowerCase() === "etudiant"
+);
+
+const isVeteran = profilALL.some(s => 
+  s.statut?.toLowerCase() === "vétéran"
+);
+
 console.log('isProfessionnel', isProfessionnel);
 console.log('isArtisan', isArtisan);
 
-let allowedStatuts = [];
+let allowedStatuts = []
 
-if (isProfessionnel && isArtisan) {
-  // ✅ Les 2 : voit offres pro + artisan
-  allowedStatuts = ['professionnel', 'artisan'];
-} else if (isProfessionnel) {
-  allowedStatuts = ['professionnel'];
-} else if (isArtisan) {
-  allowedStatuts = ['artisan'];
+switch (true) {
+  case isProfessionnel && isArtisan:
+    allowedStatuts = ['professionnel', 'artisan']
+    break
+
+  case isProfessionnel:
+    allowedStatuts = ['professionnel']
+    break
+
+  case isArtisan:
+    allowedStatuts = ['artisan']
+    break
+
+  case isStudent:
+    allowedStatuts = ['etudiant']
+    break
+
+  case isVeteran:
+    allowedStatuts = ['vétéran']
+    break
+
+  default:
+    allowedStatuts = []
+    break
 }
 
 OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
@@ -164,15 +179,12 @@ OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
     return allowedStatuts.includes(statut.statut?.toLowerCase());
   });
 });
-            // console.log("MylistOffre23", this.MylistOffre);
-            // this.MylistsOffres = OFFRES_FILTER_BY_PROFIL
             this.MylistOffre=OFFRES_FILTER_BY_PROFIL
             this.lengthOfMylistOffre = this.MylistOffre.length;
           }
         })
         .catch((err) => {
           console.log(err);
-          // RegisterStore.changeValueIsModal();
         })
         .finally(() => {
           loadingSpinner.launchLoading(false);
@@ -303,7 +315,6 @@ OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
       async verifUserProfilEtudiantComplet() {
       await this.$store.dispatch("getInfoUser")
   const user = this.$store.state.infoUserConnected;
-  // console.log("USER_INFO",user)
   if(user.user?.statuses.some(s => s.statut === 'Etudiant')){
 if (!user.competences.length || !user.qualifications.length) {
     this.$router.push('/dashboard/profil');
@@ -378,7 +389,6 @@ if (!user.competences.length || !user.qualifications.length) {
                 :placeholder="texte1"
                 v-model="searchName"
               />
-              <!-- <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> -->
             </div>
 
            <div class="position-relative">
@@ -401,13 +411,6 @@ if (!user.competences.length || !user.qualifications.length) {
          >
          Rechercher
          </button>
-            <!-- <span
-              v-if="!list_offre.length"
-              @click.prevent="get_list_offre"
-              style="color: orange; font-weight: bold; cursor: pointer"
-            >
-               Toutes
-            </span> -->
           </div>
         </form>
       </div> 
