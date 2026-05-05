@@ -152,7 +152,7 @@ if (!user.competences.length || !user.qualifications.length) {
         infosReferrals: []
       },
       {
-        libelle: this.texte5,
+        libelle: this.$store.state.user?.user?.statut.statut == 'Particulier' ? 'Nombre de missions postulées':this.texte5,
         isVisible: this.isEntrepriseProfile,
         nbre:this.statistiquesFormelleOrInformelleEntreprise?.offrePostule
       },
@@ -206,7 +206,7 @@ console.log("this.offresInteressByStudents",this.offresInteressByStudents)
 console.log('this.student',this.student)
 
     this.texte0 = await this.handleTranslate("Tableau de bord");
-    this.texte1 = await this.handleTranslate(`Nombre d'offres postulées`);
+    this.texte1 = await this.handleTranslate(`Mes candidatures`);
     this.texte2 = await this.handleTranslate(`Candidatures en attente de réponse`);
     this.texte3 = await this.handleTranslate(`Candidatures acceptées`);
     this.texte4 = await this.handleTranslate(`Candidatures rejetées`);

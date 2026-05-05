@@ -94,6 +94,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             }
           },
           async handleStatistiquesEntreprise(payload){
+            loadingSpinner.launchLoading(true);
    await instance
               .post("statistiqueDashboard/entreprise",payload)
               .then((res) => {

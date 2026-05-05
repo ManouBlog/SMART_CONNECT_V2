@@ -215,7 +215,7 @@ export default {
 }
 
 :deep(.ant-card-head) {
-  background: rgb(162, 162, 162) !important;
+  background: orange !important;;
 }
 
 :where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-body,
