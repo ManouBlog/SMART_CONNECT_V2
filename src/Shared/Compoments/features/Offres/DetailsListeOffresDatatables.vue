@@ -40,6 +40,17 @@ export default {
         ><em class="bi bi-pencil"></em>
       </router-link>
     </span>
+     <span v-else class="mx-2 text-dark">
+      <router-link
+        :to="{
+          name: 'detail_offre',
+          params: {
+            id: donnees.id,
+          },
+        }"
+        ><em class="bi bi-pencil"></em>
+      </router-link>
+    </span>
     <span class="mx-2 text-dark">
       <router-link
         :to="{

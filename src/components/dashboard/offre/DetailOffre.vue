@@ -90,14 +90,179 @@ export default {
         },
       ],
       pointage: "",
+      formState: {
+        categorie_offre_id: null,
+        competence_id: null,
+        nom_offre: '',
+        salaire: '',
+        lieu: '',
+        typeMission: 'immediat',
+        job_debut: '',
+        job_fin: '',
+        description: '',
+        otherDomaine: '',
+        otherPoste: ''
+      },
+         rules: {
+  nom_offre: [
+    {
+      required: true,
+      message: "Le nom de la mission est obligatoire",
+      trigger: "blur"
+    }
+  ],
+
+  salaire: [
+    {
+      required: true,
+      message: "Le prix est obligatoire",
+      trigger: "blur"
+    },
+    {
+      pattern: /^[0-9]+$/,
+      message: "Le prix doit contenir uniquement des chiffres",
+      trigger: "blur"
+    }
+  ],
+
+  lieu: [
+    {
+      required: true,
+      message: "Le lieu est obligatoire",
+      trigger: "blur"
+    }
+  ],
+
+  typeMission: [
+    {
+      required: true,
+      message: "Veuillez choisir la disponibilité",
+      trigger: "change"
+    }
+  ],
+
+  categorie_offre_id: [
+    {
+      required: true,
+      message: "Veuillez sélectionner une catégorie",
+      trigger: "change"
+    }
+  ],
+
+  competence_id: [
+    {
+      required: true,
+      message: "Veuillez sélectionner une compétence",
+      trigger: "change"
+    }
+  ],
+
+  description: [
+    {
+      required: true,
+      message: "La description est obligatoire",
+      trigger: "blur"
+    },
+    {
+      min: 10,
+      message: "La description doit contenir au moins 10 caractères",
+      trigger: "blur"
+    }
+  ]
+},
     };
   },
   computed: {
     ...mapState(useOffreStore, ["categoriesOffres", "allCompetences"]),
+    isDisabled() {
+    return (
+      !this.formState.nom_offre ||
+      !this.formState.salaire ||
+      !this.formState.lieu ||
+      !this.formState.typeMission ||
+      !this.formState.description ||
+       !this.formState.categorie_offre_id 
+      || !this.formState.competence_id
+    )}
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
+     async post_mission() {
+      this.StoreLoading.launchLoading(true);
+  console.log("FORMSTATE", this.formState);
+
+  // Si mission immédiate → date du jour
+  if (this.formState.typeMission === "immediat") {
+    const today = new Date();
+
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+
+    this.formState.job_debut = `${yyyy}-${mm}-${dd}`;
+  }
+
+  try {
+    const res = await instance.post("create_offre", this.formState);
+
+    this.spinner = true;
+    // this.loading = false;
+
+    if (res.data.status === true) {
+      Swal.fire({
+        icon: "success",
+        title: res.data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.resetDataFormState();
+    }
+
+    if (res.data.status === false) {
+      Swal.fire({
+        icon: "error",
+        title: res.data.message,
+        showConfirmButton: true,
+      });
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: error.response?.data?.message || "Une erreur est survenue",
+      showConfirmButton: true,
+    });
+  } finally {
+    // this.loading = false; // ou toute autre chose à systématiquement faire
+    this.StoreLoading.launchLoading(false);
+  }
+},
+    async loadDetailOffre() {
+      try{
+     const id = this.$route.params.id
+      const { data } = await instance.get(`show_detail_offre_entreprise/${id}`)
+      const offre = data.data
+      console.log("loadDetailOffre",offre)
+      this.formState.categorie_offre_id = offre.categorie_offre_id
+      this.formState.competence_id = offre.competence_id
+      this.formState.nom_offre = offre.nom_offre
+      this.formState.salaire = offre.salaire
+      this.formState.lieu = offre.lieu
+      this.formState.typeMission = offre.typeMission || 'immediat'
+      this.formState.job_debut = offre.job_debut
+      this.formState.job_fin = offre.job_fin
+      this.formState.description = offre.description
+      this.formState.otherDomaine = offre.otherDomaine || ''
+      this.formState.otherPoste = offre.otherPoste || ''
+      this.selectCategorieFormState(offre.categorie_offre_id)
+      this.chooseCompetenceFormState(offre.competence_id);
+      }catch(error){
+        console.log(error)
+      }finally{
+        this.spinnerModify = false
+      }
+      
+    },
     update_offre() {
       this.loadingSpinner.launchLoading(true);
       this.isLoading = true;
@@ -137,15 +302,16 @@ export default {
           this.isLoading = false;
         })
     },
+    filterOption(input, option) {
+     
+    return (option?.categorie ?? '').toLowerCase().includes(input.toLowerCase());
+    },
     show_offre_id() {
       this.loadingSpinner.launchLoading(true);
       instance
-        .get("get_offres_entreprise")
+        .get("get_offres_entreprise/"+this.$route.params.id)
         .then((res) => {
-          // console.log(res);
-          this.offres = res.data.data;
-          this.offre_id = this.offres.find((offre) => offre.id == this.$route.params.id);
-          // console.log("OFFRE_ID", this.offre_id);
+          this.offre_id = res.data.data;
           this.getCompetenceWithCategorie(this.offre_id.categorie_offre_id)
         })
         .catch((err) => {
@@ -162,6 +328,25 @@ export default {
         (item) => item.categorie.id === Number(e.target.value)
       );
     },
+     selectCategorieFormState(value) {
+      console.log("VALUEDFE",value)
+  this.formState.categorie = value;
+  this.formState.competence = '';
+  this.formState.otherDomaine = "";
+  this.formState.otherPoste = "";
+  this.competenceWithCategorie = this.allCompetences.filter(
+        (item) => item.categorie.id === Number(value)
+      );
+
+},
+chooseCompetenceFormState(value) {
+  console.log('Choisir le poste',value)
+  this.formState.competence = value;
+
+  // Reset champ "autre poste" si changement
+  this.formState.otherPoste = "";
+},
+
     getCompetenceWithCategorie(idCategorie){
       // console.log("idCategorie",idCategorie)
      this.competenceWithCategorie = this.allCompetences.filter(
@@ -171,7 +356,11 @@ export default {
     }
   },
   async created() {
+    if(this.$store.state.user?.user?.statut?.statut === 'Entreprise'){
     this.show_offre_id();
+    }else{
+      this.loadDetailOffre();
+    }
     this.get_categorie();
     this.getAllCompetences();
     this.texte0 = await this.handleTranslate('Modifier Mon offre');
@@ -192,9 +381,7 @@ export default {
     this.texte15 = await this.handleTranslate("Date et heure de début de travail");
     this.texte16 = await this.handleTranslate("Date et heure de fin de travail");
     this.texte17 = await this.handleTranslate("Description");
-    this.texte18 = await this.handleTranslate("Modifier");
-   
-    
+    this.texte18 = await this.handleTranslate("Modifier"); 
   },
 };
 </script>
@@ -202,11 +389,11 @@ export default {
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard
-      :TitleHeader="texte0"
-      :subTitleHeader="texte0"
+      :TitleHeader="this.$store.state.user.user.statut.statut === 'Entreprise' ? texte0:'Modifier Ma mission'"
+      :subTitleHeader="this.$store.state.user.user.statut.statut === 'Entreprise' ? texte0:'Modifier Ma mission'"
     />
     <div>
-      <form v-if="offre_id" class="container">
+      <form v-if="offre_id && this.$store.state.user.user.statut.statut === 'Entreprise'" class="container">
         <div class="row">
           <div class="text-left my-3 col-md-6">
             <label for="categorie">{{texte1}}</label>
@@ -365,6 +552,172 @@ export default {
               </button>
             </div>
       </form>
+      <div v-else>
+     <a-form
+     :model="formState"
+     :rules="rules"
+     layout="vertical"
+     @finish="post_mission"
+    class="container"
+    >
+   <a-row :gutter="[16, 16]">
+   <!-- Catégorie -->
+   <a-col :xs="24" :md="12">
+    <a-form-item name="categorie_offre_id" :label="texte1">
+    <a-select
+  v-model:value="formState.categorie_offre_id"
+  @change="selectCategorieFormState"
+  name="categorie_offre_id"
+  placeholder="texte2"
+  show-search
+  :options="categoriesOffres"
+  :filter-option="filterOption"
+  :disabled="!categoriesOffres.length"
+  option-filter-prop="label"
+  :field-names="{ label: 'categorie', value: 'id' }"
+>
+  <!-- options dynamiques -->
+  <a-select-option
+    v-for="item in categoriesOffres"
+    :key="item.id"
+    :value="item.id"
+  >
+    {{ item.categorie }}
+  </a-select-option>
+
+  <!-- option static "Autre" -->
+  <a-select-option value="autre">Autre</a-select-option>
+</a-select>
+    </a-form-item>
+
+    <!-- Autre domaine -->
+    <div v-if="formState.categorie_offre_id === 'autre'" style="margin:0.5em 0">
+      <a-form-item name="otherDomaine" label="Autre domaine">
+        <a-input v-model:value="formState.otherDomaine" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </div>
+  </a-col>
+
+  <!-- Compétence -->
+  <a-col :xs="24" :md="12">
+    <a-form-item
+      v-if="formState.categorie_offre_id !== 'autre'"
+      name="competence_id"
+      :label="texte3"
+    >
+      <a-select
+        v-model:value="formState.competence_id"
+        name="competence_id"
+        @change="chooseCompetenceFormState"
+        :disabled="!formState.categorie_offre_id || formState.categorie_offre_id === 'autre'"
+      >
+        <a-select-option
+          v-for="(item, index) in competenceWithCategorie"
+          :key="index"
+          :value="item.id"
+        >
+          {{ item.competence }}
+        </a-select-option>
+
+        <a-select-option value="autre">Autre</a-select-option>
+      </a-select>
+    </a-form-item>
+
+    <!-- Autre poste -->
+    <div
+      v-if="
+        formState.categorie_offre_id === 'autre' ||
+        (formState.categorie_offre_id && formState.competence_id === 'autre')
+      "
+      style="margin:0.5em 0"
+    >
+      <a-form-item name="otherPoste" label="Autre poste">
+        <a-input v-model:value="formState.otherPoste" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </div>
+  </a-col>
+</a-row>
+  <!-- Offre + Salaire -->
+  <a-row :gutter="[16, 16]">
+    <a-col :xs="24" :md="12">
+      <a-form-item name="nom_offre" :label="'Nom de la mission'">
+        <a-input v-model:value="formState.nom_offre" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+
+    <a-col :xs="24" :md="12">
+      <a-form-item name="salaire" :label="'Prix de la mission (Fcfa)'">
+        <a-input v-model:value="formState.salaire" min="1" type="number" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+  </a-row>
+
+  <!-- Lieu -->
+  <a-row :gutter="[16, 16]">
+    <a-col :xs="24" :md="12">
+      <a-form-item name="lieu" :label="'Lieu de la mission'">
+        <a-input v-model:value="formState.lieu" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+    <a-col :xs="24" :md="12">
+      <a-form-item name="typeMission" label="Disponibilité de la mission">
+        <a-select v-model:value="formState.typeMission">
+          <a-select-option value="immediat">Immédiat</a-select-option>
+          <a-select-option value="date">Choisir une date</a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-col>
+  </a-row>
+
+  <!-- Type mission -->
+  <a-row :gutter="[16, 16]">
+    <a-col
+      :xs="24"
+      :md="12"
+      v-if="formState.typeMission === 'date'"
+    >
+      <a-form-item name="job_debut" label="Date de début">
+        <a-input type="date" v-model:value="formState.job_debut" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+    <a-col
+      :xs="24"
+      :md="12"
+      v-if="formState.typeMission === 'date'"
+    >
+      <a-form-item name="job_fin" label="Date de fin">
+        <a-input type="date" :min="formState.job_debut" v-model:value="formState.job_fin" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+  </a-row>
+
+  <!-- Description -->
+  <a-row :gutter="[16, 16]">
+    <a-col :span="24">
+      <a-form-item name="description" :label="'Description'">
+        <a-textarea
+          v-model:value="formState.description"
+          :rows="6"
+          style="border:1px solid #cdcccc !important"
+        />
+      </a-form-item>
+    </a-col>
+  </a-row>
+
+  <!-- Bouton -->
+  <a-row :gutter="[16, 16]" class="my-5">
+    <a-col :span="24" style="text-align: center">
+      <button
+        class="btn btn-warning btn-designer"
+        type="submit"
+        :disabled="isDisabled"
+      >
+         Modifier
+      </button>
+    </a-col>
+  </a-row>
+</a-form>
+      </div>
       <div v-if="spinnerModify" class="container">
        <h3 class="text-center shimmer-text">Chargement...</h3>
       </div>
