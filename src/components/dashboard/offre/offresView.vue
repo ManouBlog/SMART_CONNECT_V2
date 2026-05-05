@@ -206,7 +206,7 @@ export default {
     this.get_categorie();
     const nom_offre = await this.handleTranslate('Offre')
     const Lieu = await this.handleTranslate('Lieu')
-    const Honoraire= await this.handleTranslate('Honoraire')
+    const Honoraire= await this.handleTranslate('Honoraire (Fcfa)')
     const Date_limite = await this.handleTranslate('Date limite')
     const JOUR = await this.handleTranslate('Jour')
     const Heure = await this.handleTranslate('Heure')

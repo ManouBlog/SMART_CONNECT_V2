@@ -114,7 +114,9 @@ export default {
 
 <template>
   <div class="page-body position-relative">
-    <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
+    <HeaderDashboard 
+    :TitleHeader="this.$store.state.user.user.statut.statut == 'Entreprise' ? texte0:'Détail de la mission'" 
+    :subTitleHeader="this.$store.state.user.user.statut.statut == 'Entreprise' ? texte0:'Détail de la mission'" />
     <div class="container px-5" v-if="entreprise != null">
       <div class="details_entreprise card p-5">
         <div class="px-5">
@@ -155,21 +157,17 @@ export default {
         </div>
         
        
-        <div class="px-5 my-4" style="border-top: 1px solid white;border-bottom: 1px solid white;">
-          <h4 class="fw-bold my-4" style="color: white">{{ texte3 }}</h4>
+        <div class="px-5 my-4">
+          <h4 class="fw-bold my-4" style="color: white">{{this.$store.state.user.user.statut.statut == 'Entreprise' ? texte3:'Description' }}</h4>
           <div class="description_html" v-html="entreprise.description"></div>
         </div>
 
         
         <div class="px-5">
-          <!-- <span class="d-block px-3">{{texte4}}: {{ entreprise.debut }}</span> -->
           <span class="px-3" v-if="entreprise.fin">{{ texte5 }} : {{ entreprise.fin }}</span>
-          <!-- <span class="d-block px-3"
-            >{{texte6}}:
-            {{ diffForHumans(new Date(entreprise.created_at).toISOString()) }}</span
-          > -->
+        
         </div>
-        <div class="px-5">
+        <div class="px-3">
           <span class="d-block px-3">{{ texte8 }}: {{ entreprise?.job_debut }}</span>
           <span class="px-3" v-if="entreprise?.job_fin">{{ texte9 }} : {{ entreprise?.job_fin }}</span>
           <span class="d-block px-3"
