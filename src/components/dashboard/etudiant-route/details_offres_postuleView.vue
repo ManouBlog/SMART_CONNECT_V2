@@ -141,7 +141,7 @@ export default {
             >Honoraire pas fixé</span
           >
           
-         <div class="my-3">
+         <div class="my-3" v-if="details_offre?.countries.length">
 
           <div class="d-flex align-items-center flex-wrap">
             Pays :
@@ -161,12 +161,13 @@ export default {
           <div class="p-5" v-html="details_offre.description"></div>
         </div>
           <h6
+           v-if="details_offre?.debut"
             >Date et heure début  :
             <b>{{
               details_offre?.debut
             }}</b></h6
           >
-          <h6>
+          <h6 v-if="details_offre.fin">
             Date limite de candidaturexs : <b>{{ details_offre.fin }}</b>
           </h6>
           <h6 v-if="details_offre.job_debut">

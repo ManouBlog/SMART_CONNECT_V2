@@ -94,7 +94,8 @@ export default {
   categorie_offre_id:"",
   competence_id:"",
   job_debut:"",
-  job_fin:""
+  job_fin:"",
+  status_id:[7]
 },
        countries: [],
       texte0: "",
