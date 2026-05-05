@@ -235,6 +235,10 @@ export default {
   }
 },
   methods: {
+    filterOption(input, option) {
+     
+    return (option?.categorie ?? '').toLowerCase().includes(input.toLowerCase());
+  },
   async listerCountries() {
     try {
       const response = await instance.get("countries");
@@ -432,9 +436,11 @@ export default {
         this.StoreLoading.launchLoading(false);
       }
     },
-    async post_mission(){
-      console.log('FORMSTATE',this.formState)
-      // Si mission immédiate → date du jour
+    async post_mission() {
+      this.StoreLoading.launchLoading(true);
+  console.log("FORMSTATE", this.formState);
+
+  // Si mission immédiate → date du jour
   if (this.formState.typeMission === "immediat") {
     const today = new Date();
 
@@ -444,39 +450,41 @@ export default {
 
     this.formState.job_debut = `${yyyy}-${mm}-${dd}`;
   }
-  await instance
-        .post("create_offre", this.formState)
-        .then((res) => {
-          this.spinner = true;
-          this.loading = false;
-          // console.log(res);
-          if (res.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            this.resetDataFormState()
-          }
-          if (res.data.status === false) {
-            Swal.fire({
-              icon: "error",
-              title: res.data.message,
-              showConfirmButton: true,
-            });
-          }
-        })
-        .catch((res) => {
-         
-          Swal.fire({
-            icon: "error",
-            title: res.response.data.message,
-            showConfirmButton: true,
-          });
-          
-        });
-    },
+
+  try {
+    const res = await instance.post("create_offre", this.formState);
+
+    this.spinner = true;
+    this.loading = false;
+
+    if (res.data.status === true) {
+      Swal.fire({
+        icon: "success",
+        title: res.data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.resetDataFormState();
+    }
+
+    if (res.data.status === false) {
+      Swal.fire({
+        icon: "error",
+        title: res.data.message,
+        showConfirmButton: true,
+      });
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: error.response?.data?.message || "Une erreur est survenue",
+      showConfirmButton: true,
+    });
+  } finally {
+    this.loading = false; // ou toute autre chose à systématiquement faire
+    this.StoreLoading.launchLoading(false);
+  }
+},
     async lister_statut(){
       try {
         const response =  await instance.get("listStatut")
@@ -582,14 +590,16 @@ export default {
 
 },
 resetDataFormState(){
- this.formState.categorie = "";
-  this.formState.competence = '';
-  this.formState.otherDomaine = "";
-  this.formState.otherPoste = "";
-  this.formState.dateMission="";
+  this.formState.offre= "";
+  this.formState.salaire= "";
+  this.formState.lieu= "";
+  this.formState.typeMission= null;   
+  this.formState.dateMission= null;
+  this.formState.description= "";
+  this.formState.categorie_offre_id="";
+  this.formState.competence_id="";
   this.formState.job_debut="";
-  this.formState.job_fin="";
-  this.formState.nom_offre=""
+  this.formState.job_fin=""
 },
 chooseCompetenceFormState(value) {
   console.log('Choisir le poste',value)
@@ -841,22 +851,30 @@ chooseCompetenceFormState(value) {
   <!-- Catégorie -->
   <a-col :xs="24" :md="12">
     <a-form-item name="categorie_offre_id" :label="texte1">
-      <a-select
-        v-model:value="formState.categorie_offre_id"
-        @change="selectCategorieFormState"
-        name="categorie_offre_id"
-        placeholder="texte2"
-      >
-        <a-select-option
-          v-for="(item, index) in categoriesOffres"
-          :key="index"
-          :value="item.id"
-        >
-          {{ item.categorie }}
-        </a-select-option>
+    <a-select
+  v-model:value="formState.categorie_offre_id"
+  @change="selectCategorieFormState"
+  name="categorie_offre_id"
+  placeholder="texte2"
+  show-search
+  :options="categoriesOffres"
+  :filter-option="filterOption"
+  :disabled="!categoriesOffres.length"
+  option-filter-prop="label"
+  :field-names="{ label: 'categorie', value: 'id' }"
+>
+  <!-- options dynamiques -->
+  <a-select-option
+    v-for="item in categoriesOffres"
+    :key="item.id"
+    :value="item.id"
+  >
+    {{ item.categorie }}
+  </a-select-option>
 
-        <a-select-option value="autre">Autre</a-select-option>
-      </a-select>
+  <!-- option static "Autre" -->
+  <a-select-option value="autre">Autre</a-select-option>
+</a-select>
     </a-form-item>
 
     <!-- Autre domaine -->
@@ -871,7 +889,7 @@ chooseCompetenceFormState(value) {
   <a-col :xs="24" :md="12">
     <a-form-item
       v-if="formState.categorie_offre_id !== 'autre'"
-      name="competence"
+      name="competence_id"
       :label="texte3"
     >
       <a-select

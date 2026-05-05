@@ -106,14 +106,13 @@ export default {
   flex-wrap: wrap;
 }
 
-@media screen and (max-width: 768px) {
-  /* On cible spécifiquement le LogoComponent (dernier enfant dans ton template) */
-  .main-container-footer :deep(.logo-component),
-  .main-container-footer > :last-child {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 1.5em;
-  }
+@media screen and (max-width: 468px) {
+.main-container-footer{
+  width: 100%;
+  display: flex;
+    align-items: baseline;
+    flex-direction: column;
+}
+
 }
 </style>

@@ -18,10 +18,12 @@ export default {
         {
           lien: require("../../../assets/googleplay.png"),
           alt_img: "googleplay",
+          lienCliquable:'https://play.google.com/store/apps/details?id=com.monbrobroli.app&hl=fr'
         },
         {
           lien: require("../../../assets/app_store.png"),
           alt_img: "app_store",
+          lienCliquable:'https://apps.apple.com/ci/app/monbrobroli-mb/id6754699104'
         },
       ],
       illustrationApp: require("../../../assets/illustration_app.png"),
@@ -62,8 +64,9 @@ export default {
           v-for="(item, index) in illustrationData"
           :key="index"
           :lien_img_folder="item.lien"
-          :name_class_img="'w-25 mx-2'"
+          :name_class_img="'w-25 mx-2 image_class'"
           :alt_img="item.alt_img"
+          :lienCliquable="item.lienCliquable"
         />
       </div>
     </div>

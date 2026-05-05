@@ -7,12 +7,13 @@ import FieldsCompany from '../FieldsForEachProfil/FieldsCompany.vue';
 import { useAbonnementsStore } from '../../../../../store-pinia/Abonnements/useAbonnementsStore';
 import AddProfilHybride from './AddProflHybride.vue';
 import Swal from 'sweetalert2';
+import DeleteProfilHybride from './DeleteProfilHybride.vue';
 import { useLoadingSpinner } from '../../../../../store-pinia/LoadingSpinner/useLoadingSpinner';
 export default {
   name: 'InfoStatusesUser',
   components:{FieldsVeteran,
     FieldsArtisan,FieldsProfessionnel,
-    FieldsCompany,AddProfilHybride},
+    FieldsCompany,AddProfilHybride,DeleteProfilHybride},
   props: {
     profils: {
       type: Object,
@@ -21,6 +22,7 @@ export default {
   },
   data() {
     return {
+      showModalDeleteMyProfilHybride:false,
       choiceProfilHybrideForAdd:[],
       allProfilsHybrides:[],
       profilhybrideUserConnected:[],
@@ -233,6 +235,24 @@ this.selectedParseStatus = ""
 </script>
 
 <template>
+
+   <n-modal v-model:show="showModalDeleteMyProfilHybride" 
+       style="width:80%; height: 400px; 
+    overflow-y: auto; 
+    max-height: 80vh;" 
+       preset="card" 
+       :closable="false"
+       >
+      <template #header>
+        <div class="modal-header">
+          <h3>Supprimer un profil hybride</h3>
+        </div>
+      </template>
+      
+      <DeleteProfilHybride 
+      />
+      
+    </n-modal>
   <n-modal v-model:show="showModalAddProfilHybride" 
        style="width:80%; height: 400px; 
     overflow-y: auto; 
@@ -381,53 +401,60 @@ this.selectedParseStatus = ""
     <!-- Header avec tes couleurs -->
     <div class="info-header d-flex justify-content-between align-items-center p-4 mb-5 flex-wrap">
       <h1 class="fw-bold my-3 mb-0" style="color: orange">Mes Profils</h1>
-      <!-- {{ profils.user}} -->
-        <!-- <p>VOUEBC:{{ profils.user}}</p> -->
-        <div style="display: flex; gap:1em;flex-wrap: wrap;" class="my-container">
-<button
-      v-if="profils?.user?.statut?.statut !== 'Vétéran' || profils?.user?.statut?.statut !== 'Particulier'"
-          style="
-            height: auto;
-            width: auto;
-            background: orange;
-            color: white;
-            font-weight: bold;
-            border-radius: 5%;
-            padding:0.3em;
-          "
-          @click="async()=>{
+    
+         <div>
+    <a-dropdown>
+    <template #overlay>
+      <a-menu>
+        <!-- Sous‑menu 1 : Changer le profil de base -->
+        <a-menu-item
+          v-if="profils?.user?.statut?.statut !== 'Vétéran' || profils?.user?.statut?.statut !== 'Particulier'"
+          @click="async () => {
             loadActiveChangedProfil(true);
-            showModalChangeProfilOfBase = !showModalChangeProfilOfBase
-             await this.lister_statut();
-             
+            showModalChangeProfilOfBase = !showModalChangeProfilOfBase;
+            await this.lister_statut();
           }"
         >
-          Changer le profil de base
-        </button>
-        <!-- {{ profils?.user }} -->
-        <div>
-      <button
-      v-if="profils?.user?.statuses.some(item=> item.statut != 'Particulier' || item.statut != 'Artisan')"
-          style="
-            height: auto;
-            width: auto;
-            background: orange;
-            color: white;
-            font-weight: bold;
-            border-radius: 5%;
-            padding:0.3em;
-          "
-          @click="async()=>{
-           this.cleanProfilHybride()
-            showModalAddProfilHybride = !showModalAddProfilHybride
-             await this.lister_statut();
+          <span>Changer le profil de base</span>
+        </a-menu-item>
+
+        <!-- Sous‑menu 2 : Ajouter un profil hybride -->
+        <a-menu-item
+         v-if="profils?.user?.statuses.some(item=> item.statut != 'Particulier' || item.statut != 'Artisan')"
+          @click="async () => {
+            this.cleanProfilHybride();
+            showModalAddProfilHybride = !showModalAddProfilHybride;
+            await this.lister_statut();
           }"
         >
-          Ajouter un profil hybride
-        </button>
-        </div>
-       
-        </div>
+          <span>Ajouter un profil hybride</span>
+        </a-menu-item>
+        <!-- Sous‑menu 2 : supprimer un profil hybride -->
+        <a-menu-item
+         v-if="profils?.user?.statuses.some(item=> item.statut != 'Particulier' || item.statut != 'Artisan')"
+          @click="async () => {
+            showModalDeleteMyProfilHybride = !showModalDeleteMyProfilHybride;
+          }"
+        >
+          <span>Supprimer un profil hybride</span>
+        </a-menu-item>
+      </a-menu>
+    </template>
+
+    <!-- Bouton avec les 3 points (sprite/icone) -->
+    <a-button
+      type="link"
+      style="
+        height: auto;
+        padding: 0.3em;
+        font-size: 1.2em;
+        line-height: 1
+      "
+    >
+      ⋮⋮⋮
+    </a-button>
+  </a-dropdown>
+</div>
       
     </div>
      <!-- <p>{{ profils?.user?.abonement }}</p> -->
@@ -492,6 +519,12 @@ this.selectedParseStatus = ""
 </template>
 
 <style scoped>
+
+:deep(.ant-dropdown-trigger){
+background-color: #f8f8f8;
+padding: 0.5em !important;
+box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.218);
+}
 
 
 .shimmer-text {

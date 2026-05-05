@@ -227,6 +227,7 @@ export default {
         },
       ]
     this.texte = await this.handleTranslate('Liste des offres');
+    this.texte26 = await this.handleTranslate('Liste des missions');
   },
 };
 </script>
@@ -234,8 +235,8 @@ export default {
   <section>
     <ModalSuppression v-if="showModalSuppression" @handleDeleteItem="handleDeleteItem" />
     <HeaderDashboard
-      :TitleHeader="texte"
-      :subTitleHeader="texte"
+      :TitleHeader="this.$store.state.user.user.statut.statut === 'Particulier' ? texte26 : texte"
+      :subTitleHeader="this.$store.state.user.user.statut.statut === 'Particulier' ? texte26 : texte"
     />
     <div class="page-body position-relative">
       <DatatablePrimeVue
