@@ -370,7 +370,7 @@ if (!user.competences.length || !user.qualifications.length) {
           placeholder="Sélectionnez plusieurs pays"
         />
       </div>
-         <div>
+         <div class="position-relative">
               <input
                 type="text"
                 class="form-control"
@@ -378,7 +378,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 :placeholder="texte1"
                 v-model="searchName"
               />
-              <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+              <!-- <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> -->
             </div>
 
            <div class="position-relative">

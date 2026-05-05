@@ -291,7 +291,7 @@ if (
       to="/dashboard/offre"
       class="d-block"
     >
-      Liste des offres
+      {{ $store.state.user?.user.statut.statut == 'Entreprise'?'Liste des offres':'Liste des missions' }}
     </router-link>
   </li>
   <li  v-if="
