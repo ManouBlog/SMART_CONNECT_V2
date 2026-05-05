@@ -249,13 +249,13 @@ export default {
       this.formState.nom_offre = offre.nom_offre
       this.formState.salaire = offre.salaire
       this.formState.lieu = offre.lieu
-      this.formState.typeMission = offre.typeMission || 'immediat'
+      this.formState.typeMission = offre.job_fin ? 'date':'immediat'
       this.formState.job_debut = offre.job_debut
       this.formState.job_fin = offre.job_fin
       this.formState.description = offre.description
       this.formState.otherDomaine = offre.otherDomaine || ''
       this.formState.otherPoste = offre.otherPoste || ''
-      this.selectCategorieFormState(offre.categorie_offre_id)
+      this.selectCategorieFormState(offre.categorie_offre_id);
       this.chooseCompetenceFormState(offre.competence_id);
       }catch(error){
         console.log(error)
@@ -721,8 +721,8 @@ chooseCompetenceFormState(value) {
 </a-form>
       </div>
     </div>
-     <div v-else class="container">
-       <h3 class="text-center shimmer-text">Chargement...</h3>
+     <div v-else class="container shimmer-text">
+       <h3 class="text-center">Chargement...</h3>
       </div>
   </div>
 </template>
