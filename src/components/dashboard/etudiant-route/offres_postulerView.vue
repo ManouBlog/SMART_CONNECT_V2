@@ -175,11 +175,11 @@ if (!user.competences.length || !user.qualifications.length) {
                 <Column :header="texte6">
                   <template #body="{ data }">
                     <div class="d-flex justify-content-center align-items-center gap-3">
-                      <n-button :bordered="false" size="large" @click="getVoirPlusRoute(data.id)">
+                      <n-button :bordered="false" size="large" @click="getVoirPlusRoute(data.offre_id)">
                         <i class="bi bi-eye"></i>
                       </n-button>
                       <n-button
-                        v-if="data.recruit === 1"
+                        v-if="data.recruit == 1"
                         :bordered="false"
                         size="large"
                         @click="getContratRoute(data.offre_id)"
@@ -187,7 +187,7 @@ if (!user.competences.length || !user.qualifications.length) {
                         <i class="bi bi-file-earmark-text"></i>
                       </n-button>
                       <n-button
-                        v-if="data.certificat === 1"
+                        v-if="data.certificat == 1"
                         :bordered="false"
                         size="large"
                         @click="getCertificatRoute(data.offre_id)"
@@ -222,7 +222,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 </p>
 
                 <div class="d-flex justify-content-end mt-3 gap-3">
-                  <n-button :bordered="false" size="large" @click="getVoirPlusRoute(item.id)">
+                  <n-button :bordered="false" size="large" @click="getVoirPlusRoute(item.offre_id)">
                     <i class="bi bi-eye text-white"></i>
                   </n-button>
                   <n-button

@@ -117,17 +117,17 @@ export default {
       </n-modal>
       <div class="container-fluid">
         <div class="details_entreprise card">
-          <span class="badge my-2" :class="statutColor[details_offre.recruit]">{{
-              Statut[details_offre.recruit]
+          <span class="badge my-2" :class="statutColor[details_offre.offre.recruit]">{{
+              Statut[details_offre.offre.recruit]
             }}</span>
           <h4>
             Offre : <strong>{{ details_offre.offre.nom_offre }}</strong>
           </h4>
           <h4>
-            Lieu : <strong>{{ details_offre.lieu }}</strong>
+            Lieu : <strong>{{ details_offre.offre.lieu }}</strong>
           </h4>
-          <span v-if="details_offre.salaire != null" class="badge bg-warning">
-            Honoraire : {{ moneyFormat.format(details_offre.salaire) }} Fcfa</span
+          <span v-if="details_offre.offre.salaire != null" class="badge bg-warning">
+            Honoraire : {{ moneyFormat.format(details_offre.offre.salaire) }} Fcfa</span
           >
           <span v-else class="text-light badge bg-primary"
             >Honoraire pas fixé</span
@@ -155,12 +155,12 @@ export default {
           <h6
            v-if="details_offre?.offre.debut"
             >Date et heure début  :
-            <b>{{
+            {{
               details_offre?.offre.debut
-            }}</b></h6
+            }}</h6
           >
           <h6 v-if="details_offre.offre.fin">
-            Date limite de candidaturexs : {{ details_offre.offre.fin }}
+            Date limite de candidature : {{ details_offre.offre.fin }}
           </h6>
           <h6 v-if="details_offre.offre.job_debut">
             Date de début de travail : {{ details_offre.offre.job_debut.split(' ')[0] }}

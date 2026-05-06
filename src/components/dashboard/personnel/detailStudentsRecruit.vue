@@ -191,7 +191,7 @@ export default {
 <template>
   <section>
     <HeaderDashboard
-      :TitleHeader="`${texte0} ${this.$route.params.offre}`"
+      :TitleHeader="`${this.$store.state.user.user.statut.statut == 'Entreprise' ? texte0:'Détail de la mission :'} ${this.$route.params.offre}`"
       :subTitleHeader="this.$route.params.offre"
     />
     <div class="page-body position-relative">
@@ -264,10 +264,9 @@ export default {
         </n-modal>
         <p style="text-align: center">
           <span v-if="tableauRecruit[0].offre?.job_debut && tableauRecruit[0].offre?.job_fin">
-  Du {{ new Date(tableauRecruit[0].offre?.job_debut).toLocaleDateString("fr") }} au
+       Du {{ new Date(tableauRecruit[0].offre?.job_debut).toLocaleDateString("fr") }} au
           {{ new Date(tableauRecruit[0].offre?.job_fin).toLocaleDateString("fr") }}
           </span>
-
         </p>
         <div class="conteneur-evaluation-offre">
 
@@ -315,12 +314,12 @@ export default {
                 {{ item.student.nom }} {{ item.student.prenoms }}
               </h1>
            <div class="status-wrapper">
-  <span
-    v-for="(status, index) in item.student.user?.statuses || []"
-    :key="index"
-    class="status-badge"
-    style="background-color:orange;margin:0 0.3em;border-radius: 2px;"
-  >
+      <span
+       v-for="(status, index) in item.student.user?.statuses || []"
+       :key="index"
+       class="status-badge"
+       style="background-color:orange;margin:0 0.3em;border-radius: 2px;"
+      >
     {{ status.statut }}
   </span>
 </div>
