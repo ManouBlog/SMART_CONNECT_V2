@@ -174,23 +174,20 @@ export default {
 </script>
 <template>
     <a-card style="width: 400px;color: var(--third-color) !important; background: var(--secondary-color) !important">
-       <div class="d-flex g-5 align-items-center">    
+       <div class="d-flex align-items-center" style="gap:1.5em;">    
          <n-avatar
             v-if="InfoPostulant.photo_profil"
             class="user-avatar"
             style="border: 2px solid orange; object-fit: cover"
             round
-            :size="80"
+            :size="65"
             :src="lienPhoto + InfoPostulant.photo_profil"
           />
-          
           <span
             style="
               border: 2px solid orange;
               object-fit: cover;
-              width: 40px;
-              height:40px;
-              line-height:40px;
+              padding: 1.3em;
               text-align:center;
               font-size:1em;
               border-radius: 100%;
@@ -200,22 +197,22 @@ export default {
           >
            <span style="font-size:1em;color:white;">{{Help.toADfirstTwo(InfoPostulant.nom)}}</span>
           </span>
-        <h1 class="user_person" style="color:orange;">{{ InfoPostulant.nom }} {{ InfoPostulant.prenoms }}</h1>
+        <h1 class="user_person" style="color:orange;margin-top:1em;">{{ InfoPostulant.nom }} {{ InfoPostulant.prenoms }}</h1>
        </div>
        <section>
-        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte}} :</span> 
+        <h4 v-if="InfoPostulant.email">
+          <span style="color:orange;margin-top:1em;">{{texte}} :</span> 
           <span style="word-break: break-word;">{{ InfoPostulant.email }}</span>
-          </h4>
-        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte1}} :</span> {{ InfoPostulant.ville }}</h4>
-        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte2}} :</span> {{ InfoPostulant.quartier }}</h4>
-        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte3}} :</span> {{ InfoPostulant.commune }}</h4>
-        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte4}} :</span> {{ InfoPostulant.phone }}</h4>
-        <h4 style="padding:0.8em;"><span style="color:orange;">{{texte5}} :</span> {{ InfoPostulant.diplome }}</h4>
+        </h4>
+        <h4 v-if="InfoPostulant.ville"><span style="color:orange;margin-top:1em;" >{{texte1}} :</span> {{ InfoPostulant.ville }}</h4>
+        <h4 v-if="InfoPostulant.quartier"><span style="color:orange;margin-top:1em;" >{{texte2}} :</span> {{ InfoPostulant.quartier }}</h4>
+        <h4 v-if="InfoPostulant.commune"><span style="color:orange;margin-top:1em;" >{{texte3}} :</span> {{ InfoPostulant.commune }}</h4>
+        <h4 v-if="InfoPostulant.phone"><span style="color:orange;margin-top:1em;" >{{texte4}} :</span> {{ InfoPostulant.phone }}</h4>
+        <h4 v-if="InfoPostulant.diplome"><span style="color:orange;margin-top:1em;" >{{texte5}} :</span> {{ InfoPostulant.diplome }}</h4>
         <div style="text-align:left;">
-  <h4>
-    <span style="color:orange;">{{ texte6 }} :</span>
+  <h4 v-if="InfoPostulant.photo.length">
+    <span style="color:orange;margin-top:1em;">{{ texte6 }} :</span>
   </h4>
-
   <div v-for="(item, index) in InfoPostulant.photo" :key="index">
     
     <!-- ✅ CAS PDF -->
@@ -241,15 +238,6 @@ export default {
 
   </div>
 </div>
-        <!-- <div style="text-align:left;">
-          <h4><span style="color:orange;">{{texte6}} :</span></h4>
-          <n-image v-for="(item,index) in InfoPostulant.photo" 
-          :key="index"
-          width="100" 
-          style="margin:1em;"
-          :src="lienPhoto + item.path"
-          :alt="item.path" />
-        </div> -->
        <button style="background-color: orange;font-weight: bold;
        position:absolute;top:0.8em;right: 1em;border:none;" @click="VoirProfil(InfoPostulant)"> 
         Voir le Profil
