@@ -36,15 +36,9 @@ export default {
       loadingSpinner.launchLoading(true);
 
       instance.get("get_offres_postule").then((res) => {
-        // // console.log("DETAILS", res);
+        console.log("DETAILS_get_offres_postule", res);
         this.offres = res.data.data.offres;
         this.details_offre = this.offres.find((item) => item.id == this.$route.params.id);
-        // if(this.details_offre.pivot.recruit === 1 &&
-        // JSON.stringify(new Date().toISOString().substring(0,10))
-        // > JSON.stringify(new Date(this.details_offre.fin).toISOString().slice(0,10))
-        // ){
-        //   this.showModal = true;
-        // }
         loadingSpinner.launchLoading(false);
         console.log("DETAILS_OFFRES", this.details_offre);
       });
@@ -116,10 +110,10 @@ export default {
           </div>
 
           <div class="text-center">
-            <button class="btn mx-3" style="background: orange" @click="noterEntreprise">
+            <button class="btn mx-3 bg-warning" @click="noterEntreprise">
               Envoyer
             </button>
-            <button class="btn mx-3" @click="showModal = !showModal">Plus tard</button>
+            <button class="btn mx-3 bg-danger" @click="showModal = !showModal">Plus tard</button>
           </div>
         </n-card>
       </n-modal>
@@ -141,7 +135,7 @@ export default {
             >Honoraire pas fixé</span
           >
           
-         <div class="my-3" v-if="details_offre?.countries.length">
+         <div class="my-3" v-if="details_offre?.countries?.length">
 
           <div class="d-flex align-items-center flex-wrap">
             Pays :
@@ -168,13 +162,13 @@ export default {
             }}</b></h6
           >
           <h6 v-if="details_offre.fin">
-            Date limite de candidaturexs : <b>{{ details_offre.fin }}</b>
+            Date limite de candidaturexs : {{ details_offre.fin }}
           </h6>
           <h6 v-if="details_offre.job_debut">
-            Date de début de travail : <b>{{ details_offre.job_debut.split(' ')[0] }}</b>
+            Date de début de travail : {{ details_offre.job_debut.split(' ')[0] }}
           </h6>
           <h6 v-if="details_offre.job_fin">
-            Date de fin de travail : <b>{{ details_offre.job_fin }}</b>
+            Date de fin de travail : {{ details_offre.job_fin }}
           </h6>
           <button
             v-if="
@@ -199,6 +193,9 @@ export default {
 </template>
 
 <style scoped>
+h6{
+  font-size: 1em !important;
+}
 h4{
   margin: 1em 0;
 }

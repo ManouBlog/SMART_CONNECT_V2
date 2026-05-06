@@ -157,18 +157,18 @@ if (!user.competences.length || !user.qualifications.length) {
                   </div>
                 </template>
 
-                <Column field="owner.nom" :header="texte89" />
-                <Column field="nom_offre" :header="texte1" />
-                <Column field="lieu" :header="texte2" />
+                <Column field="owner_offre.nom" :header="texte89" />
+                <Column field="offre.nom_offre" :header="texte1" />
+                <Column field="offre.lieu" :header="texte2" />
                 <Column :header="texte3">
                   <template #body="{ data }">
-                    {{ data.salaire ? moneyFormat.format(data.salaire) : texte4 }}
+                    {{ data.offre.salaire ? moneyFormat.format(data.offre.salaire) : texte4 }}
                   </template>
                 </Column>
                 <Column :header="texte5">
                   <template #body="{ data }">
-                    <span :class="['badge', colorStatut[data.pivot.recruit]]">
-                      {{ statut[data.pivot.recruit] }}
+                    <span :class="['badge', colorStatut[data.recruit]]">
+                      {{ statut[data.recruit] }}
                     </span>
                   </template>
                 </Column>
@@ -179,18 +179,18 @@ if (!user.competences.length || !user.qualifications.length) {
                         <i class="bi bi-eye"></i>
                       </n-button>
                       <n-button
-                        v-if="data.pivot.recruit === 1"
+                        v-if="data.recruit === 1"
                         :bordered="false"
                         size="large"
-                        @click="getContratRoute(data.pivot.offre_id)"
+                        @click="getContratRoute(data.offre_id)"
                       >
                         <i class="bi bi-file-earmark-text"></i>
                       </n-button>
                       <n-button
-                        v-if="data.pivot.certificat === 1"
+                        v-if="data.certificat === 1"
                         :bordered="false"
                         size="large"
-                        @click="getCertificatRoute(data.pivot.offre_id)"
+                        @click="getCertificatRoute(data.offre_id)"
                       >
                         <i class="bi bi-award"></i>
                       </n-button>
@@ -208,17 +208,17 @@ if (!user.competences.length || !user.qualifications.length) {
                 class="card_offre_mobile mb-3 p-3  shadow-sm"
               >
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h5 class="fw-bold text-white">{{ item?.nom_offre }}</h5>
-                  <span :class="['badge', colorStatut[item?.pivot.recruit]]">
-                    {{ statut[item?.pivot.recruit] }}
+                  <h5 class="fw-bold text-white">{{ item?.offre.nom_offre }}</h5>
+                  <span :class="['badge', colorStatut[item?.recruit]]">
+                    {{ statut[item?.recruit] }}
                   </span>
                 </div>
 
-                <p class="m-0"><strong>{{ texte89 }} :</strong> {{ item?.owner?.nom ? item?.owner?.nom:'-' }}</p>
-                <p class="m-0"><strong>{{ texte2 }} :</strong> {{ item.lieu }}</p>
+                <p class="m-0"><strong>{{ texte89 }} :</strong> {{ item?.owner_offre?.nom ? item?.owner_offre?.nom:'-' }}</p>
+                <p class="m-0"><strong>{{ texte2 }} :</strong> {{ item.offre.lieu }}</p>
                 <p class="m-0">
                   <strong>{{ texte3 }} :</strong>
-                  {{ item?.salaire ? moneyFormat.format(item?.salaire) : texte4 }}
+                  {{ item?.offre.salaire ? moneyFormat.format(item?.offre.salaire) : texte4 }}
                 </p>
 
                 <div class="d-flex justify-content-end mt-3 gap-3">
@@ -226,18 +226,18 @@ if (!user.competences.length || !user.qualifications.length) {
                     <i class="bi bi-eye text-white"></i>
                   </n-button>
                   <n-button
-                    v-if="item?.pivot.recruit === 1"
+                    v-if="item?.recruit === 1"
                     :bordered="false"
                     size="large"
-                    @click="getContratRoute(item?.pivot.offre_id)"
+                    @click="getContratRoute(item?.offre_id)"
                   >
                     <i class="bi bi-file-earmark-text text-white"></i>
                   </n-button>
                   <n-button
-                    v-if="item?.pivot.certificat === 1"
+                    v-if="item?.certificat === 1"
                     :bordered="false"
                     size="large"
-                    @click="getCertificatRoute(item?.pivot?.offre_id)"
+                    @click="getCertificatRoute(item?.offre_id)"
                   >
                     <i class="bi bi-award text-white"></i>
                   </n-button>

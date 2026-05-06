@@ -23,13 +23,9 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
             await instance
               .get("get_offres_postule")
               .then((res) => {
-                // console.log(res);
-                this.offres = res.data;
-                const { offres } = res.data.data;
-                console.log("get_all_student", offres);
-                this.list_offre = offres;
-                this.data_offre_filter = offres
-                // console.log("this.list_offre", this.list_offre);
+                console.log("get_all_student",res);
+                this.list_offre = res.data.data;
+                this.data_offre_filter = res.data.data;
                 loadingSpinner.launchLoading(false);
               })
               .catch((err) => {
