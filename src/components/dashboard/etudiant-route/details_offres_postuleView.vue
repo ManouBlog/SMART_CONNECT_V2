@@ -34,11 +34,9 @@ export default {
   methods: {
     get_details_offres_postule() {
       loadingSpinner.launchLoading(true);
-
-      instance.get("get_offres_postule").then((res) => {
+      instance.get("offres_postulees/"+this.$route.params.id).then((res) => {
         console.log("DETAILS_get_offres_postule", res);
-        this.offres = res.data.data.offres;
-        this.details_offre = this.offres.find((item) => item.id == this.$route.params.id);
+        this.details_offre = res.data.data;
         loadingSpinner.launchLoading(false);
         console.log("DETAILS_OFFRES", this.details_offre);
       });
@@ -77,7 +75,6 @@ export default {
   },
   created() {
     this.get_details_offres_postule();
-    // this.getall()
   },
 };
 </script>
@@ -113,17 +110,18 @@ export default {
             <button class="btn mx-3 bg-warning" @click="noterEntreprise">
               Envoyer
             </button>
-            <button class="btn mx-3 bg-danger" @click="showModal = !showModal">Plus tard</button>
+            <button class="btn mx-3 bg-danger" 
+            @click="showModal = !showModal">Plus tard</button>
           </div>
         </n-card>
       </n-modal>
       <div class="container-fluid">
         <div class="details_entreprise card">
-          <span class="badge my-2" :class="statutColor[details_offre.pivot.recruit]">{{
-              Statut[details_offre.pivot.recruit]
+          <span class="badge my-2" :class="statutColor[details_offre.recruit]">{{
+              Statut[details_offre.recruit]
             }}</span>
           <h4>
-            Offre : <strong>{{ details_offre.nom_offre }}</strong>
+            Offre : <strong>{{ details_offre.offre.nom_offre }}</strong>
           </h4>
           <h4>
             Lieu : <strong>{{ details_offre.lieu }}</strong>
@@ -135,12 +133,12 @@ export default {
             >Honoraire pas fixé</span
           >
           
-         <div class="my-3" v-if="details_offre?.countries?.length">
+         <div class="my-3" v-if="details_offre?.offre?.countries?.length">
 
           <div class="d-flex align-items-center flex-wrap">
             Pays :
          <span 
-         v-for="country in details_offre?.countries" 
+         v-for="country in details_offre?.offre.countries" 
          :key="country.id"
         class="badge bg-warning text-dark mx-2 my-3"
         style="border-radius: 3px;"
@@ -152,30 +150,30 @@ export default {
         </div>
         <div>
          <h4>Description :</h4>
-          <div class="p-5" v-html="details_offre.description"></div>
+          <div class="p-5" v-html="details_offre.offre.description"></div>
         </div>
           <h6
-           v-if="details_offre?.debut"
+           v-if="details_offre?.offre.debut"
             >Date et heure début  :
             <b>{{
-              details_offre?.debut
+              details_offre?.offre.debut
             }}</b></h6
           >
-          <h6 v-if="details_offre.fin">
-            Date limite de candidaturexs : {{ details_offre.fin }}
+          <h6 v-if="details_offre.offre.fin">
+            Date limite de candidaturexs : {{ details_offre.offre.fin }}
           </h6>
-          <h6 v-if="details_offre.job_debut">
-            Date de début de travail : {{ details_offre.job_debut.split(' ')[0] }}
+          <h6 v-if="details_offre.offre.job_debut">
+            Date de début de travail : {{ details_offre.offre.job_debut.split(' ')[0] }}
           </h6>
-          <h6 v-if="details_offre.job_fin">
-            Date de fin de travail : {{ details_offre.job_fin }}
+          <h6 v-if="details_offre.offre.job_fin">
+            Date de fin de travail : {{ details_offre.offre.job_fin }}
           </h6>
           <button
             v-if="
-              details_offre.pivot.recruit === 1 &&
+              details_offre.recruit === 1 &&
               JSON.stringify(new Date().toISOString().substring(0, 10)) >
                 JSON.stringify(
-                  new Date(this.details_offre.fin).toISOString().slice(0, 10)
+                  new Date(this.details_offre.offre.fin).toISOString().slice(0, 10)
                 )
             "
             class="btn bg-warning mt-3"
