@@ -241,7 +241,7 @@ Swal.fire({
                 <h4
                   class="my-5"
                 >
-                  <em class="bi bi-building"></em> Propriétaire : {{ Offre?.owner?.nom }}
+                  <em class="bi bi-building"></em> Recruteur : {{ Offre?.owner?.nom }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="Offre.salaire != null" >
@@ -276,12 +276,12 @@ Swal.fire({
               </section>
 
               <section>
-                <h4 class="my-5" v-if="Offre.job_debut">
-                  <span class="fw-bold">{{ texte2 }}</span>
-                  {{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0] ) }}
+                <h4 class="my-5" v-if="Offre.job_debut" >
+                  <span class="fw-bold" style="font-size: 0.8em;">{{ texte2 }}</span>
+                  <span style="font-size: 0.8em;">{{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0] ) }}</span>
                 </h4>
                 <h4 class="my-5" v-if="Offre.job_fin">
-                  <span class="fw-bold">{{ texte3 }}</span>
+                  <span class="fw-bold" style="font-size: 0.7em;">{{ texte3 }}</span>
                   {{ configUtils.getFormatDateFr(Offre.job_fin) }}
                 </h4>
               </section>

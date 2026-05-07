@@ -7,7 +7,7 @@
 
     <div class="job-info">
       <h3>Offre : {{ job?.offre?.nom_offre }}</h3>
-      <p>Propriétaire : {{ job?.offre?.owner?.nom }}</p>
+      <p>Recruteur : {{ job?.offre?.owner?.nom }}</p>
     </div>
 
     <button class="apply-btn" :disabled="!job?.certificat" @click="showModal = true">

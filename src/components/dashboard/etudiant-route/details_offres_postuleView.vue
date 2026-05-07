@@ -162,7 +162,7 @@ export default {
           <h6 v-if="details_offre.offre.fin">
             Date limite de candidature : {{ details_offre.offre.fin }}
           </h6>
-          <h6 v-if="details_offre.offre.job_debut">
+          <h6 v-if="details_offre.offre.job_debut" >
             Date de début de travail : {{ details_offre.offre.job_debut.split(' ')[0] }}
           </h6>
           <h6 v-if="details_offre.offre.job_fin">

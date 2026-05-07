@@ -120,7 +120,7 @@ if (!user.competences.length || !user.qualifications.length) {
     this.texte4 = await this.handleTranslate("Prime pas fixée.");
     this.texte5 = await this.handleTranslate("Statut");
     this.texte6 = await this.handleTranslate("Détails");
-    this.texte89 = await this.handleTranslate("Propriétaire");
+    this.texte89 = await this.handleTranslate("Recruteur");
   },
 };
 </script>

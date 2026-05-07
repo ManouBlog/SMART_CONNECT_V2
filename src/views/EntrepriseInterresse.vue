@@ -216,7 +216,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 </div>
 
                 <p><strong>Lieu :</strong> {{ item.offre.lieu }}</p>
-                <p><strong>Propriétaire :</strong> {{ item.Offre?.owner?.nom }}</p>
+                <p><strong>Recruteur :</strong> {{ item.Offre?.owner?.nom }}</p>
                 <p>
                   <strong>Rémuneration</strong>
                   {{ moneyFormat.format(item.offre.salaire) }} Fcfa
