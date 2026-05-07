@@ -185,7 +185,6 @@ descriptionProfil:{
       this.formData.upload = info.file.originFileObj;
     },
     async validateAndSubmit() {
-      
       try {
         console.log("Validation réussie, données du formulaire :", this.formData);
         this.handleChangeInfoForAbonnement(this.formData)
@@ -196,9 +195,7 @@ descriptionProfil:{
         console.log("Validation échouée :", error);
       }
     },
-   
-  
-     async lister_statut() {
+    async lister_statut() {
     
   const user = this.$store.state.infoUserConnected?.user;
   const statutUser = user?.statut.statut;
@@ -255,18 +252,8 @@ console.log('user',user)
     <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
      Profils hybrides
     </label>
-  <!-- <p>PRFILUSER:{{ ProfilsUser }}</p>   -->
-    <!-- {{ filteredProfilsHybrides }} -->
-    <!-- {{ ProfilsUser.user?.statuses }}
-    {{ ProfilsUser.user?.statut?.statut }} -->
-     <!-- {{ choiceProfilHybrideForAdd }} -->
-       <!-- {{ profilhybrideUserConnected }}
-         {{ allProfilsHybrides }} -->
           <div v-if="ProfilsUser.user?.statut?.statut !== 'Entreprise'">
  <div class="round-container" v-if='filteredProfilsHybrides.length'>
-   <!-- <p>allProfilsHybrides:{{ allProfilsHybrides }}</p>
-   <p>profilhybrideUserConnected:{{ profilhybrideUserConnected }}</p>
-   <p>choiceProfilHybrideForAdd:{{ choiceProfilHybrideForAdd }}</p> -->
       <label
   v-for="item in filteredProfilsHybrides"
   :key="item.id"

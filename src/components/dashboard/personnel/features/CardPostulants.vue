@@ -65,14 +65,15 @@ export default {
             params: { id: item.student_id, user_id: item.user_id },
           });
     },
-      async chooseStudent(id, valueRecruit) {
-
+      async chooseStudent(id,student_id,valueRecruit) {
+        console.log("IDchooseStudent",id)
+     console.log("IDchooseStudent",student_id)
   const actionText = valueRecruit === 1 
     ? "sélectionner" 
     : "rejeter"
 
   const result = await Swal.fire({
-    title: `Voulez-vous vraiment ${actionText} cet étudiant ?`,
+    title: `Voulez-vous vraiment ${actionText} ce talent ?`,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: valueRecruit === 1 ? "#163239" : "#ef4444",
@@ -92,6 +93,7 @@ export default {
     const data = {
       id,
       recruit: valueRecruit,
+      student_id:student_id
     }
 
     const reponse = await instance.post("recruitStudent", data)
@@ -164,8 +166,8 @@ export default {
     this.texte4 = await this.handleTranslate('Télephone');
     this.texte5 = await this.handleTranslate("niveau d’étude");
     this.texte6 = await this.handleTranslate('Carte étudiant');
-    this.texte7 = await this.handleTranslate(' Sélectionner');
-    this.texte8 = await this.handleTranslate(' Rejeter');
+    this.texte7 = await this.handleTranslate('Sélectionner');
+    this.texte8 = await this.handleTranslate('Rejeter');
     this.texte9 = await this.handleTranslate("Candidature retenue");
     this.texte10 = await this.handleTranslate('Candidature Pas retenue');
    
@@ -247,14 +249,14 @@ export default {
             <button
           class="btn bg-warning mt-3 rounded-5"
           style="border:none"
-          @click="chooseStudent(InfoPostulant.id,1)"
+          @click="chooseStudent(InfoPostulant.id,InfoPostulant.student_id,1)"
         >
          {{texte7}}
         </button>
         <button
         class="btn bg-danger mt-3 mx-3 rounded-5"
         style="border:none"
-        @click="chooseStudent(InfoPostulant.id,2)">
+        @click="chooseStudent(InfoPostulant.id,InfoPostulant.student_id,2)">
          {{texte8}}
         </button>
           </section>

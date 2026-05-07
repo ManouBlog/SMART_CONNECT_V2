@@ -170,7 +170,7 @@ const messageAbonnement = (item) => {
     return mapMessages[libelle] || "Choisir cette formule";
   }
 
-  return "Choisir cette formule";
+  return "Choisirsdes cette formule";
 };
 
 

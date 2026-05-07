@@ -469,12 +469,17 @@ export default {
     }
 
     if (res.data.status === false) {
-      Swal.fire({
-        icon: "error",
-        title: res.data.message,
-        showConfirmButton: true,
-      });
+  Swal.fire({
+    icon: "info",
+    title: res.data.message,
+    confirmButtonText: "Okay",
+    confirmButtonColor: "#f97316", // orange
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.$router.push("/abonnements"); // remplace par ta route
     }
+  });
+}
   } catch (error) {
     Swal.fire({
       icon: "error",

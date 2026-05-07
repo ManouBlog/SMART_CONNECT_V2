@@ -98,10 +98,10 @@ const currentConfig = computed(() => {
       "BROBROLI HOME MAX": "Passer à BROBROLI PRO MAX",
     };
 
-    return mapMessages[libelle] || "Choisircvb cette formule";
+    return mapMessages[libelle] || "Choisir cette formule";
   }
 
-  return "Choisir cette formule";
+  return "Ajouter";
 });
 
 const currentNotAbonnamentSuccessConfig = computed(() => {
