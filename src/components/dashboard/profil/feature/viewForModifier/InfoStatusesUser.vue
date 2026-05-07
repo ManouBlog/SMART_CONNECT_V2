@@ -462,7 +462,6 @@ this.selectedParseStatus = ""
 </div>
       
     </div>
-     <!-- <p>{{ profils?.user.statut.statut }}</p> -->
      <div style="padding:0 1em;" 
      v-if="profils?.user?.abonement?.some(item=>item.statut == 'success' && item.abonement.libelle === 'BROBROLI+')
      &&  profils?.user.statut.statut == 'Professionnel'
