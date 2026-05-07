@@ -291,12 +291,11 @@ if (
       to="/dashboard/offre"
       class="d-block"
     >
-      {{ $store.state.user?.user.statut.statut == 'Entreprise'?'Liste des offres':'Liste des missions' }}
+      {{ $store.state.user?.user.statut.statut == 'Entreprise' ? 'Liste des offres': 'Liste des missions' }}
     </router-link>
   </li>
   <li  v-if="
-    ($store.state.user?.user?.statuses || [])
-    .some(s => ['Entreprise', 'Particulier'].includes(s.statut))
+    $store.state.user?.user?.statuses.some(s => ['Entreprise', 'Particulier'].includes(s.statut))
     ">
     <router-link
       @click.prevent="changeValueForshowMenuMobile"

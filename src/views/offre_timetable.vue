@@ -124,62 +124,62 @@ export default {
         .get("list_offres")
         .then((res) => {
           if (res.data.status) {
-            let OFFRES_FILTER_BY_PROFIL = [];
-             const profilALL = this.$store.state.user?.user.statuses;
-             console.log('handleListOffresWithoutSearch_profilALL',profilALL)
-             const isProfessionnel = profilALL.some(s => 
-  s.statut?.toLowerCase() === "professionnel"
-);
-const isArtisan = profilALL.some(s => 
-  s.statut?.toLowerCase() === "artisan"
-);
+//             let OFFRES_FILTER_BY_PROFIL = [];
+//              const profilALL = this.$store.state.user?.user.statuses;
+//              console.log('handleListOffresWithoutSearch_profilALL',profilALL)
+//              const isProfessionnel = profilALL.some(s => 
+//   s.statut?.toLowerCase() === "professionnel"
+// );
+// const isArtisan = profilALL.some(s => 
+//   s.statut?.toLowerCase() === "artisan"
+// );
 
-const isStudent = profilALL.some(s => 
-  s.statut?.toLowerCase() === "etudiant"
-);
+// const isStudent = profilALL.some(s => 
+//   s.statut?.toLowerCase() === "etudiant"
+// );
 
-const isVeteran = profilALL.some(s => 
-  s.statut?.toLowerCase() === "vétéran"
-);
+// const isVeteran = profilALL.some(s => 
+//   s.statut?.toLowerCase() === "vétéran"
+// );
 
-console.log('isProfessionnel', isProfessionnel);
-console.log('isArtisan', isArtisan);
+// console.log('isProfessionnel', isProfessionnel);
+// console.log('isArtisan', isArtisan);
 
-let allowedStatuts = []
+// let allowedStatuts = []
 
-switch (true) {
-  case isProfessionnel && isArtisan:
-    allowedStatuts = ['professionnel', 'artisan']
-    break
+// switch (true) {
+//   case isProfessionnel && isArtisan:
+//     allowedStatuts = ['professionnel', 'artisan']
+//     break
 
-  case isProfessionnel:
-    allowedStatuts = ['professionnel']
-    break
+//   case isProfessionnel:
+//     allowedStatuts = ['professionnel']
+//     break
 
-  case isArtisan:
-    allowedStatuts = ['artisan']
-    break
+//   case isArtisan:
+//     allowedStatuts = ['artisan']
+//     break
 
-  case isStudent:
-    allowedStatuts = ['etudiant']
-    break
+//   case isStudent:
+//     allowedStatuts = ['etudiant']
+//     break
 
-  case isVeteran:
-    allowedStatuts = ['vétéran']
-    break
+//   case isVeteran:
+//     allowedStatuts = ['vétéran']
+//     break
 
-  default:
-    allowedStatuts = []
-    break
-}
+//   default:
+//     allowedStatuts = []
+//     break
+// }
 
-OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
-  const offres_status = item.statuses || [];
-  return offres_status.some(statut => {
-    return allowedStatuts.includes(statut.statut?.toLowerCase());
-  });
-});
-            this.MylistOffre=OFFRES_FILTER_BY_PROFIL
+// OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
+//   const offres_status = item.statuses || [];
+//   return offres_status.some(statut => {
+//     return allowedStatuts.includes(statut.statut?.toLowerCase());
+//   });
+// });
+            this.MylistOffre=res.data.data;
             this.lengthOfMylistOffre = this.MylistOffre.length;
           }
         })
