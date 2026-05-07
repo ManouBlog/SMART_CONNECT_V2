@@ -378,7 +378,7 @@ onMounted(async () => {
           class="badge"
         style="background-color: white;color:black;"
         >
-          Formule
+          Active
         </span>
   </p>
  
@@ -443,7 +443,7 @@ onMounted(async () => {
           class="badge"
           style="background-color: white;color:black;"
         >
-          Formule
+          Active
         </span>
   </p>
  
@@ -508,7 +508,7 @@ onMounted(async () => {
           class="badge"
           style="background-color: white;color:black;"
         >
-          Formule
+          Active
         </span>
   </p>
  

@@ -114,7 +114,7 @@ onMounted(async () => {
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
           class="badge bg-warning"
         >
-          Formule
+          Active
         </span>
   </p>
        <div class="d-flex align-items-center gap-5 justify-content-center main-color">

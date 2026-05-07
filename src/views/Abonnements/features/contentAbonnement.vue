@@ -255,9 +255,9 @@ onMounted(async () => {
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
           class="badge"
-        style="background-color: white;color:black;"
+        style="background-color: green;"
         >
-          Formule
+          Active
         </span>
   </p>
  
@@ -318,9 +318,9 @@ onMounted(async () => {
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id && currentConfig.isFormule"
           class="badge"
-          style="background-color: white;color:black;"
+         style="background-color: green;"
         >
-          Formule
+          Active
         </span>
   </p>
  

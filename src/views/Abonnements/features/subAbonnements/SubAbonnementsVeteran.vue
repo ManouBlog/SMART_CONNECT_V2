@@ -211,9 +211,10 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
       <p style="text-align:center;position: absolute;right: 0px;top:0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
+          style="background-color: green;"
           class="badge"
         >
-          Formule
+          Active
         </span>
   </p>
        <div class="d-flex align-items-center gap-5 justify-content-center main-color">
