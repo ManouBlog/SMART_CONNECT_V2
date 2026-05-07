@@ -462,8 +462,11 @@ this.selectedParseStatus = ""
 </div>
       
     </div>
-     <!-- <p>{{ profils?.user?.abonement }}</p> -->
-     <div style="padding:0 1em;" v-if="profils?.user?.abonement?.some(item=>item.statut == 'success' && item.abonement.libelle === 'BROBROLI+')">
+     <!-- <p>{{ profils?.user.statut.statut }}</p> -->
+     <div style="padding:0 1em;" 
+     v-if="profils?.user?.abonement?.some(item=>item.statut == 'success' && item.abonement.libelle === 'BROBROLI+')
+     &&  profils?.user.statut.statut == 'Professionnel'
+     ">
        <label class="ant-form-item-label" style="display:flex;flex-direction: column;">
       <span style="font-size:1em;">Mode Discret</span>
     </label>
