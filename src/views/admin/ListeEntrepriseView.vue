@@ -260,9 +260,19 @@ export default {
                       <span class="badge bg-danger" v-if="item.view == 1">New</span>
                     </td>
                     <td>{{ item.email }}</td>
-                    <td>
-                      <span>{{ item.user?.statut?.statut }}</span>
-                      
+                    <td v-if="item?.statuses.length">
+                      <span
+  v-for="status in item?.statuses"
+  :key="status.id"
+      class="badge bg-primary"
+    >
+  {{ status.statut }}
+  </span>
+                    </td>
+                    <td v-else>
+             <span class="badge bg-primary">
+              {{ item.statut.statut }}
+           </span>
                     </td>
                     <td>
                       {{

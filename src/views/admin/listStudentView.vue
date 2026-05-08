@@ -88,10 +88,13 @@ export default {
 
         // 🔥 Filtre personnalisé
         $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+          console.log("vm.currentFilter",vm.currentFilter)
           if (!vm.currentFilter) return true;
-          const type = data[1]?.toLowerCase();
 
-          return type === vm.currentFilter;
+          const type = data[1]?.toLowerCase();
+          console.log('TYPE_currentFilter',type)
+
+          return type.some(item=>item.statut === vm.currentFilter) || type === vm.currentFilter;
         });
 
         $("#MyTableData").DataTable({
@@ -144,13 +147,15 @@ export default {
 
         // 🔥 Filtre personnalisé
         $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+          console.log("vm.currentFilter",vm.currentFilter)
           if (!vm.currentFilter) return true;
-
+         
           // ⚠️ adapte l'index selon ta colonne "type"
           // ex: data[2] = colonne type
           const type = data[1]?.toLowerCase();
+          console.log('TYPE_currentFilter',type)
 
-          return type === vm.currentFilter;
+          return type.some(item=>item.statut === vm.currentFilter) || type === vm.currentFilter;
         });
 
             $("#MyTableData2").DataTable({
@@ -508,9 +513,9 @@ export default {
 }
 
 .btn-active {
-  background-color: #2563eb;
+  background-color: orange;
   color: white;
-  border: 1px solid #2563eb;
+  border: 1px solid orange;
 }
 .bi {
   font-size: 1.5em !important;

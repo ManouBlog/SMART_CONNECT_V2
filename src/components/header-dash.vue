@@ -36,7 +36,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
+          console.log("AUTH_LOGOUT",res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -44,8 +44,11 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-            
-        
+            this.$store.state.user = null;
+            this.$store.state.token = null;
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            this.$router.push('/');
           }
         })
         .catch((err) => {
