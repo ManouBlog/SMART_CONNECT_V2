@@ -1,9 +1,6 @@
 <script>
 import instance from "../api/api";
-// import Swal from "sweetalert2";
 import $ from "jquery";
-// import "datatables.net-dt/js/dataTables.dataTables";
-// import "datatables.net-dt/css/jquery.dataTables.min.css";
 export default {
   name: "UserView",
   data() {
@@ -25,19 +22,15 @@ export default {
       this.see_detail_students = !this.see_detail_students;
       instance.get("list_students")
         .then((res) => {
-          // console.log(res);
           this.students = res.data.data;
           this.student = this.students.find((item) => item.id === id);
-          // console.log("ID_STUDENT", this.student);
         });
     },
     get_students() {
       this.spinner = true;
       instance.get("list_students")
         .then((res) => {
-          // console.log(res);
           this.students = res.data.data;
-          // console.log("ENTRPRISES", this.students);
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({

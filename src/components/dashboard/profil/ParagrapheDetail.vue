@@ -7,12 +7,6 @@
       >
         {{ item.libelle }} :
       </p>
-      
-        <!-- <div v-if="typeof item.value == 'object' && item.emailCC">
-          <span v-for="(element,index) in item.value" :key="index">
-           <span class="badge bg-warning">{{ element }}</span>
-          </span>
-        </div> -->
       <h6 class="fw-bold" v-if="!item.valueArray">
         <span v-if="typeof item.value == 'string'">{{ item.value }}</span>
         <span v-else>
@@ -21,10 +15,9 @@
             style="display: flex;gap:1em"
             >
             <span class="badge" style="background-color: white;
-            color: orange;font-weight: bold;margin: 0.5em;">{{ el }}</span>
+            color: orange;font-weight: bold;margin: 0.5em;">{{ el || el.email_cc }}</span>
             </span>
-            </span>
-        
+        </span>
       </h6>
       
       <div
