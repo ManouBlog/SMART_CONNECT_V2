@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
-      statut: this.$store.state.user?.statut?.statut,
+      statut: this.$store.state.user?.statuses,
     };
   },
   methods: {
@@ -50,27 +50,25 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+       
         })
         .finally(() => {
           this.$store.commit("TOOGLESPINNER", false);
         });
     },
   },
+  created(){
+    console.log('userSeeMenuBar',this.$store.state.user?.permissions)
+  }
  
 };
 </script>
 
 <template>
+  
   <!-- ACCUEIL -->
   <li 
-  v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Dashboard')"
+  v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Dashboard')"
   @click="goTo('Accueil')" :class="['nav-item', { active: isActive('Accueil') }]">
     <i class="bi bi-house-door"></i>
     <strong>Tableau de bord</strong>
@@ -81,7 +79,7 @@ export default {
   <!-- ADMIN -->
   <li
   
-     v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Domaines')"
+     v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Domaines')"
     @click="goTo('Categorie')"
     :class="['nav-item', { active: isActive('Categorie') }]"
   >
@@ -90,7 +88,7 @@ export default {
   </li>
 
   <li
-       v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Poste')"
+       v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Poste')"
     @click="goTo('Competences')"
     :class="['nav-item', { active: isActive('Competences') }]"
   >
@@ -98,7 +96,7 @@ export default {
     <strong>Postes</strong>
   </li>
   <li
-      v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Utilisateurs')"
+      v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Utilisateurs')"
     @click="goTo('users')"
     :class="['nav-item', { active: isActive('users') }]"
   >
@@ -107,7 +105,7 @@ export default {
   </li>
 
   <li
-      v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Entreprises')"
+      v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Entreprises')"
     @click="goTo('entreprises')"
     :class="['nav-item', { active: isActive('entreprises') }]"
   >
@@ -121,7 +119,7 @@ export default {
   </li>
 
   <li
-    v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Etudiants')"
+    v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Etudiants')"
     @click="goTo('students')"
     :class="['nav-item', { active: isActive('students') }]"
   >
@@ -138,7 +136,7 @@ export default {
   </li>
 
   <li
-    v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Messages')"
+    v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Messages')"
     @click="goTo('newsletter')"
     :class="['nav-item', { active: isActive('newsletter') }]"
   >
@@ -147,7 +145,7 @@ export default {
   </li>
 
   <li
-           v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Offres')"
+           v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Offres')"
     @click="goTo('all_Offres')"
     :class="['nav-item', { active: isActive('all_Offres') }]"
   >
@@ -156,7 +154,7 @@ export default {
   </li>
 
   <li
-       v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Contrat')"
+       v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Contrat')"
     @click="goTo('Contrat')"
     :class="['nav-item', { active: isActive('Contrat') }]"
   >
@@ -169,7 +167,7 @@ export default {
   </li>
 
   <li
-       v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Abonnements')"
+       v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Abonnements')"
     @click="goTo('abonnement')"
     :class="['nav-item', { active: isActive('abonnement') }]"
   >
@@ -178,7 +176,7 @@ export default {
   </li>
 
   <li
-     v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Paiements')"
+     v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Paiements')"
     @click="goTo('transactions')"
     :class="['nav-item', { active: isActive('transactions') }]"
   >
@@ -187,7 +185,7 @@ export default {
   </li>
 
   <li
-    v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Temoignages')"
+    v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Temoignages')"
     @click="goTo('temoignages')"
     :class="['nav-item', { active: isActive('temoignages') }]"
   >
@@ -196,7 +194,7 @@ export default {
   </li>
 
   <li
-     v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Partenaires')"
+     v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Partenaires')"
     @click="goTo('partenaires')"
     :class="['nav-item', { active: isActive('partenaires') }]"
   >
@@ -205,7 +203,7 @@ export default {
   </li>
 
   <li
-         v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Publicités')"
+         v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Publicités')"
     @click="goTo('publicite')"
     :class="['nav-item', { active: isActive('publicite') }]"
   >
@@ -214,7 +212,7 @@ export default {
   </li>
 
   <li
-       v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Date_lancement')"
+       v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Date_lancement')"
     @click="goTo('date_lancement')"
     :class="['nav-item', { active: isActive('date_lancement') }]"
   >

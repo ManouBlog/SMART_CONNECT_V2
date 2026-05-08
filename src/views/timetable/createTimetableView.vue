@@ -632,20 +632,20 @@ export default {
           console.log(err);
         });
     },
-    getAllCompetencesByStudents() {
-      axios
-        .get("https://backend.monbrobroli.com/api/getCompetenceByStudents", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log("AllCompetences", res.data.data);
-          if (res.data.status === true) {
-            this.competences = res.data.data.competences;
-          }
-        });
-    },
+    // getAllCompetencesByStudents() {
+    //   axios
+    //     .get("https://backend.monbrobroli.com/api/getCompetenceByStudents", {
+    //       headers: {
+    //         Authorization: "Bearer " + this.$store.state.token,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log("AllCompetences23", res.data.data);
+    //       if (res.data.status === true) {
+    //         this.competences = res.data.data.competences;
+    //       }
+    //     });
+    // },
     getAllCompetences() {
       axios
         .get("https://backend.monbrobroli.com/api/GetAllCompetences")
@@ -682,7 +682,7 @@ export default {
   created() {
     this.get_timetable();
     this.getAllCompetences();
-    this.getAllCompetencesByStudents();
+    // this.getAllCompetencesByStudents();
     const now = new Date();
     let date = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     this.getJourInMonth = date;

@@ -48,13 +48,7 @@ export default {
     .catch((error) => {
       console.error("Erreur API GivePermission :", error);
 
-      setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+      
     })
     .finally(() => {
       this.$store.commit("TOOGLESPINNER", false);
@@ -75,13 +69,7 @@ export default {
         })
         .catch((error) => {
           console.error("Erreur API:", error);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
         })
         .finally(() => {
           this.$store.commit("TOOGLESPINNER", false);
@@ -105,13 +93,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
           
         })
         .finally(() => {

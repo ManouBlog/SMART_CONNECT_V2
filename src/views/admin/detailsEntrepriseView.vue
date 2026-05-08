@@ -115,13 +115,7 @@ export default {
         .catch((error) => {
           console.error("Erreur lors de la récupération des données:", error);
           this.spinner = false;
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
         });
     },
     verifIfAbonnementCurrently(value) {

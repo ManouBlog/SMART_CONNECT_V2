@@ -31,6 +31,7 @@ export default {
         })
         .then((res) => {
           this.users = res.data.data;
+          console.log("get_users234",this.users)
           this.$nextTick(() => {
             this.initializeDataTables();
           });
@@ -40,11 +41,7 @@ export default {
           setTimeout(() => {
               this.$router.push("/");
             }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
-          
+
         })
         .finally(() => {
                  this.$store.commit("TOOGLESPINNER", false);
@@ -176,14 +173,13 @@ export default {
                     <th class="bg-light">email</th>
                     <th class="bg-light">Statut</th>
 
-                    <th class="bg-light" v-if="
-                    this.$store.state.user?.statuses.some(item=>item.statut === 'admin')">Détails</th>
+                    <th class="bg-light" v-if=" this.$store.state.user?.statuses?.some(item=>item.statut === 'admin') ">Détails</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
                     v-for="(item, index) in users.filter(
-                      (person) => person.statuses.some(item=>item.statut === 'admin')
+                      (person) => person.statut.statut == 'admin'
                     )"
                     :key="index"
                   >
@@ -192,8 +188,7 @@ export default {
                     <td>
                       <span class="badge bg-danger">Admin</span>
                     </td>
-                    <td v-if="this.$store.state.user.email === 'admin@gmail.com' 
-                    && this.$store.state.user?.statuses.some(item=>item.statut === 'admin')">
+                    <td v-if="this.$store.state.user?.statuses?.some(item=>item.statut === 'admin')">
                       <i class="bi bi-eye" @click="seeDetailsUserPersonnel(item.id)"></i>
                     </td>
                   </tr>
@@ -213,38 +208,31 @@ export default {
                     <th class="bg-light">Nom</th>
                     <th class="bg-light">email</th>
                     <th class="bg-light">Statut</th>
-                    <!-- <th class="bg-light">Télephone</th> -->
                   </tr>
                 </thead>
                 <tbody>
                   <tr
                     v-for="(item, index) in users.filter(
-                      (person) => person?.statut?.statut != 'admin'
+                      (person) => person.statuses?.some(item=>item.statut !=='admin') || person.statut.statut != 'admin'
                     )"
                     :key="index"
                   >
                     <td>{{ item.nom }} {{ item.prenoms }}</td>
                     <td>{{ item.email }}</td>
-                    <td>
+                    <td v-if="item?.statuses.length">
                       <span
-                        v-if="item.statut.statut == 'entreprise'"
-                        class="badge bg-primary"
-                        >Entreprise</span
-                      >
-                      <span
-                        v-if="item.statut.statut == 'etudiant'"
-                        class="badge bg-warning"
-                        >Etudiant</span
-                      >
-                      <span v-if="item?.statuses.some(item=>item.statut === 'admin')" 
-                        class="badge bg-danger"
-                        >Admin</span
-                      >
-                      <span
-                        v-if="item?.statuses.some(item=>item.statut === 'particulier')"
-                        class="badge bg-info"
-                        >Particulier</span
-                      >
+  v-for="status in item?.statuses"
+  :key="status.id"
+  class="badge bg-primary"
+>
+  {{ status.statut }}
+</span>
+                      
+                    </td>
+                    <td v-else>
+             <span class="badge bg-primary">
+              {{ item.statut.statut }}
+           </span>
                     </td>
                   </tr>
                 </tbody>

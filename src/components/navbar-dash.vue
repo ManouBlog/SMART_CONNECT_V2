@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
-      statut: this.$store.state.user?.statut?.statut,
+      statut: this.$store.state.user?.statuses,
     };
   },
   methods: {
@@ -40,13 +40,6 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
         })
         .finally(()=>{
           this.$store.commit('TOOGLESPINNER',false)
@@ -55,14 +48,15 @@ export default {
    
   },
   created() {
-    if(this.$store.state.user.permissions.some(p => p.name === 'Utilisateurs')){
+    console.log("userSeeMenuBar213",this.$store.state )
+    if(this.$store.state.user?.permissions.some(p => p.name === 'Utilisateurs')){
 this.get_users();
     }
-    if(this.$store.state.user.permissions.some(p => p.name === 'Etudiants')){
+    if(this.$store.state.user?.permissions.some(p => p.name === 'Etudiants')){
 this.get_Students();
     }
 
-    if(this.$store.state.user.permissions.some(p => p.name === 'Contrat')){
+    if(this.$store.state.user?.permissions.some(p => p.name === 'Contrat')){
 this.get_Contrat();
     }
     
@@ -71,6 +65,7 @@ this.get_Contrat();
 };
 </script>
 <template>
+     <!-- <p>{{ $store.state.user?.permissions }}</p> -->
   <div class="sidebar-wrapper" style="overflow: auto">
     <div style="background: var(--theme-deafult);min-height:100vh;">
       <div class="logo-wrapper">
@@ -82,10 +77,11 @@ this.get_Contrat();
         /></a>
         <div class="back-btn"><i class="fa fa-angle-left"></i></div>
       </div>
+   
       <div>
         <ul class="liste_liens">
           <li style="display: flex; align-items: center; gap: 0.1em; color: white"
-          v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Dashboard')"
+          v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Dashboard')"
           >
             <i class="bi bi-house-door position-absolute" style="margin-left: -1.2em"></i
             ><router-link :to="{ name: 'Accueil' }">
@@ -94,7 +90,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Domaines')"
+            v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Domaines')"
           >
             <i class="bi bi-grid-1x2" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'Categorie' }"
@@ -103,7 +99,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Poste')"
+            v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Poste')"
           >
             <i class="bi bi-grid-1x2" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'Competences' }"
@@ -112,7 +108,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Utilisateurs')"
+            v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Utilisateurs')"
           >
             <i class="bi bi-people" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'users' }">
@@ -121,7 +117,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Entreprises')"
+            v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Entreprises')"
           >
             <i class="bi bi-building" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'entreprises' }" @click.prevent="get_users">
@@ -135,7 +131,7 @@ this.get_Contrat();
 
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Etudiants')"
+            v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Etudiants')"
           >
             <i class="bi bi-person" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'students' }">
@@ -150,7 +146,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Messages')"
+            v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Messages')"
           >
             <i class="bi bi-envelope-paper" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'newsletter' }">
@@ -159,7 +155,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Offres')"
+            v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Offres')"
           >
             <i class="bi bi-briefcase" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'all_Offres' }">
@@ -168,7 +164,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-           v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Contrat')"
+           v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Contrat')"
             @click.prevent="seeNewContrat"
           >
             <i class="bi bi-pencil-square" style="margin-left: -1.2em"></i>
@@ -181,7 +177,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-           v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Abonnements')"
+           v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Abonnements')"
           >
             <i class="bi bi-credit-card-2-back" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'abonnement' }">
@@ -190,7 +186,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-             v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Paiements')"
+             v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Paiements')"
           >
             <i class="bi bi-cash-stack" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'transactions' }">
@@ -199,7 +195,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-             v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Temoignages')"
+             v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Temoignages')"
           >
             <i class="bi bi-chat-quote" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'temoignages' }">
@@ -208,7 +204,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-             v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Partenaires')"
+             v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Partenaires')"
           >
             <i class="bi bi-people-fill" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'partenaires' }">
@@ -217,7 +213,7 @@ this.get_Contrat();
           </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-             v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Publicités')"
+             v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Publicités')"
           >
             <i class="bi bi-card-image" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'publicite' }">
@@ -227,7 +223,7 @@ this.get_Contrat();
 
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
-            v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Date_lancement')"
+            v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Date_lancement')"
           >
             <i class="bi bi-calendar" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'date_lancement' }">

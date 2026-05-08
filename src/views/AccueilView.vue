@@ -78,30 +78,10 @@ export default {
         })
         .catch((error) => {
           console.log("error", error);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
         })
         .finally(() => {
           this.isLoadingWallet = false;
-        });
-    },
-    getAllCompetencesByStudents() {
-      axios
-        .get("https://backend.monbrobroli.com/api/getCompetenceByStudents", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log("AllCompetences", res?.data?.data);
-          if (res?.data?.status === true) {
-            this.competences = res?.data?.data.competences;
-          }
         });
     },
     addCompetences() {
@@ -144,13 +124,7 @@ export default {
         })
         .catch((err) => {
           console.log(err.message);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
           this.spinner = false;
         });
     },
@@ -165,13 +139,6 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
           this.spinner = false;
         });
     },
@@ -223,13 +190,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
           this.spinner = false;
         });
     },
@@ -248,24 +209,7 @@ export default {
       console.log(infoExperience);
       this.$store.commit("addExperiences", infoExperience);
     },
-    // getAllExperiences() {
-    //   this.spinnerExperience = true;
-    //   axios
-    //     .get("https://backend.monbrobroli.com/api/GetMyExperiences", {
-    //       headers: {
-    //         Authorization: "Bearer " + this.$store.state.token,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log("Experiences", res?.data?.data);
-    //       this.MyExperiences = res?.data?.data;
-    //       this.spinnerExperience = false;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       this.spinnerExperience = false;
-    //     });
-    // },
+    
     chosenOneExperience(id) {
       this.spinnerModifyExperience = true;
       this.toogleModifyExperience = !this.toogleModifyExperience;
@@ -285,13 +229,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
           this.spinnerModifyExperience = true;
         });
     },
@@ -339,13 +277,7 @@ export default {
         .catch((err) => {
           this.spinnerModifyExperience = false;
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
         });
     },
     deleteExperience() {
@@ -376,13 +308,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
         });
     },
     ToogleShowDelete(id) {
@@ -418,13 +344,7 @@ export default {
         })
         .catch((error) => {
           console.log("error", error);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
         })
         .finally(() => {
           this.isLoadingWallet = false;
@@ -470,12 +390,10 @@ export default {
   },
   created() {
     console.log("user", this.$store.state.user);
-    // console.log("compte", this.$store.state.compte);
-    // this.getAllExperiences();
-    if(this.$store.state.user.permissions.some(p => p.name === 'Dashboard')){
+    if(this.$store.state.user?.permissions.some(p => p.name === 'Dashboard')){
 this.getAllStatistique();
     this.getAllCompetences();
-    this.getAllCompetencesByStudents();
+    // this.getAllCompetencesByStudents();
     }
     
   },
@@ -517,7 +435,7 @@ this.getAllStatistique();
             </div>
           </div>
         </div>
-        <section v-if="this.$store.state.user.permissions.some(p => p.name === 'Dashboard')">
+        <section v-if="this.$store.state.user?.permissions.some(p => p.name === 'Dashboard')">
           <div
           class="d-flex container_tableauBord"
           style="place-content: flex-start; justify-content: center; flex-wrap: wrap"

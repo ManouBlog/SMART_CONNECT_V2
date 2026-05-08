@@ -44,25 +44,13 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-            setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+            
         
           }
         })
         .catch((err) => {
           console.log(err);
-           setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+           
         })
         .finally(() => {
           this.$store.commit("TOOGLESPINNER", false);
@@ -95,20 +83,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+         
         });
     },
-  },
-  created() {
-    console.log(localStorage.getItem("token"));
-    console.log("store", this.$store.state.token);
-    // this.get_entreprise_who_contact_student();
   },
 };
 </script>

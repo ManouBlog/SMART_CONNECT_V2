@@ -69,13 +69,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
         });
     },
     updateCompteAdmin() {
@@ -119,13 +113,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+          
         });
     },
     see(e) {
