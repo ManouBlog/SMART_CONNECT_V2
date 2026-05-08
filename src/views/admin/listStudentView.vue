@@ -80,6 +80,7 @@ export default {
     })
     .then((res) => {
       this.students = res.data.data;
+      console.log("students230",this.students)
       this.spinner = false;
 
       setTimeout(() => {
@@ -88,9 +89,6 @@ export default {
         // 🔥 Filtre personnalisé
         $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
           if (!vm.currentFilter) return true;
-
-          // ⚠️ adapte l'index selon ta colonne "type"
-          // ex: data[2] = colonne type
           const type = data[1]?.toLowerCase();
 
           return type === vm.currentFilter;
@@ -125,74 +123,8 @@ export default {
     })
     .catch((err) => {
       console.log(err);
-      // setTimeout(() => {
-      //   this.$router.push("/");
-      // }, 1500);
-
-      // localStorage.removeItem("token");
-      // localStorage.removeItem("user");
-      // this.$store.state.user = null;
-      // this.$store.state.token = null;
     });
 },
-    // get_students() {
-    //   this.spinner = true;
-    //   axios
-    //     .get("https://backend.monbrobroli.com/api/list_students", {
-    //       headers: {
-    //         Authorization: "Bearer " + this.$store.state.token,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       this.students = res.data.data;
-    //       console.log("ENTRPRISES", this.students);
-    //       this.spinner = false;
-    //       setTimeout(function () {
-    //         $("#MyTableData").DataTable({
-    //           pagingType: "full_numbers",
-    //           pageLength: 10,
-    //           processing: true,
-    //           order: [],
-    //           language: {
-    //             décimal: "",
-    //             emptyTable: "Aucune donnée disponible dans le tableau",
-    //             infoEmpty: "Showing 0 to 0 of 0 entries",
-    //             info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-    //             infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-    //             infoPostFix: "",
-    //             thousands: ",",
-    //             lengthMenu: "Afficher les entrées du _MENU_",
-    //             loadingRecords: "Loading...",
-    //             processing: "Processing...",
-    //             search: "Chercher :",
-    //             stateSave: true,
-    //             zeroRecords: "Aucun enregistrement correspondant trouvé",
-    //             paginate: {
-    //               first: "Premier",
-    //               last: "Dernier",
-    //               next: "Suivant",
-    //               previous: "Précédent",
-    //             },
-    //             aria: {
-    //               sortAscending: ": activate to sort column ascending",
-    //               sortDescending: ": activate to sort column descending",
-    //             },
-    //           },
-    //         });
-    //       }, 10);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       setTimeout(() => {
-    //           this.$router.push("/");
-    //         }, 1500);
-    //         localStorage.removeItem("token");
-    //         localStorage.removeItem("user");
-    //         this.$store.state.user = null;
-    //         this.$store.state.token = null;
-    //     });
-    // },
     get_Visiteurs() {
       this.spinner = true;
       axios
@@ -204,7 +136,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.studentsNonAbonnee = res.data.data;
-          console.log("ENTRPRISES", this.students);
+          console.log("studentsNonAbonnee", this.studentsNonAbonnee);
           this.spinner = false;
           setTimeout(function () {
 
@@ -348,6 +280,7 @@ export default {
               <a
               @click.prevent="()=>{
                 talentsChoose = 'abonne'
+                setFilter('')
               }"
                 class="nav-link active"
                 id="top-timeline"
@@ -367,6 +300,7 @@ export default {
               <a
               @click.prevent="()=>{
                 talentsChoose = 'NonAbonnes'
+                setFilter('')
               }"
                 class="nav-link"
                 id="top-timeline"
@@ -436,7 +370,17 @@ export default {
                 <tbody>
                   <tr v-for="(item, index) in students" :key="index">
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>{{ item.user?.statut?.statut }}</td>
+                    <td>
+                      <span v-if="item.user?.statuses?.length" >
+                     <span v-for="statut in item.user?.statuses" :key="statut.id" 
+                     style="display:flex;gap:1em;">
+                       <span class="badge bg-primary">{{ statut.statut }}</span>
+                     </span>
+                      </span>
+                      <span v-else class="badge bg-primary">
+                      {{ item.user?.statut?.statut }}
+                      </span>
+                    </td>
                     <td>
                       {{ item.nom }}
                       <span class="badge bg-danger" v-if="item.view == 1">New</span>
@@ -466,14 +410,6 @@ export default {
                       <a href="#" @click.prevent="getDetailSuscribe(item.id)">
                         <i class="bi bi-eye"></i>
                       </a>
-                      <!-- <router-link
-                        :to="{
-                          name: 'details',
-                          params: { id: item.id, name: 'talents' },
-                        }"
-                      >
-                        <i class="bi bi-eye"></i
-                      ></router-link> -->
                     </td>
                   </tr>
                 </tbody>
@@ -501,7 +437,6 @@ export default {
                     <th class="bg-light">Ville</th>
                     <th class="bg-light">Commune</th>
                     <th class="bg-light">Quartier</th>
-                    <!-- <th class="bg-light">Diplome</th> -->
                     <th class="bg-light">Télephone</th>
                     <th class="bg-light">Formule d'abonnement</th>
                     <th class="bg-light">Détails</th>
@@ -510,7 +445,18 @@ export default {
                 <tbody>
                   <tr v-for="(item, index) in studentsNonAbonnee" :key="index">
                     <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>{{ item.user?.statut?.statut }}</td>
+                    <td>
+                      <span v-if="item.user?.statuses.length">
+                     <span v-for="statut in item.user?.statuses" :key="statut.id" style="display:flex;gap:1em;">
+                       <span class="badge bg-primary">{{ statut.statut }}</span>
+                     </span>
+                      </span>
+                      <span v-else class="badge bg-primary">
+                      {{ item.user?.statut?.statut }}
+                      </span>
+              
+                    </td>
+                    
                     <td>
                       {{ item.nom }}
                       <span class="badge bg-danger" v-if="item.view == 1">New</span>
@@ -539,14 +485,6 @@ export default {
                       <a href="#" @click.prevent="getDetailNotSuscribe(item.id)">
                         <i class="bi bi-eye"></i>
                       </a>
-                      <!-- <router-link
-                        :to="{
-                          name: 'details',
-                          params: { id: item.id, name: 'visiteur' },
-                        }"
-                      >
-                        <i class="bi bi-eye"></i
-                      ></router-link> -->
                     </td>
                   </tr>
                 </tbody>

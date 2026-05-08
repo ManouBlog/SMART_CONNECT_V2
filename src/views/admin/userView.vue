@@ -223,11 +223,10 @@ export default {
                       <span
   v-for="status in item?.statuses"
   :key="status.id"
-  class="badge bg-primary"
->
+      class="badge bg-primary"
+    >
   {{ status.statut }}
-</span>
-                      
+  </span>
                     </td>
                     <td v-else>
              <span class="badge bg-primary">

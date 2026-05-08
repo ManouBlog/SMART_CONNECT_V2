@@ -21,24 +21,9 @@ export default {
       this.id_student = id;
       console.log("ID_STUDENT", this.id_student);
     },
-    get_details_students(id) {
-      this.see_detail_students = !this.see_detail_students;
-      axios
-        .get("https://backend.monbrobroli.com/api/list_students", {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.students = res.data.data;
-          this.student = this.students.find((item) => item.id === id);
-          console.log("ID_STUDENT", this.student);
-        });
-    },
-    get_contrats() {
-      this.contrats = this.$store.state.listeContrat;
-          console.log("ENTRPRISES CONTRAT", this.contrats);
+    async get_contrats() {
+     await this.$store.dispatch('get_contrats');
+          console.log("ENTRPRISES_CONTRAT", this.$store.state.listeContrat);
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({
@@ -73,20 +58,6 @@ export default {
               },
             });
           }, 10);
-      // this.spinner = true;
-      // axios
-      //   .get("https://backend.monbrobroli.com/api/admin/allContrats", {
-      //     headers: {
-      //       Authorization: "Bearer " + this.$store.state.token,
-      //     },
-      //   })
-      //   .then((res) => {
-      //     console.log("allContrats", res);
-          
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     },
   },
   created() {
@@ -116,7 +87,7 @@ export default {
     <!-- Container-fluid starts-->
     <div class="tab-content" id="top-tabContent">
       <div class="container-fluid">
-        <div class="row" v-if="contrats != null">
+        <div class="row" v-if="this.$store.state.listeContrat != null">
           <div class="col-sm-12 card py-3 px-2">
             <table id="MyTableData" class="table">
               <thead>
@@ -126,22 +97,23 @@ export default {
                   <th class="bg-light">Talent</th>
                   <th class="bg-light">Offre</th>
                   <th class="bg-light">Statut du contrat</th>
-                  <!-- <th class="bg-light">Détails</th> -->
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in contrats" :key="index">
+                <tr v-for="(item, index) in this.$store.state.listeContrat" 
+                :key="index">
                   <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}
                      <span class="badge bg-danger" v-if="item.view == 1">New</span>
                   </td>
-                  <td>{{ item.offre.entreprise.nom }}</td>
+                  <td>{{ item.offre?.user?.nom }}</td>
                   <td>{{ item.student.nom }} {{ item.student.prenoms }}</td>
                   <td>
                     {{ item.offre.nom_offre }}
                   </td>
                   <td>
-                    <p
+                    <span
                       class="font-bold"
+                      style="font-size: 1em !important;"
                       :class="
                         'text-' +
                         `${
@@ -160,7 +132,7 @@ export default {
                           ? "Non retenu"
                           : "En attente de réponse"
                       }}
-                    </p>
+                    </span>
                   </td>
                 </tr>
               </tbody>
@@ -170,7 +142,6 @@ export default {
       </div>
     </div>
   </div>
-  <!-- Container-fluid Ends-->
 </template>
 <style scoped>
 .bi {

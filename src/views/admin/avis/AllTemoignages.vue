@@ -117,7 +117,15 @@ export default {
               <tbody>
                 <tr v-for="(item, index) in temoignages" :key="index">
                   <td>{{ item.user.nom }}</td>
-                  <td>{{ item.user?.statut?.statut }}</td>
+                  <td>
+                    <span v-if="item.user.statuses.length" 
+                    style="display: flex;justify-content: center;">
+                 <span v-for="stat in item.user.statuses" 
+                 :key="stat.id">{{stat.statut}}</span>
+                    </span>
+
+                    <span v-else>{{ item.user?.statut?.statut }}</span>
+                  </td>
                   <td>{{ item.rate }}</td>
                   <td>
                     <i class="bi bi-eye" @click="openModal(item)"></i>

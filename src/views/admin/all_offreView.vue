@@ -111,7 +111,7 @@ export default {
               <tbody>
                 <tr v-for="(item, index) in offres" :key="index">
                   <td>{{ item.nom_offre }}</td>
-                  <td>{{ item.entreprise.nom }}</td>
+                  <td>{{ item.owner.nom }}</td>
                   <td v-if="item.salaire != null">
                     {{ moneyFormat.format(item.salaire) }} / {{ item.pointage }}
                   </td>

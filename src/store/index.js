@@ -123,7 +123,7 @@ export default createStore({
     },
      LISTER_STUDENT_NOT_ABONNE(state,payload){
       state.listStudentPasAbonne = payload
-      console.log("LISTER_STUDENT_ABONNE",state.listStudentAbonne)
+      console.log("LISTER_STUDENT_NON_ABONNE",state.listStudentAbonne)
     },
     DECREMENT_STUDENT_NOT_SUSCRIBE(state){
       state.listStudentPasAbonne--
@@ -146,15 +146,15 @@ export default createStore({
           },
         })
         .then((res) => {
-          console.log('get_users',res)
+          console.log('get_users90',res)
           if(res.data.status){
-            console.log("LISTER_COMPANY_ABONNEE",res.data.data.filter(item=> item.user?.abonement?.length > 0))
-            console.log('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item.user?.abonement?.length))
-          commit('LISTER_COMPANY_ABONNEE',res.data.data.filter(item=> item.user?.abonement?.length > 0))
-          commit('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item.user?.abonement?.length))
+            console.log("LISTER_COMPANY_ABONNEE",res.data.data.filter(item=> item?.abonement?.length > 0))
+            console.log('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item?.abonement?.length))
+          commit('LISTER_COMPANY_ABONNEE',res.data.data.filter(item=> item?.abonement?.length > 0))
+          commit('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item?.abonement?.length))
           commit('HANDLEBADGE',res.data.data.filter(item=>item.view == 1).length)
-          commit('HANDLECOMPANYNOTSUSCRBIBE',res.data.data.filter(item=> !item.user?.abonement?.length && item.view == 1).length)
-          commit('DECREMENT_COMPANY_SUSCRIBE',res.data.data.filter(item=> item.user?.abonement?.length > 0 && item.view == 1).length)
+          commit('HANDLECOMPANYNOTSUSCRBIBE',res.data.data.filter(item=> !item?.abonement?.length && item.view == 1).length)
+          commit('DECREMENT_COMPANY_SUSCRIBE',res.data.data.filter(item=> item?.abonement?.length > 0 && item.view == 1).length)
           } 
         })
         .catch((err) => {
@@ -223,9 +223,9 @@ export default createStore({
     addFirstItemForPeriodeStatistique(context) {
       context.commit("FIRSTPERIODE");
     },
-    get_contrats({ commit,state }) {
+   async get_contrats({ commit,state }) {
       commit('TOOGLESPINNER',true)
-      axios
+      await axios
         .get("https://backend.monbrobroli.com/api/admin/allContrats", {
           headers: {
             Authorization: "Bearer " + state.token,

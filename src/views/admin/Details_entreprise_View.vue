@@ -25,7 +25,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
+          console.log("list_offres_DETAIL",res);
           this.offres = res.data.data;
 
           this.entreprise = this.offres.find(
@@ -63,15 +63,15 @@ export default {
     </div>
     <div class="container-fluid" v-if="entreprise != null">
       <div class="details_entreprise card py-5 px-3">
-        <h1>{{ entreprise.nom_offre }}</h1>
+        <h1>{{ entreprise?.nom_offre }}</h1>
         <span class="h5">
-          <strong>{{ entreprise.lieu }}</strong>
+          <strong>{{ entreprise?.lieu }}</strong>
         </span>
         <span
           v-if="entreprise.salaire != null"
           class="d-block text-light badge bg-primary w-25 text-align-start h5"
         >
-          {{ moneyFormat.format(entreprise.salaire) }} Fcfa</span
+          {{ moneyFormat.format(entreprise?.salaire) }} Fcfa</span
         >
         <span
           class="d-block text-light badge bg-primary w-25 text-align-start h5"
@@ -85,7 +85,7 @@ export default {
         <div class="py-3" v-html="entreprise.description"></div>
         <hr />
         <span
-          >Publié par : <strong>{{ entreprise.entreprise.nom }}</strong></span
+          >Publié par : <strong>{{ entreprise?.owner?.nom }}</strong></span
         >
         <span class="d-block"
           >Publié depuis le :

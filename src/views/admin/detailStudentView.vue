@@ -383,7 +383,7 @@ export default {
                   {{ item.job_debut }}
                 </td>
                 <td>
-                  {{ item.entreprise.nom }}
+                  {{ item.owner.nom }}
                 </td>
                 <td>
                   <span
