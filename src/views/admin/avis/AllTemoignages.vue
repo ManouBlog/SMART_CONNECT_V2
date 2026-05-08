@@ -20,7 +20,7 @@ export default {
     get_temoignages() {
       this.spinner = true;
       axios
-        .get("https://backend-test.monbrobroli.com/api/allTemoignages")
+        .get("https://backend.monbrobroli.com/api/allTemoignages")
         .then((res) => {
           console.log(res);
           this.temoignages = res.data;
@@ -123,7 +123,7 @@ export default {
               <tbody>
                 <tr v-for="(item, index) in temoignages" :key="index">
                   <td>{{ item.user.nom }}</td>
-                  <td>{{ item.user.statut.statut }}</td>
+                  <td>{{ item.user?.statut?.statut }}</td>
                   <td>{{ item.rate }}</td>
                   <td>
                     <i class="bi bi-eye" @click="openModal(item)"></i>
@@ -151,7 +151,7 @@ export default {
             </div>
             <div class="col-md-12" style="text-align:left;">
               <strong>Profil:</strong>
-              <p>{{ selectedTemoignage.user.statut.statut }}</p>
+              <p>{{ selectedTemoignage.user?.statut?.statut }}</p>
             </div>
           </div>
           <div class="row mb-3">

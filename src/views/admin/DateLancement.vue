@@ -19,7 +19,7 @@ export default {
       const formData = new FormData();
      formData.append("date", this.lancement_date);
       await axios
-        .post("https://backend-test.monbrobroli.com/api/addDateLancement", formData, {
+        .post("https://backend.monbrobroli.com/api/addDateLancement", formData, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

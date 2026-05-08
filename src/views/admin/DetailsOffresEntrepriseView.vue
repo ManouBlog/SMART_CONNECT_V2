@@ -44,7 +44,7 @@ export default {
     get_offres() {
       this.spinner = true;
       axios
-        .get("https://backend-test.monbrobroli.com/api/get_offres_entreprise", {
+        .get("https://backend.monbrobroli.com/api/get_offres_entreprise", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

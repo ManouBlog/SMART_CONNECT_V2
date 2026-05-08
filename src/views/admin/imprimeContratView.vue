@@ -29,7 +29,7 @@ export default {
   },
   created() {
     axios
-      .get("https://backend-test.monbrobroli.com/api/get_who_contact_student", {
+      .get("https://backend.monbrobroli.com/api/get_who_contact_student", {
         headers: {
           Authorization: "Bearer " + this.$store.state.token,
         },

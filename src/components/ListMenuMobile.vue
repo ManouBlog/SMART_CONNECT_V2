@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
-      statut: this.$store.state.user.statut.statut,
+      statut: this.$store.state.user?.statut?.statut,
     };
   },
   methods: {
@@ -37,7 +37,7 @@ export default {
     seeNewContrat() {
       this.$store.commit("TOOGLESPINNER", true);
       axios
-        .get("https://backend-test.monbrobroli.com/api/admin/updateBadgeContrat", {
+        .get("https://backend.monbrobroli.com/api/admin/updateBadgeContrat", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -97,17 +97,6 @@ export default {
     <i class="bi bi-grid-1x2"></i>
     <strong>Postes</strong>
   </li>
-
-  <!-- ADMIN AVANCÉ -->
-  <!-- <li
-    v-if="statut === 'admin'"
-    @click="goTo('users_beta')"
-    :class="['nav-item', { active: isActive('users_beta') }]"
-  >
-    <i class="bi bi-people"></i>
-    <strong>Utilisateurs bêta</strong>
-  </li> -->
-
   <li
       v-if="$store.state.userSeeMenuBar && $store.state.userSeeMenuBar.permissions?.some(p => p.name === 'Utilisateurs')"
     @click="goTo('users')"

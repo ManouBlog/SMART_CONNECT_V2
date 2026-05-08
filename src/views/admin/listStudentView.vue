@@ -46,7 +46,7 @@ export default {
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
       axios
-        .get("https://backend-test.monbrobroli.com/api/list_students", {
+        .get("https://backend.monbrobroli.com/api/list_students", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -60,9 +60,10 @@ export default {
     },
     setFilter(type) {
       console.log("Filter set to:", type);
+      console.log(this.talentsChoose)
     this.currentFilter = type.toLowerCase();
     console.log("Current filter:", this.currentFilter);
-    const table = talentsChoose === 'abonne' ? $("#MyTableData").DataTable() : $("#MyTableData2").DataTable();
+    const table = this.talentsChoose == 'abonne' ? $("#MyTableData").DataTable() : $("#MyTableData2").DataTable();
     table.draw();
   },
   getBtnClass(type) {
@@ -72,7 +73,7 @@ export default {
 },
     get_students() {
   this.spinner = true;
-  axios.get("https://backend-test.monbrobroli.com/api/list_students", {
+  axios.get("https://backend.monbrobroli.com/api/list_students", {
       headers: {
         Authorization: "Bearer " + this.$store.state.token,
       },
@@ -137,7 +138,7 @@ export default {
     // get_students() {
     //   this.spinner = true;
     //   axios
-    //     .get("https://backend-test.monbrobroli.com/api/list_students", {
+    //     .get("https://backend.monbrobroli.com/api/list_students", {
     //       headers: {
     //         Authorization: "Bearer " + this.$store.state.token,
     //       },
@@ -192,145 +193,76 @@ export default {
     //         this.$store.state.token = null;
     //     });
     // },
-    // get_Visiteurs() {
-    //   this.spinner = true;
-    //   axios
-    //     .get("https://backend-test.monbrobroli.com/api/list_visiteurs", {
-    //       headers: {
-    //         Authorization: "Bearer " + this.$store.state.token,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       this.studentsNonAbonnee = res.data.data;
-    //       console.log("ENTRPRISES", this.students);
-    //       this.spinner = false;
-    //       setTimeout(function () {
-
-    //         const vm = this;
-
-    //     // 🔥 Filtre personnalisé
-    //     $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-    //       if (!vm.currentFilter) return true;
-
-    //       // ⚠️ adapte l'index selon ta colonne "type"
-    //       // ex: data[2] = colonne type
-    //       const type = data[1]?.toLowerCase();
-
-    //       return type === vm.currentFilter;
-    //     });
-
-    //         $("#MyTableData2").DataTable({
-    //           pagingType: "full_numbers",
-    //           pageLength: 10,
-    //           processing: true,
-    //           order: [],
-    //           language: {
-    //             décimal: "",
-    //             emptyTable: "Aucune donnée disponible dans le tableau",
-    //             infoEmpty: "Showing 0 to 0 of 0 entries",
-    //             info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-    //             infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-    //             infoPostFix: "",
-    //             thousands: ",",
-    //             lengthMenu: "Afficher les entrées du _MENU_",
-    //             loadingRecords: "Loading...",
-    //             processing: "Processing...",
-    //             search: "Chercher :",
-    //             stateSave: true,
-    //             zeroRecords: "Aucun enregistrement correspondant trouvé",
-    //             paginate: {
-    //               first: "Premier",
-    //               last: "Dernier",
-    //               next: "Suivant",
-    //               previous: "Précédent",
-    //             },
-    //             aria: {
-    //               sortAscending: ": activate to sort column ascending",
-    //               sortDescending: ": activate to sort column descending",
-    //             },
-    //           },
-    //         });
-    //       }, 10);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
     get_Visiteurs() {
-  this.spinner = true;
+      this.spinner = true;
+      axios
+        .get("https://backend.monbrobroli.com/api/list_visiteurs", {
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.studentsNonAbonnee = res.data.data;
+          console.log("ENTRPRISES", this.students);
+          this.spinner = false;
+          setTimeout(function () {
 
-  axios
-    .get("https://backend-test.monbrobroli.com/api/list_visiteurs", {
-      headers: {
-        Authorization: "Bearer " + this.$store.state.token,
-      },
-    })
-    .then((res) => {
-      this.studentsNonAbonnee = res.data.data;
-      console.log("VISITEURS", this.studentsNonAbonnee);
+            const vm = this;
 
-      this.spinner = false;
-
-      setTimeout(() => {
-        const vm = this;
-
-        // 🔥 Évite d’empiler les filtres (très important)
-        $.fn.dataTable.ext.search = [];
-
-        $.fn.dataTable.ext.search.push(function (settings, data) {
+        // 🔥 Filtre personnalisé
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
           if (!vm.currentFilter) return true;
 
-          // sécurisation + nettoyage HTML
-          const type = (data[1] || "")
-            .replace(/<[^>]*>/g, "")
-            .toLowerCase()
-            .trim();
+          // ⚠️ adapte l'index selon ta colonne "type"
+          // ex: data[2] = colonne type
+          const type = data[1]?.toLowerCase();
 
           return type === vm.currentFilter;
         });
 
-        // 🔥 destroy si déjà initialisé
-        if ($.fn.DataTable.isDataTable("#MyTableData2")) {
-          $("#MyTableData2").DataTable().destroy();
-        }
-
-        $("#MyTableData2").DataTable({
-          pagingType: "full_numbers",
-          pageLength: 10,
-          processing: true,
-          order: [],
-          language: {
-            decimal: "",
-            emptyTable: "Aucune donnée disponible dans le tableau",
-            infoEmpty: "Showing 0 to 0 of 0 entries",
-            info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-            infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-            thousands: ",",
-            lengthMenu: "Afficher les entrées du _MENU_",
-            loadingRecords: "Loading...",
-            processing: "Processing...",
-            search: "Chercher :",
-            zeroRecords: "Aucun enregistrement correspondant trouvé",
-            paginate: {
-              first: "Premier",
-              last: "Dernier",
-              next: "Suivant",
-              previous: "Précédent",
-            },
-          },
+            $("#MyTableData2").DataTable({
+              pagingType: "full_numbers",
+              pageLength: 10,
+              processing: true,
+              order: [],
+              language: {
+                décimal: "",
+                emptyTable: "Aucune donnée disponible dans le tableau",
+                infoEmpty: "Showing 0 to 0 of 0 entries",
+                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
+                infoPostFix: "",
+                thousands: ",",
+                lengthMenu: "Afficher les entrées du _MENU_",
+                loadingRecords: "Loading...",
+                processing: "Processing...",
+                search: "Chercher :",
+                stateSave: true,
+                zeroRecords: "Aucun enregistrement correspondant trouvé",
+                paginate: {
+                  first: "Premier",
+                  last: "Dernier",
+                  next: "Suivant",
+                  previous: "Précédent",
+                },
+                aria: {
+                  sortAscending: ": activate to sort column ascending",
+                  sortDescending: ": activate to sort column descending",
+                },
+              },
+            });
+          }, 10);
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      }, 10);
-    })
-    .catch((err) => {
-      console.log(err);
-      this.spinner = false;
-    });
-},
+    },
+  
     async getDetailNotSuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("https://backend-test.monbrobroli.com/api/updateBadgeStudent/" + id, {
+        .put("https://backend.monbrobroli.com/api/updateBadgeStudent/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -358,7 +290,7 @@ export default {
     async getDetailSuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("https://backend-test.monbrobroli.com/api/updateBadgeStudent/" + id, {
+        .put("https://backend.monbrobroli.com/api/updateBadgeStudent/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

@@ -24,7 +24,7 @@ export default {
     async get_users() {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .get("https://backend-test.monbrobroli.com/api/listerUser", {
+        .get("https://backend.monbrobroli.com/api/listerUser", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -176,14 +176,14 @@ export default {
                     <th class="bg-light">email</th>
                     <th class="bg-light">Statut</th>
 
-                    <th class="bg-light" v-if="this.$store.state.user.email === 'admin@gmail.com' 
-                    && this.$store.state.user.statut.statut === 'admin'">Détails</th>
+                    <th class="bg-light" v-if="
+                    this.$store.state.user?.statuses.some(item=>item.statut === 'admin')">Détails</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
                     v-for="(item, index) in users.filter(
-                      (person) => person.statut.statut == 'admin'
+                      (person) => person.statuses.some(item=>item.statut === 'admin')
                     )"
                     :key="index"
                   >
@@ -193,7 +193,7 @@ export default {
                       <span class="badge bg-danger">Admin</span>
                     </td>
                     <td v-if="this.$store.state.user.email === 'admin@gmail.com' 
-                    && this.$store.state.user.statut.statut === 'admin'">
+                    && this.$store.state.user?.statuses.some(item=>item.statut === 'admin')">
                       <i class="bi bi-eye" @click="seeDetailsUserPersonnel(item.id)"></i>
                     </td>
                   </tr>
@@ -219,7 +219,7 @@ export default {
                 <tbody>
                   <tr
                     v-for="(item, index) in users.filter(
-                      (person) => person.statut.statut != 'admin'
+                      (person) => person?.statut?.statut != 'admin'
                     )"
                     :key="index"
                   >
@@ -236,19 +236,16 @@ export default {
                         class="badge bg-warning"
                         >Etudiant</span
                       >
-                      <span v-if="item.statut.statut == 'admin'" class="badge bg-danger"
+                      <span v-if="item?.statuses.some(item=>item.statut === 'admin')" 
+                        class="badge bg-danger"
                         >Admin</span
                       >
                       <span
-                        v-if="item.statut.statut == 'particulier'"
+                        v-if="item?.statuses.some(item=>item.statut === 'particulier')"
                         class="badge bg-info"
                         >Particulier</span
                       >
                     </td>
-                    <!-- <td v-if="item.student.statut">
-                    {{item.statut.}}
-                    <i class="bi bi-eye"></i> 
-                  </td> -->
                   </tr>
                 </tbody>
               </table>

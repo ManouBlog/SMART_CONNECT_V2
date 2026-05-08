@@ -19,7 +19,7 @@ export default {
     get_contrat_students() {
       this.spinner = true;
       axios
-        .get("https://backend-test.monbrobroli.com/api/see_entreprise_student", {
+        .get("https://backend.monbrobroli.com/api/see_entreprise_student", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

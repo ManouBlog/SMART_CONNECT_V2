@@ -30,7 +30,7 @@ export default {
     deconnex() {
       this.$store.commit("TOOGLESPINNER", true);
       axios
-        .get("https://backend-test.monbrobroli.com/api/auth_logout", {
+        .get("https://backend.monbrobroli.com/api/auth_logout", {
           headers: {
             Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
           },
@@ -74,7 +74,7 @@ export default {
     get_entreprise_who_contact_student() {
       this.spinner = true;
       axios
-        .get("https://backend-test.monbrobroli.com/api/get_who_contact_student", {
+        .get("https://backend.monbrobroli.com/api/get_who_contact_student", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -144,7 +144,7 @@ export default {
           <li class="onhover-dropdown">
             <div class="notification-box">
               <svg
-                v-if="user.statut.statut == 'etudiant'"
+                v-if="user?.statut?.statut == 'etudiant'"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"

@@ -108,7 +108,7 @@ if (this.localization === "pc" || this.localization === "pc_mobile") {
        
         // Ici tu peux envoyer formData à ton API via axios ou fetch
         // Exemple :
-         const response = await axios.post("https://backend-test.monbrobroli.com/api/admin/addAffiche", formData, {
+         const response = await axios.post("https://backend.monbrobroli.com/api/admin/addAffiche", formData, {
         headers: {
           Authorization: "Bearer " + this.$store.state.token,
         },
@@ -176,7 +176,7 @@ if (this.localization === "pc" || this.localization === "pc_mobile") {
     //   console.log("formData", formData);
 
     //   // await axios
-    //   //   .post("https://backend-test.monbrobroli.com/api/admin/addAffiche", formData, {
+    //   //   .post("https://backend.monbrobroli.com/api/admin/addAffiche", formData, {
     //   //     headers: {
     //   //       Authorization: "Bearer " + this.$store.state.token,
     //   //     },
@@ -222,7 +222,7 @@ if (this.localization === "pc" || this.localization === "pc_mobile") {
         this.spinner = false;
       }
       axios
-        .get("https://backend-test.monbrobroli.com/api/admin/showAllAfficheAdmin", {
+        .get("https://backend.monbrobroli.com/api/admin/showAllAfficheAdmin", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -282,7 +282,7 @@ if (this.localization === "pc" || this.localization === "pc_mobile") {
     deletePublicite(idPublicite) {
       this.spinner = true;
       axios
-        .delete("https://backend-test.monbrobroli.com/api/admin/delete_pub/" + idPublicite, {
+        .delete("https://backend.monbrobroli.com/api/admin/delete_pub/" + idPublicite, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -618,7 +618,7 @@ if (this.localization === "pc" || this.localization === "pc_mobile") {
                       <n-image
                         width="100"
                         :src="
-                          'https://backend-test.monbrobroli.com/storage/app/public/images/' +
+                          'https://backend.monbrobroli.com/storage/app/public/images/' +
                           item.affiche
                         "
                       />

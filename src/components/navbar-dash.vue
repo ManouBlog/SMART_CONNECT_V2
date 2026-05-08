@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
-      statut: this.$store.state.user.statut.statut,
+      statut: this.$store.state.user?.statut?.statut,
     };
   },
   methods: {
@@ -27,7 +27,7 @@ export default {
     seeNewContrat(){
       this.$store.commit('TOOGLESPINNER',true)
       axios
-        .get("https://backend-test.monbrobroli.com/api/admin/updateBadgeContrat", {
+        .get("https://backend.monbrobroli.com/api/admin/updateBadgeContrat", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

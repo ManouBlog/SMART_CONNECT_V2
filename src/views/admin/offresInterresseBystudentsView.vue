@@ -19,7 +19,7 @@ export default {
       this.spinner = true;
       axios
         .get(
-          "https://backend-test.monbrobroli.com/api/list_offres_interess_by_students",
+          "https://backend.monbrobroli.com/api/list_offres_interess_by_students",
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,

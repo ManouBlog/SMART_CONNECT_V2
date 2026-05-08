@@ -7,8 +7,7 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
-      statut: this.$store.state.user.statut.statut,
-      // compte: this.$store.state.compte,
+      statut: this.$store.state.user?.statuses,
       nom: "",
       prenoms: "",
       email: "",
@@ -25,114 +24,15 @@ export default {
   },
   methods: {
     update_offre() {
-      if (this.statut === "entreprise") {
-        this.update_compte_entreprise();
-      }
-      if (this.statut === "etudiant") {
-        this.update_compte_etudiant();
-      }
-      if (this.statut === "admin") {
+    
+      if (this.statut.some(item=>item.statut === "admin" )) {
         this.updateCompteAdmin();
       }
     },
     modifyPassword() {
-      if (this.statut === "etudiant") {
-        this.modifyPasswordOfStudent();
-      }
-      if (this.statut === "entreprise") {
-        this.modifyPasswordOfEntreprise();
-      }
-      if (this.statut === "admin") {
+      if (this.statut.some(item=>item.statut === "admin" )) {
         this.modifyPasswordOfAdmin();
       }
-    },
-    modifyPasswordOfStudent() {
-      let info = {
-        oldPassword: this.oldPassword,
-        password: this.password,
-      };
-      axios
-        .post("https://backend-test.monbrobroli.com/api/passwordModify", info, {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: "Mot de passe changé",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            setTimeout(() => {
-              location.reload(true);
-            }, 1500);
-          }
-          if (res.data.status === false) {
-            Swal.fire({
-              icon: "error",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
-        });
-    },
-    modifyPasswordOfEntreprise() {
-      let Entreprise = {
-        oldPassword: this.oldPassword,
-        password: this.password,
-      };
-      axios
-        .post("https://backend-test.monbrobroli.com/api/passwordModify", Entreprise, {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: "Mot de passe changé",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            setTimeout(() => {
-              location.reload(true);
-            }, 1500);
-          }
-          if (response.data.status === false) {
-            Swal.fire({
-              icon: "error",
-              title: response.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            this.$store.state.user = null;
-            this.$store.state.token = null;
-        });
     },
     modifyPasswordOfAdmin() {
       let admin = {
@@ -140,7 +40,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("https://backend-test.monbrobroli.com/api/passwordModify", admin, {
+        .post("https://backend.monbrobroli.com/api/passwordModify", admin, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -178,109 +78,10 @@ export default {
             this.$store.state.token = null;
         });
     },
-    update_compte_entreprise() {
-      let compte_entreprise = {
-        nom: this.nom,
-        registre_commerce: this.registre_commerce,
-        password: this.password,
-        oldPassword: this.oldPassword,
-      };
-      axios
-        .put(
-          "https://backend-test.monbrobroli.com/api/modifier_profil",
-          compte_entreprise,
-          {
-            headers: {
-              Authorization: "Bearer " + this.$store.state.token,
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res);
-          if (res.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            localStorage.setItem("user", JSON.stringify(res.data.user));
-            this.$store.state.user = res.data.user;
-            setTimeout(() => {
-              location.reload(true);
-            }, 1500);
-          }
-          if (res.data.status === false) {
-            Swal.fire({
-              icon: "error",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    update_compte_etudiant() {
-      let data = new FormData();
-      data.append("nom", this.nom);
-      data.append("prenoms", this.prenoms);
-      data.append("email", this.email);
-      data.append("commune", this.commune);
-      data.append("quartier", this.quartier);
-      data.append("phone", this.phone);
-      data.append("ville", this.ville);
-      data.append("diplome", this.diplome);
-      data.append("photo", this.photo);
-      axios
-        .post("https://backend-test.monbrobroli.com/api/modifier_profil", data, {
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        })
-        .then((res) => {
-          console.log(res.data.user);
-          console.log("COMPTE", res.data.compte);
-          if (res.data.status === true) {
-            this.$store.state.user = res.data.user;
-            this.$store.state.compte = res.data.compte;
-            localStorage.setItem("user", JSON.stringify(res.data.user));
-            localStorage.setItem("compte", JSON.stringify(res.data.compte));
-            Swal.fire({
-              icon: "success",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            setTimeout(() => {
-              location.reload(true);
-            }, 1500);
-          }
-          if (res.data.status === false) {
-            Swal.fire({
-              icon: "error",
-              title: res.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          Swal.fire({
-            icon: "error",
-            title: err.data.message,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        });
-    },
     updateCompteAdmin() {
       axios
         .put(
-          "https://backend-test.monbrobroli.com/api/modifier_profil",
+          "https://backend.monbrobroli.com/api/modifier_profil",
           {
             nom: this.nom,
             password: this.password,
@@ -455,7 +256,7 @@ export default {
                     <label class="form-label">Document</label>
                     <img
                       :src="
-                        'https://backend-test.monbrobroli.com/storage/app/public/images/' +
+                        'https://backend.monbrobroli.com/storage/app/public/images/' +
                         user.photo
                       "
                       :alt="user.photo"

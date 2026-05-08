@@ -17,7 +17,7 @@ export default {
     get_users() {
       this.spinner = true;
       axios
-        .get("https://backend-test.monbrobroli.com/api/getEmailNewsletter", {
+        .get("https://backend.monbrobroli.com/api/getEmailNewsletter", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },

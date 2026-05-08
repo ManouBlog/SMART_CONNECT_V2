@@ -39,7 +39,7 @@ export default {
     async getDetailCompanyNotSuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("https://backend-test.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
+        .put("https://backend.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -73,7 +73,7 @@ export default {
      async getDetailCompanySuscribe(id) {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .put("https://backend-test.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
+        .put("https://backend.monbrobroli.com/api/updateBadgeEntreprise/" + id, {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -273,7 +273,7 @@ export default {
                     </td>
                     <td>{{ item.email }}</td>
                     <td>
-                      <span>{{ item.user.statut.statut }}</span>
+                      <span>{{ item.user?.statut?.statut }}</span>
                       
                     </td>
                     <td>
@@ -328,7 +328,7 @@ export default {
                     </td>
                     <td>{{ item.email }}</td>
                     <td>
-                      <span>{{ item.user.statut.statut }}</span>
+                      <span>{{ item.user?.statut?.statut }}</span>
                     </td>
                     <td>
                       {{
