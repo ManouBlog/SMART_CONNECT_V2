@@ -69,8 +69,7 @@ export default {
          
           if (response.data.status) {
             
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+            this.$store.dispatch("deleteStateUser")
             this.$store.commit("UPDATE_INFO_COMPANY", null);
             localStorage.removeItem("token");
             localStorage.removeItem("user");
@@ -155,7 +154,7 @@ if (
     },
   },
   async created() {
-    this.getInfoUser();
+    await this.getInfoUser();
     const userStr = this.$store.state.user;
     console.log("userStr", userStr)
     this.StatutUser = userStr ? userStr?.user?.statuses : null;

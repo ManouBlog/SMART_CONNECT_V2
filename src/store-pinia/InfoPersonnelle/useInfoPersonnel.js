@@ -168,7 +168,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
   
        await instance
           .post("modifier_profil", data)
-          .then((res) => {
+          .then(async (res) => {
             // console.log(res);
             if (res.data.status === true) {
               Swal.fire({
@@ -177,7 +177,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              this.getInfoUser()
+              await this.getInfoUser()
               this.toogleModalInfoPersonnelle = !this.toogleModalInfoPersonnelle
               
             }
@@ -188,7 +188,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              this.getInfoUser()
+              await this.getInfoUser()
             }
           })
   

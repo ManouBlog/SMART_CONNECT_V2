@@ -78,9 +78,7 @@ export default {
         .then((response) => {
           // console.log(response);
           if (response.data.status) {
-            // console.log("RESPONSE", response.data);
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+            this.$store.dispatch("deleteStateUser")
             this.$store.commit("UPDATE_INFO_COMPANY", null);
             localStorage.removeItem("token");
             localStorage.removeItem("user");

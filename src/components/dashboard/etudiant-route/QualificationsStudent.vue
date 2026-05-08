@@ -118,7 +118,7 @@ export default {
       try {
         const res = await instance.post("addQualifications", data);
         if (res.data.status === true) {
-          this.getInfoUser();
+          await this.getInfoUser();
           Swal.fire({
             icon: "success",
             title: res.data.message,
@@ -221,15 +221,12 @@ export default {
   }
 })
 }
-      //  this.itemQualification.forEach((item) => {
-      //   formData.append("qualifications[]", JSON.stringify(item));
-      // });
       this.spinnerModifyQualification = true;
       instance
         .post("updateQualification",formData)
-        .then((response) => {
+        .then(async (response) => {
           if (response.data.status === true) {
-            this.getInfoUser();
+            await this.getInfoUser();
             Swal.fire({
               icon: "success",
               title: response.data.message,
@@ -244,8 +241,8 @@ export default {
        
           console.log(err);
         })
-        .finally(() => {
-          this.getInfoUser();
+        .finally(async() => {
+          await this.getInfoUser();
           loadingSpinner.launchLoading(false);
         });
     },
@@ -254,11 +251,11 @@ export default {
       // console.log("this.idQualificationAtDelete", this.idQualificationAtDelete);
       instance
         .delete("qualifications/" + this.idQualificationAtDelete)
-        .then((res) => {
+        .then(async (res) => {
           // console.log("deleteQualification", res);
           if (res.data.status === true) {
             this.toogleScreenYouWantDelete = !this.toogleScreenYouWantDelete;
-            this.getInfoUser();
+           await this.getInfoUser();
             Swal.fire({
               icon: "success",
               title: res.data.message,
@@ -270,8 +267,8 @@ export default {
         .catch((err) => {
           console.log(err);
         })
-        .finally(() => {
-          this.getInfoUser();
+        .finally(async () => {
+          await this.getInfoUser();
           loadingSpinner.launchLoading(false);
         });
     },
@@ -295,7 +292,7 @@ export default {
     },
   },
   async created() {
-    this.getInfoUser();
+    await this.getInfoUser();
     this.texte0 = await this.handleTranslate("Ajoutez une nouvelle qualification");
     this.texte1 = await this.handleTranslate(`Poste`);
     this.texte2 = await this.handleTranslate("Nom de l'entreprise");

@@ -233,6 +233,12 @@ export default {
 };
 </script>
 <style>
+a:focus{
+  outline: none !important;
+}
+a:focus-visible {
+  box-shadow: 0 0 0 3px rgba(254, 254, 254, 0.5) !important;
+}
 :where(.css-17yhhjv).ant-tabs .ant-tabs-ink-bar{
   background-color: orange !important;
 }

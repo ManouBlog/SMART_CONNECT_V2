@@ -18,9 +18,8 @@ export default {
           if (res) {
             localStorage.removeItem("token");
             localStorage.removeItem("user");
-          this.$store.commit("UPDATE_INFO_COMPANY", null);
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+            this.$store.commit("UPDATE_INFO_COMPANY", null);
+            this.$store.dispatch("deleteStateUser")
             this.$router.push("/");
           }
         })

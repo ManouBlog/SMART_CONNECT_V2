@@ -84,11 +84,8 @@ export default {
         .then((response) => {
           // console.log(response);
           if (response.data.status) {
-            // console.log("RESPONSE", response.data);
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+            this.$store.dispatch("deleteStateUser")
             this.$store.commit("UPDATE_INFO_COMPANY", null);
-           
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             Swal.fire({
@@ -125,7 +122,7 @@ export default {
     },
   },
   async created() {
-    this.getInfoUser();
+    await this.getInfoUser();
     this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte2 = await this.handleTranslate("Mes candidatures");
     this.texte40 = await this.handleTranslate("Entreprises intéressées");
@@ -171,9 +168,9 @@ export default {
         "
         v-else
       >
-        <span style="font-size: 0.5em">{{ Help.toADfirstTwo(user.nom) }}</span>
+        <span style="font-size: 1em;color: black !important;font-weight: bold;">{{ Help.toADfirstTwo(user.nom) }}</span>
       </span>
-      <span>{{ user.nom }}</span>
+      <span style="color: black !important;font-weight: bold;">{{ user.nom }}</span>
     </a>
     <template #overlay>
       <a-menu>

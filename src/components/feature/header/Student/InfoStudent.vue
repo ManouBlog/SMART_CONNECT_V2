@@ -80,13 +80,9 @@ export default {
       instance
         .get("auth_logout")
         .then((response) => {
-          // console.log(response);
           if (response.data.status) {
-            // console.log("RESPONSE", response.data);
-            this.$store.state.user = null;
-            this.$store.state.token = null;
+           this.$store.dispatch("deleteStateUser")
             this.$store.commit("UPDATE_INFO_COMPANY", null);
-           
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             Swal.fire({
@@ -123,7 +119,7 @@ export default {
     },
   },
   async created() {
-    this.getInfoUser();
+    await this.getInfoUser();
     this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte2 = await this.handleTranslate("Mes candidatures");
     this.texte40 = await this.handleTranslate("Entreprises intéressées");

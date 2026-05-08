@@ -21,13 +21,9 @@ export default {
   name: "Header",
   components: {
     MenuMobile,
-    // SelectLanguage,
     LiensNavBar,
     InfoUserConnected,
-    // InfoEntreprise,
-    // InfoStudent,
     ListeFavoris,
-    // ListeNotifications,
     ListeAlarmStudent,
   },
   data() {
@@ -194,6 +190,7 @@ export default {
   },
   async created() {
     this.all();
+    await this.$store.dispatch('getInfoUser');
     this.texte = await this.handleTranslate("Abonnements");
     this.texte1 = await this.handleTranslate("Accueil");
     this.texte2 = await this.handleTranslate("Offre d'emploi");
@@ -218,11 +215,9 @@ export default {
                   <img class="img-fluid" src="../assets/brobroli_1.png" alt="Photo" />
                 </router-link>
               </div>
-              
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav_lien_nav_bar">
                   <LiensNavBar v-if="!$store.state.user" :texte="texte1" :route_lien="'Bienvenue'" />
-
                   <LiensNavBar
        v-if="
   ($store.state.user?.user?.statuses || [])
@@ -250,24 +245,6 @@ export default {
                   <!-- <li>
                     <SelectLanguage />
                   </li> -->
-                  <!-- <li
-                    v-if="
-  this.$store.state.user &&
-  [
-    'Etudiant',
-    'Professionnel',
-    'Artisan',
-    'Vétéran'
-  ].includes(this.$store.state.user?.user?.statut?.statut)
-"
-                  >
-                    <router-link class="lien position-relative" :to="{ name: 'contrat' }">
-                      <div class="alarme_red" v-if="this.$store.state.contratStudent > 0">
-                        {{ this.$store.state.contratStudent }}
-                      </div>
-                      <i class="bi bi-file-earmark-text" style="font-size:1.7em"></i>
-                    </router-link>
-                  </li> -->
                 </ul>
               </div>
 
@@ -291,11 +268,10 @@ export default {
                 />
                 
                 <ListeAlarmStudent v-if="this.$store.state.user" />
-                <div>
-                  <div class="login_user">
+
+                  <div class="login_user" v-if="this.$store.state.user">
                     <InfoUserConnected />
                   </div>
-                </div>
               </div>
               <div class="navbar-header">
                 <button
@@ -357,7 +333,7 @@ export default {
 }
 .conteneur-flex_nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5em;

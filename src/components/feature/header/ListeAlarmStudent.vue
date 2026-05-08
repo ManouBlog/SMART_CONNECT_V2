@@ -38,18 +38,10 @@ export default {
     async get_offres_interess_by_student() {
       try {
         const response = await instance.get("list_offres_interess_by_students");
-        // console.log(
-        //   "list_offres_interess_by_students12",
-        //   response
-        // );
         if (response["status"] === 200) {
           this.dataAlarm = Object.values(response?.data || {})
   .filter(item => typeof item === 'object' && !Array.isArray(item))
   .filter(item => item?.recruit === 0);
-//           this.dataAlarm = Object.values(response?.data || {}).filter(
-//   (item) => item?.recruit === 0
-// );
-          // this.dataAlarm = response?.data?.filter((item) => item?.recruit === 0);
         }
       } catch (error) {
         console.log(error);
@@ -85,7 +77,7 @@ export default {
     <a class="ant-dropdown-link" @click.prevent="seeMyNotifications">
       <em
         class="bi bi-bell"
-        style="font-size: 1.7em"
+        style="font-size: 1.5em;margin-left:-0.6em;color: gray;"
         @click="showWishList = !showWishList"
       ></em>
       <span v-if="this.unreadNotifications.length > 0" class="badge bg-danger">{{

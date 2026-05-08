@@ -85,7 +85,7 @@ export default {
         });
         if(reponse.status){
          this.user = reponse?.compte
-         this.getInfoUser()
+         await this.getInfoUser()
         }
         console.log("reponsehandleFileChange",reponse) 
       }
@@ -190,8 +190,8 @@ export default {
       // console.log(this.photo);
     },
   },
-  created() {
-    this.getInfoUser();
+  async created() {
+   await this.getInfoUser();
   },
 };
 </script>

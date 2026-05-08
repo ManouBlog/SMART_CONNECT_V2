@@ -132,6 +132,10 @@ export default createStore({
      },
      CLOSE_ABONNEMENT(state){
       state.abonnement = true;
+     },
+     DELETE_STATE_USER(state){
+      state.user = null
+      state.token = null
      }
   },
   actions: {   
@@ -197,6 +201,9 @@ export default createStore({
             commit("SET_INFO_USER",null)
         });
     },
+    deleteStateUser({commit}){
+      commit("DELETE_STATE_USER")
+    }
   },
   modules: {
   }

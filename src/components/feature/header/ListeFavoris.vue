@@ -37,13 +37,12 @@ export default {
       <em
         class="bi bi-heart-fill"
         :class="this.$store.state.whistListPerson?.length ? 'text-danger' : null"
-        style="font-size: 1.3em"
+        style="font-size: 1.5em;margin: 0 0.5em;color: gray;"
         @click="showWishList = !showWishList"
       ></em>
       <span v-if="this.$store.state.whistListPerson?.length > 0" class="badge bg-dark">{{
         this.$store.state.whistListPerson?.length
       }}</span>
-      <!-- <DownOutlined /> -->
     </a>
     <template #overlay>
       <a-menu style="margin-left: -4.5em">
