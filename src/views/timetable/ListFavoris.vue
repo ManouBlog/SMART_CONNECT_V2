@@ -1,5 +1,6 @@
 <script>
 import instance, { lienPhoto } from "../../api/api";
+import HeaderDashboard from "../../Shared/Compoments/HeaderDashboard.vue";
 import Swal from "sweetalert2";
 import { Help } from "../../utils";
 import "primeicons/primeicons.css";
@@ -11,7 +12,7 @@ const loadingSpinner = useLoadingSpinner();
 // const abonnementsStore = useAbonnementsStore();
 export default {
     name:"ListFavoris",
-    components:{ShimmerCard},
+    components:{ShimmerCard,HeaderDashboard},
   data() {
     return {
       lienPhoto: lienPhoto,
@@ -243,9 +244,7 @@ export default {
 </script>
 <template>
   <section>
-    <div class="jobs_filters">
-      <h2 class="fw-bold ecriteau text-left">{{ texte }}</h2>
-    </div>
+       <HeaderDashboard :TitleHeader="texte" :subTitleHeader="texte" />
     <div
     v-if="!isLoading"
       class="container-fluid timetableSchedule"
@@ -361,7 +360,12 @@ export default {
             </div>
           </div>
         </div>
-      <div v-else>
+      <div v-else style="
+        min-height: 60vh !important;
+        text-align: center;
+        padding: 2em;
+        font-weight: bold;
+      ">
         <p class="text-center text-muted py-4">
         Aucun talents disponibles
        </p>
@@ -378,9 +382,7 @@ export default {
       "
       class="shimmer-text"
     >
-     <p style="margin:1em 0;text-align: center;">Chargement....</p> 
-       <div class="container-fuid d-grid px-3"
-    >
+       <div class="container-fuid d-grid px-3" style="justify-content: center;">
         <ShimmerCard />
         <ShimmerCard />
         <ShimmerCard />
@@ -397,10 +399,7 @@ export default {
 .ecriteau {
   color: orange;
 }
-.jobs_filters {
-  padding: 2em;
-  margin: 6.8em 0 2em 0;
-}
+
 .conteneur_timetable {
   padding: 1em;
 }
