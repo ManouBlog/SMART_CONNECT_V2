@@ -15,7 +15,7 @@ export default {
     return {
       entreprise: null,
       entreprises: null,
-      offres: null,
+      offres: [],
       spinner: false,
       moneyFormat: new Intl.NumberFormat("de-DE"),
       abonnementsEntreprise: [],
@@ -55,7 +55,7 @@ export default {
           );
 
           console.log("responseDETAIL", this.entreprise);
-          this.offres = this.entreprise.offre || [];
+          this.offres = this.entreprise?.user?.offre || [];
           this.abonnementsEntreprise = this.entreprise?.user?.abonement || [];
 
           // Destruction des tables DataTable existantes si elles existent
@@ -170,7 +170,7 @@ export default {
               entreprise?.user?.abonement.length
                 ? this.verifIfAbonnementCurrently(entreprise?.user?.abonement)
                 : "Pas d'abonnement."
-            }}
+            }}  
           </h4>
           <h4><b>Email</b> : {{ entreprise.email }}</h4>
           <h4>

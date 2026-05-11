@@ -245,7 +245,7 @@ export default {
                     <th class="bg-light">Date d'enregistrement</th>
                     <th class="bg-light">Entreprise</th>
                     <th class="bg-light">Email</th>
-                    <th class="bg-light">Profil</th>
+                    <!-- <th class="bg-light">Profil</th> -->
                     <th class="bg-light">Formule d'abonnement</th>
                     <th class="bg-light">Action</th>
                   </tr>
@@ -260,7 +260,7 @@ export default {
                       <span class="badge bg-danger" v-if="item.view == 1">New</span>
                     </td>
                     <td>{{ item.email }}</td>
-                    <td v-if="item?.statuses.length">
+                    <!-- <td v-if="item?.user?.statuses.length">
                       <span
   v-for="status in item?.statuses"
   :key="status.id"
@@ -268,12 +268,12 @@ export default {
     >
   {{ status.statut }}
   </span>
-                    </td>
-                    <td v-else>
+                    </td> -->
+                    <!-- <td>
              <span class="badge bg-primary">
-              {{ item.statut.statut }}
+              {{ item?.user?.statut?.statut }}
            </span>
-                    </td>
+                    </td> -->
                     <td>
                       {{
                         item?.user?.abonement.length
@@ -309,7 +309,7 @@ export default {
                     <th class="bg-light">Date d'enregistrement</th>
                     <th class="bg-light">Entreprise</th>
                     <th class="bg-light">Email</th>
-                    <th class="bg-light">Profil</th>
+                    <!-- <th class="bg-light">Profil</th> -->
                     <th class="bg-light">Formule d'abonnement</th>
                     <th class="bg-light">Action</th>
                   </tr>
@@ -325,9 +325,9 @@ export default {
                       <span class="badge bg-danger" v-if="item.view == 1">New</span>
                     </td>
                     <td>{{ item.email }}</td>
-                    <td>
+                    <!-- <td>
                       <span>{{ item.user?.statut?.statut }}</span>
-                    </td>
+                    </td> -->
                     <td>
                       {{
                         item?.user?.abonement.length

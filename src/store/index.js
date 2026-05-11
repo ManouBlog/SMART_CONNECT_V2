@@ -148,13 +148,11 @@ export default createStore({
         .then((res) => {
           console.log('get_users90',res)
           if(res.data.status){
-            console.log("LISTER_COMPANY_ABONNEE",res.data.data.filter(item=> item?.abonement?.length > 0))
-            console.log('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item?.abonement?.length))
-          commit('LISTER_COMPANY_ABONNEE',res.data.data.filter(item=> item?.abonement?.length > 0))
-          commit('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item?.abonement?.length))
+          commit('LISTER_COMPANY_ABONNEE',res.data.data.filter(item=> item?.user?.abonement?.length > 0))
+          commit('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item?.user?.abonement?.length))
           commit('HANDLEBADGE',res.data.data.filter(item=>item.view == 1).length)
-          commit('HANDLECOMPANYNOTSUSCRBIBE',res.data.data.filter(item=> !item?.abonement?.length && item.view == 1).length)
-          commit('DECREMENT_COMPANY_SUSCRIBE',res.data.data.filter(item=> item?.abonement?.length > 0 && item.view == 1).length)
+          commit('HANDLECOMPANYNOTSUSCRBIBE',res.data.data.filter(item=> !item?.user?.abonement?.length && item.view == 1).length)
+          commit('DECREMENT_COMPANY_SUSCRIBE',res.data.data.filter(item=> item?.user?.abonement?.length > 0 && item.view == 1).length)
           } 
         })
         .catch((err) => {
@@ -201,13 +199,7 @@ export default createStore({
              const arrayStudent = Object.entries(res.data.data)
              .map(([_key, value]) => value);
          console.log('get_Students_Non_Abonne',arrayStudent)
-            // console.log("LISTER_COMPANY_ABONNEE",res.data.data.filter(item=> item.user?.abonement?.length > 0))
-            // console.log('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item.user?.abonement?.length))
           commit('LISTER_STUDENT_NOT_ABONNE',arrayStudent.filter(item=> item.view == 1).length)
-          // commit('LISTER_COMPANY_NON_ABONNEE',res.data.data.filter(item=> !item.user?.abonement?.length))
-          // commit('HANDLEBADGE',res.data.data.filter(item=>item.view == 1).length)
-          // commit('HANDLECOMPANYNOTSUSCRBIBE',res.data.data.filter(item=> !item.user?.abonement?.length && item.view == 1).length)
-          // commit('DECREMENT_COMPANY_SUSCRIBE',res.data.data.filter(item=> item.user?.abonement?.length > 0 && item.view == 1).length)
           } 
         })
         .catch((err) => {

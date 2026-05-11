@@ -219,7 +219,7 @@ export default {
                   >
                     <td>{{ item.nom }} {{ item.prenoms }}</td>
                     <td>{{ item.email }}</td>
-                    <td v-if="item?.statuses.length">
+                    <td v-if="item?.user?.statuses.length">
                       <span
   v-for="status in item?.statuses"
   :key="status.id"
