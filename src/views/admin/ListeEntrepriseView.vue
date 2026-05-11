@@ -245,7 +245,7 @@ export default {
                     <th class="bg-light">Date d'enregistrement</th>
                     <th class="bg-light">Entreprise</th>
                     <th class="bg-light">Email</th>
-                    <!-- <th class="bg-light">Profil</th> -->
+                    <th class="bg-light">Structure</th>
                     <th class="bg-light">Formule d'abonnement</th>
                     <th class="bg-light">Action</th>
                   </tr>
@@ -260,20 +260,9 @@ export default {
                       <span class="badge bg-danger" v-if="item.view == 1">New</span>
                     </td>
                     <td>{{ item.email }}</td>
-                    <!-- <td v-if="item?.user?.statuses.length">
-                      <span
-  v-for="status in item?.statuses"
-  :key="status.id"
-      class="badge bg-primary"
-    >
-  {{ status.statut }}
-  </span>
-                    </td> -->
-                    <!-- <td>
-             <span class="badge bg-primary">
-              {{ item?.user?.statut?.statut }}
-           </span>
-                    </td> -->
+                   <td>
+                      <span>{{ item?.statut_entreprise ? item?.statut_entreprise:'-'}}</span>
+                    </td>
                     <td>
                       {{
                         item?.user?.abonement.length
@@ -309,7 +298,7 @@ export default {
                     <th class="bg-light">Date d'enregistrement</th>
                     <th class="bg-light">Entreprise</th>
                     <th class="bg-light">Email</th>
-                    <!-- <th class="bg-light">Profil</th> -->
+                    <th class="bg-light">Structure</th>
                     <th class="bg-light">Formule d'abonnement</th>
                     <th class="bg-light">Action</th>
                   </tr>
@@ -325,9 +314,9 @@ export default {
                       <span class="badge bg-danger" v-if="item.view == 1">New</span>
                     </td>
                     <td>{{ item.email }}</td>
-                    <!-- <td>
-                      <span>{{ item.user?.statut?.statut }}</span>
-                    </td> -->
+                    <td>
+                      <span>{{ item?.statut_entreprise ? item?.statut_entreprise:'-'}}</span>
+                    </td>
                     <td>
                       {{
                         item?.user?.abonement.length

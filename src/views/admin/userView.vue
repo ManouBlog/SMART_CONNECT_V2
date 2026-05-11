@@ -148,7 +148,7 @@ export default {
                 role="tab"
                 aria-controls="clients"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Clients
+                ><i data-feather="clock"></i>Utilisateurs
               </a>
             </li>
           </ul>

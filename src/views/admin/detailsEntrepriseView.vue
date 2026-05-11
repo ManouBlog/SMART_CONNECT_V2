@@ -172,6 +172,7 @@ export default {
                 : "Pas d'abonnement."
             }}  
           </h4>
+          <h4><b>Structure</b> : {{ entreprise.statut_entreprise ? entreprise.statut_entreprise:'-' }}</h4>
           <h4><b>Email</b> : {{ entreprise.email }}</h4>
           <h4>
             <b>Commune</b> :

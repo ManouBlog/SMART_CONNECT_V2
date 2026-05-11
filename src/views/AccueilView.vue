@@ -46,8 +46,12 @@ export default {
       toogleScreenYouWantDelete: false,
       statut: this.$store.state.statut,
       list_entreprise: "",
-      list_students: "",
+      list_etudiants: "",
       list_offres: "",
+       list_professionnels :"",
+            list_artisans :"",
+            list_particuliers :"",
+            list_veterans :"", 
       see_entreprise_student: null,
       wallet: "",
       nbreVisit: "",
@@ -68,7 +72,11 @@ export default {
           console.log("statistique_global", res?.data);
           if (res?.data?.status === true) {
             this.list_entreprise = res?.data?.entreprise;
-            this.list_students = res?.data?.talents;
+            this.list_etudiants = res?.data?.etudiant;
+            this.list_professionnels = res?.data?.professionnel;
+            this.list_artisans = res?.data?.artisan;
+            this.list_particuliers = res?.data?.particulier;
+            this.list_veterans = res?.data?.veteran;
             this.list_offres = res?.data?.offre;
             this.see_entreprise_student = Number(res?.data?.contrat);
             console.log("this.see_entreprise_student", this.see_entreprise_student);
@@ -437,19 +445,11 @@ this.getAllStatistique();
         </div>
         <section v-if="this.$store.state.user?.permissions.some(p => p.name === 'Dashboard')">
           <div
-          class="d-flex container_tableauBord"
+          class="container_tableauBord"
           style="place-content: flex-start; justify-content: center; flex-wrap: wrap"
         >
           <div
-            class="d-flex"
-            style="
-              flex: 2;
-              justify-content: center;
-              gap: 0.5em;
-              flex-wrap: wrap;
-              place-content: center;
-              align-items: center;
-            "
+            class="d-flex container_flex_list"
           >
             <MyCardStatistique
               :dataInfo="[
@@ -469,17 +469,57 @@ this.getAllStatistique();
               nameRouter="entreprises"
               :numberStatistic="Number(list_entreprise.total)"
               icon_libelle="bi-building"
-              title="Entreprise"
+              title="Entreprises"
             />
             <MyCardStatistique
               :dataInfo="[
-                { libelle: 'Abonnés', value: list_students.abonne },
-                { libelle: 'Non abonnés', value: list_students.nonAbonne },
+                { libelle: 'Abonnées', value: list_particuliers.abonne },
+                { libelle: 'Non abonnées', value: list_particuliers.nonAbonne },
+              ]"
+              nameRouter="entreprises"
+              :numberStatistic="Number(list_particuliers.total)"
+              icon_libelle="bi-building"
+              title="Particuliers"
+            />
+            <MyCardStatistique
+              :dataInfo="[
+                { libelle: 'Abonnés', value: list_etudiants.abonne },
+                { libelle: 'Non abonnés', value: list_etudiants.nonAbonne },
               ]"
               nameRouter="students"
-              :numberStatistic="Number(list_students.total)"
+              :numberStatistic="Number(list_etudiants.total)"
               icon_libelle="bi-person-badge"
               title="Etudiants"
+            />
+            <MyCardStatistique
+              :dataInfo="[
+                { libelle: 'Abonnés', value: list_professionnels.abonne },
+                { libelle: 'Non abonnés', value: list_professionnels.nonAbonne },
+              ]"
+              nameRouter="students"
+              :numberStatistic="Number(list_professionnels.total)"
+              icon_libelle="bi-person-badge"
+              title="Professionnels"
+            />
+            <MyCardStatistique
+              :dataInfo="[
+                { libelle: 'Abonnés', value: list_artisans.abonne },
+                { libelle: 'Non abonnés', value: list_artisans.nonAbonne },
+              ]"
+              nameRouter="students"
+              :numberStatistic="Number(list_artisans.total)"
+              icon_libelle="bi-person-badge"
+              title="Artisans"
+            />
+            <MyCardStatistique
+              :dataInfo="[
+                { libelle: 'Abonnés', value: list_veterans.abonne },
+                { libelle: 'Non abonnés', value: list_veterans.nonAbonne },
+              ]"
+              nameRouter="students"
+              :numberStatistic="Number(list_veterans.total)"
+              icon_libelle="bi-person-badge"
+              title="Vétérans"
             />
             <MyCardStatistique
               :dataInfo="[]"
@@ -489,7 +529,7 @@ this.getAllStatistique();
               title="Contrat"
             />
           </div>
-          <div style="flex: 1">
+          <div style="flex: 1;display: flex;gap:1em;">
             <div class="card p-2" style="width: 100%; height: auto; position: relative">
               <div>
                 <div class="d-flex justify-content-center gap-1 align-items-center">
@@ -608,6 +648,14 @@ this.getAllStatistique();
 @import url("/public/asset/css/color-1.css");
 
 @import url("/public/asset/css/responsive.css");
+.container_flex_list{
+   flex: 2;
+              justify-content: center;
+              gap: 0.5em;
+              flex-wrap: wrap;
+              place-content: center;
+              align-items: center;
+}
 input,
 textarea {
   width: 100%;
@@ -740,11 +788,17 @@ ul {
 #cont_table_competence {
   margin-top: 1.5em;
 }
+@media only screen and (max-width: 1200px) {
+
+  .container_flex_list{
+    flex:1;
+  }
+}
 @media only screen and (max-width: 900px) {
   .container_tableauBord {
-    flex-direction: column-reverse;
-    place-content: center !important;
+    display: block !important;
   }
+
   .card {
     width: 100% !important;
   }
