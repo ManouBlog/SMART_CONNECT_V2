@@ -157,6 +157,7 @@ export default {
     }
   try {
     const response = await instance.get("list_emplois_temps");
+    console.log("list_emplois_temps25",response);
     console.log("res_ALL", response);
    this.allFavoris = response.data.data.filter(item=>this.$store.state.whistListPerson.includes(item.id));
 

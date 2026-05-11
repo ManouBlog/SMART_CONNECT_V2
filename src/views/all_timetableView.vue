@@ -21,7 +21,7 @@ export default {
       this.spinner = true;
       instance.get("list_emplois_temps")
         .then((res) => {
-          // console.log(res);
+          console.log("list_emplois_temps23",res);
           this.timetables = res.data.data;
           // console.log("timetables", this.timetables);
           this.spinner = false;

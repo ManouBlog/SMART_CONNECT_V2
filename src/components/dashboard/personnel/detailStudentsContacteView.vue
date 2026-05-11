@@ -97,7 +97,7 @@ export default {
       instance
         .get("list_emplois_temps")
         .then((res) => {
-          // console.log(res);
+         console.log("list_emplois_temps34",res);
           this.timetables = res.data.data;
           // console.log("timetables", this.timetables);
           this.MyTime = this.timetables.find(

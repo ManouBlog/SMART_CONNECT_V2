@@ -558,6 +558,7 @@ for (const item of data) {
       await instance
         .get("list_emplois_temps")
         .then((res) => {
+           console.log("list_emplois_temps90",res);
           res.data.data.forEach((element) => {
             let days = [];
             let hours = [];
@@ -737,11 +738,8 @@ for (const item of data) {
     async selectOffreEntreprise() {
       try {
         const response = await instance.get("get_offres_entreprise");
-        this.selectedService = response.data.data.filter(
-          (item) =>
-            JSON.stringify(new Date(item.fin)) >
-            JSON.stringify(new Date().toISOString().substring(0, 10))
-        );
+        console.log("selectOffreEntreprise",response)
+        this.selectedService = response.data.data;
       } catch (error) {
         console.log("error", error);
       }
@@ -844,6 +842,7 @@ for (const item of data) {
             )
           "
         >
+        <p style="text-align: center;font-size: 0.9em;color:red;">Les champs avec astérisque (*) sont obligatoires.</p>
           <label class="d-block">{{ texte3 }}</label>
           <PrimeCalendar
             v-model="datesChoice"
@@ -855,8 +854,7 @@ for (const item of data) {
           />
 
           <div class="selecte_service my-3">
-            <label class="d-block">{{ texte4 }}</label>
-           
+            <label class="d-block">{{ texte4 }} <span style="color:red">*</span></label>
             <select
               name="select_offre"
               id="select_offre"
@@ -874,12 +872,11 @@ for (const item of data) {
               <option disabled v-if="!selectedService.length">{{ texte6 }}</option>
             </select>
           </div>
-
           <div class="conteneurInter">
             <button
               class="btn btn-warning btn-designer my-3"
               type="submit"
-              :disabled="!this.selectedOffreWithDate || !this.datesChoice.length"
+              :disabled="!this.selectedOffreWithDate"
               @click="choiceStudentWithDisponibilite(timetable_for_student.id)"
             >
               {{ texte7 }}

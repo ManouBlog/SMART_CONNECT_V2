@@ -143,9 +143,15 @@ export default {
                   </n-button>
                 </div>
                 </section>
-            </div>
+      </div>
+    <div v-if="
+            this.$store.state.infoUserConnected.user.abonement.length &&
+            this.$store.state.infoUserConnected.user.abonement.some(
+              (item) => item.statut === 'success'
+            ) && !timetable_for_student.CVupload
+          ">
       <button
-      v-else
+      
         @click="handleModalInfo"
         style="
           width: auto;
@@ -157,6 +163,8 @@ export default {
       >
         Voir le CV
       </button>
+    </div>
+      
     </div>
 
     <div v-if="timetable_for_student.bio !== null && timetable_for_student.bio !== 'null'">

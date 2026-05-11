@@ -280,7 +280,7 @@ export default {
   loadingSpinner.launchLoading(true);
   try {
     const response = await instance.get("list_emplois_temps");
-    console.log("res_ALL", response);
+    console.log("list_emplois_temps_456", response);
 
     const UserConnected = localStorage.getItem("user");
 
