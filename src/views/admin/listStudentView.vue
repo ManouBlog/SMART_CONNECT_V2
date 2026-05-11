@@ -111,7 +111,7 @@ export default {
             thousands: ",",
             lengthMenu: "Afficher _MENU_",
             loadingRecords: "Loading...",
-            processing: "Processing...",
+            // processing: "Processing...",
             search: "Chercher :",
             zeroRecords: "Aucun enregistrement correspondant trouvé",
             paginate: {
@@ -173,7 +173,7 @@ export default {
                 thousands: ",",
                 lengthMenu: "Afficher les entrées du _MENU_",
                 loadingRecords: "Loading...",
-                processing: "Processing...",
+                // processing: "Processing...",
                 search: "Chercher :",
                 stateSave: true,
                 zeroRecords: "Aucun enregistrement correspondant trouvé",
