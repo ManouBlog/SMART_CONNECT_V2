@@ -1,15 +1,14 @@
 <template>
   <div class="notification-item">
     <div class="notification-avatar">
-
       <img
-      v-if="notification.username !== 'MonBrobroli'"
+      v-if="notification.sender_id"
         :class="notification.avatar ? null : 'flou_image'"
         :src="lienPhoto + notification.avatar"
         alt="Avatar"
       />
       <img
-      v-if="notification.username === 'MonBrobroli'"
+      v-if="!notification.sender_id"
       style="background:teal;"
       src="/broboli_footer_1.png"
       alt="Avatar"
@@ -18,17 +17,23 @@
     <div class="notification-content">
       <div class="notification-header">
         <span class="notification-username">{{
-          notification.username ? notification.username : "Une entreprise"
+          notification.username ? notification.username : notification.objet
         }}</span>
          <span class="notification-objet" v-if="notification.objet">
     {{ notification.objet }}
   </span>
 
         <span class="notification-action">{{ notification.msg }}</span>
-        <span class="notification-time">{{ notification.time }}</span>
+        <span class="notification-time">{{new Date(notification.created_at).toLocaleDateString('fr',{
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+}) }}</span>
       </div>
     </div>
-    <!-- <div class="notification-indicator" v-if="notification.isNew"></div> -->
   </div>
 </template>
 

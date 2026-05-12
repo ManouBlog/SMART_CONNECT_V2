@@ -1,24 +1,9 @@
 <template>
+   <HeaderDashboard :TitleHeader="'Notifications'" :subTitleHeader="'Notifications'" />
   <div class="app">
-    <h2 class="app-title" v-if="dataAlarm.length || Notifications.isNotifications.length">
-      Vous avez {{ dataAlarm.length ? dataAlarm.length+Notifications.isNotifications.length:Notifications.isNotifications.length }} Notification(s)
-    </h2>
-    <div style="height:300px" v-if="dataAlarm.length+Notifications.isNotifications.length === 0">
+    <div style="height:300px" v-if="!Notifications.todayNotifications.length && !Notifications.yesterdayNotifications.length">
       <h2 style="text-align:center;">Pas de notifications</h2>
     </div>
-    <!-- <div
-      v-if="!Notifications.isNotifications.length && user.user?.statuses.some(s => s.statut === 'Etudiant')"
-      style="
-        height: 300px;
-        text-align: center;
-        font-weight: bold;
-        margin-top: 1em;
-        font-size: 2em;
-        color: black;
-      "
-    >
-      <h2 style="text-align:center;">Pas de notifications2</h2>
-    </div> -->
     <NotificationSection
       v-if="Notifications.todayNotifications.length"
       title="Aujourd’hui"
@@ -29,92 +14,62 @@
       title="Passées"
       :notifications="Notifications.yesterdayNotifications"
     />
-    <div
-            v-for="(item, index) in dataAlarm"
-            :key="index"
-            class="listWhistPerson"
-          >
-          <FavorisCard 
-           :favoris="item"
-           @accept="voirDetailPostulants"
-           :isDetailPostulant="true"
-          />
-          </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-// import { useStore } from "vuex";
-import instance from "../api/api";
+import { onMounted} from "vue";
+import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue";
+// import { useRouter } from "vue-router";
+// import instance from "../api/api";
 
 // Components
 import NotificationSection from "../components/NotificationSection.vue";
-import FavorisCard from "../components/FavorisCard.vue";
+// import FavorisCard from "../components/FavorisCard.vue";
 
 // Pinia store
 import { useNotificationsStore } from "../store-pinia/useNotificationsStore";
 
 // === Initialisations ===
-const router = useRouter();
+// const router = useRouter();
 // const vuexStore = useStore();
 const Notifications = useNotificationsStore();
 
 // === State ===
 // const user = computed(() => vuexStore.state.user);
-const dataAlarm = ref([]);
+// const dataAlarm = ref([]);
 
 // === Fonctions ===
-async function getOffresInteressByStudent() {
-  try {
-    const response = await instance.get("list_offres_interess_by_students");
-  // console.log("get_offres_interess_by_student8596")
-    if (response.status === 200) {
-      dataAlarm.value = response?.data.length > 0 ? response?.data?.filter((item) => item.recruit === 0):[];
-      // console.log(
-      //   "Offres intéressées par les étudiants (recruit=1) :",
-      //   response?.data?.filter((item) => item.recruit === 1)
-      // );
-    }
-  } catch (error) {
-    console.error("Erreur lors du chargement des offres :", error);
-  }
-}
-//   async function verifUserProfilEtudiantComplet() {
-//   // Charger l'utilisateur et attendre la fin
-//   // await vuexStore.dispatch("getInfoUser");
-
-//   const user = vuexStore.state.infoUserConnected;
-//   //console.log("USER",user)
-//   if(user.user?.statuses.some(s => s.statut === 'Etudiant')){
-//   if (!user.competences.length || !user.qualifications.length) {
-//     router.replace("/dashboard/profil");
-//   }
-//   if(!user.jours.length){
-//     this.$router.push('/dashboard/emploi_du_temps');
-//    }
+// async function getOffresInteressByStudent() {
+//   try {
+//     const response = await instance.get("list_offres_interess_by_students");
+//     if (response.status === 200) {
+//       dataAlarm.value = response?.data.length > 0 ? response?.data?.filter((item) => item.recruit === 0):[];
+//     }
+//   } catch (error) {
+//     console.error("Erreur lors du chargement des offres :", error);
 //   }
 // }
 
 
-function voirDetailPostulants(nameOffre) {
-  // On charge d'abord les offres
-  getOffresInteressByStudent();
 
-  // Puis on redirige vers la page de détails
-  router.push({
-    name: "detailsPostulants",
-    params: { offre: nameOffre?.nom_offre },
-  });
-}
+// function voirDetailPostulants(nameOffre) {
+//   // On charge d'abord les offres
+//   getOffresInteressByStudent();
+
+//   // Puis on redirige vers la page de détails
+//   router.push({
+//     name: "detailsPostulants",
+//     params: { offre: nameOffre?.nom_offre },
+//   });
+// }
 
 // verifUserProfilEtudiantComplet()
 
 // === Lifecycle ===
 onMounted(async () => {
   await Notifications.getListNotification();
-  await getOffresInteressByStudent();
+  // await getOffresInteressByStudent();
 });
 </script>
 
