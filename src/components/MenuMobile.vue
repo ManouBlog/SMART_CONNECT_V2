@@ -336,7 +336,7 @@ if (
     v-if="
   ($store.state.user?.user?.statuses || [])
     .some(s => ['Etudiant', 'Professionnel', 
-    'Artisan', 'Vétéran'].includes(s.statut))
+    'Artisan', 'Vétéran','Particulier'].includes(s.statut))
 "
     class="position-absolute deconnex">
     <a class="d-block" @click="seeMyNotifications">

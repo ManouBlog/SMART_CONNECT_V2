@@ -114,7 +114,7 @@ export default {
 
     Swal.fire({
       icon: "error",
-      title: error.response?.data?.message || "Une erreur est survenue",
+      title: error.response?.data?.message || error,
       confirmButtonText: "OK"
     })
 
