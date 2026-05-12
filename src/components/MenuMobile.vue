@@ -313,7 +313,7 @@ if (
       to="/dashboard/personnel"
       class="d-block"
     >
-      Talents sélectionnés
+      Talents Contactés & sélectionnés
      </router-link>
   </li>
   <li  v-if="

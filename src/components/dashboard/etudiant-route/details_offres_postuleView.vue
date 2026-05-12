@@ -83,10 +83,10 @@ export default {
   <div class="page-body position-relative">
     <section v-if="this.details_offre != null">
       <HeaderDashboard
-        :TitleHeader="`Détails de l' Offre`"
-        :subTitleHeader="`Détails de l'Offre`"
+        :TitleHeader="details_offre.offre.statuses.some(item=>item.statut === 'Artisan') ? `Détails de la mission`: `Détails de l' Offre`"
+        :subTitleHeader="details_offre.offre.statuses.some(item=>item.statut === 'Artisan') ? `Détails de la mission`: `Détails de l' Offre`"
       />
-      <!-- <pre>{{details_offre}}</pre> -->
+      <!-- <pre>{{details_offre.offre.statuses}}</pre> -->
       <n-modal v-model:show="showModal">
         <n-card
           style="width: 600px"
@@ -184,13 +184,35 @@ export default {
         </div>
       </div>
     </section>
-    <div v-else>
-      <h1>Loading...</h1>
+    <div v-else style="min-height: 60vh;" class="shimmer-text">
+      <p style="text-align:center;padding:1em;font-size: 1.5em;">Chargement...</p>
     </div>
   </div>
 </template>
 
 <style scoped>
+.shimmer-text {
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    #999 0%,
+    #fff 50%,
+    #999 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
 h6{
   font-size: 1em !important;
 }

@@ -40,21 +40,21 @@ export const useEntreprisesStore = defineStore('entreprise', {
             loadingSpinner.launchLoading(true)
             try{
            const listStudent = await instance.get("list_students_contact_by_entreprise");
+           
            const studentRecruit = await instance.get("getStudentRecruit");
            
            
-          //  console.log("const_studentRecruit",studentRecruit)
+           console.log("list_students_contact_by_entreprise",listStudent)
+
+           console.log("getStudentRecruit",studentRecruit)
+
            if(listStudent['status'] === 200 && studentRecruit['status'] === 200 ){
             this.list_students = listStudent.data.data;
             this.student = this.list_students?.students;
              this.studentRecruit = this.tableData(studentRecruit.data);
-            // this.studentRecruit = elementFilter.map(item=> {
-            //   return item.students;
-            // }).flat();
+           
             loadingSpinner.launchLoading(false)
-            // const flattened = studentFilterRecruit.flat() 
-
-            // console.log('this.studentRecruit',this.studentRecruit)
+          
            }
             }catch(error){
                 console.log(error)

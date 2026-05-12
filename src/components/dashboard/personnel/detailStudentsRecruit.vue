@@ -68,7 +68,7 @@ export default {
       await instance
         .get("getStudentRecruit")
         .then((res) => {
-          // console.log("getStudentRecruit", res);
+          console.log("getStudentRecruit", res);
           this.studentRecruit = res.data;
           for (let item in this.studentRecruit) {
             if (item === this.$route.params.offre) {

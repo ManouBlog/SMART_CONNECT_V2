@@ -29,18 +29,9 @@ export default {
 </script>
 <template>
   <div class="d-flex justify-content-center align-items-center">
-    <span v-if="configUtils.verifDateWithDateToDay(donnees.fin)" class="mx-2 text-dark">
-      <router-link
-        :to="{
-          name: 'detail_offre',
-          params: {
-            id: donnees.id,
-          },
-        }"
-        ><em class="bi bi-pencil"></em>
-      </router-link>
-    </span>
-     <span v-else class="mx-2 text-dark">
+    <span v-if="configUtils.verifDateWithDateToDay(donnees.fin) 
+    || configUtils.verifDateWithDateToDay(donnees.job_fin)"
+     class="mx-2 text-dark">
       <router-link
         :to="{
           name: 'detail_offre',
@@ -63,6 +54,8 @@ export default {
       </router-link>
     </span>
     <span
+    v-if="configUtils.verifDateWithDateToDay(donnees.fin) 
+    || configUtils.verifDateWithDateToDay(donnees.job_fin)"
       class="bi bi-trash mx-2 text-dark"
       @click="show_box_confirmation_delete(donnees.id)"
     ></span>

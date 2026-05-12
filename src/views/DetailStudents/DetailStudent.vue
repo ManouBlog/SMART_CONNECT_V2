@@ -616,6 +616,7 @@ for (const item of data) {
      }
     },
     choiceStudentWithDisponibilite(studentId) {
+      console.log("entreprise_student25")
       loadingSpinner.launchLoading(true);
 
       let date = [];
@@ -660,6 +661,7 @@ for (const item of data) {
         });
     },
     async optionPeriode(EntrepriseId) {
+      console.log("entreprise_student90")
       loadingSpinner.launchLoading(true);
       await instance
         .post("entreprise_student", {
@@ -963,7 +965,7 @@ for (const item of data) {
         </div>
         </section>
     </div>
-    <div class="conteneur_student py-5 " v-else>
+    <div class="conteneur_student py-5" style="min-height: 60vh;" v-else>
       <h3 class="shimmer-text">Chargement...</h3>
     </div>
   </div>

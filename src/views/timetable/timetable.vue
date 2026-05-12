@@ -371,6 +371,7 @@ if(isEtudiant){
       }
     },
     optionDate(studentId) {
+      console.log("entreprise_student45")
       this.loadSpinner = true;
       let date = [];
       this.datesPickers.forEach((item) => {
@@ -417,6 +418,7 @@ if(isEtudiant){
         });
     },
     optionPeriode(EntrepriseId) {
+      console.log("entreprise_student4568")
       this.loadSpinner = true;
       instance
         .post("entreprise_student", {
@@ -722,7 +724,7 @@ if(isEtudiant){
             </div>
           </div>
         </div>
-       <div v-else>
+       <div v-else style="min-height: 60vh !important;">
         <p class="text-center text-muted py-4">
         Aucun talents disponibles
        </p>
@@ -1111,7 +1113,7 @@ if(isEtudiant){
   margin-bottom: 3em;
 }
 .timetableSchedule {
-  padding: 1em 0 !important;
+  padding: 1em 0 3em 0 !important;
 }
 .card {
   border-radius: 5px !important;

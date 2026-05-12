@@ -31,6 +31,7 @@ export default {
         });
     },
     get_contrats() {
+      
       this.spinner = true;
       instance.get("see_entreprise_student")
         .then((res) => {
