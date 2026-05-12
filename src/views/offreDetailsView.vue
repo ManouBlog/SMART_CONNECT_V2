@@ -276,13 +276,13 @@ Swal.fire({
               </section>
 
               <section>
-                <h4 class="my-5" v-if="Offre.job_debut" >
-                  <span class="fw-bold" style="font-size: 0.8em;">{{ texte2 }}</span>
-                  <span style="font-size: 0.8em;">{{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0] ) }}</span>
+                <h4  v-if="Offre.job_debut" >
+                  <span class="fw-bold" style="font-size: 0.7em;">{{ texte2 }}</span>
+                  <span style="font-size: 0.8em; margin-top: 1em;">{{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0] ) }}</span>
                 </h4>
-                <h4 class="my-5" v-if="Offre.job_fin">
-                  <span class="fw-bold" style="font-size: 0.7em;">{{ texte3 }}</span>
-                  {{ configUtils.getFormatDateFr(Offre.job_fin) }}
+                <h4  v-if="Offre.job_fin">
+                  <span class="fw-bold" style="font-size: 0.7em; margin-top: 1em;">{{ texte3 }}</span>
+                 <span style="font-size: 0.8em; margin-top: 1em;">{{ configUtils.getFormatDateFr(Offre.job_fin) }}</span> 
                 </h4>
               </section>
               <section v-if="Offre.fin">
