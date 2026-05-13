@@ -137,9 +137,9 @@ export default createStore({
    
   },
   actions: {
-    get_users({ commit,state }) {
+    async get_users({ commit,state }) {
       commit('TOOGLESPINNER',true)
-      axios
+      await axios
         .get("https://backend.monbrobroli.com/api/list_entreprise", {
           headers: {
             Authorization: "Bearer " + state.token,
