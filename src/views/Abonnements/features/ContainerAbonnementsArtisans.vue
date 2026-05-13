@@ -122,7 +122,7 @@ const currentConfig = computed(() => {
 })
 
 function handleCreate(type) {
-  console.log("ITEM",props.item)
+  // console.log("ITEM",props.item)
   console.log('TYPE',type)
   if (type === 'year') {
     handleCreateYear(props.item)
@@ -131,9 +131,9 @@ function handleCreate(type) {
   }
 }
 const handleCreateMonth =(payload)=>{
-  console.log("handleCreateAbonnement909889")
-  console.log("handleCreateMonth",payload)
-  console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+  // console.log("handleCreateAbonnement909889")
+  // console.log("handleCreateMonth",payload)
+  // console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   const randomPart = Math.random().toString(36).substring(2);
   const formData = new FormData();
 
@@ -184,13 +184,13 @@ if (storeAbonnement.profilHybride?.length) {
       formData.append("profilHybride[]", id);
     });
 }
-  console.log("PAIEMENT_ARTISAN_month",formData)
+  // console.log("PAIEMENT_ARTISAN_month",formData)
 storeAbonnement.createAbonement(formData)
 }
 const handleCreateYear =(payload)=>{
-  console.log("handleCreateAbonnement56HS")
-  console.log("handleCreateYear",payload)
-  console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+  // console.log("handleCreateAbonnement56HS")
+  // console.log("handleCreateYear",payload)
+  // console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
     const statutBaseUser = store.state.user?.user?.statut_base;
    const randomPart = Math.random().toString(36).substring(2);
         
@@ -253,9 +253,9 @@ onMounted(async () => {
     const profilUserCurrent = store.state.user?.user?.abonement?.find(item=>item.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent?.abonement?.libelle || null;
 
-    console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
-    console.log("profilUserCurrent",profilUserCurrent)
-    console.log("formuleAbonnementOfUserConnected23",formuleAbonnementOfUserConnected.value)
+    // console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
+    // console.log("profilUserCurrent",profilUserCurrent)
+    // console.log("formuleAbonnementOfUserConnected23",formuleAbonnementOfUserConnected.value)
   }
 
   texte.value = await transalteStore.handleTranslate("année");

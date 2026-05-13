@@ -16,7 +16,7 @@ export default {
   methods: {
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
     onFinish(values) {
-      console.log("Success:", values);
+      // console.log("Success:", values);
       this.sendMsgEmailForgot();
     },
     sendMsgEmailForgot() {
@@ -46,7 +46,7 @@ export default {
         });
     },
     onHandleFailed(errorInfo) {
-      console.log("Failed:", errorInfo);
+      // console.log("Failed:", errorInfo);
     },
   },
 };

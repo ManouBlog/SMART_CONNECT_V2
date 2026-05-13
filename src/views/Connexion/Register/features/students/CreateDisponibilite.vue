@@ -398,7 +398,7 @@ export default {
         })[1],
         periode: 1,
       };
-      console.log("DATETIME2", dataSend);
+      // console.log("DATETIME2", dataSend);
       instance
         .post("create_schedule", dataSend)
         .then((response) => {
@@ -437,7 +437,7 @@ export default {
         const formattedDates = payload_date_chosen.map((d) =>
           new Date(d).toISOString().slice(0, 10)
         );
-        console.log("formattedDates", formattedDates);
+        // console.log("formattedDates", formattedDates);
         // this.datesOfCalendar = formattedDates;
         this.$store.commit("SET_DATES", formattedDates);
       } else {
@@ -445,7 +445,7 @@ export default {
       }
     },
     handleFirstHeureStart(e) {
-      console.log("handleFirstHeureStart", e);
+      // console.log("handleFirstHeureStart", e);
       if (e) {
         this.$store.commit("SET_FIRST_HEURE_START", e);
       } else {

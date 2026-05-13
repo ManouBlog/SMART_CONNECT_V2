@@ -105,7 +105,7 @@ const currentConfig = computed(() => {
 })
 
 function handleCreate(type) {
-  console.log("ITEM",props.item)
+  // console.log("ITEM",props.item)
   console.log('TYPE',type)
   if (type === 'year') {
     handleCreateYear(props.item)
@@ -114,9 +114,9 @@ function handleCreate(type) {
   }
 }
 const handleCreateMonth =(payload)=>{
-  console.log("handleCreateAbonnement23")
-  console.log("handleCreateMonth",payload)
-  console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+  // console.log("handleCreateAbonnement23")
+  // console.log("handleCreateMonth",payload)
+  // console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   const randomPart = Math.random().toString(36).substring(2);
       
         const formData = new FormData();
@@ -147,13 +147,13 @@ if (storeAbonnement.profilHybride?.length) {
       formData.append("profilHybride[]", id);
     });
 }
-  console.log("paiement_content_month_contentabonnement",formData)
+  // console.log("paiement_content_month_contentabonnement",formData)
 storeAbonnement.createAbonement(formData)
 }
 const handleCreateYear =(payload)=>{
-  console.log("handleCreateAbonnement56123")
-  console.log("handleCreateYear",payload)
-  console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+  // console.log("handleCreateAbonnement56123")
+  // console.log("handleCreateYear",payload)
+  // console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
    const randomPart = Math.random().toString(36).substring(2);
       
   const formData = new FormData();
@@ -193,7 +193,7 @@ if (storeAbonnement.addProfilHybride?.length) {
       formData.append("addProfilHybrideOnly[]", id);
     });
 }
-  console.log("paiement_contentAbonnement_year",formData)
+  // console.log("paiement_contentAbonnement_year",formData)
   storeAbonnement.createAbonement(formData)
 }
 
@@ -203,25 +203,25 @@ function handleSelect_mode_Payement(val) {
   select_mode_payment_tab.value = val
 }
 onMounted(async () => {
-  console.log("type_abonnements_lancer",props.type_abonnements)
+  // console.log("type_abonnements_lancer",props.type_abonnements)
   elmentsOfBtn.value = [
   {
     name_btn: await transalteStore.handleTranslate(messageAbonnement.value),
     color_btn: "primary",
   },
 ];
-  console.log("INFO_SUR_USER",store.state.user)
+  // console.log("INFO_SUR_USER",store.state.user)
   
  
   if(storeAbonnement.addProfilHybride.length){
     const profilUserCurrent = store.state.user?.user?.abonement?.find(item=>item.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent?.abonement?.libelle;
 
-    console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
-    console.log("profilUserCurrent",profilUserCurrent)
-    console.log("formuleAbonnementOfUserConnected23",formuleAbonnementOfUserConnected.value)
+    // console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
+    // console.log("profilUserCurrent",profilUserCurrent)
+    // console.log("formuleAbonnementOfUserConnected23",formuleAbonnementOfUserConnected.value)
   }
- console.log("ITEM_ABONNEMENT",props.item)
+ // console.log("ITEM_ABONNEMENT",props.item)
   texte.value = await transalteStore.handleTranslate("année");
 });
 </script>

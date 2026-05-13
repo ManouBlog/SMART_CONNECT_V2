@@ -165,7 +165,7 @@ idStatutChoice:Object
       return this.$store.state.First_heure_end_to;
     },
     isNextDisabled() {
-      console.log("this.currentStep",this.currentStep)
+      // console.log("this.currentStep",this.currentStep)
       
       // STEP 2 – Qualifications
       if (this.currentStep === 3) {
@@ -232,21 +232,21 @@ idStatutChoice:Object
     // Fonction qui retourne la valeur du store à observer
     getFirstHeureStartFrom: {
       handler(value) {
-        console.log("value qualifications", value);
+        // console.log("value qualifications", value);
       
       },
       immediate: true, // si tu veux déclencher au montage
     },
     getFirstHeureFinFrom: {
       handler(value) {
-        console.log("value qualifications", value);
+        // console.log("value qualifications", value);
         
       },
       immediate: true, // si tu veux déclencher au montage
     },
     getTableauDays: {
       handler(value) {
-        console.log("TableauDays", value);
+        // console.log("TableauDays", value);
        
       },
       immediate: true, // si tu veux déclencher au montage
@@ -256,7 +256,7 @@ idStatutChoice:Object
         if(value === 'non'){
           this.resetData()
         }
-        console.log("formState.optionsAnswer", value);
+        // console.log("formState.optionsAnswer", value);
         
       },
       immediate: true,
@@ -281,7 +281,7 @@ this.formState.profilHybride = [];
       try {
         const response =  await instance.get("listStatut")
         this.allStatuts = response.data.data.filter(item=>item.statut === 'Particulier' || item.statut === 'Artisan')
-        console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan'))
+        // console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan'))
       } catch (error) {
         console.log(error);
       }
@@ -293,10 +293,10 @@ this.formState.profilHybride = [];
     },
 
     nextStep() {
-      console.log("this.currentStep",this.currentStep)
+      // console.log("this.currentStep",this.currentStep)
 
       if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length){
-        console.log("this.formState.profilHybride",this.formState.profilHybride)
+        // console.log("this.formState.profilHybride",this.formState.profilHybride)
         this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Choisissez un profil"
@@ -304,9 +304,9 @@ this.formState.profilHybride = [];
           return;
       }
       if (this.currentStep === 1 && this.formState.profilHybride.length && this.formState.optionsAnswer == "oui") {
-        console.log("this.formState.profilHybride",this.formState.profilHybride)
+        // console.log("this.formState.profilHybride",this.formState.profilHybride)
         if(!this.formState.ville || !this.formState.commune){
-          console.log("this.formState",this.formState)
+          // console.log("this.formState",this.formState)
          this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Les champs ville et commune sont obligatoires."
@@ -336,7 +336,7 @@ this.formState.profilHybride = [];
       }
 
         if (this.currentStep === 4) {
-          console.log("this.currentStep4",this.getFirstHeureStartFrom)
+          // console.log("this.currentStep4",this.getFirstHeureStartFrom)
         if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
@@ -346,7 +346,7 @@ this.formState.profilHybride = [];
         }
       }
       if (this.currentStep === 4) {
-          console.log("this.currentStep5",this.currentStep)
+          // console.log("this.currentStep5",this.currentStep)
         
       }
 
@@ -480,7 +480,7 @@ this.formState.profilHybride = [];
 // },
     onFinish() {
       this.formState.profilHybride.push(this.idStatutChoice.id);
-      console.log("this.formState",this.formState);
+      // console.log("this.formState",this.formState);
       
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
@@ -554,7 +554,7 @@ this.formState.profilHybride = [];
     },
 
     onHandleFailed(errorInfo) {
-      console.log("errorInfo",errorInfo)
+      // console.log("errorInfo",errorInfo)
       Swal.fire({
         icon: "warning",
         title: `${errorInfo.errorFields[0].errors[0]}`,

@@ -176,7 +176,7 @@ export default {
     },
 
     attributes() {
-      console.log("schedule23",this.schedule)
+      // console.log("schedule23",this.schedule)
       return [
         ...this.schedule?.map((time) => ({
           dates: new Date(time.jour),
@@ -203,7 +203,7 @@ export default {
   },
   watch: {
     idParamsItem(newValue, oldValue) {
-      console.log("oldValue", oldValue);
+      // console.log("oldValue", oldValue);
       if (newValue) {
         this.getDetailStudent();
       }
@@ -302,7 +302,7 @@ for (const item of data) {
       await instance
         .get("FiltreTimetable", { params: { recipient_id: this.idParamsItem } })
         .then((res) => {
-          console.log("FiltreTimetable", res);
+          // console.log("FiltreTimetable", res);
           this.NewListEmploi = res.data.data;
           this.dateRendezVousStudentWithEntreprise = res.data.date;
           let dateOfStudent = [];
@@ -313,11 +313,11 @@ for (const item of data) {
           });
 
           this.MyDateRendezVous = dateOfStudent;
-         console.log("this.MyDateRendezVous",this.MyDateRendezVous)
+         // console.log("this.MyDateRendezVous",this.MyDateRendezVous)
           this.timetable_for_student = this.NewListEmploi.find(
             (item) => item.id === Number(this.idParamsItem)
           );
-          console.log("timetable_for_student", this.timetable_for_student);
+          // console.log("timetable_for_student", this.timetable_for_student);
           this.totalPages = Math.ceil(this.timetable_for_student?.user?.rated_users?.length / 2);
           this.schedule = this.getDatesBetween(this.timetable_for_student?.jours);
 
@@ -558,7 +558,7 @@ for (const item of data) {
       await instance
         .get("list_emplois_temps")
         .then((res) => {
-           console.log("list_emplois_temps90",res);
+           // console.log("list_emplois_temps90",res);
           res.data.data.forEach((element) => {
             let days = [];
             let hours = [];
@@ -602,21 +602,21 @@ for (const item of data) {
       this.checkbox = false;
     },
     async choiceOtherTalentNotStudent(studentId){
-     console.log("choiceOtherTalentNotStudent",studentId)
-     console.log("this.selectedOffreWithDate",this.selectedOffreWithDate)
+     // console.log("choiceOtherTalentNotStudent",studentId)
+     // console.log("this.selectedOffreWithDate",this.selectedOffreWithDate)
      try{
   const response = await instance.post("entreprise_student", {
           student_id: studentId,
           option: "date",
           offre_id: this.selectedOffreWithDate,
     })
-    console.log("choiceOtherTalentNotStudent",response)
+    // console.log("choiceOtherTalentNotStudent",response)
      }catch(error){
       console.log(error);
      }
     },
     choiceStudentWithDisponibilite(studentId) {
-      console.log("entreprise_student25")
+      // console.log("entreprise_student25")
       loadingSpinner.launchLoading(true);
 
       let date = [];
@@ -661,7 +661,7 @@ for (const item of data) {
         });
     },
     async optionPeriode(EntrepriseId) {
-      console.log("entreprise_student90")
+      // console.log("entreprise_student90")
       loadingSpinner.launchLoading(true);
       await instance
         .post("entreprise_student", {
@@ -740,10 +740,10 @@ for (const item of data) {
     async selectOffreEntreprise() {
       try {
         const response = await instance.get("get_offres_entreprise");
-        console.log("selectOffreEntreprise",response)
+        // console.log("selectOffreEntreprise",response)
         this.selectedService = response.data.data;
       } catch (error) {
-        console.log("error", error);
+        // console.log("error", error);
       }
     },
     removeDate(date, hide) {

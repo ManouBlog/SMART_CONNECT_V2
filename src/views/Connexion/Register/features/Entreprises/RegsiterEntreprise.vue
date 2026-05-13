@@ -26,11 +26,11 @@ options : [
   },
   watch: {
     optionsPaper(newValue) {
-      console.log("Selected option:", newValue);
+      // console.log("Selected option:", newValue);
       if(!newValue){
         this.optionsPaper = "Formelle";
       }
-      console.log("Selected option:", newValue);
+      // console.log("Selected option:", newValue);
     },
   },
   methods: {
@@ -38,7 +38,7 @@ options : [
     try {
       const response = await instance.get("countries");
       this.countries = response.data;
-      console.log("COUNTRIES", this.countries);
+      // console.log("COUNTRIES", this.countries);
     } catch (error) {
       console.log(error);
     }finally {

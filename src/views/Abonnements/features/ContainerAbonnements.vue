@@ -60,7 +60,7 @@ const store = useStore();
 const select_mode_payment_tab = ref("");
 
 const handleCreateAbonnement=(payload)=>{
-  console.log("handleCreateAbonnement456")
+  // console.log("handleCreateAbonnement456")
   const randomPart = Math.random().toString(36).substring(2);
         const data = {
             abonement_id:payload.id,

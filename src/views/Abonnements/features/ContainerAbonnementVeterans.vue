@@ -70,7 +70,7 @@ const currentConfig = computed(() => {
 })
 
 function handleCreate(type) {
-  console.log("ITEM",props.item)
+  // console.log("ITEM",props.item)
   console.log('TYPE',type)
   if (type === 'year') {
     handleCreateYear(props.item)
@@ -79,9 +79,9 @@ function handleCreate(type) {
   }
 }
 const handleCreateMonth =(payload)=>{
-  console.log("handleCreateAbonnement89")
-  console.log("handleCreateMonth",payload)
-  console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+  // console.log("handleCreateAbonnement89")
+  // console.log("handleCreateMonth",payload)
+  // console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   const randomPart = Math.random().toString(36).substring(2);
        
         // const data = {
@@ -138,13 +138,13 @@ if (storeAbonnement.addProfilHybride?.length) {
     });
 }
   
-  console.log("paiement_veteran_month",formData)
+  // console.log("paiement_veteran_month",formData)
 storeAbonnement.createAbonement(formData)
 }
 const handleCreateYear =(payload)=>{
-  console.log("handleCreateAbonnement56098")
-  console.log("handleCreateYear",payload)
-  console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+  // console.log("handleCreateAbonnement56098")
+  // console.log("handleCreateYear",payload)
+  // console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
    const randomPart = Math.random().toString(36).substring(2);
        
         // const data = {
@@ -201,7 +201,7 @@ if (storeAbonnement.addProfilHybride?.length) {
       formData.append("addProfilHybrideOnly[]", id);
     });
 }
-  console.log("paiement_veteran_year",formData)
+  // console.log("paiement_veteran_year",formData)
   storeAbonnement.createAbonement(formData)
 }
 
@@ -217,11 +217,11 @@ onMounted(async () => {
       color_btn: "primary",
     },
   ];
-  console.log("INFO_SUR_USER",store.state.user)
+  // console.log("INFO_SUR_USER",store.state.user)
   if(storeAbonnement.isChangeProfil){
    const statutBase = store.state.user?.user?.statut?.statut;
   const AllProfilHybride = store.state.user?.user?.statuses?.filter(item=>item.statut !== statutBase)
-  console.log("AllProfilHybride",AllProfilHybride)
+  // console.log("AllProfilHybride",AllProfilHybride)
    const payload = {profilHybride:AllProfilHybride}
   storeAbonnement.handleChangeInfoForAbonnement(payload)
   }
@@ -230,9 +230,9 @@ onMounted(async () => {
     const profilUserCurrent = store.state.user?.user?.abonement?.find(item=>item.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent?.abonement?.libelle;
 
-    console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
-    console.log("profilUserCurrent",profilUserCurrent)
-    console.log("formuleAbonnementOfUserConnected23",formuleAbonnementOfUserConnected.value)
+    // console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
+    // console.log("profilUserCurrent",profilUserCurrent)
+    // console.log("formuleAbonnementOfUserConnected23",formuleAbonnementOfUserConnected.value)
   }
 
   texte.value = await transalteStore.handleTranslate("année");

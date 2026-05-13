@@ -129,7 +129,7 @@ idStatutChoice:Object
           this.formState.statut_professionnel_artisan = "";
           // this.formState.uploadCNI = null
         }
-        console.log("formState.optionsAnswer", value);
+        // console.log("formState.optionsAnswer", value);
         
       },
       immediate: true,
@@ -140,7 +140,7 @@ idStatutChoice:Object
       try {
         const response =  await instance.get("listStatut")
         this.allStatuts = response.data.data.filter(item=>item.statut === 'Artisan')
-        console.log("this.allStatuts",response.data.data.filter(item=> item.statut === 'Artisan'))
+        // console.log("this.allStatuts",response.data.data.filter(item=> item.statut === 'Artisan'))
       } catch (error) {
         console.log(error);
       }
@@ -178,7 +178,7 @@ idStatutChoice:Object
       return element;
     },
     onFinish(values) {
-      console.log("Success:", values);
+      // console.log("Success:", values);
       if(this.formState.profilHybride.length){
       this.formState.profilHybride.push(this.idStatutChoice.id);
       }
@@ -190,7 +190,7 @@ idStatutChoice:Object
           infoUser: "talents",
           payload: this.formState,
         });
-        console.log("this.formState.profilHybride",this.formState)
+        // console.log("this.formState.profilHybride",this.formState)
       } else {
         this.SWALPOPUP.declencheSwalPopup(
           "info",

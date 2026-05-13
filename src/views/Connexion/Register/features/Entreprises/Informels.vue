@@ -162,7 +162,7 @@ export default {
       try {
         const response =  await instance.get("listStatut")
         this.allStatuts = response.data.data.filter(item=>item.statut === 'Artisan')
-        console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'Artisan'))
+        // console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'Artisan'))
       } catch (error) {
         console.log(error);
       }
@@ -175,14 +175,14 @@ export default {
       return element;
     },
     onFinish(values) {
-      console.log("Success:", values);
+      // console.log("Success:", values);
       if(this.formState.profilHybride.length){
         this.formState.profilHybride.push(this.formState.statut_id)
       }
-      console.log("this.formState",this.formState)
+      // console.log("this.formState",this.formState)
       if (this.formState.upload.length) {
         this.formState.photo = this.addPhotoInArray(this.formState.upload);
-        console.log("this.formState",this.formState)
+        // console.log("this.formState",this.formState)
         this.changeValueIsPolitics({
           value: true,
           infoUser: "entreprise",

@@ -259,7 +259,7 @@ StatutProfessionnel:[
           this.formState.statut_professionnel_artisan =""
           this.formState.uploadCNI = null
         }
-        console.log("formState.optionsAnswer", value);
+        // console.log("formState.optionsAnswer", value);
         
       },
       immediate: true,
@@ -277,7 +277,7 @@ StatutProfessionnel:[
       try {
         const response =  await instance.get("listStatut")
         this.allStatuts = response.data.data.filter(item=>item.statut === 'Particulier' || item.statut === 'Artisan')
-        console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan'))
+        // console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan'))
       } catch (error) {
         console.log(error);
       }
@@ -289,9 +289,9 @@ StatutProfessionnel:[
     },
 
     nextStep() {
-      console.log("this.currentStep",this.currentStep)
+      // console.log("this.currentStep",this.currentStep)
        if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length){
-        console.log("this.formState.profilHybride",this.formState.profilHybride)
+        // console.log("this.formState.profilHybride",this.formState.profilHybride)
         this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Choisissez un profil"
@@ -299,7 +299,7 @@ StatutProfessionnel:[
           return;
       }
       if (this.currentStep === 1 && this.formState.profilHybride.length && this.formState.optionsAnswer == "oui") {
-        console.log("this.formState.profilHybride",this.formState.profilHybride)
+        // console.log("this.formState.profilHybride",this.formState.profilHybride)
         if(!this.formState.ville || !this.formState.commune){
          this.SWALPOPUP.declencheSwalPopup(
             "warning",
@@ -463,11 +463,11 @@ StatutProfessionnel:[
       if(this.formState.profilHybride.length){
         this.formState.profilHybride.push(this.formState.statutId)
       }
-    console.log("this.formState",this.formState);
+    // console.log("this.formState",this.formState);
       if (this.configUtils.isValidEmail(this.formState.email)) {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          console.log("this.formState",this.formState)
+          // console.log("this.formState",this.formState)
           this.changeValueIsPolitics({
             value: true,
             infoUser: "talents",

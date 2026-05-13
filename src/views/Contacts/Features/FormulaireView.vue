@@ -37,11 +37,11 @@ export default {
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
      onFinish(values) {
-      console.log("Success:", values);
+      // console.log("Success:", values);
       this.sendUsEmail();
     },
     onHandleFailed(errorInfo) {
-      console.log("Failed:", errorInfo);
+      // console.log("Failed:", errorInfo);
     },
      sendUsEmail() {
       this.launchLoading(true);

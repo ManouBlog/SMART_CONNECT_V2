@@ -61,14 +61,14 @@ defineEmits(["update:value"]);
 
 updateOtherInfoPersonnelle(localValue.value)
 function handleLovalValue(value){
-    console.log("handleLovalValue",value)
+    // console.log("handleLovalValue",value)
 }
 
 function handleInputInput(valueDate){
-    console.log("valueDate",valueDate)
+    // console.log("valueDate",valueDate)
 }
 function handleInputChange(valueDate){
-    console.log("valueDate",valueDate)
+    // console.log("valueDate",valueDate)
 }
 // Fonction de création d’un nouvel élément
 function onCreateQualification() {

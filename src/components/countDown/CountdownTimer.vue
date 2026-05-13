@@ -21,7 +21,7 @@ const props = defineProps({
   },
 });
 function deletePageAnnonces() {
-    console.log("deletePageAnnonces",deletePageAnnonces)
+    // console.log("deletePageAnnonces",deletePageAnnonces)
 }
 
 const days = ref(0);

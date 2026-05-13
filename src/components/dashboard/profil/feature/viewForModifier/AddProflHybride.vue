@@ -181,14 +181,14 @@ descriptionProfil:{
   methods: {
     ...mapActions(useAbonnementsStore, ['handleChangeInfoForAbonnement','handleHybrideAddProfil']),
     handleFileChange(info) {
-        console.log("file info",info)
+        // console.log("file info",info)
       this.formData.upload = info.file.originFileObj;
     },
     async validateAndSubmit() {
       try {
-        console.log("Validation réussie, données du formulaire :", this.formData);
+        // console.log("Validation réussie, données du formulaire :", this.formData);
         this.handleChangeInfoForAbonnement(this.formData)
-        console.log("Profil hybride choisi pour ajout :", this.choiceProfilHybrideForAdd);
+        // console.log("Profil hybride choisi pour ajout :", this.choiceProfilHybrideForAdd);
         this.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
         this.showModalAbonnements = true;
       } catch (error) {

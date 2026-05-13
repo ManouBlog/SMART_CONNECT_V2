@@ -280,7 +280,7 @@ export default {
   loadingSpinner.launchLoading(true);
   try {
     const response = await instance.get("list_emplois_temps");
-    console.log("list_emplois_temps_456", response);
+    // console.log("list_emplois_temps_456", response);
 
     const UserConnected = localStorage.getItem("user");
 
@@ -288,11 +288,11 @@ const statuses = UserConnected
   ? JSON.parse(UserConnected)?.user?.statuses || []
   : [];
 
-console.log("statusesUserConnected", statuses);
+// console.log("statusesUserConnected", statuses);
 
 let data = response.data.data;
 
-console.log("DATA_LISTE", data);
+// console.log("DATA_LISTE", data);
 
 // vérifier si l'utilisateur est particulier
 const isParticulier = statuses.some(s =>
@@ -302,7 +302,7 @@ const isEtudiant = statuses.some(s =>
   s.statut?.toLowerCase() === "etudiant"
 );
 
-console.log("isParticulier", isParticulier);
+// console.log("isParticulier", isParticulier);
 console.log('USER_CONNECTED',this.user.user.usersadded_by_me)
 
 if (isParticulier) {
@@ -323,10 +323,10 @@ if(isEtudiant){
   }).filter(item=>item.id !== this.user?.user?.id);
 }
     this.list = this.addOtherElement(data);
-    console.log("get_list_Talents", this.list);
+    // console.log("get_list_Talents", this.list);
 
     this.lengthOfTalents = this.list.length;
-    console.log("this.lengthOfTalents", this.lengthOfTalents);
+    // console.log("this.lengthOfTalents", this.lengthOfTalents);
   } catch (error) {
     console.log(error);
     // alert(err.response?.data?.message || "Erreur serveur");
@@ -371,7 +371,7 @@ if(isEtudiant){
       }
     },
     optionDate(studentId) {
-      console.log("entreprise_student45")
+      // console.log("entreprise_student45")
       this.loadSpinner = true;
       let date = [];
       this.datesPickers.forEach((item) => {
@@ -418,7 +418,7 @@ if(isEtudiant){
         });
     },
     optionPeriode(EntrepriseId) {
-      console.log("entreprise_student4568")
+      // console.log("entreprise_student4568")
       this.loadSpinner = true;
       instance
         .post("entreprise_student", {
@@ -472,7 +472,7 @@ if(isEtudiant){
         });
     },
     verfEnter() {
-  console.log("verfEnter", this.user);
+  // console.log("verfEnter", this.user);
 
   if (!this.user) return;
 

@@ -157,14 +157,14 @@ export default {
     }
   try {
     const response = await instance.get("list_emplois_temps");
-    console.log("list_emplois_temps25",response);
-    console.log("res_ALL", response);
+    // console.log("list_emplois_temps25",response);
+    // console.log("res_ALL", response);
    this.allFavoris = response.data.data.filter(item=>this.$store.state.whistListPerson.includes(item.id));
 
-   console.log("DATA_LISTE", this.allFavoris);
+   // console.log("DATA_LISTE", this.allFavoris);
 
     this.list = this.addOtherElement(this.allFavoris);
-    console.log("get_list_Talents", this.list);
+    // console.log("get_list_Talents", this.list);
   } catch (error) {
     console.log(error);
   } finally {
@@ -200,7 +200,7 @@ export default {
       }
     },
     verfEnter() {
-  console.log("verfEnter", this.user);
+  // console.log("verfEnter", this.user);
 
   if (!this.user) return;
 

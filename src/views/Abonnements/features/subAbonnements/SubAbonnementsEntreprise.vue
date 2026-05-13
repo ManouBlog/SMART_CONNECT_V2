@@ -179,7 +179,7 @@ const messageAbonnement = (item) => {
 watch(
   isUserConnected,
  (newValue) => {
-    console.log("NEW VALUE", isUserConnected);
+    // console.log("NEW VALUE", isUserConnected);
     if (!newValue) {
      storeAbonnementUser.putPlanAbonnementAtNull();
     }

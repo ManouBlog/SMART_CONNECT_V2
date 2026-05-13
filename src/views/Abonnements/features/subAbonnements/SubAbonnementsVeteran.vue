@@ -47,11 +47,11 @@ const handleInitialiserPayement=(payload)=>{
         profilHybride:storeAbonnement.profilHybride?.map(item => item.id),
         addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
         }
-       console.log("payload sub abonnement veteran",{
-        // payload:payload,
-        data:data,
-        // storeAbonnement:STORE_ABONNEMENT
-       })
+      //  // console.log("payload sub abonnement veteran",{
+      //   // payload:payload,
+      //   data:data,
+      //   // storeAbonnement:STORE_ABONNEMENT
+      //  })
       
        
     storeAbonnement.createAbonement(data)
@@ -73,8 +73,8 @@ const filteredAbonnementsByTalent = computed(() => {
 const getMessageAbonnement = (type, item) => {
   const libelle = item?.libelle?.trim().toUpperCase();
 
-  console.log("MESSAGE_ABONNEMENT", type);
-  console.log("libelle_abonnement_message", libelle);
+  // console.log("MESSAGE_ABONNEMENT", type);
+  // console.log("libelle_abonnement_message", libelle);
 
   if (type === "Etudiant") {
     const map = {

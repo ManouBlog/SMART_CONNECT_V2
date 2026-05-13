@@ -266,7 +266,7 @@ export default {
     },
 
     nextStep() {
-      console.log("this.currentStep",this.currentStep)
+      // console.log("this.currentStep",this.currentStep)
    
     //   if (this.currentStep === 2) {
     //     const invalid = this.formState.qualifications.some((q) => !q.objet);
@@ -415,7 +415,7 @@ export default {
 //   })
 // },
     onFinish() {
-      console.log("this.formState",this.formState);
+      // console.log("this.formState",this.formState);
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
       }
@@ -423,7 +423,7 @@ export default {
       if (this.configUtils.isValidEmail(this.formState.email)) {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          console.log("this.formState",this.formState)
+          // console.log("this.formState",this.formState)
           this.changeValueIsPolitics({
             value: true,
             infoUser: "talents",

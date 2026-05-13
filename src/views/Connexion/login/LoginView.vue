@@ -99,7 +99,7 @@ export default {
         });
     },
     onHandleFailed(errorInfo) {
-      console.log("Failed:", errorInfo);
+      // console.log("Failed:", errorInfo);
     },
   },
   async created() {

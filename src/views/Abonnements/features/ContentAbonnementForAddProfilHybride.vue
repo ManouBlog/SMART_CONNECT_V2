@@ -131,7 +131,7 @@ const currentNotAbonnamentSuccessConfig = computed(() => {
 })
 
 function handleCreate(type) {
-  console.log("ITEM",props.item)
+  // console.log("ITEM",props.item)
   console.log('TYPE',type)
   if (type === 'year') {
     handleCreateYear(props.item)
@@ -140,9 +140,9 @@ function handleCreate(type) {
   }
 }
 const handleCreateMonth =(payload)=>{
-  console.log("handleCreateAbonnement123")
-  console.log("handleCreateMonth",payload)
-  console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+  // console.log("handleCreateAbonnement123")
+  // console.log("handleCreateMonth",payload)
+  // console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
   const storeAbonnement = useAbonnementsStore();
   const randomPart = Math.random().toString(36).substring(2);
   const statutBaseUser = store.state.user?.user?.statut_base;
@@ -240,14 +240,14 @@ if (storeAbonnement.addProfilHybride?.length) {
       formData.append("addProfilHybrideOnly[]", id);
     });
 }
-  console.log("paiement_month_pouraddprofilhybride",formData)
+  // console.log("paiement_month_pouraddprofilhybride",formData)
 storeAbonnement.createAbonement(formData)
 }
 const handleCreateYear =(payload)=>{
-  console.log("handleCreateAbonnement90")
-  console.log("handleCreateYear",payload)
-  console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
-  console.log("storeAbonnement",storeAbonnement)
+  // console.log("handleCreateAbonnement90")
+  // console.log("handleCreateYear",payload)
+  // console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
+  // console.log("storeAbonnement",storeAbonnement)
    const randomPart = Math.random().toString(36).substring(2);
   const statutBaseUser = store.state.user?.user?.statut_base;
   console.log('statutBaseUser',statutBaseUser)
@@ -308,7 +308,7 @@ if (storeAbonnement.juridique) formData.append('juridique', storeAbonnement.juri
 if (storeAbonnement.matricule_cc) formData.append('matricule_cc', storeAbonnement.matricule_cc);
 if (storeAbonnement.contact) formData.append('contact', storeAbonnement.contact);
   
-  console.log("veux_ajouter_des_profils_hybrides_year98",formData)
+  // console.log("veux_ajouter_des_profils_hybrides_year98",formData)
   storeAbonnement.createAbonement(formData)
 }
 
@@ -324,12 +324,12 @@ onMounted(async () => {
       color_btn: "primary",
     },
   ];
-  console.log("INFO_SUR_USER",store.state.user)
-  console.log("ISCHANGE_PROFIL_INCONTENTABONNENEMENT_FORADDHYBRIDES",storeAbonnement.isChangeProfil)
+  // console.log("INFO_SUR_USER",store.state.user)
+  // console.log("ISCHANGE_PROFIL_INCONTENTABONNENEMENT_FORADDHYBRIDES",storeAbonnement.isChangeProfil)
   if(storeAbonnement.isChangeProfil){
  const statutBase = store.state.user?.user?.statut?.statut;
   const AllProfilHybride = store.state.user?.user?.statuses?.filter(item=>item.statut !== statutBase)
-  console.log("AllProfilHybride",AllProfilHybride)
+  // console.log("AllProfilHybride",AllProfilHybride)
    const payload = {profilHybride:AllProfilHybride}
   storeAbonnement.handleChangeInfoForAbonnement(payload)
   }
@@ -342,11 +342,11 @@ onMounted(async () => {
    tabs.value = tabs.value.filter(tab=>tab.id === modePaymentForFormuleAbonnementOfUserConnected.value)
     select_mode_payment_tab.value = tabs.value[0].id
     }
-    console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
-    console.log("profilUserCurrent",profilUserCurrent)
-    console.log("tabs",tabs.value)
-    console.log("modePaymentForFormuleAbonnementOfUserConnected",modePaymentForFormuleAbonnementOfUserConnected.value)
-    console.log("formuleAbonnementOfUserConnected25",formuleAbonnementOfUserConnected.value)
+    // console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement.addProfilHybride)
+    // console.log("profilUserCurrent",profilUserCurrent)
+    // console.log("tabs",tabs.value)
+    // console.log("modePaymentForFormuleAbonnementOfUserConnected",modePaymentForFormuleAbonnementOfUserConnected.value)
+    // console.log("formuleAbonnementOfUserConnected25",formuleAbonnementOfUserConnected.value)
   }
  
   texte.value = await transalteStore.handleTranslate("année");

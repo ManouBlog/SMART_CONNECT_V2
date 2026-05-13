@@ -112,7 +112,7 @@ export default {
         lieu: this.searchLieu,
         pays: this.selectedCountries.length ? this.selectedCountries?.map((item) => item?.id) : [],
       };
-      console.log("dataSearch", dataSearch);
+      // console.log("dataSearch", dataSearch);
       this.get_list_offre(dataSearch);
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
