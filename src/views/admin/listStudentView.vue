@@ -29,7 +29,8 @@ export default {
       spinner: false,
       currentFilter:"",
       talentsChoose:"abonne",
-      statusFilter: 'Tous'
+      statusFilter: 'Tous',
+      statusAbonneeFilter:'Tous'
     };
   },
   computed: {
@@ -443,7 +444,6 @@ export default {
   paginator
   :rows="20"
   :rowsPerPageOptions="[10, 20, 50]"
-  virtualScrollerOptions="{ itemSize: 20 }"
   v-model:filters="filtersPasAbonnees"
   :globalFilterFields="[
     'nom',
