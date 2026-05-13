@@ -19,7 +19,8 @@ export default {
       },
      filtersPasAbonnees:{
       global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-     }
+     },
+     listParticulier:[]
     };
   },
   methods: {
@@ -99,7 +100,7 @@ export default {
     async getListParticuliers() {
       this.$store.commit("TOOGLESPINNER", true);
       await axios
-        .get("https://backend.monbrobroli.com/api/list_particuliers/",{
+        .get("https://backend.monbrobroli.com/api/list_particuliers",{
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
           },
@@ -122,7 +123,7 @@ export default {
     
   },
   async mounted() {
-    await this.$store.dispatch("get_users");
+    await this.getListParticuliers();
   },
 };
 </script>
