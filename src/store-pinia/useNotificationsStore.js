@@ -18,8 +18,8 @@ export const useNotificationsStore = defineStore('notifications', () => {
       const response = await instance.get('Notifications_student')
       // console.log("getListNotification",response)
       const responseNotifications = response.data?.data;
-      yesterdayNotifications.value  = responseNotifications.yesterday;
-      todayNotifications.value = responseNotifications.today;
+      yesterdayNotifications.value  = responseNotifications?.yesterday;
+      todayNotifications.value = responseNotifications?.today;
       
       // Notifications d’hier
 //       yesterdayNotifications.value = (data.yesterday || []).map(item => ({
