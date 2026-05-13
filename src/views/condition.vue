@@ -665,6 +665,7 @@ L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est sou
 <style scoped>
 code {
   color: orange !important;
+  font-weight: bold;
 }
 .p-5 {
   padding: 1em 5em;

@@ -676,5 +676,6 @@ p {
 }
 code {
   color: orange !important;
+  font-weight: bold;
 }
 </style>

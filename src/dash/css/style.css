@@ -2162,7 +2162,7 @@ p {
 }
 code {
   color: var(--theme-deafult) !important;
-  background-color: rgba(99, 98, 231, 0.03);
+  font-weight: bold;
   padding: 3px;
   margin: 0 3px;
   border-radius: 2px;
