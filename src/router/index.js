@@ -119,6 +119,15 @@ const routes = [
           requiresAuth: true,
         },
       },
+       {
+        path: "/list_particulier",
+        name: "particulier",
+        component: () => import("../views/admin/ListeParticulier.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
       {
         path: "/publicite",
         name: "publicite",

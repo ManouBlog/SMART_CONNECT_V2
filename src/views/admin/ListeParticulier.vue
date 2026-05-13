@@ -7,7 +7,7 @@ import InputText from 'primevue/inputtext';
 import { FilterMatchMode } from '@primevue/core/api';
 
 export default {
-  name: "UserView",
+  name: "ListeParticulier",
   components:{Column,DataTable,InputText},
   data() {
     return {
@@ -93,7 +93,30 @@ export default {
         })
         .finally(() => {
           this.$store.commit("TOOGLESPINNER", false);
+         
+        });
+    },
+    async getListParticuliers() {
+      this.$store.commit("TOOGLESPINNER", true);
+      await axios
+        .get("https://backend.monbrobroli.com/api/list_particuliers/",{
+          headers: {
+            Authorization: "Bearer " + this.$store.state.token,
+          },
+        })
+        .then((res) => {
+          console.log("getListParticuliers", res);
+          if (res.data.status) {
+            this.listParticulier = res.data.data;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
           
+          alert(err.response.data.message);
+        })
+        .finally(() => {
+          this.$store.commit("TOOGLESPINNER", false);
         });
     },
     
@@ -115,7 +138,7 @@ export default {
           </div>
           <div class="col-12 col-sm-6">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">Entreprises</li>
+              <li class="breadcrumb-item">Particuliers</li>
             </ol>
           </div>
         </div>
