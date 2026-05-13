@@ -120,6 +120,37 @@ export default {
           this.$store.commit("TOOGLESPINNER", false);
         });
     },
+    getDetailSuscribe(id) {
+    //   this.$store.commit("TOOGLESPINNER", true);
+      this.$router.push({
+              name: "details",
+              params: { id: id, name: "talents" },
+            });
+    //   await axios
+    //     .put("https://backend.monbrobroli.com/api/updateBadgeStudent/" + id, {
+    //       headers: {
+    //         Authorization: "Bearer " + this.$store.state.token,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log("get_detail_users", res);
+    //       if (res.data.status) {
+    //         this.$store.commit("DECREMENT_STUDENT_NOT_SUSCRIBE");
+    //         this.$router.push({
+    //           name: "details",
+    //           params: { id: id, name: "talents" },
+    //         });
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+          
+    //       alert(err.response.data.message);
+    //     })
+    //     .finally(() => {
+    //       this.$store.commit("TOOGLESPINNER", false);
+    //     });
+    },
     
   },
   async mounted() {
@@ -200,10 +231,10 @@ export default {
         aria-labelledby="abonnées"
       >
         <div class="container-fluid">
-            {{ listParticulier }}
           <div class="row">
             <div class="col-sm-12 card py-3 px-2">        
              <DataTable
+             emptyMessage="Aucune donnée disponible"
   tableStyle="min-width: 50rem"
   :value="listParticulier?.partenaires_abonnee"
   paginator
@@ -214,6 +245,11 @@ export default {
   class="table"
 >
 
+  <template #empty>
+    <div class="text-center p-4 text-gray-500">
+      Aucune donnée trouvée
+    </div>
+  </template>
   <!-- HEADER SEARCH -->
   <template #header>
     <div class="flex" style="justify-content: flex-start !important;padding: 0 1em;">
@@ -224,79 +260,81 @@ export default {
     </div>
   </template>
 
-  <!-- Date -->
-  <Column
-    field="created_at"
-    header="Date d'enregistrement"
-    style="width: 20%; padding: 1em"
-  >
+ <!-- Date -->
+  <Column style="width: 20%; padding: 1em;" field="created_at" header="Date d'enregistrement">
     <template #body="slotProps">
       {{ new Date(slotProps.data.created_at).toLocaleDateString("fr") }}
     </template>
   </Column>
 
-  <!-- Entreprise -->
-  <Column
-    field="nom"
-    header="Entreprise"
-    style="width: 20%; padding: 1em"
-  >
+  <!-- Statut -->
+  <Column style="width: 20%; padding: 1em;" header="Statut">
     <template #body="slotProps">
-      <span>
-        {{ slotProps.data.nom }}
-        <span v-if="slotProps.data.view == 1" class="badge bg-danger ms-1">
-          New
+      <span v-if="slotProps.data.user?.statuses?.length">
+        <span
+          v-for="statut in slotProps.data.user.statuses"
+          :key="statut.id"
+          style="display:flex;gap:1em;"
+        >
+          <span class="badge bg-primary">
+            {{ statut.statut }}
+          </span>
         </span>
+      </span>
+
+      <span v-else class="badge bg-primary">
+        {{ slotProps.data.user?.statut?.statut }}
+      </span>
+    </template>
+  </Column>
+
+  <!-- Nom -->
+  <Column style="width: 20%; padding: 1em;" field="nom" header="Nom">
+    <template #body="slotProps">
+      {{ slotProps.data.nom }}
+      <span v-if="slotProps.data.view == 1" class="badge bg-danger">
+        New
       </span>
     </template>
   </Column>
 
   <!-- Email -->
-  <Column
-    field="email"
-    header="Email"
-    style="width: 20%; padding: 1em"
-  />
+  <Column style="width: 20%; padding: 1em;" field="email" header="Email" />
 
-  <!-- Structure -->
-  <Column
-    header="Structure"
-    style="width: 20%; padding: 1em"
-  >
-    <template #body="slotProps">
-      {{ slotProps.data?.statut_entreprise || '-' }}
-    </template>
-  </Column>
+  <!-- Ville -->
+  <Column style="width: 20%; padding: 1em;" field="ville" header="Ville" />
+
+  <!-- Commune -->
+  <Column style="width: 20%; padding: 1em;" field="commune" header="Commune" />
+
+  <!-- Quartier -->
+  <Column style="width: 20%; padding: 1em;" field="quartier" header="Quartier" />
+
+  <!-- Téléphone -->
+  <Column style="width: 20%; padding: 1em;" field="phone" header="Téléphone" />
 
   <!-- Abonnement -->
-  <Column
-    header="Formule d'abonnement"
-    style="width: 20%; padding: 1em"
-  >
+  <Column style="width: 20%; padding: 1em;" header="Formule d'abonnement">
     <template #body="slotProps">
       {{
         slotProps.data?.user?.abonement?.length
           ? verifIfAbonnementCurrently(slotProps.data.user.abonement)
-          : "Pas d'abonnement"
+          : "Pas d'abonnement."
       }}
     </template>
   </Column>
 
-  <!-- Action -->
-  <Column
-    header="Action"
-    style="width: 10%; padding: 1em"
-  >
+  <!-- Détails -->
+  <Column style="width: 20%; padding: 1em;" header="Détails">
     <template #body="slotProps">
       <a
         href="#"
-        @click.prevent="getDetailCompanySuscribe(slotProps.data.id)"
+        @click.prevent="getDetailSuscribe(slotProps.data.id)"
       >
         <i class="bi bi-eye"></i>
       </a>
     </template>
   </Column>
-
 </DataTable>
              
             </div>
@@ -313,6 +351,7 @@ export default {
           <div class="row">
             <div class="col-sm-12 card py-3 px-2">
            <DataTable
+           emptyMessage="Aucune donnée disponible"
   tableStyle="min-width: 50rem"
   :value="listParticulier?.partenaires_non_abonnee"
   stripedRows
@@ -324,6 +363,11 @@ export default {
   class="table"
 >
 
+  <template #empty>
+    <div class="text-center p-4 text-gray-500">
+      Aucune donnée trouvée
+    </div>
+  </template>
   <!-- HEADER SEARCH -->
   <template #header>
     <div class="flex" style="justify-content: flex-start !important;padding: 0 1em;">
@@ -335,72 +379,75 @@ export default {
   </template>
 
   <!-- Date -->
-  <Column
-    field="created_at"
-    header="Date d'enregistrement"
-    style="width: 20%; padding: 1em"
-  >
+  <Column style="width: 20%; padding: 1em;" field="created_at" header="Date d'enregistrement">
     <template #body="slotProps">
       {{ new Date(slotProps.data.created_at).toLocaleDateString("fr") }}
     </template>
   </Column>
 
-  <!-- Entreprise -->
-  <Column
-    field="nom"
-    header="Entreprise"
-    style="width: 20%; padding: 1em"
-  >
+  <!-- Statut -->
+  <Column style="width: 20%; padding: 1em;" header="Statut">
     <template #body="slotProps">
-      <span>
-        {{ slotProps.data.nom }}
-        <span v-if="slotProps.data.view == 1" class="badge bg-danger ms-1">
-          New
+      <span v-if="slotProps.data.user?.statuses?.length">
+        <span
+          v-for="statut in slotProps.data.user.statuses"
+          :key="statut.id"
+          style="display:flex;gap:1em;"
+        >
+          <span class="badge bg-primary">
+            {{ statut.statut }}
+          </span>
         </span>
+      </span>
+
+      <span v-else class="badge bg-primary">
+        {{ slotProps.data.user?.statut?.statut }}
+      </span>
+    </template>
+  </Column>
+
+  <!-- Nom -->
+  <Column style="width: 20%; padding: 1em;" field="nom" header="Nom">
+    <template #body="slotProps">
+      {{ slotProps.data.nom }}
+      <span v-if="slotProps.data.view == 1" class="badge bg-danger">
+        New
       </span>
     </template>
   </Column>
 
   <!-- Email -->
-  <Column
-    field="email"
-    header="Email"
-    style="width: 20%; padding: 1em"
-  />
+  <Column style="width: 20%; padding: 1em;" field="email" header="Email" />
 
-  <!-- Structure -->
-  <Column
-    header="Structure"
-    style="width: 20%; padding: 1em"
-  >
-    <template #body="slotProps">
-      {{ slotProps.data?.statut_entreprise || '-' }}
-    </template>
-  </Column>
+  <!-- Ville -->
+  <Column style="width: 20%; padding: 1em;" field="ville" header="Ville" />
+
+  <!-- Commune -->
+  <Column style="width: 20%; padding: 1em;" field="commune" header="Commune" />
+
+  <!-- Quartier -->
+  <Column style="width: 20%; padding: 1em;" field="quartier" header="Quartier" />
+
+  <!-- Téléphone -->
+  <Column style="width: 20%; padding: 1em;" field="phone" header="Téléphone" />
 
   <!-- Abonnement -->
-  <Column
-    header="Formule d'abonnement"
-    style="width: 20%; padding: 1em"
-  >
+  <Column style="width: 20%; padding: 1em;" header="Formule d'abonnement">
     <template #body="slotProps">
       {{
         slotProps.data?.user?.abonement?.length
           ? verifIfAbonnementCurrently(slotProps.data.user.abonement)
-          : "Pas d'abonnement"
+          : "Pas d'abonnement."
       }}
     </template>
   </Column>
 
-  <!-- Action -->
-  <Column
-    header="Action"
-    style="width: 10%; padding: 1em"
-  >
+  <!-- Détails -->
+  <Column style="width: 20%; padding: 1em;" header="Détails">
     <template #body="slotProps">
       <a
         href="#"
-        @click.prevent="getDetailCompanyNotSuscribe(slotProps.data.id)"
+        @click.prevent="getDetailSuscribe(slotProps.data.id)"
       >
         <i class="bi bi-eye"></i>
       </a>
