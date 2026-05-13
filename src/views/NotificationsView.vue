@@ -1,18 +1,18 @@
 <template>
    <HeaderDashboard :TitleHeader="'Notifications'" :subTitleHeader="'Notifications'" />
   <div class="app">
-    <div style="height:300px" v-if="!Notifications.todayNotifications.length && !Notifications.yesterdayNotifications.length">
+    <div style="height:300px" v-if="!Notifications?.todayNotifications?.length && !Notifications?.yesterdayNotifications?.length">
       <h2 style="text-align:center;">Pas de notifications</h2>
     </div>
     <NotificationSection
-      v-if="Notifications.todayNotifications.length"
+      v-if="Notifications?.todayNotifications?.length"
       title="Aujourd’hui"
-      :notifications="Notifications.todayNotifications"
+      :notifications="Notifications?.todayNotifications"
     />
     <NotificationSection
-      v-if="Notifications.yesterdayNotifications.length"
+      v-if="Notifications?.yesterdayNotifications?.length"
       title="Passées"
-      :notifications="Notifications.yesterdayNotifications"
+      :notifications="Notifications?.yesterdayNotifications"
     />
   </div>
 </template>
