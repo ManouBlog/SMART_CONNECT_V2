@@ -100,10 +100,10 @@ export default {
     list_offre() {
       const start = (this.currentPage - 1) * this.pageSize;
       const end = start + this.pageSize;
-      console.log("end", end);
-      console.log("start", start);
-      console.log("computed_listOffre",this.MylistOffre);
-      return this.MylistOffre.slice(start, end);
+      // console.log("end", end);
+      // console.log("start", start);
+      // console.log("computed_listOffre",this.MylistOffre);
+      return this.MylistOffre?.slice(start, end);
     },
   },
   methods: {

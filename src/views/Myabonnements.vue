@@ -399,7 +399,7 @@ if (!user.competences.length || !user.qualifications.length) {
 },
 handleDetailAbonnement(payload){
   this.detailsAbonnement = payload;
-  console.log("handleDetailAbonnement",payload)
+  // console.log("handleDetailAbonnement",payload)
   this.showModalDetailAbonnement=true
 }
   },

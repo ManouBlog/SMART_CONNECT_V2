@@ -71,7 +71,7 @@ export default {
     list_offre_mobile() {
       const start = (this.currentPage - 1) * this.pageSize;
       const end = start + this.pageSize;
-      return this.list_offre.slice(start, end);
+      return this.list_offre?.slice(start, end);
     },
   },
   methods: {
