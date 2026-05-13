@@ -92,7 +92,7 @@ export default {
     },
     addCompetences() {
       loadingSpinner.launchLoading(true);
-      console.log("this.comp", this.comp);
+      //console\.log\("this.comp", this.comp);
       this.spinnerCompetence = true;
       instance
         .post("addCompetences", {
@@ -144,7 +144,7 @@ export default {
         .get("GetAllCompetences")
 
         .then((res) => {
-          console.log("GetAllCompetences_12", res);
+          //console\.log\("GetAllCompetences_12", res);
           this.competencesPredf = res.data.data.filter(c => c.categorie_id !== null);
           this.competencesPredf.push({
          id: this.generateUniqueId(),

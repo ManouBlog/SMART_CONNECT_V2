@@ -98,7 +98,7 @@ export default {
           .then((resp) => {
           
             if (resp.data.status === true) {
-              console.log("MYphoto_profil",resp.data?.user)
+              // console.log("MYphoto_profil",resp.data?.user)
               this.photo_profil = resp.data?.user?.photo_profil || resp.data?.user?.logo;
               this.userInfos = resp.data?.user
             window.localStorage.setItem("user", JSON.stringify(resp.data?.user));
@@ -156,9 +156,9 @@ if (
   async created() {
     await this.getInfoUser();
     const userStr = this.$store.state.user;
-    console.log("userStr", userStr)
+    // console.log("userStr", userStr)
     this.StatutUser = userStr ? userStr?.user?.statuses : null;
-    console.log("StatutUser", this.StatutUser)
+    // console.log("StatutUser", this.StatutUser)
     this.texte = await this.handleTranslate("Connexion");
     this.texte1 = await this.handleTranslate("Accueil");
     this.texte2 = await this.handleTranslate("Offre d'emploi");

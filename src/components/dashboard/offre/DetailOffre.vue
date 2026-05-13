@@ -190,7 +190,7 @@ export default {
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
      async update_mission() {
       this.loadingSpinner.launchLoading(true);
-  console.log("FORMSTATE", this.formState);
+  // console.log("FORMSTATE", this.formState);
   if (this.formState.typeMission === 'date') {
       if (!this.formState.job_debut || !this.formState.job_fin) {
         Swal.fire({
@@ -246,7 +246,7 @@ export default {
      const id = this.$route.params.id
       const { data } = await instance.get(`show_detail_offre_entreprise/${id}`)
       const offre = data.data
-      console.log("loadDetailOffre",offre)
+      // console.log("loadDetailOffre",offre)
       this.formState.categorie_offre_id = offre.categorie_offre_id
       this.formState.competence_id = offre.competence_id
       this.formState.nom_offre = offre.nom_offre
@@ -334,7 +334,7 @@ export default {
       );
     },
      selectCategorieFormState(value) {
-      console.log("VALUEDFE",value)
+      // console.log("VALUEDFE",value)
   this.formState.categorie = value;
   this.formState.competence = '';
   this.formState.otherDomaine = "";
@@ -345,7 +345,7 @@ export default {
 
 },
 chooseCompetenceFormState(value) {
-  console.log('Choisir le poste',value)
+  // console.log('Choisir le poste',value)
   this.formState.competence = value;
 
   // Reset champ "autre poste" si changement

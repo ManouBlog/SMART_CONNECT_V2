@@ -244,7 +244,7 @@ export default {
     try {
       const response = await instance.get("countries");
       this.countries = response.data;
-      console.log("COUNTRIES", this.countries);
+      // console.log("COUNTRIES", this.countries);
     } catch (error) {
       console.log(error);
     }
@@ -257,7 +257,7 @@ export default {
             if (resp.data.status === true) {
               this.userInfo = resp.data.user;
               window.localStorage.setItem("user", JSON.stringify(resp.data.user));
-              console.log("USER_INFO", this.userInfo);
+              // console.log("USER_INFO", this.userInfo);
             }
           })
           .catch((error) => {
@@ -439,7 +439,7 @@ export default {
     },
     async post_mission() {
       this.StoreLoading.launchLoading(true);
-  console.log("FORMSTATE", this.formState);
+  // console.log("FORMSTATE", this.formState);
 
   // Si mission immédiate → date du jour
   if (this.formState.typeMission === "immediat") {
@@ -496,7 +496,7 @@ export default {
         const response =  await instance.get("listStatut")
         
           if (response.data.status) {
-  console.log('userInfo', this.userInfo);
+  // console.log('userInfo', this.userInfo);
   
   let allStatuses = [];
   
@@ -585,7 +585,7 @@ export default {
       );
     },
     selectCategorieFormState(value) {
-      console.log("VALUEDFE",value)
+      // console.log("VALUEDFE",value)
   this.formState.categorie = value;
   this.formState.competence = '';
   this.formState.otherDomaine = "";
@@ -608,7 +608,7 @@ resetDataFormState(){
   this.formState.job_fin=""
 },
 chooseCompetenceFormState(value) {
-  console.log('Choisir le poste',value)
+  // console.log('Choisir le poste',value)
   this.formState.competence = value;
 
   // Reset champ "autre poste" si changement

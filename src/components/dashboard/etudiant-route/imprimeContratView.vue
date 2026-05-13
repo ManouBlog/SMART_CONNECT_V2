@@ -192,7 +192,7 @@ h5 {
       await instance
         .get("get_who_contact_student")
         .then((res) => {
-          console.log("get_who_contact_student", res);
+          // console.log("get_who_contact_student", res);
           this.offreDetail = res.data;
           // // console.log("this.$route.params.id", this.$route.params.id);
           // // console.log("ENTREPRISES", this.list_entreprise_contact);

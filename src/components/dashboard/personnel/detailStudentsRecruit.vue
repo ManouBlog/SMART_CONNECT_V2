@@ -68,14 +68,14 @@ export default {
       await instance
         .get("getStudentRecruit")
         .then((res) => {
-          console.log("getStudentRecruit", res);
+          // console.log("getStudentRecruit", res);
           this.studentRecruit = res.data;
           for (let item in this.studentRecruit) {
             if (item === this.$route.params.offre) {
               this.tableauRecruit = this.studentRecruit[item];
             }
           }
-          console.log("this.tableauRecruit", this.tableauRecruit);
+          // console.log("this.tableauRecruit", this.tableauRecruit);
         })
         .catch((err) => {
           console.log(err);
@@ -94,7 +94,7 @@ export default {
       this.identifiant = this.tableauRecruit.find(
         (item) => Number(item.student_id) === Number(id)
       );
-      console.log("this.identifiant", this.identifiant);
+      // console.log("this.identifiant", this.identifiant);
     },
     async sendAppreciation() {
       spinnerLoading.launchLoading(true);
@@ -134,7 +134,7 @@ export default {
         offre_id:this.student_certification.offre_id
       })
         .then((res) => {
-          console.log("sendCertificat", res);
+          console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -157,7 +157,7 @@ export default {
       this.showCertificatModal = !this.showCertificatModal
     },
      VoirProfil(item) {
-          console.log("item",item)
+          // console.log("item",item)
           // console.log("item.student_id",{ id: item.student_id, user_id: item.id })
      this.$router.push({
             name: "detailStudent",

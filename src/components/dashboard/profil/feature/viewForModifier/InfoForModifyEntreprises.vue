@@ -130,15 +130,15 @@ valueExpertise: [
   },
    watch: {
     'form.optionsPaper'(newValue) {
-      console.log("Selected option:", newValue);
+      // console.log("Selected option:", newValue);
       this.form.optionsPaper = newValue;
-      console.log("Selected option:", newValue);
+      // console.log("Selected option:", newValue);
     },
   },
   methods: {
     chargerFichier(event) {
       const file = event.target.files[0];
-      console.log("file", file)
+      // console.log("file", file)
       if (file) {
         this.form.fileCharge = file;
       }
@@ -147,7 +147,7 @@ valueExpertise: [
     }
     },
     selectOne(value) {
-      console.log("this.form.optionsPaper",this.form.optionsPaper)
+      // console.log("this.form.optionsPaper",this.form.optionsPaper)
       if (this.form.optionsPaper === value) {
         // Déjà sélectionné → ignore le clic (reste sélectionné)
         return;
@@ -157,7 +157,7 @@ valueExpertise: [
   },
        initForm() {
     const user = this.$store.state.infoUserConnected;
-    console.log("initForm",user)
+    // console.log("initForm",user)
     if (!user) return;
 
     this.form.nom = this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut !== 'Entreprise') ? user.nom : this.form.optionsPaper === 'Formel' ? user.nom:user.nom_particulier;
@@ -226,10 +226,10 @@ valueExpertise: [
       allowed.has(item.statut)
     );
 
-    console.log("allStatuses1", {
-      statut: this.allStatuses,
-      profil: this.$store.state.infoUserConnected
-    });
+    // console.log("allStatuses1", {
+    //   statut: this.allStatuses,
+    //   profil: this.$store.state.infoUserConnected
+    // });
 
   } catch (error) {
     console.log(error);
@@ -367,7 +367,7 @@ if (isStudentGroup) {
       }
     },
     async handleUpdate(payload) {
-  console.log('handleUpdate', payload);
+  // console.log('handleUpdate', payload);
 
   const user = this.$store.state.infoUserConnected?.user;
   const statuses = user?.statuses || [];
@@ -410,11 +410,11 @@ if (isStudentGroup) {
       return { detail: "", date_debut: new Date(), date_fin: new Date() };
     },
     handleInputInput(valueDate) {
-      console.log("valueDate", valueDate);
+      console.log(valueDate);
       // console.log("itemsQualificationDynamicInput",this.itemsQualificationDynamicInput)
     },
     handleInputChange(valueDate) {
-      console.log("valueDate", valueDate);
+      console.log(valueDate);
     },
   },
   mounted() {

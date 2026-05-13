@@ -23,7 +23,7 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
             await instance
               .get("get_offres_postule")
               .then((res) => {
-                console.log("get_all_student",res);
+                // console.log("get_all_student",res);
                 this.list_offre = res.data.data;
                 this.data_offre_filter = res.data.data;
                 loadingSpinner.launchLoading(false);
@@ -56,7 +56,7 @@ export const useInfoStudentStore = defineStore('studentsInfo', {
             await instance
               .post("statistiqueDashboard/student",payload)
               .then((res) => {
-                console.log("statistiqueDashboard",res.data);
+                // console.log("statistiqueDashboard",res.data);
                 this.statistiqueDashboard = res.data;
               })
               .catch((err) => {

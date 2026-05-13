@@ -133,7 +133,7 @@ export default {
     }
   },
     onUploadChange(e) {
-    console.log('onUploadChange', e.target.files);
+    // console.log('onUploadChange', e.target.files);
     this.formState.upload = Array.from(e.target.files);
     if (!e) return
     this.rawText = ''
@@ -239,37 +239,37 @@ export default {
 // },
     onHandleProfil() {
       const STORE_ABONNEMENT = useAbonnementsStore()
-      console.log("this.formState",this.formState);
+      // console.log("this.formState",this.formState);
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
       STORE_ABONNEMENT.cleanProfilHybide([])
-      console.log('DATA FOR SEND1',{
-        statutOfBase:STORE_ABONNEMENT.statutOfBase,
-        nomEntreprise: STORE_ABONNEMENT.nom,
-        expertise : STORE_ABONNEMENT.niveauExpertise,
-        modeTravail:STORE_ABONNEMENT.modeTravail,
-        tempsTravail:STORE_ABONNEMENT.tempsTravail,
-        niveauEtude:STORE_ABONNEMENT.niveauEtude,
-        CVupload:STORE_ABONNEMENT.CVupload,
-        upload:STORE_ABONNEMENT.upload,
-        statut_talent:STORE_ABONNEMENT.statut_talent,
-        treatment_preferentiel:STORE_ABONNEMENT.treatment_preferentiel,
-        diplome:STORE_ABONNEMENT.diplome,
-        ville:STORE_ABONNEMENT.ville,
-        commune:STORE_ABONNEMENT.commune,
-        profilHybride:STORE_ABONNEMENT.profilHybride,
-        quartier:STORE_ABONNEMENT.quartier,
-        statut_professionnel_artisan:STORE_ABONNEMENT.statut_professionnel_artisan,
-        statut_entreprise:STORE_ABONNEMENT.statut_entreprise,
-        email_cc:STORE_ABONNEMENT.email_cc,
-        Phonegerant:STORE_ABONNEMENT.Phonegerant,
-        gerant:STORE_ABONNEMENT.gerant,
-        email:STORE_ABONNEMENT.email,
-        phone:STORE_ABONNEMENT.phone,
-        ncc:STORE_ABONNEMENT.ncc,
-        juridique:STORE_ABONNEMENT.juridique,
-        matricule_cc:STORE_ABONNEMENT.matricule_cc,
-        contact:STORE_ABONNEMENT.contact
-      })
+      // console.log('DATA FOR SEND1',{
+      //   statutOfBase:STORE_ABONNEMENT.statutOfBase,
+      //   nomEntreprise: STORE_ABONNEMENT.nom,
+      //   expertise : STORE_ABONNEMENT.niveauExpertise,
+      //   modeTravail:STORE_ABONNEMENT.modeTravail,
+      //   tempsTravail:STORE_ABONNEMENT.tempsTravail,
+      //   niveauEtude:STORE_ABONNEMENT.niveauEtude,
+      //   CVupload:STORE_ABONNEMENT.CVupload,
+      //   upload:STORE_ABONNEMENT.upload,
+      //   statut_talent:STORE_ABONNEMENT.statut_talent,
+      //   treatment_preferentiel:STORE_ABONNEMENT.treatment_preferentiel,
+      //   diplome:STORE_ABONNEMENT.diplome,
+      //   ville:STORE_ABONNEMENT.ville,
+      //   commune:STORE_ABONNEMENT.commune,
+      //   profilHybride:STORE_ABONNEMENT.profilHybride,
+      //   quartier:STORE_ABONNEMENT.quartier,
+      //   statut_professionnel_artisan:STORE_ABONNEMENT.statut_professionnel_artisan,
+      //   statut_entreprise:STORE_ABONNEMENT.statut_entreprise,
+      //   email_cc:STORE_ABONNEMENT.email_cc,
+      //   Phonegerant:STORE_ABONNEMENT.Phonegerant,
+      //   gerant:STORE_ABONNEMENT.gerant,
+      //   email:STORE_ABONNEMENT.email,
+      //   phone:STORE_ABONNEMENT.phone,
+      //   ncc:STORE_ABONNEMENT.ncc,
+      //   juridique:STORE_ABONNEMENT.juridique,
+      //   matricule_cc:STORE_ABONNEMENT.matricule_cc,
+      //   contact:STORE_ABONNEMENT.contact
+      // })
       this.showModalAbonnements = true
     },
   },

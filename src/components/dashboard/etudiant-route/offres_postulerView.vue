@@ -90,7 +90,7 @@ export default {
     async verifUserProfilEtudiantComplet() {
       await this.$store.dispatch("getInfoUser")
   const user = this.$store.state.infoUserConnected;
- console.log("verifUserProfilEtudiantComplet",user)
+//  console.log("verifUserProfilEtudiantComplet",user)
   if (user.user?.statuses.some(s => s.statut === 'Etudiant')){
 if (!user.competences.length || !user.qualifications.length) {
     this.$router.push('/dashboard/profil');

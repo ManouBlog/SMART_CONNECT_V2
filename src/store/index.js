@@ -92,11 +92,11 @@ export default createStore({
      },
      RETIRE_USER_WISH_LIST(state, payload) {
   const IDPerson = payload;
-  console.log("IDPerson",IDPerson)
+  // console.log("IDPerson",IDPerson)
   const index = state.whistListPerson.findIndex(
     (id) => id === IDPerson
   );
-  console.log("index233",index)
+  // console.log("index233",index)
   if (index !== -1) {
     state.whistListPerson.splice(index, 1);
   }
@@ -140,7 +140,7 @@ export default createStore({
   },
   actions: {   
   async addListFavoris({ commit, state }, payload) {
-    console.log("addListFavoris",payload)
+    // console.log("addListFavoris",payload)
   try {
     const response = await instance.post(
       "saveWishlist",
@@ -161,7 +161,7 @@ export default createStore({
         commit("RETIRE_USER_WISH_LIST", payload.id);
     }
 
-    console.log("state.whistListPerson",state.whistListPerson)
+    // console.log("state.whistListPerson",state.whistListPerson)
 
     // return response.data;
   } catch (error) {
@@ -175,11 +175,11 @@ export default createStore({
       await instance
         .get("getAllWishlist")
         .then((response) => {
-          console.log("GET_ALL_WISH_LISTd", response?.data?.data.map(item=>item.wishlisted_user.id));
+          // console.log("GET_ALL_WISH_LISTd", response?.data?.data.map(item=>item.wishlisted_user.id));
           commit('GET_ALL_WISH_LIST',response?.data?.data.map(item=>item.wishlisted_user.id))
         })
         .catch((error) => {
-          console.log("error", error);
+          console.log(error);
         });
     } else {
       return;
@@ -190,7 +190,7 @@ export default createStore({
         .get("voirInfoUserConnect")
         .then((resp) => {
           if (resp.data.status === true) {
-            console.log("getInfoUser_store",resp.data.user)
+            // console.log("getInfoUser_store",resp.data.user)
             commit("UPDATE_INFO_CONPANY",resp.data.user)
             commit("SET_INFO_USER",resp.data.user)
           }

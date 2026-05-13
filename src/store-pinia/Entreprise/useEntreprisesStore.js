@@ -44,9 +44,9 @@ export const useEntreprisesStore = defineStore('entreprise', {
            const studentRecruit = await instance.get("getStudentRecruit");
            
            
-           console.log("list_students_contact_by_entreprise",listStudent)
+          //  console.log("list_students_contact_by_entreprise",listStudent)
 
-           console.log("getStudentRecruit",studentRecruit)
+          //  console.log("getStudentRecruit",studentRecruit)
 
            if(listStudent['status'] === 200 && studentRecruit['status'] === 200 ){
             this.list_students = listStudent.data.data;
@@ -98,7 +98,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
    await instance
               .post("statistiqueDashboard/entreprise",payload)
               .then((res) => {
-                console.log("statistiqueDashboard",res.data);
+                // console.log("statistiqueDashboard",res.data);
                 this.statistiquesFormelleOrInformelleEntreprise = res.data;
               })
               .catch((err) => {
@@ -125,7 +125,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
             loadingSpinner.launchLoading(true)
            try{
            const response = await instance.get("abonnement_user")
-           console.log("abonnement_user_response23",response)
+          //  console.log("abonnement_user_response23",response)
            if(response["status"] === 200){
             this.list_abonnement = response.data.data
            this.handlePlanAbonnement(this.list_abonnement)

@@ -27,7 +27,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
       await instance
           .get("voirInfoUserConnect")
           .then((resp) => {
-            console.log("voirInfoUserConnect",resp);
+            // console.log("voirInfoUserConnect",resp);
             if (resp.data.status === true) {
              this.user = resp.data.user
             }
@@ -200,7 +200,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           })
       },
       async update_compte_student(payload) {
-  console.log("payload_update_compte_student", payload);
+  // console.log("payload_update_compte_student", payload);
 
   Spinner.launchLoading(true);
 
@@ -277,7 +277,7 @@ if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
 
   try {
     const res = await instance.post("modifier_profil", data);
-    console.log("update_compte_student", res.data);
+    // console.log("update_compte_student", res.data);
     if (res.data.status === true) {
       Swal.fire({
         icon: "success",

@@ -59,7 +59,7 @@ const handleChangeInfoForAbonnement = (payload) => {
     return;
   }
 
-  console.log("payload_handleChangeInfoForAbonnement ", payload);
+  // console.log("payload_handleChangeInfoForAbonnement ", payload);
 if ("nom" in payload) {
     nom.value = payload.nom;
   }
@@ -149,7 +149,7 @@ if("statut_entreprise" in payload){
     statutOfBase.value = payload;
    }
    const createAbonement = async (payload)=>{
-    console.log("createAbonementlance",payload)
+    // console.log("createAbonementlance",payload)
       if(!store.state.token){
         RegisterStore.changeValueIsModal()
       }else{

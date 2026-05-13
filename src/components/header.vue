@@ -131,7 +131,7 @@ export default {
       this.id_detail_timetable = "";
     },
     contacter_me(id) {
-      console.log("entreprise_student23")
+      // console.log("entreprise_student23")
       if (this.dateDebut != null && this.dateFin != null) {
         if (new Date(this.dateDebut) < new Date(this.dateFin)) {
           instance

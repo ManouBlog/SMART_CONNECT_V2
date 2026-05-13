@@ -14,12 +14,12 @@ const storeLoading = useLoadingSpinner();
     // const PAYSTACK_PUBLIC_KEY = ref(process.env.VUE_APP_PAYSTACK_PUBLIC_KEY);
 
     const paymentCinetpay = async (payload)=>{
-        console.log("paymentCinetpaylancer",payload)
+        // console.log("paymentCinetpaylancer",payload)
         storeLoading.launchLoading(true);
         
         try{
            const RESPONSEINITALISATION = await instance.post("payStack/paiement",payload);
-             console.log("RESPONSEINITALISATION",RESPONSEINITALISATION)
+            //  console.log("RESPONSEINITALISATION",RESPONSEINITALISATION)
              if(RESPONSEINITALISATION.data.status){
                 Swal.fire({
               icon: "success",

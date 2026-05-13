@@ -192,24 +192,24 @@ descriptionProfil:{
         this.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
         this.showModalAbonnements = true;
       } catch (error) {
-        console.log("Validation échouée :", error);
+        console.log(error);
       }
     },
     async lister_statut() {
     
-  const user = this.$store.state.infoUserConnected?.user;
-  const statutUser = user?.statut.statut;
+  // const user = this.$store.state.infoUserConnected?.user;
+  // const statutUser = user?.statut.statut;
 
-console.log('statutUser',statutUser)
-console.log('user',user)
+// console.log('statutUser',statutUser)
+// console.log('user',user)
   try {
     const response = await instance.get("listStatut");
-    console.log('response',response.data.data)
+    // console.log('response',response.data.data)
     this.allProfilsHybrides = response.data.data.filter(item =>item.statut === 'Particulier' || item.statut === 'Artisan');
     this.profilhybrideUserConnected = this.ProfilsUser.user?.statuses.filter(item => item.statut !==  this.ProfilsUser.user?.statut?.statut); 
-    console.log("allProfilsHybrides", this.allProfilsHybrides);
-    console.log("this.ProfilsUser.user?.statuses",this.ProfilsUser.user?.statuses)
-    console.log('this.profilhybrideUserConnected',this.profilhybrideUserConnected)
+    // console.log("allProfilsHybrides", this.allProfilsHybrides);
+    // console.log("this.ProfilsUser.user?.statuses",this.ProfilsUser.user?.statuses)
+    // console.log('this.profilhybrideUserConnected',this.profilhybrideUserConnected)
   } catch (error) {
     console.log(error);
   }finally{

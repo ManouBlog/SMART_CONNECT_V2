@@ -58,16 +58,16 @@ export default {
 },
      
         VoirProfil(item) {
-          console.log("item",item)
-          console.log("item.student_id",{ id: item.student_id, user_id: item.user_id })
+          // console.log("item",item)
+          // console.log("item.student_id",{ id: item.student_id, user_id: item.user_id })
      this.$router.push({
             name: "detailStudent",
             params: { id: item.student_id, user_id: item.user_id },
           });
     },
       async chooseStudent(id,student_id,valueRecruit) {
-        console.log("IDchooseStudent",id)
-     console.log("IDchooseStudent",student_id)
+    //     console.log("IDchooseStudent",id)
+    //  console.log("IDchooseStudent",student_id)
   const actionText = valueRecruit === 1 
     ? "sélectionner" 
     : "rejeter"

@@ -87,7 +87,7 @@ export default {
          this.user = reponse?.compte
          await this.getInfoUser()
         }
-        console.log("reponsehandleFileChange",reponse) 
+        // console.log("reponsehandleFileChange",reponse) 
       }
     },
     async getInfoUser() {

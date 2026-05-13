@@ -35,10 +35,10 @@ export default {
     get_details_offres_postule() {
       loadingSpinner.launchLoading(true);
       instance.get("offres_postulees/"+this.$route.params.id).then((res) => {
-        console.log("DETAILS_get_offres_postule", res);
+        // console.log("DETAILS_get_offres_postule", res);
         this.details_offre = res.data.data;
         loadingSpinner.launchLoading(false);
-        console.log("DETAILS_OFFRES", this.details_offre);
+        // console.log("DETAILS_OFFRES", this.details_offre);
       });
     },
     getNumber(e) {

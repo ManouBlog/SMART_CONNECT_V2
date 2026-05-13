@@ -16,7 +16,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
     Loading.launchLoading(true)
     try {
       const response = await instance.get('Notifications_student')
-      console.log("getListNotification",response)
+      // console.log("getListNotification",response)
       const responseNotifications = response.data?.data;
       yesterdayNotifications.value  = responseNotifications.yesterday;
       todayNotifications.value = responseNotifications.today;
