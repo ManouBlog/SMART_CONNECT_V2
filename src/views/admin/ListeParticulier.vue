@@ -108,7 +108,7 @@ export default {
         .then((res) => {
           console.log("getListParticuliers", res);
           if (res.data.status) {
-            this.listParticulier = res.data.data;
+            this.listParticulier = res.data;
           }
         })
         .catch((err) => {
@@ -163,9 +163,9 @@ export default {
                 ><i data-feather="clock"></i>Abonnées
                 <span
                   class="badge bg-danger"
-                  v-if="this.$store.state.nbreBdageEntrepriseAbonnee > 0"
+                 
                 >
-                  {{ this.$store.state.nbreBdageEntrepriseAbonnee }}
+                  <!-- {{ this.$store.state.nbreBdageEntrepriseAbonnee }} -->
                 </span>
               </a>
             </li>
@@ -181,9 +181,9 @@ export default {
                 ><i data-feather="clock"></i>Pas abonnées
                 <span
                   class="badge bg-danger"
-                  v-if="this.$store.state.nbreBdageEntreprisePasAbonnee > 0 "
+                 
                 >
-                  {{ this.$store.state.nbreBdageEntreprisePasAbonnee }}
+                 
                 </span>
               </a>
             </li>
@@ -200,11 +200,12 @@ export default {
         aria-labelledby="abonnées"
       >
         <div class="container-fluid">
+            {{ listParticulier }}
           <div class="row">
             <div class="col-sm-12 card py-3 px-2">        
              <DataTable
   tableStyle="min-width: 50rem"
-  :value="$store.state.listEntrepriseAbonnee"
+  :value="listParticulier?.partenaires_abonnee"
   paginator
   :rows="10"
   :rowsPerPageOptions="[5, 10, 20, 50]"
@@ -313,7 +314,7 @@ export default {
             <div class="col-sm-12 card py-3 px-2">
            <DataTable
   tableStyle="min-width: 50rem"
-  :value="$store.state.listEntreprisePasAbonnee"
+  :value="listParticulier?.partenaires_non_abonnee"
   stripedRows
   paginator
   :rows="10"
