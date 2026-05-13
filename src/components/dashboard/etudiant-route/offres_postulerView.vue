@@ -69,9 +69,13 @@ export default {
   computed: {
     ...mapState(useInfoStudentStore, ["list_offre"]),
     list_offre_mobile() {
+      if(this.list_offre.length){
       const start = (this.currentPage - 1) * this.pageSize;
       const end = start + this.pageSize;
       return this.list_offre?.slice(start, end);
+      }
+      return [];
+      
     },
   },
   methods: {
