@@ -79,7 +79,7 @@ export default {
     async handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
-        // console.log("Fichier choisi :", file);
+     
         const reponse = await this.update_compte_student({
           photo_profil: file,
         });
@@ -87,7 +87,7 @@ export default {
          this.user = reponse?.compte
          await this.getInfoUser()
         }
-        // console.log("reponsehandleFileChange",reponse) 
+      
       }
     },
     async getInfoUser() {
@@ -130,7 +130,7 @@ export default {
         instance
           .post("passwordModify", data)
           .then((resp) => {
-            // console.log(resp);
+          
             if (resp.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -138,9 +138,7 @@ export default {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              //setTimeout(() => {
-              //location.reload(true);
-              //}, 1500);
+            
             }
             if (resp.data.status === false) {
               Swal.fire({
@@ -161,7 +159,7 @@ export default {
       await instance
         .post("send-verification-email")
         .then((res) => {
-          // console.log("send-verification-email", res.data);
+       
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -187,7 +185,7 @@ export default {
     },
     see(e) {
       this.photo = e.target.files[0];
-      // console.log(this.photo);
+    
     },
   },
   async created() {

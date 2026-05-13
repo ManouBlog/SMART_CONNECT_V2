@@ -297,12 +297,6 @@ export default {
         SECOND_HORRAIRE = HEURE_FROM_OF_SECONDHORRAIRE + "-" + HEURE_TO_OF_SECONDHORRAIRE;
       }
 
-      // console.log("JOUR 2",{
-      //   DateRendezVous: datesOfCalendar,
-      //   firstHoraire: FIRST_HORRAIRE,
-      //   secondHoraire: SECOND_HORRAIRE,
-      //   TotalHourDisponi: TOTALHOURHORAIRE,
-      // })
 
       this.createdDisponiblite({
         DateRendezVous: datesOfCalendar,
@@ -417,7 +411,7 @@ export default {
       instance
         .delete("deleteCompetencesOfStudents/" + this.id_for_delete)
         .then((res) => {
-          // // console.log(res);
+     
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -434,7 +428,7 @@ export default {
     },
     getAllCompetencesByStudents() {
       instance.get("getCompetenceByStudents").then((res) => {
-        // // console.log("AllCompetences", res.data.data);
+      
         if (res.data.status === true) {
           this.competences = res?.data?.data?.competences || [];
         }
@@ -444,7 +438,7 @@ export default {
       instance
         .get("GetAllCompetences")
         .then((res) => {
-          // // console.log("COMPETENCE", res.data.data);
+          
           this.competencesPredf = res.data.data.filter(c => c.categorie_id !== null);
         })
         .catch((err) => {
@@ -452,25 +446,25 @@ export default {
         });
     },
     addTag(newTag) {
-      // // console.log(newTag);
+     
       let brox = newTag;
       this.acquis = brox;
       this.comp = [];
       this.acquis.forEach((el) => {
         this.comp.push(el.id);
       });
-      // // console.log("THIS.comp", this.comp);
+     
     },
     addJour(Tag) {
-      // // console.log(Tag);
+     
       let brox = Tag;
       this.acquis = brox;
       this.comp = [];
-      // // console.log("Tableau", this.comp);
+     
       this.acquis.forEach((el) => {
         this.comp.push(el.jour);
       });
-      // // console.log("THIS.days", this.comp);
+     
     },
     resetData() {
       this.First_heure_start_from = "";
@@ -479,12 +473,11 @@ export default {
       this.Second_heure_end_to = "";
     },
     handleValueDate() {
-      // // console.log("handleValueDate", this.datesOfCalendar);
+  
       if (!this.datesOfCalendar.length) {
         this.resetData();
       }
       this.datesFormatedOfCalendar = this.configUtils.formatedDate(this.datesOfCalendar);
-      // // console.log("this.datesFormatedOfCalendar", this.datesFormatedOfCalendar);
     },
     chooseDateTime_debut() {
       this.dateTime_fin = null;
@@ -526,7 +519,7 @@ export default {
 
       this.schedule.push(scheduleItem_debut, scheduleItem_fin);
       this.schedule.sort((a, b) => new Date(a.jour) - new Date(b.jour));
-      // // console.log("this.schedule", this.schedule);
+    
       const dataSend = {
         jour: [
           this.schedule.map((item) => {
@@ -560,11 +553,11 @@ export default {
         })[1],
         periode: 1,
       };
-      // console.log("JOUR 1", dataSend);
+    
       instance
         .post("create_schedule", dataSend)
         .then(async (response) => {
-          // // console.log("ADD DATETIME PERIODE", response.data.status);
+          
           if (!response.data.status) {
             Swal.fire({
               icon: "info",
@@ -582,7 +575,7 @@ export default {
           }
         })
         .catch((error) => {
-          // console.log('ERROR',error.response.data.message);
+         
           Swal.fire({
             icon: "info",
             title: error.response.data.message,

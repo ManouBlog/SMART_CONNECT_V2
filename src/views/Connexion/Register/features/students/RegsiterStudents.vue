@@ -287,7 +287,7 @@ this.formState.profilHybride = [];
       }
     },
     handleQualifications(payload) {
-      // console.log("handleQualifications", payload);
+ 
 
       this.formState.qualifications = payload;
     },
@@ -322,7 +322,7 @@ this.formState.profilHybride = [];
         }
         
       }
-      // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
+   
       if (this.currentStep === 3) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
 
@@ -481,7 +481,7 @@ this.formState.profilHybride = [];
     onFinish() {
       this.formState.profilHybride.push(this.idStatutChoice.id);
       console.log("this.formState",this.formState);
-      // console.log("this.idStatutChoice.id",this.idStatutChoice)
+      
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
       }
@@ -518,17 +518,8 @@ this.formState.profilHybride = [];
             this.formState.Second_horaire = SECOND_HORRAIRE;
             this.formState.totalHour = TOTALHOURHORAIRE;
           } else {
-            // console.log("fhf");
-            // console.log("DISPONIBILITE", {
-            //   dateTime_debut:
-            //     this.$store.state.handleHoraire === "Periode"
-            //       ? this.$store.state.dateTime_debut
-            //       : null,
-            //   dateTime_fin:
-            //     this.$store.state.handleHoraire === "Periode"
-            //       ? this.$store.state.dateTime_fin
-            //       : null,
-            // });
+         
+          
             this.formState.jour = [
               this.$store.state.dateTime_debut.split("T")[0] +
                 " A " +

@@ -190,7 +190,7 @@ export default {
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
      async update_mission() {
       this.loadingSpinner.launchLoading(true);
-  // console.log("FORMSTATE", this.formState);
+
   if (this.formState.typeMission === 'date') {
       if (!this.formState.job_debut || !this.formState.job_fin) {
         Swal.fire({
@@ -246,7 +246,7 @@ export default {
      const id = this.$route.params.id
       const { data } = await instance.get(`show_detail_offre_entreprise/${id}`)
       const offre = data.data
-      // console.log("loadDetailOffre",offre)
+      
       this.formState.categorie_offre_id = offre.categorie_offre_id
       this.formState.competence_id = offre.competence_id
       this.formState.nom_offre = offre.nom_offre
@@ -285,7 +285,7 @@ export default {
         })
 
         .then((res) => {
-          // console.log(res);
+        
           this.modify_offre = false;
           this.id_offre_update = "";
           Swal.fire({
@@ -295,7 +295,7 @@ export default {
           });
         })
         .catch((error) => {
-          // console.log(error)
+         
           Swal.fire({
             icon: "info",
             title: error?.response?.data?.message,
@@ -328,13 +328,13 @@ export default {
         })
     },
     selectCategorie(e) {
-      // console.log("selectCategorie", e.target.value);
+   
       this.competenceWithCategorie = this.allCompetences.filter(
         (item) => item.categorie.id === Number(e.target.value)
       );
     },
      selectCategorieFormState(value) {
-      // console.log("VALUEDFE",value)
+   
   this.formState.categorie = value;
   this.formState.competence = '';
   this.formState.otherDomaine = "";
@@ -345,7 +345,7 @@ export default {
 
 },
 chooseCompetenceFormState(value) {
-  // console.log('Choisir le poste',value)
+
   this.formState.competence = value;
 
   // Reset champ "autre poste" si changement
@@ -353,11 +353,11 @@ chooseCompetenceFormState(value) {
 },
 
     getCompetenceWithCategorie(idCategorie){
-      // console.log("idCategorie",idCategorie)
+    
      this.competenceWithCategorie = this.allCompetences.filter(
         (item) => item.categorie.id === Number(idCategorie)
       );
-      // console.log("this.competenceWithCategorie",this.competenceWithCategorie)
+      
     }
   },
   async created() {

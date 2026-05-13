@@ -35,17 +35,17 @@ export default {
     get_details_offres_postule() {
       loadingSpinner.launchLoading(true);
       instance.get("offres_postulees/"+this.$route.params.id).then((res) => {
-        // console.log("DETAILS_get_offres_postule", res);
+      
         this.details_offre = res.data.data;
         loadingSpinner.launchLoading(false);
-        // console.log("DETAILS_OFFRES", this.details_offre);
+       
       });
     },
     getNumber(e) {
       this.numberRate = e;
     },
     noterEntreprise() {
-      // // console.log("NOTATION", this.detailsStudents.id);
+   
       instance
         .post("rate_entreprise", {
           offre_id: this.$route.params.id,
@@ -54,7 +54,7 @@ export default {
           notes: this.numberRate,
         })
         .then((res) => {
-          // // console.log(res);
+     
           if (res.data.status === false) {
             Swal.fire({
               icon: "info",

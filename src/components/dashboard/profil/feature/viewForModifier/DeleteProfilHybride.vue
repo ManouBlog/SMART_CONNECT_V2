@@ -33,7 +33,7 @@ descriptionProfil:{
        
     },
    async deletOneProfilHybride(payloadId,index) {
-    // console.log("payloadId",payloadId)
+    
   if (payloadId) {
     // Confirmation SweetAlert
       const result = await Swal.fire({

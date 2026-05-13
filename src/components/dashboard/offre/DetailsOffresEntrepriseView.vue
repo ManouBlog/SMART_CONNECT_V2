@@ -83,11 +83,11 @@ export default {
         .get("show_detail_offre_entreprise/"+this.$route.params.id)
         .then((res) => {
           this.entreprise = res.data.data;
-          // console.log("ENTREPRISE", this.entreprise);
+        
           this.spinner = false;
         })
         .catch((error) => {
-          // console.log(error)
+          
           console.log(error);
         })
         .finally(() => {

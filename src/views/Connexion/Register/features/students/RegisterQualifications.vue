@@ -91,8 +91,7 @@ export default {
     localItems: {
       deep: true,
       handler(value) {
-        // remonte toujours les changements au parent
-        // console.log("value qualifications", value);
+
         this.$emit("update:modelValue", value);
       },
     },

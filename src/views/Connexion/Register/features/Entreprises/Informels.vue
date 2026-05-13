@@ -197,23 +197,20 @@ export default {
       // this.changeValueIsPolitics({value:true,infoUser:'particulier',payload:this.formState});
     },
     onHandleFailed(errorInfo) {
-      // console.log("Failed:", errorInfo);
+   
       Swal.fire({
         icon: "warning",
         title: `${errorInfo.errorFields[0].errors[0]}`,
         text: "Veuillez remplir tous les champs obligatoires (*)",
       });
     },
-    // handleChangeCardStudent(value) {
-    //   console.log(value.file.originFileObj);
-    // },
+  
     ...mapActions(useRegisterStore, {
       handleCompetence: "addTag",
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
      onUploadChange({ fileList: newList }) {
-  // fileList.value = newList
-  // console.log('onUploadChange', newList);
+
   if (!newList.length) return
 
   this.rawText = ''
@@ -265,7 +262,7 @@ export default {
 //     .replace(/\s+/g, ' ')
 // },
 // analyzeText(text) {
-//   // console.log('Texte OCR nettoyé :', this.normalizeText(text))
+
 //   const cleanText = this.normalizeText(text)
 //   let score = 0
 
@@ -276,10 +273,10 @@ export default {
 //   ).length
 
 //   score += Math.min(keywordHits * 10, 40)
-//   // console.log(`Score basé sur les mots-clés : ${score} (hits: ${keywordHits})`)
+
 
 //   if (cleanText.includes('Nationalité') || cleanText.includes('nationalité')) {
-//   //  console.log("Mot-clé 'nationalité' détecté, ajout de 20 points")
+
 //     score += 20
 //   }
 //   // if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10

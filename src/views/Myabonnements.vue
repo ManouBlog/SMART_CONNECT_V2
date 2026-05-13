@@ -387,7 +387,7 @@ export default {
     async verifUserProfilEtudiantComplet() {
       await this.$store.dispatch("getInfoUser")
   const user = this.$store.state.infoUserConnected;
-  // console.log("USER_INFO",user)
+  
   if(user.user?.statuses.some(s => s.statut === 'Etudiant')){
 if (!user.competences.length || !user.qualifications.length) {
     this.$router.push('/dashboard/profil');
@@ -399,7 +399,7 @@ if (!user.competences.length || !user.qualifications.length) {
 },
 handleDetailAbonnement(payload){
   this.detailsAbonnement = payload;
-  // console.log("handleDetailAbonnement",payload)
+  
   this.showModalDetailAbonnement=true
 }
   },

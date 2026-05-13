@@ -60,7 +60,7 @@ const seePerformanceNbre = async () => {
   try {
     const response = await instance.get("seePerformance");
     if (response.data.status) {
-      // console.log("RESPONSE",response.data)
+      
       entreprises.value = response.data.partenairePerf;
       offres.value = response.data.offrePerf;
       timetable.value = response.data.talentPerf;

@@ -30,7 +30,7 @@ export default {
           heure_end: this.timetable_show_id.heure_end,
         })
         .then((res) => {
-          // console.log(res);
+          
           // Swal.fire({
           //   icon: "success",
           //   title: res.data.message,
@@ -54,7 +54,7 @@ export default {
       instance
         .get("get_schedule")
         .then((res) => {
-          // console.log(res);
+          
           this.timetables = res.data.data;
           this.spinner = false;
           setTimeout(function () {
@@ -104,7 +104,7 @@ export default {
           heure_end: this.heure_end,
         })
         .then((res) => {
-          // console.log(res);
+          
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -139,15 +139,15 @@ export default {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = id;
       this.spinner = true;
-      // console.log("ID_UPADTE", this.id_timetable_update);
+      
       instance
         .get("get_schedule")
         .then((res) => {
-          // console.log(res);
+          
           this.timetable = res.data.data;
           this.timetable_show_id = this.timetable.find((item) => item.id === id);
           this.spinner = false;
-          // console.log("ELEMENT", this.timetable_show_id);
+         
         })
         .catch((err) => {
           alert(JSON.stringify(err, null, 2));
@@ -156,7 +156,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      // console.log("ID_DELETE", this.id_for_delete);
+      
     },
     not_delete() {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -166,7 +166,7 @@ export default {
       instance
         .delete("delete_schedule/" + this.id_for_delete)
         .then((res) => {
-          // console.log(res);
+          
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",

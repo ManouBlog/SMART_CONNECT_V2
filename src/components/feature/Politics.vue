@@ -7,17 +7,17 @@ const registerStore = useRegisterStore();
 
 // Méthodes
 const registerTalent = async() => {
-  // console.log("props.payload", registerStore.payload);
+  
   await registerStore.registerStudent(registerStore.payload);
 };
 
 const registerEntreprise = () => {
-  // console.log("props.payload", registerStore.payload);
+  
   registerStore.registerCompany(registerStore.payload);
 };
 
 const registerParticulier = () => {
-  // console.log("props.payload", registerStore.payload);
+  
   registerStore.registerParticulier(registerStore.payload);
 };
 

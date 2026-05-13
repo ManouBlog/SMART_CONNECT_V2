@@ -97,7 +97,7 @@ export default {
     async launchTestimonials() {
       try {
         const response = await instance.get("temoignages");
-        // console.log("testimonials", response.data);
+    
         this.testimonials = response.data;
       } catch (error) {
         console.error("Erreur lors du chargement des témoignages :", error);

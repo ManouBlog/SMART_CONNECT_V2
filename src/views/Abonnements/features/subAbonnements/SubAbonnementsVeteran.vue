@@ -141,7 +141,7 @@ const ecriteauFormule = (item) => {
 watch(
   isUserConnected,
  (newValue) => {
-    // console.log("NEW VALUE", isUserConnected);
+   
     if (!newValue) {
      storeAbonnementUser.putPlanAbonnementAtNull();
     }
@@ -150,8 +150,7 @@ watch(
 );
 
 onMounted(async () => {
-  console.log("PROFILE_HYBRIDE_ABONNEMENT_SUB_VETERAN",storeAbonnement.profilHybride)
-    console.log("ADDPROFILE_HYBRIDE_ABONNEMENT_SUB_VETERAN",storeAbonnement.addProfilHybride)
+
     if(storeAbonnement.isChangeProfil){
 profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
     }else{

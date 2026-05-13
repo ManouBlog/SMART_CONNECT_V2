@@ -108,7 +108,7 @@ const todayDate = computed(() => {
 const downloadCertification = async () => {
 SPINNERLOADING.launchLoading(true)
   const cvContent = document.getElementById("certification-content");
-  // console.log("cvContent",cvContent)
+ 
   if (!cvContent) return;
 
   // capture du DOM

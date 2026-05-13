@@ -263,7 +263,7 @@ StatutVeterans:[
       }
     },
     handleQualifications(payload) {
-      // console.log("handleQualifications", payload);
+   
 
       this.formState.qualifications = payload;
     },
@@ -291,7 +291,7 @@ StatutVeterans:[
         }
         
       }
-      // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
+
       if (this.currentStep === 3) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
 
@@ -312,7 +312,7 @@ StatutVeterans:[
       }
 
       //   if (this.currentStep === 3) {
-      //     console.log("this.currentStep4",this.getFirstHeureStartFrom)
+     
       //   if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
       //     this.SWALPOPUP.declencheSwalPopup(
       //       "warning",
@@ -346,7 +346,7 @@ StatutVeterans:[
     if (!newList.length) return
     this.rawText = ''
     this.result = null
-  // console.log()
+
   // this.runOCR(newList)
 },
 // async runOCR(files) {
@@ -459,7 +459,7 @@ StatutVeterans:[
           });
         // if (this.formState.upload.length) {
         //   this.formState.photo = this.addPhotoInArray(this.formState.upload);
-        //   console.log("this.formState",this.formState)
+      
         //   this.changeValueIsPolitics({
         //     value: true,
         //     infoUser: "talents",

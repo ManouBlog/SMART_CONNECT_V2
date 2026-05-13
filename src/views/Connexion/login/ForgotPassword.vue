@@ -26,7 +26,7 @@ export default {
           email: this.formState.email,
         })
         .then((res) => {
-          // console.log(res.data.message);
+          
 
           Swal.fire({
             icon: "success",

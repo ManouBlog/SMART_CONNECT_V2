@@ -76,7 +76,7 @@ export default {
       instance
         .get("auth_logout")
         .then((response) => {
-          // console.log(response);
+          
           if (response.data.status) {
             this.$store.dispatch("deleteStateUser")
             this.$store.commit("UPDATE_INFO_COMPANY", null);

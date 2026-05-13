@@ -63,9 +63,9 @@ export default {
       instance
         .get("list_students_contact_by_entreprise")
         .then((res) => {
-          // console.log(res);
+         
           this.list_students = res.data.data;
-          // console.log("LIST", this.list_students);
+         
           this.student = this.list_students?.students;
           this.student.find((item) => {
             if (
@@ -80,10 +80,7 @@ export default {
               this.appreciationService = true;
             }
           });
-          // console.log("ETOILES", this.detailsStudents.etoiles);
-
-          // console.log("DETAILSETUDIANT", this.detailsStudents);
-          // console.log("STUDENTS", this.student);
+       
         })
         .catch((err) => {
           console.log(err)
@@ -99,51 +96,17 @@ export default {
         .then((res) => {
          console.log("list_emplois_temps34",res);
           this.timetables = res.data.data;
-          // console.log("timetables", this.timetables);
+          
           this.MyTime = this.timetables.find(
             (item) => item.nom == this.$route.params.name
           );
 
           this.myJour = this.MyTime.jours;
 
-          // console.log("MyJour", this.myJour);
+         
           this.spinner = false;
 
-          // this.appreciationService = !this.appreciationService;
-
-          // setTimeout(function () {
-          //   $("#MyTableData").DataTable({
-          //     pagingType: "full_numbers",
-          //     pageLength: 10,
-          //     processing: true,
-          //     order: [],
-          //     language: {
-          //       décimal: "",
-          //       emptyTable: "Aucune donnée disponible dans le tableau",
-          //       infoEmpty: "Showing 0 to 0 of 0 entries",
-          //       info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-          //       infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-          //       infoPostFix: "",
-          //       thousands: ",",
-          //       lengthMenu: "Afficher les entrées du _MENU_",
-          //       loadingRecords: "Loading...",
-          //       processing: "Processing...",
-          //       search: "Chercher :",
-          //       stateSave: true,
-          //       zeroRecords: "Aucun enregistrement correspondant trouvé",
-          //       paginate: {
-          //         first: "Premier",
-          //         last: "Dernier",
-          //         next: "Suivant",
-          //         previous: "Précédent",
-          //       },
-          //       aria: {
-          //         sortAscending: ": activate to sort column ascending",
-          //         sortDescending: ": activate to sort column descending",
-          //       },
-          //     },
-          //   });
-          // }, 10);
+         
         })
         .catch((err) => {
           console.log(err)
@@ -165,7 +128,7 @@ export default {
       this.notationService = 5;
     },
     sendAppreciation() {
-      // console.log("NOTATION", this.detailsStudents.id);
+      
       instance
         .post("giveAvis", {
           notes: this.notationService,
@@ -173,7 +136,7 @@ export default {
           avis: this.avis,
         })
         .then((res) => {
-          // console.log(res);
+         
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",

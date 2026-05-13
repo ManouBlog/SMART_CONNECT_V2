@@ -63,7 +63,7 @@ export default {
       this.fileForPieceGerant = e.target.files[0];
     },
     selectFileForRegistre(e) {
-      // console.log(e);
+     
       this.fileForRegistre = e.target.files[0];
     },
     isPhoneCi(value) {
@@ -74,7 +74,7 @@ export default {
     },
     see(e) {
       this.photo = e.target.files[0];
-      // console.log(this.photo);
+     
     },
     inscriptionStudent() {
       let data = new FormData();
@@ -95,7 +95,7 @@ export default {
       instance
         .post("list_users", data)
         .then((res) => {
-          // console.log(res);
+          
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -149,8 +149,8 @@ export default {
       instance
         .post("list_users", data)
         .then((res) => {
-          // console.log(res);
-          // console.log(res.data);
+          
+         
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -175,13 +175,9 @@ export default {
           }
         })
         .catch((err) => {
-          // console.log("ERROR", err);
+          
           console.log(err);
-          // Swal.fire({
-          //   icon: "error",
-          //   title: "l'email existe déjà",
-          //   showConfirmButton: true,
-          // });
+          
         });
     },
     inscriptionParticulier() {
@@ -197,8 +193,7 @@ export default {
           statut_id: 4,
         })
         .then((rep) => {
-          // console.log(rep);
-          // console.log(rep.data);
+         
           if (rep.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -223,7 +218,7 @@ export default {
           }
         })
         .catch((error) => {
-          // console.log(error.message);
+        
           console.log(error);
           Swal.fire({
             icon: "error",
@@ -279,9 +274,9 @@ export default {
 
     //         // 🔹 Vérifie s’il existe un paramètre redirect dans l’URL
     //         const redirect = this.$route.query.redirect;
-    //         //  console.log("Redirection détectée :", redirect)
+
     //         if (redirect) {
-    //           // console.log("Redirection détectée :", redirect)
+ 
     //           // 👉 Lancer une méthode ou rediriger directement
     //           this.$router.replace(redirect);
     //         } else {
@@ -308,15 +303,14 @@ export default {
     //     });
     // },
     // connexionUser() {
-    //   // console.log("connex1")
+
     //   instance
     //     .post("auth_login", {
     //       email: this.email,
     //       password: this.password,
     //     })
     //     .then((response) => {
-    //       // console.log("reponse", response.data);
-    //       // console.log("token", response.data.access_token);
+
 
     //       if (response.data.status === true) {
     //         Swal.fire({
@@ -331,7 +325,7 @@ export default {
     //           JSON.stringify(response.data.access_token)
     //         );
     //         this.$store.state.user = response.data.user;
-    //         // console.log("essai", this.$store.state.charte);
+
     //         this.$store.state.token = response.data.access_token;
     //         this.showLoader = false;
     //         this.$router.push({
@@ -355,7 +349,7 @@ export default {
     //         title: response.message,
     //         showConfirmButton: true,
     //       });
-    //       // console.log(response.message);
+    
     //     });
     // },
     verifPassword(password) {
@@ -406,7 +400,7 @@ Un caractère spécial
           title: "Veuillez remplir les champs en astérisque.",
           showConfirmButton: true,
         });
-        // console.log("veuillez remplir les champs");
+     
       }
     },
     middlewareEntreprise() {
@@ -483,9 +477,9 @@ Un caractère spécial
       }
     },
     registerUser() {
-      // console.log("THIS STATUS", this.status);
+      
       if (this.status === "student") {
-        // console.log("competence", this.competence);
+        
         this.middlewareStudent();
       }
       if (this.status == "entreprise") {
@@ -499,7 +493,7 @@ Un caractère spécial
       instance
         .get("GetAllCompetences")
         .then((res) => {
-          // console.log("COMPETENCE", res);
+         
           this.competences = res.data.data.filter(c => c.categorie_id !== null);
         })
         .catch((err) => {
@@ -507,23 +501,23 @@ Un caractère spécial
         });
     },
     addTag(newTag) {
-      // console.log(newTag);
+     
       let brox = newTag;
       this.acquis = brox;
       this.comp = [];
       this.acquis.forEach((el) => {
         this.comp.push(el.id);
       });
-      // console.log("THIS.comp", this.comp);
+   
     },
     authGoogle() {
       instance.get("google/redirect").then((response) => {
-        // console.log("response", response.data.url);
+        
         window.open(response.data.url, "example", {
           default: "width=300,height=300,scrollbars=yes",
         });
       });
-      // console.log("authGoogle");
+    
     },
   },
   created() {

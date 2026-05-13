@@ -96,7 +96,7 @@ const status = ref('') // pending, approved, rejected...
 
 // Vérifie si profil valide
 const isValidProfil = computed(() => {
-  // console.log("props.userProfil",props.userProfil)
+
   return Object.keys(verificationConfig).includes(props.userProfil)
 })
 

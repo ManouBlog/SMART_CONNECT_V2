@@ -39,7 +39,7 @@ export default {
     }),
     toogleForgotPassword() {
       this.isModalForgotPassword = !this.isModalForgotPassword;
-      // console.log(this.isModalForgotPassword);
+      
     },
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
     onFinish(values) {

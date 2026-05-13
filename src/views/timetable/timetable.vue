@@ -170,11 +170,11 @@ export default {
       };
 
       // Exemple de filtrage local
-      // console.log("🔍 Filtres de recherche :", filtres);
+      
       await instance
         .post("filterStudents", filtres)
         .then((response) => {
-          // console.log("RESPONSE FILTRE STUDENT", response.data.students);
+         
           const transformed = this.addOtherElement(response.data.students);
           // Mise à jour de la liste et de sa longueur
           this.list = transformed;
@@ -230,14 +230,14 @@ export default {
     },
     selectDate() {
       this.dateSelectConvert = this.convertDate(this.datesSelect);
-      // console.log("this.dateSelectConvert", this.dateSelectConvert);
+     
     },
     getCompetenceIds(competences) {
       return competences.map((c) => c.id);
     },
     addComp(newTag) {
       this.competenceAdd = this.getCompetenceIds(newTag);
-      // console.log("competenceAdd", this.competenceAdd);
+ 
     },
 
    async addPersonAtWishLit(person) {
@@ -387,7 +387,7 @@ if(isEtudiant){
           service: this.selectedCompetenceWithDate,
         })
         .then((res) => {
-          // console.log(res);
+          
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -464,7 +464,7 @@ if(isEtudiant){
       instance
         .get("GetAllCompetences")
         .then((res) => {
-          // console.log("competencesPredefini", res);
+          
           this.competencesPredefini = res.data.data.filter(c => c.categorie_id !== null);
         })
         .catch((err) => {
@@ -498,7 +498,7 @@ if(isEtudiant){
       this.datesPickers.push({
         date: new Date(),
       });
-      // console.log("mes Dates", this.datesPickers);
+     
       this.$nextTick(() => {
         const btn = this.$refs.button[this.$refs.button.length - 1];
         btn.click();

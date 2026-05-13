@@ -51,11 +51,11 @@ descriptionProfil:{
     },
     selectedStatus: {
       handler(newValue) {
-        // console.log("newValue",newValue.statut)
+     
         if (newValue.statut === 'Artisan') {
           this.optionsAnswer = null
           this.profilHybride = [];
-          // this.allStatuses = []
+       
           return;
         }
       },
@@ -79,27 +79,23 @@ descriptionProfil:{
 
        abonnementsStore.handleChangeProfil(payload)
 
-      // console.log("isChangeProfil",abonnementsStore?.isChangeProfil)
+   
     },
     addIdOfProfilBase(payload) {
       const abonnementsStore = useAbonnementsStore()
 
        abonnementsStore.handleMyStatutOfBase(payload)
-
-      // console.log("statutOfBase",abonnementsStore?.statutOfBase)
     },
     openVerification(userStatut) {
       this.$emit('open-verification', userStatut);
     },
     handleStatutProfil(e){
-    
-      //  console.log('VALUE selectedStatus',e.target.value)
        this.selectedParseStatus = JSON.parse(e.target.value)
        this.addIdOfProfilBase(this.selectedParseStatus.id)
-      //  console.log('this.selectedParseStatus',this.selectedParseStatus)
+ 
       },
     resetData(){
-      // console.log("reset data")
+    
 this.optionsAnswer=null;
 this.selectedStatus="";
 this.profilHybride=[];
@@ -115,7 +111,7 @@ this.selectedParseStatus = ""
   };
 
   const allowed = transitions[statutUser]
-  // console.log("allowed",allowed)
+ 
 
   try {
     const response = await instance.get("listStatut");
@@ -123,14 +119,10 @@ this.selectedParseStatus = ""
     this.allStatuses = response.data.data.filter(item =>
       allowed.includes(item.statut)
     );
-//    this.handleStatutProfil(JSON.stringify(this.allStatuses[0]))
+
    this.selectedParseStatus = this.allStatuses[0]
        this.addIdOfProfilBase(this.selectedParseStatus.id)
-    // console.log("allStatuses2", {
-    //   statut: this.allStatuses,
-    //   selectedParseStatus:this.selectedParseStatus,
-    //   profil: this.$store.state.infoUserConnected.user.statut
-    // });
+  
 
   } catch (error) {
     console.log(error);

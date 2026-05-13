@@ -16,7 +16,7 @@ export default {
     see_details(id) {
       this.see_detail_students = !this.see_detail_students;
       this.id_student = id;
-      // console.log("ID_STUDENT", this.id_student);
+      
     },
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;

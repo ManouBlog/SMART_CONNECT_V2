@@ -283,7 +283,7 @@ StatutProfessionnel:[
       }
     },
     handleQualifications(payload) {
-      // console.log("handleQualifications", payload);
+
 
       this.formState.qualifications = payload;
     },
@@ -311,7 +311,7 @@ StatutProfessionnel:[
         
       }
       
-      // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
+   
       if (this.currentStep == 3) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
 
@@ -356,7 +356,7 @@ StatutProfessionnel:[
     if (!newList.length) return
     this.rawText = ''
     this.result = null
-  // console.log()
+
   // this.runOCR(newList)
 },
 // async runOCR(files) {

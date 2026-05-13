@@ -59,7 +59,7 @@ function verifUserProfilEtudiantComplet() {
    vuexStore.dispatch("getInfoUser");
 
   const user = vuexStore.state.infoUserConnected;
-  // console.log("USER",user)
+
   if(user.user?.statuses.some(s => s.statut === 'Etudiant')){
   if (!user.competences.length || !user.qualifications.length) {
     router.replace("/dashboard/profil");
@@ -99,7 +99,7 @@ const data= {
   }
   try{
   const response = await instance.post('temoignages',data)
-  // console.log("response",response)
+  
   if(response.status === 201 ||response.status === 200){
      Swal.fire({
       icon: 'info',
@@ -114,12 +114,7 @@ console.log(error)
     loadingSpinner.launchLoading(false);
   }
 
-  // Ici, vous pouvez envoyer les données à votre backend
-  // console.log({
-  //   rating: rating.value,
-  //   comment: comment.value,
-  // });
-
+ 
   // Réinitialisation après soumission
   submitted.value = true;
   rating.value = 0;

@@ -116,7 +116,7 @@ export default {
       this.creer = false;
       let capitalizeFirstLetterOffre = this.offre[0].toUpperCase();
       let offreConcat = capitalizeFirstLetterOffre + this.offre.substring(1);
-      // console.log(offreConcat);
+   
       let data = {
         nom_offre: offreConcat,
         salaire: this.salaire,
@@ -179,9 +179,9 @@ export default {
         .get("seeCategorie")
 
         .then((res) => {
-          // console.log("TIMETABLE", res);
+       
           this.categories = res.data.data;
-          // console.log("CATEGORIE", this.categories);
+         
           this.spinner = false;
         })
         .catch((err) => {

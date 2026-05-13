@@ -23,7 +23,7 @@ export default {
         .then((res) => {
           console.log("list_emplois_temps23",res);
           this.timetables = res.data.data;
-          // console.log("timetables", this.timetables);
+          
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({

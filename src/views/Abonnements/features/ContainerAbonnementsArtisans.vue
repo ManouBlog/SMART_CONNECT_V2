@@ -94,13 +94,10 @@ const ecriteauFormule = (item) => {
   return rules?.[categorie]?.[libelle] || "Choisiref cette formule";
 };
 
-// console.log("PROPSITEM",props.item)
 
 const currentConfig = computed(() => {
   const formule = storeAbonnementUser?.planAbonnement?.mode_payment;
-  // console.log('currentConfig',storeAbonnement)
-  // console.log('sprofilHybridecurrentconfigabonnementartisan',storeAbonnement.profilHybride)
-  // console.log('storeAbonnementAddProfilhybride',storeAbonnement?.addProfilHybride)
+
   const countprofilHybride = storeAbonnement?.profilHybride?.length || storeAbonnement?.addProfilHybride.length
   if (select_mode_payment_tab.value === 'year') {
      
@@ -236,7 +233,7 @@ if (storeAbonnement.addProfilHybride?.length) {
     });
 }
   
-  // console.log("paymentabonnement_year",data)
+
   storeAbonnement.createAbonement(formData)
 }
 

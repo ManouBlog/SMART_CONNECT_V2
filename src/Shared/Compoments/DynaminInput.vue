@@ -63,14 +63,7 @@ updateOtherInfoPersonnelle(localValue.value)
 function handleLovalValue(value){
     console.log("handleLovalValue",value)
 }
-// function handleInputChange(newValue) {
-// //   emit("update:modelValue", newValue); // on propage au parent
-// console.log("handleInputChange",{
-//     newValue:newValue,
-//     localValue:localValue
-// })
-// //   updateOtherInfoPersonnelle(newValue); // on met aussi à jour le store
-// }
+
 function handleInputInput(valueDate){
     console.log("valueDate",valueDate)
 }

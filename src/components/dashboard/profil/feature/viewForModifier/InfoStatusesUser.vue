@@ -61,7 +61,7 @@ descriptionProfil:{
     },
     selectedStatus: {
       handler(newValue) {
-        // console.log("newValue",newValue.statut)
+      
         if (newValue.statut === 'Artisan') {
           this.optionsAnswer = null
           this.profilHybride = [];
@@ -110,7 +110,7 @@ descriptionProfil:{
 
       try {
         const response = await instance.post('mode-discret', data)
-        // console.log("responsehandleModeChange", response)
+       
 
         if (response.status === 201 || response.status === 200) {
           Swal.fire({
@@ -129,9 +129,9 @@ descriptionProfil:{
        loadingSpinner.launchLoading(true);
       try{
        await this.getInfoUser()
-      // console.log('profil',this.profils?.mode_discret)
+      
       this.modeActif = this.profils?.mode_discret == 1 ? true:false;
-      // console.log('mode disd pas accpete')
+      
       }catch(error){
         console.log(error)
       }finally{
@@ -146,32 +146,31 @@ descriptionProfil:{
 
        abonnementsStore.handleChangeProfil(payload)
 
-      // console.log("isChangeProfil",abonnementsStore?.isChangeProfil)
+    
     },
     addIdOfProfilBase(payload) {
       const abonnementsStore = useAbonnementsStore()
 
        abonnementsStore.handleMyStatutOfBase(payload)
 
-      // console.log("statutOfBase",abonnementsStore?.statutOfBase)
     },
     handleStatutProfil(e){
     
-      //  console.log('VALUE selectedStatus',e.target.value)
+    
        this.selectedParseStatus = JSON.parse(e.target.value)
        
        this.addIdOfProfilBase(this.selectedParseStatus.id)
        this.optionsAnswer = null;
        this.profilHybride=[];
-      //  console.log('this.selectedParseStatus',this.selectedParseStatus)
+      
       },
       resetProfilHybrideData(){
         const abonnementsStore = useAbonnementsStore()
          abonnementsStore.handleHybrideAddProfil([])
-        //  console.log('addProfilHybride',abonnementsStore?.addProfilHybride)
+     
       },
     resetData(){
-      // console.log("reset data")
+    
 this.optionsAnswer=null;
 this.selectedStatus="";
 this.profilHybride=[];
@@ -179,7 +178,7 @@ this.allStatuses=[];
 this.selectedParseStatus = ""
     },
     resetDataModeDiscret(){
-      // console.log("this.profils?.mode_discret",this.profils?.mode_discret)
+      
       if(this.profils?.mode_discret == 1){
      this.modeActif = true
       }else{
@@ -205,7 +204,7 @@ this.selectedParseStatus = ""
   };
 
   const allowed = transitions[statutUser]
-  // console.log("allowed",allowed)
+  
 
   try {
     const response = await instance.get("listStatut");
@@ -215,11 +214,7 @@ this.selectedParseStatus = ""
     );
     this.allProfilsHybrides = response.data.data.filter(item =>item.statut === 'Particulier' || item.statut === 'Artisan');
     this.profilhybrideUserConnected = this.profils.user?.statuses.filter(item => item.statut !==  this.profils.user?.statut?.statut); 
-    // console.log("allStatuses2", {
-    //   statut: this.allStatuses,
-    //   profil: this.$store.state.infoUserConnected.user.statut
-    // });
-    // console.log("allProfilsHybrides", this.allProfilsHybrides);
+
 
   } catch (error) {
     console.log(error);
@@ -231,7 +226,7 @@ this.selectedParseStatus = ""
   },
   async created() {
     await this.lister_statut();
-    // console.log("USERPROFIL",this.profils)
+  
     this.resetDataModeDiscret();
   },
 }

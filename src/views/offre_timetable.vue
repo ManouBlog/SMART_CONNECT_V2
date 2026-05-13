@@ -100,9 +100,7 @@ export default {
     list_offre() {
       const start = (this.currentPage - 1) * this.pageSize;
       const end = start + this.pageSize;
-      // console.log("end", end);
-      // console.log("start", start);
-      // console.log("computed_listOffre",this.MylistOffre);
+      
       return this.MylistOffre?.slice(start, end);
     },
   },
@@ -142,8 +140,7 @@ export default {
 //   s.statut?.toLowerCase() === "vétéran"
 // );
 
-// console.log('isProfessionnel', isProfessionnel);
-// console.log('isArtisan', isArtisan);
+
 
 // let allowedStatuts = []
 
@@ -191,12 +188,12 @@ export default {
         });
     },
     handleListOffresWithSearch(data) {
-      // console.log("handleListOffresWithSearch")
+     
       loadingSpinner.launchLoading(true);
       instance
         .post("search_offres", data)
         .then((res) => {
-          // console.log("search_offres", res);
+         
           if (res.data.status) {
              const profilALL = this.$store.state.user ?  this.$store.state.user?.user.statuses.map((s) => s.id) : [];
           const OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
@@ -257,19 +254,19 @@ export default {
     },
     get_list_categorie() {
       instance.get("seeCategorie").then((res) => {
-        // console.log(res);
+        
         this.list_categorie = res.data.data;
-        // console.log("CATEGORIE", this.list_categorie);
+       
       });
     },
     post(id) {
-      // console.log("ID_OFFRE", id);
+    
       instance
         .post("postule_offre", {
           offre_id: id,
         })
         .then((res) => {
-          // console.log(res);
+          
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -290,7 +287,7 @@ export default {
         });
     },
     addTag(newTag) {
-      // console.log(newTag);
+    
       this.Myarray = [];
       this.MylistOffre = [];
       this.MylistsOffres.forEach((element) => {

@@ -21,12 +21,12 @@ export default {
   watch: {
     "formState.search": function (oldValue, newValue) {
       if (newValue) {
-        // console.log(newValue);
+       
         this.allData.filter((item) =>
           item.offre.toLowerCase().includes(newValue.toLowerCase())
         );
         this.filterInArrayOffreCreatedByEntreprise(newValue.toLowerCase());
-        // console.log(this.formState.search);
+    
       }
     },
   },

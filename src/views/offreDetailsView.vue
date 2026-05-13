@@ -58,7 +58,7 @@ export default {
       instance
         .get("list_offres")
         .then((res) => {
-          // console.log("list_offres", res);
+        
           this.list_offre = res.data.data;
           this.Offre = this.list_offre.find((item) => item.id == this.$route.params.id);
           this.list_offre.forEach((el) => {
@@ -67,13 +67,10 @@ export default {
             }
           });
 
-          // console.log("OFFRES", this.list_offre);
-          // console.log("OFFRE", this.Offre);
-          // console.log("LIST ENTREPRISE", this.listEntrepriseOffre);
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-          // console.log(err)
+     
           console.log(err);
         });
     },
@@ -84,7 +81,7 @@ export default {
           offre_id: id,
         })
         .then((res) => {
-          // console.log(res);
+          
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -150,7 +147,7 @@ Swal.fire({
       instance
         .get("seeMyAbonnement")
         .then((res) => {
-          // console.log("seeMyAbonnement", res);
+        
           this.abonnements = res.data.data;
           loadingSpinner.launchLoading(false);
         })

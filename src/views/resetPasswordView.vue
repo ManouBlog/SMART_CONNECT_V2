@@ -18,7 +18,7 @@ export default {
             // mobile:1,
         })
         .then((res) => {
-            // console.log(res.data.message);
+            
              Swal.fire({
               icon: "success",
               title: res.data.message,

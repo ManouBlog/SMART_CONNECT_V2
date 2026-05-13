@@ -73,7 +73,7 @@ export default {
       "getStatistiqueDashboardStudent",
     ]),
     handleData(year) {
-      // console.log('shandleDatatatuses',this.$store.state.user?.user?.statuses)
+    
      if (this.isStudentProfile){
         this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
       } else{
@@ -83,7 +83,7 @@ export default {
     async verifUserProfilEtudiantComplet() {
       await this.$store.dispatch("getInfoUser")
   const user = this.$store.state.infoUserConnected;
-  // console.log("USER_INFO",user)
+ 
   this.IsAmbassador = user?.user?.code_ambassadeur
   if (user.user?.statuses.some(s => s.statut === 'Etudiant')){
 if (!user.competences.length || !user.qualifications.length) {
@@ -202,8 +202,7 @@ if (!user.competences.length || !user.qualifications.length) {
     this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
 }
 
-// console.log("this.offresInteressByStudents",this.offresInteressByStudents)
-// console.log('this.student',this.student)
+
 
     this.texte0 = await this.handleTranslate("Tableau de bord");
     this.texte1 = await this.handleTranslate(`Mes candidatures`);

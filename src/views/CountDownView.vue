@@ -77,7 +77,7 @@ const SendMailBienvenueNewsletter = async (value) => {
       email: value,
     })
     .then((res) => {
-      // console.log(res);
+      
       if (res.data.status) {
         Swal.fire({
           icon: "success",

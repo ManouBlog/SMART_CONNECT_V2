@@ -17,9 +17,9 @@ export default {
       this.spinner = true;
       instance.get("list_offres")
         .then((res) => {
-          // console.log(res);
+          
           this.offres = res.data.data;
-          // console.log("OFFRES", this.offres);
+        
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({

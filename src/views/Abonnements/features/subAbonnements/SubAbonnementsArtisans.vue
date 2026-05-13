@@ -25,7 +25,7 @@ const profilHybrideRecuperer = ref(0)
 
 
 // const handleCreateEntreprise=(payload)=>{
-//      console.log("payload sub abonnement artisan",payload)
+
 //   const randomPart = Math.random().toString(36).substring(2);
      
 //         const data = {
@@ -33,7 +33,7 @@ const profilHybrideRecuperer = ref(0)
 //             channels:"undefined",
 //             transaction_id:randomPart
 //         }
-//         console.log("subabonnementARtisan23",data)
+
 //   // storeAbonnement.createAbonement(data)
 // }
 
@@ -46,7 +46,7 @@ const isUserConnected = computed(() => {
 watch(
   isUserConnected,
  (newValue) => {
-    // console.log("NEW VALUE", isUserConnected);
+
     if (!newValue) {
      storeAbonnementUser.putPlanAbonnementAtNull();
     }
@@ -63,7 +63,7 @@ onMounted(async () => {
   ];
 
   texte.value = await transalteStore.handleTranslate("année");
-  console.log("PROFILE_ABONNEMENT_SUB_ARTISAN",storeAbonnement.profilHybride)
+ 
    profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
   if (isUserConnected.value) {
       await storeAbonnementUser.get_all_abonnement();

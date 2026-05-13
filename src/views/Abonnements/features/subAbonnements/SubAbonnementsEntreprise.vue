@@ -25,9 +25,9 @@ const profilHybrideRecuperer = ref(0)
 
 
 const handleCreateEntrepriseByYear=(payload)=>{
-  console.log("paiement_entreprise2398")
+ 
     const statutBaseUser = store.state.user?.user?.statut_base;
-    console.log("storeAbonnement.statutOfBase",storeAbonnement.statutOfBase )
+
      const randomPart = Math.random().toString(36).substring(2);
         const data = {
             abonement_id:payload.id,
@@ -100,7 +100,7 @@ if (storeAbonnement.addProfilHybride?.length) {
       formData.append("addProfilHybrideOnly[]", id);
     });
 }
-console.log("DATA",data)
+
 // Autres champs
 if (data.nom) formData.append('nom', data.nom);
 if (data.expertise) formData.append('expertise', data.expertise);
@@ -179,7 +179,7 @@ const messageAbonnement = (item) => {
 watch(
   isUserConnected,
  (newValue) => {
-    // console.log("NEW VALUE", isUserConnected);
+    console.log("NEW VALUE", isUserConnected);
     if (!newValue) {
      storeAbonnementUser.putPlanAbonnementAtNull();
     }
@@ -188,10 +188,8 @@ watch(
 );
 
 onMounted(async () => {
-  // await store.dispatch('getInfoUser');
+  await store.dispatch('getInfoUser');
   texte.value = await transalteStore.handleTranslate("année");
-   console.log("PROFILE_ABONNEMENT_SUB_ENTREPRISE",storeAbonnement.profilHybride)
-   console.log("storeAbonnement.addProfilHybrideSUBABONNEMENTENTREPRISE",storeAbonnement.addProfilHybride)
   if (store.state.user) {
     if(store.state.user?.user?.statuses.some(item=>item.statut === 'Entreprise')){
     profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length

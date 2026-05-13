@@ -199,7 +199,6 @@ StatutVeterans:[
       handler(newValue) {
         
 if(newValue == 'non'){
-  // console.log("this.formState.statut_professionnel_artisan", this.formState.statut_professionnel_artisan)
   this.formState.statut_professionnel_artisan = ""
 }
       },
@@ -222,17 +221,17 @@ if(newValue == 'non'){
     resetData(){
       this.formState.profilHybride = [];
       const STORE_ABONNEMENT = useAbonnementsStore();
-      // console.log("this.formState.profilHybride",this.formState.profilHybride)
+   
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
-      // console.log("RESETDATA",STORE_ABONNEMENT)
+     
     },
     onUploadChange(e) {
-    // console.log('onUploadChange', e.target.files);
+   
     this.formState.upload = Array.from(e.target.files);
     if (!e) return
     this.rawText = ''
     this.result = null
-  // console.log()
+ 
   // this.runOCR(newList)
 },
 // async runOCR(files) {
@@ -332,13 +331,12 @@ if(newValue == 'non'){
 //   })
 // },
    onHandleProfil() {
-  // console.log("FIELDVETERAN")
-  // console.log("this.isProfilHybrideADD", this.isProfilHybrideADD)
+
   if (this.profilHybride.length) {
           this.formState.profilHybride = this.profilHybride.map(item => item.id);
         }
         this.formState.niveauEtude = this.formState.niveau+''+this.formState.diplome
-        // console.log("this.formState professionnel", this.formState);
+   
 
   if (!this.isProfilHybrideADD) {
     Swal.fire({
@@ -357,12 +355,10 @@ if(newValue == 'non'){
       cancelButtonColor: '#e74c3c',
     }).then((result) => {
       if (result.isConfirmed) {
-        // console.log("this.profilHybride", this.profilHybride)
-        // console.log("this.profilOfAbonnement?.id", this.profilOfAbonnement?.id)
+       
         const STORE_ABONNEMENT = useAbonnementsStore();
         STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
 
-        // console.log("STORE", STORE_ABONNEMENT)
 
         this.showModalAbonnements = true
       }

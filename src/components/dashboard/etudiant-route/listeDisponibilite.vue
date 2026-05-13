@@ -127,7 +127,7 @@ export default {
       this.dates.push({
         date: new Date(),
       });
-      // // console.log("mes Nouvelle dates", this.dates);
+  
       this.$nextTick(() => {
         const btn = this.$refs.button[this.$refs.button.length - 1];
         btn.click();
@@ -145,7 +145,7 @@ export default {
       this.datesPickers.push({
         date: new Date(),
       });
-      // // console.log("mes Dates", this.datesPickers);
+    
       this.$nextTick(() => {
         const btn = this.$refs.button[this.$refs.button.length - 1];
         btn.click();
@@ -191,7 +191,7 @@ export default {
 
       let totalGlobalHoraire = totalHourTwoHoraire - totalHourOneHoraire;
       let SecondHoraireHour, SecondHoraireHourSecondHoraire;
-      // // console.log(totalGlobalHoraire);
+      
       if (this.Horaire_Second != null) {
         let SecondHoraireFirstHoraire = SecondHour[0].split(":");
         SecondHoraireHour = Number(SecondHoraireFirstHoraire[0]);
@@ -216,8 +216,7 @@ export default {
         this.totalHour = totalGlobalHoraire;
       }
 
-      // // console.log("FIRSTHORAIRE", totalGlobalHoraire);
-      // // console.log("SECONDHORAIRE", this.totalHour);
+  
 
       if (
         oneHoraireHour > twoHoraireHour ||
@@ -230,11 +229,7 @@ export default {
           timer: 1500,
         });
       } else {
-        // let newDateForTimetable = [];
-        // this.dates.forEach((date) => {
-        //   newDateForTimetable.push(date.date.toISOString().slice(0, 10));
-        //   // console.log(newDateForTimetable);
-        // });
+      
         instance
           .put("modify_schedule/" + this.id_timetable_update, {
             First_horaire: this.firstPlageHoraire.replace(",", "-"),
@@ -243,7 +238,7 @@ export default {
             day: this.newDatePickerForUpdate,
           })
           .then((res) => {
-            // // console.log(res);
+          
             if (res.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -279,7 +274,7 @@ export default {
       await instance
         .get("get_schedule")
         .then((res) => {
-          // // console.log(res);
+      
           this.timetables = res.data.data;
           loadingSpinner.launchLoading(false);
         })
@@ -338,7 +333,7 @@ export default {
       let globalHourSecondHoraire = totalOneHoraire - totalTwoHoraire;
 
       let TotalHourDisponi = globalHourFirstHoraire + globalHourSecondHoraire;
-      // // console.log("TotalHourDisponi", TotalHourDisponi);
+     
       if (
         this.twoHoraireHour > this.hour ||
         this.TwoSecondHoraire > this.secondHoraireTwo
@@ -362,7 +357,7 @@ export default {
             totalHour: TotalHourDisponi,
           })
           .then((res) => {
-            // // console.log(res);
+           
             if (res.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -398,24 +393,24 @@ export default {
       }
     },
     show_timetable(id) {
-      // // console.log("SHOW_TIMETABLE",id)
+     
       loadingSpinner.launchLoading(true);
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = id;
       this.spinner = true;
-      // // console.log("ID_UPADTE", this.id_timetable_update);
+      
       instance
         .get("get_schedule")
         .then((res) => {
-          // // console.log(res);
+         
           this.timetable = res.data.data;
           this.timetable_show_id = this.timetable.find((item) => item.id === id);
 
           let newdate = [];
           newdate.push(this.timetable_show_id.jour);
-          // // console.log('this.timetable_show_id.jour',this.timetable_show_id.jour)
+          
           this.newDatePickerForUpdate = [...new Set(newdate)];
-          // // console.log('this.newDatePickerForUpdate',this.newDatePickerForUpdate)
+       
           this.Horaire_Fisrt = this.timetable_show_id.First_horaire.split("-");
           if (
             this.timetable_show_id != null &&
@@ -425,11 +420,10 @@ export default {
           } else {
             this.Horaire_Second = null;
           }
-          // // console.log("FIRST HORAIRE", this.Horaire_Fisrt);
-          // // console.log("SECOND HORAIRE", this.Horaire_Second);
+      
 
           this.spinner = false;
-          // // console.log("ELEMENT", this.timetable_show_id);
+       
         })
         .catch((err) => {
           console.log(err);
@@ -441,7 +435,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      // // console.log("ID_DELETE", this.id_for_delete);
+
     },
     addCompetences() {
       instance
@@ -449,7 +443,7 @@ export default {
           competence: this.comp,
         })
         .then((response) => {
-          // // console.log(response);
+       
           if (response.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -468,7 +462,7 @@ export default {
           }
         })
         .catch((err) => {
-          // console.log(err.message);
+        
           console.log(err);
         });
     },
@@ -489,7 +483,7 @@ export default {
       instance
         .delete("delete_schedule/" + this.id_for_delete)
         .then((res) => {
-          // // console.log(res);
+         
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -506,7 +500,6 @@ export default {
             icon: "info",
             title: err.response.data.message,
             showConfirmButton: true,
-            // timer: 1500,
           });
         })
         .finally(() => {
@@ -518,7 +511,6 @@ export default {
       instance
         .delete("deleteCompetencesOfStudents/" + this.id_for_delete)
         .then((res) => {
-          // // console.log(res);
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -535,7 +527,7 @@ export default {
     },
     getAllCompetencesByStudents() {
       instance.get("getCompetenceByStudents").then((res) => {
-        // // console.log("AllCompetences", res.data.data);
+       
         if (res.data.status === true) {
           this.competences = res?.data?.data?.competences || [];
         }
@@ -545,7 +537,7 @@ export default {
       instance
         .get("GetAllCompetences")
         .then((res) => {
-          // console.log("COMPETENCE", res.data.data);
+       
           this.competencesPredf = res.data.data.filter(c => c.categorie_id !== null);
         })
         .catch((err) => {
@@ -553,25 +545,25 @@ export default {
         });
     },
     addTag(newTag) {
-      // console.log(newTag);
+
       let brox = newTag;
       this.acquis = brox;
       this.comp = [];
       this.acquis.forEach((el) => {
         this.comp.push(el.id);
       });
-      // console.log("THIS.comp", this.comp);
+  
     },
     addJour(Tag) {
-      // console.log(Tag);
+     
       let brox = Tag;
       this.acquis = brox;
       this.comp = [];
-      // console.log("Tableau", this.comp);
+    
       this.acquis.forEach((el) => {
         this.comp.push(el.jour);
       });
-      // console.log("THIS.days", this.comp);
+   
     },
     handleNewCalendar() {
       this.$router.push("/dashboard/disponibilite");
@@ -583,7 +575,7 @@ export default {
     // async verifUserProfilEtudiantComplet() {
     //   await this.$store.dispatch("getInfoUser");
     //   const user = this.$store.state.infoUserConnected;
-    //   console.log("USER_INFO", user);
+  
     //   if (user.user?.statut?.statut === "etudiant") {
     //     if (!user.jours.length) {
     //       Swal.fire({
@@ -600,7 +592,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch("getInfoUser");
-    // this.verifUserProfilEtudiantComplet();
+
     const { width } = useWindowSize();
     this.$watch(
       () => width.value,

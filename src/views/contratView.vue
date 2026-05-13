@@ -18,16 +18,16 @@ export default {
     see_details(id) {
       this.see_detail_students = !this.see_detail_students;
       this.id_student = id;
-      // console.log("ID_STUDENT", this.id_student);
+      
     },
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
       instance.get("list_students")
         .then((res) => {
-          // console.log(res);
+          
           this.students = res.data.data;
           this.student = this.students.find((item) => item.id === id);
-          // console.log("ID_STUDENT", this.student);
+          
         });
     },
     get_contrats() {
@@ -35,9 +35,9 @@ export default {
       this.spinner = true;
       instance.get("see_entreprise_student")
         .then((res) => {
-          // console.log(res);
+          
           this.contrats = res.data.data;
-          // console.log("ENTRPRISES", this.contrats);
+          
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({

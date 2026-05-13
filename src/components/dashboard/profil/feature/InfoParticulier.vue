@@ -111,7 +111,7 @@ export default {
         instance
         .post("passwordModify", data)
         .then((resp) => {
-          // console.log(resp);
+          
           if (resp.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -119,9 +119,7 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-            //setTimeout(() => {
-              //location.reload(true);
-            //}, 1500);
+         
           }
           if (resp.data.status === false) {
             Swal.fire({
@@ -148,7 +146,7 @@ export default {
       instance
         .put("modifier_profil", compte_entreprise)
         .then((res) => {
-          // console.log(res);
+        
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -177,7 +175,7 @@ export default {
     },
     see(e) {
       this.photo = e.target.files[0];
-      // console.log(this.photo);
+     
     },
   },
 };

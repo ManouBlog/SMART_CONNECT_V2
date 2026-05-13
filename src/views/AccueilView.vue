@@ -7,9 +7,7 @@ export default {
       user: this.$store.state.user,
     };
   },
-  created() {
-    // console.log("user", this.$store.state.user);
-  },
+  
 };
 </script>
 

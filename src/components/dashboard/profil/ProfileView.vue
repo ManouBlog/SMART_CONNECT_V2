@@ -180,7 +180,7 @@ userDocuments() {
         instance
           .post("passwordModify", data)
           .then((resp) => {
-            // console.log(resp);
+            
             if (resp.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -217,8 +217,7 @@ userDocuments() {
       instance
         .post("modifier_profil", data)
         .then((res) => {
-          // console.log(res.data.user);
-          // console.log("COMPTE", res.data.compte);
+        
           if (res.data.status === true) {
             this.$store.state.user = res.data.user;
             this.$store.state.compte = res.data.compte;
@@ -258,7 +257,7 @@ userDocuments() {
           oldPassword: this.oldPassword,
         })
         .then((reponse) => {
-          // console.log(reponse);
+         
           if (reponse.data.status === true) {
             Swal.fire({
               icon: "success",

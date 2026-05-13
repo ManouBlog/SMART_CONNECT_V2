@@ -93,7 +93,7 @@ const entrepriseAbonnements = computed(() => {
 
 onMounted(async () => {
   await store.dispatch("getInfoUser");
-  // console.log("props.ProfilAbonnement", props.ProfilAbonnement)
+  
   text0.value = await translateStore.handleTranslate("Choisissez votre formule")
 
   reference.value = route.params.reference
@@ -101,23 +101,20 @@ onMounted(async () => {
   profileAbonnement.value = props.ProfilAbonnement
     ? props.ProfilAbonnement
     : store.state.user?.user?.statut?.statut
-    // console.log("profileAbonnement.value", profileAbonnement.value)
+
 
   activeTab.value = props.ProfilAbonnement
     ? props.ProfilAbonnement
     : store.state.user ? store.state.user?.user?.statut.statut:'Particulier'
 
-    // console.log("activeTab.value", activeTab.value)
+    
    console.log('USERInfo',store.state.user?.user?.statut.statut)
-  // if (reference.value) {
-  //   await doVerificationAbonnement(reference.value)
-  // }
+
 
   // 🔥 IMPORTANT : un seul appel API
   await handleAbonement()
   
-  // console.log("abonnements chargés", abonnements.value)
-  // console.log("artisan ready", abonnementsArtisan.value)
+
 })
 
 </script>

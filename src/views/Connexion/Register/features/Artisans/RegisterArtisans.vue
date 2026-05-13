@@ -260,14 +260,14 @@ export default {
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
     handleQualifications(payload) {
-      // console.log("handleQualifications", payload);
+   
 
       this.formState.qualifications = payload;
     },
 
     nextStep() {
       console.log("this.currentStep",this.currentStep)
-      // console.log("getFirstHeureStartFrom", this.getFirstHeureStartFrom);
+   
     //   if (this.currentStep === 2) {
     //     const invalid = this.formState.qualifications.some((q) => !q.objet);
 
@@ -281,7 +281,7 @@ export default {
     //   }
 
     //     if (this.currentStep === 3) {
-    //       console.log("this.currentStep4",this.getFirstHeureStartFrom)
+  
     //     if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
     //       this.SWALPOPUP.declencheSwalPopup(
     //         "warning",
@@ -315,7 +315,7 @@ export default {
     if (!newList.length) return
     this.rawText = ''
     this.result = null
-  // console.log()
+
   // this.runOCR(newList)
 },
 // async runOCR(files) {

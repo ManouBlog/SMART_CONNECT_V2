@@ -36,7 +36,7 @@ export default {
             token:this.$route.params.token
         })
         .then((res) => {
-            // console.log(res);
+            
              Swal.fire({
               icon: "success",
               title: res.data.message,

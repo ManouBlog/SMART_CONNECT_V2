@@ -193,7 +193,7 @@ const ecriteauFormule = (item) => {
 watch(
   isUserConnected,
  (newValue) => {
-    // console.log("NEW VALUE", isUserConnected);
+   
     if (!newValue) {
      storeAbonnementUser.putPlanAbonnementAtNull();
     }
@@ -213,7 +213,6 @@ watch(
       select_mode_payment_tab.value = newVal[0]?.id
     }
 
-    console.log("tabsSubAbonnement updated", newVal)
   },
   { immediate: true }
 )
@@ -230,9 +229,7 @@ watch(
   { immediate: true }
 );
 onMounted(async () => {
-  console.log("props.tabsSubAbonnement", props.tabsSubAbonnement)
-  console.log("localTabs.value", localTabs.value)
-  console.log("PROFILE_ABONNEMENT",storeAbonnement.profilHybride)
+
 
   elmentsOfBtn.value = [
     {
@@ -241,12 +238,9 @@ onMounted(async () => {
     },
   ]
 profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
-console.log('profilHybrideRecuperer.value23',profilHybrideRecuperer.value)
-console.log('store.state?.user',store.state?.user)
   texte.value = await transalteStore.handleTranslate("année")
   if(!props.notUseIncludesForArtisan){
  const profilHybridesIfUserConnected = store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user?.statut?.statut)
- console.log("profilHybridesIfUserConnected",profilHybridesIfUserConnected)
   if(store.state?.user && profilHybridesIfUserConnected.length){
     storeAbonnement.handleChangeInfoForAbonnement({profilHybride:profilHybridesIfUserConnected})
     if(!storeAbonnement.statutOfBase){
@@ -257,16 +251,9 @@ console.log('store.state?.user',store.state?.user)
   }
   }
   
-  console.log("PROFIL_HYBRIDES_AJOUTES",storeAbonnement?.profilHybride)
-  console.log("IS_CHANGE_PROFIL",storeAbonnement?.isChangeProfil)
-  console.log("storeAbonnement.addProfilHybride_container",storeAbonnement?.addProfilHybride)
      if(storeAbonnement.addProfilHybride.length){
     const profilUserCurrent = store.state?.user?.user?.abonement?.find(item=>item.statut === 'success')
     formuleAbonnementOfUserConnected.value = profilUserCurrent?.abonement?.libelle;
-
-    console.log("PROFIL_HYBRIDE_ADD_CONTENT_ABONNEMENT",storeAbonnement?.addProfilHybride)
-    console.log("profilUserCurrent",profilUserCurrent)
-    console.log("formuleAbonnementOfUserConnected12",formuleAbonnementOfUserConnected.value)
   }
 
   if (isUserConnected.value) {

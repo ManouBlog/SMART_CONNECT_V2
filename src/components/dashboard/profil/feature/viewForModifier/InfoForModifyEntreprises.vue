@@ -130,15 +130,15 @@ valueExpertise: [
   },
    watch: {
     'form.optionsPaper'(newValue) {
-      // console.log("Selected option:", newValue);
+    
       this.form.optionsPaper = newValue;
-      // console.log("Selected option:", newValue);
+    
     },
   },
   methods: {
     chargerFichier(event) {
       const file = event.target.files[0];
-      // console.log("file", file)
+     
       if (file) {
         this.form.fileCharge = file;
       }
@@ -147,9 +147,8 @@ valueExpertise: [
     }
     },
     selectOne(value) {
-      // console.log("this.form.optionsPaper",this.form.optionsPaper)
+      
       if (this.form.optionsPaper === value) {
-        // Déjà sélectionné → ignore le clic (reste sélectionné)
         return;
       }
     this.form.optionsPaper = value;
@@ -157,7 +156,7 @@ valueExpertise: [
   },
        initForm() {
     const user = this.$store.state.infoUserConnected;
-    // console.log("initForm",user)
+    
     if (!user) return;
 
     this.form.nom = this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut !== 'Entreprise') ? user.nom : this.form.optionsPaper === 'Formel' ? user.nom:user.nom_particulier;
@@ -226,10 +225,7 @@ valueExpertise: [
       allowed.has(item.statut)
     );
 
-    // console.log("allStatuses1", {
-    //   statut: this.allStatuses,
-    //   profil: this.$store.state.infoUserConnected
-    // });
+   
 
   } catch (error) {
     console.log(error);
@@ -247,10 +243,6 @@ valueExpertise: [
         
 //         this.allStatuses = response.data.data.filter(item =>
 //   transitions[this.$store.state.infoUserConnected.user?.statut?.statut]?.includes(item.statut)); 
-//   console.log("allStatuses",{
-//     statut:this.allStatuses,
-//     profil:this.$store.state.infoUserConnected
-//   })
 //         // this.allStatuses = response.data.data.filter(item=>item.statut == 'Professionnel' || item.statut == 'Artisan' || item.statut == 'Etudiant' || item.statut === 'Vétéran')
 //       } catch (error) {
 //         console.log(error);
@@ -263,7 +255,7 @@ valueExpertise: [
         .then((resp) => {
           if (resp.data.status === true) {
             window.localStorage.setItem("user", JSON.stringify(resp.data.user));
-        // console.log("getInfoUser25",resp.data.user)
+     
         const user = resp.data.user;
 const statuses = user?.statuses || [];
 const statusList = statuses.map(s => s.statut);
@@ -293,7 +285,7 @@ if (isStudentGroup) {
         // if(statutUser === 'Entreprise'){
         // this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
         // this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
-        // // console.log("COMPANY_INFOS",resp.data.user) 
+        
         // }
         // if(statutUser === 'Etudiant' || statutUser === 'Professionnel' || statutUser === 'Artisan' || statutUser === 'Vétéran'){
         //   resp.data.user.qualifications.map(item=>{
@@ -306,9 +298,9 @@ if (isStudentGroup) {
         //   });
         //   this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
           
-        //   // console.log("STUDENT_INFOS",resp.data.user) 
+   
         //   }
-            // console.log("this.emails_cc",this.emails_cc)
+          
           }
         })
         .catch((error) => {
@@ -339,10 +331,10 @@ if (isStudentGroup) {
         // this.$store.state.infoUserConnected = this.$store.state.infoUserConnected;
         this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: false })
       }
-      // console.log("COMPANY_UPDATE",this.$store.state.infoUserConnected)
+     
     },
     async updateInfoStudent(Talent) {
-      // console.log("updateInfoStudent",Talent)
+      
       const data = await this.update_compte_student({
         nom: Talent.nom,
         email: Talent.email,
@@ -360,14 +352,14 @@ if (isStudentGroup) {
         niveauExpertise:Talent.niveauExpertise,
         competences:Talent?.competences?.length > 0 ? Help.retirerIdIntoArrayCompetence(Talent.competences):[],
       });
-      // console.log("DATA UPDATE STUDENT",data)
+     
       if(data.status){
         this.$store.commit("UPDATE_INFO_CONPANY",data.compte);
         this.changeValueForToogleModalInfoPersonnelle()
       }
     },
     async handleUpdate(payload) {
-  // console.log('handleUpdate', payload);
+ 
 
   const user = this.$store.state.infoUserConnected?.user;
   const statuses = user?.statuses || [];
@@ -411,7 +403,7 @@ if (isStudentGroup) {
     },
     handleInputInput(valueDate) {
       console.log(valueDate);
-      // console.log("itemsQualificationDynamicInput",this.itemsQualificationDynamicInput)
+    
     },
     handleInputChange(valueDate) {
       console.log(valueDate);

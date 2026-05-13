@@ -184,25 +184,25 @@ isProfilHybrideADD(){
     resetData(){
       this.formState.profilHybride = [];
       const STORE_ABONNEMENT = useAbonnementsStore();
-      // console.log("this.formState.profilHybride",this.formState.profilHybride)
+      
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
     },
     onUploadChangeCV(e) {
-    // console.log('onUploadChange', e.target.files);
+   
     this.formState.CVupload = Array.from(e.target.files)[0];
     if (!e) return
     this.rawText = ''
     this.result = null
-  // console.log()
+
   // this.runOCR(newList)
 },
     onUploadChangeCNI(e) {
-    // console.log('onUploadChange', e.target.files);
+    
     this.formState.photo = Array.from(e.target.files)[0];
     if (!e) return
     this.rawText = ''
     this.result = null
-  // console.log()
+  
   // this.runOCR(newList)
 },
 // async runOCR(files) {
@@ -319,12 +319,12 @@ isProfilHybrideADD(){
       cancelButtonColor: '#e74c3c',
     }).then((result) => {
       if (result.isConfirmed) {
-        // console.log('profilHybride',this.profilHybride)
+        
         if(this.profilHybride.length){
       this.formState.profilHybride = this.profilHybride.map(item=>item.id);
         }
         this.formState.niveauEtude = this.formState.niveau +' '+this.formState.diplome
-      //  console.log("this.formState_professionnel",this.formState);
+    
         const STORE_ABONNEMENT = useAbonnementsStore();
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
      this.showModalAbonnements = true

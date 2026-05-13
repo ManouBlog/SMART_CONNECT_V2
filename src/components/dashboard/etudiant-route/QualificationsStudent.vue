@@ -168,7 +168,7 @@ export default {
           if (resp.data.status === true) {
             this.userQualifications = resp.data.user;
             window.localStorage.setItem("user", JSON.stringify(resp.data.user));
-            // console.log("this.userQualifications", this.userQualifications);
+           
           }
         })
         .catch((error) => {
@@ -248,11 +248,11 @@ export default {
     },
     deleteMyQualification() {
       loadingSpinner.launchLoading(true);
-      // console.log("this.idQualificationAtDelete", this.idQualificationAtDelete);
+   
       instance
         .delete("qualifications/" + this.idQualificationAtDelete)
         .then(async (res) => {
-          // console.log("deleteQualification", res);
+      
           if (res.data.status === true) {
             this.toogleScreenYouWantDelete = !this.toogleScreenYouWantDelete;
            await this.getInfoUser();

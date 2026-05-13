@@ -97,7 +97,7 @@ export default {
     this.text14 = await this.handleTranslate("Adresse e-mail");
     this.text15 = await this.handleTranslate("Objet");
     this.texte16 = await this.handleTranslate("Message");
-    // console.log(this.texte);
+   
   },
 };
 </script>

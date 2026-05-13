@@ -244,7 +244,7 @@ export default {
     try {
       const response = await instance.get("countries");
       this.countries = response.data;
-      // console.log("COUNTRIES", this.countries);
+   
     } catch (error) {
       console.log(error);
     }
@@ -257,7 +257,7 @@ export default {
             if (resp.data.status === true) {
               this.userInfo = resp.data.user;
               window.localStorage.setItem("user", JSON.stringify(resp.data.user));
-              // console.log("USER_INFO", this.userInfo);
+             
             }
           })
           .catch((error) => {
@@ -358,7 +358,7 @@ export default {
         .then((res) => {
           this.spinner = true;
           this.loading = false;
-          // console.log(res);
+       
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -393,7 +393,7 @@ export default {
           }
         })
         .catch((res) => {
-          // console.log(res);
+          
           Swal.fire({
             icon: "error",
             title: res.response.data.message,
@@ -439,7 +439,7 @@ export default {
     },
     async post_mission() {
       this.StoreLoading.launchLoading(true);
-  // console.log("FORMSTATE", this.formState);
+  
 
   // Si mission immédiate → date du jour
   if (this.formState.typeMission === "immediat") {
@@ -496,7 +496,7 @@ export default {
         const response =  await instance.get("listStatut")
         
           if (response.data.status) {
-  // console.log('userInfo', this.userInfo);
+  
   
   let allStatuses = [];
   
@@ -528,7 +528,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      // console.log("ID_DELETE", this.id_for_delete);
+     
     },
     not_delete() {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -541,7 +541,7 @@ export default {
         .delete("delete_offre_entreprise/" + this.id_for_delete)
 
         .then((res) => {
-          // console.log(res);
+        
 
           if (res.data.status === true) {
             Swal.fire({
@@ -577,7 +577,7 @@ export default {
       this.otherPoste = "";
     },
     selectCategorie(e) {
-      // console.log("selectCategorie", e.target.value);
+      
       this.otherDomaine = "";
       this.otherPoste = "";
       this.competenceWithCategorie = this.allCompetences.filter(
@@ -585,7 +585,7 @@ export default {
       );
     },
     selectCategorieFormState(value) {
-      // console.log("VALUEDFE",value)
+      
   this.formState.categorie = value;
   this.formState.competence = '';
   this.formState.otherDomaine = "";
@@ -608,10 +608,8 @@ resetDataFormState(){
   this.formState.job_fin=""
 },
 chooseCompetenceFormState(value) {
-  // console.log('Choisir le poste',value)
+  
   this.formState.competence = value;
-
-  // Reset champ "autre poste" si changement
   this.formState.otherPoste = "";
 }
   },

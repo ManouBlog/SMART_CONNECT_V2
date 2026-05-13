@@ -7,7 +7,7 @@ const testimonials = ref([]);
 onMounted(async () => {
   try {
     const response = await instance.get("temoignages");
-    // console.log("testimonials", response.data);
+    
     testimonials.value = response.data;
   } catch (error) {
     console.error("Erreur lors du chargement des témoignages :", error);

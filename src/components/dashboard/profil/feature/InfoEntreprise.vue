@@ -103,7 +103,7 @@ texte0989:"",
         instance
           .post("passwordModify", data)
           .then((resp) => {
-            // console.log(resp);
+            
             if (resp.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -111,9 +111,7 @@ texte0989:"",
                 showConfirmButton: false,
                 timer: 1500,
               });
-              //setTimeout(() => {
-              //location.reload(true);
-              //}, 1500);
+             
             }
             if (resp.data.status === false) {
               Swal.fire({
@@ -134,7 +132,7 @@ texte0989:"",
       await instance
         .post("send-verification-email")
         .then((res) => {
-          // console.log("send-verification-email", res.data);
+        
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -160,7 +158,7 @@ texte0989:"",
     },
     see(e) {
       this.photo = e.target.files[0];
-      // console.log(this.photo);
+      
     },
   },
   async created() {

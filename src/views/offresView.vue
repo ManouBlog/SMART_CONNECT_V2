@@ -42,7 +42,7 @@ export default {
           ville: this.offre_id.ville,
         })
         .then((res) => {
-          // console.log(res);
+          
           if(res.data.status){
          this.modify_offre = false;
           this.id_offre_update = "";
@@ -56,7 +56,7 @@ export default {
           // });
         })
         .catch((err) => {
-          // console.log("MSG ERROR", err);
+       
           console.log(err)
           Swal.fire({
             icon: "info",
@@ -71,7 +71,7 @@ export default {
       instance
         .get("get_offres_entreprise")
         .then((res) => {
-          // console.log("TIMETABLE", res);
+         
           this.offres = res.data.data;
           this.spinner = false;
           setTimeout(function () {
@@ -115,15 +115,15 @@ export default {
     show_offre_id(id) {
       this.modify_offre = !this.modify_offre;
       this.id_offre_update = id;
-      // console.log("ID", this.id_offre_update);
+     
 
       instance
         .get("get_offres_entreprise")
         .then((res) => {
-          // console.log(res);
+          
           this.offres = res.data.data;
           this.offre_id = this.offres.find((offre) => offre.offres_id === id);
-          // console.log("OFFRE_ID", this.offre_id);
+          
         })
         .catch((err) => {
           console.log(err)
@@ -132,7 +132,7 @@ export default {
     create_offre() {
       this.loading = true;
       this.creer = false;
-      // console.log("ville", this.ville);
+      
       instance
         .post("create_offre", {
           nom_offre: this.offre,
@@ -145,7 +145,7 @@ export default {
         .then((res) => {
           this.spinner = true;
           this.loading = false;
-          // console.log(res);
+          
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -163,7 +163,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          // console.log(res);
+          
           // Swal.fire({
           //   icon: "error",
           //   title: res.data.message,
@@ -175,7 +175,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      // console.log("ID_DELETE", this.id_for_delete);
+      
     },
     not_delete() {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -185,7 +185,7 @@ export default {
       instance
         .delete("delete_offre_entreprise/" + this.id_for_delete)
         .then((res) => {
-          // console.log(res);
+          
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -200,7 +200,7 @@ export default {
           }
         })
         .catch((err) => {
-          // console.log("MSAERROR",err);
+        
           Swal.fire({
               icon: "success",
               title: err.data.message,

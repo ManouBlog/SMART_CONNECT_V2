@@ -20,11 +20,7 @@ export default {
       dateName: ["fin", "debut", "date_debut", "date_fin"],
     };
   },
-  methods: {
-    edit(value) {
-      // console.log(value);
-    },
-  },
+
 };
 </script>
 <template>

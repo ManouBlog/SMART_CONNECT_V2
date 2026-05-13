@@ -76,12 +76,11 @@ const messageAbonnement = computed(() => {
   return "Choisirsde cette formule";
 });
 
-// console.log("PROPSITEM",props.item)
+
 
 const currentConfig = computed(() => {
   const formule = storeAbonnementUser?.planAbonnement?.mode_payment;
-  // console.log('currentConfig',storeAbonnement)
-  // console.log('storeAbonnement.profilHybridecurrentconfig',storeAbonnement.profilHybride)
+
   const countprofilHybride = storeAbonnement?.profilHybride?.length
   if (select_mode_payment_tab.value === 'year') {
      
@@ -212,13 +211,7 @@ onMounted(async () => {
   },
 ];
   console.log("INFO_SUR_USER",store.state.user)
-  // if(storeAbonnement.isChangeProfil){
-  //  const statutBase = store.state.user?.user?.statut?.statut;
-  // const AllProfilHybride = store.state.user?.user?.statuses?.filter(item=>item.statut !== statutBase)
-  // console.log("AllProfilHybride",AllProfilHybride)
-  //  const payload = {profilHybride:AllProfilHybride}
-  // storeAbonnement.handleChangeInfoForAbonnement(payload)
-  // }
+  
  
   if(storeAbonnement.addProfilHybride.length){
     const profilUserCurrent = store.state.user?.user?.abonement?.find(item=>item.statut === 'success')

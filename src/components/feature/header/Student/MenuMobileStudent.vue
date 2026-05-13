@@ -43,12 +43,12 @@ export default {
 
     async goTo(route) {
       if (!route) return;
-      // console.log("lancer1");
+    
       this.changeValueForshowMenuMobile();
 
       await this.$store.dispatch("getInfoUser");
       const userInfo = this.$store.state.infoUserConnected;
-      // console.log("lancer25", userInfo);
+     
       if (!userInfo) return;
 
       const qualifications = userInfo.qualifications || [];

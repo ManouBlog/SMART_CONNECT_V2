@@ -55,11 +55,11 @@ export default {
       instance
         .get("see_entreprise_student")
         .then((res) => {
-          // console.log("see_entreprise_student", res);
+        
           this.DetailSeeEntreprise = res.data.data.find(
             (item) => item.id == this.$route.params.id
           );
-          // console.log("this.DetailSeeEntreprise", this.DetailSeeEntreprise);
+        
         })
         .catch((err) => {
           console.log(err);
@@ -74,7 +74,7 @@ export default {
       instance
         .put("changeStatutJob/" + id, { contrat: payload, id_contrat: idContrat })
         .then((res) => {
-          // console.log(res);
+          
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",

@@ -25,7 +25,7 @@ const handleAbonement = async () => {
   try {
     const response = await instance.get("getAbonnement");
     abonnements.value = response.data.data;
-    // console.log("RESPONSE_getAbonnement", response.data);
+   
     isLoading.value = false;
   } catch (error) {
     console.log(error);

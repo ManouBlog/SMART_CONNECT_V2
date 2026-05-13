@@ -82,7 +82,7 @@ export default {
       instance
         .get("auth_logout")
         .then((response) => {
-          // console.log(response);
+          
           if (response.data.status) {
             this.$store.dispatch("deleteStateUser")
             this.$store.commit("UPDATE_INFO_COMPANY", null);
@@ -110,7 +110,7 @@ export default {
       await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
-          // console.log("voirInfoUserConnect",resp);
+     
           if (resp.data.status === true) {
             this.user = resp.data.user;
             window.localStorage.setItem("user", JSON.stringify(resp.data.user));

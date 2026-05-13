@@ -58,16 +58,14 @@ export default {
 },
      
         VoirProfil(item) {
-          // console.log("item",item)
-          // console.log("item.student_id",{ id: item.student_id, user_id: item.user_id })
+         
      this.$router.push({
             name: "detailStudent",
             params: { id: item.student_id, user_id: item.user_id },
           });
     },
       async chooseStudent(id,student_id,valueRecruit) {
-    //     console.log("IDchooseStudent",id)
-    //  console.log("IDchooseStudent",student_id)
+   
   const actionText = valueRecruit === 1 
     ? "sélectionner" 
     : "rejeter"
@@ -125,38 +123,7 @@ export default {
  isPdf(path) {
   return path.toLowerCase().endsWith('.pdf')
 },
-    //     async chooseStudent(id,valueRecruit) {
-    //   // console.log(id);
-    
-    //   // console.log(this.InfoPostulant)
-    //   spinnerLoading.launchLoading(true)
-    //   try {
-    //     const data = {
-    //       id: id,
-    //       recruit: valueRecruit,
-    //     };
-    //     const reponse = await instance.post("recruitStudent", data);
-    //     if (reponse.data.status) {
-          
-    //       this.$emit('handleListe')
-    //       Swal.fire({
-    //         icon: "success",
-    //         title: reponse.data.message,
-    //         showConfirmButton: true,
-    //       });
-    //     }
-    //     // console.log(reponse);
-    //     spinnerLoading.launchLoading(false)
-    //   } catch (error) {
-    //     console.log(error);
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: error.response.data.message,
-    //       showConfirmButton: true,
-    //     });
-    //     spinnerLoading.launchLoading(false)
-    //   }
-    // },
+   
     },
     async created() {
       this.texte = await this.handleTranslate('Email');

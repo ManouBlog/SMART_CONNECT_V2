@@ -36,7 +36,7 @@ export default {
       };
       instance.put("modifier_profil", compte_entreprise)
         .then((res) => {
-          // console.log(res);
+          
           // if (res.data.status === true) {
           //   // Swal.fire({
           //   //   icon: "success",
@@ -69,7 +69,7 @@ export default {
       };
       instance.put("modifier_profil", compte_student)
         .then((res) => {
-          // console.log(res);
+          
           if (res.data.status === true) {
             // Swal.fire({
             //   icon: "success",

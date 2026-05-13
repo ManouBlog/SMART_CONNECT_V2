@@ -17,9 +17,9 @@ export default {
       this.spinner = true;
       instance.get("list_users")
         .then((res) => {
-          // console.log(res);
+          
           this.users = res.data.data;
-          // console.log("USER", this.users);
+      
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({

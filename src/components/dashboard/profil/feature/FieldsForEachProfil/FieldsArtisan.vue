@@ -125,13 +125,12 @@ StatutArtisans:[
  
   methods: {
      onUploadChange(e) {
-    // console.log('onUploadChange', e.target.files);
+   
     this.formState.photo = Array.from(e.target.files)[0];
     if (!e) return
     this.rawText = ''
     this.result = null
-  // console.log()
-  // this.runOCR(newList)
+
 },
 // async runOCR(files) {
 //   this.loading = true
@@ -243,11 +242,10 @@ StatutArtisans:[
   }).then((result) => {
     if (result.isConfirmed) {
       const storeAbonnement = useAbonnementsStore();
-  //  console.log("this.formState",this.formState)
+ 
    storeAbonnement.cleanProfilHybide([]);
-  //  console.log('PROFIL HYBRIDE',storeAbonnement.profilHybride)
+
       storeAbonnement.handleChangeInfoForAbonnement(this.formState);
-    //  console.log("storeAbonnement_fieldsartisan",storeAbonnement)
       this.showModalAbonnements = true;
     }
   });
@@ -255,9 +253,9 @@ StatutArtisans:[
 resetData(){
       this.formState.profilHybride = [];
       const STORE_ABONNEMENT = useAbonnementsStore();
-      // console.log("this.formState.profilHybride",this.formState.profilHybride)
+    
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
-      // console.log("RESETDATA_artisan_field",STORE_ABONNEMENT)
+   
     },
   },
  
