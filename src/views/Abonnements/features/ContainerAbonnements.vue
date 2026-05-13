@@ -240,7 +240,7 @@ onMounted(async () => {
 profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
   texte.value = await transalteStore.handleTranslate("année")
   if(!props.notUseIncludesForArtisan){
- const profilHybridesIfUserConnected = store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user?.statut?.statut)
+ const profilHybridesIfUserConnected = store.state?.user?.user?.statuses.filter(item=>item.statut !== store.state?.user?.user?.statut?.statut)
   if(store.state?.user && profilHybridesIfUserConnected.length){
     storeAbonnement.handleChangeInfoForAbonnement({profilHybride:profilHybridesIfUserConnected})
     if(!storeAbonnement.statutOfBase){

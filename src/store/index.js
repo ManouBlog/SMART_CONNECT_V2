@@ -185,8 +185,9 @@ export default createStore({
       return;
     }
   },
-   async getInfoUser({commit}) {
-      await instance
+   async getInfoUser({commit,state}) {
+    if(state.token){
+await instance
         .get("voirInfoUserConnect")
         .then((resp) => {
           if (resp.data.status === true) {
@@ -200,6 +201,10 @@ export default createStore({
            commit("UPDATE_INFO_CONPANY",null)
             commit("SET_INFO_USER",null)
         });
+    }else{
+      return;
+    }
+      
     },
     deleteStateUser({commit}){
       commit("DELETE_STATE_USER")

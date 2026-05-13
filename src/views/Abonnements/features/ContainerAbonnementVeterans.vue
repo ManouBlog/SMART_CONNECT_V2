@@ -30,8 +30,8 @@ const tabs = [
 
  watch(
       () => store.state.user,
-      (newUser,oldUser) => {
-        console.log('User changé:', oldUser)
+      (newUser) => {
+       
         if(!newUser){
           
           const payload = {profilHybride:[]}

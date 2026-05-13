@@ -108,7 +108,7 @@ onMounted(async () => {
     : store.state.user ? store.state.user?.user?.statut.statut:'Particulier'
 
     
-   console.log('USERInfo',store.state.user?.user?.statut.statut)
+  //  console.log('USERInfo',store.state.user?.user?.statut.statut)
 
 
   // 🔥 IMPORTANT : un seul appel API
