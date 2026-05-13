@@ -33,7 +33,7 @@ export default {
     };
   },
   computed: {
-  filteredStudents() {
+  filteredTalentsPasAbonnee() {
     if (this.statusFilter === 'Tous') {
       return this.studentsNonAbonnee;
     }
@@ -43,7 +43,19 @@ export default {
         s.statut === this.statusFilter
       )
     );
-  }
+  },
+   filteredTalentsAbonne() {
+    if (this.statusAbonneeFilter === 'Tous') {
+      return this.students;
+    }
+
+    return this.students.filter(item =>
+      item.user?.statuses?.some(s =>
+        s.statut === this.statusAbonneeFilter
+      )
+    );
+  },
+  
 },
   methods: {
     verifIfAbonnementCurrently(value) {
@@ -253,24 +265,7 @@ export default {
    
     <!-- Container-fluid starts-->
   <div class="tab-content" id="top-tabContent">
-  <div class="mb-3 d-flex gap-2">
-  <button
-  :class="getBtnClass('')"
-  style="border-radius: 5px;border:none;padding:0.5em;">Tous</button>
-  <button  
-  :class="getBtnClass('etudiant')"
-  style="border-radius: 5px;border:none;padding:0.5em;">Étudiants</button>
-  <button  
-  :class="getBtnClass('professionnel')"
-  style="border-radius: 5px;border:none;padding:0.5em;">Professionnels</button>
-  <button  
-  :class="getBtnClass('veteran')"
-  style="border-radius: 5px;border:none;padding:0.5em;" >Vétérans</button>
-  <button 
-  :class="getBtnClass('artisan')"
-  style="border-radius: 5px;border:none;padding:0.5em;" >Artisans</button>
-  
-  </div>
+ 
       <div
         class="tab-pane fade show active"
         id="abonnées"
@@ -282,7 +277,7 @@ export default {
             <div class="col-sm-12 card py-3 px-2">
               <DataTable
               tableStyle="min-width: 50rem"
-  :value="students"
+  :value="filteredTalentsAbonne"
   stripedRows
   paginator
   :rows="10"
@@ -300,11 +295,54 @@ export default {
 
   <!-- HEADER SEARCH -->
   <template #header>
-    <div class="flex justify-end">
-      <InputText
+    <div style="display: flex;justify-content: space-between;">
+       <div>
+      <button
+        class="btn btn-sm"
+        :class="{ 'btn-color': statusAbonneeFilter === 'Tous' }"
+        @click="statusAbonneeFilter = 'Tous'"
+      >
+        Tous
+      </button>
+
+      <button
+        class="btn btn-sm"
+        :class="{ 'btn-color': statusAbonneeFilter === 'Etudiant' }"
+        @click="statusAbonneeFilter = 'Etudiant'"
+      >
+        Etudiant
+      </button>
+
+      <button
+        class="btn btn-sm"
+        :class="{ 'btn-color': statusAbonneeFilter === 'Professionnel' }"
+        @click="statusAbonneeFilter = 'Professionnel'"
+      >
+        Professionnel
+      </button>
+
+      <button
+        class="btn btn-sm"
+        :class="{ 'btn-color': statusAbonneeFilter === 'Vétérans' }"
+        @click="statusAbonneeFilter = 'Vétérans'"
+      >
+        Vétérans
+      </button>
+
+      <button
+        class="btn btn-sm"
+        :class="{ 'btn-color': statusAbonneeFilter === 'Artisans' }"
+        @click="statusAbonneeFilter = 'Artisans'"
+      >
+        Artisans
+      </button>
+    </div>
+    <div>
+       <InputText
         v-model="filtersAbonnees['global'].value"
         placeholder="Recherche..."
       />
+    </div>
     </div>
   </template>
 
@@ -400,7 +438,7 @@ export default {
             <div class="col-sm-12 card py-3 px-2">
               <DataTable
               tableStyle="min-width: 50rem"
-  :value="filteredStudents"
+  :value="filteredTalentsPasAbonnee"
   stripedRows
   paginator
   :rows="20"
