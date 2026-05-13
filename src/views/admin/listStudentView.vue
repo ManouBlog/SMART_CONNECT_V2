@@ -1,28 +1,50 @@
 <script>
 /* eslint-disable */
 import axios from "axios";
-// import Swal from "sweetalert2";
 import BadgeCompVue from "../../components/BadgeComp.vue";
-import $ from "jquery";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
+
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import InputText from 'primevue/inputtext';
+import { FilterMatchMode } from '@primevue/core/api';
+
 export default {
   name: "UserView",
   components: {
-    BadgeCompVue,
+    BadgeCompVue,Column,DataTable,InputText
   },
   data() {
     return {
       students: [],
       studentsNonAbonnee: [],
+       filtersAbonnees:{
+     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+      },
+     filtersPasAbonnees:{
+      global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+     },
       see_detail_students: false,
       id_student: null,
       student: null,
       spinner: false,
       currentFilter:"",
-      talentsChoose:"abonne"
+      talentsChoose:"abonne",
+      statusFilter: 'Tous'
     };
   },
+  computed: {
+  filteredStudents() {
+    if (this.statusFilter === 'Tous') {
+      return this.studentsNonAbonnee;
+    }
+
+    return this.studentsNonAbonnee.filter(item =>
+      item.user?.statuses?.some(s =>
+        s.statut === this.statusFilter
+      )
+    );
+  }
+},
   methods: {
     verifIfAbonnementCurrently(value) {
       let valueAbonnementCurrently = null;
@@ -37,6 +59,9 @@ export default {
       return valueAbonnementCurrently?.abonement?.libelle
         ? valueAbonnementCurrently?.abonement?.libelle
         : null;
+    },
+    setFilter(value){
+      console.log(value)
     },
     see_details(id) {
       this.see_detail_students = !this.see_detail_students;
@@ -58,22 +83,15 @@ export default {
           console.log("ID_STUDENT", this.student);
         });
     },
-    setFilter(type) {
-      console.log("Filter set to:", type);
-      console.log(this.talentsChoose)
-    this.currentFilter = type.toLowerCase();
-    console.log("Current filter:", this.currentFilter);
-    const table = this.talentsChoose == 'abonne' ? $("#MyTableData").DataTable() : $("#MyTableData2").DataTable();
-    table.draw();
-  },
+   
   getBtnClass(type) {
   return this.currentFilter === type
     ? "btn-active"
     : "btn-gray";
 },
-    get_students() {
+    async get_students() {
   this.spinner = true;
-  axios.get("https://backend.monbrobroli.com/api/list_students", {
+  await axios.get("https://backend.monbrobroli.com/api/list_students", {
       headers: {
         Authorization: "Bearer " + this.$store.state.token,
       },
@@ -82,55 +100,14 @@ export default {
       this.students = res.data.data;
       console.log("students230",this.students)
       this.spinner = false;
-
-      setTimeout(() => {
-        const vm = this;
-
-        // 🔥 Filtre personnalisé
-        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-          console.log("vm.currentFilter",vm.currentFilter)
-          if (!vm.currentFilter) return true;
-
-          const type = data[1]?.toLowerCase();
-          console.log('TYPE_currentFilter',type)
-
-          return type.some(item=>item.statut === vm.currentFilter) || type === vm.currentFilter;
-        });
-
-        $("#MyTableData").DataTable({
-          pagingType: "full_numbers",
-          pageLength: 10,
-          processing: true,
-          order: [],
-          language: {
-            decimal: "",
-            emptyTable: "Aucune donnée disponible dans le tableau",
-            infoEmpty: "Showing 0 to 0 of 0 entries",
-            info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-            infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-            thousands: ",",
-            lengthMenu: "Afficher _MENU_",
-            loadingRecords: "Loading...",
-            // processing: "Processing...",
-            search: "Chercher :",
-            zeroRecords: "Aucun enregistrement correspondant trouvé",
-            paginate: {
-              first: "Premier",
-              last: "Dernier",
-              next: "Suivant",
-              previous: "Précédent",
-            },
-          },
-        });
-      }, 10);
     })
     .catch((err) => {
       console.log(err);
     });
 },
-    get_Visiteurs() {
+    async get_Visiteurs() {
       this.spinner = true;
-      axios
+     await axios
         .get("https://backend.monbrobroli.com/api/list_visiteurs", {
           headers: {
             Authorization: "Bearer " + this.$store.state.token,
@@ -141,55 +118,6 @@ export default {
           this.studentsNonAbonnee = res.data.data;
           console.log("studentsNonAbonnee", this.studentsNonAbonnee);
           this.spinner = false;
-          setTimeout(function () {
-
-            const vm = this;
-
-        // 🔥 Filtre personnalisé
-        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-          console.log("vm.currentFilter",vm.currentFilter)
-          if (!vm.currentFilter) return true;
-         
-          // ⚠️ adapte l'index selon ta colonne "type"
-          // ex: data[2] = colonne type
-          const type = data[1]?.toLowerCase();
-          console.log('TYPE_currentFilter',type)
-
-          return type.some(item=>item.statut === vm.currentFilter) || type === vm.currentFilter;
-        });
-
-            $("#MyTableData2").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                // processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
         })
         .catch((err) => {
           console.log(err);
@@ -220,8 +148,6 @@ export default {
         })
         .finally(() => {
           this.$store.commit("TOOGLESPINNER", false);
-          this.$store.dispatch("get_Students_Non_Abonne");
-          this.$store.dispatch("get_Students_abonne");
         });
     },
     async getDetailSuscribe(id) {
@@ -249,14 +175,12 @@ export default {
         })
         .finally(() => {
           this.$store.commit("TOOGLESPINNER", false);
-          this.$store.dispatch("get_Students_Non_Abonne");
-          this.$store.dispatch("get_Students_abonne");
         });
     },
   },
-  created() {
-    this.get_students();
-    this.get_Visiteurs();
+  async created() {
+    await this.get_students();
+    await this.get_Visiteurs();
   },
 };
 </script>
@@ -330,19 +254,19 @@ export default {
     <!-- Container-fluid starts-->
   <div class="tab-content" id="top-tabContent">
   <div class="mb-3 d-flex gap-2">
-  <button @click="setFilter('')" 
+  <button
   :class="getBtnClass('')"
   style="border-radius: 5px;border:none;padding:0.5em;">Tous</button>
-  <button @click="setFilter('etudiant')" 
+  <button  
   :class="getBtnClass('etudiant')"
   style="border-radius: 5px;border:none;padding:0.5em;">Étudiants</button>
-  <button @click="setFilter('professionnel')" 
+  <button  
   :class="getBtnClass('professionnel')"
   style="border-radius: 5px;border:none;padding:0.5em;">Professionnels</button>
-  <button @click="setFilter('veteran')" 
+  <button  
   :class="getBtnClass('veteran')"
   style="border-radius: 5px;border:none;padding:0.5em;" >Vétérans</button>
-  <button @click="setFilter('artisan')" 
+  <button 
   :class="getBtnClass('artisan')"
   style="border-radius: 5px;border:none;padding:0.5em;" >Artisans</button>
   
@@ -356,69 +280,111 @@ export default {
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12 card py-3 px-2">
-              <table id="MyTableData" class="table">
-                <thead>
-                  <tr>
-                    <th class="bg-light">Date d'enregistrement</th>
-                    <th class="bg-light">Statut</th>
-                    <th class="bg-light">Nom</th>
-                    <th class="bg-light">email</th>
-                    <th class="bg-light">Ville</th>
-                    <th class="bg-light">Commune</th>
-                    <th class="bg-light">Quartier</th>
+              <DataTable
+              tableStyle="min-width: 50rem"
+  :value="students"
+  stripedRows
+  paginator
+  :rows="10"
+  :rowsPerPageOptions="[5, 10, 20, 50]"
+  v-model:filters="filtersAbonnees"
+  :globalFilterFields="[
+    'nom',
+    'email',
+    'ville',
+    'commune',
+    'quartier',
+    'phone'
+  ]"
+>
 
-                    <th class="bg-light">Télephone</th>
-                    <th class="bg-light">Formule d'abonnement</th>
-                    <th class="bg-light">Détails</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(item, index) in students" :key="index">
-                    <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>
-                      <span v-if="item.user?.statuses?.length" >
-                     <span v-for="statut in item.user?.statuses" :key="statut.id" 
-                     style="display:flex;gap:1em;">
-                       <span class="badge bg-primary">{{ statut.statut }}</span>
-                     </span>
-                      </span>
-                      <span v-else class="badge bg-primary">
-                      {{ item.user?.statut?.statut }}
-                      </span>
-                    </td>
-                    <td>
-                      {{ item.nom }}
-                      <span class="badge bg-danger" v-if="item.view == 1">New</span>
-                    </td>
-                    <td>{{ item.email }}</td>
-                    <td>
-                      {{ item.ville }}
-                    </td>
-                    <td>
-                      {{ item.commune }}
-                    </td>
-                    <td>
-                      {{ item.quartier }}
-                    </td>
+  <!-- HEADER SEARCH -->
+  <template #header>
+    <div class="flex justify-end">
+      <InputText
+        v-model="filtersAbonnees['global'].value"
+        placeholder="Recherche..."
+      />
+    </div>
+  </template>
 
-                    <td>
-                      {{ item.phone }}
-                    </td>
-                    <td>
-                      {{
-                        item?.user?.abonement.length
-                          ? this.verifIfAbonnementCurrently(item?.user?.abonement)
-                          : "Pas d'abonnement."
-                      }}
-                    </td>
-                    <td>
-                      <a href="#" @click.prevent="getDetailSuscribe(item.id)">
-                        <i class="bi bi-eye"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+  <!-- Date -->
+  <Column style="width: 20%; padding: 1em;" field="created_at" header="Date d'enregistrement">
+    <template #body="slotProps">
+      {{ new Date(slotProps.data.created_at).toLocaleDateString("fr") }}
+    </template>
+  </Column>
+
+  <!-- Statut -->
+  <Column style="width: 20%; padding: 1em;" header="Statut">
+    <template #body="slotProps">
+      <span v-if="slotProps.data.user?.statuses?.length">
+        <span
+          v-for="statut in slotProps.data.user.statuses"
+          :key="statut.id"
+          style="display:flex;gap:1em;"
+        >
+          <span class="badge bg-primary">
+            {{ statut.statut }}
+          </span>
+        </span>
+      </span>
+
+      <span v-else class="badge bg-primary">
+        {{ slotProps.data.user?.statut?.statut }}
+      </span>
+    </template>
+  </Column>
+
+  <!-- Nom -->
+  <Column style="width: 20%; padding: 1em;" field="nom" header="Nom">
+    <template #body="slotProps">
+      {{ slotProps.data.nom }}
+      <span v-if="slotProps.data.view == 1" class="badge bg-danger">
+        New
+      </span>
+    </template>
+  </Column>
+
+  <!-- Email -->
+  <Column style="width: 20%; padding: 1em;" field="email" header="Email" />
+
+  <!-- Ville -->
+  <Column style="width: 20%; padding: 1em;" field="ville" header="Ville" />
+
+  <!-- Commune -->
+  <Column style="width: 20%; padding: 1em;" field="commune" header="Commune" />
+
+  <!-- Quartier -->
+  <Column style="width: 20%; padding: 1em;" field="quartier" header="Quartier" />
+
+  <!-- Téléphone -->
+  <Column style="width: 20%; padding: 1em;" field="phone" header="Téléphone" />
+
+  <!-- Abonnement -->
+  <Column style="width: 20%; padding: 1em;" header="Formule d'abonnement">
+    <template #body="slotProps">
+      {{
+        slotProps.data?.user?.abonement?.length
+          ? verifIfAbonnementCurrently(slotProps.data.user.abonement)
+          : "Pas d'abonnement."
+      }}
+    </template>
+  </Column>
+
+  <!-- Détails -->
+  <Column style="width: 20%; padding: 1em;" header="Détails">
+    <template #body="slotProps">
+      <a
+        href="#"
+        @click.prevent="getDetailSuscribe(slotProps.data.id)"
+      >
+        <i class="bi bi-eye"></i>
+      </a>
+    </template>
+  </Column>
+
+</DataTable>
             </div>
           </div>
         </div>
@@ -432,68 +398,156 @@ export default {
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12 card py-3 px-2">
-              <table id="MyTableData2" class="table">
-                <thead>
-                  <tr>
-                    <th class="bg-light">Date d'enregistrement</th>
-                    <th class="bg-light">Statut</th>
-                    <th class="bg-light">Nom</th>
-                    <th class="bg-light">email</th>
-                    <th class="bg-light">Ville</th>
-                    <th class="bg-light">Commune</th>
-                    <th class="bg-light">Quartier</th>
-                    <th class="bg-light">Télephone</th>
-                    <th class="bg-light">Formule d'abonnement</th>
-                    <th class="bg-light">Détails</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(item, index) in studentsNonAbonnee" :key="index">
-                    <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>
-                      <span v-if="item.user?.statuses.length">
-                     <span v-for="statut in item.user?.statuses" :key="statut.id" style="display:flex;gap:1em;">
-                       <span class="badge bg-primary">{{ statut.statut }}</span>
-                     </span>
-                      </span>
-                      <span v-else class="badge bg-primary">
-                      {{ item.user?.statut?.statut }}
-                      </span>
-              
-                    </td>
-                    
-                    <td>
-                      {{ item.nom }}
-                      <span class="badge bg-danger" v-if="item.view == 1">New</span>
-                    </td>
-                    <td>{{ item.email }}</td>
-                    <td>
-                      {{ item.ville }}
-                    </td>
-                    <td>
-                      {{ item.commune }}
-                    </td>
-                    <td>
-                      {{ item.quartier }}
-                    </td>
-                    <td>
-                      {{ item.phone }}
-                    </td>
-                    <td>
-                      {{
-                        item?.user?.abonement.length
-                          ? this.verifIfAbonnementCurrently(item?.user?.abonement)
-                          : "Pas d'abonnement."
-                      }}
-                    </td>
-                    <td>
-                      <a href="#" @click.prevent="getDetailNotSuscribe(item.id)">
-                        <i class="bi bi-eye"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <DataTable
+              tableStyle="min-width: 50rem"
+  :value="filteredStudents"
+  stripedRows
+  paginator
+  :rows="20"
+  :rowsPerPageOptions="[10, 20, 50]"
+  virtualScrollerOptions="{ itemSize: 20 }"
+  v-model:filters="filtersPasAbonnees"
+  :globalFilterFields="[
+    'nom',
+    'email',
+    'ville',
+    'commune',
+    'quartier',
+    'phone'
+  ]"
+>
+
+  <!-- SEARCH -->
+  <template #header>
+    <div style="display: flex;justify-content: space-between;">
+    <div>
+      <button
+        class="btn btn-sm"
+        :class="{ 'btn-color': statusFilter === 'Tous' }"
+        @click="statusFilter = 'Tous'"
+      >
+        Tous
+      </button>
+
+      <button
+        class="btn btn-sm"
+        :class="{ 'btn-color': statusFilter === 'Etudiant' }"
+        @click="statusFilter = 'Etudiant'"
+      >
+        Etudiant
+      </button>
+
+      <button
+        class="btn btn-sm"
+        :class="{ 'btn-color': statusFilter === 'Professionnel' }"
+        @click="statusFilter = 'Professionnel'"
+      >
+        Professionnel
+      </button>
+
+      <button
+        class="btn btn-sm"
+        :class="{ 'btn-color': statusFilter === 'Vétérans' }"
+        @click="statusFilter = 'Vétérans'"
+      >
+        Vétérans
+      </button>
+
+      <button
+        class="btn btn-sm"
+        :class="{ 'btn-color': statusFilter === 'Artisans' }"
+        @click="statusFilter = 'Artisans'"
+      >
+        Artisans
+      </button>
+    </div>
+    <div>
+     <InputText
+        v-model="filtersPasAbonnees['global'].value"
+        placeholder="Recherche..."
+      />
+    </div>
+      
+    </div>
+  </template>
+
+  <!-- DATE -->
+  <Column style="width: 20%; padding: 1em;" field="created_at" header="Date d'enregistrement">
+    <template #body="slotProps">
+      {{ new Date(slotProps.data.created_at).toLocaleDateString("fr") }}
+    </template>
+  </Column>
+
+  <!-- STATUT -->
+  <Column style="width: 20%; padding: 1em;" header="Statut">
+    <template #body="slotProps">
+      <span v-if="slotProps.data.user?.statuses?.length">
+        <span
+          v-for="statut in slotProps.data.user.statuses"
+          :key="statut.id"
+          style="display:flex;gap:1em;"
+        >
+          <span class="badge bg-primary">
+            {{ statut.statut }}
+          </span>
+        </span>
+      </span>
+
+      <span v-else class="badge bg-primary">
+        {{ slotProps.data.user?.statut?.statut }}
+      </span>
+    </template>
+  </Column>
+
+  <!-- NOM -->
+  <Column style="width: 20%; padding: 1em;" field="nom" header="Nom">
+    <template #body="slotProps">
+      {{ slotProps.data.nom }}
+      <span v-if="slotProps.data.view == 1" class="badge bg-danger">
+        New
+      </span>
+    </template>
+  </Column>
+
+  <!-- EMAIL -->
+  <Column style="width: 20%; padding: 1em;" field="email" header="Email" />
+
+  <!-- VILLE -->
+  <Column style="width: 20%; padding: 1em;" field="ville" header="Ville" />
+
+  <!-- COMMUNE -->
+  <Column style="width: 20%; padding: 1em;" field="commune" header="Commune" />
+
+  <!-- QUARTIER -->
+  <Column style="width: 20%; padding: 1em;" field="quartier" header="Quartier" />
+
+  <!-- TELEPHONE -->
+  <Column style="width: 20%; padding: 1em;" field="phone" header="Téléphone" />
+
+  <!-- ABONNEMENT -->
+  <Column style="width: 20%; padding: 1em;" header="Formule d'abonnement">
+    <template #body="slotProps">
+      {{
+        slotProps.data?.user?.abonement?.length
+          ? verifIfAbonnementCurrently(slotProps.data.user.abonement)
+          : "Pas d'abonnement."
+      }}
+    </template>
+  </Column>
+
+  <!-- DETAILS -->
+  <Column style="width: 20%; padding: 1em;" header="Détails">
+    <template #body="slotProps">
+      <a
+        href="#"
+        @click.prevent="getDetailNotSuscribe(slotProps.data.id)"
+      >
+        <i class="bi bi-eye"></i>
+      </a>
+    </template>
+  </Column>
+
+</DataTable>
             </div>
           </div>
         </div>
@@ -502,6 +556,84 @@ export default {
   </div>
 </template>
 <style scoped>
+.btn-color{
+  padding: 0.7em !important;
+  background-color: rgb(2, 61, 72) !important;
+  color:white;
+  font-weight: bold;
+  
+}
+:deep(.p-inputtext){
+  border: 2px solid black;
+}
+:deep(.p-datatable-header){
+  border: none !important;
+}
+:deep(.p-datatable .p-datatable-paginator-bottom) {
+  background: #ffffff;
+  border: none;
+  border-top: 1px solid #f1f5f9;
+  padding: 1rem;
+  border-radius: 0 0 16px 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* Boutons */
+:deep(.p-paginator .p-paginator-page),
+:deep(.p-paginator .p-paginator-prev),
+:deep(.p-paginator .p-paginator-next),
+:deep(.p-paginator .p-paginator-first),
+:deep(.p-paginator .p-paginator-last) {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 10px;
+  border: none;
+
+  background: #f8fafc;
+  color: #334155;
+
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+:deep(.p-paginator .p-paginator-page:hover),
+:deep(.p-paginator .p-paginator-prev:hover),
+:deep(.p-paginator .p-paginator-next:hover),
+:deep(.p-paginator .p-paginator-first:hover),
+:deep(.p-paginator .p-paginator-last:hover) {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+/* Active */
+:deep(.p-paginator .p-paginator-page.p-highlight) {
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+/* Texte */
+:deep(.p-paginator .p-paginator-current) {
+  margin: 0 1rem;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Dropdown */
+:deep(.p-paginator .p-dropdown) {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
 .btn-gray {
   background-color: #f3f4f6;
   color: #374151;

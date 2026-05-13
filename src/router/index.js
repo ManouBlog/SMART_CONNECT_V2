@@ -111,7 +111,7 @@ const routes = [
         },
       },
       {
-        path: "/list_des_etudiants",
+        path: "/list_talents",
         name: "students",
         component: () => import("../views/admin/listStudentView.vue"),
         props: true,
