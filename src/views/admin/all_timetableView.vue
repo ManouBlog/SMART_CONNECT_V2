@@ -17,26 +17,6 @@ export default {
     };
   },
   methods: {
-    // see_details(id) {
-    //   this.see_detail_students = !this.see_detail_students;
-    //   this.id_student = id;
-    //   console.log("ID_STUDENT", this.id_student);
-    // },
-    // get_details_students(id) {
-    //   this.see_detail_students = !this.see_detail_students;
-    //   axios
-    //     .get("https://backend.monbrobroli.com/api/list_students", {
-    //       headers: {
-    //         Authorization: "Bearer " + this.$store.state.token,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       this.students = res.data.data;
-    //       this.student = this.students.find((item) => item.id === id);
-    //       console.log("ID_STUDENT", this.student);
-    //     });
-    // },
     get_all_timetables() {
       this.spinner = true;
       axios

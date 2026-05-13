@@ -141,7 +141,7 @@ export default {
                   >
                     {{
                       item.pivot.contrat === 1
-                        ? "Accepté"
+                        ? "Retenu"
                         : item.pivot.contrat === 2
                         ? "Réfusé"
                         : "En attente de réponse"

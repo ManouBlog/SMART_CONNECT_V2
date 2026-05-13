@@ -1,24 +1,28 @@
 <script>
 /* eslint-disable */
 import axios from "axios";
-
-import $ from "jquery";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import InputText from 'primevue/inputtext';
+import { FilterMatchMode } from '@primevue/core/api';
 
 export default {
   name: "UserView",
+  components:{Column,DataTable,InputText},
   data() {
     return {
       entreprises: null,
       spinner: false,
       modify_timetable: false,
+      filtersAbonnees:{
+     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+      },
+     filtersPasAbonnees:{
+      global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+     }
     };
   },
   methods: {
-     get_users() {
-      this.$store.dispatch("get_users");
-    },
     seeNbreBadge(entreprise) {
       return entreprise?.filter((item) => item.view === 1).length || 0;
     },
@@ -94,73 +98,8 @@ export default {
     },
     
   },
-  mounted() {
-    // Destruction des tables DataTable existantes si elles existent
-    if ($.fn.DataTable.isDataTable("#MyTableData_entreprise")) {
-      $("#MyTableData_entreprise").DataTable().destroy();
-    }
-    if ($.fn.DataTable.isDataTable("#MyTableData_entreprise2")) {
-      $("#MyTableData_entreprise2").DataTable().destroy();
-    }
-
-    // Rafraîchissement du DOM avant l'initialisation de DataTables
-    this.$nextTick(() => {
-      // Initialisation séparée pour chaque table
-      $("#MyTableData_entreprise").DataTable({
-        pagingType: "full_numbers",
-        pageLength: 10,
-        processing: true,
-        order: [],
-        responsive: true, // Ajout du responsive
-        language: {
-          decimal: "",
-          emptyTable: "Aucune donnée disponible dans le tableau",
-          info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-          infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
-          infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-          lengthMenu: "Afficher _MENU_ entrées",
-          loadingRecords: "Chargement...",
-          processing: "Traitement...",
-          search: "Rechercher :",
-          zeroRecords: "Aucun résultat trouvé",
-          paginate: {
-            first: "Premier",
-            last: "Dernier",
-            next: "Suivant",
-            previous: "Précédent",
-          },
-        },
-      });
-
-      // Si vous avez une deuxième table
-      if ($("#MyTableData_entreprise2").length) {
-        $("#MyTableData_entreprise2").DataTable({
-          pagingType: "full_numbers",
-          pageLength: 10,
-          processing: true,
-          order: [],
-          responsive: true,
-          language: {
-            decimal: "",
-            emptyTable: "Aucune donnée disponible dans le tableau",
-            info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-            infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
-            infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-            lengthMenu: "Afficher _MENU_ entrées",
-            loadingRecords: "Chargement...",
-            processing: "Traitement...",
-            search: "Rechercher :",
-            zeroRecords: "Aucun résultat trouvé",
-            paginate: {
-              first: "Premier",
-              last: "Dernier",
-              next: "Suivant",
-              previous: "Précédent",
-            },
-          },
-        });
-      }
-    });
+  async mounted() {
+    await this.$store.dispatch("get_users");
   },
 };
 </script>
@@ -238,47 +177,103 @@ export default {
       >
         <div class="container-fluid">
           <div class="row">
-            <div class="col-sm-12 card py-3 px-2">
-              <table id="MyTableData_entreprise" class="table">
-                <thead>
-                  <tr>
-                    <th class="bg-light">Date d'enregistrement</th>
-                    <th class="bg-light">Entreprise</th>
-                    <th class="bg-light">Email</th>
-                    <th class="bg-light">Structure</th>
-                    <th class="bg-light">Formule d'abonnement</th>
-                    <th class="bg-light">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(item, index) in this.$store.state.listEntrepriseAbonnee"
-                    :key="index"
-                  >
-                    <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>{{ item.nom }}
-                      <span class="badge bg-danger" v-if="item.view == 1">New</span>
-                    </td>
-                    <td>{{ item.email }}</td>
-                   <td>
-                      <span>{{ item?.statut_entreprise ? item?.statut_entreprise:'-'}}</span>
-                    </td>
-                    <td>
-                      {{
-                        item?.user?.abonement.length
-                          ? this.verifIfAbonnementCurrently(item?.user?.abonement)
-                          : "Pas d'abonnement"
-                      }}
-                    </td>
+            <div class="col-sm-12 card py-3 px-2">        
+             <DataTable
+  tableStyle="min-width: 50rem"
+  :value="$store.state.listEntrepriseAbonnee"
+  paginator
+  :rows="10"
+  :rowsPerPageOptions="[5, 10, 20, 50]"
+  v-model:filters="filtersAbonnees"
+  :globalFilterFields="['nom', 'email', 'statut_entreprise']"
+  class="table"
+>
 
-                    <td>
-                      <a href="#" @click.prevent="getDetailCompanySuscribe(item.id)">
-                        <i class="bi bi-eye"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+  <!-- HEADER SEARCH -->
+  <template #header>
+    <div class="flex" style="justify-content: flex-start !important;padding: 0 1em;">
+      <InputText
+        v-model="filtersAbonnees['global'].value"
+        placeholder="Recherche..."
+      />
+    </div>
+  </template>
+
+  <!-- Date -->
+  <Column
+    field="created_at"
+    header="Date d'enregistrement"
+    style="width: 20%; padding: 1em"
+  >
+    <template #body="slotProps">
+      {{ new Date(slotProps.data.created_at).toLocaleDateString("fr") }}
+    </template>
+  </Column>
+
+  <!-- Entreprise -->
+  <Column
+    field="nom"
+    header="Entreprise"
+    style="width: 20%; padding: 1em"
+  >
+    <template #body="slotProps">
+      <span>
+        {{ slotProps.data.nom }}
+        <span v-if="slotProps.data.view == 1" class="badge bg-danger ms-1">
+          New
+        </span>
+      </span>
+    </template>
+  </Column>
+
+  <!-- Email -->
+  <Column
+    field="email"
+    header="Email"
+    style="width: 20%; padding: 1em"
+  />
+
+  <!-- Structure -->
+  <Column
+    header="Structure"
+    style="width: 20%; padding: 1em"
+  >
+    <template #body="slotProps">
+      {{ slotProps.data?.statut_entreprise || '-' }}
+    </template>
+  </Column>
+
+  <!-- Abonnement -->
+  <Column
+    header="Formule d'abonnement"
+    style="width: 20%; padding: 1em"
+  >
+    <template #body="slotProps">
+      {{
+        slotProps.data?.user?.abonement?.length
+          ? verifIfAbonnementCurrently(slotProps.data.user.abonement)
+          : "Pas d'abonnement"
+      }}
+    </template>
+  </Column>
+
+  <!-- Action -->
+  <Column
+    header="Action"
+    style="width: 10%; padding: 1em"
+  >
+    <template #body="slotProps">
+      <a
+        href="#"
+        @click.prevent="getDetailCompanySuscribe(slotProps.data.id)"
+      >
+        <i class="bi bi-eye"></i>
+      </a>
+    </template>
+  </Column>
+
+</DataTable>
+             
             </div>
           </div>
         </div>
@@ -292,47 +287,102 @@ export default {
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12 card py-3 px-2">
-              <table id="MyTableData_entreprise2" class="table">
-                <thead>
-                  <tr>
-                    <th class="bg-light">Date d'enregistrement</th>
-                    <th class="bg-light">Entreprise</th>
-                    <th class="bg-light">Email</th>
-                    <th class="bg-light">Structure</th>
-                    <th class="bg-light">Formule d'abonnement</th>
-                    <th class="bg-light">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(item, index) in this.$store.state.listEntreprisePasAbonnee"
-                    :key="index"
-                  >
-                    <td>{{ new Date(item.created_at).toLocaleDateString("fr") }}</td>
-                    <td>
-                      {{ item.nom }}
-                      <span class="badge bg-danger" v-if="item.view == 1">New</span>
-                    </td>
-                    <td>{{ item.email }}</td>
-                    <td>
-                      <span>{{ item?.statut_entreprise ? item?.statut_entreprise:'-'}}</span>
-                    </td>
-                    <td>
-                      {{
-                        item?.user?.abonement.length
-                          ? this.verifIfAbonnementCurrently(item?.user?.abonement)
-                          : "Pas d'abonnement"
-                      }}
-                    </td>
+           <DataTable
+  tableStyle="min-width: 50rem"
+  :value="$store.state.listEntreprisePasAbonnee"
+  stripedRows
+  paginator
+  :rows="10"
+  :rowsPerPageOptions="[5, 10, 20, 50]"
+  v-model:filters="filtersPasAbonnees"
+  :globalFilterFields="['nom', 'email', 'statut_entreprise']"
+  class="table"
+>
 
-                    <td>
-                      <a href="#" @click.prevent="getDetailCompanyNotSuscribe(item.id)">
-                        <i class="bi bi-eye"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+  <!-- HEADER SEARCH -->
+  <template #header>
+    <div class="flex" style="justify-content: flex-start !important;padding: 0 1em;">
+      <InputText
+        v-model="filtersPasAbonnees['global'].value"
+        placeholder="Recherche..."
+      />
+    </div>
+  </template>
+
+  <!-- Date -->
+  <Column
+    field="created_at"
+    header="Date d'enregistrement"
+    style="width: 20%; padding: 1em"
+  >
+    <template #body="slotProps">
+      {{ new Date(slotProps.data.created_at).toLocaleDateString("fr") }}
+    </template>
+  </Column>
+
+  <!-- Entreprise -->
+  <Column
+    field="nom"
+    header="Entreprise"
+    style="width: 20%; padding: 1em"
+  >
+    <template #body="slotProps">
+      <span>
+        {{ slotProps.data.nom }}
+        <span v-if="slotProps.data.view == 1" class="badge bg-danger ms-1">
+          New
+        </span>
+      </span>
+    </template>
+  </Column>
+
+  <!-- Email -->
+  <Column
+    field="email"
+    header="Email"
+    style="width: 20%; padding: 1em"
+  />
+
+  <!-- Structure -->
+  <Column
+    header="Structure"
+    style="width: 20%; padding: 1em"
+  >
+    <template #body="slotProps">
+      {{ slotProps.data?.statut_entreprise || '-' }}
+    </template>
+  </Column>
+
+  <!-- Abonnement -->
+  <Column
+    header="Formule d'abonnement"
+    style="width: 20%; padding: 1em"
+  >
+    <template #body="slotProps">
+      {{
+        slotProps.data?.user?.abonement?.length
+          ? verifIfAbonnementCurrently(slotProps.data.user.abonement)
+          : "Pas d'abonnement"
+      }}
+    </template>
+  </Column>
+
+  <!-- Action -->
+  <Column
+    header="Action"
+    style="width: 10%; padding: 1em"
+  >
+    <template #body="slotProps">
+      <a
+        href="#"
+        @click.prevent="getDetailCompanyNotSuscribe(slotProps.data.id)"
+      >
+        <i class="bi bi-eye"></i>
+      </a>
+    </template>
+  </Column>
+
+</DataTable>
             </div>
           </div>
         </div>
@@ -341,13 +391,84 @@ export default {
   </div>
 </template>
 <style scoped>
+:deep(.p-inputtext){
+  border: 2px solid black;
+}
+:deep(.p-datatable-header){
+  border: none !important;
+  display: flex;
+  justify-content: flex-end;
+}
+:deep(.p-datatable .p-datatable-paginator-bottom) {
+  background: #ffffff;
+  border: none;
+  border-top: 1px solid #f1f5f9;
+  padding: 1rem;
+  border-radius: 0 0 16px 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* Boutons */
+:deep(.p-paginator .p-paginator-page),
+:deep(.p-paginator .p-paginator-prev),
+:deep(.p-paginator .p-paginator-next),
+:deep(.p-paginator .p-paginator-first),
+:deep(.p-paginator .p-paginator-last) {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 10px;
+  border: none;
+
+  background: #f8fafc;
+  color: #334155;
+
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+:deep(.p-paginator .p-paginator-page:hover),
+:deep(.p-paginator .p-paginator-prev:hover),
+:deep(.p-paginator .p-paginator-next:hover),
+:deep(.p-paginator .p-paginator-first:hover),
+:deep(.p-paginator .p-paginator-last:hover) {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+/* Active */
+:deep(.p-paginator .p-paginator-page.p-highlight) {
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+/* Texte */
+:deep(.p-paginator .p-paginator-current) {
+  margin: 0 1rem;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Dropdown */
+:deep(.p-paginator .p-dropdown) {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
 .bi {
   font-size: 1.5em !important;
   cursor: pointer;
 }
-.table {
-  border: thin solid rgba(139, 139, 139, 0.63) !important;
-}
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;

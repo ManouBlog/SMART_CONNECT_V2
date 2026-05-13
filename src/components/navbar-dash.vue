@@ -121,7 +121,7 @@ this.get_Contrat();
           >
             <i class="bi bi-building" style="margin-left: -1.2em"></i>
             <router-link :to="{ name: 'entreprises' }" @click.prevent="get_users">
-              <strong>Employeurs</strong>
+              <strong>Entreprises</strong>
               <BadgeCompVue
                 v-if="this.$store.state.nbreBadgeEntreprise > 0"
                 :nbreTotal="this.$store.state.nbreBadgeEntreprise"

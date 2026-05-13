@@ -127,7 +127,7 @@ export default {
                     >
                       {{
                         item.recruit === 1
-                          ? "Accepté"
+                          ? "Retenu"
                           : item.recruit === 2
                           ? "Non retenu"
                           : "En attente de réponse"
