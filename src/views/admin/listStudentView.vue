@@ -556,6 +556,11 @@ export default {
   </div>
 </template>
 <style scoped>
+:deep(.btn-sm){
+  background-color: rgb(214, 213, 213) !important;
+   padding: 0.7em !important;
+   border-radius: 0px !important;
+}
 .btn-color{
   padding: 0.7em !important;
   background-color: rgb(2, 61, 72) !important;
