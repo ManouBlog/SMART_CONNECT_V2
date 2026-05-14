@@ -184,7 +184,7 @@ export default {
         <a-menu-item>
           <LiensNavBar :texte="'Mon espace'" :route_lien="'profil'" />
         </a-menu-item>
-        <a-menu-item>
+        <a-menu-item v-if="user.user.statuses.some(s=>['Etudiant','Professionnel','Vétéran','Artisan'].includes(s.statut))">
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/offre_postule" class="d-block">
               {{ texte2 }}

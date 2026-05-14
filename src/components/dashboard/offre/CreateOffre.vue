@@ -267,7 +267,6 @@ export default {
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
-
     show_offre_modify() {
       this.modify_offre = !this.modify_offre;
       this.id_offre_update = "";

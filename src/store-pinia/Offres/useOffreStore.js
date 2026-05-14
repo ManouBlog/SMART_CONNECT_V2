@@ -114,9 +114,11 @@ export const useOffreStore = defineStore('offres', {
               })
           },
           async get_categorie() {
+            const tokenUser = localStorage.getItem('token');
+            const router = tokenUser ? 'seeCategorieForAuthUser':'seeCategorie';
             Spinner.launchLoading(true)
             await instance
-              .get("seeCategorie")
+              .get(router)
               .then((res) => {
                 // console.log("TIMETABLE", res);
                 this.categoriesOffres = res.data.data;
