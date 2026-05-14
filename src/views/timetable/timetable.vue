@@ -741,7 +741,7 @@ if(isEtudiant){
       </button>
     </div>
   </section>
-  <section v-else>
+  <section class="jobs_filters_shimmer">
     <div
       style="
         min-height: 60vh !important;
@@ -752,7 +752,8 @@ if(isEtudiant){
       class="shimmer-text"
     >
      <p style="margin:1em 0;text-align: center;">Chargement....</p> 
-       <div class="container-fuid d-grid px-3"
+       <div class="container-fuid"
+       style="display: flex;justify-content:center;gap:1em;flex-wrap: wrap;"
     >
         <ShimmerCard />
         <ShimmerCard />
@@ -809,6 +810,9 @@ if(isEtudiant){
 }
 .jobs_filters {
   padding: 2em;
+  margin: 6.8em 0 2em 0;
+}
+.jobs_filters_shimmer{
   margin: 6.8em 0 2em 0;
 }
 .conteneur_timetable {
@@ -1301,6 +1305,9 @@ if(isEtudiant){
 }
 @media screen and (max-width: 1199px) {
   .jobs_filters {
+    margin: 0em 0 2em 0;
+  }
+  .jobs_filters_shimmer{
     margin: 0em 0 2em 0;
   }
   .d-grid {

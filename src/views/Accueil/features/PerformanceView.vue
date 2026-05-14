@@ -31,14 +31,13 @@ const formatNumber = (value) => {
   const v = Math.floor(value)
 
   if (v >= 1000000) {
-    return parseFloat((v / 1000000).toFixed(1))
+    return parseFloat((v / 1000000))
   }
 
   if (v >= 1000) {
-    return parseFloat((v / 1000).toFixed(1))
+    return parseFloat((v / 1000))
   }
-
-  return v
+  return v;
 }
 
 
@@ -127,7 +126,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Particulier(s)'"
-            :nbre="Number(formatNumber(Number(particuliers)))"
+            :nbre="formatNumber(particuliers)"
             :class="{ 'fade-in circle-item': cardPerfVisible}"
             :isPayement="false"
             :suffix="formatSuffix(Number(particuliers))"
@@ -140,7 +139,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte55"
-            :nbre="Number(formatNumber(Number(student)))"
+            :nbre="formatNumber(student)"
             :class="{ 'fade-in circle-item': cardPerfVisible }"
             :isPayement="false"
             :suffix="formatSuffix(Number(student))"
@@ -151,7 +150,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Professionnel(s)'"
-            :nbre="Number(formatNumber(Number(professionnels)))"
+            :nbre="formatNumber(professionnels)"
             :class="{ 'fade-in circle-item': cardPerfVisible }"
             :isPayement="false"
             :suffix="formatSuffix(Number(professionnels))"
@@ -162,7 +161,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Artisan(s)'"
-            :nbre="Number(formatNumber(Number(artisans)))"
+            :nbre="formatNumber(artisans)"
             :class="{ 'fade-in circle-item': cardPerfVisible }"
             :isPayement="false"
             :suffix="formatSuffix(Number(artisans))"
@@ -173,7 +172,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="'Vétéran(s)'"
-            :nbre="Number(formatNumber(Number(veterans)))"
+            :nbre="formatNumber(veterans)"
             :class="{ 'fade-in circle-item': cardPerfVisible }"
             :isPayement="false"
             :suffix="formatSuffix(Number(veterans))"
@@ -185,7 +184,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_one'"
             :icone_name="'bi bi-building icon'"
             :texte="texte1"
-            :nbre="Number(formatNumber(Number(entreprises)))"
+            :nbre="formatNumber(entreprises)"
             :class="{ 'slide-from-left circle-item': cardPerfVisible }"
              :isPayement="false"
              :suffix="'K'"
@@ -196,7 +195,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-briefcase-fill'"
             :texte="texte2"
-            :nbre="Number(formatNumber(Number(offres)))"
+            :nbre="formatNumber(offres)"
             :class="{ 'fade-in circle-item': cardPerfVisible }"
              :isPayement="false"
              :suffix="formatSuffix(Number(offres))"
@@ -208,7 +207,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte3"
-            :nbre="Number(formatNumber(Number(timetable)))"
+            :nbre="formatNumber(timetable)"
             :class="{ 'fade-in circle-item': cardPerfVisible }"
              :isPayement="false"
              :suffix="formatSuffix(Number(timetable))"
@@ -220,7 +219,7 @@ onUnmounted(() => {
             :myStyle="'card_perfor_nbre_student_save'"
             :icone_name="'bi bi-person-lines-fill'"
             :texte="texte4"
-            :nbre="Number(formatNumber(Number(visiteur)))"
+            :nbre="formatNumber(visiteur)"
             :class="{ 'slide-from-right circle-item': cardPerfVisible }"
              :isPayement="false"
              :suffix="formatSuffix(Number(visiteur))"

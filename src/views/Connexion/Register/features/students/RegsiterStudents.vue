@@ -232,21 +232,20 @@ idStatutChoice:Object
     // Fonction qui retourne la valeur du store à observer
     getFirstHeureStartFrom: {
       handler(value) {
-        // console.log("value qualifications", value);
-      
+        console.log("value qualifications", value);
       },
       immediate: true, // si tu veux déclencher au montage
     },
     getFirstHeureFinFrom: {
       handler(value) {
-        // console.log("value qualifications", value);
+        console.log("value qualifications", value);
         
       },
       immediate: true, // si tu veux déclencher au montage
     },
     getTableauDays: {
       handler(value) {
-        // console.log("TableauDays", value);
+        console.log("TableauDays", value);
        
       },
       immediate: true, // si tu veux déclencher au montage

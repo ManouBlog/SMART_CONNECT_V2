@@ -107,15 +107,13 @@ export default {
       return element;
     },
     onFinish(values) {
-      // console.log("Success:", values);
+      console.log("Success:", values);
       if (
         this.configUtils.isValidPhoneNumber(this.formState.phone) ||
         this.configUtils.isValidPhoneNumber(this.formState.Phonegerant)
       ) {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          // console.log("this.formState",this.formState)
-          // alert(JSON.stringify(this.formState,null,2))
           this.changeValueIsPolitics({
             value: true,
             infoUser: "entreprise",
@@ -132,7 +130,7 @@ export default {
       }
     },
     onHandleFailed(errorInfo) {
-      // console.log("Failed:", errorInfo);
+      console.log("Failed:", errorInfo);
       Swal.fire({
         icon: "warning",
         text: "Veuillez remplir tous les champs obligatoires (*)",

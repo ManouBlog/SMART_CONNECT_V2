@@ -178,7 +178,7 @@ idStatutChoice:Object
       return element;
     },
     onFinish(values) {
-      // console.log("Success:", values);
+      console.log("Success:", values);
       if(this.formState.profilHybride.length){
       this.formState.profilHybride.push(this.idStatutChoice.id);
       }

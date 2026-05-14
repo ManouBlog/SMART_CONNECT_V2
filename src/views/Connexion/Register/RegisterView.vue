@@ -77,10 +77,10 @@ export default {
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     onFinish(values) {
-      // console.log("Success:", values);
+      console.log("Success:", values);
     },
     onHandleFailed(errorInfo) {
-      // console.log("Failed:", errorInfo);
+      console.log("Failed:", errorInfo);
       Swal.fire({
         icon: "warning",
         text: "Veuillez remplir tous les champs obligatoires (*)",

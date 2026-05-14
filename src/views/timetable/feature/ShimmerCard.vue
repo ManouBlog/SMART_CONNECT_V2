@@ -29,10 +29,16 @@ export default {
 </script>
 
 <style scoped>
+:depp(.card){
+   height:130px !important;
+   width: 200px !important;
+}
 .shimmer-card {
   position: relative;
+ 
   margin-bottom: 10px;
   overflow: hidden;
+  flex: 1;
 }
 
 .shimmer-card::before {

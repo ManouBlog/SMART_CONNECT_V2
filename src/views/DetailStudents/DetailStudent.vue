@@ -202,7 +202,7 @@ export default {
     },
   },
   watch: {
-    idParamsItem(newValue, oldValue) {
+    idParamsItem(newValue) {
       // console.log("oldValue", oldValue);
       if (newValue) {
         this.getDetailStudent();
@@ -602,15 +602,13 @@ for (const item of data) {
       this.checkbox = false;
     },
     async choiceOtherTalentNotStudent(studentId){
-     // console.log("choiceOtherTalentNotStudent",studentId)
-     // console.log("this.selectedOffreWithDate",this.selectedOffreWithDate)
      try{
   const response = await instance.post("entreprise_student", {
           student_id: studentId,
           option: "date",
           offre_id: this.selectedOffreWithDate,
     })
-    // console.log("choiceOtherTalentNotStudent",response)
+    console.log("choiceOtherTalentNotStudent",response)
      }catch(error){
       console.log(error);
      }
