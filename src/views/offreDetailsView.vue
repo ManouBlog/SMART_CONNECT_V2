@@ -189,7 +189,7 @@ Swal.fire({
       <div class="col-lg-12">
         <div class="offres_disponible row container">
           <div class="col-md-12 col-sm-12 entreprise">
-            <div class="card px-5">
+            <div class="card px-5" style="min-width:300px !important;">
               <section>
                 <div class="d-flex">
                   <img
@@ -211,6 +211,13 @@ Swal.fire({
                     {{ Offre.nom_offre }}
                   </h1>
                 </div>
+               <span v-if="Offre?.enable_urgent" class="badge bg-danger p-3" style="width:65px">Urgente</span>
+                <div
+                  class="d-flex flex-wrap mt-2 mx-2"
+                  style="color: white;font-size: 1.4em;"
+                >
+                  Catégorie : <span style="color: orange;"> {{ Offre?.competence?.categorie?.categorie }}</span> 
+              </div>
                 <div class="d-flex flex-wrap gap-2 mt-2" v-if="Offre.countries.length">
                   <h4
                   class="my-5"
@@ -273,13 +280,19 @@ Swal.fire({
               </section>
 
               <section>
+                 <h4  v-if="Offre.hour_debut" >
+                Heure de début : {{ Offre.hour_debut }}
+                
+                </h4>
+                 <h4  v-if="Offre.hour_fin" >
+                Heure de fin : {{ Offre.hour_fin }}
+                </h4>
                 <h4  v-if="Offre.job_debut" >
-                  <span class="fw-bold" style="font-size: 0.7em;">{{ texte2 }}</span>
-                  <span style="font-size: 0.8em; margin-top: 1em;">{{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0] ) }}</span>
+                 {{ texte2 }} : {{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0] ) }}
+
                 </h4>
                 <h4  v-if="Offre.job_fin">
-                  <span class="fw-bold" style="font-size: 0.7em; margin-top: 1em;">{{ texte3 }}</span>
-                 <span style="font-size: 0.8em; margin-top: 1em;">{{ configUtils.getFormatDateFr(Offre.job_fin) }}</span> 
+                {{ texte3 }} : {{ configUtils.getFormatDateFr(Offre.job_fin) }}
                 </h4>
               </section>
               <section v-if="Offre.fin">
@@ -341,7 +354,8 @@ button {
 
 
 #conteneur_description {
-  text-align: justify;
+  text-align: left;
+  font-size:1.3em;
 }
 :deep(p) {
   font-weight: lighter !important;
