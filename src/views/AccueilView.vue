@@ -476,7 +476,7 @@ this.getAllStatistique();
                 { libelle: 'Abonnées', value: list_particuliers.abonne },
                 { libelle: 'Non abonnées', value: list_particuliers.nonAbonne },
               ]"
-              nameRouter="entreprises"
+              nameRouter="particulier"
               :numberStatistic="Number(list_particuliers.total)"
               icon_libelle="bi-building"
               title="Particuliers"
