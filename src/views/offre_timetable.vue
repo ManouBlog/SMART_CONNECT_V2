@@ -542,6 +542,7 @@ form {
   border-radius: 10px;
   box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.053);
   background: white;
+  border:2px solid orange;
 }
 .informations_offres {
   padding: 0 1em;
