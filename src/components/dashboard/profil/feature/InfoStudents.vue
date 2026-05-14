@@ -72,7 +72,7 @@ export default {
       "changeValueForToogleModalInfoPersonnelle",
       "verifIfPasswordIsExact",
       "update_compte_student",
-      // "addInfoUserConnected",
+      "addInfoUserConnected",
     ]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
    
@@ -108,7 +108,8 @@ export default {
         });
     },
     handleModalInfo(payload = null){
-    
+    // console.log("handleModalInfo56",this.user);
+    this.addInfoUserConnected( this.user)
       if (payload) {
         this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: true });
       } else {
