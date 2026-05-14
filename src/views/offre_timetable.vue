@@ -112,7 +112,7 @@ export default {
         lieu: this.searchLieu,
         pays: this.selectedCountries.length ? this.selectedCountries?.map((item) => item?.id) : [],
       };
-      // console.log("dataSearch", dataSearch);
+     
       this.get_list_offre(dataSearch);
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -122,60 +122,6 @@ export default {
         .get("list_offres")
         .then((res) => {
           if (res.data.status) {
-//             let OFFRES_FILTER_BY_PROFIL = [];
-//              const profilALL = this.$store.state.user?.user.statuses;
-//              console.log('handleListOffresWithoutSearch_profilALL',profilALL)
-//              const isProfessionnel = profilALL.some(s => 
-//   s.statut?.toLowerCase() === "professionnel"
-// );
-// const isArtisan = profilALL.some(s => 
-//   s.statut?.toLowerCase() === "artisan"
-// );
-
-// const isStudent = profilALL.some(s => 
-//   s.statut?.toLowerCase() === "etudiant"
-// );
-
-// const isVeteran = profilALL.some(s => 
-//   s.statut?.toLowerCase() === "vétéran"
-// );
-
-
-
-// let allowedStatuts = []
-
-// switch (true) {
-//   case isProfessionnel && isArtisan:
-//     allowedStatuts = ['professionnel', 'artisan']
-//     break
-
-//   case isProfessionnel:
-//     allowedStatuts = ['professionnel']
-//     break
-
-//   case isArtisan:
-//     allowedStatuts = ['artisan']
-//     break
-
-//   case isStudent:
-//     allowedStatuts = ['etudiant']
-//     break
-
-//   case isVeteran:
-//     allowedStatuts = ['vétéran']
-//     break
-
-//   default:
-//     allowedStatuts = []
-//     break
-// }
-
-// OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
-//   const offres_status = item.statuses || [];
-//   return offres_status.some(statut => {
-//     return allowedStatuts.includes(statut.statut?.toLowerCase());
-//   });
-// });
             this.MylistOffre=res.data.data;
             this.lengthOfMylistOffre = this.MylistOffre.length;
           }
@@ -330,7 +276,7 @@ if (!user.competences.length || !user.qualifications.length) {
     this.texte2 = await this.handleTranslate("Ex:Lieu (Angré cocody)");
     this.texte3 = await this.handleTranslate("Offres");
     this.texte4 = await this.handleTranslate("Nous avons trouvé");
-    this.texte5 = await this.handleTranslate("Nouveauté");
+    this.texte5 = await this.handleTranslate("Nouvelle");
     this.texte6 = await this.handleTranslate("Voir les détails");
     this.texte7 = await this.handleTranslate("Offre Expirée");
     this.texte8 = await this.handleTranslate("Charger plus");
@@ -462,7 +408,8 @@ if (!user.competences.length || !user.qualifications.length) {
                   :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'"
                   >{{ texte5 }}</span
                 >
-                <h1 style="font-size: 1em; margin: 0.5em 0">{{ offre.nom_offre }}</h1>
+                <h1 style="font-size: 1.5em; margin: 0.5em 0">{{ offre.nom_offre }}</h1>
+                <h1 style="font-size: 1em; margin: 0.5em 0"><span style="color:orange">{{ offre?.competence?.categorie?.categorie }}</span></h1>
                 <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
                 <br />
                 <span><em class="bi bi-cash"></em> Rémuneration :</span>
