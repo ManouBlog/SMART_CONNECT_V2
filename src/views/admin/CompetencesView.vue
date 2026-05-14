@@ -281,7 +281,7 @@ export default {
                                 v-for="(item, index) in AllCategorie"
                                 :key="index"
                               >
-                                {{ item.categorie }}
+                                {{ item.categorie }} ({{ item.is_artisan ? 'Particulier':'Entreprise' }})
                               </option>
                             </select>
                           </div>

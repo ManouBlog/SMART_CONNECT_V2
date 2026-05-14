@@ -2,9 +2,13 @@
 /* eslint-disable */
 import $ from "jquery";
 import axios from "axios";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Swal from "sweetalert2";
+import Tabs from 'primevue/tabs';
+import TabList from 'primevue/tablist';
+import Tab from 'primevue/tab';
+import TabPanels from 'primevue/tabpanels';
+import TabPanel from 'primevue/tabpanel';
+
 export default {
   data() {
     return {
@@ -12,15 +16,17 @@ export default {
       categories: null,
       spinner: true,
       loading: false,
+      getForm:'entreprise'
     };
   },
   methods: {
-    async create_categorie() {
+    async create_categorie(payload) {
       await axios
         .post(
           "https://backend.monbrobroli.com/api/categorie",
           {
             categorie: this.categorie,
+            whomDomaine:payload
           },
           {
             headers: {
@@ -225,11 +231,53 @@ export default {
               <div class="card">
                 <div class="card-body">
                   <div class="form theme-form projectcreate">
-                    <form @submit.prevent="create_categorie">
+                    <div style="display:flex;align-items:center; gap:1em;">
+                      <button style="padding:0.3em; border:none;" 
+                       :class="getForm === 'entreprise' ? 'bg-warning':'btn-gray'"
+                      @click="getForm = 'entreprise'">Entreprises</button>
+                      <button style="padding:0.3em; border:none;"
+                       :class="getForm === 'particulier' ? 'bg-warning':'btn-gray'"
+                       @click="getForm = 'particulier'">Particuliers</button>
+                    </div>
+                    <form @submit.prevent="create_categorie('entreprise')" v-if="getForm == 'entreprise'">
                       <div class="row">
                         <div class="col-lg-12">
                           <div class="mb-3 text-start font-bold">
-                            <p style="font-weight: bold; font-size: 1.5em">Domaines</p>
+                            <p style="font-weight: bold; font-size: 1.5em">Domaines entreprise</p>
+                            <input
+                              class="form-control"
+                              type="text"
+                              v-model="categorie"
+                              placeholder="ex:Restauration,Menuisierie"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="text-end">
+                            <button
+                              :disabled="!categorie"
+                              class="btn btn-primary me-3"
+                              type="submit"
+                            >
+                              <span
+                                class="spinner-border w-20"
+                                role="status"
+                                v-show="loading"
+                              ></span
+                              ><span>Enregistrer un domaine</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                     <form @submit.prevent="create_categorie('particulier')" v-if="getForm == 'particulier'">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="mb-3 text-start font-bold">
+                            <p style="font-weight: bold; font-size: 1.5em">Domaines particulier</p>
                             <input
                               class="form-control"
                               type="text"
@@ -279,12 +327,14 @@ export default {
               <table id="MyTableData" class="table" v-if="categories != null">
                 <thead>
                   <tr>
+                    <th class="bg-light">Employeurs</th>
                     <th class="bg-light">Domaines</th>
                     <th class="bg-light">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(item, index) in categories" :key="index">
+                     <td>{{ item.is_artisan ? 'Particuliers':'Entreprises' }}</td>
                     <td>{{ item.categorie }}</td>
                     <td>
                       <div class="d-flex justify-content-center gap-5 align-items-center">
