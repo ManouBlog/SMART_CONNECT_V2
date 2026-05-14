@@ -114,6 +114,7 @@ export default {
   lieu: "",
   hour_debut:null,
   hour_fin:null,
+  enable_urgent:false,
   typeMission: null,   // "immediat" ou "date"
   dateMission: null,   // utilisé seulement si typeMission === "date"
   description: "",
@@ -631,6 +632,9 @@ resetDataFormState(){
   this.formState.competence_id="";
   this.formState.job_debut="";
   this.formState.job_fin=""
+   this.formState.hour_debut = null;
+    this.formState.hour_fin = null;
+     this.formState.enable_urgent=false
 },
 chooseCompetenceFormState(value) {
   
@@ -1023,6 +1027,23 @@ chooseCompetenceFormState(value) {
       </a-form-item>
     </a-col>
   </a-row>
+   <a-row :gutter="[16, 16]">
+    <a-col
+      :xs="24"
+      :md="12"
+      
+    >
+       <a-form-item label="Urgente">
+    <a-switch v-model:checked="formState.enable_urgent"
+    :style="{
+    backgroundColor: formState.enable_urgent ? 'green' : ''
+  }"
+    />
+    </a-form-item>
+    </a-col>
+  
+  </a-row>
+ 
 
   <!-- Description -->
   <a-row :gutter="[16, 16]">

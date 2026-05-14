@@ -244,7 +244,7 @@ export default {
       this.loadingSpinner.launchLoading(true);
       try{
      const id = this.$route.params.id
-      const { data } = await instance.get(`show_detail_offre_entreprise/${id}`)
+      const { data } = await instance.get(`detail_offre/${id}`)
       const offre = data.data
       
       this.formState.categorie_offre_id = offre.categorie_offre_id
@@ -314,7 +314,7 @@ export default {
     show_offre_id() {
       this.loadingSpinner.launchLoading(true);
       instance
-        .get("show_detail_offre_entreprise/"+this.$route.params.id)
+        .get("detail_offre/"+this.$route.params.id)
         .then((res) => {
           this.offre_id = res.data.data;
           this.getCompetenceWithCategorie(this.offre_id.categorie_offre_id)

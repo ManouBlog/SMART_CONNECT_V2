@@ -80,7 +80,7 @@ export default {
     get_offres() {
       this.launchLoading(true);
       instance
-        .get("show_detail_offre_entreprise/"+this.$route.params.id)
+        .get("detail_offre/"+this.$route.params.id)
         .then((res) => {
           this.entreprise = res.data.data;
         
@@ -118,11 +118,13 @@ export default {
     <div class="container px-5" v-if="entreprise != null">
       <div class="details_entreprise card p-5">
         <div class="px-5">
+           <span v-if="entreprise.enable_urgent" class="bg-danger" style="padding:0.3em;">Urgente</span>
           <h1>{{ entreprise.nom_offre }}</h1>
           <h4>
-            {{ texte1 }} :<strong style="color: orange"> {{ entreprise.lieu }}</strong>
+            {{ texte1 }} : <strong style="color: orange"> {{ entreprise.lieu }}</strong>
+            
           </h4>
-
+         
           <span
             v-if="entreprise.salaire != null"
             class="d-block text-light badge bg-warning h5 px-3"
@@ -154,16 +156,23 @@ export default {
         
         </div>
         
-       
         <div class="px-5 my-4">
-          <h4 class="fw-bold my-4" style="color: white">{{this.$store.state.user.user.statut.statut == 'Entreprise' ? texte3:'Description' }}</h4>
+          <h4 class="fw-bold my-4" style="color: white">Catégorie : <strong style="color: orange">{{ entreprise.competence.categorie.categorie }}</strong></h4>
+         </div>
+
+        <div class="px-5 my-4">
+          <h4 class="fw-bold my-4" style="color: white">{{this.$store.state.user.user.statut.statut == 'Entreprise' ? texte3:'Description : ' }}</h4>
           <div class="description_html" v-html="entreprise.description"></div>
         </div>
 
         
+        
         <div class="px-5">
           <span class="px-3" v-if="entreprise.fin">{{ texte5 }} : {{ entreprise.fin }}</span>
-        
+        </div>
+          <div class="px-5 flex g-5">
+          <span  v-if="entreprise.hour_debut">Heure de début : {{ entreprise.hour_debut }}</span>
+          <span  v-if="entreprise.hour_fin">Heure de fin : {{ entreprise.hour_fin }}</span>
         </div>
         <div class="px-3">
           <span class="d-block px-3">{{ texte8 }}: {{ entreprise?.job_debut }}</span>
