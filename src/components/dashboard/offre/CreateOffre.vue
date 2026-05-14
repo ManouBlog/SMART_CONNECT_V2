@@ -82,12 +82,38 @@ export default {
       message: "La description doit contenir au moins 10 caractères",
       trigger: "blur"
     }
-  ]
+  ],
+  hour_fin: [
+    {
+      required: false,
+      message: "Veuillez sélectionner une heure de fin",
+      trigger: "change",
+    },
+    {
+      validator: async (_rule, value) => {
+
+        if (!this.formState.hour_debut || !value) {
+          return Promise.resolve();
+        }
+
+        if (value <= this.formState.hour_debut) {
+          return Promise.reject(
+            "L'heure de fin doit être supérieure à l'heure de début"
+          );
+        }
+
+        return Promise.resolve();
+      },
+      trigger: "change",
+    },
+  ],
 },
       formState: {
   offre: "",
   salaire: "",
   lieu: "",
+  hour_debut:null,
+  hour_fin:null,
   typeMission: null,   // "immediat" ou "date"
   dateMission: null,   // utilisé seulement si typeMission === "date"
   description: "",
@@ -977,12 +1003,33 @@ chooseCompetenceFormState(value) {
     </a-col>
   </a-row>
 
+  <a-row :gutter="[16, 16]">
+    <a-col
+      :xs="24"
+      :md="12"
+      
+    >
+      <a-form-item name="hour_debut" label="Heure de début">
+        <a-input  type="time" v-model:value="formState.hour_debut" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+    <a-col
+      :xs="24"
+      :md="12"
+     
+    >
+      <a-form-item name="hour_fin" label="Heure de fin">
+        <a-input type="time"  v-model:value="this.formState.hour_fin" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+  </a-row>
+
   <!-- Description -->
   <a-row :gutter="[16, 16]">
     <a-col :span="24">
       <a-form-item name="description" :label="texte18">
         <a-textarea
-          v-model:value="formState.description"
+          v-model:value="this.formState.description"
           :rows="6"
           style="border:1px solid #cdcccc !important"
         />
