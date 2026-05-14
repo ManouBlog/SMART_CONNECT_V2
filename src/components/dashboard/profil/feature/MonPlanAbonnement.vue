@@ -64,7 +64,7 @@ export default {
         <span style="font-size: 2em">{{periodePayment[planAbonnement.mode_payment]}}</span>
       </div>
       <div>
-        <p> <span style="color:gray">Fin de l'abonnement:</span><span>{{planAbonnement.echeance}}</span></p>
+        <p style="color:red"> <span style="font-weight: bold;">Fin de l'abonnement:</span><span>{{planAbonnement.echeance}}</span></p>
        
       </div>
     </a-card>
@@ -82,5 +82,8 @@ export default {
 :deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-head){
   background: orange !important;
   color:white !important;
+}
+:deep(li){
+  list-style-type:circle !important;
 }
 </style>

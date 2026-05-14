@@ -741,7 +741,7 @@ if(isEtudiant){
       </button>
     </div>
   </section>
-  <section class="jobs_filters_shimmer">
+  <section class="jobs_filters_shimmer" v-else>
     <div
       style="
         min-height: 60vh !important;
