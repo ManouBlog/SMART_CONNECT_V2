@@ -182,7 +182,7 @@ export default {
         />
         <SelectionnesDetailDatatable
           :donnees="data"
-          v-if="nameDatatable === 'Talents sélectionnés'"
+          v-if="nameDatatable === 'Mes talents'"
         />
       </template>
     </Column>

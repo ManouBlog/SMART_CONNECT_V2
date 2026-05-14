@@ -59,7 +59,7 @@ export default {
       to="/dashboard/personnel"
       class="d-block"
     >
-      Talents sélectionnés
+      Mes talents
      </router-link>
   </li>
   <li>

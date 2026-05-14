@@ -94,7 +94,7 @@ export default {
       ]
     this.texte0 = await this.handleTranslate('Liste des talents');
     this.texte1 = await this.handleTranslate(`Talents contactés`);
-    this.texte2 = await this.handleTranslate("Talents sélectionnés");
+    this.texte2 = await this.handleTranslate("Mes talents");
     this.texte3 = await this.handleTranslate('Commune');
     this.texte4 = await this.handleTranslate('Télephone');
     this.texte5 = await this.handleTranslate('Diplome');
@@ -146,7 +146,7 @@ export default {
           :DATACOLUMN="allColumnsDataStudentRecruit"
           :globalFilterFields="fieldsForFilter"
           :DATAfORfILTER="filters"
-          :nameDatatable="'Talents sélectionnés'"
+          :nameDatatable="'Mes talents'"
         />
       </div>
     </div>

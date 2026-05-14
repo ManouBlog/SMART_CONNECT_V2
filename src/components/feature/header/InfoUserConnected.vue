@@ -133,7 +133,7 @@ export default {
     //  this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte20 = await this.handleTranslate("Liste des offres");
     this.texte30 = await this.handleTranslate("Créer une offre");
-    this.texte24 = await this.handleTranslate("Talents sélectionnés");
+    this.texte24 = await this.handleTranslate("Mes talents");
     this.texte50 = await this.handleTranslate("Postulants");
     // this.texte6 = await this.handleTranslate("Mes abonnements");
     // this.texte7 = await this.handleTranslate("Déconnexion");
