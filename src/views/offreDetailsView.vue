@@ -176,7 +176,7 @@ Swal.fire({
     this.texte11 = await this.handleTranslate("Offres");
     this.texte12 = await this.handleTranslate("Nous avons trouvé");
     this.texte13 = await this.handleTranslate("Nouveauté");
-    this.texte14 = await this.handleTranslate("Voir les Détails");
+    this.texte14 = await this.handleTranslate("Voir plus");
     this.texte15 = await this.handleTranslate("Offre Expirée");
     this.texte16 = await this.handleTranslate("Charger plus");
     this.getAbonnementUser();

@@ -104,7 +104,7 @@ if (!user.competences.length || !user.qualifications.length) {
     this.texte3 = await this.handleTranslate(`Honoraire (Fcfa)`);
     this.texte5 = await this.handleTranslate("Statut");
     this.texte6 = await this.handleTranslate("Détails");
-    this.texte14 = await this.handleTranslate("Voir les Détails");
+    this.texte14 = await this.handleTranslate("Voir plus");
     this.texte15 = await this.handleTranslate("Offre Expirée");
   },
 };

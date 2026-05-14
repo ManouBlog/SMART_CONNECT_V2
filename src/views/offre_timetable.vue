@@ -277,7 +277,7 @@ if (!user.competences.length || !user.qualifications.length) {
     this.texte3 = await this.handleTranslate("Offres");
     this.texte4 = await this.handleTranslate("Nous avons trouvé");
     this.texte5 = await this.handleTranslate("Nouvelle");
-    this.texte6 = await this.handleTranslate("Voir les détails");
+    this.texte6 = await this.handleTranslate("Voir plus");
     this.texte7 = await this.handleTranslate("Offre Expirée");
     this.texte8 = await this.handleTranslate("Charger plus");
     this.texte9 = await this.handleTranslate(`Vous avez atteint la fin`);
@@ -408,7 +408,11 @@ if (!user.competences.length || !user.qualifications.length) {
                   :class="configUtils.showJobNew(offre.created_at) ? null : 'd-none'"
                   >{{ texte5 }}</span
                 >
-                <h1 style="font-size: 1.5em; margin: 0.5em 0">{{ offre.nom_offre }}</h1>
+              <div style="display:flex;gap:0.5em;align-items: center;flex-wrap:wrap;">
+                 <h1 style="font-size: 1.5em; margin: 0.5em 0">{{ offre.nom_offre }}</h1>
+                <span v-if="offre.enable_urgent" class="badge bg-danger">Urgente</span>
+              </div>
+               
                 <h1 style="font-size: 1em; margin: 0.5em 0"><span style="color:orange">{{ offre?.competence?.categorie?.categorie }}</span></h1>
                 <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
                 <br />
