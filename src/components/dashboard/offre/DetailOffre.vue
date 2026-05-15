@@ -251,7 +251,7 @@ export default {
       const { data } = await instance.get(`detail_offre/${id}`)
       const offre = data.data
       console.log("loadDetailOffre",offre)
-      this.offre_detaiId = offre.id
+      this.offre_detaiId = offre;
       this.formState.categorie_offre_id = offre.categorie_offre_id
       this.formState.competence_id = offre.competence_id
       this.formState.nom_offre = offre.nom_offre
@@ -359,29 +359,44 @@ chooseCompetenceFormState(value) {
   // Reset champ "autre poste" si changement
   this.formState.otherPoste = "";
 },
-confirmRelance() {
-  Swal.fire({
-    title: 'Relancer la confirmation ?',
-    text: 'Voulez-vous vraiment renvoyer la confirmation ?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: 'orange',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Oui, relancer',
-    cancelButtonText: 'Annuler'
-  }).then((result) => {
-    if (result.isConfirmed) {
+async confirmRelance(payload) {
+  try {
+    const result = await Swal.fire({
+      title: 'Relancer la confirmation ?',
+      text: 'Voulez-vous vraiment renvoyer la confirmation ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: 'orange',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, relancer',
+      cancelButtonText: 'Annuler'
+    });
 
-      // TON ACTION ICI
-      // axios.post(...)
-      // ou submit()
+    if (!result.isConfirmed) return;
 
-      Swal.fire({
-        title: 'Confirmation relancée',
-        icon: 'success'
-      });
-    }
-  });
+    console.log("confirmRelance", payload);
+
+    // appel API
+    const response = await instance.post(`relance_mission/${payload.id}`);
+   if(response.data.status){
+   await Swal.fire({
+      title: 'Confirmation relancée',
+      icon: 'success'
+    });
+   }
+  
+  } catch (error) {
+    console.error(error);
+
+    await Swal.fire({
+      title: 'Erreur',
+      text: error,
+      icon: 'error'
+    });
+
+  } finally {
+    console.log("Relance terminée (success ou erreur)");
+  }
 },
 
     getCompetenceWithCategorie(idCategorie){
@@ -394,12 +409,12 @@ confirmRelance() {
     
   },
   async created() {
-    this.get_categorie();
-    this.getAllCompetences();
+    await this.get_categorie();
+    await this.getAllCompetences();
     if(this.$store.state.user?.user?.statut?.statut === 'Entreprise'){
-    this.show_offre_id();
+    await this.show_offre_id();
     }else{
-      this.loadDetailOffre();
+      await this.loadDetailOffre();
     }
     this.texte0 = await this.handleTranslate('Modifier Mon offre');
     this.texte1 = await this.handleTranslate("Domaines");
