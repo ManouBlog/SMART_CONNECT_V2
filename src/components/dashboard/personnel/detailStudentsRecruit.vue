@@ -326,12 +326,8 @@ export default {
                    position:absolute;top:0.8em;right: 1em;border:none;" @click="VoirProfil(item)"> 
                     Voir plus 
                   </button>
-                   {{ item.student.user }}
+  
             <section class="text-left">
-            <!-- <h4 style="margin:2em 0;padding:0.3em;">
-                <span style="color: orange">Statut :</span> 
-                
-              </h4> -->
               <h4 style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">{{ texte6 }} :</span> 
                 <span style="word-break: break-word;padding: 0.4em;">{{ item.student.email }}</span> 
@@ -382,10 +378,7 @@ export default {
               >
               
               <button
-                    v-if="
-                      item.student?.etoiles?.some(
-                        (rate) => Number(rate.offre_id) == Number(item.offre_id)
-                      )
+                    v-if="!item.student.user.rated_users.some(rate=>rate.pivot.offre_id == item.offre_id)
                     "
                     style="border: none; width:100px; padding: 1.1em 0"
                     class="btn bg-warning m-3"
@@ -397,7 +390,7 @@ export default {
                
                     <button
                     v-if="!item.certificat"
-                    style="border: none; width: 150px;padding: 0.5em 0.1em;"
+                    style="border: none; width: 170px;padding: 1em;"
                     class="btn bg-dark m-3"
                     @click="openModalCertification(item)"
                   >
