@@ -67,6 +67,7 @@ export default {
       Today: new Date().toJSON().slice(0, 10),
       spinnerModify: true,
       categories: [],
+      offre_detaiId:null,
       OptionsOfpointage: [
         {
           id: 2,
@@ -250,6 +251,7 @@ export default {
       const { data } = await instance.get(`detail_offre/${id}`)
       const offre = data.data
       console.log("loadDetailOffre",offre)
+      this.offre_detaiId = offre.id
       this.formState.categorie_offre_id = offre.categorie_offre_id
       this.formState.competence_id = offre.competence_id
       this.formState.nom_offre = offre.nom_offre
@@ -357,6 +359,30 @@ chooseCompetenceFormState(value) {
   // Reset champ "autre poste" si changement
   this.formState.otherPoste = "";
 },
+confirmRelance() {
+  Swal.fire({
+    title: 'Relancer la confirmation ?',
+    text: 'Voulez-vous vraiment renvoyer la confirmation ?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: 'orange',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Oui, relancer',
+    cancelButtonText: 'Annuler'
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      // TON ACTION ICI
+      // axios.post(...)
+      // ou submit()
+
+      Swal.fire({
+        title: 'Confirmation relancée',
+        icon: 'success'
+      });
+    }
+  });
+},
 
     getCompetenceWithCategorie(idCategorie){
     
@@ -364,7 +390,8 @@ chooseCompetenceFormState(value) {
         (item) => item.categorie.id === Number(idCategorie)
       );
       
-    }
+    },
+    
   },
   async created() {
     this.get_categorie();
@@ -563,13 +590,21 @@ chooseCompetenceFormState(value) {
               </button>
             </div>
       </form>
-      <div v-else>
+      <div v-else class="container">
+        <div style="display: flex;justify-content: flex-end;">
+          <button
+  class="btn"
+  style="background-color: orange; color: white;"
+  @click="confirmRelance(this.offre_detaiId)"
+>
+  Relancer
+</button>
+        </div>
      <a-form
      :model="formState"
      :rules="rules"
      layout="vertical"
      @finish="update_mission"
-    class="container"
     >
    
    <a-row :gutter="[16, 16]">
