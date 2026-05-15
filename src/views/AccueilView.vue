@@ -2,13 +2,12 @@
 /* eslint-disable */
 import axios from "axios";
 import Swal from "sweetalert2";
-// import VueMultiselect from "vue-multiselect";
 import Statistique_Comp from "@/components/Statistique_Comp.vue";
 import Statistiques_Account from "@/components/Statistiques_Account.vue";
 import Statistique_revenu from "@/components/Statistique_revenu.vue";
 import Statistique_visite from "@/components/Statistique_visite.vue";
 import MyCardStatistique from "@/components/MyCardStatistique.vue";
-// import Editor from "../components/text-editor.vue";
+
 export default {
   name: "AccueilView",
   components: {

@@ -3,11 +3,6 @@
 import $ from "jquery";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Tabs from 'primevue/tabs';
-import TabList from 'primevue/tablist';
-import Tab from 'primevue/tab';
-import TabPanels from 'primevue/tabpanels';
-import TabPanel from 'primevue/tabpanel';
 
 export default {
   data() {
