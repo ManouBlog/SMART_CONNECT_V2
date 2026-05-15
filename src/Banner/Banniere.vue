@@ -39,15 +39,15 @@ export default {
     },
 
     // Retourne les dimensions appropriées selon l'appareil
-    carouselDimensions() {
-      if (this.windowWidth < 768) {
-        return { height: "250px" }; // Mobile
-      }
-      if (this.windowWidth < 1024) {
-        return { height: "350px" }; // Tablette
-      }
-      return { height: "400px" }; // Desktop
-    },
+    // carouselDimensions() {
+    //   if (this.windowWidth < 768) {
+    //     return { height: "250px" }; // Mobile
+    //   }
+    //   if (this.windowWidth < 1024) {
+    //     return { height: "350px" }; // Tablette
+    //   }
+    //   return { height: "400px" }; // Desktop
+    // },
   },
   methods: {
     // Retourne l'image appropriée selon le type d'appareil
@@ -128,10 +128,9 @@ export default {
     <div class="row section-title">
       <div class="main-container">
         <div
-          class="col-lg-12 col-md-12 col-sm-12 mt-2"
+          class="col-lg-12 col-md-12 col-sm-12 mt-2 height_banniere"
           :style="{
             minWidth: '300px',
-            height: carouselDimensions.height,
             textAlign: 'center',
             position: 'relative',
           }"
@@ -150,6 +149,7 @@ export default {
               <img
                 v-if="item.lien"
                 class="carousel-img"
+                style="width: 99%;height: 100%;"
                 :src="
                   item.affiche
                     ? lienPhoto + getImageForDevice(item)
@@ -161,6 +161,7 @@ export default {
               <img
                 v-else
                 class="carousel-img"
+               style="width: 99%;height: 100%;"
                 :src="
                   item.affiche
                     ? lienPhoto + getImageForDevice(item)
@@ -177,6 +178,9 @@ export default {
 </template>
 
 <style scoped>
+.height_banniere{
+  height: 420px;
+}
 .promo-slide {
   background: #80808024;
   width: 100%;
@@ -213,24 +217,31 @@ export default {
   height: 100%;
 }
 
-.carousel-img {
-  cursor: pointer;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  object-fit: cover;
+/* tablette */
+@media (max-width: 1024px) {
+  .height_banniere {
+    height: 320px;
+  }
 }
+
+/* mobile */
+@media (max-width: 768px) {
+  .height_banniere {
+    height: 200px;
+  }
+}
+
 
 :deep(.n-carousel__dots) {
   background: black !important;
   padding: 0.5em;
   border-radius: 10px;
 }
-
+@media (min-width: 2000px) {
+ .height_banniere{
+  height: 800px;
+}
+}
 /* Responsive adjustments */
 @media (max-width: 767px) {
   .promo-title {
