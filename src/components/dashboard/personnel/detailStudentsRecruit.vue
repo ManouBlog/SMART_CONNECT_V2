@@ -326,7 +326,7 @@ export default {
                    position:absolute;top:0.8em;right: 1em;border:none;" @click="VoirProfil(item)"> 
                     Voir plus 
                   </button>
-                  
+                   {{ item.student.user }}
             <section class="text-left">
             <!-- <h4 style="margin:2em 0;padding:0.3em;">
                 <span style="color: orange">Statut :</span> 
@@ -366,6 +366,7 @@ export default {
           :src="lienPhoto + item.path"
           :alt="item.path" />
               </h4>
+             
               <div
                 style="
                 position:absolute;
@@ -379,6 +380,7 @@ export default {
                 transform: translateX(-50%);
                 "
               >
+              
               <button
                     v-if="
                       item.student?.etoiles?.some(
@@ -395,12 +397,12 @@ export default {
                
                     <button
                     v-if="!item.certificat"
-                    style="border: none; width: 130px;padding: 0.5em 0.1em;"
+                    style="border: none; width: 150px;padding: 0.5em 0.1em;"
                     class="btn bg-dark m-3"
                     @click="openModalCertification(item)"
                   >
                     <i class="bi bi-send-fill"></i>
-                    <span>Envoyer le <br/> certificat</span>
+                    <span>Envoyer le certificat</span>
                   </button>
               </div>
             </section>

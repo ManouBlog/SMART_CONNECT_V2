@@ -163,7 +163,7 @@ textarea {
   height: 20px;
   background: #ff8819;
   border-radius: 10px;
-  left: -1.6em;
+  left: -0.6em;
   top: 0;
 }
 .bi-plus-lg {

@@ -79,14 +79,14 @@ export default {
       {
         id: 1,
         title: await this.handleTranslate("Je crée mon profil"),
-        text_colorie1: await this.handleTranslate("En 5 minutes.Gratuitement.Depuis mon App mobile ou web. "),
+        text_colorie1: await this.handleTranslate("En 5 minutes.Gratuitement.Depuis mon App mobile ou web."),
         class: "slide-from-left",
         footer_btn: true,
       },
       {
         id: 2,
         title: await this.handleTranslate("Je trouve ce que je cherche "),
-        text_colorie1:'Talent',
+        text_colorie1:'Talents / Artisans',
         text_colorie2:'Entreprise',
         text_one: await this.handleTranslate(
           " : Les missions disponibles m'attendent. Je fais valoir mes compétences, partout."
@@ -100,7 +100,7 @@ export default {
       {
         id: 3,
         title: await this.handleTranslate("C'est fait. Je suis payé."),
-         text_colorie1:'Talent',
+         text_colorie1:'Talents / Artisans',
         text_colorie2:'Entreprise',
         text_one: await this.handleTranslate(
           " : l'argent arrive sur mon téléphone dès validation de la mission."
