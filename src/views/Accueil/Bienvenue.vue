@@ -132,7 +132,7 @@ export default {
 };
 </script>
 <template>
-  <section style="position: relative">
+  <section style="position: relative" class="section_group">
     <Banniere />
     <HeaderBanner />
     <StepViews />
@@ -462,6 +462,12 @@ h3 {
   border-radius: 10px;
   background: rgba(0, 213, 255, 0.257);
 }
+@media screen and (max-width: 1200px) {
+.section_group{
+ margin: 5em 0 0 0;
+}
+}
+
 
 @media screen and (max-width: 1088px) {
   .header_banner {

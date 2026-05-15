@@ -72,17 +72,21 @@ export default {
           :key="item.id"
         >
           <h2 class="fw-bold">{{ item.nom_offre }}</h2>
+          <span v-if="item.competence?.categorie?.categorie" 
+          style="color: orange;">
+            {{ item.competence?.categorie?.categorie }}
+          </span>
 
           <span class="meta">
             <em class="bi bi-geo-alt"></em> {{ item.lieu }}
           </span>
 
           <div class="salary">
-            <em class="bi bi-cash"></em>
+            <em class="bi bi-cash mx-2"></em>
             <span class="amount">
               {{ new Intl.NumberFormat("fr-FR").format(item.salaire) }} Fcfa
             </span>
-            / {{ item.pointage }}
+            <span v-if="item.pointage"> / {{ item.pointage }}</span>
           </div>
 
           <div class="desc_crop">

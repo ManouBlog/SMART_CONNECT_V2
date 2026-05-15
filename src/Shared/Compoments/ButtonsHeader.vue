@@ -19,9 +19,10 @@ export default {
 .btn-Conex {
   background: #f77f00 !important;
   color: white;
-  width: 300px;
-  padding: 1em 2em;
-  border-radius: 50px;
+  width: 250px;
+  padding: 1em;
+  border-radius: 40px;
   border: none;
+  margin: 0 1em;
 }
 </style>

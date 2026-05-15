@@ -313,7 +313,7 @@ for (const item of data) {
           });
 
           this.MyDateRendezVous = dateOfStudent;
-         // console.log("this.MyDateRendezVous",this.MyDateRendezVous)
+       
           this.timetable_for_student = this.NewListEmploi.find(
             (item) => item.id === Number(this.idParamsItem)
           );
@@ -602,19 +602,28 @@ for (const item of data) {
       this.checkbox = false;
     },
     async choiceOtherTalentNotStudent(studentId){
+    loadingSpinner.launchLoading(true);
      try{
   const response = await instance.post("entreprise_student", {
-          student_id: studentId,
+          student_id: studentId.user_id,
           option: "date",
           offre_id: this.selectedOffreWithDate,
     })
-    console.log("choiceOtherTalentNotStudent",response)
+   if(response.data.message){
+    Swal.fire({
+            icon: "info",
+            title: response.data.message,
+            showConfirmButton: true,
+          });
+   }
      }catch(error){
       console.log(error);
+     }finally{
+       loadingSpinner.launchLoading(false);
      }
     },
     choiceStudentWithDisponibilite(studentId) {
-      // console.log("entreprise_student25")
+      
       loadingSpinner.launchLoading(true);
 
       let date = [];
@@ -625,7 +634,7 @@ for (const item of data) {
       let VerfDoublonInDate = [...new Set(date)];
       instance
         .post("entreprise_student", {
-          student_id: studentId,
+          student_id: studentId.user_id,
           date: VerfDoublonInDate,
           option: "date",
           offre_id: this.selectedOffreWithDate,
@@ -873,11 +882,12 @@ for (const item of data) {
             </select>
           </div>
           <div class="conteneurInter">
+          
             <button
               class="btn btn-warning btn-designer my-3"
               type="submit"
               :disabled="!this.selectedOffreWithDate"
-              @click="choiceStudentWithDisponibilite(timetable_for_student.id)"
+              @click="choiceStudentWithDisponibilite(timetable_for_student)"
             >
               {{ texte7 }}
             </button>
@@ -938,7 +948,7 @@ for (const item of data) {
               class="btn btn-warning btn-designer my-3"
               type="submit"
               :disabled="!this.selectedOffreWithDate"
-              @click="choiceOtherTalentNotStudent(timetable_for_student.id)"
+              @click="choiceOtherTalentNotStudent(timetable_for_student)"
             >
               {{ texte7 }}
             </button>
@@ -1116,7 +1126,7 @@ hr {
 }
 @media (max-width: 1200px) {
   .space-talent {
-    margin: 1em 0;
+    margin: 9em 0 1em 0;
   }
   .conteneur_calendar_student {
     margin-top: 6em !important;

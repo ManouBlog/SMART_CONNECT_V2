@@ -307,6 +307,16 @@ onUnmounted(() => {
     }
   }
 }
+@media (min-width: 2000px) {
+  .circles-wrapper {
+    animation: none !important;
+    transform: none !important;
+  }
+  .circles-container{
+    display: flex;
+    justify-content: center;
+  }
+}
 .circles-container:hover .circles-wrapper {
   animation-play-state: paused;
 }

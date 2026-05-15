@@ -279,7 +279,7 @@ export default {
   loadingSpinner.launchLoading(true);
   try {
     const response = await instance.get("list_emplois_temps");
-    console.log("list_emplois_temps_456", response);
+   
     let data = response.data.data;
     this.list = this.addOtherElement(data);
     this.lengthOfTalents = this.list.length;

@@ -303,6 +303,7 @@ export default {
     display: block;
     text-align: center;
   }
+  
 }
 
 @media (max-width:1177){
@@ -529,6 +530,12 @@ export default {
   }
   .conteneur-favoris-name_user{
     display: none;
+  }
+  .home{
+    position: fixed !important;
+    width: 100% !important;
+    top: 0 !important;
+    z-index: 999 !important;
   }
 }
 @media screen and (min-width:1745px) {
