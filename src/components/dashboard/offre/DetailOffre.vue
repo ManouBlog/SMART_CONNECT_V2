@@ -92,6 +92,9 @@ export default {
       pointage: "",
       formState: {
         categorie_offre_id: null,
+        enable_urgent:null,
+        hour_debut:null,
+        hour_fin:null,
         competence_id: null,
         nom_offre: '',
         salaire: '',
@@ -246,7 +249,7 @@ export default {
      const id = this.$route.params.id
       const { data } = await instance.get(`detail_offre/${id}`)
       const offre = data.data
-      
+      console.log("loadDetailOffre",offre)
       this.formState.categorie_offre_id = offre.categorie_offre_id
       this.formState.competence_id = offre.competence_id
       this.formState.nom_offre = offre.nom_offre
@@ -258,6 +261,9 @@ export default {
       this.formState.description = offre.description
       this.formState.otherDomaine = offre.otherDomaine || ''
       this.formState.otherPoste = offre.otherPoste || ''
+      this.formState.enable_urgent = offre.enable_urgent ? true:false;
+      this.formState.hour_debut = offre.hour_debut;
+      this.formState.hour_fin = offre.hour_fin;
       this.selectCategorieFormState(offre.categorie_offre_id);
       this.chooseCompetenceFormState(offre.competence_id);
       }catch(error){
@@ -334,8 +340,9 @@ export default {
       );
     },
      selectCategorieFormState(value) {
+      console.log('selectCategorieFormState2',value)
    
-  this.formState.categorie = value;
+  this.formState.categorie_offre_id = value;
   this.formState.competence = '';
   this.formState.otherDomaine = "";
   this.formState.otherPoste = "";
@@ -706,6 +713,43 @@ chooseCompetenceFormState(value) {
         <a-input type="date" :min="formState.job_debut" v-model:value="formState.job_fin" style="height:30px !important;border:1px solid #cdcccc !important" />
       </a-form-item>
     </a-col>
+  </a-row>
+
+   <a-row :gutter="[16, 16]">
+    <a-col
+      :xs="24"
+      :md="12"
+      v-if="formState.hour_debut"
+    >
+      <a-form-item name="hour_debut" label="Heure de début">
+        <a-input  type="time" v-model:value="formState.hour_debut" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+    <a-col
+      :xs="24"
+      :md="12"
+     v-if="formState.hour_fin"
+    >
+      <a-form-item name="hour_fin" label="Heure de fin">
+        <a-input type="time"  v-model:value="this.formState.hour_fin" style="height:30px !important;border:1px solid #cdcccc !important" />
+      </a-form-item>
+    </a-col>
+  </a-row>
+   <a-row :gutter="[16, 16]">
+    <a-col
+      :xs="24"
+      :md="12"
+      
+    >
+       <a-form-item label="Urgente">
+    <a-switch v-model:checked="formState.enable_urgent"
+    :style="{
+    backgroundColor: formState.enable_urgent ? 'green' : ''
+  }"
+    />
+    </a-form-item>
+    </a-col>
+  
   </a-row>
 
   <!-- Description -->

@@ -29,8 +29,7 @@ export default {
 </script>
 <template>
   <div class="d-flex justify-content-center align-items-center">
-    <span v-if="configUtils.verifDateWithDateToDay(donnees.fin) 
-    || configUtils.verifDateWithDateToDay(donnees.job_fin)"
+    <span
      class="mx-2 text-dark">
       <router-link
         :to="{
@@ -54,8 +53,6 @@ export default {
       </router-link>
     </span>
     <span
-    v-if="configUtils.verifDateWithDateToDay(donnees.fin) 
-    || configUtils.verifDateWithDateToDay(donnees.job_fin)"
       class="bi bi-trash mx-2 text-dark"
       @click="show_box_confirmation_delete(donnees.id)"
     ></span>
