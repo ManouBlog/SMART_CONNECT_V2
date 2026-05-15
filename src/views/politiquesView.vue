@@ -657,12 +657,12 @@ L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est sou
 }
 @media screen and (max-width:1200px) {
  .myconteneur_container{
-  margin-top: 2.5em;
+  margin-top: 6em;
 }
 }
 @media screen and (max-width:900px) {
  .myconteneur_container{
-  margin-top: 2em;
+  margin-top: 6em;
 }
 }
 .conteneur {

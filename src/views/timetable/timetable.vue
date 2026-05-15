@@ -1261,10 +1261,10 @@ export default {
 }
 @media screen and (max-width: 1199px) {
   .jobs_filters {
-    margin: 0em 0 2em 0;
+    margin: 6em 0 2em 0;
   }
   .jobs_filters_shimmer{
-    margin: 0em 0 2em 0;
+    margin: 6em 0 2em 0;
   }
   .d-grid {
     grid-template-columns: repeat(3, 1fr);

@@ -56,6 +56,7 @@ export default {
 @media (max-width: 1200px) {
   .page-title .main-container {
     padding: 0 !important;
+    
   }
 }
 </style>

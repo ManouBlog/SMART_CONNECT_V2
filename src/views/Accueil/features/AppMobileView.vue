@@ -46,7 +46,7 @@ export default {
 <template>
   <div class="header_banner py-3">
     <div class="ecriteau">
-      <h1 style="color: orange">
+      <h1 style="color: orange" class="text_ecriteau">
         {{ texte0 }} <br />
         {{ texte1 }}
       </h1>
@@ -113,6 +113,9 @@ export default {
 }
 
 @media screen and (max-width: 500px) {
+.text_ecriteau{
+  font-size: 1em !important;
+  }
 .ecriteau > h1 {
   margin: 0.5em 0;
 }

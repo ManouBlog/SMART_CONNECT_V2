@@ -54,7 +54,7 @@ h1{
 @media (max-width: 1200px) {
   .conteneur-titleHeader {
     padding: 1em;           /* réduit l’espace interne */
-    margin: 0 0 3em 0;           /* moins d’espace au-dessus et en dessous */
+    margin: 6em 0 3em 0;           /* moins d’espace au-dessus et en dessous */
   }
 }
 </style>

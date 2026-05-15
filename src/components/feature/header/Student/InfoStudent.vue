@@ -206,7 +206,7 @@ export default {
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
-            <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{ texte6 }}</a>
+            <a href="#" @click.prevent="deconnexUser" class="fw-bold text-danger">{{ texte6 }}</a>
           </li>
         </a-menu-item>
       </a-menu>

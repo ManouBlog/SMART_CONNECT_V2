@@ -129,14 +129,11 @@ export default {
     this.texte4 = await this.handleTranslate("Mes disponibilités");
     this.texte5 = await this.handleTranslate("Mes abonnements");
     this.texte6 = await this.handleTranslate("Déconnexion");
-
-    //  this.texte1 = await this.handleTranslate(`Tableau de bord`);
     this.texte20 = await this.handleTranslate("Liste des offres");
     this.texte30 = await this.handleTranslate("Créer une offre");
     this.texte24 = await this.handleTranslate("Mes talents");
     this.texte50 = await this.handleTranslate("Postulants");
-    // this.texte6 = await this.handleTranslate("Mes abonnements");
-    // this.texte7 = await this.handleTranslate("Déconnexion");
+   
   },
 };
 </script>
@@ -246,7 +243,7 @@ export default {
         </a-menu-item>
         <a-menu-item>
           <li class="position-absolute deconnex">
-            <a href="#" @click.prevent="deconnexUser" class="fw-bold">{{ texte6 }}</a>
+            <a href="#" @click.prevent="deconnexUser" class="fw-bold text-danger">{{ texte6 }}</a>
           </li>
         </a-menu-item>
       </a-menu>

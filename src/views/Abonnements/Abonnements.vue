@@ -404,12 +404,12 @@ onMounted(async () => {
 }
 @media screen and (max-width:1200px) {
  .wrapped{
-  margin-top: 2.5em;
+  margin-top: 6em;
 }
 }
 @media screen and (max-width:900px) {
  .wrapped{
-  margin-top: 2em;
+  margin-top: 6em;
 }
 }
 

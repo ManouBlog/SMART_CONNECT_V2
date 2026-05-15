@@ -432,7 +432,7 @@ if (
       </li>
       
       <li v-if="this.$store.state.user">
-        <a href="#" @click="deconnexUser" class="fw-bold"> Déconnexion</a>
+        <a href="#" @click="deconnexUser" class="fw-bold text-danger"> Déconnexion</a>
       </li>
     </ul>
   </a-drawer>

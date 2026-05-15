@@ -233,6 +233,9 @@ export default {
 };
 </script>
 <style>
+.text-danger{
+  color: red !important;
+}
 a:focus{
   outline: none !important;
 }

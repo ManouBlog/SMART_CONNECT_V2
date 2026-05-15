@@ -215,12 +215,12 @@ h1 {
 }
 @media screen and (max-width:1200px) {
  .conteneur_message_formulaire{
-  margin-top: 2.5em;
+  margin-top: 6em;
 }
 }
 @media screen and (max-width:900px) {
  .conteneur_message_formulaire{
-  margin-top: 2em;
+  margin-top: 6em;
 }
 }
 .conteneur_message {
