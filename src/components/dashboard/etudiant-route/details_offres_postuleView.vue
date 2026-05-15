@@ -82,12 +82,14 @@ export default {
 </script>
 
 <template>
+  
   <div class="page-body position-relative">
     <section v-if="this.details_offre != null">
       <HeaderDashboard
         :TitleHeader="details_offre.offre.statuses.some(item=>item.statut === 'Artisan') ? `Détails de la mission`: `Détails de l' Offre`"
         :subTitleHeader="details_offre.offre.statuses.some(item=>item.statut === 'Artisan') ? `Détails de la mission`: `Détails de l' Offre`"
       />
+    
       <!-- <pre>{{details_offre.offre.statuses}}</pre> -->
       <n-modal v-model:show="showModal">
         <n-card
@@ -119,12 +121,13 @@ export default {
       </n-modal>
       <div class="container-fluid">
         <div class="details_entreprise card">
-          <span class="badge my-2" :class="statutColor[details_offre.offre.recruit]">{{
-              Statut[details_offre.offre.recruit]
+          <span class="badge my-2" :class="statutColor[details_offre?.recruit]">{{
+              Statut[details_offre?.recruit]
             }}</span>
           <h4>
             Offre : <strong>{{ details_offre.offre.nom_offre }}</strong>
           </h4>
+          <span v-if="details_offre?.offre?.enable_urgent" class="bg-danger" style="padding:0.3em;">Urgente</span>
           <h4>
             Lieu : <strong>{{ details_offre.offre.lieu }}</strong>
           </h4>
@@ -152,24 +155,32 @@ export default {
         </div>
         <div>
          <h4>Description :</h4>
-          <div class="p-5" v-html="details_offre.offre.description"></div>
+          <div class="p-5" 
+          style="font-size:1.5em"
+          v-html="details_offre.offre.description"></div>
         </div>
-          <h6
+          <h5
            v-if="details_offre?.offre.debut"
             >Date et heure début  :
             {{
               details_offre?.offre.debut
-            }}</h6
+            }}</h5
           >
-          <h6 v-if="details_offre.offre.fin">
+           <h5 v-if="details_offre.offre.hour_debut">
+            Heure de début: {{ details_offre.offre.hour_debut }}
+          </h5>
+          <h5 v-if="details_offre.offre.hour_fin">
+            Heure de fin: {{ details_offre.offre.hour_fin }}
+          </h5>
+          <h5 v-if="details_offre.offre.fin">
             Date limite de candidature : {{ details_offre.offre.fin }}
-          </h6>
-          <h6 v-if="details_offre.offre.job_debut" >
+          </h5>
+          <h5 v-if="details_offre.offre.job_debut" >
             Date de début de travail : {{ details_offre.offre.job_debut.split(' ')[0] }}
-          </h6>
-          <h6 v-if="details_offre.offre.job_fin">
+          </h5>
+          <h5 v-if="details_offre.offre.job_fin">
             Date de fin de travail : {{ details_offre.offre.job_fin }}
-          </h6>
+          </h5>
           <button
             v-if="
               details_offre.recruit === 1 &&
@@ -215,7 +226,7 @@ export default {
     background-position: -200% 0;
   }
 }
-h6{
+h5{
   font-size: 1em !important;
 }
 h4{
