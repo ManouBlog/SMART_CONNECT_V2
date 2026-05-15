@@ -569,7 +569,6 @@ export default {
 
       <div>
         <span v-if="spinner" class="h1 char shimmer-text">{{ texte4 }}</span>
-        {{ list_emploi }}
         
         <div class="container-fuid d-grid px-3" v-if="list_emploi.length">
           <div
