@@ -381,8 +381,8 @@ export default {
               >
               <button
                     v-if="
-                      !item.student?.etoiles?.some(
-                        (rate) => Number(rate.offre_id) === Number(item.offre_id)
+                      item.student?.etoiles?.some(
+                        (rate) => Number(rate.offre_id) == Number(item.offre_id)
                       )
                     "
                     style="border: none; width:100px; padding: 1.1em 0"

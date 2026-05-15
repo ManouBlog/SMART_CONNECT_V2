@@ -140,7 +140,6 @@ export default {
       return this.currentPage === this.totalPages;
     },
     list_emploi() {
-      
       return this.list.slice(0, this.length);
     },
   },
@@ -280,56 +279,13 @@ export default {
   loadingSpinner.launchLoading(true);
   try {
     const response = await instance.get("list_emplois_temps");
-    // console.log("list_emplois_temps_456", response);
-
-    const UserConnected = localStorage.getItem("user");
-
-const statuses = UserConnected
-  ? JSON.parse(UserConnected)?.user?.statuses || []
-  : [];
-
-// console.log("statusesUserConnected", statuses);
-
-let data = response.data.data;
-
-// console.log("DATA_LISTE", data);
-
-// vérifier si l'utilisateur est particulier
-const isParticulier = statuses.some(s =>
-  s.statut?.toLowerCase() === "particulier"
-);
-const isEtudiant = statuses.some(s =>
-  s.statut?.toLowerCase() === "etudiant"
-);
-
-// console.log("isParticulier", isParticulier);
-console.log('USER_CONNECTED',this.user.user.usersadded_by_me)
-
-if (isParticulier) {
-  const allowed = ['artisan'];
-  data = data.filter((emploi) => {
-  const ALL_statut = emploi?.statuses || [];
-  return ALL_statut.some(item => 
-    allowed.includes(item.statut?.toLowerCase())
-  );
-}).filter(item=>item.id !== this.user?.user?.id);
-}
-if(isEtudiant){
-  const allowedStatuts = ['entreprise', 'particulier'];
-  data = data.filter((emploi) => {
-    return emploi?.statuses?.some(status => 
-      allowedStatuts.includes(status.statut?.toLowerCase())
-    );
-  }).filter(item=>item.id !== this.user?.user?.id);
-}
+    console.log("list_emplois_temps_456", response);
+    let data = response.data.data;
     this.list = this.addOtherElement(data);
-    // console.log("get_list_Talents", this.list);
-
     this.lengthOfTalents = this.list.length;
-    // console.log("this.lengthOfTalents", this.lengthOfTalents);
+   
   } catch (error) {
     console.log(error);
-    // alert(err.response?.data?.message || "Erreur serveur");
   } finally {
     loadingSpinner.launchLoading(false);
     this.isLoading = false;
@@ -613,6 +569,7 @@ if(isEtudiant){
 
       <div>
         <span v-if="spinner" class="h1 char shimmer-text">{{ texte4 }}</span>
+        {{ list_emploi }}
         
         <div class="container-fuid d-grid px-3" v-if="list_emploi.length">
           <div
