@@ -20,11 +20,13 @@ export default {
       Statut: {
         1: "Candidature retenue",
         2: "Candidature non retenue",
+        3: "Annulée",
         0: "Candidature en cours d’examen",
       },
       statutColor: {
         1: "bg-success",
         2: "bg-danger",
+        3: "bg-danger",
         0: "bg-info",
       },
       avis: "",

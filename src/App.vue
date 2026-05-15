@@ -379,12 +379,12 @@ a:focus-visible {
 }
 @media screen and (max-width:1200px) {
  .myconteneur{
-  margin-top: 2.5em;
+  margin-top: 6em;
 }
 }
 @media screen and (max-width:900px) {
  .myconteneur{
-  margin-top: 2em;
+  margin-top: 6em;
 }
 }
 

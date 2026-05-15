@@ -18,11 +18,13 @@ import { useWindowSize } from "@vueuse/core";
 const statut = {
   0: "Candidature en cours d’examen",
   1: "Candidature retenue",
+   3: "Annulée",
   2: "Candidature non retenue",
 };
 const colorStatut = {
   0: "bg-info",
   1: "bg-success",
+   3: "bg-danger",
   2: "bg-danger",
 };
 

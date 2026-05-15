@@ -363,7 +363,7 @@ async confirmRelance(payload) {
   try {
     const result = await Swal.fire({
       title: 'Relancer la confirmation ?',
-      text: 'Voulez-vous vraiment renvoyer la confirmation ?',
+      text: 'Voulez-vous vraiment relancer la mission ? Cette action mettra fin à l’accord avec le talent concerné.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: 'orange',
@@ -373,7 +373,7 @@ async confirmRelance(payload) {
     });
 
     if (!result.isConfirmed) return;
-
+     this.loadingSpinner.launchLoading(true);
     console.log("confirmRelance", payload);
 
     // appel API
@@ -395,7 +395,7 @@ async confirmRelance(payload) {
     });
 
   } finally {
-    console.log("Relance terminée (success ou erreur)");
+     this.loadingSpinner.launchLoading(false);
   }
 },
 

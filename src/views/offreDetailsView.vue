@@ -479,6 +479,12 @@ button {
   gap: 1em;
 }
 
+@media (max-width: 1200px) {
+  .detail_conteneur {
+    margin-top: 6em;
+  }
+}
+
 /* Sur tablette et mobile (Bootstrap breakpoint < 992px) */
 @media (max-width: 991.98px) {
   .offres_disponible {
@@ -515,10 +521,7 @@ button {
 
 /* Sur très petits écrans (Bootstrap < 576px) */
 @media (max-width: 575.98px) {
-  .detail_conteneur {
-    margin-top: 0.5em;
-  }
-
+  
   .offres_disponible {
     padding: 0.5em;
     gap: 1em;
