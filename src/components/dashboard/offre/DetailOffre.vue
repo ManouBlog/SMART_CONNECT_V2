@@ -340,8 +340,7 @@ export default {
       );
     },
      selectCategorieFormState(value) {
-      console.log('selectCategorieFormState2',value)
-   
+  
   this.formState.categorie_offre_id = value;
   this.formState.competence = '';
   this.formState.otherDomaine = "";
@@ -368,13 +367,13 @@ chooseCompetenceFormState(value) {
     }
   },
   async created() {
+    this.get_categorie();
+    this.getAllCompetences();
     if(this.$store.state.user?.user?.statut?.statut === 'Entreprise'){
     this.show_offre_id();
     }else{
       this.loadDetailOffre();
     }
-    this.get_categorie();
-    this.getAllCompetences();
     this.texte0 = await this.handleTranslate('Modifier Mon offre');
     this.texte1 = await this.handleTranslate("Domaines");
     this.texte2 = await this.handleTranslate('Sélectionner une domaine');
@@ -572,6 +571,7 @@ chooseCompetenceFormState(value) {
      @finish="update_mission"
     class="container"
     >
+   
    <a-row :gutter="[16, 16]">
    <!-- Catégorie -->
    <a-col :xs="24" :md="12">
