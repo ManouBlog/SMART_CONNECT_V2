@@ -976,7 +976,7 @@ chooseCompetenceFormState(value) {
       </a-form-item>
     </a-col>
     <a-col :xs="24" :md="12">
-      <a-form-item name="typeMission" label="Disponibilité de la mission">
+      <a-form-item name="typeMission" label="Besoin">
         <a-select v-model:value="formState.typeMission">
           <a-select-option value="immediat">Immédiat</a-select-option>
           <a-select-option value="date">Choisir une date</a-select-option>

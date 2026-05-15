@@ -313,7 +313,7 @@ if (
       to="/dashboard/personnel"
       class="d-block"
     >
-      Mes talents
+     {{$store.state.user?.user.statut.statut == 'Particulier' ? 'Mes artisans':'Mes talents'  }} 
      </router-link>
   </li>
   <li  v-if="

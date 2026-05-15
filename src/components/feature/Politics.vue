@@ -172,7 +172,7 @@ const handleRegister = () => {
   Les conditions de résiliation sont identiques à celles de la formule BROBROLI PRO
 </p>
 <p style="text-align: center; font-weight: bold">
-  ABONNEMENT ARTISANS & MAÎTRE ARTISANS</p>
+  ABONNEMENT ARTISANS</p>
  <p>
   -<span style="font-weight: bold">
    Formule BROBROLI
@@ -180,9 +180,9 @@ const handleRegister = () => {
   <span style="display: block;font-weight: bold">
     Artisan : 2 000 F / mois · 20 000 F / an
   </span>
-  <span style="display: block;font-weight: bold">
+  <!-- <span style="display: block;font-weight: bold">
      Maître Artisan : 5 000 F / mois · 50 000 F / an
-  </span>
+  </span> -->
 </p>
 <p>
   La formule BROBROLI donne accès, 
@@ -206,9 +206,9 @@ const handleRegister = () => {
   <span style="display: block;font-weight: bold">
    Artisan : 4 000 F / mois · 40 000 F / an
   </span>
-  <span style="display: block;font-weight: bold">
+  <!-- <span style="display: block;font-weight: bold">
     Maître Artisan : 10 000 F / mois · 100 000 F / an
-  </span>
+  </span> -->
 </p>
 <p>
   La formule BROBROLI+ inclut l'intégralité des avantages de la formule BROBROLI, 

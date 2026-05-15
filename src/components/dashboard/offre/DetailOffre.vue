@@ -363,7 +363,7 @@ async confirmRelance(payload) {
   try {
     const result = await Swal.fire({
       title: 'Relancer la confirmation ?',
-      text: 'Voulez-vous vraiment relancer la mission ? Cette action mettra fin à l’accord avec le talent concerné.',
+      text: 'Voulez-vous vraiment relancer la mission ? Cette action mettra fin à l’accord avec l\'artisan concerné précedement.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: 'orange',
@@ -722,7 +722,7 @@ async confirmRelance(payload) {
       </a-form-item>
     </a-col>
     <a-col :xs="24" :md="12">
-      <a-form-item name="typeMission" label="Disponibilité de la mission">
+      <a-form-item name="typeMission" label="Besoin">
         <a-select v-model:value="formState.typeMission"
         @change="()=>{
          if(formState.typeMission === 'immediat'){

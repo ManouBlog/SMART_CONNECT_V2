@@ -221,7 +221,7 @@ export default {
         <a-menu-item v-if="user.user.statuses.some(s=>['Entreprise','Particulier'].includes(s.statut))">
           <li class="position-absolute deconnex">
             <router-link to="/dashboard/personnel" class="d-block">
-              {{ texte24 }}
+              {{user?.user.statut.statut == 'Particulier' ? 'Mes artisans':texte24  }} 
             </router-link>
           </li>
         </a-menu-item>
