@@ -22,7 +22,7 @@ export default {
     :class="cardPerfVisible ? item.class : null"
     style="
       max-width: 320px;
-      height: 310px;
+      height: 345px;
       color: var(--third-color) !important;
       background: var(--secondary-color) !important;
       position: relative;
