@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import instance from "../../api/api";
-// import {Help} from "../../utils"
+import Swal from 'sweetalert2';
 import { useLoadingSpinner } from "../LoadingSpinner/useLoadingSpinner";
 const loadingSpinner = useLoadingSpinner()
 export const useEntreprisesStore = defineStore('entreprise', {
@@ -8,7 +8,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
         entreprises: [],
         timetable:[],
         list_students:[],
-        student:[],
+        listTalentContacte:[],
         studentRecruit:[],
         offresInteressByStudents:{},
         list_abonnement:[],
@@ -39,25 +39,30 @@ export const useEntreprisesStore = defineStore('entreprise', {
           async get_students_contact() {
             loadingSpinner.launchLoading(true)
             try{
-           const listStudent = await instance.get("list_students_contact_by_entreprise");
+           const listTalentContacte = await instance.get("list_students_contact_by_entreprise");
            
            const studentRecruit = await instance.get("getStudentRecruit");
            
            
-          //  console.log("list_students_contact_by_entreprise",listStudent)
+           console.log("list_students_contact_by_entreprise",listTalentContacte)
 
-          //  console.log("getStudentRecruit",studentRecruit)
+           console.log("getStudentRecruit",studentRecruit)
 
-           if(listStudent['status'] === 200 && studentRecruit['status'] === 200 ){
-            this.list_students = listStudent.data.data;
-            this.student = this.list_students?.students;
-             this.studentRecruit = this.tableData(studentRecruit.data);
-           
-            loadingSpinner.launchLoading(false)
+           if(listTalentContacte.data.status){
+            // this.list_students = listStudent.data.data;
+            // this.student = this.list_students?.students;
+            //  this.studentRecruit = this.tableData(studentRecruit.data);
+            this.listTalentContacte = listTalentContacte.data.data
           
            }
             }catch(error){
                 console.log(error)
+               Swal.fire({
+  title: 'Info',
+  text: error.message,
+})
+            }finally{
+               loadingSpinner.launchLoading(false)
             }
           },
           async get_offres_interess_by_student() {

@@ -354,7 +354,7 @@ if (
 "
   class="position-absolute deconnex">
     <a class="d-block" @click="goTo('/dashboard/entreprises_interessees')">
-     Entreprises intéressées
+     Recruteurs intéressés
     </a>
   </li>
   <li 

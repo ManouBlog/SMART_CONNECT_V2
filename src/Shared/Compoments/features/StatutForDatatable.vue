@@ -16,22 +16,14 @@ export default {
 </script>
 <template>
     <div>
-        <span v-if="dataStatut.pivot.contrat === 1" class="badge bg-success"
+        <span v-if="dataStatut?.contrat === 1" class="badge bg-success"
           >Sélectionné</span
         >
-        <!-- <span
-          class="mx-2"
-          v-if="
-            dataStatut.pivot.contrat === 0 &&
-            configUtils.getFormatDateFr(dataStatut.pivot.offre.fin)
-          "
-          >Expirée</span
-        > -->
-
-        <span v-if="dataStatut.pivot.contrat === 2" class="badge bg-danger"
+        
+        <span v-if="dataStatut?.contrat === 2" class="badge bg-danger"
           >Refusé</span
         >
-        <span v-if="dataStatut.pivot.contrat === 0" class="badge bg-primary"
+        <span v-if="dataStatut?.contrat === 0" class="badge bg-primary"
           >En attente de réponse</span
         >
       </div>

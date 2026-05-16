@@ -93,7 +93,7 @@ if (
     this.texte1 = await this.handleTranslate("Mon espace");
     this.texte2 = await this.handleTranslate("Mes favoris");
     this.texte3 = await this.handleTranslate("Mes candidatures");
-    this.texte40 = await this.handleTranslate("Entreprises intéressées");
+    this.texte40 = await this.handleTranslate("Recruteurs intéressés");
     this.texte5 = await this.handleTranslate("Mes disponibilités");
     this.texte6 = await this.handleTranslate("Mes abonnements");
     this.texte7 = await this.handleTranslate("Déconnexion");
@@ -125,7 +125,7 @@ if (
 
   <li class="position-absolute deconnex">
     <a class="d-block" @click="goTo('/dashboard/entreprises_interessees')">
-     Entreprises intéressées
+     Recruteurs intéressés
     </a>
   </li>
 

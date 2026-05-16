@@ -100,7 +100,7 @@ if (!user.competences.length || !user.qualifications.length) {
   async created() {
     this.verifUserProfilEtudiantComplet();
     await this.get_entreprise_interesse();
-    this.texte0 = await this.handleTranslate(`Entreprises intéressées`);
+    this.texte0 = await this.handleTranslate(`Recruteurs intéressés`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
     this.texte2 = await this.handleTranslate("Lieu du travail");
     this.texte3 = await this.handleTranslate(`Honoraire (Fcfa)`);
@@ -167,10 +167,10 @@ if (!user.competences.length || !user.qualifications.length) {
 
               <Column
                 field="entreprise"
-                header="Entreprise"
+                header="Recruteurs"
                 style="font-size: 1.1em; text-align: center"
               >
-                <template #body="{ data }">{{ data.Offre?.owner?.nom }}</template>
+                <template #body="{ data }">{{ data.entreprise?.nom }}</template>
               </Column>
 
               <Column

@@ -58,7 +58,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useEntreprisesStore, ["student", "studentRecruit", "list_students"]),
+    ...mapState(useEntreprisesStore, ["listTalentContacte", "studentRecruit", "list_students"]),
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -70,10 +70,9 @@ export default {
   },
   async created() {
     this.get_students_contact();
-    const Nom = await this.handleTranslate('Talents');
-    // const prenoms = await this.handleTranslate('prénoms');
+    const Nom = await this.handleTranslate('Talent');
     const Email = await this.handleTranslate('Email');
-    const Telephone = await this.handleTranslate('Télephone');
+    // const Telephone = await this.handleTranslate('Télephone');
     const Statut = await this.handleTranslate('Statut');
     const Offre = await this.handleTranslate('Offres');
     const Etudiant =  await this.handleTranslate('Talents');
@@ -81,16 +80,14 @@ export default {
         { fieldName: "nom_offre", headerName: Offre },
         { fieldName: "count", headerName: Etudiant },
         { fieldName: "id", headerName: 'Date de travail' },
-        // { fieldName: "offre.job_fin", headerName: 'Date de fin de travail' },
       ]
     this.allColumnsDataContacter = [
-        { fieldName: "nom", headerName: Nom },
-        // { fieldName: "prenoms", headerName: prenoms },
-        { fieldName: "email", headerName: Email },
-        { fieldName: "phone", headerName: Telephone },
+        { fieldName: "talentName", headerName: Nom },
+        { fieldName: "talentEmail", headerName: Email },
+        // { fieldName: "talentphone", headerName: Telephone },
         { fieldName: "statut", headerName: Statut },
-        { fieldName: "offre", headerName: Offre },
-         { fieldName: "id", headerName: "Date de début de travail" },
+        { fieldName: "offres", headerName: Offre },
+        //  { fieldName: "created_at", headerName: "Date de début de travail" },
       ]
     this.texte0 = await this.handleTranslate('Liste des talents');
     this.texte1 = await this.handleTranslate(`Talents contactés`);
@@ -131,9 +128,10 @@ export default {
           </ol>
         </div>
       </div>
+      
       <div class="tab-content" id="top-tabContent" v-show="!tab">
         <DatatablePrimeVue
-          :DATAVALUE="student"
+          :DATAVALUE="listTalentContacte"
           :DATACOLUMN="allColumnsDataContacter"
           :globalFilterFields="fieldsForFilter"
           :DATAfORfILTER="filters"

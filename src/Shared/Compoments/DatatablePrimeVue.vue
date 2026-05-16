@@ -140,19 +140,17 @@ export default {
         <span v-else-if="item.fieldName === 'statut'">
           <StatutForDatatable :dataStatut="slotProps.data" />
         </span>
-        <span v-else-if="item.fieldName === 'offre'">
-          {{ slotProps.data.pivot?.offre?.nom_offre }}
+        
+        <span v-else-if="item.fieldName === 'talentName'">
+          {{ slotProps.data.talent.nom }}
         </span>
-        <span v-else-if="item.headerName === 'Etudiant'">
-          {{ slotProps.data.nom }} {{ slotProps.data.prenoms }}
+         <span v-else-if="item.fieldName === 'talentEmail'">
+          {{ slotProps.data.talent.email }}
         </span>
-        <span v-else-if="item.headerName === 'Date de début de travail'">
-          {{
-            slotProps.data?.pivot
-              ? slotProps.data?.pivot?.date
-              : slotProps.data?.job_debut
-          }}
+         <span v-else-if="item.fieldName === 'offres'">
+          {{ slotProps.data.offre.nom_offre }}
         </span>
+     
         <span v-else-if="item.headerName === 'Date de travail'">
 
           <span v-if="slotProps.data.students[0].offre?.job_debut && slotProps.data.students[0].offre?.job_fin">

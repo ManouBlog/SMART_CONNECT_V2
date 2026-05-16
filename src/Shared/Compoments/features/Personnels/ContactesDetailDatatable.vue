@@ -14,12 +14,12 @@ export default {
 <template>
     <div class="d-flex justify-content-center align-items-center">
         <router-link
-        v-if="donnees?.pivot?.contrat === 1"
+        v-if="donnees?.contrat === 1"
         :to="{
           name: 'details_students_contactes',
           params: {
             name: donnees.nom,
-            date: donnees.pivot.created_at,
+            date: donnees?.created_at,
           },
         }"
         ><em class="bi bi-eye"></em
@@ -27,7 +27,7 @@ export default {
       <em
         class="bi bi-dash-circle"
         v-if="
-          donnees?.pivot?.contrat === 2 || donnees?.pivot?.contrat === 0
+          donnees?.contrat === 2 || donnees?.contrat === 0
         "
       ></em>
     </div>
