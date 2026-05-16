@@ -129,7 +129,6 @@ export default {
         </div>
       </div>
       <div class="tab-content" id="top-tabContent" v-show="!tab">
-        {{ listTalentContacte }}
          <DataTable
     :globalFilterFields="fieldsForFilter"
     :value="listTalentContacte"
@@ -163,10 +162,11 @@ export default {
         </IconField>
       </div>
     </template>
-     <Column field="talent.nom" header="Talent"></Column>
-     <Column field="offre.nom_offre" header="Offre"></Column>
-     <Column field="offre.lieu" header="Lieu"></Column>
-      <Column field="status" header="Statut">
+     <Column style="font-size: 1.2em; padding: 1em; text-align: center" field="talent.nom" header="Talent"></Column>
+     <Column style="font-size: 1.2em; padding: 1em; text-align: center" field="offre.nom_offre" header="Offre"></Column>
+     <Column style="font-size: 1.2em; padding: 1em; text-align: center" field="offre.lieu" header="Lieu"></Column>
+      <Column style="font-size: 1.2em; padding: 1em; text-align: center" field="offre.job_debut" header="Date"></Column>
+      <Column style="font-size: 1.2em; padding: 1em; text-align: center" field="status" header="Statut">
   <template #body="{ data }">
     <span v-if="data?.contrat === 1" class="badge bg-success">
       Sélectionné
@@ -181,7 +181,7 @@ export default {
     </span>
   </template>
 </Column>
-<Column field="id" header="Détail">
+<Column style="font-size: 1.2em; padding: 1em; text-align: center" field="id" header="Détail">
   <template #body="{ data }">
   
     <div class="d-flex justify-content-center align-items-center">
@@ -225,6 +225,9 @@ export default {
   </section>
 </template>
 <style scoped>
+.text-primary{
+  color:gray !important;
+}
 .mt-5 {
   margin-top: 101px !important;
 }

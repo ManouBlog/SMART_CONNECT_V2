@@ -166,8 +166,11 @@ export default {
       <a-card style="width: 400px; background: var(--secondary-color) !important;color: var(--third-color) !important;" >
         <div class="d-flex justify-content-between align-items-center">
          <h1><em class="bi bi-person h1"></em></h1>
-         <h2 style="color:orange;font-weight:bold;">{{ detailsStudents.talent.student.nom }} {{ detailsStudents.talent.student.prenoms }}</h2>
+         <h2 style="color:orange;font-weight:bold;">
+          {{ detailsStudents.talent.student.nom }} 
+          {{ detailsStudents.talent.student.prenoms }}</h2>
         </div>
+        <button style="background: orange;">Voir plus</button>
         <div style="display: flex;gap:1em;align-items: center;">
           <p>{{texte1}} : </p>
           
