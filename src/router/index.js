@@ -179,7 +179,7 @@ const routes = [
        
       },
       {
-        path:"/dashboard/personnel/:name/rendez-vous/:date",
+        path:"/dashboard/personnel/:offre/:name/:id",
         name:'details_students_contactes',
         meta:{
           requiresAuth:true

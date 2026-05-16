@@ -68,7 +68,8 @@ export default {
           this.loadSpinner = false;
         });
     },
-    async updateCandidature(id, payload, idContrat) {
+    async updateCandidature(contrat,payload) {
+      
    const TEXTE = payload == 1 ? "Voulez-vous vraiment accepter cette candidature ?":"Voulez-vous vraiment rejeter cette candidature ?";
   const result = await Swal.fire({
     title: "Confirmation",
@@ -91,10 +92,10 @@ export default {
   try {
 
     const res = await instance.put(
-      "changeStatutJob/" + id,
+      "changeStatutJob/" + contrat.offre.id,
       {
         contrat: payload,
-        id_contrat: idContrat,
+        id_contrat: contrat.id,
       }
     );
 
@@ -123,40 +124,6 @@ export default {
     loadingSpinner.launchLoading(false);
   }
 },
-    // updateCandidature(id, payload, idContrat) {
-    //   loadingSpinner.launchLoading(true);
-    //   instance
-    //     .put("changeStatutJob/" + id, { contrat: payload, id_contrat: idContrat })
-    //     .then((res) => {
-          
-    //       if (res.data.status === true) {
-    //         Swal.fire({
-    //           icon: "success",
-    //           title: res.data.message,
-    //           showConfirmButton: true,
-    //         });
-    //       }
-    //       if (res.data.status === false) {
-    //         Swal.fire({
-    //           icon: "info",
-    //           title: res.data.message,
-    //           showConfirmButton: true,
-    //         });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       Swal.fire({
-    //         icon: "info",
-    //         title: err.response.data.message,
-    //         showConfirmButton: true,
-    //       });
-    //     })
-    //     .finally(() => {
-    //       this.get_offre_detail_interesse();
-    //       loadingSpinner.launchLoading(false);
-    //     });
-    // },
     handleNouvelAbonnement() {
       this.$router.push({ name: "abonnements" });
     },
@@ -287,12 +254,7 @@ export default {
                 <button
                   class="btn bg-success mx-2 w-25"
                   @click="
-                    updateCandidature(
-                      DetailSeeEntreprise.offre.id,
-                      1,
-                      DetailSeeEntreprise.id
-                    )
-                  "
+                    updateCandidature(DetailSeeEntreprise,1)"
                   style="width: auto !important"
                 >
                   {{ texte6 }}
@@ -300,12 +262,7 @@ export default {
                 <button
                   class="btn bg-danger w-25"
                   @click="
-                    updateCandidature(
-                      DetailSeeEntreprise.offre.id,
-                      2,
-                      DetailSeeEntreprise.id
-                    )
-                  "
+                    updateCandidature(DetailSeeEntreprise,2)"
                   style="width: auto !important"
                 >
                   {{ texte66 }}

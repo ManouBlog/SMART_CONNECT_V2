@@ -5,11 +5,21 @@ import { FilterMatchMode } from "primevue/api";
 import { mapActions, mapState } from "pinia";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useEntreprisesStore } from "../../../store-pinia/Entreprise/useEntreprisesStore";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+import InputText from "primevue/inputtext";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
 export default {
   name: "entreprise_contacts_studentView",
   components: {
     DatatablePrimeVue,
     HeaderDashboard,
+    DataTable,
+    Column,
+    InputText,
+    IconField,
+    InputIcon
   },
   data() {
     return {
@@ -70,25 +80,15 @@ export default {
   },
   async created() {
     this.get_students_contact();
-    const Nom = await this.handleTranslate('Talent');
-    const Email = await this.handleTranslate('Email');
-    // const Telephone = await this.handleTranslate('Télephone');
-    const Statut = await this.handleTranslate('Statut');
     const Offre = await this.handleTranslate('Offres');
     const Etudiant =  await this.handleTranslate('Talents');
     this.allColumnsDataStudentRecruit= [
         { fieldName: "nom_offre", headerName: Offre },
         { fieldName: "count", headerName: Etudiant },
         { fieldName: "id", headerName: 'Date de travail' },
+        // { fieldName: "offre.job_fin", headerName: 'Date de fin de travail' },
       ]
-    this.allColumnsDataContacter = [
-        { fieldName: "talentName", headerName: Nom },
-        { fieldName: "talentEmail", headerName: Email },
-        // { fieldName: "talentphone", headerName: Telephone },
-        { fieldName: "statut", headerName: Statut },
-        { fieldName: "offres", headerName: Offre },
-        //  { fieldName: "created_at", headerName: "Date de début de travail" },
-      ]
+   
     this.texte0 = await this.handleTranslate('Liste des talents');
     this.texte1 = await this.handleTranslate(`Talents contactés`);
     this.texte2 = await this.handleTranslate("Mes talents");
@@ -128,15 +128,89 @@ export default {
           </ol>
         </div>
       </div>
-      
       <div class="tab-content" id="top-tabContent" v-show="!tab">
-        <DatatablePrimeVue
-          :DATAVALUE="listTalentContacte"
-          :DATACOLUMN="allColumnsDataContacter"
-          :globalFilterFields="fieldsForFilter"
-          :DATAfORfILTER="filters"
-          :nameDatatable="'Talents contactés'"
-        />
+        {{ listTalentContacte }}
+         <DataTable
+    :globalFilterFields="fieldsForFilter"
+    :value="listTalentContacte"
+    :rows="10"
+    v-model:filters="filters"
+    :rowsPerPageOptions="[5, 10, 20, 50]"
+  >
+      <template #empty>
+    <div class="text-center" style="padding:2em;font-weight:bold;">
+      Aucune donnée disponible
+    </div>
+  </template>
+    <template #paginatorstart>
+      <div
+        style="display: flex; justify-content: flex-start; font-size: 1em; border: none"
+      >
+        Talents contactés {{ listTalentContacte.length }}
+      </div>
+    </template>
+    <template #header>
+      <div class="conteneur_search">
+        <IconField iconPosition="left">
+          <InputIcon>
+            <i class="pi pi-search" />
+          </InputIcon>
+          <InputText
+            style="width: 300px; font-size: 1.2em; border: 2px solid orange"
+            v-model="filters['global'].value"
+            placeholder="Recherche:"
+          />
+        </IconField>
+      </div>
+    </template>
+     <Column field="talent.nom" header="Talent"></Column>
+     <Column field="offre.nom_offre" header="Offre"></Column>
+     <Column field="offre.lieu" header="Lieu"></Column>
+      <Column field="status" header="Statut">
+  <template #body="{ data }">
+    <span v-if="data?.contrat === 1" class="badge bg-success">
+      Sélectionné
+    </span>
+
+    <span v-else-if="data?.contrat === 2" class="badge bg-danger">
+      Refusé
+    </span>
+
+    <span v-else class="badge bg-primary">
+      En attente de réponse
+    </span>
+  </template>
+</Column>
+<Column field="id" header="Détail">
+  <template #body="{ data }">
+  
+    <div class="d-flex justify-content-center align-items-center">
+     <router-link
+  v-if="data?.contrat === 1 && data?.offre?.nom_offre"
+  :to="{
+    name: 'details_students_contactes',
+    params: {
+      offre: data?.offre?.nom_offre,
+      id:data.id,
+      name: data?.talent.nom,
+    },
+  }"
+  class="text-primary"
+  title="Voir les détails"
+>
+  <em class="bi bi-eye"></em>
+</router-link>
+      
+      <em
+      v-else  
+        class="bi bi-dash-circle"
+      ></em>
+
+    </div>
+
+  </template>
+</Column>
+  </DataTable>
       </div>
       <div class="tab-content" id="top-tabContent" v-show="tab">
         <DatatablePrimeVue

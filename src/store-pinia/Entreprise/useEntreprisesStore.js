@@ -51,7 +51,7 @@ export const useEntreprisesStore = defineStore('entreprise', {
            if(listTalentContacte.data.status){
             // this.list_students = listStudent.data.data;
             // this.student = this.list_students?.students;
-            //  this.studentRecruit = this.tableData(studentRecruit.data);
+             this.studentRecruit = this.tableData(studentRecruit.data);
             this.listTalentContacte = listTalentContacte.data.data
           
            }

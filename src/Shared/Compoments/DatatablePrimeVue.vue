@@ -141,15 +141,7 @@ export default {
           <StatutForDatatable :dataStatut="slotProps.data" />
         </span>
         
-        <span v-else-if="item.fieldName === 'talentName'">
-          {{ slotProps.data.talent.nom }}
-        </span>
-         <span v-else-if="item.fieldName === 'talentEmail'">
-          {{ slotProps.data.talent.email }}
-        </span>
-         <span v-else-if="item.fieldName === 'offres'">
-          {{ slotProps.data.offre.nom_offre }}
-        </span>
+       
      
         <span v-else-if="item.headerName === 'Date de travail'">
 

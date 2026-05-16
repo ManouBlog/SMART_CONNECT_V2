@@ -61,26 +61,12 @@ export default {
     get_students_contact() {
        this.launchLoading(true);
       instance
-        .get("list_students_contact_by_entreprise")
-        .then((res) => {
+        .get("detail_students_contact_by_entreprise/"+this.$route.params.id)
+        .then((response) => {
+          console.log('detail_students_contact_by_entreprise',response)
+            
+          this.detailsStudents =  response.data.data;
          
-          this.list_students = res.data.data;
-         
-          this.student = this.list_students?.students;
-          this.student.find((item) => {
-            if (
-              item.nom === this.$route.params.name &&
-              item.pivot.created_at === this.$route.params.date
-            ) {
-              this.detailsStudents = item;
-            }
-          });
-          this.detailsStudents.etoiles.forEach((item) => {
-            if (item.user_id === this.user.id) {
-              this.appreciationService = true;
-            }
-          });
-       
         })
         .catch((err) => {
           console.log(err)
@@ -132,7 +118,7 @@ export default {
       instance
         .post("giveAvis", {
           notes: this.notationService,
-          student_id: this.detailsStudents.id,
+          student_id: this.detailsStudents.talent.id,
           avis: this.avis,
         })
         .then((res) => {
@@ -153,7 +139,7 @@ export default {
   },
  async created() {
     this.get_students_contact();
-    this.get_all_timetables();
+    // this.get_all_timetables();
     this.texte = await this.handleTranslate('Talent contacté');
     this.texte1 = await this.handleTranslate(`Contacté pour le`);
     this.texte2 = await this.handleTranslate("Email");
@@ -176,60 +162,56 @@ export default {
       :TitleHeader="texte"
       :subTitleHeader="texte"
     />
-    <div  class="d-flex align-items-center justify-content-center flex-wrap" v-if="detailsStudents">
+    <div  class="d-flex align-items-center justify-content-center flex-wrap my-5" v-if="detailsStudents">
       <a-card style="width: 400px; background: var(--secondary-color) !important;color: var(--third-color) !important;" >
         <div class="d-flex justify-content-between align-items-center">
          <h1><em class="bi bi-person h1"></em></h1>
-         <h2 style="color:orange;font-weight:bold;">{{ detailsStudents.nom }} {{ detailsStudents.prenoms }}</h2>
+         <h2 style="color:orange;font-weight:bold;">{{ detailsStudents.talent.student.nom }} {{ detailsStudents.talent.student.prenoms }}</h2>
         </div>
-        <div>
-          <h1 class="badge bg-primary w-25">{{texte1}}</h1>
-          <br />
+        <div style="display: flex;gap:1em;align-items: center;">
+          <p>{{texte1}} : </p>
+          
           <div
             v-if="
-              detailsStudents.pivot.date_debut != null &&
-              detailsStudents.pivot.date_fin != null
+              detailsStudents.offre.date_debut != null &&
+              detailsStudents.offre.date_fin != null
             "
           >
             <strong>{{
-              detailsStudents.pivot.date_debut
+              detailsStudents.offre.date_debut
                
             }}</strong>
             au
             <strong>{{
-              detailsStudents.pivot.date_fin
+              detailsStudents.offre.date_fin
             }}</strong>
           </div>
           <div v-else>
-            <strong>{{
-              detailsStudents.pivot.date
-            }}</strong>
+            <p>{{
+              detailsStudents.offre.job_debut
+            }}</p>
           </div>
         </div>
         <section class="text-left my-3">
-         <h4><span style="color:orange;">{{texte2}} :</span> {{ detailsStudents.email }}</h4>
-         <h4><span style="color:orange;">{{texte3}} :</span> {{ detailsStudents.ville }}</h4>
-         <h4><span style="color:orange;">{{texte4}} :</span> {{ detailsStudents.quartier }}</h4>
-         <h4><span style="color:orange;">{{texte5}} :</span> {{ detailsStudents.commune }}</h4>
-         <h4><span style="color:orange;">{{texte6}} :</span> {{ detailsStudents.phone }}</h4>
-         <h4><span style="color:orange;">{{texte7}} :</span> {{ detailsStudents.diplome }}</h4>
-         <div style="text-align:left;">
-           <h4><span style="color:orange;">{{texte8}} :</span></h4>
-           <n-image width="100" :src="lienPhoto + detailsStudents.photo"
-             :alt="detailsStudents.photo" />
-         </div>
+         <h4 v-if="detailsStudents.talent.student.email"><span style="color:orange;">{{texte2}} :</span> {{ detailsStudents.talent.student.email }}</h4>
+         <h4 v-if="detailsStudents.talent.student.ville"><span style="color:orange;">{{texte3}} :</span> {{ detailsStudents.talent.student.ville }}</h4>
+         <h4 v-if="detailsStudents.talent.student.quartier"><span style="color:orange;">{{texte4}} :</span> {{ detailsStudents.talent.student.quartier }}</h4>
+         <h4 v-if="detailsStudents.talent.student.commune"><span style="color:orange;">{{texte5}} :</span> {{ detailsStudents.talent.student.commune }}</h4>
+         <h4 v-if="detailsStudents.talent.student.phone"><span style="color:orange;">{{texte6}} :</span> {{ detailsStudents.talent.student.phone }}</h4>
+         <h4 v-if="detailsStudents.talent.student.diplome"><span style="color:orange;">{{texte7}} :</span> {{ detailsStudents.talent.student.diplome }}</h4>
         </section>
-        <section>
-          <h1 class="badge bg-dark w-25 text-warning">{{texte9}}</h1>
-          <div
-            v-for="(competence, index) in detailsStudents.competences"
-            :key="index"
-            class="d-flex flex-wrap align-items-center"
-          >
-            <strong>- {{ competence.competence }}</strong>
-          </div>
-  
-          
+        <section style="display: flex;justify-content: flex-end;">
+          <span v-if="detailsStudents?.contrat === 1" class="badge bg-success">
+          Sélectionné
+         </span>
+
+    <span v-else-if="detailsStudents?.contrat === 2" class="badge bg-danger">
+      Refusé
+    </span>
+
+    <span v-else class="badge bg-primary">
+      En attente de réponse
+    </span>
         </section>
        </a-card>
     </div>

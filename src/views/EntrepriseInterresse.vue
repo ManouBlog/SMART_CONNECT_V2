@@ -206,14 +206,15 @@ if (!user.competences.length || !user.qualifications.length) {
                 class="mobile-card"
               >
                 <div class="mobile-card-header">
-                  <h3 class="offre-nom">{{ item.offre.nom_offre }}</h3>
+                  <h2 class="offre-nom">{{ item.offre.nom_offre }}</h2>
+                 
                   <span :class="['badge', colorStatut[item.contrat]]">
                     {{ statut[item.contrat] }}
                   </span>
                 </div>
-
+                <span style="color:orange;">{{ item.offre?.competence?.categorie?.categorie }}</span>
                 <p><strong>Lieu :</strong> {{ item.offre.lieu }}</p>
-                <p><strong>Recruteur :</strong> {{ item.Offre?.owner?.nom }}</p>
+                <p><strong>Recruteur :</strong> {{ item.entreprise?.nom }}</p>
                 <p>
                   <strong>Rémuneration</strong>
                   {{ moneyFormat.format(item.offre.salaire) }} Fcfa
@@ -291,7 +292,7 @@ td {
 }
 
 .offre-nom {
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: bold;
   color: #ffffff;
 }
