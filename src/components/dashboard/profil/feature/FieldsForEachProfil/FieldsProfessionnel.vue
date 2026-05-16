@@ -502,7 +502,7 @@ isProfilHybrideADD(){
 
     <a-col :xs="24" :md="12">
       <a-form-item
-        label="Carte national d'identité"
+        label="Carte national d'identité / Pièce justificative"
         name="photo"
       >
         <a-input

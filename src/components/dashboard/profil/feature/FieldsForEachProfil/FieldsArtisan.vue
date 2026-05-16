@@ -326,7 +326,7 @@ resetData(){
       </div>
     
       <div class="col-md-6 my-4">
-        <label for="certificat" class="form-label fw-semibold mb-2">Carte national d'identité *</label>
+        <label for="certificat" class="form-label fw-semibold mb-2">Carte national d'identité ou Pièce justificative*</label>
         <input 
           type="file" 
           id="certificat"

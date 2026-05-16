@@ -474,7 +474,7 @@ StatutProfessionnel:[
             payload: this.formState,
           });
         } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité.");
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité ou une Pièce justificative");
         }
       } else {
         this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
@@ -504,7 +504,7 @@ StatutProfessionnel:[
       "Compétences (plusieurs choix sont possibles)"
     );
     this.texte8 = await this.handleTranslate("Niveau d'étude");
-    this.texte9 = await this.handleTranslate("Carte national d'identité");
+    this.texte9 = await this.handleTranslate("Carte national d'identité/ Pièce justificative");
     this.texte10 = await this.handleTranslate("Mot de passe");
     this.texte11 = await this.handleTranslate("S'inscrire");
     this.texte12 = await this.handleTranslate("Mot de passe requis");
