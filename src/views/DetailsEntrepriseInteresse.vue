@@ -53,13 +53,12 @@ export default {
     get_offre_detail_interesse() {
       loadingSpinner.launchLoading(true);
       instance
-        .get("see_entreprise_student")
-        .then((res) => {
-        
-          this.DetailSeeEntreprise = res.data.data.find(
-            (item) => item.id == this.$route.params.id
-          );
-        
+        .get("see_entreprise_student/"+this.$route.params.id)
+        .then((response) => {
+          console.log("get_offre_detail_interesse",response)
+        if(response.data.status){
+        this.DetailSeeEntreprise = response.data.data
+        }
         })
         .catch((err) => {
           console.log(err);
@@ -69,40 +68,95 @@ export default {
           this.loadSpinner = false;
         });
     },
-    updateCandidature(id, payload, idContrat) {
-      loadingSpinner.launchLoading(true);
-      instance
-        .put("changeStatutJob/" + id, { contrat: payload, id_contrat: idContrat })
-        .then((res) => {
+    async updateCandidature(id, payload, idContrat) {
+   const TEXTE = payload == 1 ? "Voulez-vous vraiment accepter cette candidature ?":"Voulez-vous vraiment rejeter cette candidature ?";
+  const result = await Swal.fire({
+    title: "Confirmation",
+    text: TEXTE,
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Oui",
+    cancelButtonText: "Annuler",
+    reverseButtons: true,
+      confirmButtonColor: "green",
+  cancelButtonColor: "red",
+  });
+
+  if (!result.isConfirmed) {
+    return;
+  }
+
+  loadingSpinner.launchLoading(true);
+
+  try {
+
+    const res = await instance.put(
+      "changeStatutJob/" + id,
+      {
+        contrat: payload,
+        id_contrat: idContrat,
+      }
+    );
+
+    Swal.fire({
+      icon: res.data.status ? "success" : "info",
+      title: res.data.message,
+      showConfirmButton: true,
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    Swal.fire({
+      icon: "error",
+      title:
+        err?.response?.data?.message ||
+        "Une erreur est survenue",
+      showConfirmButton: true,
+    });
+
+  } finally {
+
+    this.get_offre_detail_interesse();
+
+    loadingSpinner.launchLoading(false);
+  }
+},
+    // updateCandidature(id, payload, idContrat) {
+    //   loadingSpinner.launchLoading(true);
+    //   instance
+    //     .put("changeStatutJob/" + id, { contrat: payload, id_contrat: idContrat })
+    //     .then((res) => {
           
-          if (res.data.status === true) {
-            Swal.fire({
-              icon: "success",
-              title: res.data.message,
-              showConfirmButton: true,
-            });
-          }
-          if (res.data.status === false) {
-            Swal.fire({
-              icon: "info",
-              title: res.data.message,
-              showConfirmButton: true,
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          Swal.fire({
-            icon: "info",
-            title: err.response.data.message,
-            showConfirmButton: true,
-          });
-        })
-        .finally(() => {
-          this.get_offre_detail_interesse();
-          loadingSpinner.launchLoading(false);
-        });
-    },
+    //       if (res.data.status === true) {
+    //         Swal.fire({
+    //           icon: "success",
+    //           title: res.data.message,
+    //           showConfirmButton: true,
+    //         });
+    //       }
+    //       if (res.data.status === false) {
+    //         Swal.fire({
+    //           icon: "info",
+    //           title: res.data.message,
+    //           showConfirmButton: true,
+    //         });
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       Swal.fire({
+    //         icon: "info",
+    //         title: err.response.data.message,
+    //         showConfirmButton: true,
+    //       });
+    //     })
+    //     .finally(() => {
+    //       this.get_offre_detail_interesse();
+    //       loadingSpinner.launchLoading(false);
+    //     });
+    // },
     handleNouvelAbonnement() {
       this.$router.push({ name: "abonnements" });
     },
@@ -129,7 +183,7 @@ export default {
     this.texte14 = await this.handleTranslate("Voir plus");
     this.texte15 = await this.handleTranslate("Offre Expirée");
     this.texte16 = await this.handleTranslate("Charger plus");
-    this.texte66 = await this.handleTranslate("Non retenu");
+    this.texte66 = await this.handleTranslate("Rejeter");
   },
 };
 </script>
@@ -145,8 +199,9 @@ export default {
                   <h1 class="my-5 nom_offre">
                     {{ DetailSeeEntreprise.offre.nom_offre }}
                   </h1>
+                
                 </div>
-
+             <span style="color:orange;font-size: 1.5em;">{{ DetailSeeEntreprise.offre?.competence?.categorie?.categorie }}</span>
                 <h4 class="my-5">
                   <em class="bi bi-geo"></em> {{ DetailSeeEntreprise.offre.lieu }}
                 </h4>
@@ -170,13 +225,14 @@ export default {
                         : 'smart-connect'
                     "
                   />
-                  {{ DetailSeeEntreprise.Offre?.owner?.nom }}
+                  {{ DetailSeeEntreprise?.entreprise?.nom }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="DetailSeeEntreprise.offre.salaire != null">
                     <em class="bi bi-cash-stack"></em>
-                    {{ moneyFormat.format(DetailSeeEntreprise.offre.salaire) }} Fcfa /
-                    {{ DetailSeeEntreprise.offre.pointage }}
+                    {{ moneyFormat.format(DetailSeeEntreprise.offre.salaire) }} Fcfa 
+                    <span v-if="DetailSeeEntreprise.offre.pointage">/
+                    {{ DetailSeeEntreprise.offre.pointage }}</span>
                   </h4>
                   <h4 class="my-5" v-else>
                     <em class="bi bi-cash-stack"></em> {{ texte }}
@@ -199,17 +255,26 @@ export default {
               </section>
 
               <section>
-                <h4 class="my-5">
+                <h4 class="my-5" v-if="DetailSeeEntreprise.offre.job_debut">
                   <span class="fw-bold">{{ texte2 }}</span>
                   {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.job_debut) }}
                 </h4>
-                <h4 class="my-5">
+                 <h4 class="my-5" v-if="DetailSeeEntreprise.offre.hour_debut">
+                  <span class="fw-bold">Heure de début</span>
+                  {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.hour_debut) }}
+                </h4>
+                 <h4 class="my-5" v-if="DetailSeeEntreprise.offre.hour_fin">
+                  <span class="fw-bold">Heure de fin</span>
+                  {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.hour_fin) }}
+                </h4>
+                <h4 class="my-5" v-if="DetailSeeEntreprise.offre?.job_fin">
                   <span class="fw-bold">{{ texte3 }}</span>
                   {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre?.job_fin) }}
                 </h4>
               </section>
               <section>
                 <span class="my-2 fw-bold" style="color: orange"
+                v-if="DetailSeeEntreprise.offre.fin"
                   >{{ texte5 }}
                   {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.fin) }}</span
                 >
@@ -220,7 +285,7 @@ export default {
                 v-if="DetailSeeEntreprise.contrat === 0"
               >
                 <button
-                  class="btn bg-success mx-2"
+                  class="btn bg-success mx-2 w-25"
                   @click="
                     updateCandidature(
                       DetailSeeEntreprise.offre.id,
@@ -233,7 +298,7 @@ export default {
                   {{ texte6 }}
                 </button>
                 <button
-                  class="btn bg-danger"
+                  class="btn bg-danger w-25"
                   @click="
                     updateCandidature(
                       DetailSeeEntreprise.offre.id,
@@ -252,10 +317,10 @@ export default {
                 style="color: #00ff04"
                 v-else-if="DetailSeeEntreprise.contrat === 1"
               >
-                Offre Acceptée pour le {{ DetailSeeEntreprise.date }}
+                Offre Acceptée pour le {{ DetailSeeEntreprise.offre.job_debut }}
               </p>
               <p class="text-danger d-flex justify-content-center" v-else>
-                Offre refusée pour le {{ DetailSeeEntreprise.date }}
+                Offre rejetée pour le {{ DetailSeeEntreprise.offre.job_debut }}
               </p>
             </div>
           </div>
@@ -280,7 +345,6 @@ export default {
 }
 }
 button {
-  padding: 1.3em;
   font-size: 1.1em;
   font-weight: bold;
 }
