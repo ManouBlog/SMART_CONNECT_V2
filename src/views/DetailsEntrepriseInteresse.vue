@@ -460,9 +460,10 @@ button {
 .jobs_filters {
   box-shadow: none !important;
 }
-@media (max-width: 1028px) {
+@media (max-width: 1200px) {
   .entreprise {
     padding: 1em 1.5em;
+    margin-top: 6em;
     text-align: center;
   }
 }
