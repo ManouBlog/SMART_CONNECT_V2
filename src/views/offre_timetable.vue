@@ -424,24 +424,14 @@ if (!user.competences.length || !user.qualifications.length) {
                 >
               </div>
             </section>
-            <div class="two my-1" style="position: relative;">
-              <div>
-                <h6 style="font-size: 0.9em;" v-if="offre.fin">
-                  <em class="bi bi-calendar-date"></em>
-                  Date limite pour postuler :
-                  {{ new Date(offre.fin).toLocaleDateString("fr") }}
-                </h6>
-                <div style="position: relative;bottom:0;right:-250px">
+            <div style="position: absolute;bottom: 0.5em;width: 90%;display: flex;place-content: center;">
                 <router-link class="see_detail" :to="{ name: 'OffreDetail', params: { id: offre.id } }">
                   <button
-                    class="btn btn-Conex mt-3" style="padding:0.4em">
+                    class="btn btn-Conex mt-3" style="padding:0.4em;width: 200px;">
                     {{ texte6 }} <em class="bi bi-eye"></em>
                   </button>
                 </router-link>
                 </div>
-               
-              </div>
-            </div>
           </div>
         </section>
 
@@ -591,16 +581,15 @@ select {
 }
 .container_result {
   cursor:pointer;
-  display: flex;
-  gap: 1em;
+  position: relative;
   align-items: center;
   background: var(--secondary-color) !important;
   color: var(--third-color) !important;
-  padding: 2em 1em 1em 1em;
+  padding: 1em;
   border-radius: 10px;
-  flex-wrap: wrap;
   margin: 1em 0;
-  width: 400px;
+  width: 350px;
+  height: 250px;
 }
 
 .badge {
@@ -666,7 +655,7 @@ form>div {
     display:none;
   }
   .container_result {
-    width: 500px;
+    min-width: 90%;
   }
   .form-group {
     width: 350px !important; /* Pleine largeur sur mobile */
@@ -677,9 +666,6 @@ form>div {
   }
   .main-container {
     padding: 0;
-  }
-  .container_result {
-    justify-content: flex-start;
   }
   .container_result .two button,
   .informations_offres {
