@@ -63,34 +63,84 @@ export default {
 </script>
 <template>
   <!-- Page Title-->
-  <div class="container-fluid page-title bg-image">
-     <h1 class="py-4" style="text-align:left;color:orange;">Nouveau mot de passe</h1>
-    <form class="w-100 p-3"  @submit.prevent="verificationMotdepasse">
-      <div class="row container-fluid px-5">
-       <div class="col-lg-12 text-left">
-    <label for="email" class="d-block my-3">Entrez votre nouveau mot de passe</label>
+<div class="container-fluid page-title bg-image">
 
-      <input class="w-100 px-4" type="password" v-model="password" placeholder=" Entrez votre nouveau mot de passe" required>
-       </div>
-       <div class="col-lg-12 text-left">
-    <label for="email" class="d-block my-3">Confirmation de mot de passe</label>
-    
-      <input class="w-100 px-4" type="password" v-model="cpassword" placeholder=" Entrez de nouveau votre mot de passe" required>
-       </div>
+  <h1
+    class="py-4"
+    style="text-align:left;color:orange;"
+  >
+    Nouveau mot de passe
+  </h1>
+
+  <a-form
+    layout="vertical"
+    class="w-100 p-3"
+    @finish="verificationMotdepasse"
+  >
+
+    <div class="row container-fluid px-5">
+
+      <div class="col-lg-12">
+
+        <a-form-item
+          label="Entrez votre nouveau mot de passe"
+          name="password"
+          :rules="[
+            {
+              required: true,
+              message: 'Veuillez entrer votre mot de passe',
+            }
+          ]"
+        >
+          <a-input-password
+            v-model:value="password"
+            size="large"
+            placeholder="Entrez votre nouveau mot de passe"
+          />
+        </a-form-item>
+
       </div>
-      <br>
-      <div>
-      <button
-      style="background: var(--secondary-color) !important;color: var(--third-color) !important;"
-      :disabled="spinner ? true:false" 
-      class="btn my-5" 
-      type="submit">
-       Envoyer
-        </button>
+
+      <div class="col-lg-12">
+
+        <a-form-item
+          label="Confirmation de mot de passe"
+          name="cpassword"
+          :rules="[
+            {
+              required: true,
+              message: 'Veuillez confirmer votre mot de passe',
+            }
+          ]"
+        >
+          <a-input-password
+            v-model:value="cpassword"
+            size="large"
+            placeholder="Entrez de nouveau votre mot de passe"
+          />
+        </a-form-item>
+
       </div>
-        
-      </form>
-  </div>
+
+    </div>
+
+    <div class="px-5">
+
+      <a-button
+        html-type="submit"
+        type="primary"
+        size="large"
+        :loading="spinner"
+        style="background: orange;border-color: orange;"
+      >
+        Envoyer
+      </a-button>
+
+    </div>
+
+  </a-form>
+
+</div>
   <!-- Page Title-->
 
 </template>
@@ -116,14 +166,13 @@ export default {
     display:block;
 }
 .bg-primary{
-  background: rgb(25, 53, 90) !important;
+  background: orange !important;
 }
 h5{
     color:rgb(0, 0, 0) !important;
 }
 form{
     width:50%;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.152);
     padding:5.15em 0;
     margin-bottom: 2em;
     margin-left:50%;
@@ -137,7 +186,9 @@ form{
 label{
     font-size: 1em;
 }
-
+  .page-title{
+    margin-top: 7em;
+  }
 
 
 </style>

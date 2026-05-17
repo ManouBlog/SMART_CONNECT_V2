@@ -114,7 +114,6 @@ export default {
       this.notationService = 5;
     },
     sendAppreciation() {
-      
       instance
         .post("giveAvis", {
           notes: this.notationService,
@@ -135,6 +134,34 @@ export default {
             }, 1500);
           }
         });
+    },
+     voirDetailTimetable(item) {
+      // console.log("voirDetailTimetable",item)
+      if (
+  this.user &&
+  (this.user.user?.statuses || []).some(s =>
+    ['Entreprise', 'Particulier'].includes(s.statut)
+  )
+) {
+ this.$router.push({
+            name: "detailStudent",
+            params: { id: item.student.id, user_id: item.id },
+          });
+        
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "Veuillez-vous connecter!",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        setTimeout(() => {
+          this.$router.push({
+            path: "/registre",
+            query: { redirect: this.path },
+          });
+        }, 2000);
+      }
     },
   },
  async created() {
@@ -170,7 +197,12 @@ export default {
           {{ detailsStudents.talent.student.nom }} 
           {{ detailsStudents.talent.student.prenoms }}</h2>
         </div>
-        <button style="background: orange;">Voir plus</button>
+        <div style="display:flex;justify-content:flex-end">
+         <button style="background: orange;"
+        @click="voirDetailTimetable(detailsStudents.talent)"
+        >Voir plus</button>
+        </div>
+       
         <div style="display: flex;gap:1em;align-items: center;">
           <p>{{texte1}} : </p>
           

@@ -420,7 +420,7 @@ button {
 @media (max-width: 1200px) {
   .entreprise {
     padding: 1em 1.5em;
-    margin-top: 6em;
+    margin-top: 4em;
     text-align: center;
   }
 }

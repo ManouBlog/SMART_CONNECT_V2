@@ -74,10 +74,10 @@ export default {
     title: `Voulez-vous vraiment ${actionText} ce talent ?`,
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: valueRecruit === 1 ? "#163239" : "#ef4444",
-    cancelButtonColor: "#e10000",
     confirmButtonText: "Oui, confirmer",
     cancelButtonText: "Annuler",
+     confirmButtonColor: "green",
+     cancelButtonColor: "red",
   })
 
   // ❌ Si l'utilisateur annule
@@ -96,9 +96,7 @@ export default {
 
     const reponse = await instance.post("recruitStudent", data)
 
-    if (reponse.data.status) {
-
-      this.$emit('handleListe')
+     this.$emit('handleListe')
 
       await Swal.fire({
         icon: "success",
@@ -106,7 +104,6 @@ export default {
         timer: 1500,
         showConfirmButton: false,
       })
-    }
 
   } catch (error) {
 
