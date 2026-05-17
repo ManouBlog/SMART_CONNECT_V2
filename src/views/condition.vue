@@ -268,11 +268,17 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
   avec effet à la fin de la période annuelle en cours, sans remboursement prorata.
 </p>
  <p>
-  -<span style="font-weight: bold">
+ -<span style="font-weight: bold">
    Formule BROBROLI+ 
   </span>
   <span style="font-weight: bold;display: block;">
-    Vétéran : 200 000 F / an et Vétéran Senior : 250 000 F /an
+    Vétéran : 150 000 F / an
+  </span>
+  <span style="font-weight: bold;display: block;">
+     Vétéran Senior : 200 000 F /an
+  </span>
+  <span style="font-weight: bold;display: block;">
+    Vétéran Hors-grade : 250 000 F /an
   </span>
 </p>
 <p>
