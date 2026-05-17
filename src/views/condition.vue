@@ -243,7 +243,13 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
    Formule BROBROLI 
   </span>
   <span style="font-weight: bold;display: block;">
-    Vétéran : 75 000 F / an Vétéran Senior : 100 000 F /an
+    Vétéran : 50 000 F / an
+  </span>
+   <span style="font-weight: bold;display: block;">
+     Vétéran Senior : 75 000 F /an
+  </span>
+   <span style="font-weight: bold;display: block;">
+    Vétéran Hors-grade : 100 000 F /an
   </span>
 </p>
 <p>
@@ -256,7 +262,7 @@ optionnelle du mode profil discret, rendant le profil non indexé dans les reche
    de visite de profil par les clients et organisations. 
    Le système d'évaluation post-mandat et le tableau de bord 
    statistiques sont inclus dans cette formule. 
-   L'abonnement est proposé à 75 000 FCFA par an et 100 000 FCFA par an, 
+   L'abonnement est proposé à 50 000 FCFA par an et 100 000 FCFA par an, 
    sans reconduction automatique sauf instruction explicite de l'abonné.
     La résiliation est possible à tout moment depuis l'espace personnel, 
   avec effet à la fin de la période annuelle en cours, sans remboursement prorata.
