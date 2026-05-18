@@ -114,7 +114,7 @@ export default {
 
 @media screen and (max-width: 500px) {
 .text_ecriteau{
-  font-size: 1em !important;
+  font-size: 2em !important;
   }
 .ecriteau > h1 {
   margin: 0.5em 0;

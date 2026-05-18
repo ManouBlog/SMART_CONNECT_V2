@@ -4,7 +4,7 @@
       <!-- En-tête avec photo et infos personnelles -->
       <div class="header">
         <div class="photo-placeholder" v-if="photo">
-          <img :src="photo" alt="Photo de profil" class="profile-photo" />
+          <img :src="photo" alt="Photo de profil" class="profile-photo" crossorigin="anonymous" />
         </div>
         <div class="personal-info">
           <h1>{{ nom }}</h1>
@@ -95,7 +95,9 @@ const props = defineProps({
   // atouts: { type: Array, default: () => [] },
 });
 const downloadCV = async () => {
-  const cvContent = document.getElementById("cv-content");
+  isLoading.value = true;
+  try{
+const cvContent = document.getElementById("cv-content");
   if (!cvContent) return;
 
   // capture du DOM
@@ -133,9 +135,15 @@ const downloadCV = async () => {
 
   // téléchargement
   pdf.save(`CV_${props.nom.replace(/\s+/g, "_")}.pdf`);
+  }catch(error){
+  console.log(error);
+  }finally{
+    isLoading.value = false;
+  }
 };
 </script>
 <style scoped>
+
 .cv-container {
   display: flex;
   flex-direction: column;
@@ -145,11 +153,10 @@ const downloadCV = async () => {
 }
 
 .cv-content {
-  width: 800px;
   background: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   position: relative;
-  overflow: hidden;
+  overflow:auto;
   padding: 20px;
   padding-right: 50px;
 }
@@ -236,21 +243,10 @@ const downloadCV = async () => {
   background: #3a8a80;
 }
 
-@media (max-width: 900px) {
-  .cv-content {
-    width: 95%;
-    padding: 15px;
-    padding-right: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  }
-}
+
 
 @media (max-width: 500px) {
-  .cv-content {
-    width: 100%;
-    padding: 0 !important;
-    box-shadow: none; /* allège sur très petit écran */
-  }
+ 
   .teal-sidebar {
     width: 15px;
     right: -0.5em;
