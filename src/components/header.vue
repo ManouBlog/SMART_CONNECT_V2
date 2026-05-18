@@ -335,7 +335,7 @@ export default {
 }
 .conteneur-flex_nav {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5em;

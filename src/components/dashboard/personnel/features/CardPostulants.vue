@@ -134,7 +134,6 @@ export default {
     this.texte8 = await this.handleTranslate('Rejeter');
     this.texte9 = await this.handleTranslate("Candidature retenue");
     this.texte10 = await this.handleTranslate('Candidature Pas retenue');
-   
   },
 }
 </script>

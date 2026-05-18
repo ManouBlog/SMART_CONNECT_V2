@@ -800,7 +800,8 @@ chooseCompetenceFormState(value) {
     </div>
     <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
       <label><span style="color: red">*</span>Choisissez un profil 
-        <i class="bi bi-info-circle text-info" style="font-size: 0.3em;margin-left: -0.1em;"></i>
+        <span style="font-size:0.8em;">(ceci vous permet de cibler les offres pas profil)</span>
+        <!-- <i class="bi bi-info-circle text-info" style="font-size: 0.3em;margin-left: -0.1em;"></i> -->
       </label>
       <!-- {{ filteredOptions }} -->
       <VueMultiselect 

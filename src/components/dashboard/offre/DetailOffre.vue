@@ -7,23 +7,28 @@ import { mapActions, mapState } from "pinia";
 import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../../store-pinia/LoadingSpinner/useLoadingSpinner";
+import VueMultiselect from "vue-multiselect";
 export default {
   name: "DetailOffre",
   components: {
     Editor,
     HeaderDashboard,
+    VueMultiselect, 
   },
   data() {
     return {
       isLoading:false,
       loadingSpinner:useLoadingSpinner(),
       texte0: "",
+      offre_mode_travail:null,
       texte2: "",
       texte3: "",
       texte1: "",
       texte4: "",
       texte5: "",
       texte6: "",
+       countries: [],
+       offre_pays:null,
       texte7: "",
       texte8: "",
       texte9: "",
@@ -50,9 +55,12 @@ export default {
       salaire: null,
       lieu: null,
       debut: null,
+      chooseStatut:[],
+      allStatuses:[],
       fin: null,
       description: null,
       offres: [],
+      userInfo:null,
       spinner: false,
       offre_id: null,
       modify_offre: false,
@@ -187,11 +195,75 @@ export default {
       !this.formState.description ||
        !this.formState.categorie_offre_id 
       || !this.formState.competence_id
-    )}
+    )},
+     filteredOptions() {
+    // Si "TOUS" est sélectionné, n'affiche que "TOUS"
+    if (this.chooseStatut.some(item => item.statut === 'Tous')) {
+      return this.allStatuses.filter(item => item.statut === 'Tous');
+    }
+    if (this.chooseStatut.some(item => item.statut !== 'Tous')) {
+      return this.allStatuses.filter(item => item.statut !== 'Tous');
+    }
+    return this.allStatuses;
+  }
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
+      async listerCountries() {
+    try {
+      const response = await instance.get("countries");
+      this.countries = response.data;
+   
+    } catch (error) {
+      console.log(error);
+    }
+  },
+    async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+        
+          if (response.data.status) {
+      let allStatuses = [];
+  // Statut connecté
+  const monStatut = this.userInfo?.user?.statut?.statut.toLowerCase() || '';
+  
+  if (monStatut === 'entreprise') {
+    // ✅ Entreprise voit TOUS sauf admin/entreprise/particulier
+    allStatuses = response.data.data.filter(item => 
+      item.statut?.toLowerCase() !== 'admin' &&
+      item.statut?.toLowerCase() !== 'entreprise' &&
+      item.statut?.toLowerCase() !== 'particulier'
+    );
+    allStatuses.push({ id: "Tous", statut: "Tous" });
+  } else if (monStatut === 'particulier' || this.userInfo?.user.statuses.some(itm=>itm.statut == 'Particulier') ) {
+    // ✅ Particulier voit SEULEMENT artisans
+    allStatuses = response.data.data.filter(item => 
+      item.statut?.toLowerCase() === 'artisan'
+    );
+  }
+   
+  this.allStatuses = allStatuses;
+          }
+
+      } catch (error) {
+        console.log(error);
+      }
+    },
+     async getInfoUser() {
+      if (this.$store.state.token) {
+        await instance
+          .get("voirInfoUserConnect")
+          .then((resp) => {
+            if (resp.data.status === true) {
+              this.userInfo = resp.data.user;  
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
      async update_mission() {
       this.loadingSpinner.launchLoading(true);
 
@@ -325,6 +397,7 @@ export default {
         .get("detail_offre/"+this.$route.params.id)
         .then((res) => {
           this.offre_id = res.data.data;
+          console.log("detail_offre_entreprise",this.offre_id)
           this.getCompetenceWithCategorie(this.offre_id.categorie_offre_id)
         })
         .catch((err) => {
@@ -409,10 +482,13 @@ async confirmRelance(payload) {
     
   },
   async created() {
+    await this.getInfoUser();
     await this.get_categorie();
     await this.getAllCompetences();
     if(this.$store.state.user?.user?.statut?.statut === 'Entreprise'){
     await this.show_offre_id();
+    await this.lister_statut();
+    await this.listerCountries();
     }else{
       await this.loadDetailOffre();
     }
@@ -588,6 +664,40 @@ async confirmRelance(payload) {
               v-model="offre_id.job_fin"
             />
           </div>
+           <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
+      <label><span style="color: red">*</span>Choisissez un profil 
+        <span style="font-size:0.8em;">(ceci vous permet de cibler les offres pas profil)</span>
+      </label>
+      <VueMultiselect 
+      v-model="chooseStatut" 
+      :options="filteredOptions" 
+      placeholder="Choix multiples" 
+      :multiple="true" 
+      label="statut" 
+      track-by="statut"
+       />
+          </div>
+          
+  <!-- Ligne 7 : Mode travail (centré)+ PAYS -->
+  <div class="row g-3">
+    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3"
+    v-if="userInfo?.statut?.statut === 'Entreprise'"
+    >
+      <label><span style="color: red">*</span>Choisir un mode de travail</label>
+      <VueMultiselect v-model="offre_mode_travail" 
+                      :options="[{value:'onsite',label:'Présentiel'},{value:'remote',label:'Télétravail'},{value:'hybrid',label:'Hybride'}]" 
+                      label="label" track-by="label" />
+    </div>
+    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3" v-if="countries.length > 0">
+      <label><span style="color: red">*</span>Choisir un pays</label>
+      <!-- {{ countries }} -->
+      <VueMultiselect v-model="offre_pays" 
+                      :options="countries.filter(item=>item.label === 'Côte d’Ivoire')" 
+                      label="label" 
+                      multiple
+                      track-by="label" />
+    </div>
+  </div>
           <div class="text-left my-3 col-md-12">
             <label>{{texte17}}</label>
             <div class="conteneur_editor">

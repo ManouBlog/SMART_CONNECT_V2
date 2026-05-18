@@ -413,10 +413,7 @@ a:focus-visible {
 :deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-btn-primary) {
     background-color: #ff8819 !important;
 }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-modal .ant-modal-content {
-  width:800px !important;
-  overflow: auto !important;
-}
+
 
 :deep(:where(.n-button:not(.n-button--disabled):active,.n-button:not(.n-button--disabled):hover)){
     color:orange !important;
@@ -503,6 +500,13 @@ html {
 }
 .vue3-star-ratings__wrapper{
   margin: 0 !important;
+}
+
+@media screen and(max-width:700px) {
+  :where(.css-dev-only-do-not-override-17yhhjv).ant-modal .ant-modal-content {
+  width:800px !important;
+  overflow: auto !important;
+}
 }
 
 </style>

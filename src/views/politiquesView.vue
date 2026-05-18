@@ -14,7 +14,7 @@
     </h1>
     <p style="text-align: right; padding: 0 3.2em">Mise en ligne le 24/12/2025</p>
     <h2 style="padding: 0 2em; color: orange">PREAMBULE</h2>
-    <p style="padding: 0 3.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif">
+    <p style="padding: 0 1.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif">
       La
       <span style="font-weight: bold">Société LA LOCOMOTIVE SARL en abrégée (LCE)</span>,
       Société à Responsabilité Limitée unipersonnelle (SARLU), au capital d’UN MILLION
@@ -36,7 +36,7 @@
 
     <section
       class="p-4 row"
-      style="padding: 3.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif"
+      style="padding: 1.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif"
     >
       <h2 class="text-left">
         <code>ARTICLE 1 – APPLICATION DES CONDITIONS GENERALES D’UTILISATION </code>
