@@ -36,7 +36,9 @@ export default {
       {{ item.title }}
     </h3>
     <div>
-      <p :style="!item.text_one ? { marginTop: '30px',padding:'0 10px',fontSize:'1em' } : null">
+      <p :style="!item.text_one ? { marginTop: '30px',padding:'0 10px',fontSize:'1em' } : null"
+      :class="!item.text_one ? 'dimension_ecriteau':null"
+      >
         <span style="color: orange; font-weight: bold;word-wrap: break-word;">
           {{ item.text_colorie1 }}
         </span>
@@ -54,6 +56,11 @@ export default {
   </a-card>
 </template>
 <style scoped>
+.dimension_ecriteau{
+  margin-top: 30px;
+  padding:0 10;
+  font-size:1em;
+}
 p {
   font-weight: 400;
 }
@@ -124,5 +131,17 @@ p {
 .slide-from-right {
   animation: slideFromRight 0.8s ease-out forwards;
   animation-delay: 0.6s; /* Délai plus long pour le dernier élément */
+}
+@media screen and (max-width:400px) {
+  .dimension_ecriteau{
+  padding:0 !important;
+  font-size:0.9em !important;
+  }
+}
+@media screen and (max-width:300px) {
+  .dimension_ecriteau{
+  padding:0 !important;
+  font-size:0.8em !important;
+  }
 }
 </style>
