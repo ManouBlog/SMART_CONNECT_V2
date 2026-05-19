@@ -52,6 +52,7 @@ export default {
       diplome: "",
       phone: "",
       registre_commerce: "",
+      showPdf:false,
       oldPassword: "",
       photo: {},
       isLoading: false,
@@ -382,6 +383,42 @@ export default {
       <ParagrapheDetail :item="{ libelle: 'Temps de travail', value: infoPersonnelles.tempsTravail }" />
     </div>
   </div>
+
+    <!-- Ligne 7 -->
+  <div class="row gy-2">
+    <div class="col-md-6" style="flex:1">
+       <p style="color: orange; font-weight: bold">
+      CV Chargé : 
+      </p>
+      <div>
+    <!-- Bouton pour afficher le CV -->
+    <button @click="showPdf = true" class="btn-lg bg-warning">
+      CV chargé
+    </button>
+
+    <!-- Cadre (iframe) pour afficher le PDF -->
+   <!-- Modal -->
+    <div class="modal" v-if="showPdf" @click.self="showPdf = false">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 style="color: black;">Mon CV chargé</h5>
+          <button @click="showPdf = false">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <iframe
+            :src="lienPhoto+infoPersonnelles.CVupload"
+            width="100%"
+            height="500"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+   
+  </div>
 </div>
       </section>
       <section class="my-5 text-center">
@@ -452,6 +489,67 @@ export default {
   </section>
 </template>
 <style scoped>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  width: 90%;
+  min-width: 300px;
+  max-width: 800px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h5 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.modal-header button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 10px;
+}
+
+.modal-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+  text-align: right;
+}
+
+.modal-footer button {
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 .shimmer-text {
   font-weight: 600;
   background: linear-gradient(

@@ -205,13 +205,13 @@ Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre c
           }
         },
         async registerCompany(payload) {
-          // console.log("registerCompany",payload)
+          console.log("registerCompany",payload)
           this.isLoading = true;
           this.LOADINGSPINNER.launchLoading(true);
           let data = new FormData();
           // Photos gérant (array de fichiers)
 if (payload?.photo?.length > 0) {
-  payload.photo.forEach((item) => {
+  payload?.photo?.forEach((item) => {
     if (item) {  // Sécurité supplémentaires par item
       data.append("piece_gerant[]", item);
     }

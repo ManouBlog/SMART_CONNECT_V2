@@ -142,6 +142,7 @@ export default {
     return (
       this.loading ||
       (this.result && this.result.isCardIdentity === false)
+      
     )
   },
   },
@@ -170,7 +171,7 @@ export default {
     addPhotoInArray(allPhotos) {
       const element = [];
       allPhotos.forEach((item) => {
-        element.push(item.originFileObj);
+        element.push(item);
       });
       return element;
     },
@@ -181,7 +182,7 @@ export default {
       }
      
       if (this.formState.upload.length) {
-        this.formState.photo = this.addPhotoInArray(this.formState.upload);
+        this.formState.photo = this.formState.upload;
        
         this.changeValueIsPolitics({
           value: true,
@@ -191,12 +192,12 @@ export default {
       } else {
         this.SWALPOPUP.declencheSwalPopup(
           "info",
-          "Ajoutez votre carte etudiante ou une preuve"
+          "Ajoutez votre pièce d'identité ou une pièce justificative"
         );
       }
     },
     onHandleFailed(errorInfo) {
-   
+   console.log('errorInfo',errorInfo)
       Swal.fire({
         icon: "warning",
         title: `${errorInfo.errorFields[0].errors[0]}`,
@@ -208,10 +209,9 @@ export default {
       handleCompetence: "addTag",
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
-     onUploadChange({ fileList: newList }) {
-
-  if (!newList.length) return
-
+     onUploadChange(event) {
+console.log("onUploadChange",event.target.files)
+this.formState.upload = Array.from(event.target.files)
   this.rawText = ''
   this.result = null
 
@@ -563,33 +563,26 @@ export default {
             </a-form-item>
         </a-col>
       <a-col :xs="24" :md="12">
-        <a-form-item
-          name="upload"
-          :label="texte10"
-          :rules="[{ required: true, message: texte10 }]"
-        >
-          <a-upload
-            v-model:fileList="formState.upload"
-            name="upload"
-            list-type="picture"
-            :multiple="true"
-            :maxCount="1"
-            accept=".jpg,.jpeg,.png,.webp"
-            @change="onUploadChange"
-          >
-            <a-button> Clique pour charger </a-button>
-          </a-upload>
-        </a-form-item>
+       <a-form-item
+  name="upload"
+  :label="texte10"
+>
+  <div>
+    <!-- Remplacement de a-upload -->
+    <input
+      ref="uploadInput"
+      type="file"
+      name="upload"
+      accept=".jpg,.jpeg,.png,.webp"
+      multiple
+      :maxCount="1" 
+      placeholder="Clique pour charger"
+      @change="onUploadChange"
+    />
+  </div>
 
-        <a-spin v-if="loading" tip="Vérification de la carte d'identité" />
-        <span
-          style="color:red;"
-          v-if="this.result 
-        //   && this.result.isCardIdentity === false
-          "
-        >
-          Veuillez Ajoutez une carte d'identité bien visible
-        </span>
+</a-form-item>
+ 
       </a-col>
     </a-row>
 
@@ -613,7 +606,7 @@ export default {
     <a-form-item>
       <div class="d-flex justify-content-center">
         <a-button
-          :disabled="isPasswordDisabled"
+          :disabled="isPasswordDisabled || !this.formState.upload.length"
           type="primary"
           shape="round"
           :size="'large'"

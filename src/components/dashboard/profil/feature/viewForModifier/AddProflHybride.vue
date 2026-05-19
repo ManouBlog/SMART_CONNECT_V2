@@ -181,8 +181,9 @@ descriptionProfil:{
   methods: {
     ...mapActions(useAbonnementsStore, ['handleChangeInfoForAbonnement','handleHybrideAddProfil']),
     handleFileChange(info) {
+      const files = Array.from(info.target.files)[0];
         // console.log("file info",info)
-      this.formData.upload = info.file.originFileObj;
+      this.formData.upload = files;
     },
     async validateAndSubmit() {
       try {
@@ -361,14 +362,28 @@ descriptionProfil:{
 
  <a-form-item label="Ajouter votre CNI (carte nationale d'identité)" 
  name="file">
-      <a-upload
+      <!-- <a-upload
               v-model:fileList="formData.file"
               :maxCount="1"
               accept="image/*"
               @change="handleFileChange"
             >
               <a-button>Clique pour charger </a-button>
-            </a-upload>
+            </a-upload> -->
+            <div>
+    <input
+      ref="fileInput"
+      type="file"
+      accept="image/*"
+      :multiple="false"
+      style="display: none"
+      @change="handleFileChange"
+    />
+
+    <button type="button" @click="$refs.fileInput.click()" class="upload-button">
+      Clique pour charger
+    </button>
+  </div>
     </a-form-item>
 
 </a-col>
