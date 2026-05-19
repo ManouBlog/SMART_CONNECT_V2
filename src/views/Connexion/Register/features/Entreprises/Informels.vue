@@ -210,7 +210,7 @@ export default {
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
      onUploadChange(event) {
-console.log("onUploadChange",event.target.files)
+// console.log("onUploadChange",event.target.files)
 this.formState.upload = Array.from(event.target.files)
   this.rawText = ''
   this.result = null

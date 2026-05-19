@@ -101,8 +101,8 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          if (err.response?.status === 403){
-Swal.fire({
+          if (err.response?.status === 403 && !err.response.data.message.includes("Votre compte n’est pas encore activé.")){
+     Swal.fire({
             icon: "info",
             title: err.response.data.message,
             showConfirmButton: true,
