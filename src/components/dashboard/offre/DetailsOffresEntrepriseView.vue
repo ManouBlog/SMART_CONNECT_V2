@@ -100,7 +100,7 @@ export default {
     this.texte0 = await this.handleTranslate("Détails de l’offre");
     this.texte1 = await this.handleTranslate("Lieu");
     this.texte2 = await this.handleTranslate("Prime pas fixée");
-    this.texte3 = await this.handleTranslate("Description complète de l'offre");
+    this.texte3 = await this.handleTranslate("Description complète de l'offre :");
     this.texte4 = await this.handleTranslate("Date et heure début ");
     this.texte5 = await this.handleTranslate("Date limite de candidature");
     this.texte6 = await this.handleTranslate("Publiée il y a");
@@ -113,24 +113,26 @@ export default {
 <template>
   <div class="page-body position-relative">
     <HeaderDashboard 
-    :TitleHeader="this.$store.state.user.user.statut.statut == 'Entreprise' ? texte0:'Détail de la mission'" 
-    :subTitleHeader="this.$store.state.user.user.statut.statut == 'Entreprise' ? texte0:'Détail de la mission'" />
+    :TitleHeader="this.$store.state.user?.user?.statut?.statut == 'Entreprise' ? texte0:'Détail de la mission'" 
+    :subTitleHeader="this.$store.state.user?.user?.statut?.statut == 'Entreprise' ? texte0:'Détail de la mission'" />
     <div class="container px-5" v-if="entreprise != null">
       <div class="details_entreprise card p-5">
         <div class="px-5">
-           <span v-if="entreprise.enable_urgent" class="bg-danger" style="padding:0.3em;">Urgente</span>
-          <h1>{{ entreprise.nom_offre }}</h1>
+           <span v-if="entreprise?.enable_urgent" class="bg-danger" style="padding:0.3em;">Urgente</span>
+          <h1>{{ entreprise?.nom_offre }}</h1>
           <h4>
-            {{ texte1 }} : <strong style="color: orange"> {{ entreprise.lieu }}</strong>
+            {{ texte1 }} : <strong style="color: orange"> {{ entreprise?.lieu }}</strong>
             
           </h4>
-         
-          <span
-            v-if="entreprise.salaire != null"
+           <h4 class="fw-bold my-4" style="color: white">Mode de travail : <strong style="color: orange">{{ entreprise?.offre_mode_travail}}</strong></h4>
+          <div class="d-flex align-items-center flex-wrap">
+
+            <span
+            v-if="entreprise?.salaire != null"
             class="d-block text-light badge bg-warning h5 px-3"
           >
-            {{ moneyFormat.format(entreprise.salaire) }} Fcfa
-            <b v-if="entreprise.pointage"> / {{ entreprise.pointage }}</b></span
+            {{ moneyFormat.format(entreprise?.salaire) }} Fcfa
+            <b v-if="entreprise?.pointage"> / {{ entreprise?.pointage }}</b></span
           >
           <span
             v-else
@@ -138,14 +140,14 @@ export default {
           >
             {{ texte2 }}</span
           >
-          
+          </div>
         </div>
        <div 
-       class="px-5" v-if="entreprise.countries.length">
+       class="px-5" v-if="entreprise?.countries.length">
           Pays :
           <div class="d-flex align-items-center flex-wrap">
          <span 
-         v-for="country in entreprise.countries" 
+         v-for="country in entreprise?.countries" 
          :key="country.id"
         class="badge bg-warning text-dark mx-2 my-3"
         style="border-radius: 3px;"
@@ -155,31 +157,43 @@ export default {
           </div>
         
         </div>
+        <div 
+       class="px-5" v-if="entreprise?.statuses.length">
+          Profils :
+          <div class="d-flex align-items-center flex-wrap">
+         <span 
+         v-for="statut in entreprise?.statuses" 
+         :key="statut.id"
+        class="badge bg-warning text-dark mx-2 my-3"
+        style="border-radius: 3px;"
+        >
+          {{ statut.statut }}
+          </span>
+          </div>
         
-        <div class="px-5 my-4">
-          <h4 class="fw-bold my-4" style="color: white">Catégorie : <strong style="color: orange">{{ entreprise.competence.categorie.categorie }}</strong></h4>
-         </div>
-
-        <div class="px-5 my-4">
-          <h4 class="fw-bold my-4" style="color: white">{{this.$store.state.user.user.statut.statut == 'Entreprise' ? texte3:'Description : ' }}</h4>
-          <div class="description_html" v-html="entreprise.description"></div>
         </div>
-
-        
-        
+            
+        <div class="px-5 my-4">
+          <h4 class="fw-bold my-4" style="color: white">Catégorie : <strong style="color: orange">{{ entreprise?.competence?.categorie?.categorie }}</strong></h4>
+         </div>
+        <div class="px-5 my-4">
+          <h4 class="fw-bold my-4" style="color: white">{{this.$store.state.user?.user?.statut?.statut == 'Entreprise' ? texte3:'Description : ' }}</h4>
+          <div class="description_html" v-html="entreprise?.description"></div>
+        </div>
+   
         <div class="px-5">
-          <span class="px-3" v-if="entreprise.fin">{{ texte5 }} : {{ entreprise.fin }}</span>
+          <span v-if="entreprise?.fin">{{ texte5 }} : {{ entreprise?.fin }}</span>
         </div>
           <div class="px-5 flex g-5">
-          <span  v-if="entreprise.hour_debut">Heure de début : {{ entreprise.hour_debut }}</span>
-          <span  v-if="entreprise.hour_fin">Heure de fin : {{ entreprise.hour_fin }}</span>
+          <span  v-if="entreprise?.hour_debut">Heure de début : {{ entreprise?.hour_debut }}</span>
+          <span  v-if="entreprise?.hour_fin">Heure de fin : {{ entreprise?.hour_fin }}</span>
         </div>
         <div class="px-3">
           <span class="d-block px-3">{{ texte8 }}: {{ entreprise?.job_debut }}</span>
           <span class="px-3" v-if="entreprise?.job_fin">{{ texte9 }} : {{ entreprise?.job_fin }}</span>
           <span class="d-block px-3"
             >{{ texte6 }}:
-            {{ diffForHumans(new Date(entreprise.created_at).toISOString()) }}</span
+            {{ diffForHumans(new Date(entreprise?.created_at).toISOString()) }}</span
           >
         </div>
       </div>
@@ -189,9 +203,7 @@ export default {
 
 <style scoped>
 .badge {
-  width: 200px !important;
   color: white !important;
-
   font-weight: bold !important;
 }
 
