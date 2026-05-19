@@ -167,6 +167,7 @@ export default {
       description: null,
       offres: null,
       spinner: false,
+      isLoadingUser:true,
       competences: [],
       competence: "",
       offre_id: null,
@@ -277,7 +278,8 @@ export default {
     }
   },
     async getInfoUser() {
-      if (this.$store.state.token) {
+      try{
+ if (this.$store.state.token) {
         await instance
           .get("voirInfoUserConnect")
           .then((resp) => {
@@ -291,6 +293,12 @@ export default {
             console.log(error);
           });
       }
+      }catch(error){
+        console.log(error)
+      }finally{
+        this.isLoadingUser = false
+      }
+     
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
@@ -644,8 +652,8 @@ chooseCompetenceFormState(value) {
   },
   async created() {
     await this.getInfoUser();
-    this.get_categorie();
-    this.getAllCompetences();
+    await this.get_categorie();
+    await this.getAllCompetences();
     await  this.lister_statut();
     await this.listerCountries();
     this.texte0 = await this.handleTranslate("Enregistrer une Offre");
@@ -673,14 +681,15 @@ chooseCompetenceFormState(value) {
 };
 </script>
 <template>
-  <section v-if="userInfo && userInfo.user?.statut?.statut === 'Entreprise'">
+
+<div v-if="!isLoadingUser && userInfo && categoriesOffres.length && countries.length">
+  <section>
     <div class="page-body position-relative">
-      
-      <HeaderDashboard :TitleHeader="texte0" :subTitleHeader="texte0" />
+      <HeaderDashboard :TitleHeader="userInfo.user?.statut?.statut === 'Entreprise' ? texte0:'Poster une mission'" :subTitleHeader="userInfo.user?.statut?.statut === 'Entreprise' ? texte0:'Poster une mission'" />
       <p style="text-align: center; color: red">
         Les champs avec astérisque (*) sont obligatoires.
       </p>
-      <div>
+      <div v-if="userInfo && userInfo.user?.statut?.statut === 'Entreprise'">
        <form 
        @submit.prevent="create_offre"
         class="container"
@@ -856,20 +865,9 @@ chooseCompetenceFormState(value) {
     </div>
   </div>
       </form>
-   <div v-else style="text-align:center;padding:1em;font-size: 1.5em;" class="shimmer-text">
-      Chargement...
+  
       </div>
-      </div>
-    </div>
-  </section>
-   <section v-else>
-    <div class="page-body position-relative">
-      
-      <HeaderDashboard :TitleHeader="'Poster une mission'" :subTitleHeader="'Poster une mission'" />
-      <p style="text-align: center; color: red">
-        Les champs avec astérisque (*) sont obligatoires.
-      </p>
-      <div>
+       <div v-else>
      <a-form
   :model="formState"
   :rules="rules"
@@ -1073,8 +1071,19 @@ chooseCompetenceFormState(value) {
   </a-row>
 </a-form>
       </div>
-    </div>
-  </section>
+       </div>
+      </section>
+  </div>
+   <div v-else 
+   style="
+   text-align:center;
+   padding:1em;
+   font-size: 1.5em;
+   height: 50vh;
+   margin-top:9em;"
+   class="shimmer-text">
+      Chargement...
+      </div>
 </template>
 <style scoped>
 .shimmer-text {
