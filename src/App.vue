@@ -233,6 +233,9 @@ export default {
 };
 </script>
 <style>
+.multiselect__tags{
+  border: 1.5px solid orange !important;
+}
 .text-danger{
   color: red !important;
 }

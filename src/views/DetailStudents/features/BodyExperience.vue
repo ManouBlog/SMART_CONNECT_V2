@@ -249,7 +249,7 @@ textarea {
 }
 
 .conteneur_editor {
-  border: 1px solid orange;
+   border: 1.5px solid orange;
   color: black !important;
   padding: 0 1em;
   border-radius: 5px;

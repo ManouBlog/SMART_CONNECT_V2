@@ -398,6 +398,9 @@ export default {
         .then((res) => {
           this.offre_id = res.data.data;
           console.log("detail_offre_entreprise",this.offre_id)
+          this.offre_pays =this.offre_id?.countries;
+          this.offre_mode_travail = this.offre_id?.offre_mode_travail
+          this.chooseStatut = this.offre_id?.statuses
           this.getCompetenceWithCategorie(this.offre_id.categorie_offre_id)
         })
         .catch((err) => {
@@ -683,18 +686,22 @@ async confirmRelance(payload) {
     <div class="text-left my-3 col-md-6"
     v-if="this.$store.state.user.user.statut.statut === 'Entreprise'"
     >
-      <label><span style="color: red">*</span>Choisir un mode de travail</label>
+      <label>Choisir un mode de travail</label>
       <VueMultiselect v-model="offre_mode_travail" 
-                      :options="[{value:'onsite',label:'Présentiel'},{value:'remote',label:'Télétravail'},{value:'hybrid',label:'Hybride'}]" 
+                      :options="[{value:'onsite',label:'Présentiel'},
+                      {value:'remote',label:'Télétravail'},
+                      {value:'hybrid',label:'Hybride'}]" 
                       label="label" track-by="label" />
     </div>
      <div class="text-left my-3 col-md-6" v-if="countries.length > 0">
       <label><span style="color: red">*</span>Choisir un pays</label>
-      <VueMultiselect v-model="offre_pays" 
-                      :options="countries.filter(item=>item.label === 'Côte d’Ivoire')" 
-                      label="label" 
-                      multiple
-                      track-by="label" />
+      <VueMultiselect 
+        v-model="offre_pays" 
+        :options="countries.filter(item=>item.label === 'Côte d’Ivoire')" 
+        label="label" 
+        multiple
+        track-by="label"         
+        />
     </div>
          </div>
           <div class="text-left my-3 col-md-12">
@@ -965,7 +972,7 @@ form select option {
   text-align: left;
 }
 .conteneur_editor {
-  border: 1px solid orange;
+   border: 1.5px solid orange;
   color: black !important;
   border-radius: 5px;
   padding: 0 1em;
