@@ -584,7 +584,7 @@ async confirmRelance(payload) {
           </div>
         </div>
         <div class="row">
- <div class="text-left my-3 col-md-6">
+      <div class="text-left my-3 col-md-6">
             <label>{{texte9}}</label>
             <select v-model="offre_id.pointage">
               <option value="" disabled>{{texte10}}</option>
@@ -610,7 +610,7 @@ async confirmRelance(payload) {
           </div>
         </div>
         <div class="row">
-   <div class="text-left my-3 col-md-6">
+       <div class="text-left my-3 col-md-6">
             <label>{{texte12}}</label>
             <input
               class="form-control"
@@ -664,9 +664,9 @@ async confirmRelance(payload) {
               v-model="offre_id.job_fin"
             />
           </div>
-           <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
+          <div class="text-left my-3 col-md-6" v-if="userInfo">
       <label><span style="color: red">*</span>Choisissez un profil 
-        <span style="font-size:0.8em;">(ceci vous permet de cibler les offres pas profil)</span>
+        <span style="font-size:0.5em;">(ceci vous permet de cibler les offres pas profil)</span>
       </label>
       <VueMultiselect 
       v-model="chooseStatut" 
@@ -677,27 +677,26 @@ async confirmRelance(payload) {
       track-by="statut"
        />
           </div>
-          
-  <!-- Ligne 7 : Mode travail (centré)+ PAYS -->
-  <div>
-    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3"
-    v-if="userInfo?.statut?.statut === 'Entreprise'"
+        </div>
+        <div class="row">
+<div>
+    <div class="text-left my-3 col-md-6"
+    v-if="this.$store.state.user.user.statut.statut === 'Entreprise'"
     >
       <label><span style="color: red">*</span>Choisir un mode de travail</label>
       <VueMultiselect v-model="offre_mode_travail" 
                       :options="[{value:'onsite',label:'Présentiel'},{value:'remote',label:'Télétravail'},{value:'hybrid',label:'Hybride'}]" 
                       label="label" track-by="label" />
     </div>
-    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3" v-if="countries.length > 0">
+     <div class="text-left my-3 col-md-6" v-if="countries.length > 0">
       <label><span style="color: red">*</span>Choisir un pays</label>
-      <!-- {{ countries }} -->
       <VueMultiselect v-model="offre_pays" 
                       :options="countries.filter(item=>item.label === 'Côte d’Ivoire')" 
                       label="label" 
                       multiple
                       track-by="label" />
     </div>
-  </div>
+         </div>
           <div class="text-left my-3 col-md-12">
             <label>{{texte17}}</label>
             <div class="conteneur_editor">
@@ -705,6 +704,7 @@ async confirmRelance(payload) {
             </div>
           </div>
         </div>
+      
           <div style="display:flex;justify-content:center;">
               <button
               :disabled="isLoading"
