@@ -438,9 +438,9 @@ a:focus-visible {
   display: none; /* Chrome, Safari, Opera */
 }
 
-.swal2-styled.swal2-confirm{
+.swal2-styled.swal2-confirm,.swal2-styled.swal2-confirm:focus{
   background-color: orange !important;
-  border: 1px solid orange !important;
+  box-shadow: 0 0 0 3px orange !important;
 }
 .n-pagination
   .n-pagination-item:not(.n-pagination-item--disabled).n-pagination-item--active {
