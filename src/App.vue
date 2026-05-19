@@ -440,6 +440,7 @@ a:focus-visible {
 
 .swal2-styled.swal2-confirm{
   background-color: orange !important;
+  border: 1px solid orange !important;
 }
 .n-pagination
   .n-pagination-item:not(.n-pagination-item--disabled).n-pagination-item--active {
