@@ -348,11 +348,8 @@ export default {
       }
       
     },
-    update_offre() {
-      this.loadingSpinner.launchLoading(true);
-      this.isLoading = true;
-      instance
-        .put("modify_offre_entreprise/" + this.$route.params.id, {
+    update_offre_entreprise() {
+      const dataSend = {
           nom_offre: this.offre_id.nom_offre,
           description: this.offre_id.description,
           debut: this.offre_id.debut,
@@ -361,11 +358,18 @@ export default {
           pointage: this.offre_id.pointage,
           lieu: this.offre_id.lieu,
           competence_id: this.offre_id.competence_id,
-          nbre_person:this.offre_id.nbre_person
-        })
-
+          job_debut:this.offre_id.job_debut,
+          job_fin:this.offre_id.job_fin,
+          nbre_person:this.offre_id.nbre_person,
+          offre_mode_travail:this.offre_mode_travail?.label,
+          status_id:this.chooseStatut.some(item=>item.statut === 'Tous') ? this.allStatuses.filter(item=>item.statut !== 'Tous').map(item=>item.id) : this.chooseStatut.map(item=>item.id)
+        }
+        console.log("dataSend",dataSend)
+      this.loadingSpinner.launchLoading(true);
+      this.isLoading = true;
+      instance
+        .put("modify_offre_entreprise/" + this.$route.params.id,dataSend)
         .then((res) => {
-        
           this.modify_offre = false;
           this.id_offre_update = "";
           Swal.fire({
@@ -375,7 +379,6 @@ export default {
           });
         })
         .catch((error) => {
-         
           Swal.fire({
             icon: "info",
             title: error?.response?.data?.message,
@@ -716,7 +719,7 @@ async confirmRelance(payload) {
               <button
               :disabled="isLoading"
                 class="btn p-5 mt-4 btn-designer fw-bold bg-warning"
-                @click.prevent="update_offre"
+                @click.prevent="update_offre_entreprise"
               >
                 {{texte18}}
               </button>

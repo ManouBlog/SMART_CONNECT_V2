@@ -437,13 +437,17 @@ a:focus-visible {
 .element::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+.swal2-styled.swal2-confirm{
+  background-color: orange !important;
+}
 .n-pagination
   .n-pagination-item:not(.n-pagination-item--disabled).n-pagination-item--active {
   color: orange !important;
   border: 1px solid orange !important;
 }
 .badge{
-  background-color: #837979;
+  background-color: #265028;
   font-weight: bold !important;
 }
 .swal2-container {
