@@ -679,7 +679,7 @@ async confirmRelance(payload) {
           </div>
           
   <!-- Ligne 7 : Mode travail (centré)+ PAYS -->
-  <div class="row g-3">
+  <div>
     <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3"
     v-if="userInfo?.statut?.statut === 'Entreprise'"
     >
