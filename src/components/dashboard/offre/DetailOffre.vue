@@ -364,7 +364,7 @@ export default {
           offre_mode_travail:this.offre_mode_travail?.label,
           status_id:this.chooseStatut.some(item=>item.statut === 'Tous') ? this.allStatuses.filter(item=>item.statut !== 'Tous').map(item=>item.id) : this.chooseStatut.map(item=>item.id)
         }
-        console.log("dataSend",dataSend)
+        // console.log("dataSend",dataSend)
       this.loadingSpinner.launchLoading(true);
       this.isLoading = true;
       instance
