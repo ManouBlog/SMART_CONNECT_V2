@@ -613,9 +613,13 @@ export default {
               label="competence"
               track-by="competence"
             />
+           </a-form-item>
+            <a-form-item
+        label="Autre"
+          >
+             <a-input v-model:value="formState.other_competence" />
           </a-form-item>
         </a-col>
-       
       </a-row>
     </div>
     <!-- STEP 2 -->

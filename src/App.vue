@@ -437,6 +437,13 @@ a:focus-visible {
 .element::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+:where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus, :where(.css-dev-only-do-not-override-17yhhjv).ant-input-focused,:where(.css-dev-only-do-not-override-17yhhjv).ant-input:hover,:where(.css-dev-only-do-not-override-17yhhjv).ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover,
+:where(.css-dev-only-do-not-override-17yhhjv).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector{
+  border-color: orange !important;
+}
+.ant-select-item-option-content{
+  background-color: orange !important;
+}
 
 .swal2-styled.swal2-confirm,.swal2-styled.swal2-confirm:focus{
   background-color: orange !important;
