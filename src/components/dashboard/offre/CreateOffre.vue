@@ -804,15 +804,12 @@ chooseCompetenceFormState(value) {
       <input class="form-control" type="datetime-local" 
       v-model="job_fin" 
       :min="job_debut"
-      
       />
     </div>
     <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
       <label><span style="color: red">*</span>Choisissez un profil 
-        <span style="font-size:0.8em;">(ceci vous permet de cibler les offres pas profil)</span>
-        <!-- <i class="bi bi-info-circle text-info" style="font-size: 0.3em;margin-left: -0.1em;"></i> -->
+        <span style="font-size:0.5em;">(ceci vous permet de cibler les offres pas profil)</span>
       </label>
-      <!-- {{ filteredOptions }} -->
       <VueMultiselect 
       v-model="chooseStatut" 
       :options="filteredOptions" 
@@ -827,9 +824,9 @@ chooseCompetenceFormState(value) {
   <!-- Ligne 7 : Mode travail (centré)+ PAYS -->
   <div class="row g-3">
     <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3"
-    v-if="userInfo?.statut?.statut === 'Entreprise'"
+    v-if="userInfo?.user?.statut?.statut === 'Entreprise'"
     >
-      <label><span style="color: red">*</span>Choisir un mode de travail</label>
+      <label>Choisir un mode de travail</label>
       <VueMultiselect v-model="offre_mode_travail" 
                       :options="[{value:'onsite',label:'Présentiel'},{value:'remote',label:'Télétravail'},{value:'hybrid',label:'Hybride'}]" 
                       label="label" track-by="label" />

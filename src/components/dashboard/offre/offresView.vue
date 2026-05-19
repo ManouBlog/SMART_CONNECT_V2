@@ -98,9 +98,6 @@ export default {
     ...mapState(useModalSuppressionStore, ["showModalSuppression"]),
   },
   methods: {
-    handleListAllColumnsData(){
-      
-    },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, [
       "getAllOffresCreatedByEntreprise",
@@ -209,6 +206,7 @@ export default {
         { fieldName: "lieu", headerName: Lieu },
         { fieldName: "salaire", headerName: Honoraire },
         { fieldName: "fin", headerName: Date_limite },
+        { fieldName: "profils", headerName:'Profils' },
       ]
       this.OptionsOfpointage = [
         {
@@ -239,7 +237,7 @@ export default {
         :DATACOLUMN="allColumnsData"
         :globalFilterFields="fieldsForFilter"
         :DATAfORfILTER="filters"
-        :nameDatatable="'liste des offres'"
+        :nameDatatable="'Liste des offres'"
       />
     </div>
   </section>

@@ -11,8 +11,8 @@ import SelectionnesDetailDatatable from "./features/Personnels/SelectionnesDetai
 import ContactesDetailDatatable from "./features/Personnels/ContactesDetailDatatable.vue";
 import DetailsListeOffresDatatables from "./features/Offres/DetailsListeOffresDatatables.vue";
 import { mapActions } from "pinia";
-
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
+
 export default {
   name: "DatatablePrimeVue",
   props: {
@@ -127,6 +127,14 @@ export default {
       style="font-size: 1.2em; padding: 1em; text-align: center"
     >
       <template #body="slotProps">
+        <div v-if="item.headerName === 'Profils'">
+     <span v-for="statuChoosen in slotProps.data.statuses" 
+     style="display: flex;gap: 1em;"
+     :key="statuChoosen.id" 
+     class="badge bg-warning my-1">
+  {{ statuChoosen.statut }}
+</span>
+        </div>
         <span v-if="item.fieldName === 'fin'">
          <span v-if="slotProps.data.fin">{{ configUtils.getFormatDateFr(slotProps.data.fin) }}</span>
          <span v-else>-</span> 
@@ -164,7 +172,7 @@ export default {
       <template #body="{ data }">
         <DetailsListeOffresDatatables
           :donnees="data"
-          v-if="nameDatatable === 'liste des offres'"
+          v-if="nameDatatable === 'Liste des offres'"
         />
         <ContactesDetailDatatable
           :donnees="data"

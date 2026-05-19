@@ -402,7 +402,7 @@ export default {
           this.offre_id = res.data.data;
           console.log("detail_offre_entreprise",this.offre_id)
           this.offre_pays =this.offre_id?.countries;
-          this.offre_mode_travail = this.offre_id?.offre_mode_travail
+          this.offre_mode_travail = {label:this.offre_id?.offre_mode_travail,value:this.offre_id?.offre_mode_travail}
           this.chooseStatut = this.offre_id?.statuses
           this.getCompetenceWithCategorie(this.offre_id.categorie_offre_id)
         })
@@ -691,9 +691,9 @@ async confirmRelance(payload) {
     >
       <label>Choisir un mode de travail</label>
       <VueMultiselect v-model="offre_mode_travail" 
-                      :options="[{value:'onsite',label:'Présentiel'},
-                      {value:'remote',label:'Télétravail'},
-                      {value:'hybrid',label:'Hybride'}]" 
+                      :options="[{value:'Présentiel',label:'Présentiel'},
+                      {value:'Télétravail',label:'Télétravail'},
+                      {value:'Hybride',label:'Hybride'}]" 
                       label="label" track-by="label" />
     </div>
      <div class="text-left my-3 col-md-6" v-if="countries.length > 0">
