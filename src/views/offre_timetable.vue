@@ -15,10 +15,7 @@ export default {
   components: { VueMultiselect },
   data() {
     return {
-      list_countries:[{id:1,label:"Côte d'Ivoire"},{id:3,label:"Sénégal"},
-      {id:4,label:"Mali"},{id:5,label:"Burkina Faso"},
-      {id:6,label:"Niger"},{id:7,label:"Togo"},
-      {id:8,label:"Bénin"},{id:9,label:"Ghana"},{id:10,label:"Guinée"}],
+      list_countries:[],
       selectedCountries: [],
       texte: "",
       texte1: "",
@@ -105,6 +102,15 @@ export default {
     },
   },
   methods: {
+     async listerCountries() {
+    try {
+      const response = await instance.get("countries");
+      this.list_countries = response.data;
+   
+    } catch (error) {
+      console.log(error);
+    }
+  },
     searchOffres() {
       const dataSearch = {
         categorie: this.categorie.length ? this.categorie?.map((item) => item?.id) : [],
@@ -117,6 +123,7 @@ export default {
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     async handleListOffresWithoutSearch() {
+       console.log("handleListOffresWithoutSearch")
       loadingSpinner.launchLoading(true);
       await instance
         .get("list_offres")
@@ -134,26 +141,15 @@ export default {
         });
     },
     handleListOffresWithSearch(data) {
-     
+     console.log("handleListOffresWithSearch")
       loadingSpinner.launchLoading(true);
       instance
         .post("search_offres", data)
-        .then((res) => {
-         
-          if (res.data.status) {
-             const profilALL = this.$store.state.user ?  this.$store.state.user?.user.statuses.map((s) => s.id) : [];
-          const OFFRES_FILTER_BY_PROFIL = res.data.data.filter((item) => {
-            return item.statuses.some(statut =>{
-              return profilALL.some(s => statut.id == s)
-            })
-          });
-            this.MylistOffre = OFFRES_FILTER_BY_PROFIL.filter((item) => {
-             return new Date(item.fin) >= new Date();
-            });
-            this.MylistsOffres = OFFRES_FILTER_BY_PROFIL.filter((item) => {
-              return new Date(item.fin) >= new Date();
-            });
-            this.lengthOfMylistOffre = this.MylistsOffres.length;
+        .then((response) => {
+          console.log("search_offres",response.data.data)
+          if (response.data.status) {
+            this.MylistOffre = response.data.data;
+            this.lengthOfMylistOffre = this.MylistOffre.length;
           }
         })
         .catch((err) => {
@@ -164,7 +160,7 @@ export default {
         });
     },
     get_list_offre(search = null) {
-    
+     console.log("get_list_offre",search)
       if (!search) {
         this.handleListOffresWithoutSearch();
       } else {
@@ -271,6 +267,7 @@ if (!user.competences.length || !user.qualifications.length) {
   },
   async created() {
     this.verifUserProfilEtudiantComplet();
+   await this.listerCountries()
     this.texte = await this.handleTranslate(`Sélectionnez domaine`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
     this.texte2 = await this.handleTranslate("Ex:Lieu (Angré cocody)");
