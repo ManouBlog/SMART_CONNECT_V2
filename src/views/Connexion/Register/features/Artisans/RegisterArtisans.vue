@@ -229,7 +229,7 @@ export default {
         0: ["nom", "prenoms", "phone", "email"],
 
         // STEP 1 – Profil & compétences
-        1: ["myCompetence"],
+        // 1: ["myCompetence"],
 
          // STEP 1 – Profil & compétences
         2: ["niveauEtude","statut_talent"],

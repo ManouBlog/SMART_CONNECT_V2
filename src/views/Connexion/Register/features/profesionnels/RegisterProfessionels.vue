@@ -222,7 +222,7 @@ StatutProfessionnel:[
         1: ["nom", "prenoms", "phone", "email"],
 
         // STEP 2 – Profil & compétences
-        2: ["myCompetence"],
+        // 2: ["myCompetence"],
 
         // STEP 3 – Qualifications
         3: ["qualifications", "niveauEtude", "filiere","statut_talent"],
