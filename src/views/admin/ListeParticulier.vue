@@ -120,11 +120,11 @@ export default {
           this.$store.commit("TOOGLESPINNER", false);
         });
     },
-    getDetailSuscribe(id) {
+    getDetailParticulierSuscribe(id,payload) {
     //   this.$store.commit("TOOGLESPINNER", true);
       this.$router.push({
               name: "details",
-              params: { id: id, name: "talents" },
+               params: { id: id, name: payload },
             });
     //   await axios
     //     .put("https://backend.monbrobroli.com/api/updateBadgeStudent/" + id, {
@@ -196,7 +196,6 @@ export default {
                   class="badge bg-danger"
                  
                 >
-                  <!-- {{ this.$store.state.nbreBdageEntrepriseAbonnee }} -->
                 </span>
               </a>
             </li>
@@ -270,20 +269,20 @@ export default {
   <!-- Statut -->
   <Column style="width: 20%; padding: 1em;" header="Statut">
     <template #body="slotProps">
-      <span v-if="slotProps.data.user?.statuses?.length">
+      <span v-if="slotProps.data?.statuses?.length">
         <span
-          v-for="statut in slotProps.data.user.statuses"
+          v-for="statut in slotProps.data?.statuses"
           :key="statut.id"
           style="display:flex;gap:1em;"
         >
-          <span class="badge bg-primary">
+          <span class="badge bg-primary my-1">
             {{ statut.statut }}
           </span>
         </span>
       </span>
 
-      <span v-else class="badge bg-primary">
-        {{ slotProps.data.user?.statut?.statut }}
+      <span v-else class="badge bg-primary my-1">
+        {{ slotProps.data?.statut?.statut }}
       </span>
     </template>
   </Column>
@@ -329,7 +328,7 @@ export default {
     <template #body="slotProps">
       <a
         href="#"
-        @click.prevent="getDetailSuscribe(slotProps.data.id)"
+        @click.prevent="getDetailParticulierSuscribe(slotProps.data.id,'visiteur')"
       >
         <i class="bi bi-eye"></i>
       </a>
@@ -388,20 +387,20 @@ export default {
   <!-- Statut -->
   <Column style="width: 20%; padding: 1em;" header="Statut">
     <template #body="slotProps">
-      <span v-if="slotProps.data.user?.statuses?.length">
+      <span v-if="slotProps.data?.statuses?.length">
         <span
-          v-for="statut in slotProps.data.user.statuses"
+          v-for="statut in slotProps.data?.statuses"
           :key="statut.id"
           style="display:flex;gap:1em;"
         >
-          <span class="badge bg-primary">
+          <span class="badge bg-primary my-1">
             {{ statut.statut }}
           </span>
         </span>
       </span>
 
-      <span v-else class="badge bg-primary">
-        {{ slotProps.data.user?.statut?.statut }}
+      <span v-else class="badge bg-primary my-1">
+        {{ slotProps.data?.statut?.statut }}
       </span>
     </template>
   </Column>
@@ -447,7 +446,7 @@ export default {
     <template #body="slotProps">
       <a
         href="#"
-        @click.prevent="getDetailSuscribe(slotProps.data.id)"
+        @click.prevent="getDetailParticulierSuscribe(slotProps.data.id,'talents')"
       >
         <i class="bi bi-eye"></i>
       </a>
