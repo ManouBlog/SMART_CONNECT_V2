@@ -192,6 +192,7 @@ export default {
                 aria-controls="abonnées"
                 aria-selected="true"
                 ><i data-feather="clock"></i>Abonnées
+                ({{ listParticulier ? listParticulier?.partenaires_abonnee?.length : 0}})
                 <span
                   class="badge bg-danger"
                  
@@ -209,10 +210,8 @@ export default {
                 aria-controls="nonAbonnees"
                 aria-selected="true"
                 ><i data-feather="clock"></i>Pas abonnées
-                <span
-                  class="badge bg-danger"
-                 
-                >
+                 ({{ listParticulier ? listParticulier?.partenaires_non_abonnee?.length : 0}})
+                <span class="badge bg-danger">
                  
                 </span>
               </a>
@@ -251,7 +250,8 @@ export default {
   </template>
   <!-- HEADER SEARCH -->
   <template #header>
-    <div class="flex" style="justify-content: flex-start !important;padding: 0 1em;">
+    <div class="flex">
+     
       <InputText
         v-model="filtersAbonnees['global'].value"
         placeholder="Recherche..."
@@ -369,7 +369,8 @@ export default {
   </template>
   <!-- HEADER SEARCH -->
   <template #header>
-    <div class="flex" style="justify-content: flex-start !important;padding: 0 1em;">
+    <div class="flex" style="padding: 0 1em;">
+     
       <InputText
         v-model="filtersPasAbonnees['global'].value"
         placeholder="Recherche..."
