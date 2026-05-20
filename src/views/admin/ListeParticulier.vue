@@ -328,7 +328,7 @@ export default {
     <template #body="slotProps">
       <a
         href="#"
-        @click.prevent="getDetailParticulierSuscribe(slotProps.data.id,'visiteur')"
+        @click.prevent="getDetailParticulierSuscribe(slotProps.data.student.id,'talents')"
       >
         <i class="bi bi-eye"></i>
       </a>
@@ -446,7 +446,7 @@ export default {
     <template #body="slotProps">
       <a
         href="#"
-        @click.prevent="getDetailParticulierSuscribe(slotProps.data.id,'talents')"
+        @click.prevent="getDetailParticulierSuscribe(slotProps.data.student.id,'visiteur')"
       >
         <i class="bi bi-eye"></i>
       </a>
