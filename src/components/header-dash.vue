@@ -302,15 +302,7 @@ export default {
   </div>
 </template>
 <style scoped>
-.conteneur_profile{
-  position: fixed;
-  top:0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-}
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -350,6 +342,15 @@ export default {
   .menu_mobile {
     display: block;
   }
+  .conteneur_profile{
+  position: fixed;
+  top:0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
   .page-header .header-wrapper .nav-right.right-header ul.profile-dropdown {
     position: fixed;
     top: 55px;
