@@ -368,6 +368,13 @@ if(item.user?.statuses.length){
     </template>
   </Column>
 
+   <!-- VIA -->
+  <Column style="width: 20%; padding: 1em;" field="nom" header="Enregistrer via">
+    <template #body="slotProps">
+      {{ slotProps.data.user.via ? slotProps.data.user.via:'-' }}
+    </template>
+  </Column>
+
   <!-- Statut -->
   <Column style="width: 20%; padding: 1em;" header="Statut">
     <template #body="slotProps">
@@ -522,6 +529,13 @@ if(item.user?.statuses.length){
       
     </div>
   </template>
+
+   <!-- VIA -->
+  <Column style="width: 20%; padding: 1em;" field="nom" header="Enregistrer via">
+    <template #body="slotProps">
+      {{ slotProps.data.user.via ? slotProps.data.user.via:'-' }}
+    </template>
+  </Column>
 
   <!-- DATE -->
   <Column style="width: 20%; padding: 1em;" field="created_at" header="Date d'enregistrement">

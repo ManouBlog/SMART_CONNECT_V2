@@ -259,6 +259,13 @@ export default {
     </div>
   </template>
 
+  <!-- Nom -->
+  <Column style="width: 20%; padding: 1em;" field="via" header="Enregistrer via">
+    <template #body="slotProps">
+      {{ slotProps.data.via ? slotProps.data.via:"-" }}
+    </template>
+  </Column>
+
  <!-- Date -->
   <Column style="width: 20%; padding: 1em;" field="created_at" header="Date d'enregistrement">
     <template #body="slotProps">
@@ -316,8 +323,8 @@ export default {
   <Column style="width: 20%; padding: 1em;" header="Formule d'abonnement">
     <template #body="slotProps">
       {{
-        slotProps.data?.user?.abonement?.length
-          ? verifIfAbonnementCurrently(slotProps.data.user.abonement)
+        slotProps.data?.abonement?.length
+          ? verifIfAbonnementCurrently(slotProps.data.abonement)
           : "Pas d'abonnement."
       }}
     </template>
@@ -377,6 +384,13 @@ export default {
       />
     </div>
   </template>
+
+  <!-- Nom -->
+  <Column style="width: 20%; padding: 1em;" field="via" header="Enregistrer via">
+    <template #body="slotProps">
+      {{ slotProps.data.via ? slotProps.data.via:"-" }}
+    </template>
+  </Column>
 
   <!-- Date -->
   <Column style="width: 20%; padding: 1em;" field="created_at" header="Date d'enregistrement">
