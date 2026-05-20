@@ -270,30 +270,13 @@ export default {
     },
 
     nextStep() {
-      // console.log("this.currentStep",this.currentStep)
-   
-    //   if (this.currentStep === 2) {
-    //     const invalid = this.formState.qualifications.some((q) => !q.objet);
-
-    //     if (invalid) {
-    //       this.SWALPOPUP.declencheSwalPopup(
-    //         "warning",
-    //         "Chaque qualification doit avoir un titre"
-    //       );
-    //       return;
-    //     }
-    //   }
-
-    //     if (this.currentStep === 3) {
-  
-    //     if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
-    //       this.SWALPOPUP.declencheSwalPopup(
-    //         "warning",
-    //         "Veuillez remplir les champs obligatoire"
-    //       );
-    //       return;
-    //     }
-    //   }
+    //  console.log("this.currentStep",this.currentStep)
+    // if(this.currentStep == 1 && !this.formState.myCompetence.length || !this.formState.otherCompetence.length){
+    //    this.SWALPOPUP.declencheSwalPopup(
+    //       "warning",
+    //       "Veuillez remplir les champs requis avant de continuer"
+    //     );
+    // }
 
       if (this.currentStep !== 2 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
