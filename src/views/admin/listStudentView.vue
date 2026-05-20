@@ -38,23 +38,36 @@ export default {
     if (this.statusFilter === 'Tous') {
       return this.studentsNonAbonnee;
     }
-
-    return this.studentsNonAbonnee.filter(item =>
-      item.user?.statuses?.some(s =>
+ console.log('this.statusFilter',this.statusFilter)
+   console.log('this.studentsNonAbonnee',this.studentsNonAbonnee)
+    return this.studentsNonAbonnee.filter(item =>{
+if(item.user?.statuses.length){
+   return item.user?.statuses?.some(s =>
         s.statut === this.statusFilter
       )
+}else{
+  return item.user.statut === this.statusFilter;
+}
+    } 
     );
   },
    filteredTalentsAbonne() {
     if (this.statusAbonneeFilter === 'Tous') {
       return this.students;
     }
-
-    return this.students.filter(item =>
-      item.user?.statuses?.some(s =>
+  //  console.log('this.statusAbonneeFilter',this.statusAbonneeFilter)
+  //  console.log('this.students',this.students)
+    return this.students.filter(item =>{
+if(item.user?.statuses.length){
+   return item.user?.statuses?.some(s =>
         s.statut === this.statusAbonneeFilter
       )
+}else{
+  item.user.statut === this.statusAbonneeFilter;
+}
+    } 
     );
+    
   },
   
 },
@@ -311,7 +324,7 @@ export default {
         :class="{ 'btn-color': statusAbonneeFilter === 'Etudiant' }"
         @click="statusAbonneeFilter = 'Etudiant'"
       >
-        Etudiant
+        Etudiants
       </button>
 
       <button
@@ -319,21 +332,21 @@ export default {
         :class="{ 'btn-color': statusAbonneeFilter === 'Professionnel' }"
         @click="statusAbonneeFilter = 'Professionnel'"
       >
-        Professionnel
+        Professionnels
       </button>
 
       <button
         class="btn btn-sm"
-        :class="{ 'btn-color': statusAbonneeFilter === 'Vétérans' }"
-        @click="statusAbonneeFilter = 'Vétérans'"
+        :class="{ 'btn-color': statusAbonneeFilter === 'Vétéran' }"
+        @click="statusAbonneeFilter = 'Vétéran'"
       >
         Vétérans
       </button>
 
       <button
         class="btn btn-sm"
-        :class="{ 'btn-color': statusAbonneeFilter === 'Artisans' }"
-        @click="statusAbonneeFilter = 'Artisans'"
+        :class="{ 'btn-color': statusAbonneeFilter === 'Artisan' }"
+        @click="statusAbonneeFilter = 'Artisan'"
       >
         Artisans
       </button>
@@ -472,7 +485,7 @@ export default {
         :class="{ 'btn-color': statusFilter === 'Etudiant' }"
         @click="statusFilter = 'Etudiant'"
       >
-        Etudiant
+        Etudiants
       </button>
 
       <button
@@ -480,21 +493,21 @@ export default {
         :class="{ 'btn-color': statusFilter === 'Professionnel' }"
         @click="statusFilter = 'Professionnel'"
       >
-        Professionnel
+        Professionnels
       </button>
 
       <button
         class="btn btn-sm"
-        :class="{ 'btn-color': statusFilter === 'Vétérans' }"
-        @click="statusFilter = 'Vétérans'"
+        :class="{ 'btn-color': statusFilter === 'Vétéran' }"
+        @click="statusFilter = 'Vétéran'"
       >
         Vétérans
       </button>
 
       <button
         class="btn btn-sm"
-        :class="{ 'btn-color': statusFilter === 'Artisans' }"
-        @click="statusFilter = 'Artisans'"
+        :class="{ 'btn-color': statusFilter === 'Artisan' }"
+        @click="statusFilter = 'Artisan'"
       >
         Artisans
       </button>
