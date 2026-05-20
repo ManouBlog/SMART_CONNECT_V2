@@ -223,6 +223,7 @@ export default {
                 >
               </li>
             </ul>
+            <div class="conteneur_profile" @click.self="menu_bar != menu_bar" v-if="menu_bar">
             <ul class="menu_mobile profile-dropdown" v-if="menu_bar">
               <ListeMenuMobile>
                 <template #header>
@@ -293,6 +294,7 @@ export default {
                 </template>
               </ListeMenuMobile>
             </ul>
+            </div>
           </li>
         </ul>
       </div>
@@ -300,6 +302,15 @@ export default {
   </div>
 </template>
 <style scoped>
+.conteneur_profile{
+  position: fixed;
+  top:0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
 .Myspinner {
   position: fixed;
   left: 0;
@@ -346,7 +357,7 @@ export default {
     box-shadow: 0 0 20px rgba(89, 102, 122, 0.1);
     background-color: #fff;
     list-style-type: none;
-    height: 90%;
+    height: 70%;
     overflow: auto;
     width: 250px;
     padding-bottom:1.5em !important;
