@@ -442,7 +442,7 @@ a:focus-visible {
   border-color: orange !important;
 }
 .ant-select-item-option-content{
-  background-color: orange !important;
+  color: rgb(0, 0, 0) !important;
 }
 
 .swal2-styled.swal2-confirm,.swal2-styled.swal2-confirm:focus{

@@ -96,6 +96,7 @@ if (payload?.profilHybride?.length > 0) {
 }
 
 data.append("mode_discret", payload?.mode_discret ? 1 : 0);
+data.append("via", "web");
 
 if(payload?.CVupload){
   data.append("CVupload", payload?.CVupload[0]?.originFileObj);
@@ -232,7 +233,7 @@ if (payload?.profilHybride?.length > 0) {
     if (item) data.append("profilHybride[]", item);
   });
 }
-
+data.append("via", "web");
 // Registre (fichier unique)
 if (payload?.Registre?.[0]?.originFileObj) {
   data.append("registre", payload.Registre[0].originFileObj);
@@ -326,7 +327,7 @@ if (payload?.Logo?.[0]?.originFileObj) {
           data.append("nom", payload?.nom);
           data.append("particulier_prenoms", payload?.prenoms);
           data.append("nom_particulier", payload?.nom_particulier);
-          
+          data.append("via", "web");
           data.append("phone",`${payload?.countryCode}${payload?.contact}`);
           data.append("ville", payload?.ville);
           data.append("quartier", payload?.quartier);
