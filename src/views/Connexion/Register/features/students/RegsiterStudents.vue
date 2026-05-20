@@ -118,6 +118,7 @@ idStatutChoice:Object
   { label: "Togo", value: "+228", length: 8 },
 ],
       formState: {
+        otherCompetence:[],
         code_ambassadeur:"",
         titreCv: "",
         nom: "",
@@ -263,6 +264,9 @@ idStatutChoice:Object
   },
 
   methods: {
+      onCreateOther() {
+      return null
+    },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useRegisterStore, {
       handleCompetence: "addTag",
@@ -853,6 +857,17 @@ this.formState.profilHybride = [];
               track-by="competence"
             />
           </a-form-item>
+           <a-form-item label="Autre">
+  <n-dynamic-input v-model:value="formState.otherCompetence" :on-create="onCreateOther">
+    <template #create-button-default>
+      <slot name="create-button">Autres compétences</slot>
+    </template>
+
+    <template #default="{ index }">
+      <a-input v-model:value="formState.otherCompetence[index]" />
+    </template>
+  </n-dynamic-input>
+</a-form-item>
         </a-col>
       </a-row>
     </div>

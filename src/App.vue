@@ -444,7 +444,9 @@ a:focus-visible {
 .ant-select-item-option-content{
   color: rgb(0, 0, 0) !important;
 }
-
+.n-button:not(.n-button--disabled):active{
+  color: orange !important;
+}
 .swal2-styled.swal2-confirm,.swal2-styled.swal2-confirm:focus{
   background-color: orange !important;
   box-shadow: 0 0 0 3px orange !important;

@@ -136,6 +136,7 @@ StatutProfessionnel:[
   { label: "Togo", value: "+228", length: 8 },
 ],
       formState: {
+        otherCompetence:[],
         CVupload: null,
         code_ambassadeur:"",
         titreCv: "",
@@ -267,6 +268,9 @@ StatutProfessionnel:[
   },
  
   methods: {
+     onCreateOther() {
+      return null
+    },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useRegisterStore, {
       handleCompetence: "addTag",
@@ -744,6 +748,17 @@ StatutProfessionnel:[
               track-by="competence"
             />
           </a-form-item>
+            <a-form-item label="Autre">
+  <n-dynamic-input v-model:value="formState.otherCompetence" :on-create="onCreateOther">
+    <template #create-button-default>
+      <slot name="create-button">Autres compétences</slot>
+    </template>
+
+    <template #default="{ index }">
+      <a-input v-model:value="formState.otherCompetence[index]" />
+    </template>
+  </n-dynamic-input>
+</a-form-item>
         </a-col>
        
       </a-row>

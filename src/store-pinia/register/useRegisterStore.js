@@ -95,6 +95,13 @@ if (payload?.profilHybride?.length > 0) {
   });
 }
 
+// other_competences
+if (payload?.otherCompetence?.length > 0) {
+  payload.otherCompetence.forEach((item) => {
+    if (item) data.append("otherCompetence[]", item);
+  });
+}
+
 data.append("mode_discret", payload?.mode_discret ? 1 : 0);
 data.append("via", "web");
 
@@ -218,6 +225,8 @@ if (payload?.photo?.length > 0) {
     }
   });
 }
+
+
 
 // Emails CC (array optionnel)
 if (payload?.email_cc?.length > 0) {
