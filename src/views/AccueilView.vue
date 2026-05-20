@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
-      // compte: this.$store.state.compte,
+    isLoadingWalletBalance:false,
       competencesPredf: [],
       competences: null,
       spinner: false,
@@ -328,7 +328,7 @@ export default {
     },
     filterWalletBalance(e) {
       console.log(e.target.value);
-      this.isLoadingWallet = true;
+      this.isLoadingWalletBalance = true;
       const data = {
         type: this.valueSelectPeriod,
         wallet: e.target.value,
@@ -354,7 +354,7 @@ export default {
           
         })
         .finally(() => {
-          this.isLoadingWallet = false;
+         this.isLoadingWalletBalance = false;
         });
     },
     get_users() {
@@ -554,8 +554,12 @@ this.getAllStatistique();
                     @change="periodeFilterStatisticBalance = ''"
                   >
                     <option value="Global">Global</option>
-                    <option value="entreprise">Entreprise</option>
-                    <option value="etudiant">Talents</option>
+                    <option value="entreprise">Entreprises</option>
+                     <option value="particulier">Particuliers</option>
+                    <option value="etudiant">Etudiants</option>
+                     <option value="professionnel">Professionnels</option>
+                      <option value="artisan">Artisans</option>
+                      <option value="vétéran">Vétérans</option>
                   </select>
                   <input
                     class="w-50"
@@ -566,7 +570,7 @@ this.getAllStatistique();
                 </div>
               </div>
               <div class="d-flex justify-content-center">
-                <span v-if="isLoadingWallet">Chargement...</span>
+                <span v-if="isLoadingWalletBalance">Chargement...</span>
                 <div v-else class="d-flex">
                   <h1 style="font-size: 5em">
                     {{ wallet }}
