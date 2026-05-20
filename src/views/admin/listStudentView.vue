@@ -139,9 +139,9 @@ if(item.user?.statuses.length){
             Authorization: "Bearer " + this.$store.state.token,
           },
         })
-        .then((res) => {
-          console.log(res);
-          this.studentsNonAbonnee = res.data.data;
+        .then((response) => {
+          console.log("list_visiteurs",response);
+          this.studentsNonAbonnee = response.data.data;
           console.log("studentsNonAbonnee", this.studentsNonAbonnee);
           this.spinner = false;
         })
@@ -244,7 +244,7 @@ if(item.user?.statuses.length){
                 role="tab"
                 aria-controls="abonnées"
                 aria-selected="true"
-                ><i data-feather="clock"></i>Abonnées
+                ><i data-feather="clock"></i>Abonnées({{ this.students.length ? this.students?.length:0 }})
                 <BadgeCompVue
                   v-if="this.$store.state.listStudentAbonne > 0"
                   :nbreTotal="this.$store.state.listStudentAbonne"
@@ -265,6 +265,7 @@ if(item.user?.statuses.length){
                 aria-controls="nonAbonnees"
                 aria-selected="true"
                 ><i data-feather="clock"></i>Pas abonnées
+                ({{ this.studentsNonAbonnee ? this.studentsNonAbonnee.length:0 }})
                 <BadgeCompVue
                   v-if="this.$store.state.listStudentPasAbonne > 0"
                   :nbreTotal="this.$store.state.listStudentPasAbonne"

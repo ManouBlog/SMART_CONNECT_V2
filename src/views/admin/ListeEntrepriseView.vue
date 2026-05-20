@@ -137,6 +137,7 @@ export default {
                 aria-controls="abonnées"
                 aria-selected="true"
                 ><i data-feather="clock"></i>Abonnées
+                ({{ this.$store.state.listEntrepriseAbonnee.length ? this.$store.state.listEntrepriseAbonnee.length:0 }})
                 <span
                   class="badge bg-danger"
                   v-if="this.$store.state.nbreBdageEntrepriseAbonnee > 0"
@@ -155,6 +156,7 @@ export default {
                 aria-controls="nonAbonnees"
                 aria-selected="true"
                 ><i data-feather="clock"></i>Pas abonnées
+                ({{ this.$store.state.listEntreprisePasAbonnee.length ? this.$store.state.listEntreprisePasAbonnee.length:0 }})
                 <span
                   class="badge bg-danger"
                   v-if="this.$store.state.nbreBdageEntreprisePasAbonnee > 0 "

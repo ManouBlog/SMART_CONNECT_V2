@@ -1,12 +1,11 @@
 <script>
 /* eslint-disable */
 import axios from "axios";
-// import Swal from "sweetalert2";
-import $ from "jquery";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
 export default {
   name: "HistoriqueTransactions",
+  components:{Column,DataTable},
   data() {
     return {
       Historique: null,
@@ -23,43 +22,9 @@ export default {
             Authorization: "Bearer " + this.$store.state.token,
           },
         })
-        .then((res) => {
-          console.log(res);
-          this.Historique = res.data.data;
-          console.log("TRANSACTIONS", this.Historique);
-          setTimeout(function () {
-            $("#MyTableData").DataTable({
-              pagingType: "full_numbers",
-              pageLength: 10,
-              processing: true,
-              order: [],
-              language: {
-                décimal: "",
-                emptyTable: "Aucune donnée disponible dans le tableau",
-                infoEmpty: "Showing 0 to 0 of 0 entries",
-                info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                infoFiltered: "(filtré à partir de _MAX_ entrées totales)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Afficher les entrées du _MENU_",
-                loadingRecords: "Loading...",
-                processing: "Processing...",
-                search: "Chercher :",
-                stateSave: true,
-                zeroRecords: "Aucun enregistrement correspondant trouvé",
-                paginate: {
-                  first: "Premier",
-                  last: "Dernier",
-                  next: "Suivant",
-                  previous: "Précédent",
-                },
-                aria: {
-                  sortAscending: ": activate to sort column ascending",
-                  sortDescending: ": activate to sort column descending",
-                },
-              },
-            });
-          }, 10);
+        .then((response) => {
+          console.log(response);
+          this.Historique = response.data.data;
         })
         .catch((err) => {
           console.log(err);
@@ -110,54 +75,76 @@ export default {
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12 card py-3 px-2">
-            <table id="MyTableData" class="table">
-              <thead>
-                <tr>
-                  <th class="bg-light">Date de paiement</th>
-                  <th class="bg-light">Identifiant</th>
-                  <!-- <th class="bg-light">Moyen de paiement</th> -->
-                  <th class="bg-light">Montant (Fcfa)</th>
-                  <th class="bg-light">Client</th>
-                  <th class="bg-light">Profil du client</th>
-                  <th class="bg-light">Formule</th>
-                  <th class="bg-light">Date d'écheance</th>
-                  <th class="bg-light">Statut du paiement</th>
-                  <!-- <th class="bg-light">Détail</th> -->
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in Historique" :key="index">
-                  <td>
-                    {{ new Date(item.created_at).toLocaleDateString("fr") }}
-                  </td>
-                  <td>{{ item.transaction_id }}</td>
-        
-                  <td>{{ item.montant }}</td>
-                  <td>{{ `${item?.user?.nom}` }}</td>
-                  <td>
-                    {{ item.status_user }}
-                  </td>
-                  <td>
-                    {{ item.abonement.libelle }}
-                  </td>
-                  <td>{{ item.echeance }}</td>
-                  <td>
-                    <span
-                      class="badge"
-                      :class="
-                        item.statut === 'EN ATTENTE'
-                          ? 'bg-warning'
-                          : item.statut !== 'success'
-                          ? 'bg-danger'
-                          : 'bg-success'
-                      "
-                      >{{ item.statut }}</span
-                    >
-                  </td>
-                  
-                </tr>
-              </tbody>
-            </table>
+           <DataTable
+  :value="Historique"
+  :rows="10"
+  :rowsPerPageOptions="[5, 10, 20, 50]"
+  tableStyle="min-width: 50rem"
+>
+  <Column style="width: 20%; padding: 1em;" header="Date de paiement">
+    <template #body="{ data }">
+      {{ new Date(data.created_at).toLocaleDateString("fr") }}
+    </template>
+  </Column>
+
+  <Column style="width: 20%; padding: 1em;" field="transaction_id" header="Identifiant" />
+
+  <Column style="width: 20%; padding: 1em;" header="Montant (Fcfa)">
+    <template #body="{ data }">
+      {{ data.montant }}
+    </template>
+  </Column>
+
+  <Column style="width: 20%; padding: 1em;" header="Client">
+    <template #body="{ data }">
+      {{ data?.user?.nom }}
+    </template>
+  </Column>
+
+  <Column style="width: 20%; padding: 1em;" header="Profil du client">
+    <template #body="{ data }">
+    
+      <span v-if="data.user.statuses.length">
+       <span class="badge bg-primary" v-for="item in data.user.statuses"
+       :key="item">
+      {{ item.statut }}
+       </span>
+      </span>
+      <span class="badge bg-primary" v-if="!data.user.statuses.length && data.user?.statut?.statut">
+      {{ data.user?.statut?.statut }}
+      </span>
+    </template>
+  </Column>
+
+  <Column style="width: 20%; padding: 1em;" header="Formule">
+    <template #body="{ data }">
+      {{ data.abonement.libelle }}
+    </template>
+  </Column>
+
+  <Column style="width: 20%; padding: 1em;" header="Date d'écheance">
+    <template #body="{ data }">
+      {{ data.echeance }}
+    </template>
+  </Column>
+
+  <Column style="width: 20%; padding: 1em;" header="Statut du paiement">
+    <template #body="{ data }">
+      <span
+        class="badge"
+        :class="
+          data.statut === 'EN ATTENTE'
+            ? 'bg-warning'
+            : data.statut !== 'success'
+            ? 'bg-danger'
+            : 'bg-success'
+        "
+      >
+        {{ data.statut }}
+      </span>
+    </template>
+  </Column>
+</DataTable>
           </div>
         </div>
       </div>
