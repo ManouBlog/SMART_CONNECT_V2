@@ -1,6 +1,6 @@
 <script setup></script>
 <template>
-  <div class="myconteneur_container">
+  <div class="myconteneur_container" >
     <h1
       style="
         text-align: center;
@@ -15,10 +15,16 @@
       <code style="color: black;">CONDITIONS GENERALES D’UTILISATION</code>
     </h1>
     <p style="text-align: right; padding: 0 3.2em">Mise en ligne le 21/05/2026</p>
-    <h2 style="padding: 0 2em; color: black;text-align:center;">
+    <h3 style="padding: 0 2em; color: black;text-align:center;">
       <a href="#" style="color: black; text-decoration: underline;">PREAMBULE</a>
-    </h2>
-   <p style="padding: 0 1.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;color:black">
+    </h3>
+   
+
+    <section
+      class="p-4 row"
+      style="padding: 1.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;color:black"
+    >
+    <p>
       La <span style="font-weight: bold">Société LA LOCOMOTIVE SARL en
 abrégée (LCE)</span>, Société à Responsabilité Limitée
 unipersonnelle (SARLU), au capital d’UN
@@ -29,28 +35,26 @@ B-24483, sise à Abidjan-Cocody les deuxplateaux, BP 995 Abidjan 27, Tél. : 05 
 66, est une société de droit ivoirien spécialisée
 dans le domaine des services et plus précisement
 en expertise informatique et télécoms, concepteur
-de la plateforme en ligne MonBroBroli.
-MonBrobroli est une plateforme gratuite en ligne
+de la plateforme en ligne MonBroBroli. </p>
+<p >MonBrobroli est une plateforme gratuite en ligne
 qui a pour vocation principale de mettre en
 relation de manière transparente et équilibrée.
 La plateforme MonBrobroli est disponible en
 continu, 24 heures sur 24, et accessible depuis tout
 type d’appareil connecté, qu’il s’agisse de
-smartphones, de tablettes ou d’ordinateurs.
-L’accès à certaines fonctionnalités de la
+smartphones, de tablettes ou d’ordinateurs.</p>
+<p >
+  L’accès à certaines fonctionnalités de la
 plateforme est soumis à un abonnement
 annuel/mensuel obligatoire, selon les conditions
 ci-après.
+</p>
+<p >
 <span style="font-weight: bold">LA LOCOMOTIVE SARL</span> intervient en tant
 qu’intermédiaire dans les rapports entre les
 abonné(e)s demandeurs de stage/travail et les
 entreprises d’accueil.
     </p>
-
-    <section
-      class="p-4 row"
-      style="padding: 1.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;color:black"
-    >
       <h2 class="text-left">
         <code>ARTICLE 1 – APPLICATION DES CONDITIONS GENERALES D’UTILISATION </code>
       </h2>
@@ -626,6 +630,7 @@ tribunaux civils compétents.
 }
 .myconteneur_container{
   margin-top: 9em;
+  padding: 1.5em;
 }
 @media screen and (max-width:1200px) {
  .myconteneur_container{
