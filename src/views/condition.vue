@@ -11,34 +11,45 @@ export default {
     <h1
       style="
         text-align: center;
-        padding: 1em;
-        color: orange;
+        border: 2px solid black;
+         background-color: orange;
+         margin-top: 1em;
+          color: black;
         font-weight: bold;
         font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
       "
     >
-      <code>CGU(CONDITIONS GENERALES D’UTILISATION)</code>
+    <code style="color: black;">CONDITIONS GENERALES D’UTILISATION</code>
     </h1>
     <p style="text-align: right; padding: 0 3.2em">Mise en ligne le 24/12/2025</p>
-    <h2 style="padding: 0 2em; color: orange">PREAMBULE</h2>
-    <p style="padding: 0 1.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif">
-      La
-      <span style="font-weight: bold">Société LA LOCOMOTIVE SARL en abrégée (LCE)</span>,
-      Société à Responsabilité Limitée unipersonnelle (SARLU), au capital d’UN MILLION
-      (1.000.000) de FCFA, immatriculée au registre du commerce et du crédit mobilier
-      d’Abidjan -Plateau sous le numéro CI-ABJ-2018-B-24483, sise à Abidjan-Cocody les
-      deux-plateaux, BP 995 Abidjan 27, Tél. : 05 46 66 77 66, est une société de droit
-      ivoirien spécialisée dans le domaine des services et plus précisement en expertise
-      informatique et télécoms, concepteur de la plateforme en ligne MonBroBroli.
-      MonBrobroli est une plateforme gratuite en ligne qui a pour vocation principale de
-      mettre en relation de manière transparente et équilibrée. La plateforme MonBrobroli
-      est disponible en continu, 24 heures sur 24, et accessible depuis tout type
-      d’appareil connecté, qu’il s’agisse de smartphones, de tablettes ou d’ordinateurs.
-      L’accès à certaines fonctionnalités de la plateforme est soumis à un abonnement
-      annuel obligatoire, selon les conditions ci-après.
-      <span style="font-weight: bold">LA LOCOMOTIVE SARL</span> intervient en tant
-      qu’intermédiaire dans les rapports entre les abonné(e)s demandeurs de stage et les
-      entreprises d’accueil.
+    <h2 style="padding: 0 2em; color: black;text-align:center;">PREAMBULE</h2>
+    <p style="padding: 0 1.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;color:black">
+      La <span style="font-weight: bold">Société LA LOCOMOTIVE SARL en
+abrégée (LCE)</span>, Société à Responsabilité Limitée
+unipersonnelle (SARLU), au capital d’UN
+MILLION (1.000.000) de FCFA, immatriculée au
+registre du commerce et du crédit mobilier
+d’Abidjan -Plateau sous le numéro CI-ABJ-2018-
+B-24483, sise à Abidjan-Cocody les deuxplateaux, BP 995 Abidjan 27, Tél. : 05 46 66 77
+66, est une société de droit ivoirien spécialisée
+dans le domaine des services et plus précisement
+en expertise informatique et télécoms, concepteur
+de la plateforme en ligne MonBroBroli.
+MonBrobroli est une plateforme gratuite en ligne
+qui a pour vocation principale de mettre en
+relation de manière transparente et équilibrée.
+La plateforme MonBrobroli est disponible en
+continu, 24 heures sur 24, et accessible depuis tout
+type d’appareil connecté, qu’il s’agisse de
+smartphones, de tablettes ou d’ordinateurs.
+L’accès à certaines fonctionnalités de la
+plateforme est soumis à un abonnement
+annuel/mensuel obligatoire, selon les conditions
+ci-après.
+<span style="font-weight: bold">LA LOCOMOTIVE SARL</span> intervient en tant
+qu’intermédiaire dans les rapports entre les
+abonné(e)s demandeurs de stage/travail et les
+entreprises d’accueil.
     </p>
 
     <section
@@ -49,52 +60,106 @@ export default {
         <code>ARTICLE 1 – APPLICATION DES CONDITIONS GENERALES D’UTILISATION </code>
       </h2>
       <p>
-        Les présentes Conditions Générales d’utilisation accessibles sur le site
-        www.MonBrobroli.com sont systématiquement transmises à chaque abonné(e) pour lui
-        permettre d’acceder à la plateforme. Chaque utilisateur qu’il soit étudiant,
-        entreprise ou particulier doit créer un compte personnel sur la plateforme. Ce
-        profil est soumis à une vérification préalable pour garantir l’authenticité des
-        informations fournies et sécuriser les échanges entre les différentes parties. En
-        conséquence, toute création de compte par un (e) utilisateur (trice) emporte son
-        adhésion, sans restriction ni réserve, aux présentes Conditions Générales
-        d’Utilisation lesquelles prévalent sur tous autres documents (prospectus,
-        catalogues... émis par LCE). Toute autre condition opposée par l’utilisateur
-        (trice), à défaut d’acceptation préalable et expresse par LCE, inopposable à la
-        société, quelque soit le moment où elle aura pu être portée à sa connaissance. Si
-        LCE ne se prévaut pas ponctuellement de l’une quelconque des dispositions des
-        présentes Conditions Générales d’Utilisation, cette tolérance ne peut être
-        interprétée comme valant renonciation à se prévaloir ultérieurement de l’une
-        quelconque desdites conditions. L’utilisateur (trice) déclare avoir pris
-        connaissance et accepter les présentes Conditions Générales d’Utilisation.
+        Les présentes Conditions Générales d’utilisation
+accessibles sur le site <a href="https://monbrobroli.com/" style="color: blue; text-decoration: underline;">www.MonBrobroli.com</a>
+sont systématiquement transmises à chaque
+abonné(e) pour lui permettre d’accéder à la
+plateforme.
+      </p>
+      <p>
+        Chaque utilisateur qu’il soit étudiant,
+professionnel, artisan, vétérant, entreprise ou
+particulier doit créer un compte personnel sur la
+plateforme. Ce profil est soumis à une vérification
+préalable pour garantir l’authenticité des
+informations fournies et sécuriser les échanges
+entre les différentes parties.
+      </p>
+      <p>
+        En conséquence, toute création de compte par un
+(e) utilisateur (trice) emporte son adhésion, sans
+restriction ni réserve, aux présentes Conditions
+Générales d’Utilisation lesquelles prévalent sur
+tous autres documents (prospectus, catalogues...
+émis par LCE).
+      </p>
+      <p>
+        Toute autre condition opposée par l’utilisateur(trice), à défaut d’acceptation préalable et
+expresse par LCE, inopposable à la société, quel
+que soit le moment où elle aura pu être portée à sa
+connaissance. 
+      </p>
+      <p>
+        Si LCE ne se prévaut pas ponctuellement de l’une
+quelconque des dispositions des présentes
+Conditions Générales d’Utilisation, cette
+tolérance ne peut être interprétée comme valant
+renonciation à se prévaloir ultérieurement de l’une
+quelconque desdites conditions. L’utilisateur
+(trice) déclare avoir pris connaissance et accepter
+les présentes Conditions Générales d’Utilisation
       </p>
       <h2 class="text-left">
         <code>ARTICLE 2-FONCTIONNEMENT DE LA PLATEFORME</code>
       </h2>
+       <p>
+        Le fonctionnement de la plateforme repose sur un
+processus clair et sécurisé, visant à assurer des
+échanges équitables et transparents entre les
+talents en recherche d’un stage et/ou emploi à
+temps partiel/plein et les entreprises ou
+particuliers en quête de profils qualifiés. 
+      </p>
       <p>
-        Le fonctionnement de la plateforme repose sur un processus clair et sécurisé,
-        visant à assurer des échanges équitables et transparents entre les talents en
-        recherche d’un emploi ou d'une mission à temps partiel et les entreprises (informelles,formelles) en quête
-        de profils qualifiés. Afin de garantir la qualité des services proposés et
-        d'assurer le bon déroulement des missions, l’accès à certaines fonctionnalités de
-        la plateforme est soumis à un abonnement annuel ou mensuel obligatoire, selon six formules
-        disponibles : <span style="font-weight: bold">BROBROLI</span>,
-        <span style="font-weight: bold">BROBROLI+</span>,<span style="font-weight: bold">BROBROLI HOME</span>,
-        <span style="font-weight: bold">BROBROLI HOME MAX</span>,<span style="font-weight: bold">BROBROLI PRO</span>,
-        <span style="font-weight: bold">BROBROLI PRO MAX</span>
+        Afin de garantir la qualité des services proposés et
+d'assurer le bon déroulement des missions, l’accès
+à certaines fonctionnalités de la plateforme est
+soumis à un abonnement mensuel ou annuel
+obligatoire au choix, selon deux formules
+disponibles suivant les profils : BROBROLI et
+BROBROLI+ pour les talents, BROBROLI
+HOME et BROBROLI HOME MAX pour les
+particulier, BROBROLI PRO et BROBROLI
+PRO MAX pour les entreprises.
       </p>
       <h2 class="text-left">
         <code>ARTICLE 3-ABONNEMENT</code>
       </h2>
-      <p>
-        L’Abonnement a lieu après avoir renseigné le formulaire d’inscription comportant
-        l’identité de l’utilisateur (trice). L’Abonnement mensuel ou annuel est payable en
-        ligne par une interface intégrant les paiements par mobilemoney, wave, visa ou
-        tout autre moyen présent ou futur accepté par l’interface mise à disposition.
+       <p>
+       L’Abonnement a lieu après avoir renseigné le
+formulaire comportant l’identité de l’utilisateur
+(trice). L’abonnement mensuel ou annuel payable
+en ligne par une interface integrant les moyens de
+paiement par mobile money, wave, visa ou tout
+autre moyen présent ou futur accepté par
+l’interface mise à disposition.
+
       </p>
       <p style="text-align: center">
         (1) Deux (02) abonnements au choix en fonction du type d’utilisateur
       </p>
 
+      <p style="text-align: center; font-weight: bold">ABONNEMENT PARTICULIERS</p>
+      <p>
+  - <span style="font-weight: bold">Formule BROBROLI HOME 10.000 Fcfa / an
+ou 1000 Fcfa / mois. </span>Accès à la base de données
+des profils artisans qualifiés et vérifiés. Possibilité
+de publier des offres de prestations de service
+requises.
+
+</p>
+ <p>
+  - <span style="font-weight: bold">Formule BROBROLI HOME MAX 20.000
+Fcfa / an ou 2000 Fcfa / mois.</span> Accès à la base
+de profils. Publication illimitée d’offres de
+demande de prestation de service.Interventions urgentes prioritaires, vos offres sont vues 15mn
+avant les memes demandes effectuees par un
+profile Brobroli Home — prestataire disponible
+en moins de 24 h
+Positionnement prioritaire des annonces en tête de
+liste lors des recherches effectuées sur la
+plateforme.
+</p>
       <p style="text-align: center; font-weight: bold">ABONNEMENT ETUDIANTS</p>
       <p>
   -<span style="font-weight: bold">
@@ -612,7 +677,7 @@ L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est sou
         traitement pour des motifs legitmes en formulant une demande à l’adresse :
         <a
           href="mailto:contact@monbrobroli.com"
-          style="text-decoration: underline; color: purple"
+          style="text-decoration: underline; color: blue"
           >contact@monbrobroli.com</a
         >
       </p>
@@ -651,7 +716,7 @@ L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est sou
 
         <a
           href="mailto:contact@monbrobroli.com"
-          style="text-decoration: underline; color: purple"
+          style="text-decoration: underline; color: blue"
           >contact@monbrobroli.com</a
         >
       </p>
@@ -676,7 +741,7 @@ L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est sou
 </template>
 <style scoped>
 code {
-  color: orange !important;
+  color: rgb(0, 0, 0) !important;
   font-weight: bold;
 }
 .p-5 {

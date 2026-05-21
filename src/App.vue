@@ -16,6 +16,7 @@
     <!-- <updateProfiIfNot /> -->
     <!-- Sinon, on affiche le countdown -->
     <!-- <CountDownView v-else :targetDate="lancementDate" /> -->
+      <WhatsAppButton phone="2250707969672" />
   </div>
   <div v-if="isDatePassed && !spinnerLoading">
     <PromotionModal
@@ -73,11 +74,13 @@ import axios from "axios";
 import LoadingSpinner from "./Shared/Compoments/LoadingSpinner.vue";
 import PromotionModal from "./components/PromotionModal.vue";
 import instance from "./api/api";
+import WhatsAppButton from "./components/WhatsAppButton.vue";
 
 export default {
   name: "AppView",
   components: {
     //CountDownView,
+    WhatsAppButton,
     LoadingSpinner,
     PromotionModal,
   },
