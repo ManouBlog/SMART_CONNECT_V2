@@ -640,9 +640,12 @@ h2{
   margin-top: 9em;
 }
 }
-@media screen and (max-width:900px) {
+@media screen and (max-width:700px) {
  .myconteneur_container{
   margin-top: 9em;
+}
+h1 {
+  font-size: 1.2em !important;
 }
 }
 .conteneur {
