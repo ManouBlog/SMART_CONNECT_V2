@@ -172,6 +172,7 @@ export default {
         dates: this.dateSelectConvert,
         competences: this.competenceAdd,
         location: this.location?.trim(),
+        statuses: this.chooseStatut.map(item=>item.id)
       };
 
       // Exemple de filtrage local

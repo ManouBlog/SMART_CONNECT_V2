@@ -1,5 +1,15 @@
 <template>
   <LoadingSpinner v-if="spinnerLoading" />
+   <a-modal
+    v-model:open="showModal"
+    title="Connexion"
+    :ok-button-props="{ style: { display: 'none' } }"
+    :cancel-text="'Fermer'"
+    :closable="false"
+  >
+    <p style="color:red;">Vous êtes hors ligne. Veuillez vérifier votre connexion internet.</p>
+
+  </a-modal>
   <div>
     <!-- Si la date de lancement est passée, on montre le router-view -->
     <router-view v-if="!spinnerLoading && isDatePassed" />
@@ -57,6 +67,7 @@
 </template>
 
 <script>
+import { useNetwork } from '@vueuse/core'
 import axios from "axios";
 // import CountDownView from "./views/CountDownView.vue";
 import LoadingSpinner from "./Shared/Compoments/LoadingSpinner.vue";
@@ -72,9 +83,11 @@ export default {
   },
   data() {
     return {
+       network: null,
       user: this.$store.state.user,
       isDatePassed: false,
       lancementDate: "",
+      showModal:false,
       showPromo: true,
       showPromoParticulierAndEntreprise: false,
       students: null,
@@ -83,6 +96,10 @@ export default {
     };
   },
   computed: {
+     isOnline() {
+      return this.network?.isOnline
+    },
+   
     isUserEtudiant() {
     const statuses = this.$store?.state?.user?.user?.statuses || [];
 
@@ -109,7 +126,18 @@ export default {
         }
       },
       deep: true,
-    }
+    },
+    'network.isOnline'(online) {
+      if (online) {
+        this.isOnline = true;
+        this.showModal = false;
+        console.log('Vous êtes en ligne')
+      } else {
+        this.isOnline = false;
+        this.showModal = true;
+        console.log('Vous êtes hors ligne')
+      }
+    },
   },
   methods: {
     async getAllOffresCreatedByEntreprise() {
@@ -225,9 +253,11 @@ export default {
   },
 
   created() {
+    this.network = useNetwork()
     this.isLancement();
     localStorage.setItem("translate", "fr");
     this.NbreEtudiantsInscritAndDoAbonnement();
+    console.log("isOnline", this.isOnline);
    
   },
 };
