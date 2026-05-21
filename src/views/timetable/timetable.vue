@@ -7,14 +7,18 @@ import { mapActions } from "pinia";
 import { useTranslateStore } from "../../store-pinia/Translate/useTranslateStore";
 import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import ShimmerCard from "./feature/ShimmerCard.vue";
+import VueMultiselect from "vue-multiselect";
 const loadingSpinner = useLoadingSpinner();
 // const abonnementsStore = useAbonnementsStore();
 export default {
   components:{
-    ShimmerCard
+    ShimmerCard,
+    VueMultiselect
   },
   data() {
     return {
+      chooseStatut:[],
+      allStatuses:[],
       lienPhoto: lienPhoto,
       Help: Help,
       competenceAdd: null,
@@ -123,7 +127,8 @@ export default {
       return (
         (this.datesSelect && this.datesSelect.length > 0) ||
         (this.competence && this.competence.length > 0) ||
-        (this.location && this.location.trim() !== "")
+        (this.location && this.location.trim() !== "") ||
+        (this.chooseStatut && this.chooseStatut.length > 0)
       );
     },
     pages() {
@@ -143,16 +148,17 @@ export default {
       return this.list.slice(0, this.length);
     },
   },
-  watch: {
-    // Watch sur la computed property hasAnyValue
-    hasAnyValue(newVal) {
-      if (!newVal) {
-        // Tous les champs sont vides
-        this.get_list_Talents();
+  methods: {
+     async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+          if (response.data.status) {this.allStatuses = response.data.data.filter(
+            s => s.statut !== "Entreprise" && s.statut !== "admin" && s.statut !== "Particulier"
+          )}
+      } catch (error) {
+        console.log(error);
       }
     },
-  },
-  methods: {
      starClass() {
     const color = this.emploi?.star_color
 
@@ -175,6 +181,7 @@ export default {
         .then((response) => {
          
           const transformed = this.addOtherElement(response.data.students);
+          console.log("transformedList",transformed)
           // Mise à jour de la liste et de sa longueur
           this.list = transformed;
           this.lengthOfTalents = transformed.length;
@@ -416,8 +423,8 @@ export default {
         });
     },
 
-    AllCompetencesPredf() {
-      instance
+    async AllCompetencesPredf() {
+      await instance
         .get("GetAllCompetences")
         .then((res) => {
           
@@ -428,8 +435,6 @@ export default {
         });
     },
     verfEnter() {
-  // console.log("verfEnter", this.user);
-
   if (!this.user) return;
 
   const statutPrincipal = this.user?.user?.statut?.statut;
@@ -473,9 +478,10 @@ export default {
     this.verfEnter();
     await this.$store.dispatch("getInfoUser");
     this.$store.dispatch("handleListeFavoris");
-    this.get_list_Talents();
-    this.getAllCompetences();
-    this.AllCompetencesPredf();
+    await this.get_list_Talents();
+    await this.getAllCompetences();
+    await this.AllCompetencesPredf();
+    await this.lister_statut();
      this.myWhilistUserConnected = this.user?.user?.usersadded_by_me?.map(item=>item?.wishlisted_user.id)
     this.path = window.location.pathname;
     this.texte = await this.handleTranslate("Vous rechercher un talent ?");
@@ -499,7 +505,7 @@ export default {
       <h3 class="fw-bold ecriteau text-left">{{ texte }}</h3>
       <form class="row justify-content-center align-items-center g-3 text-center">
         <!-- Sélecteur de dates -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="col-md-6">
           <PrimeCalendar
             v-model="datesSelect"
             :minDate="new Date()"
@@ -514,7 +520,7 @@ export default {
         </div>
 
         <!-- Sélecteur de compétences -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="col-md-6">
           <multiselect
             v-model="competence"
             :options="competences"
@@ -530,14 +536,25 @@ export default {
         </div>
 
         <!-- Localisation -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="col-md-6" style=" margin-top: 0.5em">
           <input
             type="text"
             class="form-control"
-            style="height: 40px; padding: 1em; margin-top: 0.5em"
+            style="height: 40px; padding: 1em; "
             :placeholder="texte10"
             v-model="location"
           />
+        </div>
+         <!-- Profil -->
+        <div class="col-md-6" style=" margin-top: 0.5em">
+          <VueMultiselect 
+      v-model="chooseStatut" 
+      :options="allStatuses" 
+      placeholder="Choix multiples" 
+      :multiple="true" 
+      label="statut" 
+      track-by="statut"
+       />
         </div>
       </form>
       <!-- Bouton Rechercher -->
@@ -1280,7 +1297,7 @@ export default {
     grid-template-columns: repeat(1, 1fr);
   }
   .jobs_filters {
-    margin: 0em 0 1em 0;
+    margin: 6em 0 2em 0;
   }
 }
 .d-none {
