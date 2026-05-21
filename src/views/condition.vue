@@ -7,23 +7,31 @@ export default {
 </script>
 <template>
   <div>
-       <div class="myconteneur">
+ <div class="myconteneur" >
     <h1
       style="
         text-align: center;
-        border: 2px solid black;
          background-color: orange;
-         margin-top: 1em;
-          color: black;
+        margin-top: 1em;
+       
+         border: 2px solid black;
         font-weight: bold;
         font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
       "
     >
-    <code style="color: black;">CONDITIONS GENERALES D’UTILISATION</code>
+      <code style="color: black;">CONDITIONS GENERALES D’UTILISATION</code>
     </h1>
-    <p style="text-align: right; padding: 0 3.2em">Mise en ligne le 24/12/2025</p>
-    <h2 style="padding: 0 2em; color: black;text-align:center;">PREAMBULE</h2>
-    <p style="padding: 0 1.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;color:black">
+    <p style="text-align: right; padding: 0 3.2em">Mise en ligne le 21/05/2026</p>
+    <h3 style="padding: 0 2em; color: black;text-align:center;">
+      <a href="#" style="color: black; text-decoration: underline;">PREAMBULE</a>
+    </h3>
+   
+
+    <section
+      class="p-4 row"
+      style="padding: 1.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;color:black"
+    >
+    <p>
       La <span style="font-weight: bold">Société LA LOCOMOTIVE SARL en
 abrégée (LCE)</span>, Société à Responsabilité Limitée
 unipersonnelle (SARLU), au capital d’UN
@@ -34,28 +42,26 @@ B-24483, sise à Abidjan-Cocody les deuxplateaux, BP 995 Abidjan 27, Tél. : 05 
 66, est une société de droit ivoirien spécialisée
 dans le domaine des services et plus précisement
 en expertise informatique et télécoms, concepteur
-de la plateforme en ligne MonBroBroli.
-MonBrobroli est une plateforme gratuite en ligne
+de la plateforme en ligne MonBroBroli. </p>
+<p >MonBrobroli est une plateforme gratuite en ligne
 qui a pour vocation principale de mettre en
 relation de manière transparente et équilibrée.
 La plateforme MonBrobroli est disponible en
 continu, 24 heures sur 24, et accessible depuis tout
 type d’appareil connecté, qu’il s’agisse de
-smartphones, de tablettes ou d’ordinateurs.
-L’accès à certaines fonctionnalités de la
+smartphones, de tablettes ou d’ordinateurs.</p>
+<p >
+  L’accès à certaines fonctionnalités de la
 plateforme est soumis à un abonnement
 annuel/mensuel obligatoire, selon les conditions
 ci-après.
+</p>
+<p >
 <span style="font-weight: bold">LA LOCOMOTIVE SARL</span> intervient en tant
 qu’intermédiaire dans les rapports entre les
 abonné(e)s demandeurs de stage/travail et les
 entreprises d’accueil.
     </p>
-
-    <section
-      class="p-4 row"
-      style="padding: 3.5em; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif"
-    >
       <h2 class="text-left">
         <code>ARTICLE 1 – APPLICATION DES CONDITIONS GENERALES D’UTILISATION </code>
       </h2>
@@ -125,7 +131,7 @@ PRO MAX pour les entreprises.
       <h2 class="text-left">
         <code>ARTICLE 3-ABONNEMENT</code>
       </h2>
-       <p>
+      <p>
        L’Abonnement a lieu après avoir renseigné le
 formulaire comportant l’identité de l’utilisateur
 (trice). L’abonnement mensuel ou annuel payable
@@ -139,7 +145,7 @@ l’interface mise à disposition.
         (1) Deux (02) abonnements au choix en fonction du type d’utilisateur
       </p>
 
-      <p style="text-align: center; font-weight: bold">ABONNEMENT PARTICULIERS</p>
+      <p style="text-align: center; font-weight: bold;" class="talent-list">ABONNEMENT PARTICULIERS</p>
       <p>
   - <span style="font-weight: bold">Formule BROBROLI HOME 10.000 Fcfa / an
 ou 1000 Fcfa / mois. </span>Accès à la base de données
@@ -160,559 +166,443 @@ Positionnement prioritaire des annonces en tête de
 liste lors des recherches effectuées sur la
 plateforme.
 </p>
-      <p style="text-align: center; font-weight: bold">ABONNEMENT ETUDIANTS</p>
-      <p>
-  -<span style="font-weight: bold">
-    Formule BROBROLI 1 000 FCFA / mois ou 10 000 FCFA / an
-  </span>
-</p>
-     <p>
-  La formule BROBROLI PRO donne accès, 
-  pendant toute la durée de l'abonnement actif, 
-  à l'intégralité des missions publiées sur la plateforme MonBrobroli,
-   à la fonctionnalité de candidature directe en ligne, 
-   aux notifications de visite de profil par les clients.
-   L'abonnement annuel est 
-  proposé à 10 000 FCFA (soit l'équivalent de 10 mois pour 12 mois d'accès).
-  La résiliation mensuelle 
-  est possible à tout moment depuis l'espace personnel, 
-  avec effet à la fin de la période en cours.
+<p class="talent-list" style="text-align: center; font-weight: bold">
+  ABONNEMENT TALENT
+ETUDIANT</p>
+<p>
+- <span style="font-weight: bold">Formule BROBROLI 10.000 Fcfa / an ou 1000
+Fcfa / mois</span> offre un accès complet aux offres
+d'emploi disponibles sur la plateforme.
 </p>
 <p>
-  -<span style="font-weight: bold">
-    Formule BROBROLI+ 2 000 FCFA/mois ou 20 000 FCFA/an
-  </span>
+-<span style="font-weight: bold">Formule BROBROLI+ 20.000 Fcfa / an ou
+2000 Fcfa / mois </span> inclut tous les avantages de la
+formule BROBROLI, avec en plus : La réception
+d'offres d’emploi ciblées par email, selon les
+compétences renseignées dans le profil. Une mise
+en avant prioritaire du profil lors des recherches
+effectuées par les entreprises, augmentant ainsi les
+chances de sélection.
 </p>
-<p>
-  La formule BROBROLI PRO MAX inclut l'intégralité 
-  des avantages de la formule BROBROLI, 
-  auxquels s'ajoutent : (1) Mise en avant prioritaire du profil dans les résultats de recherche,
-   positionné dans le premier quintile pour les compétences renseignées.
-    (2) Réception d'alertes missions en temps réel,
-     transmises aux abonnés BROBROLI PRO MAX avant diffusion standard aux abonnés BROBROLI PRO. 
-     (3) Envoi d'offres de missions ciblées par notification et email 
-     selon les compétences renseignées dans le profil. 
-     (4) Accès à l'identité des clients ayant consulté le profil au cours des 30 derniers jours. 
-     L'abonnement mensuel est proposé à 2 000 FCFA par mois et l'abonnement annuel à 20 000 FCFA. 
-  Les conditions de résiliation sont identiques à celles de la formule BROBROLI PRO
-</p>
-<p style="text-align: center; font-weight: bold">
-  ABONNEMENT ARTISANS</p>
- <p>
-  -<span style="font-weight: bold">
-   Formule BROBROLI
-  </span>
-  <span style="display: block;font-weight: bold">
-    Artisan : 2 000 F / mois · 20 000 F / an
-  </span>
-  <!-- <span style="display: block;font-weight: bold">
-     Maître Artisan : 5 000 F / mois · 50 000 F / an
-  </span> -->
-</p>
-<p>
-  La formule BROBROLI donne accès, 
-  pendant toute la durée de l'abonnement actif,
-   à l'intégralité des offres de missions publiées sur 
-   la plateforme MonBrobroli correspondant au profil Artisan, 
-   à la fonctionnalité de candidature directe en ligne, 
-   aux notifications de visite de profil par les clients, 
-   ainsi qu'au système de paiement digital applicable à chaque mission validée. 
-   Le système d'évaluation clients post-mission est inclus. 
-   L'abonnement est proposé à 2 000 FCFA par mois et à 20 000 FCFA par an, 
-   sans reconduction automatique sauf instruction explicite de l'abonné. 
-   La résiliation est possible à tout moment depuis l'espace personnel,
-   avec effet à la fin de la période annuelle en cours.
+
+<p class="talent-list" style="text-align: center; font-weight: bold">
+  ABONNEMENT TALENT
+PROFESSIONNEL / EXPERT /
+CONSULTANT / DIPLOME
 </p>
 
 <p>
-  -<span style="font-weight: bold">
-   Formule BROBROLI+
-  </span>
-  <span style="display: block;font-weight: bold">
-   Artisan : 4 000 F / mois · 40 000 F / an
-  </span>
-  <!-- <span style="display: block;font-weight: bold">
-    Maître Artisan : 10 000 F / mois · 100 000 F / an
-  </span> -->
+- <span style="font-weight: bold">Formule BROBROLI 50.000 Fcfa / an ou 5000
+Fcfa / mois</span> offre un accès complet aux offres
+d'emploi disponibles sur la plateforme.
 </p>
 <p>
-  La formule BROBROLI+ inclut l'intégralité des avantages de la formule BROBROLI, 
-  auxquels s'ajoutent : 
-  (1) Positionnement prioritaire du profil dans les résultats de recherche, 
-  positionné dans le premier quintile pour le métier et la zone géographique 
-  renseignés. (2) Réception d'alertes de missions urgentes en temps réel, 
-  transmises aux abonnés BROBROLI+ avec un avantage de 15 minutes avant diffusion 
-  aux abonnés BROBROLI. 
-  (3) Envoi d'offres ciblées par notification et email selon le métier 
-  et la zone de travail renseignés dans le profil. 
-  (4) Accès à l'identité des clients ayant consulté 
-  le profil au cours des 30 derniers jours. 
-  (5) Accès prioritaire aux missions à délai urgent 
-  (exécution inférieure à 24 heures), 
-  notifiées en exclusivité aux abonnés BROBROLI+
-  pendant une fenêtre de 15 minutes. 
-  L'abonnement est proposé à 4 000 FCFA par mois et 40 000 FCFA par an. 
-  Les conditions de résiliation sont identiques à celles de la formule BROBROLI.
+- <span style="font-weight: bold">Formule BROBROLI+ 100.000 Fcfa / an ou
+10.000 Fcfa / mois</span> inclut tous les avantages de la
+formule BROBROLI, avec en plus : La réception
+d'offres d’emploi ciblées par email, selon les
+compétences renseignées dans le profil. Une mise
+en avant prioritaire du profil lors des recherches
+effectuées par les entreprises, augmentant ainsi les
+chances de sélection.
 </p>
 
-<p style="text-align: center; font-weight: bold">
-  ABONNEMENT PROFESSIONNELS/EXPERTS</p>
- <p>
-  -<span style="font-weight: bold">
-   Formule BROBROLI 5 000 F / mois ou 50 000 F / an
-  </span>
+<p class="talent-list" style="text-align: center; font-weight: bold">
+  ABONNEMENT TALENT
+ARTISAN 
 </p>
 <p>
-La formule BROBROLI donne accès, pendant toute la durée de 
-l'abonnement annuel actif, à l'intégralité des 
-mandats et missions publiées sur la plateforme MonBrobroli 
-correspondant au profil Professionnel / Expert, 
-à la fonctionnalité de candidature directe en ligne 
-depuis l'application mobile ou l'interface web, 
-aux notifications de visite de profil par les clients et entreprises, 
-ainsi qu'au système de paiement sécurisé en séquestre Mobile Money 
-applicable à chaque mandat validé. Le système d'évaluation 
-clients post-mandat est inclus. L'abonnement est proposé à
- 50 000 FCFA par an, sans reconduction automatique sauf instruction 
- explicite de l'abonné. La résiliation est possible à tout moment 
- depuis l'espace personnel,
- avec effet à la fin de la période annuelle en cours.
+  <span style="font-weight: bold">Formule BROBROLI 20.000 Fcfa / an ou 2000
+Fcfa / mois</span> offre un accès complet aux offres
+d'emploi disponibles sur la plateforme.
+</p>
+<p>
+-<span style="font-weight: bold">Formule BROBROLI+ 40.000 Fcfa / an ou
+4.000 Fcfa / mois</span> inclut tous les avantages de la
+formule BROBROLI, avec en plus : La réception
+d'offres d’emploi ciblées par email, selon les
+compétences renseignées dans le profil. Une mise
+en avant prioritaire du profil lors des recherches
+effectuées par les entreprises, augmentant ainsi les chances de sélection.
 </p>
 
-<p>
-  -<span style="font-weight: bold">
-   Formule BROBROLI+ 10 000 F / mois ou 100 000 F / an
-  </span>
-</p>
-<p>
-La formule BROBROLI+ inclut l'intégralité des avantages de la 
-formule BROBROLI, auxquels s'ajoutent : 
-(1) Positionnement prioritaire du profil dans les résultats de recherche,
- positionné dans le premier quintile pour l'expertise et le secteur renseignés. 
- (2) Réception d'alertes de missions ciblées en temps réel,
-  transmises aux abonnés BROBROLI+ avant diffusion aux abonnés BROBROLI.
-   (3) Accès aux missions d'une valeur supérieure ou égale à 150 000 FCFA, 
-   diffusés exclusivement aux abonnés BROBROLI+. 
-   (4) Envoi d'offres ciblées par notification et email selon le secteur 
-   d'expertise 
-et les compétences renseignés dans le profil. 
-(5) Activation Ce document est strictement confidentiel et ne peut être diffusé sans accord préalable. Page 6
-optionnelle du mode profil discret, rendant le profil non indexé dans les recherches standard tout en permettant la réception de propositions entrantes. (6) Accès à l'identité des clients et
- entreprises ayant consulté le profil au cours des 30 derniers jours. L'abonnement est proposé à 10 000 FCFA par mois et à 100 000 FCFA par an. Les conditions de résiliation sont identiques à celles de la formule BROBROLI.
-</p>
-
-<p style="text-align: center; font-weight: bold">
-  ABONNEMENT VÉTÉRANS</p>
-  <p>
-  -<span style="font-weight: bold">
-   Formule BROBROLI 
-  </span>
-  <span style="font-weight: bold;display: block;">
-    Vétéran : 50 000 F / an
-  </span>
-   <span style="font-weight: bold;display: block;">
-     Vétéran Senior : 75 000 F /an
-  </span>
-   <span style="font-weight: bold;display: block;">
-    Vétéran Hors-grade : 100 000 F /an
-  </span>
-</p>
-<p>
-  La formule BROBROLI donne accès, 
-  pendant toute la durée de l'abonnement annuel actif, 
-  à l'intégralité des mandats et missions publiées sur 
-  la plateforme MonBrobroli correspondant au profil Vétéran,
-   à la fonctionnalité de candidature directe en ligne depuis 
-   l'application mobile ou l'interface web, aux notifications 
-   de visite de profil par les clients et organisations. 
-   Le système d'évaluation post-mandat et le tableau de bord 
-   statistiques sont inclus dans cette formule. 
-   L'abonnement est proposé à 50 000 FCFA par an et 100 000 FCFA par an, 
-   sans reconduction automatique sauf instruction explicite de l'abonné.
-    La résiliation est possible à tout moment depuis l'espace personnel, 
-  avec effet à la fin de la période annuelle en cours, sans remboursement prorata.
-</p>
- <p>
- -<span style="font-weight: bold">
-   Formule BROBROLI+ 
-  </span>
-  <span style="font-weight: bold;display: block;">
-    Vétéran : 150 000 F / an
-  </span>
-  <span style="font-weight: bold;display: block;">
-     Vétéran Senior : 200 000 F /an
-  </span>
-  <span style="font-weight: bold;display: block;">
-    Vétéran Hors-grade : 250 000 F /an
-  </span>
-</p>
-<p>
-  La formule BROBROLI+ inclut l'intégralité des avantages de la formule BROBROLI,
-   auxquels s'ajoutent : 
-   (1) Positionnement prioritaire du profil dans les résultats de 
-   recherche effectués par les clients et organisations, 
-   avec présentation prioritaire aux décideurs de niveau C-level 
-   (PDG, DG, membres de Conseil d'administration). 
-   (2) Accès aux mandats stratégiques d'une valeur supérieure ou égale 
-   à 500 000 FCFA, diffusés exclusivement aux abonnés BROBROLI+ Vétéran. 
-   (3) Réception d'alertes de mandats ciblés en temps réel, 
-   transmises aux abonnés BROBROLI+ Vétéran avant diffusion aux abonnés BROBROLI. 
-   (4) Possibilité de mise en relation directe avec les décideurs C-level pour 
-   les mandats non publiés publiquement. 
-   (5) Activation optionnelle du mode profil discret,
-    rendant le profil non indexé dans les recherches 
-    standard tout en permettant la réception de propositions entrantes. 
-    (6) Envoi d'offres ciblées par notification et email selon le secteur
-     d'expertise, le niveau d'expérience et la disponibilité renseignés dans 
-     le profil. 
-     (7) Accès à l'identité des organisations ayant 
-     consulté le profil au cours des 30 derniers jours. 
-     L'abonnement est proposé à 200 000 F par an et 250 000 FCFA par an. 
-  Les conditions de résiliation sont identiques à celles de la formule BROBROLI.
-</p>
-
-<p style="text-align: center; font-weight: bold">
-  ABONNEMENT PARTICULIERS</p>
+<p style="text-align: center; font-weight: bold" class="talent-list">ABONNEMENT TALENT VETERAN</p>
   <P>
-    MonBrobroli Home est la formule d’abonnement à la marketplace MonBrobroli des 
-    particuliers souhaitant accéder à des prestataires de services à domicile vérifiés — aide-ménagère, plomberie, électricité, baby-sitting, gardiennage, sécurité, déménagement et tout autre service domestique ponctuel.
-L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est soumis à un abonnement mensuel ou annuel selon deux formules : BROBROLI HOME et BROBROLI HOME MAX, dont les conditions sont définies aux présentes.
+  - <span style="font-weight: bold">Formule BROBROLI</span>
   </P>
   <p>
-  -<span style="font-weight: bold">
-   Formule BROBROLI HOME : 1 000 FCFA/mois ou 10 000 FCFA/an
-  </span>
+ <span style="font-weight: bold;display: block;">a) VETERAN Hors Grade : 100.000 Fcfa/ an</span>
+<span style="font-weight: bold;display: block;">b) VETERAN SENIOR : 75.000Fcfa/an</span>
+<span style="font-weight: bold;display: block;">c) VETERAN : 50.000Fcfa/an</span>
+offre un accès complet a l’ensemble des
+mandats et missions disponibles sur la
+plateforme ; notification lorsqu’une
+organisation consulte votre profil.
 </p>
 <p>
-  La formule BROBROLI HOME donne accès, 
-  pendant toute la durée de l'abonnement actif, 
-  à l'intégralité des profils de prestataires 
-  disponibles sur la plateforme MonBrobroli, 
-  à la fonctionnalité de publication 
-  de demandes de service, 
-  à la réception des propositions de 
-  prestataires correspondants, 
-  aux notifications de disponibilité des prestataires. 
-  Le système d'évaluation et d'avis post-prestation est inclus dans cette formule. L'abonnement mensuel est proposé à 1 000 FCFA par mois. L'abonnement annuel est proposé à 10 000 FCFA par an, soit l'équivalent de 10 mois facturés pour 12 mois d'accès — 2 mois offerts. L'abonnement annuel
-   est sans reconduction automatique sauf instruction explicite de l'abonné.
+  - <span style="font-weight: bold">Formule BROBROLI+</span>
 </p>
-<p>
-  -<span style="font-weight: bold">
-   Formule BROBROLI HOME MAX : 2 000 FCFA / mois ou 20 000 FCFA / an
-  </span>
+ <p>
+ <span style="font-weight: bold;display: block;">a)VETERAN Hors Grade : 250.000 Fcfa
+/ an</span>
+<span style="font-weight: bold;display: block;">b) VETERAN SENIOR : 200.000Fcfa/an</span>
+<span style="font-weight: bold;display: block;">c) VETERAN : 150.000Fcfa/an</span>
+inclut tous les avantages de la formule
+BROBROLI, avec en plus : La réception d'offres
+d’emploi ciblées par email, selon les compétences
+renseignées dans le profil. Une mise en avant
+prioritaire du profil lors des recherches effectuées
+par les entreprises, augmentant ainsi les chances
+de sélection, mise en relation directe avec les
+decideurs notamment les C level (hors appel
+d’offre), Mode profil discret actif (consultez des
+mandats sans visibilité publique).
 </p>
-<p>
-  La formule BROBROLI HOME MAX inclut 
-  l'intégralité des avantages de la formule BROBROLI HOME,
-   auxquels s'ajoutent les fonctionnalités suivantes : 
-   (1) Positionnement prioritaire des demandes de 
-   service publiées dans les résultats présentés aux prestataires,
-    augmentant significativement la probabilité d'obtenir une réponse rapide. 
-    (2) Réception d'alertes de disponibilité de prestataires en temps réel,
-     transmises aux abonnés BROBROLI HOME MAX avant diffusion standard 
-     aux abonnés BROBROLI HOME, permettant 
-     d'accéder en priorité aux prestataires disponibles. 
-     (3) Envoi d'offres de service ciblées par notification push, 
-     sélectionnées automatiquement en fonction des besoins habituels
-      renseignés dans le profil de l'abonné. 
-      (4) Accès prioritaire aux prestataires disponibles 
-      pour des interventions urgentes (délai d'exécution inférieur à 24 heures), 
-      notifiés en exclusivité aux abonnés BROBROLI HOME MAX pendant une fenêtre de 30 minutes avant diffusion générale. (5) Accès à l'historique complet des prestataires consultés et évalués au cours des 90 derniers jours, permettant de solliciter directement un prestataire déjà utilisé et satisfaisant. L'abonnement mensuel est proposé à 2 000 FCFA par mois. L'abonnement annuel est proposé à 20 000 FCFA par an, 
-  soit l'équivalent de 10 mois facturés pour 12 mois d'accès.
-</p>
-      <p style="text-align: center; font-weight: bold">
+      <p class="talent-list" style="text-align: center; font-weight: bold">
         ABONNEMENT ENTREPRISES
       </p>
-      <p>
-  -<span style="font-weight: bold">
-   Formule BROBROLI PRO 
-  </span>
-  <span style="font-weight: bold;display: block;">
-   Particuliers : 2000 F /mois ou 20 000 F / an
-  </span>
-  <span style="font-weight: bold;display: block;">
-    Entreprises informelles : 15 000 F / an 
-  </span>
-  <span style="font-weight: bold;display: block;">
-   Entreprises formelles : 25 000 F / an
-  </span>
-</p>
-<p>
-  La formule BROBROLI Entreprises & Particuliers donne accès, 
-  pendant toute la durée de l'abonnement annuel actif, 
-  à la base de données des profils talents qualifiés et
-   vérifiés disponibles sur la plateforme MonBrobroli, 
-   à la fonctionnalité de publication d'offres de missions,
-    à la réception des candidatures correspondantes 
-    via le tableau de bord, ainsi qu'au système de paiement
-     sécurisé digital applicable à chaque mission validée. 
-     L'abonnement est proposé à 15 000 F par an pour les 
-     entreprises informelles et 25 000 FCFA par an pour 
-     les entreprises formelles, sans reconduction 
-     automatique sauf instruction explicite de l'abonné. 
-     La résiliation est possible à tout moment depuis l'espace personnel, 
-  avec effet à la fin de la période annuelle en cours.
-</p>
     <p>
-  -<span style="font-weight: bold">
-   Formule BROBROLI PRO MAX
-  </span>
-  <span style="font-weight: bold;display: block;">
-   Particuliers : 5000F/mois ou 50 000 F / an
-  </span>
-  <span style="font-weight: bold;display: block;">
-    Entreprises informelles : 40 000 F / an
-  </span>
-  <span style="font-weight: bold;display: block;">
-  Entreprises formelles : 50 000 F / an
-  </span>
+  - <span style="font-weight: bold">Formule BROBROLI PRO 25.000 Fcfa / an</span>
+  Accès à la base de données des profils talents
+  qualifiés et vérifiés (Etudiants, Professionnels,
+  Veterans, Artisans). Publication des offres de
+  mission sur la plateforme.
+    </p>
+<p>
+ - <span style="font-weight: bold">Formule BROBROLI PRO MAX 50.000 Fcfa
+/ an.</span> Accès à la base de profils. Publication
+illimitée d’offres. Reception prioritaire des
+candidatures des profils BROBROLI+. Support
+prioritaire avec une reponse dans un delais de
+4H.
+Positionnement prioritaire des annonces en tête de
+liste lors des publications d’offres sur la
+plateforme.
+</p>
+ 
+<p style="text-align: center">
+ (2) Résiliation
 </p>
 <p>
-  La formule BROBROLI PRO MAX Entreprises & Particuliers 
-  inclut l'intégralité des avantages de la formule BROBROLI, 
-  auxquels s'ajoutent : 
-  (1) Publication illimitée d'offres de missions sans restriction de volume. 
-  (2) Positionnement prioritaire des annonces publiées en tête de liste lors des recherches effectuées 
-  par les talents sur la plateforme. 
-  (3) Accès élargi à la base de profils, 
-  incluant les profils Experts Vérifiés et Vétérans. 
-  (4) Tableau de bord analytics avancé incluant les 
-  statistiques de performance des annonces et les profils consultés. 
-  (5) Réception prioritaire des candidatures des profils abonnés BROBROLI PRO MAX. 
-  (6) Facturation mensuelle consolidée regroupant l'ensemble des missions 
-  du mois en une seule facture. 
-  (7) Support prioritaire avec délai de réponse 
-  garanti inférieur à 4 heures. 
-  L'abonnement est proposé à 40 000FCFA par pour 
-  les entreprises informelles et à 50 000 FCFA 
-  par an pour les entreprises formelles. 
-  Les conditions de résiliation sont identiques à celles de la formule BROBROLI.
+  A défaut pour l’abonné(e) de résilier son contrat
+sans délai et de facon libre et volontaire, son
+abonnement se renouvellera par tacite
+reconduction après procédure de paiement
+confirmée.
 </p>
-      <!-- <p>
-        -<span style="font-weight: bold">Formule ECO 25.000 Fcfa / an</span> Donne accès à
-        la base de données des profils étudiants qualifiés. Possibilité de publier des
-        offres de mission. Le premier recrutement est gratuit.
-      </p>
-      <p>
-        -<span style="font-weight: bold">Formule BROBROLI PRO MAX 50.000 Fcfa / an </span>Accès à
-        la base de profils. Publication illimitée d’offres. Positionnement prioritaire des
-        annonces en tête de liste lors des recherches effectuées sur la plateforme. Le
-        premier recrutement est gratuit
-      </p>
-      <p style="text-align: center">(2) Résiliation</p>
-      <p>
-        A défaut pour l’abonné(e) de résilier son contrat dans un délai minimum d’un mois
-        avant la date d’expiration du contrat par lettre recommandée avec accusé de
-        réception, son abonnement se renouvellera par tacite reconduction. En cas de
-        résiliation, l’abonné(e) restera redevable du montant de l’abonnement restant à
-        courir pour sa durée minimale. Il ne sera procédé à aucun remboursement. En cas de
-        non-paiement par l’abonné(e) de son abonnement aux échéances convenues, LCE pourra
-        procéder à la résiliation du contrat d’abonnement sans qu’aucune indemnité de
-        quelque nature que ce soit ne soit mise à sa charge. En cas de non utilisation des
-        prestations liées à l abonnement, aucun rembousement ne sera effectué.
-      </p> -->
+<p>
+  En cas de non-paiement par l’abonné(e) du
+renouvellement de son abonnement aux
+échéances convenues, la résiliation du contrat
+d’abonnement se fera de manière automatique
+sans qu’aucune indemnité de quelque nature que
+ce soit ne soit mise à sa charge.
+</p>
+<p>
+  En cas de non utilisation des prestations liées à l
+abonnement, aucun rembousement ne sera
+effectué.
+</p>
       <h2 class="text-left">
         <code>ARTICLE 4-UTILISATION DE LA PLATEFORME</code>
       </h2>
       <p style="text-align: center">1) Création d’un profil personnel sécurisé</p>
       <p>
-        Chaque utilisateur (trice) qu’il soit étudiant, entreprise ou particulier doit
-        créer un compte personnel sur la plateforme. Ce profil est soumis à une
-        vérification préalable pour garantir l’authenticité des informations fournies et
-        sécuriser les échanges entre les différentes parties
+       Chaque utilisateur (trice) qu’il soit talent
+étudiant/professionnel/artisan/vétéran, entreprise
+ou particulier doit créer un compte personnel sur
+la plateforme. Ce profil est soumis à une
+vérification préalable pour garantir l’authenticité
+des informations fournies et sécuriser les
+échanges entre les différentes parties.
       </p>
-      <p>1a) Publication d’une offre de mission ou de service</p>
+      <p style="font-weight: bold;">1.a) Publication d’une offre de mission ou de
+service</p>
       <p>
-        Les entreprises et particuliers agissant en qualité d’etablissement d’accueil et
-        /ou de Tuteur peuvent publier librement des offres correspondant à leurs besoins
-        spécifiques (missions ponctuelles, projets ou services). Chaque annonce doit être
-        claire, précise et conforme aux conditions d’utilisation de la plateforme.
+       Les entreprises et particuliers agissant en qualité
+d’etablissement d’accueil et /ou de Tuteur peuvent
+publier librement des offres correspondant à leurs
+besoins spécifiques (missions ponctuelles ou à
+court, moyen et long terme, projets ou services).
+Chaque annonce doit être claire, précise et
+conforme aux conditions d’utilisation de la
+plateforme.
       </p>
-      <p>1b) Dépôt de candidature ou invitation à postuler</p>
+      <p style="font-weight: bold;">1.b) Dépôt de candidature ou invitation à
+postuler
+</p>
       <p>
-        Les étudiants ayant souscrit à un abonnement actif (BROBROLI ou BROBROLI+) peuvent
-        consulter les offres disponibles et y postuler selon leurs compétences, intérêts
-        et disponibilités. Par ailleurs, les entreprises ont la possibilité de
-        sélectionner certains profils à postuler, après consultation des informations
-        présentes sur les profils étudiants.Les abonnés BROBROLI+ bénéficient d’une
-        visibilité accrue, ce qui augmente significativement leurs chances d’être
-        sélectionnés directement par les recruteurs.
+       Les étudiants/professionnels/artisans/vétérants
+ayant souscrit à un abonnement actif
+(BROBROLI ou BROBROLI+) peuvent
+consulter les offres disponibles et y postuler selon
+leurs compétences, intérêts et disponibilités.
+Par ailleurs, les entreprises ont la possibilité de
+sélectionner certains profils à postuler, après
+consultation des informations présentes sur les
+profils talents.
       </p>
-      <p>1c.) Accord mutuel et lancement de la mission</p>
       <p>
-        Une fois la candidature acceptée et la mission validée par les deux parties, un
-        accord formel est établi. Celui-ci peut prendre la forme d’un contrat ou d’un
-        engagement encadré, selon la nature et la durée de la mission. La collaboration
-        peut ensuite débuter dans les conditions convenues entre l’étudiant et
-        l’Etablissement d’acceuil.
+        Les abonnés BROBROLI+ bénéficient d’une
+visibilité accrue, ce qui augmente
+significativement leurs chances d’être sélectionnés directement par les recruteurs.
       </p>
-      <p>1d.) Valeur contractuelle des échanges</p>
+      <p style="font-weight: bold;">1.c) Accord mutuel et lancement de la mission</p>
       <p>
-        Après la mise en relation entre étudiant et entreprise, le document généré a pour
-        seule fonction d’attester que l’étudiant a postulé à une offre via la plateforme
-        MonBrobroli. Il ne constitue ni une preuve d’embauche, ni une confirmation de
-        réalisation de mission. Il peut néanmoins être utilisé par l’étudiant pour
-        Justifier une démarche de candidature auprès d’un recruteur.
+        Une fois la candidature acceptée et la mission
+validée par les deux parties, un accord formel est
+établi. Celui-ci peut prendre la forme d’un contrat
+ou d’un engagement encadré, selon la nature et la
+durée de la mission. La collaboration peut ensuite
+débuter dans les conditions convenues entre le
+Talent et l’Etablissement d’acceuil ou demandeur
+de service.
+      </p>
+      <p style="font-weight: bold;">1.d) Valeur contractuelle des échanges</p>
+      <p>
+       Après la mise en relation entre Talent et
+Entreprise/Particulier, le document généré a pour
+seule fonction d’attester que le talent a postulé à
+une offre via la plateforme MonBrobroli.
+Il ne constitue ni une preuve d’embauche, ni une
+confirmation de réalisation de mission. Il peut
+néanmoins être utilisé par le Talent pour Justifier
+une démarche de candidature auprès d’un
+recruteur.
       </p>
       <h2 class="text-left">
         <code>ARTICLE 5-OBLIGATIONS DES UTILISATEURS</code>
       </h2>
       <p>
-        Afin de garantir un environnement de confiance, respectueux et conforme aux
-        principes éthiques portés par la plateforme MonBrobroli, chaque utilisateur qu’il
-        soit étudiant, entreprise ou particulier est tenu de respecter les obligations qui
-        lui incombent.
+        Afin de garantir un environnement de confiance,
+respectueux et conforme aux principes éthiques
+portés par la plateforme MonBrobroli, chaque
+utilisateur qu’il soit
+étudiant/professionnel/artisan/vétérant, entreprise
+ou particulier est tenu de respecter les obligations
+qui lui incombent.
       </p>
-      <p>5.a) Obligations des étudiants</p>
-      <p>Les étudiants utilisant la plateforme s’engagent à :</p>
+      <p style="font-weight: bold;">5.a) Obligations des Talents
+étudiants/professionnels/artisans/vétérants
+</p>
+      <p>Les talents utilisant la plateforme s’engagent à :</p>
       <p>
-        – Compléter un profil véridique, sincère et régulièrement mis à jour, incluant
-        notamment leurs informations personnelles, leurs compétences, leur parcours
-        académique ainsi que leur disponibilité
-      </p>
-      <p>
-        – Faire preuve de sérieux, de ponctualité et d’engagement dans l’ensemble des
-        missions qu’ils acceptent, en respectant les conditions convenues avec l
-        entreprise
-      </p>
-      <p>
-        – Respecter la confidentialité des informations échangées, qu’il s’agisse de
-        données professionnelles, personnelles ou sensibles, obtenues dans le cadre des
-        échanges ou de l’exécution d’une mission.
-      </p>
-      <p>5.b) Obligations des entreprises et des particuliers</p>
-      <p>
-        Les entreprises et les particuliers qui déposent des offres sur la plateforme ont
-        la responsabilité de :
+       – Compléter un profil véridique, sincère et
+régulièrement mis à jour, incluant notamment
+leurs informations personnelles, leurs
+compétences, leurs expériences, leur parcours
+académique ainsi que leur disponibilité.
       </p>
       <p>
-        – Proposer des offres claires, transparentes et conformes à la législation
-        ivoirienne en particulier en ce qui concerne les conditions de travail, la nature
-        des tâches et la rémunération éventuelle
+        – Faire preuve de sérieux, de ponctualité et
+d’engagement dans l’ensemble des missions
+qu’ils acceptent, en respectant les conditions
+convenues avec l entreprise.
       </p>
       <p>
-        – Garantir des conditions de travail dignes, sûres et adaptées à la mission
-        confiée en veillant au respect des droits et à la sécurité des étudiants mobilisés
+       – Respecter la confidentialité des informations
+échangées, qu’il s’agisse de données
+professionnelles, personnelles ou sensibles,
+obtenues dans le cadre des échanges ou de
+l’exécution d’une mission.
+      </p>
+      <p style="font-weight: bold;">5.b) Obligations des entreprises et des
+particuliers
+</p>
+      <p>
+       Les entreprises et les particuliers qui déposent des
+offres sur la plateforme ont la responsabilité de :
+
       </p>
       <p>
-        – Adopter un comportement éthique et respectueux, en s’interdisant toute forme
-        d’exploitation, de harcèlement, de discrimination ou tout autre abus pouvant
-        porter atteinte à l’intégrité physique, morale ou professionnelle des étudiants.
-      </p>
-      <p>5.b) SANCTIONS</p>
-      <p>
-        Tout manquement aux présentes règles d’utilisation, qu’il soit le fait d’un
-        étudiant, d’une entreprise ou d’un particulier, est susceptible d’entraîner des
-        mesures disciplinaires prises par la plateforme MonBrobroli.En cas de non-respect
-        avéré du règlement, la plateforme se réserve expressément le droit de :
+        – Proposer des offres claires, transparentes et conformes à la législation du pays où ils exercent
+en particulier en ce qui concerne les conditions de
+travail, la nature des tâches et la rémunération
+éventuelle.
       </p>
       <p>
-        – Suspendre temporairement ou définitivement le compte de l’utilisateur concerné
-        selon la gravité des faits constatés
+    – Garantir des conditions de travail dignes, sûres
+et adaptées à la mission confiée en veillant au
+respect des droits et à la sécurité des talents
+mobilisés.
       </p>
       <p>
-        – Restreindre l’accès à certaines fonctionnalités de la plateforme, notamment la
-        publication d’offres, la candidature à des missions.
+      – Adopter un comportement éthique et
+respectueux, en s’interdisant toute forme
+d’exploitation, de harcèlement, de discrimination
+ou tout autre abus pouvant porter atteinte à
+l’intégrité physique, morale ou professionnelle
+des talents.
+      </p>
+      <p style="font-weight: bold;">5.c) Sanctions</p>
+      <p>
+       Tout manquement aux présentes règles
+d’utilisation, qu’il soit le fait d’un talent, d’une
+entreprise ou d’un particulier, est susceptible
+d’entraîner des mesures disciplinaires prises par la
+plateforme MonBrobroli.
       </p>
       <p>
-        – Signaler les comportements inappropriés, abusifs ou illégaux aux autorités
-        compétentes lorsque la situation l’exige, conformément aux obligations légales en
-        vigueur.
+       En cas de non-respect avéré du règlement, la
+plateforme se réserve expressément le droit de :
+
       </p>
       <p>
-        Ces sanctions visent à préserver un environnement sain, éthique et sécurisé pour
-        l’ensemble des utilisateurs, et à faire respecter les principes fondamentaux de
-        respect, d’équité et de responsabilité qui régissent la plateforme MonBrobroli.
+      – Suspendre temporairement ou définitivement le
+compte de l’utilisateur concerné selon la gravité
+des faits constatés.
+      </p>
+      <p>
+       – Restreindre l’accès à certaines fonctionnalités
+de la plateforme, notamment la publication
+d’offres, la candidature à des missions.
+      </p>
+      <p>
+     – Signaler les comportements inappropriés,
+abusifs ou illégaux aux autorités compétentes
+lorsque la situation l’exige, conformément aux
+obligations légales en vigueur.
+
+      </p>
+      <p>
+        Ces sanctions visent à préserver un
+environnement sain, éthique et sécurisé pour
+l’ensemble des utilisateurs, et à faire respecter les
+principes fondamentaux de respect, d’équité et de
+responsabilité qui régissent la plateforme
+MonBrobroli.
       </p>
       <h2 class="text-left">
         <code>ARTICLE 6-RESPONSABILITE</code>
       </h2>
       <p>
-        L’abonné(e) admet expressément que LCE, en qualité d’intermediaire n’est tenue
-        qu’à une obligation de moyens. LCE ne saurait par conséquent encourir, quel que
-        soit le motif, aucune indemnité de quelque nature que ce soit, seule la
-        responsabilité des Utilisateurs peut être engagée suite à un accord conclu.
+        L’abonné(e) admet expressément que LCE, en
+qualité d’intermediaire n’est tenue qu’à une
+obligation de moyens. LCE ne saurait par
+conséquent encourir, quel que soit le motif,
+aucune indemnité de quelque nature que ce soit,
+seule la responsabilité des Utilisateurs peut être
+engagée suite à un accord conclu.
+
       </p>
       <p>
-        L’abonné(e) s’adressera donc directement à son cocontractant toute demande de
-        dédommagement ou toute autre demande relative à la signature d’une offre.LCE est
-        exonérée de toute responsabilité relative à l’exécution d’un contrat à la suite de
-        l’utilisation de la plateforme par les abonnés. En tout état de cause, LCE ne
-        saurait être tenue pour responsable de l’inexécution de ses obligations en cas de
-        force majeure définie par le Code Civil, et notamment en cas de grève totale ou
-        partielle, inondation, incendie, panne informatique, etc. (liste non exhaustive).
+   L’abonné(e) s’adressera donc directement à son
+cocontractant toute demande de dédommagement
+ou toute autre demande relative à la signature
+d’une offre.
       </p>
+      <p>LA LOCOMOTIVE (LCE) est exonérée de toute
+responsabilité relative à l’exécution d’un contrat à la suite de l’utilisation de la plateforme par les
+abonnés</p>
+<p>En tout état de cause, LA LOCOMOTIVE (LCE)
+ne saurait être tenue pour responsable de
+l’inexécution de ses obligations en cas de force
+majeure définie par le Code Civil, et notamment
+en cas de grève totale ou partielle, inondation,
+incendie,
+panne informatique, etc. (liste non exhaustive).</p>
       <h2 class="text-left">
-        <code>ARTICLE 7-POLITIQUES DE CONFIDENTIALITÉ</code>
+        <code>ARTICLE 7-SECURITE-PROTECTION
+DES DONNEES A CARACTERE
+PERSONNEL
+</code>
       </h2>
       <p>
-        MonBrobroli met en œuvre les mesures techniques et organisationnelles nécessaires
-        pour assurer un haut niveau de sécurité
+       MonBrobroli met en œuvre les mesures
+techniques et organisationnelles nécessaires pour
+assurer un haut niveau de sécurité
+
       </p>
       <p>La plateforme s’engage à :</p>
       <p>
-        - prévenir tout accès non autorisé, et protéger l’intégrité des informations
-        confiées par ses utilisateurs.
-      </p>
-      <p>- Garantir :</p>
-      <p>
-        *la confidentialité absolue des informations fournies par les utilisateurs lors de
-        leur inscription ou de l’utilisation des services
+      <span style="display:block;"> - prévenir tout accès non autorisé, et
+protéger l’intégrité des informations
+confiées par ses utilisateurs.</span>
+<span style="display:block;">- Garantir :</span>
       </p>
       <p>
-        *le respect rigoureux de la vie privée conformément aux dispositions légales et
-        réglementaires applicables en matière de protection des données (loi n°2013-451 du
-        19 juin 2013 relative à la protection des données à caractère personnel).
+       – la confidentialité absolue des informations
+fournies par les utilisateurs lors de leur inscription
+ou de l’utilisation des services
+
       </p>
       <p>
-        En aucun cas, les données personnelles des utilisateurs ne seront communiquées à
-        des tiers sans avoir obtenu au préalable leur consentement explicite, libre et
-        éclairé.
+       – le respect rigoureux de la vie privée
+conformément aux dispositions légales et
+réglementaires applicables en matière de
+protection des données (loi n°2013-451 du 19 juin
+2013 relative à la protection des données à
+caractère personnel) pour le cas de la Côte
+d’Ivoire.
       </p>
       <p>
-        Par application de la Loi N°2023-450 du 19 juin 2013 relatif à la protection des
-        données à caractère personnel par les personnes physiques et morales,
-        l’Utilisateur peut à tout moment accéder à ses données, les rectifier et demander
-        leur utilisation conformément à la legislation en vigueur, s’opposer à un
-        traitement pour des motifs legitmes en formulant une demande à l’adresse :
+     En aucun cas, les données personnelles des
+utilisateurs ne seront communiquées à des tiers
+sans avoir obtenu au préalable leur consentement
+explicite, libre et éclairé.
+      </p>
+      <p>
+        Par application de la Loi N°2023-450 du 19 juin
+2013 relatif à la protection des données à caractère
+personnel par les personnes physiques et morales,
+l’Utilisateur peut à tout moment accéder à ses
+données, les rectifier et demander leur utilisation
+conformément à la legislation en vigueur,
+s’opposer à un traitement pour des motifs legitmes
+en formulant une demande à l’adresse :
         <a
           href="mailto:contact@monbrobroli.com"
           style="text-decoration: underline; color: blue"
           >contact@monbrobroli.com</a
         >
       </p>
-      <p>Nature des les données collectées par l’utilisation de la plateforme sont :</p>
+      <p>Nature des données collectées par l’utilisation de
+la plateforme:
+</p>
       <p>
-        - Données d’identification : Nom, prénom(s), date et lieu de naissance, sexe,
-        signature, photo ;
+      - Données d’identification : Nom, prénom(s),
+date et lieu de naissance, sexe, signature, photo,
+contact mail, contact téléphonique ;
+
       </p>
       <p>
-        - Données relatives à la formation : diplôme, niveau d’etude, carte d’étudiant en
-        cours de validité, ect…
+       - Données relatives à la formation : diplôme,
+niveau d’etude ect…
       </p>
       <p>
-        -Numéro d’identification national : numéro de téléphone, numéro de la Carte
-        nationale d’identité ;
+      -Numéro d’identification national : numéro de
+téléphone, numéro de la Carte nationale
+d’identité ; numéro de passeport, numéro de la
+carte de séjour, numéro de la carte consulaire.
+
       </p>
-      <p>-Données de localisation : adresse géographique (lieu d’habitation) ;</p>
+      <p>-Données de localisation : adresse géographique
+(lieu d’habitation) ;</p>
       <p>
-        -Données d’ordre économique et financier : Relevé d’identité bancaire (RIB),
-        numéro de compte bancaire.
-      </p>
-      <p>
-        Utilisation des données collectées par l’utilisation de la plateforme à des fins
-        notamment :
-      </p>
-      <p>-Information pour l’utilisation de la plateforme pour la mise en relation;</p>
-      <p>-de sollicitations commerciales pour ses biens et services ;</p>
-      <p>
-        -Lorsqu’elle y a un intérêt légitime et, notamment pour évaluer et améliorer le
-        Service.
+       -Données d’ordre économique et financier :
+Relevé d’identité bancaire (RIB), numéro de
+compte bancaire.
       </p>
       <p>
-        L’Utilisateur reconnait avoir été informé(e) que le traitement de ses données
-        personnelles est nécessaire à l'utilisation de la plateforme et qu’il peut retirer
-        son consentement à tout moment en adressant une demande à
+       Utilisation des données collectées par l’utilisation
+de la plateforme à des fins notamment :
+
+      </p>
+      <p>- Information pour l’utilisation de la
+plateforme pour la mise en relation;
+</p>
+      <p>- de sollicitations commerciales pour ses
+biens et services ;
+</p>
+      <p>
+       - Lorsqu’elle y a un intérêt légitime et,
+notamment pour évaluer et améliorer le Service.
+      </p>
+      <p>
+        L’Utilisateur reconnait avoir été informé(e) que le
+traitement de ses données personnelles est
+nécessaire à l'utilisation de la plateforme et qu’il
+peut retirer son consentement à tout moment en adressant une demande à
 
         <a
           href="mailto:contact@monbrobroli.com"
@@ -721,16 +611,21 @@ L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est sou
         >
       </p>
       <h2 class="text-left">
-        <code>ARTICLE 8-LOI APPLICABLE-LITIGE</code>
+        <code>ARTICLE 8-LOI APPLICABLE-LITIGE
+</code>
       </h2>
       <p>
-        LCE est une société de droit ivoirien. La loi applicable aux relations
-        contractuelles est la loi ivoirienne exclusivement.
+       LA LOCOMOTIVE (LCE) SARL est une société
+de droit ivoirien. La loi applicable aux relations
+contractuelles est la loi ivoirienne exclusivement.
+
       </p>
       <p>
-        Tout litige relatif à l’interprétation et à l’exécution des conditions générales
-        d’utilisation est soumis au droit ivoirien. A défaut de résolution amiable, le
-        litige sera porté devant les tribunaux civils compétents.
+      Tout litige relatif à l’interprétation et à
+l’exécution des conditions générales d’utilisation
+est soumis au droit ivoirien. A défaut de
+résolution amiable, le litige sera porté devant les
+tribunaux civils compétents.
       </p>
     </section>
   </div>
@@ -740,6 +635,16 @@ L'accès à certaines fonctionnalités de la plateforme MonBrobroli Home est sou
   </div>
 </template>
 <style scoped>
+h2{
+  font-size: 1.2em !important;
+}
+.talent-list::before {
+  content: "\2756";
+  margin-right: 10px;
+}
+.myconteneur_container{
+  padding: 1.5em;
+}
 code {
   color: rgb(0, 0, 0) !important;
   font-weight: bold;

@@ -624,6 +624,9 @@ tribunaux civils compétents.
   </div>
 </template>
 <style scoped>
+h2{
+  font-size: 1.2em !important;
+}
 .talent-list::before {
   content: "\2756";
   margin-right: 10px;
