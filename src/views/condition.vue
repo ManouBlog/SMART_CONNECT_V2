@@ -332,7 +332,7 @@ plateforme.
 postuler
 </p>
       <p>
-       Les étudiants/professionnels/artisans/vétérants
+       Les étudiants/professionnels/artisans/vétérans
 ayant souscrit à un abonnement actif
 (BROBROLI ou BROBROLI+) peuvent
 consulter les offres disponibles et y postuler selon
@@ -383,7 +383,7 @@ ou particulier est tenu de respecter les obligations
 qui lui incombent.
       </p>
       <p style="font-weight: bold;">5.a) Obligations des Talents
-étudiants/professionnels/artisans/vétérants
+étudiants/professionnels/artisans/vétérans
 </p>
       <p>Les talents utilisant la plateforme s’engagent à :</p>
       <p>
