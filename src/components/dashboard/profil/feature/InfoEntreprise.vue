@@ -229,6 +229,9 @@ texte0989:"",
 
           
            <div class="row">
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Particulier')">
+    <ParagrapheDetail :item="{libelle:'Nom', value: this.infoPersonnelles?.user?.nom}" />
+            </div>
             <div class="col-md-6" style="flex:1">
   <ParagrapheDetail :item="{libelle:'Prénoms', value: this.infoPersonnelles?.prenoms}" />
             </div>
@@ -260,12 +263,20 @@ texte0989:"",
             </div>
      
           </div>
+            <div class="row" v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Artisan')">
+                 <div class="col-md-6" style="flex:1">
+     <ParagrapheDetail :item="{libelle:'Niveau d\'etude', value: this.infoPersonnelles?.niveauEtude}" />
+            </div>
+            <div class="col-md-6" style="flex:1">
+     <ParagrapheDetail :item="{libelle:'Statut professionnel', value: this.infoPersonnelles?.user?.statut_professionnel_artisan}" />
+            </div>
+            </div>
       
           <div class="row">
-            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user?.statut?.statut === 'Particulier'">
+            <!-- <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user?.statut?.statut === 'Particulier'">
   <ParagrapheDetail  :item="{libelle:'Pièces chargées',value:null,
           valueArray:this.infoPersonnelles?.user?.photos}" />
-            </div>
+            </div> -->
 
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.matricule_cc">
      <ParagrapheDetail  :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
