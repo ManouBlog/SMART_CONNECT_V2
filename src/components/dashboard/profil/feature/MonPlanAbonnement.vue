@@ -30,7 +30,15 @@ export default {
       }
     };
   },
-  computed: { ...mapState(useEntreprisesStore, ["list_abonnement","planAbonnement"]) },
+  computed: { 
+    ...mapState(useEntreprisesStore, ["list_abonnement","planAbonnement"]),
+  MyMontantAbonnement(){
+  if(this.planAbonnement.add_profil_hybrides.length > 0){
+    return Number(this.planAbonnement.montant) + Number(this.planAbonnement.add_profil_hybrides.reduce((acc,cur)=>acc + cur.montant,0))
+  }
+  return Number(this.planAbonnement.montant)
+}
+   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useEntreprisesStore, ["get_all_abonnement"]),
@@ -50,7 +58,7 @@ export default {
 
 </script>
 <template>
-  <!-- {{ planAbonnement }} -->
+  {{ planAbonnement }}
   <div class="conteneur_tableau_de_bord d-flex justify-content-center" v-if="planAbonnement">
     <!-- {{ JSON.stringify(planAbonnement,null,2) }} -->
     <a-card :title="planAbonnement?.abonement?.libelle" :bordered="false" style="width: 400px">
@@ -59,7 +67,9 @@ export default {
       v-html="planAbonnement.mode_payment === 'year' || !planAbonnement.mode_payment ? planAbonnement?.abonement?.description:planAbonnement?.abonement?.description_month"></div>
       <hr />
       <div class="d-flex align-items-center gap-5 justify-content-center main-color">
-        <h1 class="text-start" style="font-size: 4em">{{ new Intl.NumberFormat('de-DE').format(planAbonnement?.montant) }}F</h1>
+        <h1 class="text-start" style="font-size: 2em">
+          {{ new Intl.NumberFormat('de-DE').format(MyMontantAbonnement) }}Fcfa
+        </h1>
         <span class="mx-2">/</span>
         <span style="font-size: 2em">{{periodePayment[planAbonnement.mode_payment]}}</span>
       </div>
