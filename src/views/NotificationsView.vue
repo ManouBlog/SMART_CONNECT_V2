@@ -20,56 +20,13 @@
 <script setup>
 import { onMounted} from "vue";
 import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue";
-// import { useRouter } from "vue-router";
-// import instance from "../api/api";
-
-// Components
 import NotificationSection from "../components/NotificationSection.vue";
-// import FavorisCard from "../components/FavorisCard.vue";
-
-// Pinia store
 import { useNotificationsStore } from "../store-pinia/useNotificationsStore";
 
-// === Initialisations ===
-// const router = useRouter();
-// const vuexStore = useStore();
 const Notifications = useNotificationsStore();
 
-// === State ===
-// const user = computed(() => vuexStore.state.user);
-// const dataAlarm = ref([]);
-
-// === Fonctions ===
-// async function getOffresInteressByStudent() {
-//   try {
-//     const response = await instance.get("list_offres_interess_by_students");
-//     if (response.status === 200) {
-//       dataAlarm.value = response?.data.length > 0 ? response?.data?.filter((item) => item.recruit === 0):[];
-//     }
-//   } catch (error) {
-//     console.error("Erreur lors du chargement des offres :", error);
-//   }
-// }
-
-
-
-// function voirDetailPostulants(nameOffre) {
-//   // On charge d'abord les offres
-//   getOffresInteressByStudent();
-
-//   // Puis on redirige vers la page de détails
-//   router.push({
-//     name: "detailsPostulants",
-//     params: { offre: nameOffre?.nom_offre },
-//   });
-// }
-
-// verifUserProfilEtudiantComplet()
-
-// === Lifecycle ===
 onMounted(async () => {
   await Notifications.getListNotification();
-  // await getOffresInteressByStudent();
 });
 </script>
 

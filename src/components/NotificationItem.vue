@@ -3,8 +3,8 @@
     <div class="notification-avatar">
       <img
       v-if="notification.sender_id"
-        :class="notification.avatar ? null : 'flou_image'"
-        :src="lienPhoto + notification.avatar"
+        :class="notification.user.photos[0].path ? null : 'flou_image'"
+        :src="lienPhoto + notification.user.photos[0].path"
         alt="Avatar"
       />
       <img
@@ -17,7 +17,7 @@
     <div class="notification-content">
       <div class="notification-header">
         <span class="notification-username">{{
-          notification.username ? notification.username : 'MonBrobroli'
+          notification ? notification?.user?.nom : 'MonBrobroli'
         }}</span>
          <span class="notification-objet" v-if="notification.objet">
     {{ notification.objet }}

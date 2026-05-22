@@ -109,6 +109,7 @@ export default {
   ],
 },
       formState: {
+        offre_mode_travail:null,
   offre: "",
   salaire: "",
   lieu: "",
@@ -484,6 +485,7 @@ export default {
     const dd = String(today.getDate()).padStart(2, "0");
 
     this.formState.job_debut = `${yyyy}-${mm}-${dd}`;
+    this.formState.offre_mode_travail = "immediat"
   }
 
   try {
@@ -828,7 +830,7 @@ chooseCompetenceFormState(value) {
     >
       <label>Choisir un mode de travail</label>
       <VueMultiselect v-model="offre_mode_travail" 
-                      :options="[{value:'onsite',label:'Présentiel'},{value:'remote',label:'Télétravail'},{value:'hybrid',label:'Hybride'}]" 
+                      :options="[{value:'Présentiel',label:'Présentiel'},{value:'Télétravail',label:'Télétravail'},{value:'Hybride',label:'Hybride'}]" 
                       label="label" track-by="label" />
     </div>
     <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3" v-if="countries.length > 0">
