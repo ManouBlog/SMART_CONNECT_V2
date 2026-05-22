@@ -265,9 +265,9 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 <template>
   <!-- <p>{{ tabsToDisplay }}</p>
   <p>{{ filteredTabsSubAbonnement }}</p> -->
-  <!-- <P>store.state?.user?.user/{{ store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user?.statut?.statut) }}</P>
+  <!-- <P>store.state?.user?.user/{{ store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user?.statut?.statut) }}</p>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
-   <P>storeAbonnement.addProfilHybride/{{storeAbonnement.addProfilHybride }}</P> -->
+   <P>storeAbonnement.addProfilHybride/{{storeAbonnement.addProfilHybride }}</p> -->
   <!-- <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>

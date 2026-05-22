@@ -222,7 +222,7 @@ effectuées par les entreprises, augmentant ainsi les chances de sélection.
 <p style="text-align: center; font-weight: bold" class="talent-list">ABONNEMENT TALENT VETERAN</p>
   <P>
   - <span style="font-weight: bold">Formule BROBROLI</span>
-  </P>
+  </p>
   <p>
  <span style="font-weight: bold;display: block;">a) VETERAN Hors Grade : 100.000 Fcfa/ an</span>
 <span style="font-weight: bold;display: block;">b) VETERAN SENIOR : 75.000Fcfa/an</span>
