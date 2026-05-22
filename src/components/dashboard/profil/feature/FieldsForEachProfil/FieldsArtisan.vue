@@ -72,7 +72,7 @@ profilOfAbonnement:Object
   { value: "Artisan", label: "Artisan" },
 ],
 StatutArtisans:[
-  { value: "Maitre Artisan", label: "Maitre Artisan" },
+  // { value: "Maitre Artisan", label: "Maitre Artisan" },
   { value: "Artisan", label: "Artisan" }
 ],
 

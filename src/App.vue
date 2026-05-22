@@ -96,13 +96,10 @@ export default {
       students: null,
       offreCreatedByEntreprise: [],
       spinnerLoading: true,
+      isOnline:false
     };
   },
   computed: {
-     isOnline() {
-      return this.network?.isOnline
-    },
-   
     isUserEtudiant() {
     const statuses = this.$store?.state?.user?.user?.statuses || [];
 
@@ -260,8 +257,8 @@ export default {
     this.isLancement();
     localStorage.setItem("translate", "fr");
     this.NbreEtudiantsInscritAndDoAbonnement();
-    console.log("isOnline", this.isOnline);
-   
+  this.isOnline = this.network?.isOnline
+  // console.log("isOnline on created", this.isOnline);
   },
 };
 </script>

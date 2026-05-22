@@ -26,7 +26,7 @@ const profilHybrideRecuperer = ref(0)
 
 // const handleCreateEntreprise=(payload)=>{
 
-//   const randomPart = Math.random().toString(36).substring(2);
+//   const randomPart = `web${Math.random().toString(36).substring(2)}`
      
 //         const data = {
 //             abonement_id:payload.id,

@@ -851,7 +851,7 @@ StatutVeterans:[
     option-filter-prop="label"
   >
     <a-select-option
-      v-for="item in ['Maitre Artisan','Artisan']"
+      v-for="item in ['Artisan']"
       :key="item"
       :value="item"
       :label="item"

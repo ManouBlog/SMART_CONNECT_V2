@@ -25,7 +25,7 @@ export default {
       selectedParseStatus:"",
  showModalAddProfilHybride:false,
  StatutArtisans:[
-  { value: "Maitre Artisan", label: "Maitre Artisan" },
+  // { value: "Maitre Artisan", label: "Maitre Artisan" },
   { value: "Artisan", label: "Artisan" }
 ],
   niveauxEtudes:[

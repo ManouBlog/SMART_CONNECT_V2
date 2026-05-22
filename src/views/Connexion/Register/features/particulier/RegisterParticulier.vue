@@ -557,7 +557,7 @@ idStatutChoice:Object
     show-search
   >
     <a-select-option
-      v-for="item in ['Maitre Artisan','Artisan']"
+      v-for="item in ['Artisan']"
       :key="item"
       :value="item"
       :label="item"

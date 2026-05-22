@@ -526,7 +526,7 @@ if(newValue == 'non'){
           size="large"
         >
           <a-select-option
-            v-for="item in ['Maitre Artisan', 'Artisan']"
+            v-for="item in ['Artisan']"
             :key="item"
             :value="item"
           >
