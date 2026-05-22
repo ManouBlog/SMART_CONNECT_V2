@@ -59,7 +59,7 @@ export default {
       v-html="planAbonnement.mode_payment === 'year' || !planAbonnement.mode_payment ? planAbonnement?.abonement?.description:planAbonnement?.abonement?.description_month"></div>
       <hr />
       <div class="d-flex align-items-center gap-5 justify-content-center main-color">
-        <h1 class="text-start" style="font-size: 4em">{{ planAbonnement.mode_payment === 'year' || !planAbonnement.mode_payment ? new Intl.NumberFormat('de-DE').format(planAbonnement?.abonement?.prix):new Intl.NumberFormat('de-DE').format(planAbonnement?.abonement?.price_month) }}F</h1>
+        <h1 class="text-start" style="font-size: 4em">{{ new Intl.NumberFormat('de-DE').format(planAbonnement?.montant) }}F</h1>
         <span class="mx-2">/</span>
         <span style="font-size: 2em">{{periodePayment[planAbonnement.mode_payment]}}</span>
       </div>

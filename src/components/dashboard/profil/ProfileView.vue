@@ -369,8 +369,7 @@ userDocuments() {
   ['Entreprise','Particulier'].includes(
     this.$store.state.infoUserConnected?.user?.statut?.statut
   )
-"
-            />
+"/>
            
             <InfoStudents
               :infoPersonnelles="this.$store.state.infoUserConnected"
