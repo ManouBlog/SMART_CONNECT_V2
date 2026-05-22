@@ -17,7 +17,7 @@
     <div class="notification-content">
       <div class="notification-header">
         <span class="notification-username">{{
-          notification ? notification?.user?.nom : 'MonBrobroli'
+          notification.user ? notification?.user?.nom : 'MonBrobroli'
         }}</span>
          <span class="notification-objet" v-if="notification.objet">
     {{ notification.objet }}
