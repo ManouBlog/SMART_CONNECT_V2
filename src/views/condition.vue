@@ -227,7 +227,7 @@ effectuées par les entreprises, augmentant ainsi les chances de sélection.
 </p>
 
 <p style="text-align: center; font-weight: bold" class="talent-list">ABONNEMENT TALENT VETERAN</p>
-  <P>
+  <p>
   - <span style="font-weight: bold">Formule BROBROLI</span>
   </p>
   <p>
