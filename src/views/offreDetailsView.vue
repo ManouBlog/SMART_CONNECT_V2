@@ -162,10 +162,10 @@ export default {
     this.verfEnter();
     this.texte = await this.handleTranslate(`Prime pas fixée`);
     this.texte1 = await this.handleTranslate(`Nombre de postes :`);
-    this.texte2 = await this.handleTranslate("Date de début de travail :");
-    this.texte3 = await this.handleTranslate(`Date de fin de travail :`);
+    this.texte2 = await this.handleTranslate("Date de début de travail");
+    this.texte3 = await this.handleTranslate(`Date de fin de travail`);
     this.texte4 = await this.handleTranslate("Description");
-    this.texte5 = await this.handleTranslate("Date limite pour postuler :");
+    this.texte5 = await this.handleTranslate("Date limite pour postuler");
     this.texte6 = await this.handleTranslate("Postuler");
     this.texte7 = await this.handleTranslate(
       "Veuillez faire un abonnement avant de postuler à cette offre"

@@ -459,18 +459,24 @@ async confirmRelance(payload) {
     const response = await instance.post(`relance_mission/${payload.id}`);
    if(response.data.status){
    await Swal.fire({
-      title: 'Confirmation relancée',
+      title: response.data.message,
       icon: 'success'
     });
    }
+   if(!response.data.status){
+    await Swal.fire({
+      title: response.data.message,
+      icon: 'info'
+    });
+   }  
   
   } catch (error) {
     console.error(error);
 
     await Swal.fire({
       title: 'Erreur',
-      text: error,
-      icon: 'error'
+      text: error.response?.data?.message,
+      icon: 'info'
     });
 
   } finally {
