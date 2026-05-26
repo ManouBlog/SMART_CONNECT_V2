@@ -385,7 +385,7 @@ export default {
   </div>
 
     <!-- Ligne 7 -->
-  <div class="row gy-2">
+  <div class="row gy-2" v-if="infoPersonnelles?.CVupload">
     <div class="col-md-6" style="flex:1">
        <p style="color: orange; font-weight: bold">
       CV Chargé : 
