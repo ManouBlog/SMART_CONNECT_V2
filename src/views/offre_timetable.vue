@@ -484,9 +484,6 @@ if (!user.competences.length || !user.qualifications.length) {
   display: flex;
   justify-content: center;
 }
-.main-container {
-  padding: 0 2em;
-}
 .conteneur-image-logo_jobs {
   width: 80px;
   height: 80px;
