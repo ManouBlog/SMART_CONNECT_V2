@@ -59,11 +59,14 @@ export default {
         })
         .then((res) => {
           Swal.fire({
-            icon: "success",
-            title: res.data.message,
-            showConfirmButton: false,
-            timer: 1500,
-          });
+    icon: "success",
+    title: res.data.message,
+    text: "Votre mot de passe a été mis à jour avec succès. Vous allez être redirigé vers la page d’accueil.",
+    showConfirmButton: false,
+    timer: 1500,
+  }).then(() => {
+    router.push("/"); // Redirect vers '/'
+  });
         })
         .catch((err) => {
           const msg =
