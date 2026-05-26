@@ -89,7 +89,7 @@ export default {
             diplome:item.student.diplome,
             photo:item.student.user.photos,
             recruit:item.recruit,
-            photo_profil:item.student.photo_profil
+            photo_profil:item?.student?.photo_profil
           }"
           @handleListe="chooseStudent"
         />

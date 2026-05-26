@@ -278,12 +278,12 @@ export default {
 
             <div class="d-flex align-items-center" style="gap:1em;">
               <n-avatar
-                v-if="item.student.photo_profil"
+                v-if="item?.student?.photo_profil"
                 class="user-avatar"
                 style="border: 2px solid orange; object-fit: cover"
                 round
                 :size="120"
-                :src="lienPhoto + item.student.photo_profil"
+                :src="lienPhoto + item?.student?.photo_profil"
               />
               <span
                 class="user-avatar"

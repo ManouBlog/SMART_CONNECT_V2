@@ -3,12 +3,20 @@ import { ref, onMounted } from "vue";
 import instance, { lienPhoto } from "../api/api";
 
 const testimonials = ref([]);
+const testimonialsEntreprises = ref([]);
+const testimonialsEtudiants = ref([]);
 
 onMounted(async () => {
   try {
     const response = await instance.get("temoignages");
     
     testimonials.value = response.data;
+    testimonialsEntreprises.value = testimonials.value.filter(item =>
+      item.user?.statuses.some(s => ['Entreprise', 'particulier'].includes(s.statut))
+    );
+    testimonialsEtudiants.value = testimonials.value.filter(item =>
+      item.user?.statuses.some(s => s.statut === 'Etudiant') || item.user.statut.statut === 'Etudiant'
+    );
   } catch (error) {
     console.error("Erreur lors du chargement des témoignages :", error);
   }
@@ -16,7 +24,7 @@ onMounted(async () => {
 </script>
 <template>
   <div class="testimonials">
-    <section>
+    <section v-if="testimonialsEtudiants.length > 0">
       <h1 class="testimonials__title">
         <img
           src="../assets/am_brobroli.png"
@@ -35,9 +43,7 @@ onMounted(async () => {
         <n-carousel autoplay :interval="2500">
          <div
   class="testimonials__item"
-  v-for="(item, index) in testimonials.filter(
-    item => (item.user?.statuses || []).some(s => s.statut === 'Etudiant')
-  )"
+  v-for="(item, index) in testimonialsEtudiants"
   :key="index"
 >
             <div class="testimonials__rating">
@@ -60,16 +66,14 @@ onMounted(async () => {
             <div class="testimonials__author">
               <div class="author__avatar">
                 <img
-                  :src="lienPhoto + item.student.photo_profil"
-                  :alt="item.student.nom"
+                  :src="lienPhoto + item?.user?.student?.photo_profil"
+                  :alt="item?.user?.student?.nom"
                   class="author__image"
                 />
               </div>
               <p style="display: flex; flex-direction: column">
-                <span class="author__name" v-if="item?.student"
-                  >{{ item?.student?.nom }} {{ item?.student?.prenoms }}</span
-                >
-
+                <span class="author__name" v-if="item?.user?.student"
+                  >{{ item?.user?.student?.nom }}</span>
                <span
     v-for="(status, index) in item.user?.statuses || []"
     :key="index"
@@ -85,7 +89,7 @@ onMounted(async () => {
         <!-- Témoignage 1 -->
       </div>
     </section>
-    <section>
+    <section v-if="testimonialsEntreprises.length > 0">
       <h1 class="testimonials__title">
         <img
           src="../assets/am_brobroli_entreprise.png"
@@ -104,11 +108,7 @@ onMounted(async () => {
         <n-carousel autoplay :interval="2500">
           <div
   class="testimonials__item"
-  v-for="(item, index) in testimonials.filter(item =>
-    (item.user?.statuses || []).some(s =>
-      ['Entreprise', 'particulier'].includes(s.statut)
-    )
-  )"
+  v-for="(item, index) in testimonialsEntreprises"
   :key="index"
 >
             <div class="testimonials__rating">
@@ -145,7 +145,7 @@ onMounted(async () => {
               </div>
               <p style="display: flex; flex-direction: column">
                 <span class="author__name" v-if="item?.student"
-                  >{{ item?.student?.nom }} {{ item?.student?.prenoms }}</span
+                  >{{ item?.user?.student?.nom }} {{ item?.user?.student?.prenoms }}</span
                 >
 
                    <span

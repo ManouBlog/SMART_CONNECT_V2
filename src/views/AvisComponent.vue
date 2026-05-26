@@ -99,7 +99,7 @@ const data= {
   }
   try{
   const response = await instance.post('temoignages',data)
-  
+  console.log(response)
   if(response.status === 201 ||response.status === 200){
      Swal.fire({
       icon: 'info',
