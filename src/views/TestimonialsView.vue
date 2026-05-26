@@ -73,15 +73,18 @@ onMounted(async () => {
               </div>
               <p style="display: flex; flex-direction: column">
                 <span class="author__name" v-if="item?.user?.student"
-                  >{{ item?.user?.student?.nom }}</span>
-               <span
-    v-for="(status, index) in item.user?.statuses || []"
+                  >{{ item?.user?.student?.prenoms }}</span>
+            <span v-if="item.user?.statuses.length && item.user.statut.statut">
+   <span
+    v-for="(status, index) in item.user?.statuses"
     :key="index"
-    class="status-item"
-    
-  >
-    <span style="margin:0 1em;">{{ status.statut }}</span>
+    class="status-item">
+    <span>{{ status.statut }}</span>
   </span>
+            </span>
+            <span v-else-if="item.user?.statut?.statut && !item.user?.statuses.length">
+         {{ item.user?.statut?.statut }}
+            </span>
               </p>
             </div>
           </div>
@@ -151,10 +154,8 @@ onMounted(async () => {
                    <span
     v-for="(status, index) in item.user?.statuses || []"
     :key="index"
-    class="status-item"
-    
-  >
-    <span style="margin:0 1em;">{{ status.statut }}</span>
+    class="status-item">
+    <span>{{ status.statut }}</span>
   </span>
               </p>
             </div>
