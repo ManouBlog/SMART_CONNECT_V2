@@ -18,6 +18,7 @@ export default {
   },
   data() {
     return {
+      showPdfModal:false,
       texte0: "",
       texte2: "",
       texte3: "",
@@ -609,14 +610,40 @@ export default {
                         <p class="text-start ms-2" v-if="item.detail">
                           Détail : {{ item.detail }}
                         </p>
+              
                         <div v-if="item.fileCharged">
-                        <n-image
-                        :alt="photo"
-                         width="50"
-                         height="70"
-                         :src="lienPhoto + item.fileCharged"
-                        />
-                        </div>
+  <!-- SI C’EST UN PDF : on affiche un bouton qui ouvre une modal avec iframe -->
+  <div v-if="item.fileCharged.toLowerCase().endsWith('.pdf')">
+    <n-button
+      size="small"
+      type="secondary"
+      style="border: 1px solid orange; color: orange;"
+      @click="showPdfModal = true"
+    >
+      Voir mon fichier
+    </n-button>
+
+    <n-modal v-model:show="showPdfModal" style="width: 90%; max-width: 800px;">
+      <div style="height: 70vh;">
+        <iframe
+          :src="lienPhoto + item.fileCharged"
+          frameborder="0"
+          style="width: 100%; height: 100%;"
+        ></iframe>
+      </div>
+    </n-modal>
+  </div>
+
+  <!-- SINON SI C’EST UNE IMAGE (jpg, png, jpeg, etc.) -->
+  <div v-else>
+    <n-image
+      :alt="photo"
+      width="50"
+      height="70"
+      :src="lienPhoto + item.fileCharged"
+    />
+  </div>
+</div>
                       
                       </div>
                     </div>
@@ -734,12 +761,13 @@ textarea {
 }
 .conteneur_nouvelle_experience {
   width: 80%;
-  height: 500px;
+  height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
   background: #ffffff;
   position: relative;
   border-radius: 8px;
+  margin-top: 8em;
 }
 .conteneur_nouvelle_experience form {
   padding: 1em;
@@ -890,7 +918,13 @@ td {
 p {
   font-size: 1em !important;
 }
+@media (max-width: 992px) {
+  .conteneur_nouvelle_experience form {
+  margin-top: 9em;
+}
+}
 @media (max-width: 768px) {
+ 
   form {
     padding: 1em;
   }
