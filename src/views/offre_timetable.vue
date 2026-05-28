@@ -55,7 +55,7 @@ export default {
       show_button: true,
       searchLieu: "",
       searchName: "",
-      list_categorie: "",
+      list_categorie: [],
       length: 3,
       categorie: "",
       listOffre: [],

@@ -206,6 +206,7 @@ export default {
         { fieldName: "lieu", headerName: Lieu },
         { fieldName: "salaire", headerName: Honoraire },
         { fieldName: "fin", headerName: Date_limite },
+        { fieldName: "job_debut", headerName: 'Date de début de travail' },
         { fieldName: "profils", headerName:'Profils' },
       ]
       this.OptionsOfpointage = [
