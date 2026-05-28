@@ -71,7 +71,7 @@ export default {
       user: this.$store.state.user,
       dayOfday: "",
       currentPage: 1,
-      pageSize: 5,
+      pageSize: 9,
     };
   },
   watch: {
@@ -393,7 +393,7 @@ if (!user.competences.length || !user.qualifications.length) {
                     :src="
                       offre?.entreprise?.logo
                         ? lienPhoto + offre?.entreprise?.logo
-                        : '/brobroli.png'
+                        : '/img/brobroli_1.66e9b337.png'
                     "
                     :alt="offre?.entreprise?.logo ? offre?.entreprise?.logo : 'smart-connect'"
                   />

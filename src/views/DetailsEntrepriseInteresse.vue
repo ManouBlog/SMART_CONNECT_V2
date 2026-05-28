@@ -184,7 +184,7 @@ export default {
                     :src="
                       DetailSeeEntreprise.Offre?.entreprise?.logo
                         ? lienPhoto + DetailSeeEntreprise.Offre?.entreprise?.logo
-                        : '/brobroli.png'
+                        : '/img/brobroli_1.66e9b337.png'
                     "
                     :alt="
                       DetailSeeEntreprise.Offre?.entreprise?.logo

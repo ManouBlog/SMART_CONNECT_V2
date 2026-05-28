@@ -203,7 +203,7 @@ export default {
                     :src="
                       Offre?.entreprise?.logo
                         ? lienPhoto + Offre?.entreprise?.logo
-                        : '/brobroli.png'
+                        : '/img/brobroli_1.66e9b337.png'
                     "
                     :alt="Offre?.entreprise?.logo ? Offre?.entreprise?.logo : 'smart-connect'"
                   />
