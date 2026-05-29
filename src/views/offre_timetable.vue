@@ -595,7 +595,11 @@ select {
 }
 .badge_new {
   width: 80px;
-  margin: 0.5em 1em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.8em;
+  margin: 0.5em;
   animation: move 1s ease-in-out infinite alternate;
 }
 @keyframes move {
