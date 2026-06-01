@@ -231,6 +231,13 @@ export default {
   }
 }
 
+/* mobile */
+@media (max-width: 568px) {
+  .height_banniere {
+    height: 170px;
+  }
+}
+
 
 :deep(.n-carousel__dots) {
   background: black !important;
