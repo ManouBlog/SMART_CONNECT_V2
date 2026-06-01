@@ -80,9 +80,9 @@ export default {
         <h6 class="text-start ms-2">
           <em class="bi bi-calendar-date"></em>
           {{
-            `${new Date(item.dateDebut).toLocaleDateString()} au ${new Date(
+            `${new Date(item.dateDebut).toLocaleString()} au ${new Date(
               item.dateFin
-            ).toLocaleDateString()}`
+            ).toLocaleString()}`
           }}
         </h6>
         <p class="text-start ms-2" v-if="item.experience">

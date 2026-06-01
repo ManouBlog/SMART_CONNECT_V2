@@ -94,7 +94,7 @@ export default {
     },
 
     weekdayShort(date) {
-      return date.toLocaleDateString("fr-FR", { weekday: "short" });
+      return date.toLocaleString("fr-FR", { weekday: "short" });
     },
 
     prevRange() {
@@ -128,7 +128,7 @@ export default {
     updateMonthYear() {
       if (this.dates.length > 0) {
         const firstDate = this.dates[0];
-        this.currentMonthYear = firstDate.toLocaleDateString("fr-FR", {
+        this.currentMonthYear = firstDate.toLocaleString("fr-FR", {
           month: "long",
           year: "numeric",
         });

@@ -908,8 +908,8 @@ export default {
             <template #body="slotProps">
               <div
                 v-if="
-                  new Date(slotProps.data.jour).toLocaleDateString('fr') >=
-                  new Date().toLocaleDateString('fr')
+                  new Date(slotProps.data.jour).toLocaleString('fr') >=
+                  new Date().toLocaleString('fr')
                 "
                 class="d-flex justify-content-center align-items-center"
               >
@@ -1006,8 +1006,8 @@ export default {
             <template #body="slotProps">
               <div
                 v-if="
-                  new Date(slotProps.data.periode_fin).toLocaleDateString('fr') >=
-                  new Date().toLocaleDateString('fr')
+                  new Date(slotProps.data.periode_fin).toLocaleString('fr') >=
+                  new Date().toLocaleString('fr')
                 "
                 class="d-flex justify-content-center align-items-center"
               >
@@ -1046,8 +1046,8 @@ export default {
             <!-- <span
           class="badge bg-warning text-dark"
           v-if="
-            new Date(item.jour).toLocaleDateString('fr') >=
-            new Date().toLocaleDateString('fr')
+            new Date(item.jour).toLocaleString('fr') >=
+            new Date().toLocaleString('fr')
           "
         >
           À venir
@@ -1071,8 +1071,8 @@ export default {
           <div class="d-flex justify-content-end mt-3 gap-3">
             <button
               v-if="
-                new Date(item.jour).toLocaleDateString('fr') >=
-                new Date().toLocaleDateString('fr')
+                new Date(item.jour).toLocaleString('fr') >=
+                new Date().toLocaleString('fr')
               "
               class="btn bg-warning btn-sm"
               @click="show_timetable(item.id)"
@@ -1081,8 +1081,8 @@ export default {
             </button>
             <button
               v-if="
-                new Date(item.jour).toLocaleDateString('fr') >=
-                new Date().toLocaleDateString('fr')
+                new Date(item.jour).toLocaleString('fr') >=
+                new Date().toLocaleString('fr')
               "
               class="btn btn-danger btn-sm mx-2"
               @click="show_box_confirmation_delete(item.id)"
@@ -1125,8 +1125,8 @@ export default {
             <span
               class="badge bg-warning text-dark"
               v-if="
-                new Date(item.periode_fin).toLocaleDateString('fr') >=
-                new Date().toLocaleDateString('fr')
+                new Date(item.periode_fin).toLocaleString('fr') >=
+                new Date().toLocaleString('fr')
               "
             >
               Active
@@ -1149,8 +1149,8 @@ export default {
           <div class="d-flex justify-content-end mt-3 gap-3">
             <button
               v-if="
-                new Date(item.periode_fin).toLocaleDateString('fr') >=
-                new Date().toLocaleDateString('fr')
+                new Date(item.periode_fin).toLocaleString('fr') >=
+                new Date().toLocaleString('fr')
               "
               class="btn bg-warning btn-sm"
               @click="show_timetable(item.id)"
@@ -1159,8 +1159,8 @@ export default {
             </button>
             <button
               v-if="
-                new Date(item.periode_fin).toLocaleDateString('fr') >=
-                new Date().toLocaleDateString('fr')
+                new Date(item.periode_fin).toLocaleString('fr') >=
+                new Date().toLocaleString('fr')
               "
               class="btn btn-danger btn-sm mx-2"
               @click="show_box_confirmation_delete(item.id)"

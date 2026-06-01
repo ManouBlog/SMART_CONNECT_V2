@@ -259,8 +259,8 @@ export default {
         </n-modal>
         <p style="text-align: center">
           <span v-if="tableauRecruit[0].offre?.job_debut && tableauRecruit[0].offre?.job_fin">
-       Du {{ new Date(tableauRecruit[0].offre?.job_debut).toLocaleDateString("fr") }} au
-          {{ new Date(tableauRecruit[0].offre?.job_fin).toLocaleDateString("fr") }}
+       Du {{ new Date(tableauRecruit[0].offre?.job_debut).toLocaleString("fr") }} au
+          {{ new Date(tableauRecruit[0].offre?.job_fin).toLocaleString("fr") }}
           </span>
         </p>
         <div class="conteneur-evaluation-offre">

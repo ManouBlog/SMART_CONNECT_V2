@@ -24,14 +24,15 @@
   </span>
 
         <span class="notification-action">{{ notification.msg }}</span>
-        <span class="notification-time">{{new Date(notification.created_at).toLocaleDateString('fr',{
+        <span class="notification-time">{{new Date(notification.created_at).toLocaleString('fr-FR', {
+  timeZone: 'Africa/Abidjan',
   day: '2-digit',
   month: '2-digit',
   year: 'numeric',
   hour: '2-digit',
   minute: '2-digit',
   second: '2-digit',
-}) }}</span>
+})}}</span>
       </div>
     </div>
   </div>

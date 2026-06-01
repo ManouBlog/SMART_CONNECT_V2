@@ -73,6 +73,7 @@ export default {
     formattedTimestamp() {
       if (this.favoris.created_at) {
         return new Date(this.favoris.created_at).toLocaleString("fr-FR", {
+          timeZone: 'Africa/Abidjan',
           day: "2-digit",
           month: "2-digit",
           year: "numeric",

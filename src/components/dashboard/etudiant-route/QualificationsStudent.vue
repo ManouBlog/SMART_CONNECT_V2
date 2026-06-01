@@ -599,9 +599,9 @@ export default {
                           {{
                             `${new Date(
                               item.date_debut
-                            ).toLocaleDateString()} au ${new Date(
+                            ).toLocaleString()} au ${new Date(
                               item.date_fin
-                            ).toLocaleDateString()}`
+                            ).toLocaleString()}`
                           }}
                         </h6>
                         <span style="font-weight:bold;color:gray;font-size:0.8em" v-if="item.objet">

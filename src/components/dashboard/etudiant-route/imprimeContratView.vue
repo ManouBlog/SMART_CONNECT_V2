@@ -283,11 +283,11 @@ pour plus de détail.</span>
         </h5>
         <h5 class="my-5" v-if="this.entreprise?.offre.job_debut">
           Date de début de travail :
-          {{ new Date(this.entreprise?.offre.job_debut).toLocaleDateString("fr") }}
+          {{ new Date(this.entreprise?.offre.job_debut).toLocaleString("fr") }}
         </h5>
         <h5 class="my-5" v-if="this.entreprise?.offre.job_fin">
           Date de fin de travail :
-          {{ this.entreprise?.offre.job_fin ? new Date(this.entreprise?.offre.job_fin).toLocaleDateString("fr"):null }}
+          {{ this.entreprise?.offre.job_fin ? new Date(this.entreprise?.offre.job_fin).toLocaleString("fr"):null }}
         </h5>
         <h5>{{ texte9 }} {{ entreprise?.offre?.owner?.contact }}</h5>
         <h5 class="my-5">{{ texte10 }} {{ myOffre.lieu }}</h5>

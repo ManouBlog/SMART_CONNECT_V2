@@ -288,9 +288,9 @@ for (const item of data) {
     },
     ifPeriodeDate(periode) {
       if (periode.periode) {
-        return `Du ${new Date(periode.periode_debut).toLocaleDateString("fr")} à ${
+        return `Du ${new Date(periode.periode_debut).toLocaleString("fr")} à ${
           periode.hour_periode_debut
-        } au ${new Date(periode.periode_fin).toLocaleDateString("fr")} à ${
+        } au ${new Date(periode.periode_fin).toLocaleString("fr")} à ${
           periode.hour_periode_fin
         }`;
       } else {

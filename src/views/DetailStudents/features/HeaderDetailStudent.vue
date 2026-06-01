@@ -255,8 +255,8 @@ export default {
       <div class="flex-grow-1">
         <h6 class="mb-1 fw-bold text-dark">{{ item.objet }}</h6>
         <small class="text-muted">
-          📅 {{ new Date(item.date_debut).toLocaleDateString('fr-FR') }} 
-          - {{ new Date(item.date_fin).toLocaleDateString('fr-FR') }}
+          📅 {{ new Date(item.date_debut).toLocaleString('fr-FR') }} 
+          - {{ new Date(item.date_fin).toLocaleString('fr-FR') }}
         </small>
       </div>
     </div>

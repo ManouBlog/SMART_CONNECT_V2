@@ -145,7 +145,7 @@
           style="border-bottom: 1px solid #e9ecef;">
           <td style="padding: 10px;text-align: center;">
           <span>
-            {{ new Date(item.created_at).toLocaleDateString('fr') }}
+            {{ new Date(item.created_at).toLocaleString('fr') }}
           </span>
         </td>
         <td style="padding: 10px;text-align: center;">

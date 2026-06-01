@@ -9,17 +9,18 @@ export const configUtils={
    const response =  JSON.stringify(new Date().toISOString().substring(0, 10)) < JSON.stringify(new Date(value))
    return response;
   },
-  getFormatDateFr(value){
-    return new Date(value).toLocaleDateString('fr-FR',{
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-  // hour: '2-digit',
-  // minute: '2-digit',
-  // second: '2-digit',
-  hour12: false // 24h
-})
-  },
+  getFormatDateFr(value) {
+  return new Date(value).toLocaleString('fr-FR', {
+    timeZone: 'Africa/Abidjan',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
+},
   formatedDisponibilite(value){
     return value.replace("-", " à ")
   },

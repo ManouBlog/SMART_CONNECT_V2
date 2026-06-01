@@ -730,9 +730,9 @@ export default {
                           {{
                             `${new Date(
                               item.dateDebut
-                            ).toLocaleDateString()} au ${new Date(
+                            ).toLocaleString()} au ${new Date(
                               item.dateFin
-                            ).toLocaleDateString()}`
+                            ).toLocaleString()}`
                           }}
                         </h6>
                         <p class="text-start ms-2" v-if="item.experience !== null ||

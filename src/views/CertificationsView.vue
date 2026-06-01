@@ -26,10 +26,10 @@
             >, a été employé dans notre société en qualité de
             <strong>{{ job?.offre?.nom_offre }}</strong> du
             <strong>{{
-              new Date(job?.offre?.job_debut).toLocaleDateString("fr")
+              new Date(job?.offre?.job_debut).toLocaleString("fr")
             }}</strong>
             au
-            <strong>{{ new Date(job?.offre?.job_fin).toLocaleDateString("fr") }}</strong
+            <strong>{{ new Date(job?.offre?.job_fin).toLocaleString("fr") }}</strong
             >.
           </p>
 
@@ -95,7 +95,7 @@ const idParams = route.params.id;
 // Date du jour formatée
 const todayDate = computed(() => {
   const date = new Date();
-  return date.toLocaleDateString("fr-FR", {
+  return date.toLocaleString("fr-FR", {
     day: "numeric",
     month: "long",
     year: "numeric",

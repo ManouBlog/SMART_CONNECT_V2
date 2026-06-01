@@ -20,7 +20,7 @@ export default {
       const today = new Date()
 
       return today
-        .toLocaleDateString("en-US", {
+        .toLocaleString("en-US", {
           month: "2-digit",
           day: "2-digit",
           year: "numeric"

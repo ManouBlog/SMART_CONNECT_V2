@@ -39,7 +39,7 @@
           <strong v-if="job?.offre?.entreprise.adresse_postale">{{ job?.offre?.entreprise.adresse_postale}}</strong>
           , certifions que Monsieur/Madame
           <strong>{{ job?.student?.nom}} {{ job?.student?.prenoms}}</strong>, a été employé dans notre société en qualité de
-          <strong>{{ job?.offre?.nom_offre}}</strong> du <strong>{{ new Date(job?.offre?.job_debut).toLocaleDateString('fr')}}</strong> au <strong>{{ job?.offre?.job_fin ? new Date(job?.offre?.job_fin).toLocaleDateString('fr'):null}}</strong>.
+          <strong>{{ job?.offre?.nom_offre}}</strong> du <strong>{{ new Date(job?.offre?.job_debut).toLocaleString('fr')}}</strong> au <strong>{{ job?.offre?.job_fin ? new Date(job?.offre?.job_fin).toLocaleString('fr'):null}}</strong>.
         </p>
 
         <p>
@@ -99,7 +99,8 @@ const showModal = ref(false);
 // Date du jour formatée
 const todayDate = computed(() => {
   const date = new Date();
-  return date.toLocaleDateString("fr-FR", {
+  return date.toLocaleString("fr-FR", {
+    timeZone: 'Africa/Abidjan',
     day: "numeric",
     month: "long",
     year: "numeric",

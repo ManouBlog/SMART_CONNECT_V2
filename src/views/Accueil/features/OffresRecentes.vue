@@ -95,7 +95,7 @@ export default {
           </div>
 
           <span class="publie_offre">
-            {{ texte2 }} {{ new Date(item.created_at).toLocaleDateString("fr") }}
+            {{ texte2 }} {{ new Date(item.created_at).toLocaleString("fr") }}
           </span>
         </div>
 
