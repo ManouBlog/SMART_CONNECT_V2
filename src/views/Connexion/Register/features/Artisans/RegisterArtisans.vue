@@ -241,15 +241,10 @@ inputMode: "gallery",
     title: 'Information caméra',
     text: `
     Pour permettre la prise de photo via la caméra de votre appareil, 
-    cette fonctionnalité utilise l’accès caméra du navigateur lorsque cela est disponible. 
-    Vous pouvez capturer des images directement depuis les navigateurs compatibles suivants : 
-    Chrome Android, Firefox Android, 
+    aller sur les différents navigateurs: Chrome Android, Firefox Android, 
     Opera Android, Safari iOS, 
     Samsung Internet ainsi que 
-    les WebView Android et iOS récents. 
-    Sur les autres environnements non supportés, vous pourrez 
-    sélectionner une image depuis la galerie ou le gestionnaire 
-    de fichiers de votre appareil.`,
+    les WebView Android et iOS récents.`,
     icon: 'info',
     showCancelButton: true,
     confirmButtonText: 'Continuer',
