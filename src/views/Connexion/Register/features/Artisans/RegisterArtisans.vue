@@ -21,6 +21,7 @@ export default {
   },
   data() {
     return {
+      cameraInput:null,
        fileList : [],
  loading : false,
  StatutArtisans:[
@@ -235,6 +236,28 @@ inputMode: "gallery",
   },
  
   methods: {
+    async openCamera() {
+  await Swal.fire({
+    title: 'Information caméra',
+    text: `
+    Fonctionne uniquement sur navigateurs mobiles compatibles caméra. Le paramètre capture="environment" permet d’ouvrir directement la caméra arrière sur les appareils supportés (Chrome Android, Firefox Android, Opera Android, Safari iOS, 
+    Samsung Internet ainsi que les WebView Android et iOS modernes). 
+    Sur les autres environnements (desktop ou navigateurs non supportés), 
+    le sélecteur de fichiers standard sera utilisé automatiquement.`,
+    icon: 'info',
+    showCancelButton: true,
+    confirmButtonText: 'Continuer',
+    cancelButtonText: 'Annuler'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const input = this.$refs.cameraInput
+      if (input) {
+        input.value = ''
+        input.click()
+      }
+    }
+  })
+},
     handleCameraCapture(event){
   const file = event.target.files[0]
 
@@ -710,7 +733,7 @@ inputMode: "gallery",
       type="file"
       accept="image/*"
       capture="environment"
-      style="display:none"
+    style="display:none"
       @change="handleCameraCapture"
     />
 
