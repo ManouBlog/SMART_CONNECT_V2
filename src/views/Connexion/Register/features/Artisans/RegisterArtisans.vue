@@ -668,8 +668,8 @@ export default {
     <!-- STEP 3 -->
     <div v-show="currentStep === 3">
          <a-form-item
-  label="Photos"
-  name="photos"
+  label="Galeries de vos créations (photos)"
+  name="galeries"
 >
   <a-upload
     v-model:file-list="formState.galeries"

@@ -258,7 +258,6 @@ export default {
     localStorage.setItem("translate", "fr");
     this.NbreEtudiantsInscritAndDoAbonnement();
   this.isOnline = this.network?.isOnline
-  // console.log("isOnline on created", this.isOnline);
   },
 };
 </script>
