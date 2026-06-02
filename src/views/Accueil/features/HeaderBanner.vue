@@ -67,12 +67,12 @@ export default {
 <template>
   <div class="header_banner">
     <div class="ecriteau">
-      <h1 style="font-size: 4.5em; color: orange">
+      <h1 style="color: orange" class="text_ecriteau">
         {{ texte0 }}<br />
         {{ texte2 }}
       </h1>
       <!-- <DefilementText /> -->
-      <div class="my-5" style="padding: 0 2em;" >
+      <div class="my-5 text_description_site" >
         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte3 }}</h4>
         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte100 }}</h4>
          <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte88 }}</h4>
@@ -110,6 +110,12 @@ export default {
   </div>
 </template>
 <style scoped>
+.text_description_site{
+padding: 0 2em;
+}
+.text_ecriteau{
+  font-size: 4.5em !important;
+  }
 h4{
   padding:1.5em;
   color:black;
@@ -147,6 +153,12 @@ h4{
   margin-top: 6.5em;
 }
 @media screen and (max-width: 500px) {
+  .text_description_site{
+   padding: 0.5em !important;
+}
+  .text_ecriteau{
+  font-size: 2.5em !important;
+  }
   h4{
     padding:1em;
     text-align: left;
@@ -166,6 +178,9 @@ h4{
 }
 }
 @media screen and (max-width: 400px) {
+  .text_description_site{
+   padding: 0.3em !important;
+}
   .header_banner {
     margin-top: 0.5em;
   }

@@ -51,8 +51,8 @@ export default {
   bottom: 1em;
   right: 1em;
 
-  width: 65px;
-  height: 65px;
+  width: 55px;
+  height: 55px;
 
   background-color: #25d366;
   color: white;

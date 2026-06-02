@@ -160,6 +160,7 @@ export default {
   { label: "Sierra Leone", value: "+232", length: 8 },
   { label: "Togo", value: "+228", length: 8 },
 ],
+inputMode: "gallery",
       formState: {
         otherCompetence:[],
         code_ambassadeur:"",
@@ -234,6 +235,13 @@ export default {
   },
  
   methods: {
+    handleCameraCapture(event){
+  const file = event.target.files[0]
+
+  if (!file) return
+
+  this.formState.galeries = [...this.formState.galeries, file]
+   },
      onCreateOther() {
       return null
     },
@@ -666,25 +674,61 @@ export default {
         </a-row>
     </div>
     <!-- STEP 3 -->
-    <div v-show="currentStep === 3">
-         <a-form-item
-  label="Galeries de vos créations (photos)">
-  <a-upload
-    v-model:file-list="formState.galeries"
-    list-type="picture-card"
-    :before-upload="() => false"
-    multiple
-    accept="image/*"
-  >
-    <div>
-      +
-      <div style="margin-top: 8px">
-        Ajouter
+   <div v-show="currentStep === 3">
+
+  <!-- MODE SELECT -->
+  <a-form-item label="Méthode d'ajout des images">
+    <a-radio-group v-model:value="inputMode">
+      <a-radio value="gallery">Galerie</a-radio>
+      <a-radio value="camera">Caméra</a-radio>
+    </a-radio-group>
+  </a-form-item>
+
+  <!-- MODE GALERIE -->
+  <a-form-item v-if="inputMode === 'gallery'" label="Galeries de vos créations (photos)">
+    <a-upload
+      v-model:file-list="formState.galeries"
+      list-type="picture-card"
+      :before-upload="() => false"
+      multiple
+      accept="image/*"
+    >
+      <div>
+        +
+        <div style="margin-top: 8px">
+          Ajouter depuis la galerie
+        </div>
       </div>
+    </a-upload>
+  </a-form-item>
+
+  <!-- MODE CAMERA -->
+  <a-form-item v-if="inputMode === 'camera'" label="Prendre une photo">
+
+    <input
+      ref="cameraInput"
+      type="file"
+      accept="image/*"
+      capture="environment"
+      style="display:none"
+      @change="handleCameraCapture"
+    />
+
+    <a-button type="primary" @click="openCamera">
+      Ouvrir la caméra
+    </a-button>
+
+    <!-- PREVIEW CAMERA -->
+    <div v-if="cameraPreview" style="margin-top:12px">
+      <img
+        :src="cameraPreview"
+        style="width:120px;border-radius:8px"
+      />
     </div>
-  </a-upload>
-</a-form-item>
-    </div>
+
+  </a-form-item>
+
+</div>
     <!-- STEP 4 -->
     <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
