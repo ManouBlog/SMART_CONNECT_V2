@@ -240,10 +240,16 @@ inputMode: "gallery",
   await Swal.fire({
     title: 'Information caméra',
     text: `
-    Fonctionne uniquement sur navigateurs mobiles compatibles caméra. Le paramètre capture="environment" permet d’ouvrir directement la caméra arrière sur les appareils supportés (Chrome Android, Firefox Android, Opera Android, Safari iOS, 
-    Samsung Internet ainsi que les WebView Android et iOS modernes). 
-    Sur les autres environnements (desktop ou navigateurs non supportés), 
-    le sélecteur de fichiers standard sera utilisé automatiquement.`,
+    Pour permettre la prise de photo via la caméra de votre appareil, 
+    cette fonctionnalité utilise l’accès caméra du navigateur lorsque cela est disponible. 
+    Vous pouvez capturer des images directement depuis les navigateurs compatibles suivants : 
+    Chrome Android, Firefox Android, 
+    Opera Android, Safari iOS, 
+    Samsung Internet ainsi que 
+    les WebView Android et iOS récents. 
+    Sur les autres environnements non supportés, vous pourrez 
+    sélectionner une image depuis la galerie ou le gestionnaire 
+    de fichiers de votre appareil.`,
     icon: 'info',
     showCancelButton: true,
     confirmButtonText: 'Continuer',
