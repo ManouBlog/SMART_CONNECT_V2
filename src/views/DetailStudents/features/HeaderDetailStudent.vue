@@ -62,6 +62,7 @@ export default {
 <template>
   <ModalForModifyInfo />
   <div class="info_student_detail">
+    
     <div
       style="display: flex; justify-content: space-between; align-items: center; gap: 1em;"
     >

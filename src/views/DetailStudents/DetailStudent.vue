@@ -10,12 +10,14 @@ import { useLoadingSpinner } from "../../store-pinia/LoadingSpinner/useLoadingSp
 import "@kong/kongponents/dist/style.css";
 import HeaderDetailStudent from "./features/HeaderDetailStudent.vue";
 import BodyExperience from "./features/BodyExperience.vue";
+import GaleriesTalents from "./features/GaleriesTalents.vue";
 const loadingSpinner = useLoadingSpinner();
 export default {
   components: {
     Calendar,
     HeaderDetailStudent,
     BodyExperience,
+    GaleriesTalents
   },
   data() {
     return {
@@ -804,6 +806,9 @@ for (const item of data) {
 <template>
   <div class="space-talent">
     <div class="conteneur_student" v-if="timetable_for_student">
+       <GaleriesTalents v-if="timetable_for_student.user.statuses.some(item=>item.statut.includes('Artisan')) 
+      && timetable_for_student?.user?.galeries?.length" 
+        :galeries="timetable_for_student?.user?.galeries" />
       <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
 
       <BodyExperience :timetable_for_student="timetable_for_student" />
@@ -844,8 +849,8 @@ for (const item of data) {
         <div
           class="conteneur_date"
           v-if="
-            this.$store.state.infoUserConnected.user.abonement.length &&
-            this.$store.state.infoUserConnected.user.abonement.some(
+            this.$store.state.infoUserConnected?.user?.abonement.length &&
+            this.$store.state.infoUserConnected?.user?.abonement.some(
               (item) => item.statut === 'success'
             )
           "
@@ -915,8 +920,8 @@ for (const item of data) {
          <div
           class="conteneur_date"
           v-if="
-            this.$store.state.infoUserConnected.user.abonement.length &&
-            this.$store.state.infoUserConnected.user.abonement.some(
+            this.$store.state.infoUserConnected?.user?.abonement.length &&
+            this.$store.state.infoUserConnected?.user?.abonement.some(
               (item) => item.statut === 'success'
             )
           "
