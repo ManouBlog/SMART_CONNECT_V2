@@ -70,6 +70,7 @@ export default {
 ],
  rawText : '',
  result : null,
+ 
 //  SCHOOL_KEYWORDS :[
 //   // Carte étudiante (formes tolérantes OCR)
 //   'carte etudiant',
@@ -173,6 +174,7 @@ export default {
         myCompetence: [],
         photo: null,
         upload: [],
+        galeries:[],
         bio: "",
         statut_talent:"",
         statutId:7,
@@ -195,31 +197,9 @@ export default {
       (this.result && this.result.isStudentCard === false)
     )
   },
-    // getFirstHeureStartFrom() {
-    //   return this.$store.state.First_heure_start_from;
-    // },
-    // getTableauDays() {
-    //   return this.$store.state.datesOfCalendar;
-    // },
-    // getFirstHeureFinFrom() {
-    //   return this.$store.state.First_heure_end_to;
-    // },
+   
     isNextDisabled() {
-      // STEP 2 – Qualifications
-    //   if (this.currentStep === 2) {
-    //     // au moins une qualification
-    //     if (!this.formState.qualifications.length) {
-    //       return true;
-    //     }
-
-    //     // chaque qualification doit avoir une date_debut
-    //     return this.formState.qualifications.some(
-    //       (q) => !q.objet || !q.date_debut || !q.date_fin
-    //     );
-    //   }
-
-
-      // Autres steps
+ 
       return !this.isCurrentStepValid;
     },
 
@@ -264,19 +244,12 @@ export default {
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
     handleQualifications(payload) {
-   
 
       this.formState.qualifications = payload;
     },
 
     nextStep() {
-    //  console.log("this.currentStep",this.currentStep)
-    // if(this.currentStep == 1 && !this.formState.myCompetence.length || !this.formState.otherCompetence.length){
-    //    this.SWALPOPUP.declencheSwalPopup(
-    //       "warning",
-    //       "Veuillez remplir les champs requis avant de continuer"
-    //     );
-    // }
+   
 
       if (this.currentStep !== 2 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
@@ -402,7 +375,7 @@ export default {
 //   })
 // },
     onFinish() {
-      // console.log("this.formState",this.formState);
+      
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
       }
@@ -477,6 +450,7 @@ export default {
     />
     <a-step title="Compétences" description="Sélectionnez vos compétences." />
     <a-step title="Qualifications" description="Ajoutez vos qualifications." />
+    <a-step title="Galéries" description="Ajoutez vos meilleures créations." />
     <a-step
       title="Validation finale"
       description="Ajoutez vos documents et confirmez votre inscription."
@@ -489,7 +463,7 @@ export default {
     @finish="onFinish"
     @finishFailed="onHandleFailed"
   >
-    <!-- STEP 1 -->
+    <!-- STEP 0 -->
     <div v-show="currentStep === 0">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
@@ -681,14 +655,40 @@ export default {
             </a-form-item>
         </a-col>
          <a-col :xs="24" :md="24">
+          <a-form-item
+            :label="'Certifications, diplômes ou qualifications que vous possédez'"
+          >
           <RegisterQualifications 
           :isRequired="false"
           @update:modelValue="handleQualifications" />
+           </a-form-item>
         </a-col>
         </a-row>
     </div>
     <!-- STEP 3 -->
     <div v-show="currentStep === 3">
+         <a-form-item
+  label="Photos"
+  name="photos"
+>
+  <a-upload
+    v-model:file-list="formState.galeries"
+    list-type="picture-card"
+    :before-upload="() => false"
+    multiple
+    accept="image/*"
+  >
+    <div>
+      +
+      <div style="margin-top: 8px">
+        Ajouter
+      </div>
+    </div>
+  </a-upload>
+</a-form-item>
+    </div>
+    <!-- STEP 4 -->
+    <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -743,7 +743,7 @@ export default {
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
       <a-button
-        v-if="currentStep < 3"
+        v-if="currentStep < 4"
         type="primary"
         @click.prevent="nextStep"
         :disabled="isNextDisabled"
@@ -752,7 +752,7 @@ export default {
       </a-button>
 
       <a-button
-        v-if="currentStep === 3"
+        v-if="currentStep === 4"
         type="primary"
         html-type="submit"
         :disabled="!isCurrentStepValid || isPasswordDisabled"

@@ -263,6 +263,10 @@ export default {
 };
 </script>
 <style>
+.ant-btn-default:not(:disabled):active,.ant-btn-default:not(:disabled):hover{
+  color: orange !important;
+  border-color: orange !important;
+}
 .multiselect__tags{
   border: 1.5px solid orange !important;
 }

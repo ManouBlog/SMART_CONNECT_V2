@@ -67,7 +67,7 @@ export default {
       );
 
       if (found) {
-        // console.log("found",found)
+      
         this.selectedOption = found;
       } else {
         this.selectedOption = null;
@@ -97,14 +97,14 @@ export default {
       try {
         const response =  await instance.get("listStatut")
         this.options = response.data.data.filter(item=>item.statut !== 'admin')
-        // console.log("this.allStatuts",response.data.data)
+      
         this.value1 = this.options.find(item=>item.statut === 'Particulier')?.statut
-        // console.log("this.value1",this.value1)
+    
          const found = this.options.find(
         item => item.statut === this.value1
       );
       if (found) {
-        // console.log("found",found)
+       
         this.selectedOption = found;
       } else {
         this.selectedOption = null;
