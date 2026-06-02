@@ -86,7 +86,7 @@ if (payload?.photo?.length > 0) {
 
 // Galerie artisans (array fichiers)
 if (payload?.galeries?.length > 0) {
-  payload.galeries.map((item) => item.originFileObj).forEach((item) => {
+  payload.galeries.map((item) => item.originFileObj || item.file).forEach((item) => {
     if (item) data.append("galeries[]", item);
   });
 }

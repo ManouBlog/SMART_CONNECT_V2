@@ -259,13 +259,33 @@ inputMode: "gallery",
     }
   })
 },
-    handleCameraCapture(event){
-  const file = event.target.files[0]
+handleCameraCapture(event) {
+  const files = event.target.files
 
-  if (!file) return
+  if (!files || files.length === 0) return
 
-  this.formState.galeries = [...this.formState.galeries, file]
-   },
+  const newImages = Array.from(files).map(file => {
+    return {
+      file,
+      name: file.name,
+      size: file.size,
+      url: URL.createObjectURL(file),
+      type: file.type
+    }
+  })
+
+  this.formState.galeries = [
+    ...this.formState.galeries,
+    ...newImages
+  ]
+},
+  // handleCameraCapture(event){
+  // const file = event.target.files[0]
+
+  // if (!file) return
+
+  // this.formState.galeries = [...this.formState.galeries, file]
+  //  },
      onCreateOther() {
       return null
     },
@@ -406,6 +426,16 @@ inputMode: "gallery",
 //     reader.readAsDataURL(file)
 //   })
 // },
+removeImage(index) {
+    const image = this.formState.galeries[index]
+
+    // libérer mémoire URL.createObjectURL
+    if (image && image.url) {
+      URL.revokeObjectURL(image.url)
+    }
+
+    this.formState.galeries.splice(index, 1)
+  },
     onFinish() {
       
       if (this.formState.uploadPhotoProfil.length) {
@@ -702,7 +732,7 @@ inputMode: "gallery",
 
   <!-- MODE SELECT -->
   <a-form-item label="Méthode d'ajout des images">
-    <a-radio-group v-model:value="inputMode">
+    <a-radio-group v-model:value="inputMode" @change="() => { formState.galeries = [] }">
       <a-radio value="gallery">Galerie</a-radio>
       <a-radio value="camera">Caméra</a-radio>
     </a-radio-group>
@@ -742,13 +772,43 @@ inputMode: "gallery",
       Ouvrir la caméra
     </a-button>
 
-    <!-- PREVIEW CAMERA -->
-    <div v-if="cameraPreview" style="margin-top:12px">
-      <img
-        :src="cameraPreview"
-        style="width:120px;border-radius:8px"
-      />
-    </div>
+    <div
+  v-if="formState.galeries.length"
+  style="margin-top: 1em; display: flex; flex-wrap: wrap; gap: 16px;"
+>
+  <div
+    v-for="(img, index) in formState.galeries"
+    :key="index"
+    class="item"
+    style="position: relative;"
+  >
+    <img
+      style="width: 100px; height: 100px;"
+      :src="img.url"
+      :alt="img.name"
+    />
+
+    <!-- DELETE BUTTON -->
+    <button
+      @click="removeImage(index)"
+      style="
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        background: red;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        cursor: pointer;
+        font-size: 12px;
+      "
+    >
+      ✕
+    </button>
+  </div>
+</div>
 
   </a-form-item>
 
