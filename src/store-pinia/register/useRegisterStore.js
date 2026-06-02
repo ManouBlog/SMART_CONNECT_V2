@@ -84,6 +84,13 @@ if (payload?.photo?.length > 0) {
   });
 }
 
+// Galerie artisans (array fichiers)
+if (payload?.galeries?.length > 0) {
+  payload.galeries.map((item) => item.originFileObj).forEach((item) => {
+    if (item) data.append("galeries[]", item);
+  });
+}
+
 if(payload.statut_professionnel_artisan ){
   data.append("statut_professionnel_artisan ", payload.statut_professionnel_artisan );
 }

@@ -215,7 +215,7 @@ export default {
         2: ["niveauEtude","statut_talent"],
 
         // STEP 4 – Validation finale
-        3: ["upload", "password"],
+        4: ["upload", "password"],
       };
     },
     isCurrentStepValid() {
@@ -383,7 +383,7 @@ export default {
       if (this.configUtils.isValidEmail(this.formState.email)) {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          // console.log("this.formState",this.formState)
+          console.log("this.formState",this.formState)
           this.changeValueIsPolitics({
             value: true,
             infoUser: "talents",
@@ -668,9 +668,7 @@ export default {
     <!-- STEP 3 -->
     <div v-show="currentStep === 3">
          <a-form-item
-  label="Galeries de vos créations (photos)"
-  name="galeries"
->
+  label="Galeries de vos créations (photos)">
   <a-upload
     v-model:file-list="formState.galeries"
     list-type="picture-card"
