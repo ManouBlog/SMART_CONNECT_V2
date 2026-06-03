@@ -3,6 +3,7 @@ import ButtonsHeader from "../../../Shared/Compoments/ButtonsHeader.vue";
 import { mapActions } from "pinia";
 import { useRegisterStore } from "../../../store-pinia/register/useRegisterStore";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
+
 // import DefilementText from "../../../components/DefilementText.vue";
 export default {
   name: "HeaderBanner",
@@ -66,6 +67,7 @@ export default {
 </script>
 <template>
   <div class="header_banner">
+   
     <div class="ecriteau">
       <h1 style="color: orange" class="text_ecriteau">
         {{ texte0 }}<br />

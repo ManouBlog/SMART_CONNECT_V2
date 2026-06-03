@@ -1,15 +1,20 @@
 <script>
 import instance, { lienPhoto } from "../api/api";
 import { useWindowSize } from "@vueuse/core";
+import SubscriptionAlert from '../components/SubscriptionAlert.vue';
 const { width: windowWidth } = useWindowSize();
 
 export default {
   name: "Banniere",
+  components: {
+    SubscriptionAlert,
+  },
   data() {
     return {
       windowWidth: windowWidth,
       afficheAll: [],
       lienPhoto: lienPhoto,
+      messages:[],
       afficheDefault: [
         {
           iphone: require("../assets/mobile/baniere_1.png"),
@@ -116,15 +121,34 @@ export default {
           this.afficheShow = this.afficheDefault;
         });
     },
+    async getNotificationAbonnemetExipration(){
+      if(this.$store.state?.user?.user?.statuses.some(status => status.statut !== 'Particulier' && status.statut !== 'Entreprise')){
+try{
+     const response = await instance.get('notifications_expiration');
+     if(response.data.status){
+      console.log(response);
+        this.messages = response.data.data;
+      }
+      }catch(err){
+        console.log(err);
+  }
+      }else{
+        return;
+      }
+      
+}
   },
-  created() {
+  async created() {
     this.getAllAffiche();
+    console.log(this.$store.state.user);
+    await this.getNotificationAbonnemetExipration();
   },
 };
 </script>
 
 <template>
   <div class="container-fluid page-title bg-image" style="margin: 2em 0">
+     <SubscriptionAlert v-if="messages.length > 0" :messages="messages" />
     <div class="row section-title">
       <div class="main-container">
         <div
