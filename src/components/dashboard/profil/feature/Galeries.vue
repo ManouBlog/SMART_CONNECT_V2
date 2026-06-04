@@ -20,7 +20,6 @@
       <!-- ===== SECTION 1 : Photos mises en avant ===== -->
       <section class="section featured-section">
         <div class="section-header">
-          <div class="section-badge">★ Vedette</div>
           <h2 class="section-title">Mes photos mises en avant</h2>
           <p class="section-subtitle">Ces photos sont visibles par tous les utilisateurs.</p>
         </div>
@@ -44,7 +43,6 @@
       <!-- ===== SECTION 2 : Dossiers ===== -->
       <section class="section folders-section">
         <div class="section-header">
-          <div class="section-badge folder-badge">◈ Collections</div>
           <h2 class="section-title">Mes dossiers</h2>
           <p class="section-subtitle">{{ folders.length }} dossiers · {{ totalPhotos }} photos au total</p>
         </div>
@@ -62,14 +60,6 @@
             <div class="folder-info">
               <span class="folder-name">{{ folder.nom }}</span>
               <span class="folder-count">{{ folder.photos.length }} photos</span>
-            </div>
-            <div class="folder-preview">
-              <img
-                v-for="(photo, idx) in folder.photos.slice(0, 3)"
-                :key="idx"
-                :src="photo"
-                class="preview-thumb"
-              />
             </div>
             <!-- Actions dossier -->
             <div class="folder-actions" @click.stop>
@@ -186,69 +176,113 @@
         </div>
 
         <div class="form-modal-body">
-          <!-- Nom du dossier -->
-          <label class="form-label">Nom du dossier <span class="required">*</span></label>
-          <a-input
-            v-model:value="newFolderName"
-            placeholder="Ex: Vacances été 2024"
-            class="form-input"
-            size="large"
-          />
 
-          <!-- Upload zone -->
-          <label class="form-label" style="margin-top: 20px;">Photos <span class="form-label-hint">(optionnel)</span></label>
-          <div
-            class="upload-zone"
-            :class="{ 'upload-zone--drag': isDragging }"
-            @dragover.prevent="isDragging = true"
-            @dragleave="isDragging = false"
-            @drop.prevent="handleDrop"
-            @click="triggerFileInput"
-          >
-            <input
-              ref="fileInput"
-              type="file"
-              multiple
-              accept="image/*"
-              style="display: none"
-              @change="handleFileSelect"
-            />
-            <div class="upload-zone-content" v-if="newFolderPhotos.length === 0">
-              <div class="upload-icon-wrap">
-                <upload-outlined class="upload-zone-icon" />
-              </div>
-              <p class="upload-text">Glissez vos photos ici</p>
-              <p class="upload-subtext">ou cliquez pour sélectionner</p>
-              <span class="upload-hint">PNG, JPG, WEBP acceptés</span>
-            </div>
-            <div v-else class="upload-preview-grid">
-              <div
-                v-for="(photo, idx) in newFolderPhotos"
-                :key="idx"
-                class="upload-preview-item"
-              >
-                <img :src="photo.preview" class="upload-preview-img" />
-                <button class="upload-remove-btn" @click.stop="removeNewPhoto(idx)">
-                  <close-outlined />
-                </button>
-              </div>
-              <div class="upload-add-more" @click.stop="triggerFileInput">
-                <plus-outlined />
-                <span>Ajouter</span>
-              </div>
-            </div>
-          </div>
-          <p v-if="newFolderPhotos.length > 0" class="upload-count-hint">
-            {{ newFolderPhotos.length }} photo{{ newFolderPhotos.length > 1 ? 's' : '' }} sélectionnée{{ newFolderPhotos.length > 1 ? 's' : '' }}
-          </p>
+             <a-form
+    layout="vertical"
+    :model="formState"
+    @finish="onFinish"
+    @finishFailed="onHandleFailed"
+  >
+<a-form-item label="Nom du dossier">
+            <a-input v-model:value="formState.newFolderName" size="large" />
+          </a-form-item>
+           <div>
+
+  <!-- MODE SELECT -->
+  <a-form-item label="Méthode d'ajout des images"> 
+    <a-radio-group v-model:value="inputMode" @change="() => { formState.galeries = [] }">
+      <a-radio value="gallery">Galerie</a-radio>
+      <a-radio value="camera">Caméra</a-radio>
+    </a-radio-group>
+  </a-form-item>
+
+  <!-- MODE GALERIE -->
+  <a-form-item v-if="inputMode === 'gallery'" label="Galeries de vos créations (photos)">
+    <a-upload
+      v-model:file-list="formState.galeries"
+      list-type="picture-card"
+      :before-upload="() => false"
+      multiple
+      accept="image/*"
+    >
+      <div>
+        +
+        <div style="margin-top: 8px">
+          Ajouter depuis la galerie
         </div>
+      </div>
+    </a-upload>
+  </a-form-item>
 
-        <div class="form-modal-footer">
-          <button class="btn-cancel" @click="closeCreateModal">Annuler</button>
-          <button class="btn-confirm" @click="createFolder" :disabled="!newFolderName.trim()">
+  <!-- MODE CAMERA -->
+  <a-form-item v-if="inputMode === 'camera'" label="Prendre une photo">
+
+    <input
+      ref="cameraInput" 
+      type="file"
+      accept="image/*"
+      capture="environment"
+    style="display:none"
+      @change="handleCameraCapture"
+    />
+
+    <a-button type="primary" @click="openCamera">
+      Ouvrir la caméra
+    </a-button>
+
+    <div
+  v-if="formState.galeries.length"
+  style="margin-top: 1em; display: flex; flex-wrap: wrap; gap: 16px;"
+>
+  <div
+    v-for="(img, index) in formState.galeries"
+    :key="index"
+    class="item"
+    style="position: relative;"
+  >
+    <img
+      style="width: 100px; height: 100px;"
+      :src="img.url"
+      :alt="img.name"
+    />
+
+    <!-- DELETE BUTTON -->
+    <button
+      @click="removeImage(index)"
+      style="
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        background: red;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        cursor: pointer;
+        font-size: 12px;
+      "
+    >
+      ✕
+    </button>
+  </div>
+</div>
+
+  </a-form-item>
+
+</div>
+<div class="form-modal-footer">
+       <a-button type="default" @click="closeCreateModal"> Annuler</a-button>
+          <a-button
+         type="primary"
+          html-type="submit" 
+          :disabled="!formState.newFolderName.trim() || formState.galeries.length === 0" >
             <folder-add-outlined />
             Créer le dossier
-          </button>
+          </a-button>
+         
+        </div>
+</a-form>
         </div>
       </div>
     </a-modal>
@@ -334,6 +368,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import {
   FolderFilled,
   FolderAddOutlined,
@@ -347,7 +382,7 @@ import {
   EditOutlined,
   CheckOutlined,
   EyeOutlined,
-  UploadOutlined,
+//   UploadOutlined,
 } from '@ant-design/icons-vue';
 
 export default {
@@ -366,11 +401,16 @@ export default {
     EditOutlined,
     CheckOutlined,
     EyeOutlined,
-    UploadOutlined,
+    // UploadOutlined,
   },
 
   data() {
     return {
+        inputMode: 'gallery', // 'gallery' ou 'camera'
+        formState:{
+            newFolderName: '',
+            galeries: []
+        },
       featuredImages: [
         { id: 1, image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', alt: 'Montagne majestueuse' },
         { id: 2, image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80', alt: 'Coucher de soleil' },
@@ -512,6 +552,81 @@ export default {
   },
 
   methods: {
+     async openCamera() {
+  await Swal.fire({
+    title: 'Information caméra',
+    text: `
+    Pour permettre la prise de photo via la caméra de votre appareil, 
+    aller sur les différents navigateurs: Chrome Android, Firefox Android, 
+    Opera Android, Safari iOS, 
+    Samsung Internet ainsi que 
+    les WebView Android et iOS récents.`,
+    icon: 'info',
+    showCancelButton: true,
+    confirmButtonText: 'Continuer',
+    cancelButtonText: 'Annuler'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const input = this.$refs.cameraInput
+      if (input) {
+        input.value = ''
+        input.click()
+      }
+    }
+  })
+},
+    handleCameraCapture(event) {
+  const files = event.target.files
+
+  if (!files || files.length === 0) return
+
+  const newImages = Array.from(files).map(file => {
+    return {
+      file,
+      name: file.name,
+      size: file.size,
+      url: URL.createObjectURL(file),
+      type: file.type
+    }
+  })
+
+  this.formState.galeries = [
+    ...this.formState.galeries,
+    ...newImages
+  ]
+//   this.addFiles(files);
+},
+addFiles(fileList) {
+      Array.from(fileList).forEach(file => {
+        if (!file.type.startsWith('image/')) return;
+        const preview = URL.createObjectURL(file);
+        this.newFolderPhotos.push({ file, preview });
+      });
+    },
+     onHandleFailed(errorInfo) {
+      Swal.fire({
+        icon: "warning",
+        title: `${errorInfo.errorFields[0].errors[0]}`,
+        text: "Veuillez remplir tous les champs obligatoires (*)",
+      });
+    },
+    async onFinish() {
+   console.log('Form submitted:', this.formState);
+   try{
+ const response = await instance.post('create_galeries',this.formState)
+ if(response.data.status){
+    Swal.fire({
+        icon: "success",
+        title: "Dossier créé avec succès",
+        text: "Votre nouveau dossier a été ajouté à votre galerie.",
+      });
+      this.closeCreateModal();
+ }
+   }catch(e){
+    console.log('Error processing form:', e);
+   }
+   
+    },
     /* ===== OPEN FOLDER ===== */
     openFolder(folder) {
       this.selectedFolder = folder;
@@ -584,37 +699,11 @@ export default {
     triggerFileInput() {
       this.$refs.fileInput.click();
     },
-    handleFileSelect(e) {
-      this.addFiles(e.target.files);
-      e.target.value = '';
-    },
-    handleDrop(e) {
-      this.isDragging = false;
-      this.addFiles(e.dataTransfer.files);
-    },
-    addFiles(fileList) {
-      Array.from(fileList).forEach(file => {
-        if (!file.type.startsWith('image/')) return;
-        const preview = URL.createObjectURL(file);
-        this.newFolderPhotos.push({ file, preview });
-      });
-    },
+    
     removeNewPhoto(idx) {
       const p = this.newFolderPhotos[idx];
       if (p.preview && p.preview.startsWith('blob:')) URL.revokeObjectURL(p.preview);
       this.newFolderPhotos.splice(idx, 1);
-    },
-    createFolder() {
-      if (!this.newFolderName.trim()) return;
-      const photos = this.newFolderPhotos.map(p => p.preview);
-      this.folders.push({
-        id: this.nextFolderId++,
-        nom: this.newFolderName.trim(),
-        photos,
-      });
-      this.createModalVisible = false;
-      this.newFolderName = '';
-      this.newFolderPhotos = [];
     },
 
     /* ===== PREVIEW ===== */
@@ -637,10 +726,24 @@ export default {
     zoomIn() { if (this.zoomLevel < 3) this.zoomLevel = Math.min(3, this.zoomLevel + 0.25); },
     zoomOut() { if (this.zoomLevel > 0.5) this.zoomLevel = Math.max(0.5, this.zoomLevel - 0.25); },
   },
+  watch: {
+    createModalVisible(newVal) {
+      if (!newVal) {
+        this.formState.newFolderName = '';
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
+:deep(.ant-modal-content){
+    padding:0 !important;
+}
+.form-modal-inner{
+    height:500px !important;
+    overflow-y: auto !important;
+}
 *, *::before, *::after { box-sizing: border-box; }
 
 /* ===== PAGE ===== */
@@ -652,7 +755,7 @@ export default {
 
 /* ===== HEADER ===== */
 .page-header {
-  background: linear-gradient(135deg, #FF7A00 0%, #FF9A3C 60%, #FFB86C 100%);
+  background: linear-gradient(135deg, #25535f 0%, #25535f 60%, #FFB86C 100%);
   padding: 40px 24px 52px;
   position: relative;
   overflow: hidden;
@@ -982,21 +1085,20 @@ export default {
 
 /* ===== BUTTONS ===== */
 .btn-cancel {
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 10px;
   border: 1.5px solid #e8e8e8;
-  background: #fff;
-  color: #888;
+  background: #ae0101;
+  color: #ffffff;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
 }
-.btn-cancel:hover { border-color: #ccc; color: #555; }
+
 
 .btn-confirm {
   display: flex; align-items: center; gap: 7px;
-  padding: 10px 22px;
+  padding: 10px;
   border-radius: 10px;
   border: none;
   background: linear-gradient(135deg, #FF7A00, #FF9A3C);
