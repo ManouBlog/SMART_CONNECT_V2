@@ -439,7 +439,7 @@
 
 <script>
 import Swal from 'sweetalert2';
-import instance from '../../../../api/api';
+import instance ,{lienPhoto}from '../../../../api/api';
 import {
   FolderFilled,
   FolderAddOutlined,
@@ -481,6 +481,7 @@ props: {
 
   data() {
     return {
+        lienPhoto:lienPhoto,
         inputMode: 'gallery', // 'gallery' ou 'camera'
         formState:{
             nom_galerie: '',
@@ -628,7 +629,7 @@ props: {
        const dossiers = this.dossierGaleries?.map(({ id, nom_galerie, images = [] }) => ({
   id,
   nom: nom_galerie,
-  photos: images.map(({ path }) => path),
+  photos: images.map(({ path }) => this.lienPhoto+path),
 })) ?? [];
 console.log("dossiers",dossiers)
     return dossiers;
