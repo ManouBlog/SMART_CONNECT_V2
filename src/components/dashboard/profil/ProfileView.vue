@@ -353,7 +353,8 @@ userDocuments() {
     this.texte12 = await this.handleTranslate("Pièce d'identité");
     this.texte13 = await this.handleTranslate("Niveau d'etude");
     this.texte14 = await this.handleTranslate("Prénoms");
-    this.texte15 = await this.handleTranslate("Ma formule");    
+    this.texte15 = await this.handleTranslate("Ma formule"); 
+    // console.log(this.$store.state.infoUserConnected?.user)   
   },
 };
 </script>
@@ -421,8 +422,15 @@ userDocuments() {
         <TabPanel :header="texte15">
           <MonPlanAbonnement />
         </TabPanel>
-        <TabPanel :header="'Albums'">
-          <Galeries />
+        <TabPanel 
+         v-if="['Artisan',].includes(
+         this.$store.state.infoUserConnected?.user?.statut?.statut
+         ) || this.$store.state.infoUserConnected?.user?.statuses?.some(
+    s => ['Artisan'].includes(s.statut)
+  )"
+        :header="'Album photos'">
+          <Galeries 
+          :dossierGaleries="this.$store.state.infoUserConnected?.user?.dossier_galerie" />
         </TabPanel>
       </TabView>
       <div v-else style="text-align:center;padding:2em;" class="shimmer-text">
