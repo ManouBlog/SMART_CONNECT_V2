@@ -24,7 +24,7 @@
           <p class="section-subtitle">Ces photos sont visibles par tous les utilisateurs.</p>
         </div>
 
-        <div class="featured-grid">
+        <div class="featured-grid" v-if="featuredImages.length">
           <div
             v-for="item in featuredImages"
             :key="item.id"
@@ -37,6 +37,9 @@
               </div>
             </div>
           </div>
+        </div>
+        <div style="display: flex;justify-content: center;">
+         <button style="border:none;" @click="openForChooseThreeImages">Mettre en avant 3 photos</button>
         </div>
       </section>
 
@@ -116,7 +119,58 @@
           </div>
         </div>
       </div>
+      
     </a-modal>
+
+     <!-- ===== MODAL THREE (photos) ===== -->
+    <a-modal
+      v-model:visible="modalThreeVisible"
+      :title="null"
+      :footer="null"
+      :width="modalWidth"
+      class="folder-modal"
+      :body-style="{ padding: '0' }"
+      centered
+    >
+      <div class="modal-inner" v-if="selectedthreePhotos.length">
+        <!-- Modal Header -->
+        <div class="modal-header-custom">
+          <div class="modal-title-wrap">
+            <folder-filled class="modal-folder-icon" />
+            <div>
+              <h3 class="modal-title-text">Toutes mes photos</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photos Grid -->
+        <div class="modal-photos-grid">
+          <div
+            v-for="(photo, index) in selectedthreePhotos"
+            :key="index"
+            class="modal-photo-card"
+          >
+            <img :src="photo" :alt="`Photo ${index + 1}`" class="modal-photo-img" @click="previewImage(photo, index)" />
+            <check-circle-filled
+  v-if="this.isPublicPhotoSelected(photo)"
+  style="position: absolute;"
+/>
+            <div class="modal-photo-actions">
+              <button
+  class="photo-action-btn"
+  @click="togglePublicPhoto(photo)"
+>
+  <check-circle-filled v-if="this.isPublicPhotoSelected(photo)" />
+  <check-circle-outlined v-else />
+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </a-modal>
+
+    
 
     <!-- ===== MODAL RENOMMER DOSSIER ===== -->
     <a-modal
@@ -184,7 +238,7 @@
     @finishFailed="onHandleFailed"
   >
 <a-form-item label="Nom du dossier">
-            <a-input v-model:value="formState.newFolderName" size="large" />
+            <a-input v-model:value="formState.nom_galerie" size="large" />
           </a-form-item>
            <div>
 
@@ -276,7 +330,7 @@
           <a-button
          type="primary"
           html-type="submit" 
-          :disabled="!formState.newFolderName.trim() || formState.galeries.length === 0" >
+          :disabled="!formState.nom_galerie.trim() || formState.galeries.length === 0" >
             <folder-add-outlined />
             Créer le dossier
           </a-button>
@@ -369,6 +423,7 @@
 
 <script>
 import Swal from 'sweetalert2';
+import instance from '../../../../api/api';
 import {
   FolderFilled,
   FolderAddOutlined,
@@ -382,7 +437,8 @@ import {
   EditOutlined,
   CheckOutlined,
   EyeOutlined,
-//   UploadOutlined,
+ CheckCircleFilled,
+  CheckCircleOutlined,
 } from '@ant-design/icons-vue';
 
 export default {
@@ -401,22 +457,34 @@ export default {
     EditOutlined,
     CheckOutlined,
     EyeOutlined,
-    // UploadOutlined,
+     CheckCircleFilled,
+  CheckCircleOutlined,
   },
 
   data() {
     return {
         inputMode: 'gallery', // 'gallery' ou 'camera'
         formState:{
-            newFolderName: '',
+            nom_galerie: '',
             galeries: []
         },
       featuredImages: [
-        { id: 1, image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', alt: 'Montagne majestueuse' },
-        { id: 2, image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80', alt: 'Coucher de soleil' },
-        { id: 3, image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=600&q=80', alt: 'Forêt tropicale' },
+        // { id: 1, image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', alt: 'Montagne majestueuse' },
+        // { id: 2, image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80', alt: 'Coucher de soleil' },
+        // { id: 3, image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=600&q=80', alt: 'Forêt tropicale' },
       ],
-
+      selectedthreePhotos:[ 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80',
+            'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=80',
+            'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=400&q=80',
+            'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=400&q=80',
+            'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80',
+            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80',
+            'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&q=80',
+            'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&q=80',
+            'https://images.unsplash.com/photo-1501446529957-6226bd447c46?w=400&q=80',
+            'https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?w=400&q=80',
+            'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&q=80',
+            'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80',],
       folders: [
         {
           id: 1,
@@ -507,6 +575,7 @@ export default {
 
       // Modal dossier (photos)
       modalVisible: false,
+      modalThreeVisible:false,
       selectedFolder: null,
 
       // Rename modal
@@ -516,7 +585,7 @@ export default {
 
       // Create modal
       createModalVisible: false,
-      newFolderName: '',
+      nom_galerie: '',
       newFolderPhotos: [],
       isDragging: false,
 
@@ -552,6 +621,25 @@ export default {
   },
 
   methods: {
+    isPublicPhotoSelected(photo) {
+    return this.featuredImages.includes(photo);
+  },
+
+  togglePublicPhoto(photo) {
+    const index = this.featuredImages.indexOf(photo);
+
+    if (index > -1) {
+      this.featuredImages.splice(index, 1);
+      return;
+    }
+
+    if (this.featuredImages.length >= 3) {
+      alert('Vous ne pouvez sélectionner que 3 photos.');
+      return;
+    }
+
+    this.featuredImages.push(photo);
+  },
      async openCamera() {
   await Swal.fire({
     title: 'Information caméra',
@@ -632,7 +720,9 @@ addFiles(fileList) {
       this.selectedFolder = folder;
       this.modalVisible = true;
     },
-
+    openForChooseThreeImages(){
+        this.modalThreeVisible = true;
+    },
     /* ===== RENAME ===== */
     openRenameModal(folder) {
       this.folderToRename = folder;
@@ -685,7 +775,7 @@ addFiles(fileList) {
 
     /* ===== CREATE FOLDER ===== */
     openCreateModal() {
-      this.newFolderName = '';
+      this.nom_galerie = '';
       this.newFolderPhotos = [];
       this.isDragging = false;
       this.createModalVisible = true;
@@ -694,7 +784,7 @@ addFiles(fileList) {
       this.createModalVisible = false;
       this.newFolderPhotos.forEach(p => { if (p.preview && p.preview.startsWith('blob:')) URL.revokeObjectURL(p.preview); });
       this.newFolderPhotos = [];
-      this.newFolderName = '';
+      this.nom_galerie = '';
     },
     triggerFileInput() {
       this.$refs.fileInput.click();
@@ -729,7 +819,7 @@ addFiles(fileList) {
   watch: {
     createModalVisible(newVal) {
       if (!newVal) {
-        this.formState.newFolderName = '';
+        this.formState.nom_galerie = '';
       }
     },
   },
