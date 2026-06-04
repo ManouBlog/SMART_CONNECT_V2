@@ -5,7 +5,7 @@
       <div class="header-inner">
         <div class="header-top">
           <div>
-            <h1 class="page-title">Ma Galerie</h1>
+            <h1 class="page-title">Mon album</h1>
             <p class="page-subtitle">Gérez et organisez vos photos en toute simplicité</p>
           </div>
           <button class="btn-create-folder" @click="openCreateModal">
@@ -21,7 +21,7 @@
       <section class="section featured-section">
         <div class="section-header">
           <h2 class="section-title">Mes photos mises en avant</h2>
-          <p class="section-subtitle">Ces photos sont visibles par tous les utilisateurs.</p>
+          <p class="section-subtitle">Ces photos sont visibles en premier par le recruteur.</p>
         </div>
 
         <div class="featured-grid" v-if="featuredImages.length">
