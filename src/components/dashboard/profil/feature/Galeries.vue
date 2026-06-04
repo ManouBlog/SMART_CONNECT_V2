@@ -27,11 +27,11 @@
         <div class="featured-grid" v-if="featuredImages.length">
           <div
             v-for="item in featuredImages"
-            :key="item.id"
+            :key="item"
             class="featured-card"
           >
             <div class="featured-img-wrapper">
-              <img :src="item.image" :alt="item.alt" class="featured-img" />
+              <img :src="item" :alt="item" class="featured-img" />
               <div class="featured-overlay">
                 <eye-outlined class="overlay-icon" />
               </div>
@@ -627,7 +627,10 @@ props: {
 
   computed: {
     selectedthreePhotos(){
-const ImagesAll = this.folders?.map(({ photos = [] }) => ( photos.map(({ path }) => this.lienPhoto+path))) ?? [];
+const ImagesAll =
+  (this.folders ?? []).flatMap(folder =>
+    (folder.photos ?? []).map(url => url)
+  ) ?? [];
 console.log("ImagesAll",ImagesAll)
     return ImagesAll;
     },
