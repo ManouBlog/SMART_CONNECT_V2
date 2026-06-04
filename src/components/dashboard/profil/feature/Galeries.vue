@@ -8,10 +8,7 @@
             <h1 class="page-title">Mon album</h1>
             <p class="page-subtitle">Gérez et organisez vos photos en toute simplicité</p>
           </div>
-          <button class="btn-create-folder" @click="openCreateModal">
-            <plus-outlined class="btn-icon" />
-            <span>Nouveau dossier</span>
-          </button>
+          
         </div>
       </div>
     </div>
@@ -45,10 +42,17 @@
 
       <!-- ===== SECTION 2 : Dossiers ===== -->
       <section class="section folders-section">
-        <div class="section-header">
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+      <div class="section-header">
           <h2 class="section-title">Mes dossiers</h2>
           <p class="section-subtitle">{{ folders.length }} dossiers · {{ totalPhotos }} photos au total</p>
         </div>
+        <button class="btn-create-folder" @click="openCreateModal">
+            <plus-outlined class="btn-icon" />
+            <span>Nouveau dossier</span>
+          </button>
+        </div>
+        
 
         <div class="folders-grid">
           <div
@@ -937,8 +941,9 @@ addFiles(fileList) {
   background: #fff;
   color: #FF7A00;
   border: none;
-  border-radius: 12px;
-  padding: 12px 22px;
+  border-radius: 5px;
+  padding: 12px;
+  height: 40px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
