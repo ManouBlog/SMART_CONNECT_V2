@@ -10,6 +10,7 @@ import ModalForModifyInfo from "./feature/ModalForModifyInfo.vue";
 import CompetencesAndExperience from "../etudiant-route/CompetencesAndExperience.vue";
 import QualificationsStudent from "../etudiant-route/QualificationsStudent.vue";
 import MonPlanAbonnement from "./feature/MonPlanAbonnement.vue";
+import Galeries from "./feature/Galeries.vue";
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import { mapActions } from "pinia";
@@ -28,7 +29,9 @@ export default {
     TabPanel,
     MonPlanAbonnement,
     InfoStatusesUser,
-    InfoStatusesEntreprise
+    InfoStatusesEntreprise,
+    Galeries
+
   },
   data() {
     return {
@@ -417,6 +420,9 @@ userDocuments() {
         </TabPanel>
         <TabPanel :header="texte15">
           <MonPlanAbonnement />
+        </TabPanel>
+        <TabPanel :header="'Albums'">
+          <Galeries />
         </TabPanel>
       </TabView>
       <div v-else style="text-align:center;padding:2em;" class="shimmer-text">
