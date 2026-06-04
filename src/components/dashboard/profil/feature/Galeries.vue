@@ -145,26 +145,42 @@
 
         <!-- Photos Grid -->
         <div class="modal-photos-grid">
-          <div
-            v-for="(photo, index) in selectedthreePhotos"
-            :key="index"
-            class="modal-photo-card"
-          >
-            <img :src="photo" :alt="`Photo ${index + 1}`" class="modal-photo-img" @click="previewImage(photo, index)" />
-            <check-circle-filled
-  v-if="this.isPublicPhotoSelected(photo)"
-  style="position: absolute;"
-/>
-            <div class="modal-photo-actions">
-              <button
-  class="photo-action-btn"
-  @click="togglePublicPhoto(photo)"
+         <div
+  v-for="(photo, index) in selectedthreePhotos"
+  :key="index"
+  class="modal-photo-card"
+  style="position: relative;"
+   @click="togglePublicPhoto(photo)"
 >
-  <check-circle-filled v-if="this.isPublicPhotoSelected(photo)" />
-  <check-circle-outlined v-else />
-</button>
-            </div>
-          </div>
+  <img
+    :src="photo"
+    :alt="`Photo ${index + 1}`"
+    class="modal-photo-img"
+    @click="previewImage(photo, index)"
+  />
+
+  <check-circle-filled
+    v-if="isPublicPhotoSelected(photo)"
+    style="
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 9999;
+      color: green;
+      font-size: 24px;
+      color:#52c41a;
+    "
+  />
+
+  <div class="modal-photo-actions">
+    <button
+      class="photo-action-btn"
+    >
+      <check-circle-filled v-if="isPublicPhotoSelected(photo)" />
+      <check-circle-outlined v-else />
+    </button>
+  </div>
+</div>
         </div>
       </div>
       
