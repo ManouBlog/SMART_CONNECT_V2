@@ -103,7 +103,7 @@
         <!-- Photos Grid -->
         <div class="modal-photos-grid">
           <div
-            v-for="(photo, index) in selectedFolder.ph"
+            v-for="(photo, index) in selectedFolder.photos"
             :key="index"
             class="modal-photo-card"
           >
@@ -492,18 +492,20 @@ props: {
         // { id: 2, image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80', alt: 'Coucher de soleil' },
         // { id: 3, image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=600&q=80', alt: 'Forêt tropicale' },
       ],
-      selectedthreePhotos:[ 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80',
-            'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=80',
-            'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=400&q=80',
-            'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=400&q=80',
-            'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80',
-            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80',
-            'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&q=80',
-            'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&q=80',
-            'https://images.unsplash.com/photo-1501446529957-6226bd447c46?w=400&q=80',
-            'https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?w=400&q=80',
-            'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&q=80',
-            'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80',],
+    //   selectedthreePhotos:[ 
+    //     //   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1501446529957-6226bd447c46?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&q=80',
+    //     //     'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80',
+    //     ],
     //   folders: [
         // {
         //   id: 1,
@@ -624,8 +626,12 @@ props: {
   },
 
   computed: {
+    selectedthreePhotos(){
+const ImagesAll = this.folders?.map(({ photos = [] }) => ( photos.map(({ path }) => this.lienPhoto+path))) ?? [];
+console.log("ImagesAll",ImagesAll)
+    return ImagesAll;
+    },
  folders() {
-        
        const dossiers = this.dossierGaleries?.map(({ id, nom_galerie, images = [] }) => ({
   id,
   nom: nom_galerie,
@@ -826,7 +832,7 @@ addFiles(fileList) {
 
     /* ===== PREVIEW ===== */
     previewImage(photo, index) {
-      this.previewImages = [...this.selectedFolder.ph];
+      this.previewImages = [...this.selectedFolder.photos];
       this.currentPreviewIndex = index;
       this.zoomLevel = 1;
       this.previewVisible = true;
