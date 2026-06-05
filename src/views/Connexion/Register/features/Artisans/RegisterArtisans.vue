@@ -731,7 +731,7 @@ removeImage(index) {
    <div v-show="currentStep === 3">
 
   <!-- MODE SELECT -->
-  <a-form-item label="Méthode d'ajout des images">
+  <a-form-item label="Ajouter des images">
     <a-radio-group v-model:value="inputMode" @change="() => { formState.galeries = [] }">
       <a-radio value="gallery">Galerie</a-radio>
       <a-radio value="camera">Caméra</a-radio>

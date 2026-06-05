@@ -796,7 +796,7 @@ for (const item of data) {
         path: this.lienPhoto+url.path
       }))
   );
-  const isImageVisibleExist = ImagesAll.length >= 3  ? ImagesAll:ImagesNotVisibleAll.splice(0,3);
+  const isImageVisibleExist = ImagesAll.length == 3  ? ImagesAll:ImagesNotVisibleAll.splice(0,3);
 console.log("ImagesAll",ImagesAll)
 return isImageVisibleExist;
     },

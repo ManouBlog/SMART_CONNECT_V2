@@ -5,7 +5,7 @@
       <div class="header-inner">
         <div class="header-top">
           <div>
-            <h1 class="page-title">Mon galerie</h1>
+            <h1 class="page-title">Ma galerie</h1>
             <p class="page-subtitle">Gérez et organisez vos photos en toute simplicité</p>
           </div>
           
@@ -45,12 +45,12 @@
       <section class="section folders-section">
         <div style="display: flex;justify-content: space-between;align-items: center;">
       <div class="section-header">
-          <h2 class="section-title">Mes dossiers</h2>
-          <p class="section-subtitle">{{ folders.length }} dossiers · {{ totalPhotos }} photos au total</p>
+          <h2 class="section-title">Mes albums</h2>
+          <p class="section-subtitle">{{ folders.length }} Albums · {{ totalPhotos }} photos au total</p>
         </div>
         <button class="btn-create-folder" @click="openCreateModal">
             <plus-outlined class="btn-icon" />
-            <span>Nouveau dossier</span>
+            <span>Nouveau album</span>
           </button>
         </div>
         
@@ -213,7 +213,7 @@
           <p class="form-modal-subtitle">Donnez un nouveau nom à votre dossier</p>
         </div>
         <div class="form-modal-body">
-          <label class="form-label">Nom du dossier</label>
+          <label class="form-label">Nom de l'album</label>
           <a-input
             v-model:value="renameValue"
             placeholder="Ex: Vacances 2024"
@@ -247,8 +247,8 @@
           <div class="form-modal-icon-wrap create-icon-wrap">
             <folder-add-outlined class="form-modal-icon" />
           </div>
-          <h3 class="form-modal-title">Nouveau dossier</h3>
-          <p class="form-modal-subtitle">Créez un dossier et ajoutez vos photos</p>
+          <h3 class="form-modal-title">Nouveau album</h3>
+          <p class="form-modal-subtitle">Créez un album et ajoutez vos photos</p>
         </div>
 
         <div class="form-modal-body">
@@ -259,13 +259,13 @@
     @finish="onFinish"
     @finishFailed="onHandleFailed"
   >
-<a-form-item label="Nom du dossier">
+<a-form-item label="Nom de l\' album">
             <a-input v-model:value="formState.nom_galerie" size="large" />
           </a-form-item>
            <div>
 
   <!-- MODE SELECT -->
-  <a-form-item label="Méthode d'ajout des images"> 
+  <a-form-item label="Ajouter des images"> 
     <a-radio-group v-model:value="inputMode" @change="() => { formState.galeries = [] }">
       <a-radio value="gallery">Galerie</a-radio>
       <a-radio value="camera">Caméra</a-radio>
