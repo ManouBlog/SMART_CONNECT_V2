@@ -165,7 +165,7 @@
   />
 
   <check-circle-filled
-    v-if="isPublicPhotoSelected(photo) || featuredImages.some(item=>item.id == photo.id)"
+    v-if="this.isPublicPhotoSelected(photo) || featuredImages.some(item=>item.id == photo.id)"
     style="
       position: absolute;
       top: 10px;
@@ -632,6 +632,11 @@ props: {
   },
 
   computed: {
+    isPublicPhotoSelected() {
+    return (photo) => {
+      return this.featuredImages.includes(photo);
+    };
+  },
     featuredImages(){
       return this.photosMiseEnAvant;
     },
@@ -676,9 +681,7 @@ console.log("dossiers",dossiers)
   },
 
   methods: {
-    isPublicPhotoSelected(photo) {
-    return this.featuredImages.includes(photo);
-  },
+    
   async togglePublicPhoto(photo) {
    
     try{
