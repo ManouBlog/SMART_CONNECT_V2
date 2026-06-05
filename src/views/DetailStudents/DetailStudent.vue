@@ -1,5 +1,5 @@
 <script>
-import instance from "../../api/api";
+import instance,{lienPhoto} from "../../api/api";
 import Swal from "sweetalert2";
 import "v-calendar/dist/style.css";
 import { Calendar } from "v-calendar";
@@ -46,6 +46,7 @@ export default {
       texte22: "",
       texte23: "",
       texte24: "",
+      lienPhoto:lienPhoto,
       texte25: "",
       texte26: "",
       configUtils: configUtils,
@@ -784,7 +785,7 @@ for (const item of data) {
       .filter(url => url.visible)
       .map(url => ({
         id: url.id,
-        path: url.path
+        path: this.lienPhoto+url.path
       }))
   );
 console.log("ImagesAll",ImagesAll)
