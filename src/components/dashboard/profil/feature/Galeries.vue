@@ -28,7 +28,7 @@
             class="featured-card"
           >
             <div class="featured-img-wrapper">
-              <img :src="item" :alt="item" class="featured-img" />
+              <img :src="item.path" :alt="item" class="featured-img" />
               <div class="featured-overlay">
                 <eye-outlined class="overlay-icon" />
               </div>
@@ -165,7 +165,7 @@
   />
 
   <check-circle-filled
-    v-if="isPublicPhotoSelected(photo)"
+    v-if="isPublicPhotoSelected(photo) || featuredImages.some(item=>item.id == photo.id)"
     style="
       position: absolute;
       top: 10px;
@@ -466,6 +466,7 @@ export default {
   name: 'Galeries',
 props: {
     dossierGaleries: Array,
+    photosMiseEnAvant:Array
   },
   components: {
     FolderFilled,
@@ -492,11 +493,11 @@ props: {
             nom_galerie: '',
             galeries: []
         },
-      featuredImages: [
+      // featuredImages: [
         // { id: 1, image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', alt: 'Montagne majestueuse' },
         // { id: 2, image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80', alt: 'Coucher de soleil' },
         // { id: 3, image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=600&q=80', alt: 'Forêt tropicale' },
-      ],
+      // ],
     //   selectedthreePhotos:[ 
     //     //   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80',
     //     //     'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=80',
@@ -631,6 +632,9 @@ props: {
   },
 
   computed: {
+    featuredImages(){
+      return this.photosMiseEnAvant;
+    },
     selectedthreePhotos(){
 const ImagesAll =
   (this.folders ?? []).flatMap(folder =>
@@ -674,22 +678,20 @@ console.log("dossiers",dossiers)
     isPublicPhotoSelected(photo) {
     return this.featuredImages.includes(photo);
   },
-
   async togglePublicPhoto(photo) {
    
-    if (this.featuredImages.length >= 3) {
-      alert('Vous ne pouvez sélectionner que 3 photos.');
-      return;
-    }
-
     try{
    const response = await instance.post('chooseImageAhead/'+photo.id)
    if(response.data.status){
-    this.featuredImages.push(photo);
+    console.log("AJOUTER",photo)
+    this.featuredImages.push(photo)
+    this.isPublicPhotoSelected(photo);
    }
 
-   if(!response.data.status){
+   if(response.data.status === false){
       const index = this.featuredImages.indexOf(photo);
+        console.log("RETUERES",index)
+         console.log("RETUERES",photo)
       if (index > -1) {
       this.featuredImages.splice(index, 1);
       return;
@@ -885,6 +887,9 @@ addFiles(fileList) {
       }
     },
   },
+  mounted(){
+    console.log('this.featuredImages',this.featuredImages)
+  }
 };
 </script>
 

@@ -103,6 +103,19 @@ userDocuments() {
   }
   },
   methods: {
+     getPhotosMiseEnAvant(payload){
+    const ImagesAll =
+  (payload ?? []).flatMap(folder =>
+    (folder.images ?? [])
+      .filter(url => url.visible)
+      .map(url => ({
+        id: url.id,
+        path: this.lienPhoto+url.path
+      }))
+  );
+console.log("ImagesAll",ImagesAll)
+return ImagesAll;
+    },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     update_offre() {
   const statuses = this.$store.state.infoUserConnected?.user?.statuses || [];
@@ -430,7 +443,9 @@ userDocuments() {
   )"
         :header="'Ma Galerie'">
           <Galeries 
-          :dossierGaleries="this.$store.state.infoUserConnected?.user?.dossier_galerie" />
+          :dossierGaleries="this.$store.state.infoUserConnected?.user?.dossier_galerie"
+          :photosMiseEnAvant="this.getPhotosMiseEnAvant(this.$store.state.infoUserConnected?.user?.dossier_galerie)"
+          />
         </TabPanel>
       </TabView>
       <div v-else style="text-align:center;padding:2em;" class="shimmer-text">
