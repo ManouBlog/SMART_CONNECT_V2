@@ -36,7 +36,7 @@
           </div>
         </div>
         <div style="display: flex;justify-content: center;">
-         <button style="border:none;background-color: orange;" 
+         <button style="border:none;background-color:transparent;color: orange;padding:0.5em;" 
          @click="openForChooseThreeImages">Cliquez pour sélectionner 3 photos à mettre en avant</button>
         </div>
       </section>
@@ -492,111 +492,6 @@ export default {
             nom_galerie: '',
             galeries: []
         },
-      // photosMiseEnAvant: [
-        // { id: 1, image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', alt: 'Montagne majestueuse' },
-        // { id: 2, image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80', alt: 'Coucher de soleil' },
-        // { id: 3, image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=600&q=80', alt: 'Forêt tropicale' },
-      // ],
-    //   selectedthreePhotos:[ 
-    //     //   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1501446529957-6226bd447c46?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&q=80',
-    //     //     'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80',
-    //     ],
-    //   folders: [
-        // {
-        //   id: 1,
-        //   nom: 'Vacances',
-        //   photos: [
-        //     'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1501446529957-6226bd447c46?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80',
-        //   ],
-        // },
-        // {
-        //   id: 2,
-        //   nom: 'Famille',
-        //   photos: [
-        //     'https://images.unsplash.com/photo-1511895426328-dc8714191011?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1484665215352-d95f4fd413bd?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1516627145497-ae6968895b40?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1543342384-1f1350e27861?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1518987048-93e29699e79a?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1510771463146-e89e6e86560e?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1560807707-8cc77767d783?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1520366498724-709889c0c685?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1463453091185-61582044d556?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1542044801-30d3b1fba7b4?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1515161318750-781d6122e367?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1521566652839-697aa473761a?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1526510747491-58f928ec870f?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80',
-        //   ],
-        // },
-        // {
-        //   id: 3,
-        //   nom: 'Travail',
-        //   photos: [
-        //     'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&q=80',
-        //   ],
-        // },
-        // {
-        //   id: 4,
-        //   nom: 'Sport',
-        //   photos: [
-        //     'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1526676317768-d9b14f15615a?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1434596922112-19c563067271?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1547347298-4074fc3086f0?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1554344728-77cf90d9ed26?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1540539234-c14a20fb7c7b?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1549576490-b0b4831ef60a?w=400&q=80',
-        //     'https://images.unsplash.com/photo-1593079831268-3381b0db4a77?w=400&q=80',
-        //   ],
-        // },
-    //   ],
-
       nextFolderId: 5,
       // Modal dossier (photos)
       modalVisible: false,
@@ -686,18 +581,13 @@ console.log("dossiers",dossiers)
         title:'Photo ajoutée à la mise en avant',
       });
    }
-
    if(response.data.status === false){
       const index = this.photosMiseEnAvant.indexOf(photo);
-         console.log("RETUERES",photo)
-      if (index > -1) {
       this.photosMiseEnAvant.splice(index, 1);
       Swal.fire({
         icon: "info",
         title:'Photo retirée de la mise en avant',
       });
-    }
-   
      }
   
     }catch(error){
