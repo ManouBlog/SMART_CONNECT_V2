@@ -112,7 +112,7 @@
             :key="index"
             class="modal-photo-card"
           >
-            <img :src="photo" :alt="`Photo ${index + 1}`" class="modal-photo-img" @click="previewImage(photo, index)" />
+            <img :src="photo.path" :alt="`Photo ${index + 1}`" class="modal-photo-img" @click="previewImage(photo, index)" />
             <div class="modal-photo-actions">
               <button class="photo-action-btn photo-preview-btn" @click="previewImage(photo, index)" title="Agrandir">
                 <zoom-in-outlined />
@@ -158,7 +158,7 @@
    @click="togglePublicPhoto(photo)"
 >
   <img
-    :src="photo"
+    :src="photo.path"
     :alt="`Photo ${index + 1}`"
     class="modal-photo-img"
     @click="previewImage(photo, index)"
@@ -634,17 +634,25 @@ props: {
     selectedthreePhotos(){
 const ImagesAll =
   (this.folders ?? []).flatMap(folder =>
-    (folder.photos ?? []).map(url => url)
-  ) ?? [];
+    (folder.photos ?? []).map(url => ({
+      id:url.id,path:url.path
+    })
+  )
+  ) ?? []
+  console.log('folde12',this.folders)
 console.log("ImagesAll",ImagesAll)
+console.log('this.dossierGaleries',this.dossierGaleries)
     return ImagesAll;
     },
  folders() {
        const dossiers = this.dossierGaleries?.map(({ id, nom_galerie, images = [] }) => ({
   id,
   nom: nom_galerie,
-  photos: images.map(({ path }) => this.lienPhoto+path),
-})) ?? [];
+  photos: images.map(({ path,id }) =>({
+    id:id,
+    path:this.lienPhoto+path
+  }) ),
+}));
 console.log("dossiers",dossiers)
     return dossiers;
   },
@@ -667,20 +675,32 @@ console.log("dossiers",dossiers)
     return this.featuredImages.includes(photo);
   },
 
-  togglePublicPhoto(photo) {
-    const index = this.featuredImages.indexOf(photo);
-
-    if (index > -1) {
-      this.featuredImages.splice(index, 1);
-      return;
-    }
-
+  async togglePublicPhoto(photo) {
+   
     if (this.featuredImages.length >= 3) {
       alert('Vous ne pouvez sélectionner que 3 photos.');
       return;
     }
 
+    try{
+   const response = await instance.post('chooseImageAhead/'+photo.id)
+   if(response.data.status){
     this.featuredImages.push(photo);
+   }
+
+   if(!response.data.status){
+      const index = this.featuredImages.indexOf(photo);
+      if (index > -1) {
+      this.featuredImages.splice(index, 1);
+      return;
+    }
+     }
+  
+    }catch(error){
+      console.log(error)
+    }
+
+   
   },
      async openCamera() {
   await Swal.fire({
