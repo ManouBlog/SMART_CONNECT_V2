@@ -672,6 +672,7 @@ console.log("dossiers",dossiers)
       }
       return '75vw';
     },
+    
   },
 
   methods: {
@@ -694,13 +695,18 @@ console.log("dossiers",dossiers)
          console.log("RETUERES",photo)
       if (index > -1) {
       this.featuredImages.splice(index, 1);
+        this.isPublicPhotoSelected(photo);
       return;
     }
-    this.isPublicPhotoSelected(photo);
+  
      }
   
     }catch(error){
-      console.log(error)
+      console.log(error.response.data.message)
+      Swal.fire({
+        icon: "info",
+        title:error.response.data.message,
+      });
     }
 
    
