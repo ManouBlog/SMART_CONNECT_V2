@@ -206,6 +206,30 @@
       
     </a-modal>
 
+      <!-- ===== IMAGE PREVIEW ===== -->
+    <div v-if="previewVisible" class="custom-preview-overlay" @click.self="closeFolderPreview">
+      <div class="preview-toolbar">
+        <button class="preview-btn" @click="prevFolderImage" :disabled="currentPreviewIndex === 0">
+          <left-outlined />
+        </button>
+        <span class="preview-counter">{{ currentPreviewIndex + 1 }} / {{ previewFolderImages.length }}</span>
+        <button class="preview-btn" @click="nextFolderImage" :disabled="currentPreviewIndex === previewFolderImages.length - 1">
+          <right-outlined />
+        </button>
+        <button class="preview-btn close-btn" @click="closeFolderPreview">
+          <close-outlined />
+        </button>
+      </div>
+      <div class="preview-img-container" :style="{ transform: `scale(${zoomLevel})` }">
+        <img :src="currentPreviewSrc" alt="Preview" class="preview-fullscreen-img" />
+      </div>
+      <div class="preview-zoom-controls">
+        <button class="zoom-ctrl-btn" @click="zoomOut"><minus-outlined /></button>
+        <span class="zoom-level">{{ Math.round(zoomLevel * 100) }}%</span>
+        <button class="zoom-ctrl-btn" @click="zoomIn"><plus-outlined /></button>
+      </div>
+    </div>
+
     </div>
 </template>
 
@@ -274,12 +298,15 @@ export default {
     },
 
     computed: {
+        currentPreviewSrc() {
+      return this.previewFolderImages[this.currentPreviewIndex] || '';
+    },
         folders(){
        return this.dossierGaleries;
         },
         images() {
             return this.photosMiseEnAvant.map((item) => ({
-                itemImageSrc: `${this.lienPhoto}${item.path}`,
+                itemImageSrc: item.path,
                 alt: `Galerie ${item.id}`
             }));
         },
@@ -298,6 +325,18 @@ export default {
     },
 
     methods: {
+        closeFolderPreview() {
+      this.previewVisible = false;
+      this.zoomLevel = 1;
+    },
+         prevFolderImage() {
+      if (this.currentPreviewIndex > 0) { this.currentPreviewIndex--; this.zoomLevel = 1; }
+    },
+    nextFolderImage() {
+      if (this.currentPreviewIndex < this.previewImages.length - 1) { this.currentPreviewIndex++; this.zoomLevel = 1; }
+    },
+    zoomIn() { if (this.zoomLevel < 3) this.zoomLevel = Math.min(3, this.zoomLevel + 0.25); },
+    zoomOut() { if (this.zoomLevel > 0.5) this.zoomLevel = Math.max(0.5, this.zoomLevel - 0.25); },
         previewImage(photo, index) {
       this.previewFolderImages = [...this.selectedFolder.photos];
       this.currentPreviewIndex = index;

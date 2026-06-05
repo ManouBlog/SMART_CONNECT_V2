@@ -835,7 +835,7 @@ console.log("dossiers",dossiers)
 
        <GaleriesTalents v-if="timetable_for_student.user.statuses.some(item=>item.statut.includes('Artisan')) 
       && timetable_for_student?.user?.dossier_galerie?.length" 
-        :photosMiseEnAvant="this.getPhotosMiseEnAvant(timetable_for_student?.user.dossier_galerie)"
+        :photosMiseEnAvant="this.getPhotosMiseEnAvant(timetable_for_student?.user?.dossier_galerie)"
         :dossierGaleries="this.getAllDossierGalerie(timetable_for_student?.user?.dossier_galerie)"
         />
 
