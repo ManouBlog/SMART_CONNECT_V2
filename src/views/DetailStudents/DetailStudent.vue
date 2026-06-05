@@ -777,6 +777,19 @@ for (const item of data) {
         console.log(error);
       }
     },
+    getPhotosMiseEnAvant(payload){
+    const ImagesAll =
+  (payload ?? []).flatMap(folder =>
+    (folder.images ?? [])
+      .filter(url => url.visible)
+      .map(url => ({
+        id: url.id,
+        path: url.path
+      }))
+  );
+console.log("ImagesAll",ImagesAll)
+return ImagesAll;
+    }
   },
   async created() {
     await this.$store.dispatch("getInfoUser");
@@ -805,10 +818,14 @@ for (const item of data) {
 
 <template>
   <div class="space-talent">
+  <!-- <p>{{ this.getPhotosMiseEnAvant(timetable_for_student?.user.dossier_galerie) }}</p> -->
+   
     <div class="conteneur_student" v-if="timetable_for_student">
+
        <GaleriesTalents v-if="timetable_for_student.user.statuses.some(item=>item.statut.includes('Artisan')) 
-      && timetable_for_student?.user?.galeries?.length" 
-        :galeries="timetable_for_student?.user?.galeries" />
+      && timetable_for_student?.user?.dossier_galerie?.length" 
+        :galeries="this.getPhotosMiseEnAvant(timetable_for_student?.user.dossier_galerie)" />
+
       <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
 
       <BodyExperience :timetable_for_student="timetable_for_student" />
