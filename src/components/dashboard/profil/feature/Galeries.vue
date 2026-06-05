@@ -259,7 +259,7 @@
     @finish="onFinish"
     @finishFailed="onHandleFailed"
   >
-<a-form-item label="Nom de l\' album">
+<a-form-item label="Nom de l ' album">
             <a-input v-model:value="formState.nom_galerie" size="large" />
           </a-form-item>
            <div>
@@ -267,8 +267,8 @@
   <!-- MODE SELECT -->
   <a-form-item label="Ajouter des images"> 
     <a-radio-group v-model:value="inputMode" @change="() => { formState.galeries = [] }">
-      <a-radio value="gallery">Galerie</a-radio>
-      <a-radio value="camera">Caméra</a-radio>
+      <a-radio value="gallery">Ma Galerie</a-radio>
+      <a-radio value="camera">Ma Caméra</a-radio>
     </a-radio-group>
   </a-form-item>
 
@@ -408,7 +408,7 @@
         <h3 class="confirm-title">Supprimer cette photo ?</h3>
         <p class="confirm-text">Cette action est irréversible.</p>
         <div class="confirm-actions">
-          <button class="btn-cancel" @click="confirmPhotoDeleteVisible = false">Annuler</button>
+          <!-- <button style="background-color: gray;" @click="confirmPhotoDeleteVisible = false">Annuler</button> -->
           <button class="btn-danger" @click="executeDeletePhoto">
             <delete-outlined />
             Supprimer
@@ -432,7 +432,7 @@
         </button>
       </div>
       <div class="preview-img-container" :style="{ transform: `scale(${zoomLevel})` }">
-        <img :src="currentPreviewSrc" alt="Preview" class="preview-fullscreen-img" />
+        <img :src="currentPreviewSrc.path" alt="Preview" class="preview-fullscreen-img" />
       </div>
       <div class="preview-zoom-controls">
         <button class="zoom-ctrl-btn" @click="zoomOut"><minus-outlined /></button>

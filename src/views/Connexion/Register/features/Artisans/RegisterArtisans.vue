@@ -733,8 +733,8 @@ removeImage(index) {
   <!-- MODE SELECT -->
   <a-form-item label="Ajouter des images">
     <a-radio-group v-model:value="inputMode" @change="() => { formState.galeries = [] }">
-      <a-radio value="gallery">Galerie</a-radio>
-      <a-radio value="camera">Caméra</a-radio>
+      <a-radio value="gallery">Ma Galerie</a-radio>
+      <a-radio value="camera">Ma Caméra</a-radio>
     </a-radio-group>
   </a-form-item>
 
