@@ -696,6 +696,7 @@ console.log("dossiers",dossiers)
       this.featuredImages.splice(index, 1);
       return;
     }
+    this.isPublicPhotoSelected(photo);
      }
   
     }catch(error){
