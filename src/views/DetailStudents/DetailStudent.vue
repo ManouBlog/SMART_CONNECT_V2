@@ -788,8 +788,17 @@ for (const item of data) {
         path: this.lienPhoto+url.path
       }))
   );
+  const ImagesNotVisibleAll =
+  (payload ?? []).flatMap(folder =>
+    (folder.images ?? [])
+      .map(url => ({
+        id: url.id,
+        path: this.lienPhoto+url.path
+      }))
+  );
+  const isImageVisibleExist = ImagesAll.length ? ImagesAll:ImagesNotVisibleAll.splice(0,3);
 console.log("ImagesAll",ImagesAll)
-return ImagesAll;
+return isImageVisibleExist;
     },
     getAllDossierGalerie(payloadFolder){
        const dossiers = payloadFolder?.map(({ id, nom_galerie, images = [] }) => ({

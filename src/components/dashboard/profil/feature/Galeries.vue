@@ -18,7 +18,7 @@
       <section class="section featured-section">
         <div class="section-header">
           <h2 class="section-title">Mes photos mises en avant</h2>
-          <p class="section-subtitle">Ces photos sont visibles en premier par le recruteur.</p>
+          <p class="section-subtitle">Ces photos sont les premières que le recruteur voit.</p>
         </div>
 
         <div class="featured-grid" v-if="featuredImages.length">
@@ -36,7 +36,8 @@
           </div>
         </div>
         <div style="display: flex;justify-content: center;">
-         <button style="border:none;" @click="openForChooseThreeImages">Mettre en avant 3 photos</button>
+         <button style="border:none;background-color: orange;" 
+         @click="openForChooseThreeImages">Cliquez pour sélectionner 3 photos à mettre en avant</button>
         </div>
       </section>
 
