@@ -128,8 +128,15 @@
         </Teleport>
 
         <!-- ── VOIR PLUS DE DETAILS ─────────────────────────── -->
-         <div style="display: flex;justify-content: flex-end;padding: 0.5em;">
-            <button @click="()=> modalDossierVisible = true">Voir plus</button>
+         <div style="position: absolute;z-index: 90;right: 0;bottom:10px;">
+            <button @click="()=> modalDossierVisible = true" 
+                style="
+                background-color: orange;
+                border: none;
+                color: white;
+                font-weight: bold;
+                padding: 0.5em;
+                ">Voir plus</button>
          </div>
 
     <!-- ===== MODAL DOSSIER ===== -->
@@ -238,12 +245,12 @@ import { lienPhoto } from '../../../api/api';
 import {
   FolderFilled,
 //   FolderAddOutlined,
-//   RightOutlined,
-//   LeftOutlined,
-//   CloseOutlined,
+  RightOutlined,
+  LeftOutlined,
+  CloseOutlined,
 //   ZoomInOutlined,
-//   MinusOutlined,
-//   PlusOutlined,
+  MinusOutlined,
+  PlusOutlined,
 //   DeleteOutlined,
 //   EditOutlined,
 //   CheckOutlined,
@@ -265,18 +272,18 @@ export default {
     },
  components: {
     FolderFilled,
-//     FolderAddOutlined,
-//     RightOutlined,
-//     LeftOutlined,
-//     CloseOutlined,
-//     ZoomInOutlined,
-//     MinusOutlined,
-//     PlusOutlined,
-//     DeleteOutlined,
-//     EditOutlined,
-//     CheckOutlined,
-//     EyeOutlined,
-//      CheckCircleFilled,
+    // FolderAddOutlined,
+    RightOutlined,
+    LeftOutlined,
+    CloseOutlined,
+    // ZoomInOutlined,
+    MinusOutlined,
+    PlusOutlined,
+    // DeleteOutlined,
+    // EditOutlined,
+    // CheckOutlined,
+    // EyeOutlined,
+    //  CheckCircleFilled,
 //   CheckCircleOutlined,
   },
     data() {
@@ -424,6 +431,10 @@ export default {
 };
 </script>
 <style scoped>
+.folders-section{
+    height: 200px;
+    overflow: auto;
+}
 :deep(.ant-modal-content){
     padding:0 !important;
 }
@@ -952,6 +963,7 @@ export default {
     padding: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
+    position: relative;
 }
 
 /* ── Grille preview ───────────────────────────────────── */
