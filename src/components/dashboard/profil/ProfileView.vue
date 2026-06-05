@@ -366,8 +366,7 @@ return ImagesAll;
     this.texte12 = await this.handleTranslate("Pièce d'identité");
     this.texte13 = await this.handleTranslate("Niveau d'etude");
     this.texte14 = await this.handleTranslate("Prénoms");
-    this.texte15 = await this.handleTranslate("Ma formule"); 
-    // console.log(this.$store.state.infoUserConnected?.user)   
+    this.texte15 = await this.handleTranslate("Ma formule");  
   },
 };
 </script>
@@ -442,10 +441,7 @@ return ImagesAll;
     s => ['Artisan'].includes(s.statut)
   )"
         :header="'Ma Galerie'">
-          <Galeries 
-          :dossierGaleries="this.$store.state.infoUserConnected?.user?.dossier_galerie"
-          :photosMiseEnAvant="this.getPhotosMiseEnAvant(this.$store.state.infoUserConnected?.user?.dossier_galerie)"
-          />
+          <Galeries />
         </TabPanel>
       </TabView>
       <div v-else style="text-align:center;padding:2em;" class="shimmer-text">

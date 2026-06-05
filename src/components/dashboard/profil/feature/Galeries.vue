@@ -21,9 +21,9 @@
           <p class="section-subtitle">Ces photos sont les premières que le recruteur voit.</p>
         </div>
 
-        <div class="featured-grid" v-if="featuredImages.length">
+        <div class="featured-grid" v-if="photosMiseEnAvant.length">
           <div
-            v-for="item in featuredImages"
+            v-for="item in photosMiseEnAvant"
             :key="item"
             class="featured-card"
           >
@@ -137,7 +137,7 @@
       :body-style="{ padding: '0' }"
       centered
     >
-      <div class="modal-inner" v-if="selectedthreePhotos.length">
+      <div class="modal-inner" style="position: relative;" v-if="selectedthreePhotos.length">
         <!-- Modal Header -->
         <div class="modal-header-custom">
           <div class="modal-title-wrap">
@@ -147,9 +147,10 @@
             </div>
           </div>
         </div>
-
+       
         <!-- Photos Grid -->
         <div class="modal-photos-grid">
+         
          <div
   v-for="(photo, index) in selectedthreePhotos"
   :key="index"
@@ -165,7 +166,7 @@
   />
 
   <check-circle-filled
-    v-if="this.isPublicPhotoSelected(photo) || featuredImages.some(item=>item.id == photo.id)"
+    v-if="photosMiseEnAvant.some(item=>item.id == photo.id)"
     style="
       position: absolute;
       top: 10px;
@@ -181,7 +182,7 @@
     <button
       class="photo-action-btn"
     >
-      <check-circle-filled v-if="isPublicPhotoSelected(photo)" />
+      <check-circle-filled v-if="photosMiseEnAvant.some(item=>item.id == photo.id)" />
       <check-circle-outlined v-else />
     </button>
   </div>
@@ -443,6 +444,7 @@
 </template>
 
 <script>
+import { useLoadingSpinner } from '../../../../store-pinia/LoadingSpinner/useLoadingSpinner';
 import Swal from 'sweetalert2';
 import instance ,{lienPhoto}from '../../../../api/api';
 import {
@@ -464,10 +466,6 @@ import {
 
 export default {
   name: 'Galeries',
-props: {
-    dossierGaleries: Array,
-    photosMiseEnAvant:Array
-  },
   components: {
     FolderFilled,
     FolderAddOutlined,
@@ -487,13 +485,14 @@ props: {
 
   data() {
     return {
+        loadingSpinner:useLoadingSpinner(),
         lienPhoto:lienPhoto,
         inputMode: 'gallery', // 'gallery' ou 'camera'
         formState:{
             nom_galerie: '',
             galeries: []
         },
-      // featuredImages: [
+      // photosMiseEnAvant: [
         // { id: 1, image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', alt: 'Montagne majestueuse' },
         // { id: 2, image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80', alt: 'Coucher de soleil' },
         // { id: 3, image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=600&q=80', alt: 'Forêt tropicale' },
@@ -628,18 +627,12 @@ props: {
       previewImages: [],
       currentPreviewIndex: 0,
       zoomLevel: 1,
+      dossierGaleries:[],
+     photosMiseEnAvant:[]
     };
   },
 
   computed: {
-    isPublicPhotoSelected() {
-    return (photo) => {
-      return this.featuredImages.includes(photo);
-    };
-  },
-    featuredImages(){
-      return this.photosMiseEnAvant;
-    },
     selectedthreePhotos(){
 const ImagesAll =
   (this.folders ?? []).flatMap(folder =>
@@ -681,27 +674,30 @@ console.log("dossiers",dossiers)
   },
 
   methods: {
-    
   async togglePublicPhoto(photo) {
-   
+  this.loadingSpinner.launchLoading(true);
     try{
    const response = await instance.post('chooseImageAhead/'+photo.id)
    if(response.data.status){
     console.log("AJOUTER",photo)
-    this.featuredImages.push(photo)
-    this.isPublicPhotoSelected(photo);
+    this.photosMiseEnAvant.push(photo)
+    Swal.fire({
+        icon: "success",
+        title:'Photo ajoutée à la mise en avant',
+      });
    }
 
    if(response.data.status === false){
-      const index = this.featuredImages.indexOf(photo);
-        console.log("RETUERES",index)
+      const index = this.photosMiseEnAvant.indexOf(photo);
          console.log("RETUERES",photo)
       if (index > -1) {
-      this.featuredImages.splice(index, 1);
-        this.isPublicPhotoSelected(photo);
-      return;
+      this.photosMiseEnAvant.splice(index, 1);
+      Swal.fire({
+        icon: "info",
+        title:'Photo retirée de la mise en avant',
+      });
     }
-  
+   
      }
   
     }catch(error){
@@ -710,6 +706,8 @@ console.log("dossiers",dossiers)
         icon: "info",
         title:error.response.data.message,
       });
+    }finally{
+      this.loadingSpinner.launchLoading(false);
     }
 
    
@@ -869,6 +867,19 @@ addFiles(fileList) {
       if (p.preview && p.preview.startsWith('blob:')) URL.revokeObjectURL(p.preview);
       this.newFolderPhotos.splice(idx, 1);
     },
+    getPhotosMiseEnAvant(payload){
+    const ImagesAll =
+  (payload ?? []).flatMap(folder =>
+    (folder.images ?? [])
+      .filter(url => url.visible)
+      .map(url => ({
+        id: url.id,
+        path: this.lienPhoto+url.path
+      }))
+  );
+console.log("ImagesAll",ImagesAll)
+return ImagesAll;
+    },
 
     /* ===== PREVIEW ===== */
     previewImage(photo, index) {
@@ -897,13 +908,38 @@ addFiles(fileList) {
       }
     },
   },
-  mounted(){
-    console.log('this.featuredImages',this.featuredImages)
+  async created(){
+     await this.$store.dispatch("getInfoUser");
+     this.dossierGaleries = this.$store.state.infoUserConnected?.user?.dossier_galerie;
+     this.photosMiseEnAvant = this.getPhotosMiseEnAvant(this.$store.state.infoUserConnected?.user?.dossier_galerie)
+     console.log("infoUserConnectedGalerie",this.$store.state.infoUserConnected)
   }
 };
 </script>
 
 <style scoped>
+.shimmer-text {
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    #999 0%,
+    #fff 50%,
+    #999 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
 :deep(.ant-modal-content){
     padding:0 !important;
 }
