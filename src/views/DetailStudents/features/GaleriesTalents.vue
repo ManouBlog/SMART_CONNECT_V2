@@ -128,14 +128,16 @@
         </Teleport>
 
         <!-- ── VOIR PLUS DE DETAILS ─────────────────────────── -->
-         <div style="position: absolute;z-index: 90;right: 0;bottom:10px;">
+         <div style="position: absolute;z-index: 90;right: 0;bottom:0.5em;" 
+         v-if="folders.length">
             <button @click="()=> modalDossierVisible = true" 
                 style="
                 background-color: orange;
-                border: none;
+                border: 2px solid white;
                 color: white;
                 font-weight: bold;
                 padding: 0.5em;
+                box-shadow: 6px #0000006b;
                 ">Voir plus</button>
          </div>
 
