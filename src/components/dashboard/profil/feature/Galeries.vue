@@ -5,7 +5,7 @@
       <div class="header-inner">
         <div class="header-top">
           <div>
-            <h1 class="page-title">Mon album</h1>
+            <h1 class="page-title">Mon galerie</h1>
             <p class="page-subtitle">Gérez et organisez vos photos en toute simplicité</p>
           </div>
           

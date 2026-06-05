@@ -428,7 +428,7 @@ userDocuments() {
          ) || this.$store.state.infoUserConnected?.user?.statuses?.some(
     s => ['Artisan'].includes(s.statut)
   )"
-        :header="'Album photos'">
+        :header="'Ma Galerie'">
           <Galeries 
           :dossierGaleries="this.$store.state.infoUserConnected?.user?.dossier_galerie" />
         </TabPanel>

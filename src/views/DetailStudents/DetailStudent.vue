@@ -789,8 +789,18 @@ for (const item of data) {
   );
 console.log("ImagesAll",ImagesAll)
 return ImagesAll;
+    },
+    getAllDossierGalerie(payloadFolder){
+       const dossiers = payloadFolder?.map(({ id, nom_galerie, images = [] }) => ({
+  id,
+  nom: nom_galerie,
+  photos: images.map(({ path }) => this.lienPhoto+path),
+})) ?? [];
+console.log("dossiers",dossiers)
+    return dossiers;
     }
   },
+
   async created() {
     await this.$store.dispatch("getInfoUser");
     this.handleAbonnement();
@@ -819,12 +829,14 @@ return ImagesAll;
 <template>
   <div class="space-talent">
   <!-- <p>{{ this.getPhotosMiseEnAvant(timetable_for_student?.user.dossier_galerie) }}</p> -->
-   
+
     <div class="conteneur_student" v-if="timetable_for_student">
 
        <GaleriesTalents v-if="timetable_for_student.user.statuses.some(item=>item.statut.includes('Artisan')) 
       && timetable_for_student?.user?.dossier_galerie?.length" 
-        :galeries="this.getPhotosMiseEnAvant(timetable_for_student?.user.dossier_galerie)" />
+        :photosMiseEnAvant="this.getPhotosMiseEnAvant(timetable_for_student?.user.dossier_galerie)"
+        :dossierGaleries="this.getAllDossierGalerie(timetable_for_student?.user?.dossier_galerie)"
+        />
 
       <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
 
