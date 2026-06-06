@@ -50,7 +50,7 @@
         </div>
         <button class="btn-create-folder" @click="openCreateModal">
             <plus-outlined class="btn-icon" />
-            <span>Nouveau album</span>
+            <span>Nouvel album</span>
           </button>
         </div>
         
@@ -247,7 +247,7 @@
           <div class="form-modal-icon-wrap create-icon-wrap">
             <folder-add-outlined class="form-modal-icon" />
           </div>
-          <h3 class="form-modal-title">Nouveau album</h3>
+          <h3 class="form-modal-title">Nouvel album</h3>
           <p class="form-modal-subtitle">Créez un album et ajoutez vos photos</p>
         </div>
 
@@ -354,7 +354,7 @@
           html-type="submit" 
           :disabled="!formState.nom_galerie.trim() || formState.galeries.length === 0" >
             <folder-add-outlined />
-            Créer le dossier
+            Créer l'album
           </a-button>
          
         </div>
