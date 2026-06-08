@@ -143,7 +143,7 @@
           <div class="modal-title-wrap">
             <folder-filled class="modal-folder-icon" />
             <div>
-              <h3 class="modal-title-text">Toutes mes photos</h3>
+              <h3 class="modal-title-text">Ma Galerie</h3>
             </div>
           </div>
         </div>
