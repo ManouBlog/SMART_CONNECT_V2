@@ -209,14 +209,13 @@
           <div class="form-modal-icon-wrap">
             <edit-outlined class="form-modal-icon" />
           </div>
-          <h3 class="form-modal-title">Renommer le dossier</h3>
-          <p class="form-modal-subtitle">Donnez un nouveau nom à votre dossier</p>
+          <h3 class="form-modal-title">Renommer l'album</h3>
+          <p class="form-modal-subtitle">Donnez un nouveau nom à votre album</p>
         </div>
         <div class="form-modal-body">
           <label class="form-label">Nom de l'album</label>
           <a-input
             v-model:value="renameValue"
-            placeholder="Ex: Vacances 2024"
             class="form-input"
             size="large"
             @pressEnter="confirmRename"
@@ -225,8 +224,7 @@
         <div class="form-modal-footer">
           <button class="btn-cancel" @click="renameModalVisible = false">Annuler</button>
           <button class="btn-confirm" @click="confirmRename" :disabled="!renameValue.trim()">
-            <check-outlined />
-            Enregistrer
+            Modifier
           </button>
         </div>
       </div>
@@ -458,7 +456,7 @@ import {
   PlusOutlined,
   DeleteOutlined,
   EditOutlined,
-  CheckOutlined,
+  // CheckOutlined,
   EyeOutlined,
  CheckCircleFilled,
   CheckCircleOutlined,
@@ -477,7 +475,7 @@ export default {
     PlusOutlined,
     DeleteOutlined,
     EditOutlined,
-    CheckOutlined,
+    // CheckOutlined,
     EyeOutlined,
      CheckCircleFilled,
   CheckCircleOutlined,
@@ -492,6 +490,7 @@ export default {
             nom_galerie: '',
             galeries: []
         },
+        idFolder:null,
       nextFolderId: 5,
       // Modal dossier (photos)
       modalVisible: false,
@@ -689,20 +688,29 @@ addFiles(fileList) {
     openRenameModal(folder) {
       this.folderToRename = folder;
       this.renameValue = folder.nom;
+      this.idFolder = folder.id;
       this.renameModalVisible = true;
     },
-    confirmRename() {
-      if (!this.renameValue.trim()) return;
-      const idx = this.folders.findIndex(f => f.id === this.folderToRename.id);
-      if (idx !== -1) {
-        this.folders[idx].nom = this.renameValue.trim();
-        if (this.selectedFolder && this.selectedFolder.id === this.folderToRename.id) {
-          this.selectedFolder.nom = this.renameValue.trim();
-        }
-      }
-      this.renameModalVisible = false;
+    async confirmRename() {
+      this.loadingSpinner.launchLoading(true);
+      try{
+   const response = await instance.put('update_galerie_nam/'+this.idFolder,{nom_galerie:this.renameValue})
+    if(response.data.status){
+      console.log("dossierGaleries",this.dossierGaleries)
+      console.log("RESPONSE_CONFIRMERENAME",response)
+      // this.dossierGaleries.find(item=>)
+       this.renameModalVisible = false;
       this.folderToRename = null;
       this.renameValue = '';
+      this.idFolder = null;
+       Swal.fire({title:response?.data?.message,icon:'success'})
+    }
+      }catch(error){
+        console.error(error)
+        Swal.fire({title:error?.response?.data?.message,icon:'error'})
+      }finally{
+            this.loadingSpinner.launchLoading(false);
+      }
     },
 
     /* ===== DELETE FOLDER ===== */
