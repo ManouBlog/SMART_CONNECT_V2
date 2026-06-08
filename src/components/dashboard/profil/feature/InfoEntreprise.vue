@@ -132,7 +132,6 @@ texte0989:"",
       await instance
         .post("send-verification-email")
         .then((res) => {
-        
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
