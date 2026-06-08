@@ -743,7 +743,7 @@ if (this.formState.galeries?.length > 0) {
    async executeDeleteFolder() {
      this.loadingSpinner.launchLoading(true);
     try{
-   const response = await instance.post('delete_galerie/'+this.folderToDelete.id)
+   const response = await instance.delete('delete_galerie/'+this.folderToDelete.id)
    if(response.data.status){
   this.dossierGaleries = response.data.data;
     Swal.fire({
