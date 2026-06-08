@@ -698,7 +698,16 @@ addFiles(fileList) {
     if(response.data.status){
       console.log("dossierGaleries",this.dossierGaleries)
       console.log("RESPONSE_CONFIRMERENAME",response)
-      // this.dossierGaleries.find(item=>)
+     const index = this.dossierGaleries.findIndex(
+  item => item.id === this.idFolder
+   );
+
+ if (index !== -1) {
+  this.dossierGaleries.splice(index, 1, {
+    ...this.dossierGaleries[index],
+    nom_galerie: this.renameValue
+  });
+}
        this.renameModalVisible = false;
       this.folderToRename = null;
       this.renameValue = '';
