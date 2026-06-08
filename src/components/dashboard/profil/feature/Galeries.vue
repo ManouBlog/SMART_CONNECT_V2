@@ -781,6 +781,7 @@ if (this.formState.galeries?.length > 0) {
    this.dossierGaleries = response.data.data;
     this.confirmPhotoDeleteVisible = false;
     this.photoIndexToDelete = null;
+    this.modalVisible = false;
     Swal.fire({
         icon: "success",
         title:'Image supprimée avec succès',
