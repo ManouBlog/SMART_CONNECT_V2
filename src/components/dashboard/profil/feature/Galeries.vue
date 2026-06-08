@@ -117,7 +117,7 @@
               <button class="photo-action-btn photo-preview-btn" @click="previewImage(photo, index)" title="Agrandir">
                 <zoom-in-outlined />
               </button>
-              <button class="photo-action-btn photo-delete-btn" @click="confirmDeletePhoto(index)" title="Supprimer">
+              <button class="photo-action-btn photo-delete-btn" @click="confirmDeletePhoto(photo)" title="Supprimer">
                 <delete-outlined />
               </button>
             </div>
@@ -746,6 +746,9 @@ if (this.formState.galeries?.length > 0) {
    const response = await instance.delete('delete_galerie/'+this.folderToDelete.id)
    if(response.data.status){
   this.dossierGaleries = response.data.data;
+   this.modalVisible = false;
+      this.confirmFolderDeleteVisible = false;
+      this.folderToDelete = null;
     Swal.fire({
         icon: "success",
         title:'Album supprimé avec succès',
@@ -762,9 +765,7 @@ if (this.formState.galeries?.length > 0) {
       this.loadingSpinner.launchLoading(false);
     }
      
-      this.modalVisible = false;
-      this.confirmFolderDeleteVisible = false;
-      this.folderToDelete = null;
+     
     },
 
     /* ===== DELETE PHOTO ===== */
@@ -772,14 +773,30 @@ if (this.formState.galeries?.length > 0) {
       this.photoIndexToDelete = index;
       this.confirmPhotoDeleteVisible = true;
     },
-    executeDeletePhoto() {
-      if (this.selectedFolder && this.photoIndexToDelete !== null) {
-        this.selectedFolder.photos.splice(this.photoIndexToDelete, 1);
-        // Keep previewImages in sync
-        this.previewImages = [...this.selectedFolder.photos];
-      }
-      this.confirmPhotoDeleteVisible = false;
-      this.photoIndexToDelete = null;
+    async executeDeletePhoto() {
+      this.loadingSpinner.launchLoading(true);
+    try{
+   const response = await instance.delete('delete_photo/'+this.photoIndexToDelete.id)
+   if(response.data.status){
+   this.dossierGaleries = response.data.data;
+    this.confirmPhotoDeleteVisible = false;
+    this.photoIndexToDelete = null;
+    Swal.fire({
+        icon: "success",
+        title:'Image supprimée avec succès',
+      });
+   }
+
+    }catch(error){
+      console.log(error.response.data.message)
+      Swal.fire({
+        icon: "info",
+        title:error.response.data.message,
+      });
+    }finally{
+      this.loadingSpinner.launchLoading(false);
+    }
+   
     },
 
     /* ===== CREATE FOLDER ===== */
