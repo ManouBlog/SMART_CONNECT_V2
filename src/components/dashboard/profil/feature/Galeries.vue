@@ -257,7 +257,7 @@
     @finish="onFinish"
     @finishFailed="onHandleFailed"
   >
-<a-form-item label="Nom de l ' album">
+<a-form-item label="Nom de l'album">
             <a-input v-model:value="formState.nom_galerie" size="large" />
           </a-form-item>
            <div>
@@ -380,7 +380,7 @@
           Le dossier <strong>"{{ folderToDelete ? folderToDelete.nom : '' }}"</strong> et toutes ses photos seront définitivement supprimés.
         </p>
         <div class="confirm-actions">
-          <button class="btn-cancel" @click="confirmFolderDeleteVisible = false">Annuler</button>
+  
           <button class="btn-danger" @click="executeDeleteFolder">
             <delete-outlined />
             Supprimer
@@ -659,23 +659,36 @@ addFiles(fileList) {
         text: "Veuillez remplir tous les champs obligatoires (*)",
       });
     },
-    async onFinish() {
-   console.log('Form submitted:', this.formState);
-   try{
- const response = await instance.post('create_galeries',this.formState)
- if(response.data.status){
-    Swal.fire({
+  async onFinish() {
+  console.log('Form submitted:', this.formState);
+
+  try {
+    const formData = new FormData();
+
+    // Si formState contient des champs simples
+    formData.append('nom_galerie', this.formState.nom_galerie);
+if (this.formState.galeries?.length > 0) {
+  this.formState.galeries.map((item) => item.originFileObj || item.file).forEach((item) => {
+    if (item) formData.append("galeries[]", item);
+  });
+}
+
+    const response = await instance.post('add_file_images', formData);
+
+    if (response.data.status) {
+      Swal.fire({
         icon: "success",
         title: "Dossier créé avec succès",
         text: "Votre nouveau dossier a été ajouté à votre galerie.",
       });
+      this.dossierGaleries = response.data.data;
       this.closeCreateModal();
- }
-   }catch(e){
+    }
+
+  } catch (e) {
     console.log('Error processing form:', e);
-   }
-   
-    },
+  }
+},
     /* ===== OPEN FOLDER ===== */
     openFolder(folder) {
       this.selectedFolder = folder;
@@ -727,12 +740,29 @@ addFiles(fileList) {
       this.folderToDelete = folder;
       this.confirmFolderDeleteVisible = true;
     },
-    executeDeleteFolder() {
-      this.folders = this.folders.filter(f => f.id !== this.folderToDelete.id);
-      if (this.selectedFolder && this.selectedFolder.id === this.folderToDelete.id) {
-        this.modalVisible = false;
-        this.selectedFolder = null;
-      }
+   async executeDeleteFolder() {
+     this.loadingSpinner.launchLoading(true);
+    try{
+   const response = await instance.post('delete_galerie/'+this.folderToDelete.id)
+   if(response.data.status){
+  this.dossierGaleries = response.data.data;
+    Swal.fire({
+        icon: "success",
+        title:'Album supprimé avec succès',
+      });
+   }
+
+    }catch(error){
+      console.log(error.response.data.message)
+      Swal.fire({
+        icon: "info",
+        title:error.response.data.message,
+      });
+    }finally{
+      this.loadingSpinner.launchLoading(false);
+    }
+     
+      this.modalVisible = false;
       this.confirmFolderDeleteVisible = false;
       this.folderToDelete = null;
     },
