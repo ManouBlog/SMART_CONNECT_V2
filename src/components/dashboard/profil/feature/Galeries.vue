@@ -535,9 +535,6 @@ const ImagesAll =
     })
   )
   ) ?? []
-  console.log('folde12',this.folders)
-console.log("ImagesAll",ImagesAll)
-console.log('this.dossierGaleries',this.dossierGaleries)
     return ImagesAll;
     },
  folders() {
@@ -549,7 +546,6 @@ console.log('this.dossierGaleries',this.dossierGaleries)
     path:this.lienPhoto+path
   }) ),
 }));
-console.log("dossiers",dossiers)
     return dossiers;
   },
     totalPhotos() {
@@ -573,7 +569,6 @@ console.log("dossiers",dossiers)
     try{
    const response = await instance.post('chooseImageAhead/'+photo.id)
    if(response.data.status){
-    console.log("AJOUTER",photo)
     this.photosMiseEnAvant.push(photo)
     Swal.fire({
         icon: "success",
@@ -590,7 +585,7 @@ console.log("dossiers",dossiers)
      }
   
     }catch(error){
-      console.log(error.response.data.message)
+      console.error(error.response.data.message)
       Swal.fire({
         icon: "info",
         title:error.response.data.message,
@@ -660,8 +655,6 @@ addFiles(fileList) {
       });
     },
   async onFinish() {
-  console.log('Form submitted:', this.formState);
-
   try {
     const formData = new FormData();
 
@@ -686,7 +679,7 @@ if (this.formState.galeries?.length > 0) {
     }
 
   } catch (e) {
-    console.log('Error processing form:', e);
+    console.error('Error processing form:', e);
   }
 },
     /* ===== OPEN FOLDER ===== */
@@ -709,8 +702,6 @@ if (this.formState.galeries?.length > 0) {
       try{
    const response = await instance.put('update_galerie_nam/'+this.idFolder,{nom_galerie:this.renameValue})
     if(response.data.status){
-      console.log("dossierGaleries",this.dossierGaleries)
-      console.log("RESPONSE_CONFIRMERENAME",response)
      const index = this.dossierGaleries.findIndex(
   item => item.id === this.idFolder
    );
@@ -756,7 +747,7 @@ if (this.formState.galeries?.length > 0) {
    }
 
     }catch(error){
-      console.log(error.response.data.message)
+      console.error(error.response.data.message)
       Swal.fire({
         icon: "info",
         title:error.response.data.message,
@@ -789,7 +780,7 @@ if (this.formState.galeries?.length > 0) {
    }
 
     }catch(error){
-      console.log(error.response.data.message)
+      console.error(error.response.data.message)
       Swal.fire({
         icon: "info",
         title:error.response.data.message,
@@ -832,7 +823,6 @@ if (this.formState.galeries?.length > 0) {
         path: this.lienPhoto+url.path
       }))
   );
-console.log("ImagesAll",ImagesAll)
 return ImagesAll;
     },
 
@@ -867,7 +857,6 @@ return ImagesAll;
      await this.$store.dispatch("getInfoUser");
      this.dossierGaleries = this.$store.state.infoUserConnected?.user?.dossier_galerie;
      this.photosMiseEnAvant = this.getPhotosMiseEnAvant(this.$store.state.infoUserConnected?.user?.dossier_galerie)
-     console.log("infoUserConnectedGalerie",this.$store.state.infoUserConnected)
   }
 };
 </script>
