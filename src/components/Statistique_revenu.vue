@@ -117,11 +117,14 @@ export default {
     },
    
     setChartDataTalents(
-      // EntreprisesPremium,
-      // EntreprisesStantard,
-      TalentsPremiunm,
-      TalentsStantard,
-      labels
+      Etudiants_brobroli,
+          Etudiants_brobroliPlus,
+          Professionnel_brobroli,
+          Professionnel_brobroliPlus,
+          Artisans_brobroli,
+          Artisans_brobroliPlus,
+          Veterans_brobroli,
+          Veterans_brobroliPlus
     ) {
       return {
         labels: labels,
@@ -130,49 +133,49 @@ export default {
     label: "Etudiant Brobroli",
     backgroundColor: "#0D47A1", // bleu foncé
     borderColor: "#0D47A1",
-    data: TalentsPremiunm,
+    data: Etudiants_brobroli,
   },
   {
     label: "Etudiant Brobroli+",
     backgroundColor: "#64B5F6", // bleu clair
     borderColor: "#64B5F6",
-    data: TalentsStantard,
+    data: Etudiants_brobroliPlus,
   },
    {
     label: "Professionnel Brobroli",
     backgroundColor: "#1B5E20", // vert foncé
     borderColor: "#1B5E20",
-    data: TalentsPremiunm,
+    data: Professionnel_brobroli,
   },
   {
     label: "Professionnel Brobroli+",
     backgroundColor: "#81C784", // vert clair
     borderColor: "#81C784",
-    data: TalentsStantard,
+    data: Professionnel_brobroliPlus,
   },
    {
     label: "Artisan Brobroli",
     backgroundColor: "#BF360C", // orange foncé
     borderColor: "#BF360C",
-    data: TalentsPremiunm,
+    data: Artisans_brobroli,
   },
   {
     label: "Artisan Brobroli+",
     backgroundColor: "#FFB74D", // orange clair
     borderColor: "#FFB74D",
-    data: TalentsStantard,
+    data: Artisans_brobroliPlus,
   },
    {
     label: "Vétéran Brobroli",
     backgroundColor: "#4A148C", // violet foncé
     borderColor: "#4A148C",
-    data: TalentsPremiunm,
+    data: Veterans_brobroli,
   },
   {
     label: "Vétéran Brobroli+",
     backgroundColor: "#BA68C8", // violet clair
     borderColor: "#BA68C8",
-    data: TalentsStantard,
+    data: Veterans_brobroliPlus,
   },
 ],
       };
@@ -318,21 +321,38 @@ export default {
         )
         .then((response) => {
           console.log("statistiqueRevenu", response);
-          const {entreprise_brobroliProMax,entreprise_brobroliPro,
-            particulier_brobroliHomeMax,particulier_brobroliHome,absicsse}=response.data
+          const {
+            entreprise_brobroliProMax,
+            entreprise_brobroliPro,
+            particulier_brobroliHomeMax,
+            particulier_brobroliHome,absicsse,
+          Etudiants_brobroli,
+          Etudiants_brobroliPlus,
+          Professionnel_brobroli,
+          Professionnel_brobroliPlus,
+          Artisans_brobroli,
+          Artisans_brobroliPlus,
+          Veterans_brobroli,
+          Veterans_brobroliPlus
+          }=response.data
+      
+            
           this.chartDataRecruteurs = this.setChartDataRecruteurs(
            entreprise_brobroliProMax,
            entreprise_brobroliPro,
            particulier_brobroliHomeMax,
            particulier_brobroliHome,
-          absicsse
+           absicsse
           );
            this.chartDataTalents = this.setChartDataTalents(
-            response.data.entreprises_premium,
-            response.data.entreprise_standard,
-            response.data.talents_premium,
-            response.data.talents_stantard,
-            response.data.absicsse
+           Etudiants_brobroli,
+          Etudiants_brobroliPlus,
+          Professionnel_brobroli,
+          Professionnel_brobroliPlus,
+          Artisans_brobroli,
+          Artisans_brobroliPlus,
+          Veterans_brobroli,
+          Veterans_brobroliPlus
           );
         })
         .catch((err) => {
