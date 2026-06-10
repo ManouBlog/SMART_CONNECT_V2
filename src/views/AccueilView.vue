@@ -619,7 +619,7 @@ this.getAllStatistique();
             justify-content: 'center !important';
           "
         >
-          <Statistiques_Account :title="'Entreprises & Etudiants'" />
+          <Statistiques_Account :title="'Recruteurs & Talents'" />
           <Statistique_revenu :title="'Revenu'" />
         </div>
         </section>

@@ -38,9 +38,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          setTimeout(() => {
-              this.$router.push("/");
-            }, 1500);
+          // setTimeout(() => {
+          //     this.$router.push("/");
+          //   }, 1500);
 
         })
         .finally(() => {

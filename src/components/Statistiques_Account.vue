@@ -269,7 +269,7 @@ export default {
           }
         )
         .then((response) => {
-          console.log("statistique_response", response);
+          console.log("statistique_response_entreprise_student", response);
           this.chartData = this.setChartData(
             response.data.entreprises,
             response.data.talents,

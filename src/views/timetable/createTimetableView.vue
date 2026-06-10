@@ -471,12 +471,12 @@ export default {
           })
           .catch((err) => {
             console.log(err);
-            Swal.fire({
-              icon: "error",
-              title: "Le jour a déjà été pris",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            // Swal.fire({
+            //   icon: "error",
+            //   title: "Le jour a déjà été pris",
+            //   showConfirmButton: false,
+            //   timer: 1500,
+            // });
           });
       }
     },
