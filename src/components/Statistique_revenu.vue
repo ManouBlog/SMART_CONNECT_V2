@@ -397,14 +397,17 @@ export default {
         Filtrer
       </button>
     </div>
-    <!-- <div v-if="isLoading" style="height: 300px">Chargement...</div> -->
-     <Chart
+    <div v-if="isLoading" style="height: 300px">Chargement...</div>
+    <div>
+     
+    <Chart
         v-if="this.chooseTypesOfFilter === 'nombre'"
         type="bar"
         :height="300"
         :data="chartDataRecruteurs"
         :options="chartOptions"
       />
+       <p style="margin:1em 0;text-align: center;font-weight: bold;">Recruteurs</p>
       <Chart
         v-if="this.chooseTypesOfFilter === 'nombre'"
         type="bar"
@@ -412,6 +415,9 @@ export default {
         :data="chartDataTalents"
         :options="chartOptions"
       />
+      <p style="margin:1em 0;text-align: center;font-weight: bold;">Talents</p>
+    </div>
+    
 
   </div>
 </template>
