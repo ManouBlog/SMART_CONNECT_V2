@@ -42,7 +42,9 @@ export default {
     return {
       isDisabled: true,
       isLoading: false,
-      chartData: null,
+      chartDataTalents: null,
+      chartDataParticuliers:null,
+      chartDataEntreprises:null,
       chartOptions: null,
       chartAbonnementData: null,
       chartAbonnementOptions: null,
@@ -76,62 +78,122 @@ export default {
       console.log("debutweek", dateWeekDebut);
       console.log("finweek", dateWeekFin);
     },
-    // get_categorie() {
-    //   axios
-    //     .get("https://backend.monbrobroli.com/api/seeCategorie", {
-    //       headers: {
-    //         Authorization: "Bearer " + this.$store.state.token,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log("TIMETABLE", res);
-    //       this.categories = res.data.data;
-    //       this.submitStatistiques(this.valueSubmit);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     })
-    //     .finally(() => {
-    //       this.isDisabled = false;
-    //     });
-    // },
-    setChartData(
+    setChartDataEntreprise(
       EntreprisesPremium,
       EntreprisesStantard,
+      // TalentsPremiunm,
+      // TalentsStantard,
+      labels
+    ) {
+      return {
+        labels: labels,
+       datasets: [
+  {
+    label: "Entreprises Brobroli Pro Max",
+    backgroundColor: "#006D6D", // teal foncé
+    borderColor: "#006D6D",
+    data: EntreprisesPremium,
+  },
+  {
+    label: "Entreprises Brobroli Pro",
+    backgroundColor: "#4DB6AC", // teal clair
+    borderColor: "#4DB6AC",
+    data: EntreprisesStantard,
+  },
+
+],
+      };
+    },
+     setChartDataParticuliers(
+      // EntreprisesPremium,
+      EntreprisesStantard,
+      // TalentsPremiunm,
+      // TalentsStantard,
+      labels
+    ) {
+      return {
+        labels: labels,
+       datasets: [
+  
+  {
+    label: "Particulier Brobroli Home",
+    backgroundColor: "#8D6E63", // marron clair
+    borderColor: "#8D6E63",
+    data: EntreprisesStantard,
+  },
+  {
+    label: "Particulier Brobroli Home Max",
+    backgroundColor: "#5D4037", // marron foncé
+    borderColor: "#5D4037",
+    data: EntreprisesStantard,
+  },
+],
+      };
+    },
+    setChartDataTalents(
+      // EntreprisesPremium,
+      // EntreprisesStantard,
       TalentsPremiunm,
       TalentsStantard,
       labels
     ) {
       return {
         labels: labels,
-        datasets: [
-          {
-            label: "Entreprises Platinum",
-            backgroundColor: "teal",
-            borderColor: "teal",
-            data: EntreprisesPremium,
-          },
-          {
-            label: "Entreprises eco",
-            backgroundColor: "brown",
-            borderColor: "brown",
-            data: EntreprisesStantard,
-          },
-          {
-            label: "Talents Platinum",
-            backgroundColor: "black",
-            borderColor: "black",
-            data: TalentsPremiunm,
-          },
-          {
-            label: "Talents eco",
-            backgroundColor: "orange",
-            borderColor: "orange",
-            data: TalentsStantard,
-          },
-        ],
+       datasets: [
+  {
+    label: "Etudiant Brobroli",
+    backgroundColor: "#0D47A1", // bleu foncé
+    borderColor: "#0D47A1",
+    data: TalentsPremiunm,
+  },
+  {
+    label: "Etudiant Brobroli+",
+    backgroundColor: "#64B5F6", // bleu clair
+    borderColor: "#64B5F6",
+    data: TalentsStantard,
+  },
+   {
+    label: "Professionnel Brobroli",
+    backgroundColor: "#1B5E20", // vert foncé
+    borderColor: "#1B5E20",
+    data: TalentsPremiunm,
+  },
+  {
+    label: "Professionnel Brobroli+",
+    backgroundColor: "#81C784", // vert clair
+    borderColor: "#81C784",
+    data: TalentsStantard,
+  },
+   {
+    label: "Artisan Brobroli",
+    backgroundColor: "#BF360C", // orange foncé
+    borderColor: "#BF360C",
+    data: TalentsPremiunm,
+  },
+  {
+    label: "Artisan Brobroli+",
+    backgroundColor: "#FFB74D", // orange clair
+    borderColor: "#FFB74D",
+    data: TalentsStantard,
+  },
+   {
+    label: "Vétéran Brobroli",
+    backgroundColor: "#4A148C", // violet foncé
+    borderColor: "#4A148C",
+    data: TalentsPremiunm,
+  },
+  {
+    label: "Vétéran Brobroli+",
+    backgroundColor: "#BA68C8", // violet clair
+    borderColor: "#BA68C8",
+    data: TalentsStantard,
+  },
+],
       };
     },
+    
+  
+  
     setChartAbonnementOptions() {
       const documentStyle = getComputedStyle(document.documentElement);
       const textColor = documentStyle.getPropertyValue("--p-text-color");
@@ -270,7 +332,21 @@ export default {
         )
         .then((response) => {
           console.log("statistiqueRevenu", response);
-          this.chartData = this.setChartData(
+          this.chartDataEntreprises = this.setChartDataEntreprise(
+            response.data.entreprises_premium,
+            response.data.entreprise_standard,
+            response.data.talents_premium,
+            response.data.talents_stantard,
+            response.data.absicsse
+          );
+           this.chartDataParticuliers = this.setChartDataParticuliers(
+            response.data.entreprises_premium,
+            response.data.entreprise_standard,
+            response.data.talents_premium,
+            response.data.talents_stantard,
+            response.data.absicsse
+          );
+           this.chartDataTalents = this.setChartDataTalents(
             response.data.entreprises_premium,
             response.data.entreprise_standard,
             response.data.talents_premium,
@@ -342,17 +418,29 @@ export default {
         Filtrer
       </button>
     </div>
-    <div v-if="isLoading" style="height: 300px">Chargement...</div>
-    <div v-else>
+    <!-- <div v-if="isLoading" style="height: 300px">Chargement...</div> -->
+     <Chart
+        v-if="this.chooseTypesOfFilter === 'nombre'"
+        type="bar"
+        :height="300"
+        :data="chartDataEntreprises"
+        :options="chartOptions"
+      />
+     <Chart
+        v-if="this.chooseTypesOfFilter === 'nombre'"
+        type="bar"
+        :height="300"
+        :data="chartDataParticuliers"
+        :options="chartOptions"
+      />
       <Chart
         v-if="this.chooseTypesOfFilter === 'nombre'"
         type="bar"
         :height="300"
-        
-        :data="chartData"
+        :data="chartDataTalents"
         :options="chartOptions"
       />
-    </div>
+
   </div>
 </template>
 <style scoped>

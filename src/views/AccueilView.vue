@@ -620,6 +620,9 @@ this.getAllStatistique();
           "
         >
           <Statistiques_Account :title="'Recruteurs & Talents'" />
+          <!-- <Statistique_revenu :title="'Revenu'" /> -->
+        </div>
+        <div>
           <Statistique_revenu :title="'Revenu'" />
         </div>
         </section>
