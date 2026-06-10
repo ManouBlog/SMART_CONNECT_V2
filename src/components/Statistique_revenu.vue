@@ -43,8 +43,7 @@ export default {
       isDisabled: true,
       isLoading: false,
       chartDataTalents: null,
-      chartDataParticuliers:null,
-      chartDataEntreprises:null,
+      chartDataRecruteurs:null,
       chartOptions: null,
       chartAbonnementData: null,
       chartAbonnementOptions: null,
@@ -78,7 +77,7 @@ export default {
       console.log("debutweek", dateWeekDebut);
       console.log("finweek", dateWeekFin);
     },
-    setChartDataEntreprise(
+    setChartDataRecruteurs(
       EntreprisesPremium,
       EntreprisesStantard,
       // TalentsPremiunm,
@@ -100,21 +99,6 @@ export default {
     borderColor: "#4DB6AC",
     data: EntreprisesStantard,
   },
-
-],
-      };
-    },
-     setChartDataParticuliers(
-      // EntreprisesPremium,
-      EntreprisesStantard,
-      // TalentsPremiunm,
-      // TalentsStantard,
-      labels
-    ) {
-      return {
-        labels: labels,
-       datasets: [
-  
   {
     label: "Particulier Brobroli Home",
     backgroundColor: "#8D6E63", // marron clair
@@ -127,9 +111,11 @@ export default {
     borderColor: "#5D4037",
     data: EntreprisesStantard,
   },
+
 ],
       };
     },
+   
     setChartDataTalents(
       // EntreprisesPremium,
       // EntreprisesStantard,
@@ -332,14 +318,7 @@ export default {
         )
         .then((response) => {
           console.log("statistiqueRevenu", response);
-          this.chartDataEntreprises = this.setChartDataEntreprise(
-            response.data.entreprises_premium,
-            response.data.entreprise_standard,
-            response.data.talents_premium,
-            response.data.talents_stantard,
-            response.data.absicsse
-          );
-           this.chartDataParticuliers = this.setChartDataParticuliers(
+          this.chartDataRecruteurs = this.setChartDataRecruteurs(
             response.data.entreprises_premium,
             response.data.entreprise_standard,
             response.data.talents_premium,
@@ -423,14 +402,7 @@ export default {
         v-if="this.chooseTypesOfFilter === 'nombre'"
         type="bar"
         :height="300"
-        :data="chartDataEntreprises"
-        :options="chartOptions"
-      />
-     <Chart
-        v-if="this.chooseTypesOfFilter === 'nombre'"
-        type="bar"
-        :height="300"
-        :data="chartDataParticuliers"
+        :data="chartDataRecruteurs"
         :options="chartOptions"
       />
       <Chart
