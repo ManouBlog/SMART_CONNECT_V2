@@ -626,7 +626,6 @@ removeImage(index) {
         <a-col :xs="24" :md="24">
           <a-form-item
             :label="texte7"
-           
           >
             <VueMultiselect
               v-model="formState.myCompetence"
