@@ -111,13 +111,13 @@ export default {
     borderColor: "#5D4037",
     data: ParticuliersBrobroliHomeMax,
   },
-
 ],
       };
     },
    
     setChartDataTalents(
-      Etudiants_brobroli,
+      labels,
+          Etudiants_brobroli,
           Etudiants_brobroliPlus,
           Professionnel_brobroli,
           Professionnel_brobroliPlus,
@@ -180,10 +180,8 @@ export default {
 ],
       };
     },
-    
-  
-  
-    setChartAbonnementOptions() {
+
+  setChartAbonnementOptions() {
       const documentStyle = getComputedStyle(document.documentElement);
       const textColor = documentStyle.getPropertyValue("--p-text-color");
       const textColorSecondary = documentStyle.getPropertyValue(
@@ -228,7 +226,7 @@ export default {
         },
       };
     },
-    setChartOptions() {
+setChartOptions() {
       const documentStyle = getComputedStyle(document.documentElement);
       const textColor = documentStyle.getPropertyValue("--p-text-color");
       const textColorSecondary = documentStyle.getPropertyValue(
@@ -345,6 +343,7 @@ export default {
            absicsse
           );
            this.chartDataTalents = this.setChartDataTalents(
+            absicsse,
            Etudiants_brobroli,
           Etudiants_brobroliPlus,
           Professionnel_brobroli,
@@ -354,6 +353,7 @@ export default {
           Veterans_brobroli,
           Veterans_brobroliPlus
           );
+          console.log("chartDataTalents",this.chartDataTalents)
         })
         .catch((err) => {
           console.log(err);
@@ -431,7 +431,7 @@ export default {
       />
        <p style="margin:1em 0;text-align: center;font-weight: bold;">Recruteurs</p>
       <Chart
-        v-if="this.chooseTypesOfFilter === 'nombre'"
+       
         type="bar"
         :height="300"
         :data="chartDataTalents"
