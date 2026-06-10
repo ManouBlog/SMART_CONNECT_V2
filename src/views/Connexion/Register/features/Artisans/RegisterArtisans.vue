@@ -626,7 +626,7 @@ removeImage(index) {
         <a-col :xs="24" :md="24">
           <a-form-item
             :label="texte7"
-            :rules="[{ required: true, message: 'Ajoutez au moins une compétence' }]"
+           
           >
             <VueMultiselect
               v-model="formState.myCompetence"
