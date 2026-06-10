@@ -78,10 +78,10 @@ export default {
       console.log("finweek", dateWeekFin);
     },
     setChartDataRecruteurs(
-      EntreprisesPremium,
-      EntreprisesStantard,
-      // TalentsPremiunm,
-      // TalentsStantard,
+      EntreprisesBobroliProMax,
+      EntreprisesBrobroliPro,
+      ParticuliersBrobroliHomeMax,
+      ParticuliersBrobroliHome,
       labels
     ) {
       return {
@@ -91,25 +91,25 @@ export default {
     label: "Entreprises Brobroli Pro Max",
     backgroundColor: "#006D6D", // teal foncé
     borderColor: "#006D6D",
-    data: EntreprisesPremium,
+    data: EntreprisesBobroliProMax,
   },
   {
     label: "Entreprises Brobroli Pro",
     backgroundColor: "#4DB6AC", // teal clair
     borderColor: "#4DB6AC",
-    data: EntreprisesStantard,
+    data: EntreprisesBrobroliPro,
   },
   {
     label: "Particulier Brobroli Home",
     backgroundColor: "#8D6E63", // marron clair
     borderColor: "#8D6E63",
-    data: EntreprisesStantard,
+    data: ParticuliersBrobroliHome,
   },
   {
     label: "Particulier Brobroli Home Max",
     backgroundColor: "#5D4037", // marron foncé
     borderColor: "#5D4037",
-    data: EntreprisesStantard,
+    data: ParticuliersBrobroliHomeMax,
   },
 
 ],
@@ -318,12 +318,14 @@ export default {
         )
         .then((response) => {
           console.log("statistiqueRevenu", response);
+          const {entreprise_brobroliProMax,entreprise_brobroliPro,
+            particulier_brobroliHomeMax,particulier_brobroliHome,absicsse}=response.data
           this.chartDataRecruteurs = this.setChartDataRecruteurs(
-            response.data.entreprises_premium,
-            response.data.entreprise_standard,
-            response.data.talents_premium,
-            response.data.talents_stantard,
-            response.data.absicsse
+           entreprise_brobroliProMax,
+           entreprise_brobroliPro,
+           particulier_brobroliHomeMax,
+           particulier_brobroliHome,
+          absicsse
           );
            this.chartDataTalents = this.setChartDataTalents(
             response.data.entreprises_premium,
