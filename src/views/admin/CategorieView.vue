@@ -322,7 +322,7 @@ export default {
               <table id="MyTableData" class="table" v-if="categories != null">
                 <thead>
                   <tr>
-                    <th class="bg-light">Employeurs</th>
+                    <th class="bg-light">Recruteurs</th>
                     <th class="bg-light">Domaines</th>
                     <th class="bg-light">Actions</th>
                   </tr>

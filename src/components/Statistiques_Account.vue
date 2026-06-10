@@ -106,15 +106,15 @@ export default {
         labels: labels,
         datasets: [
           {
-            label: "Inscription entreprises",
+            label: "Inscription recruteurs",
             backgroundColor: "teal",
             borderColor: "teal",
             data: Entreprises,
           },
           {
-            label: "Souscription entreprises",
-            backgroundColor: "black",
-            borderColor: "black",
+            label: "Souscription recruteurs",
+            backgroundColor: "purple",
+            borderColor: "purple",
             data: souscriptionEntreprise,
           },
           {
