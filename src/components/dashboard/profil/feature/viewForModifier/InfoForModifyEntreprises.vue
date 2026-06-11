@@ -78,6 +78,7 @@ valueExpertise: [
       optionsPaper:null,
       NCC: "",
       niveauEtude:"",
+      domaine:"",
       pieceJointe:null,
       pathPieceJointe:null,
       pathCVUpload:null,
@@ -172,6 +173,7 @@ valueExpertise: [
     this.form.phone = user.phone || "";
     this.form.ville = user.ville || "";
     this.form.niveauEtude = user.niveauEtude.split(' ')[0];
+    this.form.domaine = user.domaine.split(' ')[1];
     this.form.statut_talent = user.statut_talent;
     this.form.pieceJointe = user.user.photos;
     this.form.CVupload = user.CVupload;
@@ -624,6 +626,10 @@ if (isStudentGroup) {
             <div v-if="form.niveauEtude">
           <label class="form-label">Niveau d'étude</label>
             <input v-model="form.niveauEtude" class="form-control" type="text" />
+            </div>
+            <div v-if="form.domaine">
+          <label class="form-label">Domaine</label>
+            <input v-model="form.domaine" class="form-control" type="text" />
             </div>
 
             <div v-if="form.statut_talent">

@@ -302,7 +302,7 @@ if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
   } finally {
     Spinner.launchLoading(false);
   }
-},
+      },
      
       addAnRegistreDoc(payload){
         // console.log(payload.target.files[0])
