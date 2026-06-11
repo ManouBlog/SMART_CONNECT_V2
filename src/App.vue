@@ -3,6 +3,9 @@
 </template>
 
 <style>
+.p-dialog-mask {
+  background-color: rgba(118, 118, 119, 0.57) !important;
+}
 .n-input .n-input__input-el {
   caret-color: gray !important;
 }

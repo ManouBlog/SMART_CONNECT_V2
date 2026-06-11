@@ -2,17 +2,52 @@
 /* eslint-disable */
 import Swal from "sweetalert2";
 import axios from "axios";
+import Dialog from "primevue/dialog";
+import InputText from "primevue/inputtext";
+import Button from "primevue/button";
 export default {
   name: "FormView",
+  components:{Dialog,InputText,Button},
   data() {
     return {
       email: null,
       password: null,
       acces: true,
       loading: false,
+      forgotPasswordDialog:false,
+      resetEmail: null,
+      emailError:null
     };
   },
   methods: {
+    validateEmail() {
+    this.emailError = '';
+
+    if (!this.resetEmail) {
+      this.emailError = 'L\'adresse email est obligatoire';
+      return false;
+    }
+
+    const emailRegex =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(this.resetEmail)) {
+      this.emailError = 'Adresse email invalide';
+      return false;
+    }
+
+    return true;
+  },
+    async sendResetPassword(){
+  if (!this.resetEmail) return;
+
+  try {
+    this.forgotPasswordDialog = false;
+    this.resetEmail= "";
+  } catch (error) {
+    console.error(error);
+  }
+},
     go_to_dash() {
       this.acces = false;
       this.loading = true;
@@ -69,58 +104,112 @@ export default {
 </script>
 <template>
   <div class="container-fluid p-0">
-    <div class="row">
-      <div class="col-12">
-        <div class="login-card">
-          <form @submit.prevent="go_to_dash" class="theme-form login-form">
-            <img class="w-25 for-light" src="../assets/brobroli_1.png" alt="broboli.png" />
-            <h4>Se Connecter</h4>
-            <div class="form-group text-start">
-              <label>Email Address</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                <input
-                  class="form-control"
-                  type="email"
-                  required
-                  placeholder="adjobi@gmail.com"
-                  v-model="email"
-                />
-              </div>
-            </div>
-            <div class="form-group text-start">
-              <label>Password</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                <input
-                  class="form-control"
-                  type="password"
-                  name="login[password]"
-                  required
-                  placeholder="*********"
-                  v-model="password"
-                />
-                <div class="show-hide"><span class="show"> </span></div>
-              </div>
-            </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="login-card">
+        <form @submit.prevent="go_to_dash" class="theme-form login-form">
+          <img class="w-25 for-light" src="../assets/brobroli_1.png" alt="broboli.png" />
 
-            <div class="form-group">
-              <button class="btn btn-primary btn-block" type="submit">
-                <span v-show="loading" class="spinner-border" role="status"></span>
-                <span v-show="acces"
-                  >Se connecter<em class="bi bi-box-arrow-in-right ms-2"></em
-                ></span>
-              </button>
+          <h4>Se Connecter</h4>
+
+          <div class="form-group text-start">
+            <label>Email Address</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-envelope"></i>
+              </span>
+              <input
+                class="form-control"
+                type="email"
+                required
+                placeholder="adjobi@gmail.com"
+                v-model="email"
+              />
             </div>
-            <div class="mb-1">
-              <!-- <a class="link" href="#">Mot de pass oublié?</a> -->
+          </div>
+
+          <div class="form-group text-start">
+            <label>Password</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-lock"></i>
+              </span>
+              <input
+                class="form-control"
+                type="password"
+                required
+                placeholder="*********"
+                v-model="password"
+              />
+              <div class="show-hide">
+                <span class="show"></span>
+              </div>
             </div>
-          </form>
-        </div>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">
+              <span v-show="loading" class="spinner-border" role="status"></span>
+              <span v-show="acces">
+                Se connecter
+                <em class="bi bi-box-arrow-in-right ms-2"></em>
+              </span>
+            </button>
+          </div>
+
+          <div class="mb-1">
+            <a
+              class="link"
+              href="#"
+              @click.prevent="this.forgotPasswordDialog = true"
+            >
+              Mot de passe oublié ?
+            </a>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+
+  <!-- Modal -->
+  <Dialog
+    v-model:visible="forgotPasswordDialog"
+  :closeCallback="()=>!this.forgotPasswordDialog"
+    modal
+    header="Réinitialisation du mot de passe"
+    :style="{ width: '450px',backgroundColor: 'white',padding:'1em' }"
+  >
+    <div class="d-flex flex-column gap-3">
+      <p>
+        Entrez votre adresse email pour recevoir un lien de réinitialisation.
+      </p>
+
+      <InputText
+        v-model="resetEmail"
+        type="email"
+        placeholder="Votre email"
+        class="w-100"
+        style="border: 1px solid black;padding: 1em;font-size: 1em;"
+        @blur="validateEmail"
+      />
+      <small v-if="emailError" class="p-error">
+  {{ emailError }}
+    </small>
+     <div style="display: flex;justify-content: center;">
+ <Button
+        label="Envoyer"
+        icon="pi pi-send"
+        style="border: 1px solid black;background-color: teal;color:white;padding: 0.8em;"
+        @click="sendResetPassword"
+      />
+     </div>
+     
+    </div>
+  </Dialog>
+</div>
 </template>
 <style scoped>
 @import url("../assets/css/formView.css");
+
+
 </style>
