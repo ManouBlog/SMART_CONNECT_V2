@@ -173,7 +173,7 @@ valueExpertise: [
     this.form.phone = user.phone || "";
     this.form.ville = user.ville || "";
     this.form.niveauEtude = user.niveauEtude.split(' ')[0];
-    this.form.domaine = user.domaine.split(' ')[1];
+    this.form.domaine = user.niveauEtude.split(' ')[1];
     this.form.statut_talent = user.statut_talent;
     this.form.pieceJointe = user.user.photos;
     this.form.CVupload = user.CVupload;
