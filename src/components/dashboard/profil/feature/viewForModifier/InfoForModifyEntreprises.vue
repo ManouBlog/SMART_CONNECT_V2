@@ -77,6 +77,10 @@ valueExpertise: [
       forme_juridique: "",
       optionsPaper:null,
       NCC: "",
+      niveauEtude:"",
+      pieceJointe:null,
+      statut_talent:"",
+      CVupload:"",
       diplome: "",
       modeTravail: "",
       tempsTravail: "",
@@ -165,6 +169,10 @@ valueExpertise: [
     this.form.contact = user.contact || "";
     this.form.phone = user.phone || "";
     this.form.ville = user.ville || "";
+    this.form.niveauEtude = user.niveauEtude.split(' ')[0];
+    this.form.statut_talent = user.statut_talent;
+    this.form.pieceJointe = user.user.photos;
+    this.form.CVupload = user.CVupload;
     this.form.commune = user.commune || "";
     this.form.quartier = user.quartier || "";
     this.form.statuses  = user.user.statuses.map(item=>item.id)  || "";
@@ -231,23 +239,7 @@ valueExpertise: [
     console.log(error);
   }
 },
-//     async lister_statut(){
-//       const transitions = {
-//   etudiant:[this.$store.state.infoUserConnected.user?.statut?.statut,"professionnel", "artisan"],
-//   professionnel:[this.$store.state.infoUserConnected.user?.statut?.statut,"artisan", "veteran"],
-//   artisan:[this.$store.state.infoUserConnected.user?.statut?.statut,"professionnel", "veteran"],
-//   entreprise:[this.$store.state.infoUserConnected.user?.statut?.statut,'Entreprise']
-// };
-//       try {
-//         const response =  await instance.get("listStatut")
-        
-//         this.allStatuses = response.data.data.filter(item =>
-//   transitions[this.$store.state.infoUserConnected.user?.statut?.statut]?.includes(item.statut)); 
-//         // this.allStatuses = response.data.data.filter(item=>item.statut == 'Professionnel' || item.statut == 'Artisan' || item.statut == 'Etudiant' || item.statut === 'Vétéran')
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     },
+
     async getInfoUser() {
       this.StoreLoading.launchLoading(true);
       await instance
@@ -281,25 +273,7 @@ if (isStudentGroup) {
 
   this.$store.commit("UPDATE_INFO_CONPANY", user);
 }
-        // const statutUser = resp.data.user.user?.statut?.statut
-        // if(statutUser === 'Entreprise'){
-        // this.emails_cc = resp.data.user.emails.map(item=> item.email_cc)
-        // this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
         
-        // }
-        // if(statutUser === 'Etudiant' || statutUser === 'Professionnel' || statutUser === 'Artisan' || statutUser === 'Vétéran'){
-        //   resp.data.user.qualifications.map(item=>{
-        //     return {
-        //       date_debut:item.date_debut.split(' ')[0],
-        //       date_fin:item.date_fin.split(' ')[0],
-        //       objet:item.objet,
-        //       detail:item.detail
-        //     }
-        //   });
-        //   this.$store.commit("UPDATE_INFO_CONPANY",resp.data.user);
-          
-   
-        //   }
           
           }
         })
@@ -345,6 +319,8 @@ if (isStudentGroup) {
         ville: Talent.ville,
         bio: Talent.bio,
         diplome: Talent.diplome,
+        niveauEtude:Talent.niveauEtude,
+        pieceJointe:Talent.pieceJointe,
         titreCv: Talent.titreCv,
         modeTravail: Talent.modeTravail,
         tempsTravail:Talent.tempsTravail,
@@ -382,22 +358,7 @@ if (isStudentGroup) {
   this.updateInfoStudent(payload);
   await this.getInfoUser();
 },
-  //  async handleUpdate(payload) {
-  //   console.log('handleUpdate',payload)
-     
-  //     if (this.$store.state.infoUserConnected.user?.statut?.statut === "entreprise") {
-  //       this.updateInfoEntreprise(payload);
-    
-  //     } else if (this.$store.state.infoUserConnected.user?.statut?.statut === "particulier") {
-        
-  //       this.update_compte_particulier(payload);
-  //         await this.getInfoUser();
-  //     } else {
-  //       this.updateInfoStudent(payload);
-  //         await this.getInfoUser();
-  //     }
-    
-  //   },
+  
     onCreateQualification() {
       return { detail: "", date_debut: new Date(), date_fin: new Date() };
     },
@@ -435,61 +396,6 @@ if (isStudentGroup) {
       <p style="text-align: center; color: red;font-size: 1em;">
         Les champs avec astérisque (*) sont obligatoires.
       </p>
-      <!-- <div class="col-md-12">
-   <div
-  class="mb-3"
-  v-if="!(
-    ($store.state.infoUserConnected?.user?.statuses || [])
-      .some(s => s.statut === 'Entreprise')
-  )"
->
-            <label class="form-label">Changer de statut</label>
-           
-            <select 
-            name="statut_id" 
-            id="statut_id"
-            multiple
-            :class="{ 'disabled-custom': form.statut === 'Vétéran' }"
-            :disabled="form.statut === 'Vétéran'"
-            style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
-            v-model="form.statuses"
-            @change="()=>{
-              form.tempsTravail = '';
-              form.modeTravail = '';
-            }"
-            >
-              <option 
-              style="text-transform: capitalize;"
-              :value="item.id"
-              :key="item.id" 
-              v-for="item in allStatuses">
-                {{ item.statut }}
-              </option>
-            </select>
-            
-            </div>
-            <div class="mb-3" v-else>
-            <label class="form-label">Statut</label>
-            <select 
-            name="statut_id" 
-            id="statut_id"
-            style="width:100%;padding:0.8em;border-radius: 10px;border:1.2px solid orange"
-            v-model="form.statuses"
-            @change="()=>{
-              console.log('hello world')
-            }"
-            >
-              <option 
-              style="text-transform: capitalize;"
-              :value="item.id"
-              :key="item.id" 
-              v-for="item in allStatuses">
-                {{ item.statut }}
-              </option>
-            </select>
-            
-            </div>
-      </div> -->
      <div
   class="col-md-12"
   v-if="
@@ -641,7 +547,7 @@ if (isStudentGroup) {
   "
 >
   <div class="mb-3">
-    <label class="form-label">Contact</label>
+    <label class="form-label">Contact téléphonique</label>
     <input v-model="form.phone" class="form-control" type="text" />
   </div>
 </div>
@@ -681,19 +587,52 @@ if (isStudentGroup) {
             <input v-model="form.diplome" class="form-control" type="text" />
           </div>
           <div class="mb-3" 
-          
          v-if="
     $store.state.infoUserConnected.user?.statuses?.some(s =>
       ['Professionnel', 'Vétéran'].includes(s.statut)
     )
   ">
-            <div>
-     <label class="form-label">Niveau actuel + diplome</label>
+        <div v-if="form.diplome">
+          <label class="form-label">Diplome</label>
             <input v-model="form.diplome" class="form-control" type="text" />
             </div>
+            <div v-if="form.niveauEtude">
+          <label class="form-label">Niveau d'étude</label>
+            <input v-model="form.niveauEtude" class="form-control" type="text" />
+            </div>
 
-            <div>
-              <!-- {{ this.$store.state.infoUserConnected }} -->
+            <div v-if="form.statut_talent">
+          <label class="form-label">Statut professionnel</label>
+            <input v-model="form.statut_talent" class="form-control" type="text" />
+            </div>
+
+             <div style="padding:0.6em 0;">
+              <label class="form-label">CV (Curriculum Vitae)</label>
+              <div v-if="form.CVupload">
+             <small class="text-muted">
+        Vous pouvez remplacer votre CV
+    </small>
+            <input
+      type="file"
+      
+      accept="application/pdf"
+      @change="handleCvUpload"
+       />
+              </div>
+              <div v-else>
+<small class="text-muted">
+       Aucun CV trouvé. Veuillez charger un fichier PDF.
+    </small>
+            <input
+      type="file"
+      
+      accept="application/pdf"
+      @change="handleCvUpload"
+       />
+              </div>
+         
+            </div>
+      <div>
             <label class="form-label">Mode de travail</label>
             <select 
             name="mode_travail1" 
@@ -784,6 +723,7 @@ if (isStudentGroup) {
             ></textarea>
           </div>
         </div>
+         
       </section>
       <section 
       v-if="this.$store.state.infoUserConnected 
@@ -811,25 +751,34 @@ if (isStudentGroup) {
           </div>
         </div>
       </section>
-
-      <!-- <div class="col-md-12">
-        <div class="my-3">
-          <label for="add_file">
-  {{
-    documentLabels[
-      this.$store.state.infoUserConnected?.user?.statut?.statut
-    ] || "Nouvelle pièce du gérant (jpg,png)"
-  }}
-</label>
-          <input
-            type="file"
-            multiple
-            @input="addAnPieceDoc"
-            id="add_file_piece"
-            class="w-100"
-          />
-        </div>
-      </div> -->
+      <section>
+          <div style="padding:1em 1.1em;">
+              <label class="form-label">Carte national d'identité/ Pièce justificative</label>
+              <div v-if="form?.pieceJointe?.length">
+             <small class="text-muted">
+        Vous pouvez remplacer votre Carte national d'identité ou Pièce justificative
+    </small>
+            <input
+      type="file"
+      accept="application/pdf"
+      @change="handlePieceJointe"
+       />
+              </div>
+              <div v-else>
+     <small class="text-muted">
+    Veuillez charger Carte national d'identité ou Pièce justificative
+    </small>
+            <input
+      type="file"
+      
+      accept="application/pdf"
+      @change="handlePieceJointe"
+       />
+              </div>
+         
+            </div>
+      </section>
+      
       
     </div>
     <div class="text-right">
