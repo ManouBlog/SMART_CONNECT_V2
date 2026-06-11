@@ -79,6 +79,8 @@ valueExpertise: [
       NCC: "",
       niveauEtude:"",
       pieceJointe:null,
+      pathPieceJointe:null,
+      pathCVUpload:null,
       statut_talent:"",
       CVupload:"",
       diplome: "",
@@ -321,6 +323,8 @@ if (isStudentGroup) {
         diplome: Talent.diplome,
         niveauEtude:Talent.niveauEtude,
         pieceJointe:Talent.pieceJointe,
+        pathPieceJointe:Talent.pathPieceJointe,
+        pathCVUpload:Talent.pathCVUpload,
         titreCv: Talent.titreCv,
         modeTravail: Talent.modeTravail,
         tempsTravail:Talent.tempsTravail,
@@ -334,28 +338,49 @@ if (isStudentGroup) {
         this.changeValueForToogleModalInfoPersonnelle()
       }
     },
+    handlePieceJointe(event) {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    // stocker un seul fichier (File)
+    this.form.pathPieceJointe = file;
+
+    // reset input pour permettre de re-uploader le même fichier
+    // event.target.value = '';
+  },
+  handleCvUpload(event) {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    // stocker un seul fichier (File)
+    this.form.pathCVUpload = file;
+
+    // reset input pour permettre de re-uploader le même fichier
+    // event.target.value = '';
+  },
     async handleUpdate(payload) {
- 
+    console.log("handleUpdate_payload",payload)
+  // const user = this.$store.state.infoUserConnected?.user;
+  // const statuses = user?.statuses || [];
+  // const roles = statuses.map(s => s.statut);
 
-  const user = this.$store.state.infoUserConnected?.user;
-  const statuses = user?.statuses || [];
-  const roles = statuses.map(s => s.statut);
+  // const isEntreprise = roles.includes('Entreprise');
+  // const isParticulier = roles.includes('particulier');
 
-  const isEntreprise = roles.includes('Entreprise');
-  const isParticulier = roles.includes('particulier');
+  // if (isEntreprise) {
+  //   this.updateInfoEntreprise(payload);
+  //   return;
+  // }
 
-  if (isEntreprise) {
-    this.updateInfoEntreprise(payload);
-    return;
-  }
+  // if (isParticulier) {
+  //   this.update_compte_particulier(payload);
+  //   await this.getInfoUser();
+  //   return;
+  // }
 
-  if (isParticulier) {
-    this.update_compte_particulier(payload);
-    await this.getInfoUser();
-    return;
-  }
-
-  this.updateInfoStudent(payload);
+  // this.updateInfoStudent(payload);
   await this.getInfoUser();
 },
   
@@ -641,9 +666,10 @@ if (isStudentGroup) {
     </small>
             <input
       type="file"
-      accept="application/pdf"
+      accept="image/*"
       @change="handlePieceJointe"
        />
+       <small v-if="this.form?.pathPieceJointe">Fichier chargé</small>
               </div>
               <div v-else>
      <small class="text-muted">
@@ -651,10 +677,10 @@ if (isStudentGroup) {
     </small>
             <input
       type="file"
-      
-      accept="application/pdf"
+      accept="image/*"
       @change="handlePieceJointe"
        />
+       <small v-if="this.form?.pathPieceJointe">Fichier chargé</small>
               </div>
          
             </div>
