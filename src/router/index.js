@@ -119,6 +119,15 @@ const routes = [
           requiresAuth: true,
         },
       },
+        {
+        path: "/classement",
+        name: "ranking",
+        component: () => import("../views/admin/RankingView.vue"),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
        {
         path: "/list_particulier",
         name: "particulier",

@@ -159,6 +159,18 @@ this.get_Contrat();
             >
             
           </li>
+           <li
+            style="display: flex; align-items: center; gap: 0.1em; color: white"
+            v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Etudiants')"
+          >
+            <i class="bi bi-award" style="margin-left: -1.2em"></i>
+            <router-link :to="{ name: 'ranking' }">
+              <strong>Classements</strong>
+              
+              </router-link
+            >
+            
+          </li>
           <li
             style="display: flex; align-items: center; gap: 0.1em; color: white"
             v-if="$store.state.user?.permissions && $store.state.user?.permissions?.some(p => p.name === 'Messages')"
