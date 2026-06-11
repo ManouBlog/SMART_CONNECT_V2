@@ -632,6 +632,33 @@ if (isStudentGroup) {
               </div>
          
             </div>
+             <section>
+          <div style="padding:0.6em 0;">
+              <label class="form-label">Carte national d'identité/ Pièce justificative</label>
+              <div v-if="form?.pieceJointe?.length">
+             <small class="text-muted">
+        Vous pouvez remplacer votre Carte national d'identité ou Pièce justificative
+    </small>
+            <input
+      type="file"
+      accept="application/pdf"
+      @change="handlePieceJointe"
+       />
+              </div>
+              <div v-else>
+     <small class="text-muted">
+    Veuillez charger Carte national d'identité ou Pièce justificative
+    </small>
+            <input
+      type="file"
+      
+      accept="application/pdf"
+      @change="handlePieceJointe"
+       />
+              </div>
+         
+            </div>
+      </section>
       <div>
             <label class="form-label">Mode de travail</label>
             <select 
@@ -751,33 +778,7 @@ if (isStudentGroup) {
           </div>
         </div>
       </section>
-      <section>
-          <div style="padding:1em 1.1em;">
-              <label class="form-label">Carte national d'identité/ Pièce justificative</label>
-              <div v-if="form?.pieceJointe?.length">
-             <small class="text-muted">
-        Vous pouvez remplacer votre Carte national d'identité ou Pièce justificative
-    </small>
-            <input
-      type="file"
-      accept="application/pdf"
-      @change="handlePieceJointe"
-       />
-              </div>
-              <div v-else>
-     <small class="text-muted">
-    Veuillez charger Carte national d'identité ou Pièce justificative
-    </small>
-            <input
-      type="file"
-      
-      accept="application/pdf"
-      @change="handlePieceJointe"
-       />
-              </div>
-         
-            </div>
-      </section>
+     
       
       
     </div>
