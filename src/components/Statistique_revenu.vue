@@ -420,8 +420,7 @@ setChartOptions() {
       </button>
     </div>
     <div v-if="isLoading" style="height: 300px">Chargement...</div>
-    <div>
-     
+    <div v-else>
     <Chart
         v-if="this.chooseTypesOfFilter === 'nombre'"
         type="bar"
