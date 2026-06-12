@@ -1,9 +1,8 @@
 <template>
   <div class="page-body position-relative">
     <!-- ANNEE -->
-    <div class="filter">
-      <label class="label">Année</label>
-
+    <div style="margin: 3em 0 0 0; display: flex; align-items: center">
+      <p class="my-5 p-0" style="color: black; text-align: left">Année</p>
       <select v-model="selectedYear" class="select">
         <option v-for="year in years" :key="year" :value="year">
           {{ year }}
@@ -13,7 +12,7 @@
 
     <!-- TAB GLOBAL -->
     <Tabs v-model:value="activeMainTab">
-      <TabList>
+      <TabList style="padding: 1em 0">
         <Tab :value="0">Talents</Tab>
         <Tab :value="1">Entreprises</Tab>
       </TabList>
@@ -89,8 +88,8 @@
         </div>
 
         <div class="rank-body">
-          <div class="name">{{ user.nom }}</div>
-          <div class="score">{{ user.score }} pts</div>
+          <div class="name" style="text-align: left">{{ user.nom }}</div>
+          <div class="avg">Moyenne : {{ user.avg }} / 5</div>
         </div>
       </div>
 
@@ -139,37 +138,37 @@ const rankings = ref([
     top4: {
       talents: {
         etudiant: [
-          { nom: "Jean", score: 120 },
-          { nom: "Paul", score: 110 },
-          { nom: "Ali", score: 100 },
-          { nom: "Sara", score: 95 },
+          { nom: "Jean", avg: 5 },
+          { nom: "Paul", avg: 4 },
+          { nom: "Ali", avg: 3 },
+          { nom: "Sara", avg: 2 },
         ],
         professionnel: [
-          { nom: "Koffi", score: 140 },
-          { nom: "Yao", score: 130 },
-          { nom: "Awa", score: 120 },
-          { nom: "Marc", score: 115 },
+          { nom: "Koffi", avg: 5 },
+          { nom: "Yao", avg: 4 },
+          { nom: "Awa", avg: 3 },
+          { nom: "Marc", avg: 1 },
         ],
         artisan: [
-          { nom: "Blaise", score: 90 },
-          { nom: "Moussa", score: 85 },
-          { nom: "Aya", score: 80 },
-          { nom: "Nina", score: 75 },
+          { nom: "Blaise", avg: 5 },
+          { nom: "Moussa", avg: 4 },
+          { nom: "Aya", avg: 3 },
+          { nom: "Nina", avg: 2 },
         ],
         veteran: [
-          { nom: "Adjoua", score: 150 },
-          { nom: "Kouadio", score: 145 },
-          { nom: "Louis", score: 140 },
-          { nom: "Fabrice", score: 135 },
+          { nom: "Adjoua", avg: 5 },
+          { nom: "Kouadio", avg: 4 },
+          { nom: "Louis", avg: 4 },
+          { nom: "Fabrice", avg: 3 },
         ],
       },
 
       entreprises: {
         entreprises: [
-          { nom: "Tech CI", score: 300 },
-          { nom: "Orange CI", score: 280 },
-          { nom: "MTN CI", score: 260 },
-          { nom: "SIFCA", score: 240 },
+          { nom: "Tech CI", avg: 30 },
+          { nom: "Orange CI", avg: 20 },
+          { nom: "MTN CI", avg: 10 },
+          { nom: "SIFCA", avg: 5 },
         ],
       },
     },
@@ -179,7 +178,7 @@ const rankings = ref([
 /**
  * STATE
  */
-const selectedYear = ref(2026);
+const selectedYear = ref(new Date().getFullYear());
 
 const activeMainTab = ref(0);
 const activeTalentTab = ref(0);
@@ -240,7 +239,7 @@ const top4Data = computed(() => {
   font-weight: 600;
 }
 
-.score {
+.avg {
   font-size: 13px;
   opacity: 0.9;
 }
