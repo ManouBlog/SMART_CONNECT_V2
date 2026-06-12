@@ -135,7 +135,8 @@ const talentCategories = [
   { label: "Vétérans", key: "veteran" },
 ];
 
-const entrepriseCategories = [{ label: "Entreprises", key: "entreprises" },
+const entrepriseCategories = [
+  { label: "Entreprises", key: "entreprises" },
   { label: "Particuliers", key: "Particuliers" },
 ];
 
