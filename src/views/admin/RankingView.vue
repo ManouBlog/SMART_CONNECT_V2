@@ -1,35 +1,69 @@
 <template>
   <div class="page-body position-relative">
     <!-- ANNEE -->
-    <div style="margin: 3em 0 1em 0">
-      <label class="mb-2 d-block">Année</label>
-      <select
-        name="stat"
-        id="stat"
-        class="w-50"
-        v-model="selectedYear"
-        @change="periodeFilterStatisticBalance = ''"
-      >
+    <div class="filter">
+      <label class="label">Année</label>
+
+      <select v-model="selectedYear" class="select">
         <option v-for="year in years" :key="year" :value="year">
           {{ year }}
         </option>
       </select>
     </div>
 
-    <!-- TABS -->
-    <Tabs v-model:value="activeTab">
+    <!-- TAB GLOBAL -->
+    <Tabs v-model:value="activeMainTab">
       <TabList>
-        <Tab :value="0">Étudiants</Tab>
-        <Tab :value="1">Professionnels</Tab>
-        <Tab :value="2">Artisans</Tab>
-        <Tab :value="3">Vétérans</Tab>
+        <Tab :value="0">Talents</Tab>
+        <Tab :value="1">Entreprises</Tab>
       </TabList>
 
       <TabPanels>
-        <TabPanel :value="0"></TabPanel>
-        <TabPanel :value="1"></TabPanel>
-        <TabPanel :value="2"></TabPanel>
-        <TabPanel :value="3"></TabPanel>
+        <!-- TALENTS -->
+        <TabPanel :value="0">
+          <Tabs v-model:value="activeTalentTab">
+            <TabList>
+              <Tab
+                v-for="(cat, i) in talentCategories"
+                :key="cat.key"
+                :value="i"
+              >
+                {{ cat.label }}
+              </Tab>
+            </TabList>
+
+            <TabPanels>
+              <TabPanel
+                v-for="(cat, i) in talentCategories"
+                :key="cat.key"
+                :value="i"
+              />
+            </TabPanels>
+          </Tabs>
+        </TabPanel>
+
+        <!-- ENTREPRISES -->
+        <TabPanel :value="1">
+          <Tabs v-model:value="activeEntrepriseTab">
+            <TabList>
+              <Tab
+                v-for="(cat, i) in entrepriseCategories"
+                :key="cat.key"
+                :value="i"
+              >
+                {{ cat.label }}
+              </Tab>
+            </TabList>
+
+            <TabPanels>
+              <TabPanel
+                v-for="(cat, i) in entrepriseCategories"
+                :key="cat.key"
+                :value="i"
+              />
+            </TabPanels>
+          </Tabs>
+        </TabPanel>
       </TabPanels>
     </Tabs>
 
@@ -41,19 +75,22 @@
         class="rank-card"
         :style="{
           borderLeft: `6px solid ${rankConfig[index]?.color}`,
-          background: `${rankConfig[index]?.color}`,
+          background: rankConfig[index]?.color,
         }"
       >
         <div class="rank-left">
-          <!-- ICON + COLOR -->
-          <i class="rank-icon" />
+          <i
+            :class="rankConfig[index]?.icon"
+            class="rank-icon"
+            :style="{ color: 'white' }"
+          />
 
           <div class="rank-number" style="color: white">#{{ index + 1 }}</div>
         </div>
 
         <div class="rank-body">
-          <div class="name" style="color: white">{{ user.nom }}</div>
-          <div class="score" style="color: white">{{ user.score }} pts</div>
+          <div class="name">{{ user.nom }}</div>
+          <div class="score">{{ user.score }} pts</div>
         </div>
       </div>
 
@@ -63,101 +100,94 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import { computed, ref } from "vue";
-
 import Tabs from "primevue/tabs";
 import TabList from "primevue/tablist";
 import Tab from "primevue/tab";
 import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
 
+/**
+ * CONFIG ICONS / COLORS
+ */
 const rankConfig = [
-  {
-    icon: "pi pi-crown",
-    color: "#f1c40f",
-  },
-  {
-    icon: "pi pi-star-fill",
-    color: "#bdc3c7",
-  },
-  {
-    icon: "pi pi-bookmark-fill",
-    color: "#cd7f32",
-  },
-  {
-    icon: "pi pi-user",
-    color: "#6c757d",
-  },
+  { icon: "pi pi-crown", color: "#f1c40f" },
+  { icon: "pi pi-star-fill", color: "#bdc3c7" },
+  { icon: "pi pi-bookmark-fill", color: "#cd7f32" },
+  { icon: "pi pi-user", color: "#6c757d" },
 ];
 
+/**
+ * CATEGORIES
+ */
+const talentCategories = [
+  { label: "Étudiants", key: "etudiant" },
+  { label: "Professionnels", key: "professionnel" },
+  { label: "Artisans", key: "artisan" },
+  { label: "Vétérans", key: "veteran" },
+];
+
+const entrepriseCategories = [{ label: "Entreprises", key: "entreprises" }];
+
+/**
+ * DATA
+ */
 const rankings = ref([
   {
     annee: 2026,
     top4: {
-      etudiant: [
-        { nom: "Jean", score: 120 },
-        { nom: "Paul", score: 110 },
-        { nom: "Ali", score: 100 },
-        { nom: "Sara", score: 95 },
-      ],
-      professionnel: [
-        { nom: "Koffi", score: 140 },
-        { nom: "Yao", score: 130 },
-        { nom: "Awa", score: 120 },
-        { nom: "Marc", score: 115 },
-      ],
-      artisan: [
-        { nom: "Blaise", score: 90 },
-        { nom: "Moussa", score: 85 },
-        { nom: "Aya", score: 80 },
-        { nom: "Nina", score: 75 },
-      ],
-      veteran: [
-        { nom: "Adjoua", score: 150 },
-        { nom: "Kouadio", score: 145 },
-        { nom: "Louis", score: 140 },
-        { nom: "Fabrice", score: 135 },
-      ],
-    },
-  },
-  {
-    annee: 2025,
-    top4: {
-      etudiant: [
-        { nom: "Jean2", score: 118 },
-        { nom: "Paul2", score: 108 },
-        { nom: "Ali2", score: 98 },
-        { nom: "Sara2", score: 90 },
-      ],
-      professionnel: [
-        { nom: "Koffi2", score: 135 },
-        { nom: "Yao2", score: 128 },
-        { nom: "Awa2", score: 119 },
-        { nom: "Marc2", score: 112 },
-      ],
-      artisan: [
-        { nom: "Blaise2", score: 88 },
-        { nom: "Moussa2", score: 83 },
-        { nom: "Aya2", score: 79 },
-        { nom: "Nina2", score: 70 },
-      ],
-      veteran: [
-        { nom: "Adjoua2", score: 148 },
-        { nom: "Kouadio2", score: 142 },
-        { nom: "Louis2", score: 138 },
-        { nom: "Fabrice2", score: 130 },
-      ],
+      talents: {
+        etudiant: [
+          { nom: "Jean", score: 120 },
+          { nom: "Paul", score: 110 },
+          { nom: "Ali", score: 100 },
+          { nom: "Sara", score: 95 },
+        ],
+        professionnel: [
+          { nom: "Koffi", score: 140 },
+          { nom: "Yao", score: 130 },
+          { nom: "Awa", score: 120 },
+          { nom: "Marc", score: 115 },
+        ],
+        artisan: [
+          { nom: "Blaise", score: 90 },
+          { nom: "Moussa", score: 85 },
+          { nom: "Aya", score: 80 },
+          { nom: "Nina", score: 75 },
+        ],
+        veteran: [
+          { nom: "Adjoua", score: 150 },
+          { nom: "Kouadio", score: 145 },
+          { nom: "Louis", score: 140 },
+          { nom: "Fabrice", score: 135 },
+        ],
+      },
+
+      entreprises: {
+        entreprises: [
+          { nom: "Tech CI", score: 300 },
+          { nom: "Orange CI", score: 280 },
+          { nom: "MTN CI", score: 260 },
+          { nom: "SIFCA", score: 240 },
+        ],
+      },
     },
   },
 ]);
 
-const activeTab = ref(0);
+/**
+ * STATE
+ */
 const selectedYear = ref(2026);
 
-const rankingKeys = ["etudiant", "professionnel", "artisan", "veteran"];
+const activeMainTab = ref(0);
+const activeTalentTab = ref(0);
+const activeEntrepriseTab = ref(0);
 
+/**
+ * COMPUTED
+ */
 const years = computed(() => rankings.value.map((r) => r.annee));
 
 const top4Data = computed(() => {
@@ -165,52 +195,45 @@ const top4Data = computed(() => {
 
   if (!yearData) return [];
 
-  const category = rankingKeys[activeTab.value];
+  // TALENTS
+  if (activeMainTab.value === 0) {
+    const key = talentCategories[activeTalentTab.value]?.key;
+    return yearData.top4?.talents?.[key] ?? [];
+  }
 
-  return (yearData.top4?.[category] ?? []).map((u) => ({
-    nom: u.nom,
-    score: u.score,
-  }));
+  // ENTREPRISES
+  const key = entrepriseCategories[activeEntrepriseTab.value]?.key;
+  return yearData.top4?.entreprises?.[key] ?? [];
 });
 </script>
-
 <style scoped>
-.card {
-  padding: 1rem;
-}
-
-/* Leaderboard cards */
 .rank-card {
   display: flex;
   align-items: center;
   padding: 12px 14px;
   border-radius: 12px;
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
   transition: 0.2s;
   margin: 1em 0;
+  color: white;
 }
 
 .rank-card:hover {
   transform: translateY(-2px);
-  background: #ffffff;
 }
 
 .rank-left {
-  width: 50px;
+  width: 60px;
   text-align: center;
 }
 
 .rank-number {
   font-weight: bold;
   font-size: 18px;
-  color: #495057;
 }
 
 .rank-body {
   display: flex;
   flex-direction: column;
-  color: white;
 }
 
 .name {
@@ -219,12 +242,21 @@ const top4Data = computed(() => {
 
 .score {
   font-size: 13px;
-  color: #6c757d;
+  opacity: 0.9;
 }
 
 .empty {
   text-align: center;
   padding: 20px;
   color: #999;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.select {
+  width: 200px;
+  padding: 8px;
 }
 </style>

@@ -46,7 +46,7 @@ if(item.user?.statuses.length){
         s.statut === this.statusFilter
       )
 }else{
-  return item.user.statut === this.statusFilter;
+  return item.user?.statut === this.statusFilter;
 }
     } 
     );
