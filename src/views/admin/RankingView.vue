@@ -1,7 +1,7 @@
 <template>
   <div class="page-body position-relative">
     <!-- ANNEE -->
-    <div style="margin: 2em 0">
+    <div style="margin: 3em 0 1em 0">
       <label class="mb-2 d-block">Année</label>
       <select
         name="stat"
@@ -46,7 +46,7 @@
 
           <div class="rank-number">#{{ index + 1 }}</div>
         </div>
-        
+
         <div class="rank-body">
           <div class="name">{{ user.nom }}</div>
           <div class="score">{{ user.score }} pts</div>
