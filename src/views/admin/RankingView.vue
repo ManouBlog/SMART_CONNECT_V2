@@ -109,16 +109,11 @@ import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
 
 import medailleOr from "../../../public/Or.png";
-// import medailleArgent from "@/assets/medailles/argent.png";
-// import medailleBronze from "@/assets/medailles/bronze.png";
-// import medaille4 from "@/assets/medailles/top4.png";
+import medailleArgent from "../../../public/Argent.png";
+import medailleBronze from "../../../public/Bronze.png";
+import medaille4 from "../../../public/Cuivre.png";
 
-const medailleConfig = [
-  medailleOr,
-  // medailleArgent,
-  // medailleBronze,
-  // medaille4,
-];
+const medailleConfig = [medailleOr, medailleArgent, medailleBronze, medaille4];
 
 /**
  * CONFIG ICONS / COLORS
