@@ -37,9 +37,16 @@
     <div class="grid mt-4 gap-3">
       <div v-for="(user, index) in top4Data" :key="index" class="rank-card">
         <div class="rank-left">
+          <!-- ICON + COLOR -->
+          <i
+            :class="getRankIcon(index)"
+            :style="{ color: getRankColor(index) }"
+            class="rank-icon"
+          />
+
           <div class="rank-number">#{{ index + 1 }}</div>
         </div>
-
+        
         <div class="rank-body">
           <div class="name">{{ user.nom }}</div>
           <div class="score">{{ user.score }} pts</div>
@@ -122,6 +129,31 @@ const rankings = ref([
     },
   },
 ]);
+
+const getRankColor = (index) => {
+  switch (index) {
+    case 0:
+      return "#f1c40f"; // or
+    case 1:
+      return "#bdc3c7"; // argent
+    case 2:
+      return "#cd7f32"; // bronze
+    default:
+      return "#6c757d"; // gris
+  }
+};
+const getRankIcon = (index) => {
+  switch (index) {
+    case 0:
+      return "pi pi-crown"; // 1er
+    case 1:
+      return "pi pi-star"; // 2e
+    case 2:
+      return "pi pi-bookmark"; // 3e
+    default:
+      return "pi pi-user"; // 4e
+  }
+};
 
 const activeTab = ref(0);
 const selectedYear = ref(2026);

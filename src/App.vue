@@ -3,6 +3,19 @@
 </template>
 
 <style>
+.p-tablist-tab-list {
+  border: none !important;
+}
+.p-tab-active {
+  background-color: teal !important;
+  border: 2px solid rgb(0, 54, 54) !important;
+  color: white !important;
+}
+.p-tab {
+  border: 1px solid rgb(58, 58, 58) !important;
+  padding: 0.3em !important;
+  margin: 0 0.6em !important;
+}
 .p-dialog-mask {
   background-color: rgba(118, 118, 119, 0.57) !important;
 }
