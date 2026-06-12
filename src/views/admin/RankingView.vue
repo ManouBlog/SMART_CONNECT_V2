@@ -78,6 +78,7 @@
         }"
       >
         <div class="rank-left">
+          <img :src="medailleConfig[index]" alt="Médaille" class="medaille" />
           <i
             :class="rankConfig[index]?.icon"
             class="rank-icon"
@@ -106,6 +107,18 @@ import TabList from "primevue/tablist";
 import Tab from "primevue/tab";
 import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
+
+import medailleOr from "../../../public/Or.png";
+// import medailleArgent from "@/assets/medailles/argent.png";
+// import medailleBronze from "@/assets/medailles/bronze.png";
+// import medaille4 from "@/assets/medailles/top4.png";
+
+const medailleConfig = [
+  medailleOr,
+  // medailleArgent,
+  // medailleBronze,
+  // medaille4,
+];
 
 /**
  * CONFIG ICONS / COLORS
@@ -206,11 +219,17 @@ const top4Data = computed(() => {
 });
 </script>
 <style scoped>
+.medaille {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
 .rank-card {
   display: flex;
   align-items: center;
   padding: 12px 14px;
   border-radius: 12px;
+  gap: 1em;
   transition: 0.2s;
   margin: 1em 0;
   color: white;
@@ -222,7 +241,8 @@ const top4Data = computed(() => {
 
 .rank-left {
   width: 60px;
-  text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 .rank-number {
