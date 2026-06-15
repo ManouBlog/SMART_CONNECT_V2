@@ -234,7 +234,7 @@ export default {
           }
         )
         .then((response) => {
-          console.log("statistique_response", response);
+          console.log("statistique_response_categories", response);
           this.chartData = this.setChartData(
             response.data.offre,
             response.data.candidature,
