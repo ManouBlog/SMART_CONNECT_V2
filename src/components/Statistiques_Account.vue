@@ -95,7 +95,7 @@ export default {
           this.isDisabled = false;
         });
     },
-    setChartData(
+    setChartDataTalents(
       Entreprises,
       Talents,
       souscriptionEntreprise,
@@ -106,25 +106,86 @@ export default {
         labels: labels,
         datasets: [
           {
-            label: "Inscription recruteurs",
+            label: "Inscription etudiant",
             backgroundColor: "teal",
             borderColor: "teal",
             data: Entreprises,
           },
           {
-            label: "Souscription recruteurs",
+            label: "Souscription etudiant",
             backgroundColor: "purple",
             borderColor: "purple",
             data: souscriptionEntreprise,
           },
           {
-            label: "Inscription talents",
+            label: "Inscription professionnel",
+            backgroundColor: "teal",
+            borderColor: "teal",
+            data: Entreprises,
+          },
+          {
+            label: "Souscription professionnel",
+            backgroundColor: "purple",
+            borderColor: "purple",
+            data: souscriptionEntreprise,
+          },
+          {
+            label: "Inscription artisan",
             backgroundColor: "brown",
             borderColor: "brown",
             data: Talents,
           },
           {
-            label: "Souscription talents",
+            label: "Souscription artisan",
+            backgroundColor: "orange",
+            borderColor: "orange",
+            data: souscriptionTalents,
+          },
+          {
+            label: "Inscription vétéran",
+            backgroundColor: "brown",
+            borderColor: "brown",
+            data: Talents,
+          },
+          {
+            label: "Souscription vétéran",
+            backgroundColor: "orange",
+            borderColor: "orange",
+            data: souscriptionTalents,
+          },
+        ],
+      };
+    },
+    setChartDataRecruteur(
+      Entreprises,
+      Talents,
+      souscriptionEntreprise,
+      souscriptionTalents,
+      labels
+    ) {
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: "Inscription entreprise",
+            backgroundColor: "teal",
+            borderColor: "teal",
+            data: Entreprises,
+          },
+          {
+            label: "Souscription entreprise",
+            backgroundColor: "purple",
+            borderColor: "purple",
+            data: souscriptionEntreprise,
+          },
+          {
+            label: "Inscription particulier",
+            backgroundColor: "brown",
+            borderColor: "brown",
+            data: Talents,
+          },
+          {
+            label: "Souscription particulier",
             backgroundColor: "orange",
             borderColor: "orange",
             data: souscriptionTalents,
@@ -270,7 +331,15 @@ export default {
         )
         .then((response) => {
           console.log("statistique_response_entreprise_student", response);
-          this.chartData = this.setChartData(
+          this.chartDataRecruteurs = this.setChartDataRecruteur(
+            response.data.entreprises,
+            response.data.talents,
+            response.data.entreprise_count_abonnement,
+            response.data.talents_count_abonnement,
+            response.data.absicsse
+          );
+          
+          this.chartDataTalents = this.setChartDataTalents(
             response.data.entreprises,
             response.data.talents,
             response.data.entreprise_count_abonnement,
@@ -322,13 +391,6 @@ export default {
           v-model="valueSubmit"
           type="number"
         />
-        <!-- <div
-          v-if="chooseAnOptionPeriode === 'periodly'"
-          class="d-flex align-items-center gap-2 px-2 w-100"
-        >
-          <input type="date" />
-          <input type="date" />
-        </div> -->
       </div>
     </div>
     <div class="text-end mb-4 mx-3">
@@ -342,14 +404,29 @@ export default {
     </div>
     <div v-if="isLoading" style="height: 300px">Chargement...</div>
     <div v-else>
+      <div>
       <Chart
         v-if="this.chooseTypesOfFilter === 'nombre'"
         type="bar"
         :height="300"
-        
-        :data="chartData"
+        :data="chartDataRecruteurs"
         :options="chartOptions"
       />
+      <p style="text-align: center;font-weight: bold;">Recruteurs</p>
+      </div>
+
+      <div>
+        <Chart
+        v-if="this.chooseTypesOfFilter === 'nombre'"
+        type="bar"
+        :height="300"
+        :data="chartDataTalents"
+        :options="chartOptions"
+        />
+        <p style="text-align: center;font-weight: bold;">Talents</p>
+      </div>
+      
+      
     </div>
   </div>
 </template>
