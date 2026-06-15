@@ -1,8 +1,11 @@
 <template>
   <div class="page-body position-relative">
     <!-- ANNEE -->
-    <div style="margin: 3em 0 0 0; display: flex; align-items: center">
+    <div
+      style="margin: 3em 0 0 0; display: flex; align-items: center; gap: 1rem"
+    >
       <p class="my-5 p-0" style="color: black; text-align: left">Année</p>
+
       <select v-model="selectedYear" class="select">
         <option v-for="year in years" :key="year" :value="year">
           {{ year }}
@@ -10,7 +13,7 @@
       </select>
     </div>
 
-    <!-- TAB GLOBAL -->
+    <!-- TABS PRINCIPALES -->
     <Tabs v-model:value="activeMainTab">
       <TabList style="padding: 1em 0">
         <Tab :value="0">Talents</Tab>
@@ -23,21 +26,13 @@
           <Tabs v-model:value="activeTalentTab">
             <TabList>
               <Tab
-                v-for="(cat, i) in talentCategories"
-                :key="cat.key"
-                :value="i"
+                v-for="(category, index) in talentCategories"
+                :key="category.key"
+                :value="index"
               >
-                {{ cat.label }}
+                {{ category.label }}
               </Tab>
             </TabList>
-
-            <TabPanels>
-              <TabPanel
-                v-for="(cat, i) in talentCategories"
-                :key="cat.key"
-                :value="i"
-              />
-            </TabPanels>
           </Tabs>
         </TabPanel>
 
@@ -46,21 +41,13 @@
           <Tabs v-model:value="activeEntrepriseTab">
             <TabList>
               <Tab
-                v-for="(cat, i) in entrepriseCategories"
-                :key="cat.key"
-                :value="i"
+                v-for="(category, index) in entrepriseCategories"
+                :key="category.key"
+                :value="index"
               >
-                {{ cat.label }}
+                {{ category.label }}
               </Tab>
             </TabList>
-
-            <TabPanels>
-              <TabPanel
-                v-for="(cat, i) in entrepriseCategories"
-                :key="cat.key"
-                :value="i"
-              />
-            </TabPanels>
           </Tabs>
         </TabPanel>
       </TabPanels>
@@ -70,7 +57,7 @@
     <div class="grid mt-4 gap-3">
       <div
         v-for="(user, index) in top4Data"
-        :key="index"
+        :key="`${user.nom}-${index}`"
         class="rank-card"
         :style="{
           borderLeft: `6px solid ${rankConfig[index]?.color}`,
@@ -79,29 +66,37 @@
       >
         <div class="rank-left">
           <img :src="medailleConfig[index]" alt="Médaille" class="medaille" />
+
           <i
             :class="rankConfig[index]?.icon"
             class="rank-icon"
-            :style="{ color: 'white' }"
+            style="color: white"
           />
 
           <div class="rank-number" style="color: white">#{{ index + 1 }}</div>
         </div>
 
         <div class="rank-body">
-          <div class="name" style="text-align: left">{{ user.nom }}</div>
-          <div class="avg">Moyenne : {{ user.avg }} / 5</div>
+          <div class="name" style="text-align: left">
+            {{ user.nom }}
+          </div>
+
+          <div class="avg" v-if="user.avg">Moyenne : {{ user.avg }}</div>
+          <div class="avg" v-if="user.Offre">Offre : {{ user.Offre }}</div>
+          
         </div>
       </div>
 
-      <div v-if="top4Data.length === 0" class="empty">
+      <div v-if="!top4Data.length" class="empty">
         Aucun classement disponible
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
 import { computed, ref } from "vue";
+
 import Tabs from "primevue/tabs";
 import TabList from "primevue/tablist";
 import Tab from "primevue/tab";
@@ -113,31 +108,64 @@ import medailleArgent from "../../../public/Argent.png";
 import medailleBronze from "../../../public/Bronze.png";
 import medaille4 from "../../../public/Cuivre.png";
 
+/**
+ * MEDAILLES
+ */
 const medailleConfig = [medailleOr, medailleArgent, medailleBronze, medaille4];
 
 /**
- * CONFIG ICONS / COLORS
+ * RANK CONFIG
  */
 const rankConfig = [
-  { icon: "pi pi-crown", color: "#f1c40f" },
-  { icon: "pi pi-star-fill", color: "#bdc3c7" },
-  { icon: "pi pi-bookmark-fill", color: "#cd7f32" },
-  { icon: "pi pi-user", color: "#6c757d" },
+  {
+    icon: "pi pi-crown",
+    color: "#f1c40f",
+  },
+  {
+    icon: "pi pi-star-fill",
+    color: "#bdc3c7",
+  },
+  {
+    icon: "pi pi-bookmark-fill",
+    color: "#cd7f32",
+  },
+  {
+    icon: "pi pi-user",
+    color: "#d6906c",
+  },
 ];
 
 /**
  * CATEGORIES
  */
 const talentCategories = [
-  { label: "Étudiants", key: "etudiant" },
-  { label: "Professionnels", key: "professionnel" },
-  { label: "Artisans", key: "artisan" },
-  { label: "Vétérans", key: "veteran" },
+  {
+    label: "Étudiants",
+    key: "etudiant",
+  },
+  {
+    label: "Professionnels",
+    key: "professionnel",
+  },
+  {
+    label: "Artisans",
+    key: "artisan",
+  },
+  {
+    label: "Vétérans",
+    key: "veteran",
+  },
 ];
 
 const entrepriseCategories = [
-  { label: "Entreprises", key: "entreprises" },
-  { label: "Particuliers", key: "particuliers" },
+  {
+    label: "Entreprises",
+    key: "entreprises",
+  },
+  {
+    label: "Particuliers",
+    key: "particuliers",
+  },
 ];
 
 /**
@@ -146,6 +174,7 @@ const entrepriseCategories = [
 const rankings = ref([
   {
     annee: 2026,
+
     top4: {
       talents: {
         etudiant: [
@@ -154,18 +183,21 @@ const rankings = ref([
           { nom: "Ali", avg: 3 },
           { nom: "Sara", avg: 2 },
         ],
+
         professionnel: [
           { nom: "Koffi", avg: 5 },
           { nom: "Yao", avg: 4 },
           { nom: "Awa", avg: 3 },
           { nom: "Marc", avg: 1 },
         ],
+
         artisan: [
           { nom: "Blaise", avg: 5 },
           { nom: "Moussa", avg: 4 },
           { nom: "Aya", avg: 3 },
           { nom: "Nina", avg: 2 },
         ],
+
         veteran: [
           { nom: "Adjoua", avg: 5 },
           { nom: "Kouadio", avg: 4 },
@@ -173,22 +205,20 @@ const rankings = ref([
           { nom: "Fabrice", avg: 3 },
         ],
       },
-      entreprises: {
-        entreprises: [
-          { nom: "Tech CI", avg: 30 },
-          { nom: "Orange CI", avg: 20 },
-          { nom: "MTN CI", avg: 10 },
-          { nom: "SIFCA", avg: 5 },
-        ],
-      },
-      Particuliers: {
-        Particuliers: [
-          { nom: "Tech CI", avg: 30 },
-          { nom: "Orange CI", avg: 20 },
-          { nom: "MTN CI", avg: 10 },
-          { nom: "SIFCA", avg: 5 },
-        ],
-      },
+
+      entreprises: [
+        { nom: "Tech CI", Offre: 30 },
+        { nom: "Orange CI", Offre: 20 },
+        { nom: "MTN CI", Offre: 10 },
+        { nom: "SIFCA", Offre: 5 },
+      ],
+
+      particuliers: [
+        { nom: "Yves", Offre: 30 },
+        { nom: "Patrick", Offre: 20 },
+        { nom: "Fatou", Offre: 10 },
+        { nom: "Aminata", Offre: 5 },
+      ],
     },
   },
 ]);
@@ -196,39 +226,55 @@ const rankings = ref([
 /**
  * STATE
  */
-const selectedYear = ref(new Date().getFullYear());
-
 const activeMainTab = ref(0);
 const activeTalentTab = ref(0);
 const activeEntrepriseTab = ref(0);
 
 /**
- * COMPUTED
+ * YEARS
  */
-const years = computed(() => rankings.value.map((r) => r.annee));
+const years = computed(() => rankings.value.map((item) => item.annee));
 
+const selectedYear = ref(years.value[0] ?? new Date().getFullYear());
+
+/**
+ * ACTIVE KEYS
+ */
+const activeTalentKey = computed(
+  () => talentCategories[activeTalentTab.value]?.key
+);
+
+const activeEntrepriseKey = computed(
+  () => entrepriseCategories[activeEntrepriseTab.value]?.key
+);
+
+/**
+ * YEAR DATA
+ */
+const currentYearData = computed(() =>
+  rankings.value.find((item) => item.annee === selectedYear.value)
+);
+
+/**
+ * TOP 4 DATA
+ */
 const top4Data = computed(() => {
-  const yearData = rankings.value.find((r) => r.annee === selectedYear.value);
+  const top4 = currentYearData.value?.top4;
 
-  if (!yearData) return [];
+  if (!top4) {
+    return [];
+  }
 
-  // TALENTS
   if (activeMainTab.value === 0) {
-    const key = talentCategories[activeTalentTab.value]?.key;
-    return yearData.top4?.talents?.[key] ?? [];
+    return top4.talents?.[activeTalentKey.value] ?? [];
   }
 
-  // ENTREPRISES
-  const key = entrepriseCategories[activeEntrepriseTab.value]?.key;
-  if (key === "Particuliers") {
-    return yearData.top4?.Particuliers;
-  }
+  const dataMap = {
+    entreprises: top4.entreprises ?? [],
+    particuliers: top4.particuliers ?? [],
+  };
 
-  if (key === "entreprises") {
-    return yearData.top4?.entreprises;
-  }
-
-  return;
+  return dataMap[activeEntrepriseKey.value] ?? [];
 });
 </script>
 <style scoped>
