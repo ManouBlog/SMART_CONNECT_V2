@@ -105,92 +105,95 @@ export default {
       return {
         labels: labels,
         datasets: [
-          {
-            label: "Inscription etudiant",
-            backgroundColor: "teal",
-            borderColor: "teal",
-            data: Entreprises,
-          },
-          {
-            label: "Souscription etudiant",
-            backgroundColor: "purple",
-            borderColor: "purple",
-            data: souscriptionEntreprise,
-          },
-          {
-            label: "Inscription professionnel",
-            backgroundColor: "teal",
-            borderColor: "teal",
-            data: Entreprises,
-          },
-          {
-            label: "Souscription professionnel",
-            backgroundColor: "purple",
-            borderColor: "purple",
-            data: souscriptionEntreprise,
-          },
-          {
-            label: "Inscription artisan",
-            backgroundColor: "brown",
-            borderColor: "brown",
-            data: Talents,
-          },
-          {
-            label: "Souscription artisan",
-            backgroundColor: "orange",
-            borderColor: "orange",
-            data: souscriptionTalents,
-          },
-          {
-            label: "Inscription vétéran",
-            backgroundColor: "brown",
-            borderColor: "brown",
-            data: Talents,
-          },
-          {
-            label: "Souscription vétéran",
-            backgroundColor: "orange",
-            borderColor: "orange",
-            data: souscriptionTalents,
-          },
-        ],
+  {
+    label: "Inscription étudiant",
+    backgroundColor: "#3B82F6", // bleu
+    borderColor: "#3B82F6",
+    data: Entreprises,
+  },
+  {
+    label: "Souscription étudiant",
+    backgroundColor: "#93C5FD", // bleu clair
+    borderColor: "#93C5FD",
+    data: Talents,
+  },
+
+  {
+    label: "Inscription professionnel",
+    backgroundColor: "#10B981", // vert
+    borderColor: "#10B981",
+    data: souscriptionEntreprise,
+  },
+  {
+    label: "Souscription professionnel",
+    backgroundColor: "#6EE7B7", // vert clair
+    borderColor: "#6EE7B7",
+    data: souscriptionTalents,
+  },
+
+  {
+    label: "Inscription artisan",
+    backgroundColor: "#F59E0B", // orange
+    borderColor: "#F59E0B",
+    data: souscriptionTalents,
+  },
+  {
+    label: "Souscription artisan",
+    backgroundColor: "#FCD34D", // orange clair
+    borderColor: "#FCD34D",
+    data: souscriptionTalents,
+  },
+
+  {
+    label: "Inscription vétéran",
+    backgroundColor: "#8B5CF6", // violet
+    borderColor: "#8B5CF6",
+    data: souscriptionTalents,
+  },
+  {
+    label: "Souscription vétéran",
+    backgroundColor: "#C4B5FD", // violet clair
+    borderColor: "#C4B5FD",
+    data: souscriptionTalents,
+  },
+],
       };
     },
     setChartDataRecruteur(
-      Entreprises,
-      Talents,
-      souscriptionEntreprise,
-      souscriptionTalents,
+      inscription_entreprise,
+      souscription_entreprise,
+      inscription_particulier,
+      souscription_particulier,
       labels
     ) {
       return {
         labels: labels,
         datasets: [
-          {
-            label: "Inscription entreprise",
-            backgroundColor: "teal",
-            borderColor: "teal",
-            data: Entreprises,
-          },
-          {
-            label: "Souscription entreprise",
-            backgroundColor: "purple",
-            borderColor: "purple",
-            data: souscriptionEntreprise,
-          },
-          {
-            label: "Inscription particulier",
-            backgroundColor: "brown",
-            borderColor: "brown",
-            data: Talents,
-          },
-          {
-            label: "Souscription particulier",
-            backgroundColor: "orange",
-            borderColor: "orange",
-            data: souscriptionTalents,
-          },
-        ],
+  {
+    label: "Inscription entreprise",
+    backgroundColor: "#2563EB", // Bleu
+    borderColor: "#2563EB",
+    data: inscription_entreprise,
+  },
+  {
+    label: "Souscription entreprise",
+    backgroundColor: "#60A5FA", // Bleu clair
+    borderColor: "#60A5FA",
+    data: souscription_entreprise,
+  },
+  {
+    label: "Inscription particulier",
+    backgroundColor: "#F59E0B", // Orange
+    borderColor: "#F59E0B",
+    data: inscription_particulier,
+  },
+  {
+    label: "Souscription particulier",
+    backgroundColor: "#FCD34D", // Jaune orangé
+    borderColor: "#FCD34D",
+    data: souscription_particulier,
+  },
+],
       };
     },
     setChartAbonnementOptions() {
@@ -332,10 +335,10 @@ export default {
         .then((response) => {
           console.log("statistique_response_entreprise_student", response);
           this.chartDataRecruteurs = this.setChartDataRecruteur(
-            response.data.entreprises,
-            response.data.talents,
-            response.data.entreprise_count_abonnement,
-            response.data.talents_count_abonnement,
+            response.data.inscription_entreprise,
+            response.data.souscription_entreprise,
+            response.data.inscription_particulier,
+            response.data.souscription_particulier,
             response.data.absicsse
           );
           
