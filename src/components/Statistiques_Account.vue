@@ -96,10 +96,14 @@ export default {
         });
     },
     setChartDataTalents(
-      Entreprises,
-      Talents,
-      souscriptionEntreprise,
-      souscriptionTalents,
+      inscription_etudiants,
+            souscription_etudiants,
+            inscription_professionnels,
+            souscription_professionnels,
+            inscription_artisans,
+            souscription_artisans,
+            inscription_veterans,
+            souscription_veterans,
       labels
     ) {
       return {
@@ -109,52 +113,60 @@ export default {
     label: "Inscription étudiant",
     backgroundColor: "#3B82F6", // bleu
     borderColor: "#3B82F6",
-    data: Entreprises,
+    data: inscription_etudiants,
+  
   },
   {
     label: "Souscription étudiant",
     backgroundColor: "#93C5FD", // bleu clair
     borderColor: "#93C5FD",
-    data: Talents,
+    data: souscription_etudiants,
+  
   },
 
   {
     label: "Inscription professionnel",
     backgroundColor: "#10B981", // vert
     borderColor: "#10B981",
-    data: souscriptionEntreprise,
+    data: inscription_professionnels,
+  
   },
   {
     label: "Souscription professionnel",
     backgroundColor: "#6EE7B7", // vert clair
     borderColor: "#6EE7B7",
-    data: souscriptionTalents,
+    data: souscription_professionnels,
+  
   },
 
   {
     label: "Inscription artisan",
     backgroundColor: "#F59E0B", // orange
     borderColor: "#F59E0B",
-    data: souscriptionTalents,
+    data: inscription_artisans,
+  
   },
   {
     label: "Souscription artisan",
     backgroundColor: "#FCD34D", // orange clair
     borderColor: "#FCD34D",
-    data: souscriptionTalents,
+    data: souscription_artisans,
+  
   },
 
   {
     label: "Inscription vétéran",
     backgroundColor: "#8B5CF6", // violet
     borderColor: "#8B5CF6",
-    data: souscriptionTalents,
+    data: inscription_veterans,
+  
   },
   {
     label: "Souscription vétéran",
     backgroundColor: "#C4B5FD", // violet clair
     borderColor: "#C4B5FD",
-    data: souscriptionTalents,
+    data: souscription_veterans,
+  
   },
 ],
       };
@@ -174,24 +186,28 @@ export default {
     backgroundColor: "#2563EB", // Bleu
     borderColor: "#2563EB",
     data: inscription_entreprise,
+  
   },
   {
     label: "Souscription entreprise",
     backgroundColor: "#60A5FA", // Bleu clair
     borderColor: "#60A5FA",
     data: souscription_entreprise,
+  
   },
   {
     label: "Inscription particulier",
     backgroundColor: "#F59E0B", // Orange
     borderColor: "#F59E0B",
     data: inscription_particulier,
+  
   },
   {
     label: "Souscription particulier",
     backgroundColor: "#FCD34D", // Jaune orangé
     borderColor: "#FCD34D",
     data: souscription_particulier,
+  
   },
 ],
       };
@@ -218,6 +234,7 @@ export default {
         },
         scales: {
           x: {
+             grace: "10%",
             ticks: {
               color: textColorSecondary,
               font: {
@@ -230,6 +247,8 @@ export default {
             },
           },
           y: {
+            beginAtZero: true,
+             grace: "10%",
             ticks: {
               color: textColorSecondary,
             },
@@ -263,6 +282,7 @@ export default {
         },
         scales: {
           x: {
+            beginAtZero: true,
             ticks: {
               color: textColorSecondary,
               font: {
@@ -343,10 +363,14 @@ export default {
           );
           
           this.chartDataTalents = this.setChartDataTalents(
-            response.data.entreprises,
-            response.data.talents,
-            response.data.entreprise_count_abonnement,
-            response.data.talents_count_abonnement,
+            response.data.inscription_etudiants,
+            response.data.souscription_etudiants,
+            response.data.inscription_professionnels,
+            response.data.souscription_professionnels,
+            response.data.inscription_artisans,
+            response.data.souscription_artisans,
+            response.data.inscription_veterans,
+            response.data.souscription_veterans,
             response.data.absicsse
           );
         })
