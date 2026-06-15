@@ -137,52 +137,60 @@ const talentCategories = [
 
 const entrepriseCategories = [
   { label: "Entreprises", key: "entreprises" },
-  { label: "Particuliers", key: "Particuliers" },
+  { label: "Particuliers", key: "particuliers" },
 ];
 
 /**
  * DATA
  */
 const rankings = ref([
-  // {
-  //   annee: 2026,
-  //   top4: {
-  //     talents: {
-  //       etudiant: [
-  //         { nom: "Jean", avg: 5 },
-  //         { nom: "Paul", avg: 4 },
-  //         { nom: "Ali", avg: 3 },
-  //         { nom: "Sara", avg: 2 },
-  //       ],
-  //       professionnel: [
-  //         { nom: "Koffi", avg: 5 },
-  //         { nom: "Yao", avg: 4 },
-  //         { nom: "Awa", avg: 3 },
-  //         { nom: "Marc", avg: 1 },
-  //       ],
-  //       artisan: [
-  //         { nom: "Blaise", avg: 5 },
-  //         { nom: "Moussa", avg: 4 },
-  //         { nom: "Aya", avg: 3 },
-  //         { nom: "Nina", avg: 2 },
-  //       ],
-  //       veteran: [
-  //         { nom: "Adjoua", avg: 5 },
-  //         { nom: "Kouadio", avg: 4 },
-  //         { nom: "Louis", avg: 4 },
-  //         { nom: "Fabrice", avg: 3 },
-  //       ],
-  //     },
-  //     entreprises: {
-  //       entreprises: [
-  //         { nom: "Tech CI", avg: 30 },
-  //         { nom: "Orange CI", avg: 20 },
-  //         { nom: "MTN CI", avg: 10 },
-  //         { nom: "SIFCA", avg: 5 },
-  //       ],
-  //     },
-  //   },
-  // },
+  {
+    annee: 2026,
+    top4: {
+      talents: {
+        etudiant: [
+          { nom: "Jean", avg: 5 },
+          { nom: "Paul", avg: 4 },
+          { nom: "Ali", avg: 3 },
+          { nom: "Sara", avg: 2 },
+        ],
+        professionnel: [
+          { nom: "Koffi", avg: 5 },
+          { nom: "Yao", avg: 4 },
+          { nom: "Awa", avg: 3 },
+          { nom: "Marc", avg: 1 },
+        ],
+        artisan: [
+          { nom: "Blaise", avg: 5 },
+          { nom: "Moussa", avg: 4 },
+          { nom: "Aya", avg: 3 },
+          { nom: "Nina", avg: 2 },
+        ],
+        veteran: [
+          { nom: "Adjoua", avg: 5 },
+          { nom: "Kouadio", avg: 4 },
+          { nom: "Louis", avg: 4 },
+          { nom: "Fabrice", avg: 3 },
+        ],
+      },
+      entreprises: {
+        entreprises: [
+          { nom: "Tech CI", avg: 30 },
+          { nom: "Orange CI", avg: 20 },
+          { nom: "MTN CI", avg: 10 },
+          { nom: "SIFCA", avg: 5 },
+        ],
+      },
+      Particuliers: {
+        Particuliers: [
+          { nom: "Tech CI", avg: 30 },
+          { nom: "Orange CI", avg: 20 },
+          { nom: "MTN CI", avg: 10 },
+          { nom: "SIFCA", avg: 5 },
+        ],
+      },
+    },
+  },
 ]);
 
 /**
