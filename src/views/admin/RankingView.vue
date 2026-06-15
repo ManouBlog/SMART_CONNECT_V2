@@ -221,9 +221,14 @@ const top4Data = computed(() => {
   // ENTREPRISES
   const key = entrepriseCategories[activeEntrepriseTab.value]?.key;
   if (key === "Particuliers") {
-    return yearData.top4?.Particuliers?.[key] ?? [];
+    return yearData.top4?.Particuliers;
   }
-  return yearData.top4?.entreprises?.[key] ?? [];
+
+  if (key === "entreprises") {
+    return yearData.top4?.entreprises;
+  }
+
+  return;
 });
 </script>
 <style scoped>
