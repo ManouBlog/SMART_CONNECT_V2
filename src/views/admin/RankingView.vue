@@ -220,6 +220,9 @@ const top4Data = computed(() => {
 
   // ENTREPRISES
   const key = entrepriseCategories[activeEntrepriseTab.value]?.key;
+  if (key === "Particuliers") {
+    return yearData.top4?.Particuliers?.[key] ?? [];
+  }
   return yearData.top4?.entreprises?.[key] ?? [];
 });
 </script>
