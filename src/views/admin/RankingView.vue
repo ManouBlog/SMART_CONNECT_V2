@@ -82,8 +82,7 @@
           </div>
 
           <div class="avg" v-if="user.avg">Moyenne : {{ user.avg }}</div>
-          <div class="avg" v-if="user.Offre">Offre : {{ user.Offre }}</div>
-          
+          <div class="avg" v-if="user.Offre">Offre pourvue : {{ user.Offre }}</div>
         </div>
       </div>
 
