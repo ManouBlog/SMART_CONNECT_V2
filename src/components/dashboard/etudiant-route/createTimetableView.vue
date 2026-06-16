@@ -25,10 +25,12 @@ export default {
   },
   data() {
     return {
+      EndRecurrence:"never",
+      dateForEndRecurrence:null,
+      handleRecurrence:"onTime",
       handleDayWeek:"",
       handleIsPeriodOrNot:'dayOfWeek',
       handleDays: [],
-
       weekDays: [
         { label: "Lundi", value: 1 },
         { label: "Mardi", value: 2 },
@@ -818,20 +820,20 @@ export default {
             </div>
              <div v-if="handleHoraire === 'Customize'">
                 <section>
-                  <div style="display: flex;justify-content: center;width: 100%;">
- <select
-  class="my-5"
-  style="height:40px;width:200px;"
-  v-model="handleIsPeriodOrNot"
->
-
-  <option value="dayOfWeek">
-    Jours de la semaine
-  </option>
-    </select>
-                  </div>
-  
-  <VueMultiselect
+            <div style="padding: 1em; display:flex;align-items: center;gap:1em;width: 100%;">
+             <div style="flex:1">
+               <label
+    for="recurrence"
+    style="
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+      display: block;
+    "
+  >
+    Jour de la semaine
+  </label>
+   <VueMultiselect
     v-model="handleDays"
     :options="weekDays"
     :multiple="true"
@@ -841,35 +843,24 @@ export default {
     placeholder="Choisir un ou plusieurs jours"
     label="label"
     track-by="value"
-    style="width: 100%"
   />
-<pre>{{ handleDays }}</pre>
-<div
-  style="
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin: 1rem 0;
-  "
->
-  <label
+             </div>
+    <div style="flex:1">
+ <label
     for="recurrence"
     style="
       font-weight: 600;
       white-space: nowrap;
       margin: 0;
+      display: block;
     "
   >
     Répétition
   </label>
-
   <select
     id="recurrence"
     v-model="handleRecurrence"
     style="
-      min-width: 220px;
       height: 42px;
       padding: 0 12px;
       border: 1px solid #d1d5db;
@@ -878,12 +869,76 @@ export default {
       cursor: pointer;
     "
   >
-    <option value="never">Une seule fois</option>
+    <option value="onTime">Une seule fois</option>
     <option value="weekly">Chaque semaine</option>
     <option value="biweekly">Toutes les 2 semaines</option>
     <option value="monthly">Chaque mois</option>
     <option value="yearly">Chaque année</option>
   </select>
+  </div>
+            </div>  
+ 
+<div style="padding: 1em; display:flex;align-items: center;gap:1em;">
+
+
+  <div>
+     <label
+    for="recurrence"
+    style="
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+      display: block;
+    "
+  >
+    Fin de la Répétition
+  </label>
+  <select
+    id="recurrence"
+    v-model="EndRecurrence"
+    style="
+      width: 220px;
+      height: 42px;
+      padding: 0 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+    "
+  >
+    <option value="never">Jamais</option>
+    <option value="chooseDate">Choisir une Date</option>
+  </select>
+ 
+  </div>
+  <div v-if="EndRecurrence === 'chooseDate'" >
+     <label
+    for="recurrence"
+    style="
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+      display: block;
+    "
+  >
+    Date de fin
+  </label>
+ <input 
+  style="
+      width: 220px;
+      height: 42px;
+      padding: 0 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+    "
+  :min="new Date().toISOString().split('T')[0]"
+  type="date" 
+  v-model="dateForEndRecurrence">
+  </div>
+  
+ 
 </div>
                 </section>
                 <div class="col-lg-12">
