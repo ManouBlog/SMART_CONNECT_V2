@@ -64,7 +64,10 @@ export default {
   <div class="info_student_detail">
     
     <div
-      style="display: flex; justify-content: space-between; align-items: center; gap: 1em;"
+      style="display: flex; justify-content: space-between; 
+      align-items: center; gap: 1em;
+      flex-wrap: wrap;
+      "
     >
       <section class="section_student_header">
         <div>
@@ -107,9 +110,9 @@ export default {
               font-size: 1.4em !important;"></i> -->
         </div> 
         <div style="display: flex; flex-direction: column; gap: 0.5em; align-items: flex-start">
-          <h3 class="text-left my-3">
+          <h6 class="text-left my-3">
             {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
-          </h3>
+          </h6>
           <!-- Conteneur avec flex et gap -->
 <div v-for="item in timetable_for_student?.user.statuses"
  :key="item.id">

@@ -129,7 +129,7 @@ export default {
     this.texte3 = await this.handleTranslate('Commune');
     this.texte4 = await this.handleTranslate('Télephone');
     this.texte5 = await this.handleTranslate("niveau d’étude");
-    this.texte6 = await this.handleTranslate('Carte étudiant');
+    this.texte6 = await this.handleTranslate('Pièce jointe');
     this.texte7 = await this.handleTranslate('Sélectionner');
     this.texte8 = await this.handleTranslate('Rejeter');
     this.texte9 = await this.handleTranslate("Candidature retenue");
