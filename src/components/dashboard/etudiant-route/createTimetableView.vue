@@ -120,6 +120,15 @@ export default {
     ...mapActions(useDisponibiliteStore, ["createdDisponiblite"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
+    saveDayWeekCustomize(){
+     const data={
+      "EndRecurrence":this.EndRecurrence,
+      "dateForEndRecurrence":this.dateForEndRecurrence,
+      "handleRecurrence":this.handleRecurrence,
+      "handleDays":this.handleDays
+     }
+     console.log("saveDayWeekCustomize",data)
+    },
     show_modify() {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = null;
@@ -945,7 +954,7 @@ align-items: center;gap:1em;width: 100%;flex-wrap: wrap;">
                   <button
                     :disabled="!First_heure_start_from && !First_heure_end_to"
                     class="btn bg-warning p-5"
-                    @click="create_timetable"
+                    @click="saveDayWeekCustomize"
                   >
                     Enregistrer
                   </button>
