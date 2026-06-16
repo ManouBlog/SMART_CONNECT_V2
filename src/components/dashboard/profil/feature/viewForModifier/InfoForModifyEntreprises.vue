@@ -312,6 +312,8 @@ if (isStudentGroup) {
      
     },
     async updateInfoStudent(Talent) {
+
+     
       
       const data = await this.update_compte_student({
         nom: Talent.nom,
@@ -364,25 +366,25 @@ if (isStudentGroup) {
   },
     async handleUpdate(payload) {
     console.log("handleUpdate_payload",payload)
-  // const user = this.$store.state.infoUserConnected?.user;
-  // const statuses = user?.statuses || [];
-  // const roles = statuses.map(s => s.statut);
+  const user = this.$store.state.infoUserConnected?.user;
+  const statuses = user?.statuses || [];
+  const roles = statuses.map(s => s.statut);
 
-  // const isEntreprise = roles.includes('Entreprise');
-  // const isParticulier = roles.includes('particulier');
+  const isEntreprise = roles.includes('Entreprise');
+  const isParticulier = roles.includes('particulier');
 
-  // if (isEntreprise) {
-  //   this.updateInfoEntreprise(payload);
-  //   return;
-  // }
+  if (isEntreprise) {
+    this.updateInfoEntreprise(payload);
+    return;
+  }
 
-  // if (isParticulier) {
-  //   this.update_compte_particulier(payload);
-  //   await this.getInfoUser();
-  //   return;
-  // }
+  if (isParticulier) {
+    this.update_compte_particulier(payload);
+    await this.getInfoUser();
+    return;
+  }
 
-  // this.updateInfoStudent(payload);
+  this.updateInfoStudent(payload);
   await this.getInfoUser();
 },
   

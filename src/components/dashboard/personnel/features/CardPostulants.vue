@@ -162,7 +162,7 @@ export default {
           >
            <span style="font-size:1em;color:white;">{{Help.toADfirstTwo(InfoPostulant.nom)}}</span>
           </span>
-        <h1 class="user_person" style="color:orange;margin-top:1em;">{{ InfoPostulant.nom }} {{ InfoPostulant.prenoms }}</h1>
+        <h6 class="user_person" style="color:orange;margin-top:1em;">{{ InfoPostulant.nom }} <br> {{ InfoPostulant.prenoms }}</h6>
        </div>
        <section>
         <h4 v-if="InfoPostulant.email">
