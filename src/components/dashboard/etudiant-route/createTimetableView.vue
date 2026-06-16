@@ -822,7 +822,7 @@ export default {
                 <section>
             <div style="padding: 1em; display:flex;
             align-items: center;gap:1em;width: 100%;flex-wrap: wrap;">
-             <div style="flex:1">
+             <div style="flex:1 1 200px">
                <label
     for="recurrence"
     style="
@@ -846,7 +846,7 @@ export default {
     track-by="value"
   />
              </div>
-    <div style="flex:1">
+    <div style="flex:1 1 200px">
  <label
     for="recurrence"
     style="
@@ -881,7 +881,7 @@ export default {
             </div>  
 <div style="padding: 1em; display:flex;
 align-items: center;gap:1em;width: 100%;flex-wrap: wrap;">
-  <div style="flex:1">
+  <div style="flex:1 1 200px">
      <label
     for="recurrence"
     style="
@@ -911,7 +911,7 @@ align-items: center;gap:1em;width: 100%;flex-wrap: wrap;">
   </select>
  
   </div>
-  <div style="flex:1" v-if="EndRecurrence === 'chooseDate'" >
+  <div style="flex:1 1 200px" v-if="EndRecurrence === 'chooseDate'" >
      <label
     for="recurrence"
     style="
