@@ -820,7 +820,8 @@ export default {
             </div>
              <div v-if="handleHoraire === 'Customize'">
                 <section>
-            <div style="padding: 1em; display:flex;align-items: center;gap:1em;width: 100%;">
+            <div style="padding: 1em; display:flex;
+            align-items: center;gap:1em;width: 100%;flex-wrap: wrap;">
              <div style="flex:1">
                <label
     for="recurrence"
@@ -861,7 +862,8 @@ export default {
     id="recurrence"
     v-model="handleRecurrence"
     style="
-      height: 42px;
+    width: 100%;
+      height: 45px;
       padding: 0 12px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
@@ -877,11 +879,9 @@ export default {
   </select>
   </div>
             </div>  
- 
-<div style="padding: 1em; display:flex;align-items: center;gap:1em;">
-
-
-  <div>
+<div style="padding: 1em; display:flex;
+align-items: center;gap:1em;width: 100%;flex-wrap: wrap;">
+  <div style="flex:1">
      <label
     for="recurrence"
     style="
@@ -897,7 +897,7 @@ export default {
     id="recurrence"
     v-model="EndRecurrence"
     style="
-      width: 220px;
+      width: 100%;
       height: 42px;
       padding: 0 12px;
       border: 1px solid #d1d5db;
@@ -911,7 +911,7 @@ export default {
   </select>
  
   </div>
-  <div v-if="EndRecurrence === 'chooseDate'" >
+  <div style="flex:1" v-if="EndRecurrence === 'chooseDate'" >
      <label
     for="recurrence"
     style="
@@ -925,7 +925,7 @@ export default {
   </label>
  <input 
   style="
-      width: 220px;
+      width: 100%;
       height: 42px;
       padding: 0 12px;
       border: 1px solid #d1d5db;
@@ -960,6 +960,9 @@ export default {
 </template>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style scoped>
+:deep(.multiselect__tags){
+  border: 1px solid gray !important;
+}
 .container-fluid {
   padding: 1em !important;
 }
