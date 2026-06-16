@@ -110,9 +110,12 @@ export default {
               font-size: 1.4em !important;"></i> -->
         </div> 
         <div style="display: flex; flex-direction: column; gap: 0.5em; align-items: flex-start">
-          <h6 class="text-left my-3">
-            {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
-          </h6>
+          <h3
+  class="text-left my-3"
+  style="font-size: clamp(1rem, 3vw, 2rem);"
+>
+  {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
+</h3>
           <!-- Conteneur avec flex et gap -->
 <div v-for="item in timetable_for_student?.user.statuses"
  :key="item.id">
