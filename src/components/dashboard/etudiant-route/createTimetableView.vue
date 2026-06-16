@@ -804,7 +804,7 @@ export default {
             </div>
              <div v-if="handleHoraire === 'Customize'">
                 <section>
-                  <div  style="display: flex;justify-content: center;">
+                  <div style="display: flex;justify-content: center;width: 100%;">
  <select
   class="my-5"
   style="padding: 1em"
@@ -824,11 +824,16 @@ export default {
     </select>
           
                   </div>
-            
-  <div v-if="handleIsPeriodOrNot === 'single_day'">
+  
+  <div v-if="handleIsPeriodOrNot === 'single_day'" style="
+  display: flex; 
+  gap: 1rem; 
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;">
   <select
     class="my-3"
-    style="padding: 1em"
+    style="height:40px;width:290px;"
     v-model="handleSingleDay"
   >
     <option disabled value="">
@@ -851,13 +856,15 @@ export default {
   gap: 1rem; 
   align-items: center;
   flex-wrap: wrap;
-  justify-content: center;"
+  justify-content: center;
+  
+  "
 >
 
   <!-- JOUR DE DÉBUT -->
   <select
     class="my-3"
-    style="padding: 1em"
+    style="height:40px;width:290px;"
     v-model="handleStartDay"
   >
     <option disabled value="">
