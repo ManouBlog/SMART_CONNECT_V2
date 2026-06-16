@@ -804,8 +804,9 @@ export default {
             </div>
              <div v-if="handleHoraire === 'Customize'">
                 <section>
-             <select
-  class="w-50 my-5"
+                  <div  style="display: flex;justify-content: center;">
+ <select
+  class="my-5"
   style="padding: 1em"
   v-model="handleIsPeriodOrNot"
 >
@@ -820,12 +821,13 @@ export default {
   <option value="range_days">
     Plusieurs jours (ex: Lundi → Vendredi)
   </option>
-
     </select>
           
-                <div v-if="handleIsPeriodOrNot === 'single_day'">
+                  </div>
+            
+  <div v-if="handleIsPeriodOrNot === 'single_day'">
   <select
-    class="w-50 my-3"
+    class="my-3"
     style="padding: 1em"
     v-model="handleSingleDay"
   >
@@ -841,15 +843,20 @@ export default {
     <option value="6">Samedi</option>
     <option value="0">Dimanche</option>
   </select>
-</div>
-<div
+    </div>
+ <div
   v-if="handleIsPeriodOrNot === 'range_days'"
-  style="display: flex; gap: 1rem; align-items: center;"
+  style="
+  display: flex; 
+  gap: 1rem; 
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;"
 >
 
   <!-- JOUR DE DÉBUT -->
   <select
-    class="w-50 my-3"
+    class="my-3"
     style="padding: 1em"
     v-model="handleStartDay"
   >
@@ -866,11 +873,11 @@ export default {
     <option value="0">Dimanche</option>
   </select>
 
-  <span style="font-weight: bold;">→</span>
+  <span style="font-weight: bold;">au</span>
 
   <!-- JOUR DE FIN -->
   <select
-    class="w-50 my-3"
+    class="my-3"
     style="padding: 1em"
     v-model="handleEndDay"
   >
