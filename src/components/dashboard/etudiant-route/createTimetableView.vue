@@ -11,6 +11,8 @@ import { configUtils } from "../../../Shared/Utils";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocale from "dayjs/plugin/updateLocale";
+import VueMultiselect from "vue-multiselect";
+
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocale);
 
@@ -19,11 +21,23 @@ export default {
   components: {
     Calendar,
     HeaderDashboard,
+    VueMultiselect
   },
   data() {
     return {
       handleDayWeek:"",
-      handleIsPeriodOrNot:'single_day',
+      handleIsPeriodOrNot:'dayOfWeek',
+      handleDays: [],
+
+      weekDays: [
+        { label: "Lundi", value: 1 },
+        { label: "Mardi", value: 2 },
+        { label: "Mercredi", value: 3 },
+        { label: "Jeudi", value: 4 },
+        { label: "Vendredi", value: 5 },
+        { label: "Samedi", value: 6 },
+        { label: "Dimanche", value: 0 },
+      ],
       texte0: "",
       texte2: "",
       texte3: "",
@@ -807,100 +821,69 @@ export default {
                   <div style="display: flex;justify-content: center;width: 100%;">
  <select
   class="my-5"
-  style="padding: 1em"
+  style="height:40px;width:200px;"
   v-model="handleIsPeriodOrNot"
 >
-  <option disabled value="">
-    Choisir le type de disponibilité
-  </option>
 
-  <option value="single_day">
-    Un seul jour (ex: Lundi uniquement)
-  </option>
-
-  <option value="range_days">
-    Plusieurs jours (ex: Lundi → Vendredi)
+  <option value="dayOfWeek">
+    Jours de la semaine
   </option>
     </select>
-          
                   </div>
   
-  <div v-if="handleIsPeriodOrNot === 'single_day'" style="
-  display: flex; 
-  gap: 1rem; 
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;">
-  <select
-    class="my-3"
-    style="height:40px;width:290px;"
-    v-model="handleSingleDay"
-  >
-    <option disabled value="">
-      Choisir un jour
-    </option>
-
-    <option value="1">Lundi</option>
-    <option value="2">Mardi</option>
-    <option value="3">Mercredi</option>
-    <option value="4">Jeudi</option>
-    <option value="5">Vendredi</option>
-    <option value="6">Samedi</option>
-    <option value="0">Dimanche</option>
-  </select>
-    </div>
- <div
-  v-if="handleIsPeriodOrNot === 'range_days'"
+  <VueMultiselect
+    v-model="handleDays"
+    :options="weekDays"
+    :multiple="true"
+    :close-on-select="false"
+    :clear-on-select="false"
+    :preserve-search="true"
+    placeholder="Choisir un ou plusieurs jours"
+    label="label"
+    track-by="value"
+    style="width: 100%"
+  />
+<pre>{{ handleDays }}</pre>
+<div
   style="
-  display: flex; 
-  gap: 1rem; 
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 1rem 0;
   "
 >
-
-  <!-- JOUR DE DÉBUT -->
-  <select
-    class="my-3"
-    style="height:40px;width:290px;"
-    v-model="handleStartDay"
+  <label
+    for="recurrence"
+    style="
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+    "
   >
-    <option disabled value="">
-      Du jour
-    </option>
+    Répétition
+  </label>
 
-    <option value="1">Lundi</option>
-    <option value="2">Mardi</option>
-    <option value="3">Mercredi</option>
-    <option value="4">Jeudi</option>
-    <option value="5">Vendredi</option>
-    <option value="6">Samedi</option>
-    <option value="0">Dimanche</option>
-  </select>
-
-  <span style="font-weight: bold;">au</span>
-
-  <!-- JOUR DE FIN -->
   <select
-    class="my-3"
-    style="padding: 1em"
-    v-model="handleEndDay"
+    id="recurrence"
+    v-model="handleRecurrence"
+    style="
+      min-width: 220px;
+      height: 42px;
+      padding: 0 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+    "
   >
-    <option disabled value="">
-      Au jour
-    </option>
-
-    <option value="1">Lundi</option>
-    <option value="2">Mardi</option>
-    <option value="3">Mercredi</option>
-    <option value="4">Jeudi</option>
-    <option value="5">Vendredi</option>
-    <option value="6">Samedi</option>
-    <option value="0">Dimanche</option>
+    <option value="never">Une seule fois</option>
+    <option value="weekly">Chaque semaine</option>
+    <option value="biweekly">Toutes les 2 semaines</option>
+    <option value="monthly">Chaque mois</option>
+    <option value="yearly">Chaque année</option>
   </select>
-
 </div>
                 </section>
                 <div class="col-lg-12">
@@ -920,6 +903,7 @@ export default {
     </div>
   </div>
 </template>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style scoped>
 .container-fluid {
   padding: 1em !important;
