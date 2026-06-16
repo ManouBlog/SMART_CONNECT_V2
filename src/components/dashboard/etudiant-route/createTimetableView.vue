@@ -22,6 +22,8 @@ export default {
   },
   data() {
     return {
+      handleDayWeek:"",
+      handleIsPeriodOrNot:'single_day',
       texte0: "",
       texte2: "",
       texte3: "",
@@ -642,6 +644,7 @@ export default {
                 <option value="" disabled>Type de plage</option>
                 <option value="Horaire">Plage Horaire</option>
                 <option value="Periode">Période</option>
+                <option value="Customize">Personnaliser</option>
               </select>
             </section>
             <section
@@ -685,7 +688,7 @@ export default {
               </div>
             </section>
             <div class="form theme-form projectcreate">
-              <div style="flex: 1 1 100px" v-if="handleHoraire !== 'Periode'">
+              <div style="flex: 1 1 100px" v-if="handleHoraire === 'Horaire'">
                 <h6
                   v-if="!datesOfCalendar.length"
                   class="text-danger d-block text-center"
@@ -795,7 +798,108 @@ export default {
                   </button>
                 </div>
               </div>
+
+              
+              
             </div>
+             <div v-if="handleHoraire === 'Customize'">
+                <section>
+             <select
+  class="w-50 my-5"
+  style="padding: 1em"
+  v-model="handleIsPeriodOrNot"
+>
+  <option disabled value="">
+    Choisir le type de disponibilité
+  </option>
+
+  <option value="single_day">
+    Un seul jour (ex: Lundi uniquement)
+  </option>
+
+  <option value="range_days">
+    Plusieurs jours (ex: Lundi → Vendredi)
+  </option>
+
+    </select>
+          
+                <div v-if="handleIsPeriodOrNot === 'single_day'">
+  <select
+    class="w-50 my-3"
+    style="padding: 1em"
+    v-model="handleSingleDay"
+  >
+    <option disabled value="">
+      Choisir un jour
+    </option>
+
+    <option value="1">Lundi</option>
+    <option value="2">Mardi</option>
+    <option value="3">Mercredi</option>
+    <option value="4">Jeudi</option>
+    <option value="5">Vendredi</option>
+    <option value="6">Samedi</option>
+    <option value="0">Dimanche</option>
+  </select>
+</div>
+<div
+  v-if="handleIsPeriodOrNot === 'range_days'"
+  style="display: flex; gap: 1rem; align-items: center;"
+>
+
+  <!-- JOUR DE DÉBUT -->
+  <select
+    class="w-50 my-3"
+    style="padding: 1em"
+    v-model="handleStartDay"
+  >
+    <option disabled value="">
+      Du jour
+    </option>
+
+    <option value="1">Lundi</option>
+    <option value="2">Mardi</option>
+    <option value="3">Mercredi</option>
+    <option value="4">Jeudi</option>
+    <option value="5">Vendredi</option>
+    <option value="6">Samedi</option>
+    <option value="0">Dimanche</option>
+  </select>
+
+  <span style="font-weight: bold;">→</span>
+
+  <!-- JOUR DE FIN -->
+  <select
+    class="w-50 my-3"
+    style="padding: 1em"
+    v-model="handleEndDay"
+  >
+    <option disabled value="">
+      Au jour
+    </option>
+
+    <option value="1">Lundi</option>
+    <option value="2">Mardi</option>
+    <option value="3">Mercredi</option>
+    <option value="4">Jeudi</option>
+    <option value="5">Vendredi</option>
+    <option value="6">Samedi</option>
+    <option value="0">Dimanche</option>
+  </select>
+
+</div>
+                </section>
+                <div class="col-lg-12">
+                  <button
+                    :disabled="!First_heure_start_from && !First_heure_end_to"
+                    class="btn bg-warning p-5"
+                    @click="create_timetable"
+                  >
+                    Enregistrer
+                  </button>
+                </div>
+             
+              </div>
           </div>
         </div>
       </div>

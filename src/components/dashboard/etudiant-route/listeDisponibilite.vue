@@ -2,7 +2,6 @@
 import instance from "../../../api/api";
 import Swal from "sweetalert2";
 import { FilterMatchMode } from "primevue/api";
-// import VueMultiselect from "vue-multiselect";
 import { configUtils } from "../../../Shared/Utils";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
@@ -572,23 +571,7 @@ export default {
       this.tab = !this.tab;
       this.isActive = !this.isActive;
     },
-    // async verifUserProfilEtudiantComplet() {
-    //   await this.$store.dispatch("getInfoUser");
-    //   const user = this.$store.state.infoUserConnected;
-  
-    //   if (user.user?.statut?.statut === "etudiant") {
-    //     if (!user.jours.length) {
-    //       Swal.fire({
-    //         icon: "info",
-    //         title: "Profil incomplet",
-    //         text: "Veuillez renseigner vos disponibilités pour continuer.",
-    //         // timer: 3000,
-    //         // timerProgressBar: true,
-    //         showConfirmButton: true,
-    //       });
-    //     }
-    //   }
-    // },
+    
   },
   async created() {
     await this.$store.dispatch("getInfoUser");
