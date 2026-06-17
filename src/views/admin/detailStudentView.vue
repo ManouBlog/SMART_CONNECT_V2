@@ -197,11 +197,15 @@ export default {
       <span v-if="student != null" class="badge bg-primary h3">{{
         `${student.nom}  ${student.prenoms}`
       }}</span>
+      
       <div class="text-start">
         <h4 class="badge bg-info">
         <b>Formule d'abonnement</b> :
         {{ this.verifIfAbonnementCurrently(student?.user?.abonement) ? this.verifIfAbonnementCurrently(student?.user?.abonement):'Pas abonnée' }}
         </h4>
+      </div>
+      <div>
+        {{ student?.user }}
       </div>
       <div class="row">
         <div class="col-md-3">
@@ -252,10 +256,10 @@ export default {
           <p>{{ student.diplome }}</p>
         </div>
         </div>
-        <div class="col-sm-6 col-md-3" v-if="student?.user?.photos.length">
+        <div class="col-sm-6 col-md-6" v-if="student?.user?.photos.length">
         <div class="mb-3 text-start">
           <label class="form-label">
-            <b v-if="student?.user?.statuses?.includes(item=>item.statut === 'Etudiant')">Carte d'étudiant ou justificatif de scolarité.</b>
+            <b v-if="student?.user?.statuses?.some(item=>item.statut === 'Etudiant')">Carte d'étudiant ou justificatif de scolarité.</b>
           <b v-else>CNI,Permis de conduire,Passeport,Carte consulaire</b>
           </label>
           <div style="display: flex; flex-wrap: wrap; gap: 10px">
