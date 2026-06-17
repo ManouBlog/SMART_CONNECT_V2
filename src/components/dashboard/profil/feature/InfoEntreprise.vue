@@ -348,7 +348,7 @@ texte0989:"",
   <ParagrapheDetail
     v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))"
     :item="{
-      libelle: 'CNI',
+      libelle: 'CNI,Passeport,Carte consulaire',
       value: null,
       valueArray: infoPersonnelles.user.photos.filter(item =>
         item.path.includes('CNI')
