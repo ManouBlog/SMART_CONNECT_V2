@@ -368,7 +368,7 @@ export default {
         <div class="col-md-4"  v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))">
  <ParagrapheDetail
     :item="{
-      libelle: 'CNI,Passeport,Carte consulaire',
+      libelle: 'Titre d\'identifications',
       value: null,
       valueArray: infoPersonnelles.user.photos.filter(item =>
         item.path.includes('CNI')

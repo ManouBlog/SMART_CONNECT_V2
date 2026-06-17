@@ -350,7 +350,7 @@ texte0989:"",
         <div class="col-md-4"  v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))">
  <ParagrapheDetail
     :item="{
-      libelle: 'CNI,Passeport,Carte consulaire',
+      libelle: 'Titre d\'identifications',
       value: null,
       valueArray: infoPersonnelles.user.photos.filter(item =>
         item.path.includes('CNI')
@@ -390,7 +390,7 @@ texte0989:"",
   <!-- <ParagrapheDetail
     v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))"
     :item="{
-      libelle: 'CNI,Passeport,Carte consulaire',
+      libelle: 'Titre d\'identifications',
       value: null,
       valueArray: infoPersonnelles.user.photos.filter(item =>
         item.path.includes('CNI')
