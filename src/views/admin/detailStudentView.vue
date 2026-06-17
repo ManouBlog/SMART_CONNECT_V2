@@ -255,12 +255,63 @@ export default {
         </div>
         <div class="col-sm-6 col-md-6" v-if="student?.user?.photos.length">
         <div class="mb-3 text-start">
-          <label class="form-label">
+          
+          <div style="display: flex; flex-wrap: wrap; gap: 10px">
+            <!-- CNI -->
+<div v-if="student?.user?.photos?.some(p => p.path?.includes('CNI'))">
+  <label class="form-label">
+    <b>CNI</b>
+  </label>
+
+  <template v-for="(item, index) in student?.user?.photos.filter(p => p.path?.includes('CNI'))" :key="'cni'+index">
+    <Image
+      v-if="!isPdf(item.path)"
+      :src="fileUrl(item.path)"
+      :alt="item.path"
+      width="250"
+      preview
+    />
+  </template>
+</div>
+
+<!-- Carte étudiant -->
+<div v-if="student?.user?.photos?.some(p => p.path?.includes('Carte_etudiant'))">
+  <label class="form-label">
+    <b>Carte d'étudiant ou justificatif de scolarité</b>
+  </label>
+
+  <template v-for="(item, index) in student?.user?.photos.filter(p => p.path?.includes('Carte_etudiant_'))" :key="'etudiant'+index">
+    <Image
+      v-if="!isPdf(item.path)"
+      :src="fileUrl(item.path)"
+      :alt="item.path"
+      width="250"
+      preview
+    />
+  </template>
+</div>
+
+<!-- Titre d'identification -->
+<div v-if="student?.user?.photos?.some(p => !p.path?.includes('CNI') && !p.path?.includes('Carte_etudiant'))">
+  <label class="form-label">
+    <b>Titre d'identification</b>
+  </label>
+
+  <template v-for="(item, index) in student?.user?.photos.filter(p => !p.path?.includes('CNI_') && !p.path?.includes('Carte_etudiant_'))" :key="'other'+index">
+    <Image
+      v-if="!isPdf(item.path)"
+      :src="fileUrl(item.path)"
+      :alt="item.path"
+      width="250"
+      preview
+    />
+  </template>
+</div>
+          <!-- <template v-for="(item, index) in student?.user?.photos" :key="index">
+            <label class="form-label">
             <b v-if="student?.user?.statuses?.some(item=>item.statut === 'Etudiant')">Carte d'étudiant ou justificatif de scolarité.</b>
           <b v-else>Titre d'identification</b>
           </label>
-          <div style="display: flex; flex-wrap: wrap; gap: 10px">
-          <template v-for="(item, index) in student?.user?.photos" :key="index">
             <Image
             v-if="!isPdf(item.path)"
             :src="fileUrl(item.path)"
@@ -273,9 +324,9 @@ export default {
               Voir la carte étudiant
             </button>
             </div>
-          </template>
+          </template> -->
           </div>
-          <div v-if="!student?.user?.photos?.length">Pas de carte étudiant.</div>
+          <div v-if="!student?.user?.photos?.length">Pas de fichier chargé.</div>
           <div v-if="pdfVisible" class="pdf-modal-overlay" @click.self="closePdf">
           <iframe
             :src="pdfUrl"
