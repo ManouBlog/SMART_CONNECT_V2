@@ -228,33 +228,36 @@ export default {
           <p>{{ student.phone }}</p>
         </div>
         </div>
-        <div class="col-sm-6 col-md-3">
+        <div class="col-sm-6 col-md-3" v-if="student.ville">
         <div class="mb-3 text-start">
           <label class="form-label"><b>Ville</b></label>
           <p>{{ student.ville }}</p>
         </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" v-if="student.commune">
         <div class="mb-3 text-start">
           <label class="form-label"><b>Commune</b></label>
           <p>{{ student.commune }}</p>
         </div>
         </div>
-        <div class="col-sm-6 col-md-3">
+        <div class="col-sm-6 col-md-3" v-if="student.quartier">
         <div class="mb-3 text-start">
           <label class="form-label"><b>Quartier</b></label>
           <p>{{ student.quartier }}</p>
         </div>
         </div>
-        <div class="col-sm-6 col-md-3">
+        <div class="col-sm-6 col-md-3" v-if="student.diplome">
         <div class="mb-3 text-start">
           <label class="form-label"><b>Diplôme académique</b></label>
           <p>{{ student.diplome }}</p>
         </div>
         </div>
-        <div class="col-sm-6 col-md-3">
+        <div class="col-sm-6 col-md-3" v-if="student?.user?.photos.length">
         <div class="mb-3 text-start">
-          <label class="form-label"><b>Carte étudiant</b></label>
+          <label class="form-label">
+            <b v-if="student?.user?.statuses?.includes(item=>item.statut === 'Etudiant')">Carte d'étudiant ou justificatif de scolarité.</b>
+          <b v-else>CNI,Permis de conduire,Passeport,Carte consulaire</b>
+          </label>
           <div style="display: flex; flex-wrap: wrap; gap: 10px">
           <template v-for="(item, index) in student?.user?.photos" :key="index">
             <Image
