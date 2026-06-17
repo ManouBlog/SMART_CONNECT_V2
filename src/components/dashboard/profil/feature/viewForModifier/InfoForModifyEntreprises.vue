@@ -336,7 +336,7 @@ if (isStudentGroup) {
         niveauExpertise:Talent.niveauExpertise,
         competences:Talent?.competences?.length > 0 ? Help.retirerIdIntoArrayCompetence(Talent.competences):[],
       });
-     
+        console.log("updateInfoUser",data)
       if(data.status){
         this.$store.commit("UPDATE_INFO_CONPANY",data.compte);
         this.changeValueForToogleModalInfoPersonnelle()
@@ -728,7 +728,7 @@ if (isStudentGroup) {
       accept="image/*"
       @change="handlePieceCni"
        />
-       <small v-if="this.form?.pathCarteEtudiant">Fichier chargé</small>
+       <small v-if="this.form?.pathPieceCni">Fichier chargé</small>
               </div>
               <div v-else>
      <small class="text-muted">
@@ -739,7 +739,7 @@ if (isStudentGroup) {
       accept="image/*"
       @change="handlePieceCni"
        />
-       <small v-if="this.form?.pathCarteEtudiant">Fichier chargé</small>
+       <small v-if="this.form?.pathPieceCni">Fichier chargé</small>
               </div>
          
             </div>

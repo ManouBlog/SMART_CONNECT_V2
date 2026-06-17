@@ -200,10 +200,10 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           })
       },
       async updateCompteUser(payload) {
-
-  Spinner.launchLoading(true);
+  console.log('updateCompteUserJS',payload)
+  // Spinner.launchLoading(true);
   let data = new FormData();
-  
+
   if (payload.photo_profil) {
     data.append("photo_profil", payload.photo_profil);
   } else {
@@ -273,33 +273,23 @@ if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
 }
   }
 
-  try {
-    const res = await instance.post("modifier_profil", data);
-    // console.log("updateCompteuser", res.data);
-    if (res.data.status === true) {
-      Swal.fire({
-        icon: "success",
-        title: res.data.message,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      return res.data;
-      
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: res.data.message,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-     return null; // explicite
-    }
-  } catch (err) {
-    console.log(err);
-    throw err; // optionnel mais propre
-  } finally {
-    Spinner.launchLoading(false);
-  }
+  // try {
+  //   const res = await instance.post("modifier_profil", data);
+  //   console.log("updateCompteuser", res.data);
+  //   if (res.data.status === true) {
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: res.data.message,
+  //       showConfirmButton: false,
+  //       timer: 1500,
+  //     });
+  //     return res.data;
+  //   }
+  // } catch (err) {
+  //   console.log(err);
+  // } finally {
+  //   Spinner.launchLoading(false);
+  // }
       },
      
       addAnRegistreDoc(payload){
