@@ -209,7 +209,7 @@ valueExpertise: [
     ...mapActions(useInfoPersonnel, [
       "update_compte_entreprise",
       "update_compte_particulier",
-      "update_compte_student",
+      "updateCompteUser",
       "addAnRegistreDoc",
       "addAnPieceDoc",
       "addAnLogo",
@@ -291,33 +291,31 @@ if (isStudentGroup) {
         });
     },
 
-    async updateInfoEntreprise(company) {
+    // async updateInfoEntreprise(company) {
       
-      const data = await this.update_compte_entreprise({
-        nom: company.nom,
-        email: company.email,
-        gerant: company.gerant,
-        numero_gerant: company.numero_gerant,
-        commune: company.commune,
-        forme_juridique: company.forme_juridique,
-        quartier: company.quartier,
-        contact: company.contact,
-        ville: company.ville,
-        matricule_cc: company.matricule_cc,
-        email_cc:this.emails_cc.length ? this.emails_cc:[]
-      });
-      if(data.status){
-        this.$store.commit("UPDATE_INFO_CONPANY",data.data);
-        // this.$store.state.infoUserConnected = this.$store.state.infoUserConnected;
-        this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: false })
-      }
+    //   const data = await this.update_compte_entreprise({
+    //     nom: company.nom,
+    //     email: company.email,
+    //     gerant: company.gerant,
+    //     numero_gerant: company.numero_gerant,
+    //     commune: company.commune,
+    //     forme_juridique: company.forme_juridique,
+    //     quartier: company.quartier,
+    //     contact: company.contact,
+    //     ville: company.ville,
+    //     matricule_cc: company.matricule_cc,
+    //     email_cc:this.emails_cc.length ? this.emails_cc:[]
+    //   });
+    //   if(data.status){
+    //     this.$store.commit("UPDATE_INFO_CONPANY",data.data);
+    //     // this.$store.state.infoUserConnected = this.$store.state.infoUserConnected;
+    //     this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: false })
+    //   }
      
-    },
-    async updateInfoStudent(Talent) {
+    // },
+    async updateInfoUser(Talent) {
 
-     
-      
-      const data = await this.update_compte_student({
+      const data = await this.updateCompteUser({
         nom: Talent.nom,
         email: Talent.email,
         prenoms: Talent.prenoms,
@@ -379,25 +377,8 @@ if (isStudentGroup) {
   },
     async handleUpdate(payload) {
     console.log("handleUpdate_payload",payload)
-  const user = this.$store.state.infoUserConnected?.user;
-  const statuses = user?.statuses || [];
-  const roles = statuses.map(s => s.statut);
-
-  const isEntreprise = roles.includes('Entreprise');
-  const isParticulier = roles.includes('particulier');
-
-  if (isEntreprise) {
-    this.updateInfoEntreprise(payload);
-    return;
-  }
-
-  if (isParticulier) {
-    this.update_compte_particulier(payload);
-    await this.getInfoUser();
-    return;
-  }
-
-  this.updateInfoStudent(payload);
+ 
+  this.updateInfoUser(payload);
   await this.getInfoUser();
 },
   
@@ -663,16 +644,13 @@ if (isStudentGroup) {
         <div class="col-md-12">
           <div class="mb-3" 
          v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Etudiant'].includes(s.statut))">
-          <div>
-          <label class="form-label">Diplome</label>
-            <input v-model="form.diplome" class="form-control" type="text" />
-            </div>
             <div>
           <label class="form-label">Niveau d'étude</label>
             <input v-model="form.niveauEtude" class="form-control" type="text" />
             </div>
             <div >
-          <label class="form-label">Domaine</label>
+          <label class="form-label" v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Etudiant'].includes(s.statut))">Filiére</label>
+          <label class="form-label" v-else>Domaine</label>
             <input v-model="form.domaine" class="form-control" type="text" />
             </div>
 
@@ -738,7 +716,7 @@ if (isStudentGroup) {
            </section>
 
            <!-- Professionnel,veteran -->
-          <section v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran'].includes(s.statut))">
+          <section v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Particulier'].includes(s.statut))">
             <div style="padding:0.6em 0;">
               <label class="form-label">CNI/Passeport/Carte consulaires</label>
               <div v-if="form?.pieceCNI?.length">

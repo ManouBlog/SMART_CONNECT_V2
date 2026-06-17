@@ -199,13 +199,11 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
             Spinner.launchLoading(false)
           })
       },
-      async update_compte_student(payload) {
-  // console.log("payload_update_compte_student", payload);
+      async updateCompteUser(payload) {
 
   Spinner.launchLoading(true);
-
   let data = new FormData();
-
+  
   if (payload.photo_profil) {
     data.append("photo_profil", payload.photo_profil);
   } else {
@@ -277,7 +275,7 @@ if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
 
   try {
     const res = await instance.post("modifier_profil", data);
-    // console.log("update_compte_student", res.data);
+    // console.log("updateCompteuser", res.data);
     if (res.data.status === true) {
       Swal.fire({
         icon: "success",
