@@ -91,7 +91,7 @@ idStatutChoice:Object
         password: "",
         myRegister: "",
         myLogo: "",
-        photo: null,
+        CNI_CARTE: null,
         countryCode: "+225",
         statutId:this.idStatutChoice.id,
         
@@ -124,12 +124,8 @@ idStatutChoice:Object
       handler(value) {
         if(value === 'non'){
           this.formState.profilHybride = [];
-          // this.formState.ville = "";
-          // this.formState.commune = "";
           this.formState.statut_professionnel_artisan = "";
-          // this.formState.uploadCNI = null
         }
-        // console.log("formState.optionsAnswer", value);
         
       },
       immediate: true,
@@ -184,7 +180,7 @@ idStatutChoice:Object
       }
       
       if (this.formState.upload.length) {
-        this.formState.photo = this.addPhotoInArray(this.formState.upload);
+        this.formState.CNI_CARTE = this.addPhotoInArray(this.formState.upload);
         this.changeValueIsPolitics({
           value: true,
           infoUser: "talents",
@@ -207,9 +203,6 @@ idStatutChoice:Object
         text: "Veuillez remplir tous les champs obligatoires (*)",
       });
     },
-    // handleChangeCardStudent(value) {
-    //   console.log(value.file.originFileObj);
-    // },
     ...mapActions(useRegisterStore, {
       handleCompetence: "addTag",
       changeValueIsPolitics: "changeValueIsPolitics",

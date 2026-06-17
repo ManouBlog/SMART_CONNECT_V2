@@ -272,10 +272,7 @@ texte0989:"",
             </div>
       
           <div class="row">
-            <!-- <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user?.statut?.statut === 'Particulier'">
-  <ParagrapheDetail  :item="{libelle:'Pièces chargées',value:null,
-          valueArray:this.infoPersonnelles?.user?.photos}" />
-            </div> -->
+           
 
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.matricule_cc">
      <ParagrapheDetail  :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
@@ -335,10 +332,44 @@ texte0989:"",
             </div>
           </div>
 
-           <div class="row">
+           <div class="row" v-if="this.infoPersonnelles?.user?.photos.length">
             <div class="col-md-6" style="flex:1">
-     <ParagrapheDetail :item="{libelle:'Pièces chargées',value:null,
-          valueArray:this.infoPersonnelles?.user?.photos}" />
+          <ParagrapheDetail
+    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))"
+    :item="{
+      libelle: 'Carte étudiant',
+      value: null,
+      valueArray: infoPersonnelles.user.photos.filter(item =>
+        item.path.includes('Carte_etudiant')
+      )
+    }"
+  />
+  
+  <ParagrapheDetail
+    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))"
+    :item="{
+      libelle: 'CNI',
+      value: null,
+      valueArray: infoPersonnelles.user.photos.filter(item =>
+        item.path.includes('CNI')
+      )
+    }"
+  />
+
+  <ParagrapheDetail
+    v-if="infoPersonnelles.user.photos.some(item =>
+      !item.path.includes('CNI') &&
+      !item.path.includes('Carte_etudiant')
+    )"
+    :item="{
+      libelle: 'Pièces Jointes',
+      value: null,
+      valueArray: infoPersonnelles.user.photos.filter(item =>
+        !item.path.includes('CNI') &&
+        !item.path.includes('Carte_etudiant')
+      )
+    }"
+  />
             </div>
           </div>
       </section>
