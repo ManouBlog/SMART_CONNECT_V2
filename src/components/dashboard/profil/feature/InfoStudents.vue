@@ -354,9 +354,8 @@ export default {
    <div class="col-md-12" 
       v-if="infoPersonnelles.user.photos.length">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))">
  <ParagrapheDetail
-    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))"
     :item="{
       libelle: 'Carte étudiant',
       value: null,
@@ -366,9 +365,8 @@ export default {
     }"
   />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4"  v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))">
  <ParagrapheDetail
-    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))"
     :item="{
       libelle: 'CNI,Passeport,Carte consulaire',
       value: null,
@@ -378,12 +376,11 @@ export default {
     }"
   />
         </div>
-        <div class="col-md-4">
-<ParagrapheDetail
-    v-if="infoPersonnelles.user.photos.some(item =>
+        <div class="col-md-4" v-if="infoPersonnelles.user.photos.some(item =>
       !item.path.includes('CNI') &&
       !item.path.includes('Carte_etudiant')
-    )"
+    )">
+   <ParagrapheDetail
     :item="{
       libelle: 'Pièces Jointes',
       value: null,
