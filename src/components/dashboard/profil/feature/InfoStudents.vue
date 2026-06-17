@@ -72,7 +72,7 @@ export default {
     ...mapActions(useInfoPersonnel, [
       "changeValueForToogleModalInfoPersonnelle",
       "verifIfPasswordIsExact",
-      "update_compte_student",
+      "updateCompteUser",
       "addInfoUserConnected",
     ]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
@@ -81,7 +81,7 @@ export default {
       const file = event.target.files[0];
       if (file) {
      
-        const reponse = await this.update_compte_student({
+        const reponse = await this.updateCompteUser({
           photo_profil: file,
         });
         if(reponse.status){
@@ -257,6 +257,7 @@ export default {
         <input
           id="hiddenFile"
           type="file"
+          accept="image/*"
           style="display: none"
           @change="handleFileChange"
         />
@@ -426,8 +427,11 @@ export default {
       </p>
       <div>
     <!-- Bouton pour afficher le CV -->
-    <button @click="showPdf = true" class="btn-lg bg-warning">
-      CV chargé
+    <button @click="showPdf = true" 
+    style="
+    border:2px solid orange;
+    background-color: orange;">
+      Voir mon CV Chargé
     </button>
 
     <!-- Cadre (iframe) pour afficher le PDF -->

@@ -335,10 +335,10 @@ if (isStudentGroup) {
         tempsTravail:Talent.tempsTravail,
         niveauExpertise:Talent.niveauExpertise,
       });
-        console.log("updateInfoUser",data)
       if(data.status){
         this.$store.commit("UPDATE_INFO_CONPANY",data.compte);
-        this.changeValueForToogleModalInfoPersonnelle()
+        this.changeValueForToogleModalInfoPersonnelle();
+         await this.getInfoUser();
       }
     },
     handlePieceCni(event){
@@ -378,7 +378,7 @@ if (isStudentGroup) {
     console.log("handleUpdate_payload",payload)
  
   this.updateInfoUser(payload);
-  await this.getInfoUser();
+ 
 },
   
     onCreateQualification() {
