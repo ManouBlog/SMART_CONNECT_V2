@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      EndRecurrence:"never",
+      EndRecurrence:"chooseDate",
       dateForEndRecurrence:null,
       handleRecurrence:"onTime",
       handleDayWeek:"",
@@ -120,14 +120,47 @@ export default {
     ...mapActions(useDisponibiliteStore, ["createdDisponiblite"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
+
+ generateMarkedDates(payload) {
+  const {
+    startDate,
+    dateForEndRecurrence,
+    days,
+    handleRecurrence,
+  } = payload;
+
+  if (handleRecurrence !== "weekly") return [];
+
+  let current = dayjs(startDate);
+  const end = dayjs(dateForEndRecurrence);
+
+  const result = [];
+
+  while (current.isSame(end) || current.isBefore(end)) {
+
+    const dayOfWeek = current.day(); // 0-6
+
+    if (days.includes(dayOfWeek)) {
+      result.push(current.format("YYYY-MM-DD"));
+    }
+
+    current = current.add(1, "day");
+  }
+
+  return result;
+},
     saveDayWeekCustomize(){
      const data={
-      "EndRecurrence":this.EndRecurrence,
+      "endDate":this.EndRecurrence,
       "dateForEndRecurrence":this.dateForEndRecurrence,
       "handleRecurrence":this.handleRecurrence,
-      "handleDays":this.handleDays
+      "days":this.handleDays.map(item=>item.value),
+      "startDate":new Date().toISOString().split('T')[0]
      }
      console.log("saveDayWeekCustomize",data)
+
+     const result = this.generateMarkedDates(data)
+     console.log("generateMarkedDates",result)
     },
     show_modify() {
       this.modify_timetable = !this.modify_timetable;
@@ -915,12 +948,11 @@ align-items: center;gap:1em;width: 100%;flex-wrap: wrap;">
       cursor: pointer;
     "
   >
-    <option value="never">Jamais</option>
     <option value="chooseDate">Choisir une Date</option>
   </select>
  
   </div>
-  <div style="flex:1 1 200px" v-if="EndRecurrence === 'chooseDate'" >
+  <div style="flex:1 1 200px">
      <label
     for="recurrence"
     style="
@@ -952,7 +984,6 @@ align-items: center;gap:1em;width: 100%;flex-wrap: wrap;">
                 </section>
                 <div class="col-lg-12">
                   <button
-                    :disabled="!First_heure_start_from && !First_heure_end_to"
                     class="btn bg-warning p-5"
                     @click="saveDayWeekCustomize"
                   >
