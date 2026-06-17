@@ -211,7 +211,7 @@ export default {
       "
     >
       <div class="info-header" style="display: flex; justify-content: space-between">
-        <h1 class="fw-bold my-3" style="color: orange">Infos personnelles</h1>
+        <h1 class="fw-bold my-3" style="color: orange;font-size: 2em;">Infos personnelles</h1>
         <div>
          <button
           style="

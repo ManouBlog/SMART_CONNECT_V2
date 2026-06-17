@@ -79,8 +79,9 @@ valueExpertise: [
       NCC: "",
       niveauEtude:"",
       domaine:"",
-      pieceJointe:null,
-      pathPieceJointe:null,
+      carteEtudiant:null,
+      pieceCNI:null,
+      pathCarteEtudiant:null,
       pathCVUpload:null,
       statut_talent:"",
       CVupload:"",
@@ -175,7 +176,8 @@ valueExpertise: [
     this.form.niveauEtude = user?.niveauEtude?.split(' ')[0];
     this.form.domaine = user?.niveauEtude?.split(' ')[1];
     this.form.statut_talent = user.statut_talent;
-    this.form.pieceJointe = user.user.photos;
+    this.form.carteEtudiant = user.user.photos;
+    this.form.pieceCNI = user.user.photos;
     this.form.CVupload = user.CVupload;
     this.form.commune = user.commune || "";
     this.form.quartier = user.quartier || "";
@@ -326,8 +328,8 @@ if (isStudentGroup) {
         bio: Talent.bio,
         diplome: Talent.diplome,
         niveauEtude:Talent.niveauEtude,
-        pieceJointe:Talent.pieceJointe,
-        pathPieceJointe:Talent.pathPieceJointe,
+        carteEtudiant:Talent.carteEtudiant,
+        pathCarteEtudiant:Talent.pathCarteEtudiant,
         pathCVUpload:Talent.pathCVUpload,
         titreCv: Talent.titreCv,
         modeTravail: Talent.modeTravail,
@@ -342,13 +344,24 @@ if (isStudentGroup) {
         this.changeValueForToogleModalInfoPersonnelle()
       }
     },
-    handlePieceJointe(event) {
+    handlePieceCni(event){
+      const file = event.target.files[0];
+
+    if (!file) return;
+
+    // stocker un seul fichier (File)
+    this.form.pathPieceCni = file;
+
+    // reset input pour permettre de re-uploader le même fichier
+    // event.target.value = '';
+    },
+    handleCarteEtudiant(event) {
     const file = event.target.files[0];
 
     if (!file) return;
 
     // stocker un seul fichier (File)
-    this.form.pathPieceJointe = file;
+    this.form.pathCarteEtudiant = file;
 
     // reset input pour permettre de re-uploader le même fichier
     // event.target.value = '';
@@ -425,6 +438,10 @@ if (isStudentGroup) {
       <p style="text-align: center; color: red;font-size: 1em;">
         Les champs avec astérisque (*) sont obligatoires.
       </p>
+
+     
+
+      <!-- -----ENTREPRISE----- -->
      <div
   class="col-md-12"
   v-if="
@@ -442,8 +459,8 @@ if (isStudentGroup) {
   />
   {{ item.label }}
 </label>
-</div>
-      <div class="col-md-12">
+    </div>
+    <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">{{
             this.$store.state.infoUserConnected && $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')
@@ -480,7 +497,7 @@ if (isStudentGroup) {
           />
         </div>
       </div>
-      <div class="col-md-12" 
+       <div class="col-md-12" 
       v-if='this.$store.state.infoUserConnected 
       && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === "entreprise") &&
       this.form.optionsPaper === "Formel"
@@ -500,6 +517,8 @@ if (isStudentGroup) {
           <input v-model="form.NCC" class="form-control" type="text" />
         </div>
       </div>
+  <!-- ----------ENTREPRISE/PARTICULIER------ -->
+
      <div
   class="col-md-12"
   v-if="
@@ -517,11 +536,13 @@ if (isStudentGroup) {
           <input v-model="form.contact" class="form-control" type="text" />
         </div>
       </div>
+
+<!-- ---------'Etudiant', 'Professionnel', 'Artisan', 'Vétéran' , 'Particulier'------- -->
       <div
   class="col-md-12"
   v-if="
     ($store.state.infoUserConnected?.user?.statuses || [])
-      .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
+      .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran' , 'Particulier'].includes(s.statut))
   "
 >
         <div class="mb-3">
@@ -529,15 +550,20 @@ if (isStudentGroup) {
           <input v-model="form.prenoms" class="form-control" type="text" />
         </div>
       </div>
+<!-- ---------'Particulier'------- -->
+
       <div
         class="col-md-12"
-        v-if="this.$store.state.infoUserConnected && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'particulier')"
+        v-if="this.$store.state.infoUserConnected && 
+        this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'particulier')"
       >
         <div class="mb-3">
           <label class="form-label">Prénoms</label>
           <input v-model="form.particulier_prenoms" class="form-control" type="text" />
         </div>
       </div>
+
+<!-- -----ENTREPRISE----- -->
 
       <div class="col-md-12" v-if="this.$store.state.infoUserConnected">
         <div class="mb-3">
@@ -565,13 +591,40 @@ if (isStudentGroup) {
   }"
 />
       </div>
-  
+        <section 
+      v-if="this.$store.state.infoUserConnected 
+      && $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Entreprise')
+      && this.form.optionsPaper === 'Formel'
+      ">
+        <div class="col-md-12">
+          <div class="my-3">
+            <label for="add_file_logo">Logo</label>
+            <input type="file" @input="addAnLogo" id="add_file_logo" class="w-100" />
+          </div>
+        </div>
+
+        <legend>Info sur le gérant</legend>
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label class="form-label">Gérant <span style="color:red">*</span></label>
+            <input v-model="form.gerant" class="form-control" type="text" />
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label class="form-label">Numéro téléphonique du Gérant <span style="color:red">*</span></label>
+            <input v-model="form.numero_gerant" class="form-control" type="text" />
+          </div>
+        </div>
+      </section>
+
+  <!-- ---------'Etudiant', 'Professionnel', 'Artisan', 'Vétéran' , 'Particulier'------- -->
      <div
   class="col-md-12"
   v-if="
     $store.state.infoUserConnected &&
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
+      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran','Particulier'].includes(s.statut)
     )
   "
 >
@@ -579,8 +632,8 @@ if (isStudentGroup) {
     <label class="form-label">Contact téléphonique</label>
     <input v-model="form.phone" class="form-control" type="text" />
   </div>
-</div>
-
+      </div>
+  <!-- ---------Tout le monde ------- -->
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Ville</label>
@@ -599,42 +652,31 @@ if (isStudentGroup) {
           <input v-model="form.quartier" class="form-control" type="text" />
         </div>
       </div>
+  <!-- ---------'Etudiant','Professionnel','Veteran'------- -->
+
       <section 
      v-if="
     $store.state.infoUserConnected &&
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
-    )
-  ">
-      
+      ['Etudiant', 'Professionnel','Vétéran'].includes(s.statut)
+    )">
         <div class="col-md-12">
-          <div class="mb-3"  
-          v-if="
-    $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Etudiant')
-  ">
-            <label class="form-label">Dernier diplôme academique</label>
-            <input v-model="form.diplome" class="form-control" type="text" />
-          </div>
           <div class="mb-3" 
-         v-if="
-    $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['Professionnel', 'Vétéran'].includes(s.statut)
-    )
-  ">
-        <div v-if="form.diplome">
+         v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Etudiant'].includes(s.statut))">
+          <div>
           <label class="form-label">Diplome</label>
             <input v-model="form.diplome" class="form-control" type="text" />
             </div>
-            <div v-if="form.niveauEtude">
+            <div>
           <label class="form-label">Niveau d'étude</label>
             <input v-model="form.niveauEtude" class="form-control" type="text" />
             </div>
-            <div v-if="form.domaine">
+            <div >
           <label class="form-label">Domaine</label>
             <input v-model="form.domaine" class="form-control" type="text" />
             </div>
 
-            <div v-if="form.statut_talent">
+            <div>
           <label class="form-label">Statut professionnel</label>
             <input v-model="form.statut_talent" class="form-control" type="text" />
             </div>
@@ -665,19 +707,20 @@ if (isStudentGroup) {
               </div>
          
             </div>
-             <section>
-          <div style="padding:0.6em 0;">
+            <!-- Etudiants -->
+             <section v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Etudiant'].includes(s.statut))">
+            <div style="padding:0.6em 0;">
               <label class="form-label">Carte national d'identité/ Pièce justificative</label>
-              <div v-if="form?.pieceJointe?.length">
+              <div v-if="form?.carteEtudiant?.length">
              <small class="text-muted">
         Vous pouvez remplacer votre Carte national d'identité ou Pièce justificative
     </small>
             <input
       type="file"
       accept="image/*"
-      @change="handlePieceJointe"
+      @change="handleCarteEtudiant"
        />
-       <small v-if="this.form?.pathPieceJointe">Fichier chargé</small>
+       <small v-if="this.form?.pathCarteEtudiant">Fichier chargé</small>
               </div>
               <div v-else>
      <small class="text-muted">
@@ -686,14 +729,46 @@ if (isStudentGroup) {
             <input
       type="file"
       accept="image/*"
-      @change="handlePieceJointe"
+      @change="handleCarteEtudiant"
        />
-       <small v-if="this.form?.pathPieceJointe">Fichier chargé</small>
+       <small v-if="this.form?.pathCarteEtudiant">Fichier chargé</small>
               </div>
          
             </div>
-      </section>
-      <div>
+           </section>
+
+           <!-- Professionnel,veteran -->
+          <section v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran'].includes(s.statut))">
+            <div style="padding:0.6em 0;">
+              <label class="form-label">CNI/Passeport/Carte consulaires</label>
+              <div v-if="form?.pieceCNI?.length">
+             <small class="text-muted">
+        Vous pouvez remplacer votre Carte national d'identité ou Pièce justificative
+          </small>
+            <input
+      type="file"
+      accept="image/*"
+      @change="handlePieceCni"
+       />
+       <small v-if="this.form?.pathCarteEtudiant">Fichier chargé</small>
+              </div>
+              <div v-else>
+     <small class="text-muted">
+    Veuillez charger Carte national d'identité ou Pièce justificative
+    </small>
+            <input
+      type="file"
+      accept="image/*"
+      @change="handlePieceCni"
+       />
+       <small v-if="this.form?.pathCarteEtudiant">Fichier chargé</small>
+              </div>
+         
+            </div>
+           </section>
+
+           <!-- Professionnel, Vétéran-->
+           <div v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran'].includes(s.statut))">
             <label class="form-label">Mode de travail</label>
             <select 
             name="mode_travail1" 
@@ -710,7 +785,7 @@ if (isStudentGroup) {
               </option>
             </select>
             </div>
-            <div>
+            <div v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran'].includes(s.statut))">
             <label class="form-label">Temps de travail</label>
             <select 
             name="time_work" 
@@ -727,11 +802,12 @@ if (isStudentGroup) {
               </option>
             </select>
             </div>
-       
+
           </div>
+
+             <!--Vétéran-->
           <div class="mb-3" 
           v-if="$store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Vétéran')">
-            
             <div>
             <label class="form-label">Traitement préférentiel</label>
             <select 
@@ -764,6 +840,8 @@ if (isStudentGroup) {
           </div>
         </div>
       </section>
+
+  <!-- ---------'Etudiant','Professionnel','Veteran','Artisans'------- -->
       <section 
      v-if="
     $store.state.infoUserConnected &&
@@ -786,35 +864,7 @@ if (isStudentGroup) {
         </div>
          
       </section>
-      <section 
-      v-if="this.$store.state.infoUserConnected 
-      && $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Entreprise')
-      && this.form.optionsPaper === 'Formel'
-      ">
-        <div class="col-md-12">
-          <div class="my-3">
-            <label for="add_file_logo">Logo</label>
-            <input type="file" @input="addAnLogo" id="add_file_logo" class="w-100" />
-          </div>
-        </div>
 
-        <legend>Info sur le gérant</legend>
-        <div class="col-md-12">
-          <div class="mb-3">
-            <label class="form-label">Gérant <span style="color:red">*</span></label>
-            <input v-model="form.gerant" class="form-control" type="text" />
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="mb-3">
-            <label class="form-label">Numéro téléphonique du Gérant <span style="color:red">*</span></label>
-            <input v-model="form.numero_gerant" class="form-control" type="text" />
-          </div>
-        </div>
-      </section>
-     
-      
-      
     </div>
     <div class="text-right">
       <button

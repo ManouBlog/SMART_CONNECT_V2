@@ -89,4 +89,7 @@ h6 {
 h1 {
   text-align: left;
 }
+p{
+  font-size: 15px;
+}
 </style>
