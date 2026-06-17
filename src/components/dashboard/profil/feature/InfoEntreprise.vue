@@ -335,8 +335,9 @@ texte0989:"",
            <div class="row" v-if="this.infoPersonnelles?.user?.photos.length">
             <div class="col-md-6" 
             >
-          <ParagrapheDetail
-    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))"
+              <div class="row">
+        <div class="col-md-4" v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))">
+ <ParagrapheDetail
     :item="{
       libelle: 'Carte étudiant',
       value: null,
@@ -345,9 +346,9 @@ texte0989:"",
       )
     }"
   />
-  
-  <ParagrapheDetail
-    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))"
+        </div>
+        <div class="col-md-4"  v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))">
+ <ParagrapheDetail
     :item="{
       libelle: 'CNI,Passeport,Carte consulaire',
       value: null,
@@ -356,8 +357,48 @@ texte0989:"",
       )
     }"
   />
+        </div>
+        <div class="col-md-4" v-if="infoPersonnelles.user.photos.some(item =>
+      !item.path.includes('CNI') &&
+      !item.path.includes('Carte_etudiant')
+    )">
+   <ParagrapheDetail
+    :item="{
+      libelle: 'Pièces Jointes',
+      value: null,
+      valueArray: infoPersonnelles.user.photos.filter(item =>
+        !item.path.includes('CNI') &&
+        !item.path.includes('Carte_etudiant')
+      )
+    }"
+  />
 
-  <ParagrapheDetail
+        </div>
+
+      </div>
+          <!-- <ParagrapheDetail
+    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))"
+    :item="{
+      libelle: 'Carte étudiant',
+      value: null,
+      valueArray: infoPersonnelles.user.photos.filter(item =>
+        item.path.includes('Carte_etudiant')
+      )
+    }"
+  /> -->
+  
+  <!-- <ParagrapheDetail
+    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))"
+    :item="{
+      libelle: 'CNI,Passeport,Carte consulaire',
+      value: null,
+      valueArray: infoPersonnelles.user.photos.filter(item =>
+        item.path.includes('CNI')
+      )
+    }"
+  /> -->
+
+  <!-- <ParagrapheDetail
     v-if="infoPersonnelles.user.photos.some(item =>
       !item.path.includes('CNI') &&
       !item.path.includes('Carte_etudiant')
@@ -370,7 +411,7 @@ texte0989:"",
         !item.path.includes('Carte_etudiant')
       )
     }"
-  />
+  /> -->
             </div>
           </div>
       </section>
