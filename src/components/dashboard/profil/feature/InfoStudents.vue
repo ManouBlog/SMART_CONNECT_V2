@@ -348,10 +348,15 @@ export default {
 
   <!-- Ligne 4 -->
   <div class="row gy-2">
-    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.quartier">
+    <div class="col-md-12" style="flex:1" v-if="infoPersonnelles.quartier">
       <ParagrapheDetail  :item="{ libelle: 'Quartier', value: infoPersonnelles.quartier }" />
     </div>
-   <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.user.photos.length">
+   <div class="col-md-12" 
+   style="flex:1;
+          display: flex;
+          align-items: center;
+          gap:1em;" 
+      v-if="infoPersonnelles.user.photos.length">
   
   <ParagrapheDetail
     v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))"

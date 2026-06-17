@@ -333,7 +333,11 @@ texte0989:"",
           </div>
 
            <div class="row" v-if="this.infoPersonnelles?.user?.photos.length">
-            <div class="col-md-6" style="flex:1">
+            <div class="col-md-6" 
+            style="flex:1;
+            display: flex;
+            align-items: center;
+            gap:1em;">
           <ParagrapheDetail
     v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))"
     :item="{
