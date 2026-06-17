@@ -200,94 +200,101 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           })
       },
       async updateCompteUser(payload) {
-  console.log('updateCompteUserJS',payload)
+  console.log('updateCompteUserJS', payload);
   Spinner.launchLoading(true);
+
   let data = new FormData();
 
-  if (payload.photo_profil) {
-    data.append("photo_profil", payload.photo_profil);
-  } else {
-    payload?.competences?.forEach(element => {
-      data.append("competences[]", element);
-    });
-
-   if(payload?.pathCVUpload){
-   data.append("CVupload",payload?.pathCVUpload);
-    }
-
-   if(payload?.pathPieceCni){
-    data.append("cni_carte",payload?.pathPieceCni);
-    }
-
-   if(payload?.pathCarteEtudiant){
-    data.append("photo",payload?.pathCarteEtudiant);
-   }
-    
-    payload?.qualifications?.forEach(element => {
-      data.append("qualifications[]", JSON.stringify(element));
-    });
-
-    this.pieceIdentiteGerant?.forEach(element => {
-      data.append("carte[]", element);
-    });
-   if(payload?.nom !== null && payload?.nom !== 'null'){
-   data.append("nom", payload?.nom);
-   }
-if (payload?.prenoms != null && payload?.prenoms !== 'null') {
-  data.append("prenoms", payload.prenoms);
-}
-
-if (payload?.email != null && payload?.email !== 'null') {
-  data.append("email", payload.email);
-}
-
-if (payload?.bio != null && payload?.bio !== 'null') {
-  data.append("bio", payload.bio);
-}
-
-if (payload?.diplome != null && payload?.diplome !== 'null') {
-  data.append("diplome", payload.diplome);
-}
-
-if (payload?.commune != null && payload?.commune !== 'null') {
-  data.append("commune", payload.commune);
-}
-
-if (payload?.quartier != null && payload?.quartier !== 'null') {
-  data.append("quartier", payload.quartier);
-}
-
-if (payload?.contact != null && payload?.contact !== 'null') {
-  data.append("phone", payload.contact);
-}
-
-if (payload?.ville != null && payload?.ville !== 'null'){
-  data.append("ville", payload.ville);
-}
-
-if (payload?.titreCv != null && payload?.titreCv !== 'null'){
-  data.append("titreCv", payload.titreCv);
-}
-if(payload?.modeTravail != null && payload?.modeTravail !== 'null'){
-  data.append('modeTravail',payload.modeTravail)
-}
-
-if(payload?.tempsTravail != null && payload?.tempsTravail !== 'null'){
-  data.append('tempsTravail',payload.tempsTravail)
-}
-
-if(payload?.statut_id != null && payload?.statut_id !== 'null'){
-  data.append('statut_id',payload.statut_id)
-}
-
-if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
-  data.append('niveauExpertise',payload.niveauExpertise)
-}
-  }
-
   try {
+    if (payload.photo_profil) {
+      data.append("photo_profil", payload.photo_profil);
+    } else {
+
+      payload?.competences?.forEach(element => {
+        data.append("competences[]", element);
+      });
+
+      if (payload?.pathCVUpload) {
+        data.append("CVupload", payload.pathCVUpload);
+      }
+
+      if (payload?.pathPieceCni) {
+        data.append("cni_carte", payload.pathPieceCni);
+      }
+
+      if (payload?.pathCarteEtudiant) {
+        data.append("photo", payload.pathCarteEtudiant);
+      }
+
+      payload?.qualifications?.forEach(element => {
+        data.append("qualifications[]", JSON.stringify(element));
+      });
+
+      this.pieceIdentiteGerant?.forEach(element => {
+        data.append("carte[]", element);
+      });
+
+      if (payload?.nom != null && payload?.nom !== 'null') {
+        data.append("nom", payload.nom);
+      }
+
+      if (payload?.prenoms != null && payload?.prenoms !== 'null') {
+        data.append("prenoms", payload.prenoms);
+      }
+
+      if (payload?.email != null && payload?.email !== 'null') {
+        data.append("email", payload.email);
+      }
+
+      if (payload?.bio != null && payload?.bio !== 'null') {
+        data.append("bio", payload.bio);
+      }
+
+      if (payload?.diplome != null && payload?.diplome !== 'null') {
+        data.append("diplome", payload.diplome);
+      }
+
+      if (payload?.commune != null && payload?.commune !== 'null') {
+        data.append("commune", payload.commune);
+      }
+
+      if (payload?.quartier != null && payload?.quartier !== 'null') {
+        data.append("quartier", payload.quartier);
+      }
+
+      if (payload?.contact != null && payload?.contact !== 'null') {
+        data.append("phone", payload.contact);
+      }
+
+      if (payload?.ville != null && payload?.ville !== 'null') {
+        data.append("ville", payload.ville);
+      }
+
+      if (payload?.titreCv != null && payload?.titreCv !== 'null') {
+        data.append("titreCv", payload.titreCv);
+      }
+
+      if (payload?.modeTravail != null && payload?.modeTravail !== 'null') {
+        data.append('modeTravail', payload.modeTravail);
+      }
+
+      if (payload?.tempsTravail != null && payload?.tempsTravail !== 'null') {
+        data.append('tempsTravail', payload.tempsTravail);
+      }
+
+      if (payload?.statut_id != null && payload?.statut_id !== 'null') {
+        data.append('statut_id', payload.statut_id);
+      }
+
+      if (payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null') {
+        data.append('niveauExpertise', payload.niveauExpertise);
+      }
+    }
+
     const res = await instance.post("modifier_profil", data);
+
     console.log("updateCompteuser", res.data);
+
     if (res.data.status === true) {
       Swal.fire({
         icon: "success",
@@ -295,14 +302,16 @@ if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
         showConfirmButton: false,
         timer: 1500,
       });
+
       return res.data;
     }
+
   } catch (err) {
     console.log(err);
   } finally {
     Spinner.launchLoading(false);
   }
-      },
+},
      
       addAnRegistreDoc(payload){
         // console.log(payload.target.files[0])
