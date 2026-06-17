@@ -4,7 +4,9 @@
       <!-- En-tête avec photo et infos personnelles -->
       <div class="header">
         <div class="photo-placeholder" v-if="photo">
-          <img :src="photo" alt="Photo de profil" class="profile-photo" crossorigin="anonymous" />
+          <img :src="photo" 
+          alt="Photo de profil" class="profile_photo" 
+          />
         </div>
         <div class="personal-info">
           <h1>{{ nom }}</h1>
@@ -24,14 +26,7 @@
             titreCv && titreCv != 'null' && isbtnPdf ? titreCv : description != 'null' ? "Profil":null
           }}
         </h3>
-
-<!-- <h3 style="text-transform: uppercase;color:#d0eefc;" v-if="(!titreCv || titreCv === 'null' || titreCv === '') && isbtnPdf">
-Ajoutez un profil
-</h3> -->
         <p style="border-bottom: 3px solid black;padding-bottom:10px" v-if="description != null && description !== '' && description !== 'null'">{{ description }}</p>
-        <!-- <p v-else style="color:#d0eefc;">
-          <span v-if="isbtnPdf">Ajoutez une description à votre CV</span>
-        </p> -->
       </div>
        <!-- Compétences -->
       <div class="section" style="margin:1em 0;" v-if="competences.length">
@@ -79,8 +74,6 @@ const isLoading=ref(false);
 const props = defineProps({
   isbtnPdf: { type: Boolean, required: false, default: false },
   nom: { type: String, required: true },
-  // titre: { type: String, required: true },
-  // naissance: { type: String, required: true },
   telephone: { type: String, required: true },
   email: { type: String, required: true },
   nationalite: { type: String, required: true },
@@ -90,9 +83,6 @@ const props = defineProps({
   qualifications: { type: Array, default: () => [] },
   experiences: { type: Array, default: () => [] },
   competences: { type: Array, default: () => [] },
-  // langues: { type: Array, default: () => [] },
-  // interets: { type: Array, default: () => [] },
-  // atouts: { type: Array, default: () => [] },
 });
 const downloadCV = async () => {
   isLoading.value = true;
@@ -143,7 +133,6 @@ const cvContent = document.getElementById("cv-content");
 };
 </script>
 <style scoped>
-
 .cv-container {
   display: flex;
   flex-direction: column;
@@ -167,12 +156,12 @@ const cvContent = document.getElementById("cv-content");
   margin-bottom: 20px;
 }
 
-.profile-photo {
+.profile_photo {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #0d2421;
+  border: 3px solid #f5f5f5;
   margin-right: 20px;
 }
 
