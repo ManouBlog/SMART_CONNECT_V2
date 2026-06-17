@@ -47,7 +47,7 @@
                     v-for="(photo, index) in [element.path]"
                     :key="index"
                     :alt="photo"
-                   
+                    width="100"
                     height="110"
                     style="object-fit: cover;"
                     :src="lienPhoto + photo"

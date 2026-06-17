@@ -352,10 +352,10 @@ export default {
       <ParagrapheDetail  :item="{ libelle: 'Quartier', value: infoPersonnelles.quartier }" />
     </div>
    <div class="col-md-12" 
-  
       v-if="infoPersonnelles.user.photos.length">
-  
-  <ParagrapheDetail
+      <div class="row">
+        <div class="col-md-4">
+ <ParagrapheDetail
     v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))"
     :item="{
       libelle: 'Carte étudiant',
@@ -365,8 +365,9 @@ export default {
       )
     }"
   />
-
-  <ParagrapheDetail
+        </div>
+        <div class="col-md-4">
+ <ParagrapheDetail
     v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))"
     :item="{
       libelle: 'CNI,Passeport,Carte consulaire',
@@ -376,8 +377,9 @@ export default {
       )
     }"
   />
-
-  <ParagrapheDetail
+        </div>
+        <div class="col-md-4">
+<ParagrapheDetail
     v-if="infoPersonnelles.user.photos.some(item =>
       !item.path.includes('CNI') &&
       !item.path.includes('Carte_etudiant')
@@ -391,6 +393,10 @@ export default {
       )
     }"
   />
+
+        </div>
+
+      </div>
 
 </div>
   </div>
