@@ -204,9 +204,6 @@ export default {
         {{ this.verifIfAbonnementCurrently(student?.user?.abonement) ? this.verifIfAbonnementCurrently(student?.user?.abonement):'Pas abonnée' }}
         </h4>
       </div>
-      <div>
-        {{ student?.user }}
-      </div>
       <div class="row">
         <div class="col-md-3">
         <div class="mb-3 text-start">
