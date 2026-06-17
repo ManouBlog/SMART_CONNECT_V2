@@ -201,7 +201,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
       },
       async updateCompteUser(payload) {
   console.log('updateCompteUserJS',payload)
-  // Spinner.launchLoading(true);
+  Spinner.launchLoading(true);
   let data = new FormData();
 
   if (payload.photo_profil) {
@@ -211,17 +211,18 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
       data.append("competences[]", element);
     });
 
-    payload?.pathCVUpload?.forEach(element => {
-      data.append("pathCVUpload[]",element);
-    });
-     payload?.pathPieceCni?.forEach(element => {
-      data.append("cni_carte[]",element);
-    });
+   if(payload?.pathCVUpload){
+   data.append("CVupload",payload?.pathCVUpload);
+    }
 
-    payload?.pathCarteEtudiant?.forEach(element => {
-      data.append("photo[]",element);
-    });
+   if(payload?.pathPieceCni){
+    data.append("cni_carte",payload?.pathPieceCni);
+    }
 
+   if(payload?.pathCarteEtudiant){
+    data.append("photo",payload?.pathCarteEtudiant);
+   }
+    
     payload?.qualifications?.forEach(element => {
       data.append("qualifications[]", JSON.stringify(element));
     });
@@ -284,23 +285,23 @@ if(payload?.niveauExpertise != null && payload?.niveauExpertise !== 'null'){
 }
   }
 
-  // try {
-  //   const res = await instance.post("modifier_profil", data);
-  //   console.log("updateCompteuser", res.data);
-  //   if (res.data.status === true) {
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: res.data.message,
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //     });
-  //     return res.data;
-  //   }
-  // } catch (err) {
-  //   console.log(err);
-  // } finally {
-  //   Spinner.launchLoading(false);
-  // }
+  try {
+    const res = await instance.post("modifier_profil", data);
+    console.log("updateCompteuser", res.data);
+    if (res.data.status === true) {
+      Swal.fire({
+        icon: "success",
+        title: res.data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return res.data;
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    Spinner.launchLoading(false);
+  }
       },
      
       addAnRegistreDoc(payload){
