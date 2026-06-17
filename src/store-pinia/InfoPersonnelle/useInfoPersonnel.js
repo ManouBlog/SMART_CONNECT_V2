@@ -211,6 +211,17 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
       data.append("competences[]", element);
     });
 
+    payload?.pathCVUpload?.forEach(element => {
+      data.append("pathCVUpload[]",element);
+    });
+     payload?.pathPieceCni?.forEach(element => {
+      data.append("cni_carte[]",element);
+    });
+
+    payload?.pathCarteEtudiant?.forEach(element => {
+      data.append("photo[]",element);
+    });
+
     payload?.qualifications?.forEach(element => {
       data.append("qualifications[]", JSON.stringify(element));
     });

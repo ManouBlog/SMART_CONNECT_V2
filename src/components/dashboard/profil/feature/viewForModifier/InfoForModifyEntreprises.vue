@@ -2,7 +2,7 @@
 import instance, { lienPhoto } from "../../../../../api/api";
 // import VueMultiselect from "vue-multiselect";
 import { mapActions, mapState } from "pinia";
-import { Help } from "../../../../../utils";
+// import { Help } from "../../../../../utils";
 import { useLoadingSpinner } from "../../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 import { useInfoPersonnel } from "../../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
@@ -325,16 +325,15 @@ if (isStudentGroup) {
         ville: Talent.ville,
         bio: Talent.bio,
         diplome: Talent.diplome,
-        niveauEtude:Talent.niveauEtude,
+        niveauEtude:Talent.niveauEtude+' '+Talent.domaine,
         carteEtudiant:Talent.carteEtudiant,
         pathCarteEtudiant:Talent.pathCarteEtudiant,
+        pathPieceCni:Talent.pathPieceCni,
         pathCVUpload:Talent.pathCVUpload,
         titreCv: Talent.titreCv,
         modeTravail: Talent.modeTravail,
         tempsTravail:Talent.tempsTravail,
-        statut_id:Talent.statut_id,
         niveauExpertise:Talent.niveauExpertise,
-        competences:Talent?.competences?.length > 0 ? Help.retirerIdIntoArrayCompetence(Talent.competences):[],
       });
         console.log("updateInfoUser",data)
       if(data.status){
