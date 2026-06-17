@@ -352,10 +352,7 @@ export default {
       <ParagrapheDetail  :item="{ libelle: 'Quartier', value: infoPersonnelles.quartier }" />
     </div>
    <div class="col-md-12" 
-   style="flex:1;
-          display: flex;
-          align-items: center;
-          gap:1em;" 
+  
       v-if="infoPersonnelles.user.photos.length">
   
   <ParagrapheDetail
