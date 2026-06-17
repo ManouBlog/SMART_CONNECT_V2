@@ -257,7 +257,7 @@ export default {
         <div class="mb-3 text-start">
           <label class="form-label">
             <b v-if="student?.user?.statuses?.some(item=>item.statut === 'Etudiant')">Carte d'étudiant ou justificatif de scolarité.</b>
-          <b v-else>CNI,Permis de conduire,Passeport,Carte consulaire</b>
+          <b v-else>Titre d'identification</b>
           </label>
           <div style="display: flex; flex-wrap: wrap; gap: 10px">
           <template v-for="(item, index) in student?.user?.photos" :key="index">
