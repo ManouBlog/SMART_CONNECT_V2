@@ -291,28 +291,27 @@ if (isStudentGroup) {
         });
     },
 
-    // async updateInfoEntreprise(company) {
+    async updateInfoEntreprise(company) {
       
-    //   const data = await this.update_compte_entreprise({
-    //     nom: company.nom,
-    //     email: company.email,
-    //     gerant: company.gerant,
-    //     numero_gerant: company.numero_gerant,
-    //     commune: company.commune,
-    //     forme_juridique: company.forme_juridique,
-    //     quartier: company.quartier,
-    //     contact: company.contact,
-    //     ville: company.ville,
-    //     matricule_cc: company.matricule_cc,
-    //     email_cc:this.emails_cc.length ? this.emails_cc:[]
-    //   });
-    //   if(data.status){
-    //     this.$store.commit("UPDATE_INFO_CONPANY",data.data);
-    //     // this.$store.state.infoUserConnected = this.$store.state.infoUserConnected;
-    //     this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: false })
-    //   }
+      const data = await this.update_compte_entreprise({
+        nom: company.nom,
+        email: company.email,
+        gerant: company.gerant,
+        numero_gerant: company.numero_gerant,
+        commune: company.commune,
+        forme_juridique: company.forme_juridique,
+        quartier: company.quartier,
+        contact: company.contact,
+        ville: company.ville,
+        matricule_cc: company.matricule_cc,
+        email_cc:this.emails_cc.length ? this.emails_cc:[]
+      });
+      if(data.status){
+        this.$store.commit("UPDATE_INFO_CONPANY",data.data);
+        this.changeValueForToogleModalInfoPersonnelle({ isCv: false, isbtnPdf: false })
+      }
      
-    // },
+    },
     async updateInfoUser(Talent) {
 
       const data = await this.updateCompteUser({
@@ -374,11 +373,13 @@ if (isStudentGroup) {
     // reset input pour permettre de re-uploader le même fichier
     // event.target.value = '';
   },
-    async handleUpdate(payload) {
-    console.log("handleUpdate_payload",payload)
- 
-  this.updateInfoUser(payload);
- 
+    async handleUpdate(payload,profile) {
+    console.log("profile",profile)
+ if(profile === 'talents'){
+ this.updateInfoUser(payload);
+ }else{
+ this.updateInfoEntreprise(payload)
+ }
 },
   
     onCreateQualification() {
@@ -638,38 +639,38 @@ if (isStudentGroup) {
      v-if="
     $store.state.infoUserConnected &&
     $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['Etudiant', 'Professionnel','Vétéran'].includes(s.statut)
+      ['Etudiant', 'Professionnel','Vétéran','Artisan','Particulier'].includes(s.statut)
     )">
         <div class="col-md-12">
           <div class="mb-3" 
-         v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Etudiant'].includes(s.statut))">
-            <div>
+         v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Etudiant','Particulier','Artisan'].includes(s.statut))">
+            <div v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Artisan'].includes(s.statut))">
           <label class="form-label">Niveau d'étude</label>
             <input v-model="form.niveauEtude" class="form-control" type="text" />
             </div>
-            <div >
+            <div v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Artisan','Etudiant'].includes(s.statut))">
           <label class="form-label" v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Etudiant'].includes(s.statut))">Filiére</label>
           <label class="form-label" v-else>Domaine</label>
             <input v-model="form.domaine" class="form-control" type="text" />
             </div>
 
-            <div>
+            <div v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Artisan'].includes(s.statut))">
           <label class="form-label">Statut professionnel</label>
             <input v-model="form.statut_talent" class="form-control" type="text" />
             </div>
 
-             <div style="padding:0.6em 0;">
+             <div style="padding:0.6em 0;" 
+             v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel'].includes(s.statut))">
               <label class="form-label">CV (Curriculum Vitae)</label>
               <div v-if="form.CVupload">
-             <small class="text-muted">
-        Vous pouvez remplacer votre CV
-    </small>
+              <small class="text-muted">
+               Vous pouvez remplacer votre CV
+              </small>
             <input
-      type="file"
-      
-      accept="application/pdf"
-      @change="handleCvUpload"
-       />
+         type="file"
+         accept="application/pdf"
+         @change="handleCvUpload"
+            />
               </div>
               <div v-else>
 <small class="text-muted">
@@ -684,7 +685,9 @@ if (isStudentGroup) {
               </div>
          
             </div>
+
             <!-- Etudiants -->
+
              <section v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Etudiant'].includes(s.statut))">
             <div style="padding:0.6em 0;">
               <label class="form-label">Carte national d'identité/ Pièce justificative</label>
@@ -714,13 +717,14 @@ if (isStudentGroup) {
             </div>
            </section>
 
-           <!-- Professionnel,veteran -->
-          <section v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Particulier'].includes(s.statut))">
+           <!-- Professionnel,veteran,Particulier-->
+          <section 
+          v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Particulier'].includes(s.statut))">
             <div style="padding:0.6em 0;">
               <label class="form-label">CNI/Passeport/Carte consulaires</label>
               <div v-if="form?.pieceCNI?.length">
              <small class="text-muted">
-        Vous pouvez remplacer votre Carte national d'identité ou Pièce justificative
+        Vous pouvez remplacer votre CNI / Passeport / Carte consulaires
           </small>
             <input
       type="file"
@@ -805,7 +809,7 @@ if (isStudentGroup) {
        
           </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Etudiant'].includes(s.statut))">
           <div class="mb-3">
             <label class="form-label"
               >Mon Profil
@@ -850,7 +854,7 @@ if (isStudentGroup) {
         class="btn bg-warning"
          :disabled="isDisabled"
         style="border: none"
-        @click.prevent="handleUpdate(this.form)"
+        @click.prevent="handleUpdate(this.form,'talents')"
       >
         Modifier
       </button>
@@ -860,7 +864,7 @@ if (isStudentGroup) {
         class="btn bg-warning"
         :disabled="isCompanyDisabled"
         style="border: none"
-        @click.prevent="handleUpdate(this.form)"
+        @click.prevent="handleUpdate(this.form,'entreprises')"
       >
         Modifier
       </button>
