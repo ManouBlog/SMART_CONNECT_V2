@@ -172,15 +172,15 @@ valueExpertise: [
     this.form.contact = user.contact || "";
     this.form.phone = user.phone || "";
     this.form.ville = user.ville || "";
-    this.form.niveauEtude = user.niveauEtude.split(' ')[0];
-    this.form.domaine = user.niveauEtude.split(' ')[1];
+    this.form.niveauEtude = user?.niveauEtude?.split(' ')[0];
+    this.form.domaine = user?.niveauEtude?.split(' ')[1];
     this.form.statut_talent = user.statut_talent;
     this.form.pieceJointe = user.user.photos;
     this.form.CVupload = user.CVupload;
     this.form.commune = user.commune || "";
     this.form.quartier = user.quartier || "";
-    this.form.statuses  = user.user.statuses.map(item=>item.id)  || "";
-    this.form.niveauExpertise = user.niveauExpertise || "";
+    this.form.statuses  = user.user?.statuses.map(item=>item.id)  || "";
+    this.form.niveauExpertise = user?.niveauExpertise || "";
 
     this.form.matricule_cc = user.matricule_cc || "";
     this.form.forme_juridique = user.forme_juridique || "";
