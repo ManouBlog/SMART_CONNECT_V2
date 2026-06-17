@@ -648,7 +648,7 @@ if (isStudentGroup) {
           <label class="form-label">Niveau d'étude</label>
             <input v-model="form.niveauEtude" class="form-control" type="text" />
             </div>
-            <div v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Artisan','Etudiant'].includes(s.statut))">
+            <div v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Etudiant'].includes(s.statut))">
           <label class="form-label" v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Etudiant'].includes(s.statut))">Filiére</label>
           <label class="form-label" v-else>Domaine</label>
             <input v-model="form.domaine" class="form-control" type="text" />
@@ -717,9 +717,9 @@ if (isStudentGroup) {
             </div>
            </section>
 
-           <!-- Professionnel,veteran,Particulier-->
+           <!-- Professionnel,veteran,Particulier,Artisan-->
           <section 
-          v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Particulier'].includes(s.statut))">
+          v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Particulier','Artisan'].includes(s.statut))">
             <div style="padding:0.6em 0;">
               <label class="form-label">CNI/Passeport/Carte consulaires</label>
               <div v-if="form?.pieceCNI?.length">
@@ -809,7 +809,7 @@ if (isStudentGroup) {
        
           </div>
         </div>
-        <div class="col-md-12" v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Etudiant'].includes(s.statut))">
+        <div class="col-md-12" v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Etudiant','Artisan'].includes(s.statut))">
           <div class="mb-3">
             <label class="form-label"
               >Mon Profil
