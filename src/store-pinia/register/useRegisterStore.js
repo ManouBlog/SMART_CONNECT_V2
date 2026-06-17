@@ -86,7 +86,7 @@ if (payload?.photo?.length > 0) {
 
 if(payload?.CNI_CARTE?.length > 0){
   payload?.CNI_CARTE.forEach((item) => {
-    if (item) data.append("CNI_CARTE[]", item);
+    if (item) data.append("cni_carte[]", item);
   });
 }
 

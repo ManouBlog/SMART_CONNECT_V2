@@ -350,12 +350,46 @@ export default {
     <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.quartier">
       <ParagrapheDetail  :item="{ libelle: 'Quartier', value: infoPersonnelles.quartier }" />
     </div>
-    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.user.photos.length">
-      <ParagrapheDetail
-      
-        :item="{ libelle: 'Pièces Jointes', value: null, valueArray: infoPersonnelles.user.photos }"
-      />
-    </div>
+   <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.user.photos.length">
+  
+  <ParagrapheDetail
+    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))"
+    :item="{
+      libelle: 'Carte étudiant',
+      value: null,
+      valueArray: infoPersonnelles.user.photos.filter(item =>
+        item.path.includes('Carte_etudiant')
+      )
+    }"
+  />
+
+  <ParagrapheDetail
+    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))"
+    :item="{
+      libelle: 'CNI',
+      value: null,
+      valueArray: infoPersonnelles.user.photos.filter(item =>
+        item.path.includes('CNI')
+      )
+    }"
+  />
+
+  <ParagrapheDetail
+    v-if="infoPersonnelles.user.photos.some(item =>
+      !item.path.includes('CNI') &&
+      !item.path.includes('Carte_etudiant')
+    )"
+    :item="{
+      libelle: 'Pièces Jointes',
+      value: null,
+      valueArray: infoPersonnelles.user.photos.filter(item =>
+        !item.path.includes('CNI') &&
+        !item.path.includes('Carte_etudiant')
+      )
+    }"
+  />
+
+</div>
   </div>
 
   <!-- Ligne 5 -->
