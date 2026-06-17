@@ -84,6 +84,12 @@ if (payload?.photo?.length > 0) {
   });
 }
 
+if(payload?.CNI_CARTE?.length > 0){
+  payload?.CNI_CARTE.forEach((item) => {
+    if (item) data.append("CNI_CARTE[]", item);
+  });
+}
+
 // Galerie artisans (array fichiers)
 if (payload?.galeries?.length > 0) {
   payload.galeries.map((item) => item.originFileObj || item.file).forEach((item) => {

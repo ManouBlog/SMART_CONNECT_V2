@@ -129,6 +129,7 @@ idStatutChoice:Object
         quartier: "",
         diplome: "",
         uploadCNI:[],
+        CNI_CARTE:[],
         myCompetence: [],
         photo: null,
         upload: [],
@@ -494,8 +495,8 @@ this.formState.profilHybride = [];
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
           if(this.formState?.uploadCNI?.length){
            const otherPiece = this.addPhotoInArray(this.formState.uploadCNI);
-           otherPiece.forEach(pice=>{
-            this.formState.photo.push(pice)
+           otherPiece.forEach(piece=>{
+            this.formState.CNI_CARTE.push(piece)
            })
           
           }
