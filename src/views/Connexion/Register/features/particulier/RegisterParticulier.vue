@@ -24,6 +24,10 @@ idStatutChoice:Object
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
 ],
+allAnwserForAssitance: [
+  { label: "Oui", value: "oui" },
+  { label: "Non", value: "non" }
+],
   allStatuts : [
 ],
       texte: "",
@@ -109,6 +113,8 @@ idStatutChoice:Object
   { label: "Togo", value: "+228", length: 8 },
 ],
       formState: {
+        answerAssistance:"",
+        identifiantCommerciale:"",
       nom_particulier:"",
         nom: "",
         prenoms: "",
@@ -626,7 +632,37 @@ preprocessImage(file) {
         </a-form-item>
       </a-col>
     </a-row>
-
+    <div>
+  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+    Avez-vous été assisté(e) ?
+  </label>
+  <div class="round-container">
+    <label 
+      v-for="item in allAnwserForAssitance" 
+      :key="item.value"
+      class="round-item"
+    >
+      <input
+        type="radio"
+        name="profilHybride"
+        :value="item.value"
+        v-model="formState.answerAssistance"
+      />
+      <span class="round-label">
+        {{ item.label }}
+      </span>
+    </label>
+  </div>
+  <div>
+    <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="12">
+          <a-form-item label="Code de parrainage" name="code_ambassadeur">
+            <a-input v-model:value="formState.identifiantCommerciale" />
+          </a-form-item>
+        </a-col>
+      </a-row>
+  </div>
+</div>
     <!-- Bouton de soumission -->
     <a-form-item>
       <div class="d-flex justify-content-center">
