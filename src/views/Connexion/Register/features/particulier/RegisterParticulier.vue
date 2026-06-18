@@ -113,7 +113,8 @@ allAnwserForAssitance: [
   { label: "Togo", value: "+228", length: 8 },
 ],
       formState: {
-        answerAssistance:"",
+        answerAssistance:"non",
+        identifiantNotesCommerciale:"",
         identifiantCommerciale:"",
       nom_particulier:"",
         nom: "",
@@ -145,7 +146,9 @@ allAnwserForAssitance: [
   },
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
-    
+    isCommercialAssitance(){
+  return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true:false;
+    },
      isPasswordDisabled() {
       
   const isLoading = this.loading;
@@ -154,10 +157,15 @@ allAnwserForAssitance: [
 
   const isProfilRequiredButEmpty = this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0;
 
-  return isLoading || isIdentityInvalid || isProfilRequiredButEmpty;
+  return isLoading || isIdentityInvalid || isProfilRequiredButEmpty || !this.formState.password;
 },
   },
   watch: {
+    'formState.answerAssistance'(newVal) {
+      if (newVal === 'non') {
+     this.formState.identifiantCommerciale = null
+    }
+    },
     'formState.countryCode'(newVal, oldVal) {
       console.log('Code pays changé de', oldVal, 'à', newVal);
       if (newVal !== oldVal) {
@@ -625,7 +633,7 @@ preprocessImage(file) {
           :rules="[{ required: true, message: 'Ajoutez un mot de passe' }]"
         >
           <a-input-password
-            :disabled="isPasswordDisabled"
+            :disabled="this.loading"
             v-model:value="formState.password"
             placeholder="Ajoutez votre mot de passe"
           />
@@ -643,6 +651,7 @@ preprocessImage(file) {
       class="round-item"
     >
       <input
+      :disabled="this.isLoading"
         type="radio"
         name="profilHybride"
         :value="item.value"
@@ -653,11 +662,18 @@ preprocessImage(file) {
       </span>
     </label>
   </div>
-  <div>
-    <a-row :gutter="[16, 24]">
+  <div v-if="formState.answerAssistance === 'oui'">
+    <a-row :gutter="[16, 12]">
         <a-col :xs="24" :md="12">
-          <a-form-item label="Code de parrainage" name="code_ambassadeur">
+          <a-form-item 
+          :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
+          label="Identifiant du commercial" name="identifiantCommerciale">
             <a-input v-model:value="formState.identifiantCommerciale" />
+          </a-form-item>
+        </a-col>
+         <a-col :xs="24" :md="12">
+          <a-form-item label="Notes" name="identifiantNotesCommerciale">
+             <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
           </a-form-item>
         </a-col>
       </a-row>
@@ -666,8 +682,9 @@ preprocessImage(file) {
     <!-- Bouton de soumission -->
     <a-form-item>
       <div class="d-flex justify-content-center">
+       
         <a-button
-          :disabled="isPasswordDisabled"
+          :disabled="isPasswordDisabled || isCommercialAssitance"
           type="primary"
           shape="round"
           :size="'large'"
