@@ -139,7 +139,9 @@ idStatutChoice:Object
   },
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
+    
      isPasswordDisabled() {
+      
   const isLoading = this.loading;
 
   const isIdentityInvalid = this.result?.isCardIdentity === false;
