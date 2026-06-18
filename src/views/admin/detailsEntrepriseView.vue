@@ -201,11 +201,15 @@ export default {
             />
           </h4>
           <h4 v-if="entreprise.matricule_cc">
-            <b>Matricule_cc</b> :
+            <b>RCCM (Registre du Commerce et du Crédit Mobilier)</b> :
             {{ entreprise.matricule_cc ? entreprise.matricule_cc : null }}
           </h4>
+          <h4 v-if="entreprise.NCC">
+            <b>NCC (Numéro de compte contribuable)</b> :
+            {{ entreprise.NCC ? entreprise.NCC : null }}
+          </h4>
           <h4 v-if="entreprise.forme_juridique">
-            <b>Matricule_cc</b> :
+            <b>Forme juridique</b> :
             {{ entreprise.forme_juridique ? entreprise.forme_juridique : null }}
           </h4>
           <h4
