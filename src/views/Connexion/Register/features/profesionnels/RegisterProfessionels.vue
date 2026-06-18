@@ -9,7 +9,7 @@ import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup"
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
 import instance from "../../../../../api/api";
 import RegisterQualifications from "../students/RegisterQualifications.vue";
-// import Tesseract from 'tesseract.js'
+import Tesseract from 'tesseract.js'
 
 export default {
   name: "RegisterProfessionels",
@@ -20,6 +20,43 @@ export default {
   },
   data() {
     return {
+      PIECE_KEYWORDS :[
+  "republique de cote d ivoire",
+  "signature du titulaire",
+   "CARTE NATIONALE D IDENTITE",
+   "carte nationale d'identité",
+   "REPUbLIQUE DE COTE D IVOIRE",
+   "DATE ET LIEU DE NAISSANCE",
+    "lieu de naissance",
+    "ivoirienne",
+    "SEXE",
+    "nom du père",
+    "nom de la mère", 
+    "sexe",
+    "Nationalité",
+    "nni",
+    "NNI",
+    "Date d'emission",
+    "Signature de l'autorité",
+     "date d'émission",
+     "date d'emission",
+     "Date d'expiration",
+     "date d'expiration",
+     "date dexpiration",
+     "carte nationale d'identite",
+     "carte nationale d'identité",
+     "carte nationale d'identité",
+     "union",
+     "discipline",
+     "travail",
+     "date de delivrance",
+     "Date d expiratione",
+     "Nom/surname",
+     "passeport",
+     "passport",
+     "code du pays",
+     "CIV",
+],
        fileList : [],
  loading : false,
  rawText : '',
@@ -178,15 +215,6 @@ StatutProfessionnel:[
       (this.result && this.result.isStudentCard === false)
     )
   },
-    // getFirstHeureStartFrom() {
-    //   return this.$store.state.First_heure_start_from;
-    // },
-    // getTableauDays() {
-    //   return this.$store.state.datesOfCalendar;
-    // },
-    // getFirstHeureFinFrom() {
-    //   return this.$store.state.First_heure_end_to;
-    // },
     isNextDisabled() {
       // STEP 2 – Qualifications
       if (this.currentStep === 3) {
@@ -361,104 +389,106 @@ StatutProfessionnel:[
     this.rawText = ''
     this.result = null
 
-  // this.runOCR(newList)
+  this.runOCR(newList)
 },
-// async runOCR(files) {
-//   this.loading = true
-//   let fullText = ''
+async runOCR(files) {
+  this.loading = true
+  let fullText = ''
 
-//   for (const f of files) {
-//     const file = f.originFileObj
-//     if (!file || !file.type.startsWith('image/')) continue
+  for (const f of files) {
+    const file = f.originFileObj
+    if (!file || !file.type.startsWith('image/')) continue
 
-//     const canvas = await this.preprocessImage(file)
-//     const { data } = await Tesseract.recognize(canvas, 'fra')
-//     fullText += '\n' + (data.text || '')
-//   }
+    const canvas = await this.preprocessImage(file)
+    const { data } = await Tesseract.recognize(canvas, 'fra')
+    fullText += '\n' + (data.text || '')
+  }
 
-//   this.rawText = this.cleanOCRText(fullText)
+  this.rawText = this.cleanOCRText(fullText)
+ console.log('rawText',this.rawText)
+ console.log('fullText',this.fullText)
+  if (!this.hasReadableText(fullText)) {
+    this.result = {
+      score: 0,
+      isStudentCard: false,
+      reason: 'Aucun texte exploitable détecté'
+    }
+    this.loading = false
+    return
+  }
 
-//   if (!this.hasReadableText(fullText)) {
-//     this.result = {
-//       score: 0,
-//       isStudentCard: false,
-//       reason: 'Aucun texte exploitable détecté'
-//     }
-//     this.loading = false
-//     return
-//   }
+  this.analyzeText(fullText)
+  this.loading = false
+},
+hasReadableText(text) {
+  const lettersOnly = text
+    .replace(/\s/g, '')
+    .replace(/[^a-zA-ZÀ-ÿ]/g, '')
 
-//   this.analyzeText(fullText)
-//   this.loading = false
-// },
-// hasReadableText(text) {
-//   const lettersOnly = text
-//     .replace(/\s/g, '')
-//     .replace(/[^a-zA-ZÀ-ÿ]/g, '')
+  return lettersOnly.length >= 5
+},
+normalizeText(text) {
+  return text
+    .toLowerCase()
+    .normalize('NFD')              // enlève les accents
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
+    .replace(/\s+/g, ' ')
+    .trim()
+},
+analyzeText(text) {
+  const cleanText = this.normalizeText(text)
+  let score = 0
+ console.log("cleanText",cleanText)
+  if (cleanText.length > 80) score += 20
 
-//   return lettersOnly.length >= 5
-// },
-// normalizeText(text) {
-//   return text
-//     .toLowerCase()
-//     .normalize('NFD')              // enlève les accents
-//     .replace(/[\u0300-\u036f]/g, '')
-//     .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
-//     .replace(/\s+/g, ' ')
-// },
-// analyzeText(text) {
-//   const cleanText = this.normalizeText(text)
-//   let score = 0
+  const keywordHits = this.PIECE_KEYWORDS.filter(k =>
+    cleanText.includes(k)
+  ).length
 
-//   if (cleanText.length > 80) score += 20
+  score += Math.min(keywordHits * 10, 40)
 
-//   const keywordHits = this.SCHOOL_KEYWORDS.filter(k =>
-//     cleanText.includes(k)
-//   ).length
+  if (cleanText.includes('matricule')) score += 20
+  if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
+ console.log("score23",score)
+  this.result = {
+    score,
+    isStudentCard: score >= 50
+  }
+},
+cleanOCRText(text) {
+  return text
+    // supprimer caractères parasites fréquents OCR
+    .replace(/[|«»“”]/g, '')
+    .replace(/_{2,}/g, ' ')
+    .replace(/-{2,}/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\n{2,}/g, '\n')
+    .trim()
+},
+preprocessImage(file) {
+  return new Promise(resolve => {
+    const img = new Image()
+    const reader = new FileReader()
 
-//   score += Math.min(keywordHits * 10, 40)
+    reader.onload = () => (img.src = reader.result)
 
-//   if (cleanText.includes('matricule')) score += 20
-//   if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
+    img.onload = () => {
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
 
-//   this.result = {
-//     score,
-//     isStudentCard: score >= 60
-//   }
-// },
-// cleanOCRText(text) {
-//   return text
-//     // supprimer caractères parasites fréquents OCR
-//     .replace(/[|«»“”]/g, '')
-//     .replace(/_{2,}/g, ' ')
-//     .replace(/-{2,}/g, ' ')
-//     .replace(/\s{2,}/g, ' ')
-//     .replace(/\n{2,}/g, '\n')
-//     .trim()
-// },
-// preprocessImage(file) {
-//   return new Promise(resolve => {
-//     const img = new Image()
-//     const reader = new FileReader()
+      canvas.width = img.width
+      canvas.height = img.height
 
-//     reader.onload = () => (img.src = reader.result)
+      ctx.filter = 'grayscale(1) contrast(1.5)'
+      ctx.drawImage(img, 0, 0)
 
-//     img.onload = () => {
-//       const canvas = document.createElement('canvas')
-//       const ctx = canvas.getContext('2d')
+      resolve(canvas)
+    }
 
-//       canvas.width = img.width
-//       canvas.height = img.height
-
-//       ctx.filter = 'grayscale(1) contrast(1.5)'
-//       ctx.drawImage(img, 0, 0)
-
-//       resolve(canvas)
-//     }
-
-//     reader.readAsDataURL(file)
-//   })
-// },
+    reader.readAsDataURL(file)
+  })
+},
     onFinish() {
       
       if (this.formState.uploadPhotoProfil.length) {
