@@ -205,7 +205,7 @@ if (payload?.titreCv) data.append("titreCv", payload.titreCv);
 if(payload.identifiantCommerciale) data.append("identifiantCommerciale",payload.identifiantCommerciale);
 if(payload.profiles.length){
   const element = payload.profiles.find(item=> item.id == payload.statutId);
-  data.append("statut_user_save",element.statut)
+  data.append("profil",element.statut)
 }
 if(payload.identifiantNotesCommerciale) data.append("identifiantNotesCommerciale",payload.identifiantNotesCommerciale);
       
@@ -299,7 +299,7 @@ if (payload?.Logo?.[0]?.originFileObj) {
 if(payload.identifiantCommerciale) data.append("identifiantCommerciale",payload.identifiantCommerciale);
 if(payload.profiles.length){
   const element = payload.profiles.find(item=> item.id == payload.statut_id);
-  data.append("statut_user_save",element.statut)
+  data.append("profil",element.statut)
 }
 if(payload.identifiantNotesCommerciale) data.append("identifiantNotesCommerciale",payload.identifiantNotesCommerciale);
       
