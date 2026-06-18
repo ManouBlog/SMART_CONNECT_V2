@@ -28,8 +28,8 @@ allAnwserForAssitance: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
 ],
-  allStatuts : [
-],
+  allStatuts : [],
+  allProfiles:[],
       texte: "",
       texte2: "",
       texte3: "",
@@ -125,6 +125,7 @@ allAnwserForAssitance: [
         quartier: "",
         diplome: "",
         carte_student: "",
+        profiles:[],
         myCompetence: [],
          profilHybride: [] ,
         optionsAnswer:null,
@@ -138,7 +139,6 @@ allAnwserForAssitance: [
         CNI_CARTE: null,
         countryCode: "+225",
         statutId:this.idStatutChoice.id,
-        
       },
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
@@ -189,7 +189,7 @@ allAnwserForAssitance: [
       try {
         const response =  await instance.get("listStatut")
         this.allStatuts = response.data.data.filter(item=>item.statut === 'Artisan')
-        // console.log("this.allStatuts",response.data.data.filter(item=> item.statut === 'Artisan'))
+        this.allProfiles = response.data.data;
       } catch (error) {
         console.log(error);
       }
@@ -228,6 +228,7 @@ allAnwserForAssitance: [
     },
     onFinish(values) {
       console.log("Success:", values);
+      this.formState.profiles = this.allProfiles;
       if(this.formState.profilHybride.length){
       this.formState.profilHybride.push(this.idStatutChoice.id);
       }
@@ -239,7 +240,7 @@ allAnwserForAssitance: [
           infoUser: "talents",
           payload: this.formState,
         });
-        // console.log("this.formState.profilHybride",this.formState)
+  
       } else {
         this.SWALPOPUP.declencheSwalPopup(
           "info",
@@ -394,7 +395,6 @@ preprocessImage(file) {
 </script>
 <template>
   <Politics v-if="isPolitics" />
-
   <div>
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
     Souhaitez-vous adopter un profil hybride ?

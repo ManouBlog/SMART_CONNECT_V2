@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import instance from "../../api/api";
 import {useSwalPopup} from "../SwalPopup/useSwalPopup";
 import {useLoadingSpinner} from '../LoadingSpinner/useLoadingSpinner'
+import axios from 'axios';
 // import Swal from 'sweetalert2';
 export const useRegisterStore = defineStore('register', {
     state: () => ({
@@ -65,7 +66,7 @@ export const useRegisterStore = defineStore('register', {
       return result;
         },
         async registerStudent(payload) {
-          // console.log("registerStudent25",payload)
+          console.log("registerStudent25",payload)
           this.LOADINGSPINNER.launchLoading(true)
           this.isLoading = true;
           let data = new FormData();
@@ -200,30 +201,134 @@ if (payload?.statutId !== undefined) data.append("statut_base", payload.statutId
 if (payload?.photo_profil) data.append("photo_profil", payload.photo_profil);
 if (payload?.bio) data.append("bio", payload.bio);
 if (payload?.titreCv) data.append("titreCv", payload.titreCv);
-      
-          try{
-          const response = await instance.post("list_users", data);
-            if (response.data.status === true) {
-                this.changeValueIsPolitics({value:false,infoUser:"",payload:""})
-                this.changeValueIsModal()
-                this.SWALPOPUP.declencheSwalPopup(
-  "success",
-  `${response.data.message}
-  
-Bienvenue parmi nous 🎉  
+console.log('payload.answerAssistance',payload.answerAssistance)
+console.log('payload.statutId',payload.statutId)
+if (payload.answerAssistance == "oui") {
+  try {
+    const selectedProfile = payload.profiles.find(
+      item => item.id == payload.statutId
+    );
+
+    const data_add_user_byCommercial = {
+      name: payload?.nom,
+      contactName: payload?.prenoms,
+      contactPhone: `${payload?.countryCode} ${payload?.phone}`,
+      contactEmail: payload?.email,
+      address: payload?.ville,
+      profil: selectedProfile?.statut,
+      notes: payload?.identifiantNotesCommerciale,
+      commercial_id: payload?.identifiantCommerciale,
+      profiles: payload?.profiles,
+    };
+
+    console.log(
+      "data_add_user_byCommercial",
+      data_add_user_byCommercial
+    );
+
+    const response_add_user_byCommercial = await axios.post(
+      "https://backend-commercial.monbrobroli.com",
+      data_add_user_byCommercial,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log(
+      "response_add_user_byCommercial",
+      response_add_user_byCommercial
+    );
+
+    // if (response_add_user_byCommercial.data.status) {
+    //   const response = await instance.post("list_users", data);
+    //
+    //   if (response.data.status === true) {
+    //     this.changeValueIsPolitics({
+    //       value: false,
+    //       infoUser: "",
+    //       payload: "",
+    //     });
+    //
+    //     this.changeValueIsModal();
+    //
+    //     this.SWALPOPUP.declencheSwalPopup(
+    //       "success",
+    //       `${response.data.message}
+    // Bienvenue parmi nous 🎉
+    // Un email d’activation vient de vous être envoyé.
+    // Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre compte.`
+    //     );
+    //   }
+    //
+    //   if (response.data.status === false) {
+    //     this.SWALPOPUP.declencheSwalPopup(
+    //       "error",
+    //       response.data.message
+    //     );
+    //   }
+    // }
+    //
+    // if (!response_add_user_byCommercial.data.status) {
+    //   this.SWALPOPUP.declencheSwalPopup(
+    //     "error",
+    //     response_add_user_byCommercial.data.message
+    //   );
+    // }
+  } catch (error) {
+    console.error("Erreur ajout commercial :", error);
+
+    this.SWALPOPUP.declencheSwalPopup(
+      "info",
+      error?.response?.data?.message || error?.message || "Une erreur est survenue"
+    );
+  } finally {
+    this.isLoading = false;
+    this.LOADINGSPINNER.launchLoading(false);
+  }
+} else {
+  try {
+    const response = await instance.post("list_users", data);
+
+    if (response.data.status === true) {
+      this.changeValueIsPolitics({
+        value: false,
+        infoUser: "",
+        payload: "",
+      });
+
+      this.changeValueIsModal();
+
+      this.SWALPOPUP.declencheSwalPopup(
+        "success",
+        `${response.data.message}
+
+Bienvenue parmi nous 🎉
 Un email d’activation vient de vous être envoyé.
 Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre compte.`
-);
-              }
-              if (response.data.status === false) {
-                this.SWALPOPUP.declencheSwalPopup("error",response.data.message)
-              }
-          }catch(error){
-            this.SWALPOPUP.declencheSwalPopup("info",error?.response.data.message)   
-          }finally{
-           this.isLoading = false;
-           this.LOADINGSPINNER.launchLoading(false)
-          }
+      );
+    }
+
+    if (response.data.status === false) {
+      this.SWALPOPUP.declencheSwalPopup(
+        "error",
+        response.data.message
+      );
+    }
+  } catch (error) {
+    console.error("Erreur création utilisateur :", error);
+
+    this.SWALPOPUP.declencheSwalPopup(
+      "info",
+      error?.response?.data?.message || error?.message || "Une erreur est survenue"
+    );
+  } finally {
+    this.isLoading = false;
+    this.LOADINGSPINNER.launchLoading(false);
+  }
+}  
+          
         },
         async registerCompany(payload) {
           console.log("registerCompany",payload)
