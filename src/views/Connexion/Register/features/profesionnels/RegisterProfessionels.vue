@@ -406,7 +406,7 @@ async runOCR(files) {
 
   this.rawText = this.cleanOCRText(fullText)
  console.log('rawText',this.rawText)
- console.log('fullText',this.fullText)
+ console.log('fullText',fullText)
   if (!this.hasReadableText(fullText)) {
     this.result = {
       score: 0,
@@ -447,8 +447,11 @@ analyzeText(text) {
   ).length
 
   score += Math.min(keywordHits * 10, 40)
+  console.log("score",score)
 
-  if (cleanText.includes('matricule')) score += 20
+  if (cleanText.includes('(CIV)')) score += 20
+  if(cleanText.includes('CI00')) score += 20
+  if(cleanText.includes("RÉPUBLIQUE DE CÔTE D'IVOIRE")) score += 20
   if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
  console.log("score23",score)
   this.result = {
