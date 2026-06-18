@@ -439,7 +439,7 @@ normalizeText(text) {
 analyzeText(text) {
   const cleanText = this.normalizeText(text)
   let score = 0
- console.log("cleanText",cleanText)
+ console.log("cleanText",cleanText.trim())
   if (cleanText.length > 80) score += 20
 
   const keywordHits = this.PIECE_KEYWORDS.filter(k =>
@@ -449,10 +449,11 @@ analyzeText(text) {
   score += Math.min(keywordHits * 10, 40)
   console.log("score",score)
 
-  if (cleanText.includes('(CIV)')) score += 20
-  if(cleanText.includes('CI00')) score += 20
-  if(cleanText.includes("RÉPUBLIQUE DE CÔTE D'IVOIRE")) score += 20
-  if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
+  if (cleanText.includes('republique de cote d ivoire') ||
+  cleanText.includes("RÉPUBLIQUE DE CÔTE D'IVOIRE")) score += 20
+  if(cleanText.includes('ivoirienne')) score += 20
+  if(cleanText.includes("civ")) score += 20
+  if (cleanText.includes("ci0")) score += 10
  console.log("score23",score)
   this.result = {
     score,
