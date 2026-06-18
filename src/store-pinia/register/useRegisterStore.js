@@ -233,6 +233,7 @@ Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre c
            this.LOADINGSPINNER.launchLoading(false)
           }
         },
+
         async registerCompany(payload) {
           console.log("registerCompany",payload)
           this.isLoading = true;
@@ -295,29 +296,13 @@ if (payload?.ncc) data.append("NCC", payload.ncc);
 if (payload?.Logo?.[0]?.originFileObj) {
   data.append("logo", payload.Logo[0].originFileObj);
 }
-          // payload?.photo.forEach((item) => {
-          //   data.append("piece_gerant[]", item);
-          // });
-          // if(payload?.email_cc){
-          // payload?.email_cc?.forEach((item) => {
-          //   data.append("email_cc[]", item);
-          // })}
-          // data.append("registre", payload?.Registre[0]?.originFileObj);
-          // data.append("nom", payload?.nom);
-          // data.append("is_company_verified", payload?.optionsPaperChoose);
-          // data.append("phone",`${payload?.countryCode}${payload?.contact}`);
-          // data.append("ville", payload?.ville);
-          // data.append("quartier", payload?.quartier);
-          // data.append("forme_juridique", payload?.juridique);
-          // data.append("email", payload?.email);
-          // data.append("commune", payload?.commune);
-          // data.append("gerant", payload?.gerant);
-          // data.append("numero_gerant",`${payload?.countryCodePhoneGerant}${payload?.Phonegerant}`);
-          // data.append("matricule_cc", payload?.matricule_cc);
-          // data.append("password", payload?.password);
-          // data.append("statut_id", payload?.statut_id);
-          // data.append("NCC", payload?.ncc);
-          // data.append("logo", payload?.Logo[0]?.originFileObj);
+if(payload.identifiantCommerciale) data.append("identifiantCommerciale",payload.identifiantCommerciale);
+if(payload.profiles.length){
+  const element = payload.profiles.find(item=> item.id == payload.statut_id);
+  data.append("statut_user_save",element.statut)
+}
+if(payload.identifiantNotesCommerciale) data.append("identifiantNotesCommerciale",payload.identifiantNotesCommerciale);
+      
          await instance
             .post("list_users", data)
             .then((response) => {
