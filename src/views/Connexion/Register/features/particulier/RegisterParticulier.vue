@@ -641,8 +641,9 @@ preprocessImage(file) {
       </a-col>
     </a-row>
     <div>
+      {{ this.result?.isCardIdentity }}
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
-    Avez-vous été assisté(e) ?
+    Avez-vous été assisté(e) par un commercial ?
   </label>
   <div class="round-container">
     <label 
@@ -651,7 +652,7 @@ preprocessImage(file) {
       class="round-item"
     >
       <input
-      :disabled="this.isLoading"
+      :disabled="this.loading || !this.result?.isCardIdentity"
         type="radio"
         name="profilHybride"
         :value="item.value"
