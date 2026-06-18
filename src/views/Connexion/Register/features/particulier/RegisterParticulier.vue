@@ -619,6 +619,7 @@ preprocessImage(file) {
           :rules="[{ required: true, message: 'Ajoutez un mot de passe' }]"
         >
           <a-input-password
+            :disabled="isPasswordDisabled"
             v-model:value="formState.password"
             placeholder="Ajoutez votre mot de passe"
           />
@@ -630,7 +631,7 @@ preprocessImage(file) {
     <a-form-item>
       <div class="d-flex justify-content-center">
         <a-button
-          :disabled="isPasswordDisabled || this.isLoading"
+          :disabled="isPasswordDisabled"
           type="primary"
           shape="round"
           :size="'large'"
