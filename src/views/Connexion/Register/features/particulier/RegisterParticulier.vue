@@ -652,7 +652,7 @@ preprocessImage(file) {
       class="round-item"
     >
       <input
-      :disabled="this.loading || !this.result?.isCardIdentity"
+      :disabled="this.loading"
         type="radio"
         name="profilHybride"
         :value="item.value"
@@ -685,7 +685,7 @@ preprocessImage(file) {
       <div class="d-flex justify-content-center">
        
         <a-button
-          :disabled="isPasswordDisabled || isCommercialAssitance"
+          :disabled="isPasswordDisabled || isCommercialAssitance || !this.result?.isCardIdentity"
           type="primary"
           shape="round"
           :size="'large'"
