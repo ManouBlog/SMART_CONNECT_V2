@@ -1,5 +1,6 @@
 <script>
 import Swal from "sweetalert2";
+import instance from "../../../../../api/api.js";
 import VueMultiselect from "vue-multiselect";
 import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
@@ -23,6 +24,11 @@ export default {
     return {
       cameraInput:null,
        fileList : [],
+       allProfiles:[],
+        allAnwserForAssitance: [
+  { label: "Oui", value: "oui" },
+  { label: "Non", value: "non" }
+],
  loading : false,
  StatutArtisans:[
   // { value: "Maitre Artisan", label: "Maitre Artisan" },
@@ -163,6 +169,10 @@ export default {
 ],
 inputMode: "gallery",
       formState: {
+       profiles:[],
+        answerAssistance:"non",
+        identifiantNotesCommerciale:"",
+        identifiantCommerciale:"",
         otherCompetence:[],
         code_ambassadeur:"",
         titreCv: "",
@@ -193,6 +203,9 @@ inputMode: "gallery",
 
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
+    isCommercialAssitance(){
+  return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true:false;
+    },
     isPasswordDisabled() {
     return (
       this.loading ||
@@ -234,8 +247,22 @@ inputMode: "gallery",
       });
     },
   },
- 
+  watch: {
+    'formState.answerAssistance'(newVal) {
+      if (newVal === 'non') {
+     this.formState.identifiantCommerciale = null
+    }
+    },
+  },
   methods: {
+    async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+         this.allProfiles = response.data.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async openCamera() {
   await Swal.fire({
     title: 'Information caméra',
@@ -437,7 +464,7 @@ removeImage(index) {
     this.formState.galeries.splice(index, 1)
   },
     onFinish() {
-      
+      this.formState.profiles = this.allProfiles;
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
       }
@@ -469,6 +496,7 @@ removeImage(index) {
   },
 
   async created() {
+    await this.lister_statut();
     this.getCompetences();
     this.texte = await this.handleTranslate("Nom");
     this.texte1 = await this.handleTranslate("Prénoms");
@@ -861,7 +889,48 @@ removeImage(index) {
           </a-form-item>
         </a-col>
       </a-row>
+        <div>
+  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+    Avez-vous été assisté(e) par un commercial ?
+  </label>
+  <div class="round-container">
+    <label 
+      v-for="item in allAnwserForAssitance" 
+      :key="item.value"
+      class="round-item"
+    >
+      <input
+      :disabled="this.loading"
+        type="radio"
+        name="profilHybride"
+        :value="item.value"
+        v-model="formState.answerAssistance"
+      />
+      <span class="round-label">
+        {{ item.label }}
+      </span>
+    </label>
+  </div>
+  <div v-if="formState.answerAssistance === 'oui'">
+    <a-row :gutter="[16, 12]">
+        <a-col :xs="24" :md="12">
+          <a-form-item 
+          :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
+          label="Identifiant du commercial" name="identifiantCommerciale">
+            <a-input v-model:value="formState.identifiantCommerciale" />
+          </a-form-item>
+        </a-col>
+         <a-col :xs="24" :md="12">
+          <a-form-item label="Notes" name="identifiantNotesCommerciale">
+             <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
+          </a-form-item>
+        </a-col>
+      </a-row>
+  </div>
+</div>
     </div>
+
+    
 
     <!-- NAVIGATION -->
     <div class="d-flex justify-content-between" style="padding: 1.5em">
@@ -880,7 +949,7 @@ removeImage(index) {
         v-if="currentStep === 4"
         type="primary"
         html-type="submit"
-        :disabled="!isCurrentStepValid || isPasswordDisabled"
+        :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance"
       >
         {{ texte11 }}
       </a-button>
