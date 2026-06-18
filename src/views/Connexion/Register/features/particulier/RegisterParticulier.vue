@@ -630,7 +630,7 @@ preprocessImage(file) {
     <a-form-item>
       <div class="d-flex justify-content-center">
         <a-button
-          :disabled="isPasswordDisabled"
+          :disabled="isPasswordDisabled || this.isLoading"
           type="primary"
           shape="round"
           :size="'large'"
