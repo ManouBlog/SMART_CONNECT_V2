@@ -500,6 +500,7 @@ this.formState.profilHybride = [];
     onFinish() {
       this.formState.profilHybride.push(this.idStatutChoice.id);
       // console.log("this.formState",this.formState);
+      this.formState.profiles = this.allProfiles;
       
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
