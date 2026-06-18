@@ -375,43 +375,8 @@ texte0989:"",
         </div>
 
       </div>
-          <!-- <ParagrapheDetail
-    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))"
-    :item="{
-      libelle: 'Carte étudiant',
-      value: null,
-      valueArray: infoPersonnelles.user.photos.filter(item =>
-        item.path.includes('Carte_etudiant')
-      )
-    }"
-  /> -->
-  
-  <!-- <ParagrapheDetail
-    v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))"
-    :item="{
-      libelle: 'Titre d\'identifications',
-      value: null,
-      valueArray: infoPersonnelles.user.photos.filter(item =>
-        item.path.includes('CNI')
-      )
-    }"
-  /> -->
-
-  <!-- <ParagrapheDetail
-    v-if="infoPersonnelles.user.photos.some(item =>
-      !item.path.includes('CNI') &&
-      !item.path.includes('Carte_etudiant')
-    )"
-    :item="{
-      libelle: 'Pièces Jointes',
-      value: null,
-      valueArray: infoPersonnelles.user.photos.filter(item =>
-        !item.path.includes('CNI') &&
-        !item.path.includes('Carte_etudiant')
-      )
-    }"
-  /> -->
-            </div>
+        
+      </div>
           </div>
       </section>
       <section style="display: flex; justify-content: center; padding: 1.5em">
