@@ -245,6 +245,11 @@ idStatutChoice:Object
     
   },
   watch: {
+    'formState.answerAssistance'(newVal) {
+      if (newVal === 'non') {
+     this.formState.identifiantCommerciale = null
+    }
+    },
     // Fonction qui retourne la valeur du store à observer
     getFirstHeureStartFrom: {
       handler(value) {
