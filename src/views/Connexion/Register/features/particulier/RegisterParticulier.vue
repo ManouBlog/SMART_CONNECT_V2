@@ -298,7 +298,6 @@ normalizeText(text) {
 analyzeText(text) {
   const cleanText = this.normalizeText(text)
   let score = 0
-
   if (cleanText.length > 80) score += 20
 
   const keywordHits = this.PIECE_KEYWORDS.filter(k =>
@@ -307,15 +306,16 @@ analyzeText(text) {
 
   score += Math.min(keywordHits * 10, 40)
 
-
-  if (cleanText.includes('Nationalité') || cleanText.includes('nationalité')) {
-    score += 20
-  }
-  if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
+  if (cleanText.includes('republique de cote d ivoire') ||
+  cleanText.includes("RÉPUBLIQUE DE CÔTE D'IVOIRE")) score += 20
+  if(cleanText.includes('ivoirienne') || cleanText.includes('IVOIRIENNE') ) score += 20
+  if(cleanText.includes("civ")) score += 20
+  if (cleanText.includes("ci0")) score += 10
+  // if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
 
   this.result = {
     score,
-    isCardIdentity: score >= 40
+    isCardIdentity: score >= 50
   }
 },
 cleanOCRText(text) {

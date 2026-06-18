@@ -451,7 +451,7 @@ analyzeText(text) {
 
   if (cleanText.includes('republique de cote d ivoire') ||
   cleanText.includes("RÉPUBLIQUE DE CÔTE D'IVOIRE")) score += 20
-  if(cleanText.includes('ivoirienne')) score += 20
+  if(cleanText.includes('ivoirienne') || cleanText.includes('IVOIRIENNE') ) score += 20
   if(cleanText.includes("civ")) score += 20
   if (cleanText.includes("ci0")) score += 10
  console.log("score23",score)
