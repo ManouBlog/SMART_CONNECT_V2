@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import Politics from "../../../../../components/feature/Politics.vue";
 import { mapActions, mapState } from "pinia";
 import { configUtils } from "../../../../../Shared/Utils";
+import instance from "../../../../../api/api.js";
 import { useTranslateStore } from "../../../../../store-pinia/Translate/useTranslateStore";
 import { useSwalPopup } from "../../../../../store-pinia/SwalPopup/useSwalPopup";
 import { useRegisterStore } from "../../../../../store-pinia/register/useRegisterStore";
@@ -45,7 +46,16 @@ export default {
       texte25: "",
       texte26: "",
       open: true,
+      allProfiles:[],
+allAnwserForAssitance: [
+  { label: "Oui", value: "oui" },
+  { label: "Non", value: "non" }
+],
       formState: {
+        profiles:[],
+        answerAssistance:"non",
+        identifiantNotesCommerciale:"",
+        identifiantCommerciale:"",
         statut_entreprise: this.optionsPaper,
         nom: "",
         prenoms: "",
@@ -70,6 +80,8 @@ export default {
         email_cc:[""],
         statut_id:1,
       },
+      loading:false,
+      result:null,
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
       westAfricaCodes: [
@@ -93,11 +105,35 @@ export default {
   },
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
+    isCommercialAssitance(){
+  return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true:false;
+    },
+     isPasswordDisabled() {
+    return (
+      this.loading ||
+      (this.result && this.result.isCardIdentity === false)
+      
+    )
+  },
+  },
+  watch:{
+    'formState.answerAssistance'(newVal) {
+      if (newVal === 'non') {
+     this.formState.identifiantCommerciale = null
+    }
+    },
   },
   methods: {
-  //   selectOne(value) {
-  //   this.optionsPaper = value;
-  // },
+ async lister_statut(){
+      try {
+        const response =  await instance.get("listStatut")
+        this.allProfiles = response.data.data;
+       
+        // console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'Artisan'))
+      } catch (error) {
+        console.log(error);
+      }
+    },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     addPhotoInArray(allPhotos) {
       const element = [];
@@ -107,6 +143,7 @@ export default {
       return element;
     },
     onFinish(values) {
+      this.formState.profiles = this.allProfiles;
       console.log("Success:", values);
       if (
         this.configUtils.isValidPhoneNumber(this.formState.phone) ||
@@ -146,7 +183,7 @@ export default {
     }),
   },
   async created() {
-    // this.getCompetences();
+    await this.lister_statut();
     this.texte = await this.handleTranslate("Raison sociale");
     this.texte1 = await this.handleTranslate(
       "RCCM (Registre du Commerce et du Crédit Mobilier)"
@@ -159,7 +196,7 @@ export default {
     this.texte7 = await this.handleTranslate("Forme juridique");
     this.texte8 = await this.handleTranslate("Gérant");
     this.texte9 = await this.handleTranslate("Numéro téléphonique du Gérant");
-    this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,png,webp,pdf)");
+    this.texte10 = await this.handleTranslate("Pièce du gérant (jpg,png)");
     this.texte11 = await this.handleTranslate("Registre (pdf)");
     this.texte12 = await this.handleTranslate("Mot de passe");
     this.texte13 = await this.handleTranslate("S'inscrire");
@@ -455,11 +492,56 @@ export default {
         </a-form-item>
       </a-col>
     </a-row>
+    <div>
+  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+    Avez-vous été assisté(e) par un commercial ?
+  </label>
+  <div class="round-container">
+    <label 
+      v-for="item in allAnwserForAssitance" 
+      :key="item.value"
+      class="round-item"
+    >
+      <input
+      :disabled="this.loading"
+        type="radio"
+        name="profilHybride"
+        :value="item.value"
+        v-model="formState.answerAssistance"
+      />
+      <span class="round-label">
+        {{ item.label }}
+      </span>
+    </label>
+  </div>
+  <div v-if="formState.answerAssistance === 'oui'">
+    <a-row :gutter="[16, 12]">
+        <a-col :xs="24" :md="12">
+          <a-form-item 
+          :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
+          label="Identifiant du commercial" name="identifiantCommerciale">
+            <a-input v-model:value="formState.identifiantCommerciale" />
+          </a-form-item>
+        </a-col>
+         <a-col :xs="24" :md="12">
+          <a-form-item label="Notes" name="identifiantNotesCommerciale">
+             <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
+          </a-form-item>
+        </a-col>
+      </a-row>
+  </div>
+</div>
 
     <!-- Bouton de soumission -->
     <a-form-item>
       <div class="d-flex justify-content-center">
-        <a-button type="primary" shape="round" :size="'large'" html-type="submit">
+        <a-button 
+        type="primary" 
+        shape="round" 
+        :size="'large'" 
+        html-type="submit"
+        :disabled="isPasswordDisabled || isCommercialAssitance || !formState.password"
+        >
           {{ texte13 }}
         </a-button>
       </div>

@@ -108,7 +108,16 @@ export default {
   { label: "Sierra Leone", value: "+232", length: 8 },
   { label: "Togo", value: "+228", length: 8 },
 ],
+allProfiles:[],
+allAnwserForAssitance: [
+  { label: "Oui", value: "oui" },
+  { label: "Non", value: "non" }
+],
       formState: {
+        profiles:[],
+        answerAssistance:"non",
+        identifiantNotesCommerciale:"",
+        identifiantCommerciale:"",
         statut_entreprise: this.optionsPaper,
       nom_particulier:"",
       statut_professionnel_artisan:"",
@@ -138,6 +147,9 @@ export default {
   },
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
+    isCommercialAssitance(){
+  return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true:false;
+    },
      isPasswordDisabled() {
     return (
       this.loading ||
@@ -147,6 +159,11 @@ export default {
   },
   },
   watch:{
+    'formState.answerAssistance'(newVal) {
+      if (newVal === 'non') {
+     this.formState.identifiantCommerciale = null
+    }
+    },
    'formState.optionsAnswer':{
       handler(newValue) {
         if(newValue == 'non'){
@@ -162,6 +179,7 @@ export default {
      async lister_statut(){
       try {
         const response =  await instance.get("listStatut")
+        this.allProfiles = response.data.data;
         this.allStatuts = response.data.data.filter(item=>item.statut === 'Artisan')
         // console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'Artisan'))
       } catch (error) {
@@ -176,6 +194,7 @@ export default {
       return element;
     },
     onFinish(values) {
+      this.formState.profiles = this.allProfiles;
       console.log("Success:", values);
       if(this.formState.profilHybride.length){
         this.formState.profilHybride.push(this.formState.statut_id)
@@ -585,7 +604,6 @@ this.formState.upload = Array.from(event.target.files)
  
       </a-col>
     </a-row>
-
     <!-- Mot de passe (pleine largeur) -->
     <a-row :gutter="[16, 24]">
       <a-col :xs="24" :md="24">
@@ -601,12 +619,50 @@ this.formState.upload = Array.from(event.target.files)
         </a-form-item>
       </a-col>
     </a-row>
-
+<div>
+  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+    Avez-vous été assisté(e) par un commercial ?
+  </label>
+  <div class="round-container">
+    <label 
+      v-for="item in allAnwserForAssitance" 
+      :key="item.value"
+      class="round-item"
+    >
+      <input
+      :disabled="this.loading"
+        type="radio"
+        name="profilHybride"
+        :value="item.value"
+        v-model="formState.answerAssistance"
+      />
+      <span class="round-label">
+        {{ item.label }}
+      </span>
+    </label>
+  </div>
+  <div v-if="formState.answerAssistance === 'oui'">
+    <a-row :gutter="[16, 12]">
+        <a-col :xs="24" :md="12">
+          <a-form-item 
+          :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
+          label="Identifiant du commercial" name="identifiantCommerciale">
+            <a-input v-model:value="formState.identifiantCommerciale" />
+          </a-form-item>
+        </a-col>
+         <a-col :xs="24" :md="12">
+          <a-form-item label="Notes" name="identifiantNotesCommerciale">
+             <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
+          </a-form-item>
+        </a-col>
+      </a-row>
+  </div>
+</div>
     <!-- Bouton de soumission -->
     <a-form-item>
       <div class="d-flex justify-content-center">
         <a-button
-          :disabled="isPasswordDisabled || !this.formState.upload.length"
+          :disabled="isPasswordDisabled || !this.formState.upload.length || isCommercialAssitance"
           type="primary"
           shape="round"
           :size="'large'"
