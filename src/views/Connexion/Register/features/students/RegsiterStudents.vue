@@ -25,6 +25,10 @@ idStatutChoice:Object
  rawText : '',
  result : null,
  allStatuts : [],
+ allAnwserForAssitance: [
+  { label: "Oui", value: "oui" },
+  { label: "Non", value: "non" }
+],
  allAnwserProfilHybride: [
   { label: "Oui", value: "oui" },
   { label: "Non", value: "non" }
@@ -99,7 +103,7 @@ idStatutChoice:Object
      filiere:"",
       configUtils,
       SWALPOPUP: useSwalPopup(),
-
+     allProfiles:[],
        westAfricaCodes: [
   { label: "Bénin", value: "+229", length: 8 },
   { label: "Burkina Faso", value: "+226", length: 8 },
@@ -118,6 +122,10 @@ idStatutChoice:Object
   { label: "Togo", value: "+228", length: 8 },
 ],
       formState: {
+        profiles:[],
+        answerAssistance:"non",
+        identifiantNotesCommerciale:"",
+        identifiantCommerciale:"",
         otherCompetence:[],
         code_ambassadeur:"",
         titreCv: "",
@@ -151,11 +159,17 @@ idStatutChoice:Object
 
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
+    isCommercialAssitance(){
+  return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true:false;
+    },
     isPasswordDisabled() {
-    return (
-      this.loading ||
-      (this.result && this.result.isStudentCard === false)
-    )
+      const isLoading = this.loading;
+
+  const isIdentityInvalid = this.result?.isStudentCard === false;
+
+  const isProfilRequiredButEmpty = this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0;
+
+  return isLoading || isIdentityInvalid || isProfilRequiredButEmpty || !this.formState.password;
   },
     getFirstHeureStartFrom() {
       return this.$store.state.First_heure_start_from;
@@ -285,6 +299,7 @@ this.formState.profilHybride = [];
       try {
         const response =  await instance.get("listStatut")
         this.allStatuts = response.data.data.filter(item=>item.statut === 'Particulier' || item.statut === 'Artisan')
+        this.allProfiles = response.data.data;
         // console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan'))
       } catch (error) {
         console.log(error);
@@ -847,7 +862,6 @@ this.formState.profilHybride = [];
         <a-col :xs="24" :md="24">
           <a-form-item
             :label="texte7"
-            
           >
             <VueMultiselect
               v-model="formState.myCompetence"
@@ -972,12 +986,51 @@ this.formState.profilHybride = [];
             :rules="[{ required: true, message: texte12 }]"
           >
             <a-input-password
-              :disabled="isPasswordDisabled"
+              :disabled="loading"
               v-model:value="formState.password"
             />
           </a-form-item>
         </a-col>
       </a-row>
+      <div>
+  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+    Avez-vous été assisté(e) par un commercial ?
+  </label>
+  <div class="round-container">
+    <label 
+      v-for="item in allAnwserForAssitance" 
+      :key="item.value"
+      class="round-item"
+    >
+      <input
+      :disabled="this.loading"
+        type="radio"
+        name="profilHybride"
+        :value="item.value"
+        v-model="formState.answerAssistance"
+      />
+      <span class="round-label">
+        {{ item.label }}
+      </span>
+    </label>
+  </div>
+  <div v-if="formState.answerAssistance === 'oui'">
+    <a-row :gutter="[16, 12]">
+        <a-col :xs="24" :md="12">
+          <a-form-item 
+          :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
+          label="Identifiant du commercial" name="identifiantCommerciale">
+            <a-input v-model:value="formState.identifiantCommerciale" />
+          </a-form-item>
+        </a-col>
+         <a-col :xs="24" :md="12">
+          <a-form-item label="Notes" name="identifiantNotesCommerciale">
+             <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
+          </a-form-item>
+        </a-col>
+      </a-row>
+  </div>
+</div>
     </div>
 
     <!-- NAVIGATION -->
@@ -997,7 +1050,7 @@ this.formState.profilHybride = [];
         v-if="currentStep === 5"
         type="primary"
         html-type="submit"
-        :disabled="!isCurrentStepValid || isPasswordDisabled"
+        :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance"
       >
         {{ texte11 }}
       </a-button>
