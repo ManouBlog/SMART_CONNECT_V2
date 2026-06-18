@@ -20,6 +20,11 @@ export default {
   },
   data() {
     return {
+      allProfiles:[],
+       allAnwserForAssitance: [
+  { label: "Oui", value: "oui" },
+  { label: "Non", value: "non" }
+],
        fileList : [],
  loading : false,
  rawText : '',
@@ -141,6 +146,10 @@ StatutVeterans:[
   { value: "Vétéran", label: "Vétéran" }
 ],
       formState: {
+        profiles:[],
+        answerAssistance:"non",
+        identifiantNotesCommerciale:"",
+        identifiantCommerciale:"",
         otherCompetence:[],
         code_ambassadeur:"",
         titreCv: "",
@@ -175,6 +184,11 @@ StatutVeterans:[
     };
   },
  watch: {
+  'formState.answerAssistance'(newVal) {
+      if (newVal === 'non') {
+     this.formState.identifiantCommerciale = null
+    }
+    },
     "formState.optionsAnswer":{
       handler(value) {
         if(value === 'non'){
@@ -193,6 +207,15 @@ StatutVeterans:[
   },
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
+    isCommercialAssitance(){
+  return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true:false;
+    },
+    isPasswordDisabled() {
+    return (
+      this.loading ||
+      (this.result && this.result.isStudentCard === false)
+    )
+  },
     isNextDisabled() {
       // STEP 2 – Qualifications
       if (this.currentStep === 3) {
@@ -259,6 +282,7 @@ StatutVeterans:[
     async lister_statut(){
       try {
         const response =  await instance.get("listStatut")
+        this.allProfiles = response.data.data;
         this.allStatuts = response.data.data.filter(item=>item.statut === 'Particulier' || item.statut === 'Artisan')
         // console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan'))
       } catch (error) {
@@ -449,6 +473,7 @@ StatutVeterans:[
 //   })
 // },
     onFinish() {
+      this.formState.profiles = this.allProfiles;
       // console.log("this.formState",this.formState);
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
@@ -1011,6 +1036,45 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
           </a-form-item>
         </a-col>
       </a-row>
+       <div>
+  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+    Avez-vous été assisté(e) par un commercial ?
+  </label>
+  <div class="round-container">
+    <label 
+      v-for="item in allAnwserForAssitance" 
+      :key="item.value"
+      class="round-item"
+    >
+      <input
+      :disabled="this.loading"
+        type="radio"
+        name="profilHybride"
+        :value="item.value"
+        v-model="formState.answerAssistance"
+      />
+      <span class="round-label">
+        {{ item.label }}
+      </span>
+    </label>
+  </div>
+  <div v-if="formState.answerAssistance === 'oui'">
+    <a-row :gutter="[16, 12]">
+        <a-col :xs="24" :md="12">
+          <a-form-item 
+          :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
+          label="Identifiant du commercial" name="identifiantCommerciale">
+            <a-input v-model:value="formState.identifiantCommerciale" />
+          </a-form-item>
+        </a-col>
+         <a-col :xs="24" :md="12">
+          <a-form-item label="Notes" name="identifiantNotesCommerciale">
+             <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
+          </a-form-item>
+        </a-col>
+      </a-row>
+  </div>
+</div>
     </div>
 
     <!-- NAVIGATION -->
@@ -1030,7 +1094,7 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
         v-if="currentStep === 5"
         type="primary"
         html-type="submit"
-        :disabled="!isCurrentStepValid || isPasswordDisabled"
+        :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance"
       >
         {{ texte11 }}
       </a-button>
