@@ -641,7 +641,6 @@ preprocessImage(file) {
       </a-col>
     </a-row>
     <div>
-      {{ this.result?.isCardIdentity }}
   <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
     Avez-vous été assisté(e) par un commercial ?
   </label>
