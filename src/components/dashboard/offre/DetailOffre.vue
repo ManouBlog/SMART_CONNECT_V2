@@ -589,7 +589,7 @@ async confirmRelance(payload) {
             <input
               class="form-control"
               type="text"
-              v-model.number="offre_id.salaire"
+              v-model="offre_id.salaire"
               placeholder="ex:35000"
               required
             />
