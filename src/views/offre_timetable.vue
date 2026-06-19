@@ -415,7 +415,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 <br />
                 <span><em class="bi bi-cash"></em> Rémuneration :</span>
                 <span style="font-weight: bold; color: orange; margin: 0 0.5em;display: inline-block;"
-                  >{{ new Intl.NumberFormat("fr-FR").format(offre.salaire) }} Fcfa 
+                  >{{ offre.salaire }}
                   <span v-if="offre.pointage">/{{ offre.pointage }}</span>
                   </span
                 >

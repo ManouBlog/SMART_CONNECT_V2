@@ -42,7 +42,7 @@
 
           <div class="col-md-6 mb-3">
   <strong>Montant payé :</strong>
-  <div>{{ moneyFormat.format(detailsAbonnement?.montant) }} Fcfa</div>
+  <div>{{ detailsAbonnement?.montant }}</div>
 
   <!-- <div>
     <small>Profil de base :</small>
@@ -131,7 +131,7 @@
           font-weight: 600; 
           border-right: 1px solid rgba(255,255,255,0.2);
           text-align: right;
-        ">Montant (Fcfa)</th>
+        ">Montant</th>
         <th style="
           color: white; 
           padding: 16px 12px; 

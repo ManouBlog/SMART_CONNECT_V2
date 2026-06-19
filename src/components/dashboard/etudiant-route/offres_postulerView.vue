@@ -122,7 +122,7 @@ if (!user.competences.length || !user.qualifications.length) {
     this.texte0 = await this.handleTranslate(`Mes candidatures`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
     this.texte2 = await this.handleTranslate("Lieu du travail");
-    this.texte3 = await this.handleTranslate(`Honoraire (Fcfa)`);
+    this.texte3 = await this.handleTranslate(`Honoraire`);
     this.texte4 = await this.handleTranslate("Prime pas fixée.");
     this.texte5 = await this.handleTranslate("Statut");
     this.texte6 = await this.handleTranslate("Détails");
@@ -168,7 +168,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 <Column field="offre.lieu" :header="texte2" />
                 <Column :header="texte3">
                   <template #body="{ data }">
-                    {{ data.offre.salaire ? moneyFormat.format(data.offre.salaire) : texte4 }}
+                    {{ data.offre.salaire ? data.offre.salaire : texte4 }}
                   </template>
                 </Column>
                 <Column :header="texte5">
@@ -224,7 +224,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 <p class="m-0"><strong>{{ texte2 }} :</strong> {{ item.offre.lieu }}</p>
                 <p class="m-0">
                   <strong>{{ texte3 }} :</strong>
-                  {{ item?.offre.salaire ? moneyFormat.format(item?.offre.salaire) : texte4 }}
+                  {{ item?.offre.salaire ? item?.offre.salaire : texte4 }}
                 </p>
 
                 <div class="d-flex justify-content-end mt-3 gap-3">

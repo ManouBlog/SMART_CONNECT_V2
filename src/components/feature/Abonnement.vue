@@ -70,7 +70,7 @@ onMounted(async () => {
               style="flex:1 !important;"
             >
               <h1 class="text-start">{{ item.libelle }}</h1>
-              <h3 class="text-start">{{ item.prix }} Fcfa</h3>
+              <h3 class="text-start">{{ item.prix }}</h3>
               <h5 class="text-start">{{ item.periode }} année</h5>
               <div class="px-5" v-html="item.description"></div>
 
@@ -93,7 +93,7 @@ onMounted(async () => {
               style="flex:1 !important;"
             >
               <h1 class="text-start">{{ item.libelle }}</h1>
-              <h3 class="text-start">{{ item.prix }} Fcfa</h3>
+              <h3 class="text-start">{{ item.prix }}</h3>
               <h5 class="text-start">
                 {{ item.periode }} année{{ item.periode > 1 ? "s" : null }}
               </h5>

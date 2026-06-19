@@ -84,7 +84,7 @@ export default {
           <div class="salary">
             <em class="bi bi-cash mx-2"></em>
             <span class="amount">
-              {{ new Intl.NumberFormat("fr-FR").format(item.salaire) }} Fcfa
+              {{ item.salaire }}
             </span>
             <span v-if="item.pointage"> / {{ item.pointage }}</span>
           </div>

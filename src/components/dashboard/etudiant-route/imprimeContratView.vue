@@ -279,7 +279,7 @@ pour plus de détail.</span>
 
       <div>
         <h5 class="my-5" v-if="myOffre.salaire != null">
-          {{ texte8 }} {{ myOffre.salaire }} Fcfa
+          {{ texte8 }} {{ myOffre.salaire }}
         </h5>
         <h5 class="my-5" v-if="this.entreprise?.offre.job_debut">
           Date de début de travail :

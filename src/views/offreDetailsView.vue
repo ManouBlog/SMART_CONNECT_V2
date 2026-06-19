@@ -251,7 +251,7 @@ export default {
                   <h4 class="my-5" v-if="Offre.salaire != null" >
                     <em class="bi bi-cash-stack"></em>
                     Rémuneration :
-                    <span style="color:orange;margin:0.5em;">{{ moneyFormat.format(Offre.salaire) }} Fcfa
+                    <span style="color:orange;margin:0.5em;">{{ Offre.salaire }} Fcfa
                      <span v-if="Offre.pointage"> / {{ Offre.pointage }}</span></span>
                   </h4>
                   <h4 class="my-5" v-else>

@@ -528,7 +528,7 @@ export default {
                     <tr v-for="(item, index) in offres" :key="index">
                       <td>{{ item.nom_offre }}</td>
                       <td>{{ item.ville }}</td>
-                      <td>{{ moneyFormat.format(item.salaire) }} Fcfa</td>
+                      <td>{{ item.salaire }}</td>
                       <td>{{ item.debut }}</td>
                       <td>{{ item.fin }}</td>
                       <td>{{ item.description }}</td>
@@ -862,7 +862,7 @@ export default {
                     <tr v-for="(item, index) in offres" :key="index">
                       <td>{{ item.nom_offre }}</td>
                       <td>{{ item.ville }}</td>
-                      <td>{{ moneyFormat.format(item.salaire) }} Fcfa</td>
+                      <td>{{ item.salaire }}</td>
                       <td>{{ item.debut }}</td>
                       <td>{{ item.fin }}</td>
                       <td>{{ item.description }}</td>

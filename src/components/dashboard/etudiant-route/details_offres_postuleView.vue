@@ -132,7 +132,7 @@ export default {
             Lieu : <strong>{{ details_offre.offre.lieu }}</strong>
           </h4>
           <span v-if="details_offre.offre.salaire != null" class="badge bg-warning">
-            Honoraire : {{ moneyFormat.format(details_offre.offre.salaire) }} Fcfa</span
+            Honoraire : details_offre.offre.salaire</span
           >
           <span v-else class="text-light badge bg-primary"
             >Honoraire pas fixé</span

@@ -98,7 +98,7 @@ if (!user.competences.length || !user.qualifications.length) {
     this.texte0 = await this.handleTranslate(`Recruteurs intéressés`);
     this.texte1 = await this.handleTranslate(`Nom de l'offre`);
     this.texte2 = await this.handleTranslate("Lieu du travail");
-    this.texte3 = await this.handleTranslate(`Honoraire (Fcfa)`);
+    this.texte3 = await this.handleTranslate(`Honoraire`);
     this.texte5 = await this.handleTranslate("Statut");
     this.texte6 = await this.handleTranslate("Détails");
     this.texte14 = await this.handleTranslate("Voir plus");
@@ -174,7 +174,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 style="font-size: 1.1em; text-align: center"
               >
                 <template #body="{ data }">{{
-                  moneyFormat.format(data.offre.salaire)
+                  data.offre.salaire
                 }}</template>
               </Column>
 
@@ -217,7 +217,7 @@ if (!user.competences.length || !user.qualifications.length) {
                 <p><strong>Recruteur :</strong> {{ item.entreprise?.nom }}</p>
                 <p>
                   <strong>Rémuneration</strong>
-                  {{ moneyFormat.format(item.offre.salaire) }} Fcfa
+                  {{item.offre.salaire }}
                 </p>
 
                 <div class="mobile-actions">

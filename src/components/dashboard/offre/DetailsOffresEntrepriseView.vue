@@ -131,7 +131,7 @@ export default {
             v-if="entreprise?.salaire != null"
             class="d-block text-light badge bg-warning h5 px-3"
           >
-            {{ moneyFormat.format(entreprise?.salaire) }} Fcfa
+            {{ entreprise?.salaire }}
             <b v-if="entreprise?.pointage"> / {{ entreprise?.pointage }}</b></span
           >
           <span

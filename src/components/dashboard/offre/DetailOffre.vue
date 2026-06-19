@@ -512,7 +512,7 @@ async confirmRelance(payload) {
     this.texte5 = await this.handleTranslate('Veuillez choisir un domaine');
     this.texte6 = await this.handleTranslate('Pas de donnée');
     this.texte7 = await this.handleTranslate("Nom de l'offre");
-    this.texte8 = await this.handleTranslate('Honoraire (Fcfa)');
+    this.texte8 = await this.handleTranslate('Honoraire');
     this.texte9 = await this.handleTranslate("Termes de paiements");
     this.texte10 = await this.handleTranslate('Payer Par');
     this.texte11 = await this.handleTranslate('Nombre de postes disponibles');
@@ -834,7 +834,7 @@ async confirmRelance(payload) {
     </a-col>
 
     <a-col :xs="24" :md="12">
-      <a-form-item name="salaire" :label="'Prix de la mission (Fcfa)'">
+      <a-form-item name="salaire" :label="'Prix de la mission'">
         <a-input v-model:value="formState.salaire" min="1" type="number" style="height:30px !important;border:1px solid #cdcccc !important" />
       </a-form-item>
     </a-col>
