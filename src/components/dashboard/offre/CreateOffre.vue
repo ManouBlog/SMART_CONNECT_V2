@@ -748,7 +748,7 @@ chooseCompetenceFormState(value) {
     </div>
     <div class="col-lg-6 col-md-6 col-12 text-left my-3">
       <label><span style="color: red">*</span>{{ texte8 }}</label>
-      <input class="form-control" type="text" v-model="salaire" placeholder="ex:35000" pattern="[0-9]*" />
+      <input class="form-control" type="text" v-model="salaire" placeholder="ex:35000" />
     </div>
   </div>
 
