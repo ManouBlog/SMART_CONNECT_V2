@@ -208,7 +208,7 @@ export default {
       userInfo:"",
       otherDomaine: "",
       otherPoste: "",
-      pointage: "",
+      pointage: null,
       nbre_person: 1,
       job_fin: "",
       job_debut: "",
@@ -229,7 +229,6 @@ export default {
         this.debut &&
         this.fin &&
         this.lieu &&
-        this.pointage &&
         this.competence &&
         this.chooseStatut.length > 0
       );
