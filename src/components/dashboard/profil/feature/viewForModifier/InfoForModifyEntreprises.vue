@@ -374,7 +374,7 @@ if (isStudentGroup) {
     // event.target.value = '';
   },
     async handleUpdate(payload,profile) {
-    console.log("profile",profile)
+    // console.log("profile",profile)
  if(profile === 'talents'){
  this.updateInfoUser(payload);
  }else{

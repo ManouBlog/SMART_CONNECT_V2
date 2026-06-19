@@ -119,8 +119,8 @@ export default {
   },
   watch: {
     isUserParticulierEntreprise: {
-      handler(newValue, oldValue) {
-        console.log("newValue", { newValue, oldValue });
+      handler(newValue) {
+        // console.log("newValue", { newValue, oldValue });
         if (newValue) {
           this.getAllOffresCreatedByEntreprise();
         }

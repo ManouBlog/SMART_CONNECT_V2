@@ -401,7 +401,7 @@ StatutProfessionnel:[
       return allPhotos.map((item) => item.originFileObj);
     },
     onUploadChange({ fileList: newList }) {
-    console.log('onUploadChange', newList);
+    // console.log('onUploadChange', newList);
     if (!newList.length) return
     this.rawText = ''
     this.result = null
@@ -422,8 +422,8 @@ async runOCR(files) {
   }
 
   this.rawText = this.cleanOCRText(fullText)
- console.log('rawText',this.rawText)
- console.log('fullText',fullText)
+//  console.log('rawText',this.rawText)
+//  console.log('fullText',fullText)
   if (!this.hasReadableText(fullText)) {
     this.result = {
       score: 0,
@@ -456,7 +456,7 @@ normalizeText(text) {
 analyzeText(text) {
   const cleanText = this.normalizeText(text)
   let score = 0
- console.log("cleanText",cleanText.trim())
+//  console.log("cleanText",cleanText.trim())
   if (cleanText.length > 80) score += 20
 
   const keywordHits = this.PIECE_KEYWORDS.filter(k =>
@@ -464,14 +464,14 @@ analyzeText(text) {
   ).length
 
   score += Math.min(keywordHits * 10, 40)
-  console.log("score",score)
+  // console.log("score",score)
 
   if (cleanText.includes('republique de cote d ivoire') ||
   cleanText.includes("RÉPUBLIQUE DE CÔTE D'IVOIRE")) score += 20
   if(cleanText.includes('ivoirienne') || cleanText.includes('IVOIRIENNE') ) score += 20
   if(cleanText.includes("civ")) score += 20
   if (cleanText.includes("ci0")) score += 10
- console.log("score23",score)
+//  console.log("score23",score)
   this.result = {
     score,
     isStudentCard: score >= 50

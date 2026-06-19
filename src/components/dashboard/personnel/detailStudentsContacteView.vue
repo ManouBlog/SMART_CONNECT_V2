@@ -63,7 +63,7 @@ export default {
       instance
         .get("detail_students_contact_by_entreprise/"+this.$route.params.id)
         .then((response) => {
-          console.log('detail_students_contact_by_entreprise',response)
+          // console.log('detail_students_contact_by_entreprise',response)
             
           this.detailsStudents =  response.data.data;
          

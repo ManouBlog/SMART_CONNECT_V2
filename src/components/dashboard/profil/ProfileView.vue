@@ -113,7 +113,7 @@ userDocuments() {
         path: this.lienPhoto+url.path
       }))
   );
-console.log("ImagesAll",ImagesAll)
+// console.log("ImagesAll",ImagesAll)
 return ImagesAll;
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),

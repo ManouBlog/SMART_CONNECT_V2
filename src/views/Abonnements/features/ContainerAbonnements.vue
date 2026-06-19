@@ -67,8 +67,8 @@ const handleCreateAbonnement=(payload)=>{
             channels:"undefined",
             transaction_id:randomPart
         }
-        console.log('containerabonnement1234556',data)
-  // storeAbonnement.createAbonement(data)
+        // console.log('containerabonnement1234556',data)
+  storeAbonnement.createAbonement(data)
 }
 
 
@@ -85,7 +85,7 @@ const isUserConnected = computed(() => {
 const filteredTabsSubAbonnement = computed(() => {
  
   if (props.statut_talent_choice) {
-    console.log('lancer avec user')
+    // console.log('lancer avec user')
     return props.tabsSubAbonnement.filter(
     item => item.id === props.statut_talent_choice
   );

@@ -140,7 +140,7 @@ try{
   },
   async created() {
     this.getAllAffiche();
-    console.log(this.$store.state.user);
+    // console.log(this.$store.state.user);
     await this.getNotificationAbonnemetExipration();
   },
 };

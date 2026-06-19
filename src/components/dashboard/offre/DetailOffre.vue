@@ -322,7 +322,7 @@ export default {
      const id = this.$route.params.id
       const { data } = await instance.get(`detail_offre/${id}`)
       const offre = data.data
-      console.log("loadDetailOffre",offre)
+      // console.log("loadDetailOffre",offre)
       this.offre_detaiId = offre;
       this.formState.categorie_offre_id = offre.categorie_offre_id
       this.formState.competence_id = offre.competence_id
@@ -400,7 +400,7 @@ export default {
         .get("detail_offre/"+this.$route.params.id)
         .then((res) => {
           this.offre_id = res.data.data;
-          console.log("detail_offre_entreprise",this.offre_id)
+          // console.log("detail_offre_entreprise",this.offre_id)
           this.offre_pays =this.offre_id?.countries;
           this.offre_mode_travail = {label:this.offre_id?.offre_mode_travail,value:this.offre_id?.offre_mode_travail}
           this.chooseStatut = this.offre_id?.statuses
@@ -453,7 +453,7 @@ async confirmRelance(payload) {
 
     if (!result.isConfirmed) return;
      this.loadingSpinner.launchLoading(true);
-    console.log("confirmRelance", payload);
+    // console.log("confirmRelance", payload);
 
     // appel API
     const response = await instance.post(`relance_mission/${payload.id}`);

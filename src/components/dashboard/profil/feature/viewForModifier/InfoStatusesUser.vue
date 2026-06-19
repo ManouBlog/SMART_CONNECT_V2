@@ -87,7 +87,7 @@ descriptionProfil:{
       await this.$store.dispatch("getInfoUser");
     },
      async handleModeChange(checked) {
-  console.log('Mode actif:', checked);
+  // console.log('Mode actif:', checked);
   const loadingSpinner = useLoadingSpinner()
 
   Swal.fire({

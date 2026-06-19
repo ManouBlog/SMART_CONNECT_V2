@@ -123,7 +123,7 @@ export default {
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     async handleListOffresWithoutSearch() {
-       console.log("handleListOffresWithoutSearch")
+      //  console.log("handleListOffresWithoutSearch")
       loadingSpinner.launchLoading(true);
       await instance
         .get("list_offres")
@@ -141,12 +141,12 @@ export default {
         });
     },
     handleListOffresWithSearch(data) {
-     console.log("handleListOffresWithSearch")
+    //  console.log("handleListOffresWithSearch")
       loadingSpinner.launchLoading(true);
       instance
         .post("search_offres", data)
         .then((response) => {
-          console.log("search_offres",response.data.data)
+          // console.log("search_offres",response.data.data)
           if (response.data.status) {
             this.MylistOffre = response.data.data;
             this.lengthOfMylistOffre = this.MylistOffre.length;
@@ -160,7 +160,7 @@ export default {
         });
     },
     get_list_offre(search = null) {
-     console.log("get_list_offre",search)
+    //  console.log("get_list_offre",search)
       if (!search) {
         this.handleListOffresWithoutSearch();
       } else {

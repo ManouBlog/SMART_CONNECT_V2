@@ -44,9 +44,9 @@ export const useEntreprisesStore = defineStore('entreprise', {
            const studentRecruit = await instance.get("getStudentRecruit");
            
            
-           console.log("list_students_contact_by_entreprise",listTalentContacte)
+          //  console.log("list_students_contact_by_entreprise",listTalentContacte)
 
-           console.log("getStudentRecruit",studentRecruit)
+          //  console.log("getStudentRecruit",studentRecruit)
 
            if(listTalentContacte.data.status){
             // this.list_students = listStudent.data.data;

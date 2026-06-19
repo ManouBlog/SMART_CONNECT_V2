@@ -157,10 +157,10 @@ export default {
       "days":this.handleDays.map(item=>item.value),
       "startDate":new Date().toISOString().split('T')[0]
      }
-     console.log("saveDayWeekCustomize",data)
+    //  console.log("saveDayWeekCustomize",data)
 
      const result = this.generateMarkedDates(data)
-     console.log("generateMarkedDates",result)
+    //  console.log("generateMarkedDates",result)
     },
     show_modify() {
       this.modify_timetable = !this.modify_timetable;

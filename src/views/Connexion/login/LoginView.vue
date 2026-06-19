@@ -49,7 +49,7 @@ export default {
     connexionUser(dataValue) {
       
       this.launchLoading(true);
-      console.log('route 1 pour se connecter')
+      // console.log('route 1 pour se connecter')
       instance
         .post("auth_login", dataValue)
         .then(async (response) => {

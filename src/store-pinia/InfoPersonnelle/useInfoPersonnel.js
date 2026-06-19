@@ -200,7 +200,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           })
       },
       async updateCompteUser(payload) {
-  console.log('updateCompteUserJS', payload);
+  // console.log('updateCompteUserJS', payload);
   Spinner.launchLoading(true);
 
   let data = new FormData();
@@ -293,7 +293,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
 
     const res = await instance.post("modifier_profil", data);
 
-    console.log("updateCompteuser", res.data);
+    // console.log("updateCompteuser", res.data);
 
     if (res.data.status === true) {
       Swal.fire({

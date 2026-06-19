@@ -65,7 +65,7 @@ export const useRegisterStore = defineStore('register', {
       return result;
         },
         async registerStudent(payload) {
-          console.log("registerStudent25",payload)
+          // console.log("registerStudent25",payload)
           this.LOADINGSPINNER.launchLoading(true)
           this.isLoading = true;
           let data = new FormData();
@@ -235,7 +235,7 @@ Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre c
         },
 
         async registerCompany(payload) {
-          console.log("registerCompany",payload)
+          // console.log("registerCompany",payload)
           this.isLoading = true;
           this.LOADINGSPINNER.launchLoading(true);
           let data = new FormData();

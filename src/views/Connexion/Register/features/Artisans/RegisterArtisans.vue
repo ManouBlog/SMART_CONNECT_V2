@@ -350,7 +350,7 @@ handleCameraCapture(event) {
       return allPhotos.map((item) => item.originFileObj);
     },
     onUploadChange({ fileList: newList }) {
-    console.log('onUploadChange', newList);
+    // console.log('onUploadChange', newList);
     if (!newList.length) return
     this.rawText = ''
     this.result = null
@@ -472,7 +472,7 @@ removeImage(index) {
       if (this.configUtils.isValidEmail(this.formState.email)) {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          console.log("this.formState",this.formState)
+          // console.log("this.formState",this.formState)
           this.changeValueIsPolitics({
             value: true,
             infoUser: "talents",

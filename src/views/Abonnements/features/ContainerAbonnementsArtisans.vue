@@ -123,7 +123,7 @@ const currentConfig = computed(() => {
 
 function handleCreate(type) {
   // console.log("ITEM",props.item)
-  console.log('TYPE',type)
+  // console.log('TYPE',type)
   if (type === 'year') {
     handleCreateYear(props.item)
   } else {

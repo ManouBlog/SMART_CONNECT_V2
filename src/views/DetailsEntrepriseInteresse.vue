@@ -55,7 +55,7 @@ export default {
       instance
         .get("see_entreprise_student/"+this.$route.params.id)
         .then((response) => {
-          console.log("get_offre_detail_interesse",response)
+          // console.log("get_offre_detail_interesse",response)
         if(response.data.status){
         this.DetailSeeEntreprise = response.data.data
         }

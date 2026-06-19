@@ -132,7 +132,7 @@ const currentNotAbonnamentSuccessConfig = computed(() => {
 
 function handleCreate(type) {
   // console.log("ITEM",props.item)
-  console.log('TYPE',type)
+  // console.log('TYPE',type)
   if (type === 'year') {
     handleCreateYear(props.item)
   } else {
@@ -250,7 +250,7 @@ const handleCreateYear =(payload)=>{
   // console.log("storeAbonnement",storeAbonnement)
    const randomPart = `web${Math.random().toString(36).substring(2)}`
   const statutBaseUser = store.state.user?.user?.statut_base;
-  console.log('statutBaseUser',statutBaseUser)
+  // console.log('statutBaseUser',statutBaseUser)
       const formData = new FormData();
 
 // Ajout des champs simples

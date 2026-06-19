@@ -182,7 +182,7 @@ export default {
         .then((response) => {
          
           const transformed = this.addOtherElement(response.data.students);
-          console.log("transformedList",transformed)
+          // console.log("transformedList",transformed)
           // Mise à jour de la liste et de sa longueur
           this.list = transformed;
           this.lengthOfTalents = transformed.length;

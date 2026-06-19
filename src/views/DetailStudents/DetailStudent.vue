@@ -806,7 +806,7 @@ return isImageVisibleExist;
   nom: nom_galerie,
   photos: images.map(({ path }) => this.lienPhoto+path),
 })) ?? [];
-console.log("dossiers",dossiers)
+// console.log("dossiers",dossiers)
     return dossiers;
     }
   },
