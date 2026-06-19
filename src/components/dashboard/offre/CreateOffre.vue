@@ -810,7 +810,7 @@ chooseCompetenceFormState(value) {
     </div>
     <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
       <label><span style="color: red">*</span>Choisissez un profil 
-        <span style="font-size:0.5em;">(ceci vous permet de cibler les offres pas profil)</span>
+        <span style="font-size:0.5em;">(ceci vous permet de cibler les offres par profil)</span>
       </label>
       <VueMultiselect 
       v-model="chooseStatut" 

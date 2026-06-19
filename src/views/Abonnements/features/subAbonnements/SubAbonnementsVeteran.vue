@@ -28,7 +28,7 @@ const handleInitialiserPayement=(payload)=>{
   const STORE_ABONNEMENT = useAbonnementsStore();
   const randomPart = `web${Math.random().toString(36).substring(2)}`
   const statutBaseUser = store.state?.user?.user?.statut_base;
-  // console.log('STORE_ABONNEMENT.diplome',STORE_ABONNEMENT.diplome)
+  console.log('STORE_ABONNEMENT.diplome',STORE_ABONNEMENT.diplome)
          const data = {
             abonement_id:payload.id,
             channels:"undefined",
