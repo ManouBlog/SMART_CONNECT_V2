@@ -406,15 +406,26 @@ if (!user.competences.length || !user.qualifications.length) {
                   >{{ texte5 }}</span
                 >
               <div style="display:flex;gap:0.5em;align-items: center;flex-wrap:wrap;">
-                 <h1 style="font-size: 1.5em; margin: 0.5em 0">{{ offre.nom_offre }}</h1>
+               <h1
+  style="
+    font-size: 0.9em;
+    padding: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-transform: uppercase;
+  "
+>
+  {{ offre.nom_offre }}
+</h1>
                 <span v-if="offre.enable_urgent" class="badge bg-danger">Urgente</span>
               </div>
                
-                <h1 style="font-size: 1em; margin: 0.5em 0"><span style="color:orange">{{ offre?.competence?.categorie?.categorie }}</span></h1>
-                <span class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
+                <h1 style="font-size: 0.9em; margin: 0.5em 0"><span style="color:orange">{{ offre?.competence?.categorie?.categorie }}</span></h1>
+                <span style="font-size: 0.9em;" class="lieu"><em class="bi bi-geo-alt"></em> {{ offre.lieu }}</span>
                 <br />
-                <span><em class="bi bi-cash"></em> Rémuneration :</span>
-                <span style="font-weight: bold; color: orange; margin: 0 0.5em;display: inline-block;"
+                <span style="font-size: 0.9em;"><em class="bi bi-cash"></em> Rémuneration :</span>
+                <span style="font-weight:bold; color: orange; margin: 0 0.2em;display: inline-block;font-size: 0.9em;"
                   >{{ offre.salaire }}
                   <span v-if="offre.pointage">/{{ offre.pointage }}</span>
                   </span
