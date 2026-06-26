@@ -53,17 +53,16 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
     profilHybride.value = payload
    }
 const handleChangeInfoForAbonnement = (payload) => {
+    console.info("handleChangeInfoForAbonnement_send", payload);
   // Toujours vérifier que payload est un objet
   if (!payload || typeof payload !== "object") {
-    console.warn("handleChangeInfoForAbonnement : payload invalide", payload);
+    console.error("handleChangeInfoForAbonnement : payload invalide", payload);
     return;
   }
-
-  // console.log("payload_handleChangeInfoForAbonnement ", payload);
 if ("nom" in payload) {
     nom.value = payload.nom;
   }
-  // Assigner seulement si la propriété existe dans payload
+
   if ("niveauExpertise" in payload) {
     niveauExpertise.value = payload.niveauExpertise;
   }

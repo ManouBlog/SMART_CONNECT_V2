@@ -243,6 +243,7 @@ export default {
       STORE_ABONNEMENT.cleanProfilHybide([])
       
       this.showModalAbonnements = true
+      
     },
   },
 };
@@ -263,7 +264,7 @@ export default {
      <div style="background-color: white;">
       <Abonnements 
       :ProfilAbonnement="this.profilOfAbonnement.statut"
-     
+      :statut_entreprise="'Formelle'"
       />
       </div>
       </n-modal>

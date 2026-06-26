@@ -27,6 +27,11 @@ const props = defineProps({
     type:String,
      required:false,
     default:null
+  },
+  statut_entreprise:{
+     type:String,
+     required:false,
+    default:null
   }
 })
 
@@ -36,7 +41,7 @@ const store = useStore();
 const reference = ref(null);
 
 const profileAbonnement = ref(null);
-// const router = useRouter();
+
 const route = useRoute();
 const translateStore = useTranslateStore();
 const defaulValueTranslate = ref(translateStore.defaultLocale);
@@ -66,7 +71,6 @@ const handleAbonement = async () => {
     loadingSpinner.launchLoading(false)
   }
 }
-
 const entrepriseAbonnements = computed(() => {
   const abonnementsEntreprise = abonnements.value
     .filter(item =>
@@ -77,19 +81,48 @@ const entrepriseAbonnements = computed(() => {
       id: item.categorie.categorie,
     }));
 
-  if (
-    store.state.user &&
-    store.state?.user?.statut_entreprise
-  ) {
+  const statutEntreprise =
+    props.statut_entreprise ??
+    store.state.user?.statut_entreprise;
+
+  if (store.state.user && statutEntreprise) {
     return abonnementsEntreprise.filter(
-      item =>
-        item.id ===
-        `Entreprise ${store.state.user.statut_entreprise}`
+      item => item.id === `Entreprise ${statutEntreprise}`
     );
   }
 
   return abonnementsEntreprise;
 });
+// const entrepriseAbonnements = computed(() => {
+//   const abonnementsEntreprise = abonnements.value
+//     .filter(item =>
+//       item.categorie.categorie.toLowerCase().includes("entreprise")
+//     )
+//     .map(item => ({
+//       label: item.categorie.categorie,
+//       id: `Entreprise ${item.categorie.categorie}`,
+//     }));
+
+//   if (
+//     store.state.user &&
+//     store.state?.user?.statut_entreprise
+//   ) {
+//     if(props.statut_entreprise){
+//       return abonnementsEntreprise.filter(
+//       item =>
+//         item.id ===
+//         `Entreprise ${props.statut_entreprise}`
+//     );
+//     }
+//     return abonnementsEntreprise.filter(
+//       item =>
+//         item.id ===
+//         `Entreprise ${store.state.user.statut_entreprise}`
+//     );
+//   }
+
+//   return abonnementsEntreprise;
+// });
 
 onMounted(async () => {
   await store.dispatch("getInfoUser");

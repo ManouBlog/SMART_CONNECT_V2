@@ -229,8 +229,6 @@ watch(
   { immediate: true }
 );
 onMounted(async () => {
-
-
   elmentsOfBtn.value = [
     {
       name_btn: await transalteStore.handleTranslate("Choisires cette formule"),
@@ -263,8 +261,8 @@ profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
 </script>
 
 <template>
-  <!-- <p>{{ tabsToDisplay }}</p>
-  <p>{{ filteredTabsSubAbonnement }}</p> -->
+  <!-- <p>{{ select_mode_payment_tab }}</p>
+  <p>{{ tabsSubAbonnement }}</p> -->
   <!-- <p>store.state?.user?.user/{{ store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user?.statut?.statut) }}</p>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
    <p>storeAbonnement.addProfilHybride/{{storeAbonnement.addProfilHybride }}</p> -->
