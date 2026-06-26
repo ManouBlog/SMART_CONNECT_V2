@@ -79,9 +79,9 @@ valueExpertise: [
       NCC: "",
       niveauEtude:"",
       domaine:"",
-      carteEtudiant:null,
       pieceCNI:null,
       pathCarteEtudiant:null,
+      pieceJointes:null,
       pathCVUpload:null,
       statut_talent:"",
       CVupload:"",
@@ -176,8 +176,7 @@ valueExpertise: [
     this.form.niveauEtude = user?.niveauEtude?.split(' ')[0];
     this.form.domaine = user?.niveauEtude?.split(' ')[1];
     this.form.statut_talent = user.statut_talent;
-    this.form.carteEtudiant = user.user.photos;
-    this.form.pieceCNI = user.user.photos;
+    this.form.pieceJointes = user.user.photos;
     this.form.CVupload = user.CVupload;
     this.form.commune = user.commune || "";
     this.form.quartier = user.quartier || "";
@@ -325,7 +324,6 @@ if (isStudentGroup) {
         bio: Talent.bio,
         diplome: Talent.diplome,
         niveauEtude:Talent.niveauEtude+' '+Talent.domaine,
-        carteEtudiant:Talent.carteEtudiant,
         pathCarteEtudiant:Talent.pathCarteEtudiant,
         pathPieceCni:Talent.pathPieceCni,
         pathCVUpload:Talent.pathCVUpload,
@@ -692,11 +690,11 @@ if (isStudentGroup) {
 
              <section v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Etudiant'].includes(s.statut))">
             <div style="padding:0.6em 0;">
-              <label class="form-label">Carte national d'identité/ Pièce justificative</label>
-              <div v-if="form?.carteEtudiant?.length">
+              <label class="form-label">Carte étudiant</label>
+              <div v-if="form?.pieceJointes?.length">
              <small class="text-muted">
-        Vous pouvez remplacer votre Carte national d'identité ou Pièce justificative
-    </small>
+             Vous pouvez remplacer votre carte étudiant
+             </small>
             <input
       type="file"
       accept="image/*"
@@ -724,7 +722,7 @@ if (isStudentGroup) {
           v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Particulier','Artisan'].includes(s.statut))">
             <div style="padding:0.6em 0;">
               <label class="form-label">CNI/Passeport/Carte consulaires</label>
-              <div v-if="form?.pieceCNI?.length">
+              <div v-if="form?.pieceJointes?.length">
              <small class="text-muted">
         Vous pouvez remplacer votre CNI / Passeport / Carte consulaires
           </small>
