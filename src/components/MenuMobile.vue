@@ -221,7 +221,7 @@ if (
     :key="index"
     class="badge bg-warning"
   >
-    {{ status.statut }}
+    {{ status.statut }}{{" "}}{{this.$store.state.user.statut_entreprise ? this.$store.state.user.statut_entreprise:null}}
   </span>
 </div>
           </span>
