@@ -374,11 +374,18 @@ if (isStudentGroup) {
     // event.target.value = '';
   },
     async handleUpdate(payload,profile) {
-    // console.log("profile",profile)
+   
  if(profile === 'talents'){
  this.updateInfoUser(payload);
  }else{
- this.updateInfoEntreprise(payload)
+  const filteredPayload = Object.fromEntries(
+  Object.entries(payload).filter(
+    ([value]) => value !== null && value !== undefined
+  )
+);
+   console.log("profile_entreprise",profile)
+   console.log("payload_entreprise",filteredPayload)
+//  this.updateInfoEntreprise(payload)
  }
 },
   
