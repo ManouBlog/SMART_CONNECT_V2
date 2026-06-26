@@ -199,22 +199,22 @@ texte0989:"",
       <section class="my-5">
         <div class="container">
           <div class="row">
+
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.statut_entreprise">
-    <ParagrapheDetail  :item="{libelle:'Statut',
+            <ParagrapheDetail  :item="{libelle:'Statut',
           value:this.infoPersonnelles?.statut_entreprise}" />
             </div>
 
-            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Entreprise') && this.infoPersonnelles?.statut_entreprise == 'Formelle'">
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.statut_entreprise == 'Formelle'">
     <ParagrapheDetail  
             :item="{libelle:'Raison social', value: this.infoPersonnelles?.nom}" />
             </div>
-     
-          </div>
-
-           <div class="row" >
+             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.statut_entreprise == 'Informelle'">
+            <ParagrapheDetail 
+          :item="{libelle:'Nom de l\'entreprise', value: this.infoPersonnelles?.nom_particulier}" />
+            </div>
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.statut_entreprise == 'Informelle'">
-    <ParagrapheDetail 
-          
+           <ParagrapheDetail  
           :item="{libelle:'Nom du gérant', value: this.infoPersonnelles?.nom}" />
             </div>
 
@@ -222,65 +222,44 @@ texte0989:"",
      <ParagrapheDetail  
           :item="{libelle:'Prénoms du gérant', value: this.infoPersonnelles?.particulier_prenoms}" />
             </div>
-     
-          </div>
-          
-
-          
-           <div class="row">
-            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Particulier')">
+             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Particulier')">
     <ParagrapheDetail :item="{libelle:'Nom', value: this.infoPersonnelles?.user?.nom}" />
             </div>
-            <div class="col-md-6" style="flex:1">
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.prenoms">
   <ParagrapheDetail :item="{libelle:'Prénoms', value: this.infoPersonnelles?.prenoms}" />
             </div>
 
-            <div class="col-md-6" style="flex:1">
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.email">
      <ParagrapheDetail :item="{libelle:'Email', value: this.infoPersonnelles?.email}" />
             </div>
-     
-          </div>
 
-           <div class="row">
-            <div class="col-md-6" style="flex:1">
+             <div class="col-md-6" style="flex:1"  v-if="this.infoPersonnelles?.ville">
   <ParagrapheDetail :item="{libelle:'Ville', value: this.infoPersonnelles?.ville}" />
             </div>
 
-            <div class="col-md-6" style="flex:1">
+            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.commune">
        <ParagrapheDetail :item="{libelle:'Commune', value: this.infoPersonnelles?.commune}" />
             </div>
-     
-          </div>
-
-           <div class="row">
-            <div class="col-md-6" style="flex:1">
+             <div class="col-md-6" style="flex:1">
   <ParagrapheDetail :item="{libelle:'Quartier', value: this.infoPersonnelles?.quartier}" />
             </div>
 
             <div class="col-md-6" style="flex:1">
      <ParagrapheDetail :item="{libelle:'Contact téléphonique', value: this.infoPersonnelles?.phone}" />
             </div>
-     
-          </div>
-            <div class="row" v-if="this.infoPersonnelles.user.statuses.some(item=>item.statut == 'Artisan')">
-                 <div class="col-md-6" style="flex:1">
+
+             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.niveauEtude">
      <ParagrapheDetail :item="{libelle:'Niveau d\'etude', value: this.infoPersonnelles?.niveauEtude}" />
             </div>
-            <div class="col-md-6" style="flex:1">
-     <ParagrapheDetail :item="{libelle:'Statut professionnel', value: this.infoPersonnelles?.user?.statut_professionnel_artisan}" />
+            <div class="col-md-6" style="flex:1" v-if=this.infoPersonnelles?.user?.statut_professionnel_artisan>
+     <ParagrapheDetail :item="{libelle:'Statut professionnel', 
+     value: this.infoPersonnelles?.user?.statut_professionnel_artisan}" />
             </div>
-            </div>
-      
-          <div class="row">
-           
-
+            
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.matricule_cc">
      <ParagrapheDetail  :item="{libelle:'Registre du Commerce et du Crédit Mobilier',
           value:this.infoPersonnelles?.matricule_cc}" />
             </div>
-          </div>
-
-         <div class="row">
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles.registre">
    <ParagrapheDetail  :item="{libelle:'Registre Pdf',
           value:null,valueArray:[{path:this.infoPersonnelles.registre}]}" />
@@ -290,10 +269,6 @@ texte0989:"",
  <ParagrapheDetail  :item="{libelle:'NCC (Numéro de compte contribuable)',
           value:this.infoPersonnelles?.NCC}" />
             </div>
-     
-          </div>
-
-          <div class="row">
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.logo">
    <ParagrapheDetail  :item="{libelle:'Logo',
           value:null,valueArray:[{path:this.infoPersonnelles?.logo}]}" />
@@ -303,16 +278,13 @@ texte0989:"",
  <ParagrapheDetail :item="{libelle:'Forme Juridique',
           value:this.infoPersonnelles?.forme_juridique}" />
             </div>
-     
-          </div>
-
-          <div class="row">
-            <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.emails?.length">
+             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.emails?.length">
      <ParagrapheDetail  :item="{libelle:'Emails en copies',
           value:this.infoPersonnelles?.emails,emailCC:true}" /> 
             </div>
-          </div>
 
+          </div>
+  
         </div>
 
       </section>
