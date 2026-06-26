@@ -295,13 +295,19 @@ if (isStudentGroup) {
       const data = await this.update_compte_entreprise({
         nom: company.nom,
         email: company.email,
+        statut_entreprise:company.statut_entreprise,
+        nom_particulier: company.nom_particulier,
         gerant: company.gerant,
+        particulier_prenoms: company.particulier_prenoms,
         numero_gerant: company.numero_gerant,
         commune: company.commune,
         forme_juridique: company.forme_juridique,
         quartier: company.quartier,
+        logo:company.logo,
         contact: company.contact,
         ville: company.ville,
+        registre:company.registre,
+        NCC:company.NCC,
         matricule_cc: company.matricule_cc,
         email_cc:this.emails_cc.length ? this.emails_cc:[]
       });
@@ -376,14 +382,10 @@ if (isStudentGroup) {
  if(profile === 'talents'){
  this.updateInfoUser(payload);
  }else{
-  const filteredPayload = Object.fromEntries(
-  Object.entries(payload).filter(
-    ([value]) => value !== null && value !== undefined
-  )
-);
+  
    console.log("profile_entreprise",profile)
-   console.log("payload_entreprise",filteredPayload)
-//  this.updateInfoEntreprise(payload)
+   console.log("payload_entreprise",payload)
+ this.updateInfoEntreprise(payload)
  }
 },
   
@@ -457,6 +459,9 @@ if (isStudentGroup) {
        <div class="col-md-12" v-if='this.form.optionsPaper === "Informelle"'>
         <div class="mb-3">
           <label class="form-label">Carte nationale d'identité<span style="color:red">*</span></label>
+          <small class="text-muted" style="display: block;">
+            Ajouter une nouvelle carte nationale d'identité
+             </small>
         <input
          type="file"
          accept="image/*"
