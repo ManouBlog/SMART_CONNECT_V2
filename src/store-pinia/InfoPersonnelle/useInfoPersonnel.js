@@ -42,7 +42,7 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
 
   try {
     const data = new FormData();
-    this.pieceIdentiteGerant?.forEach(item => {
+    payload?.piece_gerant?.forEach(item => {
   if (item) {
     data.append("piece_gerant[]", item);
   }
@@ -68,8 +68,8 @@ if (payload.quartier != null) data.append("quartier", payload.quartier);
 if (payload.contact != null) data.append("contact", payload.contact);
 if (payload.ville != null) data.append("ville", payload.ville);
 
-if (this.logoEntreprise != null) {
-  data.append("logo", this.logoEntreprise);
+if (payload.logo != null) {
+  data.append("logo", payload.logo);
 }
 
 if (payload.matricule_cc != null) {
@@ -80,36 +80,9 @@ if (payload.statut_entreprise != null) {
   data.append("statut_entreprise", payload.statut_entreprise);
 }
 
-if (this.registre != null) {
-  data.append("registre", this.registre);
+if (payload.registre != null) {
+  data.append("registre", payload.registre);
 }
-
-    // this.pieceIdentiteGerant?.forEach(item => {
-    //   data.append("piece_gerant[]", item);
-    // });
-
-    // payload?.email_cc?.forEach(item => {
-    //   data.append("email_cc[]", item);
-    // });
-
-    // data.append("nom", payload.nom);
-    // data.append("particulier_prenoms", payload.particulier_prenoms);
-    //  data.append("nom_particulier", payload.nom_particulier);
-    //   data.append("NCC", payload.NCC);
-    
-    // data.append("email", payload.email);
-    // data.append("gerant", payload.gerant);
-    // data.append("numero_gerant", payload.numero_gerant);
-    // data.append("commune", payload.commune);
-    // data.append("forme_juridique", payload.forme_juridique);
-    // data.append("quartier", payload.quartier);
-    // data.append("contact", payload.contact);
-    // data.append("ville", payload.ville);
-    // data.append("logo", this.logoEntreprise);
-    // data.append("matricule_cc", payload.matricule_cc);
-    // data.append("statut_entreprise", payload.statut_entreprise);
-    // data.append("registre", this.registre);
-
     const res = await instance.post("modifier_profil", data);
 
     if (res.data.status === true) {

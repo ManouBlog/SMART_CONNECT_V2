@@ -72,6 +72,7 @@ valueExpertise: [
       phone: "",
       ville: "",
       commune: "",
+      piece_gerant:[],
       quartier: "",
       matricule_cc: "",
       forme_juridique: "",
@@ -302,6 +303,7 @@ if (isStudentGroup) {
         numero_gerant: company.numero_gerant,
         commune: company.commune,
         forme_juridique: company.forme_juridique,
+        piece_gerant:company.piece_gerant,
         quartier: company.quartier,
         logo:company.logo,
         contact: company.contact,
@@ -399,6 +401,10 @@ if (isStudentGroup) {
     handleInputChange(valueDate) {
       console.log(valueDate);
     },
+    handleCNIForEntrepriseInformelle(payload){
+  console.log("handleCNIForEntrepriseInformelle",payload.target);
+  this.form.piece_gerant.push(payload.target.files[0]);
+    }
   },
   mounted() {
   this.initForm();
