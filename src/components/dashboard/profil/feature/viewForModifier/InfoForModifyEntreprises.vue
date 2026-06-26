@@ -20,8 +20,8 @@ export default {
 ],
 
 options : [
-  { value: "Informel", label: "Informel" },
-  { value: "Formel", label: "Formel" },
+  { value: "Informelle", label: "Informelle" },
+  { value: "Formelle", label: "Formelle" },
 ],
 valueModeDeTravail: [
   { value: "Présentiel", label: "Présentiel" },
@@ -104,12 +104,12 @@ valueExpertise: [
     ...mapState(useRegisterStore, ["allCompetences"]),
     ...mapState(useInfoPersonnel, ["otherInfoPersonnelle"]),
     isCompanyDisabled(){
-    const idsToCheck = ['Formel'];
+    const idsToCheck = ['Formelle'];
      const statutId = this.form.optionsPaper;
     if (!idsToCheck.includes(statutId)) return false;
 
     const rules = {
-      'Formel': ["NCC", "matricule_cc","forme_juridique","gerant","numero_gerant","fileCharge"]
+      'Formelle': ["NCC", "matricule_cc","forme_juridique","gerant","numero_gerant","fileCharge"]
     };
 
     const requiredFields = rules[statutId] || [];
@@ -167,7 +167,7 @@ valueExpertise: [
     
     if (!user) return;
 
-    this.form.nom = this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut !== 'Entreprise') ? user.nom : this.form.optionsPaper === 'Formel' ? user.nom:user.nom_particulier;
+    this.form.nom = user.nom;
     this.form.prenoms = user.prenoms || "";
     this.form.email = user.email || "";
     this.form.contact = user.contact || "";
@@ -183,7 +183,7 @@ valueExpertise: [
     this.form.quartier = user.quartier || "";
     this.form.statuses  = user.user?.statuses.map(item=>item.id)  || "";
     this.form.niveauExpertise = user?.niveauExpertise || "";
-
+     this.form.nom_particulier = user.nom_particulier;
     this.form.matricule_cc = user.matricule_cc || "";
     this.form.forme_juridique = user.forme_juridique || "";
     this.form.NCC = user.NCC || "";
@@ -257,7 +257,7 @@ valueExpertise: [
         const user = resp.data.user;
 const statuses = user?.statuses || [];
 const statusList = statuses.map(s => s.statut);
-
+this.form.optionsPaper = user.statut_entreprise;
 const isEntreprise = statusList.includes('Entreprise');
 
 const isStudentGroup = statusList.some(s =>
@@ -419,41 +419,48 @@ if (isStudentGroup) {
       <p style="text-align: center; color: red;font-size: 1em;">
         Les champs avec astérisque (*) sont obligatoires.
       </p>
-
-     
-
       <!-- -----ENTREPRISE----- -->
-     <div
-  class="col-md-12"
-  v-if="
-    ($store.state.infoUserConnected?.user?.statuses || [])
-      .some(s => s.statut === 'Entreprise')
-  "
-  style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
->
- <label v-for="item in options" :key="item.value">
-  <input
-    type="checkbox"
-    :value="item.value"
-    :checked="form.optionsPaper === item.value"
-    @change="selectOne(item.value)"
-  />
-  {{ item.label }}
-</label>
-    </div>
-    <div class="col-md-12">
+       <div v-if="this.$store.state.infoUserConnected && 
+            $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')">
+
+      <div class="col-md-12" v-if='this.form.optionsPaper === "Formelle"'>
         <div class="mb-3">
-          <label class="form-label">{{
-            this.$store.state.infoUserConnected && $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')
-              ? "Raison sociale"
-              : "Nom"
-          }} <span style="color:red">*</span></label>
+          <label class="form-label">Raison sociale <span style="color:red">*</span></label>
           <input v-model="form.nom" class="form-control" type="text" />
         </div>
       </div>
-      <div class="col-md-12" 
-      v-if='this.$store.state.infoUserConnected 
-      && $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === "entreprise") && this.form.optionsPaper === "Formel"'>
+
+       <div class="col-md-12" v-if='this.form.optionsPaper === "Informelle"'>
+        <div class="mb-3">
+          <label class="form-label">Nom de l'entreprise<span style="color:red">*</span></label>
+          <input v-model="form.nom_particulier" class="form-control" type="text" />
+        </div>
+      </div>
+
+      <div class="col-md-12" v-if='this.form.optionsPaper === "Informelle"'>
+        <div class="mb-3">
+          <label class="form-label">Nom<span style="color:red">*</span></label>
+          <input v-model="form.nom" class="form-control" type="text" />
+        </div>
+      </div>
+      <div class="col-md-12" v-if='this.form.optionsPaper === "Informelle"'>
+        <div class="mb-3">
+          <label class="form-label">Prénoms<span style="color:red">*</span></label>
+          <input v-model="form.particulier_prenoms" class="form-control" type="text" />
+        </div>
+      </div>
+       <div class="col-md-12" v-if='this.form.optionsPaper === "Informelle"'>
+        <div class="mb-3">
+          <label class="form-label">Carte nationale d'identité<span style="color:red">*</span></label>
+        <input
+         type="file"
+         accept="image/*"
+         @change="handleCNIForEntrepriseInformelle"
+            />
+        </div>
+      </div>
+
+      <div class="col-md-12" v-if='this.form.optionsPaper === "Formelle"'>
         <div class="mb-3">
           <label class="form-label"
             >RCCM (Registre du Commerce et du Crédit Mobilier)
@@ -478,26 +485,23 @@ if (isStudentGroup) {
           />
         </div>
       </div>
+
        <div class="col-md-12" 
-      v-if='this.$store.state.infoUserConnected 
-      && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === "entreprise") &&
-      this.form.optionsPaper === "Formel"
-      '>
+      v-if='this.form.optionsPaper === "Formelle"'>
         <div class="mb-3">
           <label class="form-label">Forme juridique <span style="color:red">*</span></label>
           <input v-model="form.forme_juridique" class="form-control" type="text" />
         </div>
       </div>
       <div class="col-md-12" 
-      v-if='this.$store.state.infoUserConnected && 
-      this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === "entreprise")
-      && this.form.optionsPaper === "Formel"
-      ' >
+      v-if='this.form.optionsPaper === "Formelle"'>
         <div class="mb-3">
           <label class="form-label">NCC (Numéro de compte contribuable) <span style="color:red">*</span></label>
           <input v-model="form.NCC" class="form-control" type="text" />
         </div>
       </div>
+       </div>
+    
   <!-- ----------ENTREPRISE/PARTICULIER------ -->
 
      <div
@@ -510,7 +514,7 @@ if (isStudentGroup) {
         <div class="mb-3">
           <label class="form-label">{{
             this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut == "entreprise")
-            && this.form.optionsPaper === "Formel"
+            && this.form.optionsPaper === "Formelle"
               ? "Contact téléphonique de l'entreprise"
               : "Contact téléphonique"
           }} <span style="color:red">*</span></label>
@@ -545,12 +549,11 @@ if (isStudentGroup) {
       </div>
 
 <!-- -----ENTREPRISE----- -->
-
-      <div class="col-md-12" v-if="this.$store.state.infoUserConnected">
+ <div v-if="this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')">
+ <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">{{
-            this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')
-            && this.form.optionsPaper == "Formel"
+            this.form.optionsPaper == "Formelle"
               ? "Contact mail de l'entreprise"
               : "Email"
           }} <span style="color:red">*</span> </label>
@@ -558,10 +561,7 @@ if (isStudentGroup) {
         </div>
       </div>
       <div class="col-md-12 my-2" 
-      v-if="this.$store.state.infoUserConnected && 
-     this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')
-      && this.form.optionsPaper === 'Formel'
-      ">
+      v-if="this.form.optionsPaper === 'Formelle'">
       <label class="form-label">Emails secondaires(cc)</label>
       <n-dynamic-input
        v-model:value="emails_cc"
@@ -572,11 +572,7 @@ if (isStudentGroup) {
   }"
 />
       </div>
-        <section 
-      v-if="this.$store.state.infoUserConnected 
-      && $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Entreprise')
-      && this.form.optionsPaper === 'Formel'
-      ">
+        <section v-if="this.form.optionsPaper === 'Formelle'">
         <div class="col-md-12">
           <div class="my-3">
             <label for="add_file_logo">Logo</label>
@@ -598,8 +594,8 @@ if (isStudentGroup) {
           </div>
         </div>
       </section>
-
-  <!-- ---------'Etudiant', 'Professionnel', 'Artisan', 'Vétéran' , 'Particulier'------- -->
+ </div>
+<!-- ---------'Etudiant', 'Professionnel', 'Artisan', 'Vétéran' , 'Particulier'------- -->
      <div
   class="col-md-12"
   v-if="
@@ -634,7 +630,6 @@ if (isStudentGroup) {
         </div>
       </div>
   <!-- ---------'Etudiant','Professionnel','Veteran'------- -->
-
       <section 
      v-if="
     $store.state.infoUserConnected &&
