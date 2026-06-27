@@ -41,6 +41,8 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const email_cc = ref(null);
         const statut_entreprise = ref(null)
         const nom = ref(null);
+        const registre_pdf = ref(null);
+        const logo_entreprise = ref(null);
 
    const handleChangeProfil = (payload)=>{
     isChangeProfil.value = payload
@@ -92,6 +94,15 @@ if ("nom" in payload) {
   if ("diplome" in payload) {
     diplome.value = payload.diplome;
   }
+  if ("registre_pdf" in payload) {
+    registre_pdf.value = payload.registre_pdf;
+  }
+
+  if ("logo_entreprise" in payload) {
+    logo_entreprise.value = payload.logo_entreprise;
+  }
+  
+
   if ("ville" in payload) {
     ville.value = payload.ville;
   }
@@ -185,6 +196,8 @@ if("statut_entreprise" in payload){
          matricule_cc,
          upload,
          juridique ,
+         registre_pdf,
+         logo_entreprise,
          ncc ,
          phone ,
          email ,
