@@ -27,8 +27,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const commune = ref(null);
         const quartier = ref(null);
         const statut_professionnel_artisan = ref(null);
-        
-
+        const upload = ref(null);
         const Phonegerant = ref(null);
         const contact = ref(null);
         const matricule_cc = ref(null);
@@ -65,6 +64,9 @@ if ("nom" in payload) {
 
   if ("niveauExpertise" in payload) {
     niveauExpertise.value = payload.niveauExpertise;
+  }
+  if ("upload" in payload) {
+    upload.value = payload.upload;
   }
   if ("modeTravail" in payload) {
     modeTravail.value = payload.modeTravail;
@@ -148,7 +150,6 @@ if("statut_entreprise" in payload){
     statutOfBase.value = payload;
    }
    const createAbonement = async (payload)=>{
-    // console.log("createAbonementlance",payload)
       if(!store.state.token){
         RegisterStore.changeValueIsModal()
       }else{
@@ -180,8 +181,9 @@ if("statut_entreprise" in payload){
         statut_professionnel_artisan,
         cleanProfilHybide,
         Phonegerant,
-         contact ,
-         matricule_cc ,
+         contact,
+         matricule_cc,
+         upload,
          juridique ,
          ncc ,
          phone ,
