@@ -279,8 +279,21 @@ texte0989:"",
           value:this.infoPersonnelles?.forme_juridique}" />
             </div>
              <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.emails?.length">
-     <ParagrapheDetail  :item="{libelle:'Emails en copies',
-          value:this.infoPersonnelles?.emails,emailCC:true}" /> 
+              <p 
+    style="color: orange; font-weight: bold"
+        
+      >
+        Emails en copies :
+      </p>
+      <div style="display:flex;gap:0.4em;flex-wrap: wrap;">
+        <p v-for="el in this.infoPersonnelles?.emails"
+            :key="el"
+            >
+            <span class="badge" style="background-color: gray;
+            color: orange;font-weight: bold;padding: 0.5em;">{{  el?.email_cc }}</span>
+            </p>
+      </div>
+              
             </div>
 
           </div>

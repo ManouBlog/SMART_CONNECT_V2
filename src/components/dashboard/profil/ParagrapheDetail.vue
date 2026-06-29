@@ -15,7 +15,7 @@
             style="display: flex;gap:1em"
             >
             <span class="badge" style="background-color: white;
-            color: orange;font-weight: bold;margin: 0.5em;">{{ el || el?.email_cc }}</span>
+            color: orange;font-weight: bold;margin: 0.5em;">{{ el?.email_cc }}</span>
             </span>
         </span>
       </h6>

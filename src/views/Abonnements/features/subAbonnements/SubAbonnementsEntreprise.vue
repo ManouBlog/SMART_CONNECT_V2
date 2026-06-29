@@ -95,8 +95,6 @@ if (data.email_cc?.length) {
       formData.append("email_cc[]", item);
     });
 }
-// if (data.email_cc) formData.append('email_cc', data.email_cc);
-
 // Autres champs
 if (data.nom) formData.append('nom', data.nom);
 if (data.expertise) formData.append('expertise', data.expertise);
@@ -108,12 +106,12 @@ if (data.quartier) formData.append('quartier', data.quartier);
 if (data.statut_professionnel_artisan) formData.append('statut_professionnel_artisan', data.statut_professionnel_artisan);
 if (data.statut_entreprise) formData.append('statut_entreprise', data.statut_entreprise);
 
-if (data.Phonegerant) formData.append('Phonegerant', data.Phonegerant);
+if (data.Phonegerant) formData.append('numero_gerant', data.Phonegerant);
 if (data.gerant) formData.append('gerant', data.gerant);
 if (data.email) formData.append('email', data.email);
 if (data.phone) formData.append('phone', data.phone);
 if (data.ncc) formData.append('ncc', data.ncc);
-if (data.juridique) formData.append('juridique', data.juridique);
+if (data.juridique) formData.append('forme_juridique', data.juridique);
 if (data.matricule_cc) formData.append('matricule_cc', data.matricule_cc);
 if (data.contact) formData.append('contact', data.contact);
 
