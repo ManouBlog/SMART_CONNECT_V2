@@ -79,6 +79,7 @@ export default {
         Logo: [],
         password: "",
         registre_pdf:null,
+        cni:null,
         logo_entreprise:null,
         logo: "",
         upload: [],
@@ -123,7 +124,7 @@ export default {
     }
 
     if (type === 'cni') {
-      this.formState.CNI_PIECE = files[0]
+      this.formState.cni = files[0]
     }
 
     if (type === 'logo') {
@@ -398,7 +399,7 @@ export default {
       <input
         type="file"
         accept=".jpg,.jpeg,.png,.webp"
-        @change="e => handleChangeCardEntreprise(e, 'logo')"
+        @change="e => handleChangeCardEntreprise(e, 'cni')"
         
       />
     </div>

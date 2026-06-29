@@ -78,7 +78,7 @@ if (data.profilHybride?.length) {
       formData.append("profilHybride[]", id);
     });
 }
-if (data.cni) formData.append('cni', data.cni_gerant);
+if (data.cni) formData.append('cni', data.cni);
 if (data.registre_pdf) formData.append('registre_pdf', data.registre_pdf);
 if (data.logo) formData.append('logo', data.logo);
 

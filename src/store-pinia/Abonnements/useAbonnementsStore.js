@@ -43,6 +43,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const nom = ref(null);
         const registre_pdf = ref(null);
         const logo_entreprise = ref(null);
+        const cni = ref(null);
 
    const handleChangeProfil = (payload)=>{
     isChangeProfil.value = payload
@@ -63,7 +64,9 @@ const handleChangeInfoForAbonnement = (payload) => {
 if ("nom" in payload) {
     nom.value = payload.nom;
   }
-
+  if("cni" in payload){
+    cni.value = payload.cni
+  }
   if ("niveauExpertise" in payload) {
     niveauExpertise.value = payload.niveauExpertise;
   }
@@ -206,6 +209,7 @@ if("statut_entreprise" in payload){
          countryCode,
          email_cc,
          statut_entreprise,
-         nom
+         nom,
+         cni
     }
 })
