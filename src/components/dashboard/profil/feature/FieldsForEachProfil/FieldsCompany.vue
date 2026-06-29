@@ -393,8 +393,15 @@ export default {
 
   <!-- Uploads -->
   <div class="row">
-    
-
+     <div class="col-md-6 my-3">
+      <label>Carte nationale d'identité du gérant (JPG, PNG, WEBP)</label>
+      <input
+        type="file"
+        accept=".jpg,.jpeg,.png,.webp"
+        @change="e => handleChangeCardEntreprise(e, 'logo')"
+        
+      />
+    </div>
     <div class="col-md-6 my-3">
       <label>Logo de l’entreprise (JPG, PNG, WEBP)</label>
       <input
