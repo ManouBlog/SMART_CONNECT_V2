@@ -101,10 +101,10 @@ export default {
       f.matricule_cc?.trim() &&
       f.juridique?.trim() &&
       f.ncc?.trim() &&
-      f.gerant?.trim() &&
-      f.Phonegerant?.toString().trim() &&
-      f.countryCode &&
-      f.countryCodePhoneGerant &&
+      // f.gerant?.trim() &&
+      // f.Phonegerant?.toString().trim() &&
+      // f.countryCode &&
+      // f.countryCodePhoneGerant &&
 
       // fichier registre (PDF)
       f.registre_pdf
@@ -351,7 +351,7 @@ export default {
   <!-- Gérant + Téléphone -->
   <div class="row">
     <div class="col-md-6 my-3">
-      <label><span style="color: red;margin:0 0.1em">*</span>Nom du gérant</label>
+      <label>Nom du gérant</label>
       <input
         type="text"
         class="form-control"
@@ -363,7 +363,7 @@ export default {
     </div>
 
     <div class="col-md-6 my-3">
-      <label><span style="color: red;margin:0 0.1em">*</span>Contact Téléphonique du gérant</label>
+      <label>Contact Téléphonique du gérant</label>
 
       <div style="display:flex; gap:5px;">
         <select
