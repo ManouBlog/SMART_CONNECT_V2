@@ -150,7 +150,7 @@ if ("gerant" in payload) {
 }
 
 if ("Phonegerant" in payload) {
-  Phonegerant.value = payload.countryCodePhoneGerant+payload.Phonegerant;
+  Phonegerant.value =  payload.Phonegerant ? payload.countryCodePhoneGerant+payload.Phonegerant:null;
 }
 if("email_cc" in payload){
   email_cc.value = payload.email_cc

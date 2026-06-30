@@ -102,12 +102,10 @@ export default {
       f.matricule_cc?.trim() &&
       f.juridique?.trim() &&
       f.ncc?.trim() &&
-      // f.gerant?.trim() &&
-      // f.Phonegerant?.toString().trim() &&
-      // f.countryCode &&
-      // f.countryCodePhoneGerant &&
-
-      // fichier registre (PDF)
+      f.gerant?.trim() &&
+      f.Phonegerant?.toString().trim() &&
+      f.countryCodePhoneGerant &&
+      f.cni &&
       f.registre_pdf
     )
   }
@@ -352,7 +350,7 @@ export default {
   <!-- Gérant + Téléphone -->
   <div class="row">
     <div class="col-md-6 my-3">
-      <label>Nom du gérant</label>
+      <label><span style="color: red;margin:0 0.1em">*</span> Nom du gérant</label>
       <input
         type="text"
         class="form-control"
@@ -362,9 +360,9 @@ export default {
         
       />
     </div>
-
+   
     <div class="col-md-6 my-3">
-      <label>Contact Téléphonique du gérant</label>
+      <label><span style="color: red;margin:0 0.1em">*</span>Contact Téléphonique du gérant</label>
 
       <div style="display:flex; gap:5px;">
         <select
@@ -395,7 +393,7 @@ export default {
   <!-- Uploads -->
   <div class="row">
      <div class="col-md-6 my-3">
-      <label>Carte nationale d'identité du gérant (JPG, PNG, WEBP)</label>
+      <label><span style="color: red;margin:0 0.1em">*</span>Carte nationale d'identité du gérant (JPG, PNG, WEBP)</label>
       <input
         type="file"
         accept=".jpg,.jpeg,.png,.webp"
