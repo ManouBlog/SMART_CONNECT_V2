@@ -10,7 +10,7 @@ const {
 const Statut = ref(statut);
 const ADRESSE = ref([
   {
-    libelle: "Abidjan , 7e tranche , Pharmacie Tera(Nvelle)",
+    libelle: "Abidjan , Angré 7e tranche , Pharmacie Tera(Nvelle)",
     isVisible: true,
     img: false,
   },

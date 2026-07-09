@@ -81,7 +81,7 @@ export default {
           <CardFooter
             :isWhite="true"
             :title="texte6"
-            :listLien="['Abidjan , 7e tranche , Pharmacie Tera(Nvelle)']"
+            :listLien="['Abidjan , Angré 7e tranche , Pharmacie Tera(Nvelle)']"
           />
          
         </div>
