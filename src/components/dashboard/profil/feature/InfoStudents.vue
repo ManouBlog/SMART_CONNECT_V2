@@ -19,19 +19,6 @@ export default {
       type: Object,
       required: false,
     },
-    // infoBioStudent: {
-    //   type: String,
-    //   required: false,
-    // },
-    // infoPersonellesStudents: {
-    //   type: Array,
-    // },
-    // infoPersonellesCompetences: {
-    //   type: Array,
-    // },
-    // infoPersonellesQualifications: {
-    //   type: Array,
-    // },
   },
   data() {
     return {
@@ -109,7 +96,6 @@ export default {
         });
     },
     handleModalInfo(payload = null){
-    // console.log("handleModalInfo56",this.user);
     this.addInfoUserConnected( this.user)
       if (payload) {
         this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: true });
@@ -406,6 +392,7 @@ export default {
   <!-- Ligne 5 -->
   <div class="row gy-2">
     <div class="col-md-6" style="flex:1">
+     
       <ParagrapheDetail
         v-if="infoPersonnelles.statut_talent || infoPersonnelles.user.statut_professionnel_artisan"
         :item="{
@@ -414,7 +401,7 @@ export default {
         }"
       />
     </div>
-    <div class="col-md-6" style="flex:1">
+    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.diplome">
       <ParagrapheDetail :item="{ libelle: 'Niveau d\'étude', value: infoPersonnelles.diplome }" />
     </div>
   </div>
