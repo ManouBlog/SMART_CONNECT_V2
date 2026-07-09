@@ -81,7 +81,7 @@ export default {
           <CardFooter
             :isWhite="true"
             :title="texte6"
-            :listLien="['Cocody, abidjan, cote d’ivoire']"
+            :listLien="['Abidjan , 7e tranche , Pharmacie Tera(Nvelle)']"
           />
          
         </div>

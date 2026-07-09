@@ -10,7 +10,7 @@ const {
 const Statut = ref(statut);
 const ADRESSE = ref([
   {
-    libelle: "Cocody, abidjan, cote d’ivoire",
+    libelle: "Abidjan , 7e tranche , Pharmacie Tera(Nvelle)",
     isVisible: true,
     img: false,
   },
