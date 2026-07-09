@@ -29,7 +29,7 @@ const handleInitialiserPayement = (payload) => {
   const STORE_ABONNEMENT = useAbonnementsStore();
   const randomPart = `web${Math.random().toString(36).substring(2)}`
   const statutBaseUser = store.state?.user?.user?.statut_base;
-  console.log('STORE_ABONNEMENT.diplome', STORE_ABONNEMENT.diplome)
+  console.log('STORE_ABONNEMENT', STORE_ABONNEMENT)
   const data = {
     abonement_id: payload.id,
     channels: "undefined",
@@ -46,12 +46,19 @@ const handleInitialiserPayement = (payload) => {
     CVupload: storeAbonnement.CVupload,
     statut_talent: storeAbonnement.statut_talent,
     profilHybride: storeAbonnement.profilHybride?.map(item => item.id),
-    addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id)
+    addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id),
+
+    ville: storeAbonnement.ville,
+    cni: storeAbonnement.upload,
+    statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
+    
+
+
+    
+    
   }
-
-
-
-  storeAbonnement.createAbonement(data)
+  // storeAbonnement.createAbonement(data)
+  console.log("data",data)
 }
 
 // Détecte si le user est connecté et possède un statut
@@ -63,15 +70,11 @@ const filteredAbonnementsByTalent = computed(() => {
   // if (isUserConnected.value){
   //    return props.abonnements.filter((item) => item?.categorie?.categorie === store.state?.user?.statut_talent);
   // }
-
   return props.abonnements.filter((item) => item.categorie.categorie === props.type_abonnements)
 });
 
 const getMessageAbonnement = (type, item) => {
   const libelle = item?.libelle?.trim().toUpperCase();
-
-  // console.log("MESSAGE_ABONNEMENT", type);
-  // console.log("libelle_abonnement_message", libelle);
 
   if (type === "Etudiant") {
     const map = {
