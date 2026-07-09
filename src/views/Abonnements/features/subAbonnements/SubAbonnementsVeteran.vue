@@ -30,35 +30,122 @@ const handleInitialiserPayement = (payload) => {
   const randomPart = `web${Math.random().toString(36).substring(2)}`
   const statutBaseUser = store.state?.user?.user?.statut_base;
   console.log('STORE_ABONNEMENT', STORE_ABONNEMENT)
-  const data = {
-    abonement_id: payload.id,
-    channels: "undefined",
-    mode_payment: 'year',
-    transaction_id: randomPart,
-    isAddProfilHybride: storeAbonnement.addProfilHybride.map(item => item.id).length ? true : false,
-    statut_base: storeAbonnement.statutOfBase || statutBaseUser,
-    isChangeProfil: storeAbonnement.isChangeProfil,
-    treatment_preferentiel: storeAbonnement.treatment_preferentiel,
-    niveauExpertise: storeAbonnement.niveauExpertise,
-    modeTravail: storeAbonnement.modeTravail,
-    tempsTravail: storeAbonnement.tempsTravail,
-    niveauEtude: storeAbonnement.niveauEtude,
-    CVupload: storeAbonnement.CVupload,
-    statut_talent: storeAbonnement.statut_talent,
-    profilHybride: storeAbonnement.profilHybride?.map(item => item.id),
-    addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id),
+  // const data = {
+  //   abonement_id: payload.id,
+  //   channels: "undefined",
+  //   mode_payment: 'year',
+  //   transaction_id: randomPart,
+  //   isAddProfilHybride: storeAbonnement.addProfilHybride.map(item => item.id).length ? true : false,
+  //   statut_base: storeAbonnement.statutOfBase || statutBaseUser,
+  //   isChangeProfil: storeAbonnement.isChangeProfil,
+  //   treatment_preferentiel: storeAbonnement.treatment_preferentiel,
+  //   niveauExpertise: storeAbonnement.niveauExpertise,
+  //   modeTravail: storeAbonnement.modeTravail,
+  //   tempsTravail: storeAbonnement.tempsTravail,
+  //   niveauEtude: storeAbonnement.niveauEtude,
+  //   CVupload: storeAbonnement.CVupload,
+  //   statut_talent: storeAbonnement.statut_talent,
+  //   profilHybride: storeAbonnement.profilHybride?.map(item => item.id),
+  //   addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id),
 
-    ville: storeAbonnement.ville,
-    cni: storeAbonnement.upload,
-    statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
-    
+  //   ville: storeAbonnement.ville,
+  //   commune:storeAbonnement.commune,
+  //   quartier:storeAbonnement.quartier,
+  //   cni: storeAbonnement.upload,
+  //   statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan, 
+  // }
 
+  const formData = new FormData();
 
-    
-    
-  }
-  // storeAbonnement.createAbonement(data)
-  console.log("data",data)
+formData.append("abonement_id", payload.id);
+formData.append("channels", "undefined");
+formData.append("mode_payment", "year");
+formData.append("transaction_id", randomPart);
+
+formData.append(
+  "isAddProfilHybride",
+  storeAbonnement.addProfilHybride.length ? "1" : "0"
+);
+
+formData.append(
+  "statut_base",
+  storeAbonnement.statutOfBase || statutBaseUser
+);
+
+formData.append(
+  "isChangeProfil",
+  storeAbonnement.isChangeProfil ? "1" : "0"
+);
+
+formData.append(
+  "treatment_preferentiel",
+  storeAbonnement.treatment_preferentiel ?? ""
+);
+
+formData.append(
+  "niveauExpertise",
+  storeAbonnement.niveauExpertise ?? ""
+);
+
+formData.append(
+  "modeTravail",
+  storeAbonnement.modeTravail ?? ""
+);
+
+formData.append(
+  "tempsTravail",
+  storeAbonnement.tempsTravail ?? ""
+);
+
+formData.append(
+  "niveauEtude",
+  storeAbonnement.niveauEtude ?? ""
+);
+
+formData.append(
+  "statut_talent",
+  storeAbonnement.statut_talent ?? ""
+);
+
+formData.append(
+  "ville",
+  storeAbonnement.ville ?? ""
+);
+
+formData.append(
+  "commune",
+  storeAbonnement.commune ?? ""
+);
+
+formData.append(
+  "quartier",
+  storeAbonnement.quartier ?? ""
+);
+
+formData.append(
+  "statut_professionnel_artisan",
+  storeAbonnement.statut_professionnel_artisan ?? ""
+);
+
+// Fichiers
+if (storeAbonnement.CVupload) {
+  formData.append("CVupload", storeAbonnement.CVupload);
+}
+
+if (storeAbonnement.upload) {
+  formData.append("cni", storeAbonnement.upload);
+}
+
+// Tableaux
+storeAbonnement.profilHybride?.forEach((item) => {
+  formData.append("profilHybride[]", String(item.id));
+});
+
+storeAbonnement.addProfilHybride.forEach((item) => {
+  formData.append("addProfilHybrideOnly[]", String(item.id));
+});
+  storeAbonnement.createAbonement(formData)
+  // console.log("data",data)
 }
 
 // Détecte si le user est connecté et possède un statut
