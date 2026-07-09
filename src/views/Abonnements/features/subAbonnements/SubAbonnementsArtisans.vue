@@ -2,7 +2,7 @@
 import { defineProps, ref, onMounted, watch, computed } from "vue";
 // import { Help } from "../../../../utils";
 // import Buttons from "../../../../Shared/Compoments/Buttons.vue";
-import {useStore} from "vuex"
+import { useStore } from "vuex"
 import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslateStore";
 import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
@@ -27,7 +27,7 @@ const profilHybrideRecuperer = ref(0)
 // const handleCreateEntreprise=(payload)=>{
 
 //   const randomPart = `web${Math.random().toString(36).substring(2)}`
-     
+
 //         const data = {
 //             abonement_id:payload.id,
 //             channels:"undefined",
@@ -45,10 +45,10 @@ const isUserConnected = computed(() => {
 // Watch déclenche le chargement des abonnements
 watch(
   isUserConnected,
- (newValue) => {
+  (newValue) => {
 
     if (!newValue) {
-     storeAbonnementUser.putPlanAbonnementAtNull();
+      storeAbonnementUser.putPlanAbonnementAtNull();
     }
   },
   { immediate: true }
@@ -63,52 +63,44 @@ onMounted(async () => {
   ];
 
   texte.value = await transalteStore.handleTranslate("année");
- 
-   profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
+
+  profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
   if (isUserConnected.value) {
-      await storeAbonnementUser.get_all_abonnement();
-    }
+    await storeAbonnementUser.get_all_abonnement();
+  }
 });
 </script>
 
 <template>
 
   <div class="conteneur-flex">
-    <div
-      v-for="item in abonnements.filter(
-        (item) => item.categorie.categorie === type_abonnements
-      )"
-      :key="item.id"
-      :class="
-        item?.libelle == 'BROBROLI'
+    <div v-for="item in abonnements.filter(
+      (item) => item.categorie.categorie === type_abonnements
+    )" :key="item.id" :class="item?.libelle == 'BROBROLI'
           ? 'color_brobroli_pro'
           : 'color_brobroli_pro_max'
-      "
-    >
-   
+        ">
+
       <!-- <h1 class="text-center main-color" style="font-size: 1.5em;">
         {{ item.libelle }}
       </h1> -->
- <div style="position: relative;height:70px;">
-<h1 class="text-center main-color" style="font-size: 1.5em;">
-        {{ item.libelle }}
-      </h1>
-       <p 
-      v-if="item.libelle === 'BROBROLI+'"
-      style="padding: 0;position: absolute;top:34px;margin-right: -50px;transform: translateX(50px);">
-        <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small></p>
-    </div>
-      
-      
-      
-    <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel','Maitre Artisan'].some(role=>role === item?.categorie?.categorie)">
-      <ContainerAbonnementsArtisans 
-      :item="item"
-      :elmentsOfBtn="elmentsOfBtn"
-      :type_abonnements="type_abonnements"
-      />
-    </div>
-    <!-- <section v-else>
+      <div style="position: relative;height:70px;">
+        <h1 class="text-center main-color" style="font-size: 1.5em;">
+          {{ item.libelle }}
+        </h1>
+        <p v-if="item.libelle === 'BROBROLI+'"
+          style="padding: 0;position: absolute;top:34px;margin-right: -50px;transform: translateX(50px);">
+          <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small>
+        </p>
+      </div>
+
+
+
+      <div
+        v-if="item?.categorie && ['Etudiant', 'Particulier', 'Artisan', 'Professionnel', 'Maitre Artisan'].some(role => role === item?.categorie?.categorie)">
+        <ContainerAbonnementsArtisans :item="item" :elmentsOfBtn="elmentsOfBtn" :type_abonnements="type_abonnements" />
+      </div>
+      <!-- <section v-else>
       <p style="text-align:center;position: absolute;right: 0px;top:0px;">
      <span
           v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id"
@@ -145,7 +137,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-
 .btn-confirm {
   background-color: orange;
   cursor: pointer;
@@ -164,10 +155,12 @@ onMounted(async () => {
   cursor: not-allowed;
   opacity: 0.7;
 }
+
 :deep(.my-custom-paragraph) {
   font-size: 16px !important;
   margin-top: 1em;
 }
+
 .conteneur-flex {
   display: flex !important;
   justify-items: center !important;
@@ -176,35 +169,40 @@ onMounted(async () => {
   flex-wrap: wrap;
   gap: 1em;
 }
-.cart_modal{
+
+.cart_modal {
   background-color: white;
   box-shadow: 1px 1px 1px solid rgba(0, 0, 0, 0.379);
-  height:300px;
-  width:90%;
-  padding:1em;
+  height: 300px;
+  width: 90%;
+  padding: 1em;
   overflow: auto;
   border-radius: 10px;
 }
-.cart_modal select{
+
+.cart_modal select {
   border-radius: 10px;
 }
-.modal_choose_periode{
-  position:fixed;
+
+.modal_choose_periode {
+  position: fixed;
   display: flex;
   z-index: 999;
-  width:100%;
+  width: 100%;
   justify-content: center;
   place-content: center;
   align-items: center;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   background-color: rgba(0, 0, 0, 0.299);
 }
+
 .main-color {
   color: rgb(254, 254, 254);
 }
+
 .conteneur-btn {
   height: 120px;
 }
