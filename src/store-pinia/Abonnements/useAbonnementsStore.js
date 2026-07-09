@@ -44,6 +44,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const registre_pdf = ref(null);
         const logo_entreprise = ref(null);
         const cni = ref(null);
+       
 
    const handleChangeProfil = (payload)=>{
     isChangeProfil.value = payload
