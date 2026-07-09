@@ -827,7 +827,7 @@ textarea {
   width: 100%;
   min-width: 300px;
   height: 100%;
-  z-index: 99;
+  z-index: 999;
   background: rgba(0, 0, 0, 0.338);
   display: flex;
   place-items: center;
