@@ -53,12 +53,12 @@ export default {
     get_offre_detail_interesse() {
       loadingSpinner.launchLoading(true);
       instance
-        .get("see_entreprise_student/"+this.$route.params.id)
+        .get("see_entreprise_student/" + this.$route.params.id)
         .then((response) => {
           // console.log("get_offre_detail_interesse",response)
-        if(response.data.status){
-        this.DetailSeeEntreprise = response.data.data
-        }
+          if (response.data.status) {
+            this.DetailSeeEntreprise = response.data.data
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -68,62 +68,62 @@ export default {
           this.loadSpinner = false;
         });
     },
-    async updateCandidature(contrat,payload) {
-      
-   const TEXTE = payload == 1 ? "Voulez-vous vraiment accepter cette candidature ?":"Voulez-vous vraiment rejeter cette candidature ?";
-  const result = await Swal.fire({
-    title: "Confirmation",
-    text: TEXTE,
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonText: "Oui",
-    cancelButtonText: "Annuler",
-    reverseButtons: true,
-      confirmButtonColor: "green",
-  cancelButtonColor: "red",
-  });
+    async updateCandidature(contrat, payload) {
 
-  if (!result.isConfirmed) {
-    return;
-  }
+      const TEXTE = payload == 1 ? "Voulez-vous vraiment accepter cette candidature ?" : "Voulez-vous vraiment rejeter cette candidature ?";
+      const result = await Swal.fire({
+        title: "Confirmation",
+        text: TEXTE,
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Oui",
+        cancelButtonText: "Annuler",
+        reverseButtons: true,
+        confirmButtonColor: "green",
+        cancelButtonColor: "red",
+      });
 
-  loadingSpinner.launchLoading(true);
-
-  try {
-
-    const res = await instance.put(
-      "changeStatutJob/" + contrat.offre.id,
-      {
-        contrat: payload,
-        id_contrat: contrat.id,
+      if (!result.isConfirmed) {
+        return;
       }
-    );
 
-    Swal.fire({
-      icon: res.data.status ? "success" : "info",
-      title: res.data.message,
-      showConfirmButton: true,
-    });
+      loadingSpinner.launchLoading(true);
 
-  } catch (err) {
+      try {
 
-    console.log(err);
+        const res = await instance.put(
+          "changeStatutJob/" + contrat.offre.id,
+          {
+            contrat: payload,
+            id_contrat: contrat.id,
+          }
+        );
 
-    Swal.fire({
-      icon: "error",
-      title:
-        err?.response?.data?.message ||
-        "Une erreur est survenue",
-      showConfirmButton: true,
-    });
+        Swal.fire({
+          icon: res.data.status ? "success" : "info",
+          title: res.data.message,
+          showConfirmButton: true,
+        });
 
-  } finally {
+      } catch (err) {
 
-    this.get_offre_detail_interesse();
+        console.log(err);
 
-    loadingSpinner.launchLoading(false);
-  }
-},
+        Swal.fire({
+          icon: "error",
+          title:
+            err?.response?.data?.message ||
+            "Une erreur est survenue",
+          showConfirmButton: true,
+        });
+
+      } finally {
+
+        this.get_offre_detail_interesse();
+
+        loadingSpinner.launchLoading(false);
+      }
+    },
     handleNouvelAbonnement() {
       this.$router.push({ name: "abonnements" });
     },
@@ -166,40 +166,35 @@ export default {
                   <h1 class="my-5 nom_offre">
                     {{ DetailSeeEntreprise.offre.nom_offre }}
                   </h1>
-                
+
                 </div>
-             <span style="color:orange;font-size: 1.5em;">{{ DetailSeeEntreprise.offre?.competence?.categorie?.categorie }}</span>
+                <span style="color:orange;font-size: 1.5em;">{{
+                  DetailSeeEntreprise.offre?.competence?.categorie?.categorie }}</span>
                 <h4 class="my-5">
                   <em class="bi bi-geo"></em> {{ DetailSeeEntreprise.offre.lieu }}
                 </h4>
                 <h4 class="my-5">
-                  <img
-                    style="
+                  <img style="
                       width: 35px;
                       height: 35px;
                       object-fit: cover;
                       border: 1px solid white;
                       background: white;
-                    "
-                    :src="
-                      DetailSeeEntreprise.Offre?.entreprise?.logo
+                    " :src="DetailSeeEntreprise.Offre?.entreprise?.logo
                         ? lienPhoto + DetailSeeEntreprise.Offre?.entreprise?.logo
                         : '/img/brobroli_1.66e9b337.png'
-                    "
-                    :alt="
-                      DetailSeeEntreprise.Offre?.entreprise?.logo
+                      " :alt="DetailSeeEntreprise.Offre?.entreprise?.logo
                         ? DetailSeeEntreprise.Offre?.entreprise?.logo
                         : 'smart-connect'
-                    "
-                  />
+                      " />
                   {{ DetailSeeEntreprise?.entreprise?.nom }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="DetailSeeEntreprise.offre.salaire != null">
                     <em class="bi bi-cash-stack"></em>
-                    {{ DetailSeeEntreprise.offre.salaire }} 
+                    {{ DetailSeeEntreprise.offre.salaire }}
                     <span v-if="DetailSeeEntreprise.offre.pointage">/
-                    {{ DetailSeeEntreprise.offre.pointage }}</span>
+                      {{ DetailSeeEntreprise.offre.pointage }}</span>
                   </h4>
                   <h4 class="my-5" v-else>
                     <em class="bi bi-cash-stack"></em> {{ texte }}
@@ -214,11 +209,8 @@ export default {
                 <h4>
                   <span class="fw-bold my-3" style="font-weight:bold">{{ texte4 }} :</span>
                 </h4>
-                <div
-                  style="font-weight: 300"
-                  v-html="DetailSeeEntreprise.offre.description"
-                  id="conteneur_description"
-                ></div>
+                <div style="font-weight: 300" v-html="DetailSeeEntreprise.offre.description" id="conteneur_description">
+                </div>
               </section>
 
               <section>
@@ -226,11 +218,11 @@ export default {
                   <span class="fw-bold">{{ texte2 }}</span>
                   {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.job_debut) }}
                 </h4>
-                 <h4 class="my-5" v-if="DetailSeeEntreprise.offre.hour_debut">
+                <h4 class="my-5" v-if="DetailSeeEntreprise.offre.hour_debut">
                   <span class="fw-bold">Heure de début</span>
                   {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.hour_debut) }}
                 </h4>
-                 <h4 class="my-5" v-if="DetailSeeEntreprise.offre.hour_fin">
+                <h4 class="my-5" v-if="DetailSeeEntreprise.offre.hour_fin">
                   <span class="fw-bold">Heure de fin</span>
                   {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.hour_fin) }}
                 </h4>
@@ -240,40 +232,24 @@ export default {
                 </h4>
               </section>
               <section>
-                <span class="my-2 fw-bold" style="color: orange"
-                v-if="DetailSeeEntreprise.offre.fin"
-                  >{{ texte5 }}
-                  {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.fin) }}</span
-                >
+                <span class="my-2 fw-bold" style="color: orange" v-if="DetailSeeEntreprise.offre.fin">{{ texte5 }}
+                  {{ configUtils.getFormatDateFr(DetailSeeEntreprise.offre.fin) }}</span>
               </section>
 
-              <section
-                class="d-flex align-items-center justify-content-center"
-                v-if="DetailSeeEntreprise.contrat === 0"
-              >
-                <button
-                  class="btn bg-success mx-2 w-25"
-                  @click="
-                    updateCandidature(DetailSeeEntreprise,1)"
-                  style="width: auto !important"
-                >
+              <section class="d-flex align-items-center justify-content-center"
+                v-if="DetailSeeEntreprise.contrat === 0">
+                <button class="btn bg-success mx-2 w-25" @click="
+                  updateCandidature(DetailSeeEntreprise, 1)" style="width: auto !important">
                   {{ texte6 }}
                 </button>
-                <button
-                  class="btn bg-danger w-25"
-                  @click="
-                    updateCandidature(DetailSeeEntreprise,2)"
-                  style="width: auto !important"
-                >
+                <button class="btn bg-danger w-25" @click="
+                  updateCandidature(DetailSeeEntreprise, 2)" style="width: auto !important">
                   {{ texte66 }}
                 </button>
               </section>
 
-              <p
-                class="d-flex justify-content-center"
-                style="color: #00ff04"
-                v-else-if="DetailSeeEntreprise.contrat === 1"
-              >
+              <p class="d-flex justify-content-center" style="color: #00ff04"
+                v-else-if="DetailSeeEntreprise.contrat === 1">
                 Offre Acceptée pour le {{ DetailSeeEntreprise.offre.job_debut }}
               </p>
               <p class="text-danger d-flex justify-content-center" v-else>
@@ -288,39 +264,47 @@ export default {
   </div>
 </template>
 <style scoped>
-.offres_disponible{
+.offres_disponible {
   margin-top: 9em;
 }
+
 @media screen and (max-width:1200px) {
- .offres_disponible{
-  margin-top: 2.5em;
+  .offres_disponible {
+    margin-top: 2.5em;
+  }
 }
-}
+
 @media screen and (max-width:900px) {
- .offres_disponible{
-  margin-top: 2em;
+  .offres_disponible {
+    margin-top: 2em;
+  }
 }
-}
+
 button {
   font-size: 1.1em;
   font-weight: bold;
 }
+
 #conteneur_description {
   text-align: justify;
 }
+
 .nom_offre {
   font-size: 5em;
   color: rgb(255, 255, 255) !important;
   font-weight: bold;
 }
+
 span {
   font-weight: 200 !important;
 }
+
 .card {
   padding: 1em !important;
   background: var(--secondary-color) !important;
   color: var(--third-color) !important;
 }
+
 .conteneur-chargement {
   height: 80vh;
   width: 100%;
@@ -344,6 +328,7 @@ span {
   place-items: center;
   z-index: 99;
 }
+
 .image-heading {
   color: black;
 }
@@ -354,13 +339,16 @@ p,
 .nom_offre {
   text-align: left;
 }
+
 span {
   text-align: left;
 }
+
 .detail_offre {
   font-weight: 900 !important;
   color: orange;
 }
+
 .spinner-border {
   position: fixed;
   z-index: 999;
@@ -376,6 +364,7 @@ span {
   place-items: center;
   align-items: center;
 }
+
 .hideOffreIfUserIsBuisness {
   position: fixed;
   z-index: 998;
@@ -391,9 +380,11 @@ span {
   place-items: center;
   align-items: center;
 }
+
 .entreprise span {
   display: block;
 }
+
 .entreprise {
   padding: 9em 5em;
   text-align: center;
@@ -403,20 +394,25 @@ span {
   color: white;
   font-size: 3em;
 }
+
 .entreprise h1 {
   text-align: left;
   color: orange;
 }
+
 .blueprint h1::first-letter {
   font-size: 4em;
 }
+
 button {
   width: 100% !important;
   border: 0;
 }
+
 .jobs_filters {
   box-shadow: none !important;
 }
+
 @media (max-width: 1200px) {
   .entreprise {
     padding: 1em 1.5em;
@@ -426,6 +422,7 @@ button {
 }
 
 @media (max-width: 768px) {
+
   /* Nom de l'offre plus petit sur mobile */
   .nom_offre {
     font-size: 2rem !important;
@@ -443,6 +440,7 @@ button {
     flex-direction: column !important;
     gap: 0.5em !important;
   }
+
   .card section.d-flex.flex-column.flex-md-row button {
     width: 100% !important;
   }

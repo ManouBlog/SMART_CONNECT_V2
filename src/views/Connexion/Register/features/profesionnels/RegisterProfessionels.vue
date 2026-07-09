@@ -13,123 +13,123 @@ import Tesseract from 'tesseract.js'
 
 export default {
   name: "RegisterProfessionels",
-  components: { 
-    VueMultiselect, 
+  components: {
+    VueMultiselect,
     Politics,
-    RegisterQualifications 
+    RegisterQualifications
   },
   data() {
     return {
       allAnwserForAssitance: [
-  { label: "Oui", value: "oui" },
-  { label: "Non", value: "non" }
-],
-allProfiles:[],
-      PIECE_KEYWORDS :[
-  "republique de cote d ivoire",
-  "signature du titulaire",
-   "CARTE NATIONALE D IDENTITE",
-   "carte nationale d'identité",
-   "REPUbLIQUE DE COTE D IVOIRE",
-   "DATE ET LIEU DE NAISSANCE",
-    "lieu de naissance",
-    "ivoirienne",
-    "SEXE",
-    "nom du père",
-    "nom de la mère", 
-    "sexe",
-    "Nationalité",
-    "nni",
-    "NNI",
-    "Date d'emission",
-    "Signature de l'autorité",
-     "date d'émission",
-     "date d'emission",
-     "Date d'expiration",
-     "date d'expiration",
-     "date dexpiration",
-     "carte nationale d'identite",
-     "carte nationale d'identité",
-     "carte nationale d'identité",
-     "union",
-     "discipline",
-     "travail",
-     "date de delivrance",
-     "Date d expiratione",
-     "Nom/surname",
-     "passeport",
-     "passport",
-     "code du pays",
-     "CIV",
-],
-       fileList : [],
- loading : false,
- rawText : '',
- result : null,
-  allStatuts : [
-  // { value: "Particulier", label: "Particulier" },
-  // { value: "Artisan", label: "Artisan" },
-],
- allAnwserProfilHybride: [
-  { label: "Oui", value: "oui" },
-  { label: "Non", value: "non" }
-],
- valueTempsTravail: [
-  { value: "Temps partiel", label: "Temps partiel" },
-  { value: "Temps plein", label: "Temps plein" },
-],
-valueModeDeTravail: [
-  { value: "Présentiel", label: "Présentiel" },
-  { value: "Télétravail", label: "Télétravail" },
-  { value: "Hybride", label: "Hybride" }
-],
-StatutProfessionnel:[
-  { value: "Diplômé en quête d’emploi", label: "Diplômé en quête d’emploi" },
-  { value: "En fonction", label: "En fonction" },
-  { value: "Expert indépendant", label: "Expert indépendant" },
-  { value: "Consultant", label: "Consultant" },
-],
-//  SCHOOL_KEYWORDS :[
-//   // Carte étudiante (formes tolérantes OCR)
-//   'carte etudiant',
-//   'carte d etudiant',
-//   'carte a etudiant',
-//   'carte etudiante',
+        { label: "Oui", value: "oui" },
+        { label: "Non", value: "non" }
+      ],
+      allProfiles: [],
+      PIECE_KEYWORDS: [
+        "republique de cote d ivoire",
+        "signature du titulaire",
+        "CARTE NATIONALE D IDENTITE",
+        "carte nationale d'identité",
+        "REPUbLIQUE DE COTE D IVOIRE",
+        "DATE ET LIEU DE NAISSANCE",
+        "lieu de naissance",
+        "ivoirienne",
+        "SEXE",
+        "nom du père",
+        "nom de la mère",
+        "sexe",
+        "Nationalité",
+        "nni",
+        "NNI",
+        "Date d'emission",
+        "Signature de l'autorité",
+        "date d'émission",
+        "date d'emission",
+        "Date d'expiration",
+        "date d'expiration",
+        "date dexpiration",
+        "carte nationale d'identite",
+        "carte nationale d'identité",
+        "carte nationale d'identité",
+        "union",
+        "discipline",
+        "travail",
+        "date de delivrance",
+        "Date d expiratione",
+        "Nom/surname",
+        "passeport",
+        "passport",
+        "code du pays",
+        "CIV",
+      ],
+      fileList: [],
+      loading: false,
+      rawText: '',
+      result: null,
+      allStatuts: [
+        // { value: "Particulier", label: "Particulier" },
+        // { value: "Artisan", label: "Artisan" },
+      ],
+      allAnwserProfilHybride: [
+        { label: "Oui", value: "oui" },
+        { label: "Non", value: "non" }
+      ],
+      valueTempsTravail: [
+        { value: "Temps partiel", label: "Temps partiel" },
+        { value: "Temps plein", label: "Temps plein" },
+      ],
+      valueModeDeTravail: [
+        { value: "Présentiel", label: "Présentiel" },
+        { value: "Télétravail", label: "Télétravail" },
+        { value: "Hybride", label: "Hybride" }
+      ],
+      StatutProfessionnel: [
+        { value: "Diplômé en quête d’emploi", label: "Diplômé en quête d’emploi" },
+        { value: "En fonction", label: "En fonction" },
+        { value: "Expert indépendant", label: "Expert indépendant" },
+        { value: "Consultant", label: "Consultant" },
+      ],
+      //  SCHOOL_KEYWORDS :[
+      //   // Carte étudiante (formes tolérantes OCR)
+      //   'carte etudiant',
+      //   'carte d etudiant',
+      //   'carte a etudiant',
+      //   'carte etudiante',
 
-//   // Étudiant (avec ou sans accents, fautes OCR)
-//   'Etudiant',
-//   'etudiante',
-//   'etudant',
-//   'etud',
+      //   // Étudiant (avec ou sans accents, fautes OCR)
+      //   'Etudiant',
+      //   'etudiante',
+      //   'etudant',
+      //   'etud',
 
-//   // Institution / enseignement
-//   'ministere de l enseignement',
-//   "ministere de l'enseignement",
-//   'enseignement superieur',
-//   'ufr',
-//   'faculte',
-//   'faculté',
-//   'ecole',
-//   'institut',
+      //   // Institution / enseignement
+      //   'ministere de l enseignement',
+      //   "ministere de l'enseignement",
+      //   'enseignement superieur',
+      //   'ufr',
+      //   'faculte',
+      //   'faculté',
+      //   'ecole',
+      //   'institut',
 
-//   // Scolarité
-//   'filiere',
-//   'filiere',
-//   'niveau',
-//   'licence',
-//   'master',
-//   'doctorat',
+      //   // Scolarité
+      //   'filiere',
+      //   'filiere',
+      //   'niveau',
+      //   'licence',
+      //   'master',
+      //   'doctorat',
 
-//   // Niveaux courts (attention : à combiner avec d’autres mots)
-//   'l1',
-//   'l2',
-//   'l3',
-//   'm1',
-//   'm2',
+      //   // Niveaux courts (attention : à combiner avec d’autres mots)
+      //   'l1',
+      //   'l2',
+      //   'l3',
+      //   'm1',
+      //   'm2',
 
-//   // Identifiant
-//   'matricule'
-// ],
+      //   // Identifiant
+      //   'matricule'
+      // ],
       availabilityDates: [],
       startTime: null,
       endTime: null,
@@ -155,36 +155,36 @@ StatutProfessionnel:[
       texte18: "",
       texte19: "",
       texte96: "",
-     niveauEtude:"",
-     filiere:"",
+      niveauEtude: "",
+      filiere: "",
       configUtils,
       SWALPOPUP: useSwalPopup(),
 
-       westAfricaCodes: [
-  { label: "Bénin", value: "+229", length: 8 },
-  { label: "Burkina Faso", value: "+226", length: 8 },
-  { label: "Cap‑Vert", value: "+238", length: 7 },
-  { label: "Côte d’Ivoire", value: "+225", length: 10 },
-  { label: "Gambie", value: "+220", length: 7 },
-  { label: "Ghana", value: "+233", length: 9 },
-  { label: "Guinée", value: "+224", length: 7 },
-  { label: "Guinée‑Bissau", value: "+245", length: 9 },
-  { label: "Liberia", value: "+231", length: 9 },
-  { label: "Mali", value: "+223", length: 8 },
-  { label: "Niger", value: "+227", length: 8 },
-  { label: "Nigeria", value: "+234", length: 10 },
-  { label: "Sénégal", value: "+221", length: 8 },
-  { label: "Sierra Leone", value: "+232", length: 8 },
-  { label: "Togo", value: "+228", length: 8 },
-],
+      westAfricaCodes: [
+        { label: "Bénin", value: "+229", length: 8 },
+        { label: "Burkina Faso", value: "+226", length: 8 },
+        { label: "Cap‑Vert", value: "+238", length: 7 },
+        { label: "Côte d’Ivoire", value: "+225", length: 10 },
+        { label: "Gambie", value: "+220", length: 7 },
+        { label: "Ghana", value: "+233", length: 9 },
+        { label: "Guinée", value: "+224", length: 7 },
+        { label: "Guinée‑Bissau", value: "+245", length: 9 },
+        { label: "Liberia", value: "+231", length: 9 },
+        { label: "Mali", value: "+223", length: 8 },
+        { label: "Niger", value: "+227", length: 8 },
+        { label: "Nigeria", value: "+234", length: 10 },
+        { label: "Sénégal", value: "+221", length: 8 },
+        { label: "Sierra Leone", value: "+232", length: 8 },
+        { label: "Togo", value: "+228", length: 8 },
+      ],
       formState: {
-         profiles:[],
-        answerAssistance:"non",
-        identifiantNotesCommerciale:"",
-        identifiantCommerciale:"",
-        otherCompetence:[],
+        profiles: [],
+        answerAssistance: "non",
+        identifiantNotesCommerciale: "",
+        identifiantCommerciale: "",
+        otherCompetence: [],
         CVupload: null,
-        code_ambassadeur:"",
+        code_ambassadeur: "",
         titreCv: "",
         nom: "",
         prenoms: "",
@@ -193,18 +193,18 @@ StatutProfessionnel:[
         commune: "",
         quartier: "",
         diplome: "",
-        statut_talent:"",
+        statut_talent: "",
         myCompetence: [],
         photo: null,
         upload: [],
-        modeTravail:"",
-        statut_professionnel_artisan :"",
-        uploadCNI:null,
-        profilHybride: [] ,
-        optionsAnswer:null,
-        tempsTravail:"",
+        modeTravail: "",
+        statut_professionnel_artisan: "",
+        uploadCNI: null,
+        profilHybride: [],
+        optionsAnswer: null,
+        tempsTravail: "",
         bio: "",
-        statutId:5,
+        statutId: 5,
         photo_profil: null,
         uploadPhotoProfil: [],
         email: "",
@@ -218,15 +218,15 @@ StatutProfessionnel:[
 
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
-     isCommercialAssitance(){
-  return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true:false;
+    isCommercialAssitance() {
+      return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true : false;
     },
     isPasswordDisabled() {
-    return (
-      this.loading ||
-      (this.result && this.result.isStudentCard === false)
-    )
-  },
+      return (
+        this.loading ||
+        (this.result && this.result.isStudentCard === false)
+      )
+    },
     isNextDisabled() {
       // STEP 2 – Qualifications
       if (this.currentStep === 3) {
@@ -241,13 +241,13 @@ StatutProfessionnel:[
         );
       }
 
-       if (this.currentStep === 3) {
+      if (this.currentStep === 3) {
         // au moins une qualification
         if (!this.formState.modeTravail) {
           return true;
         }
 
-     
+
       }
 
 
@@ -257,7 +257,7 @@ StatutProfessionnel:[
 
     requiredFieldsByStep() {
       return {
-         0:["optionsAnswer"],
+        0: ["optionsAnswer"],
         // STEP 1 – Infos personnelles
         1: ["nom", "prenoms", "phone", "email"],
 
@@ -265,11 +265,11 @@ StatutProfessionnel:[
         // 2: ["myCompetence"],
 
         // STEP 3 – Qualifications
-        3: ["qualifications", "niveauEtude", "filiere","statut_talent"],
+        3: ["qualifications", "niveauEtude", "filiere", "statut_talent"],
 
-        
+
         // STEP 4 – mode de travail
-        4: ["modeTravail","tempsTravail"],
+        4: ["modeTravail", "tempsTravail"],
 
         // STEP 5 – Validation finale
         5: ["upload", "password"],
@@ -289,31 +289,31 @@ StatutProfessionnel:[
       });
     },
   },
-   watch: {
+  watch: {
     'formState.answerAssistance'(newVal) {
       if (newVal === 'non') {
-     this.formState.identifiantCommerciale = null
-    }
+        this.formState.identifiantCommerciale = null
+      }
     },
-    "formState.optionsAnswer":{
+    "formState.optionsAnswer": {
       handler(value) {
-        if(value === 'non'){
+        if (value === 'non') {
           this.formState.profilHybride = [];
           this.formState.ville = "";
           this.formState.commune = "";
           // this.formState.statut_talent = "";
-          this.formState.statut_professionnel_artisan =""
+          this.formState.statut_professionnel_artisan = ""
           this.formState.uploadCNI = null
         }
         // console.log("formState.optionsAnswer", value);
-        
+
       },
       immediate: true,
     }
   },
- 
+
   methods: {
-     onCreateOther() {
+    onCreateOther() {
       return null
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -322,11 +322,11 @@ StatutProfessionnel:[
       getCompetences: "getAllCompetences",
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
-    async lister_statut(){
+    async lister_statut() {
       try {
-        const response =  await instance.get("listStatut")
-        this.allStatuts = response.data.data.filter(item=>item.statut === 'Particulier' || item.statut === 'Artisan')
-         this.allProfiles = response.data.data;
+        const response = await instance.get("listStatut")
+        this.allStatuts = response.data.data.filter(item => item.statut === 'Particulier' || item.statut === 'Artisan')
+        this.allProfiles = response.data.data;
       } catch (error) {
         console.log(error);
       }
@@ -339,28 +339,28 @@ StatutProfessionnel:[
 
     nextStep() {
       // console.log("this.currentStep",this.currentStep)
-       if(this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length){
+      if (this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length) {
         // console.log("this.formState.profilHybride",this.formState.profilHybride)
         this.SWALPOPUP.declencheSwalPopup(
-            "warning",
-            "Choisissez un profil"
-          );
-          return;
+          "warning",
+          "Choisissez un profil"
+        );
+        return;
       }
       if (this.currentStep === 1 && this.formState.profilHybride.length && this.formState.optionsAnswer == "oui") {
         // console.log("this.formState.profilHybride",this.formState.profilHybride)
-        if(!this.formState.ville || !this.formState.commune){
-         this.SWALPOPUP.declencheSwalPopup(
+        if (!this.formState.ville || !this.formState.commune) {
+          this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Les champs ville et commune sont obligatoires."
           );
           return;
         }
-        
-        
+
+
       }
-      
-   
+
+
       if (this.currentStep == 3) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
 
@@ -372,7 +372,7 @@ StatutProfessionnel:[
           return;
         }
 
-        if(this.formState.profilHybride.some(el=>el == 7) && !this.formState.statut_professionnel_artisan ){
+        if (this.formState.profilHybride.some(el => el == 7) && !this.formState.statut_professionnel_artisan) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Ajoutez votre statut professionnel artisan."
@@ -401,124 +401,124 @@ StatutProfessionnel:[
       return allPhotos.map((item) => item.originFileObj);
     },
     onUploadChange({ fileList: newList }) {
-    // console.log('onUploadChange', newList);
-    if (!newList.length) return
-    this.rawText = ''
-    this.result = null
+      // console.log('onUploadChange', newList);
+      if (!newList.length) return
+      this.rawText = ''
+      this.result = null
 
-  this.runOCR(newList)
-},
-async runOCR(files) {
-  this.loading = true
-  let fullText = ''
+      this.runOCR(newList)
+    },
+    async runOCR(files) {
+      this.loading = true
+      let fullText = ''
 
-  for (const f of files) {
-    const file = f.originFileObj
-    if (!file || !file.type.startsWith('image/')) continue
+      for (const f of files) {
+        const file = f.originFileObj
+        if (!file || !file.type.startsWith('image/')) continue
 
-    const canvas = await this.preprocessImage(file)
-    const { data } = await Tesseract.recognize(canvas, 'fra')
-    fullText += '\n' + (data.text || '')
-  }
+        const canvas = await this.preprocessImage(file)
+        const { data } = await Tesseract.recognize(canvas, 'fra')
+        fullText += '\n' + (data.text || '')
+      }
 
-  this.rawText = this.cleanOCRText(fullText)
-//  console.log('rawText',this.rawText)
-//  console.log('fullText',fullText)
-  if (!this.hasReadableText(fullText)) {
-    this.result = {
-      score: 0,
-      isStudentCard: false,
-      reason: 'Aucun texte exploitable détecté'
-    }
-    this.loading = false
-    return
-  }
+      this.rawText = this.cleanOCRText(fullText)
+      //  console.log('rawText',this.rawText)
+      //  console.log('fullText',fullText)
+      if (!this.hasReadableText(fullText)) {
+        this.result = {
+          score: 0,
+          isStudentCard: false,
+          reason: 'Aucun texte exploitable détecté'
+        }
+        this.loading = false
+        return
+      }
 
-  this.analyzeText(fullText)
-  this.loading = false
-},
-hasReadableText(text) {
-  const lettersOnly = text
-    .replace(/\s/g, '')
-    .replace(/[^a-zA-ZÀ-ÿ]/g, '')
+      this.analyzeText(fullText)
+      this.loading = false
+    },
+    hasReadableText(text) {
+      const lettersOnly = text
+        .replace(/\s/g, '')
+        .replace(/[^a-zA-ZÀ-ÿ]/g, '')
 
-  return lettersOnly.length >= 5
-},
-normalizeText(text) {
-  return text
-    .toLowerCase()
-    .normalize('NFD')              // enlève les accents
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
-    .replace(/\s+/g, ' ')
-    .trim()
-},
-analyzeText(text) {
-  const cleanText = this.normalizeText(text)
-  let score = 0
-//  console.log("cleanText",cleanText.trim())
-  if (cleanText.length > 80) score += 20
+      return lettersOnly.length >= 5
+    },
+    normalizeText(text) {
+      return text
+        .toLowerCase()
+        .normalize('NFD')              // enlève les accents
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
+        .replace(/\s+/g, ' ')
+        .trim()
+    },
+    analyzeText(text) {
+      const cleanText = this.normalizeText(text)
+      let score = 0
+      //  console.log("cleanText",cleanText.trim())
+      if (cleanText.length > 80) score += 20
 
-  const keywordHits = this.PIECE_KEYWORDS.filter(k =>
-    cleanText.includes(k)
-  ).length
+      const keywordHits = this.PIECE_KEYWORDS.filter(k =>
+        cleanText.includes(k)
+      ).length
 
-  score += Math.min(keywordHits * 10, 40)
-  // console.log("score",score)
+      score += Math.min(keywordHits * 10, 40)
+      // console.log("score",score)
 
-  if (cleanText.includes('republique de cote d ivoire') ||
-  cleanText.includes("RÉPUBLIQUE DE CÔTE D'IVOIRE")) score += 20
-  if(cleanText.includes('ivoirienne') || cleanText.includes('IVOIRIENNE') ) score += 20
-  if(cleanText.includes("civ")) score += 20
-  if (cleanText.includes("ci0")) score += 10
-//  console.log("score23",score)
-  this.result = {
-    score,
-    isStudentCard: score >= 50
-  }
-},
-cleanOCRText(text) {
-  return text
-    // supprimer caractères parasites fréquents OCR
-    .replace(/[|«»“”]/g, '')
-    .replace(/_{2,}/g, ' ')
-    .replace(/-{2,}/g, ' ')
-    .replace(/\s{2,}/g, ' ')
-    .replace(/\n{2,}/g, '\n')
-    .trim()
-},
-preprocessImage(file) {
-  return new Promise(resolve => {
-    const img = new Image()
-    const reader = new FileReader()
+      if (cleanText.includes('republique de cote d ivoire') ||
+        cleanText.includes("RÉPUBLIQUE DE CÔTE D'IVOIRE")) score += 20
+      if (cleanText.includes('ivoirienne') || cleanText.includes('IVOIRIENNE')) score += 20
+      if (cleanText.includes("civ")) score += 20
+      if (cleanText.includes("ci0")) score += 10
+      //  console.log("score23",score)
+      this.result = {
+        score,
+        isStudentCard: score >= 50
+      }
+    },
+    cleanOCRText(text) {
+      return text
+        // supprimer caractères parasites fréquents OCR
+        .replace(/[|«»“”]/g, '')
+        .replace(/_{2,}/g, ' ')
+        .replace(/-{2,}/g, ' ')
+        .replace(/\s{2,}/g, ' ')
+        .replace(/\n{2,}/g, '\n')
+        .trim()
+    },
+    preprocessImage(file) {
+      return new Promise(resolve => {
+        const img = new Image()
+        const reader = new FileReader()
 
-    reader.onload = () => (img.src = reader.result)
+        reader.onload = () => (img.src = reader.result)
 
-    img.onload = () => {
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
+        img.onload = () => {
+          const canvas = document.createElement('canvas')
+          const ctx = canvas.getContext('2d')
 
-      canvas.width = img.width
-      canvas.height = img.height
+          canvas.width = img.width
+          canvas.height = img.height
 
-      ctx.filter = 'grayscale(1) contrast(1.5)'
-      ctx.drawImage(img, 0, 0)
+          ctx.filter = 'grayscale(1) contrast(1.5)'
+          ctx.drawImage(img, 0, 0)
 
-      resolve(canvas)
-    }
+          resolve(canvas)
+        }
 
-    reader.readAsDataURL(file)
-  })
-},
+        reader.readAsDataURL(file)
+      })
+    },
     onFinish() {
-       this.formState.profiles = this.allProfiles;
+      this.formState.profiles = this.allProfiles;
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
       }
-      if(this.formState.profilHybride.length){
+      if (this.formState.profilHybride.length) {
         this.formState.profilHybride.push(this.formState.statutId)
       }
-    // console.log("this.formState",this.formState);
+      // console.log("this.formState",this.formState);
       if (this.configUtils.isValidEmail(this.formState.email)) {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
@@ -575,93 +575,52 @@ preprocessImage(file) {
 <template>
   <Politics v-if="isPolitics" />
 
-  <a-steps
-    :style="{
-      color: 'orange',
-      boxShadow: '0px -1px 0 0 #e8e8e8 inset',
-    }"
-    :current="currentStep"
-    class="mb-4"
-  >
-  <a-step
-      title="Profil Hybride"
-      description=""
-    />
-    <a-step
-      title="Profil"
-      description="Renseignez vos informations de base pour créer votre compte."
-    />
+  <a-steps :style="{
+    color: 'orange',
+    boxShadow: '0px -1px 0 0 #e8e8e8 inset',
+  }" :current="currentStep" class="mb-4">
+    <a-step title="Profil Hybride" description="" />
+    <a-step title="Profil" description="Renseignez vos informations de base pour créer votre compte." />
     <a-step title="Compétences" description="Sélectionnez vos compétences." />
-    <a-step
-      title="Qualifications"
-      description="Ajoutez vos qualifications pour valoriser votre profil."
-    />
-    <a-step
-      title="Mode de travail"
-      description="Séléctionnez un mode de travail."
-    />
-    <a-step
-      title="Validation finale"
-      description="Ajoutez vos documents et confirmez votre inscription."
-    />
+    <a-step title="Qualifications" description="Ajoutez vos qualifications pour valoriser votre profil." />
+    <a-step title="Mode de travail" description="Séléctionnez un mode de travail." />
+    <a-step title="Validation finale" description="Ajoutez vos documents et confirmez votre inscription." />
   </a-steps>
- 
-  <a-form
-    layout="vertical"
-    :model="formState"
-    @finish="onFinish"
-    @finishFailed="onHandleFailed"
-  >
-  <!-- STEP 0 -->
-   <div v-show="currentStep === 0">
-    <div>
-  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
-    Souhaitez-vous adopter un profil hybride ?
-  </label>
 
-  <div class="round-container">
-    <label 
-      v-for="item in allAnwserProfilHybride" 
-      :key="item.value"
-      class="round-item"
-    >
-      <input
-        type="radio"
-        name="profilHybride"
-        :value="item.value"
-        v-model="formState.optionsAnswer"
-      />
-      <span class="round-label">
-        {{ item.label }}
-      </span>
-    </label>
-  </div>
-</div>
-   <transition name="fade-slide">
-  <div v-if="formState.optionsAnswer === 'oui'">
-    <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
-     Profils disponibles
-    </label>
+  <a-form layout="vertical" :model="formState" @finish="onFinish" @finishFailed="onHandleFailed">
+    <!-- STEP 0 -->
+    <div v-show="currentStep === 0">
+      <div>
+        <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+          Souhaitez-vous adopter un profil hybride ?
+        </label>
 
-    <div class="round-container">
-      <label 
-        v-for="item in allStatuts" 
-        :key="item.id"
-        class="round-item"
-      >
-        <input
-          type="checkbox"
-          :value="item.id"
-          v-model="formState.profilHybride"
-        />
-        <span class="round-label">
-          {{ item.statut }}
-        </span>
-      </label>
+        <div class="round-container">
+          <label v-for="item in allAnwserProfilHybride" :key="item.value" class="round-item">
+            <input type="radio" name="profilHybride" :value="item.value" v-model="formState.optionsAnswer" />
+            <span class="round-label">
+              {{ item.label }}
+            </span>
+          </label>
+        </div>
+      </div>
+      <transition name="fade-slide">
+        <div v-if="formState.optionsAnswer === 'oui'">
+          <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+            Profils disponibles
+          </label>
+
+          <div class="round-container">
+            <label v-for="item in allStatuts" :key="item.id" class="round-item">
+              <input type="checkbox" :value="item.id" v-model="formState.profilHybride" />
+              <span class="round-label">
+                {{ item.statut }}
+              </span>
+            </label>
+          </div>
+        </div>
+      </transition>
     </div>
-  </div>
-</transition>
-  </div>
     <!-- STEP 1 -->
     <div v-show="currentStep === 1">
       <a-row :gutter="[16, 24]">
@@ -672,17 +631,13 @@ preprocessImage(file) {
         </a-col>
 
         <a-col :xs="24" :md="12">
-          <a-form-item
-            :label="texte"
-            name="nom"
-            :rules="[
-              { required: true, message: texte17 },
-              {
-                pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
-                message: 'Veuillez saisir uniquement des lettres.'
-              }
-            ]"
-          >
+          <a-form-item :label="texte" name="nom" :rules="[
+            { required: true, message: texte17 },
+            {
+              pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
+              message: 'Veuillez saisir uniquement des lettres.'
+            }
+          ]">
             <a-input v-model:value="formState.nom" />
           </a-form-item>
         </a-col>
@@ -690,33 +645,25 @@ preprocessImage(file) {
 
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
-          <a-form-item
-            :label="texte1"
-            name="prenoms"
-            :rules="[
-              { required: true, message: texte16 },
-              {
-                pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
-                message: 'Veuillez saisir uniquement des lettres.'
-              }
-            ]"
-          >
+          <a-form-item :label="texte1" name="prenoms" :rules="[
+            { required: true, message: texte16 },
+            {
+              pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
+              message: 'Veuillez saisir uniquement des lettres.'
+            }
+          ]">
             <a-input v-model:value="formState.prenoms" />
           </a-form-item>
         </a-col>
 
         <a-col :xs="24" :md="12">
-          <a-form-item
-            :label="texte2"
-            name="phone"
-            :rules="[
-              { required: true, message: texte15 },
-              {
-                pattern: /^\d{10}$/,
-                message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
-              }
-            ]"
-          >
+          <a-form-item :label="texte2" name="phone" :rules="[
+            { required: true, message: texte15 },
+            {
+              pattern: /^\d{10}$/,
+              message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
+            }
+          ]">
             <a-input v-model:value="formState.phone">
               <template #addonBefore>
                 <a-select v-model:value="formState.countryCode" :options="westAfricaCodes" />
@@ -724,20 +671,16 @@ preprocessImage(file) {
             </a-input>
           </a-form-item>
         </a-col>
-       
+
       </a-row>
 
-      
+
       <a-row :gutter="[16, 24]">
-          <a-col :xs="24" :md="12">
-          <a-form-item
-            :label="texte6"
-            name="email"
-            :rules="[
-              { required: true, message: texte14 },
-              { type: 'email', message: 'Veuillez entrer un email valide' }
-            ]"
-          >
+        <a-col :xs="24" :md="12">
+          <a-form-item :label="texte6" name="email" :rules="[
+            { required: true, message: texte14 },
+            { type: 'email', message: 'Veuillez entrer un email valide' }
+          ]">
             <a-input v-model:value="formState.email" />
           </a-form-item>
         </a-col>
@@ -752,33 +695,22 @@ preprocessImage(file) {
           </a-form-item>
         </a-col>
       </a-row>
-       <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
-          <a-col :xs="24" :md="12">
-        <a-form-item
-          label="Ville"
-          name="ville"
-          :rules="[{ required: true, message: 'Ajoutez une ville' }]"
-        >
-          <a-input v-model:value="formState.ville" placeholder="Ajoutez votre ville" />
-        </a-form-item>
-      </a-col>
-    <a-col :xs="24" :md="12">
-        <a-form-item
-          label="Commune"
-          name="commune"
-          :rules="[{ required: true, message: 'Ajoutez une commune' }]"
-        >
-          <a-input v-model:value="formState.commune" placeholder="Ajoutez votre commune" />
-        </a-form-item>
-      </a-col>
-      <a-col :xs="24" :md="12">
-        <a-form-item label="Quartier" name="quartier">
-          <a-input 
-            v-model:value="formState.quartier"
-            placeholder="Ajoutez votre quartier"
-          />
-        </a-form-item>
-      </a-col>
+      <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
+        <a-col :xs="24" :md="12">
+          <a-form-item label="Ville" name="ville" :rules="[{ required: true, message: 'Ajoutez une ville' }]">
+            <a-input v-model:value="formState.ville" placeholder="Ajoutez votre ville" />
+          </a-form-item>
+        </a-col>
+        <a-col :xs="24" :md="12">
+          <a-form-item label="Commune" name="commune" :rules="[{ required: true, message: 'Ajoutez une commune' }]">
+            <a-input v-model:value="formState.commune" placeholder="Ajoutez votre commune" />
+          </a-form-item>
+        </a-col>
+        <a-col :xs="24" :md="12">
+          <a-form-item label="Quartier" name="quartier">
+            <a-input v-model:value="formState.quartier" placeholder="Ajoutez votre quartier" />
+          </a-form-item>
+        </a-col>
       </a-row>
     </div>
 
@@ -786,32 +718,23 @@ preprocessImage(file) {
     <div v-show="currentStep === 2">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
-          <a-form-item
-            :label="texte7"
-            
-          >
-            <VueMultiselect
-              v-model="formState.myCompetence"
-              :options="allCompetences"
-              placeholder="Choix multiples"
-              :multiple="true"
-              label="competence"
-              track-by="competence"
-            />
+          <a-form-item :label="texte7">
+            <VueMultiselect v-model="formState.myCompetence" :options="allCompetences" placeholder="Choix multiples"
+              :multiple="true" label="competence" track-by="competence" />
           </a-form-item>
-            <a-form-item label="Autre">
-  <n-dynamic-input v-model:value="formState.otherCompetence" :on-create="onCreateOther">
-    <template #create-button-default>
-      <slot name="create-button">Autres compétences</slot>
-    </template>
+          <a-form-item label="Autre">
+            <n-dynamic-input v-model:value="formState.otherCompetence" :on-create="onCreateOther">
+              <template #create-button-default>
+                <slot name="create-button">Autres compétences</slot>
+              </template>
 
-    <template #default="{ index }">
-      <a-input v-model:value="formState.otherCompetence[index]" />
-    </template>
-  </n-dynamic-input>
-</a-form-item>
+              <template #default="{ index }">
+                <a-input v-model:value="formState.otherCompetence[index]" />
+              </template>
+            </n-dynamic-input>
+          </a-form-item>
         </a-col>
-       
+
       </a-row>
     </div>
 
@@ -819,24 +742,14 @@ preprocessImage(file) {
     <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
-          <a-form-item
-            :label="texte8"
-            name="niveauEtude"
-            :rules="[{ required: true, message: texte13 }]"
-          >
-            <a-select
-              v-model:value="formState.niveauEtude"
-              placeholder="Sélectionnez un diplôme"
-            >
-              <a-select-option
-                v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
-                :key="item.value"
-                :value="item.value"
-              >
+          <a-form-item :label="texte8" name="niveauEtude" :rules="[{ required: true, message: texte13 }]">
+            <a-select v-model:value="formState.niveauEtude" placeholder="Sélectionnez un diplôme">
+              <a-select-option v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
+                :key="item.value" :value="item.value">
                 {{ item.value }}
               </a-select-option>
             </a-select>
-            
+
           </a-form-item>
         </a-col>
         <a-col :xs="24" :md="12">
@@ -860,123 +773,70 @@ preprocessImage(file) {
             </a-select>
             
           </a-form-item> -->
-          <a-form-item
-            label="Domaine"
-            name="filiere"
-            :rules="[{ required: true, message: texte13 }]"
-          >
+          <a-form-item label="Domaine" name="filiere" :rules="[{ required: true, message: texte13 }]">
             <a-input v-model:value="formState.filiere" placeholder="Ajoutez votre domaine" />
-            </a-form-item>
+          </a-form-item>
         </a-col>
-       
-          <a-col :xs="24" :md="12">
-            <a-form-item
-            :label="'Statut professionnel'"
-            :rules="[{ required: true, message: 'Ajoutez  votre niveau de carrière' }]"
-          >
-            <a-select
-            style="width: 100%;"
-    v-model:value="formState.statut_talent"
-    placeholder="Sélectionnez votre Niveau de carrière"
-    show-search
-    option-filter-prop="label"
-  >
-    <a-select-option
-      v-for="item in StatutProfessionnel"
-      :key="item.value"
-      :value="item.value"
-      :label="item.label"
-    >
-      {{ item.label }}
-    </a-select-option>
-  </a-select>
-            </a-form-item>
-        </a-col> 
-        <a-col
-  :xs="24"
-  :md="12"
-  v-if="this.formState.profilHybride.some(el=>el == 7) && this.formState.optionsAnswer === 'oui'"
-  >
-            <a-form-item
-            :label="'Statut professionnel artisan'"
-            name="statut_professionnel_artisan"
-            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]"
-          >
-            <a-select
-            style="width: 100%;"
-    v-model:value="formState.statut_professionnel_artisan "
-    placeholder="Sélectionnez votre Statut professionnel"
-    show-search
-    option-filter-prop="label"
-  >
-    <a-select-option
-      v-for="item in ['Artisan']"
-      :key="item"
-      :value="item"
-      :label="item"
-    >
-      {{ item }}
-    </a-select-option>
-  </a-select>
-            </a-form-item>
+
+        <a-col :xs="24" :md="12">
+          <a-form-item :label="'Statut professionnel'"
+            :rules="[{ required: true, message: 'Ajoutez  votre niveau de carrière' }]">
+            <a-select style="width: 100%;" v-model:value="formState.statut_talent"
+              placeholder="Sélectionnez votre Niveau de carrière" show-search option-filter-prop="label">
+              <a-select-option v-for="item in StatutProfessionnel" :key="item.value" :value="item.value"
+                :label="item.label">
+                {{ item.label }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+        <a-col :xs="24" :md="12"
+          v-if="this.formState.profilHybride.some(el => el == 7) && this.formState.optionsAnswer === 'oui'">
+          <a-form-item :label="'Statut professionnel artisan'" name="statut_professionnel_artisan"
+            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]">
+            <a-select style="width: 100%;" v-model:value="formState.statut_professionnel_artisan"
+              placeholder="Sélectionnez votre Statut professionnel" show-search option-filter-prop="label">
+              <a-select-option v-for="item in ['Artisan']" :key="item" :value="item" :label="item">
+                {{ item }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
         </a-col>
         <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />
         </a-col>
-       
+
       </a-row>
     </div>
 
     <!-- STEP 4 -->
     <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
-         <a-col :xs="24" :md="12">
-           <a-form-item
-            :label="'Mode de travail'"
-            :rules="[{ required: true, message: 'Ajoutez  votre mode de travail' }]"
-          >
-            <a-select
-            style="width: 100%;"
-    v-model:value="formState.modeTravail"
-    placeholder="Sélectionnez votre mode de travail"
-    show-search
-    option-filter-prop="label"
-  >
-    <a-select-option
-      v-for="item in valueModeDeTravail"
-      :key="item.value"
-      :value="item.value"
-      :label="item.label"
-    >
-      {{ item.label }}
-    </a-select-option>
-  </a-select>
-            </a-form-item>
+        <a-col :xs="24" :md="12">
+          <a-form-item :label="'Mode de travail'"
+            :rules="[{ required: true, message: 'Ajoutez  votre mode de travail' }]">
+            <a-select style="width: 100%;" v-model:value="formState.modeTravail"
+              placeholder="Sélectionnez votre mode de travail" show-search option-filter-prop="label">
+              <a-select-option v-for="item in valueModeDeTravail" :key="item.value" :value="item.value"
+                :label="item.label">
+                {{ item.label }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
         </a-col>
         <a-col :xs="24" :md="12">
-            <a-form-item
-            :label="'Temps de travail'"
-            :rules="[{ required: true, message: 'Séléctionnez un temps de travail' }]"
-          >
-            <a-select
-            style="width: 100%;"
-    v-model:value="formState.tempsTravail"
-    placeholder="Sélectionnez votre Niveau de carrière"
-    show-search
-    option-filter-prop="label"
-  >
-    <a-select-option
-      v-for="item in valueTempsTravail"
-      :key="item.value"
-      :value="item.value"
-      :label="item.label"
-    >
-      {{ item.label }}
-    </a-select-option>
-  </a-select>
-            </a-form-item>
-        </a-col> 
-       
+          <a-form-item :label="'Temps de travail'"
+            :rules="[{ required: true, message: 'Séléctionnez un temps de travail' }]">
+            <a-select style="width: 100%;" v-model:value="formState.tempsTravail"
+              placeholder="Sélectionnez votre Niveau de carrière" show-search option-filter-prop="label">
+              <a-select-option v-for="item in valueTempsTravail" :key="item.value" :value="item.value"
+                :label="item.label">
+                {{ item.label }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+
       </a-row>
     </div>
 
@@ -990,31 +850,16 @@ preprocessImage(file) {
             </a-upload>
           </a-form-item>
         </a-col>
-         <a-col :xs="24" :md="8">
-          <a-form-item
-            name="upload"
-            label="CV (Curriculum Vitae)"
-          >
-            <a-upload
-              v-model:fileList="formState.CVupload"
-              accept="application/pdf"
-            >
+        <a-col :xs="24" :md="8">
+          <a-form-item name="upload" label="CV (Curriculum Vitae)">
+            <a-upload v-model:fileList="formState.CVupload" accept="application/pdf">
               <a-button> Clique pour charger </a-button>
             </a-upload>
           </a-form-item>
         </a-col>
         <a-col :xs="24" :md="8">
-          <a-form-item
-            name="upload"
-            :label="texte9"
-            :rules="[{ required: true, message: texte96 }]"
-          >
-            <a-upload
-              v-model:fileList="formState.upload"
-              :maxCount="1"
-              accept="image/*"
-              @change="onUploadChange"
-            >
+          <a-form-item name="upload" :label="texte9" :rules="[{ required: true, message: texte96 }]">
+            <a-upload v-model:fileList="formState.upload" :maxCount="1" accept="image/*" @change="onUploadChange">
               <a-button> Clique pour charger </a-button>
             </a-upload>
           </a-form-item>
@@ -1025,84 +870,58 @@ preprocessImage(file) {
           </span>
           <!-- {{ this.result }} -->
         </a-col>
-        
-       
+
+
       </a-row>
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
-          <a-form-item
-            :label="texte10"
-            name="password"
-            :rules="[{ required: true, message: texte12 }]"
-          >
-            <a-input-password
-              :disabled="isPasswordDisabled"
-              v-model:value="formState.password"
-            />
+          <a-form-item :label="texte10" name="password" :rules="[{ required: true, message: texte12 }]">
+            <a-input-password :disabled="isPasswordDisabled" v-model:value="formState.password" />
           </a-form-item>
         </a-col>
-        
+
       </a-row>
-       <div>
-  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
-    Avez-vous été assisté(e) par un commercial ?
-  </label>
-  <div class="round-container">
-    <label 
-      v-for="item in allAnwserForAssitance" 
-      :key="item.value"
-      class="round-item"
-    >
-      <input
-      :disabled="this.loading"
-        type="radio"
-        name="profilHybride"
-        :value="item.value"
-        v-model="formState.answerAssistance"
-      />
-      <span class="round-label">
-        {{ item.label }}
-      </span>
-    </label>
-  </div>
-  <div v-if="formState.answerAssistance === 'oui'">
-    <a-row :gutter="[16, 12]">
-        <a-col :xs="24" :md="12">
-          <a-form-item 
-          :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
-          label="Identifiant du commercial" name="identifiantCommerciale">
-            <a-input v-model:value="formState.identifiantCommerciale" />
-          </a-form-item>
-        </a-col>
-         <a-col :xs="24" :md="12">
-          <a-form-item label="Notes" name="identifiantNotesCommerciale">
-             <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
-          </a-form-item>
-        </a-col>
-      </a-row>
-  </div>
-</div>
+      <div>
+        <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+          Avez-vous été assisté(e) par un commercial ?
+        </label>
+        <div class="round-container">
+          <label v-for="item in allAnwserForAssitance" :key="item.value" class="round-item">
+            <input :disabled="this.loading" type="radio" name="profilHybride" :value="item.value"
+              v-model="formState.answerAssistance" />
+            <span class="round-label">
+              {{ item.label }}
+            </span>
+          </label>
+        </div>
+        <div v-if="formState.answerAssistance === 'oui'">
+          <a-row :gutter="[16, 12]">
+            <a-col :xs="24" :md="12">
+              <a-form-item :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
+                label="Identifiant du commercial" name="identifiantCommerciale">
+                <a-input v-model:value="formState.identifiantCommerciale" />
+              </a-form-item>
+            </a-col>
+            <a-col :xs="24" :md="12">
+              <a-form-item label="Notes" name="identifiantNotesCommerciale">
+                <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
+              </a-form-item>
+            </a-col>
+          </a-row>
+        </div>
+      </div>
     </div>
 
     <!-- NAVIGATION -->
     <div class="d-flex justify-content-between" style="padding: 1.5em">
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
-      <a-button
-        v-if="currentStep < 5"
-        type="primary"
-        @click.prevent="nextStep"
-        :disabled="isNextDisabled"
-      >
+      <a-button v-if="currentStep < 5" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
         Suivant
       </a-button>
 
-      <a-button
-        v-if="currentStep === 5"
-        type="primary"
-        html-type="submit"
-        :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance"
-      >
+      <a-button v-if="currentStep === 5" type="primary" html-type="submit"
+        :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance">
         {{ texte11 }}
       </a-button>
     </div>
@@ -1114,18 +933,18 @@ preprocessImage(file) {
   background-color: #ff8819 !important;
   border-color: #ff8819 !important;
 }
-:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input)
-    .ant-select-selector) {
+
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector) {
   height: 40px !important;
 }
+
 :deep(.multiselect__tag) {
   background: orange;
 }
+
 :deep(.ant-spin-text) {
   font-size: 16px !important;
 }
 </style>
 
-<style
-  src="../../../../../../node_modules/vue-multiselect/dist/vue-multiselect.css"
-></style>
+<style src="../../../../../../node_modules/vue-multiselect/dist/vue-multiselect.css"></style>

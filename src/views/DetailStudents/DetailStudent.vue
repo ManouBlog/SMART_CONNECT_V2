@@ -1,5 +1,5 @@
 <script>
-import instance,{lienPhoto} from "../../api/api";
+import instance, { lienPhoto } from "../../api/api";
 import Swal from "sweetalert2";
 import "v-calendar/dist/style.css";
 import { Calendar } from "v-calendar";
@@ -46,7 +46,7 @@ export default {
       texte22: "",
       texte23: "",
       texte24: "",
-      lienPhoto:lienPhoto,
+      lienPhoto: lienPhoto,
       texte25: "",
       texte26: "",
       configUtils: configUtils,
@@ -232,33 +232,33 @@ export default {
       return result;
     },
     getDatesBetween(data) {
-      if(data){
+      if (data) {
         const dates = [];
-for (const item of data) {
-        if (item.periode) {
-          const [startDate, endDate] = item.jour.split(" A ");
-          let currentDate = new Date(startDate);
-          const end = new Date(endDate);
-          while (currentDate <= end) {
-            dates.push({
-              ...item,
-              jour: new Date(currentDate).toISOString().split("T")[0],
-              periode: 1,
-              periode_debut: startDate,
-              periode_fin: endDate,
-            });
-            currentDate.setDate(currentDate.getDate() + 1);
+        for (const item of data) {
+          if (item.periode) {
+            const [startDate, endDate] = item.jour.split(" A ");
+            let currentDate = new Date(startDate);
+            const end = new Date(endDate);
+            while (currentDate <= end) {
+              dates.push({
+                ...item,
+                jour: new Date(currentDate).toISOString().split("T")[0],
+                periode: 1,
+                periode_debut: startDate,
+                periode_fin: endDate,
+              });
+              currentDate.setDate(currentDate.getDate() + 1);
+            }
+          } else {
+            dates.push({ ...item });
           }
-        } else {
-          dates.push({ ...item });
         }
-      }
 
-      return dates;
-      }else{
+        return dates;
+      } else {
         return;
       }
-      
+
     },
     splitDateRangeObjects(data) {
       const result = [];
@@ -291,11 +291,9 @@ for (const item of data) {
     },
     ifPeriodeDate(periode) {
       if (periode.periode) {
-        return `Du ${new Date(periode.periode_debut).toLocaleString("fr")} à ${
-          periode.hour_periode_debut
-        } au ${new Date(periode.periode_fin).toLocaleString("fr")} à ${
-          periode.hour_periode_fin
-        }`;
+        return `Du ${new Date(periode.periode_debut).toLocaleString("fr")} à ${periode.hour_periode_debut
+          } au ${new Date(periode.periode_fin).toLocaleString("fr")} à ${periode.hour_periode_fin
+          }`;
       } else {
         return periode.First_horaire;
       }
@@ -315,7 +313,7 @@ for (const item of data) {
           });
 
           this.MyDateRendezVous = dateOfStudent;
-       
+
           this.timetable_for_student = this.NewListEmploi.find(
             (item) => item.id === Number(this.idParamsItem)
           );
@@ -560,7 +558,7 @@ for (const item of data) {
       await instance
         .get("list_emplois_temps")
         .then((res) => {
-           // console.log("list_emplois_temps90",res);
+          // console.log("list_emplois_temps90",res);
           res.data.data.forEach((element) => {
             let days = [];
             let hours = [];
@@ -603,29 +601,29 @@ for (const item of data) {
       this.checkboxDate = false;
       this.checkbox = false;
     },
-    async choiceOtherTalentNotStudent(studentId){
-    loadingSpinner.launchLoading(true);
-     try{
-  const response = await instance.post("entreprise_student", {
+    async choiceOtherTalentNotStudent(studentId) {
+      loadingSpinner.launchLoading(true);
+      try {
+        const response = await instance.post("entreprise_student", {
           student_id: studentId.user_id,
           option: "date",
           offre_id: this.selectedOffreWithDate,
-    })
-   if(response.data.message){
-    Swal.fire({
+        })
+        if (response.data.message) {
+          Swal.fire({
             icon: "info",
             title: response.data.message,
             showConfirmButton: true,
           });
-   }
-     }catch(error){
-      console.log(error);
-     }finally{
-       loadingSpinner.launchLoading(false);
-     }
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        loadingSpinner.launchLoading(false);
+      }
     },
     choiceStudentWithDisponibilite(studentId) {
-      
+
       loadingSpinner.launchLoading(true);
 
       let date = [];
@@ -733,18 +731,18 @@ for (const item of data) {
         });
     },
     verfEnter() {
-     if (
-  this.user && ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(this.user.user?.statut?.statut) 
-  && !this.user.user?.statuses.some(item=>item.statut === 'Particulier')
-) {
-  this.$router.push("/");
-  Swal.fire({
-    icon: "info",
-    title: "Vous n'êtes pas autorisé",
-    showConfirmButton: false,
-    timer: 1000,
-  });
-}
+      if (
+        this.user && ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(this.user.user?.statut?.statut)
+        && !this.user.user?.statuses.some(item => item.statut === 'Particulier')
+      ) {
+        this.$router.push("/");
+        Swal.fire({
+          icon: "info",
+          title: "Vous n'êtes pas autorisé",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
     },
     async selectOffreEntreprise() {
       try {
@@ -778,36 +776,36 @@ for (const item of data) {
         console.log(error);
       }
     },
-    getPhotosMiseEnAvant(payload){
-    const ImagesAll =
-  (payload ?? []).flatMap(folder =>
-    (folder.images ?? [])
-      .filter(url => url.visible)
-      .map(url => ({
-        id: url.id,
-        path: this.lienPhoto+url.path
-      }))
-  );
-  const ImagesNotVisibleAll =
-  (payload ?? []).flatMap(folder =>
-    (folder.images ?? [])
-      .map(url => ({
-        id: url.id,
-        path: this.lienPhoto+url.path
-      }))
-  );
-  const isImageVisibleExist = ImagesAll.length == 3  ? ImagesAll:ImagesNotVisibleAll.splice(0,3);
-console.log("ImagesAll",ImagesAll)
-return isImageVisibleExist;
+    getPhotosMiseEnAvant(payload) {
+      const ImagesAll =
+        (payload ?? []).flatMap(folder =>
+          (folder.images ?? [])
+            .filter(url => url.visible)
+            .map(url => ({
+              id: url.id,
+              path: this.lienPhoto + url.path
+            }))
+        );
+      const ImagesNotVisibleAll =
+        (payload ?? []).flatMap(folder =>
+          (folder.images ?? [])
+            .map(url => ({
+              id: url.id,
+              path: this.lienPhoto + url.path
+            }))
+        );
+      const isImageVisibleExist = ImagesAll.length == 3 ? ImagesAll : ImagesNotVisibleAll.splice(0, 3);
+      console.log("ImagesAll", ImagesAll)
+      return isImageVisibleExist;
     },
-    getAllDossierGalerie(payloadFolder){
-       const dossiers = payloadFolder?.map(({ id, nom_galerie, images = [] }) => ({
-  id,
-  nom: nom_galerie,
-  photos: images.map(({ path }) => this.lienPhoto+path),
-})) ?? [];
-// console.log("dossiers",dossiers)
-    return dossiers;
+    getAllDossierGalerie(payloadFolder) {
+      const dossiers = payloadFolder?.map(({ id, nom_galerie, images = [] }) => ({
+        id,
+        nom: nom_galerie,
+        photos: images.map(({ path }) => this.lienPhoto + path),
+      })) ?? [];
+      // console.log("dossiers",dossiers)
+      return dossiers;
     }
   },
 
@@ -838,100 +836,71 @@ return isImageVisibleExist;
 
 <template>
   <div class="space-talent">
-  <!-- <p>{{ this.getPhotosMiseEnAvant(timetable_for_student?.user.dossier_galerie) }}</p> -->
+    <!-- <p>{{ this.getPhotosMiseEnAvant(timetable_for_student?.user.dossier_galerie) }}</p> -->
 
     <div class="conteneur_student" v-if="timetable_for_student">
 
-       <GaleriesTalents v-if="timetable_for_student.user.statuses.some(item=>item.statut.includes('Artisan')) 
-      && timetable_for_student?.user?.dossier_galerie?.length" 
+      <GaleriesTalents v-if="timetable_for_student.user.statuses.some(item => item.statut.includes('Artisan'))
+        && timetable_for_student?.user?.dossier_galerie?.length"
         :photosMiseEnAvant="this.getPhotosMiseEnAvant(timetable_for_student?.user?.dossier_galerie)"
-        :dossierGaleries="this.getAllDossierGalerie(timetable_for_student?.user?.dossier_galerie)"
-        />
+        :dossierGaleries="this.getAllDossierGalerie(timetable_for_student?.user?.dossier_galerie)" />
 
       <HeaderDetailStudent :timetable_for_student="timetable_for_student" />
 
       <BodyExperience :timetable_for_student="timetable_for_student" />
- <!--  ceci : timetable_for_student.user.statut_id === 2 est destine au étudiant -->
+      <!--  ceci : timetable_for_student.user.statut_id === 2 est destine au étudiant -->
       <section class="conteneur_calendar_student" v-if="
-  timetable_for_student.user?.statuses.some(s => s.statut === 'Etudiant')">
+        timetable_for_student.user?.statuses.some(s => s.statut === 'Etudiant')">
         <div class="jobs-result">
           <div class="disponibilite">
             <span>
-              <strong class="jou"></strong> {{ texte }} <strong class="notDispo"></strong
-              >{{ texte1 }}
+              <strong class="jou"></strong> {{ texte }} <strong class="notDispo"></strong>{{ texte1 }}
             </span>
           </div>
-         
-          <div class="container-fluid my-5 conteneur_timetable" >
+
+          <div class="container-fluid my-5 conteneur_timetable">
             <Calendar :attributes="attributes" :min-date="new Date()" class="myCalender">
               <template #day-popover="{ attributes }">
                 <ul>
-                  <li
-                    v-for="(item, index) in attributes"
-                    :key="index"
-                    class="listeForHoraire"
-                  >
+                  <li v-for="(item, index) in attributes" :key="index" class="listeForHoraire">
                     <strong class="d-block">
                       <span class="colorForFirstHoraire"></span>
-                      {{ texte2 }} : {{ item.popover.label.one }}</strong
-                    >
-                    <strong v-if="item.popover.label.two != null"
-                      ><span class="colorForSecondHoraire"></span> {{ texte2 }} :
-                      {{ item.popover.label.two }}</strong
-                    >
+                      {{ texte2 }} : {{ item.popover.label.one }}</strong>
+                    <strong v-if="item.popover.label.two != null"><span class="colorForSecondHoraire"></span> {{ texte2
+                      }} :
+                      {{ item.popover.label.two }}</strong>
                   </li>
                 </ul>
               </template>
             </Calendar>
           </div>
         </div>
-        <div
-          class="conteneur_date"
-          v-if="
-            this.$store.state.infoUserConnected?.user?.abonement.length &&
-            this.$store.state.infoUserConnected?.user?.abonement.some(
-              (item) => item.statut === 'success'
-            )
-          "
-        >
-        <p style="text-align: center;font-size: 0.9em;color:red;">Les champs avec astérisque (*) sont obligatoires.</p>
+        <div class="conteneur_date" v-if="
+          this.$store.state.infoUserConnected?.user?.abonement.length &&
+          this.$store.state.infoUserConnected?.user?.abonement.some(
+            (item) => item.statut === 'success'
+          )
+        ">
+          <p style="text-align: center;font-size: 0.9em;color:red;">Les champs avec astérisque (*) sont obligatoires.
+          </p>
           <label class="d-block">{{ texte3 }}</label>
-          <PrimeCalendar
-            v-model="datesChoice"
-            :minDate="new Date()"
-            inputClass="prime_calendar"
-            selectionMode="multiple"
-            :manualInput="false"
-            dateFormat="dd/mm/yy"
-          />
+          <PrimeCalendar v-model="datesChoice" :minDate="new Date()" inputClass="prime_calendar"
+            selectionMode="multiple" :manualInput="false" dateFormat="dd/mm/yy" />
 
           <div class="selecte_service my-3">
             <label class="d-block">{{ texte4 }} <span style="color:red">*</span></label>
-            <select
-              name="select_offre"
-              id="select_offre"
-              v-model="selectedOffreWithDate"
-              class="my-3"
-            >
+            <select name="select_offre" id="select_offre" v-model="selectedOffreWithDate" class="my-3">
               <option value="" disabled>{{ texte5 }}</option>
-              <option
-                :value="offre.id"
-                v-for="(offre, index) in selectedService"
-                :key="index"
-              >
+              <option :value="offre.id" v-for="(offre, index) in selectedService" :key="index">
                 {{ offre.nom_offre }}
               </option>
               <option disabled v-if="!selectedService.length">{{ texte6 }}</option>
             </select>
           </div>
           <div class="conteneurInter">
-          
-            <button
-              class="btn btn-warning btn-designer my-3"
-              type="submit"
-              :disabled="!this.selectedOffreWithDate"
-              @click="choiceStudentWithDisponibilite(timetable_for_student)"
-            >
+
+            <button class="btn btn-warning btn-designer my-3" type="submit" :disabled="!this.selectedOffreWithDate"
+              @click="choiceStudentWithDisponibilite(timetable_for_student)">
               {{ texte7 }}
             </button>
           </div>
@@ -939,47 +908,32 @@ return isImageVisibleExist;
         <div v-else class="conteneur_date" style="color: red; text-align: center">
           Veuillez souscrire à un abonnement
           <div>
-            <button
-              style="
+            <button style="
                 background: orange;
                 color: white;
                 padding: 0.5em;
                 border-radius: 10px;
                 border: 1px solid orange;
-              "
-              @click.prevent="seeAllAbonnement"
-            >
+              " @click.prevent="seeAllAbonnement">
               Voir les abonnements
             </button>
           </div>
         </div>
       </section>
       <!--  ceci : timetable_for_student.user.statut_id est destine aux autres -->
-        <section class="conteneur_calendar_student" v-else> 
-         <div
-          class="conteneur_date"
-          v-if="
-            this.$store.state.infoUserConnected?.user?.abonement.length &&
-            this.$store.state.infoUserConnected?.user?.abonement.some(
-              (item) => item.statut === 'success'
-            )
-          "
-        >
+      <section class="conteneur_calendar_student" v-else>
+        <div class="conteneur_date" v-if="
+          this.$store.state.infoUserConnected?.user?.abonement.length &&
+          this.$store.state.infoUserConnected?.user?.abonement.some(
+            (item) => item.statut === 'success'
+          )
+        ">
           <div class="selecte_service my-3">
             <label class="d-block">{{ texte4 }}</label>
-         
-            <select
-              name="select_offre"
-              id="select_offre"
-              v-model="selectedOffreWithDate"
-              class="my-3"
-            >
+
+            <select name="select_offre" id="select_offre" v-model="selectedOffreWithDate" class="my-3">
               <option value="" disabled>{{ texte5 }}</option>
-              <option
-                :value="offre.id"
-                v-for="(offre, index) in selectedService"
-                :key="index"
-              >
+              <option :value="offre.id" v-for="(offre, index) in selectedService" :key="index">
                 {{ offre.nom_offre }}
               </option>
               <option disabled v-if="!selectedService.length">{{ texte6 }}</option>
@@ -987,12 +941,8 @@ return isImageVisibleExist;
           </div>
 
           <div class="conteneurInter">
-            <button
-              class="btn btn-warning btn-designer my-3"
-              type="submit"
-              :disabled="!this.selectedOffreWithDate"
-              @click="choiceOtherTalentNotStudent(timetable_for_student)"
-            >
+            <button class="btn btn-warning btn-designer my-3" type="submit" :disabled="!this.selectedOffreWithDate"
+              @click="choiceOtherTalentNotStudent(timetable_for_student)">
               {{ texte7 }}
             </button>
           </div>
@@ -1000,21 +950,18 @@ return isImageVisibleExist;
         <div v-else class="conteneur_date" style="color: red; text-align: center">
           Veuillez souscrire à une formule d'abonnement
           <div>
-            <button
-              style="
+            <button style="
                 background: orange;
                 color: white;
                 padding: 0.5em;
                 border-radius: 10px;
                 border: 1px solid orange;
-              "
-              @click.prevent="seeAllAbonnement"
-            >
+              " @click.prevent="seeAllAbonnement">
               Souscrire
             </button>
           </div>
         </div>
-        </section>
+      </section>
     </div>
     <div class="conteneur_student py-5" style="min-height: 60vh;" v-else>
       <h3 class="shimmer-text">Chargement...</h3>
@@ -1026,19 +973,25 @@ return isImageVisibleExist;
 .disponibilite {
   text-align: center;
 }
+
 :deep(.p-inputwrapper) {
   width: 500px !important;
 }
 
 .selecte_service {
-  width: 100%;  /* ✅ Pleine largeur parent */
+  width: 100%;
+  /* ✅ Pleine largeur parent */
 }
 
 .selecte_service select {
-  width: 100% !important;  /* ✅ Responsive auto */
-  max-width: 500px;        /* ✅ Limite max */
-  min-width: 250px;        /* ✅ Min mobile */
+  width: 100% !important;
+  /* ✅ Responsive auto */
+  max-width: 500px;
+  /* ✅ Limite max */
+  min-width: 250px;
+  /* ✅ Min mobile */
 }
+
 .conteneur_calendar_student {
   display: flex;
   justify-content: center;
@@ -1046,12 +999,15 @@ return isImageVisibleExist;
   flex-wrap: wrap;
   gap: 1em;
 }
+
 .conteneur_calendar_student .jobs-result {
   flex: 1 1 200px;
 }
+
 .conteneur_calendar_student .conteneur_date {
   flex: 2 2 200px;
 }
+
 .spinner-border {
   height: 100vh !important;
   display: flex;
@@ -1059,27 +1015,33 @@ return isImageVisibleExist;
   justify-content: center;
   align-items: center;
 }
+
 .n-rate {
   width: 100%;
   margin-left: 1em;
   font-size: 2em;
 }
+
 h1 {
   font-size: 4em;
 }
+
 .choose_periode {
   margin-left: 1.5em;
 }
+
 .experience {
   cursor: pointer;
   padding: 0.5em 0.5em;
   font-size: 1.2em;
 }
+
 .conteneur_student {
   margin-top: 6em;
   padding: 0 5em;
   text-align: center;
 }
+
 .space-talent {
   margin: 9.5em 0;
 }
@@ -1087,16 +1049,19 @@ h1 {
 select {
   padding: 0.8em !important;
 }
+
 .pagination_btn {
   margin: 0 0.1em;
   border: 1px solid teal;
   background: transparent;
   border-radius: 5px;
 }
+
 .color {
   border: 1px solid white;
   background: #f77f00 !important;
 }
+
 .rond {
   width: 45px;
   height: 45px;
@@ -1107,6 +1072,7 @@ select {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
   text-align: center;
 }
+
 .content_commentaire {
   text-align: left;
 }
@@ -1114,9 +1080,11 @@ select {
 .vue3-star-ratings {
   display: none;
 }
+
 hr {
   border-top: 1px solid #5050501a !important;
 }
+
 .notDispo,
 .red {
   background: crimson !important;
@@ -1124,6 +1092,7 @@ hr {
   height: 10px;
   border-radius: 100%;
 }
+
 .button {
   width: auto !important;
   padding: 0.9em !important;
@@ -1135,9 +1104,11 @@ hr {
   border: none !important;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.303);
 }
+
 .flex-periode {
   flex-direction: column;
 }
+
 .jou {
   background: linear-gradient(10deg, rgb(2, 123, 56), rgb(0, 230, 31)) !important;
   color: rgb(255, 255, 255) !important;
@@ -1145,14 +1116,13 @@ hr {
   height: 10px;
   border-radius: 100%;
 }
+
 .shimmer-text {
   font-weight: 600;
-  background: linear-gradient(
-    90deg,
-    #999 0%,
-    #fff 50%,
-    #999 100%
-  );
+  background: linear-gradient(90deg,
+      #999 0%,
+      #fff 50%,
+      #999 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1163,26 +1133,32 @@ hr {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
 }
+
 @media (max-width: 1200px) {
   .space-talent {
     margin: 9em 0 1em 0;
   }
+
   .conteneur_calendar_student {
     margin-top: 6em !important;
   }
+
   .conteneur_student {
     padding: 0 1em;
     margin-top: 0;
   }
 }
+
 @media (max-width: 580px) {
   .conteneur_calendar_student {
     margin-top: 2em !important;
   }
+
   .conteneur_student {
     padding: 0 0.5em;
   }

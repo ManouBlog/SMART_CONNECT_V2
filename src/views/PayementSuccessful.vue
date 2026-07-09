@@ -13,10 +13,7 @@
         Votre paiement a été effectué avec succès.
       </span>
 
-      <button
-        class="home-button"
-        @click="goToHome"
-      >
+      <button class="home-button" @click="goToHome">
         Retour à l'accueil
       </button>
     </div>
@@ -29,8 +26,8 @@ export default {
 
   methods: {
     goToHome() {
-    window.location.href = "/";
-  }
+      window.location.href = "/";
+    }
   }
 };
 </script>

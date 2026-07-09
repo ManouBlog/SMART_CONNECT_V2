@@ -58,7 +58,7 @@ export default {
       instance
         .get("list_offres")
         .then((res) => {
-        
+
           this.list_offre = res.data.data;
           this.Offre = this.list_offre.find((item) => item.id == this.$route.params.id);
           this.list_offre.forEach((el) => {
@@ -70,18 +70,18 @@ export default {
           loadingSpinner.launchLoading(false);
         })
         .catch((err) => {
-     
+
           console.log(err);
         });
     },
     sendDataPost(id) {
       loadingSpinner.launchLoading(true);
       instance
-        .post("postule_offre",{
+        .post("postule_offre", {
           offre_id: id,
         })
         .then((res) => {
-          
+
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -101,34 +101,34 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          if (err.response?.status === 403 && !err.response.data.message.includes("Votre compte n’est pas encore activé.")){
-     Swal.fire({
-            icon: "info",
-            title: err.response.data.message,
-            showConfirmButton: true,
-          })
-          .then((result) => {
-         if (result.isConfirmed) {
-      // Redirection vers page abonnement (adapte le chemin)
-      this.$router.push('/abonnements')  // ou  si Vue Router
-          }
-           });
-          }else{
+          if (err.response?.status === 403 && !err.response.data.message.includes("Votre compte n’est pas encore activé.")) {
             Swal.fire({
-            icon: "info",
-            title: err.response.data.message,
-            showConfirmButton: true,
-          })
+              icon: "info",
+              title: err.response.data.message,
+              showConfirmButton: true,
+            })
+              .then((result) => {
+                if (result.isConfirmed) {
+                  // Redirection vers page abonnement (adapte le chemin)
+                  this.$router.push('/abonnements')  // ou  si Vue Router
+                }
+              });
+          } else {
+            Swal.fire({
+              icon: "info",
+              title: err.response.data.message,
+              showConfirmButton: true,
+            })
           }
         })
-        .finally(()=>{
-           loadingSpinner.launchLoading(false);
+        .finally(() => {
+          loadingSpinner.launchLoading(false);
         });
     },
     verfEnter() {
-      if (this.user?.user?.statuses.some(s =>['Entreprise', 'particulier'].includes(s.statut))
-      && !this.user?.user?.statuses.some(s =>['Artisan'].includes(s.statut))
-) {
+      if (this.user?.user?.statuses.some(s => ['Entreprise', 'particulier'].includes(s.statut))
+        && !this.user?.user?.statuses.some(s => ['Artisan'].includes(s.statut))
+      ) {
         Swal.fire({
           icon: "error",
           title: "Vous n'êtes pas autorisé.",
@@ -147,7 +147,7 @@ export default {
       instance
         .get("seeMyAbonnement")
         .then((res) => {
-        
+
           this.abonnements = res.data.data;
           loadingSpinner.launchLoading(false);
         })
@@ -192,120 +192,87 @@ export default {
             <div class="card px-5" style="min-width:300px !important;">
               <section>
                 <div class="d-flex">
-                  <img
-                    style="
+                  <img style="
                       width: 100px;
                       height: 100px;
                       object-fit: contain;
                       border: 5px solid white;
                       background: white;
-                    "
-                    :src="
-                      Offre?.entreprise?.logo
+                    " :src="Offre?.entreprise?.logo
                         ? lienPhoto + Offre?.entreprise?.logo
                         : '/img/brobroli_1.66e9b337.png'
-                    "
-                    :alt="Offre?.entreprise?.logo ? Offre?.entreprise?.logo : 'smart-connect'"
-                  />
+                      " :alt="Offre?.entreprise?.logo ? Offre?.entreprise?.logo : 'smart-connect'" />
                   <h1 class="my-5 nom_offre">
                     {{ Offre.nom_offre }}
                   </h1>
                 </div>
-               <span v-if="Offre?.enable_urgent" class="badge bg-danger p-3" style="width:65px">Urgente</span>
-                <div
-                  class="d-flex flex-wrap mt-2 mx-2"
-                  style="color: white;font-size: 1.4em;"
-                >
-                  Catégorie : <span style="color: orange;"> {{ Offre?.competence?.categorie?.categorie }}</span> 
-              </div>
+                <span v-if="Offre?.enable_urgent" class="badge bg-danger p-3" style="width:65px">Urgente</span>
+                <div class="d-flex flex-wrap mt-2 mx-2" style="color: white;font-size: 1.4em;">
+                  Catégorie : <span style="color: orange;"> {{ Offre?.competence?.categorie?.categorie }}</span>
+                </div>
                 <div class="d-flex flex-wrap gap-2 mt-2" v-if="Offre.countries.length">
-                  <h4
-                  class="my-5"
-                  style="color: white"
-                >
-                  <em class="bi bi-geo"></em> Pays :
-                </h4>
-  <div 
-    v-for="country in Offre.countries" 
-    :key="country.id"
-    class="d-flex align-items-center flex-wrap"
-  >
-    <span class="badge bg-warning text-dark mx-2 px-3 py-2">
-      {{ country.label }}
-    </span>
-  </div>
-</div>
+                  <h4 class="my-5" style="color: white">
+                    <em class="bi bi-geo"></em> Pays :
+                  </h4>
+                  <div v-for="country in Offre.countries" :key="country.id" class="d-flex align-items-center flex-wrap">
+                    <span class="badge bg-warning text-dark mx-2 px-3 py-2">
+                      {{ country.label }}
+                    </span>
+                  </div>
+                </div>
 
-                <h4
-                  class="my-5"
-                  style="color: white"
-                >
-                   <em class="bi bi-geo"></em> Lieu : {{ Offre.lieu }}
+                <h4 class="my-5" style="color: white">
+                  <em class="bi bi-geo"></em> Lieu : {{ Offre.lieu }}
                 </h4>
-                <h4
-                  class="my-5"
-                >
+                <h4 class="my-5">
                   <em class="bi bi-building"></em> Recruteur : {{ Offre?.owner?.nom }}
                 </h4>
                 <div>
-                  <h4 class="my-5" v-if="Offre.salaire != null" >
+                  <h4 class="my-5" v-if="Offre.salaire != null">
                     <em class="bi bi-cash-stack"></em>
                     Rémuneration :
                     <span style="color:orange;margin:0.5em;">{{ Offre.salaire }} Fcfa
-                     <span v-if="Offre.pointage"> / {{ Offre.pointage }}</span></span>
+                      <span v-if="Offre.pointage"> / {{ Offre.pointage }}</span></span>
                   </h4>
                   <h4 class="my-5" v-else>
                     <em class="bi bi-cash-stack"></em> {{ texte }}
                   </h4>
                 </div>
                 <h4 class="my-5" v-if="Offre.nbre_person">
-                  <span
-                    style="font-weight: 400 !important; color: white"
-                    >{{ texte1 }}</span
-                  >
+                  <span style="font-weight: 400 !important; color: white">{{ texte1 }}</span>
                   {{ Offre.nbre_person }}
                 </h4>
               </section>
               <section>
                 <h4>
-                  <span class="my-3" style="font-weight: 500 !important; color: white"
-                    >{{ texte4 }} :</span
-                  >
+                  <span class="my-3" style="font-weight: 500 !important; color: white">{{ texte4 }} :</span>
                 </h4>
-                <div
-                  style="padding: 1em"
-                  v-html="Offre.description"
-                  id="conteneur_description"
-                ></div>
+                <div style="padding: 1em" v-html="Offre.description" id="conteneur_description"></div>
               </section>
 
               <section>
-                 <h4  v-if="Offre.hour_debut" >
-                Heure de début : {{ Offre.hour_debut }}
-                
-                </h4>
-                 <h4  v-if="Offre.hour_fin" >
-                Heure de fin : {{ Offre.hour_fin }}
-                </h4>
-                <h4  v-if="Offre.job_debut" >
-                 {{ texte2 }} : {{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0] ) }}
+                <h4 v-if="Offre.hour_debut">
+                  Heure de début : {{ Offre.hour_debut }}
 
                 </h4>
-                <h4  v-if="Offre.job_fin">
-                {{ texte3 }} : {{ configUtils.getFormatDateFr(Offre.job_fin) }}
+                <h4 v-if="Offre.hour_fin">
+                  Heure de fin : {{ Offre.hour_fin }}
+                </h4>
+                <h4 v-if="Offre.job_debut">
+                  {{ texte2 }} : {{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0]) }}
+
+                </h4>
+                <h4 v-if="Offre.job_fin">
+                  {{ texte3 }} : {{ configUtils.getFormatDateFr(Offre.job_fin) }}
                 </h4>
               </section>
               <section v-if="Offre.fin">
-                <span class="my-2 fw-bold" style="color: orange"
-                  >{{ texte5 }} {{ configUtils.getFormatDateFr(Offre.fin) }}</span
-                >
+                <span class="my-2 fw-bold" style="color: orange">{{ texte5 }} {{ configUtils.getFormatDateFr(Offre.fin)
+                  }}</span>
               </section>
               <section>
-                <button
-                  class="btn bg-warning"
-                  @click="sendDataPost(Offre.id)"
-                  style="width: auto !important;padding: 0.6em !important;"
-                >
+                <button class="btn bg-warning" @click="sendDataPost(Offre.id)"
+                  style="width: auto !important;padding: 0.6em !important;">
                   {{ texte6 }}
                   <em class="bi bi-send"></em>
                 </button>
@@ -338,41 +305,49 @@ button {
   font-size: 1.1em;
   font-weight: bold;
 }
-.offres_disponible{
+
+.offres_disponible {
   margin-top: 9em;
 }
+
 @media screen and (max-width:1200px) {
- .offres_disponible{
-  margin-top: 2.5em;
+  .offres_disponible {
+    margin-top: 2.5em;
+  }
 }
-}
+
 @media screen and (max-width:900px) {
- .offres_disponible{
-  margin-top: 2em;
-}
+  .offres_disponible {
+    margin-top: 2em;
+  }
 }
 
 
 #conteneur_description {
   text-align: left;
-  font-size:1.3em;
+  font-size: 1.3em;
 }
+
 :deep(p) {
   font-weight: lighter !important;
 }
+
 .nom_offre {
   font-size: 5em;
   color: rgb(255, 255, 255) !important;
   font-weight: bold;
 }
+
 span {
   font-weight: 200 !important;
 }
+
 .card {
   padding: 1em !important;
   background: var(--secondary-color) !important;
   color: var(--third-color) !important;
 }
+
 .conteneur-chargement {
   height: 80vh;
   width: 100%;
@@ -396,6 +371,7 @@ span {
   place-items: center;
   z-index: 99;
 }
+
 .image-heading {
   color: black;
 }
@@ -406,13 +382,16 @@ p,
 .nom_offre {
   text-align: left;
 }
+
 span {
   text-align: left;
 }
+
 .detail_offre {
   font-weight: 900 !important;
   color: orange;
 }
+
 .spinner-border {
   position: fixed;
   z-index: 999;
@@ -428,6 +407,7 @@ span {
   place-items: center;
   align-items: center;
 }
+
 .hideOffreIfUserIsBuisness {
   position: fixed;
   z-index: 998;
@@ -443,9 +423,11 @@ span {
   place-items: center;
   align-items: center;
 }
+
 .entreprise span {
   display: block;
 }
+
 .entreprise {
   padding: 0 5em;
   text-align: center;
@@ -455,24 +437,29 @@ span {
   color: white;
   font-size: 3em;
 }
+
 .entreprise h1 {
   text-align: left;
   color: orange;
 }
+
 .blueprint h1::first-letter {
   font-size: 4em;
 }
+
 button {
   width: 100% !important;
   border: 0;
 }
+
 .jobs_filters {
   box-shadow: none !important;
 }
 
 .offres_disponible {
   display: flex;
-  flex-wrap: wrap; /* permet aux éléments de passer à la ligne sur mobile */
+  flex-wrap: wrap;
+  /* permet aux éléments de passer à la ligne sur mobile */
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2em;
@@ -488,7 +475,8 @@ button {
 /* Sur tablette et mobile (Bootstrap breakpoint < 992px) */
 @media (max-width: 991.98px) {
   .offres_disponible {
-    flex-direction: column; /* empile les éléments verticalement */
+    flex-direction: column;
+    /* empile les éléments verticalement */
     gap: 1.5em;
     padding: 1em;
   }
@@ -521,7 +509,7 @@ button {
 
 /* Sur très petits écrans (Bootstrap < 576px) */
 @media (max-width: 575.98px) {
-  
+
   .offres_disponible {
     padding: 0.5em;
     gap: 1em;

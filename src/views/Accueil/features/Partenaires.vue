@@ -3,7 +3,7 @@ import { lienPhoto } from "../../../api/api";
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
 import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateStore";
-import { mapActions,mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { usePartenaireStore } from "../../../store-pinia/partenaire/usePartenaireStore";
 // import { useOffreStore } from "../../../store-pinia/Offres/useOffreStore";
 export default {
@@ -14,8 +14,8 @@ export default {
   },
   data() {
     return {
-      texte: "", texte2: "", texte3: "", texte1: "" ,
-      lienPhoto:lienPhoto,
+      texte: "", texte2: "", texte3: "", texte1: "",
+      lienPhoto: lienPhoto,
       slides: [
         // {
         //   id: 1,
@@ -53,24 +53,12 @@ export default {
 </script>
 <template>
   <div class="container">
-    <h1 class="fw-bold" style="color:orange;" v-if="partenaires.length">{{texte}}</h1>
+    <h1 class="fw-bold" style="color:orange;" v-if="partenaires.length">{{ texte }}</h1>
     <br />
-    <vueper-slides
-      :autoplay="partenaires.length >= 3"
-      class="no-shadow"
-      :visible-slides="3"
-      :slide-ratio="1 / 5"
-      :dragging-distance="170"
-      :arrows="false"
-      :bullets="false"
-      :duration="1000"
-    >
-      <vueper-slide 
-      v-for="(slide, i) in partenaires" 
-      :key="i" 
-      :image="lienPhoto+slide.partenaire" 
-      style="margin:0 1em;"
-      />
+    <vueper-slides :autoplay="partenaires.length >= 3" class="no-shadow" :visible-slides="3" :slide-ratio="1 / 5"
+      :dragging-distance="170" :arrows="false" :bullets="false" :duration="1000">
+      <vueper-slide v-for="(slide, i) in partenaires" :key="i" :image="lienPhoto + slide.partenaire"
+        style="margin:0 1em;" />
       <template #pause>
         <em class="icon pause_circle_outline"></em>
       </template>
@@ -78,7 +66,7 @@ export default {
   </div>
 </template>
 <style scoped>
-:deep(.vueperslides__track-inner){
+:deep(.vueperslides__track-inner) {
   justify-content: center;
 }
 </style>

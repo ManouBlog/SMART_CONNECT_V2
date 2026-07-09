@@ -9,26 +9,26 @@ export default {
     };
   },
   methods: {
-   update_offre() {
-  const user = this.$store.state.infoUserConnected?.user;
-  const statuses = user?.statuses || [];
+    update_offre() {
+      const user = this.$store.state.infoUserConnected?.user;
+      const statuses = user?.statuses || [];
 
-  const isEntrepriseOrParticulier = statuses?.some(s =>
-    ['Entreprise', 'particulier'].includes(s.statut)
-  );
+      const isEntrepriseOrParticulier = statuses?.some(s =>
+        ['Entreprise', 'particulier'].includes(s.statut)
+      );
 
-  const isEtudiantGroup = statuses?.some(s =>
-    ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
-  );
+      const isEtudiantGroup = statuses?.some(s =>
+        ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut)
+      );
 
-  if (isEntrepriseOrParticulier) {
-    this.update_compte_entreprise();
-  }
+      if (isEntrepriseOrParticulier) {
+        this.update_compte_entreprise();
+      }
 
-  if (isEtudiantGroup) {
-    this.update_compte_etudiant();
-  }
-},
+      if (isEtudiantGroup) {
+        this.update_compte_etudiant();
+      }
+    },
     update_compte_entreprise() {
       let compte_entreprise = {
         nom: (this.user.user?.statuses || []).map(s => s.statut),
@@ -36,7 +36,7 @@ export default {
       };
       instance.put("modifier_profil", compte_entreprise)
         .then((res) => {
-          
+
           // if (res.data.status === true) {
           //   // Swal.fire({
           //   //   icon: "success",
@@ -50,7 +50,7 @@ export default {
           // }
           localStorage.setItem("user", JSON.stringify(res.data.data.user));
           this.$store.state.user = res.data.data.user;
-       
+
         })
         .catch((err) => {
           console.log(err)
@@ -69,7 +69,7 @@ export default {
       };
       instance.put("modifier_profil", compte_student)
         .then((res) => {
-          
+
           if (res.data.status === true) {
             // Swal.fire({
             //   icon: "success",
@@ -78,12 +78,12 @@ export default {
             //   timer: 1500,
             // });
             //setTimeout(() => {
-              //location.reload(true);
+            //location.reload(true);
             //}, 1500);
             localStorage.setItem("user", JSON.stringify(res.data.data.user));
-           
+
             this.$store.state.user = res.data.data.user;
-      
+
           }
         })
         .catch((err) => {
@@ -125,146 +125,88 @@ export default {
               <div class="card-header pb-0">
                 <h4 class="card-title mb-0">Modifier mon compte</h4>
                 <div class="card-options">
-                  <a
-                    class="card-options-collapse"
-                    href="#"
-                    data-bs-toggle="card-collapse"
-                    ><i class="fe fe-chevron-up"></i></a
-                  ><a
-                    class="card-options-remove"
-                    href="#"
-                    data-bs-toggle="card-remove"
-                    ><i class="fe fe-x"></i
-                  ></a>
+                  <a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i
+                      class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#"
+                    data-bs-toggle="card-remove"><i class="fe fe-x"></i></a>
                 </div>
               </div>
-              <div class="card-body" 
-             v-if="
-  user.user?.statuses
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
-"
-              >
+              <div class="card-body" v-if="
+                user.user?.statuses
+                  .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
+              ">
                 <div class="row">
                   <div class="col-md-3">
                     <div class="mb-3">
                       <label class="form-label">Nom</label>
-                      <input
-                        v-model="user.user.nom"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="user.user.nom" class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-3">
                     <div class="mb-3">
                       <label class="form-label">Prénoms</label>
-                      <input
-                        v-model="user.user.prenoms"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="user.user.prenoms" class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-3">
                     <div class="mb-3">
                       <label class="form-label">Email</label>
-                      <input
-                        v-model="user.user.email"
-                        class="form-control"
-                        type="email"
-                        disabled
-                      />
+                      <input v-model="user.user.email" class="form-control" type="email" disabled />
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-3">
                     <div class="mb-3">
                       <label class="form-label">Télephone</label>
-                      <input
-                        v-model="user.user.phone"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="user.user.phone" class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-3">
                     <div class="mb-3">
                       <label class="form-label">ville</label>
-                      <input
-                        v-model="user.user.ville"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="user.user.ville" class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="mb-3">
                       <label class="form-label">Commune</label>
-                      <input
-                        v-model="user.user.commune"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="user.user.commune" class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-3">
                     <div class="mb-3">
                       <label class="form-label">Quartier</label>
-                      <input
-                        v-model="user.user.quartier"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="user.user.quartier" class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-3">
                     <div class="mb-3">
                       <label class="form-label">Diplome</label>
-                      <input
-                        v-model="user.user.diplome"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="user.user.diplome" class="form-control" type="text" />
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card-body" 
-              v-if="
-  user.user?.statuses.some(s => ['particulier', 'Entreprise'].includes(s.statut))
-"
-              >
+              <div class="card-body" v-if="
+                user.user?.statuses.some(s => ['particulier', 'Entreprise'].includes(s.statut))
+              ">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label class="form-label">Nom</label>
-                      <input
-                        v-model="user.user.nom"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="user.user.nom" class="form-control" type="text" />
                     </div>
                   </div>
 
                   <div class="col-sm-6 col-md-6">
                     <div class="mb-3">
                       <label class="form-label">Email</label>
-                      <input
-                        v-model="user.user.email"
-                        class="form-control"
-                        type="email"
-                        disabled
-                      />
+                      <input v-model="user.user.email" class="form-control" type="email" disabled />
                     </div>
                   </div>
 
                   <div class="col-sm-6 col-md-6">
                     <div class="mb-3">
                       <label class="form-label">Registre de commerce</label>
-                      <input
-                        v-model="user.user.registre_commerce"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="user.user.registre_commerce" class="form-control" type="text" />
                     </div>
                   </div>
                 </div>
@@ -274,23 +216,14 @@ export default {
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label class="form-label">Nom</label>
-                      <input
-                        v-model="user.nom"
-                        class="form-control"
-                        type="text"
-                      />
+                      <input v-model="user.nom" class="form-control" type="text" />
                     </div>
                   </div>
 
                   <div class="col-sm-6 col-md-6">
                     <div class="mb-3">
                       <label class="form-label">Email</label>
-                      <input
-                        v-model="user.email"
-                        class="form-control"
-                        type="email"
-                        disabled
-                      />
+                      <input v-model="user.email" class="form-control" type="email" disabled />
                     </div>
                   </div>
                 </div>
@@ -308,4 +241,3 @@ export default {
     </div>
   </div>
 </template>
-

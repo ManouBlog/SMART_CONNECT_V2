@@ -16,12 +16,12 @@ export default {
       user: this.$store.state.user,
     };
   },
- 
+
 };
 </script>
 
 <template>
-<div class="tap-top"><i data-feather="chevrons-up"></i></div>
+  <div class="tap-top"><i data-feather="chevrons-up"></i></div>
   <div class="page-wrapper compact-wrapper" id="pageWrapper">
     <HeaderDash />
     <div class="page-body-wrapper">
@@ -32,7 +32,6 @@ export default {
   </div>
 </template>
 <style scoped>
-
 /*@import url("../../src/dash/css/color-1.css");
 @import url("../../src/dash/css/vendors/font-awesome.css");
 @import url("../../src/dash/css/vendors/icofont.css");
@@ -56,9 +55,9 @@ export default {
 
 
 @import url("../../src/dash/css/responsive.css");*/
-.footer-dash{
-  bottom:0 !important;
-  position:absolute !important;
-  width:100%;
+.footer-dash {
+  bottom: 0 !important;
+  position: absolute !important;
+  width: 100%;
 }
 </style>

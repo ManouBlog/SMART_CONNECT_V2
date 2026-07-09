@@ -48,32 +48,20 @@ export default {
 };
 </script>
 <template>
-  <section
-    v-if="
-      this.$store.state.user &&
-      (this.$store.state.user?.user?.statuses || []).some(s => s.statut === 'Etudiant') &&
-      ListOffre.length
-    "
-  >
+  <section v-if="
+    this.$store.state.user &&
+    (this.$store.state.user?.user?.statuses || []).some(s => s.statut === 'Etudiant') &&
+    ListOffre.length
+  ">
     <h1 class="fw-bold title" v-if="ListOffre.length">
       {{ texte0 }}
     </h1>
 
     <div class="wrapper">
-      <Flicking
-        class="job-container"
-        :defaultIndex="0"
-        :moveType="'snap'"
-        :bound="true"
-      >
-        <div
-          class="job_div"
-          v-for="item in ListOffre"
-          :key="item.id"
-        >
+      <Flicking class="job-container" :defaultIndex="0" :moveType="'snap'" :bound="true">
+        <div class="job_div" v-for="item in ListOffre" :key="item.id">
           <h2 class="fw-bold">{{ item.nom_offre }}</h2>
-          <span v-if="item.competence?.categorie?.categorie" 
-          style="color: orange;">
+          <span v-if="item.competence?.categorie?.categorie" style="color: orange;">
             {{ item.competence?.categorie?.categorie }}
           </span>
 
@@ -101,11 +89,7 @@ export default {
 
         <!-- Slide "Plus d'offres" -->
         <div class="job_div more" style="background-color:transparent !important;">
-          <a
-            href="#"
-            class="more-link"
-            @click.prevent="voirDetailTimetable"
-          >
+          <a href="#" class="more-link" @click.prevent="voirDetailTimetable">
             Plus d'offres <em class="bi bi-arrow-right"></em>
           </a>
         </div>
@@ -215,15 +199,16 @@ export default {
   }
 
   .desc_crop {
-  width:220px;
-  max-height: 85px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Nombre de lignes désiré */
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-}
- 
+    width: 220px;
+    max-height: 85px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Nombre de lignes désiré */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+
   .publie_offre {
     position: static;
     margin-top: 1rem;
@@ -237,5 +222,4 @@ export default {
     font-size: 0.95rem;
   }
 }
-
 </style>

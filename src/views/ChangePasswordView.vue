@@ -59,14 +59,14 @@ export default {
         })
         .then((res) => {
           Swal.fire({
-    icon: "success",
-    title: res.data.message,
-    text: "Votre mot de passe a été mis à jour avec succès. Vous allez être redirigé vers la page d’accueil.",
-    showConfirmButton: false,
-    timer: 1500,
-  }).then(() => {
-    this.$router.push("/"); // Redirect vers '/'
-  });
+            icon: "success",
+            title: res.data.message,
+            text: "Votre mot de passe a été mis à jour avec succès. Vous allez être redirigé vers la page d’accueil.",
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            this.$router.push("/"); // Redirect vers '/'
+          });
         })
         .catch((err) => {
           const msg =
@@ -95,70 +95,45 @@ export default {
       Nouveau mot de passe
     </h1>
 
-    <a-form
-      layout="vertical"
-      class="w-100 p-3"
-      @finish="verificationMotdepasse"
-      :model="this"
-    >
+    <a-form layout="vertical" class="w-100 p-3" @finish="verificationMotdepasse" :model="this">
       <div class="row container-fluid px-5">
         <div class="col-lg-12">
-          <a-form-item
-            label="Entrez votre nouveau mot de passe"
-            name="password"
-            :rules="[
-              {
-                required: true,
-                message: 'Veuillez entrer votre mot de passe',
-                validateTrigger: 'blur', // l'erreur ne vient pas à chaque frappe
-              },
-              {
-                min: 6,
-                message: 'Le mot de passe doit contenir au moins 6 caractères.',
-              },
-            ]"
-          >
-            <a-input-password
-              v-model:value="password"
-              size="large"
-              placeholder="Entrez votre nouveau mot de passe"
-            />
+          <a-form-item label="Entrez votre nouveau mot de passe" name="password" :rules="[
+            {
+              required: true,
+              message: 'Veuillez entrer votre mot de passe',
+              validateTrigger: 'blur', // l'erreur ne vient pas à chaque frappe
+            },
+            {
+              min: 6,
+              message: 'Le mot de passe doit contenir au moins 6 caractères.',
+            },
+          ]">
+            <a-input-password v-model:value="password" size="large" placeholder="Entrez votre nouveau mot de passe" />
           </a-form-item>
         </div>
 
         <div class="col-lg-12">
-          <a-form-item
-            label="Confirmation de mot de passe"
-            name="cpassword"
-            :rules="[
-              {
-                required: true,
-                message: 'Veuillez confirmer votre mot de passe',
-                validateTrigger: 'blur',
-              },
-              {
-                validator: validateConfirmPassword,
-                validateTrigger: 'blur',
-              },
-            ]"
-          >
-            <a-input-password
-              v-model:value="cpassword"
-              size="large"
-              placeholder="Entrez de nouveau votre mot de passe"
-            />
+          <a-form-item label="Confirmation de mot de passe" name="cpassword" :rules="[
+            {
+              required: true,
+              message: 'Veuillez confirmer votre mot de passe',
+              validateTrigger: 'blur',
+            },
+            {
+              validator: validateConfirmPassword,
+              validateTrigger: 'blur',
+            },
+          ]">
+            <a-input-password v-model:value="cpassword" size="large"
+              placeholder="Entrez de nouveau votre mot de passe" />
           </a-form-item>
         </div>
       </div>
 
       <div class="px-5">
-        <a-button
-          html-type="submit"
-          type="primary"
-          size="large"
-          :loading="spinner"
-          style="background: orange; border-color: orange"
-        >
+        <a-button html-type="submit" type="primary" size="large" :loading="spinner"
+          style="background: orange; border-color: orange">
           Envoyer
         </a-button>
       </div>
@@ -166,50 +141,56 @@ export default {
   </div>
 </template>
 <style scoped>
-  .position-relative{
-    position: relative;
-  }
-  .charg{
-    position:absolute;
-    top:0;
-    bottom:0;
-    right:0;
-    left:0;
-    width:100%;
-    height:122%;
-    background: rgb(239, 239, 239);
-    display:flex;
-    justify-content:center;
-    place-items:center;
-    z-index:1;
-  }
-.d-block{
-    display:block;
+.position-relative {
+  position: relative;
 }
-.bg-primary{
+
+.charg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 122%;
+  background: rgb(239, 239, 239);
+  display: flex;
+  justify-content: center;
+  place-items: center;
+  z-index: 1;
+}
+
+.d-block {
+  display: block;
+}
+
+.bg-primary {
   background: orange !important;
 }
-h5{
-    color:rgb(0, 0, 0) !important;
-}
-form{
-    width:50%;
-    padding:5.15em 0;
-    margin-bottom: 2em;
-    margin-left:50%;
-    transform: translateX(-50%);
-    border-radius:10px;
-}
-.w-100{
-    width:50%;
-    padding:.3em 0;
-}
-label{
-    font-size: 1em;
-}
-  .page-title{
-    margin-top: 7em;
-  }
 
+h5 {
+  color: rgb(0, 0, 0) !important;
+}
 
+form {
+  width: 50%;
+  padding: 5.15em 0;
+  margin-bottom: 2em;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+}
+
+.w-100 {
+  width: 50%;
+  padding: .3em 0;
+}
+
+label {
+  font-size: 1em;
+}
+
+.page-title {
+  margin-top: 7em;
+}
 </style>

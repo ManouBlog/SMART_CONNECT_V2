@@ -17,9 +17,9 @@ export default {
       this.spinner = true;
       instance.get("list_users")
         .then((res) => {
-          
+
           this.users = res.data.data;
-      
+
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({
@@ -86,12 +86,7 @@ export default {
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>Choisir un jour</label>
-                            <select
-                              class="form-select"
-                              v-model="timetable_show_id.jour"
-                              required
-                              disabled
-                            >
+                            <select class="form-select" v-model="timetable_show_id.jour" required disabled>
                               <option value="lundi">lundi</option>
                               <option value="mardi">Mardi</option>
                               <option value="mercredi">Mercredi</option>
@@ -101,46 +96,28 @@ export default {
                               <option value="dimanche">Dimanche</option>
                             </select>
                           </div>
-                          <span class="text-danger"
-                            >nb:le jour ne peut pas être modifier</span
-                          >
+                          <span class="text-danger">nb:le jour ne peut pas être modifier</span>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="timetable_show_id.heure_start"
-                              required
-                            />
+                            <input class="form-control" type="time" v-model="timetable_show_id.heure_start" required />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="timetable_show_id.heure_end"
-                              required
-                            />
+                            <input class="form-control" type="time" v-model="timetable_show_id.heure_end" required />
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col">
                           <div class="text-end">
-                            <button
-                              class="btn btn-danger me-3"
-                              @click.prevent="show_modify"
-                            >
+                            <button class="btn btn-danger me-3" @click.prevent="show_modify">
                               Annuler
                             </button>
-                            <button
-                              @click.prevent="update_timetable"
-                              class="btn btn-secondary"
-                            >
+                            <button @click.prevent="update_timetable" class="btn btn-secondary">
                               Modifier
                             </button>
                           </div>
@@ -189,21 +166,10 @@ export default {
                   <td>{{ item.nom }}</td>
                   <td>{{ item.email }}</td>
                   <td>
-                    <span
-                      v-if="item.statut.statut == 'Entreprise' || item.statut.statut == 'particulier'"
-                      class="badge bg-primary"
-                      >Entreprise</span
-                    >
-                    <span
-                      v-if="item.statut.statut == 'Etudiant'"
-                      class="badge bg-warning"
-                      >Etudiant</span
-                    >
-                    <span
-                      v-if="item.statut.statut == 'admin'"
-                      class="badge bg-danger"
-                      >Admin</span
-                    >
+                    <span v-if="item.statut.statut == 'Entreprise' || item.statut.statut == 'particulier'"
+                      class="badge bg-primary">Entreprise</span>
+                    <span v-if="item.statut.statut == 'Etudiant'" class="badge bg-warning">Etudiant</span>
+                    <span v-if="item.statut.statut == 'admin'" class="badge bg-danger">Admin</span>
                   </td>
                   <!-- <td v-if="item.student.statut">
                     {{item.statut.}}
@@ -220,7 +186,6 @@ export default {
   <!-- Container-fluid Ends-->
 </template>
 <style scoped>
-
 /*@import url("../../src/dash/css/color-1.css");
 @import url("../../src/dash/css/vendors/font-awesome.css");
 @import url("../../src/dash/css/vendors/icofont.css");
@@ -248,13 +213,16 @@ export default {
   font-size: 1.5em !important;
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;

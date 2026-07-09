@@ -97,7 +97,7 @@ export default {
     async launchTestimonials() {
       try {
         const response = await instance.get("temoignages");
-    
+
         this.testimonials = response.data;
       } catch (error) {
         console.error("Erreur lors du chargement des témoignages :", error);
@@ -121,10 +121,10 @@ export default {
   async mounted() {
     try {
       await this.STOREPARTENAIRE.getAllPartenaires();
-      if(this.$store.state.user){
-     await this.$store.dispatch('getInfoUser')
+      if (this.$store.state.user) {
+        await this.$store.dispatch('getInfoUser')
       }
-     
+
     } catch (error) {
       console.error("Erreur lors du chargement des partenaires :", error);
     }
@@ -137,16 +137,14 @@ export default {
     <HeaderBanner />
     <StepViews />
     <RechercheOffre />
-     <OffresRecentes />
+    <OffresRecentes />
     <PerformanceView />
     <AppMobileView />
     <Partenaires v-if="this.STOREPARTENAIRE.partenaires.length" />
     <!-- <StudentCardOCR /> -->
     <TestimonialsView v-if="this.testimonials.length" />
     <!-- <NewsLetterView /> -->
-    <div
-      v-if="!cookiesAccepted"
-      style="
+    <div v-if="!cookiesAccepted" style="
         z-index: 1050;
         position: fixed;
         min-width: 280px;
@@ -156,11 +154,8 @@ export default {
         background: orange;
         padding: 1rem;
         border-radius: 10px;
-      "
-    >
-      <div
-        class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 w-100"
-      >
+      ">
+      <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 w-100">
         <!-- Texte informatif -->
         <div class="d-flex align-items-start gap-3 flex-grow-1">
           <div class="w-100">
@@ -194,6 +189,7 @@ export default {
 .text-dark {
   color: black !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -206,6 +202,7 @@ export default {
   place-items: center;
   justify-content: center;
 }
+
 .conteneur_liste li {
   list-style-type: none !important;
 }
@@ -214,15 +211,18 @@ section {
   position: relative;
   padding: 1em 0;
 }
+
 .lien {
   background: #f77f00 !important;
   padding: 0.5em;
   border-radius: 5px;
 }
+
 a:hover {
   color: white;
 }
-section > a {
+
+section>a {
   position: absolute;
   right: 3em;
   font-size: 1.2em;
@@ -246,6 +246,7 @@ section > a {
   margin: 1em 0;
   padding: 3em 0;
 }
+
 .conteneur-team .teamOne {
   width: 200px;
   height: 200px;
@@ -256,6 +257,7 @@ section > a {
   background-size: cover;
   object-fit: cover;
 }
+
 .conteneur-team .teamTwo {
   width: 200px;
   height: 200px;
@@ -266,6 +268,7 @@ section > a {
   background-size: cover;
   object-fit: center;
 }
+
 .conteneur-team .teamThree {
   width: 200px;
   height: 200px;
@@ -276,6 +279,7 @@ section > a {
   background-size: cover;
   object-fit: center;
 }
+
 .conteneur-team .teamFour {
   width: 200px;
   height: 200px;
@@ -286,6 +290,7 @@ section > a {
   background-size: cover;
   object-fit: center;
 }
+
 .conteneur-team .teamFive {
   width: 200px;
   height: 200px;
@@ -303,9 +308,11 @@ section > a {
   left: 110px;
   font-size: 1.2em;
 }
+
 .bi-building {
   left: 130px;
 }
+
 .nb {
   text-align: center;
   background: rgb(3, 83, 115);
@@ -326,6 +333,7 @@ section > a {
   background: white;
   position: relative;
 }
+
 .btn-ferme {
   position: absolute;
   right: 0;
@@ -333,9 +341,11 @@ section > a {
   width: 150px;
   background: rgb(255, 153, 0) !important;
 }
+
 .chart_entreprise p {
   font-size: 0.89em;
 }
+
 .showCharte {
   position: fixed;
   top: 0;
@@ -352,9 +362,11 @@ section > a {
 }
 
 @import url("../../assets/w3.css");
+
 .btn {
   margin: 0 1em !important;
 }
+
 select {
   font-size: 16px;
   padding: 10px 16px;
@@ -367,15 +379,19 @@ select {
 #load_more {
   border: 1px solid rgb(5, 35, 73) !important;
 }
+
 .fw-bold {
   font-weight: 900 !important;
 }
+
 .num {
   font-size: 5em;
 }
+
 .textSt {
   font-size: 0.8em;
 }
+
 .login {
   width: 200px;
   height: 50px;
@@ -383,10 +399,12 @@ select {
   border-radius: 5px;
   color: white !important;
 }
+
 .div {
   width: 25px;
   margin: auto;
 }
+
 .login a {
   color: white !important;
 }
@@ -399,12 +417,14 @@ select {
   padding: 3em 5em !important;
   position: relative;
 }
+
 .my-card {
   width: 100%;
   height: auto;
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.332);
   padding: 1em;
 }
+
 .sub_card_img {
   width: 90%;
   height: 200px;
@@ -412,9 +432,11 @@ select {
   transform: translateX(-50%);
   position: relative;
 }
+
 .count {
   position: relative;
 }
+
 .img-fluid {
   position: absolute;
   width: auto;
@@ -423,6 +445,7 @@ select {
   transform: translateX(-50%);
   object-fit: cover;
 }
+
 .bi-person-lines-fill,
 .bi-briefcase-fill,
 .bi-chat-square-text-fill {
@@ -434,6 +457,7 @@ h3 {
   text-decoration: underline;
   padding: 0.5em 0;
 }
+
 .cont1 {
   background: rgb(71, 67, 59);
   height: 50vh;
@@ -447,12 +471,15 @@ h3 {
   flex-wrap: wrap;
   padding: 4em 0;
 }
+
 .cont-one {
   transform: rotate(10deg) translateX(-63px);
 }
+
 .cont-two {
   transform: rotate(-10deg);
 }
+
 .cont-one,
 .cont-two {
   width: 300px;
@@ -462,10 +489,11 @@ h3 {
   border-radius: 10px;
   background: rgba(0, 213, 255, 0.257);
 }
+
 @media screen and (max-width: 1200px) {
-.section_group{
- margin: 5em 0 0 0;
-}
+  .section_group {
+    margin: 5em 0 0 0;
+  }
 }
 
 
@@ -473,23 +501,28 @@ h3 {
   .header_banner {
     padding: 0.5em !important;
   }
+
   .main-container-home {
     padding: 1em 0;
   }
 }
+
 @media screen and (max-width: 800px) {
   h1 {
     font-size: 25px;
   }
+
   .alerte_emploi {
     flex-direction: column;
   }
 }
+
 @media screen and (max-width: 500px) {
   h1 {
     font-size: 20px;
   }
 }
+
 @media screen and (max-width: 400px) {
   h1 {
     font-size: 15px;

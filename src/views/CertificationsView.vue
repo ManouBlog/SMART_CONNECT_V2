@@ -1,69 +1,64 @@
 <template>
   <HeaderDashboard TitleHeader="Certificat" />
   <div v-if="job">
-     <div class="certificat-container" id="certification-content">
-    <header class="header" v-if="job?.image_data">
-      <div class="logo-placeholder">
-        <img
-          style="width: 80px; height: 80px"
-          :src="job?.image_data"
-          :alt="job?.image_data"
-        />
-      </div>
-    </header>
+    <div class="certificat-container" id="certification-content">
+      <header class="header" v-if="job?.image_data">
+        <div class="logo-placeholder">
+          <img style="width: 80px; height: 80px" :src="job?.image_data" :alt="job?.image_data" />
+        </div>
+      </header>
 
-    <main class="certificat-content">
-      <div>
-        <h1 class="title">CERTIFICAT DE TRAVAIL</h1>
-        <div class="certificat-text">
-          <p>
-            Nous soussignés, <strong>{{ job?.offre?.owner?.nom }}</strong>
-            <strong v-if="job?.offre?.entreprise?.adresse_postale">{{
-              job?.offre?.entreprise?.adresse_postale
-            }}</strong>
-            , certifions que Monsieur/Madame
-            <strong>{{ job?.student?.nom }} {{ job?.student?.prenoms }}</strong
-            >, a été employé dans notre société en qualité de
-            <strong>{{ job?.offre?.nom_offre }}</strong> du
-            <strong>{{
-              new Date(job?.offre?.job_debut).toLocaleString("fr")
-            }}</strong>
-            au
-            <strong>{{ new Date(job?.offre?.job_fin).toLocaleString("fr") }}</strong
-            >.
-          </p>
-
-          <p>Il nous quitte ce jour, libre de tout engagement.</p>
-
-          <p>
-            En foi de quoi, nous lui délivrons ce présent certificat de travail, pour
-            servir et valoir ce que de droit.
-          </p>
-
-          <div class="date-location">
+      <main class="certificat-content">
+        <div>
+          <h1 class="title">CERTIFICAT DE TRAVAIL</h1>
+          <div class="certificat-text">
             <p>
-              Fait à <strong>ABIDJAN</strong>, le <strong>{{ todayDate }}</strong>
+              Nous soussignés, <strong>{{ job?.offre?.owner?.nom }}</strong>
+              <strong v-if="job?.offre?.entreprise?.adresse_postale">{{
+                job?.offre?.entreprise?.adresse_postale
+                }}</strong>
+              , certifions que Monsieur/Madame
+              <strong>{{ job?.student?.nom }} {{ job?.student?.prenoms }}</strong>, a été employé dans notre société en
+              qualité de
+              <strong>{{ job?.offre?.nom_offre }}</strong> du
+              <strong>{{
+                new Date(job?.offre?.job_debut).toLocaleString("fr")
+                }}</strong>
+              au
+              <strong>{{ new Date(job?.offre?.job_fin).toLocaleString("fr") }}</strong>.
             </p>
-          </div>
 
-          <div class="signature">
-            <p style="text-align: right">Le Représentant Légal</p>
+            <p>Il nous quitte ce jour, libre de tout engagement.</p>
+
+            <p>
+              En foi de quoi, nous lui délivrons ce présent certificat de travail, pour
+              servir et valoir ce que de droit.
+            </p>
+
+            <div class="date-location">
+              <p>
+                Fait à <strong>ABIDJAN</strong>, le <strong>{{ todayDate }}</strong>
+              </p>
+            </div>
+
+            <div class="signature">
+              <p style="text-align: right">Le Représentant Légal</p>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
 
-    <footer class="footer">
-      <div class="footer-left">
-        <p style="color: orange">Powered by LA LOCOMOTIVE (LCE)</p>
-      </div>
-      <div class="footer-right">
-        <img style="width: 200px; height: 60px" src="/logo_lce.png" alt="Photo" />
-      </div>
-    </footer>
-    
-  </div>
-  <div class="modal-footer">
+      <footer class="footer">
+        <div class="footer-left">
+          <p style="color: orange">Powered by LA LOCOMOTIVE (LCE)</p>
+        </div>
+        <div class="footer-right">
+          <img style="width: 200px; height: 60px" src="/logo_lce.png" alt="Photo" />
+        </div>
+      </footer>
+
+    </div>
+    <div class="modal-footer">
       <!-- <n-button @click="showModal = false" tertiary>Fermer</n-button> -->
       <n-button type="primary" style="margin: 0 1em" @click="downloadCertification">
         Télécharger
@@ -151,14 +146,14 @@ const getCertificationsStudentConnecte = async () => {
   await instance
     .get("mes-certifications")
     .then((response) => {
-      
+
       job.value = response.data.find((item) => Number(item.offre_id) === Number(idParams));
-  
+
     })
     .catch((err) => {
       console.log(err);
     })
-    .finally(()=>{
+    .finally(() => {
       SPINNERLOADING.launchLoading(false);
       isChargement.value = false
     })
@@ -172,12 +167,10 @@ onMounted(() => {
 <style scoped>
 .shimmer-text {
   font-weight: 600;
-  background: linear-gradient(
-    90deg,
-    #999 0%,
-    #fff 50%,
-    #999 100%
-  );
+  background: linear-gradient(90deg,
+      #999 0%,
+      #fff 50%,
+      #999 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -188,10 +181,12 @@ onMounted(() => {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
 }
+
 .events-section {
   max-width: 100%;
   margin: 0 10px;
@@ -207,9 +202,11 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* ou la hauteur que vous souhaitez */
+  height: 100%;
+  /* ou la hauteur que vous souhaitez */
   margin: 0;
 }
+
 .job-card {
   display: flex;
   flex-direction: column;
@@ -272,8 +269,9 @@ onMounted(() => {
   transition: background 0.3s ease;
   align-self: flex-start;
 }
-:deep(.n-card){
-  width:90% !important;
+
+:deep(.n-card) {
+  width: 90% !important;
 }
 
 .apply-btn:hover {
@@ -286,14 +284,16 @@ onMounted(() => {
 }
 
 .certificat-container {
-  position: relative; /* important pour que ::before soit positionné par rapport à ce conteneur */
+  position: relative;
+  /* important pour que ::before soit positionné par rapport à ce conteneur */
   width: 100vw;
   max-width: 900px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
   padding: 1vw;
   box-sizing: border-box;
-  z-index: 1; /* le contenu reste au-dessus du ::before */
+  z-index: 1;
+  /* le contenu reste au-dessus du ::before */
 }
 
 .certificat-container::before {
@@ -303,12 +303,15 @@ onMounted(() => {
   left: 50%;
   width: 250px;
   height: 250px;
-  transform: translate(-50%, -50%); /* centre parfaitement l’image */
+  transform: translate(-50%, -50%);
+  /* centre parfaitement l’image */
   background: url('/brobroli_icon.png') center center no-repeat;
   background-size: contain;
-  opacity: 0.1; /* effet filigrane discret */
+  opacity: 0.1;
+  /* effet filigrane discret */
   z-index: 0;
-  pointer-events: none; /* évite de bloquer les clics */
+  pointer-events: none;
+  /* évite de bloquer les clics */
 }
 
 .certificat-container * {
@@ -328,24 +331,26 @@ onMounted(() => {
 
 .title {
   text-align: center;
-  margin:0 2vw;
+  margin: 0 2vw;
   font-size: clamp(1.2rem, 5vw, 1.5rem);
   font-weight: bold;
 }
 
 .certificat-text {
   line-height: 1.6;
-   margin-top:2vw;
+  margin-top: 2vw;
   font-size: clamp(0.9rem, 4vw, 1rem);
 }
+
 .certificat-text p {
- margin-top:5vw;
+  margin-top: 5vw;
 }
 
 .date-location {
   margin-top: 2vw;
   text-align: center;
 }
+
 .date-location p {
   text-align: right;
 }
@@ -369,6 +374,7 @@ onMounted(() => {
 .footer-right {
   text-align: center;
 }
+
 @media print {
   .certificat-container {
     width: 100%;

@@ -63,7 +63,7 @@ export default {
       this.fileForPieceGerant = e.target.files[0];
     },
     selectFileForRegistre(e) {
-     
+
       this.fileForRegistre = e.target.files[0];
     },
     isPhoneCi(value) {
@@ -74,7 +74,7 @@ export default {
     },
     see(e) {
       this.photo = e.target.files[0];
-     
+
     },
     inscriptionStudent() {
       let data = new FormData();
@@ -95,7 +95,7 @@ export default {
       instance
         .post("list_users", data)
         .then((res) => {
-          
+
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -149,8 +149,8 @@ export default {
       instance
         .post("list_users", data)
         .then((res) => {
-          
-         
+
+
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -175,9 +175,9 @@ export default {
           }
         })
         .catch((err) => {
-          
+
           console.log(err);
-          
+
         });
     },
     inscriptionParticulier() {
@@ -193,7 +193,7 @@ export default {
           statut_id: 4,
         })
         .then((rep) => {
-         
+
           if (rep.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -218,7 +218,7 @@ export default {
           }
         })
         .catch((error) => {
-        
+
           console.log(error);
           Swal.fire({
             icon: "error",
@@ -276,7 +276,7 @@ export default {
     //         const redirect = this.$route.query.redirect;
 
     //         if (redirect) {
- 
+
     //           // 👉 Lancer une méthode ou rediriger directement
     //           this.$router.replace(redirect);
     //         } else {
@@ -349,7 +349,7 @@ export default {
     //         title: response.message,
     //         showConfirmButton: true,
     //       });
-    
+
     //     });
     // },
     verifPassword(password) {
@@ -400,7 +400,7 @@ Un caractère spécial
           title: "Veuillez remplir les champs en astérisque.",
           showConfirmButton: true,
         });
-     
+
       }
     },
     middlewareEntreprise() {
@@ -477,9 +477,9 @@ Un caractère spécial
       }
     },
     registerUser() {
-      
+
       if (this.status === "student") {
-        
+
         this.middlewareStudent();
       }
       if (this.status == "entreprise") {
@@ -493,7 +493,7 @@ Un caractère spécial
       instance
         .get("GetAllCompetences")
         .then((res) => {
-         
+
           this.competences = res.data.data.filter(c => c.categorie_id !== null);
         })
         .catch((err) => {
@@ -501,23 +501,23 @@ Un caractère spécial
         });
     },
     addTag(newTag) {
-     
+
       let brox = newTag;
       this.acquis = brox;
       this.comp = [];
       this.acquis.forEach((el) => {
         this.comp.push(el.id);
       });
-   
+
     },
     authGoogle() {
       instance.get("google/redirect").then((response) => {
-        
+
         window.open(response.data.url, "example", {
           default: "width=300,height=300,scrollbars=yes",
         });
       });
-    
+
     },
   },
   created() {
@@ -574,30 +574,14 @@ Un caractère spécial
               </div>
               <div id="login" class="tab-pane fade active in white-text">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 zero-padding-left">
-                  <form
-                    name="contact_us"
-                    class="contact_us"
-                    @submit.prevent="connexionUser"
-                  >
+                  <form name="contact_us" class="contact_us" @submit.prevent="connexionUser">
                     <div class="text-left w-100">
                       <Span :name="'Email'" :isFacultatif="true" />
-                      <input
-                        type="text"
-                        v-model="email"
-                        name="name"
-                        class="w-100 my-3"
-                        autocomplete="on"
-                      />
+                      <input type="text" v-model="email" name="name" class="w-100 my-3" autocomplete="on" />
                     </div>
                     <div class="text-left w-100">
                       <Span :name="'Mot de passe'" :isFacultatif="true" />
-                      <input
-                        type="password"
-                        v-model="password"
-                        name="password-2"
-                        id="password-2"
-                        class="w-100 my-3"
-                      />
+                      <input type="password" v-model="password" name="password-2" id="password-2" class="w-100 my-3" />
                     </div>
 
                     <div>
@@ -605,9 +589,7 @@ Un caractère spécial
                         <em class="bi bi-box-arrow-in-right w3-margin-right"></em>
                         Se connecter
                       </button>
-                      <router-link to="/reset_password" class="lost_password"
-                        >Mot de passe oublié ?</router-link
-                      >
+                      <router-link to="/reset_password" class="lost_password">Mot de passe oublié ?</router-link>
                     </div>
                   </form>
                 </div>
@@ -654,6 +636,7 @@ Un caractère spécial
   align-items: center;
   background: rgba(0, 0, 0, 0.452);
 }
+
 .password_length {
   font-size: 0.7em !important;
   font-weight: bold !important;
@@ -666,10 +649,12 @@ input[type="checkbox"] {
 ul {
   padding: 1em;
 }
+
 .ProseMirror p {
   color: rgb(3, 3, 3) !important;
   margin: 0;
 }
+
 .listes {
   color: white !important;
 }
@@ -688,24 +673,30 @@ ul {
   place-items: center;
   z-index: 99;
 }
+
 .fw-bold {
   font-weight: bold;
 }
+
 .btn-Conex {
   background: #f77f00 !important;
   color: white;
   border: 1px solid black;
 }
+
 .diplome {
   margin-left: 4em !important;
 }
+
 .text-danger {
   color: crimson;
 }
+
 strong {
   font-size: 0.8em;
   color: crimson;
 }
+
 .cont_multi {
   display: flex;
   justify-content: center;
@@ -718,15 +709,18 @@ strong {
   align-items: center;
   padding: 0 5em;
 }
+
 .condition span a {
   text-decoration: underline;
   color: #f77f00;
 }
+
 .select {
   font-size: 16px;
   padding: 10px 16px;
   border: 1px solid rgb(5, 35, 73);
 }
+
 .bg-second {
   width: auto;
   border-radius: 10px;
@@ -736,42 +730,52 @@ strong {
   padding: 10px;
   border: 1px solid black;
 }
+
 label {
   color: rgb(101, 101, 101) !important;
 }
+
 input {
   border: 1px solid rgb(5, 35, 73) !important;
 }
+
 .deximJobs_tabs {
   background: rgb(255, 255, 255) !important;
   color: black !important;
   box-shadow: none !important;
 }
+
 .deximJobs_tabs .nav li a {
   color: rgb(54, 53, 53);
 }
+
 .deximJobs_tabs .sidebar {
   background: rgb(5, 35, 73);
 }
+
 .bi {
   font-size: 1.5em !important;
 }
+
 .registre_login_connex a {
   font-size: 2em !important;
   text-transform: capitalize !important;
   transition: all 0.1s ease;
 }
+
 .active {
   text-decoration: underline !important;
 }
+
 .vuemulti,
 textarea {
   width: 100% !important;
   font-size: 16px !important;
   border: 1px solid black;
 }
+
 .conteneur_editor {
-   border: 1.5px solid orange;
+  border: 1.5px solid orange;
   color: black !important;
   border-radius: 1em;
   padding: 0 1em;
@@ -790,13 +794,16 @@ textarea {
   color: black !important;
   margin: 1em 0;
 }
+
 .invalid {
   outline: 2px solid red;
 }
+
 @media (max-width: 1020px) {
   .select {
     width: 100%;
   }
+
   .diplome {
     margin-left: 0 !important;
   }

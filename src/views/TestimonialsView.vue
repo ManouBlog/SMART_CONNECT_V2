@@ -9,7 +9,7 @@ const testimonialsEtudiants = ref([]);
 onMounted(async () => {
   try {
     const response = await instance.get("temoignages");
-    
+
     testimonials.value = response.data;
     testimonialsEntreprises.value = testimonials.value.filter(item =>
       item.user?.statuses.some(s => ['Entreprise', 'particulier'].includes(s.statut))
@@ -26,33 +26,20 @@ onMounted(async () => {
   <div class="testimonials">
     <section v-if="testimonialsEtudiants.length > 0">
       <h1 class="testimonials__title">
-        <img
-          src="../assets/am_brobroli.png"
-          alt="am_brobroli"
-          style="
+        <img src="../assets/am_brobroli.png" alt="am_brobroli" style="
             width: 100%;
             max-width: 260px;
             height: auto;
             display: block;
             margin: auto;
-          "
-        />
+          " />
       </h1>
 
       <div class="testimonials__list">
         <n-carousel autoplay :interval="2500">
-         <div
-  class="testimonials__item"
-  v-for="(item, index) in testimonialsEtudiants"
-  :key="index"
->
+          <div class="testimonials__item" v-for="(item, index) in testimonialsEtudiants" :key="index">
             <div class="testimonials__rating">
-              <span
-                v-for="star in 5"
-                :key="star"
-                class="star"
-                :class="{ 'star--filled': star <= item.rate }"
-              >
+              <span v-for="star in 5" :key="star" class="star" :class="{ 'star--filled': star <= item.rate }">
                 ★
               </span>
             </div>
@@ -65,26 +52,19 @@ onMounted(async () => {
             </div>
             <div class="testimonials__author">
               <div class="author__avatar">
-                <img
-                  :src="lienPhoto + item?.user?.student?.photo_profil"
-                  :alt="item?.user?.student?.nom"
-                  class="author__image"
-                />
+                <img :src="lienPhoto + item?.user?.student?.photo_profil" :alt="item?.user?.student?.nom"
+                  class="author__image" />
               </div>
               <p style="display: flex; flex-direction: column">
-                <span class="author__name" v-if="item?.user?.student"
-                  >{{ item?.user?.student?.prenoms }}</span>
-            <span v-if="item.user?.statuses.length && item.user.statut.statut">
-   <span
-    v-for="(status, index) in item.user?.statuses"
-    :key="index"
-    class="status-item">
-    <span>{{ status.statut }}</span>
-  </span>
-            </span>
-            <span v-else-if="item.user?.statut?.statut && !item.user?.statuses.length">
-         {{ item.user?.statut?.statut }}
-            </span>
+                <span class="author__name" v-if="item?.user?.student">{{ item?.user?.student?.prenoms }}</span>
+                <span v-if="item.user?.statuses.length && item.user.statut.statut">
+                  <span v-for="(status, index) in item.user?.statuses" :key="index" class="status-item">
+                    <span>{{ status.statut }}</span>
+                  </span>
+                </span>
+                <span v-else-if="item.user?.statut?.statut && !item.user?.statuses.length">
+                  {{ item.user?.statut?.statut }}
+                </span>
               </p>
             </div>
           </div>
@@ -94,33 +74,20 @@ onMounted(async () => {
     </section>
     <section v-if="testimonialsEntreprises.length > 0">
       <h1 class="testimonials__title">
-        <img
-          src="../assets/am_brobroli_entreprise.png"
-          alt="am_brobroli"
-          style="
+        <img src="../assets/am_brobroli_entreprise.png" alt="am_brobroli" style="
             width: 100%;
             max-width: 260px;
             height: auto;
             display: block;
             margin: auto;
-          "
-        />
+          " />
       </h1>
 
       <div class="testimonials__list">
         <n-carousel autoplay :interval="2500">
-          <div
-  class="testimonials__item"
-  v-for="(item, index) in testimonialsEntreprises"
-  :key="index"
->
+          <div class="testimonials__item" v-for="(item, index) in testimonialsEntreprises" :key="index">
             <div class="testimonials__rating">
-              <span
-                v-for="star in 5"
-                :key="star"
-                class="star"
-                :class="{ 'star--filled': star <= item.rate }"
-              >
+              <span v-for="star in 5" :key="star" class="star" :class="{ 'star--filled': star <= item.rate }">
                 ★
               </span>
             </div>
@@ -133,30 +100,18 @@ onMounted(async () => {
             </div>
             <div class="testimonials__author">
               <div class="author__avatar">
-                <img
-                 v-if="(item.user?.statuses || []).some(s => s.statut === 'Entreprise')"
-                  :src="lienPhoto + item.student.logo"
-                  :alt="item.student.nom"
-                  class="author__image"
-                />
-                <img
-                  v-if="(item.user?.statuses || []).some(s => s.statut === 'particulier')"
-                  src="../assets/brobroli_1.png"
-                  :alt="item.student.nom"
-                  class="author__image"
-                />
+                <img v-if="(item.user?.statuses || []).some(s => s.statut === 'Entreprise')"
+                  :src="lienPhoto + item.student.logo" :alt="item.student.nom" class="author__image" />
+                <img v-if="(item.user?.statuses || []).some(s => s.statut === 'particulier')"
+                  src="../assets/brobroli_1.png" :alt="item.student.nom" class="author__image" />
               </div>
               <p style="display: flex; flex-direction: column">
-                <span class="author__name" v-if="item?.student"
-                  >{{ item?.user?.student?.nom }} {{ item?.user?.student?.prenoms }}</span
-                >
+                <span class="author__name" v-if="item?.student">{{ item?.user?.student?.nom }} {{
+                  item?.user?.student?.prenoms }}</span>
 
-                   <span
-    v-for="(status, index) in item.user?.statuses || []"
-    :key="index"
-    class="status-item">
-    <span>{{ status.statut }}</span>
-  </span>
+                <span v-for="(status, index) in item.user?.statuses || []" :key="index" class="status-item">
+                  <span>{{ status.statut }}</span>
+                </span>
               </p>
             </div>
           </div>
@@ -178,7 +133,8 @@ onMounted(async () => {
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
-  color: #ccc; /* Couleur par défaut des étoiles vides */
+  color: #ccc;
+  /* Couleur par défaut des étoiles vides */
 }
 
 .star {
@@ -188,7 +144,8 @@ onMounted(async () => {
 }
 
 .star--filled {
-  color: orange; /* Couleur dorée pour les étoiles pleines */
+  color: orange;
+  /* Couleur dorée pour les étoiles pleines */
 }
 
 /* Police par défaut */
@@ -291,6 +248,7 @@ onMounted(async () => {
   font-weight: bold;
   color: #333;
 }
+
 .testimonials {
   display: flex;
   flex-wrap: wrap;

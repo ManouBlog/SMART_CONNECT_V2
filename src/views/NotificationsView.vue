@@ -1,24 +1,19 @@
 <template>
-   <HeaderDashboard :TitleHeader="'Notifications'" :subTitleHeader="'Notifications'" />
+  <HeaderDashboard :TitleHeader="'Notifications'" :subTitleHeader="'Notifications'" />
   <div class="app">
-    <div style="height:300px" v-if="!Notifications?.todayNotifications?.length && !Notifications?.yesterdayNotifications?.length">
+    <div style="height:300px"
+      v-if="!Notifications?.todayNotifications?.length && !Notifications?.yesterdayNotifications?.length">
       <h2 style="text-align:center;">Pas de notifications</h2>
     </div>
-    <NotificationSection
-      v-if="Notifications?.todayNotifications?.length"
-      title="Aujourd’hui"
-      :notifications="Notifications?.todayNotifications"
-    />
-    <NotificationSection
-      v-if="Notifications?.yesterdayNotifications?.length"
-      title="Passées"
-      :notifications="Notifications?.yesterdayNotifications"
-    />
+    <NotificationSection v-if="Notifications?.todayNotifications?.length" title="Aujourd’hui"
+      :notifications="Notifications?.todayNotifications" />
+    <NotificationSection v-if="Notifications?.yesterdayNotifications?.length" title="Passées"
+      :notifications="Notifications?.yesterdayNotifications" />
   </div>
 </template>
 
 <script setup>
-import { onMounted} from "vue";
+import { onMounted } from "vue";
 import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue";
 import NotificationSection from "../components/NotificationSection.vue";
 import { useNotificationsStore } from "../store-pinia/useNotificationsStore";
@@ -47,6 +42,7 @@ onMounted(async () => {
   margin: 20px 0;
   text-align: left;
 }
+
 @media (max-width: 1200px) {
   .app {
     margin: 1.6em 0 !important;

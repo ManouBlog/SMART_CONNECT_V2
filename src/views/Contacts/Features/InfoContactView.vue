@@ -17,27 +17,16 @@ export default {
     this.texte = await this.handleTranslate("Adresse");
     this.texte2 = await this.handleTranslate("Adresse email");
     this.texte3 = await this.handleTranslate("Contact");
-  
+
   },
 };
 </script>
 <template>
   <section class="main-container-footer">
-    <CardFooter
-      :icone_name="'bi bi-building'"
-      :title="texte"
-      :listLien="['Cocody Angre Nouveau CHU Immeuble Bissié 1er Etage Porte D']"
-    />
-    <CardFooter
-      :icone_name="'bi bi-envelope'"
-      :title="texte2"
-      :listLien="['contact@monbrobroli.com']"
-    />
-    <CardFooter
-      :icone_name="'bi bi-person'"
-      :title="texte3"
-      :listLien="['+225 0707969672 / 0546667766']"
-    />
+    <CardFooter :icone_name="'bi bi-building'" :title="texte"
+      :listLien="['Cocody Angre Nouveau CHU Immeuble Bissié 1er Etage Porte D']" />
+    <CardFooter :icone_name="'bi bi-envelope'" :title="texte2" :listLien="['contact@monbrobroli.com']" />
+    <CardFooter :icone_name="'bi bi-person'" :title="texte3" :listLien="['+225 0707969672 / 0546667766']" />
   </section>
 </template>
 <style scoped>

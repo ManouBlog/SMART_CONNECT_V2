@@ -19,7 +19,7 @@ export default {
       this.spinner = true;
       instance.get("list_entreprise")
         .then((res) => {
-          
+
           this.entreprises = res.data.data;
 
           this.entreprise = this.entreprises.find(
@@ -60,7 +60,7 @@ export default {
               },
             });
           }, 10);
-        
+
         });
     },
   },
@@ -92,8 +92,7 @@ export default {
     </div>
     <div class="card" v-if="entreprise != null">
       <div class="card-body body-card">
-        <span class="h3">Entreprise : </span
-        ><span class="badge bg-primary h3">{{ `${entreprise.nom}` }}</span>
+        <span class="h3">Entreprise : </span><span class="badge bg-primary h3">{{ `${entreprise.nom}` }}</span>
       </div>
     </div>
     <div class="container-fluid" v-if="entreprise != null">
@@ -127,20 +126,23 @@ export default {
 </template>
 
 <style scoped>
-
 .bi-arrow-left-circle {
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .body-card {
   background: transparent;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;

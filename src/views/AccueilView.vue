@@ -7,7 +7,7 @@ export default {
       user: this.$store.state.user,
     };
   },
-  
+
 };
 </script>
 
@@ -21,9 +21,7 @@ export default {
           <div class="col-md-2 col-sm-6">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
-                <a class="home-item" href="index.html"
-                  ><i data-feather="home"></i
-                ></a>
+                <a class="home-item" href="index.html"><i data-feather="home"></i></a>
               </li>
               <li class="breadcrumb-item">Accueil</li>
             </ol>
@@ -42,20 +40,13 @@ export default {
                   <div class="greeting-user">
                     <h1 v-if="user">Hello, {{ this.user.nom }}</h1>
                     <p>Welcome back, your dashboard is ready!</p>
-                    <a
-                      class="btn btn-outline-white_color"
-                      href="blog-single.html"
-                      >Get Started<i class="icon-arrow-right"> </i
-                    ></a>
+                    <a class="btn btn-outline-white_color" href="blog-single.html">Get Started<i
+                        class="icon-arrow-right"> </i></a>
                   </div>
                 </div>
               </div>
               <div class="cartoon-img">
-                <img
-                  class="img-fluid"
-                  src="http://admin.pixelstrap.com/zeta/asset/images/images.svg"
-                  alt=""
-                />
+                <img class="img-fluid" src="http://admin.pixelstrap.com/zeta/asset/images/images.svg" alt="" />
               </div>
             </div>
           </div>

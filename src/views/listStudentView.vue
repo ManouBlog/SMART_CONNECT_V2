@@ -16,7 +16,7 @@ export default {
     see_details(id) {
       this.see_detail_students = !this.see_detail_students;
       this.id_student = id;
-      
+
     },
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
@@ -85,7 +85,7 @@ export default {
       <div class="card">
         <div class="card-body" v-if="student">
           <h1>Détails</h1>
-          <span>{{ `${student.nom}  ${student.prenoms}` }}</span>
+          <span>{{ `${student.nom} ${student.prenoms}` }}</span>
 
           <div class="row">
             <div class="col-md-3">
@@ -97,72 +97,43 @@ export default {
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Prénoms</label>
-                <input
-                  v-model="student.prenoms"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.prenoms" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input
-                  v-model="student.email"
-                  class="form-control"
-                  type="email"
-                  disabled
-                />
+                <input v-model="student.email" class="form-control" type="email" disabled />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Télephone</label>
-                <input
-                  v-model="student.phone"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.phone" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">ville</label>
-                <input
-                  v-model="student.ville"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.ville" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-md-3">
               <div class="mb-3">
                 <label class="form-label">Commune</label>
-                <input
-                  v-model="student.commune"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.commune" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Quartier</label>
-                <input
-                  v-model="student.quartier"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.quartier" class="form-control" type="text" />
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="mb-3">
                 <label class="form-label">Diplome</label>
-                <input
-                  v-model="student.diplome"
-                  class="form-control"
-                  type="text"
-                />
+                <input v-model="student.diplome" class="form-control" type="text" />
               </div>
             </div>
           </div>
@@ -222,11 +193,8 @@ export default {
                     {{ item.phone }}
                   </td>
                   <td class="d-flex justify-content-center align-items-center">
-                    <router-link
-                      :to="{ name: 'details', params: { id: item.id } }"
-                    >
-                      <i class="bi bi-eye"></i
-                    ></router-link>
+                    <router-link :to="{ name: 'details', params: { id: item.id } }">
+                      <i class="bi bi-eye"></i></router-link>
                   </td>
                 </tr>
               </tbody>
@@ -239,8 +207,6 @@ export default {
   <!-- Container-fluid Ends-->
 </template>
 <style scoped>
-
-
 @import url("../../src/dash/css/color-1.css");
 @import url("../../src/dash/css/vendors/font-awesome.css");
 @import url("../../src/dash/css/vendors/icofont.css");
@@ -267,17 +233,21 @@ export default {
 
 
 @import url("../../src/dash/css/responsive.css");
+
 .bi {
   font-size: 1.5em !important;
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;

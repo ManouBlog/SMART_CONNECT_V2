@@ -19,11 +19,11 @@ export default {
     return {
       toogleExperience: true,
       texte: "",
-      Help:Help,
+      Help: Help,
       texte2: "",
       texte3: "",
       texte1: "",
-      lienPhoto:lienPhoto,
+      lienPhoto: lienPhoto,
       texte4: "",
       texte5: "",
       texte6: "",
@@ -61,35 +61,23 @@ export default {
 };
 </script>
 <template>
-  <CardOtherExperience
-    v-if="timetable_for_student.experiences.length"
-    :experiences="timetable_for_student.experiences"
-  />
+  <CardOtherExperience v-if="timetable_for_student.experiences.length"
+    :experiences="timetable_for_student.experiences" />
   <section class="section_experience_evaluation">
     <div class="conteneur_section_experience">
-      <p
-        class="w-100 experience text-left fw-bold"
-        style="color: orange; cursor: pointer;font-size: 1.3em !important;"
-        v-if="timetable_for_student.experiences.length"
-        @click.prevent="toogleExperience = !toogleExperience"
-      >
-       <span class="text-underlines">{{ texte }}</span>
-        <em
-          class="bi bi-chevron-down"
-          v-if="toogleExperience == false"
-          :class="toogleExperience == true ? 'd-none' : ''"
-        >
+      <p class="w-100 experience text-left fw-bold" style="color: orange; cursor: pointer;font-size: 1.3em !important;"
+        v-if="timetable_for_student.experiences.length" @click.prevent="toogleExperience = !toogleExperience">
+        <span class="text-underlines">{{ texte }}</span>
+        <em class="bi bi-chevron-down" v-if="toogleExperience == false"
+          :class="toogleExperience == true ? 'd-none' : ''">
         </em>
         <em class="bi bi-chevron-up" v-if="toogleExperience == true"></em>
       </p>
       <div v-if="toogleExperience && timetable_for_student.experiences.length">
-        
-        <div
-          class="experiences position-relative px-4 my-4"
-          v-for="(item, index) in timetable_for_student.experiences.slice(0, 1)"
-          :key="index"
-        >
-        <!-- {{ item }} -->
+
+        <div class="experiences position-relative px-4 my-4"
+          v-for="(item, index) in timetable_for_student.experiences.slice(0, 1)" :key="index">
+          <!-- {{ item }} -->
           <div class="rond position-absolute"></div>
           <div class="contenteur_experience">
             <div class="proof_experience" v-if="item?.proof">
@@ -114,7 +102,8 @@ export default {
                 ).toLocaleString()}`
               }}
             </h6>
-            <p class="text-start ms-2" v-if="item?.experience || item.experience !== 'null' || item.experience !== null">
+            <p class="text-start ms-2"
+              v-if="item?.experience || item.experience !== 'null' || item.experience !== null">
               {{ item?.experience }}
             </p>
           </div>
@@ -126,10 +115,7 @@ export default {
         </div>
       </div>
     </div>
-    <div
-      class="conteneur_evaluation_experience"
-      v-if="timetable_for_student?.user?.rated_users?.length"
-    >
+    <div class="conteneur_evaluation_experience" v-if="timetable_for_student?.user?.rated_users?.length">
       <p class="text-left evaluation_avis">
         <span>( {{ timetable_for_student?.user?.rated_users?.length }} ){{ texte2 }}</span>
       </p>
@@ -146,19 +132,12 @@ export default {
                 <em class="bi bi-caret-right-fill"></em>
               </div>
             </template>
-            <div v-for="(item, index) in timetable_for_student?.user?.rated_users" 
-            :key="index">
+            <div v-for="(item, index) in timetable_for_student?.user?.rated_users" :key="index">
               <div>
                 <p v-if="item?.nom" style="padding: 0;margin:0;">
-                  <n-avatar
-                v-if="item?.photo_profil"
-                style="border: 2px solid orange; object-fit: cover"
-                round
-                :size="45"
-                :src="lienPhoto + item?.photo_profil"
-              />
-              <span
-                style="
+                  <n-avatar v-if="item?.photo_profil" style="border: 2px solid orange; object-fit: cover" round
+                    :size="45" :src="lienPhoto + item?.photo_profil" />
+                  <span style="
                   border: 2px solid orange;
                   object-fit: cover;
                   padding: 0.6em;
@@ -167,27 +146,19 @@ export default {
                   border-radius: 100%;
                   background: gray;
                   margin: -10px;
-                "
-                v-else
-              >
-                <span style="font-size: 1em">{{ Help.toADfirstTwo(item?.nom) }}</span>
-              </span>
-                  <span
-                    style="
+                " v-else>
+                    <span style="font-size: 1em">{{ Help.toADfirstTwo(item?.nom) }}</span>
+                  </span>
+                  <span style="
                       margin: 0 1em;
                       padding: 0;
                       font-size: 1.2em;
-                    "
-                  >
+                    ">
                     {{ item?.nom }}
                   </span>
                 </p>
-                <vue3starRatings
-                  v-model="item.pivot.notes"
-                  :showControl="false"
-                  :starSize="'13'"
-                  :disableClick="true"
-                />
+                <vue3starRatings v-model="item.pivot.notes" :showControl="false" :starSize="'13'"
+                  :disableClick="true" />
                 <!-- <Rating 
                  :class="emploi.star_color === 'gold' ? 'color_gold':'color_yellow'" 
                  v-model="emploi.average" 
@@ -212,17 +183,21 @@ export default {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -2px; /* espace sous le texte */
+  bottom: -2px;
+  /* espace sous le texte */
   width: 100%;
   height: 1px;
   background: orange;
 }
-:deep(.stars){
-  margin:0 0 1em 0 !important;
+
+:deep(.stars) {
+  margin: 0 0 1em 0 !important;
 }
+
 :deep(.vue3-star-ratings__wrapper) {
   padding: 0 !important;
 }
+
 .card {
   margin-bottom: 0px;
   border: none;
@@ -233,9 +208,11 @@ export default {
   padding: 2em 3em;
   background: white;
 }
+
 .mt-5 {
   margin-top: 101px !important;
 }
+
 input,
 textarea {
   width: 100%;
@@ -249,11 +226,12 @@ textarea {
 }
 
 .conteneur_editor {
-   border: 1.5px solid orange;
+  border: 1.5px solid orange;
   color: black !important;
   padding: 0 1em;
   border-radius: 5px;
 }
+
 .add_nouvelle_experience {
   position: fixed;
   left: 0;
@@ -266,6 +244,7 @@ textarea {
   place-items: center;
   justify-content: center;
 }
+
 .conteneur_nouvelle_experience {
   width: 60%;
   height: 500px;
@@ -275,6 +254,7 @@ textarea {
   position: relative;
   border-radius: 5px;
 }
+
 .conteneur_nouvelle_experience form {
   padding: 1em;
   margin-top: 5em;
@@ -288,6 +268,7 @@ textarea {
   font-size: 1.2em;
   cursor: pointer;
 }
+
 .rond {
   width: 20px;
   height: 20px;
@@ -296,29 +277,35 @@ textarea {
   left: -0.6em;
   top: 0;
 }
+
 .bi-plus-lg {
   right: 0;
   top: 0;
   font-size: 1.2em;
   cursor: pointer;
 }
+
 .bi-trash3 {
   right: 0;
   top: 0;
   cursor: pointer;
 }
+
 .bi-pencil {
   right: 1.7em;
   top: 0;
   cursor: pointer;
 }
+
 ul {
   list-style-type: disc;
 }
+
 .my-custom-paragraph {
   text-align: left !important;
   color: black;
 }
+
 .contenteur_experience {
   padding: 0.5em 0;
 }
@@ -340,18 +327,22 @@ ul {
   background: rgb(122, 121, 121);
   left: 0;
 }
+
 .conteneur_experience,
 .conteneur_competences {
   background: white;
 }
+
 .conteneur_experience {
   padding: 1em;
   border-radius: 1rem;
 }
+
 #content_competences {
   background: white;
   height: auto;
 }
+
 .delete_article {
   position: fixed;
   left: 0;
@@ -377,28 +368,35 @@ ul {
   justify-content: center;
   border-radius: 10px;
 }
+
 #cont_table_competence {
   margin-top: 1.5em;
 }
+
 .position-absolute {
   position: absolute;
 }
+
 .position-relative {
   position: relative;
 }
+
 .text-start,
 label {
   text-align: left;
 }
+
 .fw-bold,
 label {
   font-weight: bold;
   color: black;
 }
+
 .profile-greeting .greeting-user .btn:hover {
   background: #6362e7 !important;
   color: white !important;
 }
+
 .table,
 tr,
 th,
@@ -406,6 +404,7 @@ td {
   border: 1px solid black !important;
   text-align: center;
 }
+
 .conteneur-experience {
   position: fixed;
   background: rgb(255, 255, 255);
@@ -413,6 +412,7 @@ td {
   width: inherit;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.297);
 }
+
 p {
   font-size: 1em !important;
 }
@@ -422,16 +422,18 @@ p {
   gap: 1em;
   align-items: center;
 }
+
 .evaluation_avis {
   margin-left: -0.5em;
   /* width: 160px; */
-  
+
   padding: 0.5em;
-  font-weight:bold;
+  font-weight: bold;
   border-radius: 5px;
   font-size: 18px;
   color: orange;
 }
+
 .evaluation_contenaire {
   margin-left: 0.5em;
   padding: 0.5em;
@@ -439,6 +441,7 @@ p {
   font-size: 1.3em;
   color: orange;
 }
+
 .carrousel_container_testominal {
   position: absolute;
   top: 0;
@@ -447,11 +450,13 @@ p {
   width: 100%;
   height: 100%;
 }
+
 .container-testominal {
   width: 100%;
   position: relative;
   height: 100%;
 }
+
 :deep(.slick-slide) {
   text-align: center;
   height: 100%;
@@ -471,9 +476,11 @@ p {
   opacity: 1;
   z-index: 1000;
 }
+
 :deep(.slick-arrow.custom-slick-arrow:before) {
   display: none;
 }
+
 :deep(.slick-arrow.custom-slick-arrow:hover) {
   color: #000000;
   opacity: 0.5;
@@ -487,24 +494,29 @@ p {
 .section_experience_evaluation .conteneur_section_experience {
   flex: 2 2 300px;
 }
+
 .section_experience_evaluation .conteneur_evaluation_experience {
   flex: 1 1 300px;
-  margin-bottom:18em;
+  margin-bottom: 18em;
 }
+
 .info_student_detail {
   text-transform: capitalize;
 }
+
 .bi-person {
   font-size: 4em;
 }
+
 .section_student_header {
   display: flex;
   gap: 1em;
   align-items: flex-start;
 }
+
 @media (max-width:780px) {
   .section_experience_evaluation .conteneur_evaluation_experience {
-  margin-bottom:10em;
-}
+    margin-bottom: 10em;
+  }
 }
 </style>

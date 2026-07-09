@@ -19,7 +19,7 @@ export default {
       this.spinner = true;
       instance.get("list_students")
         .then((res) => {
-          
+
           this.students = res.data.data;
 
           this.student = this.students.find(
@@ -60,7 +60,7 @@ export default {
               },
             });
           }, 10);
-        
+
         });
     },
   },
@@ -92,7 +92,7 @@ export default {
     <div class="card" v-if="student != null">
       <div class="card-body">
         <span v-if="student != null" class="badge bg-primary h3">{{
-          `${student.nom}  ${student.prenoms}`
+          `${student.nom} ${student.prenoms}`
         }}</span>
 
         <div class="row">
@@ -105,22 +105,13 @@ export default {
           <div class="col-sm-6 col-md-3">
             <div class="mb-3">
               <label class="form-label">Prénoms</label>
-              <input
-                v-model="student.prenoms"
-                class="form-control"
-                type="text"
-              />
+              <input v-model="student.prenoms" class="form-control" type="text" />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3">
               <label class="form-label">Email</label>
-              <input
-                v-model="student.email"
-                class="form-control"
-                type="email"
-                disabled
-              />
+              <input v-model="student.email" class="form-control" type="email" disabled />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
@@ -138,31 +129,19 @@ export default {
           <div class="col-md-3">
             <div class="mb-3">
               <label class="form-label">Commune</label>
-              <input
-                v-model="student.commune"
-                class="form-control"
-                type="text"
-              />
+              <input v-model="student.commune" class="form-control" type="text" />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3">
               <label class="form-label">Quartier</label>
-              <input
-                v-model="student.quartier"
-                class="form-control"
-                type="text"
-              />
+              <input v-model="student.quartier" class="form-control" type="text" />
             </div>
           </div>
           <div class="col-sm-6 col-md-3">
             <div class="mb-3">
               <label class="form-label">Diplome</label>
-              <input
-                v-model="student.diplome"
-                class="form-control"
-                type="text"
-              />
+              <input v-model="student.diplome" class="form-control" type="text" />
             </div>
           </div>
         </div>
@@ -195,18 +174,19 @@ export default {
 </template>
 
 <style scoped>
-
-
 .bi-arrow-left-circle {
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;

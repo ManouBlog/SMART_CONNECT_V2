@@ -42,12 +42,12 @@ export default {
           ville: this.offre_id.ville,
         })
         .then((res) => {
-          
-          if(res.data.status){
-         this.modify_offre = false;
-          this.id_offre_update = "";
+
+          if (res.data.status) {
+            this.modify_offre = false;
+            this.id_offre_update = "";
           }
-         
+
           // Swal.fire({
           //   icon: "success",
           //   title: res.data.message,
@@ -56,7 +56,7 @@ export default {
           // });
         })
         .catch((err) => {
-       
+
           console.log(err)
           Swal.fire({
             icon: "info",
@@ -71,7 +71,7 @@ export default {
       instance
         .get("get_offres_entreprise")
         .then((res) => {
-         
+
           this.offres = res.data.data;
           this.spinner = false;
           setTimeout(function () {
@@ -115,15 +115,15 @@ export default {
     show_offre_id(id) {
       this.modify_offre = !this.modify_offre;
       this.id_offre_update = id;
-     
+
 
       instance
         .get("get_offres_entreprise")
         .then((res) => {
-          
+
           this.offres = res.data.data;
           this.offre_id = this.offres.find((offre) => offre.offres_id === id);
-          
+
         })
         .catch((err) => {
           console.log(err)
@@ -132,7 +132,7 @@ export default {
     create_offre() {
       this.loading = true;
       this.creer = false;
-      
+
       instance
         .post("create_offre", {
           nom_offre: this.offre,
@@ -145,7 +145,7 @@ export default {
         .then((res) => {
           this.spinner = true;
           this.loading = false;
-          
+
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -163,7 +163,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          
+
           // Swal.fire({
           //   icon: "error",
           //   title: res.data.message,
@@ -175,7 +175,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      
+
     },
     not_delete() {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -185,7 +185,7 @@ export default {
       instance
         .delete("delete_offre_entreprise/" + this.id_for_delete)
         .then((res) => {
-          
+
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -200,13 +200,13 @@ export default {
           }
         })
         .catch((err) => {
-        
+
           Swal.fire({
-              icon: "success",
-              title: err.data.message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            icon: "success",
+            title: err.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
   },
@@ -232,90 +232,53 @@ export default {
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Nom de l'offre</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model="offre_id.nom_offre"
-                                placeholder="ex:Serveuse,Barman,Pianiste"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model="offre_id.nom_offre"
+                                placeholder="ex:Serveuse,Barman,Pianiste" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>salaire</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model.number="offre_id.salaire"
-                                placeholder="ex:35000"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model.number="offre_id.salaire"
+                                placeholder="ex:35000" required />
                             </div>
                           </div>
 
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>lieu</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model="offre_id.ville"
-                                placeholder="ex:Angré"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model="offre_id.ville" placeholder="ex:Angré"
+                                required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Debut</label>
-                              <input
-                                class="form-control"
-                                type="date"
-                                v-model="offre_id.debut"
-                                required
-                              />
+                              <input class="form-control" type="date" v-model="offre_id.debut" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Fin</label>
-                              <input
-                                class="form-control"
-                                type="date"
-                                v-model="offre_id.fin"
-                                required
-                              />
+                              <input class="form-control" type="date" v-model="offre_id.fin" required />
                             </div>
                           </div>
                           <div class="col-lg-8">
                             <div class="mb-3">
                               <label>Description</label>
-                              <textarea
-                                class="w-100"
-                                name="description"
-                                id=""
-                                cols="100"
-                                rows="5"
+                              <textarea class="w-100" name="description" id="" cols="100" rows="5"
                                 v-model="offre_id.description"
-                                placeholder="ex:Besoin d'un barman pour la semaine du 12 au 20."
-                              ></textarea>
+                                placeholder="ex:Besoin d'un barman pour la semaine du 12 au 20."></textarea>
                             </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col">
                             <div class="text-end">
-                              <button
-                                class="btn btn-danger me-3"
-                                @click.prevent="show_offre_modify"
-                              >
+                              <button class="btn btn-danger me-3" @click.prevent="show_offre_modify">
                                 Annuler
                               </button>
-                              <button
-                                class="btn btn-secondary"
-                                @click.prevent="update_offre"
-                              >
+                              <button class="btn btn-secondary" @click.prevent="update_offre">
                                 Modifier
                               </button>
                             </div>
@@ -358,27 +321,13 @@ export default {
           <div class="social-tab">
             <ul class="nav nav-tabs" id="top-tab" role="tablist">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  id="top-timeline"
-                  data-bs-toggle="tab"
-                  href="#timetable"
-                  role="tab"
-                  aria-controls="timetable"
-                  aria-selected="true"
-                  ><i data-feather="clock"></i>Créer une offre</a
-                >
+                <a class="nav-link active" id="top-timeline" data-bs-toggle="tab" href="#timetable" role="tab"
+                  aria-controls="timetable" aria-selected="true"><i data-feather="clock"></i>Créer une offre</a>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  id="top-about"
-                  data-bs-toggle="tab"
-                  href="#voir_emploi_temps"
-                  role="tab"
-                  aria-controls="voir_emploi_temps"
-                  aria-selected="false"
-                  ><i data-feather="alert-circle"></i>Voir mes offres
+                <a class="nav-link" id="top-about" data-bs-toggle="tab" href="#voir_emploi_temps" role="tab"
+                  aria-controls="voir_emploi_temps" aria-selected="false"><i data-feather="alert-circle"></i>Voir mes
+                  offres
                 </a>
               </li>
             </ul>
@@ -386,12 +335,7 @@ export default {
         </div>
       </div>
       <div class="tab-content" id="top-tabContent">
-        <div
-          class="tab-pane fade show active"
-          id="timetable"
-          role="tabpanel"
-          aria-labelledby="timetable"
-        >
+        <div class="tab-pane fade show active" id="timetable" role="tabpanel" aria-labelledby="timetable">
           <div class="container-fluid">
             <div class="Myspinner" v-show="spinner">
               <div class="spinner-border text-primary" role="status"></div>
@@ -406,77 +350,42 @@ export default {
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Nom de l'offre</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model="offre"
-                                placeholder="ex:serveuse,barman,pianiste"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model="offre"
+                                placeholder="ex:serveuse,barman,pianiste" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Salaire</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model="salaire"
-                                placeholder="ex:35000"
-                                pattern="[0-9]*"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model="salaire" placeholder="ex:35000"
+                                pattern="[0-9]*" required />
                             </div>
                           </div>
 
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Lieu</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model="ville"
-                                placeholder="ex:Angré"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model="ville" placeholder="ex:Angré" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Date et heure début </label>
-                              <input
-                                class="form-control"
-                                type="date"
-                                v-model="debut"
-                                required
-                              />
+                              <input class="form-control" type="date" v-model="debut" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label> Date et heure fin </label>
-                              <input
-                                class="form-control"
-                                type="date"
-                                v-model="fin"
-                                required
-                              />
+                              <input class="form-control" type="date" v-model="fin" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Description</label>
 
-                              <textarea
-                                class="w-100"
-                                name="description"
-                                id=""
-                                cols="100"
-                                rows="5"
-                                v-model="description"
-                                required
-                                placeholder="ex:Besoin d'un barman pour la semaine du 12 au 20."
-                              ></textarea>
+                              <textarea class="w-100" name="description" id="" cols="100" rows="5" v-model="description"
+                                required placeholder="ex:Besoin d'un barman pour la semaine du 12 au 20."></textarea>
                             </div>
                           </div>
                         </div>
@@ -484,12 +393,8 @@ export default {
                           <div class="col">
                             <div class="text-end">
                               <button class="btn btn-secondary me-3" type="submit">
-                                <span
-                                  class="spinner-border w-20"
-                                  role="status"
-                                  v-show="loading"
-                                ></span
-                                ><span v-show="creer">Créer</span>
+                                <span class="spinner-border w-20" role="status" v-show="loading"></span><span
+                                  v-show="creer">Créer</span>
                               </button>
                             </div>
                           </div>
@@ -503,12 +408,7 @@ export default {
           </div>
         </div>
 
-        <div
-          class="tab-pane fade"
-          id="voir_emploi_temps"
-          role="tabpanel"
-          aria-labelledby="voir_emploi_temps"
-        >
+        <div class="tab-pane fade" id="voir_emploi_temps" role="tabpanel" aria-labelledby="voir_emploi_temps">
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-12 card py-3 px-2">
@@ -533,14 +433,8 @@ export default {
                       <td>{{ item.fin }}</td>
                       <td>{{ item.description }}</td>
                       <td class="d-flex justify-content-center align-items-center">
-                        <i
-                          class="bi bi-pencil mx-2"
-                          @click="show_offre_id(item.offres_id)"
-                        ></i>
-                        <i
-                          class="bi bi-trash"
-                          @click="show_box_confirmation_delete(item.offres_id)"
-                        ></i>
+                        <i class="bi bi-pencil mx-2" @click="show_offre_id(item.offres_id)"></i>
+                        <i class="bi bi-trash" @click="show_box_confirmation_delete(item.offres_id)"></i>
                       </td>
                     </tr>
                   </tbody>
@@ -568,89 +462,52 @@ export default {
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Offer name</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model="offre_id.nom_offre"
-                                placeholder="ex:serveuse,barman,pianiste"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model="offre_id.nom_offre"
+                                placeholder="ex:serveuse,barman,pianiste" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Honorary</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model.number="offre_id.salaire"
-                                placeholder="ex:35000"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model.number="offre_id.salaire"
+                                placeholder="ex:35000" required />
                             </div>
                           </div>
 
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>City</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model="offre_id.ville"
-                                placeholder="ex:Angré"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model="offre_id.ville" placeholder="ex:Angré"
+                                required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Start</label>
-                              <input
-                                class="form-control"
-                                type="date"
-                                v-model="offre_id.debut"
-                                required
-                              />
+                              <input class="form-control" type="date" v-model="offre_id.debut" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>End</label>
-                              <input
-                                class="form-control"
-                                type="date"
-                                v-model="offre_id.fin"
-                                required
-                              />
+                              <input class="form-control" type="date" v-model="offre_id.fin" required />
                             </div>
                           </div>
                           <div class="col-lg-8">
                             <div class="mb-3">
                               <label>Description</label>
-                              <textarea
-                                class="w-100"
-                                name="description"
-                                id=""
-                                cols="100"
-                                rows="5"
-                                v-model="offre_id.description"
-                              ></textarea>
+                              <textarea class="w-100" name="description" id="" cols="100" rows="5"
+                                v-model="offre_id.description"></textarea>
                             </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col">
                             <div class="text-end">
-                              <button
-                                class="btn btn-danger me-3"
-                                @click.prevent="show_offre_modify"
-                              >
+                              <button class="btn btn-danger me-3" @click.prevent="show_offre_modify">
                                 Cancel
                               </button>
-                              <button
-                                class="btn btn-secondary"
-                                @click.prevent="update_offre"
-                              >
+                              <button class="btn btn-secondary" @click.prevent="update_offre">
                                 Edit
                               </button>
                             </div>
@@ -693,27 +550,13 @@ export default {
           <div class="social-tab">
             <ul class="nav nav-tabs" id="top-tab" role="tablist">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  id="top-timeline"
-                  data-bs-toggle="tab"
-                  href="#timetable"
-                  role="tab"
-                  aria-controls="timetable"
-                  aria-selected="true"
-                  ><i data-feather="clock"></i>Create an offer</a
-                >
+                <a class="nav-link active" id="top-timeline" data-bs-toggle="tab" href="#timetable" role="tab"
+                  aria-controls="timetable" aria-selected="true"><i data-feather="clock"></i>Create an offer</a>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  id="top-about"
-                  data-bs-toggle="tab"
-                  href="#voir_emploi_temps"
-                  role="tab"
-                  aria-controls="voir_emploi_temps"
-                  aria-selected="false"
-                  ><i data-feather="alert-circle"></i>See my offers
+                <a class="nav-link" id="top-about" data-bs-toggle="tab" href="#voir_emploi_temps" role="tab"
+                  aria-controls="voir_emploi_temps" aria-selected="false"><i data-feather="alert-circle"></i>See my
+                  offers
                 </a>
               </li>
             </ul>
@@ -721,12 +564,7 @@ export default {
         </div>
       </div>
       <div class="tab-content" id="top-tabContent">
-        <div
-          class="tab-pane fade show active"
-          id="timetable"
-          role="tabpanel"
-          aria-labelledby="timetable"
-        >
+        <div class="tab-pane fade show active" id="timetable" role="tabpanel" aria-labelledby="timetable">
           <div class="container-fluid">
             <div class="Myspinner" v-show="spinner">
               <div class="spinner-border text-primary" role="status"></div>
@@ -741,76 +579,41 @@ export default {
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Offer name</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model="offre"
-                                placeholder="ex:Serveuse,Barman,Pianiste"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model="offre"
+                                placeholder="ex:Serveuse,Barman,Pianiste" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Honorary</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model="salaire"
-                                pattern="[0-9]*"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model="salaire" pattern="[0-9]*" required />
                             </div>
                           </div>
 
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>City</label>
-                              <input
-                                class="form-control"
-                                type="text"
-                                v-model="ville"
-                                placeholder="ex:Angré"
-                                required
-                              />
+                              <input class="form-control" type="text" v-model="ville" placeholder="ex:Angré" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Start date and time </label>
-                              <input
-                                class="form-control"
-                                type="date"
-                                v-model="debut"
-                                required
-                              />
+                              <input class="form-control" type="date" v-model="debut" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label> End date and time </label>
-                              <input
-                                class="form-control"
-                                type="date"
-                                v-model="fin"
-                                required
-                              />
+                              <input class="form-control" type="date" v-model="fin" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Description</label>
 
-                              <textarea
-                                class="w-100"
-                                name="description"
-                                id=""
-                                cols="100"
-                                rows="5"
-                                v-model="description"
-                                required
-                                placeholder="ex:Besoin d'un barman pour la semaine du 12 au 20."
-                              ></textarea>
+                              <textarea class="w-100" name="description" id="" cols="100" rows="5" v-model="description"
+                                required placeholder="ex:Besoin d'un barman pour la semaine du 12 au 20."></textarea>
                             </div>
                           </div>
                         </div>
@@ -818,12 +621,8 @@ export default {
                           <div class="col">
                             <div class="text-end">
                               <button class="btn btn-secondary me-3" type="submit">
-                                <span
-                                  class="spinner-border w-20"
-                                  role="status"
-                                  v-show="loading"
-                                ></span
-                                ><span v-show="creer">Create</span>
+                                <span class="spinner-border w-20" role="status" v-show="loading"></span><span
+                                  v-show="creer">Create</span>
                               </button>
                             </div>
                           </div>
@@ -837,12 +636,7 @@ export default {
           </div>
         </div>
 
-        <div
-          class="tab-pane fade"
-          id="voir_emploi_temps"
-          role="tabpanel"
-          aria-labelledby="voir_emploi_temps"
-        >
+        <div class="tab-pane fade" id="voir_emploi_temps" role="tabpanel" aria-labelledby="voir_emploi_temps">
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-12 card py-3 px-2">
@@ -867,14 +661,8 @@ export default {
                       <td>{{ item.fin }}</td>
                       <td>{{ item.description }}</td>
                       <td class="d-flex justify-content-center align-items-center">
-                        <i
-                          class="bi bi-pencil mx-2"
-                          @click="show_offre_id(item.offres_id)"
-                        ></i>
-                        <i
-                          class="bi bi-trash"
-                          @click="show_box_confirmation_delete(item.offres_id)"
-                        ></i>
+                        <i class="bi bi-pencil mx-2" @click="show_offre_id(item.offres_id)"></i>
+                        <i class="bi bi-trash" @click="show_box_confirmation_delete(item.offres_id)"></i>
                       </td>
                     </tr>
                   </tbody>
@@ -891,6 +679,7 @@ export default {
 label {
   font-weight: bold;
 }
+
 .btn-secondary {
   background: rgb(5, 35, 73) !important;
   border: 1px solid rgb(5, 35, 73) !important;
@@ -899,13 +688,16 @@ label {
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 th {
   text-align: center;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -918,6 +710,7 @@ th {
   place-items: center;
   justify-content: center;
 }
+
 .plan-modify {
   position: fixed;
   left: 0;
@@ -930,6 +723,7 @@ th {
   place-items: center;
   justify-content: center;
 }
+
 .delete_article {
   position: fixed;
   left: 0;
@@ -942,6 +736,7 @@ th {
   place-items: center;
   justify-content: center;
 }
+
 .ecran {
   position: absolute;
   left: 0;
@@ -953,10 +748,12 @@ th {
   background: transparent;
   z-index: 99;
 }
+
 .modify-form {
   margin-left: 50%;
   transform: translateX(-35%);
 }
+
 .bi {
   font-size: 1.3em !important;
   margin: 0 0.5em;

@@ -18,12 +18,12 @@ export default {
         {
           lien: require("../../../assets/googleplay.png"),
           alt_img: "googleplay",
-          lienCliquable:'https://play.google.com/store/apps/details?id=com.monbrobroli.app&hl=fr'
+          lienCliquable: 'https://play.google.com/store/apps/details?id=com.monbrobroli.app&hl=fr'
         },
         {
           lien: require("../../../assets/app_store.png"),
           alt_img: "app_store",
-          lienCliquable:'https://apps.apple.com/ci/app/monbrobroli-mb/id6754699104'
+          lienCliquable: 'https://apps.apple.com/ci/app/monbrobroli-mb/id6754699104'
         },
       ],
       illustrationApp: require("../../../assets/illustration_app.png"),
@@ -60,22 +60,13 @@ export default {
         {{ texte4 }}
       </h3>
       <div class="conteneur_logo_app_telechargement">
-        <ImageView
-          v-for="(item, index) in illustrationData"
-          :key="index"
-          :lien_img_folder="item.lien"
-          :name_class_img="'w-25 mx-2 image_class'"
-          :alt_img="item.alt_img"
-          :lienCliquable="item.lienCliquable"
-        />
+        <ImageView v-for="(item, index) in illustrationData" :key="index" :lien_img_folder="item.lien"
+          :name_class_img="'w-25 mx-2 image_class'" :alt_img="item.alt_img" :lienCliquable="item.lienCliquable" />
       </div>
     </div>
     <div class="ecriteau_image">
-      <ImageView
-        :lien_img_folder="illustrationApp"
-        :name_class_img="'position-absolute image'"
-        :alt_img="'illustration_app'"
-      />
+      <ImageView :lien_img_folder="illustrationApp" :name_class_img="'position-absolute image'"
+        :alt_img="'illustration_app'" />
     </div>
   </div>
 </template>
@@ -88,19 +79,23 @@ export default {
   width: 100%;
   height: 100%;
 }
+
 .ecriteau_image {
   position: relative;
   flex: 2 2 200px;
   text-align: center;
 }
+
 .ecriteau {
   flex: 3 3 200px;
   text-align: center;
 }
-.ecriteau > h1 {
+
+.ecriteau>h1 {
   font-weight: bold;
   font-size: 3em;
 }
+
 .header_banner {
   width: 100%;
   height: auto;
@@ -113,15 +108,17 @@ export default {
 }
 
 @media screen and (max-width: 500px) {
-.text_ecriteau{
-  font-size: 2em !important;
+  .text_ecriteau {
+    font-size: 2em !important;
   }
-.ecriteau > h1 {
-  margin: 0.5em 0;
-}
-.ecriteau_image {
-  margin:0.5em 0;
-  text-align: center;
-}
+
+  .ecriteau>h1 {
+    margin: 0.5em 0;
+  }
+
+  .ecriteau_image {
+    margin: 0.5em 0;
+    text-align: center;
+  }
 }
 </style>

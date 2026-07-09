@@ -17,9 +17,9 @@ export default {
       this.spinner = true;
       instance.get("list_offres")
         .then((res) => {
-          
+
           this.offres = res.data.data;
-        
+
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({
@@ -135,18 +135,20 @@ export default {
   <!-- Container-fluid Ends-->
 </template>
 <style scoped>
-
 .bi {
   font-size: 1.5em !important;
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;

@@ -7,9 +7,9 @@ import { useTranslateStore } from "../../../store-pinia/Translate/useTranslateSt
 // import DefilementText from "../../../components/DefilementText.vue";
 export default {
   name: "HeaderBanner",
-  components: { 
+  components: {
     ButtonsHeader,
-   // DefilementText 
+    // DefilementText 
   },
   data() {
     return {
@@ -23,7 +23,7 @@ export default {
       texte7: "",
       texte88: "",
       texte99: "",
-      texte100:""
+      texte100: ""
     };
   },
   methods: {
@@ -36,29 +36,29 @@ export default {
   async created() {
     this.texte0 = await this.handleTranslate("Mon Brobroli");
     this.texte2 = await this.handleTranslate("en un clic");
-   this.texte3 = await this.handleTranslate(
-  `
+    this.texte3 = await this.handleTranslate(
+      `
   Vous avez les compétences. Nous avons les clients. MonBrobroli vous connecte en un clic.
   `
-);
+    );
     this.texte88 = await this.handleTranslate(
-  `
+      `
   TPE · PME · Grandes Entreprises · ONG · Institutions : trouvez votre talent immédiatement.
   `
-);
+    );
     this.texte4 = await this.handleTranslate(`MonBrobroli. Simple. Sûr. Payé.`);
     this.texte100 = await this.handleTranslate(
-  `
+      `
   Étudiants · Artisans · Particuliers · Professionnels · Consultants · Retraités : inscrivez-vous gratuitement.
   `
-);
+    );
     this.texte99 = await this.handleTranslate(
-  `
+      `
   MonBrobroli met en relation les entreprises, les particuliers et les talents de toutes compétences — du petit métier au conseil senior — avec un paiement garanti sur le canal de votre choix (Mobile Money, Wave, Virement Bancaire,…).
 
   Immédiatement. Pas de mauvaises surprises. Des profils vérifiés. Des missions réelles.
   `
-);
+    );
     this.texte5 = await this.handleTranslate("Connexion");
     this.texte6 = await this.handleTranslate("Offres");
     this.texte7 = await this.handleTranslate("Talents disponibles");
@@ -67,62 +67,48 @@ export default {
 </script>
 <template>
   <div class="header_banner">
-   
+
     <div class="ecriteau">
       <h1 style="color: orange" class="text_ecriteau">
         {{ texte0 }}<br />
         {{ texte2 }}
       </h1>
       <!-- <DefilementText /> -->
-      <div class="my-5 text_description_site" >
+      <div class="my-5 text_description_site">
         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte3 }}</h4>
         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte100 }}</h4>
-         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte88 }}</h4>
-         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte99 }}</h4>
+        <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte88 }}</h4>
+        <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte99 }}</h4>
         <h4 style="margin: 0.2em;padding: 0.2em;">{{ texte4 }}</h4>
       </div>
-      <ButtonsHeader
-        @handleBtn="changeValueIsModal"
-        v-if="!this.$store.state.user"
-        :title="texte5"
-      />
-      <ButtonsHeader
-        v-if="
-  ($store.state.user?.user?.statuses || []).some(s => s.statut === 'Etudiant')
-"
-        @handleBtn="goToRoute('/jobs')"
-        :title="texte6"
-      />
-      <ButtonsHeader
-       
-        v-if="
-  ($store.state.user?.user?.statuses || []).some(s => s.statut !== 'Etudiant')
-"
-        @handleBtn="goToRoute('/timetable')"
-        :title="texte7"
-      />
+      <ButtonsHeader @handleBtn="changeValueIsModal" v-if="!this.$store.state.user" :title="texte5" />
+      <ButtonsHeader v-if="
+        ($store.state.user?.user?.statuses || []).some(s => s.statut === 'Etudiant')
+      " @handleBtn="goToRoute('/jobs')" :title="texte6" />
+      <ButtonsHeader v-if="
+        ($store.state.user?.user?.statuses || []).some(s => s.statut !== 'Etudiant')
+      " @handleBtn="goToRoute('/timetable')" :title="texte7" />
     </div>
     <div class="ecriteau_image">
-      <img
-        src="../../../assets/postuler.png"
-        class="position-absolute image"
-        alt="postuler"
-      />
+      <img src="../../../assets/postuler.png" class="position-absolute image" alt="postuler" />
     </div>
   </div>
 </template>
 <style scoped>
-.text_description_site{
-padding: 0 2em;
+.text_description_site {
+  padding: 0 2em;
 }
-.text_ecriteau{
+
+.text_ecriteau {
   font-size: 4.5em !important;
-  }
-h4{
-  padding:1.5em;
-  color:black;
+}
+
+h4 {
+  padding: 1.5em;
+  color: black;
   text-align: left;
 }
+
 .image {
   top: 0;
   right: 0;
@@ -132,18 +118,22 @@ h4{
   height: 100%;
   border-radius: 30px;
 }
+
 .ecriteau_image {
   position: relative;
   flex: 2 2 200px;
 }
+
 .ecriteau {
   flex: 3 3 200px;
   text-align: center;
 }
-.ecriteau > h1 {
+
+.ecriteau>h1 {
   font-weight: bold;
   font-size: 5em;
 }
+
 .header_banner {
   width: 100%;
   height: auto;
@@ -154,38 +144,46 @@ h4{
   flex-wrap: wrap;
   margin-top: 6.5em;
 }
+
 @media screen and (max-width: 500px) {
-  .text_description_site{
-   padding: 0.5em !important;
-}
-  .text_ecriteau{
-  font-size: 2.5em !important;
+  .text_description_site {
+    padding: 0.5em !important;
   }
-  h4{
-    padding:1em;
+
+  .text_ecriteau {
+    font-size: 2.5em !important;
+  }
+
+  h4 {
+    padding: 1em;
     text-align: left;
     font-size: 1em;
-    
+
   }
+
   .header_banner {
     margin-top: 4em;
   }
+
   .ecriteau_image {
-  position: relative;
-   margin-top: 3em;
-   text-align:center;
+    position: relative;
+    margin-top: 3em;
+    text-align: center;
+  }
+
+  .ecriteau_image img {
+    width: 70%;
+  }
 }
-.ecriteau_image img{
-  width:70%;
-}
-}
+
 @media screen and (max-width: 400px) {
-  .text_description_site{
-   padding: 0.3em !important;
-}
+  .text_description_site {
+    padding: 0.3em !important;
+  }
+
   .header_banner {
     margin-top: 0.5em;
   }
-  
+
 }
 </style>

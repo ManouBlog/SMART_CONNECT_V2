@@ -4,24 +4,14 @@
 
     <!-- Affichage des étoiles -->
     <div class="star-rating">
-      <span
-        v-for="star in 5"
-        :key="star"
-        class="star"
-        :class="{ 'filled': star <= rating }"
-        @click="setRating(star)"
-      >
+      <span v-for="star in 5" :key="star" class="star" :class="{ 'filled': star <= rating }" @click="setRating(star)">
         ★
       </span>
     </div>
 
     <!-- Champ de commentaire -->
     <div class="comment-section">
-      <textarea
-        v-model="comment"
-        placeholder="Laissez un commentaire..."
-        rows="4"
-      ></textarea>
+      <textarea v-model="comment" placeholder="Laissez un commentaire..." rows="4"></textarea>
     </div>
 
     <!-- Bouton de soumission -->
@@ -56,24 +46,24 @@ const setRating = (star) => {
 
 function verifUserProfilEtudiantComplet() {
   // Charger l'utilisateur et attendre la fin
-   vuexStore.dispatch("getInfoUser");
+  vuexStore.dispatch("getInfoUser");
 
   const user = vuexStore.state.infoUserConnected;
 
-  if(user.user?.statuses.some(s => s.statut === 'Etudiant')){
-  if (!user.competences.length || !user.qualifications.length) {
-    router.replace("/dashboard/profil");
-  }
-  if(!user.jours.length){
-    this.$router.push('/dashboard/emploi_du_temps');
-   }
+  if (user.user?.statuses.some(s => s.statut === 'Etudiant')) {
+    if (!user.competences.length || !user.qualifications.length) {
+      router.replace("/dashboard/profil");
+    }
+    if (!user.jours.length) {
+      this.$router.push('/dashboard/emploi_du_temps');
+    }
   }
 
-  
+
 }
 verifUserProfilEtudiantComplet();
 // Fonction pour soumettre l'avis
-const submitAvis = async() => {
+const submitAvis = async () => {
   if (rating.value === 0) {
     Swal.fire({
       icon: 'warning',
@@ -92,29 +82,29 @@ const submitAvis = async() => {
     });
     return;
   }
-loadingSpinner.launchLoading(true);
-const data= {
+  loadingSpinner.launchLoading(true);
+  const data = {
     rate: rating.value,
     comment: comment.value,
   }
-  try{
-  const response = await instance.post('temoignages',data)
-  // console.log(response)
-  if(response.status === 201 ||response.status === 200){
-     Swal.fire({
-      icon: 'info',
-      title: response.data.message,
-    //   text: 'Veuillez laisser un commentaire.',
-      confirmButtonText: 'OK',
-    });
-  }
-  }catch(error){
-console.log(error)
-  }finally{
+  try {
+    const response = await instance.post('temoignages', data)
+    // console.log(response)
+    if (response.status === 201 || response.status === 200) {
+      Swal.fire({
+        icon: 'info',
+        title: response.data.message,
+        //   text: 'Veuillez laisser un commentaire.',
+        confirmButtonText: 'OK',
+      });
+    }
+  } catch (error) {
+    console.log(error)
+  } finally {
     loadingSpinner.launchLoading(false);
   }
 
- 
+
   // Réinitialisation après soumission
   submitted.value = true;
   rating.value = 0;
@@ -136,7 +126,7 @@ console.log(error)
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  margin-top:8.5em;
+  margin-top: 8.5em;
   margin-bottom: 8.5em;
 }
 

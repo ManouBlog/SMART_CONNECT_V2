@@ -36,9 +36,9 @@ const ACCESS_RAPIDE = ref([
     name_link: "jobs",
     img: false,
     isVisible: Statut.value === "Etudiant" ||
-           Statut.value === "Professionnel" ||
-           Statut.value === "Artisan" ||
-           Statut.value === "Vétéran",
+      Statut.value === "Professionnel" ||
+      Statut.value === "Artisan" ||
+      Statut.value === "Vétéran",
   },
   {
     libelle: "Talents",
@@ -109,5 +109,5 @@ const LOGO_IMG = ref([
       >
     </div> -->
   </section>
-  
+
 </template>

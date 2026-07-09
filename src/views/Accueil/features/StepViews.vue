@@ -86,8 +86,8 @@ export default {
       {
         id: 2,
         title: await this.handleTranslate("Je trouve ce que je cherche "),
-        text_colorie1:'Talents / Artisans',
-        text_colorie2:'Entreprise',
+        text_colorie1: 'Talents / Artisans',
+        text_colorie2: 'Entreprise',
         text_one: await this.handleTranslate(
           " : Les missions disponibles m'attendent. Je fais valoir mes compétences, partout."
         ),
@@ -100,8 +100,8 @@ export default {
       {
         id: 3,
         title: await this.handleTranslate("C'est fait. Je suis payé."),
-         text_colorie1:'Talents / Artisans',
-        text_colorie2:'Entreprise',
+        text_colorie1: 'Talents / Artisans',
+        text_colorie2: 'Entreprise',
         text_one: await this.handleTranslate(
           " : l'argent arrive sur mon téléphone dès validation de la mission."
         ),
@@ -127,22 +127,14 @@ export default {
       {{ texte2 }}
     </h3>
     <div class="conteneur-card" id="divCard">
-      <CardView
-        v-for="(item, index) in dataCard"
-        :key="index"
-        :item="item"
-        :footer_btn="item.footer_btn"
-        :cardPerfVisible="cardPerfVisible"
-      >
-      <div style="position: absolute; bottom: 1em; width: 90%;">
-     <a-button type="primary" 
-     style="width: 93% !important;"
-        @click.prevent="changeValueIsModal"
-        >
-          Créer
-        </a-button>
-      </div>
-        
+      <CardView v-for="(item, index) in dataCard" :key="index" :item="item" :footer_btn="item.footer_btn"
+        :cardPerfVisible="cardPerfVisible">
+        <div style="position: absolute; bottom: 1em; width: 90%;">
+          <a-button type="primary" style="width: 93% !important;" @click.prevent="changeValueIsModal">
+            Créer
+          </a-button>
+        </div>
+
       </CardView>
     </div>
   </div>
@@ -151,6 +143,7 @@ export default {
 :deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-card .ant-card-body) {
   padding: 10px;
 }
+
 .conteneur-card {
   display: flex;
   justify-items: center;
@@ -158,6 +151,7 @@ export default {
   gap: 3em;
   flex-wrap: wrap;
 }
+
 .step_suivre {
   font-size: 3.5em;
   margin: 0;
@@ -165,6 +159,7 @@ export default {
   text-align: center;
   color: orange;
 }
+
 .main-container-home {
   background: transparent;
 }

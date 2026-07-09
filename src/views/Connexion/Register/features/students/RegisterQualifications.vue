@@ -9,53 +9,37 @@
 
         <!-- Contenu d’un item -->
         <template #default="{ value }">
-          <div
-            style="
+          <div style="
               display: flex;
               align-items: center;
               width: 100%;
               gap: 1em;
               flex-direction: column;
               margin-top:2em;
-            "
-          >
+            ">
             <div style="width: 100%">
-              <label for="objet"><span style="color:red;" v-if="isRequired">*</span> Diplôme ou certification obtenue</label>
+              <label for="objet"><span style="color:red;" v-if="isRequired">*</span> Diplôme ou certification
+                obtenue</label>
               <input type="text" class="input_class" id="objet" v-model="value.objet" />
             </div>
             <div style="width: 100%">
               <label for="periode"><span style="color:red;" v-if="isRequired">*</span> Période</label>
               <div style="display: flex; gap: 1em; align-items: center">
-                <input
-                  type="date"
-                  class="input_class"
-                  id="periode"
-                  v-model="value.date_debut"
-                />
+                <input type="date" class="input_class" id="periode" v-model="value.date_debut" />
                 <p>À</p>
-                <input 
-                type="date"
-
-                 class="input_class" 
-                 :disabled="!value.date_debut"
-                 :min="value.date_debut"
-                v-model="value.date_fin" 
-                />
+                <input type="date" class="input_class" :disabled="!value.date_debut" :min="value.date_debut"
+                  v-model="value.date_fin" />
               </div>
             </div>
             <div style="width: 100%">
               <label for="descriptionFile">Charger un fichier</label>
-              <input
-      type="file"
-      id="descriptionFile"
-      @change="(event)=>value.fileCharged = event.target.files[0]"
-      style="
+              <input type="file" id="descriptionFile" @change="(event) => value.fileCharged = event.target.files[0]"
+                style="
         width: 100%;
         border-radius: 5px;
         padding: 0.5em;
         border: 1px solid gray;
-      "
-    />
+      " />
             </div>
           </div>
         </template>
@@ -72,9 +56,9 @@ export default {
       type: Array,
       default: () => [],
     },
-    isRequired:{
-      type:Boolean,
-      default:true
+    isRequired: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -124,9 +108,10 @@ export default {
   border-radius: 5px;
   border: 1px solid gray;
 }
+
 @media (max-width: 768px) {
-  :deep(.n-dynamic-input .n-dynamic-input-item){
-    display:block;
+  :deep(.n-dynamic-input .n-dynamic-input-item) {
+    display: block;
   }
 }
 </style>

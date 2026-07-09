@@ -12,22 +12,22 @@ export default {
   },
   data() {
     return {
-   optionsPaper:"Formel",
-   selectedCountry:"Côte d’Ivoire",
-   isLoading: true,
-   lienPhoto:lienPhoto,
-    countries: [],
-options : [
-   { value: "Informelle", label: "Informelle" },
-  { value: "Formelle", label: "Formelle" }
- 
-]
+      optionsPaper: "Formel",
+      selectedCountry: "Côte d’Ivoire",
+      isLoading: true,
+      lienPhoto: lienPhoto,
+      countries: [],
+      options: [
+        { value: "Informelle", label: "Informelle" },
+        { value: "Formelle", label: "Formelle" }
+
+      ]
     };
   },
   watch: {
     optionsPaper(newValue) {
       // console.log("Selected option:", newValue);
-      if(!newValue){
+      if (!newValue) {
         this.optionsPaper = "Formelle";
       }
       // console.log("Selected option:", newValue);
@@ -35,83 +35,73 @@ options : [
   },
   methods: {
     async listerCountries() {
-    try {
-      const response = await instance.get("countries");
-      this.countries = response.data;
-      // console.log("COUNTRIES", this.countries);
-    } catch (error) {
-      console.log(error);
-    }finally {
-      this.isLoading = false;
-    }
-  },
+      try {
+        const response = await instance.get("countries");
+        this.countries = response.data;
+        // console.log("COUNTRIES", this.countries);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
     selectOne(value) {
-    this.optionsPaper = value;
-     
-  },
-  isDisabled(country) {
-    return country.available !== 1
-  },
+      this.optionsPaper = value;
 
-  handleCountryClick(country) {
-    if (this.isDisabled(country)) return
-    this.selectCountry(country)
-  },
+    },
+    isDisabled(country) {
+      return country.available !== 1
+    },
 
-  getCountryStyle(country) {
-  // const isSelected = this.selectedCountry === country.label
-  const isDisabled = this.isDisabled(country)
+    handleCountryClick(country) {
+      if (this.isDisabled(country)) return
+      this.selectCountry(country)
+    },
 
-  return {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '6px',
-    padding: '4px 8px',
-    borderRadius: '6px',
+    getCountryStyle(country) {
+      // const isSelected = this.selectedCountry === country.label
+      const isDisabled = this.isDisabled(country)
 
-    // color: isSelected ? '#fff' : '#333',
-    // fontWeight: isSelected ? 'bold' : 'normal',
-    // backgroundColor: isSelected ? '#FFA500' : '#f5f5f5',
-    opacity: isDisabled ? 0.5 : 1,
-    cursor: isDisabled ? 'not-allowed' : 'pointer'
-  }
-}
+      return {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        padding: '4px 8px',
+        borderRadius: '6px',
+
+        // color: isSelected ? '#fff' : '#333',
+        // fontWeight: isSelected ? 'bold' : 'normal',
+        // backgroundColor: isSelected ? '#FFA500' : '#f5f5f5',
+        opacity: isDisabled ? 0.5 : 1,
+        cursor: isDisabled ? 'not-allowed' : 'pointer'
+      }
+    }
   },
   created() {
     this.listerCountries();
     this.optionsPaper = 'Informelle'
   }
- 
+
 };
 </script>
 <template>
   <div
-  style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 1em; margin-bottom: 1.5em"
->
-  <div
-    v-for="country in countries"
-    :key="country.id"
-    @click="handleCountryClick(country)"
-    :style="{
+    style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 1em; margin-bottom: 1.5em">
+    <div v-for="country in countries" :key="country.id" @click="handleCountryClick(country)" :style="{
       cursor: 'pointer',
       borderRadius: '12px',
       padding: '10px',
       width: '35px',
-      height:'35px',
+      height: '35px',
       textAlign: 'center',
       transition: '0.2s',
       ...getCountryStyle(country)
-    }"
-  >
-    <!-- Image -->
-    <img
-      v-if="country.fileCountry"
-      :src="lienPhoto + country.fileCountry"
-      alt="country"
-      style="width: 35px; height: 35px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;"
-    />
+    }">
+      <!-- Image -->
+      <img v-if="country.fileCountry" :src="lienPhoto + country.fileCountry" alt="country"
+        style="width: 35px; height: 35px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" />
+    </div>
   </div>
-</div>
   <!-- <div
     style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 1em; margin-bottom: 1.5em"
   >
@@ -124,40 +114,29 @@ options : [
   </button>
 
   </div> -->
-<section v-if="!isLoading">
-  <div
-  style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
->
- <label v-for="item in options" :key="item.value">
-  <input
-    type="checkbox"
-    :value="item.value"
-    :checked="optionsPaper === item.value"
-    @change="selectOne(item.value)"
-  />
-  {{ item.label }}
-</label>
-</div>
-<Formels 
-:optionsPaper="optionsPaper"
-v-if="optionsPaper === 'Formelle'" />
-<Informels
-:optionsPaper="optionsPaper"
-v-else />
-</section>
-<section v-else style="margin-top: 2em;">
- <p style="text-align: center;" class="shimmer-text">Chargement...</p> 
-</section>
+  <section v-if="!isLoading">
+    <div
+      style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em">
+      <label v-for="item in options" :key="item.value">
+        <input type="checkbox" :value="item.value" :checked="optionsPaper === item.value"
+          @change="selectOne(item.value)" />
+        {{ item.label }}
+      </label>
+    </div>
+    <Formels :optionsPaper="optionsPaper" v-if="optionsPaper === 'Formelle'" />
+    <Informels :optionsPaper="optionsPaper" v-else />
+  </section>
+  <section v-else style="margin-top: 2em;">
+    <p style="text-align: center;" class="shimmer-text">Chargement...</p>
+  </section>
 </template>
 <style scoped>
 .shimmer-text {
   font-weight: 600;
-  background: linear-gradient(
-    90deg,
-    #999 0%,
-    #fff 50%,
-    #999 100%
-  );
+  background: linear-gradient(90deg,
+      #999 0%,
+      #fff 50%,
+      #999 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -168,9 +147,9 @@ v-else />
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
 }
-
 </style>

@@ -19,7 +19,7 @@ export default {
       this.spinner = true;
       instance.get("see_entreprise_student")
         .then((res) => {
-          
+
           this.contrats = res.data.data;
 
           this.entreprise = this.contrats.find(
@@ -124,17 +124,19 @@ export default {
   </div>
 </template>
 <style scoped>
-
 .bi-arrow-left-circle {
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;

@@ -24,17 +24,17 @@ export default {
       texte0: "",
       texte2: "",
       texte3: "",
-      value1 :"",
-      isMobile:false,
-      isLoading:true,
-      options : [
-  // { value: "student", label: "Étudiant" },
-  // { value: "professionnels", label: "Professionnel" },
-  // { value: "artisans", label: "Artisan" },
-  // { value: "vétérans", label: "Vétéran" },
-  // { value: "particulier", label: "Particulier" },
-  // { value: "entreprise", label: "Entreprise" },
-],
+      value1: "",
+      isMobile: false,
+      isLoading: true,
+      options: [
+        // { value: "student", label: "Étudiant" },
+        // { value: "professionnels", label: "Professionnel" },
+        // { value: "artisans", label: "Artisan" },
+        // { value: "vétérans", label: "Vétéran" },
+        // { value: "particulier", label: "Particulier" },
+        // { value: "entreprise", label: "Entreprise" },
+      ],
       texte1: "",
       texte4: "",
       texte5: "",
@@ -48,15 +48,15 @@ export default {
       texte13: "",
       texte14: "",
       open: true,
-      selectedOption:"",
+      selectedOption: "",
       descriptions: {
-      Etudiant: "Cette étape est réservée aux étudiants qui souhaitent acquérir une expérience de travail.",
-      Entreprise: "Cette étape est destinée aux entreprises qui souhaitent recruter.",
-      Particulier: "Cette étape concerne les particuliers qui souhaitent recruter des artisans et professionnels.",
-      Professionnel: "Cette étape est réservée aux diplômés et consultants, qu’ils soient en activité ou sans emploi.",
-      Artisan: "Cette étape concerne les artisans qui souhaitent promouvoir leur savoir‑faire.",
-      Veteran: "Cette étape est exclusivement réservée aux retraités disposant de compétences expertes."
-    },
+        Etudiant: "Cette étape est réservée aux étudiants qui souhaitent acquérir une expérience de travail.",
+        Entreprise: "Cette étape est destinée aux entreprises qui souhaitent recruter.",
+        Particulier: "Cette étape concerne les particuliers qui souhaitent recruter des artisans et professionnels.",
+        Professionnel: "Cette étape est réservée aux diplômés et consultants, qu’ils soient en activité ou sans emploi.",
+        Artisan: "Cette étape concerne les artisans qui souhaitent promouvoir leur savoir‑faire.",
+        Veteran: "Cette étape est exclusivement réservée aux retraités disposant de compétences expertes."
+      },
     };
   },
   watch: {
@@ -67,7 +67,7 @@ export default {
       );
 
       if (found) {
-      
+
         this.selectedOption = found;
       } else {
         this.selectedOption = null;
@@ -86,37 +86,37 @@ export default {
         text: "Veuillez remplir tous les champs obligatoires (*)",
       });
     },
-     handleResize() {
+    handleResize() {
       this.isMobile = window.innerWidth < 768;
     },
 
     handleChange(val) {
       console.log(val);
     },
-    async lister_statut(){
+    async lister_statut() {
       try {
-        const response =  await instance.get("listStatut")
-        this.options = response.data.data.filter(item=>item.statut !== 'admin')
-      
-        this.value1 = this.options.find(item=>item.statut === 'Particulier')?.statut
-    
-         const found = this.options.find(
-        item => item.statut === this.value1
-      );
-      if (found) {
-       
-        this.selectedOption = found;
-      } else {
-        this.selectedOption = null;
-      }
+        const response = await instance.get("listStatut")
+        this.options = response.data.data.filter(item => item.statut !== 'admin')
+
+        this.value1 = this.options.find(item => item.statut === 'Particulier')?.statut
+
+        const found = this.options.find(
+          item => item.statut === this.value1
+        );
+        if (found) {
+
+          this.selectedOption = found;
+        } else {
+          this.selectedOption = null;
+        }
       } catch (error) {
         console.log(error);
-      }finally{
+      } finally {
         this.isLoading = false
       }
     },
   },
-   mounted() {
+  mounted() {
     this.handleResize();
     window.addEventListener("resize", this.handleResize);
   },
@@ -138,82 +138,51 @@ export default {
     <div style="padding: 0.5em 0; text-align: center; color: red">
       Les champs avec astérisque (*) sont obligatoires
     </div>
-    
+
     <div>
-    <p class="fw-bold text-center" style="font-size: 1.em;">{{ texte0 }}</p>
+      <p class="fw-bold text-center" style="font-size: 1.em;">{{ texte0 }}</p>
 
-    <!-- MOBILE -->
-    <a-select
-      v-if="isMobile"
-      v-model:value="value1"
-      style="width: 100%; margin-top: 0.5em; margin-bottom: 1.5em"
-      size="large"
-      @change="handleChange"
-    >
-      <a-select-option
-        v-for="item in options"
-        :key="item.statut"
-        :value="item.statut"
-        style="text-transform: capitalize;"
-      >
-        {{ item.statut }}
-      </a-select-option>
-    </a-select>
+      <!-- MOBILE -->
+      <a-select v-if="isMobile" v-model:value="value1" style="width: 100%; margin-top: 0.5em; margin-bottom: 1.5em"
+        size="large" @change="handleChange">
+        <a-select-option v-for="item in options" :key="item.statut" :value="item.statut"
+          style="text-transform: capitalize;">
+          {{ item.statut }}
+        </a-select-option>
+      </a-select>
 
-    <!-- DESKTOP -->
-    <a-radio-group
-      v-else
-      v-model:value="value1"
-      option-type="button"
-      button-style="solid"
-      style="display: flex; flex-wrap: wrap; justify-content:center;gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
-      @change="handleChange"
-    >
-      <a-radio-button
-        v-for="item in options"
-        :key="item.statut"
-        :value="item.statut"
-        style="text-transform: capitalize;"
-      >
-        {{ item.statut }}
-      </a-radio-button>
-    </a-radio-group>
+      <!-- DESKTOP -->
+      <a-radio-group v-else v-model:value="value1" option-type="button" button-style="solid"
+        style="display: flex; flex-wrap: wrap; justify-content:center;gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
+        @change="handleChange">
+        <a-radio-button v-for="item in options" :key="item.statut" :value="item.statut"
+          style="text-transform: capitalize;">
+          {{ item.statut }}
+        </a-radio-button>
+      </a-radio-group>
 
-    <div style="padding: 0.5em 0; text-align: center; color: gray; font-weight: bold;">
-      {{ descriptions[value1] }}
+      <div style="padding: 0.5em 0; text-align: center; color: gray; font-weight: bold;">
+        {{ descriptions[value1] }}
+      </div>
     </div>
-  </div>
-    <RegsiterStudents 
-    :idStatutChoice="selectedOption"
-    v-if="value1 === 'Etudiant'" />
-    <RegsiterEntreprise 
-    :idStatutChoice="selectedOption"
-    v-if="value1 === 'Entreprise'" />
-    <RegisterProfessionels 
-    :idStatutChoice="selectedOption"
-    v-if="value1 === 'Professionnel'"  />
-    <RegisterParticulier 
-    :idStatutChoice="selectedOption"
-    v-if="value1 === 'Particulier'" />
-    <RegisterArtisans  
-    :idStatutChoice="selectedOption"
-    v-if="value1 === 'Artisan'"  />
-    <RegisterVeterans  
-    v-if="value1 === 'Vétéran'"  />
+    <RegsiterStudents :idStatutChoice="selectedOption" v-if="value1 === 'Etudiant'" />
+    <RegsiterEntreprise :idStatutChoice="selectedOption" v-if="value1 === 'Entreprise'" />
+    <RegisterProfessionels :idStatutChoice="selectedOption" v-if="value1 === 'Professionnel'" />
+    <RegisterParticulier :idStatutChoice="selectedOption" v-if="value1 === 'Particulier'" />
+    <RegisterArtisans :idStatutChoice="selectedOption" v-if="value1 === 'Artisan'" />
+    <RegisterVeterans v-if="value1 === 'Vétéran'" />
   </a-form>
-  <section v-else class="shimmer-text" style="text-align: center;font-size:1.5em;" >
+  <section v-else class="shimmer-text" style="text-align: center;font-size:1.5em;">
     Chargement des profils...
   </section>
 </template>
 <style scoped>
 .shimmer-text {
   font-weight: 600;
-  background: linear-gradient(
-    90deg,
-    #999 0%,
-    #fff 50%,
-    #999 100%
-  );
+  background: linear-gradient(90deg,
+      #999 0%,
+      #fff 50%,
+      #999 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -224,6 +193,7 @@ export default {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }

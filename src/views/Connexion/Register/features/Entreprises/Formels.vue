@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-     
+
       SWALPOPUP: useSwalPopup(),
       configUtils: configUtils,
       texte: "",
@@ -46,23 +46,23 @@ export default {
       texte25: "",
       texte26: "",
       open: true,
-      allProfiles:[],
-allAnwserForAssitance: [
-  { label: "Oui", value: "oui" },
-  { label: "Non", value: "non" }
-],
+      allProfiles: [],
+      allAnwserForAssitance: [
+        { label: "Oui", value: "oui" },
+        { label: "Non", value: "non" }
+      ],
       formState: {
-        profiles:[],
-        answerAssistance:"non",
-        identifiantNotesCommerciale:"",
-        identifiantCommerciale:"",
+        profiles: [],
+        answerAssistance: "non",
+        identifiantNotesCommerciale: "",
+        identifiantCommerciale: "",
         statut_entreprise: this.optionsPaper,
         nom: "",
         prenoms: "",
         phone: "",
         ville: "",
         ncc: "",
-        email:"",
+        email: "",
         commune: "",
         quartier: "",
         diplome: "",
@@ -77,58 +77,58 @@ allAnwserForAssitance: [
         Phonegerant: null,
         countryCode: "+225",
         countryCodePhoneGerant: "+225",
-        email_cc:[""],
-        statut_id:1,
+        email_cc: [""],
+        statut_id: 1,
       },
-      loading:false,
-      result:null,
+      loading: false,
+      result: null,
       verifChiffre: /[!@#$%^&*(),.?":{}|<>_-]/,
       competences: [],
       westAfricaCodes: [
-  { label: "Bénin", value: "+229", length: 8 },
-  { label: "Burkina Faso", value: "+226", length: 8 },
-  { label: "Cap‑Vert", value: "+238", length: 7 },
-  { label: "Côte d’Ivoire", value: "+225", length: 10 },
-  { label: "Gambie", value: "+220", length: 7 },
-  { label: "Ghana", value: "+233", length: 9 },
-  { label: "Guinée", value: "+224", length: 7 },
-  { label: "Guinée‑Bissau", value: "+245", length: 9 },
-  { label: "Liberia", value: "+231", length: 9 },
-  { label: "Mali", value: "+223", length: 8 },
-  { label: "Niger", value: "+227", length: 8 },
-  { label: "Nigeria", value: "+234", length: 10 },
-  { label: "Sénégal", value: "+221", length: 8 },
-  { label: "Sierra Leone", value: "+232", length: 8 },
-  { label: "Togo", value: "+228", length: 8 },
-],
+        { label: "Bénin", value: "+229", length: 8 },
+        { label: "Burkina Faso", value: "+226", length: 8 },
+        { label: "Cap‑Vert", value: "+238", length: 7 },
+        { label: "Côte d’Ivoire", value: "+225", length: 10 },
+        { label: "Gambie", value: "+220", length: 7 },
+        { label: "Ghana", value: "+233", length: 9 },
+        { label: "Guinée", value: "+224", length: 7 },
+        { label: "Guinée‑Bissau", value: "+245", length: 9 },
+        { label: "Liberia", value: "+231", length: 9 },
+        { label: "Mali", value: "+223", length: 8 },
+        { label: "Niger", value: "+227", length: 8 },
+        { label: "Nigeria", value: "+234", length: 10 },
+        { label: "Sénégal", value: "+221", length: 8 },
+        { label: "Sierra Leone", value: "+232", length: 8 },
+        { label: "Togo", value: "+228", length: 8 },
+      ],
     };
   },
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
-    isCommercialAssitance(){
-  return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true:false;
+    isCommercialAssitance() {
+      return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true : false;
     },
-     isPasswordDisabled() {
-    return (
-      this.loading ||
-      (this.result && this.result.isCardIdentity === false)
-      
-    )
+    isPasswordDisabled() {
+      return (
+        this.loading ||
+        (this.result && this.result.isCardIdentity === false)
+
+      )
+    },
   },
-  },
-  watch:{
+  watch: {
     'formState.answerAssistance'(newVal) {
       if (newVal === 'non') {
-     this.formState.identifiantCommerciale = null
-    }
+        this.formState.identifiantCommerciale = null
+      }
     },
   },
   methods: {
- async lister_statut(){
+    async lister_statut() {
       try {
-        const response =  await instance.get("listStatut")
+        const response = await instance.get("listStatut")
         this.allProfiles = response.data.data;
-       
+
         // console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'Artisan'))
       } catch (error) {
         console.log(error);
@@ -223,48 +223,23 @@ allAnwserForAssitance: [
 <template>
   <Politics v-if="isPolitics" />
 
-  <a-form
-    :layout="'vertical'"
-    :model="formState"
-    name="basic"
-    autocomplete="off"
-    @finish="onFinish"
-    @finishFailed="onHandleFailed"
-  >
+  <a-form :layout="'vertical'" :model="formState" name="basic" autocomplete="off" @finish="onFinish"
+    @finishFailed="onHandleFailed">
     <!-- Première ligne : Raison sociale + RCCM -->
     <a-row :gutter="[16, 24]">
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :label="texte"
-          name="nom"
-          :rules="[{ required: true, message: texte24 }]"
-        >
+        <a-form-item :label="texte" name="nom" :rules="[{ required: true, message: texte24 }]">
           <a-input v-model:value="formState.nom" placeholder="Entrez la raison sociale" />
         </a-form-item>
       </a-col>
 
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :label="texte1"
-          name="matricule_cc"
-          :rules="[{ required: true, message: texte23 }]"
-        >
+        <a-form-item :label="texte1" name="matricule_cc" :rules="[{ required: true, message: texte23 }]">
           <a-input v-model:value="formState.matricule_cc" placeholder="Entrez le RCCM" />
         </a-form-item>
-         <a-form-item
-          :rules="[{ required: true, message: `Ajoutez un registre de commerce` }]"
-          name="Registre"
-          label=""
-        >
-          <a-upload
-            @change="handleChangeCardStudent"
-            v-model:fileList="formState.Registre"
-            name="Registre"
-            list-type="picture"
-            :multiple="false"
-            :maxCount="1"
-            accept=".pdf"
-          >
+        <a-form-item :rules="[{ required: true, message: `Ajoutez un registre de commerce` }]" name="Registre" label="">
+          <a-upload @change="handleChangeCardStudent" v-model:fileList="formState.Registre" name="Registre"
+            list-type="picture" :multiple="false" :maxCount="1" accept=".pdf">
             <a-button> Clique pour charger le registre de commerce(Pdf) </a-button>
           </a-upload>
         </a-form-item>
@@ -274,28 +249,15 @@ allAnwserForAssitance: [
     <!-- Forme juridique + NCC -->
     <a-row :gutter="[16, 24]">
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :label="texte7"
-          name="juridique"
-          :rules="[{ required: true, message: texte17 }]"
-        >
-          <a-input
-            v-model:value="formState.juridique"
-            placeholder="Entrez la forme juridique"
-          />
+        <a-form-item :label="texte7" name="juridique" :rules="[{ required: true, message: texte17 }]">
+          <a-input v-model:value="formState.juridique" placeholder="Entrez la forme juridique" />
         </a-form-item>
       </a-col>
 
       <a-col :xs="24" :md="12">
-        <a-form-item
-          label="NCC (Numéro de compte contribuable)"
-          name="ncc"
-          :rules="[{ required: true, message: 'Ajoutez le Numéro de compte contribuable' }]"
-        >
-          <a-input
-            v-model:value="formState.ncc"
-            placeholder="Entrez le numéro de compte contribuable"
-          />
+        <a-form-item label="NCC (Numéro de compte contribuable)" name="ncc"
+          :rules="[{ required: true, message: 'Ajoutez le Numéro de compte contribuable' }]">
+          <a-input v-model:value="formState.ncc" placeholder="Entrez le numéro de compte contribuable" />
         </a-form-item>
       </a-col>
     </a-row>
@@ -303,36 +265,18 @@ allAnwserForAssitance: [
     <!-- Contact + Ville -->
     <a-row :gutter="[16, 24]">
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :label="texte2"
-          name="contact"
-          :rules="[{ required: true, message: texte22 }]"
-        >
-          <a-input
-            type="tel"
-            v-model:value="formState.contact"
-            placeholder="Entrez le numéro"
-          >
+        <a-form-item :label="texte2" name="contact" :rules="[{ required: true, message: texte22 }]">
+          <a-input type="tel" v-model:value="formState.contact" placeholder="Entrez le numéro">
             <template #addonBefore>
-              <a-select
-                v-model:value="formState.countryCode"
-                :options="westAfricaCodes"
-                show-search
-                option-filter-prop="label"
-                option-label-prop="value"
-                style="width: 120px"
-              />
+              <a-select v-model:value="formState.countryCode" :options="westAfricaCodes" show-search
+                option-filter-prop="label" option-label-prop="value" style="width: 120px" />
             </template>
           </a-input>
         </a-form-item>
       </a-col>
 
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :label="texte3"
-          name="ville"
-          :rules="[{ required: true, message: texte21 }]"
-        >
+        <a-form-item :label="texte3" name="ville" :rules="[{ required: true, message: texte21 }]">
           <a-input placeholder="Entrez le nom de la ville" v-model:value="formState.ville" />
         </a-form-item>
       </a-col>
@@ -341,28 +285,14 @@ allAnwserForAssitance: [
     <!-- Commune + Quartier -->
     <a-row :gutter="[16, 24]">
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :label="texte4"
-          name="commune"
-          :rules="[{ required: true, message: texte20 }]"
-        >
-          <a-input
-            placeholder="Entrez le nom de la commune"
-            v-model:value="formState.commune"
-          />
+        <a-form-item :label="texte4" name="commune" :rules="[{ required: true, message: texte20 }]">
+          <a-input placeholder="Entrez le nom de la commune" v-model:value="formState.commune" />
         </a-form-item>
       </a-col>
 
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :label="texte5"
-          name="quartier"
-          :rules="[{ required: true, message: texte19 }]"
-        >
-          <a-input
-            placeholder="Entrez le nom du quartier"
-            v-model:value="formState.quartier"
-          />
+        <a-form-item :label="texte5" name="quartier" :rules="[{ required: true, message: texte19 }]">
+          <a-input placeholder="Entrez le nom du quartier" v-model:value="formState.quartier" />
         </a-form-item>
       </a-col>
     </a-row>
@@ -370,28 +300,15 @@ allAnwserForAssitance: [
     <!-- Email + Email secondaires -->
     <a-row :gutter="[16, 24]">
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :label="texte6"
-          name="email"
-          :rules="[{ required: true, message: texte18 }]"
-        >
-          <a-input
-            type="email"
-            placeholder="Entrez votre email"
-            v-model:value="formState.email"
-          />
+        <a-form-item :label="texte6" name="email" :rules="[{ required: true, message: texte18 }]">
+          <a-input type="email" placeholder="Entrez votre email" v-model:value="formState.email" />
         </a-form-item>
       </a-col>
 
       <a-col :xs="24" :md="12">
         <a-form-item :label="'Email secondaires (CC)'">
-          <n-dynamic-input
-            v-model:value="formState.email_cc"
-            placeholder="Ajoutez un email en copie"
-            :min="1"
-            :max="6"
-            :item-style="{ borderColor: 'gray' }"
-          />
+          <n-dynamic-input v-model:value="formState.email_cc" placeholder="Ajoutez un email en copie" :min="1" :max="6"
+            :item-style="{ borderColor: 'gray' }" />
         </a-form-item>
       </a-col>
     </a-row>
@@ -399,35 +316,17 @@ allAnwserForAssitance: [
     <!-- Gérant + Téléphone gérant -->
     <a-row :gutter="[16, 24]">
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :label="texte8"
-          name="gerant"
-          :rules="[{ required: true, message: texte16 }]"
-        >
+        <a-form-item :label="texte8" name="gerant" :rules="[{ required: true, message: texte16 }]">
           <a-input placeholder="Entrez le nom du gérant" v-model:value="formState.gerant" />
         </a-form-item>
       </a-col>
 
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :label="texte9"
-          name="Phonegerant"
-          :rules="[{ required: true, message: texte15 }]"
-        >
-          <a-input
-            type="tel"
-            v-model:value="formState.Phonegerant"
-            placeholder="Entrez le numéro du gérant"
-          >
+        <a-form-item :label="texte9" name="Phonegerant" :rules="[{ required: true, message: texte15 }]">
+          <a-input type="tel" v-model:value="formState.Phonegerant" placeholder="Entrez le numéro du gérant">
             <template #addonBefore>
-              <a-select
-                v-model:value="formState.countryCodePhoneGerant"
-                :options="westAfricaCodes"
-                show-search
-                option-filter-prop="label"
-                option-label-prop="value"
-                style="width: 120px"
-              />
+              <a-select v-model:value="formState.countryCodePhoneGerant" :options="westAfricaCodes" show-search
+                option-filter-prop="label" option-label-prop="value" style="width: 120px" />
             </template>
           </a-input>
         </a-form-item>
@@ -437,40 +336,20 @@ allAnwserForAssitance: [
     <!-- Pièce d'identité + Logo -->
     <a-row :gutter="[16, 24]">
       <a-col :xs="24" :md="12">
-        <a-form-item
-          name="upload"
-          :rules="[{ required: true, message: `Veuilez Ajoutez une pièce d'identité.` }]"
-          :label="texte10"
-        >
-          <a-upload
-            @change="handleChangeCardStudent"
-            v-model:fileList="formState.upload"
-            name="upload"
-            list-type="picture"
-            :multiple="true"
-            :maxCount="2"
-            accept="*/*"
-          >
+        <a-form-item name="upload" :rules="[{ required: true, message: `Veuilez Ajoutez une pièce d'identité.` }]"
+          :label="texte10">
+          <a-upload @change="handleChangeCardStudent" v-model:fileList="formState.upload" name="upload"
+            list-type="picture" :multiple="true" :maxCount="2" accept="*/*">
             <a-button> Clique pour charger </a-button>
           </a-upload>
         </a-form-item>
       </a-col>
 
       <a-col :xs="24" :md="12">
-        <a-form-item
-          :rules="[{ required: true, message: `Veuilez Ajoutez un logo.` }]"
-          name="Logo"
-          :label="'Logo(jpg,png,webp)'"
-        >
-          <a-upload
-            @change="handleChangeCardStudent"
-            v-model:fileList="formState.Logo"
-            name="logo"
-            :multiple="false"
-            :maxCount="1"
-            accept=".jpg,.jpeg,.png,.webp"
-            list-type="picture"
-          >
+        <a-form-item :rules="[{ required: true, message: `Veuilez Ajoutez un logo.` }]" name="Logo"
+          :label="'Logo(jpg,png,webp)'">
+          <a-upload @change="handleChangeCardStudent" v-model:fileList="formState.Logo" name="logo" :multiple="false"
+            :maxCount="1" accept=".jpg,.jpeg,.png,.webp" list-type="picture">
             <a-button> Clique pour charger </a-button>
           </a-upload>
         </a-form-item>
@@ -480,68 +359,46 @@ allAnwserForAssitance: [
     <!-- Mot de passe (souvent en pleine largeur) -->
     <a-row :gutter="[16, 24]">
       <a-col :xs="24" :md="24">
-        <a-form-item
-          :label="texte12"
-          name="password"
-          :rules="[{ required: true, message: texte14 }]"
-        >
-          <a-input-password
-            v-model:value="formState.password"
-            placeholder="Entrez le mot de passe"
-          />
+        <a-form-item :label="texte12" name="password" :rules="[{ required: true, message: texte14 }]">
+          <a-input-password v-model:value="formState.password" placeholder="Entrez le mot de passe" />
         </a-form-item>
       </a-col>
     </a-row>
     <div>
-  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
-    Avez-vous été assisté(e) par un commercial ?
-  </label>
-  <div class="round-container">
-    <label 
-      v-for="item in allAnwserForAssitance" 
-      :key="item.value"
-      class="round-item"
-    >
-      <input
-      :disabled="this.loading"
-        type="radio"
-        name="profilHybride"
-        :value="item.value"
-        v-model="formState.answerAssistance"
-      />
-      <span class="round-label">
-        {{ item.label }}
-      </span>
-    </label>
-  </div>
-  <div v-if="formState.answerAssistance === 'oui'">
-    <a-row :gutter="[16, 12]">
-        <a-col :xs="24" :md="12">
-          <a-form-item 
-          :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
-          label="Identifiant du commercial" name="identifiantCommerciale">
-            <a-input v-model:value="formState.identifiantCommerciale" />
-          </a-form-item>
-        </a-col>
-         <a-col :xs="24" :md="12">
-          <a-form-item label="Notes" name="identifiantNotesCommerciale">
-             <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
-          </a-form-item>
-        </a-col>
-      </a-row>
-  </div>
-</div>
+      <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+        Avez-vous été assisté(e) par un commercial ?
+      </label>
+      <div class="round-container">
+        <label v-for="item in allAnwserForAssitance" :key="item.value" class="round-item">
+          <input :disabled="this.loading" type="radio" name="profilHybride" :value="item.value"
+            v-model="formState.answerAssistance" />
+          <span class="round-label">
+            {{ item.label }}
+          </span>
+        </label>
+      </div>
+      <div v-if="formState.answerAssistance === 'oui'">
+        <a-row :gutter="[16, 12]">
+          <a-col :xs="24" :md="12">
+            <a-form-item :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
+              label="Identifiant du commercial" name="identifiantCommerciale">
+              <a-input v-model:value="formState.identifiantCommerciale" />
+            </a-form-item>
+          </a-col>
+          <a-col :xs="24" :md="12">
+            <a-form-item label="Notes" name="identifiantNotesCommerciale">
+              <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
+            </a-form-item>
+          </a-col>
+        </a-row>
+      </div>
+    </div>
 
     <!-- Bouton de soumission -->
     <a-form-item>
       <div class="d-flex justify-content-center">
-        <a-button 
-        type="primary" 
-        shape="round" 
-        :size="'large'" 
-        html-type="submit"
-        :disabled="isPasswordDisabled || isCommercialAssitance || !formState.password"
-        >
+        <a-button type="primary" shape="round" :size="'large'" html-type="submit"
+          :disabled="isPasswordDisabled || isCommercialAssitance || !formState.password">
           {{ texte13 }}
         </a-button>
       </div>

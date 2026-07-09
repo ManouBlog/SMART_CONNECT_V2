@@ -59,7 +59,7 @@ const seePerformanceNbre = async () => {
   try {
     const response = await instance.get("seePerformance");
     if (response.data.status) {
-      
+
       entreprises.value = response.data.partenairePerf;
       offres.value = response.data.offrePerf;
       timetable.value = response.data.talentPerf;
@@ -121,119 +121,54 @@ onUnmounted(() => {
       <div class="container">
         <div class="conteneur-card-performance" id="cardPerf">
           <div style="display: flex;gap: 0.5em;" class="circles-container">
-             <div class="circles-wrapper">
-               <CardPerformance
-            :myStyle="'card_perfor_nbre_student_save'"
-            :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Particulier(s)'"
-            :nbre="formatNumber(particuliers)"
-            :class="{ 'fade-in circle-item': cardPerfVisible}"
-            :isPayement="false"
-            :suffix="formatSuffix(Number(particuliers))"
-            :tooltip="particuliers.toString()"
-            :decimals="Number(particuliers) > 1000  ? 1:null"
-          />
-          
-          
-          <CardPerformance
-            :myStyle="'card_perfor_nbre_student_save'"
-            :icone_name="'bi bi-person-lines-fill'"
-            :texte="texte55"
-            :nbre="formatNumber(student)"
-            :class="{ 'fade-in circle-item': cardPerfVisible }"
-            :isPayement="false"
-            :suffix="formatSuffix(Number(student))"
-            :tooltip="student.toString()"
-            :decimals="Number(student) > 1000  ? 1:null"
-          />
-          <CardPerformance
-            :myStyle="'card_perfor_nbre_student_save'"
-            :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Professionnel(s)'"
-            :nbre="formatNumber(professionnels)"
-            :class="{ 'fade-in circle-item': cardPerfVisible }"
-            :isPayement="false"
-            :suffix="formatSuffix(Number(professionnels))"
-            :tooltip="professionnels.toString()"
-            :decimals="Number(professionnels) > 1000  ? 1:null"
-          />
-          <CardPerformance
-            :myStyle="'card_perfor_nbre_student_save'"
-            :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Artisan(s)'"
-            :nbre="formatNumber(artisans)"
-            :class="{ 'fade-in circle-item': cardPerfVisible }"
-            :isPayement="false"
-            :suffix="formatSuffix(Number(artisans))"
-            :tooltip="artisans.toString()"
-            :decimals="Number(artisans) > 1000  ? 1:null"
-          />
-          <CardPerformance
-            :myStyle="'card_perfor_nbre_student_save'"
-            :icone_name="'bi bi-person-lines-fill'"
-            :texte="'Vétéran(s)'"
-            :nbre="formatNumber(veterans)"
-            :class="{ 'fade-in circle-item': cardPerfVisible }"
-            :isPayement="false"
-            :suffix="formatSuffix(Number(veterans))"
-            :tooltip="veterans.toString()"
-            :decimals="Number(veterans) > 1000  ? 1:null"
-          />
-          <CardPerformance
-            v-if="Number(entreprises) > 100"
-            :myStyle="'card_perfor_one'"
-            :icone_name="'bi bi-building icon'"
-            :texte="texte1"
-            :nbre="formatNumber(entreprises)"
-            :class="{ 'slide-from-left circle-item': cardPerfVisible }"
-             :isPayement="false"
-             :suffix="'K'"
-            :tooltip="entreprises.toString()"
-            :decimals="Number(entreprises) > 1000  ? 1:null"
-          />
-            <CardPerformance
-            :myStyle="'card_perfor_nbre_student_save'"
-            :icone_name="'bi bi-briefcase-fill'"
-            :texte="texte2"
-            :nbre="formatNumber(offres)"
-            :class="{ 'fade-in circle-item': cardPerfVisible }"
-             :isPayement="false"
-             :suffix="formatSuffix(Number(offres))"
-             :tooltip="offres.toString()"
-             :decimals="Number(offres) > 1000  ? 1:null"
-          />
-       <CardPerformance
-            v-if="Number(timetable) > 100"
-            :myStyle="'card_perfor_nbre_student_save'"
-            :icone_name="'bi bi-person-lines-fill'"
-            :texte="texte3"
-            :nbre="formatNumber(timetable)"
-            :class="{ 'fade-in circle-item': cardPerfVisible }"
-             :isPayement="false"
-             :suffix="formatSuffix(Number(timetable))"
-             :tooltip="timetable.toString()"
-             :decimals="Number(timetable) > 1000  ? 1:null"
-          />
+            <div class="circles-wrapper">
+              <CardPerformance :myStyle="'card_perfor_nbre_student_save'" :icone_name="'bi bi-person-lines-fill'"
+                :texte="'Particulier(s)'" :nbre="formatNumber(particuliers)"
+                :class="{ 'fade-in circle-item': cardPerfVisible }" :isPayement="false"
+                :suffix="formatSuffix(Number(particuliers))" :tooltip="particuliers.toString()"
+                :decimals="Number(particuliers) > 1000 ? 1 : null" />
 
-          <CardPerformance
-            :myStyle="'card_perfor_nbre_student_save'"
-            :icone_name="'bi bi-person-lines-fill'"
-            :texte="texte4"
-            :nbre="formatNumber(visiteur)"
-            :class="{ 'slide-from-right circle-item': cardPerfVisible }"
-             :isPayement="false"
-             :suffix="formatSuffix(Number(visiteur))"
-             :tooltip="visiteur.toString()"
-             :decimals="Number(visiteur) > 1000  ? 1:null"
-          />
-          <CardPerformance
-            :myStyle="'card_perfor_nbre_student_save'"
-            :texte="'Paiement garanti'"
-             :class="{ 'fade-in circle-item': cardPerfVisible }"
-            :isPayement="true"
-          />
-             </div>
-    
+
+              <CardPerformance :myStyle="'card_perfor_nbre_student_save'" :icone_name="'bi bi-person-lines-fill'"
+                :texte="texte55" :nbre="formatNumber(student)" :class="{ 'fade-in circle-item': cardPerfVisible }"
+                :isPayement="false" :suffix="formatSuffix(Number(student))" :tooltip="student.toString()"
+                :decimals="Number(student) > 1000 ? 1 : null" />
+              <CardPerformance :myStyle="'card_perfor_nbre_student_save'" :icone_name="'bi bi-person-lines-fill'"
+                :texte="'Professionnel(s)'" :nbre="formatNumber(professionnels)"
+                :class="{ 'fade-in circle-item': cardPerfVisible }" :isPayement="false"
+                :suffix="formatSuffix(Number(professionnels))" :tooltip="professionnels.toString()"
+                :decimals="Number(professionnels) > 1000 ? 1 : null" />
+              <CardPerformance :myStyle="'card_perfor_nbre_student_save'" :icone_name="'bi bi-person-lines-fill'"
+                :texte="'Artisan(s)'" :nbre="formatNumber(artisans)" :class="{ 'fade-in circle-item': cardPerfVisible }"
+                :isPayement="false" :suffix="formatSuffix(Number(artisans))" :tooltip="artisans.toString()"
+                :decimals="Number(artisans) > 1000 ? 1 : null" />
+              <CardPerformance :myStyle="'card_perfor_nbre_student_save'" :icone_name="'bi bi-person-lines-fill'"
+                :texte="'Vétéran(s)'" :nbre="formatNumber(veterans)" :class="{ 'fade-in circle-item': cardPerfVisible }"
+                :isPayement="false" :suffix="formatSuffix(Number(veterans))" :tooltip="veterans.toString()"
+                :decimals="Number(veterans) > 1000 ? 1 : null" />
+              <CardPerformance v-if="Number(entreprises) > 100" :myStyle="'card_perfor_one'"
+                :icone_name="'bi bi-building icon'" :texte="texte1" :nbre="formatNumber(entreprises)"
+                :class="{ 'slide-from-left circle-item': cardPerfVisible }" :isPayement="false" :suffix="'K'"
+                :tooltip="entreprises.toString()" :decimals="Number(entreprises) > 1000 ? 1 : null" />
+              <CardPerformance :myStyle="'card_perfor_nbre_student_save'" :icone_name="'bi bi-briefcase-fill'"
+                :texte="texte2" :nbre="formatNumber(offres)" :class="{ 'fade-in circle-item': cardPerfVisible }"
+                :isPayement="false" :suffix="formatSuffix(Number(offres))" :tooltip="offres.toString()"
+                :decimals="Number(offres) > 1000 ? 1 : null" />
+              <CardPerformance v-if="Number(timetable) > 100" :myStyle="'card_perfor_nbre_student_save'"
+                :icone_name="'bi bi-person-lines-fill'" :texte="texte3" :nbre="formatNumber(timetable)"
+                :class="{ 'fade-in circle-item': cardPerfVisible }" :isPayement="false"
+                :suffix="formatSuffix(Number(timetable))" :tooltip="timetable.toString()"
+                :decimals="Number(timetable) > 1000 ? 1 : null" />
+
+              <CardPerformance :myStyle="'card_perfor_nbre_student_save'" :icone_name="'bi bi-person-lines-fill'"
+                :texte="texte4" :nbre="formatNumber(visiteur)"
+                :class="{ 'slide-from-right circle-item': cardPerfVisible }" :isPayement="false"
+                :suffix="formatSuffix(Number(visiteur))" :tooltip="visiteur.toString()"
+                :decimals="Number(visiteur) > 1000 ? 1 : null" />
+              <CardPerformance :myStyle="'card_perfor_nbre_student_save'" :texte="'Paiement garanti'"
+                :class="{ 'fade-in circle-item': cardPerfVisible }" :isPayement="true" />
+            </div>
+
           </div>
         </div>
       </div>
@@ -243,12 +178,14 @@ onUnmounted(() => {
 
 <style scoped>
 @import "../../../Shared/styles/stylesShared.css";
+
 .stat {
   background-color: var(--secondary-color) !important;
   color: var(--third-color) !important;
   padding: 3em 2em;
   color: rgb(0, 0, 0);
 }
+
 .conteneur-card-performance {
   display: flex;
   gap: 1.5em;
@@ -257,6 +194,7 @@ onUnmounted(() => {
   align-items: center;
   place-content: center;
 }
+
 .card_perfor_one {
   width: auto;
   height: auto;
@@ -265,14 +203,16 @@ onUnmounted(() => {
   background: #334155;
   border-radius: 0px 100px 0px 100px;
 }
+
 .card_perfor_two {
-   width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
   color: white;
-     text-align:center;
+  text-align: center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
 }
+
 .circles-container {
   width: 100%;
   padding: 10px 0;
@@ -289,10 +229,13 @@ onUnmounted(() => {
   0% {
     transform: translateX(0%);
   }
+
   100% {
-    transform: translateX(-50%); /* 50% = la largeur de tout le contenu répété */
+    transform: translateX(-50%);
+    /* 50% = la largeur de tout le contenu répété */
   }
 }
+
 @media (max-width: 800px) {
   .circles-wrapper {
     animation: scrollLoopMobile 10s linear infinite;
@@ -302,33 +245,41 @@ onUnmounted(() => {
     0% {
       transform: translateX(0%);
     }
+
     100% {
       transform: translateX(-100%);
     }
   }
 }
+
 @media (min-width: 2000px) {
   .circles-wrapper {
     animation: none !important;
     transform: none !important;
   }
-  .circles-container{
+
+  .circles-container {
     display: flex;
     justify-content: center;
   }
 }
+
 .circles-container:hover .circles-wrapper {
   animation-play-state: paused;
 }
+
 .circle-item {
-  min-width: 70px;   /* plus petit sur mobile */
+  min-width: 70px;
+  /* plus petit sur mobile */
   border-radius: 16px;
   background: #ff8c42;
   color: white;
   text-align: center;
 }
+
 .card_perfor_nbre_student_save {
-  flex: 0 0 auto; /* important pour empêcher le wrap */
+  flex: 0 0 auto;
+  /* important pour empêcher le wrap */
   width: 200px;
   height: 200px;
   color: white;
@@ -338,16 +289,18 @@ onUnmounted(() => {
   padding: 1.9em 1em;
   scroll-snap-align: start;
 }
-.card_perfor_payment{
-      width: 200px;
-    height: 200px;
-    font-size:0.9em;
+
+.card_perfor_payment {
+  width: 200px;
+  height: 200px;
+  font-size: 0.9em;
   color: white;
-    padding: 1.9em 1em;
-     text-align:center;
+  padding: 1.9em 1em;
+  text-align: center;
   background: rgba(4, 3, 1, 0.649);
   border-radius: 100%;
 }
+
 .card_perfor_three {
   width: auto;
   height: auto;
@@ -363,11 +316,13 @@ onUnmounted(() => {
     transform: translateX(-100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
   }
 }
+
 .slide-from-left {
   animation: slideFromLeft 0.8s ease-out forwards;
 }
@@ -378,14 +333,17 @@ onUnmounted(() => {
     opacity: 0;
     transform: scale(0.5);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
   }
 }
+
 .fade-in {
   animation: fadeIn 1s ease-out forwards;
-  animation-delay: 0.3s; /* Délai pour un effet séquentiel */
+  animation-delay: 0.3s;
+  /* Délai pour un effet séquentiel */
 }
 
 /* Animation depuis la droite */
@@ -394,13 +352,16 @@ onUnmounted(() => {
     transform: translateX(100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
   }
 }
+
 .slide-from-right {
   animation: slideFromRight 0.8s ease-out forwards;
-  animation-delay: 0.6s; /* Délai plus long pour le dernier élément */
+  animation-delay: 0.6s;
+  /* Délai plus long pour le dernier élément */
 }
 </style>

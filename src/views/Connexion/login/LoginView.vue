@@ -39,28 +39,28 @@ export default {
     }),
     toogleForgotPassword() {
       this.isModalForgotPassword = !this.isModalForgotPassword;
-      
+
     },
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
     onFinish(values) {
       this.connexionUser(values);
     },
-   
+
     connexionUser(dataValue) {
-      
+
       this.launchLoading(true);
       // console.log('route 1 pour se connecter')
       instance
         .post("auth_login", dataValue)
         .then(async (response) => {
           if (response.data.status === true) {
-            
+
             Swal.fire({
               icon: "success",
               title: response.data.message,
               showConfirmButton: true,
             });
-      
+
             this.$store.commit("ADD_ITEM");
             window.localStorage.setItem("user", JSON.stringify(response.data.user));
             window.localStorage.setItem(
@@ -69,9 +69,9 @@ export default {
             );
             this.$store.state.user = response.data.user;
             this.$store.state.token = response.data.access_token;
-              await this.$store.dispatch("getInfoUser");
+            await this.$store.dispatch("getInfoUser");
             this.toogleModal();
-           
+
             const redirect = this.$route.query.redirect;
             if (redirect) {
               this.$router.replace(redirect);
@@ -120,12 +120,8 @@ export default {
 };
 </script>
 <template>
-  <a-modal
-    :footer="null"
-    v-model:open="isModalForgotPassword"
-    @cancel="isModalForgotPassword"
-    @ok="toogleForgotPassword"
-  >
+  <a-modal :footer="null" v-model:open="isModalForgotPassword" @cancel="isModalForgotPassword"
+    @ok="toogleForgotPassword">
     <h2 class="text-center fw-bold" style="color: orange">
       {{ texte }}
     </h2>
@@ -135,47 +131,27 @@ export default {
     </h6>
     <ForgotPassword />
   </a-modal>
-  <a-form
-    :layout="'vertical'"
-    :model="formState"
-    name="basic"
-    autocomplete="on"
-    @finish="onFinish"
-    @finishFailed="onHandleFailed"
-  >
+  <a-form :layout="'vertical'" :model="formState" name="basic" autocomplete="on" @finish="onFinish"
+    @finishFailed="onHandleFailed">
     <div style="padding: 0.5em 0; text-align: center; color: red">
       Les champs avec astérisque (*) sont obligatoires
     </div>
-    <a-form-item
-      :label="texte3"
-      name="email"
-      :rules="[{ required: true, message: texte7 }]"
-    >
+    <a-form-item :label="texte3" name="email" :rules="[{ required: true, message: texte7 }]">
       <a-input v-model:value="formState.email" />
     </a-form-item>
 
-    <a-form-item
-      :label="texte4"
-      name="password"
-      :rules="[{ required: true, message: texte8 }]"
-    >
+    <a-form-item :label="texte4" name="password" :rules="[{ required: true, message: texte8 }]">
       <a-input-password v-model:value="formState.password" />
     </a-form-item>
     <a-form-item>
       <div class="text-right">
-        <a
-          class="login-form-forgot text-danger"
-          href="#"
-          @click.prevent="toogleForgotPassword"
-          >{{ texte5 }}</a
-        >
+        <a class="login-form-forgot text-danger" href="#" @click.prevent="toogleForgotPassword">{{ texte5 }}</a>
       </div>
     </a-form-item>
     <a-form-item>
       <div class="d-flex justify-content-center">
         <a-button type="primary" shape="round" :size="'large'" html-type="submit">
-          {{ texte6 }}</a-button
-        >
+          {{ texte6 }}</a-button>
       </div>
     </a-form-item>
   </a-form>

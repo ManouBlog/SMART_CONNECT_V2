@@ -10,11 +10,11 @@ export default {
       formState: {
         nom: "",
         email: "",
-        objet:"",
+        objet: "",
         message: "",
-        prenoms:"",
+        prenoms: "",
       },
-      isMsgSend:false,
+      isMsgSend: false,
       texte: "",
       texte2: "",
       texte3: "",
@@ -36,20 +36,20 @@ export default {
   methods: {
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-     onFinish(values) {
+    onFinish(values) {
       console.log("Success:", values);
       this.sendUsEmail();
     },
     onHandleFailed(errorInfo) {
       console.log("Failed:", errorInfo);
     },
-     sendUsEmail() {
+    sendUsEmail() {
       this.launchLoading(true);
       instance
         .post("sendUsEmail", this.formState)
         .then((res) => {
           console.log(res);
-           this.isMsgSend = true;
+          this.isMsgSend = true;
           // if (res.data.status === true) {
           //   Swal.fire({
           //     icon: "success",
@@ -60,7 +60,7 @@ export default {
           // }
         })
         .catch((err) => {
-          console.log(JSON.stringify(err,null,2))
+          console.log(JSON.stringify(err, null, 2))
           // Swal.fire({
           //   icon: "error",
           //   title: err.data.message,
@@ -68,7 +68,7 @@ export default {
           //   timer: 1500,
           // });
         })
-        .finally(()=>{
+        .finally(() => {
           this.launchLoading(false);
         })
     },
@@ -97,7 +97,7 @@ export default {
     this.text14 = await this.handleTranslate("Adresse e-mail");
     this.text15 = await this.handleTranslate("Objet");
     this.texte16 = await this.handleTranslate("Message");
-   
+
   },
 };
 </script>
@@ -122,67 +122,37 @@ export default {
       </div>
     </div>
     <div class="conteneur_formulaire">
-      <a-card  style="color: var(--third-color) !important; background: var(--secondary-color) !important">
+      <a-card style="color: var(--third-color) !important; background: var(--secondary-color) !important">
         <h6 class="fw-bold">{{ texte3 }}</h6>
-        <a-form
-        v-if="!isMsgSend"
-          :layout="'vertical'"
-          :model="formState"
-          name="basic"
-          autocomplete="off"
-          @finish="onFinish"
-          @finishFailed="onHandleFailed"
-        >
-          <a-form-item 
-          :label="text13"
-          :rules="[{ required: true, message: 'Ajoutez le nom' }]"
-          name="nom"
-          >
+        <a-form v-if="!isMsgSend" :layout="'vertical'" :model="formState" name="basic" autocomplete="off"
+          @finish="onFinish" @finishFailed="onHandleFailed">
+          <a-form-item :label="text13" :rules="[{ required: true, message: 'Ajoutez le nom' }]" name="nom">
             <a-input :placeholder="texte5" v-model:value="formState.nom" />
           </a-form-item>
-          <a-form-item 
-          :label="'Prénoms'"
-          :rules="[{ required: true, message: 'Ajoutez vos prénoms' }]"
-          name="prenoms"
-          >
+          <a-form-item :label="'Prénoms'" :rules="[{ required: true, message: 'Ajoutez vos prénoms' }]" name="prenoms">
             <a-input :placeholder="'Entrer vos prénoms'" v-model:value="formState.prenoms" />
           </a-form-item>
 
-          <a-form-item 
-          :label="text14" 
-          name="email"
-          :rules="[{ required: true, message: 'Ajoutez l\'adresse email' }]"
-          >
+          <a-form-item :label="text14" name="email" :rules="[{ required: true, message: 'Ajoutez l\'adresse email' }]">
             <a-input :placeholder="text6" v-model:value="formState.email" />
           </a-form-item>
-          <a-form-item 
-          :label="text15"
-          name="objet"
-          :rules="[{ required: true, message: 'Ajoutez un objet' }]"
-           >
+          <a-form-item :label="text15" name="objet" :rules="[{ required: true, message: 'Ajoutez un objet' }]">
             <a-input :placeholder="texte7" v-model:value="formState.objet" />
           </a-form-item>
 
-          <a-form-item 
-          :label="texte16"
-          name="message"
-          :rules="[{ required: true, message: 'Ajoutez un message' }]"
-          >
-            <a-textarea style="height:150px;" 
-            :placeholder="texte8" v-model:value="formState.message" />
+          <a-form-item :label="texte16" name="message" :rules="[{ required: true, message: 'Ajoutez un message' }]">
+            <a-textarea style="height:150px;" :placeholder="texte8" v-model:value="formState.message" />
           </a-form-item>
 
           <a-form-item>
             <div class="d-flex justify-content-center">
-              <a-button type="primary" 
-              shape="round" :size="'large'" html-type="submit">
-                {{ texte4 }}</a-button
-              >
+              <a-button type="primary" shape="round" :size="'large'" html-type="submit">
+                {{ texte4 }}</a-button>
             </div>
           </a-form-item>
         </a-form>
         <div class="card" v-else>
-         Message envoyé
+          Message envoyé
         </div>
       </a-card>
 
@@ -196,12 +166,15 @@ h1 {
   color: var(--main-color) !important;
   text-align: left;
 }
+
 .conteneur_message {
   flex: 2 2 200px;
 }
+
 .conteneur_formulaire {
   flex: 1 1 200px;
 }
+
 .conteneur_message_formulaire {
   display: flex;
   justify-content: space-between;
@@ -210,19 +183,23 @@ h1 {
   flex-wrap: wrap;
   padding: 2em;
 }
-.conteneur_message_formulaire{
+
+.conteneur_message_formulaire {
   margin-top: 9em;
 }
+
 @media screen and (max-width:1200px) {
- .conteneur_message_formulaire{
-  margin-top: 6em;
+  .conteneur_message_formulaire {
+    margin-top: 6em;
+  }
 }
-}
+
 @media screen and (max-width:900px) {
- .conteneur_message_formulaire{
-  margin-top: 6em;
+  .conteneur_message_formulaire {
+    margin-top: 6em;
+  }
 }
-}
+
 .conteneur_message {
   display: flex;
   justify-content: center;
@@ -230,16 +207,20 @@ h1 {
   align-items: center;
   flex-wrap: wrap;
 }
+
 .conteneur_message p {
   text-align: justify;
 }
+
 .conteneur_message div {
   flex: 1 1 200px;
 }
-:deep(.ant-form-item-required){
-  color:white !important;
+
+:deep(.ant-form-item-required) {
+  color: white !important;
 }
-:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-form-item .ant-form-item-label >label){
-  color:white !important;
+
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-form-item .ant-form-item-label >label) {
+  color: white !important;
 }
 </style>

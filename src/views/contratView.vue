@@ -18,26 +18,26 @@ export default {
     see_details(id) {
       this.see_detail_students = !this.see_detail_students;
       this.id_student = id;
-      
+
     },
     get_details_students(id) {
       this.see_detail_students = !this.see_detail_students;
       instance.get("list_students")
         .then((res) => {
-          
+
           this.students = res.data.data;
           this.student = this.students.find((item) => item.id === id);
-          
+
         });
     },
     get_contrats() {
-      
+
       this.spinner = true;
       instance.get("see_entreprise_student")
         .then((res) => {
-          
+
           this.contrats = res.data.data;
-          
+
           this.spinner = false;
           setTimeout(function () {
             $("#MyTableData").DataTable({
@@ -129,11 +129,8 @@ export default {
                     {{ item.students.length }}
                   </td>
                   <td class="d-flex justify-content-center align-items-center">
-                    <router-link
-                      :to="{ name: 'detail_contrat', params: { id: item.id } }"
-                    >
-                      <i class="bi bi-eye"></i
-                    ></router-link>
+                    <router-link :to="{ name: 'detail_contrat', params: { id: item.id } }">
+                      <i class="bi bi-eye"></i></router-link>
                   </td>
                 </tr>
               </tbody>
@@ -146,18 +143,20 @@ export default {
   <!-- Container-fluid Ends-->
 </template>
 <style scoped>
-
 .bi {
   font-size: 1.5em !important;
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;

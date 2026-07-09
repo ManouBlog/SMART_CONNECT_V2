@@ -19,7 +19,7 @@ const statut = {
 const colorStatut = {
   0: "bg-info",
   1: "bg-success",
-   3: "bg-danger",
+  3: "bg-danger",
   2: "bg-danger",
 };
 
@@ -65,8 +65,8 @@ export default {
   },
   computed: {
     ...mapState(useInfoStudentStore, ["list_entreprise_interesse"]),
-    list_entreprise_interesse_mobile(){
-     const start = (this.currentPage - 1) * this.pageSize;
+    list_entreprise_interesse_mobile() {
+      const start = (this.currentPage - 1) * this.pageSize;
       const end = start + this.pageSize;
       return this.list_entreprise_interesse.slice(start, end);
     },
@@ -78,19 +78,19 @@ export default {
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useInfoStudentStore, ["get_entreprise_interesse"]),
-     async verifUserProfilEtudiantComplet() {
+    async verifUserProfilEtudiantComplet() {
       await this.$store.dispatch("getInfoUser")
-  const user = this.$store.state.infoUserConnected;
-  
-  if(user.user?.statuses.some(s => s.statut === 'Etudiant')){
-if (!user.competences.length || !user.qualifications.length) {
-    this.$router.push('/dashboard/profil');
-   }
-   if(!user.jours.length){
-    this.$router.push('/dashboard/emploi_du_temps');
-   }
-  }
-}
+      const user = this.$store.state.infoUserConnected;
+
+      if (user.user?.statuses.some(s => s.statut === 'Etudiant')) {
+        if (!user.competences.length || !user.qualifications.length) {
+          this.$router.push('/dashboard/profil');
+        }
+        if (!user.jours.length) {
+          this.$router.push('/dashboard/emploi_du_temps');
+        }
+      }
+    }
   },
   async created() {
     this.verifUserProfilEtudiantComplet();
@@ -116,15 +116,8 @@ if (!user.competences.length || !user.qualifications.length) {
         <div class="row">
           <div class="col-sm-12 py-3 px-2">
             <!-- ✅ Desktop: Table -->
-            <DataTable
-              v-if="!isMobile"
-              paginator
-              :rows="10"
-              :globalFilterFields="['formule']"
-              :rowsPerPageOptions="[5, 10, 20, 50]"
-              :value="list_entreprise_interesse"
-              v-model:filters="filters"
-            >
+            <DataTable v-if="!isMobile" paginator :rows="10" :globalFilterFields="['formule']"
+              :rowsPerPageOptions="[5, 10, 20, 50]" :value="list_entreprise_interesse" v-model:filters="filters">
               <template #paginatorstart>
                 <div class="pagination-info">
                   Affichage de 1 à 10 sur {{ list_entreprise_interesse.length }} entrées.
@@ -135,44 +128,25 @@ if (!user.competences.length || !user.qualifications.length) {
                 <div class="conteneur_search">
                   <IconField iconPosition="left">
                     <InputIcon><i class="pi pi-search" /></InputIcon>
-                    <InputText
-                      style="width: 300px; font-size: 1.2em; border: 2px solid orange"
-                      v-model="filters['global'].value"
-                      placeholder="Recherche:"
-                    />
+                    <InputText style="width: 300px; font-size: 1.2em; border: 2px solid orange"
+                      v-model="filters['global'].value" placeholder="Recherche:" />
                   </IconField>
                 </div>
               </template>
 
-              <Column
-                field="nom_offre"
-                :header="texte1"
-                style="font-size: 1.1em; text-align: center"
-              >
+              <Column field="nom_offre" :header="texte1" style="font-size: 1.1em; text-align: center">
                 <template #body="{ data }">{{ data.offre.nom_offre }}</template>
               </Column>
 
-              <Column
-                field="lieu"
-                :header="texte2"
-                style="font-size: 1.1em; text-align: center"
-              >
+              <Column field="lieu" :header="texte2" style="font-size: 1.1em; text-align: center">
                 <template #body="{ data }">{{ data.offre.lieu }}</template>
               </Column>
 
-              <Column
-                field="entreprise"
-                header="Recruteurs"
-                style="font-size: 1.1em; text-align: center"
-              >
+              <Column field="entreprise" header="Recruteurs" style="font-size: 1.1em; text-align: center">
                 <template #body="{ data }">{{ data.entreprise?.nom }}</template>
               </Column>
 
-              <Column
-                field="salaire"
-                :header="texte3"
-                style="font-size: 1.1em; text-align: center"
-              >
+              <Column field="salaire" :header="texte3" style="font-size: 1.1em; text-align: center">
                 <template #body="{ data }">{{
                   data.offre.salaire
                 }}</template>
@@ -188,10 +162,8 @@ if (!user.competences.length || !user.qualifications.length) {
 
               <Column field="details" :header="texte6" style="text-align: center">
                 <template #body="{ data }">
-                  <router-link
-                    :to="{ name: 'entreprise_interesse_detail', params: { id: data.id } }"
-                    class="btn-action"
-                  >
+                  <router-link :to="{ name: 'entreprise_interesse_detail', params: { id: data.id } }"
+                    class="btn-action">
                     <i class="bi bi-eye"></i>
                   </router-link>
                 </template>
@@ -200,14 +172,10 @@ if (!user.competences.length || !user.qualifications.length) {
 
             <!-- ✅ Mobile: Cards -->
             <div v-else class="mobile-list">
-              <div
-                v-for="(item, index) in list_entreprise_interesse_mobile"
-                :key="index"
-                class="mobile-card"
-              >
+              <div v-for="(item, index) in list_entreprise_interesse_mobile" :key="index" class="mobile-card">
                 <div class="mobile-card-header">
                   <h2 class="offre-nom">{{ item.offre.nom_offre }}</h2>
-                 
+
                   <span :class="['badge', colorStatut[item.contrat]]">
                     {{ statut[item.contrat] }}
                   </span>
@@ -217,36 +185,25 @@ if (!user.competences.length || !user.qualifications.length) {
                 <p><strong>Recruteur :</strong> {{ item.entreprise?.nom }}</p>
                 <p>
                   <strong>Rémuneration</strong>
-                  {{item.offre.salaire }}
+                  {{ item.offre.salaire }}
                 </p>
 
                 <div class="mobile-actions">
-                  <router-link
-                    :to="{ name: 'entreprise_interesse_detail', params: { id: item.id } }"
-                    class="btn-mobile"
-                  >
+                  <router-link :to="{ name: 'entreprise_interesse_detail', params: { id: item.id } }"
+                    class="btn-mobile">
                     <i class="bi bi-eye"></i> {{ texte14 }}
                   </router-link>
                 </div>
               </div>
-              <div
-                class="d-flex justify-content-center my-4"
-                v-if="list_entreprise_interesse_mobile.length > 0"
-              >
-                <n-pagination
-                  v-model:page="currentPage"
-                  :page-size="pageSize"
-                  :item-count="list_entreprise_interesse_mobile.length"
-                  show-size-picker
-                  :page-sizes="[5, 10, 20]"
-                  @update:page="currentPage = $event"
-                  @update:page-size="
+              <div class="d-flex justify-content-center my-4" v-if="list_entreprise_interesse_mobile.length > 0">
+                <n-pagination v-model:page="currentPage" :page-size="pageSize"
+                  :item-count="list_entreprise_interesse_mobile.length" show-size-picker :page-sizes="[5, 10, 20]"
+                  @update:page="currentPage = $event" @update:page-size="
                     (size) => {
                       pageSize = size;
                       currentPage = 1;
                     }
-                  "
-                />
+                  " />
               </div>
 
               <div v-if="!list_entreprise_interesse.length" class="not_data">
@@ -307,9 +264,11 @@ td {
 .bg-info {
   background-color: #17a2b8 !important;
 }
+
 .bg-success {
   background-color: #28a745 !important;
 }
+
 .bg-danger {
   background-color: #dc3545 !important;
 }
@@ -337,10 +296,12 @@ td {
   padding: 2rem;
   color: #555;
 }
+
 :deep(td) {
   padding: 1em;
   text-align: center;
 }
+
 :deep(.p-column-header-content) {
   padding: 1em;
   justify-content: center !important;

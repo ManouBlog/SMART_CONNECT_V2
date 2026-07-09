@@ -30,7 +30,7 @@ export default {
           heure_end: this.timetable_show_id.heure_end,
         })
         .then((res) => {
-          
+
           // Swal.fire({
           //   icon: "success",
           //   title: res.data.message,
@@ -54,7 +54,7 @@ export default {
       instance
         .get("get_schedule")
         .then((res) => {
-          
+
           this.timetables = res.data.data;
           this.spinner = false;
           setTimeout(function () {
@@ -104,7 +104,7 @@ export default {
           heure_end: this.heure_end,
         })
         .then((res) => {
-          
+
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -139,15 +139,15 @@ export default {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = id;
       this.spinner = true;
-      
+
       instance
         .get("get_schedule")
         .then((res) => {
-          
+
           this.timetable = res.data.data;
           this.timetable_show_id = this.timetable.find((item) => item.id === id);
           this.spinner = false;
-         
+
         })
         .catch((err) => {
           alert(JSON.stringify(err, null, 2));
@@ -156,7 +156,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-      
+
     },
     not_delete() {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -166,7 +166,7 @@ export default {
       instance
         .delete("delete_schedule/" + this.id_for_delete)
         .then((res) => {
-          
+
           if (res.data.status == true) {
             // Swal.fire({
             //   icon: "success",
@@ -220,12 +220,7 @@ export default {
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Choisir un jour</label>
-                              <select
-                                class="form-select"
-                                v-model="timetable_show_id.jour"
-                                required
-                                disabled
-                              >
+                              <select class="form-select" v-model="timetable_show_id.jour" required disabled>
                                 <option value="lundi">lundi</option>
                                 <option value="mardi">Mardi</option>
                                 <option value="mercredi">Mercredi</option>
@@ -235,46 +230,29 @@ export default {
                                 <option value="dimanche">Dimanche</option>
                               </select>
                             </div>
-                            <span class="text-danger"
-                              >nb:le jour ne peut pas être modifier</span
-                            >
+                            <span class="text-danger">nb:le jour ne peut pas être modifier</span>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Heure de début</label>
-                              <input
-                                class="form-control"
-                                type="time"
-                                v-model="timetable_show_id.heure_start"
-                                required
-                              />
+                              <input class="form-control" type="time" v-model="timetable_show_id.heure_start"
+                                required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Heure de fin</label>
-                              <input
-                                class="form-control"
-                                type="time"
-                                v-model="timetable_show_id.heure_end"
-                                required
-                              />
+                              <input class="form-control" type="time" v-model="timetable_show_id.heure_end" required />
                             </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col">
                             <div class="text-end">
-                              <button
-                                class="btn btn-danger me-3"
-                                @click.prevent="show_modify"
-                              >
+                              <button class="btn btn-danger me-3" @click.prevent="show_modify">
                                 Annuler
                               </button>
-                              <button
-                                @click.prevent="update_timetable"
-                                class="btn btn-secondary"
-                              >
+                              <button @click.prevent="update_timetable" class="btn btn-secondary">
                                 Modifier
                               </button>
                             </div>
@@ -310,27 +288,14 @@ export default {
           <div class="social-tab">
             <ul class="nav nav-tabs" id="top-tab" role="tablist">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  id="top-timeline"
-                  data-bs-toggle="tab"
-                  href="#timetable"
-                  role="tab"
-                  aria-controls="timetable"
-                  aria-selected="true"
-                  ><i data-feather="clock"></i>Créer un emploi du temps</a
-                >
+                <a class="nav-link active" id="top-timeline" data-bs-toggle="tab" href="#timetable" role="tab"
+                  aria-controls="timetable" aria-selected="true"><i data-feather="clock"></i>Créer un emploi du
+                  temps</a>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  id="top-about"
-                  data-bs-toggle="tab"
-                  href="#voir_emploi_temps"
-                  role="tab"
-                  aria-controls="voir_emploi_temps"
-                  aria-selected="false"
-                  ><i data-feather="alert-circle"></i>Voir mon emploi du temps
+                <a class="nav-link" id="top-about" data-bs-toggle="tab" href="#voir_emploi_temps" role="tab"
+                  aria-controls="voir_emploi_temps" aria-selected="false"><i data-feather="alert-circle"></i>Voir mon
+                  emploi du temps
                 </a>
               </li>
               <!-- <li class="nav-item">
@@ -362,12 +327,7 @@ export default {
         </div>
       </div>
       <div class="tab-content" id="top-tabContent">
-        <div
-          class="tab-pane fade show active"
-          id="timetable"
-          role="tabpanel"
-          aria-labelledby="timetable"
-        >
+        <div class="tab-pane fade show active" id="timetable" role="tabpanel" aria-labelledby="timetable">
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-12">
@@ -393,23 +353,13 @@ export default {
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Heure de début</label>
-                              <input
-                                class="form-control"
-                                type="time"
-                                v-model="heure_start"
-                                required
-                              />
+                              <input class="form-control" type="time" v-model="heure_start" required />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-3">
                               <label>Heure de fin</label>
-                              <input
-                                class="form-control"
-                                type="time"
-                                v-model="heure_end"
-                                required
-                              />
+                              <input class="form-control" type="time" v-model="heure_end" required />
                             </div>
                           </div>
                         </div>
@@ -431,12 +381,7 @@ export default {
           </div>
         </div>
 
-        <div
-          class="tab-pane fade"
-          id="voir_emploi_temps"
-          role="tabpanel"
-          aria-labelledby="voir_emploi_temps"
-        >
+        <div class="tab-pane fade" id="voir_emploi_temps" role="tabpanel" aria-labelledby="voir_emploi_temps">
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-12 card py-3 px-2">
@@ -456,10 +401,7 @@ export default {
                       <td>{{ item.heure_end }}</td>
                       <td class="d-flex justify-content-center align-items-center">
                         <i class="bi bi-pencil" @click="show_timetable(item.id)"></i>
-                        <i
-                          class="bi bi-trash"
-                          @click="show_box_confirmation_delete(item.id)"
-                        ></i>
+                        <i class="bi bi-trash" @click="show_box_confirmation_delete(item.id)"></i>
                       </td>
                     </tr>
                   </tbody>
@@ -480,9 +422,11 @@ export default {
 h3 {
   text-transform: none !important;
 }
+
 label {
   text-align: left !important;
 }
+
 .btn-secondary {
   background: rgb(5, 35, 73) !important;
   border: 1px solid rgb(5, 35, 73) !important;
@@ -491,10 +435,12 @@ label {
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -507,6 +453,7 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .delete_article {
   position: fixed;
   left: 0;
@@ -519,6 +466,7 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .ecran {
   position: absolute;
   left: 0;
@@ -530,6 +478,7 @@ td {
   background: transparent;
   z-index: 99;
 }
+
 .plan-modify {
   position: fixed;
   left: 0;
@@ -542,10 +491,12 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .modify-form {
   margin-left: 50%;
   transform: translateX(-35%);
 }
+
 .bi {
   font-size: 1.3em !important;
   margin: 0 0.5em;

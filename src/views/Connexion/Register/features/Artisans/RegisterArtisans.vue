@@ -15,110 +15,110 @@ import RegisterQualifications from "../students/RegisterQualifications.vue";
 
 export default {
   name: "RegisterArtisans",
-  components: { 
-    VueMultiselect, 
+  components: {
+    VueMultiselect,
     Politics,
-     RegisterQualifications
+    RegisterQualifications
   },
   data() {
     return {
-      cameraInput:null,
-       fileList : [],
-       allProfiles:[],
-        allAnwserForAssitance: [
-  { label: "Oui", value: "oui" },
-  { label: "Non", value: "non" }
-],
- loading : false,
- StatutArtisans:[
-  // { value: "Maitre Artisan", label: "Maitre Artisan" },
-  { value: "Artisan", label: "Artisan" }
-],
-  niveauxEtudes:[
-  // Aucun / base
-  { value: "aucun", label: "Aucun niveau" },
+      cameraInput: null,
+      fileList: [],
+      allProfiles: [],
+      allAnwserForAssitance: [
+        { label: "Oui", value: "oui" },
+        { label: "Non", value: "non" }
+      ],
+      loading: false,
+      StatutArtisans: [
+        // { value: "Maitre Artisan", label: "Maitre Artisan" },
+        { value: "Artisan", label: "Artisan" }
+      ],
+      niveauxEtudes: [
+        // Aucun / base
+        { value: "aucun", label: "Aucun niveau" },
 
-  // Primaire
-  { value: "cepe", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
+        // Primaire
+        { value: "cepe", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
 
-  // Collège
-  { value: "6eme", label: "6ème" },
-  { value: "5eme", label: "5ème" },
-  { value: "4eme", label: "4ème" },
-  { value: "3eme", label: "3ème" },
-  { value: "bepc", label: "BEPC (Brevet d'Études du Premier Cycle)" },
+        // Collège
+        { value: "6eme", label: "6ème" },
+        { value: "5eme", label: "5ème" },
+        { value: "4eme", label: "4ème" },
+        { value: "3eme", label: "3ème" },
+        { value: "bepc", label: "BEPC (Brevet d'Études du Premier Cycle)" },
 
-  // Lycée
-  { value: "2nde", label: "Seconde" },
-  { value: "1ere", label: "Première" },
-  { value: "terminale", label: "Terminale" },
-  { value: "bac", label: "BAC" },
+        // Lycée
+        { value: "2nde", label: "Seconde" },
+        { value: "1ere", label: "Première" },
+        { value: "terminale", label: "Terminale" },
+        { value: "bac", label: "BAC" },
 
-  // Professionnel / technique
-  { value: "cap", label: "CAP (Certificat d'Aptitude Professionnelle)" },
-  { value: "cqp", label: "CQP (Certificat de Qualification Professionnelle)" },
-  { value: "bt", label: "BT (Brevet de Technicien)" },
-  { value: "bp", label: "BP (Brevet Professionnel)" },
-  { value: "bep", label: "BEP (Brevet d'Études Professionnelles)" },
-  { value: "bts", label: "BTS (Brevet de Technicien Supérieur)" },
-  { value: "dut", label: "DUT (Diplôme Universitaire de Technologie)" },
-  { value: "licence_pro", label: "Licence professionnelle" },
-  { value: "ingenieur", label: "Diplôme d'ingénieur" },
+        // Professionnel / technique
+        { value: "cap", label: "CAP (Certificat d'Aptitude Professionnelle)" },
+        { value: "cqp", label: "CQP (Certificat de Qualification Professionnelle)" },
+        { value: "bt", label: "BT (Brevet de Technicien)" },
+        { value: "bp", label: "BP (Brevet Professionnel)" },
+        { value: "bep", label: "BEP (Brevet d'Études Professionnelles)" },
+        { value: "bts", label: "BTS (Brevet de Technicien Supérieur)" },
+        { value: "dut", label: "DUT (Diplôme Universitaire de Technologie)" },
+        { value: "licence_pro", label: "Licence professionnelle" },
+        { value: "ingenieur", label: "Diplôme d'ingénieur" },
 
-  // Supérieur général
-  { value: "bac+1", label: "BAC+1" },
-  { value: "bac+2", label: "BAC+2" },
-  { value: "bac+3", label: "BAC+3 (Licence)" },
-  { value: "bac+4", label: "BAC+4 (Maîtrise)" },
-  { value: "bac+5", label: "BAC+5 (Master)" },
-  { value: "bac+6", label: "BAC+6" },
-  { value: "bac+7", label: "BAC+7" },
-  { value: "doctorat", label: "Doctorat (BAC+8 et plus)" },
-],
- rawText : '',
- result : null,
- 
-//  SCHOOL_KEYWORDS :[
-//   // Carte étudiante (formes tolérantes OCR)
-//   'carte etudiant',
-//   'carte d etudiant',
-//   'carte a etudiant',
-//   'carte etudiante',
+        // Supérieur général
+        { value: "bac+1", label: "BAC+1" },
+        { value: "bac+2", label: "BAC+2" },
+        { value: "bac+3", label: "BAC+3 (Licence)" },
+        { value: "bac+4", label: "BAC+4 (Maîtrise)" },
+        { value: "bac+5", label: "BAC+5 (Master)" },
+        { value: "bac+6", label: "BAC+6" },
+        { value: "bac+7", label: "BAC+7" },
+        { value: "doctorat", label: "Doctorat (BAC+8 et plus)" },
+      ],
+      rawText: '',
+      result: null,
 
-//   // Étudiant (avec ou sans accents, fautes OCR)
-//   'Etudiant',
-//   'etudiante',
-//   'etudant',
-//   'etud',
+      //  SCHOOL_KEYWORDS :[
+      //   // Carte étudiante (formes tolérantes OCR)
+      //   'carte etudiant',
+      //   'carte d etudiant',
+      //   'carte a etudiant',
+      //   'carte etudiante',
 
-//   // Institution / enseignement
-//   'ministere de l enseignement',
-//   "ministere de l'enseignement",
-//   'enseignement superieur',
-//   'ufr',
-//   'faculte',
-//   'faculté',
-//   'ecole',
-//   'institut',
+      //   // Étudiant (avec ou sans accents, fautes OCR)
+      //   'Etudiant',
+      //   'etudiante',
+      //   'etudant',
+      //   'etud',
 
-//   // Scolarité
-//   'filiere',
-//   'filiere',
-//   'niveau',
-//   'licence',
-//   'master',
-//   'doctorat',
+      //   // Institution / enseignement
+      //   'ministere de l enseignement',
+      //   "ministere de l'enseignement",
+      //   'enseignement superieur',
+      //   'ufr',
+      //   'faculte',
+      //   'faculté',
+      //   'ecole',
+      //   'institut',
 
-//   // Niveaux courts (attention : à combiner avec d’autres mots)
-//   'l1',
-//   'l2',
-//   'l3',
-//   'm1',
-//   'm2',
+      //   // Scolarité
+      //   'filiere',
+      //   'filiere',
+      //   'niveau',
+      //   'licence',
+      //   'master',
+      //   'doctorat',
 
-//   // Identifiant
-//   'matricule'
-// ],
+      //   // Niveaux courts (attention : à combiner avec d’autres mots)
+      //   'l1',
+      //   'l2',
+      //   'l3',
+      //   'm1',
+      //   'm2',
+
+      //   // Identifiant
+      //   'matricule'
+      // ],
       availabilityDates: [],
       startTime: null,
       endTime: null,
@@ -133,7 +133,7 @@ export default {
       texte7: "",
       texte8: "",
       texte9: "",
-      texte909:"",
+      texte909: "",
       texte10: "",
       texte11: "",
       texte12: "",
@@ -145,36 +145,36 @@ export default {
       texte18: "",
       texte19: "",
       texte96: "",
-     niveauEtude:"",
-     filiere:"",
+      niveauEtude: "",
+      filiere: "",
       configUtils,
       SWALPOPUP: useSwalPopup(),
 
-       westAfricaCodes: [
-  { label: "Bénin", value: "+229", length: 8 },
-  { label: "Burkina Faso", value: "+226", length: 8 },
-  { label: "Cap‑Vert", value: "+238", length: 7 },
-  { label: "Côte d’Ivoire", value: "+225", length: 10 },
-  { label: "Gambie", value: "+220", length: 7 },
-  { label: "Ghana", value: "+233", length: 9 },
-  { label: "Guinée", value: "+224", length: 7 },
-  { label: "Guinée‑Bissau", value: "+245", length: 9 },
-  { label: "Liberia", value: "+231", length: 9 },
-  { label: "Mali", value: "+223", length: 8 },
-  { label: "Niger", value: "+227", length: 8 },
-  { label: "Nigeria", value: "+234", length: 10 },
-  { label: "Sénégal", value: "+221", length: 8 },
-  { label: "Sierra Leone", value: "+232", length: 8 },
-  { label: "Togo", value: "+228", length: 8 },
-],
-inputMode: "gallery",
+      westAfricaCodes: [
+        { label: "Bénin", value: "+229", length: 8 },
+        { label: "Burkina Faso", value: "+226", length: 8 },
+        { label: "Cap‑Vert", value: "+238", length: 7 },
+        { label: "Côte d’Ivoire", value: "+225", length: 10 },
+        { label: "Gambie", value: "+220", length: 7 },
+        { label: "Ghana", value: "+233", length: 9 },
+        { label: "Guinée", value: "+224", length: 7 },
+        { label: "Guinée‑Bissau", value: "+245", length: 9 },
+        { label: "Liberia", value: "+231", length: 9 },
+        { label: "Mali", value: "+223", length: 8 },
+        { label: "Niger", value: "+227", length: 8 },
+        { label: "Nigeria", value: "+234", length: 10 },
+        { label: "Sénégal", value: "+221", length: 8 },
+        { label: "Sierra Leone", value: "+232", length: 8 },
+        { label: "Togo", value: "+228", length: 8 },
+      ],
+      inputMode: "gallery",
       formState: {
-       profiles:[],
-        answerAssistance:"non",
-        identifiantNotesCommerciale:"",
-        identifiantCommerciale:"",
-        otherCompetence:[],
-        code_ambassadeur:"",
+        profiles: [],
+        answerAssistance: "non",
+        identifiantNotesCommerciale: "",
+        identifiantCommerciale: "",
+        otherCompetence: [],
+        code_ambassadeur: "",
         titreCv: "",
         nom: "",
         prenoms: "",
@@ -186,10 +186,10 @@ inputMode: "gallery",
         myCompetence: [],
         photo: null,
         upload: [],
-        galeries:[],
+        galeries: [],
         bio: "",
-        statut_talent:"",
-        statutId:7,
+        statut_talent: "",
+        statutId: 7,
         photo_profil: null,
         uploadPhotoProfil: [],
         email: "",
@@ -203,18 +203,18 @@ inputMode: "gallery",
 
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
-    isCommercialAssitance(){
-  return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true:false;
+    isCommercialAssitance() {
+      return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true : false;
     },
     isPasswordDisabled() {
-    return (
-      this.loading ||
-      (this.result && this.result.isStudentCard === false)
-    )
-  },
-   
+      return (
+        this.loading ||
+        (this.result && this.result.isStudentCard === false)
+      )
+    },
+
     isNextDisabled() {
- 
+
       return !this.isCurrentStepValid;
     },
 
@@ -226,8 +226,8 @@ inputMode: "gallery",
         // STEP 1 – Profil & compétences
         // 1: ["myCompetence"],
 
-         // STEP 1 – Profil & compétences
-        2: ["niveauEtude","statut_talent"],
+        // STEP 1 – Profil & compétences
+        2: ["niveauEtude", "statut_talent"],
 
         // STEP 4 – Validation finale
         4: ["upload", "password"],
@@ -250,70 +250,70 @@ inputMode: "gallery",
   watch: {
     'formState.answerAssistance'(newVal) {
       if (newVal === 'non') {
-     this.formState.identifiantCommerciale = null
-    }
+        this.formState.identifiantCommerciale = null
+      }
     },
   },
   methods: {
-    async lister_statut(){
+    async lister_statut() {
       try {
-        const response =  await instance.get("listStatut")
-         this.allProfiles = response.data.data;
+        const response = await instance.get("listStatut")
+        this.allProfiles = response.data.data;
       } catch (error) {
         console.log(error);
       }
     },
     async openCamera() {
-  await Swal.fire({
-    title: 'Information caméra',
-    text: `
+      await Swal.fire({
+        title: 'Information caméra',
+        text: `
     Pour permettre la prise de photo via la caméra de votre appareil, 
     aller sur les différents navigateurs: Chrome Android, Firefox Android, 
     Opera Android, Safari iOS, 
     Samsung Internet ainsi que 
     les WebView Android et iOS récents.`,
-    icon: 'info',
-    showCancelButton: true,
-    confirmButtonText: 'Continuer',
-    cancelButtonText: 'Annuler'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      const input = this.$refs.cameraInput
-      if (input) {
-        input.value = ''
-        input.click()
-      }
-    }
-  })
-},
-handleCameraCapture(event) {
-  const files = event.target.files
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Continuer',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const input = this.$refs.cameraInput
+          if (input) {
+            input.value = ''
+            input.click()
+          }
+        }
+      })
+    },
+    handleCameraCapture(event) {
+      const files = event.target.files
 
-  if (!files || files.length === 0) return
+      if (!files || files.length === 0) return
 
-  const newImages = Array.from(files).map(file => {
-    return {
-      file,
-      name: file.name,
-      size: file.size,
-      url: URL.createObjectURL(file),
-      type: file.type
-    }
-  })
+      const newImages = Array.from(files).map(file => {
+        return {
+          file,
+          name: file.name,
+          size: file.size,
+          url: URL.createObjectURL(file),
+          type: file.type
+        }
+      })
 
-  this.formState.galeries = [
-    ...this.formState.galeries,
-    ...newImages
-  ]
-},
-  // handleCameraCapture(event){
-  // const file = event.target.files[0]
+      this.formState.galeries = [
+        ...this.formState.galeries,
+        ...newImages
+      ]
+    },
+    // handleCameraCapture(event){
+    // const file = event.target.files[0]
 
-  // if (!file) return
+    // if (!file) return
 
-  // this.formState.galeries = [...this.formState.galeries, file]
-  //  },
-     onCreateOther() {
+    // this.formState.galeries = [...this.formState.galeries, file]
+    //  },
+    onCreateOther() {
       return null
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
@@ -328,7 +328,7 @@ handleCameraCapture(event) {
     },
 
     nextStep() {
-   
+
 
       if (this.currentStep !== 2 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
@@ -350,119 +350,119 @@ handleCameraCapture(event) {
       return allPhotos.map((item) => item.originFileObj);
     },
     onUploadChange({ fileList: newList }) {
-    // console.log('onUploadChange', newList);
-    if (!newList.length) return
-    this.rawText = ''
-    this.result = null
+      // console.log('onUploadChange', newList);
+      if (!newList.length) return
+      this.rawText = ''
+      this.result = null
 
-  // this.runOCR(newList)
-},
-// async runOCR(files) {
-//   this.loading = true
-//   let fullText = ''
+      // this.runOCR(newList)
+    },
+    // async runOCR(files) {
+    //   this.loading = true
+    //   let fullText = ''
 
-//   for (const f of files) {
-//     const file = f.originFileObj
-//     if (!file || !file.type.startsWith('image/')) continue
+    //   for (const f of files) {
+    //     const file = f.originFileObj
+    //     if (!file || !file.type.startsWith('image/')) continue
 
-//     const canvas = await this.preprocessImage(file)
-//     const { data } = await Tesseract.recognize(canvas, 'fra')
-//     fullText += '\n' + (data.text || '')
-//   }
+    //     const canvas = await this.preprocessImage(file)
+    //     const { data } = await Tesseract.recognize(canvas, 'fra')
+    //     fullText += '\n' + (data.text || '')
+    //   }
 
-//   this.rawText = this.cleanOCRText(fullText)
+    //   this.rawText = this.cleanOCRText(fullText)
 
-//   if (!this.hasReadableText(fullText)) {
-//     this.result = {
-//       score: 0,
-//       isStudentCard: false,
-//       reason: 'Aucun texte exploitable détecté'
-//     }
-//     this.loading = false
-//     return
-//   }
+    //   if (!this.hasReadableText(fullText)) {
+    //     this.result = {
+    //       score: 0,
+    //       isStudentCard: false,
+    //       reason: 'Aucun texte exploitable détecté'
+    //     }
+    //     this.loading = false
+    //     return
+    //   }
 
-//   this.analyzeText(fullText)
-//   this.loading = false
-// },
-// hasReadableText(text) {
-//   const lettersOnly = text
-//     .replace(/\s/g, '')
-//     .replace(/[^a-zA-ZÀ-ÿ]/g, '')
+    //   this.analyzeText(fullText)
+    //   this.loading = false
+    // },
+    // hasReadableText(text) {
+    //   const lettersOnly = text
+    //     .replace(/\s/g, '')
+    //     .replace(/[^a-zA-ZÀ-ÿ]/g, '')
 
-//   return lettersOnly.length >= 5
-// },
-// normalizeText(text) {
-//   return text
-//     .toLowerCase()
-//     .normalize('NFD')              // enlève les accents
-//     .replace(/[\u0300-\u036f]/g, '')
-//     .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
-//     .replace(/\s+/g, ' ')
-// },
-// analyzeText(text) {
-//   const cleanText = this.normalizeText(text)
-//   let score = 0
+    //   return lettersOnly.length >= 5
+    // },
+    // normalizeText(text) {
+    //   return text
+    //     .toLowerCase()
+    //     .normalize('NFD')              // enlève les accents
+    //     .replace(/[\u0300-\u036f]/g, '')
+    //     .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
+    //     .replace(/\s+/g, ' ')
+    // },
+    // analyzeText(text) {
+    //   const cleanText = this.normalizeText(text)
+    //   let score = 0
 
-//   if (cleanText.length > 80) score += 20
+    //   if (cleanText.length > 80) score += 20
 
-//   const keywordHits = this.SCHOOL_KEYWORDS.filter(k =>
-//     cleanText.includes(k)
-//   ).length
+    //   const keywordHits = this.SCHOOL_KEYWORDS.filter(k =>
+    //     cleanText.includes(k)
+    //   ).length
 
-//   score += Math.min(keywordHits * 10, 40)
+    //   score += Math.min(keywordHits * 10, 40)
 
-//   if (cleanText.includes('matricule')) score += 20
-//   if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
+    //   if (cleanText.includes('matricule')) score += 20
+    //   if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
 
-//   this.result = {
-//     score,
-//     isStudentCard: score >= 60
-//   }
-// },
-// cleanOCRText(text) {
-//   return text
-//     // supprimer caractères parasites fréquents OCR
-//     .replace(/[|«»“”]/g, '')
-//     .replace(/_{2,}/g, ' ')
-//     .replace(/-{2,}/g, ' ')
-//     .replace(/\s{2,}/g, ' ')
-//     .replace(/\n{2,}/g, '\n')
-//     .trim()
-// },
-// preprocessImage(file) {
-//   return new Promise(resolve => {
-//     const img = new Image()
-//     const reader = new FileReader()
+    //   this.result = {
+    //     score,
+    //     isStudentCard: score >= 60
+    //   }
+    // },
+    // cleanOCRText(text) {
+    //   return text
+    //     // supprimer caractères parasites fréquents OCR
+    //     .replace(/[|«»“”]/g, '')
+    //     .replace(/_{2,}/g, ' ')
+    //     .replace(/-{2,}/g, ' ')
+    //     .replace(/\s{2,}/g, ' ')
+    //     .replace(/\n{2,}/g, '\n')
+    //     .trim()
+    // },
+    // preprocessImage(file) {
+    //   return new Promise(resolve => {
+    //     const img = new Image()
+    //     const reader = new FileReader()
 
-//     reader.onload = () => (img.src = reader.result)
+    //     reader.onload = () => (img.src = reader.result)
 
-//     img.onload = () => {
-//       const canvas = document.createElement('canvas')
-//       const ctx = canvas.getContext('2d')
+    //     img.onload = () => {
+    //       const canvas = document.createElement('canvas')
+    //       const ctx = canvas.getContext('2d')
 
-//       canvas.width = img.width
-//       canvas.height = img.height
+    //       canvas.width = img.width
+    //       canvas.height = img.height
 
-//       ctx.filter = 'grayscale(1) contrast(1.5)'
-//       ctx.drawImage(img, 0, 0)
+    //       ctx.filter = 'grayscale(1) contrast(1.5)'
+    //       ctx.drawImage(img, 0, 0)
 
-//       resolve(canvas)
-//     }
+    //       resolve(canvas)
+    //     }
 
-//     reader.readAsDataURL(file)
-//   })
-// },
-removeImage(index) {
-    const image = this.formState.galeries[index]
+    //     reader.readAsDataURL(file)
+    //   })
+    // },
+    removeImage(index) {
+      const image = this.formState.galeries[index]
 
-    // libérer mémoire URL.createObjectURL
-    if (image && image.url) {
-      URL.revokeObjectURL(image.url)
-    }
+      // libérer mémoire URL.createObjectURL
+      if (image && image.url) {
+        URL.revokeObjectURL(image.url)
+      }
 
-    this.formState.galeries.splice(index, 1)
-  },
+      this.formState.galeries.splice(index, 1)
+    },
     onFinish() {
       this.formState.profiles = this.allProfiles;
       if (this.formState.uploadPhotoProfil.length) {
@@ -526,33 +526,18 @@ removeImage(index) {
 <template>
   <Politics v-if="isPolitics" />
 
-  <a-steps
-    :style="{
-      color: 'orange',
-      boxShadow: '0px -1px 0 0 #e8e8e8 inset',
-    }"
-    :current="currentStep"
-    class="mb-4"
-  >
-    <a-step
-      title="Profil"
-      description="Renseignez vos informations de base pour créer votre compte."
-    />
+  <a-steps :style="{
+    color: 'orange',
+    boxShadow: '0px -1px 0 0 #e8e8e8 inset',
+  }" :current="currentStep" class="mb-4">
+    <a-step title="Profil" description="Renseignez vos informations de base pour créer votre compte." />
     <a-step title="Compétences" description="Sélectionnez vos compétences." />
     <a-step title="Qualifications" description="Ajoutez vos qualifications." />
     <a-step title="Galéries" description="Ajoutez vos meilleures créations." />
-    <a-step
-      title="Validation finale"
-      description="Ajoutez vos documents et confirmez votre inscription."
-    />
+    <a-step title="Validation finale" description="Ajoutez vos documents et confirmez votre inscription." />
   </a-steps>
 
-  <a-form
-    layout="vertical"
-    :model="formState"
-    @finish="onFinish"
-    @finishFailed="onHandleFailed"
-  >
+  <a-form layout="vertical" :model="formState" @finish="onFinish" @finishFailed="onHandleFailed">
     <!-- STEP 0 -->
     <div v-show="currentStep === 0">
       <a-row :gutter="[16, 24]">
@@ -563,17 +548,13 @@ removeImage(index) {
         </a-col>
 
         <a-col :xs="24" :md="12">
-          <a-form-item
-            :label="texte"
-            name="nom"
-            :rules="[
-              { required: true, message: texte17 },
-              {
-                pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
-                message: 'Veuillez saisir uniquement des lettres.'
-              }
-            ]"
-          >
+          <a-form-item :label="texte" name="nom" :rules="[
+            { required: true, message: texte17 },
+            {
+              pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
+              message: 'Veuillez saisir uniquement des lettres.'
+            }
+          ]">
             <a-input v-model:value="formState.nom" />
           </a-form-item>
         </a-col>
@@ -581,33 +562,25 @@ removeImage(index) {
 
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
-          <a-form-item
-            :label="texte1"
-            name="prenoms"
-            :rules="[
-              { required: true, message: texte16 },
-              {
-                pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
-                message: 'Veuillez saisir uniquement des lettres.'
-              }
-            ]"
-          >
+          <a-form-item :label="texte1" name="prenoms" :rules="[
+            { required: true, message: texte16 },
+            {
+              pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
+              message: 'Veuillez saisir uniquement des lettres.'
+            }
+          ]">
             <a-input v-model:value="formState.prenoms" />
           </a-form-item>
         </a-col>
 
         <a-col :xs="24" :md="12">
-          <a-form-item
-            :label="texte2"
-            name="phone"
-            :rules="[
-              { required: true, message: texte15 },
-              {
-                pattern: /^\d{10}$/,
-                message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
-              }
-            ]"
-          >
+          <a-form-item :label="texte2" name="phone" :rules="[
+            { required: true, message: texte15 },
+            {
+              pattern: /^\d{10}$/,
+              message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
+            }
+          ]">
             <a-input v-model:value="formState.phone">
               <template #addonBefore>
                 <a-select v-model:value="formState.countryCode" :options="westAfricaCodes" />
@@ -619,14 +592,10 @@ removeImage(index) {
 
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
-          <a-form-item
-            :label="texte6"
-            name="email"
-            :rules="[
-              { required: true, message: texte14 },
-              { type: 'email', message: 'Veuillez entrer un email valide' }
-            ]"
-          >
+          <a-form-item :label="texte6" name="email" :rules="[
+            { required: true, message: texte14 },
+            { type: 'email', message: 'Veuillez entrer un email valide' }
+          ]">
             <a-input v-model:value="formState.email" />
           </a-form-item>
         </a-col>
@@ -652,57 +621,37 @@ removeImage(index) {
     <div v-show="currentStep === 1">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
-          <a-form-item
-            :label="texte7"
-          >
-            <VueMultiselect
-              v-model="formState.myCompetence"
-              :options="allCompetences"
-              placeholder="Choix multiples"
-              :multiple="true"
-              label="competence"
-              track-by="competence"
-            />
-           </a-form-item>
-           <a-form-item label="Autre">
-  <n-dynamic-input v-model:value="formState.otherCompetence" :on-create="onCreateOther">
-    <template #create-button-default>
-      <slot name="create-button">Autres compétences</slot>
-    </template>
+          <a-form-item :label="texte7">
+            <VueMultiselect v-model="formState.myCompetence" :options="allCompetences" placeholder="Choix multiples"
+              :multiple="true" label="competence" track-by="competence" />
+          </a-form-item>
+          <a-form-item label="Autre">
+            <n-dynamic-input v-model:value="formState.otherCompetence" :on-create="onCreateOther">
+              <template #create-button-default>
+                <slot name="create-button">Autres compétences</slot>
+              </template>
 
-    <template #default="{ index }">
-      <a-input v-model:value="formState.otherCompetence[index]" />
-    </template>
-  </n-dynamic-input>
-</a-form-item>
+              <template #default="{ index }">
+                <a-input v-model:value="formState.otherCompetence[index]" />
+              </template>
+            </n-dynamic-input>
+          </a-form-item>
         </a-col>
       </a-row>
       <!-- {{ formState?.otherCompetence }} -->
     </div>
     <!-- STEP 2 -->
     <div v-show="currentStep === 2">
-         <a-row :gutter="[16, 24]">
-         <a-col :xs="24" :md="12">
-          <a-form-item
-            :label="texte8"
-            name="niveauEtude"
-            :rules="[{ required: true, message: 'Séléctionnez votre niveau d\'étude' }]"
-          >
-          <a-select
-    v-model:value="formState.niveauEtude"
-    placeholder="Sélectionnez votre niveau d’étude"
-    show-search
-    option-filter-prop="label"
-  >
-    <a-select-option
-      v-for="item in niveauxEtudes"
-      :key="item.value"
-      :value="item.value"
-      :label="item.label"
-    >
-      {{ item.label }}
-    </a-select-option>
-  </a-select>
+      <a-row :gutter="[16, 24]">
+        <a-col :xs="24" :md="12">
+          <a-form-item :label="texte8" name="niveauEtude"
+            :rules="[{ required: true, message: 'Séléctionnez votre niveau d\'étude' }]">
+            <a-select v-model:value="formState.niveauEtude" placeholder="Sélectionnez votre niveau d’étude" show-search
+              option-filter-prop="label">
+              <a-select-option v-for="item in niveauxEtudes" :key="item.value" :value="item.value" :label="item.label">
+                {{ item.label }}
+              </a-select-option>
+            </a-select>
             <!-- <a-select
               style="margin:1em 0"
               v-model:value="formState.niveauEtude"
@@ -720,105 +669,63 @@ removeImage(index) {
           </a-form-item>
         </a-col>
         <a-col :xs="24" :md="12">
-            <a-form-item
-            :label="'Statut professionnel'"
-            name="statut_talent"
-            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]"
-          >
-            <a-select
-            style="width: 100%;"
-    v-model:value="formState.statut_talent"
-    placeholder="Sélectionnez votre Statut professionnel"
-    show-search
-    option-filter-prop="label"
-  >
-    <a-select-option
-      v-for="item in StatutArtisans"
-      :key="item.value"
-      :value="item.value"
-      :label="item.label"
-    >
-      {{ item.label }}
-    </a-select-option>
-  </a-select>
-            </a-form-item>
+          <a-form-item :label="'Statut professionnel'" name="statut_talent"
+            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]">
+            <a-select style="width: 100%;" v-model:value="formState.statut_talent"
+              placeholder="Sélectionnez votre Statut professionnel" show-search option-filter-prop="label">
+              <a-select-option v-for="item in StatutArtisans" :key="item.value" :value="item.value" :label="item.label">
+                {{ item.label }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
         </a-col>
-         <a-col :xs="24" :md="24">
-          <a-form-item
-            :label="'Certifications, diplômes ou qualifications que vous possédez'"
-          >
-          <RegisterQualifications 
-          :isRequired="false"
-          @update:modelValue="handleQualifications" />
-           </a-form-item>
+        <a-col :xs="24" :md="24">
+          <a-form-item :label="'Certifications, diplômes ou qualifications que vous possédez'">
+            <RegisterQualifications :isRequired="false" @update:modelValue="handleQualifications" />
+          </a-form-item>
         </a-col>
-        </a-row>
+      </a-row>
     </div>
     <!-- STEP 3 -->
-   <div v-show="currentStep === 3">
+    <div v-show="currentStep === 3">
 
-  <!-- MODE SELECT -->
-  <a-form-item label="Ajouter des images">
-    <a-radio-group v-model:value="inputMode" @change="() => { formState.galeries = [] }">
-      <a-radio value="gallery">Ma Galerie</a-radio>
-      <a-radio value="camera">Ma Caméra</a-radio>
-    </a-radio-group>
-  </a-form-item>
+      <!-- MODE SELECT -->
+      <a-form-item label="Ajouter des images">
+        <a-radio-group v-model:value="inputMode" @change="() => { formState.galeries = [] }">
+          <a-radio value="gallery">Ma Galerie</a-radio>
+          <a-radio value="camera">Ma Caméra</a-radio>
+        </a-radio-group>
+      </a-form-item>
 
-  <!-- MODE GALERIE -->
-  <a-form-item v-if="inputMode === 'gallery'" label="Galeries de vos créations (photos)">
-    <a-upload
-      v-model:file-list="formState.galeries"
-      list-type="picture-card"
-      :before-upload="() => false"
-      multiple
-      accept="image/*"
-    >
-      <div>
-        +
-        <div style="margin-top: 8px">
-          Ajouter depuis la galerie
-        </div>
-      </div>
-    </a-upload>
-  </a-form-item>
+      <!-- MODE GALERIE -->
+      <a-form-item v-if="inputMode === 'gallery'" label="Galeries de vos créations (photos)">
+        <a-upload v-model:file-list="formState.galeries" list-type="picture-card" :before-upload="() => false" multiple
+          accept="image/*">
+          <div>
+            +
+            <div style="margin-top: 8px">
+              Ajouter depuis la galerie
+            </div>
+          </div>
+        </a-upload>
+      </a-form-item>
 
-  <!-- MODE CAMERA -->
-  <a-form-item v-if="inputMode === 'camera'" label="Prendre une photo">
+      <!-- MODE CAMERA -->
+      <a-form-item v-if="inputMode === 'camera'" label="Prendre une photo">
 
-    <input
-      ref="cameraInput"
-      type="file"
-      accept="image/*"
-      capture="environment"
-    style="display:none"
-      @change="handleCameraCapture"
-    />
+        <input ref="cameraInput" type="file" accept="image/*" capture="environment" style="display:none"
+          @change="handleCameraCapture" />
 
-    <a-button type="primary" @click="openCamera">
-      Ouvrir la caméra
-    </a-button>
+        <a-button type="primary" @click="openCamera">
+          Ouvrir la caméra
+        </a-button>
 
-    <div
-  v-if="formState.galeries.length"
-  style="margin-top: 1em; display: flex; flex-wrap: wrap; gap: 16px;"
->
-  <div
-    v-for="(img, index) in formState.galeries"
-    :key="index"
-    class="item"
-    style="position: relative;"
-  >
-    <img
-      style="width: 100px; height: 100px;"
-      :src="img.url"
-      :alt="img.name"
-    />
+        <div v-if="formState.galeries.length" style="margin-top: 1em; display: flex; flex-wrap: wrap; gap: 16px;">
+          <div v-for="(img, index) in formState.galeries" :key="index" class="item" style="position: relative;">
+            <img style="width: 100px; height: 100px;" :src="img.url" :alt="img.name" />
 
-    <!-- DELETE BUTTON -->
-    <button
-      @click="removeImage(index)"
-      style="
+            <!-- DELETE BUTTON -->
+            <button @click="removeImage(index)" style="
         position: absolute;
         top: 4px;
         right: 4px;
@@ -830,16 +737,15 @@ removeImage(index) {
         height: 22px;
         cursor: pointer;
         font-size: 12px;
-      "
-    >
-      ✕
-    </button>
-  </div>
-</div>
+      ">
+              ✕
+            </button>
+          </div>
+        </div>
 
-  </a-form-item>
+      </a-form-item>
 
-</div>
+    </div>
     <!-- STEP 4 -->
     <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
@@ -851,17 +757,10 @@ removeImage(index) {
           </a-form-item>
         </a-col>
         <a-col :xs="24" :md="12">
-          <a-form-item
-            name="upload"
-            :label="formState.myCompetence.some(item => item.competence?.toLowerCase() === 'chauffeur') ? texte909:texte9"
-            :rules="[{ required: true, message: texte96 }]"
-          >
-            <a-upload
-              v-model:fileList="formState.upload"
-              :maxCount="1"
-              accept="image/*"
-              @change="onUploadChange"
-            >
+          <a-form-item name="upload"
+            :label="formState.myCompetence.some(item => item.competence?.toLowerCase() === 'chauffeur') ? texte909 : texte9"
+            :rules="[{ required: true, message: texte96 }]">
+            <a-upload v-model:fileList="formState.upload" :maxCount="1" accept="image/*" @change="onUploadChange">
               <a-button> Clique pour charger </a-button>
             </a-upload>
           </a-form-item>
@@ -872,85 +771,59 @@ removeImage(index) {
           </span>
           <!-- {{ this.result }} -->
         </a-col>
-        
+
       </a-row>
 
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
-          <a-form-item
-            :label="texte10"
-            name="password"
-            :rules="[{ required: true, message: texte12 }]"
-          >
-            <a-input-password
-              :disabled="isPasswordDisabled"
-              v-model:value="formState.password"
-            />
+          <a-form-item :label="texte10" name="password" :rules="[{ required: true, message: texte12 }]">
+            <a-input-password :disabled="isPasswordDisabled" v-model:value="formState.password" />
           </a-form-item>
         </a-col>
       </a-row>
-        <div>
-  <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
-    Avez-vous été assisté(e) par un commercial ?
-  </label>
-  <div class="round-container">
-    <label 
-      v-for="item in allAnwserForAssitance" 
-      :key="item.value"
-      class="round-item"
-    >
-      <input
-      :disabled="this.loading"
-        type="radio"
-        name="profilHybride"
-        :value="item.value"
-        v-model="formState.answerAssistance"
-      />
-      <span class="round-label">
-        {{ item.label }}
-      </span>
-    </label>
-  </div>
-  <div v-if="formState.answerAssistance === 'oui'">
-    <a-row :gutter="[16, 12]">
-        <a-col :xs="24" :md="12">
-          <a-form-item 
-          :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
-          label="Identifiant du commercial" name="identifiantCommerciale">
-            <a-input v-model:value="formState.identifiantCommerciale" />
-          </a-form-item>
-        </a-col>
-         <a-col :xs="24" :md="12">
-          <a-form-item label="Notes" name="identifiantNotesCommerciale">
-             <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
-          </a-form-item>
-        </a-col>
-      </a-row>
-  </div>
-</div>
+      <div>
+        <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+          Avez-vous été assisté(e) par un commercial ?
+        </label>
+        <div class="round-container">
+          <label v-for="item in allAnwserForAssitance" :key="item.value" class="round-item">
+            <input :disabled="this.loading" type="radio" name="profilHybride" :value="item.value"
+              v-model="formState.answerAssistance" />
+            <span class="round-label">
+              {{ item.label }}
+            </span>
+          </label>
+        </div>
+        <div v-if="formState.answerAssistance === 'oui'">
+          <a-row :gutter="[16, 12]">
+            <a-col :xs="24" :md="12">
+              <a-form-item :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
+                label="Identifiant du commercial" name="identifiantCommerciale">
+                <a-input v-model:value="formState.identifiantCommerciale" />
+              </a-form-item>
+            </a-col>
+            <a-col :xs="24" :md="12">
+              <a-form-item label="Notes" name="identifiantNotesCommerciale">
+                <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
+              </a-form-item>
+            </a-col>
+          </a-row>
+        </div>
+      </div>
     </div>
 
-    
+
 
     <!-- NAVIGATION -->
     <div class="d-flex justify-content-between" style="padding: 1.5em">
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
-      <a-button
-        v-if="currentStep < 4"
-        type="primary"
-        @click.prevent="nextStep"
-        :disabled="isNextDisabled"
-      >
+      <a-button v-if="currentStep < 4" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
         Suivant
       </a-button>
 
-      <a-button
-        v-if="currentStep === 4"
-        type="primary"
-        html-type="submit"
-        :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance"
-      >
+      <a-button v-if="currentStep === 4" type="primary" html-type="submit"
+        :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance">
         {{ texte11 }}
       </a-button>
     </div>
@@ -962,18 +835,18 @@ removeImage(index) {
   background-color: #ff8819 !important;
   border-color: #ff8819 !important;
 }
-:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input)
-    .ant-select-selector) {
+
+:deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector) {
   height: 40px !important;
 }
+
 :deep(.multiselect__tag) {
   background: orange;
 }
+
 :deep(.ant-spin-text) {
   font-size: 16px !important;
 }
 </style>
 
-<style
-  src="../../../../../../node_modules/vue-multiselect/dist/vue-multiselect.css"
-></style>
+<style src="../../../../../../node_modules/vue-multiselect/dist/vue-multiselect.css"></style>

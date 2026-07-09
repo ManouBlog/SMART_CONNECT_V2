@@ -110,7 +110,7 @@ export default {
       this.dates.push({
         date: new Date(),
       });
-      
+
       this.$nextTick(() => {
         const btn = this.$refs.button[this.$refs.button.length - 1];
         btn.click();
@@ -128,7 +128,7 @@ export default {
       this.datesPickers.push({
         date: new Date(),
       });
-      
+
       this.$nextTick(() => {
         const btn = this.$refs.button[this.$refs.button.length - 1];
         btn.click();
@@ -156,7 +156,7 @@ export default {
         });
     },
     create_timetable() {
-    
+
       const HourFirstHoraire = this.configUtils.getHourInDate(
         this.First_heure_start_from,
         this.First_heure_end_to
@@ -200,7 +200,7 @@ export default {
       this.modify_timetable = !this.modify_timetable;
       this.id_timetable_update = id;
       this.spinner = true;
-      
+
       instance
         .get("get_schedule")
         .then((res) => {
@@ -220,10 +220,10 @@ export default {
           } else {
             this.Horaire_Second = null;
           }
-    
+
 
           this.spinner = false;
-        
+
         })
         .catch((err) => {
           console.log(err);
@@ -232,7 +232,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-     
+
     },
     addCompetences() {
       instance
@@ -259,7 +259,7 @@ export default {
           }
         })
         .catch((err) => {
-         
+
           console.log(err);
         });
     },
@@ -364,16 +364,16 @@ export default {
 
       this.schedule.push(scheduleItem_debut, scheduleItem_fin);
       this.schedule.sort((a, b) => new Date(a.jour) - new Date(b.jour));
-     
+
       const dataSend = {
         jour: [
           this.schedule.map((item) => {
             return item.jour;
           })[0] +
-            " A " +
-            this.schedule.map((item) => {
-              return item.jour;
-            })[1],
+          " A " +
+          this.schedule.map((item) => {
+            return item.jour;
+          })[1],
         ],
         First_horaire: this.schedule.map((item) => {
           return item.first_horaire;
@@ -402,7 +402,7 @@ export default {
       instance
         .post("create_schedule", dataSend)
         .then((response) => {
-      
+
           if (!response.data.status) {
             Swal.fire({
               icon: "info",
@@ -419,7 +419,7 @@ export default {
           }
         })
         .catch((error) => {
-     
+
           Swal.fire({
             icon: "info",
             title: error.response.data.message,
@@ -539,170 +539,103 @@ export default {
                 <option value="Periode">Période</option>
               </select>
             </section> -->
-            <section
-              class="d-flex justify-content-center align-items-center"
-              style="flex-wrap: wrap"
-              v-if="handleHoraire === 'Periode'"
-            >
+            <section class="d-flex justify-content-center align-items-center" style="flex-wrap: wrap"
+              v-if="handleHoraire === 'Periode'">
               <div class="mx-3">
                 <h5 class="text-start">Date et Heure de début</h5>
-                <input
-                  v-model="dateTime_debut"
-                  type="datetime-local"
-                  :min="new Date().toISOString().substring(0, 16)"
-                  style="padding: 0.8em !important; border-radius: 10px"
-                  @change="chooseDateTime_debut"
-                />
+                <input v-model="dateTime_debut" type="datetime-local" :min="new Date().toISOString().substring(0, 16)"
+                  style="padding: 0.8em !important; border-radius: 10px" @change="chooseDateTime_debut" />
               </div>
 
               <div class="mx-3">
                 <h5 class="text-start">Date et Heure de fin</h5>
-                <input
-                  v-model="dateTime_fin"
-                  :min="
-                    dateTime_debut
-                      ? new Date(
-                          new Date(dateTime_debut).setDate(
-                            new Date(dateTime_debut).getDate() + 1
-                          )
-                        )
-                          .toISOString()
-                          .substring(0, 16)
-                      : null
-                  "
-                  :disabled="!dateTime_debut"
-                  type="datetime-local"
-                  style="padding: 0.8em !important; border-radius: 10px"
-                  @change="handleDateTimeFin"
-                />
+                <input v-model="dateTime_fin" :min="dateTime_debut
+                    ? new Date(
+                      new Date(dateTime_debut).setDate(
+                        new Date(dateTime_debut).getDate() + 1
+                      )
+                    )
+                      .toISOString()
+                      .substring(0, 16)
+                    : null
+                  " :disabled="!dateTime_debut" type="datetime-local"
+                  style="padding: 0.8em !important; border-radius: 10px" @change="handleDateTimeFin" />
               </div>
             </section>
             <div style="flex: 1 1 100px" v-if="handleHoraire !== 'Periode'">
-              <h6
-                v-if="!this.$store.state.datesOfCalendar.length"
-                class="text-danger d-block text-center"
-                style="font-weight: bold; font-size: 1.4em; padding: 0.5em 0"
-              >
+              <h6 v-if="!this.$store.state.datesOfCalendar.length" class="text-danger d-block text-center"
+                style="font-weight: bold; font-size: 1.4em; padding: 0.5em 0">
                 {{ texte7 }}
               </h6>
-              <HorizontalCalendar
-                :year="new Date().getFullYear()"
-                @update:selectedDates="handleSelectedDates"
-              />
+              <HorizontalCalendar :year="new Date().getFullYear()" @update:selectedDates="handleSelectedDates" />
             </div>
             <div class="form theme-form">
               <div>
                 <section v-if="handleHoraire === 'Horaire'">
                   <h5 class="text-start text-warning">
-                  <span style="color: red">*</span>{{ texte1 }}
+                    <span style="color: red">*</span>{{ texte1 }}
                   </h5>
                   <div class="col-lg-6">
-                  <div class="mb-3 conteneur-horaire">
-                  <label class="d-block">{{ texte2 }}</label>
-                  <Calendar
-                    v-model="First_heure_start_from"
-                    timeOnly
-                    showTime
-                    hourFormat="24"
-                    :disabled="this.$store.state.datesOfCalendar.length === 0"
-                    @update:modelValue="handleFirstHeureStart"
-                    class="w-100"
-                  />
-                  <button
-                    v-if="First_heure_start_from"
-                    type="button"
-                    class="btn-close-time"
-                    @click="handleFirstHeureStart(null)"
-                    title="Effacer"
-                    style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
-                  >
-                    ✕
-                  </button>
-                  </div>
+                    <div class="mb-3 conteneur-horaire">
+                      <label class="d-block">{{ texte2 }}</label>
+                      <Calendar v-model="First_heure_start_from" timeOnly showTime hourFormat="24"
+                        :disabled="this.$store.state.datesOfCalendar.length === 0"
+                        @update:modelValue="handleFirstHeureStart" class="w-100" />
+                      <button v-if="First_heure_start_from" type="button" class="btn-close-time"
+                        @click="handleFirstHeureStart(null)" title="Effacer"
+                        style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);">
+                        ✕
+                      </button>
+                    </div>
                   </div>
 
                   <div class="col-lg-6">
-                  <div class="mb-3 conteneur-horaire">
-                  <label class="d-block">{{ texte3 }}</label>
-                  <div class="position-relative">
-                    <Calendar
-                    v-model="First_heure_end_to"
-                    timeOnly
-                    showTime
-                    hourFormat="24"
-                    :minDate="First_heure_start_from"
-                    :disabled="this.$store.state.datesOfCalendar.length === 0"
-                    @update:modelValue="handleFirstHeureEnd"
-                    class="w-100 bg-secondary"
-                    />
-                    <button
-                    v-if="First_heure_end_to"
-                    type="button"
-                    class="btn-close-time"
-                    @click="handleFirstHeureEnd(null)"
-                    title="Effacer"
-                    style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
-                    >
-                    ✕
-                    </button>
-                  </div>
-                  </div>
+                    <div class="mb-3 conteneur-horaire">
+                      <label class="d-block">{{ texte3 }}</label>
+                      <div class="position-relative">
+                        <Calendar v-model="First_heure_end_to" timeOnly showTime hourFormat="24"
+                          :minDate="First_heure_start_from" :disabled="this.$store.state.datesOfCalendar.length === 0"
+                          @update:modelValue="handleFirstHeureEnd" class="w-100 bg-secondary" />
+                        <button v-if="First_heure_end_to" type="button" class="btn-close-time"
+                          @click="handleFirstHeureEnd(null)" title="Effacer"
+                          style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);">
+                          ✕
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
                   <h5 class="text-start my-2 text-warning">{{ texte4 }}</h5>
 
                   <!-- Second créneau : heure début / heure fin -->
                   <div class="col-lg-6">
-                  <div class="mb-3 conteneur-horaire">
-                  <label class="d-block">{{ texte5 }}</label>
-                  <Calendar
-                  v-model="Second_heure_start_from"
-                  timeOnly
-                  showTime
-                  hourFormat="24"
-                  :disabled="this.$store.state.datesOfCalendar.length === 0"
-                  @update:modelValue="handleSecondHeureStart"
-                  class="w-100"
-                  />
-                  <button
-                    v-if="Second_heure_start_from"
-                    type="button"
-                    class="btn-close-time"
-                    @click="handleSecondHeureStart(null)"
-                    title="Effacer"
-                    style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
-                  >
-                    ✕
-                  </button>
-                  </div>
+                    <div class="mb-3 conteneur-horaire">
+                      <label class="d-block">{{ texte5 }}</label>
+                      <Calendar v-model="Second_heure_start_from" timeOnly showTime hourFormat="24"
+                        :disabled="this.$store.state.datesOfCalendar.length === 0"
+                        @update:modelValue="handleSecondHeureStart" class="w-100" />
+                      <button v-if="Second_heure_start_from" type="button" class="btn-close-time"
+                        @click="handleSecondHeureStart(null)" title="Effacer"
+                        style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);">
+                        ✕
+                      </button>
+                    </div>
                   </div>
 
                   <div class="col-lg-6">
-                  <div class="mb-3 conteneur-horaire">
-                  <label class="d-block">{{ texte6 }}</label>
-                  <div class="position-relative">
-                    <Calendar
-                    v-model="Second_heure_end_to"
-                    timeOnly
-                    showTime
-                    hourFormat="24"
-                    :minDate="Second_heure_start_from"
-                    :disabled="this.$store.state.datesOfCalendar.length === 0"
-                    @update:modelValue="handleSecondHeureEnd"
-                    class="w-100"
-                    />
-                    <button
-                    v-if="Second_heure_end_to"
-                    type="button"
-                    class="btn-close-time"
-                    @click="handleSecondHeureEnd(null)"
-                    title="Effacer"
-                    style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);"
-                    >
-                    ✕
-                    </button>
-                  </div>
-                  </div>
+                    <div class="mb-3 conteneur-horaire">
+                      <label class="d-block">{{ texte6 }}</label>
+                      <div class="position-relative">
+                        <Calendar v-model="Second_heure_end_to" timeOnly showTime hourFormat="24"
+                          :minDate="Second_heure_start_from" :disabled="this.$store.state.datesOfCalendar.length === 0"
+                          @update:modelValue="handleSecondHeureEnd" class="w-100" />
+                        <button v-if="Second_heure_end_to" type="button" class="btn-close-time"
+                          @click="handleSecondHeureEnd(null)" title="Effacer"
+                          style="position: absolute; right: 20px; top: 60%; transform: translateY(-50%);">
+                          ✕
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </section>
                 <!-- <div class="col-lg-12" v-if="handleHoraire === 'Horaire'">
@@ -736,13 +669,16 @@ export default {
   border: 1px solid gray !important;
   height: 40px;
 }
+
 .container-fluid {
   padding: 1em !important;
 }
+
 .conteneur-plage {
   display: flex;
   justify-content: flex-start;
 }
+
 #datepicker-timeonly_1,
 #datepicker-timeonly_2,
 #datepicker-timeonly_3,
@@ -757,22 +693,28 @@ export default {
   gap: 1em;
   text-align: center;
 }
+
 .text-start {
   text-align: left;
   margin-left: 1em;
 }
+
 .mt-5 {
   margin-top: 101px !important;
 }
+
 .flex {
   padding: 1em 0;
 }
+
 h3 {
   text-transform: none !important;
 }
+
 label {
   text-align: left !important;
 }
+
 .btn-secondary,
 .btn-secondary:hover {
   background: rgb(5, 35, 73) !important;
@@ -783,10 +725,12 @@ label {
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -799,6 +743,7 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .delete_article {
   position: fixed;
   left: 0;
@@ -811,6 +756,7 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .ecran {
   position: absolute;
   left: 0;
@@ -822,6 +768,7 @@ td {
   background: transparent;
   z-index: 99;
 }
+
 .plan-modify {
   position: fixed;
   left: 0;
@@ -834,15 +781,18 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .modify-form {
   margin-left: 50%;
   transform: translateX(-35%);
 }
+
 .bi {
   font-size: 1.3em !important;
   margin: 0 0.5em;
   cursor: pointer;
 }
+
 .btnAdd {
   position: absolute;
   left: 0;
@@ -851,15 +801,18 @@ td {
   background: #052349;
   color: white;
 }
+
 .btnAdd:hover {
   color: rgb(255, 255, 255);
 }
+
 .datepickrs {
   padding: 1em 0;
   background: rgba(98, 98, 231, 0.108);
   margin: 0 0 2em 0;
   border-radius: 5px;
 }
+
 .button {
   width: auto !important;
   padding: 0.2em !important;
@@ -870,10 +823,13 @@ td {
   border: none !important;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.303);
 }
+
 @media (max-width: 768px) {
   .form-control {
-    min-height: 48px; /* zone tactile */
-    font-size: 1rem; /* lisibilité */
+    min-height: 48px;
+    /* zone tactile */
+    font-size: 1rem;
+    /* lisibilité */
     padding: 0.75em;
   }
 
@@ -885,9 +841,11 @@ td {
   .conteneur-horaire {
     width: 100%;
   }
+
   .w-50 {
     width: 100% !important;
   }
+
   .container-fluid {
     padding: 0 !important;
   }

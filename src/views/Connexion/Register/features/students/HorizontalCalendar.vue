@@ -11,13 +11,9 @@
 
       <!-- Liste des jours scrollable -->
       <div class="days-row" ref="daysRow">
-        <div
-          v-for="date in dates"
-          :key="date.toISOString()"
-          class="day"
+        <div v-for="date in dates" :key="date.toISOString()" class="day"
           :class="{ selected: isSelected(date), disabled: isPast(date) }"
-          @click.prevent="!isPast(date) && toggleDate(date)"
-        >
+          @click.prevent="!isPast(date) && toggleDate(date)">
           <div class="day-number">{{ date.getDate() }}</div>
           <div class="day-week">{{ weekdayShort(date) }}</div>
         </div>
@@ -145,6 +141,7 @@ export default {
 .horizontal-calendar-container {
   width: 100%;
 }
+
 .month-year {
   text-align: center;
   font-weight: bold;
@@ -159,7 +156,7 @@ export default {
 .days-row {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: scroll; 
+  overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
@@ -229,6 +226,7 @@ export default {
   cursor: pointer;
   color: #333;
 }
+
 .nav-arrow:disabled {
   opacity: 0.3;
   cursor: not-allowed;
@@ -244,12 +242,15 @@ export default {
     width: 45px;
     height: 60px;
   }
+
   .day-number {
     font-size: 0.85rem;
   }
+
   .day-week {
     font-size: 0.65rem;
   }
+
   .nav-arrow {
     font-size: 1.8rem;
   }
@@ -260,12 +261,15 @@ export default {
     width: 40px;
     height: 55px;
   }
+
   .day-number {
     font-size: 0.8rem;
   }
+
   .day-week {
     font-size: 0.6rem;
   }
+
   .nav-arrow {
     font-size: 1.5rem;
   }

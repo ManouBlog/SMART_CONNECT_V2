@@ -37,11 +37,7 @@ export default {
 <template>
   <div class="header_banner">
     <div class="ecriteau_image">
-      <img
-        src="../../../assets/search_offre.png"
-        class="position-absolute image"
-        alt=""
-      />
+      <img src="../../../assets/search_offre.png" class="position-absolute image" alt="" />
     </div>
     <div class="ecriteau">
       <h1 class="fw-bold" style="color: orange">{{ texte0 }}</h1>
@@ -49,12 +45,9 @@ export default {
         Vous avez un <strong style="color: orange">Besoin,</strong> Nous avons la
         <strong style="color: orange"> Solution.</strong>
       </h3>
-      <Buttons
-        @created="goToRoute('/jobs')"
-        v-if="this.user && this.user?.user?.statuses.some(s=>s.statut == 'Etudiant')"
-        :elmentsOfBtn="elmentsOfBtn"
-        :shapeBtn="'round'"
-      />
+      <Buttons @created="goToRoute('/jobs')"
+        v-if="this.user && this.user?.user?.statuses.some(s => s.statut == 'Etudiant')" :elmentsOfBtn="elmentsOfBtn"
+        :shapeBtn="'round'" />
     </div>
   </div>
 </template>
@@ -68,18 +61,22 @@ export default {
   height: 100%;
   border-radius: 30px;
 }
+
 .ecriteau_image {
   position: relative;
   flex: 2 2 200px;
 }
+
 .ecriteau {
   flex: 3 3 200px;
   text-align: center;
 }
-.ecriteau > h1 {
+
+.ecriteau>h1 {
   font-weight: bold;
   font-size: 4em;
 }
+
 .header_banner {
   width: 100%;
   height: auto;
@@ -89,11 +86,13 @@ export default {
   align-items: center;
   flex-wrap: wrap;
 }
+
 @media screen and (max-width: 500px) {
-  .ecriteau > h1 {
+  .ecriteau>h1 {
     margin: 0.5em 0;
     font-size: 2.5em;
   }
+
   .ecriteau_image {
     margin: 0.5em 0;
     text-align: center;

@@ -11,14 +11,14 @@ import VueMultiselect from "vue-multiselect";
 const loadingSpinner = useLoadingSpinner();
 // const abonnementsStore = useAbonnementsStore();
 export default {
-  components:{
+  components: {
     ShimmerCard,
     VueMultiselect
   },
   data() {
     return {
-      chooseStatut:[],
-      allStatuses:[],
+      chooseStatut: [],
+      allStatuses: [],
       lienPhoto: lienPhoto,
       Help: Help,
       competenceAdd: null,
@@ -119,7 +119,7 @@ export default {
       currentPage: 1,
       totalPages: "",
       maxVisibleButtons: "2",
-      myWhilistUserConnected:[],
+      myWhilistUserConnected: [],
     };
   },
   computed: {
@@ -149,22 +149,24 @@ export default {
     },
   },
   methods: {
-     async lister_statut(){
+    async lister_statut() {
       try {
-        const response =  await instance.get("listStatut")
-          if (response.data.status) {this.allStatuses = response.data.data.filter(
+        const response = await instance.get("listStatut")
+        if (response.data.status) {
+          this.allStatuses = response.data.data.filter(
             s => s.statut !== "Entreprise" && s.statut !== "admin" && s.statut !== "Particulier"
-          )}
+          )
+        }
       } catch (error) {
         console.log(error);
       }
     },
-     starClass() {
-    const color = this.emploi?.star_color
+    starClass() {
+      const color = this.emploi?.star_color
 
-    if (color === 'gold') return 'bi-star-fill text-gold'
-    return 'bi-star-fill text-yellow'
-  },
+      if (color === 'gold') return 'bi-star-fill text-gold'
+      return 'bi-star-fill text-yellow'
+    },
     async filterRecherche() {
       loadingSpinner.launchLoading(true);
       // 🔎 Construction des critères de recherche
@@ -172,15 +174,15 @@ export default {
         dates: this.dateSelectConvert,
         competences: this.competenceAdd,
         location: this.location?.trim(),
-        statuses: this.chooseStatut.map(item=>item.id)
+        statuses: this.chooseStatut.map(item => item.id)
       };
 
       // Exemple de filtrage local
-      
+
       await instance
         .post("filterStudents", filtres)
         .then((response) => {
-         
+
           const transformed = this.addOtherElement(response.data.students);
           // console.log("transformedList",transformed)
           // Mise à jour de la liste et de sa longueur
@@ -237,25 +239,25 @@ export default {
     },
     selectDate() {
       this.dateSelectConvert = this.convertDate(this.datesSelect);
-     
+
     },
     getCompetenceIds(competences) {
       return competences.map((c) => c.id);
     },
     addComp(newTag) {
       this.competenceAdd = this.getCompetenceIds(newTag);
- 
+
     },
 
-   async addPersonAtWishLit(person) {
-     loadingSpinner.launchLoading(true);
-    try{
-   await this.$store.dispatch("addListFavoris", person);
-    }catch(error){
-      console.log(error);
-    }finally{
+    async addPersonAtWishLit(person) {
+      loadingSpinner.launchLoading(true);
+      try {
+        await this.$store.dispatch("addListFavoris", person);
+      } catch (error) {
+        console.log(error);
+      } finally {
         loadingSpinner.launchLoading(false);
-    }
+      }
     },
     loadMore() {
       if (this.length > this.list.length) return;
@@ -283,22 +285,22 @@ export default {
       });
     },
 
-   async get_list_Talents() {
-  loadingSpinner.launchLoading(true);
-  try {
-    const response = await instance.get("list_emplois_temps");
-   
-    let data = response.data.data;
-    this.list = this.addOtherElement(data);
-    this.lengthOfTalents = this.list.length;
-   
-  } catch (error) {
-    console.log(error);
-  } finally {
-    loadingSpinner.launchLoading(false);
-    this.isLoading = false;
-  }
-},
+    async get_list_Talents() {
+      loadingSpinner.launchLoading(true);
+      try {
+        const response = await instance.get("list_emplois_temps");
+
+        let data = response.data.data;
+        this.list = this.addOtherElement(data);
+        this.lengthOfTalents = this.list.length;
+
+      } catch (error) {
+        console.log(error);
+      } finally {
+        loadingSpinner.launchLoading(false);
+        this.isLoading = false;
+      }
+    },
     closeDetailTimetable() {
       this.details_timetable = !this.details_timetable;
       this.id_detail_timetable = "";
@@ -309,16 +311,16 @@ export default {
     },
     voirDetailTimetable(item) {
       if (
-  this.user &&
-  (this.user.user?.statuses || []).some(s =>
-    ['Entreprise', 'Particulier'].includes(s.statut)
-  )
-) {
- this.$router.push({
-            name: "detailStudent",
-            params: { id: item.id, user_id: item.user_id },
-          });
-        
+        this.user &&
+        (this.user.user?.statuses || []).some(s =>
+          ['Entreprise', 'Particulier'].includes(s.statut)
+        )
+      ) {
+        this.$router.push({
+          name: "detailStudent",
+          params: { id: item.id, user_id: item.user_id },
+        });
+
       } else {
         Swal.fire({
           icon: "info",
@@ -351,7 +353,7 @@ export default {
           service: this.selectedCompetenceWithDate,
         })
         .then((res) => {
-          
+
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -401,7 +403,7 @@ export default {
               timer: 3000,
             });
             this.loadSpinner = false;
-          
+
           }
           if (res.data.status === false) {
             Swal.fire({
@@ -428,7 +430,7 @@ export default {
       await instance
         .get("GetAllCompetences")
         .then((res) => {
-          
+
           this.competencesPredefini = res.data.data.filter(c => c.categorie_id !== null);
         })
         .catch((err) => {
@@ -436,31 +438,31 @@ export default {
         });
     },
     verfEnter() {
-  if (!this.user) return;
+      if (!this.user) return;
 
-  const statutPrincipal = this.user?.user?.statut?.statut;
-  const statuses = this.user?.user?.statuses || [];
+      const statutPrincipal = this.user?.user?.statut?.statut;
+      const statuses = this.user?.user?.statuses || [];
 
-  const hasParticulierOrArtisan = statuses.some(s =>
-    ['Particulier', 'Artisan'].includes(s.statut)
-  );
+      const hasParticulierOrArtisan = statuses.some(s =>
+        ['Particulier', 'Artisan'].includes(s.statut)
+      );
 
-  if (statutPrincipal === 'Etudiant' && !hasParticulierOrArtisan) {
-    this.$router.push("/");
+      if (statutPrincipal === 'Etudiant' && !hasParticulierOrArtisan) {
+        this.$router.push("/");
 
-    Swal.fire({
-      icon: "info",
-      title: "Vous n'êtes pas autorisé",
-      showConfirmButton: false,
-      timer: 1000,
-    });
-  }
-},
+        Swal.fire({
+          icon: "info",
+          title: "Vous n'êtes pas autorisé",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+    },
     addDate() {
       this.datesPickers.push({
         date: new Date(),
       });
-     
+
       this.$nextTick(() => {
         const btn = this.$refs.button[this.$refs.button.length - 1];
         btn.click();
@@ -483,7 +485,7 @@ export default {
     await this.getAllCompetences();
     await this.AllCompetencesPredf();
     await this.lister_statut();
-     this.myWhilistUserConnected = this.user?.user?.usersadded_by_me?.map(item=>item?.wishlisted_user.id)
+    this.myWhilistUserConnected = this.user?.user?.usersadded_by_me?.map(item => item?.wishlisted_user.id)
     this.path = window.location.pathname;
     this.texte = await this.handleTranslate("Vous rechercher un talent ?");
     this.texte1 = await this.handleTranslate("Talents disponibles");
@@ -507,62 +509,30 @@ export default {
       <form class="row justify-content-center align-items-center g-3 text-center">
         <!-- Sélecteur de dates -->
         <div class="col-md-6">
-          <PrimeCalendar
-            v-model="datesSelect"
-            :minDate="new Date()"
-            selectionMode="multiple"
-            dateFormat="dd/mm/yy"
-            :manualInput="false"
-            :showIcon="true"
-            @update:modelValue="selectDate"
-            :placeholder="texte8"
-            class="w-100"
-          />
+          <PrimeCalendar v-model="datesSelect" :minDate="new Date()" selectionMode="multiple" dateFormat="dd/mm/yy"
+            :manualInput="false" :showIcon="true" @update:modelValue="selectDate" :placeholder="texte8" class="w-100" />
         </div>
 
         <!-- Sélecteur de compétences -->
         <div class="col-md-6">
-          <multiselect
-            v-model="competence"
-            :options="competences"
-            :multiple="true"
-            :taggable="true"
-            :tag="addComp"
-            @update:model-value="addComp"
-            label="competence"
-            track-by="competence"
-            :placeholder="texte9"
-            class="w-100"
-          ></multiselect>
+          <multiselect v-model="competence" :options="competences" :multiple="true" :taggable="true" :tag="addComp"
+            @update:model-value="addComp" label="competence" track-by="competence" :placeholder="texte9" class="w-100">
+          </multiselect>
         </div>
 
         <!-- Localisation -->
         <div class="col-md-6" style=" margin-top: 0.5em">
-          <input
-            type="text"
-            class="form-control"
-            style="height: 40px; padding: 1em; "
-            :placeholder="texte10"
-            v-model="location"
-          />
+          <input type="text" class="form-control" style="height: 40px; padding: 1em; " :placeholder="texte10"
+            v-model="location" />
         </div>
-         <!-- Profil -->
+        <!-- Profil -->
         <div class="col-md-6" style=" margin-top: 0.5em">
-          <VueMultiselect 
-      v-model="chooseStatut" 
-      :options="allStatuses" 
-      placeholder="Choix multiples" 
-      :multiple="true" 
-      label="statut" 
-      track-by="statut"
-       />
+          <VueMultiselect v-model="chooseStatut" :options="allStatuses" placeholder="Choix multiples" :multiple="true"
+            label="statut" track-by="statut" />
         </div>
       </form>
       <!-- Bouton Rechercher -->
-      <div
-        v-if="hasAnyValue"
-        style="display: flex; justify-content: flex-end; margin-top: 1em"
-      >
+      <div v-if="hasAnyValue" style="display: flex; justify-content: flex-end; margin-top: 1em">
         <button type="button" class="btn btn-warning px-4" @click="filterRecherche">
           Rechercher
         </button>
@@ -573,10 +543,7 @@ export default {
         {{ list.length }} {{ list.length > 1 ? texte1 : texte01 }}
       </h2>
     </div>
-    <div
-      class="container-fluid timetableSchedule"
-      :class="spinner ? 'conteneur_offre' : null"
-    >
+    <div class="container-fluid timetableSchedule" :class="spinner ? 'conteneur_offre' : null">
       <div class="timetable_disponible" v-if="list_emploi.length">
         <h6>
           {{ texte2 }}
@@ -587,110 +554,78 @@ export default {
 
       <div>
         <span v-if="spinner" class="h1 char shimmer-text">{{ texte4 }}</span>
-        
+
         <div class="container-fuid d-grid px-3" v-if="list_emploi.length">
-          <div
-            v-for="(emploi, index) in list_emploi"
-            :key="index"
-            class="card Mycard-body"
-          >
-          <!-- {{ this.$store.state.whistListPerson }} -->
+          <div v-for="(emploi, index) in list_emploi" :key="index" class="card Mycard-body">
+            <!-- {{ this.$store.state.whistListPerson }} -->
             <div class="icons_interesse">
-              <em
-                @click="addPersonAtWishLit(emploi)"
-                style="cursor: pointer;"
-                :class="this.$store.state.whistListPerson?.some(item=>item == emploi.id) ? 'text-danger' : 'null'"
-                class="bi bi-heart-fill"
-              ></em>
+              <em @click="addPersonAtWishLit(emploi)" style="cursor: pointer;"
+                :class="this.$store.state.whistListPerson?.some(item => item == emploi.id) ? 'text-danger' : 'null'"
+                class="bi bi-heart-fill"></em>
             </div>
             <div style="position: absolute;top:1em;left: 1em;">
-              <n-avatar
-                v-if="emploi.student.photo_profil"
-                style="border: 2px solid orange; object-fit: cover"
-                round
-                :size="60"
-                :src="lienPhoto + emploi.student.photo_profil"
-              />
-          <span
-     v-else
-  :style="{
-    position: 'relative',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '6px',
+              <n-avatar v-if="emploi.student.photo_profil" style="border: 2px solid orange; object-fit: cover" round
+                :size="60" :src="lienPhoto + emploi.student.photo_profil" />
+              <span v-else :style="{
+                position: 'relative',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
 
-    padding: emploi?.is_verified ? '0px' : '25px',
+                padding: emploi?.is_verified ? '0px' : '25px',
 
-    border: '2px solid orange',
-    borderRadius: '50%',
-    background: 'gray',
+                border: '2px solid orange',
+                borderRadius: '50%',
+                background: 'gray',
 
-    minWidth: '40px',
-    minHeight: '40px'
-  }"
->
-  <img
-   v-if="emploi?.is_verified"
-    src="/profil_verified.png"
-    alt="profil_verified"
-    style="
+                minWidth: '40px',
+                minHeight: '40px'
+              }">
+                <img v-if="emploi?.is_verified" src="/profil_verified.png" alt="profil_verified" style="
       display: block;
       object-fit: contain;
       width: 50px;
-    "
-  />
+    " />
 
-  <span style="font-size: 14px; color: white;position: absolute;">
-    {{ Help.toADfirstTwo(emploi.student.nom) }}
-  </span>
-</span>
-               
+                <span style="font-size: 14px; color: white;position: absolute;">
+                  {{ Help.toADfirstTwo(emploi.student.nom) }}
+                </span>
+              </span>
+
             </div>
-            
+
             <div class="card-body">
               <h5 class="name" style="color: white; font-weight: bold;text-align: center;">
                 {{ emploi.student.nom }}
               </h5>
               <p class="biStar">
-                <Rating 
-                 :class="emploi.star_color === 'gold' ? 'color_gold':'color_yellow'" 
-                 v-model="emploi.average" 
-                 readonly :cancel="false"/>
+                <Rating :class="emploi.star_color === 'gold' ? 'color_gold' : 'color_yellow'" v-model="emploi.average"
+                  readonly :cancel="false" />
               </p>
               <p class="text-center p-0 m-0">
-               <span 
-           :style="{
-          display: 'flex',
-           flexWrap: 'wrap',
-           gap: '6px',
-           justifyContent:'center', 
-            marginTop:'2px'
-             }">
-        <span
-        v-for="(status, index) in emploi.statuses || []"
-    :key="index"
-    class="badge"
-    style="background:orange; font-size:0.5em !important;"
-  >
-    {{ status.statut }}
-     </span>
-     </span>
+                <span :style="{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '6px',
+                  justifyContent: 'center',
+                  marginTop: '2px'
+                }">
+                  <span v-for="(status, index) in emploi.statuses || []" :key="index" class="badge"
+                    style="background:orange; font-size:0.5em !important;">
+                    {{ status.statut }}
+                  </span>
+                </span>
               </p>
               <div class="jour">
-                <span
-                  v-for="(item, index) in emploi.student?.competences.slice(0, 3)"
-                  :key="index"
-                >
+                <span v-for="(item, index) in emploi.student?.competences.slice(0, 3)" :key="index">
                   <strong class="bg-teal cpt">{{ item.competence }}</strong>
                 </span>
                 <span v-if="emploi.student?.competences?.length > 3"> ... </span>
               </div>
-              
-              <button
-                class="btn bg-primary voirPlus"
-                @click="voirDetailTimetable({ id: emploi.student.id, user_id: emploi.student.user_id })"
-              >
+
+              <button class="btn bg-primary voirPlus"
+                @click="voirDetailTimetable({ id: emploi.student.id, user_id: emploi.student.user_id })">
                 {{ texte5 }}
 
                 <em class="bi bi-eye"></em>
@@ -698,54 +633,43 @@ export default {
             </div>
           </div>
         </div>
-       <div v-else style="min-height: 60vh !important;">
-        <p class="text-center text-muted py-4">
-        Aucun talents disponibles
-       </p>
-      </div>
+        <div v-else style="min-height: 60vh !important;">
+          <p class="text-center text-muted py-4">
+            Aucun talents disponibles
+          </p>
+        </div>
       </div>
     </div>
     <div v-if="list.length" style="display: flex;justify-content: center;">
-      <button
-        @click="loadMore"
-        v-if="length < list.length"
-        class="btn bg-primary loadPlus"
-      >
-        {{ texte6 }} 
+      <button @click="loadMore" v-if="length < list.length" class="btn bg-primary loadPlus">
+        {{ texte6 }}
       </button>
     </div>
   </section>
   <section class="jobs_filters_shimmer" v-else>
-    <div
-      style="
+    <div style="
         min-height: 60vh !important;
         text-align: center;
         padding: 2em;
         font-weight: bold;
-      "
-      class="shimmer-text"
-    >
-     <p style="margin:1em 0;text-align: center;">Chargement....</p> 
-       <div class="container-fuid"
-       style="display: flex;justify-content:center;gap:1em;flex-wrap: wrap;"
-    >
+      " class="shimmer-text">
+      <p style="margin:1em 0;text-align: center;">Chargement....</p>
+      <div class="container-fuid" style="display: flex;justify-content:center;gap:1em;flex-wrap: wrap;">
         <ShimmerCard />
         <ShimmerCard />
         <ShimmerCard />
-        </div>
+      </div>
     </div>
-   
+
   </section>
 </template>
 <style scoped>
 .shimmer-text {
   font-weight: 600;
-  background: linear-gradient(
-    90deg,
-    #999 0%,
-    #fff 50%,
-    #999 100%
-  );
+  background: linear-gradient(90deg,
+      #999 0%,
+      #fff 50%,
+      #999 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -756,6 +680,7 @@ export default {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -772,33 +697,42 @@ export default {
   0% {
     transform: translateX(0);
   }
+
   50% {
     transform: translateX(5px);
   }
+
   100% {
     transform: translateX(0);
   }
 }
+
 .ecriteau {
   color: orange;
 }
+
 .jobs_filters {
   padding: 2em;
   margin: 6.8em 0 2em 0;
 }
-.jobs_filters_shimmer{
+
+.jobs_filters_shimmer {
   margin: 6.8em 0 2em 0;
 }
+
 .conteneur_timetable {
   padding: 1em;
 }
+
 .flex-periode {
   flex-direction: column;
 }
+
 .conteneur_pagination {
   position: relative;
   bottom: 0;
 }
+
 .evaluation {
   margin-left: 0.5em;
   width: 160px;
@@ -807,26 +741,32 @@ export default {
   background: #f77f00 !important;
   color: rgb(255, 255, 255);
 }
+
 .text-secondary {
   color: gray;
 }
+
 .notes {
   top: 0;
   right: 0;
   position: absolute;
 }
+
 .selecte_service select {
   width: 30%;
   margin: 0.5em 0;
   border-radius: 5px;
   padding: 0.3em 0;
 }
+
 .para {
   color: rgb(92, 92, 92);
 }
+
 .font-weight-bold {
   font-weight: bold !important;
 }
+
 .content_experience {
   padding: 1em;
   display: flex;
@@ -834,6 +774,7 @@ export default {
   justify-content: space-between;
   align-items: top;
 }
+
 .content_commentaire {
   padding: 0.5em 0;
   display: flex;
@@ -848,14 +789,17 @@ export default {
   text-align: left;
   margin-left: 0.5em;
 }
+
 .conteneur_star_count {
   position: relative;
 }
+
 .conteneur_star_count span {
   position: absolute;
   top: 0;
   right: 82% !important;
 }
+
 .rond {
   width: 45px;
   height: 45px;
@@ -865,6 +809,7 @@ export default {
   line-height: 45px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
 }
+
 .rondProfil {
   width: 50px;
   height: 70px;
@@ -874,6 +819,7 @@ export default {
   text-align: center;
   border: 3px solid rgb(152, 152, 152);
 }
+
 .experience {
   width: 50%;
   margin-top: 1em;
@@ -885,9 +831,11 @@ export default {
   margin-bottom: 1em;
   text-align: center;
 }
+
 .list_personnel {
   color: #f77f00 !important;
 }
+
 .voirPlus {
   position: absolute;
   bottom: 0.7em;
@@ -917,11 +865,13 @@ export default {
   font-size: 0.8em;
   border-radius: 3px;
 }
+
 .closeday {
   position: absolute;
   right: 0;
   top: 0;
 }
+
 .calendarFilter {
   position: absolute;
   top: 40px;
@@ -929,9 +879,11 @@ export default {
   margin-left: -30%;
   transform: translateX(26%);
 }
+
 .searchByDay {
   color: gray !important;
 }
+
 .bi-play {
   position: absolute;
   right: 1em;
@@ -940,6 +892,7 @@ export default {
   color: gray !important;
   font-size: 1.3em !important;
 }
+
 .bi-play-fill {
   position: absolute;
   right: 1em;
@@ -947,15 +900,19 @@ export default {
   transform: rotateZ(30deg);
   font-size: 1.3em !important;
 }
+
 .datepickrs {
   margin: 1em 0;
 }
+
 .rangePickers {
   margin: 1em 0;
 }
+
 .border-input {
   padding: 0.5em 0.3em;
 }
+
 .mb-5 {
   margin-bottom: 1em !important;
 }
@@ -975,9 +932,11 @@ export default {
 .conteneurInter {
   margin: 1em 0 0 0;
 }
+
 .myCalender {
   margin: 0 3em !important;
 }
+
 .btnAdd {
   margin: 1em 0 0 0 !important;
   position: relative !important;
@@ -995,16 +954,19 @@ export default {
   font-size: 0.8em;
   text-transform: capitalize;
 }
+
 .disponibilite span strong {
   background: rgba(128, 128, 128, 0.262);
   color: rgb(68, 68, 68);
 }
+
 .jou {
   background: linear-gradient(10deg, rgb(2, 123, 56), rgb(0, 230, 31)) !important;
   color: rgb(255, 255, 255) !important;
 }
+
 .multiselect__tag {
-  background: rgb(5, 35, 73) !important ;
+  background: rgb(5, 35, 73) !important;
 }
 
 .colorForFirstHoraire {
@@ -1013,21 +975,25 @@ export default {
   border-radius: 100%;
   background-color: crimson !important;
 }
+
 .Mycard-body {
   position: relative !important;
   padding: 1em 0;
   text-transform: capitalize;
   margin: 0 !important;
 }
+
 .Mycard-body h3 {
   padding: 0;
   margin: 0 !important;
   text-align: center;
 }
+
 .Mycard-body .btn {
   font-size: 0.8em !important;
   margin-top: 1em;
 }
+
 .icons_interesse {
   position: absolute !important;
   top: 1em;
@@ -1039,11 +1005,13 @@ export default {
   top: 1em;
   right: 1em;
 }
+
 .biStar {
-   display: flex;
-   justify-content: center;
-   margin: 0.8em 0;
+  display: flex;
+  justify-content: center;
+  margin: 0.8em 0;
 }
+
 .biStar .color_star,
 .biStar strong {
   color: orange;
@@ -1052,6 +1020,7 @@ export default {
 .icons_interesse em {
   font-size: 1.5em !important;
 }
+
 .icons_interesse .bi {
   font-size: 1.5em !important;
 }
@@ -1060,10 +1029,12 @@ export default {
   width: 20%;
   padding: 0.5em 0;
 }
+
 .notDispo,
 .red {
   background: crimson !important;
 }
+
 .d-block {
   display: block;
 }
@@ -1071,34 +1042,42 @@ export default {
 .loadPlus {
   margin-bottom: 2em;
 }
+
 .card_content {
   background: white;
   width: 70%;
   height: 50%;
 }
+
 .green-banner,
 .image-heading {
   color: rgb(5, 35, 73) !important;
 }
+
 #load_more,
 .filter-result:hover {
   border: 2px solid rgb(5, 35, 73) !important;
 }
+
 .job-footer {
   border: none;
 }
+
 .char {
   margin-bottom: 3em;
 }
+
 .timetableSchedule {
   padding: 1em 0 3em 0 !important;
 }
+
 .card {
   border-radius: 5px !important;
   background: var(--secondary-color) !important;
   color: var(--third-color) !important;
   box-shadow: 3px 3px 3px 3px #00000033;
 }
+
 .spinner-border {
   position: absolute;
   z-index: 99;
@@ -1119,6 +1098,7 @@ export default {
   grid-gap: 1em;
   justify-content: center;
 }
+
 .see_details_emploi {
   position: fixed !important;
   font-weight: bold;
@@ -1134,6 +1114,7 @@ export default {
   background: rgba(141, 137, 137, 0.429);
   z-index: 99;
 }
+
 .hideschudleIfUserStudent {
   position: absolute;
   left: 0;
@@ -1148,6 +1129,7 @@ export default {
   background: rgba(35, 35, 35, 0.887);
   z-index: 999;
 }
+
 .hideschudleIfUserStudent .student {
   width: 50%;
   background: white;
@@ -1170,6 +1152,7 @@ export default {
   background: rgba(141, 137, 137, 0.547);
   z-index: 990;
 }
+
 .see_details_emploi .timetable {
   width: 700px;
   background: white;
@@ -1184,6 +1167,7 @@ export default {
   color: crimson;
   cursor: pointer;
 }
+
 .bx {
   position: absolute !important;
   font-size: 2.5em !important;
@@ -1203,22 +1187,27 @@ export default {
   text-align: left;
   font-size: 1em;
 }
+
 .card-body h1 {
   text-align: left;
 }
+
 .info_student {
   text-align: left;
   margin-left: 1em;
   margin-top: 4em;
   text-transform: capitalize;
 }
+
 .conteneur_competences {
   margin-left: 1em;
   margin-top: 0.5em;
 }
+
 .p-calendar {
   width: 100% !important;
 }
+
 .info_student .h1 {
   font-size: 2em;
 }
@@ -1226,22 +1215,27 @@ export default {
 .name {
   text-transform: capitalize;
 }
+
 .info_student span {
   margin-top: 0.2em;
   font-size: 1.1em;
   display: block;
 }
+
 .bi-person {
   font-size: 3em !important;
 }
+
 .bg-primary {
   background: #f77f00 !important;
   border: 1px solid rgb(1, 1, 1) !important;
 }
+
 .timetable_disponible {
   text-align: left;
   padding: 0.5em 1.5em;
 }
+
 .jour {
   padding: 1em 0;
   display: flex;
@@ -1249,6 +1243,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 .jour span strong {
   margin: 0.5em 0.5em;
   font-size: 9px;
@@ -1258,49 +1253,62 @@ export default {
   text-transform: capitalize;
   background: rgba(0, 255, 255, 0.249);
 }
+
 .not_dispo {
   width: 100%;
   padding: 0.69em 1em;
 }
+
 .fa-heart {
   color: rgb(185, 185, 185) !important;
 }
+
 .ff {
   color: #bcbbbbd3;
 }
+
 .text-danger {
   color: rgb(238, 9, 55) !important;
 }
+
 .bg-warning {
   background: rgb(25, 53, 90) !important;
 }
+
 .btn:focus {
   color: none !important;
 }
+
 @media screen and (max-width: 1199px) {
   .jobs_filters {
     margin: 6em 0 2em 0;
   }
-  .jobs_filters_shimmer{
+
+  .jobs_filters_shimmer {
     margin: 6em 0 2em 0;
   }
+
   .d-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
 @media screen and (max-width: 992px) {
   .d-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media screen and (max-width: 650px) {
   .d-grid {
     grid-template-columns: repeat(1, 1fr);
   }
+
   .jobs_filters {
     margin: 6em 0 2em 0;
   }
 }
+
 .d-none {
   display: none !important;
 }

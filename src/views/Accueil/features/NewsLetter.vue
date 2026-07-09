@@ -8,7 +8,7 @@ import instance from "../../../api/api";
 export default {
   name: "NewsLetter",
   data() {
-    return { spinnerAlert: false,emailForNewsletter:"",texte: "", texte4: "", texte2: "", texte3: "", texte1: "" , };
+    return { spinnerAlert: false, emailForNewsletter: "", texte: "", texte4: "", texte2: "", texte3: "", texte1: "", };
   },
   computed: {
     // ...mapState(useOffreStore, ["ListOffre"]),
@@ -22,7 +22,7 @@ export default {
           email: this.emailForNewsletter,
         })
         .then((res) => {
-          
+
           if (res.data.status) {
             Swal.fire({
               icon: "success",
@@ -62,34 +62,23 @@ export default {
 };
 </script>
 <template>
-  <h1 class="fw-bold">{{texte}}</h1>
+  <h1 class="fw-bold">{{ texte }}</h1>
   <div class="alerte_emploi">
     <div class="ecriteau_alerte_emploi">
       <h4>
-        {{texte1}}<br />
-        {{texte2}}
+        {{ texte1 }}<br />
+        {{ texte2 }}
       </h4>
       <div class="inputSendmail">
-        <input
-          type="text"
-          class="input_mail"
-          v-model="emailForNewsletter"
-          placeholder="Your email"
-        />
-        <button
-          class="btn btn_send_mail"
-          :disabled="spinnerAlert ? true : false"
-          @click="SendMailBienvenueNewsletter"
-          v-if="this.emailForNewsletter"
-        >
+        <input type="text" class="input_mail" v-model="emailForNewsletter" placeholder="Your email" />
+        <button class="btn btn_send_mail" :disabled="spinnerAlert ? true : false" @click="SendMailBienvenueNewsletter"
+          v-if="this.emailForNewsletter">
           {{ spinnerAlert ? texte3 : texte4 }}
         </button>
       </div>
     </div>
     <div class="ecriteau_image">
-      <img src="../../../assets/alertes_offre.png" 
-      class="position-absolute image"
-       alt="alertes_offre" />
+      <img src="../../../assets/alertes_offre.png" class="position-absolute image" alt="alertes_offre" />
     </div>
   </div>
 </template>
@@ -102,6 +91,7 @@ export default {
   width: 50%;
   height: 50%;
 }
+
 .btn_send_mail {
   position: absolute;
   right: 1em;
@@ -113,16 +103,19 @@ export default {
   background: #f77f00 !important;
   border: 2px solid black;
 }
+
 .input_mail {
   width: 100%;
   padding: 2em;
   border-radius: 10px;
 }
+
 .inputSendmail {
   position: relative;
   width: 100%;
   margin-bottom: 1em;
 }
+
 .alerte_emploi {
   display: flex;
   justify-content: space-between;
@@ -131,10 +124,12 @@ export default {
   flex-wrap: wrap;
   margin: 1em 0 0 0;
 }
+
 .ecriteau_image {
   position: relative;
   flex: 1 1 200px;
 }
+
 .ecriteau_alerte_emploi {
   flex: 1 1 200px;
 }

@@ -33,7 +33,7 @@ export default {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useRegisterStore, ["changeValueIsModal"]),
     seeTabsChange(value) {
-      this.$store.commit('SET_TABS_CONNEXION',value)
+      this.$store.commit('SET_TABS_CONNEXION', value)
       // this.tabsActive = value;
     },
   },
@@ -48,14 +48,8 @@ export default {
 };
 </script>
 <template>
-  <a-modal
-    :footer="null"
-    v-model:open="isModal"
-    width="100%"
-    wrap-class-name="full-modal"
-    @cancel="() => this.changeValueIsModal()"
-    @ok="() => this.changeValueIsModal()"
-  >
+  <a-modal :footer="null" v-model:open="isModal" width="100%" wrap-class-name="full-modal"
+    @cancel="() => this.changeValueIsModal()" @ok="() => this.changeValueIsModal()">
     <div class="mycontent">
       <div v-if="Number(this.$store.state.tabsActive) === 1">
         <h2 class="text-center" style="color: orange">{{ texte }}</h2>
@@ -65,8 +59,7 @@ export default {
         <h2 class="text-center" style="color: orange">{{ texte2 }}</h2>
         <span>{{ texte3 }}</span>
       </div>
-      <a-tabs centered :size="'default'" @change="seeTabsChange"
-      >
+      <a-tabs centered :size="'default'" @change="seeTabsChange">
         <a-tab-pane key="1" :tab="texte4">
           <LoginView />
         </a-tab-pane>
@@ -78,16 +71,20 @@ export default {
   </a-modal>
 </template>
 <style scoped>
-.style_tabs{
+.style_tabs {
   color: orange !important;
-  text-shadow:0 0 0.25px orange !important;
+  text-shadow: 0 0 0.25px orange !important;
 }
-:deep(.ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)){
-  background-color: orange !important;;
+
+:deep(.ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)) {
+  background-color: orange !important;
+  ;
 }
-:deep(.n-tabs.n-tabs--line-type .n-tabs-tab:hover){
+
+:deep(.n-tabs.n-tabs--line-type .n-tabs-tab:hover) {
   color: orange !important;
 }
+
 :deep(.full-modal .ant-modal) {
   max-width: 100%;
   top: 0;
@@ -104,6 +101,7 @@ export default {
 :deep(.full-modal .ant-modal-body) {
   flex: 1;
 }
+
 :deep(.fullscreen-modal .ant-modal) {
   max-width: 100vw;
   height: 90vh;

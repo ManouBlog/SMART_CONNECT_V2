@@ -29,13 +29,14 @@ export default {
 </script>
 
 <style scoped>
-:depp(.card){
-   height:130px !important;
-   width: 200px !important;
+:depp(.card) {
+  height: 130px !important;
+  width: 200px !important;
 }
+
 .shimmer-card {
   position: relative;
- 
+
   margin-bottom: 10px;
   overflow: hidden;
   flex: 1;
@@ -48,13 +49,11 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.3) 20%,
-    rgba(255, 255, 255, 0.1) 60%,
-    rgba(255, 255, 255, 0.1) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.3) 20%,
+      rgba(255, 255, 255, 0.1) 60%,
+      rgba(255, 255, 255, 0.1) 100%);
   transform: translateX(-100%);
   animation: shimmer 1.5s infinite;
 }
