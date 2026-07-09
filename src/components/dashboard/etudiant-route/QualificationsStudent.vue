@@ -374,6 +374,7 @@ export default {
                       class="input_class"
                       id="objet"
                       v-model="value.objet"
+                      maxlength="100"
                     />
                   </div>
 

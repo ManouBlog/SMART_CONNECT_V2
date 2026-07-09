@@ -391,15 +391,28 @@ export default {
 
   <!-- Ligne 5 -->
   <div class="row gy-2">
-    <div class="col-md-6" style="flex:1">
+    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.statut_talent || infoPersonnelles.user.statut_professionnel_artisan">
+        <p 
+    style="color: orange; font-weight: bold"
+        
+      >
+        Statut Professionnel :
+      </p>
+      <p v-for="item in [infoPersonnelles.statut_talent, infoPersonnelles.user.statut_professionnel_artisan]"
+      :key="item"
+      style="display: flex;gap:1em;align-items:center"
+      >
+     <span class="badge bg-warning">{{ item }}</span>
+      </p>
      
-      <ParagrapheDetail
+      <!-- <ParagrapheDetail
         v-if="infoPersonnelles.statut_talent || infoPersonnelles.user.statut_professionnel_artisan"
         :item="{
           libelle: 'Statut Professionnel',
-          value: [infoPersonnelles.statut_talent, infoPersonnelles.user.statut_professionnel_artisan],
+         
+          valueArray: ,
         }"
-      />
+      /> -->
     </div>
     <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.diplome">
       <ParagrapheDetail :item="{ libelle: 'Niveau d\'étude', value: infoPersonnelles.diplome }" />
