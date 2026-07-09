@@ -299,6 +299,12 @@ export default {
           style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
         <i class="bi bi-camera-fill"></i>
       </div>
+      <div v-if="infoPersonnelles?.titreCv">
+        <p  style="color: orange; font-weight: bold">Profil</p>
+        <p style="text-transform: uppercase;">
+          {{ infoPersonnelles?.titreCv }}
+        </p>
+      </div>
       <div v-if="infoPersonnelles?.bio">
         <p  style="color: orange; font-weight: bold">Biographie de votre profil</p>
         <p
@@ -316,7 +322,7 @@ export default {
       </div>
      
       <section class="my-5">     
-       <div class="container">
+       <div>
   <div class="row gy-2">
     <div class="col-md-6" style="flex:1">
       <ParagrapheDetail :item="{ libelle: 'Nom', value: infoPersonnelles.nom }" />

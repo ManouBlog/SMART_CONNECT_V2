@@ -505,14 +505,14 @@ this.selectedParseStatus = ""
             width: 300px;
             ">
           <h3 style="color: white;">{{ profil.statut }}</h3>
-          <p v-if="profils?.statut_talent && profils?.user?.statut?.statut.includes('Vétéran') ">({{ profils?.statut_talent }})</p>
-                    <p v-if="profils?.statut_talent && profils?.user?.statut?.statut.includes('Artisan') ">({{ profils?.statut_talent }})</p>
+          <p v-if="profils?.user?.statut?.statut == profil.statut && profils?.user?.statut?.statut.includes('Vétéran')">({{ profils?.statut_talent }})</p>
+          <p v-if="profils?.user?.statut?.statut == profil.statut && profils?.user?.statut?.statut.includes('Artisan') ">({{ profils?.statut_talent }})</p>
           <span 
           v-if="profils?.user?.statut?.statut == profil.statut"
           class="badge" 
           style="position: absolute;top:0.3em;right:0;font-size: 0.8em;background-color: #25535f;font-weight: bold;">
            Profil de base</span>
-          <span>{{ descriptionProfil[profil.statut] }}</span>
+          <span >{{ descriptionProfil[profil.statut] }}</span>
           </div>
           
       </div>

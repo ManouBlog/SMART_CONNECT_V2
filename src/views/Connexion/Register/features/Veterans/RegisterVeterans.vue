@@ -147,7 +147,7 @@ StatutVeterans:[
 ],
       formState: {
         profiles:[],
-        answerAssistance:"non",
+        answerAssistance:null,
         identifiantNotesCommerciale:"",
         identifiantCommerciale:"",
         otherCompetence:[],
@@ -174,11 +174,11 @@ StatutVeterans:[
         uploadPhotoProfil: [],
         email: "",
         password: "",
-        treatment_preferentiel:"",
+        treatment_preferentiel:"Normal",
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
-        statut_professionnel_artisan :"",
+        statut_professionnel_artisan :"Artisan",
         mode_discret:false
       },
     };
@@ -210,6 +210,7 @@ StatutVeterans:[
     isCommercialAssitance(){
   return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true:false;
     },
+    
     isPasswordDisabled() {
     return (
       this.loading ||
@@ -272,6 +273,9 @@ StatutVeterans:[
   methods: {
      onCreateOther() {
       return null
+    },
+    isChecked(value){
+      return this.formState.answerAssistance === value
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useRegisterStore, {
@@ -512,6 +516,7 @@ StatutVeterans:[
   },
 
   async created() {
+    
     await this.lister_statut();
     this.getCompetences();
     this.texte = await this.handleTranslate("Nom");
@@ -596,7 +601,9 @@ StatutVeterans:[
         type="radio"
         name="profilHybride"
         :value="item.value"
+        :checked="formState.optionsAnswer === item.value"
         v-model="formState.optionsAnswer"
+        @change="formState.optionsAnswer = item.value"
       />
       <span class="round-label">
         {{ item.label }}
@@ -863,9 +870,10 @@ StatutVeterans:[
        <span v-if="formState.statut_talent == 'Vétéran Hors Grade'" style="padding:1em;color: red;">Nous activons le mode discret par défaut pour votre confidentialité</span>
             </a-form-item>
             <a-form-item
-            v-if="this.formState.profilHybride.some(el=>el == 7) && this.formState.optionsAnswer === 'oui'"
+            v-if="this.formState.profilHybride.some(el=>el == 7) 
+            && this.formState.optionsAnswer === 'oui'"
             :label="'Statut professionnel artisan'"
-            name="statut_professionnel_artisan "
+            name="statut_professionnel_artisan"
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]"
           >
             <a-select
@@ -1047,14 +1055,15 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
       class="round-item"
     >
       <input
-      :disabled="this.loading"
-        type="radio"
-        name="profilHybride"
-        :value="item.value"
-        v-model="formState.answerAssistance"
-      />
-      <span class="round-label">
-        {{ item.label }}
+  :disabled="loading"
+  type="radio"
+  name="profilHybride"
+  :value="item.value"
+  :checked="formState.answerAssistance === item.value"
+  @change="formState.answerAssistance = item.value"
+/>
+      <span class="round-label" >
+        {{ item.label }} 
       </span>
     </label>
   </div>
@@ -1094,7 +1103,9 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
         v-if="currentStep === 5"
         type="primary"
         html-type="submit"
-        :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance"
+        :disabled="!isCurrentStepValid || 
+        isPasswordDisabled || 
+        isCommercialAssitance || this.formState.answerAssistance == null"
       >
         {{ texte11 }}
       </a-button>
