@@ -78,14 +78,16 @@ export default {
         myCompetence: [],
         Logo: [],
         password: "",
-        myRegister: "",
-        myLogo: "",
+        registre_pdf:null,
+        cni:null,
+        logo_entreprise:null,
+        logo: "",
         upload: [],
         photo: null,
         Phonegerant: null,
         countryCode: "+225",
         countryCodePhoneGerant: "+225",
-        email_cc:[""],
+        email_cc:null,
         profilHybride:[]
       },
     };
@@ -100,17 +102,11 @@ export default {
       f.matricule_cc?.trim() &&
       f.juridique?.trim() &&
       f.ncc?.trim() &&
-      f.contact?.trim() &&
-      f.ville?.trim() &&
-      f.commune?.trim() &&
-      f.email?.trim() &&
       f.gerant?.trim() &&
       f.Phonegerant?.toString().trim() &&
-      f.countryCode &&
       f.countryCodePhoneGerant &&
-
-      // fichier registre (PDF)
-      f.upload
+      f.cni &&
+      f.registre_pdf
     )
   }
     
@@ -119,27 +115,28 @@ export default {
   methods: {
     handleChangeCardEntreprise(e, type) {
     const files = e.target.files
+    console.log("handleChangeCardEntreprise",files[0])
 
     if (type === 'registre') {
-      this.formState.upload = files
+      this.formState.registre_pdf = files[0]
     }
 
-    // if (type === 'cni') {
-    //   this.formState.CNI = files
-    // }
+    if (type === 'cni') {
+      this.formState.cni = files[0]
+    }
 
     if (type === 'logo') {
-      this.formState.myLogo = files
+      this.formState.logo_entreprise = files[0]
     }
   },
-    onUploadChange(e) {
+//     onUploadChange(e) {
   
-    this.formState.upload = Array.from(e.target.files);
-    if (!e) return
-    this.rawText = ''
-    this.result = null
-  // this.runOCR(newList)
-},
+//     this.formState.upload = Array.from(e.target.files);
+//     if (!e) return
+//     this.rawText = ''
+//     this.result = null
+//   // this.runOCR(newList)
+// },
 // async runOCR(files) {
 //   this.loading = true
 //   let fullText = ''
@@ -243,6 +240,7 @@ export default {
       STORE_ABONNEMENT.cleanProfilHybide([])
       
       this.showModalAbonnements = true
+      
     },
   },
 };
@@ -263,7 +261,7 @@ export default {
      <div style="background-color: white;">
       <Abonnements 
       :ProfilAbonnement="this.profilOfAbonnement.statut"
-     
+      :statut_entreprise="'Formelle'"
       />
       </div>
       </n-modal>
@@ -301,7 +299,6 @@ export default {
         @change="e => handleChangeCardEntreprise(e, 'registre')"
         name="Registre"
         accept=".pdf"
-        
       />
     </div>
   </div>
@@ -334,98 +331,16 @@ export default {
     
   </div>
 
-  <!-- Contact + Ville -->
-  <div class="row">
-    <div class="col-md-6 my-3">
-      <label> <span style="color: red;margin:0 0.1em">*</span>Contact téléphonique de l'entreprise</label>
-
-      <div style="display:flex; gap:5px;">
-        <select v-model="formState.countryCode"
-        
-        class="form-control"
-        style="height: 45px;"
-        >
-          <option
-            v-for="code in westAfricaCodes"
-            :key="code.value"
-            :value="code.value"
-          >
-            {{ code.label }}
-          </option>
-        </select>
-       
-        <input
-          type="tel"
-          class="form-control"
-          style="height: 45px;"
-          v-model="formState.contact"
-          placeholder="Numéro de téléphone"
-          
-        />
-      </div>
-    </div>
-
-    <div class="col-md-6 my-3">
-      <label> <span style="color: red;margin:0 0.1em">*</span> Ville</label>
-      <input
-        type="text"
-        class="form-control"
-        style="height: 45px;"
-        v-model="formState.ville"
-        placeholder="Entrez la ville"
-        
-      />
-    </div>
-  </div>
-
-  <!-- Commune + Quartier -->
-  <div class="row">
-    <div class="col-md-6 my-3">
-      <label> <span style="color: red;margin:0 0.1em">*</span> Commune</label>
-      <input
-        type="text"
-        class="form-control"
-        style="height: 45px;"
-        v-model="formState.commune"
-        placeholder="Entrez la commune"
-        
-      />
-    </div>
-
-    <div class="col-md-6 my-3">
-      <label>Quartier</label>
-      <input
-        type="text"
-        class="form-control"
-        style="height: 45px;"
-        v-model="formState.quartier"
-        placeholder="Entrez le quartier"
-        
-      />
-    </div>
-  </div>
-
   <!-- Email + Email secondaires -->
   <div class="row">
-    <div class="col-md-6 my-3">
-      <label><span style="color: red;margin:0 0.1em">*</span> Contact mail de l'entreprise</label>
-      <input
-        type="email"
-        class="form-control"
-        style="height: 45px;"
-        v-model="formState.email"
-        placeholder="exemple@email.com"
-        
-      />
-    </div>
+   
 
     <div class="col-md-6 my-3">
       <label>Emails secondaires (cc)</label>
-
       <n-dynamic-input
             v-model:value="formState.email_cc"
             placeholder="Ajoutez un email en copie"
-            :min="1"
+            :min="0"
             :max="6"
             :item-style="{ borderColor: 'gray' }"
           />
@@ -435,7 +350,7 @@ export default {
   <!-- Gérant + Téléphone -->
   <div class="row">
     <div class="col-md-6 my-3">
-      <label><span style="color: red;margin:0 0.1em">*</span>Nom du gérant</label>
+      <label><span style="color: red;margin:0 0.1em">*</span> Nom du gérant</label>
       <input
         type="text"
         class="form-control"
@@ -445,7 +360,7 @@ export default {
         
       />
     </div>
-
+   
     <div class="col-md-6 my-3">
       <label><span style="color: red;margin:0 0.1em">*</span>Contact Téléphonique du gérant</label>
 
@@ -477,16 +392,15 @@ export default {
 
   <!-- Uploads -->
   <div class="row">
-    <!-- <div class="col-md-6 my-3">
-      <label>Pièce d’identité (CNI)</label>
+     <div class="col-md-6 my-3">
+      <label><span style="color: red;margin:0 0.1em">*</span>Carte nationale d'identité du gérant (JPG, PNG, WEBP)</label>
       <input
         type="file"
-        multiple
-       @change="e => handleChangeCardEntreprise(e, 'cni')"
+        accept=".jpg,.jpeg,.png,.webp"
+        @change="e => handleChangeCardEntreprise(e, 'cni')"
         
       />
-    </div> -->
-
+    </div>
     <div class="col-md-6 my-3">
       <label>Logo de l’entreprise (JPG, PNG, WEBP)</label>
       <input
@@ -512,6 +426,3 @@ export default {
 </form>
 
 </template>
-<style scoped>
-
-</style>

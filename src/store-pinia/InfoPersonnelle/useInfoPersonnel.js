@@ -37,33 +37,52 @@ export const useInfoPersonnel = defineStore('infoPersonnelle', {
           });
     },
     async update_compte_entreprise(payload) {
+
   Spinner.launchLoading(true);
 
   try {
     const data = new FormData();
+    payload?.piece_gerant?.forEach(item => {
+  if (item) {
+    data.append("piece_gerant[]", item);
+  }
+});
 
-    this.pieceIdentiteGerant?.forEach(item => {
-      data.append("piece_gerant[]", item);
-    });
+payload?.email_cc?.forEach(item => {
+  if (item) {
+    data.append("email_cc[]", item);
+  }
+});
 
-    payload?.email_cc?.forEach(item => {
-      data.append("email_cc[]", item);
-    });
+if (payload.nom != null) data.append("nom", payload.nom);
+if (payload.particulier_prenoms != null) data.append("particulier_prenoms", payload.particulier_prenoms);
+if (payload.nom_particulier != null) data.append("nom_particulier", payload.nom_particulier);
+if (payload.NCC != null) data.append("NCC", payload.NCC);
 
-    data.append("nom", payload.nom);
-    data.append("particulier_prenoms", payload.particulier_prenoms);
-    data.append("email", payload.email);
-    data.append("gerant", payload.gerant);
-    data.append("numero_gerant", payload.numero_gerant);
-    data.append("commune", payload.commune);
-    data.append("forme_juridique", payload.forme_juridique);
-    data.append("quartier", payload.quartier);
-    data.append("contact", payload.contact);
-    data.append("ville", payload.ville);
-    data.append("logo", this.logoEntreprise);
-    data.append("matricule_cc", payload.matricule_cc);
-    data.append("registre", this.registre);
+if (payload.email != null) data.append("email", payload.email);
+if (payload.gerant != null) data.append("gerant", payload.gerant);
+if (payload.numero_gerant != null) data.append("numero_gerant", payload.numero_gerant);
+if (payload.commune != null) data.append("commune", payload.commune);
+if (payload.forme_juridique != null) data.append("forme_juridique", payload.forme_juridique);
+if (payload.quartier != null) data.append("quartier", payload.quartier);
+if (payload.contact != null) data.append("contact", payload.contact);
+if (payload.ville != null) data.append("ville", payload.ville);
 
+if (payload.logo != null) {
+  data.append("logo", payload.logo);
+}
+
+if (payload.matricule_cc != null) {
+  data.append("matricule_cc", payload.matricule_cc);
+}
+
+if (payload.statut_entreprise != null) {
+  data.append("statut_entreprise", payload.statut_entreprise);
+}
+
+if (payload.registre != null) {
+  data.append("registre", payload.registre);
+}
     const res = await instance.post("modifier_profil", data);
 
     if (res.data.status === true) {

@@ -25,6 +25,9 @@ const profilHybrideRecuperer = ref(0)
 
 
 const handleCreateEntrepriseByYear=(payload)=>{
+
+  console.log("handleCreateEntrepriseByYear",payload)
+  console.log("handleCreateEntrepriseByYear_storeAbonnement",storeAbonnement)
  
     const statutBaseUser = store.state.user?.user?.statut_base;
 
@@ -37,70 +40,61 @@ const handleCreateEntrepriseByYear=(payload)=>{
             isAddProfilHybride:storeAbonnement.addProfilHybride.map(item => item.id).length ? true:false,
             statut_base:storeAbonnement.statutOfBase ? storeAbonnement.statutOfBase:statutBaseUser,
             isChangeProfil:storeAbonnement.isChangeProfil,
-            treatment_preferentiel:storeAbonnement.treatment_preferentiel,
-             niveauExpertise : storeAbonnement.niveauExpertise ,
-        modeTravail : storeAbonnement.modeTravail ,
-        tempsTravail : storeAbonnement.tempsTravail ,
-        niveauEtude : storeAbonnement.niveauEtude ,
-        CVupload : storeAbonnement.CVupload,
-        statut_talent : storeAbonnement.statut_talent,
         profilHybride:storeAbonnement.statutOfBase == 1 ? []:storeAbonnement.profilHybride?.map(item => item.id),
-        addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id),
+        addProfilHybrideOnly: storeAbonnement.isAddProfilHybride ? storeAbonnement.addProfilHybride.map(item => item.id):[],
         nom: storeAbonnement.nom,
-        expertise : storeAbonnement.niveauExpertise,
-        photo:storeAbonnement.photo,
-        diplome:storeAbonnement.diplome,
-        ville:storeAbonnement.ville,
-        commune:storeAbonnement.commune,
-        quartier:storeAbonnement.quartier,
-        statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan,
+        cni: storeAbonnement.cni,
+        registre_pdf: storeAbonnement.registre_pdf,
+        logo:storeAbonnement.logo_entreprise,
         statut_entreprise:storeAbonnement.statut_entreprise,
         email_cc:storeAbonnement.email_cc,
         Phonegerant:storeAbonnement.Phonegerant,
         gerant:storeAbonnement.gerant,
-        email:storeAbonnement.email,
-        phone:storeAbonnement.phone,
         ncc:storeAbonnement.ncc,
         juridique:storeAbonnement.juridique,
         matricule_cc:storeAbonnement.matricule_cc,
-        contact:storeAbonnement.contact
+        addProfilHybride:storeAbonnement.addProfilHybride
         }
-        const formData = new FormData();
+
+        console.log("DATAEND",data)
+        
+const formData = new FormData();
 
 // On vérifie chaque valeur avant l'ajout
 if (data.abonement_id) formData.append('abonement_id', data.abonement_id);
 if (data.channels && data.channels !== 'undefined') formData.append('channels', data.channels);
 if (data.mode_payment) formData.append('mode_payment', data.mode_payment);
+
+
 if (data.transaction_id) formData.append('transaction_id', data.transaction_id);
 if (data.isAddProfilHybride !== undefined) formData.append('isAddProfilHybride', data.isAddProfilHybride);
 if (data.statut_base) formData.append('statut_base', data.statut_base);
 if (data.isChangeProfil !== undefined) formData.append('isChangeProfil', data.isChangeProfil);
-if (data.treatment_preferentiel) formData.append('treatment_preferentiel', data.treatment_preferentiel);
-if (data.niveauExpertise) formData.append('niveauExpertise', data.niveauExpertise);
-if (data.modeTravail) formData.append('modeTravail', data.modeTravail);
-if (data.tempsTravail) formData.append('tempsTravail', data.tempsTravail);
-if (data.niveauEtude) formData.append('niveauEtude', data.niveauEtude);
-if (data.CVupload) formData.append('CVupload', data.CVupload);
-if (data.statut_talent) formData.append('statut_talent', data.statut_talent);
 
-// Pour les tableaux, on utilise JSON.stringify
-// Ajout des tableaux avec JSON.stringify pour Laravel
-if (storeAbonnement.profilHybride?.length) {
-  storeAbonnement.profilHybride
+if (data.profilHybride?.length) {
+  data.profilHybride
     .map(item => item.id)
     .forEach(id => {
       formData.append("profilHybride[]", id);
     });
 }
+if (data.cni) formData.append('cni', data.cni);
+if (data.registre_pdf) formData.append('registre_pdf', data.registre_pdf);
+if (data.logo) formData.append('logo', data.logo);
 
-if (storeAbonnement.addProfilHybride?.length) {
-  storeAbonnement.addProfilHybride
+if (data.addProfilHybride?.length) {
+  data.addProfilHybride
     .map(item => item.id)
     .forEach(id => {
       formData.append("addProfilHybrideOnly[]", id);
     });
 }
 
+if (data.email_cc?.length) {
+  data?.email_cc?.forEach(item => {
+      formData.append("email_cc[]", item);
+    });
+}
 // Autres champs
 if (data.nom) formData.append('nom', data.nom);
 if (data.expertise) formData.append('expertise', data.expertise);
@@ -111,15 +105,17 @@ if (data.commune) formData.append('commune', data.commune);
 if (data.quartier) formData.append('quartier', data.quartier);
 if (data.statut_professionnel_artisan) formData.append('statut_professionnel_artisan', data.statut_professionnel_artisan);
 if (data.statut_entreprise) formData.append('statut_entreprise', data.statut_entreprise);
-if (data.email_cc) formData.append('email_cc', data.email_cc);
-if (data.Phonegerant) formData.append('Phonegerant', data.Phonegerant);
+
+if (data.Phonegerant) formData.append('numero_gerant', data.Phonegerant);
 if (data.gerant) formData.append('gerant', data.gerant);
 if (data.email) formData.append('email', data.email);
 if (data.phone) formData.append('phone', data.phone);
 if (data.ncc) formData.append('ncc', data.ncc);
-if (data.juridique) formData.append('juridique', data.juridique);
+if (data.juridique) formData.append('forme_juridique', data.juridique);
 if (data.matricule_cc) formData.append('matricule_cc', data.matricule_cc);
 if (data.contact) formData.append('contact', data.contact);
+
+console.log("formData21",formData)
      
   storeAbonnement.createAbonement(formData)
 }

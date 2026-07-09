@@ -20,8 +20,8 @@ export default {
 ],
 
 options : [
-  { value: "Informel", label: "Informel" },
-  { value: "Formel", label: "Formel" },
+  { value: "Informelle", label: "Informelle" },
+  { value: "Formelle", label: "Formelle" },
 ],
 valueModeDeTravail: [
   { value: "Présentiel", label: "Présentiel" },
@@ -72,6 +72,7 @@ valueExpertise: [
       phone: "",
       ville: "",
       commune: "",
+      piece_gerant:[],
       quartier: "",
       matricule_cc: "",
       forme_juridique: "",
@@ -79,9 +80,9 @@ valueExpertise: [
       NCC: "",
       niveauEtude:"",
       domaine:"",
-      carteEtudiant:null,
       pieceCNI:null,
       pathCarteEtudiant:null,
+      pieceJointes:null,
       pathCVUpload:null,
       statut_talent:"",
       CVupload:"",
@@ -96,7 +97,9 @@ valueExpertise: [
       statut:"",
       niveauExpertise:"aucun",
       nom_particulier:"",
-      fileCharge:null
+      registre:null,
+      logo:null,
+      pieceGerantFormelle:null
     },
     };
   },
@@ -104,12 +107,12 @@ valueExpertise: [
     ...mapState(useRegisterStore, ["allCompetences"]),
     ...mapState(useInfoPersonnel, ["otherInfoPersonnelle"]),
     isCompanyDisabled(){
-    const idsToCheck = ['Formel'];
+    const idsToCheck = ['Formelle'];
      const statutId = this.form.optionsPaper;
     if (!idsToCheck.includes(statutId)) return false;
 
     const rules = {
-      'Formel': ["NCC", "matricule_cc","forme_juridique","gerant","numero_gerant","fileCharge"]
+      'Formelle': ["NCC", "matricule_cc","forme_juridique","gerant","numero_gerant","registre"]
     };
 
     const requiredFields = rules[statutId] || [];
@@ -144,15 +147,26 @@ valueExpertise: [
     },
   },
   methods: {
-    chargerFichier(event) {
+    chargerPdfRegister(event) {
       const file = event.target.files[0];
      
       if (file) {
-        this.form.fileCharge = file;
+        this.form.registre = file;
       }
-       if (!file) {
-      this.form.fileCharge = null;  // Reset HTML natif
-    }
+    },
+    chargerLogoEntreprise(event) {
+      const file = event.target.files[0];
+     
+      if (file) {
+        this.form.logo = file;
+      }
+    },
+    chargerPieceGerant(event) {
+      const file = event.target.files[0];
+     
+      if (file) {
+        this.form.pieceGerantFormelle = file;
+      }
     },
     selectOne(value) {
       
@@ -167,7 +181,7 @@ valueExpertise: [
     
     if (!user) return;
 
-    this.form.nom = this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut !== 'Entreprise') ? user.nom : this.form.optionsPaper === 'Formel' ? user.nom:user.nom_particulier;
+    this.form.nom = user.nom;
     this.form.prenoms = user.prenoms || "";
     this.form.email = user.email || "";
     this.form.contact = user.contact || "";
@@ -176,14 +190,13 @@ valueExpertise: [
     this.form.niveauEtude = user?.niveauEtude?.split(' ')[0];
     this.form.domaine = user?.niveauEtude?.split(' ')[1];
     this.form.statut_talent = user.statut_talent;
-    this.form.carteEtudiant = user.user.photos;
-    this.form.pieceCNI = user.user.photos;
+    this.form.pieceJointes = user.user.photos;
     this.form.CVupload = user.CVupload;
     this.form.commune = user.commune || "";
     this.form.quartier = user.quartier || "";
     this.form.statuses  = user.user?.statuses.map(item=>item.id)  || "";
     this.form.niveauExpertise = user?.niveauExpertise || "";
-
+     this.form.nom_particulier = user.nom_particulier;
     this.form.matricule_cc = user.matricule_cc || "";
     this.form.forme_juridique = user.forme_juridique || "";
     this.form.NCC = user.NCC || "";
@@ -257,7 +270,8 @@ valueExpertise: [
         const user = resp.data.user;
 const statuses = user?.statuses || [];
 const statusList = statuses.map(s => s.statut);
-
+console.log("statusList",statusList)
+this.form.optionsPaper = user.statut_entreprise;
 const isEntreprise = statusList.includes('Entreprise');
 
 const isStudentGroup = statusList.some(s =>
@@ -266,6 +280,7 @@ const isStudentGroup = statusList.some(s =>
 
 if (isEntreprise) {
   this.emails_cc = user.emails?.map(item => item.email_cc) || [];
+  console.log("this.emails_cc",this.emails_cc)
   this.$store.commit("UPDATE_INFO_CONPANY", user);
 }
 
@@ -291,20 +306,28 @@ if (isStudentGroup) {
         });
     },
 
-    async updateInfoEntreprise(company) {
-      
+    async "updateInfoEntreprise"(company) {
+
+
       const data = await this.update_compte_entreprise({
         nom: company.nom,
         email: company.email,
+        statut_entreprise:company.statut_entreprise,
+        nom_particulier: company.nom_particulier,
         gerant: company.gerant,
+        particulier_prenoms: company.particulier_prenoms,
         numero_gerant: company.numero_gerant,
         commune: company.commune,
         forme_juridique: company.forme_juridique,
+        piece_gerant:company.piece_gerant,
         quartier: company.quartier,
+        logo:company.logo,
         contact: company.contact,
         ville: company.ville,
+        registre:company.registre,
+        NCC:company.NCC,
         matricule_cc: company.matricule_cc,
-        email_cc:this.emails_cc.length ? this.emails_cc:[]
+        email_cc:this.emails_cc.length ? this.emails_cc:[],
       });
       if(data.status){
         this.$store.commit("UPDATE_INFO_CONPANY",data.data);
@@ -325,7 +348,6 @@ if (isStudentGroup) {
         bio: Talent.bio,
         diplome: Talent.diplome,
         niveauEtude:Talent.niveauEtude+' '+Talent.domaine,
-        carteEtudiant:Talent.carteEtudiant,
         pathCarteEtudiant:Talent.pathCarteEtudiant,
         pathPieceCni:Talent.pathPieceCni,
         pathCVUpload:Talent.pathCVUpload,
@@ -374,10 +396,13 @@ if (isStudentGroup) {
     // event.target.value = '';
   },
     async handleUpdate(payload,profile) {
-    // console.log("profile",profile)
+   
  if(profile === 'talents'){
  this.updateInfoUser(payload);
  }else{
+  
+   console.log("profile_entreprise",profile)
+   console.log("payload_entreprise",payload)
  this.updateInfoEntreprise(payload)
  }
 },
@@ -392,6 +417,9 @@ if (isStudentGroup) {
     handleInputChange(valueDate) {
       console.log(valueDate);
     },
+    handleCNIForEntrepriseInformelle(payload){
+  this.form.piece_gerant.push(payload.target.files[0]);
+    }
   },
   mounted() {
   this.initForm();
@@ -407,7 +435,7 @@ if (isStudentGroup) {
   <div class="card-body text-left py-4" v-if="this.$store.state.infoUserConnected">
     <div class="row">
      
-      <legend>
+      <span>
   Info personnelle
   {{
     ($store.state.infoUserConnected?.user?.statuses || [])
@@ -415,45 +443,55 @@ if (isStudentGroup) {
       ? 'sur l\'Entreprise'
       : ''
   }}
-</legend>
+</span>
       <p style="text-align: center; color: red;font-size: 1em;">
         Les champs avec astérisque (*) sont obligatoires.
       </p>
-
-     
-
       <!-- -----ENTREPRISE----- -->
-     <div
-  class="col-md-12"
-  v-if="
-    ($store.state.infoUserConnected?.user?.statuses || [])
-      .some(s => s.statut === 'Entreprise')
-  "
-  style="display: flex; flex-wrap: wrap; justify-content:center; gap: 10px; margin-top: 0.5em; margin-bottom: 1.5em"
->
- <label v-for="item in options" :key="item.value">
-  <input
-    type="checkbox"
-    :value="item.value"
-    :checked="form.optionsPaper === item.value"
-    @change="selectOne(item.value)"
-  />
-  {{ item.label }}
-</label>
-    </div>
-    <div class="col-md-12">
+       <div v-if="this.$store.state.infoUserConnected && 
+            $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')">
+
+      <div class="col-md-12" v-if='this.form.optionsPaper === "Formelle"'>
         <div class="mb-3">
-          <label class="form-label">{{
-            this.$store.state.infoUserConnected && $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')
-              ? "Raison sociale"
-              : "Nom"
-          }} <span style="color:red">*</span></label>
+          <label class="form-label">Raison sociale <span style="color:red">*</span></label>
           <input v-model="form.nom" class="form-control" type="text" />
         </div>
       </div>
-      <div class="col-md-12" 
-      v-if='this.$store.state.infoUserConnected 
-      && $store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === "entreprise") && this.form.optionsPaper === "Formel"'>
+
+       <div class="col-md-12" v-if='this.form.optionsPaper === "Informelle"'>
+        <div class="mb-3">
+          <label class="form-label">Nom de l'entreprise<span style="color:red">*</span></label>
+          <input v-model="form.nom_particulier" class="form-control" type="text" />
+        </div>
+      </div>
+
+      <div class="col-md-12" v-if='this.form.optionsPaper === "Informelle"'>
+        <div class="mb-3">
+          <label class="form-label">Nom<span style="color:red">*</span></label>
+          <input v-model="form.nom" class="form-control" type="text" />
+        </div>
+      </div>
+      <div class="col-md-12" v-if='this.form.optionsPaper === "Informelle"'>
+        <div class="mb-3">
+          <label class="form-label">Prénoms<span style="color:red">*</span></label>
+          <input v-model="form.particulier_prenoms" class="form-control" type="text" />
+        </div>
+      </div>
+       <div class="col-md-12" v-if='this.form.optionsPaper === "Informelle"'>
+        <div class="mb-3">
+          <label class="form-label">Carte nationale d'identité<span style="color:red">*</span></label>
+          <small class="text-muted" style="display: block;">
+            Ajouter une nouvelle carte nationale d'identité
+             </small>
+        <input
+         type="file"
+         accept="image/*"
+         @change="handleCNIForEntrepriseInformelle"
+            />
+        </div>
+      </div>
+
+      <div class="col-md-12" v-if='this.form.optionsPaper === "Formelle"'>
         <div class="mb-3">
           <label class="form-label"
             >RCCM (Registre du Commerce et du Crédit Mobilier)
@@ -464,40 +502,36 @@ if (isStudentGroup) {
         </div>
         <div class="my-3">
          <label class="form-label"
-            >Charger le document du RCCM
+            >Charger le registre (pdf)
             <span style="color:red">*</span>
             </label
           >
           <input
             type="file"
-            ref="fileInput"
-            @input="addAnRegistreDoc"
             id="add_file_registre"
             class="w-100"
-            @change="chargerFichier"
+            accept="application/pdf"
+            @change="chargerPdfRegister"
           />
         </div>
       </div>
+
        <div class="col-md-12" 
-      v-if='this.$store.state.infoUserConnected 
-      && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === "entreprise") &&
-      this.form.optionsPaper === "Formel"
-      '>
+      v-if='this.form.optionsPaper === "Formelle"'>
         <div class="mb-3">
           <label class="form-label">Forme juridique <span style="color:red">*</span></label>
           <input v-model="form.forme_juridique" class="form-control" type="text" />
         </div>
       </div>
       <div class="col-md-12" 
-      v-if='this.$store.state.infoUserConnected && 
-      this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === "entreprise")
-      && this.form.optionsPaper === "Formel"
-      ' >
+      v-if='this.form.optionsPaper === "Formelle"'>
         <div class="mb-3">
           <label class="form-label">NCC (Numéro de compte contribuable) <span style="color:red">*</span></label>
           <input v-model="form.NCC" class="form-control" type="text" />
         </div>
       </div>
+       </div>
+    
   <!-- ----------ENTREPRISE/PARTICULIER------ -->
 
      <div
@@ -510,7 +544,7 @@ if (isStudentGroup) {
         <div class="mb-3">
           <label class="form-label">{{
             this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut == "entreprise")
-            && this.form.optionsPaper === "Formel"
+            && this.form.optionsPaper === "Formelle"
               ? "Contact téléphonique de l'entreprise"
               : "Contact téléphonique"
           }} <span style="color:red">*</span></label>
@@ -544,77 +578,7 @@ if (isStudentGroup) {
         </div>
       </div>
 
-<!-- -----ENTREPRISE----- -->
-
-      <div class="col-md-12" v-if="this.$store.state.infoUserConnected">
-        <div class="mb-3">
-          <label class="form-label">{{
-            this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')
-            && this.form.optionsPaper == "Formel"
-              ? "Contact mail de l'entreprise"
-              : "Email"
-          }} <span style="color:red">*</span> </label>
-          <input v-model="form.email" class="form-control" type="email" />
-        </div>
-      </div>
-      <div class="col-md-12 my-2" 
-      v-if="this.$store.state.infoUserConnected && 
-     this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')
-      && this.form.optionsPaper === 'Formel'
-      ">
-      <label class="form-label">Emails secondaires(cc)</label>
-      <n-dynamic-input
-       v-model:value="emails_cc"
-         placeholder="Ajoutez un email en copie"
-  :max="6"
-  :item-style="{
-    borderColor: 'gray'
-  }"
-/>
-      </div>
-        <section 
-      v-if="this.$store.state.infoUserConnected 
-      && $store.state.infoUserConnected.user?.statuses?.some(s => s.statut === 'Entreprise')
-      && this.form.optionsPaper === 'Formel'
-      ">
-        <div class="col-md-12">
-          <div class="my-3">
-            <label for="add_file_logo">Logo</label>
-            <input type="file" @input="addAnLogo" id="add_file_logo" class="w-100" />
-          </div>
-        </div>
-
-        <legend>Info sur le gérant</legend>
-        <div class="col-md-12">
-          <div class="mb-3">
-            <label class="form-label">Gérant <span style="color:red">*</span></label>
-            <input v-model="form.gerant" class="form-control" type="text" />
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="mb-3">
-            <label class="form-label">Numéro téléphonique du Gérant <span style="color:red">*</span></label>
-            <input v-model="form.numero_gerant" class="form-control" type="text" />
-          </div>
-        </div>
-      </section>
-
-  <!-- ---------'Etudiant', 'Professionnel', 'Artisan', 'Vétéran' , 'Particulier'------- -->
-     <div
-  class="col-md-12"
-  v-if="
-    $store.state.infoUserConnected &&
-    $store.state.infoUserConnected.user?.statuses?.some(s =>
-      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran','Particulier'].includes(s.statut)
-    )
-  "
->
-  <div class="mb-3">
-    <label class="form-label">Contact téléphonique</label>
-    <input v-model="form.phone" class="form-control" type="text" />
-  </div>
-      </div>
-  <!-- ---------Tout le monde ------- -->
+      <!-- ---------Tout le monde ------- -->
       <div class="col-md-12">
         <div class="mb-3">
           <label class="form-label">Ville</label>
@@ -633,8 +597,72 @@ if (isStudentGroup) {
           <input v-model="form.quartier" class="form-control" type="text" />
         </div>
       </div>
-  <!-- ---------'Etudiant','Professionnel','Veteran'------- -->
 
+<!-- -----ENTREPRISE----- -->
+ 
+ <div class="col-md-12" v-if="this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')">
+        <div class="mb-3">
+          <label class="form-label">{{
+            this.form.optionsPaper == "Formelle"
+              ? "Contact mail de l'entreprise"
+              : "Email"
+          }} <span style="color:red">*</span> </label>
+          <input v-model="form.email" class="form-control" type="email" />
+        </div>
+      </div>
+      <div class="col-md-12 my-2" 
+      v-if="this.form.optionsPaper === 'Formelle' && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')">
+      <label class="form-label">Emails secondaires(cc)</label>
+      <n-dynamic-input
+       v-model:value="emails_cc"
+         placeholder="Ajoutez un email en copie"
+  :max="6"
+  :item-style="{
+    borderColor: 'gray'
+  }"
+/>
+      </div>
+        <div class="col-md-12" v-if="this.form.optionsPaper === 'Formelle' && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')">
+          <div class="my-3">
+            <label for="add_file_logo">Logo (jpg,webp)</label>
+            <input type="file" accept="image/*" @change="chargerLogoEntreprise" id="add_file_logo" class="w-100" />
+          </div>
+        </div>
+        <span v-if="this.form.optionsPaper === 'Formelle' && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')">Info sur le gérant</span>
+        <div class="col-md-12" v-if="this.form.optionsPaper === 'Formelle' && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')">
+          <div class="mb-3">
+            <label class="form-label">Gérant <span style="color:red">*</span></label>
+            <input v-model="form.gerant" class="form-control" type="text" />
+          </div>
+        </div>
+        <div class="col-md-12" v-if="this.form.optionsPaper === 'Formelle' && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')">
+          <div class="mb-3">
+            <label class="form-label">Numéro téléphonique du Gérant <span style="color:red">*</span></label>
+            <input v-model="form.numero_gerant" class="form-control" type="text" />
+          </div>
+        </div>
+        <div class="col-md-12" v-if="this.form.optionsPaper === 'Formelle' && this.$store.state.infoUserConnected?.user?.statuses?.some(s => s.statut === 'Entreprise')">
+            <label for="add_file_logo">Pièce d'identité du gérant</label>
+            <input type="file" accept="image/*" @change="handleCNIForEntrepriseInformelle" id="add_file_logo" class="w-100" />
+          </div>
+ 
+<!-- ---------'Etudiant', 'Professionnel', 'Artisan', 'Vétéran' , 'Particulier'------- -->
+     <div
+  class="col-md-12"
+  v-if="
+    $store.state.infoUserConnected &&
+    $store.state.infoUserConnected.user?.statuses?.some(s =>
+      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran','Particulier'].includes(s.statut)
+    )
+  "
+>
+  <div class="mb-3">
+    <label class="form-label">Contact téléphonique</label>
+    <input v-model="form.phone" class="form-control" type="text" />
+  </div>
+      </div>
+  
+  <!-- ---------'Etudiant','Professionnel','Veteran'------- -->
       <section 
      v-if="
     $store.state.infoUserConnected &&
@@ -690,11 +718,11 @@ if (isStudentGroup) {
 
              <section v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Etudiant'].includes(s.statut))">
             <div style="padding:0.6em 0;">
-              <label class="form-label">Carte national d'identité/ Pièce justificative</label>
-              <div v-if="form?.carteEtudiant?.length">
+              <label class="form-label">Carte étudiant</label>
+              <div v-if="form?.pieceJointes?.length">
              <small class="text-muted">
-        Vous pouvez remplacer votre Carte national d'identité ou Pièce justificative
-    </small>
+             Vous pouvez remplacer votre carte étudiant
+             </small>
             <input
       type="file"
       accept="image/*"
@@ -722,7 +750,7 @@ if (isStudentGroup) {
           v-if="$store.state.infoUserConnected.user?.statuses?.some(s =>['Professionnel', 'Vétéran','Particulier','Artisan'].includes(s.statut))">
             <div style="padding:0.6em 0;">
               <label class="form-label">CNI/Passeport/Carte consulaires</label>
-              <div v-if="form?.pieceCNI?.length">
+              <div v-if="form?.pieceJointes?.length">
              <small class="text-muted">
         Vous pouvez remplacer votre CNI / Passeport / Carte consulaires
           </small>
@@ -860,9 +888,7 @@ if (isStudentGroup) {
       </button>
        <button
         v-else
-       :class="{ 'disabled-custom': isCompanyDisabled }"
         class="btn bg-warning"
-        :disabled="isCompanyDisabled"
         style="border: none"
         @click.prevent="handleUpdate(this.form,'entreprises')"
       >

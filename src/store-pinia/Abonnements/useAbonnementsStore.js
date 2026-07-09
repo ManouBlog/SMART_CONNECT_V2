@@ -27,8 +27,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const commune = ref(null);
         const quartier = ref(null);
         const statut_professionnel_artisan = ref(null);
-        
-
+        const upload = ref(null);
         const Phonegerant = ref(null);
         const contact = ref(null);
         const matricule_cc = ref(null);
@@ -42,6 +41,9 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const email_cc = ref(null);
         const statut_entreprise = ref(null)
         const nom = ref(null);
+        const registre_pdf = ref(null);
+        const logo_entreprise = ref(null);
+        const cni = ref(null);
 
    const handleChangeProfil = (payload)=>{
     isChangeProfil.value = payload
@@ -53,19 +55,23 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
     profilHybride.value = payload
    }
 const handleChangeInfoForAbonnement = (payload) => {
+    console.info("handleChangeInfoForAbonnement_send", payload);
   // Toujours vérifier que payload est un objet
   if (!payload || typeof payload !== "object") {
-    console.warn("handleChangeInfoForAbonnement : payload invalide", payload);
+    console.error("handleChangeInfoForAbonnement : payload invalide", payload);
     return;
   }
-
-  // console.log("payload_handleChangeInfoForAbonnement ", payload);
 if ("nom" in payload) {
     nom.value = payload.nom;
   }
-  // Assigner seulement si la propriété existe dans payload
+  if("cni" in payload){
+    cni.value = payload.cni
+  }
   if ("niveauExpertise" in payload) {
     niveauExpertise.value = payload.niveauExpertise;
+  }
+  if ("upload" in payload) {
+    upload.value = payload.upload;
   }
   if ("modeTravail" in payload) {
     modeTravail.value = payload.modeTravail;
@@ -91,6 +97,15 @@ if ("nom" in payload) {
   if ("diplome" in payload) {
     diplome.value = payload.diplome;
   }
+  if ("registre_pdf" in payload) {
+    registre_pdf.value = payload.registre_pdf;
+  }
+
+  if ("logo_entreprise" in payload) {
+    logo_entreprise.value = payload.logo_entreprise;
+  }
+  
+
   if ("ville" in payload) {
     ville.value = payload.ville;
   }
@@ -135,7 +150,7 @@ if ("gerant" in payload) {
 }
 
 if ("Phonegerant" in payload) {
-  Phonegerant.value = payload.countryCodePhoneGerant+payload.Phonegerant;
+  Phonegerant.value =  payload.Phonegerant ? payload.countryCodePhoneGerant+payload.Phonegerant:null;
 }
 if("email_cc" in payload){
   email_cc.value = payload.email_cc
@@ -149,7 +164,6 @@ if("statut_entreprise" in payload){
     statutOfBase.value = payload;
    }
    const createAbonement = async (payload)=>{
-    // console.log("createAbonementlance",payload)
       if(!store.state.token){
         RegisterStore.changeValueIsModal()
       }else{
@@ -181,9 +195,12 @@ if("statut_entreprise" in payload){
         statut_professionnel_artisan,
         cleanProfilHybide,
         Phonegerant,
-         contact ,
-         matricule_cc ,
+         contact,
+         matricule_cc,
+         upload,
          juridique ,
+         registre_pdf,
+         logo_entreprise,
          ncc ,
          phone ,
          email ,
@@ -192,6 +209,7 @@ if("statut_entreprise" in payload){
          countryCode,
          email_cc,
          statut_entreprise,
-         nom
+         nom,
+         cni
     }
 })

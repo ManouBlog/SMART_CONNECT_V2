@@ -208,7 +208,7 @@ export default {
       userInfo:"",
       otherDomaine: "",
       otherPoste: "",
-      pointage: "",
+      pointage: null,
       nbre_person: 1,
       job_fin: "",
       job_debut: "",
@@ -229,7 +229,6 @@ export default {
         this.debut &&
         this.fin &&
         this.lieu &&
-        this.pointage &&
         this.competence &&
         this.chooseStatut.length > 0
       );
@@ -748,7 +747,7 @@ chooseCompetenceFormState(value) {
     </div>
     <div class="col-lg-6 col-md-6 col-12 text-left my-3">
       <label><span style="color: red">*</span>{{ texte8 }}</label>
-      <input class="form-control" type="text" v-model="salaire" placeholder="ex:35000" />
+      <input class="form-control" type="text" v-model="salaire" placeholder="ex:35000 Fcfa" />
     </div>
   </div>
 

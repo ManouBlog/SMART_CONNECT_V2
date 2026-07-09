@@ -166,15 +166,11 @@ this.selectedParseStatus = ""
        >
       <template #header>
         <div class="modal-header">
-          <h3>Changer le profil de base </h3>
+          <h3>Changer le profil de base</h3>
         </div>
       </template>
       
-      <section v-if="allStatuses.length"
-  
->
-     
-  
+      <section v-if="allStatuses.length">
   <div>
   <FieldsCompany
   :profilOfAbonnement="selectedParseStatus"

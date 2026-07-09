@@ -1,22 +1,16 @@
 import { defineStore } from 'pinia'
-// import { ref } from 'vue'
-// import { useStore } from 'vuex';
 import Swal from "sweetalert2";
 import instance from "../api/api";
 import { useLoadingSpinner } from "../store-pinia/LoadingSpinner/useLoadingSpinner";
-// import axios from 'axios'
-// import Paystack from '@paystack/inline-js';
-// import { useEntreprisesStore } from "../store-pinia/Entreprise/useEntreprisesStore";
+
 
 export const useCinetpayStore = defineStore('cinetpay',()=>{
 const storeLoading = useLoadingSpinner();
-// const storeEntreprise = useEntreprisesStore();
-    // const PAYSTACK_PUBLIC_KEY = ref(process.env.VUE_APP_PAYSTACK_PUBLIC_KEY);
 
     const paymentCinetpay = async (payload)=>{
-        // console.log("paymentCinetpaylancer",payload)
+     
         storeLoading.launchLoading(true);
-        
+
         try{
            const RESPONSEINITALISATION = await instance.post("payStack/paiement",payload);
             //  console.log("RESPONSEINITALISATION",RESPONSEINITALISATION)
@@ -27,7 +21,6 @@ const storeLoading = useLoadingSpinner();
               showConfirmButton: false,
               timer: 3500,
             });
-            //  localStorage.setItem('@reference',JSON.stringify(randomPart))
              window.location.href = RESPONSEINITALISATION.data.data.authorization_url;
              }
         }catch(error){
