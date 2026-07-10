@@ -81,7 +81,7 @@ export default {
           <CardFooter
             :isWhite="true"
             :title="texte6"
-            :listLien="['Abidjan , Angré 7e tranche , Avenue Robert Beugre Mambe']"
+            :listLien="['Angré 7e tranche , Avenue Robert Beugre Mambe']"
           />
          
         </div>

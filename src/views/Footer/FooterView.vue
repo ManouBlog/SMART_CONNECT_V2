@@ -10,7 +10,7 @@ const {
 const Statut = ref(statut);
 const ADRESSE = ref([
   {
-    libelle: "Abidjan , Angré 7e tranche , Avenue Robert Beugre Mambe",
+    libelle: "Angré 7e tranche , Avenue Robert Beugre Mambe",
     isVisible: true,
     img: false,
   },

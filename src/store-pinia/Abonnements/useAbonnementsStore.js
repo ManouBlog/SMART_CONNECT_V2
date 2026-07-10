@@ -44,6 +44,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
         const registre_pdf = ref(null);
         const logo_entreprise = ref(null);
         const cni = ref(null);
+        const cni_carte = ref(null);
        
 
    const handleChangeProfil = (payload)=>{
@@ -67,6 +68,9 @@ if ("nom" in payload) {
   }
   if("cni" in payload){
     cni.value = payload.cni
+  }
+  if("cni_carte" in payload){
+    cni_carte.value = payload.cni_carte
   }
   if ("niveauExpertise" in payload) {
     niveauExpertise.value = payload.niveauExpertise;

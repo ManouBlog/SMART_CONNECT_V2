@@ -216,6 +216,8 @@ const handleCreateYear = (payload) => {
   if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
   if (storeAbonnement.photo) formData.append('photo', storeAbonnement.photo);
 
+    if (storeAbonnement.cni_carte) formData.append('cni_carte', storeAbonnement.cni_carte);
+
   // Ajout des tableaux avec JSON.stringify pour Laravel
   if (storeAbonnement.profilHybride?.length) {
     storeAbonnement.profilHybride

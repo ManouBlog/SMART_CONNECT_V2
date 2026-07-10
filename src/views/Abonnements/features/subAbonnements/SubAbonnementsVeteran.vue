@@ -93,6 +93,11 @@ formData.append(
 );
 
 formData.append(
+  "cni_carte",
+  storeAbonnement.cni_carte ?? ""
+);
+
+formData.append(
   "tempsTravail",
   storeAbonnement.tempsTravail ?? ""
 );

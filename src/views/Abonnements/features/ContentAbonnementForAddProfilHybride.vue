@@ -170,7 +170,7 @@ const handleCreateMonth = (payload) => {
       storeAbonnement.statutOfBase || statutBaseUser
     );
   }
-
+  if (storeAbonnement.cni_carte) formData.append('cni_carte', storeAbonnement.cni_carte);
   if (storeAbonnement.treatment_preferentiel) {
     formData.append(
       "treatment_preferentiel",
@@ -213,6 +213,7 @@ const handleCreateMonth = (payload) => {
   if (storeAbonnement.quartier) {
     formData.append("quartier", storeAbonnement.quartier);
   }
+
 
   if (storeAbonnement.statut_professionnel_artisan) {
     formData.append(
@@ -307,7 +308,7 @@ const handleCreateYear = (payload) => {
   if (storeAbonnement.juridique) formData.append('juridique', storeAbonnement.juridique);
   if (storeAbonnement.matricule_cc) formData.append('matricule_cc', storeAbonnement.matricule_cc);
   if (storeAbonnement.contact) formData.append('contact', storeAbonnement.contact);
-
+  if (storeAbonnement.cni_carte) formData.append('cni_carte', storeAbonnement.cni_carte);
   // console.log("veux_ajouter_des_profils_hybrides_year98",formData)
   storeAbonnement.createAbonement(formData)
 }

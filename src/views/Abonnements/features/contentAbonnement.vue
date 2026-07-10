@@ -138,7 +138,7 @@ const handleCreateMonth = (payload) => {
   if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVupload);
   if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
   if (storeAbonnement.photo) formData.append('photo', storeAbonnement.photo);
-
+  if (storeAbonnement.cni_carte) formData.append('cni_carte', storeAbonnement.cni_carte);
   // Logique profilHybride préservée
   if (storeAbonnement.profilHybride?.length) {
     storeAbonnement.profilHybride
@@ -175,7 +175,7 @@ const handleCreateYear = (payload) => {
   if (storeAbonnement.CVupload) formData.append('CVupload', storeAbonnement.CVupload);
   if (storeAbonnement.statut_talent) formData.append('statut_talent', storeAbonnement.statut_talent);
   if (storeAbonnement.photo) formData.append('photo', storeAbonnement.photo);
-
+  if (storeAbonnement.cni_carte) formData.append('cni_carte', storeAbonnement.cni_carte);
   // Logique profilHybride préservée
   // Ajout des tableaux avec JSON.stringify pour Laravel
   if (storeAbonnement.profilHybride?.length) {

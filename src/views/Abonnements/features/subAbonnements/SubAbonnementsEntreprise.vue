@@ -53,7 +53,9 @@ const handleCreateEntrepriseByYear = (payload) => {
     ncc: storeAbonnement.ncc,
     juridique: storeAbonnement.juridique,
     matricule_cc: storeAbonnement.matricule_cc,
-    addProfilHybride: storeAbonnement.addProfilHybride
+    addProfilHybride: storeAbonnement.addProfilHybride,
+    cni_carte: storeAbonnement.cni_carte
+
   }
 
   console.log("DATAEND", data)
@@ -67,6 +69,7 @@ const handleCreateEntrepriseByYear = (payload) => {
 
 
   if (data.transaction_id) formData.append('transaction_id', data.transaction_id);
+  if (data.cni_carte) formData.append('cni_carte', data.cni_carte);
   if (data.isAddProfilHybride !== undefined) formData.append('isAddProfilHybride', data.isAddProfilHybride);
   if (data.statut_base) formData.append('statut_base', data.statut_base);
   if (data.isChangeProfil !== undefined) formData.append('isChangeProfil', data.isChangeProfil);
@@ -201,9 +204,9 @@ onMounted(async () => {
     <div v-for="item in abonnements.filter(
       (item) => item.categorie.categorie === type_abonnements
     )" :key="item.id" :class="item?.libelle == 'BROBROLI PRO'
-          ? 'color_brobroli_pro'
-          : 'color_brobroli_pro_max'
-        ">
+      ? 'color_brobroli_pro'
+      : 'color_brobroli_pro_max'
+      ">
       <div style="position: relative;height:70px;">
         <h1 class="text-center main-color" style="font-size: 1.5em;">
           {{ item.libelle }}
