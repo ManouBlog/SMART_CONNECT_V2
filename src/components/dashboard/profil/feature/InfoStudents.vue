@@ -374,10 +374,10 @@ export default {
     )">
    <ParagrapheDetail
     :item="{
-      libelle: 'Pièces Jointes',
+      libelle: 'Titre d\'identifications',
       value: null,
       valueArray: infoPersonnelles.user.photos.filter(item =>
-        !item.path.includes('CNI') &&
+        !item.path.includes('CNI') || !item.path.includes('cni')  &&
         !item.path.includes('Carte_etudiant')
       )
     }"
