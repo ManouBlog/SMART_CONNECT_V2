@@ -34,7 +34,8 @@ export default {
     ...mapState(useEntreprisesStore, ["list_abonnement","planAbonnement"]),
   MyMontantAbonnement(){
   if(this.planAbonnement.add_profil_hybrides.length > 0){
-    return Number(this.planAbonnement.montant) + Number(this.planAbonnement.add_profil_hybrides.reduce((acc,cur)=>acc + cur.montant,0))
+
+    return Number(this.planAbonnement.montant) + Number(this.planAbonnement.add_profil_hybrides.reduce((acc,cur)=>acc + Number(cur.montant),0))
   }
   return Number(this.planAbonnement.montant)
 }

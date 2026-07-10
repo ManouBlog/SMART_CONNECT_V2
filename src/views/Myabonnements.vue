@@ -75,7 +75,7 @@
 
               <div class="col-md-6 mb-3">
                 <strong>Fin de l'abonnement :</strong>
-                <div>{{ detailsAbonnement?.echeance }}</div>
+                <div>{{ configUtils.getFormatDateFr(detailsAbonnement?.echeance) }}</div>
               </div>
             </div>
             <div class="row mb-3">

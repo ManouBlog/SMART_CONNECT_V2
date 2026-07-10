@@ -1,12 +1,7 @@
 <template>
   <LoadingSpinner v-if="spinnerLoading" />
-   <a-modal
-    v-model:open="showModal"
-    title="Connexion"
-    :ok-button-props="{ style: { display: 'none' } }"
-    :cancel-text="'Fermer'"
-    :closable="false"
-  >
+  <a-modal v-model:open="showModal" title="Connexion" :ok-button-props="{ style: { display: 'none' } }"
+    :cancel-text="'Fermer'" :closable="false">
     <p style="color:red;">Vous êtes hors ligne. Veuillez vérifier votre connexion internet.</p>
 
   </a-modal>
@@ -16,16 +11,11 @@
     <!-- <updateProfiIfNot /> -->
     <!-- Sinon, on affiche le countdown -->
     <!-- <CountDownView v-else :targetDate="lancementDate" /> -->
-      <WhatsAppButton phone="2250707969672" />
+    <WhatsAppButton phone="2250707969672" />
   </div>
   <div v-if="isDatePassed && !spinnerLoading">
-    <PromotionModal
-      v-if="shouldShowPromo"
-      v-model:visible="showPromo"
-      :ctaAction="handleCta"
-      header="🎓 Offre Étudiants Exceptionnelle !"
-      :buttonTitle="true"
-    >
+    <PromotionModal v-if="shouldShowPromo" v-model:visible="showPromo" :ctaAction="handleCta"
+      header="🎓 Offre Étudiants Exceptionnelle !" :buttonTitle="true">
       <p style="font-size: 1.2em; margin-bottom: 1em">
         Soyez parmi les 1000 premiers abonnés (PLATINUM) et recevez 2 mois offerts
         automatiquement !
@@ -34,20 +24,14 @@
         Une opportunité rare pour profiter pleinement de nos services à moindre coût.
       </p>
     </PromotionModal>
-    <PromotionModal
-      v-if="isUserParticulierEntreprise"
-      v-model:visible="showPromoParticulierAndEntreprise"
-      :ctaAction="handleParticulierCta"
-      :buttonTitle="false"
-      header="🚀 Publiez votre première offre gratuitement"
-    >
+    <PromotionModal v-if="isUserParticulierEntreprise" v-model:visible="showPromoParticulierAndEntreprise"
+      :ctaAction="handleParticulierCta" :buttonTitle="false" header="🚀 Publiez votre première offre gratuitement">
       <p style="font-size: 1.2em; margin-bottom: 1em">
         Publiez votre première offre gratuitement… et recrutez votre premier talent sans
         frais.
       </p>
       <p style="margin-bottom: 1em">Lancez-vous dès maintenant, c’est 100% offert</p>
-      <button
-        style="
+      <button style="
           background-color: #ff9900;
           font-weight: bold;
           width: 100%;
@@ -58,9 +42,7 @@
           line-height: 1.3;
           padding: 14px 16px;
           text-align: center;
-        "
-        @click="gotoCreatedOffre"
-      >
+        " @click="gotoCreatedOffre">
         OK
       </button>
     </PromotionModal>
@@ -86,32 +68,32 @@ export default {
   },
   data() {
     return {
-       network: null,
+      network: null,
       user: this.$store.state.user,
       isDatePassed: false,
       lancementDate: "",
-      showModal:false,
+      showModal: false,
       showPromo: true,
       showPromoParticulierAndEntreprise: false,
       students: null,
       offreCreatedByEntreprise: [],
       spinnerLoading: true,
-      isOnline:false
+      isOnline: false
     };
   },
   computed: {
     isUserEtudiant() {
-    const statuses = this.$store?.state?.user?.user?.statuses || [];
+      const statuses = this.$store?.state?.user?.user?.statuses || [];
 
-    return statuses?.some(s => s.statut === "etudiant");
-  },
+      return statuses?.some(s => s.statut === "etudiant");
+    },
     isUserParticulierEntreprise() {
-  const statuses = this.$store?.state?.user?.user?.statuses || [];
+      const statuses = this.$store?.state?.user?.user?.statuses || [];
 
-  return statuses?.some(s =>
-    ['particulier', 'Entreprise'].includes(s.statut)
-  );
-  },
+      return statuses?.some(s =>
+        ['particulier', 'Entreprise'].includes(s.statut)
+      );
+    },
     shouldShowPromo() {
       const limit = this.students !== null && this.students < 1000;
       return limit && this.isUserEtudiant;
@@ -141,28 +123,28 @@ export default {
   },
   methods: {
     async getAllOffresCreatedByEntreprise() {
-  const hasAccess = this.$store?.state?.user?.user?.statuses?.some(
-    s => ['particulier', 'Entreprise'].includes(s.statut)
-  );
+      const hasAccess = this.$store?.state?.user?.user?.statuses?.some(
+        s => ['particulier', 'Entreprise'].includes(s.statut)
+      );
 
-  if (!hasAccess) return;
+      if (!hasAccess) return;
 
-  try {
-    const response = await instance.get("get_offres_entreprise");
+      try {
+        const response = await instance.get("get_offres_entreprise");
 
-    if (response.status === 200) {
-      if (!response.data.data.length) {
-        this.showPromoParticulierAndEntreprise = true;
+        if (response.status === 200) {
+          if (!response.data.data.length) {
+            this.showPromoParticulierAndEntreprise = true;
+          }
+        }
+      } catch (error) {
+        console.log(error);
       }
-    }
-  } catch (error) {
-    console.log(error);
-  }
-},
+    },
     async NbreEtudiantsInscritAndDoAbonnement() {
       try {
         const response = await instance.get("getUserDoAbonnement");
-    
+
         if (response.data.status) {
           this.students = response.data.total;
         }
@@ -241,7 +223,7 @@ export default {
 
         if (response.status === 200 && response.data?.data?.date) {
           this.lancementDate = response.data.data.date;
-         
+
           this.checkDate(this.lancementDate);
         }
       } catch (error) {
@@ -257,88 +239,112 @@ export default {
     this.isLancement();
     localStorage.setItem("translate", "fr");
     this.NbreEtudiantsInscritAndDoAbonnement();
-  this.isOnline = this.network?.isOnline
+    this.isOnline = this.network?.isOnline
   },
 };
 </script>
 <style>
-.ant-btn-default:not(:disabled):active,.ant-btn-default:not(:disabled):hover{
+.ant-btn-default:not(:disabled):active,
+.ant-btn-default:not(:disabled):hover {
   color: orange !important;
   border-color: orange !important;
 }
-.multiselect__tags{
+
+.multiselect__tags {
   border: 1.5px solid orange !important;
 }
-.text-danger{
+
+.text-danger {
   color: red !important;
 }
-a:focus{
+
+a:focus {
   outline: none !important;
 }
+
 a:focus-visible {
   box-shadow: 0 0 0 3px rgba(254, 254, 254, 0.5) !important;
 }
-:where(.css-17yhhjv).ant-tabs .ant-tabs-ink-bar{
+
+:where(.css-17yhhjv).ant-tabs .ant-tabs-ink-bar {
   background-color: orange !important;
 }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-btn-primary{
+
+:where(.css-dev-only-do-not-override-17yhhjv).ant-btn-primary {
   background-color: orange !important;
 }
+
 :where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-tab:hover {
   color: orange !important;
 }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-ink-bar  {
+
+:where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-ink-bar {
   background: orange !important;
 }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper:hover{
+
+:where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper:hover {
   color: orange !important;
 }
+
 .switch-green.ant-switch-checked {
-  background-color: #52c41a !important; /* vert Ant Design */
+  background-color: #52c41a !important;
+  /* vert Ant Design */
 }
+
 .ant-select-dropdown {
   z-index: 100000 !important;
 }
-.ant-radio-group-solid :where(.css-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+
+.ant-radio-group-solid :where(.css-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
   background: orange !important;
   color: rgb(239, 239, 239) !important;
-  border-color:orange !important;
+  border-color: orange !important;
 }
 
-:where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+:where(.css-dev-only-do-not-override-17yhhjv).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: orange !important;
-  text-shadow:0 0 0.25px orange !important;
+  text-shadow: 0 0 0.25px orange !important;
 }
-.ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+
+.ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
   background-color: orange !important;
 }
-.ant-radio-group-solid :where(.css-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before{
+
+.ant-radio-group-solid :where(.css-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
   background-color: orange !important;
 }
-.n-tabs.n-tabs--line-type .n-tabs-tab:hover,:where(.css-17yhhjv).ant-radio-button-wrapper:hover{
+
+.n-tabs.n-tabs--line-type .n-tabs-tab:hover,
+:where(.css-17yhhjv).ant-radio-button-wrapper:hover {
   color: orange !important;
 }
-:where(.css-17yhhjv).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+
+:where(.css-17yhhjv).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #ffa500 !important;
-  text-shadow:0 0 0.25px orange !important;
+  text-shadow: 0 0 0.25px orange !important;
 }
-.anticon{
-  color:#333 !important;
+
+.anticon {
+  color: #333 !important;
 }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
+
+:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
   height: 40px !important;
 }
+
 .n-input {
   --n-border: 1px solid rgb(167, 167, 167) !important;
   --n-border-hover: 1px solid rgb(167, 167, 167) !important;
   --n-border-focus: 1px solid rgb(216, 216, 216) !important;
   --n-box-shadow-focus: none !important;
 }
+
 .n-button--primary {
   --n-color: #333 !important;
   --n-color-hover: #555 !important;
   --n-color-pressed: #111 !important;
 }
+
 /* Entrée */
 .fade-slide-enter-active {
   transition: all 0.4s ease;
@@ -371,6 +377,7 @@ a:focus-visible {
   opacity: 0;
   transform: translateY(10px);
 }
+
 .round-container {
   display: flex;
   flex-wrap: wrap;
@@ -410,100 +417,128 @@ a:focus-visible {
   transform: scale(1.05);
 }
 
-.myconteneur{
+.myconteneur {
   margin-top: 9em;
 }
+
 @media screen and (max-width:1200px) {
- .myconteneur{
-  margin-top: 6em;
+  .myconteneur {
+    margin-top: 6em;
+  }
 }
-}
+
 @media screen and (max-width:900px) {
- .myconteneur{
-  margin-top: 6em;
-}
+  .myconteneur {
+    margin-top: 6em;
+  }
 }
 
 
 /* Etat sélectionné */
-.round-item input:checked + .round-label {
+.round-item input:checked+.round-label {
   background: orange;
   color: white;
   border-color: orange;
   box-shadow: 0 0 10px teal;
 }
- 
+
 .disabled-custom {
-  background-color: #e9ecef !important; /* gris bootstrap */
+  background-color: #e9ecef !important;
+  /* gris bootstrap */
   color: #6c757d !important;
   cursor: not-allowed;
   opacity: 0.8;
   border: 1px solid #ced4da !important;
 }
+
 .disabled-custom:focus {
   box-shadow: none !important;
 }
-.stars svg{
-  margin:0 0.1em !important;
+
+.stars svg {
+  margin: 0 0.1em !important;
 }
+
 :deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-btn-primary) {
-    background-color: #ff8819 !important;
+  background-color: #ff8819 !important;
 }
 
 
-:deep(:where(.n-button:not(.n-button--disabled):active,.n-button:not(.n-button--disabled):hover)){
-    color:orange !important;
-  }
+:deep(:where(.n-button:not(.n-button--disabled):active, .n-button:not(.n-button--disabled):hover)) {
+  color: orange !important;
+}
+
 :deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus) {
   border-color: orange !important;
 }
+
 .p-tooltip-text {
   font-size: 2.5em !important;
   font-weight: bold;
 }
+
 .element {
   overflow: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE/Edge */
 }
 
 .element::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
+  /* Chrome, Safari, Opera */
 }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus, :where(.css-dev-only-do-not-override-17yhhjv).ant-input-focused,:where(.css-dev-only-do-not-override-17yhhjv).ant-input:hover,:where(.css-dev-only-do-not-override-17yhhjv).ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover,
-:where(.css-dev-only-do-not-override-17yhhjv).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector{
+
+:where(.css-dev-only-do-not-override-17yhhjv).ant-input:focus,
+:where(.css-dev-only-do-not-override-17yhhjv).ant-input-focused,
+:where(.css-dev-only-do-not-override-17yhhjv).ant-input:hover,
+:where(.css-dev-only-do-not-override-17yhhjv).ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover,
+:where(.css-dev-only-do-not-override-17yhhjv).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
   border-color: orange !important;
 }
-.ant-select-item-option-content{
+
+.ant-select-item-option-content {
   color: rgb(0, 0, 0) !important;
 }
-.n-button:not(.n-button--disabled):active{
+
+.n-button:not(.n-button--disabled):active {
   color: orange !important;
 }
-.swal2-styled.swal2-confirm,.swal2-styled.swal2-confirm:focus{
+
+.swal2-styled.swal2-confirm,
+.swal2-styled.swal2-confirm:focus {
   background-color: orange !important;
   box-shadow: 0 0 0 3px orange !important;
 }
-.n-pagination
-  .n-pagination-item:not(.n-pagination-item--disabled).n-pagination-item--active {
+
+.n-pagination .n-pagination-item:not(.n-pagination-item--disabled).n-pagination-item--active {
   color: orange !important;
   border: 1px solid orange !important;
 }
-.badge{
+
+.badge {
   background-color: #265028;
   font-weight: bold !important;
 }
+
 .swal2-container {
   z-index: 999999 !important;
 }
+
 .ant-upload-list-item-error,
 .ant-upload-list-item-error .ant-upload-list-item-name {
   color: green !important;
   border-color: green !important;
 }
+
 .color_yellow .p-rating-item.p-rating-item-active .p-rating-icon,
 .n-tabs.n-tabs--line-type .n-tabs-tab.n-tabs-tab--active {
   color: rgb(255, 208, 0) !important;
+}
+
+:where(.css-17yhhjv).ant-card .ant-card-head {
+  background-color: orange !important;
 }
 
 .color_gold .p-rating-item.p-rating-item-active .p-rating-icon,
@@ -515,6 +550,7 @@ a:focus-visible {
 .multiselect__tag {
   background-color: orange !important;
 }
+
 html {
   font-size: 0.89em;
 }
@@ -522,14 +558,17 @@ html {
 .router-link-exact-active {
   color: orange !important;
 }
-.ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+
+.ant-radio-group-solid :where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
   background-color: orange !important;
   color: rgb(239, 239, 239) !important;
   border: thin orange !important;
 }
-:where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before{
+
+:where(.css-dev-only-do-not-override-17yhhjv).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
   background-color: orange !important;
 }
+
 .multiselect__option--highlight,
 .p-button-icon-only {
   background: orange !important;
@@ -539,24 +578,27 @@ html {
   display: flex;
   justify-content: flex-end;
 }
+
 .not_data {
   text-align: center;
 }
+
 .ant-input {
   padding: 0.7em !important;
 }
-.p-column-header-content{
+
+.p-column-header-content {
   justify-content: center;
 }
-.vue3-star-ratings__wrapper{
+
+.vue3-star-ratings__wrapper {
   margin: 0 !important;
 }
 
 @media screen and(max-width:700px) {
   :where(.css-dev-only-do-not-override-17yhhjv).ant-modal .ant-modal-content {
-  width:800px !important;
-  overflow: auto !important;
+    width: 800px !important;
+    overflow: auto !important;
+  }
 }
-}
-
 </style>
