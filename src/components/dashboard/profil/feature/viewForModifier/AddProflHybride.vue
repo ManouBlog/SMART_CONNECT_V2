@@ -333,7 +333,7 @@ export default {
         </a-row>
         <a-form-item>
           <a-button type="primary" @click="validateAndSubmit">
-            Ajouter
+            Ajouter un profil hybride
           </a-button>
         </a-form-item>
 

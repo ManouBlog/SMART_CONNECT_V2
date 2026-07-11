@@ -245,13 +245,10 @@ const handleCreateMonth = (payload) => {
   storeAbonnement.createAbonement(formData)
 }
 const handleCreateYear = (payload) => {
-  // console.log("handleCreateAbonnement90")
-  // console.log("handleCreateYear",payload)
-  // console.log("select_mode_payment_tab.value",select_mode_payment_tab.value)
-  // console.log("storeAbonnement",storeAbonnement)
+  
   const randomPart = `web${Math.random().toString(36).substring(2)}`
   const statutBaseUser = store.state.user?.user?.statut_base;
-  // console.log('statutBaseUser',statutBaseUser)
+
   const formData = new FormData();
 
   // Ajout des champs simples
@@ -325,12 +322,9 @@ onMounted(async () => {
       color_btn: "primary",
     },
   ];
-  // console.log("INFO_SUR_USER",store.state.user)
-  // console.log("ISCHANGE_PROFIL_INCONTENTABONNENEMENT_FORADDHYBRIDES",storeAbonnement.isChangeProfil)
   if (storeAbonnement.isChangeProfil) {
     const statutBase = store.state.user?.user?.statut?.statut;
     const AllProfilHybride = store.state.user?.user?.statuses?.filter(item => item.statut !== statutBase)
-    // console.log("AllProfilHybride",AllProfilHybride)
     const payload = { profilHybride: AllProfilHybride }
     storeAbonnement.handleChangeInfoForAbonnement(payload)
   }
