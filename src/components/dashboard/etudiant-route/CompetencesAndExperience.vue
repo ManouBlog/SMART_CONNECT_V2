@@ -354,14 +354,14 @@ export default {
 
       return this.MyExperiences.slice(startIndex, endIndex);
     },
-     isExperienceValid() {
-    return (
-      this.poste?.trim() &&
-      this.entreprise?.trim() &&
-      this.lieu?.trim() &&
-      this.dateDebut 
-    );
-  },
+    isExperienceValid() {
+      return (
+        this.poste?.trim() &&
+        this.entreprise?.trim() &&
+        this.lieu?.trim() &&
+        this.dateDebut
+      );
+    },
   },
   watch: {
     competence(newVal) {
@@ -387,7 +387,7 @@ export default {
     this.texte10 = await this.handleTranslate('Poste');
     this.texte11 = await this.handleTranslate("Nom de l'entreprise");
     this.texte12 = await this.handleTranslate('Lieu');
-    this.texte13 = await this.handleTranslate('Document');
+    this.texte13 = await this.handleTranslate('Fichier chargé');
     this.texte14 = await this.handleTranslate('Ajoutez un fichier');
     this.texte15 = await this.handleTranslate('Description (facultatif)');
     this.texte16 = await this.handleTranslate('Voulez-vous vraiment supprimer la compétence?');
@@ -435,8 +435,8 @@ export default {
               <label><span style="color:red;">*</span>{{ texte3 }}</label>
               <input type="text" style="height: 45px;" v-model="lieu" required />
             </div>
-            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start periode_experience" 
-            style="display: flex; gap:1em;justify-content: space-between;">
+            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start periode_experience"
+              style="display: flex; gap:1em;justify-content: space-between;">
               <div style="width: 100%;">
                 <label><span style="color:red;">*</span>{{ texte4 }}</label>
                 <input type="date" style="height: 45px;" v-model="dateDebut" required />
@@ -449,7 +449,7 @@ export default {
 
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>{{ texte6 }}</label>
-              <input  type="file" style="height: 45px;border:none !important" accept="image/*" @change="onFileProof" />
+              <input type="file" style="height: 45px;border:none !important" accept="image/*" @change="onFileProof" />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start" style="padding:0 !important">
               <label>{{ texte7 }}</label>
@@ -457,9 +457,8 @@ export default {
             </div>
           </div>
           <div class="text-center my-5">
-            <button type="submit" class="btn btn-warning" 
-            :disabled="!isExperienceValid"
-            style="width: auto;">{{ texte8 }}</button>
+            <button type="submit" class="btn btn-warning" :disabled="!isExperienceValid" style="width: auto;">{{ texte8
+              }}</button>
           </div>
         </form>
       </div>
@@ -472,49 +471,51 @@ export default {
             <h3>{{ texte9 }}</h3>
           </div>
         </div>
-        <form @submit.prevent="changeExperience" class="container" style="padding: 4.5em;">
-          <div class="row p-2">
-            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <label>{{ texte10 }}</label>
-              <input type="text" v-model="updateExperience.poste" placeholder="Ex : Barman,serveuse" required
-                style="height: 45px;" />
-            </div>
-            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <label>{{ texte11 }}</label>
-              <input type="text" v-model="updateExperience.entreprise" placeholder="Ex : la locomotive" required
-                style="height: 45px;" />
-            </div>
-            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <label>{{ texte12 }}</label>
-              <input type="text" v-model="updateExperience.lieu" placeholder="Ex : Cocody angré" required
-                style="height: 45px;" />
-            </div>
-            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <label>{{ texte4 }}</label>
-              <input type="date" style="height: 45px;" v-model="updateExperience.dateDebut" required />
-            </div>
-            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <label>{{ texte5 }}</label>
-              <input type="date" v-model="updateExperience.dateFin" :min="dateDebut" placeholder="Ex : Cocody angré"
-                required style="height: 45px;" />
-            </div>
-            <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <div v-if="updateExperience.proof">
-                <label class="d-block">{{ texte13 }}</label>
-                <n-image width="200" :src="lienPhoto + updateExperience.proof" />
+        <form @submit.prevent="changeExperience">
+          <div class="container">
+            <div class="row p-2">
+              <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
+                <label>{{ texte10 }}</label>
+                <input type="text" v-model="updateExperience.poste" placeholder="Ex : Barman,serveuse" required
+                  style="height: 45px;" />
               </div>
-              <label class="d-block">{{ texte14 }}</label>
-              <input type="file" accept="image/*" @change="onFileProof" placeholder="Ex :Cocody angré"
-                style="height: 45px;" />
-            </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start">
-              <label>{{ texte15 }}</label>
-              <textarea name="description" id="description" cols="20" v-model="updateExperience.experience"
-                rows="10"></textarea>
+              <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
+                <label>{{ texte11 }}</label>
+                <input type="text" v-model="updateExperience.entreprise" placeholder="Ex : la locomotive" required
+                  style="height: 45px;" />
+              </div>
+              <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
+                <label>{{ texte12 }}</label>
+                <input type="text" v-model="updateExperience.lieu" placeholder="Ex : Cocody angré" required
+                  style="height: 45px;" />
+              </div>
+              <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
+                <label>{{ texte4 }}</label>
+                <input type="date" style="height: 45px;" v-model="updateExperience.dateDebut" required />
+              </div>
+              <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
+                <label>{{ texte5 }}</label>
+                <input type="date" v-model="updateExperience.dateFin" :min="dateDebut" placeholder="Ex : Cocody angré"
+                  required style="height: 45px;" />
+              </div>
+              <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
+                <div v-if="updateExperience.proof">
+                  <label class="d-block">{{ texte13 }}</label>
+                  <n-image width="200" :src="lienPhoto + updateExperience.proof" />
+                </div>
+                <label class="d-block">{{ texte14 }}</label>
+                <input type="file" accept="image/*" @change="onFileProof" placeholder="Ex :Cocody angré"
+                  style="height: 45px;" />
+              </div>
+              <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start">
+                <label>{{ texte15 }}</label>
+                <textarea name="description" id="description" cols="20" v-model="updateExperience.experience"
+                  rows="10"></textarea>
+              </div>
             </div>
           </div>
           <div class="text-center">
-            <button type="submit" :disabled="spinnerModifyExperience ? true : false" class="btn btn-warning">
+            <button type="submit" :disabled="spinnerModifyExperience ? true : false " class="btn btn-warning">
               {{ spinnerModifyExperience ? "Loading..." : "Modifier" }}
             </button>
           </div>
@@ -598,7 +599,7 @@ export default {
                               <tr v-for="(item, index) in competences" :key="index">
                                 <td>
                                   {{ item.categorie_id == null ? `${item.competence} (Vérification en cours)` :
-                                  item.competence }}
+                                    item.competence }}
                                 </td>
                                 <td style="text-align:center;">
                                   <em class="bi bi-trash" @click="
@@ -640,11 +641,11 @@ export default {
                       <em class="bi bi-pencil position-absolute" @click="chosenOneExperience(item.id)"></em>
                       <div class="rond position-absolute"></div>
                       <div class="contenteur_experience">
-                        
-                         <span class="d-block my-2">
+
+                        <span class="d-block my-2">
                           <em class="bi bi-geo-alt"></em>
                           {{ item.lieu }}
-                         </span>
+                        </span>
                         <span class="text-start d-block my-2" style="font-size: 0.7em;">
                           <em class="bi bi-calendar-date"></em>
                           {{
@@ -668,10 +669,10 @@ export default {
                           }}</span>
                         </span>
                         <span class="d-block my-2" v-if="item.proof">
-                           <span class="d-block" style="font-weight: bold;font-size: 0.8em;">Fichier chargé:</span>
+                          <span class="d-block" style="font-weight: bold;font-size: 0.8em;">Fichier chargé:</span>
                           <n-image width="100" :src="lienPhoto + item.proof" />
                         </span>
-                       
+
                         <p class="text-start ms-2" v-if="item.experience !== null ||
                           item.experience !== 'null'">
                           <span style="font-weight: bold;font-size: 0.8em;">Description:</span>
