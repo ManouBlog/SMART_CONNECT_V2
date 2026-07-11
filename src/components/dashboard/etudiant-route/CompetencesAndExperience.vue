@@ -43,7 +43,7 @@ export default {
       texte24: "",
       texte25: "",
       texte26: "",
-      texte27:"",
+      texte27: "",
       currentPage: 1,
       rows: 2,
       user: this.$store.state.user,
@@ -55,7 +55,7 @@ export default {
       spinnerExperience: false,
       spinnerModifyExperience: false,
       comp: [],
-      competence:[],
+      competence: [],
       comfirmationForDeleteCompetence: false,
       toogleNouvelleExperience: false,
       detailOfExperience: "",
@@ -72,7 +72,7 @@ export default {
       toogleScreenYouWantDelete: false,
       fileProofAttestation: null,
       spinnerCompetence: false,
-      appendCompetence:null
+      appendCompetence: null
     };
   },
   methods: {
@@ -84,7 +84,7 @@ export default {
       instance
         .get("getCompetenceByStudents")
         .then((res) => {
-     
+
           if (res.data.status === true) {
             this.competences = res?.data?.data?.competences || [];
           }
@@ -97,11 +97,11 @@ export default {
       instance
         .post("addCompetences", {
           competence: this.comp,
-      appendCompetence: this.appendCompetence
+          appendCompetence: this.appendCompetence
         })
 
         .then((response) => {
-        
+
           if (response.data.status === true) {
             this.getAllCompetences();
             Swal.fire({
@@ -131,14 +131,14 @@ export default {
           });
           this.spinnerCompetence = false;
         })
-        .finally(()=>{
+        .finally(() => {
           this.getAllCompetencesByStudents();
           loadingSpinner.launchLoading(false);
         })
     },
     generateUniqueId() {
-  return `autre_${Date.now()}_${Math.floor(Math.random() * 100000)}`
-   },
+      return `autre_${Date.now()}_${Math.floor(Math.random() * 100000)}`
+    },
     getAllCompetences() {
       instance
         .get("GetAllCompetences")
@@ -147,17 +147,17 @@ export default {
           //console\.log\("GetAllCompetences_12", res);
           this.competencesPredf = res.data.data.filter(c => c.categorie_id !== null);
           this.competencesPredf.push({
-         id: this.generateUniqueId(),
-         competence: "Autres",
-         categorie_id: null,
-         })
+            id: this.generateUniqueId(),
+            competence: "Autres",
+            categorie_id: null,
+          })
         })
         .catch((err) => {
           console.log(err)
         });
     },
     addTag(newTag) {
-     
+
       let brox = newTag;
       this.acquis = brox;
       this.comp = [];
@@ -179,7 +179,7 @@ export default {
       instance
         .delete("deleteCompetencesOfStudents/" + this.id_for_delete)
         .then((res) => {
-        
+
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -193,7 +193,7 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-        .finally(()=>{
+        .finally(() => {
           this.getAllCompetencesByStudents();
           loadingSpinner.launchLoading(false);
         })
@@ -226,46 +226,46 @@ export default {
         .catch((error) => {
           console.log(error);
         })
-        .finally(()=>{
+        .finally(() => {
           loadingSpinner.launchLoading(false);
           this.getAllExperiences();
         })
     },
     async getAllExperiences() {
       if (
-  this.$store.state.token &&
-  (this.$store.state.user?.user?.statuses || [])
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
-){
+        this.$store.state.token &&
+        (this.$store.state.user?.user?.statuses || [])
+          .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
+      ) {
         this.spinnerExperience = true;
-      await instance
-        .get("GetMyExperiences")
-        .then((res) => {
-   
-          this.MyExperiences = res.data.data;
-          this.spinnerExperience = false;
-        })
-        .catch((err) => {
-          console.log(err)
-          this.spinnerExperience = false;
-        });
-       }else{
+        await instance
+          .get("GetMyExperiences")
+          .then((res) => {
+
+            this.MyExperiences = res.data.data;
+            this.spinnerExperience = false;
+          })
+          .catch((err) => {
+            console.log(err)
+            this.spinnerExperience = false;
+          });
+      } else {
         return;
-       }
-     
+      }
+
     },
     chosenOneExperience(id) {
       this.spinnerModifyExperience = true;
       this.toogleModifyExperience = !this.toogleModifyExperience;
       this.idExperience = id;
-     
+
       instance
         .get("GetMyExperiences")
         .then((res) => {
           this.MyExperiences = res.data.data;
           this.updateExperience = this.MyExperiences?.find((item) => item.id === id);
           this.spinnerModifyExperience = false;
-       
+
         })
         .catch((err) => {
           console.log(err)
@@ -287,11 +287,11 @@ export default {
       formData.append("entreprise", this.updateExperience.entreprise);
       formData.append("proof", this.fileProofAttestation);
       this.spinnerModifyExperience = true;
-    
+
       instance
         .post("modifyExperience/" + this.idExperience, formData)
         .then((response) => {
-          
+
           if (response.data.status === true) {
             this.getAllExperiences();
             Swal.fire({
@@ -306,9 +306,9 @@ export default {
         .catch((err) => {
           console.log(err)
         }).finally(() => {
-      this.spinnerModifyExperience = false; // on arrête le spinner
-      loadingSpinner.launchLoading(false);
-    });
+          this.spinnerModifyExperience = false; // on arrête le spinner
+          loadingSpinner.launchLoading(false);
+        });
     },
     deleteExperience() {
       loadingSpinner.launchLoading(true);
@@ -328,7 +328,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
-        }).finally(()=>{
+        }).finally(() => {
           this.toogleScreenYouWantDelete = false
           loadingSpinner.launchLoading(false);
         })
@@ -342,18 +342,26 @@ export default {
       this.toogleScreenYouWantDelete = !this.toogleScreenYouWantDelete;
     },
     onPageChange(event) {
-     
+
       this.currentPage = event.page + 1;
     },
   },
   computed: {
     paginatedExperiences() {
       const startIndex = (this.currentPage - 1) * this.rows;
-   
+
       const endIndex = startIndex + this.rows;
-     
+
       return this.MyExperiences.slice(startIndex, endIndex);
     },
+     isExperienceValid() {
+    return (
+      this.poste?.trim() &&
+      this.entreprise?.trim() &&
+      this.lieu?.trim() &&
+      this.dateDebut 
+    );
+  },
   },
   watch: {
     competence(newVal) {
@@ -383,18 +391,18 @@ export default {
     this.texte14 = await this.handleTranslate('Ajoutez un fichier');
     this.texte15 = await this.handleTranslate('Description (facultatif)');
     this.texte16 = await this.handleTranslate('Voulez-vous vraiment supprimer la compétence?');
-    this.texte17 = await this.handleTranslate('Supprimer'); 
-    this.texte18 = await this.handleTranslate('Annuler'); 
-    this.texte19 = await this.handleTranslate("Voulez-vous vraiment supprimer l'expérience ?"); 
-    this.texte20 = await this.handleTranslate('Mes compétences'); 
-    this.texte21 = await this.handleTranslate('Ajouter'); 
-    this.texte22 = await this.handleTranslate('Compétences'); 
-    this.texte23 = await this.handleTranslate('Action'); 
-    this.texte24 = await this.handleTranslate('Mes expériences'); 
-    this.texte25 = await this.handleTranslate('Ajoutez une expérience'); 
-    this.texte26 = await this.handleTranslate('Chargement...'); 
-    this.texte27 = await this.handleTranslate("Pas d'expérience"); 
-   
+    this.texte17 = await this.handleTranslate('Supprimer');
+    this.texte18 = await this.handleTranslate('Annuler');
+    this.texte19 = await this.handleTranslate("Voulez-vous vraiment supprimer l'expérience ?");
+    this.texte20 = await this.handleTranslate('Mes compétences');
+    this.texte21 = await this.handleTranslate('Ajouter');
+    this.texte22 = await this.handleTranslate('Compétences');
+    this.texte23 = await this.handleTranslate('Action');
+    this.texte24 = await this.handleTranslate('Mes expériences');
+    this.texte25 = await this.handleTranslate('Ajoutez une expérience');
+    this.texte26 = await this.handleTranslate('Chargement...');
+    this.texte27 = await this.handleTranslate("Pas d'expérience");
+
   },
 };
 </script>
@@ -403,16 +411,12 @@ export default {
   <section>
 
     <div class="add_nouvelle_experience" v-show="toogleNouvelleExperience"
-    @click.self="toogleNouvelleExperience = !toogleNouvelleExperience"
-    >
+      @click.self="toogleNouvelleExperience = !toogleNouvelleExperience">
       <div class="conteneur_nouvelle_experience">
         <div class="conteneur-experience">
-          <em
-            class="bi bi-x-lg"
-            @click="toogleNouvelleExperience = !toogleNouvelleExperience"
-          ></em>
+          <em class="bi bi-x-lg" @click="toogleNouvelleExperience = !toogleNouvelleExperience"></em>
           <div style="padding: 0.8em;">
-            <h3 style="font-weight: bold !important;">{{texte0}}</h3>
+            <h3 style="font-weight: bold !important;">{{ texte0 }}</h3>
           </div>
         </div>
         <form @submit.prevent="saveExperience">
@@ -420,138 +424,97 @@ export default {
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>
                 <span style="color:red">*</span>
-                {{texte1}}</label>
-              <input  type="text" style="height: 45px;" v-model="poste" required />
+                {{ texte1 }}</label>
+              <input type="text" style="height: 45px;" v-model="poste" required />
             </div>
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
-              <label><span style="color:red;">*</span>{{texte2}}</label>
-              <input type="text"  style="height: 45px;" v-model="entreprise" required />
+              <label><span style="color:red;">*</span>{{ texte2 }}</label>
+              <input type="text" style="height: 45px;" v-model="entreprise" required />
             </div>
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
-              <label><span style="color:red;">*</span>{{texte3}}</label>
+              <label><span style="color:red;">*</span>{{ texte3 }}</label>
               <input type="text" style="height: 45px;" v-model="lieu" required />
             </div>
-            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start periode_experience" style="display: flex; gap:1em;">
-              <div>
-              <label><span style="color:red;">*</span>{{texte4}}</label>
-              <input type="date" style="height: 45px;" v-model="dateDebut" required />
+            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start periode_experience" 
+            style="display: flex; gap:1em;justify-content: space-between;">
+              <div style="width: 100%;">
+                <label><span style="color:red;">*</span>{{ texte4 }}</label>
+                <input type="date" style="height: 45px;" v-model="dateDebut" required />
               </div>
-              <div>
-              <label>{{texte5}}</label>
-              <input type="date" style="height: 45px;" v-model="dateFin" :min="dateDebut" required />
+              <div style="width: 100%;">
+                <label>{{ texte5 }}</label>
+                <input type="date" style="height: 45px;" v-model="dateFin" :min="dateDebut" required />
+              </div>
             </div>
-            </div>
-            
+
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
-              <label>{{texte6}}</label>
-              <input type="file" style="height: 45px;" accept="image/*" @change="onFileProof" />
+              <label>{{ texte6 }}</label>
+              <input  type="file" style="height: 45px;border:none !important" accept="image/*" @change="onFileProof" />
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start">
-              <label>{{texte7}}</label>
-              <textarea 
-              name="expereience" 
-              id="experience" 
-              cols="20" v-model="experience" rows="10"></textarea>
+            <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start" style="padding:0 !important">
+              <label>{{ texte7 }}</label>
+              <textarea name="expereience" id="experience" cols="20" v-model="experience" rows="10"></textarea>
             </div>
           </div>
           <div class="text-center my-5">
-            <button type="submit" 
-            class="btn btn-warning" style="width: auto;">{{texte8}}</button>
+            <button type="submit" class="btn btn-warning" 
+            :disabled="!isExperienceValid"
+            style="width: auto;">{{ texte8 }}</button>
           </div>
         </form>
       </div>
     </div>
-    <div class="add_nouvelle_experience" v-show="toogleModifyExperience"
-    @click.self="toogleExperience"
-    >
+    <div class="add_nouvelle_experience" v-show="toogleModifyExperience" @click.self="toogleExperience">
       <div class="conteneur_nouvelle_experience" v-if="updateExperience">
         <div class="conteneur-experience">
           <em class="bi bi-x-lg" @click="toogleExperience"></em>
           <div class="h1">
-            <h3>{{texte9}}</h3>
+            <h3>{{ texte9 }}</h3>
           </div>
         </div>
-        <form @submit.prevent="changeExperience">
+        <form @submit.prevent="changeExperience" class="container" style="padding: 4.5em;">
           <div class="row p-2">
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <label>{{texte10}}</label>
-              <input
-                type="text"
-                v-model="updateExperience.poste"
-                placeholder="Ex : Barman,serveuse"
-                required
-                style="height: 45px;"
-              />
+              <label>{{ texte10 }}</label>
+              <input type="text" v-model="updateExperience.poste" placeholder="Ex : Barman,serveuse" required
+                style="height: 45px;" />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <label>{{texte11}}</label>
-              <input
-                type="text"
-                v-model="updateExperience.entreprise"
-                placeholder="Ex : la locomotive"
-                required
-                style="height: 45px;"
-              />
+              <label>{{ texte11 }}</label>
+              <input type="text" v-model="updateExperience.entreprise" placeholder="Ex : la locomotive" required
+                style="height: 45px;" />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <label>{{texte12}}</label>
-              <input
-                type="text"
-                v-model="updateExperience.lieu"
-                placeholder="Ex : Cocody angré"
-                required
-                style="height: 45px;"
-              />
+              <label>{{ texte12 }}</label>
+              <input type="text" v-model="updateExperience.lieu" placeholder="Ex : Cocody angré" required
+                style="height: 45px;" />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <label>{{texte4}}</label>
-              <input type="date"
-              style="height: 45px;"
-              v-model="updateExperience.dateDebut" required />
+              <label>{{ texte4 }}</label>
+              <input type="date" style="height: 45px;" v-model="updateExperience.dateDebut" required />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
-              <label>{{texte5}}</label>
-              <input
-                type="date"
-                v-model="updateExperience.dateFin"
-                :min="dateDebut"
-                placeholder="Ex : Cocody angré"
-                required
-                style="height: 45px;"
-              />
+              <label>{{ texte5 }}</label>
+              <input type="date" v-model="updateExperience.dateFin" :min="dateDebut" placeholder="Ex : Cocody angré"
+                required style="height: 45px;" />
             </div>
             <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
               <div v-if="updateExperience.proof">
-                <label class="d-block">{{texte13}}</label>
+                <label class="d-block">{{ texte13 }}</label>
                 <n-image width="200" :src="lienPhoto + updateExperience.proof" />
               </div>
-              <label class="d-block">{{texte14}}</label>
-              <input
-                type="file"
-                accept="image/*"
-                @change="onFileProof"
-                placeholder="Ex :Cocody angré"
-                style="height: 45px;"
-              />
+              <label class="d-block">{{ texte14 }}</label>
+              <input type="file" accept="image/*" @change="onFileProof" placeholder="Ex :Cocody angré"
+                style="height: 45px;" />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start">
-              <label>{{texte15}}</label>
-              <textarea
-                name="description"
-                id="description"
-                cols="20"
-                v-model="updateExperience.experience"
-                rows="10"
-                
-              ></textarea>
+              <label>{{ texte15 }}</label>
+              <textarea name="description" id="description" cols="20" v-model="updateExperience.experience"
+                rows="10"></textarea>
             </div>
           </div>
           <div class="text-center">
-            <button
-              type="submit"
-              :disabled="spinnerModifyExperience ? true : false"
-              class="btn btn-warning"
-            >
+            <button type="submit" :disabled="spinnerModifyExperience ? true : false" class="btn btn-warning">
               {{ spinnerModifyExperience ? "Loading..." : "Modifier" }}
             </button>
           </div>
@@ -559,80 +522,62 @@ export default {
       </div>
     </div>
     <div class="page-body mt-5">
-      <div
-        class="ecran_for_delete delete_article"
-        v-show="comfirmationForDeleteCompetence"
-        @click.self="notDeleteCompetence"
-      >
+      <div class="ecran_for_delete delete_article" v-show="comfirmationForDeleteCompetence"
+        @click.self="notDeleteCompetence">
         <div class="card p-5">
-          <p class="h3 my-2">{{texte16}}</p>
+          <p class="h3 my-2">{{ texte16 }}</p>
           <div style="display:flex;gap:1em;justify-content:center;">
             <button class="btn bg-warning m-2 border-0" @click="deleteMyCompetence">
-              {{texte17}}
+              {{ texte17 }}
             </button>
-            <button class="btn m-2 border-0" style="background:red !important;color:white;" @click="notDeleteCompetence">
-              {{texte18}}
+            <button class="btn m-2 border-0" style="background:red !important;color:white;"
+              @click="notDeleteCompetence">
+              {{ texte18 }}
             </button>
           </div>
         </div>
       </div>
 
-      <div class="ecran_for_delete delete_article" v-show="toogleScreenYouWantDelete"
-      @click.self="notDeleteExperience"
-      >
+      <div class="ecran_for_delete delete_article" v-show="toogleScreenYouWantDelete" @click.self="notDeleteExperience">
         <div class="card p-5">
-          <p class="h3 my-2">{{texte19}}</p>
+          <p class="h3 my-2">{{ texte19 }}</p>
           <div style="display:flex;gap:1em;">
-            <button class="btn w-75 bg-warning m-2" @click="deleteExperience"> {{texte17}}</button>
+            <button class="btn w-75 bg-warning m-2" @click="deleteExperience"> {{ texte17 }}</button>
             <button class="btn w-75 m-2" style="background:red !important;" @click="notDeleteExperience">
-              {{texte18}}
+              {{ texte18 }}
             </button>
           </div>
         </div>
       </div>
       <div class="container-fluid default-dash" style="margin: -7em 0 0 0">
-        <div class="row" 
-        v-if="
-  user.user?.statuses
-    .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
-"
-        >
+        <div class="row" v-if="
+          user.user?.statuses
+            .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
+        ">
           <div class="col-xl-5 col-md-6 dash-xl-50 my-5">
             <div class="profile-greeting" id="content_competences">
               <div class="card-body position-relative">
-                <h1 class="fw-bold text-start" style="color: orange">{{texte20}}</h1>
+                <h1 class="fw-bold text-start" style="color: orange">{{ texte20 }}</h1>
                 <div>
-                  <VueMultiselect
-                    v-model="competence"
-                    :options="competencesPredf"
-                    :multiple="true"
-                    :taggable="true"
-                    :tag="addTag"
-                    @update:model-value="addTag"
-                    label="competence"
-                    track-by="competence"
-                    placeholder="Séléctionnez une compétence"
-                    class="vuemulti"
-                  >
+                  <VueMultiselect v-model="competence" :options="competencesPredf" :multiple="true" :taggable="true"
+                    :tag="addTag" @update:model-value="addTag" label="competence" track-by="competence"
+                    placeholder="Séléctionnez une compétence" class="vuemulti">
                   </VueMultiselect>
                   <!-- <p style="color: black;">{{ competence }}</p> -->
                   <div v-if="competence.some(c => c.competence === 'Autres')">
                     <label for="autreCompetence">Ajoutez une compétence :</label>
-                    <input id="autreCompetence" v-model="appendCompetence" type="text" placeholder="Ajoutez" 
-                    style="color: black;height: 45px;">
+                    <input id="autreCompetence" v-model="appendCompetence" type="text" placeholder="Ajoutez"
+                      style="color: black;height: 45px;">
                   </div>
                   <div class="d-flex justify-content-start my-2">
-                    
-                    <button
-                      class="btn bg-warning addCompetences"
-                      @click="addCompetences"
+
+                    <button class="btn bg-warning addCompetences" @click="addCompetences"
                       :disabled="competence.some(c => c.competence === 'Autres') && !appendCompetence"
-                      v-if="comp.length"
-                    >
+                      v-if="comp.length">
                       <span v-if="this.spinnerCompetence">
                         <n-spin size="small" />
                       </span>
-                      <span v-else>{{texte21}}</span>
+                      <span v-else>{{ texte21 }}</span>
                     </button>
                   </div>
                 </div>
@@ -645,26 +590,22 @@ export default {
                           <table class="table" v-if="competences.length > 0">
                             <thead>
                               <tr>
-                                <th>{{texte22}}</th>
-                                <th>{{texte23}}</th>
+                                <th>{{ texte22 }}</th>
+                                <th>{{ texte23 }}</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr v-for="(item, index) in competences" :key="index">
                                 <td>
-                                  {{ item.categorie_id == null ? `${item.competence} (Vérification en cours)` : item.competence }}
+                                  {{ item.categorie_id == null ? `${item.competence} (Vérification en cours)` :
+                                  item.competence }}
                                 </td>
-                                <td
-                                  style="text-align:center;"
-                                >
-                                  <em
-                                    class="bi bi-trash"
-                                    @click="
-                                      showBoxConfirmationDeleteCompetences(
-                                        item.pivot.competence_id
-                                      )
-                                    "
-                                  ></em>
+                                <td style="text-align:center;">
+                                  <em class="bi bi-trash" @click="
+                                    showBoxConfirmationDeleteCompetences(
+                                      item.pivot.competence_id
+                                    )
+                                    "></em>
                                 </td>
                               </tr>
                             </tbody>
@@ -684,77 +625,70 @@ export default {
                 <div id="weekly-chart">
                   <div class="d-flex justify-content-between align-items-center">
                     <h1 class="fw-bold text-start" style="color: orange; margin: 0">
-                      {{texte24}}
+                      {{ texte24 }}
                     </h1>
-                    <button
-                      style="background: orange; color: white; border: none;padding: 0.2em; width: 250px"
-                      @click="addNouvelExperience"
-                    >
-                      {{texte25}}
+                    <button style="background: orange; color: white; border: none;padding: 0.2em; width: 250px"
+                      @click="addNouvelExperience">
+                      {{ texte25 }}
                       <em class="bi bi-plus-lg"></em>
                     </button>
                   </div>
                   <div class="conteneur_experience">
-                    <div
-                      class="experiences position-relative px-4 pb-5"
-                      v-for="(item, index) in paginatedExperiences"
-                      :key="index"
-                    >
-                      <em
-                        class="bi bi-trash3 position-absolute"
-                        @click="ToogleShowDelete(item.id)"
-                      ></em>
-                      <em
-                        class="bi bi-pencil position-absolute"
-                        @click="chosenOneExperience(item.id)"
-                      ></em>
+                    <div class="experiences position-relative px-4 pb-5" v-for="(item, index) in paginatedExperiences"
+                      :key="index">
+                      <em class="bi bi-trash3 position-absolute" @click="ToogleShowDelete(item.id)"></em>
+                      <em class="bi bi-pencil position-absolute" @click="chosenOneExperience(item.id)"></em>
                       <div class="rond position-absolute"></div>
                       <div class="contenteur_experience">
-                        <div class="proof_experience" v-if="item.proof">
-                          <n-image width="100" :src="lienPhoto + item.proof" />
-                        </div>
-                        <h3 class="text-start">
-                          {{ item?.entreprise }}
-                        </h3>
-                        <h6 class="text-start ms-2 fw-bold">
-                          <span class="badge bg-warning text-light fw-bold">{{
-                            item.poste
-                          }}</span>
-                        </h6>
-                        <p>
+                        
+                         <span class="d-block my-2">
                           <em class="bi bi-geo-alt"></em>
                           {{ item.lieu }}
-                        </p>
-                        <h6 class="text-start ms-2">
+                         </span>
+                        <span class="text-start d-block my-2" style="font-size: 0.7em;">
                           <em class="bi bi-calendar-date"></em>
                           {{
                             `${new Date(
                               item.dateDebut
-                            ).toLocaleString()} au ${new Date(
+                            ).toLocaleDateString()} au ${new Date(
                               item.dateFin
-                            ).toLocaleString()}`
+                            ).toLocaleDateString()}`
                           }}
-                        </h6>
+                        </span>
+
+                        <span class="text-start d-block my-2">
+                          <span style="font-weight: bold;font-size: 0.8em;">Entreprise:</span>
+                          <span>{{ item?.entreprise }}</span>
+                        </span>
+
+                        <span class="d-block my-2">
+                          <span style="font-weight: bold;font-size: 0.8em;">Poste:</span>
+                          <span>{{
+                            item.poste
+                          }}</span>
+                        </span>
+                        <span class="d-block my-2" v-if="item.proof">
+                           <span class="d-block" style="font-weight: bold;font-size: 0.8em;">Fichier chargé:</span>
+                          <n-image width="100" :src="lienPhoto + item.proof" />
+                        </span>
+                       
                         <p class="text-start ms-2" v-if="item.experience !== null ||
-                         item.experience !== 'null'">
-                          {{ item.experience }}
+                          item.experience !== 'null'">
+                          <span style="font-weight: bold;font-size: 0.8em;">Description:</span>
+                          <span class="d-block">{{ item.experience }}</span>
                         </p>
                       </div>
                     </div>
                     <div v-if="MyExperiences.length">
-                      <Paginator
-                        v-model="currentPage"
-                        :rows="rows"
-                        :totalRecords="MyExperiences.length"
-                        @page="onPageChange"
-                      ></Paginator>
+                      <Paginator v-model="currentPage" :rows="rows" :totalRecords="MyExperiences.length"
+                        @page="onPageChange"></Paginator>
                     </div>
 
                     <div v-if="spinner">
-                      <h4 class="text-center shimmer-text">{{texte26}}</h4>
+                      <h4 class="text-center shimmer-text">{{ texte26 }}</h4>
                     </div>
                     <div v-else-if="!MyExperiences.length && !spinner">
-                      <h4 class="text-center" style="color: gray !important;">{{texte27}}</h4>
+                      <h4 class="text-center" style="color: gray !important;">{{ texte27 }}</h4>
                     </div>
                   </div>
                 </div>
@@ -768,27 +702,33 @@ export default {
 </template>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style scoped>
-button{
-  border-radius:5px;
-  margin-top:1em;
+button {
+  border-radius: 5px;
+  margin-top: 1em;
 }
- .title_modal{
-    font-size:1.5em !important;
-  }
-:deep(input){
-  padding:0.5em;
-  border:1px solid rgb(161, 161, 161);
+
+.title_modal {
+  font-size: 1.5em !important;
+}
+
+:deep(input) {
+  padding: 0.5em;
+  border: 1px solid rgb(161, 161, 161);
   border-radius: 5px !important;
 }
-:deep(.multiselect__input){
-padding:0 !important;
+
+:deep(.multiselect__input) {
+  padding: 0 !important;
 }
-:deep(.multiselect__option--highlight){
-  background:orange;
+
+:deep(.multiselect__option--highlight) {
+  background: orange;
 }
-:deep(.multiselect__tag){
-  background:orange;
+
+:deep(.multiselect__tag) {
+  background: orange;
 }
+
 .card {
   margin-bottom: 0px;
   border: none;
@@ -799,9 +739,11 @@ padding:0 !important;
   padding: 2em 3em;
   background: white;
 }
+
 .mt-5 {
   margin-top: 101px !important;
 }
+
 input,
 textarea {
   width: 100%;
@@ -820,6 +762,7 @@ textarea {
   padding: 0 1em;
   border-radius: 5px;
 }
+
 .add_nouvelle_experience {
   position: fixed;
   left: 0;
@@ -833,6 +776,7 @@ textarea {
   place-items: center;
   justify-content: center;
 }
+
 .conteneur_nouvelle_experience {
   width: 80%;
   height: 500px;
@@ -842,6 +786,7 @@ textarea {
   position: relative;
   border-radius: 5px;
 }
+
 .conteneur_nouvelle_experience form {
   padding: 0.5em;
   margin-top: 3.5em;
@@ -850,12 +795,13 @@ textarea {
 .bi-x-lg {
   position: absolute;
   right: 1em;
-  top:0.6em;
+  top: 0.6em;
   color: crimson;
   font-weight: bold;
   font-size: 1.2em;
   cursor: pointer;
 }
+
 .rond {
   width: 20px;
   height: 20px;
@@ -864,39 +810,44 @@ textarea {
   left: -0.6em;
   top: -16px;
 }
+
 .bi-plus-lg {
   right: 0;
   top: 0;
   font-size: 1.2em;
   cursor: pointer;
 }
+
 .bi-trash3 {
   right: 0;
   top: 0;
   cursor: pointer;
 }
+
 .bi-pencil {
   right: 1.7em;
   top: 0;
   cursor: pointer;
 }
+
 ul {
   list-style-type: disc;
 }
+
 .my-custom-paragraph {
   text-align: left !important;
   color: black;
 }
+
 .contenteur_experience {
   padding: 0.5em 0;
-  font-size:1.5em !important;
+  font-size: 1.5em !important;
 }
 
 .proof_experience {
   position: absolute;
   right: 9em;
   top: 0;
-  border: 2px solid black;
   width: 150px;
   height: 150px;
 }
@@ -909,18 +860,22 @@ ul {
   background: rgb(122, 121, 121);
   left: 0;
 }
+
 .conteneur_experience,
 .conteneur_competences {
   background: white;
 }
+
 .conteneur_experience {
   padding: 1em;
   border-radius: 1rem;
 }
+
 #content_competences {
   background: white;
   height: auto;
 }
+
 .delete_article {
   position: fixed;
   left: 0;
@@ -946,25 +901,31 @@ ul {
   justify-content: center;
   border-radius: 10px;
 }
+
 #cont_table_competence {
   margin-top: 1.5em;
 }
+
 .position-absolute {
   position: absolute;
 }
+
 .position-relative {
   position: relative;
 }
+
 .text-start,
 label {
   text-align: left;
 }
+
 .fw-bold,
 label,
 h4 {
   font-weight: bold;
   color: black;
 }
+
 .profile-greeting .greeting-user .btn:hover {
   background: #6362e7 !important;
   color: white !important;
@@ -977,24 +938,27 @@ td {
   border: 1px solid black !important;
   text-align: center;
 }
+
 .conteneur-experience {
   position: fixed;
   background: rgb(255, 255, 255);
   z-index: 12;
   width: inherit;
-  padding:0 1.5em;
+  padding: 0 1.5em;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.297);
   border-radius: 10px 10px 0px 0px;
 }
+
 p {
   font-size: 1em !important;
 }
 
 /* === Amélioration responsive mobile === */
 @media screen and (max-width: 992px) {
- h2{
-    font-size:1.5em !important;
+  h2 {
+    font-size: 1.5em !important;
   }
+
   /* Conteneur principal */
   .info-header {
     flex-direction: column !important;
@@ -1022,7 +986,7 @@ p {
   }
 
   /* Section des infos personnelles */
-  .row > [class*="col-"] {
+  .row>[class*="col-"] {
     width: 100% !important;
     flex: 1 1 100%;
     max-width: 100%;
@@ -1037,10 +1001,11 @@ p {
   .d-flex {
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap:1em;
+    gap: 1em;
   }
-  .conteneur_experience{
-    margin:1em 0;
+
+  .conteneur_experience {
+    margin: 1em 0;
   }
 
   .bi-camera-fill {
@@ -1049,9 +1014,11 @@ p {
     top: 0 !important;
     margin-top: 0.5em;
   }
-.p-tabview .p-tabview-panels{
-  padding:0 !important;
-}
+
+  .p-tabview .p-tabview-panels {
+    padding: 0 !important;
+  }
+
   /* Compétences & qualifications */
   .conteneur-flex {
     flex-direction: column !important;
@@ -1077,7 +1044,11 @@ p {
   }
 
   /* Titres */
-  h1, h3, h4, p, label {
+  h1,
+  h3,
+  h4,
+  p,
+  label {
     text-align: left !important;
   }
 
@@ -1090,8 +1061,8 @@ p {
     margin: 1em 0 !important;
   }
 
-   .col-md-6{
-    padding:0;
+  .col-md-6 {
+    padding: 0;
   }
 
   /* Image profil */
@@ -1100,18 +1071,21 @@ p {
     width: 100px !important;
     height: 100px !important;
   }
- 
+
 }
 
 @media screen and (max-width: 576px) {
-  .periode_experience{
+  .periode_experience {
     flex-direction: column !important;
-    gap:0.5em !important;
+    gap: 0.5em !important;
+    width: 100%;
   }
+
   .conteneur_nouvelle_experience form {
-  padding: 0.1em;
-  margin-top: 6em;
-}
+    padding: 0.1em;
+    margin-top: 6em;
+  }
+
   .info-header h1 {
     font-size: 1.1rem !important;
   }
@@ -1125,12 +1099,10 @@ p {
     padding: 0.4em 0.8em !important;
 
   }
-  
+
 
   .bi-camera-fill {
     font-size: 1rem !important;
   }
 }
-
-
 </style>
