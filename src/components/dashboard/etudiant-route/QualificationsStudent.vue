@@ -113,10 +113,24 @@ export default {
     async saveQualification() {
       loadingSpinner.launchLoading(true);
       let data = new FormData();
+    this.itemsQualificationDynamicInput.forEach((element, index) => {
 
-      this.itemsQualificationDynamicInput?.forEach((element) => {
-        data.append("qualifications[]", JSON.stringify(element));
-      });
+  data.append(
+    "qualifications[]",
+    JSON.stringify({
+      objet: element.objet,
+      date_debut: element.date_debut,
+      date_fin: element.date_fin,
+    })
+  );
+  if(element.fileCharged){
+    data.append(
+      `files[${index}]`,
+      element.fileCharged
+    );
+  }
+
+});
       try {
         const res = await instance.post("addQualifications", data);
         if (res.data.status === true) {
@@ -360,15 +374,24 @@ export default {
                     <label for="objet">Diplôme ou certification obtenue</label>
                     <input type="text" class="input_class" id="objet" v-model="value.objet" maxlength="100" />
                   </div>
-
                   <div style="width: 100%">
                     <label for="periode">Période</label>
                     <div style="display: flex; gap: 1em; align-items: center">
                       <input type="date" class="input_class" id="periode" :max="today" v-model="value.date_debut" />
                       <p>À</p>
-                      <input type="date" :min="value.date_debut" :max="today" :disabled="!value.date_debut" class="input_class"
-                        v-model="value.date_fin" />
+                      <input type="date" :min="value.date_debut" :max="today" :disabled="!value.date_debut"
+                        class="input_class" v-model="value.date_fin" />
                     </div>
+                  </div>
+                  <div style="width: 100%">
+                    <label for="descriptionFile">Charger un fichier</label>
+                    <input type="file" id="descriptionFile"
+                    accept="image/*,.pdf"
+                      @change="(event) => value.fileCharged = event.target.files[0]" style="
+                      width: 100%;
+                      border-radius: 5px;
+                      padding: 0.5em;
+                      border: 1px solid gray;" />
                   </div>
 
                 </div>
@@ -409,7 +432,7 @@ export default {
               margin-top:2em;
             ">
                   <div style="width: 100%">
-                    <label for="objet"><span style="color:red;">*</span> Diplôme</label>
+                    <label for="objet"><span style="color:red;">*</span>Diplôme ou certification obtenue</label>
                     <input type="text" class="input_class" id="objet" v-model="value.objet" />
                   </div>
 
@@ -428,8 +451,8 @@ export default {
                       <n-image alt="photo" width="50" height="70" :src="lienPhoto + this.fileCharged" />
                     </div>
                     <label for="descriptionFile">Charger un nouveau fichier</label>
-                    <input type="file" id="descriptionFile" @change="(event) => value.fileCharged = event.target.files[0]"
-                      style="
+                    <input type="file" id="descriptionFile"
+                      @change="(event) => value.fileCharged = event.target.files[0]" style="
         width: 100%;
         border-radius: 5px;
         padding: 0.5em;
@@ -506,16 +529,17 @@ export default {
                       <div class="rond position-absolute"></div>
                       <div class="contenteur_experience">
 
-                        <h6 class="text-start ms-2">
+                        <span class="text-start ms-2 d-block" style="font-size:0.8em">
                           <em class="bi bi-calendar-date"></em>
                           {{
                             `${new Date(item.date_debut).toLocaleDateString()
                             } au ${new Date(item.date_fin).toLocaleDateString()
                             }`
                           }}
-                        </h6>
-                        <span style="font-weight:bold;color:gray;font-size:0.8em" v-if="item.objet">
-                          {{ item.objet }}
+                        </span>
+                        <span style="font-size:0.7em"  v-if="item.objet">
+                          Diplôme ou certification : <span style="font-weight:bold;color:gray;font-size:1em"
+                          >{{ item.objet }}</span>
                         </span>
                         <p class="text-start ms-2" v-if="item.detail">
                           Détail : {{ item.detail }}
@@ -539,7 +563,10 @@ export default {
 
                           <!-- SINON SI C’EST UNE IMAGE (jpg, png, jpeg, etc.) -->
                           <div v-else>
-                            <n-image :alt="photo" width="50" height="70" :src="lienPhoto + item.fileCharged" />
+                            <span style="font-size:0.7em;display: block;"  v-if="item.objet">
+                          Fichier chargé : 
+                        </span>
+                            <n-image :alt="photo" width="90" height="80" :src="lienPhoto + item.fileCharged" />
                           </div>
                         </div>
 
