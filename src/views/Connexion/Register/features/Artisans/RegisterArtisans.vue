@@ -673,7 +673,8 @@ export default {
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]">
             <a-select style="width: 100%;" v-model:value="formState.statut_talent"
               placeholder="Sélectionnez votre Statut professionnel" show-search option-filter-prop="label">
-              <a-select-option v-for="item in StatutArtisans" :key="item.value" :value="item.value" :label="item.label">
+              <a-select-option v-for="item in StatutArtisans" :key="item.value" 
+              :value="item.value" :label="item.label">
                 {{ item.label }}
               </a-select-option>
             </a-select>

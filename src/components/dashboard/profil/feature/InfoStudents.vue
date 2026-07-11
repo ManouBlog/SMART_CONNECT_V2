@@ -421,11 +421,14 @@ export default {
 
   <!-- Ligne 6 -->
   <div class="row gy-2">
-    <div class="col-md-6" style="flex:1">
+    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.modeTravail">
       <ParagrapheDetail :item="{ libelle: 'Mode de travail', value: infoPersonnelles.modeTravail }" />
     </div>
-    <div class="col-md-6" style="flex:1">
+    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.tempsTravail">
       <ParagrapheDetail :item="{ libelle: 'Temps de travail', value: infoPersonnelles.tempsTravail }" />
+    </div>
+     <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.treatment_preferentiel">
+      <ParagrapheDetail :item="{ libelle: 'Traitement préferentiel', value: infoPersonnelles.treatment_preferentiel }" />
     </div>
   </div>
 

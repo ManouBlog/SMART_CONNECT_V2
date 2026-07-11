@@ -210,6 +210,12 @@ export default {
     isCommercialAssitance() {
       return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true : false;
     },
+     showGalerieStep() {
+    return (
+      this.formState.profilHybride.length > 0 &&
+     this.formState.profilHybride.includes(7)
+    );
+  },
 
     isPasswordDisabled() {
       return (
@@ -554,6 +560,8 @@ export default {
     <a-step title="Profil" description="Renseignez vos informations de base pour créer votre compte." />
     <a-step title="Compétences" description="Sélectionnez vos compétences." />
     <a-step title="Qualifications" description="Ajoutez vos qualifications pour valoriser votre profil." />
+    <!-- <a-step v-if="showGalerieStep" title="Galéries"
+       description="Ajoutez vos meilleures créations." /> -->
     <a-step title="Mode de travail" description="Séléctionnez un mode de travail." />
     <a-step title="Validation finale" description="Ajoutez vos documents et confirmez votre inscription." />
   </a-steps>
@@ -594,6 +602,12 @@ export default {
         </div>
       </transition>
     </div>
+    <!-- {{ this.formState.profilHybride }}
+    
+    <p v-if="this.formState.profilHybride.length">
+  {{this.allStatuts.some(item=> this.formState.profilHybride.some(el=>el == item.id))}}
+    </p> -->
+    
 
     <!-- STEP 1 -->
     <div v-show="currentStep === 1">
@@ -660,7 +674,7 @@ export default {
         <a-col :xs="24" :md="12">
           <a-form-item label="Profil">
             <a-input v-model:value="formState.titreCv" />
-            <!-- <a-textarea v-model:value="formState.titreCv" :maxlength="300" /> -->
+          
           </a-form-item>
         </a-col>
       </a-row>

@@ -318,7 +318,11 @@ export default {
             v-if="!ProfilsUser.user.photos.some(item => item.path.includes('cni') || item.path.includes('CNI'))">
             <a-form-item label="Ajouter votre CNI (carte nationale d'identité)" name="file">
               <div>
-                <input ref="fileInput" type="file" accept="image/*" :multiple="false" @change="handleFileChange" />
+                <input ref="fileInput" 
+                type="file" 
+                accept="image/*" 
+                :multiple="false" 
+                @change="handleFileChange" />
 
               </div>
 
