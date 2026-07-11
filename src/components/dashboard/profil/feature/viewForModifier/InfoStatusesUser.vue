@@ -367,6 +367,7 @@ export default {
               <a-menu-item
                 v-if="profils?.user?.statuses.some(item => item.statut != 'Particulier' || item.statut != 'Artisan')"
                 @click="async () => {
+                  console.log('AJOUTER UN PROFIL HYBRIDE')
                   this.cleanProfilHybride();
                   showModalAddProfilHybride = !showModalAddProfilHybride;
                   await this.lister_statut();

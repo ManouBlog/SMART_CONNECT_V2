@@ -57,7 +57,7 @@ export const useAbonnementsStore =defineStore('abonnements',()=>{
     profilHybride.value = payload
    }
 const handleChangeInfoForAbonnement = (payload) => {
-    console.info("handleChangeInfoForAbonnement_send", payload);
+    // console.info("handleChangeInfoForAbonnement_send", payload);
   // Toujours vérifier que payload est un objet
   if (!payload || typeof payload !== "object") {
     console.error("handleChangeInfoForAbonnement : payload invalide", payload);
@@ -204,6 +204,7 @@ if("statut_entreprise" in payload){
          matricule_cc,
          upload,
          juridique ,
+         cni_carte,
          registre_pdf,
          logo_entreprise,
          ncc ,

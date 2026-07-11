@@ -7,7 +7,7 @@ import { useTranslateStore } from "../../../../store-pinia/Translate/useTranslat
 import { useAbonnementsStore } from "../../../../store-pinia/Abonnements/useAbonnementsStore";
 import { useEntreprisesStore } from "../../../../store-pinia/Entreprise/useEntreprisesStore";
 
-// import ContainerAbonnementVeterans from '../ContainerAbonnementVeterans.vue'
+
 const props = defineProps({
   abonnements: Array,
   type_abonnements: String,
@@ -30,30 +30,6 @@ const handleInitialiserPayement = (payload) => {
   const randomPart = `web${Math.random().toString(36).substring(2)}`
   const statutBaseUser = store.state?.user?.user?.statut_base;
   console.log('STORE_ABONNEMENT', STORE_ABONNEMENT)
-  // const data = {
-  //   abonement_id: payload.id,
-  //   channels: "undefined",
-  //   mode_payment: 'year',
-  //   transaction_id: randomPart,
-  //   isAddProfilHybride: storeAbonnement.addProfilHybride.map(item => item.id).length ? true : false,
-  //   statut_base: storeAbonnement.statutOfBase || statutBaseUser,
-  //   isChangeProfil: storeAbonnement.isChangeProfil,
-  //   treatment_preferentiel: storeAbonnement.treatment_preferentiel,
-  //   niveauExpertise: storeAbonnement.niveauExpertise,
-  //   modeTravail: storeAbonnement.modeTravail,
-  //   tempsTravail: storeAbonnement.tempsTravail,
-  //   niveauEtude: storeAbonnement.niveauEtude,
-  //   CVupload: storeAbonnement.CVupload,
-  //   statut_talent: storeAbonnement.statut_talent,
-  //   profilHybride: storeAbonnement.profilHybride?.map(item => item.id),
-  //   addProfilHybrideOnly: storeAbonnement.addProfilHybride.map(item => item.id),
-
-  //   ville: storeAbonnement.ville,
-  //   commune:storeAbonnement.commune,
-  //   quartier:storeAbonnement.quartier,
-  //   cni: storeAbonnement.upload,
-  //   statut_professionnel_artisan:storeAbonnement.statut_professionnel_artisan, 
-  // }
 
   const formData = new FormData();
 
@@ -150,7 +126,7 @@ storeAbonnement.addProfilHybride.forEach((item) => {
   formData.append("addProfilHybrideOnly[]", String(item.id));
 });
   storeAbonnement.createAbonement(formData)
-  // console.log("data",data)
+  // console.log("data",formData)
 }
 
 // Détecte si le user est connecté et possède un statut
@@ -159,9 +135,7 @@ const isUserConnected = computed(() => {
 });
 
 const filteredAbonnementsByTalent = computed(() => {
-  // if (isUserConnected.value){
-  //    return props.abonnements.filter((item) => item?.categorie?.categorie === store.state?.user?.statut_talent);
-  // }
+
   return props.abonnements.filter((item) => item.categorie.categorie === props.type_abonnements)
 });
 
@@ -236,35 +210,30 @@ watch(
     if (!newValue) {
       storeAbonnementUser.putPlanAbonnementAtNull();
     }
-    if(newValue){
-    profilHybrideRecuperer.value = isUserConnected.value.user.statuses.filter(item=>item.id != isUserConnected.value.user.statut_base).length
-    }
+    // if(newValue){
+    // profilHybrideRecuperer.value = isUserConnected.value.user.statuses.filter(item=>item.id != isUserConnected.value.user.statut_base).length
+    // }
   },
   { immediate: true }
 );
 
 onMounted(async () => {
-  
-  if (storeAbonnement.addProfilHybride.length > 0) {
-    profilHybrideRecuperer.value = storeAbonnement?.addProfilHybride?.length
-  }
-  console.log("SUB_VETERANS", storeAbonnement?.profilHybride)
-  console.log("value_veteran", isUserConnected.value.user.statuses.filter(item=>item.id != isUserConnected.value.user.statut_base))
+  console.log("storeAbonnementUser_veteran",storeAbonnementUser)
   texte.value = await transalteStore.handleTranslate("année");
   if (isUserConnected.value) {
+    if(!storeAbonnementUser.addProfilHybride){
     profilHybrideRecuperer.value = isUserConnected.value.user.statuses.filter(item=>item.id != isUserConnected.value.user.statut_base).length
+    console.log("profilHybrideRecuperer.value1",profilHybrideRecuperer.value)
+    }else{
+    profilHybrideRecuperer.value = storeAbonnement?.addProfilHybride?.length
+    console.log("profilHybrideRecuperer.value2",profilHybrideRecuperer.value)
+    }
     await storeAbonnementUser.get_all_abonnement();
   }
 });
 </script>
 
 <template>
-  <!-- <p>isUserConnected:{{ isUserConnected.statut_talent }}</p>
-  <p>filteredAbonnementsByTalent:{{ filteredAbonnementsByTalent }}</p>
- <p> abonneùments sub abonnement :{{ abonnements.filter(
-        (item) => item.categorie.categorie === type_abonnements
-      ) }}
- {{ type_abonnements }} </p> -->
   <div class="conteneur-flex">
     <div v-for="item in filteredAbonnementsByTalent" :key="item.id" :class="item?.libelle == 'BROBROLI'
       ? 'color_brobroli_pro'
@@ -322,9 +291,19 @@ onMounted(async () => {
         <div style="height: 310px; position: relative; padding: 1em">
           <div class="px-5" v-html="item.description"></div>
         </div>
+        <!-- {{ storeAbonnementUser?.planAbonnement }} -->
 
         <div class="conteneur-btn">
-          <Buttons :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id" :elmentsOfBtn="[
+          <!-- <Buttons 
+          :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id" 
+          :elmentsOfBtn="[
+            {
+              name_btn: getMessageAbonnement(props.type_abonnements, item),
+              color_btn: 'primary',
+            }
+          ]" :shapeBtn="'round'" @created="handleInitialiserPayement(item)" /> -->
+          <Buttons  
+          :elmentsOfBtn="[
             {
               name_btn: getMessageAbonnement(props.type_abonnements, item),
               color_btn: 'primary',

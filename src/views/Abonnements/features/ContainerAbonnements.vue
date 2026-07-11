@@ -49,7 +49,6 @@ const props = defineProps({
 const transalteStore = useTranslateStore();
 const storeAbonnement = useAbonnementsStore();
 const storeAbonnementUser = useEntreprisesStore();
-// const userConnected = ref(localStorage.getItem('user'))
 const formuleAbonnementOfUserConnected = ref(null)
 const elmentsOfBtn = ref(null);
 const texte = ref(null);
@@ -60,7 +59,6 @@ const store = useStore();
 const select_mode_payment_tab = ref("");
 
 const handleCreateAbonnement = (payload) => {
-  // console.log("handleCreateAbonnement456")
   const randomPart = `web${Math.random().toString(36).substring(2)}`
   const data = {
     abonement_id: payload.id,
@@ -284,7 +282,7 @@ onMounted(async () => {
         ).values())" :key="tab.id" :name="tab.id" :tab="tab.label.split(' ')[1]" />
       </n-tabs>
     </div>
-
+  
     <SubAbonnementsEntreprise v-if="select_mode_payment_tab === 'Entreprise Informelle'" :abonnements="subAbonnement"
       :type_abonnements="'Entreprise Informelle'" />
     <SubAbonnementsEntreprise v-if="select_mode_payment_tab === 'Entreprise Formelle'" :abonnements="subAbonnement"
