@@ -74,7 +74,7 @@ export default {
         ville: "",
         quartier: "",
         commune: "",
-        statut_professionnel_artisan: "",
+        statut_professionnel_artisan: "Artisan",
         cni_carte: null,
         file: null
       },
@@ -288,7 +288,7 @@ export default {
               </a-select>
             </a-form-item>
           </a-col>
-          <a-col :xs="24" :md="12" v-if="hasArtisanProfil">
+          <!-- <a-col :xs="24" :md="12" v-if="hasArtisanProfil">
             <a-form-item label="Statut professionnel artisan" name="statut_professionnel_artisan">
               <a-select style="width: 100%;" v-model:value="formData.statut_professionnel_artisan"
                 placeholder="Sélectionnez votre Statut professionnel" show-search option-filter-prop="label">
@@ -298,7 +298,7 @@ export default {
                 </a-select-option>
               </a-select>
             </a-form-item>
-          </a-col>
+          </a-col> -->
           <a-col :xs="24" :md="12" v-if="hasParticulierProfil && !ProfilsUser.ville">
             <a-form-item label="Ville" name="ville">
               <a-input v-model:value="formData.ville" />

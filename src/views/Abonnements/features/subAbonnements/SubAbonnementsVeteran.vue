@@ -233,23 +233,26 @@ const ecriteauFormule = (item) => {
 watch(
   isUserConnected,
   (newValue) => {
-
     if (!newValue) {
       storeAbonnementUser.putPlanAbonnementAtNull();
+    }
+    if(newValue){
+    profilHybrideRecuperer.value = isUserConnected.value.user.statuses.filter(item=>item.id != isUserConnected.value.user.statut_base).length
     }
   },
   { immediate: true }
 );
 
 onMounted(async () => {
-  profilHybrideRecuperer.value = storeAbonnement?.profilHybride?.length
+  
   if (storeAbonnement.addProfilHybride.length > 0) {
     profilHybrideRecuperer.value = storeAbonnement?.addProfilHybride?.length
   }
   console.log("SUB_VETERANS", storeAbonnement?.profilHybride)
-  console.log("profilHybrideRecuperer.value", profilHybrideRecuperer.value)
+  console.log("value_veteran", isUserConnected.value.user.statuses.filter(item=>item.id != isUserConnected.value.user.statut_base))
   texte.value = await transalteStore.handleTranslate("année");
   if (isUserConnected.value) {
+    profilHybrideRecuperer.value = isUserConnected.value.user.statuses.filter(item=>item.id != isUserConnected.value.user.statut_base).length
     await storeAbonnementUser.get_all_abonnement();
   }
 });

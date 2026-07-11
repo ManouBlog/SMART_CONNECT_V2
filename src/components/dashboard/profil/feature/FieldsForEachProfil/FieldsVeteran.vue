@@ -170,7 +170,7 @@ StatutVeterans:[
        modeTravail:"",
        diplome:"",
       profilHybride:[],
-      statut_professionnel_artisan:""
+      statut_professionnel_artisan:"Artisan"
       },
     };
   },
