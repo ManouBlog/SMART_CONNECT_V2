@@ -218,7 +218,7 @@ onMounted(async () => {
  
   texte.value = await transalteStore.handleTranslate("année");
   if (isUserConnected.value) {
-    if(!storeAbonnementUser.addProfilHybride){
+    if(!storeAbonnement.addProfilHybride.length){
     profilHybrideRecuperer.value = isUserConnected.value.user.statuses.filter(item=>item.id != isUserConnected.value.user.statut_base).length
    
     }else{
@@ -227,16 +227,17 @@ onMounted(async () => {
     }
     await storeAbonnementUser.get_all_abonnement();
   }
-  console.log('filteredAbonnementsByTalent',filteredAbonnementsByTalent)
-  console.log("storeAbonnementUser_veteran",storeAbonnement.addProfilHybride)
-  console.log('storeAbonnementUser?.planAbonnement',storeAbonnementUser?.planAbonnement)
+  // console.log('filteredAbonnementsByTalent',filteredAbonnementsByTalent)
+  // console.log("storeAbonnementUser_veteran",storeAbonnement.addProfilHybride)
+  // console.log('storeAbonnementUser?.planAbonnement',storeAbonnementUser?.planAbonnement)
 });
 </script>
 
 <template>
  
   <!-- si la personne connectee a un abonnement -->
-   <div class="conteneur-flex" v-if="storeAbonnementUser?.planAbonnement.statut === 'success' && storeAbonnement.addProfilHybride.length">
+   <div class="conteneur-flex" v-if="storeAbonnementUser?.planAbonnement && storeAbonnementUser?.planAbonnement.statut === 'success' 
+   && storeAbonnement.addProfilHybride.length">
     <div v-for="item in filteredAbonnementsByTalent.filter(item=> item.id == storeAbonnementUser?.planAbonnement.abonement_id)" :key="item.id" 
     :class="item?.libelle == 'BROBROLI'
       ? 'color_brobroli_pro'
