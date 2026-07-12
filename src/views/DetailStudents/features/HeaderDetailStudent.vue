@@ -27,7 +27,7 @@ export default {
     ]),
     handleModalInfo() {
       this.addInfoUserConnected(this.timetable_for_student);
-      console.log('this.timetable_for_student', this.timetable_for_student)
+      // console.log('this.timetable_for_student', this.timetable_for_student)
       this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: false });
       // if (
       //   this.$store.state.infoUserConnected.user.abonement.length &&

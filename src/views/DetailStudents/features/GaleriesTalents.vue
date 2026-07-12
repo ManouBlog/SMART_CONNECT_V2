@@ -292,7 +292,7 @@ export default {
       this.previewVisible = true;
     },
     openFolder(folder) {
-      console.log("FOLDER12", folder)
+      // console.log("FOLDER12", folder)
       this.selectedFolder = folder;
       this.modalVisible = true;
     },

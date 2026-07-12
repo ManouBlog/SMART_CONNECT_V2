@@ -29,7 +29,7 @@ const handleInitialiserPayement = (payload) => {
   const STORE_ABONNEMENT = useAbonnementsStore();
   const randomPart = `web${Math.random().toString(36).substring(2)}`
   const statutBaseUser = store.state?.user?.user?.statut_base;
-  console.log('STORE_ABONNEMENT', STORE_ABONNEMENT)
+  // console.log('STORE_ABONNEMENT', STORE_ABONNEMENT)
 
   const formData = new FormData();
 

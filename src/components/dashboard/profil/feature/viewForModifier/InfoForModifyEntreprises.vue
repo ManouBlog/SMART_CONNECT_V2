@@ -270,7 +270,7 @@ valueExpertise: [
         const user = resp.data.user;
 const statuses = user?.statuses || [];
 const statusList = statuses.map(s => s.statut);
-console.log("statusList",statusList)
+// console.log("statusList",statusList)
 this.form.optionsPaper = user.statut_entreprise;
 const isEntreprise = statusList.includes('Entreprise');
 
@@ -280,7 +280,7 @@ const isStudentGroup = statusList.some(s =>
 
 if (isEntreprise) {
   this.emails_cc = user.emails?.map(item => item.email_cc) || [];
-  console.log("this.emails_cc",this.emails_cc)
+  // console.log("this.emails_cc",this.emails_cc)
   this.$store.commit("UPDATE_INFO_CONPANY", user);
 }
 
@@ -401,8 +401,8 @@ if (isStudentGroup) {
  this.updateInfoUser(payload);
  }else{
   
-   console.log("profile_entreprise",profile)
-   console.log("payload_entreprise",payload)
+  //  console.log("profile_entreprise",profile)
+  //  console.log("payload_entreprise",payload)
  this.updateInfoEntreprise(payload)
  }
 },

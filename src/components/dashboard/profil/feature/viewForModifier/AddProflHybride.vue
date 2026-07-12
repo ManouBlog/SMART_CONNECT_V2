@@ -210,7 +210,7 @@ export default {
     },
     async validateAndSubmit() {
       try {
-      console.log("choiceProfilHybrideForAdd",this.choiceProfilHybrideForAdd)
+      // console.log("choiceProfilHybrideForAdd",this.choiceProfilHybrideForAdd)
         this.handleChangeInfoForAbonnement(this.formData)
       
         this.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)

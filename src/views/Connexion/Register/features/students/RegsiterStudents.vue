@@ -646,7 +646,7 @@ export default {
               if (e.target.value === 'non') {
                 this.formState.profilHybride = [];
               }
-              console.log('this.formState.profilHybride', this.formState.profilHybride)
+              // console.log('this.formState.profilHybride', this.formState.profilHybride)
             }" />
             <span class="round-label">
               {{ item.label }}

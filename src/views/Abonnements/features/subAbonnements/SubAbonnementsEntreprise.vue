@@ -26,8 +26,8 @@ const profilHybrideRecuperer = ref(0)
 
 const handleCreateEntrepriseByYear = (payload) => {
 
-  console.log("handleCreateEntrepriseByYear", payload)
-  console.log("handleCreateEntrepriseByYear_storeAbonnement", storeAbonnement)
+  // console.log("handleCreateEntrepriseByYear", payload)
+  // console.log("handleCreateEntrepriseByYear_storeAbonnement", storeAbonnement)
 
   const statutBaseUser = store.state.user?.user?.statut_base;
 
@@ -58,7 +58,7 @@ const handleCreateEntrepriseByYear = (payload) => {
 
   }
 
-  console.log("DATAEND", data)
+  // console.log("DATAEND", data)
 
   const formData = new FormData();
 
@@ -118,7 +118,7 @@ const handleCreateEntrepriseByYear = (payload) => {
   if (data.matricule_cc) formData.append('matricule_cc', data.matricule_cc);
   if (data.contact) formData.append('contact', data.contact);
 
-  console.log("formData21", formData)
+  // console.log("formData21", formData)
 
   storeAbonnement.createAbonement(formData)
 }

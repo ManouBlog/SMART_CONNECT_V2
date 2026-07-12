@@ -379,7 +379,7 @@ export default {
       return allPhotos.map((item) => item.originFileObj);
     },
     onUploadChange({ fileList: newList }) {
-      console.log('onUploadChange', newList);
+      // console.log('onUploadChange', newList);
       if (!newList.length) return
       this.rawText = ''
       this.result = null
