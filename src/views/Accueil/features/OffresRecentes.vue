@@ -72,7 +72,8 @@ export default {
           <div class="salary">
             <em class="bi bi-cash mx-2"></em>
             <span class="amount">
-              {{ item.salaire }}
+              {{ !isNaN(Number(item.salaire)) ? `${moneyFormat.format(item.salaire)} Fcfa`
+                : item.salaire }}
             </span>
             <span v-if="item.pointage"> / {{ item.pointage }}</span>
           </div>

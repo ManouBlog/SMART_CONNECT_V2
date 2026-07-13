@@ -383,8 +383,11 @@ export default {
                 <br />
                 <span style="font-size: 0.9em;"><em class="bi bi-cash"></em> Rémuneration :</span>
                 <span
-                  style="font-weight:bold; color: orange; margin: 0 0.2em;display: inline-block;font-size: 0.9em;">{{
-                  offre.salaire }}
+                  style="font-weight:bold; color: orange; margin: 0 0.2em;display: inline-block;font-size: 0.9em;">
+                 
+
+                  {{ !isNaN(Number(offre.salaire)) ? `${moneyFormat.format(offre.salaire)} Fcfa`
+            : offre.salaire }}
                   <span v-if="offre.pointage">/{{ offre.pointage }}</span>
                 </span>
               </div>

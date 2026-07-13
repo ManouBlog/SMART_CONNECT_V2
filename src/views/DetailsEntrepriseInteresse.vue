@@ -192,7 +192,12 @@ export default {
                 <div>
                   <h4 class="my-5" v-if="DetailSeeEntreprise.offre.salaire != null">
                     <em class="bi bi-cash-stack"></em>
-                    {{ DetailSeeEntreprise.offre.salaire }}
+                    {{ 
+                    !isNaN(Number(DetailSeeEntreprise.offre.salaire)) ? `${moneyFormat.format(DetailSeeEntreprise.offre.salaire)} Fcfa`
+            : DetailSeeEntreprise.offre.salaire 
+                    }}
+
+                    
                     <span v-if="DetailSeeEntreprise.offre.pointage">/
                       {{ DetailSeeEntreprise.offre.pointage }}</span>
                   </h4>

@@ -141,7 +141,10 @@ export default {
         </span>
         <span v-else-if="item.fieldName === 'salaire'">
           <span>
-            {{ Help.convertInMoney(slotProps.data.salaire) }}
+            {{
+            !isNaN(Number(entreprise?.salaire)) ? `${moneyFormat.format(entreprise?.salaire)} Fcfa`
+            : Help.convertInMoney (entreprise?.salaire) 
+            }}
             </span>
             <span v-if="slotProps.data.pointage">/{{ slotProps.data.pointage }}</span>
         </span>

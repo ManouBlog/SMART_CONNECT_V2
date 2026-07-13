@@ -199,8 +199,8 @@ export default {
                       border: 5px solid white;
                       background: white;
                     " :src="Offre?.entreprise?.logo
-                        ? lienPhoto + Offre?.entreprise?.logo
-                        : '/img/brobroli_1.66e9b337.png'
+                      ? lienPhoto + Offre?.entreprise?.logo
+                      : '/img/brobroli_1.66e9b337.png'
                       " :alt="Offre?.entreprise?.logo ? Offre?.entreprise?.logo : 'smart-connect'" />
                   <h1 class="my-5 nom_offre">
                     {{ Offre.nom_offre }}
@@ -231,7 +231,9 @@ export default {
                   <h4 class="my-5" v-if="Offre.salaire != null">
                     <em class="bi bi-cash-stack"></em>
                     Rémuneration :
-                    <span style="color:orange;margin:0.5em;">{{ Offre.salaire }} Fcfa
+                    <span style="color:orange;margin:0.5em;">
+                      {{ !isNaN(Number(Offre.salaire)) ? `${moneyFormat.format(Offre.salaire)} Fcfa`
+                        : Offre.salaire }}
                       <span v-if="Offre.pointage"> / {{ Offre.pointage }}</span></span>
                   </h4>
                   <h4 class="my-5" v-else>
@@ -268,7 +270,7 @@ export default {
               </section>
               <section v-if="Offre.fin">
                 <span class="my-2 fw-bold" style="color: orange">{{ texte5 }} {{ configUtils.getFormatDateFr(Offre.fin)
-                  }}</span>
+                }}</span>
               </section>
               <section>
                 <button class="btn bg-warning" @click="sendDataPost(Offre.id)"

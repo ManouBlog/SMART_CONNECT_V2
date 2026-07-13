@@ -612,19 +612,21 @@ export default {
       this.otherPoste = "";
     },
     selectCategorie(e) {
-      
+      console.log('selectCategorie',e)
+      console.log('selectPoste',this.$refs.selectPoste)
       this.otherDomaine = "";
       this.otherPoste = "";
+      this.competence = "";
       this.competenceWithCategorie = this.allCompetences.filter(
         (item) => item.categorie.id === Number(e.target.value)
       );
     },
     selectCategorieFormState(value) {
-      
   this.formState.categorie = value;
-  this.formState.competence = '';
+
   this.formState.otherDomaine = "";
   this.formState.otherPoste = "";
+  this.formState.competence_id = "";
   this.competenceWithCategorie = this.allCompetences.filter(
         (item) => item.categorie.id === Number(value)
       );
@@ -716,9 +718,14 @@ chooseCompetenceFormState(value) {
     <div class="col-lg-6 col-md-6 col-12 text-left my-3">
       <label id="select_comp" v-if="categorie !== 'autre'">
         <span style="color: red">*</span>{{ texte3 }}</label>
-      <select v-if="categorie !== 'autre'" 
+      <select 
+         ref="selectPoste"
+          v-if="categorie !== 'autre'" 
               :class="{ 'select-disabled': !categorie || categorie === 'autre' }"
-              v-model="competence" name="select_comp" id="select_comp" @change="chooseCompetence">
+              v-model="competence" 
+              name="select_comp" 
+              id="select_comp" 
+              @change="chooseCompetence">
         <option value="" disabled style="color: brown">{{ texte4 }}</option>
         <option :value="item.id" 
         v-for="(item, index) in competenceWithCategorie" :key="index">

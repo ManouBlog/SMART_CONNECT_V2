@@ -130,10 +130,14 @@ export default {
             <span
             v-if="entreprise?.salaire != null"
             class="d-block text-light badge bg-warning h5 px-3"
+          >   
+              {{ !isNaN(Number(entreprise?.salaire)) ? `${moneyFormat.format(entreprise?.salaire)} Fcfa`
+            : entreprise?.salaire }}
+            <b v-if="entreprise.pointage">/{{ entreprise.pointage }}</b>
+            
+            </span
           >
-            {{ entreprise?.salaire }}
-            <b v-if="entreprise?.pointage"> / {{ entreprise?.pointage }}</b></span
-          >
+
           <span
             v-else
             class="d-block text-light badge bg-primary w-25 text-align-start h5"
