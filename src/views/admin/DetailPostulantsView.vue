@@ -78,7 +78,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          
+
         });
     },
   },
@@ -142,18 +142,13 @@ export default {
         <span class="h5">
           <strong>{{ detailStudents.lieu }}</strong>
         </span>
-        <span
-          v-if="detailStudents.salaire != null"
-          class="d-block text-light badge bg-primary w-25 text-align-start h5"
-        >
-          {{ moneyFormat.format(detailStudents.salaire) }} Fcfa</span
-        >
-        <span
-          v-else
-          class="d-block text-light badge bg-primary w-25 text-align-start h5"
-        >
-          Prime pas fixée</span
-        >
+        <span v-if="detailStudents.salaire != null" class="d-block text-light
+         badge bg-primary text-align-start h5"
+          :class="!isNaN(Number(entreprise.salaire)) ? 'w-25' : 'w-50'">
+          {{ !isNaN(Number(entreprise.salaire)) ? `${moneyFormat.format(detailStudents.salaire)} Fcfa`
+            : detailStudents.salaire }} </span>
+        <span v-else class="d-block text-light badge bg-primary w-25 text-align-start h5">
+          Prime pas fixée</span>
 
         <hr />
         <br />
@@ -165,16 +160,12 @@ export default {
         <!-- <span
           >Publié par : <b>{{ detailStudents.detailStudents.nom }}</b></span
         > -->
-        <span class="d-block"
-          >Publié le :
+        <span class="d-block">Publié le :
           {{
             new Date(detailStudents.created_at).toLocaleDateString("fr")
-          }}</span
-        >
-        <span
-          >Deadline :
-          {{ new Date(detailStudents.fin).toLocaleDateString("fr") }}</span
-        >
+          }}</span>
+        <span>Echeance :
+          {{ detailStudents.fin ? new Date(detailStudents.fin).toLocaleDateString("fr") : 'indéfini' }}</span>
       </div>
     </div>
   </div>
@@ -184,16 +175,20 @@ export default {
 .bi-arrow-left-circle {
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .body-card {
   background: transparent;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -206,12 +201,15 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .details_entreprise {
   text-align: left;
 }
+
 .details_entreprise span {
   color: gray;
 }
+
 .w-25 {
   width: 120px !important;
 }

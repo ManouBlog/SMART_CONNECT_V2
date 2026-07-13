@@ -25,7 +25,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log("list_offres_DETAIL",res);
+          console.log("list_offres_DETAIL", res);
           this.offres = res.data.data;
 
           this.entreprise = this.offres.find(
@@ -67,16 +67,14 @@ export default {
         <span class="h5">
           <strong>{{ entreprise?.lieu }}</strong>
         </span>
-        <span
-          v-if="entreprise.salaire != null"
-          class="d-block text-light badge bg-primary w-25 text-align-start h5"
-        >
-          {{ moneyFormat.format(entreprise?.salaire) }} Fcfa</span
-        >
-        <span
-          class="d-block text-light badge bg-primary w-25 text-align-start h5"
-          v-else
-        >
+        <span v-if="entreprise.salaire != null" class="d-block text-light 
+        badge bg-primary  text-align-start h5" 
+        :class="!isNaN(Number(entreprise.salaire)) ? 'w-25' : 'w-50'">
+        
+          {{ !isNaN(Number(entreprise.salaire)) ? `${moneyFormat.format(entreprise?.salaire)} Fcfa`
+            : entreprise?.salaire }}
+        </span>
+        <span class="d-block text-light badge bg-primary w-25 text-align-start h5" v-else>
           pas de prime
         </span>
         <hr />
@@ -84,17 +82,11 @@ export default {
         <h3>Description complète de l'offre</h3>
         <div class="py-3" v-html="entreprise.description"></div>
         <hr />
-        <span
-          >Publié par : <strong>{{ entreprise?.owner?.nom }}</strong></span
-        >
-        <span class="d-block"
-          >Publié depuis le :
-          {{ new Date(entreprise.created_at).toLocaleDateString("fr") }}</span
-        >
-        <span
-          >Deadline :
-          {{ new Date(entreprise.fin).toLocaleDateString("fr") }}</span
-        >
+        <span>Publié par : <strong>{{ entreprise?.owner?.nom }} {{ entreprise?.owner?.prenoms }}</strong></span>
+        <span class="d-block">Publié depuis le :
+          {{ new Date(entreprise.created_at).toLocaleDateString("fr") }}</span>
+        <span>Echeance :
+          {{ entreprise.fin ? new Date(entreprise.fin).toLocaleDateString("fr") : 'indéfini' }}</span>
       </div>
     </div>
   </div>
@@ -104,16 +96,20 @@ export default {
 .bi-arrow-left-circle {
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .body-card {
   background: transparent;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -126,12 +122,15 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .details_entreprise {
   text-align: left;
 }
+
 .details_entreprise span {
   color: gray;
 }
+
 .w-25 {
   width: 100px !important;
 }

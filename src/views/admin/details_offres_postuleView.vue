@@ -66,17 +66,13 @@ export default {
         <span class="h5">
           <b>{{ details_offre.lieu }}</b>
         </span>
-        <span
-          v-if="details_offre.salaire != null"
-          class="d-block text-light badge bg-primary w-25 text-align-start h5"
-        >
-          {{ moneyFormat.format(details_offre.salaire) }} Fcfa</span
-        >
-        <span
-          v-else
-          class="d-block text-light badge bg-primary w-25 text-align-start h5"
-          >Prime pas fixée</span
-        >
+        <span v-if="details_offre.salaire != null" class="d-block text-light 
+        badge bg-primary  text-align-start h5" 
+        :class="!isNaN(Number(entreprise.salaire)) ? 'w-25' : 'w-50'">
+          {{ !isNaN(Number(entreprise.salaire)) ? `${moneyFormat.format(details_offre.salaire)} Fcfa`
+            : details_offre.salaire }}
+        </span>
+        <span v-else class="d-block text-light badge bg-primary w-25 text-align-start h5">Prime pas fixée</span>
         <hr />
         <br />
         <h3>Description complète de l'offre</h3>
@@ -84,18 +80,14 @@ export default {
           {{ details_offre.description }}
         </h5>
         <hr />
-        <span
-          >début du contrat :
+        <span>début du contrat :
           <b>{{
             new Date(details_offre.debut).toLocaleDateString("fr")
-          }}</b></span
-        >
-        <span
-          >Fin du contrat :
+          }}</b></span>
+        <span>Fin du contrat :
           <b>{{
             new Date(details_offre.fin).toLocaleDateString("fr")
-          }}</b></span
-        >
+          }}</b></span>
       </div>
     </div>
   </div>
@@ -105,16 +97,20 @@ export default {
 .bi-arrow-left-circle {
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .body-card {
   background: transparent;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -127,12 +123,15 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .details_entreprise {
   text-align: left;
 }
+
 .details_entreprise span {
   color: gray;
 }
+
 .w-25 {
   width: 120px !important;
 }

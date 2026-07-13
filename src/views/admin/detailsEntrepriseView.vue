@@ -115,7 +115,7 @@ export default {
         .catch((error) => {
           console.error("Erreur lors de la récupération des données:", error);
           this.spinner = false;
-          
+
         });
     },
     verifIfAbonnementCurrently(value) {
@@ -161,8 +161,7 @@ export default {
     </div>
     <div class="card" v-if="entreprise != null">
       <div class="card-body body-card">
-        <span class="h3">Entreprise : </span
-        ><span class="badge bg-primary h3">{{ `${entreprise.nom}` }}</span>
+        <span class="h3">Entreprise : </span><span class="badge bg-primary h3">{{ `${entreprise.nom}` }}</span>
         <div>
           <h4>
             <b>Formule d'abonnement actuelle</b> :
@@ -170,9 +169,9 @@ export default {
               entreprise?.user?.abonement.length
                 ? this.verifIfAbonnementCurrently(entreprise?.user?.abonement)
                 : "Pas d'abonnement."
-            }}  
+            }}
           </h4>
-          <h4><b>Structure</b> : {{ entreprise.statut_entreprise ? entreprise.statut_entreprise:'-' }}</h4>
+          <h4><b>Structure</b> : {{ entreprise.statut_entreprise ? entreprise.statut_entreprise : '-' }}</h4>
           <h4><b>Email</b> : {{ entreprise.email }}</h4>
           <h4>
             <b>Commune</b> :
@@ -186,19 +185,11 @@ export default {
           <h4 v-if="entreprise.gerant">
             <b>Gérant</b> : {{ entreprise.gerant }} ({{ entreprise.numero_gerant }})
           </h4>
-          <h4
-            v-if="entreprise?.piece_gerant"
-            style="display: flex; align-items: center; gap: 1em"
-          >
+          <h4 v-if="entreprise?.piece_gerant" style="display: flex; align-items: center; gap: 1em">
             <b>Pièce du gérant</b> :
-            <n-image
-              :alt="entreprise?.piece_gerant"
-              width="100"
-              :src="
-                'https://backend.monbrobroli.com/storage/app/public/images/' +
-                entreprise?.piece_gerant
-              "
-            />
+            <n-image :alt="entreprise?.piece_gerant" width="100" :src="'https://backend.monbrobroli.com/storage/app/public/images/' +
+              entreprise?.piece_gerant
+              " />
           </h4>
           <h4 v-if="entreprise.matricule_cc">
             <b>RCCM (Registre du Commerce et du Crédit Mobilier)</b> :
@@ -212,37 +203,24 @@ export default {
             <b>Forme juridique</b> :
             {{ entreprise.forme_juridique ? entreprise.forme_juridique : null }}
           </h4>
-          <h4
-            v-if="entreprise?.logo"
-            style="display: flex; align-items: center; gap: 1em"
-          >
+          <h4 v-if="entreprise?.logo" style="display: flex; align-items: center; gap: 1em">
             <b>Logo</b> :
-            <n-image
-              :alt="entreprise?.logo"
-              width="100"
-              :src="
-                'https://backend.monbrobroli.com/storage/app/public/images/' +
-                entreprise?.logo
-              "
-            />
+            <n-image :alt="entreprise?.logo" width="100" :src="'https://backend.monbrobroli.com/storage/app/public/images/' +
+              entreprise?.logo
+              " />
           </h4>
 
           <h4 v-if="entreprise?.registre">
-            <b
-              >Registre de commerce :
+            <b>Registre de commerce :
 
               <n-button type="warning" @click="showModal = true">
                 Voir le registre
               </n-button>
               <n-modal v-model:show="showModal" style="width: 80%; max-width: 900px">
                 <n-card title="Document PDF" closable @close="showModal = false">
-                  <iframe
-                    :src="
-                      'https://backend.monbrobroli.com/storage/app/public/pdf/' +
-                      entreprise?.registre
-                    "
-                    style="width: 100%; height: 600px; border: none"
-                  ></iframe>
+                  <iframe :src="'https://backend.monbrobroli.com/storage/app/public/pdf/' +
+                    entreprise?.registre
+                    " style="width: 100%; height: 600px; border: none"></iframe>
                 </n-card>
               </n-modal>
             </b>
@@ -253,13 +231,7 @@ export default {
               <div style="display: flex; flex-wrap: wrap; gap: 10px">
                 <template v-for="(item, index) in entreprise?.user?.photos" :key="index">
                   <!-- CAS IMAGE -->
-                  <Image
-                    v-if="!isPdf(item.path)"
-                    :src="fileUrl(item.path)"
-                    :alt="item.path"
-                    width="250"
-                    preview
-                  />
+                  <Image v-if="!isPdf(item.path)" :src="fileUrl(item.path)" :alt="item.path" width="250" preview />
 
                   <!-- CAS PDF -->
                   <div v-else style="border: 1px solid #ccc; padding: 10px">
@@ -274,12 +246,7 @@ export default {
 
               <!-- IFRAME PDF -->
               <div v-if="pdfVisible" class="pdf-modal-overlay" @click.self="closePdf">
-                <iframe
-                  :src="pdfUrl"
-                  width="80%"
-                  height="500"
-                  style="border: 1px solid #ccc"
-                ></iframe>
+                <iframe :src="pdfUrl" width="80%" height="500" style="border: 1px solid #ccc"></iframe>
               </div>
             </div>
           </div>
@@ -316,7 +283,7 @@ export default {
                   {{ new Date(item.fin).toLocaleDateString("fr") }}
                 </td>
                 <td>
-                  {{item.offre_student.length}}
+                  {{ item.offre_student.length }}
                 </td>
               </tr>
             </tbody>
@@ -359,10 +326,7 @@ export default {
                   {{ item.echeance }}
                 </td>
                 <td>
-                  <p
-                    class="badge"
-                    :class="item.statut === 'success' ? 'bg-success' : 'bg-danger'"
-                  >
+                  <p class="badge" :class="item.statut === 'success' ? 'bg-success' : 'bg-danger'">
                     {{ item.statut }}
                   </p>
                 </td>
@@ -393,22 +357,28 @@ export default {
   border-radius: 8px;
   overflow: hidden;
 }
+
 h4 {
   margin: 1em 0;
 }
+
 .bi-arrow-left-circle {
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .body-card {
   background: transparent;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -421,6 +391,7 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 h4 {
   text-align: left;
 }

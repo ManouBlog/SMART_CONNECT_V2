@@ -91,37 +91,29 @@ export default {
         <span class="h5">
           <strong>{{ entreprise.lieu }}</strong>
         </span>
-        <span
-          v-if="entreprise.salaire != null"
-          class="d-block text-light badge bg-primary w-25 text-align-start h5"
-        >
-          {{ moneyFormat.format(entreprise.salaire) }} Fcfa</span
-        >
-        <span
-          v-else
-          class="d-block text-light badge bg-primary w-25 text-align-start h5"
-        >
-          Prime pas fixée</span
-        >
+        <span v-if="entreprise.salaire != null" class="d-block text-light 
+        badge bg-primary text-align-start h5" 
+        :class="!isNaN(Number(entreprise.salaire)) ? 'w-25' : 'w-50'">
+
+
+          {{ !isNaN(Number(entreprise.salaire)) ? `${moneyFormat.format(entreprise.salaire)} Fcfa`
+            : entreprise.salaire }}
+        </span>
+        <span v-else class="d-block text-light badge bg-primary w-25 text-align-start h5">
+          Prime pas fixée</span>
         <hr />
         <br />
         <h3>Description complète de l'offre</h3>
         <div v-html="entreprise.description"></div>
         <hr />
-        <span class="d-block"
-          >Début du contrat :
-          {{ new Date(entreprise.debut).toLocaleDateString("fr") }}</span
-        >
-        <span
-          >Fin du contrat :
-          {{ new Date(entreprise.fin).toLocaleDateString("fr") }}</span
-        >
-        <span class="d-block"
-          >Publié il y'a:
+        <span class="d-block">Début du contrat :
+          {{ new Date(entreprise.debut).toLocaleDateString("fr") }}</span>
+        <span>Fin du contrat :
+          {{ new Date(entreprise.fin).toLocaleDateString("fr") }}</span>
+        <span class="d-block">Publié il y'a:
           {{
             diffForHumans(new Date(entreprise.created_at).toISOString())
-          }}</span
-        >
+          }}</span>
       </div>
     </div>
   </div>
@@ -131,16 +123,20 @@ export default {
 .bi-arrow-left-circle {
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .body-card {
   background: transparent;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -153,12 +149,15 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .details_entreprise {
   text-align: left;
 }
+
 .details_entreprise span {
   color: gray;
 }
+
 .w-25 {
   width: 120px !important;
 }

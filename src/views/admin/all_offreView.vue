@@ -66,7 +66,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          
+
         });
     },
   },
@@ -113,20 +113,21 @@ export default {
                   <td>{{ item.nom_offre }}</td>
                   <td>{{ item.owner.nom }}</td>
                   <td v-if="item.salaire != null">
-                    {{ moneyFormat.format(item.salaire) }} / {{ item.pointage }}
+
+                    {{ Number(item.salaire) == NaN ? Number(item.salaire) : item.salaire }}
+                    <span v-if="item.pointage && Number(item.salaire) == NaN"> / {{ item.pointage }}</span>
                   </td>
                   <td v-else>pas de salaire</td>
                   <td>{{ item.lieu }}</td>
-                  <td>{{ new Date(item.fin).toLocaleDateString('fr') }}</td>
+                  <td>
+                    <span>{{ item.fin ? new Date(item.fin).toLocaleDateString('fr') : '-' }}</span>
+                  </td>
                   <td>
                     <p class="d-flex justify-content-center align-items-center">
-                      <router-link
-                        :to="{
-                          name: 'offre_details_entreprise',
-                          params: { name: item.nom_offre },
-                        }"
-                        ><i class="bi bi-eye"></i
-                      ></router-link>
+                      <router-link :to="{
+                        name: 'offre_details_entreprise',
+                        params: { name: item.nom_offre },
+                      }"><i class="bi bi-eye"></i></router-link>
                     </p>
                   </td>
                 </tr>
@@ -144,13 +145,16 @@ export default {
   font-size: 1.5em !important;
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
