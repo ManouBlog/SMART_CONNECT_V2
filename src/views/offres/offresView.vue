@@ -736,7 +736,6 @@ export default {
             <span v-if="item.pointage">/{{ item.pointage }}</span>
                     </td>
                     <td v-else>pas de prime</td>
-
                     <td>{{ item.fin ? new Date(item.fin).toLocaleDateString("fr"):'-' }}</td>
 
                     <td class="details">
