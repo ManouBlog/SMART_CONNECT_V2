@@ -731,12 +731,13 @@ export default {
                     </td>
                     <td>{{ item.lieu }}</td>
                     <td v-if="item.salaire != null">
-                      {{ moneyFormat.format(item.salaire) }}/
-                      {{ item.pointage }}
+                      {{ !isNaN(Number(item.salaire)) ? `${moneyFormat.format(item.salaire)} Fcfa`
+            : item.salaire }}
+            <span v-if="item.pointage">/{{ item.pointage }}</span>
                     </td>
                     <td v-else>pas de prime</td>
 
-                    <td>{{ new Date(item.fin).toLocaleDateString("fr") }}</td>
+                    <td>{{ item.fin ? new Date(item.fin).toLocaleDateString("fr"):'-' }}</td>
 
                     <td class="details">
                       <em

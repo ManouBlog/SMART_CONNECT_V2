@@ -165,7 +165,7 @@ export default {
             new Date(detailStudents.created_at).toLocaleDateString("fr")
           }}</span>
         <span>Echeance :
-          {{ detailStudents.fin ? new Date(detailStudents.fin).toLocaleDateString("fr") : 'indéfini' }}</span>
+          {{ detailStudents.fin ? new Date(detailStudents.fin).toLocaleDateString("fr") : 'Pas défini' }}</span>
       </div>
     </div>
   </div>

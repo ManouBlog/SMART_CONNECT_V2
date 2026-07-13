@@ -114,7 +114,10 @@ export default {
                     {{ item.lieu }}
                   </td>
                   <td v-if="item.salaire != null">
-                    {{ moneyFormat.format(item.salaire) }}/{{ item.pointage }}
+                    
+                     {{ !isNaN(Number(item.salaire)) ? `${moneyFormat.format(item.salaire)} Fcfa`
+            : item.salaire }}
+            <span v-if="item.pointage">/{{ item.pointage }}</span>
                   </td>
                   <td v-else>Prime pas fixée</td>
                   <td class="d-flex justify-content-center align-items-center">

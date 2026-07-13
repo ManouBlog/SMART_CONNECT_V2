@@ -272,7 +272,11 @@ export default {
               <tr v-for="(item, index) in offres" :key="index">
                 <td>{{ item.nom_offre }}</td>
                 <td v-if="item.salaire != null">
-                  {{ moneyFormat.format(item.salaire) }} Fcfa
+                  
+ {{ !isNaN(Number(item.salaire)) ? `${moneyFormat.format(item.salaire)} Fcfa`
+            : item.salaire }}
+            <span v-if="item.pointage">/{{ item.pointage }}</span>
+                  
                 </td>
                 <td v-else>Prime pas fixée</td>
                 <td>{{ item.lieu }}</td>

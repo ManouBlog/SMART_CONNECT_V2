@@ -86,7 +86,7 @@ export default {
         <span class="d-block">Publié depuis le :
           {{ new Date(entreprise.created_at).toLocaleDateString("fr") }}</span>
         <span>Echeance :
-          {{ entreprise.fin ? new Date(entreprise.fin).toLocaleDateString("fr") : 'indéfini' }}</span>
+          {{ entreprise.fin ? new Date(entreprise.fin).toLocaleDateString("fr") : 'Pas défini' }}</span>
       </div>
     </div>
   </div>
