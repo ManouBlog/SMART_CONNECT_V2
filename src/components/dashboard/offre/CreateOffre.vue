@@ -473,7 +473,6 @@ export default {
     },
     async post_mission() {
       this.StoreLoading.launchLoading(true);
-  
 
   // Si mission immédiate → date du jour
   if (this.formState.typeMission === "immediat") {
