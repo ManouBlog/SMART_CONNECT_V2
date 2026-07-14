@@ -147,14 +147,7 @@ instance.interceptors.response.use(
         alert("Trop de tentatives détectées. Veuillez patienter quelques instants avant de réessayer.");
         break;
 
-      /*
-      |--------------------------------------------------------------------------
-      | 500 - Internal Server Error
-      |--------------------------------------------------------------------------
-      */
-      case 500:
-        alert("Une erreur interne est survenue. Veuillez réessayer plus tard.");
-        break;
+   
 
       /*
       |--------------------------------------------------------------------------
