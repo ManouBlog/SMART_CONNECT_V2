@@ -261,7 +261,10 @@ export default {
                   Heure de fin : {{ Offre.hour_fin }}
                 </h4>
                 <h4 v-if="Offre.job_debut">
-                  {{ texte2 }} : {{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0]) }}
+                
+                  {{ texte2 }} : {{ onfigUtils.getFormatDateFr(Offre.job_debut) }} 
+                  
+                  <!-- {{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0]) }} -->
 
                 </h4>
                 <h4 v-if="Offre.job_fin">
@@ -298,7 +301,10 @@ export default {
         </div>
       </div>
     </div>
-    <div v-else class="container main-container shimmer-text" style="padding: 8em">chargement...</div>
+    <div v-else class="container main-container shimmer-text" 
+    style="padding: 8em;
+    display: flex;justify-content: center;font-size:1.5em;">
+    chargement...</div>
   </div>
 </template>
 <style scoped>
