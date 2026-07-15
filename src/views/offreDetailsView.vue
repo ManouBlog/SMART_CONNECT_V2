@@ -232,7 +232,7 @@ export default {
                     <em class="bi bi-cash-stack"></em>
                     Rémuneration :
                     <span style="color:orange;margin:0.5em;">
-                      {{ !isNaN(Number(Offre.salaire)) ? `${moneyFormat.format(Offre.salaire)} Fcfa`
+                      {{ !isNaN(Number(Offre.salaire)) ? `${Offre.salaire} Fcfa`
                         : Offre.salaire }}
                       <span v-if="Offre.pointage"> / {{ Offre.pointage }}</span></span>
                   </h4>
