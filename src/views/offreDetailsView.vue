@@ -262,7 +262,7 @@ export default {
                 </h4>
                 <h4 v-if="Offre.job_debut">
                 
-                  {{ texte2 }} : {{ onfigUtils.getFormatDateFr(Offre.job_debut) }} 
+                  {{ texte2 }} : {{ configUtils.getFormatDateFr(Offre.job_debut) }} 
                   
                   <!-- {{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0]) }} -->
 
