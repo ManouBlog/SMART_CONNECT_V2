@@ -198,6 +198,14 @@ texte0989:"",
 
       <section class="my-5">
         <div class="container">
+           <div class="row gy-2">
+  <div class="col-md-6" style="flex:1">
+    <p>
+      <span style="color:orange;font-weight: bold;">Code de parrainage :</span>
+      {{ infoPersonnelles?.user?.code_ambassadeur }}
+    </p>
+  </div>
+</div>
           <div class="row">
 
             <div class="col-md-6" style="flex:1" v-if="this.infoPersonnelles?.statut_entreprise">

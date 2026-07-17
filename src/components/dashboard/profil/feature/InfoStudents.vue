@@ -309,6 +309,12 @@ export default {
      
       <section class="my-5">     
        <div>
+        <div class="row gy-2">
+    <div class="col-md-6" style="flex:1">
+     <P>Code de parrainage : {{ infoPersonnelles }}</P>
+    </div>
+   
+  </div>
   <div class="row gy-2">
     <div class="col-md-6" style="flex:1">
       <ParagrapheDetail :item="{ libelle: 'Nom', value: infoPersonnelles.nom }" />

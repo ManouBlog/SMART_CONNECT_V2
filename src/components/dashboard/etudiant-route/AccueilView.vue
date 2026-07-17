@@ -107,13 +107,13 @@ if (!user.competences.length || !user.qualifications.length) {
 
   isStudentProfile() {
     return this.userStatuses.some(item =>
-      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(item.statut)
+      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran','Particulier'].includes(item.statut)
     );
   },
 
   isEntrepriseProfile() {
     return this.userStatuses.some(item =>
-      ['Entreprise', 'Particulier'].includes(item.statut)
+      ['Entreprise'].includes(item.statut)
     );
   },
 
@@ -127,6 +127,21 @@ if (!user.competences.length || !user.qualifications.length) {
     const referral = this.statistiqueDashboard?.personreferral || [];
 
     const baseStats = [
+       {
+        libelle: 'Personnes parrainées',
+        nbre: referral.length,
+        btn: true,
+        isVisible:this.$store.state.infoUserConnected.user?.code_ambassadeur,
+        infosReferrals: referral.map(item => ({
+          name:
+            item?.referred?.student?.nom +
+            ' ' +
+            item?.referred?.student?.prenoms,
+          is_registered: item?.referred?.id,
+          has_subscription: item?.subscription_paid,
+          formule: item?.formule
+        }))
+      },
       {
         libelle: this.texte1,
         isVisible: this.isStudentProfile,
@@ -170,25 +185,10 @@ if (!user.competences.length || !user.qualifications.length) {
         libelle: this.texte8,
         isVisible: this.isEntrepriseProfile,
         nbre:this.statistiquesFormelleOrInformelleEntreprise?.offreAccepted
-      }
+      },
+     
     ];
 
-    if (this.IsAmbassador) {
-      baseStats.unshift({
-        libelle: 'Personnes parrainées',
-        nbre: referral.length,
-        btn: true,
-        infosReferrals: referral.map(item => ({
-          name:
-            item?.referred?.student?.nom +
-            ' ' +
-            item?.referred?.student?.prenoms,
-          is_registered: item?.referred?.id,
-          has_subscription: item?.subscription_paid,
-          formule: item?.formule
-        }))
-      });
-    }
 
     return baseStats;
   }
