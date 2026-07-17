@@ -389,7 +389,7 @@ export default {
     );
     this.texte18 = await this.handleTranslate("Veuillez renseigner votre email!");
     this.texte19 = await this.handleTranslate("Veuillez renseigner votre Quartier!");
-    this.texte10 = await this.handleTranslate("Justificatif d'identité (CNI,Passeport,Carte consulaire)");
+    this.texte10 = await this.handleTranslate("Pièces justificatives (CNI,Passeport,Carte consulaire)");
   },
 };
 </script>
