@@ -113,11 +113,11 @@ export default {
       if (online) {
         this.isOnline = true;
         this.showModal = false;
-        console.log('Vous êtes en ligne')
+    
       } else {
         this.isOnline = false;
         this.showModal = true;
-        console.log('Vous êtes hors ligne')
+       
       }
     },
   },

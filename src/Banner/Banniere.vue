@@ -126,7 +126,7 @@ export default {
 try{
      const response = await instance.get('notifications_expiration');
      if(response.data.status){
-      console.log(response);
+      // console.log(response);
         this.messages = response.data.data;
       }
       }catch(err){
@@ -140,7 +140,7 @@ try{
   },
   async created() {
     this.getAllAffiche();
-    // console.log(this.$store.state.user);
+   
     await this.getNotificationAbonnemetExipration();
   },
 };

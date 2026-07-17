@@ -305,7 +305,7 @@ export default {
           this.formState.statut_professionnel_artisan = ""
           this.formState.uploadCNI = null
         }
-        // console.log("formState.optionsAnswer", value);
+     
 
       },
       immediate: true,
@@ -338,9 +338,9 @@ export default {
     },
 
     nextStep() {
-      // console.log("this.currentStep",this.currentStep)
+     
       if (this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length) {
-        // console.log("this.formState.profilHybride",this.formState.profilHybride)
+      
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Choisissez un profil"
@@ -348,7 +348,7 @@ export default {
         return;
       }
       if (this.currentStep === 1 && this.formState.profilHybride.length && this.formState.optionsAnswer == "oui") {
-        // console.log("this.formState.profilHybride",this.formState.profilHybride)
+        
         if (!this.formState.ville || !this.formState.commune) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
@@ -401,7 +401,7 @@ export default {
       return allPhotos.map((item) => item.originFileObj);
     },
     onUploadChange({ fileList: newList }) {
-      // console.log('onUploadChange', newList);
+
       if (!newList.length) return
       this.rawText = ''
       this.result = null
@@ -422,8 +422,7 @@ export default {
       }
 
       this.rawText = this.cleanOCRText(fullText)
-      //  console.log('rawText',this.rawText)
-      //  console.log('fullText',fullText)
+   
       if (!this.hasReadableText(fullText)) {
         this.result = {
           score: 0,
@@ -456,7 +455,7 @@ export default {
     analyzeText(text) {
       const cleanText = this.normalizeText(text)
       let score = 0
-      //  console.log("cleanText",cleanText.trim())
+
       if (cleanText.length > 80) score += 20
 
       const keywordHits = this.PIECE_KEYWORDS.filter(k =>
@@ -464,14 +463,14 @@ export default {
       ).length
 
       score += Math.min(keywordHits * 10, 40)
-      // console.log("score",score)
+   
 
       if (cleanText.includes('republique de cote d ivoire') ||
         cleanText.includes("RÉPUBLIQUE DE CÔTE D'IVOIRE")) score += 20
       if (cleanText.includes('ivoirienne') || cleanText.includes('IVOIRIENNE')) score += 20
       if (cleanText.includes("civ")) score += 20
       if (cleanText.includes("ci0")) score += 10
-      //  console.log("score23",score)
+     
       this.result = {
         score,
         isStudentCard: score >= 50
@@ -511,7 +510,7 @@ export default {
       })
     },
     onFinish() {
-      console.log("this.formState_professionnel",this.formState)
+     
       this.formState.profiles = this.allProfiles;
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
@@ -519,11 +518,11 @@ export default {
       if (this.formState.profilHybride.length) {
         this.formState.profilHybride.push(this.formState.statutId)
       }
-      // console.log("this.formState",this.formState);
+ 
       if (this.configUtils.isValidEmail(this.formState.email)) {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          // console.log("this.formState",this.formState)
+          
           this.changeValueIsPolitics({
             value: true,
             infoUser: "talents",
