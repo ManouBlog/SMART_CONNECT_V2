@@ -511,6 +511,7 @@ export default {
       })
     },
     onFinish() {
+      console.log("this.formState_professionnel",this.formState)
       this.formState.profiles = this.allProfiles;
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
@@ -864,7 +865,7 @@ export default {
             </a-upload>
           </a-form-item>
 
-          <a-spin v-if="loading" tip="Vérification de la carte d'étudiant" />
+          <a-spin v-if="loading" tip="Vérification..." />
           <span style="color:red;" v-if="this.result && this.result.isStudentCard === false">
             Veuillez ajoutez une carte bien visible
           </span>

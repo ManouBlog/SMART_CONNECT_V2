@@ -65,7 +65,7 @@ export const useRegisterStore = defineStore('register', {
       return result;
         },
         async registerStudent(payload) {
-          // console.log("registerStudent25",payload)
+          console.log("registerStudent25",payload)
           this.LOADINGSPINNER.launchLoading(true)
           this.isLoading = true;
           let data = new FormData();
@@ -168,8 +168,9 @@ if (payload?.statutId == 2) {
   if (payload?.periode_debut) data.append("periode_debut", payload.periode_debut);
   if (payload?.periode_fin) data.append("periode_fin", payload.periode_fin);
   if (payload?.periode) data.append("periode", payload.periode);
-  if (payload?.code_ambassadeur) data.append("code_ambassadeur", payload.code_ambassadeur);
+ 
 }
+ if (payload?.code_ambassadeur) data.append("code_ambassadeur", payload.code_ambassadeur);
 
 // 👇 Statut 5/6 : Expertise (professionell et veteran)
 if (payload?.statutId == 6 || payload?.statutId == 5) {
