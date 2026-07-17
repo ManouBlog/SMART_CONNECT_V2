@@ -497,8 +497,11 @@ export default {
           </a-form-item>
         </a-col>
         <a-col :xs="24" :md="12">
-          <a-form-item name="upload" :label="texte10">
-            <div>
+          <a-form-item name="upload" :label="texte10"
+          :rules="[{ required: true, message: 'Ajoutez une pièce justificative' }]"
+          >
+            <div style="display: flex;gap:1em;">
+              
               <!-- Remplacement de a-upload -->
               <input ref="uploadInput" type="file" name="upload" accept=".jpg,.jpeg,.png,.webp" multiple :maxCount="1"
                 placeholder="Clique pour charger" @change="onUploadChange" />

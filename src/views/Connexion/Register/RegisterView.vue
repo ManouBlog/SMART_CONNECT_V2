@@ -126,7 +126,7 @@ export default {
   },
   async created() {
     await this.lister_statut()
-    this.texte0 = await this.handleTranslate("Sélectionner un profil");
+    this.texte0 = await this.handleTranslate("Sélectionnez votre profil");
     this.texte1 = await this.handleTranslate("Etudiant");
     this.texte2 = await this.handleTranslate("Entreprise");
     this.texte3 = await this.handleTranslate("Particulier");
