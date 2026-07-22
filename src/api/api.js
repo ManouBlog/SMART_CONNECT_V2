@@ -42,14 +42,7 @@ instance.interceptors.response.use(
     const message = error.response?.data?.message;
 
     switch (status) {
-      /*
-      |--------------------------------------------------------------------------
-      | 400 - Bad Request
-      |--------------------------------------------------------------------------
-      */
-      case 400:
-        alert("La requête est invalide. Veuillez vérifier les informations saisies.");
-        break;
+     
 
       /*
       |--------------------------------------------------------------------------
