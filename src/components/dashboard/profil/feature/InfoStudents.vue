@@ -311,7 +311,7 @@ export default {
        <div>
         <div class="row gy-2">
     <div class="col-md-6" style="flex:1">
-     <P>Code de parrainage : {{ infoPersonnelles }}</P>
+     <!-- <P>Code de parrainage : {{ infoPersonnelles }}</P> -->
     </div>
    
   </div>
