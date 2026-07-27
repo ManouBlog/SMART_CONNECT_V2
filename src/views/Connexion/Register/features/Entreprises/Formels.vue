@@ -237,12 +237,12 @@ export default {
         <a-form-item :label="texte1" name="matricule_cc" :rules="[{ required: true, message: texte23 }]">
           <a-input v-model:value="formState.matricule_cc" placeholder="Entrez le RCCM" />
         </a-form-item>
-        <a-form-item :rules="[{ required: true, message: `Ajoutez un registre de commerce` }]" name="Registre" label="">
+        <!-- <a-form-item :rules="[{ required: true, message: `Ajoutez un registre de commerce` }]" name="Registre" label="">
           <a-upload @change="handleChangeCardStudent" v-model:fileList="formState.Registre" name="Registre"
             list-type="picture" :multiple="false" :maxCount="1" accept=".pdf">
             <a-button> Clique pour charger le registre de commerce(Pdf) </a-button>
           </a-upload>
-        </a-form-item>
+        </a-form-item> -->
       </a-col>
     </a-row>
 
