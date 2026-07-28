@@ -98,7 +98,7 @@ instance.interceptors.response.use(
         if (!status) {
           alert("Impossible de joindre le serveur. Vérifiez votre connexion Internet.");
         } else {
-          alert("Une erreur inattendue est survenue.");
+          console.error("Une erreur inattendue est survenue.");
         }
         break;
     }
