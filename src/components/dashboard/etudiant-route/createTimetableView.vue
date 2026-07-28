@@ -498,7 +498,6 @@ export default {
       instance
         .get("GetAllCompetences")
         .then((res) => {
-          
           this.competencesPredf = res.data.data.filter(c => c.categorie_id !== null);
         })
         .catch((err) => {

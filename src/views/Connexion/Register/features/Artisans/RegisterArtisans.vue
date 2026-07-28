@@ -497,7 +497,7 @@ export default {
 
   async created() {
     await this.lister_statut();
-    this.getCompetences();
+    await this.getCompetences();
     this.texte = await this.handleTranslate("Nom");
     this.texte1 = await this.handleTranslate("Prénoms");
     this.texte2 = await this.handleTranslate("Contact Téléphonique");
@@ -622,7 +622,7 @@ export default {
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item :label="texte7">
-            <VueMultiselect v-model="formState.myCompetence" :options="allCompetences" placeholder="Choix multiples"
+            <VueMultiselect v-model="formState.myCompetence" :options="allCompetences.filter(item=>item.is_artisan == 1)" placeholder="Choix multiples"
               :multiple="true" label="competence" track-by="competence" />
           </a-form-item>
           <a-form-item label="Autre">

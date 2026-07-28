@@ -24,7 +24,7 @@ export const useRegisterStore = defineStore('register', {
        async getAllCompetences() {
             try{
            const response = await instance.get("GetAllCompetences");
-          //  console.log("getAllCompetences",response)
+           console.log("getAllCompetences",response)
            if(response['status'] === 200){
             this.allCompetences = response.data.data.filter(c => c.categorie_id !== null)
            }
