@@ -83,28 +83,24 @@ export default {
           " v-else>
             <span style="font-size: 1.2em; font-weight: bold; color: white">{{
               Help.toADfirstTwo(timetable_for_student.nom)
-              }}</span>
+            }}</span>
 
           </span>
           <i class="bi bi-patch-check-fill" v-if="this.$store?.state?.user?.user?.is_verified"
             style="color:rgb(0, 171, 251);font-size: 1em !important;"></i>
-          <!-- <img   v-if="timetable_for_student?.user?.is_verified" class="badge-animate" src="/star_3d.png" alt="star_3d.png" style="width: 25px;height: 25px;margin:-10px;">
-              <img v-if="timetable_for_student?.user?.star_color === 'gold' && !timetable_for_student?.user?.is_verified" src="/star_gold.png" alt="star_3d.png" style="width: 25px;height: 25px;margin:-10px;">
-              <img v-if="timetable_for_student?.user?.star_color === 'yellow' && !timetable_for_student?.user?.is_verified" src="/start_yellow.png" alt="star_3d.png" style="width: 25px;height: 25px;margin:-10px;"> -->
-          <!-- <i 
-      v-if="timetable_for_student?.user.is_verified"
-              class="bi bi-patch-check-fill"  
-              style="color:rgb(0, 171, 251);
-              margin:-5px; 
-              font-size: 1.4em !important;"></i> -->
+
         </div>
         <div style="display: flex; flex-direction: column; gap: 0.5em; align-items: flex-start">
           <h3 class="text-left my-3" style="font-size: clamp(1rem, 3vw, 2rem);">
             {{ timetable_for_student.nom }} {{ timetable_for_student.prenoms }}
           </h3>
+          <h4 v-if="timetable_for_student.titreCv !== 'null' && timetable_for_student.titreCv !== null &&
+            timetable_for_student.titreCv !== 'undefined' && timetable_for_student.titreCv !== undefined">{{
+              timetable_for_student.titreCv }}</h4>
           <!-- Conteneur avec flex et gap -->
           <div v-for="item in timetable_for_student?.user.statuses" :key="item.id">
             <span class="badge bg-warning">{{ item.statut }}</span>
+
           </div>
 
           <n-rate v-if="timetable_for_student.average" readonly :default-value="timetable_for_student.average" />
@@ -202,8 +198,8 @@ export default {
           <div class="d-flex align-items-center">
             <!-- Photo ou icône -->
             <div class="mx-3 flex-shrink-0">
-              <n-image v-if="item.fileCharged" :src="this.lienPhoto + item.fileCharged" class="rounded-circle" width="48"
-                height="48" style="object-fit: cover;" />
+              <n-image v-if="item.fileCharged" :src="this.lienPhoto + item.fileCharged" class="rounded-circle"
+                width="48" height="48" style="object-fit: cover;" />
 
             </div>
 

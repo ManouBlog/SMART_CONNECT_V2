@@ -26,13 +26,14 @@
         >
               <section v-for="(element, index) in item.valueArray" :key="index">
                 <div>
-                  <div v-if="Help?.splitFilename(element?.path) === 'pdf'">
+                  <div v-if="Help?.splitFilename(element?.path) === 'pdf' || Help?.splitFilename(element?.path) === 'PDF'">
                     <n-button type="warning" @click="showModal = true">
                       Voir
                     </n-button>
+                    <!-- {{ element.path }} -->
                     <n-modal
                       v-model:show="showModal"
-                      style="width: 80%; max-width: 900px"
+                      style="width: 80%; max-width: 900px;"
                     >
                       <n-card title="Document PDF" closable @close="showModal = false">
                         <iframe
@@ -47,9 +48,9 @@
                     v-for="(photo, index) in [element.path]"
                     :key="index"
                     :alt="photo"
-                    width="100"
-                    height="110"
-                    style="object-fit: cover;"
+                    width="90"
+                    height="60"
+                    style="object-fit: contain !important;"
                     :src="lienPhoto + photo"
                   />
                 </div>

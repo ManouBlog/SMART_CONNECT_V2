@@ -244,6 +244,9 @@ export default {
 };
 </script>
 <style>
+.n-avatar img{
+  object-fit: contain !important;
+}
 .ant-btn-default:not(:disabled):active,
 .ant-btn-default:not(:disabled):hover {
   color: orange !important;
