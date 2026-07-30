@@ -520,7 +520,7 @@ export default {
           </a-form-item>
         </a-col>
       </a-row>
-      <div>
+      <!-- <div>
         <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
           Avez-vous été assisté(e) par un commercial ?
         </label>
@@ -548,7 +548,7 @@ export default {
             </a-col>
           </a-row>
         </div>
-      </div>
+      </div> -->
       <!-- Bouton de soumission -->
       <a-form-item>
         <div class="d-flex justify-content-center">
