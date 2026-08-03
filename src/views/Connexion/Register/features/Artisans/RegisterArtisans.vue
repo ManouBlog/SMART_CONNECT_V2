@@ -186,7 +186,7 @@ export default {
         upload: [],
         galeries: [],
         bio: "",
-        statut_talent: "",
+        statut_talent: "Artisan",
         statutId: 7,
         photo_profil: null,
         uploadPhotoProfil: [],
@@ -214,6 +214,7 @@ export default {
     },
 
     isNextDisabled() {
+      console.log("currentStep", this.currentStep);
       if (this.currentStep === 0) {
         return !this.formState.optionsAnswer || (this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0);
       }
@@ -229,11 +230,14 @@ export default {
        // STEP 1 – Infos personnelles
         1: ["nom", "prenoms", "phone", "email"],
 
-        // STEP 2 – Profil & compétences
-        2: ["niveauEtude", "statut_talent"],
+         // STEP 2 – Profil & compétences
+        2: ["myCompetence"],
+
+        // STEP 3 – Niveau d'étude & qualifications
+        3: ["niveauEtude"],
 
         // STEP 4 – Validation finale
-        4: ["upload", "password"],
+        5: ["upload", "password"],
       };
     },
     isCurrentStepValid() {
@@ -250,18 +254,18 @@ export default {
       });
     },
   },
-  watch: {
-    'formState.answerAssistance'(newVal) {
-      if (newVal === 'non') {
-        this.formState.identifiantCommerciale = null
-      }
-    },
-  },
+  // watch: {
+  //   'formState.answerAssistance'(newVal) {
+  //     if (newVal === 'non') {
+  //       this.formState.identifiantCommerciale = null
+  //     }
+  //   },
+  // },
   methods: {
     async lister_statut() {
       try {
         const response = await instance.get("listStatut")
-        this.allStatuts = response.data.data.filter(item => item.statut === 'Artisan')
+        this.allStatuts = response.data.data.filter(item => item.statut === 'Particulier')
         this.allProfiles = response.data.data;
       } catch (error) {
         console.log(error);
@@ -465,26 +469,27 @@ export default {
       this.formState.galeries.splice(index, 1)
     },
     onFinish() {
-      this.formState.profiles = this.allProfiles;
-      if (this.formState.uploadPhotoProfil.length) {
-        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
-      }
+      console.log("this.formState", this.formState)
+      // this.formState.profiles = this.allProfiles;
+      // if (this.formState.uploadPhotoProfil.length) {
+      //   this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
+      // }
 
-      if (this.configUtils.isValidEmail(this.formState.email)) {
-        if (this.formState.upload.length) {
-          this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          // console.log("this.formState",this.formState)
-          this.changeValueIsPolitics({
-            value: true,
-            infoUser: "talents",
-            payload: this.formState,
-          });
-        } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité ou une Pièce justificative");
-        }
-      } else {
-        this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
-      }
+      // if (this.configUtils.isValidEmail(this.formState.email)) {
+      //   if (this.formState.upload.length) {
+      //     this.formState.photo = this.addPhotoInArray(this.formState.upload);
+      //     // console.log("this.formState",this.formState)
+      //     this.changeValueIsPolitics({
+      //       value: true,
+      //       infoUser: "talents",
+      //       payload: this.formState,
+      //     });
+      //   } else {
+      //     this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité ou une Pièce justificative");
+      //   }
+      // } else {
+      //   this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
+      // }
     },
 
     onHandleFailed(errorInfo) {
@@ -710,7 +715,7 @@ export default {
             <!-- <a-input v-model:value="formState.filiere" placeholder="Filière" /> -->
           </a-form-item>
         </a-col>
-        <a-col :xs="24" :md="12">
+        <!-- <a-col :xs="24" :md="12">
           <a-form-item :label="'Statut professionnel'" name="statut_talent"
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]">
             <a-select style="width: 100%;" v-model:value="formState.statut_talent"
@@ -720,7 +725,7 @@ export default {
               </a-select-option>
             </a-select>
           </a-form-item>
-        </a-col>
+        </a-col> -->
         <a-col :xs="24" :md="24">
           <a-form-item :label="'Certifications, diplômes ou qualifications que vous possédez'">
             <RegisterQualifications :isRequired="false" @update:modelValue="handleQualifications" />
