@@ -21,22 +21,15 @@ profilOfAbonnement:Object
        niveauxEtudes:[
   // Aucun / base
   { value: "aucun", label: "Aucun niveau" },
+   { value: "Primaire", label: "Primaire" },
 
   // Primaire
-  { value: "cepe", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
+  { value: "CEPE", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
 
   // Collège
-  { value: "6eme", label: "6ème" },
-  { value: "5eme", label: "5ème" },
-  { value: "4eme", label: "4ème" },
-  { value: "3eme", label: "3ème" },
-  { value: "bepc", label: "BEPC (Brevet d'Études du Premier Cycle)" },
-
-  // Lycée
-  { value: "2nde", label: "Seconde" },
-  { value: "1ere", label: "Première" },
-  { value: "terminale", label: "Terminale" },
-  { value: "bac", label: "BAC" },
+  { value: "Collège", label: "Collège" },
+  { value: "BEPC", label: "BEPC (Brevet d'Études du Premier Cycle)" },
+  { value: "BAC", label: "BAC" },
 
   // Professionnel / technique
   { value: "cap", label: "CAP (Certificat d'Aptitude Professionnelle)" },
@@ -57,7 +50,9 @@ profilOfAbonnement:Object
   { value: "bac+5", label: "BAC+5 (Master)" },
   { value: "bac+6", label: "BAC+6" },
   { value: "bac+7", label: "BAC+7" },
-  { value: "doctorat", label: "Doctorat (BAC+8 et plus)" },
+  { value: "doctorat 1", label: "Doctorat 1" },
+  { value: "doctorat 2", label: "Doctorat 2" },
+  { value: "doctorat 3", label: "Doctorat 3" },
 ],
  loading : false,
  rawText : '',
