@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-       today:new Date().toISOString().split("T")[0],
+      today: new Date().toISOString().split("T")[0],
       allAnwserProfilHybride: [
         { label: "Oui", value: "oui" },
         { label: "Non", value: "non" }
@@ -199,16 +199,16 @@ export default {
         profilHybride: [],
         optionsAnswer: "non",
         experiences: [
-        {
-          poste: "",
-          entreprise: "",
-          lieu: "",
-          dateDebut: "",
-          dateFin: "",
-          experience: "",
-          fileProof: null,
-        },
-      ]
+          {
+            poste: "",
+            entreprise: "",
+            lieu: "",
+            dateDebut: "",
+            dateFin: "",
+            experience: "",
+            fileProof: null,
+          },
+        ]
       },
 
     };
@@ -239,18 +239,20 @@ export default {
 
         // STEP 0 – OptionsAnswer
         0: ["optionsAnswer"],
-
+        1: [
+          experiences => experiences.every(exp => exp.poste && exp.entreprise && exp.lieu && exp.dateDebut && exp.experience)
+        ],
         // STEP 1 – Infos personnelles
-        1: ["nom", "prenoms", "phone", "email"],
+        2: ["nom", "prenoms", "phone", "email"],
 
         // STEP 2 – Profil & compétences
-        2: ["myCompetence"],
+        3: ["myCompetence"],
 
         // STEP 3 – Niveau d'étude & qualifications
-        3: ["niveauEtude"],
+        4: ["niveauEtude"],
 
         // STEP 4 – Validation finale
-        5: ["upload", "password"],
+        6: ["upload", "password"],
       };
     },
     isCurrentStepValid() {
@@ -267,13 +269,6 @@ export default {
       });
     },
   },
-  // watch: {
-  //   'formState.answerAssistance'(newVal) {
-  //     if (newVal === 'non') {
-  //       this.formState.identifiantCommerciale = null
-  //     }
-  //   },
-  // },
   methods: {
     createExperience() {
       return {
@@ -611,16 +606,14 @@ export default {
     <div v-show="currentStep === 1">
       <n-dynamic-input v-model:value="formState.experiences" :on-create="createExperience">
         <template #create-button-default>
-      Ajouter une expérience
-    </template>
-        <template #default="{ value,index }">
+          Ajouter une expérience
+        </template>
+        <template #default="{ value, index }">
           <a-row :gutter="[16, 24]">
 
             <a-col :xs="24" :md="12">
 
-              <a-form-item label="Poste"  
-              :name="['experiences', index, 'poste']" 
-              :rules="[
+              <a-form-item label="Poste" :name="['experiences', index, 'poste']" :rules="[
                 {
                   required: true,
                   message: 'Le poste est obligatoire.',
@@ -667,22 +660,15 @@ export default {
                   trigger: 'change',
                 },
               ]">
-                <a-input type="date" v-model:value="value.dateDebut" size="large"
-                :max="today"
-                />
+                <a-input type="date" v-model:value="value.dateDebut" size="large" :max="today" />
               </a-form-item>
 
             </a-col>
 
             <a-col :xs="24" :md="6">
 
-              <a-form-item label="Date de fin" 
-              :name="['experiences', index, 'dateFin']" 
-              >
-                <a-input type="date" v-model:value="value.dateFin" 
-                :min="value.dateDebut" 
-                max="today"
-                size="large" />
+              <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
+                <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut" max="today" size="large" />
               </a-form-item>
 
             </a-col>
