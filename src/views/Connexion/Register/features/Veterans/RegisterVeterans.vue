@@ -229,9 +229,10 @@ export default {
     },
 
     isPasswordDisabled() {
+      const isProfilRequiredButEmpty = this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0;
       return (
         this.loading ||
-        (this.result && this.result.isStudentCard === false)
+        (this.result && this.result.isStudentCard === false) || isProfilRequiredButEmpty
       )
     },
     isNextDisabled() {
@@ -246,6 +247,10 @@ export default {
         return this.formState.qualifications.some(
           (q) => !q.objet || !q.date_debut || !q.date_fin
         );
+      }
+
+      if (this.currentStep === 2) {
+        return this.formState.experiences.length === 0 || this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
       }
 
 
@@ -722,8 +727,7 @@ export default {
 
     <!-- STEP 2 -->
     <div v-show="currentStep === 2">
-      <n-dynamic-input v-model:value="formState.experiences" 
-      :on-create="createExperience">
+      <n-dynamic-input v-model:value="formState.experiences" :on-create="createExperience">
         <template #create-button-default>
           Ajouter une expérience
         </template>

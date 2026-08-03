@@ -253,7 +253,7 @@ export default {
         );
       }
 
-      if(this.currentStep === 2) {
+      if (this.currentStep === 2) {
         return this.formState.experiences.length === 0 || this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
       }
 
@@ -321,7 +321,7 @@ export default {
           this.formState.statut_professionnel_artisan = ""
           this.formState.uploadCNI = null
         }
-     
+
 
       },
       immediate: true,
@@ -329,16 +329,16 @@ export default {
   },
 
   methods: {
-     onFileProof(event, index){
+    onFileProof(event, index) {
 
-  const file = event.target.files[0];
+      const file = event.target.files[0];
 
-  if (!file) return;
+      if (!file) return;
 
-  this.formState.experiences[index].fileProof = file;
+      this.formState.experiences[index].fileProof = file;
 
-},
- createExperience() {
+    },
+    createExperience() {
       return {
         poste: "",
         entreprise: "",
@@ -376,10 +376,10 @@ export default {
     nextStep() {
       console.log("ProfilHybride", this.formState.profilHybride);
       console.log("this.currentStep", this.currentStep);
-      
-     
+
+
       if (this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length) {
-      
+
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Choisissez un profil"
@@ -387,7 +387,7 @@ export default {
         return;
       }
       if (this.currentStep === 1 && this.formState.profilHybride.length && this.formState.optionsAnswer == "oui") {
-        
+
         if (!this.formState.ville || !this.formState.commune) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
@@ -458,7 +458,7 @@ export default {
       }
 
       this.rawText = this.cleanOCRText(fullText)
-   
+
       if (!this.hasReadableText(fullText)) {
         this.result = {
           score: 0,
@@ -499,14 +499,14 @@ export default {
       ).length
 
       score += Math.min(keywordHits * 10, 40)
-   
+
 
       if (cleanText.includes('republique de cote d ivoire') ||
         cleanText.includes("RÉPUBLIQUE DE CÔTE D'IVOIRE")) score += 20
       if (cleanText.includes('ivoirienne') || cleanText.includes('IVOIRIENNE')) score += 20
       if (cleanText.includes("civ")) score += 20
       if (cleanText.includes("ci0")) score += 10
-     
+
       this.result = {
         score,
         isStudentCard: score >= 50
@@ -546,7 +546,7 @@ export default {
       })
     },
     onFinish() {
-     
+
       this.formState.profiles = this.allProfiles;
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
@@ -554,11 +554,11 @@ export default {
       if (this.formState.profilHybride.length) {
         this.formState.profilHybride.push(this.formState.statutId)
       }
- 
+
       if (this.configUtils.isValidEmail(this.formState.email)) {
         if (this.formState.upload.length) {
           this.formState.photo = this.addPhotoInArray(this.formState.upload);
-          
+
           this.changeValueIsPolitics({
             value: true,
             infoUser: "talents",
@@ -658,7 +658,7 @@ export default {
         </div>
       </transition>
     </div>
-     <!-- STEP 1 -->
+    <!-- STEP 1 -->
     <div v-show="currentStep === 1">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
@@ -754,111 +754,107 @@ export default {
       </a-row>
     </div>
 
-     <!-- STEP 2 -->
+    <!-- STEP 2 -->
     <div v-show="currentStep === 2">
       <n-dynamic-input v-model:value="formState.experiences" :on-create="createExperience">
         <template #create-button-default>
           Ajouter une expérience
         </template>
         <template #default="{ value, index }">
-          <div
-    :class="{
-      'experience_border': index >= 1
-    }"
-  >
-          <a-row :gutter="[16, 24]">
+          <div :class="{
+            'experience_border': index >= 1
+          }">
+            <a-row :gutter="[16, 24]">
 
-            <a-col :xs="24" :md="12">
+              <a-col :xs="24" :md="12">
 
-              <a-form-item label="Poste" :name="['experiences', index, 'poste']" :rules="[
-                {
-                  required: true,
-                  message: 'Le poste est obligatoire.',
-                  trigger: 'blur',
-                },
-              ]">
-                <a-input v-model:value="value.poste" size="large" />
-              </a-form-item>
+                <a-form-item label="Poste" :name="['experiences', index, 'poste']" :rules="[
+                  {
+                    required: true,
+                    message: 'Le poste est obligatoire.',
+                    trigger: 'blur',
+                  },
+                ]">
+                  <a-input v-model:value="value.poste" size="large" />
+                </a-form-item>
 
-            </a-col>
-            <a-col :xs="24" :md="12">
-              <a-form-item label="Entreprise" :name="['experiences', index, 'entreprise']" :rules="[
-                {
-                  required: true,
-                  message: 'Le nom de l’entreprise est obligatoire.',
-                  trigger: 'blur',
-                },
-              ]">
-                <a-input v-model:value="value.entreprise" size="large" />
-              </a-form-item>
+              </a-col>
+              <a-col :xs="24" :md="12">
+                <a-form-item label="Entreprise" :name="['experiences', index, 'entreprise']" :rules="[
+                  {
+                    required: true,
+                    message: 'Le nom de l’entreprise est obligatoire.',
+                    trigger: 'blur',
+                  },
+                ]">
+                  <a-input v-model:value="value.entreprise" size="large" />
+                </a-form-item>
 
-            </a-col>
+              </a-col>
 
-            <a-col :xs="24" :md="12">
+              <a-col :xs="24" :md="12">
 
-              <a-form-item label="lieu" :name="['experiences', index, 'lieu']" :rules="[
-                {
-                  required: true,
-                  message: 'Le lieu est obligatoire.',
-                  trigger: 'blur',
-                },
-              ]">
-                <a-input v-model:value="value.lieu" size="large" />
-              </a-form-item>
+                <a-form-item label="lieu" :name="['experiences', index, 'lieu']" :rules="[
+                  {
+                    required: true,
+                    message: 'Le lieu est obligatoire.',
+                    trigger: 'blur',
+                  },
+                ]">
+                  <a-input v-model:value="value.lieu" size="large" />
+                </a-form-item>
 
-            </a-col>
+              </a-col>
 
-            <a-col :xs="24" :md="6">
+              <a-col :xs="24" :md="6">
 
-              <a-form-item label="Date de début" :name="['experiences', index, 'dateDebut']" :rules="[
-                {
-                  required: true,
-                  message: 'La date de début est obligatoire.',
-                  trigger: 'change',
-                },
-              ]">
-                <a-input type="date" v-model:value="value.dateDebut" size="large" :max="today" />
-              </a-form-item>
+                <a-form-item label="Date de début" :name="['experiences', index, 'dateDebut']" :rules="[
+                  {
+                    required: true,
+                    message: 'La date de début est obligatoire.',
+                    trigger: 'change',
+                  },
+                ]">
+                  <a-input type="date" v-model:value="value.dateDebut" size="large" :max="today" />
+                </a-form-item>
 
-            </a-col>
+              </a-col>
 
-            <a-col :xs="24" :md="6">
+              <a-col :xs="24" :md="6">
 
-              <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
-                <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut"
-                :max="today"
-                size="large" />
-              </a-form-item>
+                <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
+                  <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut" :max="today" size="large" />
+                </a-form-item>
 
-            </a-col>
+              </a-col>
 
-            <a-col :xs="24" :md="12">
+              <a-col :xs="24" :md="12">
 
-              <a-form-item label="Justificatif" :name="['experiences', index, 'fileProof']">
+                <a-form-item label="Justificatif" :name="['experiences', index, 'fileProof']">
 
-                <a-input type="file" accept="image/*,application/pdf"
-                @change="(event) => onFileProof(event, index)" />
+                  <a-input type="file" accept="image/*,application/pdf"
+                    @change="(event) => onFileProof(event, index)" />
 
-              </a-form-item>
+                </a-form-item>
 
-            </a-col>
+              </a-col>
 
-            <a-col :xs="24">
+              <a-col :xs="24">
 
-              <a-form-item :label="texte7" :name="['experiences', index, 'experience']" :rules="[
-                {
-                  required: true,
-                  message: 'Veuillez décrire votre expérience.',
-                  trigger: 'blur',
-                },
-              ]">
+                <a-form-item :label="texte7" :name="['experiences', index, 'experience']" :rules="[
+                  {
+                    required: true,
+                    message: 'Veuillez décrire votre expérience.',
+                    trigger: 'blur',
+                  },
+                ]">
 
-                <a-textarea v-model:value="value.experience" :rows="6" />
+                  <a-textarea v-model:value="value.experience" :rows="6" />
 
-              </a-form-item>
+                </a-form-item>
 
-            </a-col>
-          </a-row>
+              </a-col>
+            </a-row>
           </div>
         </template>
       </n-dynamic-input>
@@ -937,7 +933,7 @@ export default {
           </a-form-item>
         </a-col>
       </a-row>
-      
+
     </div>
 
     <!-- STEP 4 -->
@@ -1159,7 +1155,8 @@ export default {
   background-color: #ff8819 !important;
   border-color: #ff8819 !important;
 }
-.experience_border{
+
+.experience_border {
   border-top: 1px solid #d9d9d9;
   padding-top: 24px;
   margin-top: 24px;
