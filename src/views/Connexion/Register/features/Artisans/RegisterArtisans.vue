@@ -777,7 +777,7 @@ export default {
 
               <a-form-item label="Justificatif" :name="['experiences', index, 'fileProof']">
 
-                <a-input type="file" accept="image/*" 
+                <a-input type="file" accept="image/*,application/pdf"
                 @change="(event) => onFileProof(event, index)" />
 
               </a-form-item>
