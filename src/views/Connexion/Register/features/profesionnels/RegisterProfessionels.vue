@@ -232,8 +232,16 @@ export default {
       )
     },
     isNextDisabled() {
-      // STEP 2 – Qualifications
-      if (this.currentStep === 3) {
+      if(this.currentStep === 3){
+        if(this.formState.otherCompetence.length){
+          return this.formState.otherCompetence.some((competence) => !competence)
+        }
+        if(this.formState.myCompetence.length){
+          return !this.formState.myCompetence.length;
+        }
+      }
+      // STEP 4 – Qualifications
+      if (this.currentStep === 4) {
         // au moins une qualification
         if (!this.formState.qualifications.length) {
           return true;
@@ -842,11 +850,12 @@ export default {
     </div>
 
     <!-- STEP 3 -->
-    <div v-show="currentStep === 3">
+    <div v-show="currentStep === 3"> 
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item :label="texte7">
-            <VueMultiselect v-model="formState.myCompetence" :options="allCompetences" placeholder="Choix multiples"
+            <VueMultiselect v-model="formState.myCompetence" 
+            :options="allCompetences" placeholder="Choix multiples"
               :multiple="true" label="competence" track-by="competence" />
           </a-form-item>
           <a-form-item label="Autre">
