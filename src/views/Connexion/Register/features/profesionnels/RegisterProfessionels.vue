@@ -198,7 +198,7 @@ export default {
         photo: null,
         upload: [],
         modeTravail: "",
-        statut_professionnel_artisan: "Artisan",
+        statut_professionnel_artisan: "",
         uploadCNI: null,
         profilHybride: [],
         optionsAnswer: "non",
@@ -213,7 +213,7 @@ export default {
         qualifications: [],
         disponibiliteValid: false,
         experiences: [
-          
+
         ]
       },
     };
@@ -232,11 +232,11 @@ export default {
       )
     },
     isNextDisabled() {
-      if(this.currentStep === 3){
-        if(this.formState.otherCompetence.length){
+      if (this.currentStep === 3) {
+        if (this.formState.otherCompetence.length) {
           return this.formState.otherCompetence.some((competence) => !competence)
         }
-        if(this.formState.myCompetence.length){
+        if (this.formState.myCompetence.length) {
           return !this.formState.myCompetence.length;
         }
       }
@@ -275,7 +275,7 @@ export default {
         0: ["optionsAnswer"],
         // STEP 1 – Infos personnelles
         1: ["nom", "prenoms", "phone", "email"],
-          // STEP 3 – Competences
+        // STEP 3 – Competences
         3: ["otherCompetence", "myCompetence"],
         // STEP 4 – Qualifications
         4: ["qualifications", "niveauEtude", "filiere", "statut_talent"],
@@ -308,15 +308,20 @@ export default {
           this.formState.profilHybride = [];
           this.formState.ville = "";
           this.formState.commune = "";
-          // this.formState.statut_talent = "";
           this.formState.statut_professionnel_artisan = ""
           this.formState.uploadCNI = null
         }
-
-
       },
       immediate: true,
-    }
+    },
+    'formState.profilHybride': {
+      handler(value) {
+        if (value.includes(7)) {
+          this.formState.statut_professionnel_artisan = "Artisan"
+        }
+      },
+      immediate: true,
+    },
   },
 
   methods: {
@@ -362,7 +367,7 @@ export default {
       this.formState.qualifications = payload;
     },
     nextStep() {
-     
+
       if (this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
@@ -382,8 +387,8 @@ export default {
 
 
       }
-      if(this.currentStep == 4){
-        
+      if (this.currentStep == 4) {
+
         if (this.formState.profilHybride.some(el => el == 7) && !this.formState.statut_professionnel_artisan) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
@@ -401,9 +406,7 @@ export default {
           );
           return;
         }
-
       }
-
       // if (this.currentStep !== 5 && !this.isCurrentStepValid) {
       //   this.SWALPOPUP.declencheSwalPopup(
       //     "warning",
@@ -413,7 +416,7 @@ export default {
       // }
 
       this.currentStep++;
-       console.log("ProfilHybride", this.formState.profilHybride);
+      console.log("ProfilHybride", this.formState.profilHybride);
       console.log("this.currentStep", this.currentStep);
     },
 
@@ -535,30 +538,30 @@ export default {
       })
     },
     onFinish() {
+      console.log("this.formState_professionnel", this.formState);
+      // this.formState.profiles = this.allProfiles;
+      // if (this.formState.uploadPhotoProfil.length) {
+      //   this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
+      // }
+      // if (this.formState.profilHybride.length) {
+      //   this.formState.profilHybride.push(this.formState.statutId)
+      // }
 
-      this.formState.profiles = this.allProfiles;
-      if (this.formState.uploadPhotoProfil.length) {
-        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
-      }
-      if (this.formState.profilHybride.length) {
-        this.formState.profilHybride.push(this.formState.statutId)
-      }
+      // if (this.configUtils.isValidEmail(this.formState.email)) {
+      //   if (this.formState.upload.length) {
+      //     this.formState.photo = this.addPhotoInArray(this.formState.upload);
 
-      if (this.configUtils.isValidEmail(this.formState.email)) {
-        if (this.formState.upload.length) {
-          this.formState.photo = this.addPhotoInArray(this.formState.upload);
-
-          this.changeValueIsPolitics({
-            value: true,
-            infoUser: "talents",
-            payload: this.formState,
-          });
-        } else {
-          this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité ou une Pièce justificative");
-        }
-      } else {
-        this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
-      }
+      //     this.changeValueIsPolitics({
+      //       value: true,
+      //       infoUser: "talents",
+      //       payload: this.formState,
+      //     });
+      //   } else {
+      //     this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité ou une Pièce justificative");
+      //   }
+      // } else {
+      //   this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
+      // }
     },
 
     onHandleFailed(errorInfo) {
@@ -850,12 +853,11 @@ export default {
     </div>
 
     <!-- STEP 3 -->
-    <div v-show="currentStep === 3"> 
+    <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item :label="texte7">
-            <VueMultiselect v-model="formState.myCompetence" 
-            :options="allCompetences" placeholder="Choix multiples"
+            <VueMultiselect v-model="formState.myCompetence" :options="allCompetences" placeholder="Choix multiples"
               :multiple="true" label="competence" track-by="competence" />
           </a-form-item>
           <a-form-item label="Autre">
