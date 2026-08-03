@@ -245,7 +245,7 @@ export default {
       },
       immediate: true,
     },
-    'formState.profilHybride': {
+    "formState.profilHybride": {
       handler(value) {
         if (value.includes(7)) {
           this.formState.statut_professionnel_artisan = "Artisan"
@@ -269,8 +269,7 @@ export default {
     isPasswordDisabled() {
       const isProfilRequiredButEmpty = this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0;
       return (
-        this.loading ||
-        (this.result && this.result.isStudentCard === false) || isProfilRequiredButEmpty
+        this.loading || isProfilRequiredButEmpty
       )
     },
     isNextDisabled() {
@@ -321,7 +320,7 @@ export default {
         // STEP 2 – mode de travail
         5: ["modeTravail", "tempsTravail"],
 
-        // STEP 4 – Validation finale
+        // // STEP 4 – Validation finale
         6: ["password"],
       };
     },
@@ -1069,9 +1068,9 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
         Suivant
       </a-button>
 
-      <a-button v-if="currentStep === 6" type="primary" html-type="submit" :disabled="!isCurrentStepValid ||
-        isPasswordDisabled ||
-        isCommercialAssitance || this.formState.answerAssistance == null">
+      <a-button v-if="currentStep === 6" type="primary" html-type="submit" 
+      :disabled="!isCurrentStepValid ||
+        isPasswordDisabled ">
         {{ texte11 }}
       </a-button>
     </div>
