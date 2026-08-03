@@ -1004,7 +1004,7 @@ export default {
 :deep(.ant-spin-text) {
   font-size: 16px !important;
 }
-.experience-border {
+.experience_border{
   border-top: 1px solid #d9d9d9;
   padding-top: 24px;
   margin-top: 24px;
