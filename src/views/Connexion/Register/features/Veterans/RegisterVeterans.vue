@@ -210,12 +210,12 @@ export default {
     isCommercialAssitance() {
       return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true : false;
     },
-     showGalerieStep() {
-    return (
-      this.formState.profilHybride.length > 0 &&
-     this.formState.profilHybride.includes(7)
-    );
-  },
+    showGalerieStep() {
+      return (
+        this.formState.profilHybride.length > 0 &&
+        this.formState.profilHybride.includes(7)
+      );
+    },
 
     isPasswordDisabled() {
       return (
@@ -556,12 +556,11 @@ export default {
     color: 'orange',
     boxShadow: '0px -1px 0 0 #e8e8e8 inset',
   }" :current="currentStep" class="mb-4">
-    <a-step title="Profil Hybride" description="" />
+    <a-step title="Profil Hybride" description="Ajoutez votre profil hybride" />
     <a-step title="Profil" description="Renseignez vos informations de base pour créer votre compte." />
+    <a-step title="Expériences" description="Ajoutez vos expériences." />
     <a-step title="Compétences" description="Sélectionnez vos compétences." />
     <a-step title="Qualifications" description="Ajoutez vos qualifications pour valoriser votre profil." />
-    <!-- <a-step v-if="showGalerieStep" title="Galéries"
-       description="Ajoutez vos meilleures créations." /> -->
     <a-step title="Mode de travail" description="Séléctionnez un mode de travail." />
     <a-step title="Validation finale" description="Ajoutez vos documents et confirmez votre inscription." />
   </a-steps>
@@ -602,12 +601,6 @@ export default {
         </div>
       </transition>
     </div>
-    <!-- {{ this.formState.profilHybride }}
-    
-    <p v-if="this.formState.profilHybride.length">
-  {{this.allStatuts.some(item=> this.formState.profilHybride.some(el=>el == item.id))}}
-    </p> -->
-    
 
     <!-- STEP 1 -->
     <div v-show="currentStep === 1">
@@ -674,7 +667,7 @@ export default {
         <a-col :xs="24" :md="12">
           <a-form-item label="Profil">
             <a-input v-model:value="formState.titreCv" />
-          
+
           </a-form-item>
         </a-col>
       </a-row>
@@ -707,6 +700,112 @@ export default {
 
     <!-- STEP 2 -->
     <div v-show="currentStep === 2">
+      <n-dynamic-input v-model:value="formState.experiences" :on-create="createExperience">
+        <template #create-button-default>
+          Ajouter une expérience
+        </template>
+        <template #default="{ value, index }">
+          <div :class="{
+            'experience_border': index >= 1
+          }">
+            <a-row :gutter="[16, 24]">
+
+              <a-col :xs="24" :md="12">
+
+                <a-form-item label="Poste" :name="['experiences', index, 'poste']" :rules="[
+                  {
+                    required: true,
+                    message: 'Le poste est obligatoire.',
+                    trigger: 'blur',
+                  },
+                ]">
+                  <a-input v-model:value="value.poste" size="large" />
+                </a-form-item>
+
+              </a-col>
+              <a-col :xs="24" :md="12">
+                <a-form-item label="Entreprise" :name="['experiences', index, 'entreprise']" :rules="[
+                  {
+                    required: true,
+                    message: 'Le nom de l’entreprise est obligatoire.',
+                    trigger: 'blur',
+                  },
+                ]">
+                  <a-input v-model:value="value.entreprise" size="large" />
+                </a-form-item>
+
+              </a-col>
+
+              <a-col :xs="24" :md="12">
+
+                <a-form-item label="lieu" :name="['experiences', index, 'lieu']" :rules="[
+                  {
+                    required: true,
+                    message: 'Le lieu est obligatoire.',
+                    trigger: 'blur',
+                  },
+                ]">
+                  <a-input v-model:value="value.lieu" size="large" />
+                </a-form-item>
+
+              </a-col>
+
+              <a-col :xs="24" :md="6">
+
+                <a-form-item label="Date de début" :name="['experiences', index, 'dateDebut']" :rules="[
+                  {
+                    required: true,
+                    message: 'La date de début est obligatoire.',
+                    trigger: 'change',
+                  },
+                ]">
+                  <a-input type="date" v-model:value="value.dateDebut" size="large" :max="today" />
+                </a-form-item>
+
+              </a-col>
+
+              <a-col :xs="24" :md="6">
+
+                <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
+                  <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut" :max="today" size="large" />
+                </a-form-item>
+
+              </a-col>
+
+              <a-col :xs="24" :md="12">
+
+                <a-form-item label="Justificatif" :name="['experiences', index, 'fileProof']">
+
+                  <a-input type="file" accept="image/*,application/pdf"
+                    @change="(event) => onFileProof(event, index)" />
+
+                </a-form-item>
+
+              </a-col>
+
+              <a-col :xs="24">
+
+                <a-form-item :label="texte7" :name="['experiences', index, 'experience']" :rules="[
+                  {
+                    required: true,
+                    message: 'Veuillez décrire votre expérience.',
+                    trigger: 'blur',
+                  },
+                ]">
+
+                  <a-textarea v-model:value="value.experience" :rows="6" />
+
+                </a-form-item>
+
+              </a-col>
+            </a-row>
+          </div>
+        </template>
+      </n-dynamic-input>
+    </div>
+
+    <!-- STEP 3 -->
+    <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item :label="texte7">
@@ -738,8 +837,8 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 3 -->
-    <div v-show="currentStep === 3">
+    <!-- STEP 4 -->
+    <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item :label="texte8" name="niveauEtude" :rules="[{ required: true, message: texte13 }]">
@@ -803,8 +902,8 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
       </a-row>
     </div>
 
-    <!-- STEP 4 -->
-    <div v-show="currentStep === 4">
+    <!-- STEP 5 -->
+    <div v-show="currentStep === 5">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item :label="'Mode de travail'"
@@ -834,8 +933,8 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
       </a-row>
     </div>
 
-    <!-- STEP 5 -->
-    <div v-show="currentStep === 5">
+    <!-- STEP 6 -->
+    <div v-show="currentStep === 6">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -927,6 +1026,12 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
 :deep(:where(.ant-steps-item-icon)) {
   background-color: #ff8819 !important;
   border-color: #ff8819 !important;
+}
+
+.experience_border {
+  border-top: 1px solid #d9d9d9;
+  padding-top: 24px;
+  margin-top: 24px;
 }
 
 :deep(:where(.css-dev-only-do-not-override-17yhhjv).ant-select-single:not(.ant-select-customize-input) .ant-select-selector) {
