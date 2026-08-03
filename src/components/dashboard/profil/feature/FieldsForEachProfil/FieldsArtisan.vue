@@ -10,66 +10,66 @@ import { useAbonnementsStore } from "../../../../../store-pinia/Abonnements/useA
 
 export default {
   name: "FieldsArtisan",
-  props:{
-profilOfAbonnement:Object
+  props: {
+    profilOfAbonnement: Object
   },
-  components: { 
-   Abonnements
+  components: {
+    Abonnements
   },
   data() {
     return {
-       niveauxEtudes:[
-  // Aucun / base
-  { value: "aucun", label: "Aucun niveau" },
-   { value: "Primaire", label: "Primaire" },
+      niveauxEtudes: [
+        // Aucun / base
+        { value: "aucun", label: "Aucun niveau" },
+        { value: "Primaire", label: "Primaire" },
 
-  // Primaire
-  { value: "CEPE", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
+        // Primaire
+        { value: "CEPE", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
 
-  // Collège
-  { value: "Collège", label: "Collège" },
-  { value: "BEPC", label: "BEPC (Brevet d'Études du Premier Cycle)" },
-  { value: "BAC", label: "BAC" },
+        // Collège
+        { value: "Collège", label: "Collège" },
+        { value: "BEPC", label: "BEPC (Brevet d'Études du Premier Cycle)" },
+        { value: "BAC", label: "BAC" },
 
-  // Professionnel / technique
-  { value: "cap", label: "CAP (Certificat d'Aptitude Professionnelle)" },
-  { value: "cqp", label: "CQP (Certificat de Qualification Professionnelle)" },
-  { value: "bt", label: "BT (Brevet de Technicien)" },
-  { value: "bp", label: "BP (Brevet Professionnel)" },
-  { value: "bep", label: "BEP (Brevet d'Études Professionnelles)" },
-  { value: "bts", label: "BTS (Brevet de Technicien Supérieur)" },
-  { value: "dut", label: "DUT (Diplôme Universitaire de Technologie)" },
-  { value: "licence_pro", label: "Licence professionnelle" },
-  { value: "ingenieur", label: "Diplôme d'ingénieur" },
+        // Professionnel / technique
+        { value: "cap", label: "CAP (Certificat d'Aptitude Professionnelle)" },
+        { value: "cqp", label: "CQP (Certificat de Qualification Professionnelle)" },
+        { value: "bt", label: "BT (Brevet de Technicien)" },
+        { value: "bp", label: "BP (Brevet Professionnel)" },
+        { value: "bep", label: "BEP (Brevet d'Études Professionnelles)" },
+        { value: "bts", label: "BTS (Brevet de Technicien Supérieur)" },
+        { value: "dut", label: "DUT (Diplôme Universitaire de Technologie)" },
+        { value: "licence_pro", label: "Licence professionnelle" },
+        { value: "ingenieur", label: "Diplôme d'ingénieur" },
 
-  // Supérieur général
-  { value: "bac+1", label: "BAC+1" },
-  { value: "bac+2", label: "BAC+2" },
-  { value: "bac+3", label: "BAC+3 (Licence)" },
-  { value: "bac+4", label: "BAC+4 (Maîtrise)" },
-  { value: "bac+5", label: "BAC+5 (Master)" },
-  { value: "bac+6", label: "BAC+6" },
-  { value: "bac+7", label: "BAC+7" },
-  { value: "doctorat 1", label: "Doctorat 1" },
-  { value: "doctorat 2", label: "Doctorat 2" },
-  { value: "doctorat 3", label: "Doctorat 3" },
-],
- loading : false,
- rawText : '',
- result : null,
- showModalAbonnements:false,
- allAnwserProfilHybride: [
-  { label: "Oui", value: "oui" },
-  { label: "Non", value: "non" }
-],
- allStatuts : [
-  { value: "Particulier", label: "Particulier" },
-  { value: "Artisan", label: "Artisan" },
-],
-StatutArtisans:[
-  // { value: "Maitre Artisan", label: "Maitre Artisan" },
-  { value: "Artisan", label: "Artisan" }
-],
+        // Supérieur général
+        { value: "bac+1", label: "BAC+1" },
+        { value: "bac+2", label: "BAC+2" },
+        { value: "bac+3", label: "BAC+3 (Licence)" },
+        { value: "bac+4", label: "BAC+4 (Maîtrise)" },
+        { value: "bac+5", label: "BAC+5 (Master)" },
+        { value: "bac+6", label: "BAC+6" },
+        { value: "bac+7", label: "BAC+7" },
+        { value: "doctorat 1", label: "Doctorat 1" },
+        { value: "doctorat 2", label: "Doctorat 2" },
+        { value: "doctorat 3", label: "Doctorat 3" },
+      ],
+      loading: false,
+      rawText: '',
+      result: null,
+      showModalAbonnements: false,
+      allAnwserProfilHybride: [
+        { label: "Oui", value: "oui" },
+        { label: "Non", value: "non" }
+      ],
+      allStatuts: [
+        { value: "Particulier", label: "Particulier" },
+        { value: "Artisan", label: "Artisan" },
+      ],
+      StatutArtisans: [
+        // { value: "Maitre Artisan", label: "Maitre Artisan" },
+        { value: "Artisan", label: "Artisan" }
+      ],
 
       availabilityDates: [],
       startTime: null,
@@ -96,249 +96,216 @@ StatutArtisans:[
       texte18: "",
       texte19: "",
       texte96: "",
-     filiere:"",
+      filiere: "",
       configUtils,
       SWALPOPUP: useSwalPopup(),
       formState: {
         photo: null,
-        niveauEtude:"",
-        profilHybride:[],
-        statut_talent:""
+        niveauEtude: "",
+        profilHybride: [],
+        statut_talent: ""
       },
     };
   },
 
   computed: {
 
-   isFormComplete() {
+    isFormComplete() {
       return (
         this.formState.statut_talent?.trim() &&      // Select sélectionné
         this.formState.photo              // Fichier uploadé
       );
     }
   },
- 
+
   methods: {
-     onUploadChange(e) {
-   
-    this.formState.photo = Array.from(e.target.files)[0];
-    if (!e) return
-    this.rawText = ''
-    this.result = null
+    onUploadChange(e) {
 
-},
-// async runOCR(files) {
-//   this.loading = true
-//   let fullText = ''
+      this.formState.photo = Array.from(e.target.files)[0];
+      if (!e) return
+      this.rawText = ''
+      this.result = null
 
-//   for (const f of files) {
-//     const file = f.originFileObj
-//     if (!file || !file.type.startsWith('image/')) continue
+    },
+    // async runOCR(files) {
+    //   this.loading = true
+    //   let fullText = ''
 
-//     const canvas = await this.preprocessImage(file)
-//     const { data } = await Tesseract.recognize(canvas, 'fra')
-//     fullText += '\n' + (data.text || '')
-//   }
+    //   for (const f of files) {
+    //     const file = f.originFileObj
+    //     if (!file || !file.type.startsWith('image/')) continue
 
-//   this.rawText = this.cleanOCRText(fullText)
+    //     const canvas = await this.preprocessImage(file)
+    //     const { data } = await Tesseract.recognize(canvas, 'fra')
+    //     fullText += '\n' + (data.text || '')
+    //   }
 
-//   if (!this.hasReadableText(fullText)) {
-//     this.result = {
-//       score: 0,
-//       isStudentCard: false,
-//       reason: 'Aucun texte exploitable détecté'
-//     }
-//     this.loading = false
-//     return
-//   }
+    //   this.rawText = this.cleanOCRText(fullText)
 
-//   this.analyzeText(fullText)
-//   this.loading = false
-// },
-// hasReadableText(text) {
-//   const lettersOnly = text
-//     .replace(/\s/g, '')
-//     .replace(/[^a-zA-ZÀ-ÿ]/g, '')
+    //   if (!this.hasReadableText(fullText)) {
+    //     this.result = {
+    //       score: 0,
+    //       isStudentCard: false,
+    //       reason: 'Aucun texte exploitable détecté'
+    //     }
+    //     this.loading = false
+    //     return
+    //   }
 
-//   return lettersOnly.length >= 5
-// },
-// normalizeText(text) {
-//   return text
-//     .toLowerCase()
-//     .normalize('NFD')              // enlève les accents
-//     .replace(/[\u0300-\u036f]/g, '')
-//     .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
-//     .replace(/\s+/g, ' ')
-// },
-// analyzeText(text) {
-//   const cleanText = this.normalizeText(text)
-//   let score = 0
+    //   this.analyzeText(fullText)
+    //   this.loading = false
+    // },
+    // hasReadableText(text) {
+    //   const lettersOnly = text
+    //     .replace(/\s/g, '')
+    //     .replace(/[^a-zA-ZÀ-ÿ]/g, '')
 
-//   if (cleanText.length > 80) score += 20
+    //   return lettersOnly.length >= 5
+    // },
+    // normalizeText(text) {
+    //   return text
+    //     .toLowerCase()
+    //     .normalize('NFD')              // enlève les accents
+    //     .replace(/[\u0300-\u036f]/g, '')
+    //     .replace(/[^a-z0-9\s]/g, ' ')  // ponctuation OCR bizarre
+    //     .replace(/\s+/g, ' ')
+    // },
+    // analyzeText(text) {
+    //   const cleanText = this.normalizeText(text)
+    //   let score = 0
 
-//   const keywordHits = this.SCHOOL_KEYWORDS.filter(k =>
-//     cleanText.includes(k)
-//   ).length
+    //   if (cleanText.length > 80) score += 20
 
-//   score += Math.min(keywordHits * 10, 40)
+    //   const keywordHits = this.SCHOOL_KEYWORDS.filter(k =>
+    //     cleanText.includes(k)
+    //   ).length
 
-//   if (cleanText.includes('matricule')) score += 20
-//   if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
+    //   score += Math.min(keywordHits * 10, 40)
 
-//   this.result = {
-//     score,
-//     isStudentCard: score >= 60
-//   }
-// },
-// cleanOCRText(text) {
-//   return text
-//     // supprimer caractères parasites fréquents OCR
-//     .replace(/[|«»“”]/g, '')
-//     .replace(/_{2,}/g, ' ')
-//     .replace(/-{2,}/g, ' ')
-//     .replace(/\s{2,}/g, ' ')
-//     .replace(/\n{2,}/g, '\n')
-//     .trim()
-// },
-// preprocessImage(file) {
-//   return new Promise(resolve => {
-//     const img = new Image()
-//     const reader = new FileReader()
+    //   if (cleanText.includes('matricule')) score += 20
+    //   if (cleanText.match(/\b(l[123]|m[12])\b/)) score += 10
 
-//     reader.onload = () => (img.src = reader.result)
+    //   this.result = {
+    //     score,
+    //     isStudentCard: score >= 60
+    //   }
+    // },
+    // cleanOCRText(text) {
+    //   return text
+    //     // supprimer caractères parasites fréquents OCR
+    //     .replace(/[|«»“”]/g, '')
+    //     .replace(/_{2,}/g, ' ')
+    //     .replace(/-{2,}/g, ' ')
+    //     .replace(/\s{2,}/g, ' ')
+    //     .replace(/\n{2,}/g, '\n')
+    //     .trim()
+    // },
+    // preprocessImage(file) {
+    //   return new Promise(resolve => {
+    //     const img = new Image()
+    //     const reader = new FileReader()
 
-//     img.onload = () => {
-//       const canvas = document.createElement('canvas')
-//       const ctx = canvas.getContext('2d')
+    //     reader.onload = () => (img.src = reader.result)
 
-//       canvas.width = img.width
-//       canvas.height = img.height
+    //     img.onload = () => {
+    //       const canvas = document.createElement('canvas')
+    //       const ctx = canvas.getContext('2d')
 
-//       ctx.filter = 'grayscale(1) contrast(1.5)'
-//       ctx.drawImage(img, 0, 0)
+    //       canvas.width = img.width
+    //       canvas.height = img.height
 
-//       resolve(canvas)
-//     }
+    //       ctx.filter = 'grayscale(1) contrast(1.5)'
+    //       ctx.drawImage(img, 0, 0)
 
-//     reader.readAsDataURL(file)
-//   })
-// },
-   onHandleUpdateProfil() {
-    this.resetData();
-  Swal.fire({
-    icon: 'warning',
-    title: 'Confirmation',
-    text: 'Voulez-vous vraiment continuer avec cette mise à jour de profil ?',
-    confirmButtonText: 'Oui, valider',
-    cancelButtonText: 'Annuler',
-    showCancelButton: true,
-    confirmButtonColor: '#f39c12',
-    cancelButtonColor: '#e74c3c',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      const storeAbonnement = useAbonnementsStore();
- 
-   storeAbonnement.cleanProfilHybide([]);
+    //       resolve(canvas)
+    //     }
 
-      storeAbonnement.handleChangeInfoForAbonnement(this.formState);
-      this.showModalAbonnements = true;
-    }
-  });
-},
-resetData(){
+    //     reader.readAsDataURL(file)
+    //   })
+    // },
+    onHandleUpdateProfil() {
+      this.resetData();
+      Swal.fire({
+        icon: 'warning',
+        title: 'Confirmation',
+        text: 'Voulez-vous vraiment continuer avec cette mise à jour de profil ?',
+        confirmButtonText: 'Oui, valider',
+        cancelButtonText: 'Annuler',
+        showCancelButton: true,
+        confirmButtonColor: '#f39c12',
+        cancelButtonColor: '#e74c3c',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const storeAbonnement = useAbonnementsStore();
+
+          storeAbonnement.cleanProfilHybide([]);
+
+          storeAbonnement.handleChangeInfoForAbonnement(this.formState);
+          this.showModalAbonnements = true;
+        }
+      });
+    },
+    resetData() {
       this.formState.profilHybride = [];
       const STORE_ABONNEMENT = useAbonnementsStore();
-    
+
       STORE_ABONNEMENT.handleChangeInfoForAbonnement(this.formState)
-   
+
     },
   },
- 
-  
+
+
 };
 </script>
 <template>
-  <n-modal 
-   style="width:80%; 
+  <n-modal style="width:80%; 
    height: 600px;
    
     overflow-y: auto; 
-    max-height: 80vh;"
-       :closable="false"
-  v-model:show="showModalAbonnements">
-         <template #header>
-        <div class="modal-header">
-          <h3>Abonnement</h3>
-        </div>
-      </template>
-      <div style="background-color: white;">
-       <Abonnements 
-       :ProfilAbonnement="this.profilOfAbonnement.statut"
-       :statut_talent_artisan="formState.statut_talent"
-       :notUseIncludesForArtisan="true"
-       />
+    max-height: 80vh;" :closable="false" v-model:show="showModalAbonnements">
+    <template #header>
+      <div class="modal-header">
+        <h3>Abonnement</h3>
       </div>
-      </n-modal>
-    <form action="" @submit.prevent="onHandleUpdateProfil">
+    </template>
+    <div style="background-color: white;">
+      <Abonnements :ProfilAbonnement="this.profilOfAbonnement.statut" :statut_talent_artisan="formState.statut_talent"
+        :notUseIncludesForArtisan="true" />
+    </div>
+  </n-modal>
+  <form action="" @submit.prevent="onHandleUpdateProfil">
     <div class="row g-4">
       <div class="col-md-6 my-3">
         <label for="treatment1" class="form-label fw-semibold mb-2">Niveau d'étude *</label>
-        <select 
-          name="treatment" 
-          id="treatment1" 
-          v-model="formState.niveauEtude"
-          class="form-control"
-          style="height: 50px;"
-        >
+        <select name="treatment" id="treatment1" v-model="formState.niveauEtude" class="form-control"
+          style="height: 50px;">
           <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in niveauxEtudes" 
-            :key="item.id" 
-            :value="item.label"
-          >
+          <option v-for="item in niveauxEtudes" :key="item.id" :value="item.label">
             {{ item.label }}
           </option>
         </select>
       </div>
       <div class="col-md-6 my-3">
         <label for="treatment1" class="form-label fw-semibold mb-2">Statut professionnel *</label>
-        <select 
-          name="treatment" 
-          id="treatment1" 
-          v-model="formState.statut_talent"
-          class="form-control"
-          style="height: 50px;"
-        >
+        <select name="treatment" id="treatment1" v-model="formState.statut_talent" class="form-control"
+          style="height: 50px;">
           <option value="" disabled>Sélectionnez...</option>
-          <option 
-            v-for="item in StatutArtisans" 
-            :key="item.id" 
-            :value="item.label"
-          >
+          <option v-for="item in StatutArtisans" :key="item.id" :value="item.label">
             {{ item.label }}
           </option>
         </select>
       </div>
-    
+
       <div class="col-md-6 my-4">
-        <label for="certificat" class="form-label fw-semibold mb-2">Carte national d'identité ou Pièce justificative*</label>
-        <input 
-          type="file" 
-          id="certificat"
-          accept="image/*"
-          @change="onUploadChange"
-          class="form-control"
-          style="height: 40px;border: none !important;"
-        />
+        <label for="certificat" class="form-label fw-semibold mb-2">Carte national d'identité ou Pièce
+          justificative*</label>
+        <input type="file" id="certificat" accept="image/*" @change="onUploadChange" class="form-control"
+          style="height: 40px;border: none !important;" />
       </div>
       <div class="col-md-12 my-4">
-      <a-button
-        type="primary"
-        html-type="submit"
-        :disabled="!isFormComplete"
-      >
-        Enregistrer
-      </a-button>
+        <a-button type="primary" html-type="submit" :disabled="!isFormComplete">
+          Enregistrer
+        </a-button>
       </div>
     </div>
   </form>

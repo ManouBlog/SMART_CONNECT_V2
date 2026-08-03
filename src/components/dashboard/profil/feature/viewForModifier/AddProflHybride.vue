@@ -30,22 +30,15 @@ export default {
       niveauxEtudes: [
         // Aucun / base
         { value: "aucun", label: "Aucun niveau" },
+        { value: "Primaire", label: "Primaire" },
 
         // Primaire
-        { value: "cepe", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
+        { value: "CEPE", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
 
         // Collège
-        { value: "6eme", label: "6ème" },
-        { value: "5eme", label: "5ème" },
-        { value: "4eme", label: "4ème" },
-        { value: "3eme", label: "3ème" },
-        { value: "bepc", label: "BEPC (Brevet d'Études du Premier Cycle)" },
-
-        // Lycée
-        { value: "2nde", label: "Seconde" },
-        { value: "1ere", label: "Première" },
-        { value: "terminale", label: "Terminale" },
-        { value: "bac", label: "BAC" },
+        { value: "Collège", label: "Collège" },
+        { value: "BEPC", label: "BEPC (Brevet d'Études du Premier Cycle)" },
+        { value: "BAC", label: "BAC" },
 
         // Professionnel / technique
         { value: "cap", label: "CAP (Certificat d'Aptitude Professionnelle)" },
@@ -66,7 +59,9 @@ export default {
         { value: "bac+5", label: "BAC+5 (Master)" },
         { value: "bac+6", label: "BAC+6" },
         { value: "bac+7", label: "BAC+7" },
-        { value: "doctorat", label: "Doctorat (BAC+8 et plus)" },
+        { value: "doctorat 1", label: "Doctorat 1" },
+        { value: "doctorat 2", label: "Doctorat 2" },
+        { value: "doctorat 3", label: "Doctorat 3" },
       ],
       formData: {
         niveauEtude: "",
@@ -137,7 +132,7 @@ export default {
     }
   },
   computed: {
-    
+
     hasArtisanProfil() {
       return this.choiceProfilHybrideForAdd.some((item) =>
         item.statut?.includes("Artisan")
@@ -161,29 +156,29 @@ export default {
 
       return result.length ? result : [];
     },
-   isSubmitDisabled() {
-    // 1. Vérifier si la CNI existe dans les photos OU dans formData
-    const hasCNIInPhotos = this.ProfilsUser?.user?.photos?.some(
-      item => item.path.includes('cni') || item.path.includes('CNI')
-    );
-    const hasCNI = hasCNIInPhotos || this.formData.cni_carte;
-    
-    // 2. Vérification du profil Particulier
-    const isParticulierInvalid = this.hasParticulierProfil && 
-      !this.formData.ville && 
-      !this.formData.quartier && 
-      !this.formData.commune;
-    
-    // 3. Vérification du profil Artisan
-    const isArtisanInvalid = this.hasArtisanProfil && 
-      !this.formData.statut_professionnel_artisan;
-    
-    // 4. Vérification de la CNI (manquante)
-    const isCNIMissing = !hasCNI;
-    
-    // Retourne vrai si une des conditions est vraie
-    return isParticulierInvalid || isArtisanInvalid || isCNIMissing;
-  }
+    isSubmitDisabled() {
+      // 1. Vérifier si la CNI existe dans les photos OU dans formData
+      const hasCNIInPhotos = this.ProfilsUser?.user?.photos?.some(
+        item => item.path.includes('cni') || item.path.includes('CNI')
+      );
+      const hasCNI = hasCNIInPhotos || this.formData.cni_carte;
+
+      // 2. Vérification du profil Particulier
+      const isParticulierInvalid = this.hasParticulierProfil &&
+        !this.formData.ville &&
+        !this.formData.quartier &&
+        !this.formData.commune;
+
+      // 3. Vérification du profil Artisan
+      const isArtisanInvalid = this.hasArtisanProfil &&
+        !this.formData.statut_professionnel_artisan;
+
+      // 4. Vérification de la CNI (manquante)
+      const isCNIMissing = !hasCNI;
+
+      // Retourne vrai si une des conditions est vraie
+      return isParticulierInvalid || isArtisanInvalid || isCNIMissing;
+    }
   },
   watch: {
     choiceProfilHybrideForAdd: {
@@ -210,9 +205,9 @@ export default {
     },
     async validateAndSubmit() {
       try {
-      // console.log("choiceProfilHybrideForAdd",this.choiceProfilHybrideForAdd)
+        // console.log("choiceProfilHybrideForAdd",this.choiceProfilHybrideForAdd)
         this.handleChangeInfoForAbonnement(this.formData)
-      
+
         this.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
         this.showModalAbonnements = true;
       } catch (error) {
@@ -344,11 +339,7 @@ export default {
             v-if="!ProfilsUser.user.photos.some(item => item.path.includes('cni') || item.path.includes('CNI'))">
             <a-form-item label="Ajouter votre CNI (carte nationale d'identité)" name="file">
               <div>
-                <input ref="fileInput" 
-                type="file" 
-                accept="image/*" 
-                :multiple="false" 
-                @change="handleFileChange" />
+                <input ref="fileInput" type="file" accept="image/*" :multiple="false" @change="handleFileChange" />
 
               </div>
 
@@ -358,9 +349,7 @@ export default {
 
         </a-row>
         <a-form-item>
-          <a-button type="primary" 
-          :disabled="isSubmitDisabled"
-          @click="validateAndSubmit">
+          <a-button type="primary" :disabled="isSubmitDisabled" @click="validateAndSubmit">
             Ajouter +
           </a-button>
         </a-form-item>

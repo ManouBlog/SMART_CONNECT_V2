@@ -37,22 +37,15 @@ export default {
       niveauxEtudes: [
         // Aucun / base
         { value: "aucun", label: "Aucun niveau" },
+        { value: "Primaire", label: "Primaire" },
 
         // Primaire
-        { value: "cepe", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
+        { value: "CEPE", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
 
         // Collège
-        { value: "6eme", label: "6ème" },
-        { value: "5eme", label: "5ème" },
-        { value: "4eme", label: "4ème" },
-        { value: "3eme", label: "3ème" },
-        { value: "bepc", label: "BEPC (Brevet d'Études du Premier Cycle)" },
-
-        // Lycée
-        { value: "2nde", label: "Seconde" },
-        { value: "1ere", label: "Première" },
-        { value: "terminale", label: "Terminale" },
-        { value: "bac", label: "BAC" },
+        { value: "Collège", label: "Collège" },
+        { value: "BEPC", label: "BEPC (Brevet d'Études du Premier Cycle)" },
+        { value: "BAC", label: "BAC" },
 
         // Professionnel / technique
         { value: "cap", label: "CAP (Certificat d'Aptitude Professionnelle)" },
@@ -73,7 +66,9 @@ export default {
         { value: "bac+5", label: "BAC+5 (Master)" },
         { value: "bac+6", label: "BAC+6" },
         { value: "bac+7", label: "BAC+7" },
-        { value: "doctorat", label: "Doctorat (BAC+8 et plus)" },
+        { value: "doctorat 1", label: "Doctorat 1" },
+        { value: "doctorat 2", label: "Doctorat 2" },
+        { value: "doctorat 3", label: "Doctorat 3" },
       ],
       rawText: '',
       result: null,
@@ -622,7 +617,8 @@ export default {
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item :label="texte7">
-            <VueMultiselect v-model="formState.myCompetence" :options="allCompetences.filter(item=>item.is_artisan == 1)" placeholder="Choix multiples"
+            <VueMultiselect v-model="formState.myCompetence"
+              :options="allCompetences.filter(item => item.is_artisan == 1)" placeholder="Choix multiples"
               :multiple="true" label="competence" track-by="competence" />
           </a-form-item>
           <a-form-item label="Autre">
@@ -673,8 +669,7 @@ export default {
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]">
             <a-select style="width: 100%;" v-model:value="formState.statut_talent"
               placeholder="Sélectionnez votre Statut professionnel" show-search option-filter-prop="label">
-              <a-select-option v-for="item in StatutArtisans" :key="item.value" 
-              :value="item.value" :label="item.label">
+              <a-select-option v-for="item in StatutArtisans" :key="item.value" :value="item.value" :label="item.label">
                 {{ item.label }}
               </a-select-option>
             </a-select>
