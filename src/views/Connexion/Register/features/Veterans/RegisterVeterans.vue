@@ -179,7 +179,18 @@ export default {
         qualifications: [],
         disponibiliteValid: false,
         statut_professionnel_artisan: "Artisan",
-        mode_discret: false
+        mode_discret: false,
+        experiences: [
+          {
+            poste: "",
+            entreprise: "",
+            lieu: "",
+            dateDebut: "",
+            dateFin: "",
+            experience: "",
+            fileProof: null,
+          },
+        ]
       },
     };
   },
