@@ -33,9 +33,39 @@ export default {
         { label: "Oui", value: "oui" },
         { label: "Non", value: "non" }
       ],
-      allStatuts: [
-        // { value: "Particulier", label: "Particulier" },
-        // { value: "Artisan", label: "Artisan" },
+       niveauxEtudes: [
+        // Aucun / base
+        { value: "aucun", label: "Aucun niveau" },
+        { value: "Primaire", label: "Primaire" },
+
+        // Primaire
+        { value: "CEPE", label: "CEPE (Certificat d'Études Primaires et Élémentaires)" },
+
+        // Collège
+        { value: "Collège", label: "Collège" },
+        { value: "BEPC", label: "BEPC (Brevet d'Études du Premier Cycle)" },
+        { value: "BAC", label: "BAC" },
+
+        // Professionnel / technique
+        { value: "cap", label: "CAP (Certificat d'Aptitude Professionnelle)" },
+        { value: "cqp", label: "CQP (Certificat de Qualification Professionnelle)" },
+        { value: "bt", label: "BT (Brevet de Technicien)" },
+        { value: "bp", label: "BP (Brevet Professionnel)" },
+        { value: "bep", label: "BEP (Brevet d'Études Professionnelles)" },
+        { value: "bts", label: "BTS (Brevet de Technicien Supérieur)" },
+        { value: "dut", label: "DUT (Diplôme Universitaire de Technologie)" },
+        { value: "licence_pro", label: "Licence professionnelle" },
+        { value: "ingenieur", label: "Diplôme d'ingénieur" },
+
+        // Supérieur général
+        { value: "bac+1", label: "BAC+1" },
+        { value: "bac+2", label: "BAC+2" },
+        { value: "bac+3", label: "BAC+3" },
+        { value: "bac+4", label: "BAC+4" },
+        { value: "bac+5", label: "BAC+5" },
+        { value: "doctorat 1", label: "Doctorat 1" },
+        { value: "doctorat 2", label: "Doctorat 2" },
+        { value: "doctorat 3", label: "Doctorat 3" },
       ],
       valueExpertise: [
         { value: "Privilége", label: "Privilége" },
@@ -244,7 +274,17 @@ export default {
       )
     },
     isNextDisabled() {
-      // STEP 2 – Qualifications
+      // STEP Competences
+      if (this.currentStep === 3) {
+        if (this.formState.otherCompetence.length) {
+          return this.formState.otherCompetence.some((competence) => !competence)
+        }
+        if (this.formState.myCompetence.length) {
+          return !this.formState.myCompetence.length;
+        }
+      }
+
+      // STEP Qualifications
       if (this.currentStep === 4) {
         // au moins une qualification
         if (!this.formState.qualifications.length) {
@@ -858,9 +898,8 @@ export default {
         <a-col :xs="24" :md="12">
           <a-form-item :label="texte8" name="niveauEtude" :rules="[{ required: true, message: texte13 }]">
             <a-select v-model:value="formState.niveauEtude" placeholder="Sélectionnez un diplôme">
-              <a-select-option v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
-                :key="item.value" :value="item.value">
-                {{ item.value }}
+              <a-select-option v-for="item in niveauxEtudes" :key="item.value" :value="item.value" :label="item.label">
+                {{ item.label }}
               </a-select-option>
             </a-select>
 
