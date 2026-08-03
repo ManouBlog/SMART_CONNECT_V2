@@ -33,7 +33,7 @@ export default {
         { label: "Oui", value: "oui" },
         { label: "Non", value: "non" }
       ],
-       niveauxEtudes: [
+      niveauxEtudes: [
         // Aucun / base
         { value: "aucun", label: "Aucun niveau" },
         { value: "Primaire", label: "Primaire" },
@@ -338,7 +338,7 @@ export default {
         return value !== null && value !== undefined && value !== "";
       });
     },
-    
+
   },
 
   methods: {
@@ -424,7 +424,7 @@ export default {
         }
       }
 
-    
+
       if (this.currentStep !== 3 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
@@ -550,7 +550,7 @@ export default {
     // },
     onFinish() {
       this.formState.profiles = this.allProfiles;
-      console.log("this.formState_veterans",this.formState);
+      console.log("this.formState_veterans", this.formState);
       // if (this.formState.uploadPhotoProfil.length) {
       //   this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
       // }
@@ -561,7 +561,7 @@ export default {
       //     infoUser: "talents",
       //     payload: this.formState,
       //   });
-        
+
       // } else {
       //   this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
       // }
@@ -814,7 +814,8 @@ export default {
                     trigger: 'change',
                   },
                 ]">
-                  <a-input type="date" v-model:value="value.dateDebut" size="large" :max="new Date().toISOString().split('T')[0]" />
+                  <a-input type="date" v-model:value="value.dateDebut" size="large"
+                    :max="new Date().toISOString().split('T')[0]" />
                 </a-form-item>
 
               </a-col>
@@ -822,7 +823,8 @@ export default {
               <a-col :xs="24" :md="6">
 
                 <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
-                  <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut" :max="new Date().toISOString().split('T')[0]" size="large" />
+                  <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut"
+                    :max="new Date().toISOString().split('T')[0]" size="large" />
                 </a-form-item>
 
               </a-col>
@@ -1063,11 +1065,11 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
     <div class="d-flex justify-content-between" style="padding: 1.5em">
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
-      <a-button v-if="currentStep < 5" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
+      <a-button v-if="currentStep < 6" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
         Suivant
       </a-button>
 
-      <a-button v-if="currentStep === 5" type="primary" html-type="submit" :disabled="!isCurrentStepValid ||
+      <a-button v-if="currentStep === 6" type="primary" html-type="submit" :disabled="!isCurrentStepValid ||
         isPasswordDisabled ||
         isCommercialAssitance || this.formState.answerAssistance == null">
         {{ texte11 }}
