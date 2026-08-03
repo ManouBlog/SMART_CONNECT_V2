@@ -241,7 +241,7 @@ export default {
         }
       }
       // STEP 4 – Qualifications
-      if (this.currentStep === 4) {
+      if (this.currentStep == 4) {
         // au moins une qualification
         if (!this.formState.qualifications.length) {
           return true;
@@ -253,11 +253,11 @@ export default {
         );
       }
 
-      if (this.currentStep === 2 && this.formState.experiences.length) {
+      if (this.currentStep == 2 && this.formState.experiences.length) {
         return this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
       }
 
-      if (this.currentStep === 4) {
+      if (this.currentStep == 4) {
         if (!this.formState.modeTravail) {
           return true;
         }
@@ -275,13 +275,9 @@ export default {
         0: ["optionsAnswer"],
         // STEP 1 – Infos personnelles
         1: ["nom", "prenoms", "phone", "email"],
-
-        // STEP 2 – experiences
-        // 2: [
-        //   "experiences",
-        // ],
-
-        // STEP 3 – Qualifications
+          // STEP 3 – Competences
+        3: ["otherCompetence", "myCompetence"],
+        // STEP 4 – Qualifications
         4: ["qualifications", "niveauEtude", "filiere", "statut_talent"],
 
         // STEP 5 – mode de travail
@@ -366,8 +362,7 @@ export default {
       this.formState.qualifications = payload;
     },
     nextStep() {
-      console.log("ProfilHybride", this.formState.profilHybride);
-      console.log("this.currentStep", this.currentStep);
+     
       if (this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
@@ -418,6 +413,8 @@ export default {
       }
 
       this.currentStep++;
+       console.log("ProfilHybride", this.formState.profilHybride);
+      console.log("this.currentStep", this.currentStep);
     },
 
     prevStep() {

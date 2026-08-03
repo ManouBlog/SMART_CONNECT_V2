@@ -167,7 +167,7 @@ export default {
     </div>
     <RegsiterStudents :idStatutChoice="selectedOption" v-if="value1 === 'Etudiant'" />
     <RegsiterEntreprise :idStatutChoice="selectedOption" v-if="value1 === 'Entreprise'" />
-    <RegisterProfessionels :idStatutChoice="selectedOption" v-if="value1 === 'Professionnel'" />
+    <RegisterProfessionels v-if="value1 === 'Professionnel'" />
     <RegisterParticulier :idStatutChoice="selectedOption" v-if="value1 === 'Particulier'" />
     <RegisterArtisans  v-if="value1 === 'Artisan'" />
     <RegisterVeterans v-if="value1 === 'Vétéran'" />
