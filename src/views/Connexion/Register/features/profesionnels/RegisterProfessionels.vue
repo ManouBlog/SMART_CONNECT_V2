@@ -201,7 +201,7 @@ export default {
         statut_professionnel_artisan: "",
         uploadCNI: null,
         profilHybride: [],
-        optionsAnswer: null,
+        optionsAnswer: "non",
         tempsTravail: "",
         bio: "",
         statutId: 5,
@@ -212,6 +212,17 @@ export default {
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
+        experiences: [
+          {
+            poste: "",
+            entreprise: "",
+            lieu: "",
+            dateDebut: "",
+            dateFin: "",
+            experience: "",
+            fileProof: null,
+          },
+        ]
       },
     };
   },
@@ -222,9 +233,10 @@ export default {
       return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true : false;
     },
     isPasswordDisabled() {
+      const isProfilRequiredButEmpty = this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0;
       return (
         this.loading ||
-        (this.result && this.result.isStudentCard === false)
+        (this.result && this.result.isStudentCard === false) || isProfilRequiredButEmpty
       )
     },
     isNextDisabled() {
@@ -294,11 +306,11 @@ export default {
     },
   },
   watch: {
-    'formState.answerAssistance'(newVal) {
-      if (newVal === 'non') {
-        this.formState.identifiantCommerciale = null
-      }
-    },
+    // 'formState.answerAssistance'(newVal) {
+    //   if (newVal === 'non') {
+    //     this.formState.identifiantCommerciale = null
+    //   }
+    // },
     "formState.optionsAnswer": {
       handler(value) {
         if (value === 'non') {
@@ -362,6 +374,7 @@ export default {
     },
 
     nextStep() {
+      console.log("this.formState.profilHybride", this.formState.profilHybride);
      
       if (this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length) {
       
@@ -383,11 +396,8 @@ export default {
 
 
       }
-
-
       if (this.currentStep == 3) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
-
         if (invalid) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
