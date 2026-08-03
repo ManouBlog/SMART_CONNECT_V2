@@ -231,7 +231,7 @@ export default {
       if (this.currentStep === 0) {
         return !this.formState.optionsAnswer || (this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0);
       }
-      if(this.currentStep === 1) {
+      if(this.currentStep === 2) {
         return this.formState.experiences.length === 0 || this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
       }
       return !this.isCurrentStepValid;
@@ -239,22 +239,24 @@ export default {
 
     requiredFieldsByStep() {
       return {
-
         // STEP 0 – OptionsAnswer
         0: ["optionsAnswer"],
-        1: [
+
+        // STEP 1 – Infos personnelles
+        1: ["nom", "prenoms", "phone", "email"],
+
+        // STEP 2 – Expériences
+        2: [
           "experiences",
         ],
-        // STEP 1 – Infos personnelles
-        2: ["nom", "prenoms", "phone", "email"],
 
-        // STEP 2 – Profil & compétences
+        // STEP 3 – Profil & compétences
         3: ["myCompetence"],
 
-        // STEP 3 – Niveau d'étude & qualifications
+        // STEP 4 – Niveau d'étude & qualifications
         4: ["niveauEtude"],
 
-        // STEP 4 – Validation finale
+        // STEP 6 – Validation finale
         6: ["upload", "password"],
       };
     },
@@ -273,6 +275,15 @@ export default {
     },
   },
   methods: {
+    onFileProof(event, index){
+
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  this.formState.experiences[index].fileProof = file;
+
+},
     createExperience() {
       return {
         poste: "",
@@ -558,6 +569,7 @@ export default {
     color: 'orange',
     boxShadow: '0px -1px 0 0 #e8e8e8 inset',
   }" :current="currentStep" class="mb-4">
+   <a-step title="Profil hybrides" description="Ajoutez un profil hybride." />
     <a-step title="Profil" description="Renseignez vos informations de base pour créer votre compte." />
     <a-step title="Expériences" description="Ajoutez vos expériences." />
     <a-step title="Compétences" description="Sélectionnez vos compétences." />
@@ -607,107 +619,6 @@ export default {
 
     <!-- STEP 1 -->
     <div v-show="currentStep === 1">
-      <n-dynamic-input v-model:value="formState.experiences" :on-create="createExperience">
-        <template #create-button-default>
-          Ajouter une expérience
-        </template>
-        <template #default="{ value, index }">
-          <a-row :gutter="[16, 24]">
-
-            <a-col :xs="24" :md="12">
-
-              <a-form-item label="Poste" :name="['experiences', index, 'poste']" :rules="[
-                {
-                  required: true,
-                  message: 'Le poste est obligatoire.',
-                  trigger: 'blur',
-                },
-              ]">
-                <a-input v-model:value="value.poste" size="large" />
-              </a-form-item>
-
-            </a-col>
-            <a-col :xs="24" :md="12">
-              <a-form-item label="Entreprise" :name="['experiences', index, 'entreprise']" :rules="[
-                {
-                  required: true,
-                  message: 'Le nom de l’entreprise est obligatoire.',
-                  trigger: 'blur',
-                },
-              ]">
-                <a-input v-model:value="value.entreprise" size="large" />
-              </a-form-item>
-
-            </a-col>
-
-            <a-col :xs="24" :md="12">
-
-              <a-form-item label="lieu" :name="['experiences', index, 'lieu']" :rules="[
-                {
-                  required: true,
-                  message: 'Le lieu est obligatoire.',
-                  trigger: 'blur',
-                },
-              ]">
-                <a-input v-model:value="value.lieu" size="large" />
-              </a-form-item>
-
-            </a-col>
-
-            <a-col :xs="24" :md="6">
-
-              <a-form-item label="Date de début" :name="['experiences', index, 'dateDebut']" :rules="[
-                {
-                  required: true,
-                  message: 'La date de début est obligatoire.',
-                  trigger: 'change',
-                },
-              ]">
-                <a-input type="date" v-model:value="value.dateDebut" size="large" :max="today" />
-              </a-form-item>
-
-            </a-col>
-
-            <a-col :xs="24" :md="6">
-
-              <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
-                <a-input type="date" v-model:value="value.dateFin" :max="value.dateDebut" size="large" />
-              </a-form-item>
-
-            </a-col>
-
-            <a-col :xs="24" :md="12">
-
-              <a-form-item label="Justificatif" :name="['experiences', index, 'fileProof']">
-
-                <a-input type="file" accept="image/*" @change="onFileProof" />
-
-              </a-form-item>
-
-            </a-col>
-
-            <a-col :xs="24">
-
-              <a-form-item :label="texte7" :name="['experiences', index, 'experience']" :rules="[
-                {
-                  required: true,
-                  message: 'Veuillez décrire votre expérience.',
-                  trigger: 'blur',
-                },
-              ]">
-
-                <a-textarea v-model:value="value.experience" :rows="6" />
-
-              </a-form-item>
-
-            </a-col>
-          </a-row>
-        </template>
-      </n-dynamic-input>
-    </div>
-
-    <!-- STEP 2 -->
-    <div v-show="currentStep === 2">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item label="Code de parrainage" name="code_ambassadeur">
@@ -783,6 +694,115 @@ export default {
           </a-form-item>
         </a-col>
       </a-row>
+    </div>
+     <!-- STEP 2 -->
+    <div v-show="currentStep === 2">
+      <n-dynamic-input v-model:value="formState.experiences" :on-create="createExperience">
+        <template #create-button-default>
+          Ajouter une expérience
+        </template>
+        <template #default="{ value, index }">
+          <div
+    :class="{
+      'experience_border': index >= 1
+    }"
+  >
+          <a-row :gutter="[16, 24]">
+
+            <a-col :xs="24" :md="12">
+
+              <a-form-item label="Poste" :name="['experiences', index, 'poste']" :rules="[
+                {
+                  required: true,
+                  message: 'Le poste est obligatoire.',
+                  trigger: 'blur',
+                },
+              ]">
+                <a-input v-model:value="value.poste" size="large" />
+              </a-form-item>
+
+            </a-col>
+            <a-col :xs="24" :md="12">
+              <a-form-item label="Entreprise" :name="['experiences', index, 'entreprise']" :rules="[
+                {
+                  required: true,
+                  message: 'Le nom de l’entreprise est obligatoire.',
+                  trigger: 'blur',
+                },
+              ]">
+                <a-input v-model:value="value.entreprise" size="large" />
+              </a-form-item>
+
+            </a-col>
+
+            <a-col :xs="24" :md="12">
+
+              <a-form-item label="lieu" :name="['experiences', index, 'lieu']" :rules="[
+                {
+                  required: true,
+                  message: 'Le lieu est obligatoire.',
+                  trigger: 'blur',
+                },
+              ]">
+                <a-input v-model:value="value.lieu" size="large" />
+              </a-form-item>
+
+            </a-col>
+
+            <a-col :xs="24" :md="6">
+
+              <a-form-item label="Date de début" :name="['experiences', index, 'dateDebut']" :rules="[
+                {
+                  required: true,
+                  message: 'La date de début est obligatoire.',
+                  trigger: 'change',
+                },
+              ]">
+                <a-input type="date" v-model:value="value.dateDebut" size="large" :max="today" />
+              </a-form-item>
+
+            </a-col>
+
+            <a-col :xs="24" :md="6">
+
+              <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
+                <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut"
+                :max="today"
+                size="large" />
+              </a-form-item>
+
+            </a-col>
+
+            <a-col :xs="24" :md="12">
+
+              <a-form-item label="Justificatif" :name="['experiences', index, 'fileProof']">
+
+                <a-input type="file" accept="image/*" 
+                @change="(event) => onFileProof(event, index)" />
+
+              </a-form-item>
+
+            </a-col>
+
+            <a-col :xs="24">
+
+              <a-form-item :label="texte7" :name="['experiences', index, 'experience']" :rules="[
+                {
+                  required: true,
+                  message: 'Veuillez décrire votre expérience.',
+                  trigger: 'blur',
+                },
+              ]">
+
+                <a-textarea v-model:value="value.experience" :rows="6" />
+
+              </a-form-item>
+
+            </a-col>
+          </a-row>
+          </div>
+        </template>
+      </n-dynamic-input>
     </div>
 
     <!-- STEP 3 -->
@@ -983,6 +1003,14 @@ export default {
 
 :deep(.ant-spin-text) {
   font-size: 16px !important;
+}
+.experience-border {
+  border-top: 1px solid #d9d9d9;
+  padding-top: 24px;
+  margin-top: 24px;
+}
+:deep(.n-dynamic-input .n-dynamic-input-item .n-dynamic-input-item__action){
+  align-self: flex-end !important;
 }
 </style>
 

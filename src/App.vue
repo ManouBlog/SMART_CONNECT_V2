@@ -244,6 +244,7 @@ export default {
 };
 </script>
 <style>
+
 .n-avatar img{
   object-fit: contain !important;
 }
