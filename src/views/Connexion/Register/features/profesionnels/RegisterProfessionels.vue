@@ -404,13 +404,13 @@ export default {
 
       }
 
-      if (this.currentStep !== 6 && !this.isCurrentStepValid) {
-        this.SWALPOPUP.declencheSwalPopup(
-          "warning",
-          "Veuillez remplir les champs requis avant de continuer"
-        );
-        return;
-      }
+      // if (this.currentStep !== 5 && !this.isCurrentStepValid) {
+      //   this.SWALPOPUP.declencheSwalPopup(
+      //     "warning",
+      //     "Veuillez remplir les champs requis avant de continuer"
+      //   );
+      //   return;
+      // }
 
       this.currentStep++;
        console.log("ProfilHybride", this.formState.profilHybride);
