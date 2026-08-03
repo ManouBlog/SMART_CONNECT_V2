@@ -213,15 +213,7 @@ export default {
         qualifications: [],
         disponibiliteValid: false,
         experiences: [
-          {
-            poste: "",
-            entreprise: "",
-            lieu: "",
-            dateDebut: "",
-            dateFin: "",
-            experience: "",
-            fileProof: null,
-          },
+          
         ]
       },
     };
@@ -277,9 +269,9 @@ export default {
         1: ["nom", "prenoms", "phone", "email"],
 
         // STEP 2 – experiences
-        2: [
-          "experiences",
-        ],
+        // 2: [
+        //   "experiences",
+        // ],
 
         // STEP 3 – Qualifications
         3: ["qualifications", "niveauEtude", "filiere", "statut_talent"],
