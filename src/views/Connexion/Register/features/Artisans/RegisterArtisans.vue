@@ -231,6 +231,9 @@ export default {
       if (this.currentStep === 0) {
         return !this.formState.optionsAnswer || (this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0);
       }
+      if(this.currentStep === 1) {
+        return this.formState.experiences.length === 0 || this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
+      }
       return !this.isCurrentStepValid;
     },
 
@@ -240,7 +243,7 @@ export default {
         // STEP 0 – OptionsAnswer
         0: ["optionsAnswer"],
         1: [
-          experiences => experiences.every(exp => exp.poste && exp.entreprise && exp.lieu && exp.dateDebut && exp.experience)
+          "experiences",
         ],
         // STEP 1 – Infos personnelles
         2: ["nom", "prenoms", "phone", "email"],
