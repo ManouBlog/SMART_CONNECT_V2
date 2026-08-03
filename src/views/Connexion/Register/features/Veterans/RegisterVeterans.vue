@@ -799,7 +799,7 @@ export default {
 
               <a-col :xs="24" :md="12">
 
-                <a-form-item label="Justificatif" :name="['experiences', index, 'fileProof']">
+                <a-form-item label="Fichier" :name="['experiences', index, 'fileProof']">
 
                   <a-input type="file" accept="image/*,application/pdf"
                     @change="(event) => onFileProof(event, index)" />
@@ -810,7 +810,7 @@ export default {
 
               <a-col :xs="24">
 
-                <a-form-item :label="texte7" :name="['experiences', index, 'experience']" :rules="[
+                <a-form-item label="Détails" :name="['experiences', index, 'experience']" :rules="[
                   {
                     required: true,
                     message: 'Veuillez décrire votre expérience.',
