@@ -357,14 +357,10 @@ export default {
     handleQualifications(payload) {
       this.formState.qualifications = payload;
     },
-
     nextStep() {
       console.log("ProfilHybride", this.formState.profilHybride);
       console.log("this.currentStep", this.currentStep);
-
-
       if (this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length) {
-
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Choisissez un profil"
@@ -844,85 +840,9 @@ export default {
         </template>
       </n-dynamic-input>
     </div>
+
     <!-- STEP 3 -->
     <div v-show="currentStep === 3">
-      <a-row :gutter="[16, 24]">
-        <a-col :xs="24" :md="12">
-          <a-form-item label="Code de parrainage" name="code_ambassadeur">
-            <a-input v-model:value="formState.code_ambassadeur" />
-          </a-form-item>
-        </a-col>
-
-        <a-col :xs="24" :md="12">
-          <a-form-item :label="texte" name="nom" :rules="[
-            { required: true, message: texte17 },
-            {
-              pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
-              message: 'Veuillez saisir uniquement des lettres.'
-            }
-          ]">
-            <a-input v-model:value="formState.nom" />
-          </a-form-item>
-        </a-col>
-      </a-row>
-
-      <a-row :gutter="[16, 24]">
-        <a-col :xs="24" :md="12">
-          <a-form-item :label="texte1" name="prenoms" :rules="[
-            { required: true, message: texte16 },
-            {
-              pattern: /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/,
-              message: 'Veuillez saisir uniquement des lettres.'
-            }
-          ]">
-            <a-input v-model:value="formState.prenoms" />
-          </a-form-item>
-        </a-col>
-
-        <a-col :xs="24" :md="12">
-          <a-form-item :label="texte2" name="phone" :rules="[
-            { required: true, message: texte15 },
-            {
-              pattern: /^\d{10}$/,
-              message: 'Le numéro de téléphone doit contenir exactement 10 chiffres.'
-            }
-          ]">
-            <a-input v-model:value="formState.phone">
-              <template #addonBefore>
-                <a-select v-model:value="formState.countryCode" :options="westAfricaCodes" />
-              </template>
-            </a-input>
-          </a-form-item>
-        </a-col>
-
-      </a-row>
-
-
-      <a-row :gutter="[16, 24]">
-        <a-col :xs="24" :md="12">
-          <a-form-item :label="texte6" name="email" :rules="[
-            { required: true, message: texte14 },
-            { type: 'email', message: 'Veuillez entrer un email valide' }
-          ]">
-            <a-input v-model:value="formState.email" />
-          </a-form-item>
-        </a-col>
-        <a-col :xs="24" :md="12">
-          <a-form-item label="Profil">
-            <a-input v-model:value="formState.titreCv" />
-          </a-form-item>
-        </a-col>
-        <a-col :xs="24" :md="24">
-          <a-form-item label="Biographie – résumé de votre profil">
-            <a-textarea v-model:value="formState.bio" :maxlength="300" />
-          </a-form-item>
-        </a-col>
-      </a-row>
-
-    </div>
-
-    <!-- STEP 4 -->
-    <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item :label="texte7">
@@ -945,8 +865,8 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 5 -->
-    <div v-show="currentStep === 5">
+    <!-- STEP 4 -->
+    <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item :label="texte8" name="niveauEtude" :rules="[{ required: true, message: texte13 }]">
@@ -1016,8 +936,8 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 6 -->
-    <div v-show="currentStep === 6">
+    <!-- STEP 5 -->
+    <div v-show="currentStep === 5">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item :label="'Mode de travail'"
@@ -1047,8 +967,8 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 7 -->
-    <div v-show="currentStep === 7">
+    <!-- STEP 6 -->
+    <div v-show="currentStep === 6">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="8">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -1123,11 +1043,11 @@ export default {
     <div class="d-flex justify-content-between" style="padding: 1.5em">
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
-      <a-button v-if="currentStep < 7" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
+      <a-button v-if="currentStep < 6" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
         Suivant
       </a-button>
 
-      <a-button v-if="currentStep === 7" type="primary" html-type="submit"
+      <a-button v-if="currentStep === 6" type="primary" html-type="submit"
         :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance">
         {{ texte11 }}
       </a-button>
