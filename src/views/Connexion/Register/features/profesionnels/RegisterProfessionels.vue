@@ -374,7 +374,7 @@ export default {
     },
 
     nextStep() {
-      console.log("this.formState.profilHybride", this.formState.profilHybride);
+      console.log("ProfilHybride", this.formState.profilHybride);
      
       if (this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length) {
       
