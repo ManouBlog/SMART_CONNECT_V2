@@ -298,11 +298,6 @@ export default {
     },
   },
   watch: {
-    // 'formState.answerAssistance'(newVal) {
-    //   if (newVal === 'non') {
-    //     this.formState.identifiantCommerciale = null
-    //   }
-    // },
     "formState.optionsAnswer": {
       handler(value) {
         if (value === 'non') {
@@ -360,8 +355,6 @@ export default {
       }
     },
     handleQualifications(payload) {
-
-
       this.formState.qualifications = payload;
     },
 
