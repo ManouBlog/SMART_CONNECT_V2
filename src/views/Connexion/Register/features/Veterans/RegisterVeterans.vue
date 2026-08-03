@@ -178,7 +178,7 @@ export default {
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
-        statut_professionnel_artisan: "Artisan",
+        statut_professionnel_artisan: "",
         mode_discret: false,
         experiences: [
           {
@@ -214,7 +214,15 @@ export default {
 
       },
       immediate: true,
-    }
+    },
+    'formState.profilHybride': {
+      handler(value) {
+        if (value.includes(7)) {
+          this.formState.statut_professionnel_artisan = "Artisan"
+        }
+      },
+      immediate: true,
+    },
   },
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
@@ -290,6 +298,7 @@ export default {
         return value !== null && value !== undefined && value !== "";
       });
     },
+    
   },
 
   methods: {
@@ -511,32 +520,21 @@ export default {
     // },
     onFinish() {
       this.formState.profiles = this.allProfiles;
-      // console.log("this.formState",this.formState);
-      if (this.formState.uploadPhotoProfil.length) {
-        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
-      }
+      console.log("this.formState_veterans",this.formState);
+      // if (this.formState.uploadPhotoProfil.length) {
+      //   this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
+      // }
 
-      if (this.configUtils.isValidEmail(this.formState.email)) {
-        this.changeValueIsPolitics({
-          value: true,
-          infoUser: "talents",
-          payload: this.formState,
-        });
-        // if (this.formState.upload.length) {
-        //   this.formState.photo = this.addPhotoInArray(this.formState.upload);
-
-        //   this.changeValueIsPolitics({
-        //     value: true,
-        //     infoUser: "talents",
-        //     payload: this.formState,
-        //   });
-        // } 
-        // else {
-        //   this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre certificat de travail.");
-        // }
-      } else {
-        this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
-      }
+      // if (this.configUtils.isValidEmail(this.formState.email)) {
+      //   this.changeValueIsPolitics({
+      //     value: true,
+      //     infoUser: "talents",
+      //     payload: this.formState,
+      //   });
+        
+      // } else {
+      //   this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
+      // }
     },
 
     onHandleFailed(errorInfo) {
@@ -786,7 +784,7 @@ export default {
                     trigger: 'change',
                   },
                 ]">
-                  <a-input type="date" v-model:value="value.dateDebut" size="large" :max="today" />
+                  <a-input type="date" v-model:value="value.dateDebut" size="large" :max="new Date().toISOString().split('T')[0]" />
                 </a-form-item>
 
               </a-col>
@@ -794,7 +792,7 @@ export default {
               <a-col :xs="24" :md="6">
 
                 <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
-                  <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut" :max="today" size="large" />
+                  <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut" :max="new Date().toISOString().split('T')[0]" size="large" />
                 </a-form-item>
 
               </a-col>
@@ -895,7 +893,7 @@ export default {
               le
               mode discret par défaut pour votre confidentialité</span>
           </a-form-item>
-          <a-form-item v-if="this.formState.profilHybride.some(el => el == 7)
+          <!-- <a-form-item v-if="this.formState.profilHybride.some(el => el == 7)
             && this.formState.optionsAnswer === 'oui'" :label="'Statut professionnel artisan'"
             name="statut_professionnel_artisan"
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]">
@@ -905,7 +903,7 @@ export default {
                 {{ item }}
               </a-select-option>
             </a-select>
-          </a-form-item>
+          </a-form-item> -->
         </a-col>
         <a-col :xs="24" :md="12" v-if="formState.statut_talent !== 'Vétéran Hors Grade'">
           <a-form-item label="Voulez-vous activer le mode discret ?" name="mode_discret">

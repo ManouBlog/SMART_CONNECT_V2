@@ -22,7 +22,6 @@ export default {
   },
   data() {
     return {
-      today: new Date().toISOString().split("T")[0],
       allAnwserProfilHybride: [
         { label: "Oui", value: "oui" },
         { label: "Non", value: "non" }
@@ -758,7 +757,7 @@ export default {
                   trigger: 'change',
                 },
               ]">
-                <a-input type="date" v-model:value="value.dateDebut" size="large" :max="today" />
+                <a-input type="date" v-model:value="value.dateDebut" size="large" :max="new Date().toISOString().split('T')[0]" />
               </a-form-item>
 
             </a-col>
@@ -767,7 +766,7 @@ export default {
 
               <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
                 <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut"
-                :max="today"
+                :max="new Date().toISOString().split('T')[0]"
                 size="large" />
               </a-form-item>
 
