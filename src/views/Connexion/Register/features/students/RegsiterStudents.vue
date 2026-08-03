@@ -305,7 +305,6 @@ export default {
         const response = await instance.get("listStatut")
         this.allStatuts = response.data.data.filter(item => item.statut === 'Particulier' || item.statut === 'Artisan')
         this.allProfiles = response.data.data;
-        // console.log("this.allStatuts",response.data.data.filter(item=>item.statut === 'particulier' || item.statut === 'Artisan'))
       } catch (error) {
         console.log(error);
       }

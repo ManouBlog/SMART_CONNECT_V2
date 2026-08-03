@@ -22,6 +22,10 @@ export default {
   },
   data() {
     return {
+      allAnwserProfilHybride: [
+        { label: "Oui", value: "oui" },
+        { label: "Non", value: "non" }
+      ],
       cameraInput: null,
       fileList: [],
       allProfiles: [],
@@ -161,6 +165,7 @@ export default {
         { label: "Togo", value: "+228", length: 8 },
       ],
       inputMode: "gallery",
+      allStatuts: [],
       formState: {
         profiles: [],
         answerAssistance: "non",
@@ -251,6 +256,7 @@ export default {
     async lister_statut() {
       try {
         const response = await instance.get("listStatut")
+        this.allStatuts = response.data.data.filter(item => item.statut === 'Artisan')
         this.allProfiles = response.data.data;
       } catch (error) {
         console.log(error);
@@ -519,6 +525,8 @@ export default {
 <template>
   <Politics v-if="isPolitics" />
 
+
+
   <a-steps :style="{
     color: 'orange',
     boxShadow: '0px -1px 0 0 #e8e8e8 inset',
@@ -533,6 +541,45 @@ export default {
   <a-form layout="vertical" :model="formState" @finish="onFinish" @finishFailed="onHandleFailed">
     <!-- STEP 0 -->
     <div v-show="currentStep === 0">
+      <div>
+        <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+          Souhaitez-vous adopter un profil hybride ?
+        </label>
+
+        <div class="round-container">
+          <label v-for="item in allAnwserProfilHybride" :key="item.value" class="round-item">
+            <input type="radio" name="profilHybride" :value="item.value" v-model="formState.optionsAnswer" @change="(e) => {
+              if (e.target.value === 'non') {
+                this.formState.profilHybride = [];
+              }
+              // console.log('this.formState.profilHybride', this.formState.profilHybride)
+            }" />
+            <span class="round-label">
+              {{ item.label }}
+            </span>
+          </label>
+        </div>
+      </div>
+      <transition name="fade-slide">
+        <div v-if="formState.optionsAnswer === 'oui'">
+          <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
+            Profils disponibles
+          </label>
+
+          <div class="round-container">
+            <label v-for="item in allStatuts" :key="item.id" class="round-item">
+              <input type="checkbox" :value="item.id" v-model="formState.profilHybride" />
+              <span class="round-label">
+                {{ item.statut }}
+              </span>
+            </label>
+          </div>
+        </div>
+      </transition>
+    </div>
+
+    <!-- STEP 1 -->
+    <div v-show="currentStep === 1">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item label="Code de parrainage" name="code_ambassadeur">
@@ -610,8 +657,8 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 1 -->
-    <div v-show="currentStep === 1">
+    <!-- STEP 2 -->
+    <div v-show="currentStep === 2">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item :label="texte7">
@@ -634,8 +681,8 @@ export default {
       </a-row>
       <!-- {{ formState?.otherCompetence }} -->
     </div>
-    <!-- STEP 2 -->
-    <div v-show="currentStep === 2">
+    <!-- STEP 3 -->
+    <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item :label="texte8" name="niveauEtude"
@@ -680,8 +727,8 @@ export default {
         </a-col>
       </a-row>
     </div>
-    <!-- STEP 3 -->
-    <div v-show="currentStep === 3">
+    <!-- STEP 4 -->
+    <div v-show="currentStep === 4">
 
       <!-- MODE SELECT -->
       <a-form-item label="Ajouter des images">
@@ -740,8 +787,8 @@ export default {
       </a-form-item>
 
     </div>
-    <!-- STEP 4 -->
-    <div v-show="currentStep === 4">
+    <!-- STEP 5 -->
+    <div v-show="currentStep === 5">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -805,18 +852,15 @@ export default {
         </div>
       </div> -->
     </div>
-
-
-
     <!-- NAVIGATION -->
     <div class="d-flex justify-content-between" style="padding: 1.5em">
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
-      <a-button v-if="currentStep < 4" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
+      <a-button v-if="currentStep < 5" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
         Suivant
       </a-button>
 
-      <a-button v-if="currentStep === 4" type="primary" html-type="submit"
+      <a-button v-if="currentStep === 5" type="primary" html-type="submit"
         :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance">
         {{ texte11 }}
       </a-button>
