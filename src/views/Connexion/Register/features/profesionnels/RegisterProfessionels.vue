@@ -245,8 +245,8 @@ export default {
         );
       }
 
-      if (this.currentStep === 2) {
-        return this.formState.experiences.length === 0 || this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
+      if (this.currentStep === 2 && this.formState.experiences.length) {
+        return this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
       }
 
       if (this.currentStep === 4) {
