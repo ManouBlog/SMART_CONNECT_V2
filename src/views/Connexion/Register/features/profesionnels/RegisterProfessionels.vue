@@ -375,6 +375,8 @@ export default {
 
     nextStep() {
       console.log("ProfilHybride", this.formState.profilHybride);
+      console.log("this.currentStep", this.currentStep);
+      
      
       if (this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length) {
       
@@ -733,6 +735,23 @@ export default {
           </a-form-item>
         </a-col>
       </a-row>
+      <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
+        <a-col :xs="24" :md="12">
+          <a-form-item label="Ville" name="ville" :rules="[{ required: true, message: 'Ajoutez une ville' }]">
+            <a-input v-model:value="formState.ville" placeholder="Ajoutez votre ville" />
+          </a-form-item>
+        </a-col>
+        <a-col :xs="24" :md="12">
+          <a-form-item label="Commune" name="commune" :rules="[{ required: true, message: 'Ajoutez une commune' }]">
+            <a-input v-model:value="formState.commune" placeholder="Ajoutez votre commune" />
+          </a-form-item>
+        </a-col>
+        <a-col :xs="24" :md="12">
+          <a-form-item label="Quartier" name="quartier">
+            <a-input v-model:value="formState.quartier" placeholder="Ajoutez votre quartier" />
+          </a-form-item>
+        </a-col>
+      </a-row>
     </div>
 
      <!-- STEP 2 -->
@@ -918,23 +937,7 @@ export default {
           </a-form-item>
         </a-col>
       </a-row>
-      <a-row :gutter="[16, 24]" v-if="this.formState.profilHybride.length && this.formState.optionsAnswer === 'oui'">
-        <a-col :xs="24" :md="12">
-          <a-form-item label="Ville" name="ville" :rules="[{ required: true, message: 'Ajoutez une ville' }]">
-            <a-input v-model:value="formState.ville" placeholder="Ajoutez votre ville" />
-          </a-form-item>
-        </a-col>
-        <a-col :xs="24" :md="12">
-          <a-form-item label="Commune" name="commune" :rules="[{ required: true, message: 'Ajoutez une commune' }]">
-            <a-input v-model:value="formState.commune" placeholder="Ajoutez votre commune" />
-          </a-form-item>
-        </a-col>
-        <a-col :xs="24" :md="12">
-          <a-form-item label="Quartier" name="quartier">
-            <a-input v-model:value="formState.quartier" placeholder="Ajoutez votre quartier" />
-          </a-form-item>
-        </a-col>
-      </a-row>
+      
     </div>
 
     <!-- STEP 4 -->
