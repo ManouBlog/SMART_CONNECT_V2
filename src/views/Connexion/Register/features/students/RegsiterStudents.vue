@@ -181,7 +181,7 @@ export default {
       return this.$store.state.First_heure_end_to;
     },
     isNextDisabled() {
-      
+
       // STEP 2 – Qualifications
       if (this.currentStep === 3) {
         // au moins une qualification
@@ -903,7 +903,9 @@ export default {
     <div class="d-flex justify-content-between" style="padding: 1.5em">
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
-      <a-button v-if="currentStep < 5" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
+      <a-button v-if="currentStep < 5" type="primary" 
+      @click.prevent="nextStep" 
+      :disabled="isNextDisabled">
         Suivant
       </a-button>
 

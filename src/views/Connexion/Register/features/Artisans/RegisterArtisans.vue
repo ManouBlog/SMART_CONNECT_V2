@@ -214,7 +214,9 @@ export default {
     },
 
     isNextDisabled() {
-
+      if (this.currentStep === 0) {
+        return !this.formState.optionsAnswer || (this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0);
+      }
       return !this.isCurrentStepValid;
     },
 
@@ -821,35 +823,6 @@ export default {
           </a-form-item>
         </a-col>
       </a-row>
-      <!-- <div>
-        <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
-          Avez-vous été assisté(e) par un commercial ?
-        </label>
-        <div class="round-container">
-          <label v-for="item in allAnwserForAssitance" :key="item.value" class="round-item">
-            <input :disabled="this.loading" type="radio" name="profilHybride" :value="item.value"
-              v-model="formState.answerAssistance" />
-            <span class="round-label">
-              {{ item.label }}
-            </span>
-          </label>
-        </div>
-        <div v-if="formState.answerAssistance === 'oui'">
-          <a-row :gutter="[16, 12]">
-            <a-col :xs="24" :md="12">
-              <a-form-item :rules="[{ required: true, message: 'Ajoutez l\'identifiant du commercial' }]"
-                label="Identifiant du commercial" name="identifiantCommerciale">
-                <a-input v-model:value="formState.identifiantCommerciale" />
-              </a-form-item>
-            </a-col>
-            <a-col :xs="24" :md="12">
-              <a-form-item label="Notes" name="identifiantNotesCommerciale">
-                <a-textarea v-model:value="formState.identifiantNotesCommerciale" :rows="4" />
-              </a-form-item>
-            </a-col>
-          </a-row>
-        </div>
-      </div> -->
     </div>
     <!-- NAVIGATION -->
     <div class="d-flex justify-content-between" style="padding: 1.5em">
