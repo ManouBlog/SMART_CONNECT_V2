@@ -671,7 +671,7 @@ export default {
             <a-col :xs="24" :md="6">
 
               <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
-                <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut" max="today" size="large" />
+                <a-input type="date" v-model:value="value.dateFin" :max="value.dateDebut" size="large" />
               </a-form-item>
 
             </a-col>
