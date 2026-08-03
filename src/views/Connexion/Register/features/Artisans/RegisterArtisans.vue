@@ -218,13 +218,14 @@ export default {
 
     requiredFieldsByStep() {
       return {
-        // STEP 0 – Infos personnelles
-        0: ["nom", "prenoms", "phone", "email"],
 
-        // STEP 1 – Profil & compétences
-        // 1: ["myCompetence"],
+       // STEP 0 – OptionsAnswer
+        0: ["optionsAnswer"],
 
-        // STEP 1 – Profil & compétences
+       // STEP 1 – Infos personnelles
+        1: ["nom", "prenoms", "phone", "email"],
+
+        // STEP 2 – Profil & compétences
         2: ["niveauEtude", "statut_talent"],
 
         // STEP 4 – Validation finale
@@ -326,7 +327,7 @@ export default {
     },
 
     nextStep() {
-      if (this.currentStep !== 2 && !this.isCurrentStepValid) {
+      if (this.currentStep !== 3 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Veuillez remplir les champs requis avant de continuer"
@@ -522,12 +523,12 @@ export default {
 <template>
   <Politics v-if="isPolitics" />
 
-
-
   <a-steps :style="{
     color: 'orange',
     boxShadow: '0px -1px 0 0 #e8e8e8 inset',
-  }" :current="currentStep" class="mb-4">
+  }" 
+  :current="currentStep" 
+  class="mb-4">
     <a-step title="Profil" description="Renseignez vos informations de base pour créer votre compte." />
     <a-step title="Compétences" description="Sélectionnez vos compétences." />
     <a-step title="Qualifications" description="Ajoutez vos qualifications." />
@@ -549,7 +550,6 @@ export default {
               if (e.target.value === 'non') {
                 this.formState.profilHybride = [];
               }
-              // console.log('this.formState.profilHybride', this.formState.profilHybride)
             }" />
             <span class="round-label">
               {{ item.label }}
