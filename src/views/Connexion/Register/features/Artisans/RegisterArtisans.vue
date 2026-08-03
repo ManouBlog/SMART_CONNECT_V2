@@ -22,6 +22,7 @@ export default {
   },
   data() {
     return {
+       today:new Date().toISOString().split("T")[0],
       allAnwserProfilHybride: [
         { label: "Oui", value: "oui" },
         { label: "Non", value: "non" }
@@ -197,7 +198,19 @@ export default {
         disponibiliteValid: false,
         profilHybride: [],
         optionsAnswer: "non",
+        experiences: [
+        {
+          poste: "",
+          entreprise: "",
+          lieu: "",
+          dateDebut: "",
+          dateFin: "",
+          experience: "",
+          fileProof: null,
+        },
+      ]
       },
+
     };
   },
 
@@ -207,7 +220,7 @@ export default {
       return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true : false;
     },
     isPasswordDisabled() {
-    const isProfilRequiredButEmpty = this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0;
+      const isProfilRequiredButEmpty = this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0;
       return (
         this.loading || this.result || isProfilRequiredButEmpty
       )
@@ -224,13 +237,13 @@ export default {
     requiredFieldsByStep() {
       return {
 
-       // STEP 0 – OptionsAnswer
+        // STEP 0 – OptionsAnswer
         0: ["optionsAnswer"],
 
-       // STEP 1 – Infos personnelles
+        // STEP 1 – Infos personnelles
         1: ["nom", "prenoms", "phone", "email"],
 
-         // STEP 2 – Profil & compétences
+        // STEP 2 – Profil & compétences
         2: ["myCompetence"],
 
         // STEP 3 – Niveau d'étude & qualifications
@@ -262,6 +275,17 @@ export default {
   //   },
   // },
   methods: {
+    createExperience() {
+      return {
+        poste: "",
+        entreprise: "",
+        lieu: "",
+        dateDebut: "",
+        dateFin: "",
+        experience: "",
+        fileProof: null,
+      };
+    },
     async lister_statut() {
       try {
         const response = await instance.get("listStatut")
@@ -535,10 +559,9 @@ export default {
   <a-steps :style="{
     color: 'orange',
     boxShadow: '0px -1px 0 0 #e8e8e8 inset',
-  }" 
-  :current="currentStep" 
-  class="mb-4">
+  }" :current="currentStep" class="mb-4">
     <a-step title="Profil" description="Renseignez vos informations de base pour créer votre compte." />
+    <a-step title="Expériences" description="Ajoutez vos expériences." />
     <a-step title="Compétences" description="Sélectionnez vos compétences." />
     <a-step title="Qualifications" description="Ajoutez vos qualifications." />
     <a-step title="Galéries" description="Ajoutez vos meilleures créations." />
@@ -586,6 +609,117 @@ export default {
 
     <!-- STEP 1 -->
     <div v-show="currentStep === 1">
+      <n-dynamic-input v-model:value="formState.experiences" :on-create="createExperience">
+        <template #create-button-default>
+      Ajouter une expérience
+    </template>
+        <template #default="{ value,index }">
+          <a-row :gutter="[16, 24]">
+
+            <a-col :xs="24" :md="12">
+
+              <a-form-item label="Poste"  
+              :name="['experiences', index, 'poste']" 
+              :rules="[
+                {
+                  required: true,
+                  message: 'Le poste est obligatoire.',
+                  trigger: 'blur',
+                },
+              ]">
+                <a-input v-model:value="value.poste" size="large" />
+              </a-form-item>
+
+            </a-col>
+            <a-col :xs="24" :md="12">
+              <a-form-item label="Entreprise" :name="['experiences', index, 'entreprise']" :rules="[
+                {
+                  required: true,
+                  message: 'Le nom de l’entreprise est obligatoire.',
+                  trigger: 'blur',
+                },
+              ]">
+                <a-input v-model:value="value.entreprise" size="large" />
+              </a-form-item>
+
+            </a-col>
+
+            <a-col :xs="24" :md="12">
+
+              <a-form-item label="lieu" :name="['experiences', index, 'lieu']" :rules="[
+                {
+                  required: true,
+                  message: 'Le lieu est obligatoire.',
+                  trigger: 'blur',
+                },
+              ]">
+                <a-input v-model:value="value.lieu" size="large" />
+              </a-form-item>
+
+            </a-col>
+
+            <a-col :xs="24" :md="6">
+
+              <a-form-item label="Date de début" :name="['experiences', index, 'dateDebut']" :rules="[
+                {
+                  required: true,
+                  message: 'La date de début est obligatoire.',
+                  trigger: 'change',
+                },
+              ]">
+                <a-input type="date" v-model:value="value.dateDebut" size="large"
+                :max="today"
+                />
+              </a-form-item>
+
+            </a-col>
+
+            <a-col :xs="24" :md="6">
+
+              <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']" :rules="[
+                {
+                  required: true,
+                  message: 'La date de fin est obligatoire.',
+                  trigger: 'change',
+                },
+              ]">
+                <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut" size="large" />
+              </a-form-item>
+
+            </a-col>
+
+            <a-col :xs="24" :md="12">
+
+              <a-form-item label="Justificatif" :name="['experiences', index, 'fileProof']">
+
+                <a-input type="file" accept="image/*" @change="onFileProof" />
+
+              </a-form-item>
+
+            </a-col>
+
+            <a-col :xs="24">
+
+              <a-form-item :label="texte7" :name="['experiences', index, 'experience']" :rules="[
+                {
+                  required: true,
+                  message: 'Veuillez décrire votre expérience.',
+                  trigger: 'blur',
+                },
+              ]">
+
+                <a-textarea v-model:value="value.experience" :rows="6" />
+
+              </a-form-item>
+
+            </a-col>
+          </a-row>
+        </template>
+      </n-dynamic-input>
+    </div>
+
+    <!-- STEP 2 -->
+    <div v-show="currentStep === 2">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item label="Code de parrainage" name="code_ambassadeur">
@@ -663,8 +797,8 @@ export default {
       </a-row>
     </div>
 
-    <!-- STEP 2 -->
-    <div v-show="currentStep === 2">
+    <!-- STEP 3 -->
+    <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item :label="texte7">
@@ -687,8 +821,8 @@ export default {
       </a-row>
       <!-- {{ formState?.otherCompetence }} -->
     </div>
-    <!-- STEP 3 -->
-    <div v-show="currentStep === 3">
+    <!-- STEP 4 -->
+    <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item :label="texte8" name="niveauEtude"
@@ -733,8 +867,8 @@ export default {
         </a-col>
       </a-row>
     </div>
-    <!-- STEP 4 -->
-    <div v-show="currentStep === 4">
+    <!-- STEP 5 -->
+    <div v-show="currentStep === 5">
 
       <!-- MODE SELECT -->
       <a-form-item label="Ajouter des images">
@@ -793,8 +927,8 @@ export default {
       </a-form-item>
 
     </div>
-    <!-- STEP 5 -->
-    <div v-show="currentStep === 5">
+    <!-- STEP 6 -->
+    <div v-show="currentStep === 6">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -833,11 +967,11 @@ export default {
     <div class="d-flex justify-content-between" style="padding: 1.5em">
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
-      <a-button v-if="currentStep < 5" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
+      <a-button v-if="currentStep < 6" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
         Suivant
       </a-button>
 
-      <a-button v-if="currentStep === 5" type="primary" html-type="submit"
+      <a-button v-if="currentStep === 6" type="primary" html-type="submit"
         :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance">
         {{ texte11 }}
       </a-button>

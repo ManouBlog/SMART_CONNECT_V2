@@ -409,7 +409,6 @@ export default {
 
 <template>
   <section>
-
     <div class="add_nouvelle_experience" v-show="toogleNouvelleExperience"
       @click.self="toogleNouvelleExperience = !toogleNouvelleExperience">
       <div class="conteneur_nouvelle_experience">
@@ -457,8 +456,9 @@ export default {
             </div>
           </div>
           <div class="text-center my-5">
-            <button type="submit" class="btn btn-warning" :disabled="!isExperienceValid" style="width: auto;">{{ texte8
-              }}</button>
+            <button type="submit" class="btn btn-warning" 
+            :disabled="!isExperienceValid" style="width: auto;">
+            {{ texte8}}</button>
           </div>
         </form>
       </div>
