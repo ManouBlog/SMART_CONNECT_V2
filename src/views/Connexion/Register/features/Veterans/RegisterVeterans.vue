@@ -245,7 +245,7 @@ export default {
     },
     isNextDisabled() {
       // STEP 2 – Qualifications
-      if (this.currentStep === 3) {
+      if (this.currentStep === 4) {
         // au moins une qualification
         if (!this.formState.qualifications.length) {
           return true;
@@ -273,16 +273,16 @@ export default {
         1: ["nom", "prenoms", "phone", "email"],
 
         // STEP 1 – Profil & compétences
-        // 2: ["myCompetence"],
+        3: ["otherCompetence", "myCompetence"],
 
         // STEP 2 – Qualifications
-        3: ["qualifications", "niveauEtude", "filiere", "statut_talent"],
+        4: ["qualifications", "niveauEtude", "filiere", "statut_talent"],
 
         // STEP 2 – mode de travail
-        4: ["modeTravail", "tempsTravail"],
+        5: ["modeTravail", "tempsTravail"],
 
         // STEP 4 – Validation finale
-        5: ["password"],
+        6: ["password"],
       };
     },
     isCurrentStepValid() {
@@ -384,17 +384,7 @@ export default {
         }
       }
 
-      //   if (this.currentStep === 3) {
-
-      //   if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
-      //     this.SWALPOPUP.declencheSwalPopup(
-      //       "warning",
-      //       "Veuillez remplir les champs obligatoire"
-      //     );
-      //     return;
-      //   }
-      // }
-
+    
       if (this.currentStep !== 3 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
