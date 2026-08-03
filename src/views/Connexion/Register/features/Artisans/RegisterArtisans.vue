@@ -195,6 +195,8 @@ export default {
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
+        profilHybride: [],
+        optionsAnswer: "non",
       },
     };
   },
@@ -205,9 +207,9 @@ export default {
       return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true : false;
     },
     isPasswordDisabled() {
+    const isProfilRequiredButEmpty = this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0;
       return (
-        this.loading ||
-        (this.result && this.result.isStudentCard === false)
+        this.loading || this.result || isProfilRequiredButEmpty
       )
     },
 
