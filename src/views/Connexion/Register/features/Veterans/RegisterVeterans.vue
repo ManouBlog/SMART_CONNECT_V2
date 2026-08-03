@@ -288,6 +288,17 @@ export default {
   },
 
   methods: {
+    createExperience() {
+      return {
+        poste: "",
+        entreprise: "",
+        lieu: "",
+        dateDebut: "",
+        dateFin: "",
+        experience: "",
+        fileProof: null,
+      };
+    },
     onCreateOther() {
       return null
     },
@@ -711,7 +722,8 @@ export default {
 
     <!-- STEP 2 -->
     <div v-show="currentStep === 2">
-      <n-dynamic-input v-model:value="formState.experiences" :on-create="createExperience">
+      <n-dynamic-input v-model:value="formState.experiences" 
+      :on-create="createExperience">
         <template #create-button-default>
           Ajouter une expérience
         </template>
