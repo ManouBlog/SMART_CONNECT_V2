@@ -322,7 +322,6 @@ export default {
       changeValueIsPolitics: "changeValueIsPolitics",
     }),
     handleQualifications(payload) {
-
       this.formState.qualifications = payload;
     },
 
