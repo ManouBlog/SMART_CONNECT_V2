@@ -247,11 +247,16 @@ export default {
     },
     "formState.profilHybride": {
       handler(value) {
+        if (!Array.isArray(value)) return;
+
         if (value.includes(7)) {
-          this.formState.statut_professionnel_artisan = "Artisan"
+          this.formState.statut_professionnel_artisan = "Artisan";
+        } else {
+          this.formState.statut_professionnel_artisan = "";
         }
       },
       immediate: true,
+      deep: true,
     },
   },
   computed: {
@@ -1068,9 +1073,8 @@ Les entreprises ne pourront pas voir votre profil mais vous voyez leurs offres e
         Suivant
       </a-button>
 
-      <a-button v-if="currentStep === 6" type="primary" html-type="submit" 
-      :disabled="!isCurrentStepValid ||
-        isPasswordDisabled ">
+      <a-button v-if="currentStep === 6" type="primary" html-type="submit" :disabled="!isCurrentStepValid ||
+        isPasswordDisabled">
         {{ texte11 }}
       </a-button>
     </div>
