@@ -198,7 +198,7 @@ export default {
         photo: null,
         upload: [],
         modeTravail: "",
-        statut_professionnel_artisan: "",
+        statut_professionnel_artisan: "Artisan",
         uploadCNI: null,
         profilHybride: [],
         optionsAnswer: "non",
@@ -282,10 +282,10 @@ export default {
         // ],
 
         // STEP 3 – Qualifications
-        3: ["qualifications", "niveauEtude", "filiere", "statut_talent"],
+        4: ["qualifications", "niveauEtude", "filiere", "statut_talent"],
 
-        // STEP 4 – mode de travail
-        4: ["modeTravail", "tempsTravail"],
+        // STEP 5 – mode de travail
+        5: ["modeTravail", "tempsTravail"],
 
         // STEP 5 – Validation finale
         6: ["upload", "password"],
@@ -387,7 +387,17 @@ export default {
 
 
       }
-      if (this.currentStep == 3) {
+      if(this.currentStep == 4){
+        
+        if (this.formState.profilHybride.some(el => el == 7) && !this.formState.statut_professionnel_artisan) {
+          this.SWALPOPUP.declencheSwalPopup(
+            "warning",
+            "Ajoutez votre statut professionnel artisan."
+          );
+          return;
+        }
+      }
+      if (this.currentStep == 5) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
         if (invalid) {
           this.SWALPOPUP.declencheSwalPopup(
@@ -397,16 +407,9 @@ export default {
           return;
         }
 
-        if (this.formState.profilHybride.some(el => el == 7) && !this.formState.statut_professionnel_artisan) {
-          this.SWALPOPUP.declencheSwalPopup(
-            "warning",
-            "Ajoutez votre statut professionnel artisan."
-          );
-          return;
-        }
       }
 
-      if (this.currentStep !== 3 && !this.isCurrentStepValid) {
+      if (this.currentStep !== 6 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Veuillez remplir les champs requis avant de continuer"
@@ -889,26 +892,6 @@ export default {
           </a-form-item>
         </a-col>
         <a-col :xs="24" :md="12">
-          <!-- <a-form-item
-            :label="texte8"
-            name="niveauEtude"
-            :rules="[{ required: true, message: texte13 }]"
-          >
-            <a-select
-              style="margin:1em 0"
-              v-model:value="formState.niveauEtude"
-              placeholder="Sélectionnez un diplôme"
-            >
-              <a-select-option
-                v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
-                :key="item.value"
-                :value="item.value"
-              >
-                {{ item.value }}
-              </a-select-option>
-            </a-select>
-            
-          </a-form-item> -->
           <a-form-item label="Domaine" name="filiere" :rules="[{ required: true, message: texte13 }]">
             <a-input v-model:value="formState.filiere" placeholder="Ajoutez votre domaine" />
           </a-form-item>
@@ -926,7 +909,7 @@ export default {
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :xs="24" :md="12"
+        <!-- <a-col :xs="24" :md="12"
           v-if="this.formState.profilHybride.some(el => el == 7) && this.formState.optionsAnswer === 'oui'">
           <a-form-item :label="'Statut professionnel artisan'" name="statut_professionnel_artisan"
             :rules="[{ required: true, message: 'Ajoutez votre statut professionnel artisan' }]">
@@ -937,7 +920,7 @@ export default {
               </a-select-option>
             </a-select>
           </a-form-item>
-        </a-col>
+        </a-col> -->
         <a-col :xs="24" :md="24">
           <RegisterQualifications @update:modelValue="handleQualifications" />
         </a-col>
