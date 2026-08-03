@@ -327,8 +327,6 @@ export default {
     },
 
     nextStep() {
-
-
       if (this.currentStep !== 2 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",

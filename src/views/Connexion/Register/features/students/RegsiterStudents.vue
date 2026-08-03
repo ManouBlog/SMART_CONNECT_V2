@@ -181,8 +181,7 @@ export default {
       return this.$store.state.First_heure_end_to;
     },
     isNextDisabled() {
-      // console.log("this.currentStep",this.currentStep)
-
+      
       // STEP 2 – Qualifications
       if (this.currentStep === 3) {
         // au moins une qualification
