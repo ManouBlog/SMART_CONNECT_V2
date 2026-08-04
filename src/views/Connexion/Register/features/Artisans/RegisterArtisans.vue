@@ -487,7 +487,7 @@ export default {
       this.formState.galeries.splice(index, 1)
     },
     onFinish() {
-      console.log("this.formState", this.formState)
+      // console.log("this.formState", this.formState)
       this.formState.profiles = this.allProfiles;
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
