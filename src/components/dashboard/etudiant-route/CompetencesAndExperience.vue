@@ -544,7 +544,7 @@ export default {
           <p class="h3 my-2">{{ texte19 }}</p>
           <div style="display:flex;gap:1em;">
             <button class="btn w-75 bg-warning m-2" @click="deleteExperience"> {{ texte17 }}</button>
-            <button class="btn w-75 m-2" style="background:red !important;" @click="notDeleteExperience">
+            <button class="btn w-75 m-2" style="background:red !important;color:white;" @click="notDeleteExperience">
               {{ texte18 }}
             </button>
           </div>
