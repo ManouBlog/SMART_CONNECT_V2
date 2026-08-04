@@ -143,6 +143,30 @@ if (payload?.qualifications?.length > 0) {
 }
 
 
+// Qualifications (array objets → JSON)
+if (payload?.experiences?.length > 0) {
+  payload.experiences.forEach((item, index) => {
+  // envoyer l'objet SANS le fichier
+  data.append(
+    `experiences[${index}]`,
+    JSON.stringify({
+      poste : item.poste,
+      lieu: item.lieu,
+      dateDebut: item.dateDebut,
+      dateFin: item.dateFin,
+      entreprise: item.entreprise,
+      experience: item.experience
+    })
+  );
+
+  // envoyer le fichier à part
+  if (item.proof) {
+    data.append(`proof[${index}]`, item.proof);
+  }
+});
+}
+
+
 
 // Nom simple
 if (payload?.nom) data.append("nom", payload.nom);
@@ -225,10 +249,10 @@ Veuillez consulter votre boîte mail et cliquer sur le lien pour activer votre c
 );
               }
               if (response.data.status === false) {
-                this.SWALPOPUP.declencheSwalPopup("error",response.data.message)
+                this.SWALPOPUP.declencheSwalPopup("error",response?.data?.message)
               }
           }catch(error){
-            this.SWALPOPUP.declencheSwalPopup("info",error?.response.data.message)   
+            this.SWALPOPUP.declencheSwalPopup("info",error?.response?.data?.message)   
           }finally{
            this.isLoading = false;
            this.LOADINGSPINNER.launchLoading(false)

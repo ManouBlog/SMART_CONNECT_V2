@@ -472,7 +472,7 @@ export default {
           </div>
         </div>
         <form @submit.prevent="changeExperience">
-          <div class="container">
+          <div>
             <div class="row p-2">
               <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
                 <label>{{ texte10 }}</label>

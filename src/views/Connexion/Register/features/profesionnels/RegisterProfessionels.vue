@@ -539,29 +539,28 @@ export default {
     },
     onFinish() {
       console.log("this.formState_professionnel", this.formState);
-      // this.formState.profiles = this.allProfiles;
-      // if (this.formState.uploadPhotoProfil.length) {
-      //   this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
-      // }
-      // if (this.formState.profilHybride.length) {
-      //   this.formState.profilHybride.push(this.formState.statutId)
-      // }
+      this.formState.profiles = this.allProfiles;
+      if (this.formState.uploadPhotoProfil.length) {
+        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
+      }
+      if (this.formState.profilHybride.length) {
+        this.formState.profilHybride.push(this.formState.statutId)
+      }
 
-      // if (this.configUtils.isValidEmail(this.formState.email)) {
-      //   if (this.formState.upload.length) {
-      //     this.formState.photo = this.addPhotoInArray(this.formState.upload);
-
-      //     this.changeValueIsPolitics({
-      //       value: true,
-      //       infoUser: "talents",
-      //       payload: this.formState,
-      //     });
-      //   } else {
-      //     this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité ou une Pièce justificative");
-      //   }
-      // } else {
-      //   this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
-      // }
+      if (this.configUtils.isValidEmail(this.formState.email)) {
+        if (this.formState.upload.length) {
+          this.formState.photo = this.addPhotoInArray(this.formState.upload);
+          this.changeValueIsPolitics({
+            value: true,
+            infoUser: "talents",
+            payload: this.formState,
+          });
+        } else {
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité ou une Pièce justificative");
+        }
+      } else {
+        this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
+      }
     },
 
     onHandleFailed(errorInfo) {

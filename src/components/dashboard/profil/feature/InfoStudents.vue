@@ -355,7 +355,7 @@ export default {
         <div class="col-md-4" v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))">
  <ParagrapheDetail
     :item="{
-      libelle: 'Carte étudiant',
+      libelle: 'Fichier chargé',
       value: null,
       valueArray: infoPersonnelles.user.photos.filter(item =>
         item.path.includes('Carte_etudiant')
