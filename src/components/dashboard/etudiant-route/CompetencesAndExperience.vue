@@ -456,9 +456,8 @@ export default {
             </div>
           </div>
           <div class="text-center my-5">
-            <button type="submit" class="btn btn-warning" 
-            :disabled="!isExperienceValid" style="width: auto;">
-            {{ texte8}}</button>
+            <button type="submit" class="btn btn-warning" :disabled="!isExperienceValid" style="width: auto;">
+              {{ texte8 }}</button>
           </div>
         </form>
       </div>
@@ -515,7 +514,7 @@ export default {
             </div>
           </div>
           <div class="text-center">
-            <button type="submit" :disabled="spinnerModifyExperience ? true : false " class="btn btn-warning">
+            <button type="submit" :disabled="spinnerModifyExperience ? true : false" class="btn btn-warning">
               {{ spinnerModifyExperience ? "Loading..." : "Modifier" }}
             </button>
           </div>
@@ -649,11 +648,10 @@ export default {
                         <span class="text-start d-block my-2" style="font-size: 0.7em;">
                           <em class="bi bi-calendar-date"></em>
                           {{
-                            `${new Date(
-                              item.dateDebut
-                            ).toLocaleDateString()} au ${new Date(
-                              item.dateFin
-                            ).toLocaleDateString()}`
+                            `${new Date(item.dateDebut).toLocaleDateString()} - ${item.dateFin
+                              ? new Date(item.dateFin).toLocaleDateString()
+                          : "Présent"
+                          }`
                           }}
                         </span>
 
