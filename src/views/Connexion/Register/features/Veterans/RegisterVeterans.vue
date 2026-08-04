@@ -846,7 +846,7 @@ export default {
 
               <a-col :xs="24">
 
-                <a-form-item label="Détails" :name="['experiences', index, 'experience']" :rules="[
+                <a-form-item label="Description" :name="['experiences', index, 'experience']" :rules="[
                   {
                     required: true,
                     message: 'Veuillez décrire votre expérience.',
