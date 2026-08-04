@@ -1,6 +1,6 @@
 <script>
 import Swal from "sweetalert2";
-import instance, { lienPhoto,lienPDF } from "../../../../api/api";
+import instance, { lienPhoto, lienPDF } from "../../../../api/api";
 import Buttons from "../../../../Shared/Compoments/Buttons.vue";
 import { useInfoPersonnel } from "../../../../store-pinia/InfoPersonnelle/useInfoPersonnel";
 import { useLoadingSpinner } from "../../../../store-pinia/LoadingSpinner/useLoadingSpinner";
@@ -15,7 +15,7 @@ export default {
     ParagrapheDetail
   },
   props: {
-    infoPersonnelles:{
+    infoPersonnelles: {
       type: Object,
       required: false,
     },
@@ -28,8 +28,8 @@ export default {
       nom: "",
       modeActif: false,
       lienPDF: lienPDF,
-      showCvModal : false,
-      showModalBadgeVerifi:false,
+      showCvModal: false,
+      showModalBadgeVerifi: false,
       prenoms: "",
       lienPhoto: lienPhoto,
       password: null,
@@ -39,7 +39,7 @@ export default {
       diplome: "",
       phone: "",
       registre_commerce: "",
-      showPdf:false,
+      showPdf: false,
       oldPassword: "",
       photo: {},
       isLoading: false,
@@ -63,19 +63,19 @@ export default {
       "addInfoUserConnected",
     ]),
     ...mapActions(useLoadingSpinner, ["launchLoading"]),
-   
+
     async handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
-     
+
         const reponse = await this.updateCompteUser({
           photo_profil: file,
         });
-        if(reponse.status){
-         this.user = reponse?.compte
-         await this.getInfoUser()
+        if (reponse.status) {
+          this.user = reponse?.compte
+          await this.getInfoUser()
         }
-      
+
       }
     },
     async getInfoUser() {
@@ -85,7 +85,7 @@ export default {
         .then((resp) => {
           if (resp.data.status === true) {
             this.user = resp.data.user;
-             this.$store.dispatch("getInfoUser");
+            this.$store.dispatch("getInfoUser");
           }
         })
         .catch((error) => {
@@ -95,8 +95,8 @@ export default {
           this.isLoading = false;
         });
     },
-    handleModalInfo(payload = null){
-    this.addInfoUserConnected( this.user)
+    handleModalInfo(payload = null) {
+      this.addInfoUserConnected(this.user)
       if (payload) {
         this.changeValueForToogleModalInfoPersonnelle({ isCv: true, isbtnPdf: true });
       } else {
@@ -118,7 +118,7 @@ export default {
         instance
           .post("passwordModify", data)
           .then((resp) => {
-          
+
             if (resp.data.status === true) {
               Swal.fire({
                 icon: "success",
@@ -126,7 +126,7 @@ export default {
                 showConfirmButton: false,
                 timer: 1500,
               });
-            
+
             }
             if (resp.data.status === false) {
               Swal.fire({
@@ -147,7 +147,7 @@ export default {
       await instance
         .post("send-verification-email")
         .then((res) => {
-       
+
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -173,34 +173,30 @@ export default {
     },
     see(e) {
       this.photo = e.target.files[0];
-    
+
     },
   },
   async created() {
-   await this.getInfoUser();
+    await this.getInfoUser();
   },
 };
 </script>
 
 <template>
   <section>
-   
+
     <div v-if="isLoading">
       <h5 style="text-align: center" class="shimmer-text">Chargement...</h5>
     </div>
-    <a-card
-      v-if="user"
-      style="
+    <a-card v-if="user" style="
         width: auto;
         color: var(--third-color) !important;
         background: var(--secondary-color) !important;
-      "
-    >
+      ">
       <div class="info-header" style="display: flex; justify-content: space-between">
         <h1 class="fw-bold my-3" style="color: orange;font-size: 2em;">Infos personnelles</h1>
         <div>
-         <button
-          style="
+          <button style="
             height: auto;
             width: auto;
             background: orange;
@@ -208,62 +204,35 @@ export default {
             font-weight: bold;
             border-radius: 10%;
             padding:0.5em;
-          "
-          @click="handleModalInfo(1)"
-        >
-          Voir Mon CV
-        </button>
+          " @click="handleModalInfo(1)">
+            Voir Mon CV
+          </button>
         </div>
-        
-      </div>
-      <div
-        class="conteneur_activation"
-        style="display: flex; align-items: center;"
-      >
-        <span
-          class="badge"
-          style="text-align: center"
-          :class="user.user.verif_email ? 'bg-success' : 'bg-danger'"
-        >
-          Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}
-    </span>
 
-        <button
-          v-if="!user.user.verif_email"
-          style="background: orange; color: white; font-weight: 900"
-          @click="handleActivationCompteEmail"
-        >
+      </div>
+      <div class="conteneur_activation" style="display: flex; align-items: center;">
+        <span class="badge" style="text-align: center" :class="user.user.verif_email ? 'bg-success' : 'bg-danger'">
+          Compte {{ user.user.verif_email ? "Activé" : "Inactif" }}
+        </span>
+
+        <button v-if="!user.user.verif_email" style="background: orange; color: white; font-weight: 900"
+          @click="handleActivationCompteEmail">
           Activer mon compte
         </button>
-        
+
       </div>
-     <!-- {{ user }} -->
+      <!-- {{ user }} -->
 
       <div class="d-flex" style="position: relative">
-        <input
-          id="hiddenFile"
-          type="file"
-          accept="image/*"
-          style="display: none"
-          @change="handleFileChange"
-        />
-        <button
-          class="btn_photo_profil"
-          onclick="document.getElementById('hiddenFile').click()"
-        >
-          <n-avatar
-            v-if="user.photo_profil"
-            style="
+        <input id="hiddenFile" type="file" accept="image/*" style="display: none" @change="handleFileChange" />
+        <button class="btn_photo_profil" onclick="document.getElementById('hiddenFile').click()">
+          <n-avatar v-if="user.photo_profil" style="
               border: 3px solid white;
               object-fit: cover;
               width: 120px;
               height: 120px;
-            "
-            round
-            :src="lienPhoto + user.photo_profil"
-          />
-          <p
-            style="
+            " round :src="lienPhoto + user.photo_profil" />
+          <p style="
               border: 3px solid white;
               object-fit: cover;
               width: 100px;
@@ -273,145 +242,129 @@ export default {
               font-size: 1em;
               border-radius: 100%;
               background: gray;
-            "
-            v-else
-          >
+            " v-else>
             <span style="font-size: 2.5em">{{ Help.toADfirstTwo(user.nom) }}</span>
           </p>
-          
+
         </button>
-        <i class="bi bi-patch-check-fill" 
-          v-if="this.$store?.state?.user?.user?.is_verified"
-          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i> 
+        <i class="bi bi-patch-check-fill" v-if="this.$store?.state?.user?.user?.is_verified"
+          style="color:rgb(0, 171, 251);font-size: 1em !important;"></i>
         <i class="bi bi-camera-fill"></i>
       </div>
       <div v-if="infoPersonnelles?.titreCv">
-        <p  style="color: orange; font-weight: bold">Profil</p>
+        <p style="color: orange; font-weight: bold">Profil</p>
         <p style="text-transform: uppercase;">
           {{ infoPersonnelles?.titreCv }}
         </p>
       </div>
       <div v-if="infoPersonnelles?.bio">
-        <p  style="color: orange; font-weight: bold">Biographie de votre profil</p>
-        <p
-         
-          style="
+        <p style="color: orange; font-weight: bold">Biographie de votre profil</p>
+        <p style="
             text-align: justify;
             padding: 0.4em;
             font-weight: bold;
             background: #80808085;
             border-radius: 10px;
-          "
-        >
+          ">
           {{ infoPersonnelles?.bio }}
         </p>
       </div>
-     
-      <section class="my-5">     
-       <div>
-        <div class="row gy-2">
-    <div class="col-md-6" style="flex:1">
-     <!-- <P>Code de parrainage : {{ infoPersonnelles }}</P> -->
-    </div>
-   
-  </div>
-  <div class="row gy-2">
-    <div class="col-md-6" style="flex:1">
-      <ParagrapheDetail :item="{ libelle: 'Nom', value: infoPersonnelles.nom }" />
-    </div>
-    <div class="col-md-6" style="flex:1">
-      <ParagrapheDetail :item="{ libelle: 'Prénoms', value: infoPersonnelles.prenoms }" />
-    </div>
-  </div>
 
-  <!-- Ligne 2 -->
-  <div class="row gy-2">
-    <div class="col-md-6" style="flex:1">
-      <ParagrapheDetail :item="{ libelle: 'Email', value: infoPersonnelles.email }" />
-    </div>
-    <div class="col-md-6" style="flex:1">
-      <ParagrapheDetail :item="{ libelle: 'Contact', value: infoPersonnelles.phone }" />
-    </div>
-  </div>
+      <section class="my-5">
+        <div>
+          <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+              <!-- <P>Code de parrainage : {{ infoPersonnelles }}</P> -->
+            </div>
 
-  <!-- Ligne 3 -->
-  <div class="row gy-2">
-    <div class="col-md-6" style="flex:1">
-      <ParagrapheDetail :item="{ libelle: 'Ville', value: infoPersonnelles.ville }" />
-    </div>
-    <div class="col-md-6" style="flex:1">
-      <ParagrapheDetail :item="{ libelle: 'Commune', value: infoPersonnelles.commune }" />
-    </div>
-  </div>
+          </div>
+          <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+              <ParagrapheDetail :item="{ libelle: 'Nom', value: infoPersonnelles.nom }" />
+            </div>
+            <div class="col-md-6" style="flex:1">
+              <ParagrapheDetail :item="{ libelle: 'Prénoms', value: infoPersonnelles.prenoms }" />
+            </div>
+          </div>
 
-  <!-- Ligne 4 -->
-  <div class="row gy-2">
-    <div class="col-md-12" style="flex:1" v-if="infoPersonnelles.quartier">
-      <ParagrapheDetail  :item="{ libelle: 'Quartier', value: infoPersonnelles.quartier }" />
-    </div>
-   <div class="col-md-12" 
-      v-if="infoPersonnelles.user.photos.length">
-      <div class="row">
-        <div class="col-md-4" v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))">
- <ParagrapheDetail
-    :item="{
-      libelle: 'Fichier chargé',
-      value: null,
-      valueArray: infoPersonnelles.user.photos.filter(item =>
-        item.path.includes('Carte_etudiant')
-      )
-    }"
-  />
-        </div>
-        <div class="col-md-4"  v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))">
- <ParagrapheDetail
-    :item="{
-      libelle: 'Titre d\'identifications',
-      value: null,
-      valueArray: infoPersonnelles.user.photos.filter(item =>
-        item.path.includes('CNI')
-      )
-    }"
-  />
-        </div>
-        <div class="col-md-4" v-if="infoPersonnelles.user.photos.some(item =>
-      !item.path.includes('CNI') &&
-      !item.path.includes('Carte_etudiant')
-    )">
-   <ParagrapheDetail
-    :item="{
-      libelle: 'Titre d\'identifications',
-      value: null,
-      valueArray: infoPersonnelles.user.photos.filter(item =>
-        !item.path.includes('CNI') || !item.path.includes('cni')  &&
-        !item.path.includes('Carte_etudiant')
-      )
-    }"
-  />
+          <!-- Ligne 2 -->
+          <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+              <ParagrapheDetail :item="{ libelle: 'Email', value: infoPersonnelles.email }" />
+            </div>
+            <div class="col-md-6" style="flex:1">
+              <ParagrapheDetail :item="{ libelle: 'Contact', value: infoPersonnelles.phone }" />
+            </div>
+          </div>
 
-        </div>
+          <!-- Ligne 3 -->
+          <div class="row gy-2">
+            <div class="col-md-6" style="flex:1">
+              <ParagrapheDetail :item="{ libelle: 'Ville', value: infoPersonnelles.ville }" />
+            </div>
+            <div class="col-md-6" style="flex:1">
+              <ParagrapheDetail :item="{ libelle: 'Commune', value: infoPersonnelles.commune }" />
+            </div>
+          </div>
 
-      </div>
-</div>
-  </div>
+          <!-- Ligne 4 -->
+          <div class="row gy-2">
+            <div class="col-md-12" style="flex:1" v-if="infoPersonnelles.quartier">
+              <ParagrapheDetail :item="{ libelle: 'Quartier', value: infoPersonnelles.quartier }" />
+            </div>
+            <div class="col-md-12" v-if="infoPersonnelles.user.photos.length">
+              <div class="row">
+                <div class="col-md-4"
+                  v-if="infoPersonnelles.user.photos.some(item => item.path.includes('Carte_etudiant'))">
+                  <ParagrapheDetail :item="{
+                    libelle: this.infoPersonnelles.user.statut.statut === 'etudiant' ? 'Carte d\'étudiant' : 'Titre d\'identifications',
+                    value: null,
+                    valueArray: infoPersonnelles.user.photos.filter(item =>
+                      item.path.includes('Carte_etudiant')
+                    )
+                  }" />
+                </div>
+                <div class="col-md-4" v-if="infoPersonnelles.user.photos.some(item => item.path.includes('CNI'))">
+                  <ParagrapheDetail :item="{
+                    libelle: 'Titre d\'identifications',
+                    value: null,
+                    valueArray: infoPersonnelles.user.photos.filter(item =>
+                      item.path.includes('CNI')
+                    )
+                  }" />
+                </div>
+                <div class="col-md-4" v-if="infoPersonnelles.user.photos.some(item =>
+                  !item.path.includes('CNI') &&
+                  !item.path.includes('Carte_etudiant')
+                )">
+                  <ParagrapheDetail :item="{
+                    libelle: 'Titre d\'identifications',
+                    value: null,
+                    valueArray: infoPersonnelles.user.photos.filter(item =>
+                      !item.path.includes('CNI') || !item.path.includes('cni') &&
+                      !item.path.includes('Carte_etudiant')
+                    )
+                  }" />
 
-  <!-- Ligne 5 -->
-  <div class="row gy-2">
-    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.statut_talent || infoPersonnelles.user.statut_professionnel_artisan">
-        <p 
-    style="color: orange; font-weight: bold"
-        
-      >
-        Statut Professionnel :
-      </p>
-      <p v-for="item in [infoPersonnelles.statut_talent, infoPersonnelles.user.statut_professionnel_artisan]"
-      :key="item"
-      style="display: flex;gap:1em;align-items:center"
-      >
-     <span class="badge bg-warning">{{ item }}</span>
-      </p>
-     
-      <!-- <ParagrapheDetail
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Ligne 5 -->
+          <div class="row gy-2">
+            <div class="col-md-6" style="flex:1"
+              v-if="infoPersonnelles.statut_talent || infoPersonnelles.user.statut_professionnel_artisan">
+              <p style="color: orange; font-weight: bold">
+                Statut Professionnel :
+              </p>
+              <p v-for="item in [infoPersonnelles.statut_talent, infoPersonnelles.user.statut_professionnel_artisan]"
+                :key="item" style="display: flex;gap:1em;align-items:center">
+                <span class="badge bg-warning">{{ item }}</span>
+              </p>
+
+              <!-- <ParagrapheDetail
         v-if="infoPersonnelles.statut_talent || infoPersonnelles.user.statut_professionnel_artisan"
         :item="{
           libelle: 'Statut Professionnel',
@@ -419,82 +372,71 @@ export default {
           valueArray: ,
         }"
       /> -->
-    </div>
-    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.diplome">
-      <ParagrapheDetail :item="{ libelle: 'Niveau d\'étude', value: infoPersonnelles.diplome }" />
-    </div>
-  </div>
+            </div>
+            <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.diplome">
+              <ParagrapheDetail :item="{ libelle: 'Niveau d\'étude', value: infoPersonnelles.diplome }" />
+            </div>
+          </div>
 
-  <!-- Ligne 6 -->
-  <div class="row gy-2">
-    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.modeTravail">
-      <ParagrapheDetail :item="{ libelle: 'Mode de travail', value: infoPersonnelles.modeTravail }" />
-    </div>
-    <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.tempsTravail">
-      <ParagrapheDetail :item="{ libelle: 'Temps de travail', value: infoPersonnelles.tempsTravail }" />
-    </div>
-     <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.treatment_preferentiel">
-      <ParagrapheDetail :item="{ libelle: 'Traitement préferentiel', value: infoPersonnelles.treatment_preferentiel }" />
-    </div>
-  </div>
+          <!-- Ligne 6 -->
+          <div class="row gy-2">
+            <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.modeTravail">
+              <ParagrapheDetail :item="{ libelle: 'Mode de travail', value: infoPersonnelles.modeTravail }" />
+            </div>
+            <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.tempsTravail">
+              <ParagrapheDetail :item="{ libelle: 'Temps de travail', value: infoPersonnelles.tempsTravail }" />
+            </div>
+            <div class="col-md-6" style="flex:1" v-if="infoPersonnelles.treatment_preferentiel">
+              <ParagrapheDetail
+                :item="{ libelle: 'Traitement préferentiel', value: infoPersonnelles.treatment_preferentiel }" />
+            </div>
+          </div>
 
-    <!-- Ligne 7 -->
-  <div class="row gy-2" v-if="infoPersonnelles?.CVupload">
-    <div class="col-md-6" style="flex:1">
-       <p style="color: orange; font-weight: bold">
-      CV Chargé : 
-      </p>
-      <div>
-    <!-- Bouton pour afficher le CV -->
-    <button @click="showPdf = true" 
-    style="
+          <!-- Ligne 7 -->
+          <div class="row gy-2" v-if="infoPersonnelles?.CVupload">
+            <div class="col-md-6" style="flex:1">
+              <p style="color: orange; font-weight: bold">
+                CV Chargé :
+              </p>
+              <div>
+                <!-- Bouton pour afficher le CV -->
+                <button @click="showPdf = true" style="
     border:2px solid orange;
     background-color: orange;">
-      Voir mon CV Chargé
-    </button>
+                  Voir mon CV Chargé
+                </button>
 
-    <!-- Cadre (iframe) pour afficher le PDF -->
-   <!-- Modal -->
-    <div class="modal" v-if="showPdf" @click.self="showPdf = false">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 style="color: black;">Mon CV chargé</h5>
-          <button @click="showPdf = false">✕</button>
-        </div>
+                <!-- Cadre (iframe) pour afficher le PDF -->
+                <!-- Modal -->
+                <div class="modal" v-if="showPdf" @click.self="showPdf = false">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 style="color: black;">Mon CV chargé</h5>
+                      <button @click="showPdf = false">✕</button>
+                    </div>
 
-        <div class="modal-body">
-          <iframe
-            :src="lienPhoto+infoPersonnelles.CVupload"
-            width="100%"
-            height="500"
-            frameborder="0"
-          ></iframe>
+                    <div class="modal-body">
+                      <iframe :src="lienPhoto + infoPersonnelles.CVupload" width="100%" height="500"
+                        frameborder="0"></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-    </div>
-   
-  </div>
-</div>
       </section>
       <section class="my-5 text-center">
-        <Buttons
-          :elmentsOfBtn="elmentsOfBtn"
-          :shapeBtn="'round'"
-          @created="handleModalInfo"
-        />
+        <Buttons :elmentsOfBtn="elmentsOfBtn" :shapeBtn="'round'" @created="handleModalInfo" />
       </section>
     </a-card>
-    <a-card
-      v-if="user"
-      style="
+    <a-card v-if="user" style="
         width: auto;
         color: var(--third-color) !important;
         background: var(--secondary-color) !important;
         margin: 2em 0;
-      "
-    >
+      ">
       <h1 class="fw-bold" style="color: orange">Modifier mot de passe</h1>
       <section>
         <div class="card-body text-left py-4">
@@ -522,21 +464,17 @@ export default {
             </div>
           </div>
           <div class="text-center">
-            <button
-              class="btn bg-warning"
-              style="
+            <button class="btn bg-warning" style="
                 border-radius: 32px;
                 padding-inline-start: 16px;
                 padding-inline-end: 16px;
-              "
-              @click.prevent="
+              " @click.prevent="
                 verifIfPasswordIsExact({
                   confirmation_password: confirmation_password,
                   password: nouveau_password,
                   oldPassword: password,
                 })
-              "
-            >
+                ">
               Modifier
             </button>
           </div>
@@ -607,14 +545,13 @@ export default {
   border-radius: 4px;
   cursor: pointer;
 }
+
 .shimmer-text {
   font-weight: 600;
-  background: linear-gradient(
-    90deg,
-    #999 0%,
-    #fff 50%,
-    #999 100%
-  );
+  background: linear-gradient(90deg,
+      #999 0%,
+      #fff 50%,
+      #999 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -625,10 +562,12 @@ export default {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
 }
+
 .conteneur-flex {
   display: flex;
   flex-wrap: wrap;
@@ -642,10 +581,11 @@ export default {
   border: none;
   margin-top: 1em;
 }
-.badge_star{
-   position: absolute;
-   top:3em;
-   left:5em;
+
+.badge_star {
+  position: absolute;
+  top: 3em;
+  left: 5em;
   z-index: 1;
 }
 
@@ -668,6 +608,7 @@ h6 {
   text-align: left;
   font-size: 1.2em;
 }
+
 h1 {
   text-align: left;
 }
