@@ -16,6 +16,7 @@ export default {
   },
   data() {
     return {
+      selectedPdf: null,
       texte0: "",
       texte2: "",
       texte3: "",
@@ -80,6 +81,22 @@ export default {
     onFileProof(e) {
       this.fileProofAttestation = e.target.files[0];
     },
+     isPdf(file) {
+    if (!file) return false;
+
+    return file
+      .split(".")
+      .pop()
+      ?.toLowerCase() === "pdf";
+  },
+
+  showPdf(file) {
+    this.selectedPdf = this.selectedPdf === file ? null : file;
+  },
+
+  getAbsoluteUrl(file) {
+    return `${this.lienPhoto}${file}`;
+  },
     getAllCompetencesByStudents() {
       instance
         .get("getCompetenceByStudents")
@@ -666,10 +683,34 @@ export default {
                             item.poste
                           }}</span>
                         </span>
-                        <span class="d-block my-2" v-if="item.proof">
-                          <span class="d-block" style="font-weight: bold;font-size: 0.8em;">Fichier chargé:</span>
-                          <n-image width="100" :src="lienPhoto + item.proof" />
-                        </span>
+                  <span class="d-block my-2" v-if="item.proof">
+
+    <span class="d-block" style="font-weight: bold;font-size: 0.8em;">
+      Fichier chargé :
+    </span>
+
+    <!-- Image -->
+    <n-image
+      v-if="!isPdf(item.proof)"
+      width="100"
+      :src="lienPhoto + item.proof"
+    />
+    <!-- PDF -->
+    <div v-else>
+      <n-button @click="showPdf(item.proof)">
+        {{ selectedPdf === item.proof ? 'Cacher' : ' Voir le PDF' }}
+      </n-button>
+
+      <iframe
+        v-if="selectedPdf === item.proof"
+        :src="getAbsoluteUrl(item.proof)"
+        width="100%"
+        height="500"
+        style="border:1px solid #ddd;margin-top:10px;"
+      ></iframe>
+    </div>
+
+  </span>
 
                         <p class="text-start ms-2" v-if="item.experience !== null ||
                           item.experience !== 'null'">
