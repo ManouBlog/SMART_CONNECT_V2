@@ -538,7 +538,7 @@ export default {
       })
     },
     onFinish() {
-      console.log("this.formState_professionnel", this.formState);
+      // console.log("this.formState_professionnel", this.formState);
       this.formState.profiles = this.allProfiles;
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;

@@ -198,15 +198,7 @@ export default {
         profilHybride: [],
         optionsAnswer: "non",
         experiences: [
-          {
-            poste: "",
-            entreprise: "",
-            lieu: "",
-            dateDebut: "",
-            dateFin: "",
-            experience: "",
-            proof: null,
-          },
+         
         ]
       },
 
@@ -215,9 +207,7 @@ export default {
 
   computed: {
     ...mapState(useRegisterStore, ["allCompetences", "isPolitics"]),
-    isCommercialAssitance() {
-      return this.formState.answerAssistance === 'oui' && !this.formState.identifiantCommerciale ? true : false;
-    },
+    
     isPasswordDisabled() {
       const isProfilRequiredButEmpty = this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0;
       return (
@@ -230,9 +220,12 @@ export default {
       if (this.currentStep === 0) {
         return !this.formState.optionsAnswer || (this.formState.optionsAnswer === 'oui' && this.formState.profilHybride.length === 0);
       }
-      if(this.currentStep === 2) {
-        return this.formState.experiences.length === 0 || this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
+      if(this.currentStep === 2 && this.formState.experiences.length) {
+        return this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
       }
+       if(this.currentStep === 4 && this.formState.qualifications.length) {
+        return this.formState.qualifications.length === 0;
+       }
       return !this.isCurrentStepValid;
     },
 
@@ -245,9 +238,9 @@ export default {
         1: ["nom", "prenoms", "phone", "email"],
 
         // STEP 2 – Expériences
-        2: [
-          "experiences",
-        ],
+        // 2: [
+        //   "experiences",
+        // ],
 
         // STEP 3 – Profil & compétences
         3: ["myCompetence"],
@@ -346,13 +339,6 @@ export default {
         ...newImages
       ]
     },
-    // handleCameraCapture(event){
-    // const file = event.target.files[0]
-
-    // if (!file) return
-
-    // this.formState.galeries = [...this.formState.galeries, file]
-    //  },
     onCreateOther() {
       return null
     },
@@ -502,26 +488,26 @@ export default {
     },
     onFinish() {
       console.log("this.formState", this.formState)
-      // this.formState.profiles = this.allProfiles;
-      // if (this.formState.uploadPhotoProfil.length) {
-      //   this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
-      // }
+      this.formState.profiles = this.allProfiles;
+      if (this.formState.uploadPhotoProfil.length) {
+        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
+      }
 
-      // if (this.configUtils.isValidEmail(this.formState.email)) {
-      //   if (this.formState.upload.length) {
-      //     this.formState.photo = this.addPhotoInArray(this.formState.upload);
-      //     // console.log("this.formState",this.formState)
-      //     this.changeValueIsPolitics({
-      //       value: true,
-      //       infoUser: "talents",
-      //       payload: this.formState,
-      //     });
-      //   } else {
-      //     this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité ou une Pièce justificative");
-      //   }
-      // } else {
-      //   this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
-      // }
+      if (this.configUtils.isValidEmail(this.formState.email)) {
+        if (this.formState.upload.length) {
+          this.formState.photo = this.addPhotoInArray(this.formState.upload);
+          // console.log("this.formState",this.formState)
+          this.changeValueIsPolitics({
+            value: true,
+            infoUser: "talents",
+            payload: this.formState,
+          });
+        } else {
+          this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez votre Carte national d'identité ou une Pièce justificative");
+        }
+      } else {
+        this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
+      }
     },
 
     onHandleFailed(errorInfo) {
@@ -604,7 +590,7 @@ export default {
             Profils disponibles
           </label>
 
-          <div class="round-container">
+          <div class="round-container" v-if="allStatuts.length">
             <label v-for="item in allStatuts" :key="item.id" class="round-item">
               <input type="checkbox" :value="item.id" v-model="formState.profilHybride" />
               <span class="round-label">
@@ -612,6 +598,7 @@ export default {
               </span>
             </label>
           </div>
+          <div style="text-align: center;" v-else>Chargement...</div>
         </div>
       </transition>
     </div>
@@ -840,33 +827,10 @@ export default {
                 {{ item.label }}
               </a-select-option>
             </a-select>
-            <!-- <a-select
-              style="margin:1em 0"
-              v-model:value="formState.niveauEtude"
-              placeholder="Sélectionnez un diplôme"
-            >
-              <a-select-option
-                v-for="item in Array.from({ length: 8 }, (_, i) => ({ value: `BAC+${i + 1}` }))"
-                :key="item.value"
-                :value="item.value"
-              >
-                {{ item.value }}
-              </a-select-option>
-            </a-select> -->
-            <!-- <a-input v-model:value="formState.filiere" placeholder="Filière" /> -->
+           
           </a-form-item>
         </a-col>
-        <!-- <a-col :xs="24" :md="12">
-          <a-form-item :label="'Statut professionnel'" name="statut_talent"
-            :rules="[{ required: true, message: 'Ajoutez votre statut professionnel' }]">
-            <a-select style="width: 100%;" v-model:value="formState.statut_talent"
-              placeholder="Sélectionnez votre Statut professionnel" show-search option-filter-prop="label">
-              <a-select-option v-for="item in StatutArtisans" :key="item.value" :value="item.value" :label="item.label">
-                {{ item.label }}
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-        </a-col> -->
+       
         <a-col :xs="24" :md="24">
           <a-form-item :label="'Certifications, diplômes ou qualifications que vous possédez'">
             <RegisterQualifications :isRequired="false" @update:modelValue="handleQualifications" />
@@ -979,7 +943,7 @@ export default {
       </a-button>
 
       <a-button v-if="currentStep === 6" type="primary" html-type="submit"
-        :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance">
+        :disabled="!isCurrentStepValid || isPasswordDisabled">
         {{ texte11 }}
       </a-button>
     </div>

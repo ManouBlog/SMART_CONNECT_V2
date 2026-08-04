@@ -552,7 +552,7 @@ export default {
     // },
     onFinish() {
       this.formState.profiles = this.allProfiles;
-      console.log("this.formState_veterans", this.formState);
+      // console.log("this.formState_veterans", this.formState);
       if (this.formState.uploadPhotoProfil.length) {
         this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
       }
