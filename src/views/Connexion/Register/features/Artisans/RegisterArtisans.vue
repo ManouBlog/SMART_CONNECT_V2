@@ -224,7 +224,7 @@ export default {
         return this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
       }
        if(this.currentStep === 4 && this.formState.qualifications.length) {
-        return this.formState.qualifications.length === 0;
+        return this.formState.qualifications.length;
        }
       return !this.isCurrentStepValid;
     },
