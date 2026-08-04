@@ -205,7 +205,7 @@ export default {
             dateDebut: "",
             dateFin: "",
             experience: "",
-            fileProof: null,
+            proof: null,
           },
         ]
       },
@@ -280,7 +280,7 @@ export default {
 
   if (!file) return;
 
-  this.formState.experiences[index].fileProof = file;
+  this.formState.experiences[index].proof = file;
 
 },
     createExperience() {
@@ -291,7 +291,7 @@ export default {
         dateDebut: "",
         dateFin: "",
         experience: "",
-        fileProof: null,
+        proof: null,
       };
     },
     async lister_statut() {
@@ -774,7 +774,7 @@ export default {
 
             <a-col :xs="24" :md="12">
 
-              <a-form-item label="Justificatif" :name="['experiences', index, 'fileProof']">
+              <a-form-item label="Justificatif" :name="['experiences', index, 'proof']">
 
                 <a-input type="file" accept="image/*,application/pdf"
                 @change="(event) => onFileProof(event, index)" />
