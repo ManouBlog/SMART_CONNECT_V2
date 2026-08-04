@@ -380,8 +380,6 @@ export default {
       }
     },
     handleQualifications(payload) {
-
-
       this.formState.qualifications = payload;
     },
 
@@ -555,20 +553,20 @@ export default {
     onFinish() {
       this.formState.profiles = this.allProfiles;
       console.log("this.formState_veterans", this.formState);
-      // if (this.formState.uploadPhotoProfil.length) {
-      //   this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
-      // }
+      if (this.formState.uploadPhotoProfil.length) {
+        this.formState.photo_profil = this.formState.uploadPhotoProfil[0].originFileObj;
+      }
 
-      // if (this.configUtils.isValidEmail(this.formState.email)) {
-      //   this.changeValueIsPolitics({
-      //     value: true,
-      //     infoUser: "talents",
-      //     payload: this.formState,
-      //   });
+      if (this.configUtils.isValidEmail(this.formState.email)) {
+        this.changeValueIsPolitics({
+          value: true,
+          infoUser: "talents",
+          payload: this.formState,
+        });
 
-      // } else {
-      //   this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
-      // }
+      } else {
+        this.SWALPOPUP.declencheSwalPopup("info", "Ajoutez un email correct");
+      }
     },
 
     onHandleFailed(errorInfo) {
@@ -581,7 +579,6 @@ export default {
   },
 
   async created() {
-
     await this.lister_statut();
     this.getCompetences();
     this.texte = await this.handleTranslate("Nom");
