@@ -346,6 +346,15 @@ export default {
   },
 
   methods: {
+    onFileProof(event, index){
+    console.log("onFileProof", event.target.files[0], index)
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  this.formState.experiences[index].proof = file;
+
+},
     createExperience() {
       return {
         poste: "",
@@ -832,7 +841,7 @@ export default {
 
               <a-col :xs="24" :md="12">
 
-                <a-form-item label="Fichier" :name="['experiences', index, 'proof']">
+                <a-form-item label="Fichier">
 
                   <a-input type="file" accept="image/*,application/pdf"
                     @change="(event) => onFileProof(event, index)" />

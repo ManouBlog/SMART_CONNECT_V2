@@ -142,7 +142,7 @@ if (payload?.qualifications?.length > 0) {
 });
 }
 
-
+console.log("payload_experiences",payload?.experiences)
 // Qualifications (array objets → JSON)
 if (payload?.experiences?.length > 0) {
   payload.experiences.forEach((item, index) => {

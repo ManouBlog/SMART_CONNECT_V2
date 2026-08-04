@@ -549,7 +549,7 @@ export default {
           </div>
         </div>
       </div>
-      <div class="container-fluid default-dash" style="margin: -7em 0 0 0">
+      <div class="container-fluid default-dash" style="margin:-6em 0 0 0">
         <div class="row" v-if="
           user.user?.statuses
             .some(s => ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(s.statut))
@@ -557,7 +557,7 @@ export default {
           <div class="col-xl-5 col-md-6 dash-xl-50 my-5">
             <div class="profile-greeting" id="content_competences">
               <div class="card-body position-relative">
-                <h1 class="fw-bold text-start" style="color: orange">{{ texte20 }}</h1>
+                <h2 class="fw-bold text-start" style="color: orange">{{ texte20 }}</h2>
                 <div>
                   <VueMultiselect v-model="competence" :options="competencesPredf" :multiple="true" :taggable="true"
                     :tag="addTag" @update:model-value="addTag" label="competence" track-by="competence"
@@ -619,14 +619,14 @@ export default {
               </div>
             </div>
           </div>
-          <div class="col-xl-4 col-md-6 dash-xl-50" style="margin: 4em 0">
+          <div class="col-xl-4 col-md-6 dash-xl-50" style="margin:3em 0">
             <div class="weekly-column">
               <div class="card-body position-relative">
                 <div id="weekly-chart">
                   <div class="d-flex justify-content-between align-items-center">
-                    <h1 class="fw-bold text-start" style="color: orange; margin: 0">
+                    <h2 class="fw-bold text-start" style="color: orange; margin: 0">
                       {{ texte24 }}
-                    </h1>
+                    </h2>
                     <button style="background: orange; color: white; border: none;padding: 0.2em; width: 250px"
                       @click="addNouvelExperience">
                       {{ texte25 }}
