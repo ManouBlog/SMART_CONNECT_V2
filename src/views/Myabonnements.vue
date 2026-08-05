@@ -71,16 +71,17 @@
               </div>
 
             </div>
-            <div class="row mb-3">
+            
+            <div class="row mb-3" v-if="detailsAbonnement.status_user == 'Entreprise'">
               <InvoicePdf ref="invoice" 
               :details="detailsAbonnement" 
               :company="{
-                name: 'Mon Entreprise',
+                name: this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.nom: this.$store.state.infoUserConnected.nom_particulier,
                 logo: logo,
-                address: 'Abidjan Cocody',
-                phone: '+225 07 00 00 00 00',
-                email: 'contact@entreprise.ci',
-                website: 'www.entreprise.ci'
+                address: this.$store.state.infoUserConnected.ville,
+                phone: this.$store.state.infoUserConnected.contact,
+                email: this.$store.state.infoUserConnected.email,
+                forme_juridique:this.$store.state.infoUserConnected.forme_juridique
               }" 
               :customer="{
       fullname: detailsAbonnement.user?.nom + ' ' + detailsAbonnement.user?.prenom,
@@ -344,8 +345,9 @@ export default {
     handleNouvelAbonnement() {
       this.$router.push({ name: "abonnements" });
     },
+
     async verifUserProfilEtudiantComplet() {
-      await this.$store.dispatch("getInfoUser")
+      // await this.$store.dispatch("getInfoUser")
       const user = this.$store.state.infoUserConnected;
 
       if (user.user?.statuses.some(s => s.statut === 'Etudiant')) {
@@ -364,6 +366,7 @@ export default {
     }
   },
   async created() {
+    await this.$store.dispatch("getInfoUser")
     this.verifUserProfilEtudiantComplet();
     this.get_all_abonnement();
     this.texte0 = await this.handleTranslate("Mes abonnements");

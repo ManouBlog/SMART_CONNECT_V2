@@ -169,9 +169,9 @@ export default {
 
                     <div style="display: flex;justify-content: flex-end;">
                         <div>
-                            <p style="font-weight: bold;">Raison sociale : {{ company.name }}</p>
-                            <p>Adresse : {{ company.address }}</p>
-                            <p>Forme juridique : {{ company.Formejuridique }}</p>
+                            <p v-if="company.name" style="font-weight: bold;">Raison sociale : {{ company.name }}</p>
+                            <p v-if="company.address">Adresse : {{ company.address }}</p>
+                            <p v-if="company.forme_juridique">Forme juridique : {{ company.forme_juridique }}</p>
                         </div>
                     </div>
 
