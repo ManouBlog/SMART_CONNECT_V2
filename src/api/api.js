@@ -1,21 +1,3 @@
-// import axios from "axios";
-// export const lienPhoto = `${process.env.VUE_APP_LIENS_BACKEND}storage/app/public/images/`
-// // export const LocalPhoto = `${process.env.VUE_APP_LIENS_BACKEND}storage/images/`
-// export const lienPDF = `${process.env.VUE_APP_LIENS_BACKEND}storage/app/public/pdf/`
-// const instance = axios.create({
-//   baseURL: `${process.env.VUE_APP_LIENS_BACKEND}api`,
-// }); 
-
-// instance.interceptors.request.use((config) => {
-//   const token = JSON.parse(localStorage.getItem("token"));
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-//   return config;
-// });
-
-// export default instance;
-
 import axios from "axios";
 
 export const lienPhoto = `${process.env.VUE_APP_LIENS_BACKEND}storage/app/public/images/`;
@@ -42,8 +24,6 @@ instance.interceptors.response.use(
     const message = error.response?.data?.message;
 
     switch (status) {
-     
-
       /*
       |--------------------------------------------------------------------------
       | 401 - Unauthorized
@@ -69,15 +49,6 @@ instance.interceptors.response.use(
 
       /*
       |--------------------------------------------------------------------------
-      | 502 - Bad Gateway
-      |--------------------------------------------------------------------------
-      */
-      case 502:
-        alert("Le serveur est momentanément indisponible.");
-        break;
-
-      /*
-      |--------------------------------------------------------------------------
       | 503 - Service Unavailable
       |--------------------------------------------------------------------------
       */
@@ -95,11 +66,7 @@ instance.interceptors.response.use(
         break;
 
       default:
-        if (!status) {
-          alert("Impossible de joindre le serveur. Vérifiez votre connexion Internet.");
-        } else {
-          console.error("Une erreur inattendue est survenue.");
-        }
+       console.error("Une erreur inattendue est survenue.");
         break;
     }
 

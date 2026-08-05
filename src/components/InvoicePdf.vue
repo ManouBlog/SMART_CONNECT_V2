@@ -215,7 +215,7 @@ export default {
             </table>
             <div style="display: flex;justify-content: flex-end;">
                 <div>
-                 Profil hybride :
+                 <span v-if="company.Profilhybride.length">Profil hybride :</span>
                  <p v-for="item in company.Profilhybride" :key="item.id">
                     <span>{{item.profil_hybride_add.statut}} ({{ item.montant }} Fcfa)</span>
                  </p>
