@@ -22,7 +22,9 @@ const store = useStore();
 const texte = ref(null);
 const profilHybrideRecuperer = ref(0)
 
-
+const isUserConnected = computed(() => {
+  return store.state.user;
+});
 
 const handleCreateEntrepriseByYear = (payload) => {
 
@@ -40,7 +42,7 @@ const handleCreateEntrepriseByYear = (payload) => {
     isAddProfilHybride: storeAbonnement.addProfilHybride.map(item => item.id).length ? true : false,
     statut_base: storeAbonnement.statutOfBase ? storeAbonnement.statutOfBase : statutBaseUser,
     isChangeProfil: storeAbonnement.isChangeProfil,
-    profilHybride: storeAbonnement.statutOfBase == 1 ? [] : storeAbonnement.profilHybride?.map(item => item.id),
+    profilHybride: storeAbonnement.profilHybride?.map(item => item.id),
     addProfilHybrideOnly: storeAbonnement.isAddProfilHybride ? storeAbonnement.addProfilHybride.map(item => item.id) : [],
     nom: storeAbonnement.nom,
     cni: storeAbonnement.cni,
@@ -121,14 +123,9 @@ const handleCreateEntrepriseByYear = (payload) => {
 
   // console.log("formData21", formData)
 
-  storeAbonnement.createAbonement(formData)
+  // storeAbonnement.createAbonement(formData)
 }
 
-
-// Détecte si le user est connecté et possède un statut
-const isUserConnected = computed(() => {
-  return store.state.user;
-});
 
 const ecriteauFormule = (item) => {
   const categorie = item?.categorie?.categorie?.toLowerCase();
@@ -153,6 +150,9 @@ const ecriteauFormule = (item) => {
 
   return rules?.[categorie]?.[libelle] || "Choisirwxcvbn cette formule";
 };
+
+
+
 
 const filteredAbonnementsByStatutCompany = computed(() => {
   
