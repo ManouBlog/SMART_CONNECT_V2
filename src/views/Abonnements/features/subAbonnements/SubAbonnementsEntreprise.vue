@@ -199,8 +199,83 @@ onMounted(async () => {
 </script>
 
 <template>
-  <!-- {{  store.state.user }} -->
-  <div class="conteneur-flex">
+   <!-- si la personne connectee a un abonnement -->
+   <div class="conteneur-flex" 
+   v-if="storeAbonnementUser?.planAbonnement && 
+   storeAbonnementUser?.planAbonnement.statut === 'success' 
+   && storeAbonnement.addProfilHybride.length">
+    <div v-for="item in filteredAbonnementsByTalent.filter(item=> item.id == storeAbonnementUser?.planAbonnement.abonement_id)" :key="item.id" 
+    :class="item?.libelle == 'BROBROLI'
+      ? 'color_brobroli_pro'
+      : 'color_brobroli_pro_max'
+      ">
+      
+      <div style="position: relative;height:70px;">
+        <h1 class="text-center main-color" style="font-size: 1.5em;">
+          {{ item.libelle }}
+        </h1>
+        <p v-if="item.libelle === 'BROBROLI+'"
+          style="padding: 0;position: absolute;top:34px;margin-right: -50px;transform: translateX(50px);">
+          <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small>
+        </p>
+      </div>
+      <p class="shadow-sm p-2 small" style="font-weight: bold;
+      text-align:center;
+      background-color: rgb(255 255 255 / 40%);
+      padding:1em;
+      height: 80px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     ">
+        {{ ecriteauFormule(item) }}
+      </p>
+
+      <section>
+        <p style="text-align:center;position: absolute;right: 0px;top:0px;">
+          <span v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id" style="background-color: green;"
+            class="badge">
+            Active
+          </span>
+        </p>
+        <div class="d-flex align-items-center gap-5 justify-content-center main-color">
+          <div style="display: flex;flex-direction: column;">
+            <h1 :style="{
+              fontSize: '2em',
+              fontWeight: 'bold',
+              padding: '0',
+              margin: '0',
+              textDecoration: Help.calculateAbonnementForAddProfilHybridePrice(item.prix, profilHybrideRecuperer) != item.prix ? 'line-through' : 'none'
+            }">
+              {{ Help.convertInMoney(item.prix) }} F
+            </h1>
+            <h1 v-if="Help.calculateAbonnementForAddProfilHybridePrice(item.prix, profilHybrideRecuperer) != item.prix"
+              style="font-size: 2em; font-weight: bold;padding: 0;margin: 0;">
+              {{ Help.convertInMoney(Help.calculateAbonnementForAddProfilHybridePrice(item.prix, profilHybrideRecuperer)) }} F
+            </h1>
+          </div>
+          <h3 class="mx-2" style="font-size: 1em; color:white">/</h3>
+          <h3 style="font-size: 2em; color:white">an</h3>
+        </div>
+        <div style="height: 310px; position: relative; padding: 1em">
+          <div class="px-5" v-html="item.description"></div>
+        </div>
+       
+
+        <div class="conteneur-btn">
+          <Buttons 
+          
+          :elmentsOfBtn="[
+            {
+              name_btn: getMessageAbonnement(props.type_abonnements, item),
+              color_btn: 'primary',
+            }
+          ]" :shapeBtn="'round'" @created="handleInitialiserPayement(item)" />
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="conteneur-flex" v-else>
     <div v-for="item in abonnements.filter(
       (item) => item.categorie.categorie === type_abonnements
     )" :key="item.id" :class="item?.libelle == 'BROBROLI PRO'
