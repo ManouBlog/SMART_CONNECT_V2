@@ -198,11 +198,8 @@ export default {
                         <th>Montant (FCFA)</th>
                     </tr>
                 </thead>
-
                 <tbody>
-
                     <tr>
-
                         <td>
                             {{ details?.abonement?.libelle }}
                         </td>
