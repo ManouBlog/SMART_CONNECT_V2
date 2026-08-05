@@ -168,49 +168,36 @@ export default {
                         {{ getCompanyInitials(company.name) }}
                     </div>
 
-                    <div>
-
-                        <h2>{{ company.name }}</h2>
-
-                        <p>{{ company.address }}</p>
-
-                        <p>{{ company.phone }}</p>
-
-                        <p>{{ company.email }}</p>
-
+                    <div style="display: flex;justify-content: flex-end;">
+                        <div>
+                            <p style="font-weight: bold;">Raison sociale : {{ company.name }}</p>
+                            <p>Adresse : {{ company.address }}</p>
+                            <p>Forme juridique : {{ company.Formejuridique }}</p>
+                        </div>
                     </div>
 
                 </div>
 
                 <div class="invoice-title">
-                    <p>
-                        <strong>N° :</strong>
-                        {{ invoiceNumber }}
-                    </p>
+
 
                     <p>
                         <strong>Date :</strong>
-                        {{ details.created_at }}
+                        {{ new Date(details.created_at).toLocaleDateString('fr') }}
                     </p>
 
                 </div>
 
             </div>
-
-            <hr>
-
             <!-- ================= CLIENT ================= -->
 
             <div class="invoice-section">
 
-                <div class="block">
-                    <p><strong>Gérant :</strong> {{ customer.fullname }}</p>
-                    <p><strong>Email :</strong> {{ customer.email }}</p>
-                    <p>
-                        <strong>Référence :</strong>
-                        {{ details.transaction_id }}
-                    </p>
-                </div>
+                <p><strong>Email :</strong> {{ customer.email }}</p>
+                <p>
+                    <strong>Référence :</strong>
+                    {{ details.transaction_id }}
+                </p>
             </div>
             <!-- ================= TABLE ================= -->
             <table class="invoice-table">
@@ -354,6 +341,10 @@ export default {
     </div>
 </template>
 <style scoped>
+p {
+    font-size: 1em;
+}
+
 .invoice_container_one {
     max-width: 800px;
     margin: 0 auto;
