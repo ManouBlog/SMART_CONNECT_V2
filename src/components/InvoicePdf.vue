@@ -72,6 +72,7 @@ export default {
     data() {
         return {
             moneyFormat: new Intl.NumberFormat("de-DE"),
+            loadingPdf:false,
         };
     },
     computed: {
@@ -108,8 +109,6 @@ export default {
         async downloadPdf() {
             try {
                 this.loadingPdf = true;
-
-                this.$emit("pdf-start");
 
                 const element = this.$refs.invoice;
 
@@ -218,12 +217,12 @@ export default {
 
             </table>
             <div style="display: flex;justify-content: flex-end;">
-                <p>Total : {{ details.montant }} Fcfa</p>
+                <p style="font-weight: bold;">Total : {{ details.montant }} Fcfa</p>
             </div>
 
             <!-- ================= HYBRIDES ================= -->
 
-            <div v-if="details.add_profil_hybrides.length" class="mt-4">
+            <!-- <div v-if="details.add_profil_hybrides.length" class="mt-4">
 
                 <h3>Profils hybrides</h3>
 
@@ -287,13 +286,13 @@ export default {
 
                 </table>
 
-            </div>
+            </div> -->
         </div>
         <div class="text-center mt-4">
 
             <button class="btn btn-success" @click="downloadPdf">
 
-                Télécharger le PDF
+                {{!loadingPdf ? 'Télécharger la facture':'Veuillez patienter...'}}
 
             </button>
 
@@ -333,7 +332,6 @@ p {
 .invoice_container_one {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px 3em;
     height: 500px;
 }
 
