@@ -135,7 +135,6 @@ const isUserConnected = computed(() => {
 });
 
 const filteredAbonnementsByTalent = computed(() => {
-
   return props.abonnements.filter((item) => item.categorie.categorie === props.type_abonnements)
 });
 
@@ -220,7 +219,6 @@ onMounted(async () => {
   if (isUserConnected.value) {
     if(!storeAbonnement.addProfilHybride.length){
     profilHybrideRecuperer.value = isUserConnected.value.user.statuses.filter(item=>item.id != isUserConnected.value.user.statut_base).length
-   
     }else{
     profilHybrideRecuperer.value = storeAbonnement?.addProfilHybride?.length
     // console.log("profilHybrideRecuperer.value2",profilHybrideRecuperer.value)
@@ -238,7 +236,9 @@ onMounted(async () => {
   <!-- si la personne connectee a un abonnement -->
    <div class="conteneur-flex" v-if="storeAbonnementUser?.planAbonnement && storeAbonnementUser?.planAbonnement.statut === 'success' 
    && storeAbonnement.addProfilHybride.length">
-    <div v-for="item in filteredAbonnementsByTalent.filter(item=> item.id == storeAbonnementUser?.planAbonnement.abonement_id)" :key="item.id" 
+
+    <div v-for="item in filteredAbonnementsByTalent.filter(item=> item.id == storeAbonnementUser?.planAbonnement.abonement_id)" 
+      :key="item.id" 
     :class="item?.libelle == 'BROBROLI'
       ? 'color_brobroli_pro'
       : 'color_brobroli_pro_max'

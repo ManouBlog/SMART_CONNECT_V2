@@ -22,8 +22,8 @@ export default {
                 phone: "",
                 email: "",
                 website: "",
-                taxNumber: "",
-                registrationNumber: "",
+                Profilhybride: "",
+                forme_juridique: "",
             }),
         },
         // Informations du client
@@ -217,7 +217,20 @@ export default {
 
             </table>
             <div style="display: flex;justify-content: flex-end;">
-                <p style="font-weight: bold;">Total : {{ details.montant }} Fcfa</p>
+                <div>
+                 Profil hybride :
+                 <p v-for="item in company.Profilhybride" :key="item.id">
+                    <span>{{item.profil_hybride_add.statut}} ({{ item.montant }} Fcfa)</span>
+                 </p>
+
+                <p style="font-weight: bold;" v-if="company.Profilhybride.length">Total : {{ 
+                company.Profilhybride.reduce(
+      (accumulator, currentValue) => accumulator + Number(currentValue.montant),
+       0,
+      ) + details.montant }} Fcfa</p>
+       <p style="font-weight: bold;" v-if="!company.Profilhybride.length">Total : {{ details.montant }} Fcfa</p>
+                </div>
+               
             </div>
 
             <!-- ================= HYBRIDES ================= -->
@@ -290,7 +303,7 @@ export default {
         </div>
         <div class="text-center mt-4">
 
-            <button class="btn btn-success" @click="downloadPdf">
+            <button class="btn btn-warning" @click="downloadPdf">
 
                 {{!loadingPdf ? 'Télécharger la facture':'Veuillez patienter...'}}
 

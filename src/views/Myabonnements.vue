@@ -30,7 +30,6 @@
             </div>
 
             <div class="row mb-3">
-
               <div class="col-md-6 mb-3">
                 <strong>Montant payé :</strong>
                 <div>{{ new Intl.NumberFormat('fr-FR').format(detailsAbonnement?.montant) }} Fcfa</div>
@@ -69,27 +68,6 @@
                 <strong>Référence de la transaction :</strong>
                 <div>{{ detailsAbonnement?.transaction_id }}</div>
               </div>
-
-            </div>
-            
-            <div class="row mb-3" v-if="detailsAbonnement.status_user == 'Entreprise'">
-              <InvoicePdf ref="invoice" 
-              :details="detailsAbonnement" 
-              :company="{
-                name: this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.nom: this.$store.state.infoUserConnected.nom_particulier,
-                logo: logo,
-                address: this.$store.state.infoUserConnected.ville,
-                phone: this.$store.state.infoUserConnected.contact,
-                email: this.$store.state.infoUserConnected.email,
-                forme_juridique:this.$store.state.infoUserConnected.forme_juridique
-              }" 
-              :customer="{
-      fullname: detailsAbonnement.user?.nom + ' ' + detailsAbonnement.user?.prenom,
-      email: 'contact@entreprise.ci',
-      phone: detailsAbonnement.user?.phone
-         }" 
-    :invoice-number="detailsAbonnement.transaction_id" 
-    />
             </div>
             <div v-if="detailsAbonnement?.add_profil_hybrides?.length" class="mt-2">
               <h5>Profils hybrides inclus :</h5>
@@ -166,6 +144,27 @@
                   </tbody>
                 </table>
               </div>
+            </div>
+              <div class="row my-3" v-if="detailsAbonnement.status_user == 'Entreprise'">
+              <h5>Factures :</h5>
+              <InvoicePdf ref="invoice" 
+              :details="detailsAbonnement" 
+              :company="{
+                name: this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.nom: this.$store.state.infoUserConnected.nom_particulier,
+                logo: logo,
+                address: this.$store.state.infoUserConnected.ville,
+                phone: this.$store.state.infoUserConnected.contact,
+                email: this.$store.state.infoUserConnected.email,
+                forme_juridique:this.$store.state.infoUserConnected.forme_juridique,
+                Profilhybride:detailsAbonnement.add_profil_hybrides
+              }" 
+              :customer="{
+      fullname: detailsAbonnement.user?.nom + ' ' + detailsAbonnement.user?.prenom,
+      email: 'contact@entreprise.ci',
+      phone: detailsAbonnement.user?.phone
+         }" 
+    :invoice-number="detailsAbonnement.transaction_id" 
+    />
             </div>
           </div>
         </div>
@@ -416,8 +415,7 @@ export default {
 
 .table-container {
   width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+
   border-radius: 12px;
 }
 
@@ -461,6 +459,8 @@ export default {
 @media (max-width: 768px) {
   .table-container {
     border-radius: 10px;
+      overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   }
 
   .profil-hybride-table {

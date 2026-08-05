@@ -249,7 +249,7 @@ export default {
         </div>
       </template>
       <div style="background-color: white;">
-        <p>profilUser23 :{{ this.ProfilsUser.statut_talent}}</p>
+        <!-- <p>profilUser23 :{{ this.ProfilsUser.statut_talent}}</p> -->
         <Abonnements :ProfilAbonnement="this.ProfilsUser.user?.statut?.statut"
           :statut_talent_choice="this.ProfilsUser?.statut_talent" />
       </div>

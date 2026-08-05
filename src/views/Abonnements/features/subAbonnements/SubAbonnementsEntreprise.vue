@@ -26,8 +26,8 @@ const profilHybrideRecuperer = ref(0)
 
 const handleCreateEntrepriseByYear = (payload) => {
 
-  // console.log("handleCreateEntrepriseByYear", payload)
-  // console.log("handleCreateEntrepriseByYear_storeAbonnement", storeAbonnement)
+  console.log("handleCreateEntrepriseByYear", payload)
+  console.log("handleCreateEntrepriseByYear_storeAbonnement", storeAbonnement)
 
   const statutBaseUser = store.state.user?.user?.statut_base;
 
@@ -52,13 +52,13 @@ const handleCreateEntrepriseByYear = (payload) => {
     gerant: storeAbonnement.gerant,
     ncc: storeAbonnement.ncc,
     juridique: storeAbonnement.juridique,
+    niveauEtude: storeAbonnement.niveauEtude,
     matricule_cc: storeAbonnement.matricule_cc,
     addProfilHybride: storeAbonnement.addProfilHybride,
     cni_carte: storeAbonnement.cni_carte
-
   }
 
-  // console.log("DATAEND", data)
+  console.log("DATAEND", data)
 
   const formData = new FormData();
 
@@ -116,6 +116,7 @@ const handleCreateEntrepriseByYear = (payload) => {
   if (data.ncc) formData.append('ncc', data.ncc);
   if (data.juridique) formData.append('forme_juridique', data.juridique);
   if (data.matricule_cc) formData.append('matricule_cc', data.matricule_cc);
+  if (data.niveauEtude) formData.append('niveauEtude', data.niveauEtude);
   if (data.contact) formData.append('contact', data.contact);
 
   // console.log("formData21", formData)
@@ -153,6 +154,12 @@ const ecriteauFormule = (item) => {
   return rules?.[categorie]?.[libelle] || "Choisirwxcvbn cette formule";
 };
 
+const filteredAbonnementsByStatutCompany = computed(() => {
+  
+  return props.abonnements.filter((item) => item.categorie.categorie === props.type_abonnements && storeAbonnementUser?.planAbonnement.abonement_id == item.id)
+});
+
+
 const messageAbonnement = (item) => {
   const type = props.type_abonnements;
   const libelle = item?.libelle?.trim().toUpperCase();
@@ -169,7 +176,7 @@ const messageAbonnement = (item) => {
     return mapMessages[libelle] || "Choisir cette formule";
   }
 
-  return "Choisirsdes cette formule";
+  return "Choisir cette formule";
 };
 
 
@@ -199,13 +206,19 @@ onMounted(async () => {
 </script>
 
 <template>
-   <!-- si la personne connectee a un abonnement -->
+  <!-- <p>storeAbonnementUser_plan:{{ storeAbonnementUser?.planAbonnement }}</p>
+<p> storeAbonnementUser_statut :{{  storeAbonnementUser?.planAbonnement.statut }}</p>
+<p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
+<p>props.abonnements:{{ props.abonnements.filter(item=>item.categorie.categorie == props.type_abonnements) }}</p> -->
+   <!-- si la personne connectee a un storeAbonnementUser_plan -->
    <div class="conteneur-flex" 
    v-if="storeAbonnementUser?.planAbonnement && 
    storeAbonnementUser?.planAbonnement.statut === 'success' 
    && storeAbonnement.addProfilHybride.length">
-    <div v-for="item in filteredAbonnementsByTalent.filter(item=> item.id == storeAbonnementUser?.planAbonnement.abonement_id)" :key="item.id" 
-    :class="item?.libelle == 'BROBROLI'
+    <div 
+    v-for="item in filteredAbonnementsByStatutCompany" 
+    :key="item.id" 
+    :class="item?.libelle == 'BROBROLI PRO'
       ? 'color_brobroli_pro'
       : 'color_brobroli_pro_max'
       ">
@@ -214,7 +227,7 @@ onMounted(async () => {
         <h1 class="text-center main-color" style="font-size: 1.5em;">
           {{ item.libelle }}
         </h1>
-        <p v-if="item.libelle === 'BROBROLI+'"
+        <p v-if="item.libelle === 'BROBROLI PRO MAX'"
           style="padding: 0;position: absolute;top:34px;margin-right: -50px;transform: translateX(50px);">
           <small style="font-size: 0.6em;font-weight: bold;">★ FORMULE RECOMMANDÉE</small>
         </p>
@@ -245,13 +258,13 @@ onMounted(async () => {
               fontWeight: 'bold',
               padding: '0',
               margin: '0',
-              textDecoration: Help.calculateAbonnementForAddProfilHybridePrice(item.prix, profilHybrideRecuperer) != item.prix ? 'line-through' : 'none'
+              textDecoration: Help.calculateAbonnementForAddProfilHybridePrice(item.prix, storeAbonnement?.addProfilHybride?.length) != item.prix ? 'line-through' : 'none'
             }">
               {{ Help.convertInMoney(item.prix) }} F
             </h1>
-            <h1 v-if="Help.calculateAbonnementForAddProfilHybridePrice(item.prix, profilHybrideRecuperer) != item.prix"
+            <h1 v-if="Help.calculateAbonnementForAddProfilHybridePrice(item.prix, storeAbonnement?.addProfilHybride?.length) != item.prix"
               style="font-size: 2em; font-weight: bold;padding: 0;margin: 0;">
-              {{ Help.convertInMoney(Help.calculateAbonnementForAddProfilHybridePrice(item.prix, profilHybrideRecuperer)) }} F
+              {{ Help.convertInMoney(Help.calculateAbonnementForAddProfilHybridePrice(item.prix, storeAbonnement?.addProfilHybride?.length)) }} F
             </h1>
           </div>
           <h3 class="mx-2" style="font-size: 1em; color:white">/</h3>
@@ -267,10 +280,10 @@ onMounted(async () => {
           
           :elmentsOfBtn="[
             {
-              name_btn: getMessageAbonnement(props.type_abonnements, item),
+              name_btn: messageAbonnement(item),
               color_btn: 'primary',
             }
-          ]" :shapeBtn="'round'" @created="handleInitialiserPayement(item)" />
+          ]" :shapeBtn="'round'" @created="handleCreateEntrepriseByYear(item)" />
         </div>
       </section>
     </div>
@@ -300,8 +313,8 @@ onMounted(async () => {
      flex-direction: column;
      justify-content: center;
      " :style="{
-      margin: item.libelle === 'BROBROLI PRO' ? '0.8em' : null,
-      padding: item.libelle === 'BROBROLI PRO' ? '0.9em' : '0.6em',
+      margin: item.libelle === 'BROBROLI PRO MAX' ? '0.8em' : null,
+      padding: item.libelle === 'BROBROLI PRO MAX' ? '0.9em' : '0.6em',
     }">
         {{ ecriteauFormule(item) }}
       </p>

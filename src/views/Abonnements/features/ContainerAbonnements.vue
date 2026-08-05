@@ -229,7 +229,7 @@ watch(
 onMounted(async () => {
   elmentsOfBtn.value = [
     {
-      name_btn: await transalteStore.handleTranslate("Choisires cette formule"),
+      name_btn: await transalteStore.handleTranslate("Choisir cette formule"),
       color_btn: "primary",
     },
   ]
@@ -259,8 +259,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <p>tabsSubAbonnement :{{ tabsSubAbonnement }}</p>
-  <p>select_mode_payment_tab : {{ select_mode_payment_tab }}</p>
+  <!-- <p>tabsSubAbonnement :{{ tabsSubAbonnement }}</p>
+  <p>select_mode_payment_tab : {{ select_mode_payment_tab }}</p> -->
   <!-- 
   <p>tabsSubAbonnement :{{ tabsSubAbonnement }}</p>
   <p>store.state?.user?.user/{{ store.state?.user }}</p>
