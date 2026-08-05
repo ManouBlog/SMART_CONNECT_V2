@@ -160,7 +160,7 @@ export default {
 
             <div class="invoice_header">
 
-                <div class="company">
+                <div class="company" style="display: flex;justify-content: space-between;align-items: flex-start;margin-bottom: 2em;">
 
                     <img v-if="showLogo && company.logo" :src="company.logo" class="company-logo" alt="Logo" />
 
@@ -310,8 +310,8 @@ export default {
     border-radius: 50%;
 
     background: linear-gradient(135deg,
-            #0d6efd,
-            #6610f2);
+            #25535f,
+            #284b54);
 
     color: #ffffff;
 
@@ -323,8 +323,6 @@ export default {
     font-weight: 700;
 
     text-transform: uppercase;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
 }
 
