@@ -9,9 +9,7 @@
       </template>
 
       <div style="max-height:70vh; overflow-y:auto; padding:10px;">
-        <!-- {{ detailsAbonnement }} -->
         <div class="card">
-
           <div class="card-body" v-if="detailsAbonnement">
             <div class="row mb-3">
               <div class="col-md-6 mb-3">
@@ -35,19 +33,7 @@
 
               <div class="col-md-6 mb-3">
                 <strong>Montant payé :</strong>
-                <div>{{ detailsAbonnement?.montant }}</div>
-
-                <!-- <div>
-    <small>Profil de base :</small>
-    <div>
-<span
-        class="badge me-1"
-      >
-        {{ detailsAbonnement?.abonement?.categorie?.categorie }}
-      </span>
-    </div>
-    
-  </div> -->
+                <div>{{ new Intl.NumberFormat('fr-FR').format(detailsAbonnement?.montant) }} Fcfa</div>
               </div>
 
               <div class="col-md-6 mb-3">
@@ -83,6 +69,21 @@
                 <strong>Référence de la transaction :</strong>
                 <div>{{ detailsAbonnement?.transaction_id }}</div>
               </div>
+
+            </div>
+            <div class="row mb-3">
+              <InvoicePdf ref="invoice" :details="detailsAbonnement" :company="{
+                name: 'Mon Entreprise',
+                logo: logo,
+                address: 'Abidjan Cocody',
+                phone: '+225 07 00 00 00 00',
+                email: 'contact@entreprise.ci',
+                website: 'www.entreprise.ci'
+              }" :customer="{
+      fullname: detailsAbonnement.user?.nom + ' ' + detailsAbonnement.user?.prenom,
+      email: detailsAbonnement.user?.email,
+      phone: detailsAbonnement.user?.phone
+    }" :invoice-number="detailsAbonnement.transaction_id" />
             </div>
             <div v-if="detailsAbonnement?.add_profil_hybrides?.length" class="mt-2">
               <h5>Profils hybrides inclus :</h5>
@@ -294,12 +295,14 @@ import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue";
 import { useEntreprisesStore } from "../store-pinia/Entreprise/useEntreprisesStore";
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
 import { useWindowSize } from "@vueuse/core";
+import InvoicePdf from "../components/InvoicePdf.vue";
 
 const STATUTABONNEMENT = { success: "Actif", expired: "Non Actif" };
 
 export default {
   name: "Myabonnements",
-  components: { DataTable, Column, HeaderDashboard, IconField, InputIcon, InputText },
+  components: { DataTable, Column, HeaderDashboard,
+     IconField, InputIcon, InputText,InvoicePdf },
   data() {
     return {
       texte0: "",
