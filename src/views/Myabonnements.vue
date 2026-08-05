@@ -72,18 +72,23 @@
 
             </div>
             <div class="row mb-3">
-              <InvoicePdf ref="invoice" :details="detailsAbonnement" :company="{
+              <InvoicePdf ref="invoice" 
+              :details="detailsAbonnement" 
+              :company="{
                 name: 'Mon Entreprise',
                 logo: logo,
                 address: 'Abidjan Cocody',
                 phone: '+225 07 00 00 00 00',
                 email: 'contact@entreprise.ci',
                 website: 'www.entreprise.ci'
-              }" :customer="{
+              }" 
+              :customer="{
       fullname: detailsAbonnement.user?.nom + ' ' + detailsAbonnement.user?.prenom,
-      email: detailsAbonnement.user?.email,
+      email: 'contact@entreprise.ci',
       phone: detailsAbonnement.user?.phone
-    }" :invoice-number="detailsAbonnement.transaction_id" />
+         }" 
+    :invoice-number="detailsAbonnement.transaction_id" 
+    />
             </div>
             <div v-if="detailsAbonnement?.add_profil_hybrides?.length" class="mt-2">
               <h5>Profils hybrides inclus :</h5>

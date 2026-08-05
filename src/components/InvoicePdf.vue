@@ -164,7 +164,7 @@ export default {
 
                     <img v-if="showLogo && company.logo" :src="company.logo" class="company-logo" alt="Logo" />
 
-                    <div v-else class="company-avatar">
+                    <div v-else class="company_avatar">
                         {{ getCompanyInitials(company.name) }}
                     </div>
 
@@ -179,86 +179,47 @@ export default {
                 </div>
 
                 <div class="invoice-title">
-
-
                     <p>
-                        <strong>Date :</strong>
+                        <strong>Date de paiement :</strong>
                         {{ new Date(details.created_at).toLocaleDateString('fr') }}
                     </p>
-
+                    <p>
+                        <strong>Date d'expiration :</strong>
+                        {{ new Date(details.echeance).toLocaleDateString('fr') }}
+                    </p>
                 </div>
 
-            </div>
-            <!-- ================= CLIENT ================= -->
-
-            <div class="invoice-section">
-
-                <p><strong>Email :</strong> {{ customer.email }}</p>
-                <p>
-                    <strong>Référence :</strong>
-                    {{ details.transaction_id }}
-                </p>
             </div>
             <!-- ================= TABLE ================= -->
             <table class="invoice-table">
 
                 <thead>
-
                     <tr>
-
-                        <th>Désignation</th>
-
-                        <th>Valeur</th>
-
+                        <th>Formule</th>
+                        <th>Montant (FCFA)</th>
                     </tr>
-
                 </thead>
 
                 <tbody>
 
                     <tr>
 
-                        <td>Formule</td>
+                        <td>
+                            {{ details?.abonement?.libelle }}
+                        </td>
 
-                        <td>{{ details.abonement.libelle }}</td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Profil principal</td>
-
-                        <td>{{ details.abonement.categorie.categorie }}</td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Date de paiement</td>
-
-                        <td>{{ details.created_at }}</td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Expiration</td>
-
-                        <td>{{ details.echeance }}</td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Montant abonnement</td>
-
-                        <td>{{ details.montant }}</td>
+                        <td class="text-right">
+                            {{ details?.montant }}
+                        </td>
 
                     </tr>
 
                 </tbody>
 
             </table>
+            <div style="display: flex;justify-content: flex-end;">
+                <p>Total : {{ details.montant }} Fcfa</p>
+            </div>
 
             <!-- ================= HYBRIDES ================= -->
 
@@ -341,6 +302,32 @@ export default {
     </div>
 </template>
 <style scoped>
+.company_avatar {
+
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(135deg,
+            #0d6efd,
+            #6610f2);
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+}
+
 p {
     font-size: 1em;
 }
