@@ -259,19 +259,23 @@ onMounted(async () => {
 </script>
 
 <template>
-  <!-- <p>{{ select_mode_payment_tab }}</p>
-  <p>{{ tabsSubAbonnement }}</p> -->
-  <!-- <p>store.state?.user?.user/{{ store.state?.user?.user.statuses.filter(item=>item.statut !== store.state?.user?.user?.statut?.statut) }}</p>
+  <p>tabsSubAbonnement :{{ tabsSubAbonnement }}</p>
+  <p>select_mode_payment_tab : {{ select_mode_payment_tab }}</p>
+  <!-- 
+  <p>tabsSubAbonnement :{{ tabsSubAbonnement }}</p>
+  <p>store.state?.user?.user/{{ store.state?.user }}</p>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
-   <p>storeAbonnement.addProfilHybride/{{storeAbonnement.addProfilHybride }}</p> -->
-  <!-- <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
+   <p>storeAbonnement.addProfilHybride/{{storeAbonnement.addProfilHybride }}</p>
+  <p>storeAbonnement.addProfilHybride:{{ storeAbonnement.addProfilHybride }}</p>
    <p>tabsSubAbonnement:{{ tabsSubAbonnement }}</p>
   <p>filteredTabsSubAbonnement:{{ filteredTabsSubAbonnement }}</p>
-  <p>statut_talent_choice_entreprise:{{ statut_talent_choice_artisan }}</p>
+  <p>statut_talent_choice_entreprise:{{ statut_talent_choice_entreprise }}</p>
   <p>statut_talent_choice_artisan:{{ statut_talent_choice_artisan }}</p> -->
   <div v-if="tabsSubAbonnement.length">
     <div style="display: flex;justify-content: center;">
-      <n-tabs v-if="filteredTabsSubAbonnement" v-model:value="select_mode_payment_tab" type="segment"
+      <n-tabs v-if="filteredTabsSubAbonnement" 
+      v-model:value="select_mode_payment_tab" 
+      type="segment"
         @update:value="handleSelect_mode_Payement" style="margin:1em 0;max-width: 400px;">
         <n-tab-pane v-for="tab in tabsToDisplay" :key="tab.id" :name="tab.id" :tab="tab.label" />
       </n-tabs>
@@ -283,8 +287,10 @@ onMounted(async () => {
       </n-tabs>
     </div>
   
-    <SubAbonnementsEntreprise v-if="select_mode_payment_tab === 'Entreprise Informelle'" :abonnements="subAbonnement"
-      :type_abonnements="'Entreprise Informelle'" />
+    <SubAbonnementsEntreprise 
+    v-if="select_mode_payment_tab === 'Entreprise Informelle'" 
+    :abonnements="subAbonnement"
+    :type_abonnements="'Entreprise Informelle'" />
     <SubAbonnementsEntreprise v-if="select_mode_payment_tab === 'Entreprise Formelle'" :abonnements="subAbonnement"
       :type_abonnements="'Entreprise Formelle'" />
     <SubAbonnementsArtisans v-if="select_mode_payment_tab === 'Maitre Artisan'" :abonnements="subAbonnement"

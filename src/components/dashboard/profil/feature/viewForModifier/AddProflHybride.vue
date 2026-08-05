@@ -203,9 +203,9 @@ export default {
     },
     async validateAndSubmit() {
       try {
-        // console.log("choiceProfilHybrideForAdd",this.choiceProfilHybrideForAdd)
+        console.log("choiceProfilHybrideForAdd",this.choiceProfilHybrideForAdd)
+        console.log("this.formData",this.formData)
         this.handleChangeInfoForAbonnement(this.formData)
-
         this.handleHybrideAddProfil(this.choiceProfilHybrideForAdd)
         this.showModalAbonnements = true;
       } catch (error) {
@@ -249,7 +249,7 @@ export default {
         </div>
       </template>
       <div style="background-color: white;">
-        <!-- <p>profilUser23 :{{ this.ProfilsUser.statut_talent}}</p> -->
+        <p>profilUser23 :{{ this.ProfilsUser.statut_talent}}</p>
         <Abonnements :ProfilAbonnement="this.ProfilsUser.user?.statut?.statut"
           :statut_talent_choice="this.ProfilsUser?.statut_talent" />
       </div>
@@ -347,7 +347,8 @@ export default {
 
         </a-row>
         <a-form-item>
-          <a-button type="primary" :disabled="isSubmitDisabled" @click="validateAndSubmit">
+          <a-button type="primary" :disabled="isSubmitDisabled" 
+          @click="validateAndSubmit">
             Ajouter +
           </a-button>
         </a-form-item>

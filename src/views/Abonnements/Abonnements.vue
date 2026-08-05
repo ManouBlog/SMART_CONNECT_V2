@@ -153,8 +153,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <!-- {{ props.ProfilAbonnement }}
+  <!-- <p>ProfilAbonnement: {{ props.ProfilAbonnement }}</p>
+  <p>profileAbonnement:{{ profileAbonnement }}</p>
   <p>abonnementssde:{{ abonnements }}</p> -->
+
   <div class="wrapped">
     <h1 class="text-center main-color" style="font-size: 1.5em;">{{text0}}</h1>
       <div v-if="props.ProfilAbonnement">
@@ -261,10 +263,10 @@ onMounted(async () => {
     :name="'Entreprise'"
     :tab="'Entreprise'"
   >
-  
     <ContainerAbonnements
       :abonnements="abonnements"
       type_abonnements="Entreprise"
+     
       :tabsSubAbonnement="entrepriseAbonnements"
       :subAbonnement="abonnements
         .filter(item => item.categorie.categorie.toLowerCase().includes('entreprise'))
@@ -275,10 +277,7 @@ onMounted(async () => {
  </n-tabs>
     </n-card>
     <p v-else class="shimmer-text" style="text-align: center;">Chargement...</p>
-  </div>
-
-
-
+      </div>
       <div v-else>
      <n-card v-if="abonnements.length">
        <div class="d-flex justify-content-center">

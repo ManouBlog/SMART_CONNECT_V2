@@ -230,14 +230,6 @@ onMounted(async () => {
     }">
         {{ ecriteauFormule(item) }}
       </p>
-
-
-      <!-- <div v-if="item?.categorie && ['Etudiant','Particulier','Artisan','Professionnel','Entreprise'].some(role=>role === item?.categorie?.categorie)">
-      <contentAbonnement 
-      :item="item"
-      :elmentsOfBtn="elmentsOfBtn"
-      />
-    </div> -->
       <section>
         <p style="text-align:center;position: absolute;right: 0px;top:0px;">
           <span v-if="storeAbonnementUser?.planAbonnement?.abonement_id === item.id" class="badge">
@@ -266,10 +258,7 @@ onMounted(async () => {
         <div style="height: 310px; position: relative; padding: 1em">
           <div class="px-5" v-html="item.description"></div>
         </div>
-
         <div class="conteneur-btn">
-
-
           <Buttons :isDisabled="storeAbonnementUser?.planAbonnement?.abonement_id == item.id" :elmentsOfBtn='[
             {
               name_btn: messageAbonnement(item),
