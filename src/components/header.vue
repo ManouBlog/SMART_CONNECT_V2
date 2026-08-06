@@ -243,6 +243,8 @@ export default {
                   <LiensNavBar v-if="!$store.state.user" :texte="texte" :route_lien="'abonnements'" />
                   <LiensNavBar :texte="texte4" :route_lien="'contact'" />
                   <LiensNavBar :texte="texte6" :route_lien="'politiques'" />
+
+                  <LiensNavBar texte="Partenaires" :route_lien="'Partenaires'" />
                   <!-- <li>
                     <SelectLanguage />
                   </li> -->

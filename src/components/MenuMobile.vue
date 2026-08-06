@@ -430,6 +430,15 @@ if (
           CGU
         </router-link>
       </li>
+      <li>
+        <router-link
+          :to="{ name: 'Partenaires' }"
+          @click.prevent="changeValueForshowMenuMobile"
+          class="d-block lien"
+        >
+          Partenaires
+        </router-link>
+      </li>
       
       <li v-if="this.$store.state.user">
         <a href="#" @click="deconnexUser" class="fw-bold text-danger"> Déconnexion</a>

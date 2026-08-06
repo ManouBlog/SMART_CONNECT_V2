@@ -65,6 +65,12 @@ const routes = [
         name: 'About',
         component: () => import( '../views/About.vue')
       },
+       {
+        path: '/Partenaires',
+        name: 'Partenaires',
+        component: () => import( '../views/Partenaires.vue')
+      },
+      
       {
         path: '/CGU',
         name: 'politiques',
