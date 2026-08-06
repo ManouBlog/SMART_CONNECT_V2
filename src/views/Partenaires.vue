@@ -16,7 +16,7 @@ export default {
         font-weight: bold;
         font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
       ">
-        <code style="color: black;">CONDITIONS GENERALES D’UTILISATION</code>
+        <code style="color: black;">Partenaires</code>
       </h1>
     </div>
 </template>
