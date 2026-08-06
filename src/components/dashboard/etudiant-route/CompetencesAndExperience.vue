@@ -241,7 +241,12 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response);
+          Swal.fire({
+              icon: "info",
+              title: error.response.data.message,
+              showConfirmButton: true,
+            });
         })
         .finally(() => {
           loadingSpinner.launchLoading(false);
