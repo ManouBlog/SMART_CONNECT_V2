@@ -799,7 +799,6 @@ chooseCompetenceFormState(value) {
       type="datetime-local" 
       v-model="job_debut" 
       :min="debut"
-      :max="fin"
        />
     </div>
   </div>
