@@ -1,7 +1,7 @@
 <script setup>
 import Logo from '../components/partenaires/Logo.vue';
 import PartnerSection from '../components/partenaires/PartnerSection.vue';
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useBreakpoints } from '@vueuse/core'
 const breakpoints = useBreakpoints({
   mobile: 560,
@@ -46,6 +46,20 @@ const partnerEcoleMargin = computed(() => {
     marginLeft: '20px',
   }
 })
+
+const dataInstitutions = ref([
+  {
+    id: 1,
+    name: 'Partenaire 1',
+    image: '/images/partenaire1.png'
+  },
+  {
+    id: 2,
+    name: 'Partenaire 2',
+    image: '/images/partenaire2.png'
+  }
+]);
+const dataEcoles = ref([]);
 </script>
 <template>
   <div class="container_partenaire">
@@ -73,20 +87,11 @@ const partnerEcoleMargin = computed(() => {
 
       <!-- Conteneur des partenaires -->
       <div class="conteneurs_partner_section">
-        <PartnerSection title="Partenaires institutionnels" :dataPartenaires="[
-          {
-            id: 1,
-            name: 'Partenaire 1',
-            image: '/images/partenaire1.png'
-          },
-          {
-            id: 2,
-            name: 'Partenaire 2',
-            image: '/images/partenaire2.png'
-          }
-        ]" :stylemargin="partnerInstitutionnelMargin" />
+        <PartnerSection v-if="dataInstitutions.length" title="Partenaires institutionnels"
+          :dataPartenaires="dataInstitutions" :stylemargin="partnerInstitutionnelMargin" />
         <Logo />
-        <PartnerSection title="Partenaires écoles" :dataPartenaires="[]" :stylemargin="partnerEcoleMargin" />
+        <PartnerSection v-if="dataEcoles.length" title="Partenaires écoles" :dataPartenaires="dataEcoles"
+          :stylemargin="partnerEcoleMargin" />
       </div>
     </div>
   </div>
@@ -148,6 +153,7 @@ header p {
 .conteneurs_partner_section {
   display: flex;
   align-items: center;
+  justify-content: center;
   place-content: center;
   gap: 1em;
   flex-wrap: wrap;

@@ -42,9 +42,11 @@ export default {
 <template>
     <div class="container_partner">
         <h2>{{ title }}</h2>
-        <HexagonGrid :rows="rows" :cols="cols" :size="size" />
-        <HexagonGrid :rows="rows" :cols="cols" :size="size" :style="stylemargin" />
-        <HexagonGrid :rows="rows" :cols="cols" :size="size" />
+        <HexagonGrid 
+        v-for="(items,index) in dataPartenaires"
+        :key="index"
+        :style="index == 1 ? stylemargin:null"
+        />
         <a @click.prevent="voirPlus(title)">Voir plus...</a>
     </div>
 </template>
