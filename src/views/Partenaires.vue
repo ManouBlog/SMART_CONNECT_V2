@@ -153,7 +153,7 @@ header p {
 .conteneurs_partner_section {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
   place-content: center;
   gap: 1em;
   flex-wrap: wrap;
