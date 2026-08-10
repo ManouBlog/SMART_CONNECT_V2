@@ -1,51 +1,51 @@
 <script setup>
 import Logo from '../components/partenaires/Logo.vue';
 import PartnerSection from '../components/partenaires/PartnerSection.vue';
-import { computed, ref } from 'vue'
-import { useBreakpoints } from '@vueuse/core'
-const breakpoints = useBreakpoints({
-  mobile: 560,
-  desktop: 1024,
-})
+import { ref } from 'vue'
+// import { useBreakpoints } from '@vueuse/core'
+// const breakpoints = useBreakpoints({
+//   mobile: 560,
+//   desktop: 1024,
+// })
 
-const isMobile = breakpoints.smaller('mobile')
-const isDesktop = breakpoints.greaterOrEqual('desktop')
+// const isMobile = breakpoints.smaller('mobile')
+// const isDesktop = breakpoints.greaterOrEqual('desktop')
 
-const partnerInstitutionnelMargin = computed(() => {
-  if (isMobile.value) {
-    return null
-  }
+// const partnerInstitutionnelMargin = computed(() => {
+//   if (isMobile.value) {
+//     return null
+//   }
 
-  if (isDesktop.value) {
-    return {
-      marginLeft: '-0.1px',
-      marginRight: '60px',
-    }
-  }
+//   if (isDesktop.value) {
+//     return {
+//       marginLeft: '-0.1px',
+//       marginRight: '60px',
+//     }
+//   }
 
-  return {
-    marginLeft: '-0.1px',
-    marginRight: '10px',
-  }
-})
+//   return {
+//     marginLeft: '-0.1px',
+//     marginRight: '10px',
+//   }
+// })
 
-const partnerEcoleMargin = computed(() => {
-  if (isMobile.value) {
-    return null
-  }
+// const partnerEcoleMargin = computed(() => {
+//   if (isMobile.value) {
+//     return null
+//   }
 
-  if (isDesktop.value) {
-    return {
-      marginRight: '-0.1px',
-      marginLeft: '45px',
-    }
-  }
+//   if (isDesktop.value) {
+//     return {
+//       marginRight: '-0.1px',
+//       marginLeft: '45px',
+//     }
+//   }
 
-  return {
-    marginRight: '-0.1px',
-    marginLeft: '20px',
-  }
-})
+//   return {
+//     marginRight: '-0.1px',
+//     marginLeft: '20px',
+//   }
+// })
 
 const dataInstitutions = ref([
   {
@@ -99,10 +99,11 @@ const dataEcoles = ref([
       <!-- Conteneur des partenaires -->
       <div class="conteneurs_partner_section">
         <PartnerSection v-if="dataInstitutions.length" title="Partenaires institutionnels"
-          :dataPartenaires="dataInstitutions" :stylemargin="partnerInstitutionnelMargin" />
+          :dataPartenaires="dataInstitutions" 
+           />
         <Logo />
         <PartnerSection v-if="dataEcoles.length" title="Partenaires écoles" :dataPartenaires="dataEcoles"
-          :stylemargin="partnerEcoleMargin" />
+           />
       </div>
     </div>
   </div>
