@@ -4,14 +4,6 @@ export default {
     name: 'HexagonGrid',
     components: { Hexagon },
     props: {
-        rows: {
-            type: Number,
-            default: 3
-        },
-        cols: {
-            type: Number,
-            default: 4
-        },
         size: {
             type: Number,
             default: 80

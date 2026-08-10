@@ -9,17 +9,9 @@ export default {
             type: String,
             required: true
         },
-        rows: {
-            type: Number,
-            default: 3
-        },
-        cols: {
-            type: Number,
-            default: 4
-        },
-        size: {
-            type: Number,
-            default: 80
+        dataPartenaires:{
+           type: Array,
+            required: true
         },
         stylemargin: {
             type: String,

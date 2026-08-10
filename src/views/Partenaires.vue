@@ -73,10 +73,20 @@ const partnerEcoleMargin = computed(() => {
 
       <!-- Conteneur des partenaires -->
       <div class="conteneurs_partner_section">
-        <PartnerSection title="Partenaires institutionnels" :rows="3" :cols="3" :size="80"
-          :stylemargin="partnerInstitutionnelMargin" />
+        <PartnerSection title="Partenaires institutionnels" :dataPartenaires="[
+          {
+            id: 1,
+            name: 'Partenaire 1',
+            image: '/images/partenaire1.png'
+          },
+          {
+            id: 2,
+            name: 'Partenaire 2',
+            image: '/images/partenaire2.png'
+          }
+        ]" :stylemargin="partnerInstitutionnelMargin" />
         <Logo />
-        <PartnerSection title="Partenaires écoles" :rows="3" :cols="3" :size="80" :stylemargin="partnerEcoleMargin" />
+        <PartnerSection title="Partenaires écoles" :dataPartenaires="[]" :stylemargin="partnerEcoleMargin" />
       </div>
     </div>
   </div>
@@ -89,6 +99,7 @@ const partnerEcoleMargin = computed(() => {
   margin-top: 2.65em;
   position: relative;
 }
+
 .overLay_container {
   position: absolute;
   top: 0;

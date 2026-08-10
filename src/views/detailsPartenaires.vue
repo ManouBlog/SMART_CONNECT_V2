@@ -46,7 +46,7 @@ const closeModal = () => {
         <div class="partner-modal">
 
             <div v-if="selectedPartner" class="partner-modal-content">
-                 <h5>Description</h5>
+                 <h5>Détail</h5>
                 <div class="partner-image-container">
                     <img v-if="selectedPartner.image" :src="selectedPartner.image" :alt="selectedPartner.name"
                         class="partner-image" />
