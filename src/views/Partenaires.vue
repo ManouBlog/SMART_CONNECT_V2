@@ -50,20 +50,16 @@ const partnerEcoleMargin = computed(() => {
 <template>
   <div class="container_partenaire">
     <!-- Bannière -->
-   <div class="container_baniere">
+    <div class="container_baniere">
 
-    <!-- Image de la bannière -->
-    <img
-      src="/baniere_partenaires.png"
-      alt="Nos partenaires de confiance"
-      class="baniere_image"
-    />
+      <!-- Image de la bannière -->
+      <img src="/baniere_partenaires.png" alt="Nos partenaires de confiance" class="baniere_image" />
 
-    <!-- Texte sur l'image -->
-    <div class="partenaire_banner">
-      Nos partenaires <br> de confiance
+      <!-- Texte sur l'image -->
+      <div class="partenaire_banner">
+        Nos partenaires <br> de confiance
+      </div>
     </div>
-  </div>
     <div class="overLay_container"></div>
     <div class="container_header">
       <!-- En-tête -->
@@ -77,19 +73,15 @@ const partnerEcoleMargin = computed(() => {
 
       <!-- Conteneur des partenaires -->
       <div class="conteneurs_partner_section">
-        <PartnerSection title="Partenaires institutionnels" 
-        :rows="3" :cols="3" :size="80"
-        :stylemargin="partnerInstitutionnelMargin"
-          />
+        <PartnerSection title="Partenaires institutionnels" :rows="3" :cols="3" :size="80"
+          :stylemargin="partnerInstitutionnelMargin" />
         <Logo />
-        <PartnerSection title="Partenaires écoles" 
-        :rows="3" :cols="3" :size="80" :stylemargin="partnerEcoleMargin" />
+        <PartnerSection title="Partenaires écoles" :rows="3" :cols="3" :size="80" :stylemargin="partnerEcoleMargin" />
       </div>
     </div>
   </div>
 </template>
 <style scoped>
-
 .container_partenaire {
   min-height: 100vh;
   background-color: #FFF8F0;
@@ -104,9 +96,9 @@ const partnerEcoleMargin = computed(() => {
   left: 0;
   right: 0;
   height: 400px;
-  background: linear-gradient(to bottom,
-      rgba(255, 165, 0, 0.25),
-      rgba(30, 58, 95, 0.15),
+  background: linear-gradient(215deg,
+      #FF9900,
+      #25525F,
       transparent);
   z-index: -1;
 }
@@ -150,6 +142,7 @@ header p {
   gap: 1em;
   flex-wrap: wrap;
 }
+
 .container_baniere {
   position: relative;
   width: 100%;
