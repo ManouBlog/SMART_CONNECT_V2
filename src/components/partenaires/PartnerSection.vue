@@ -51,7 +51,7 @@ export default {
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1em
+    gap: 0.1em
 }
 
 .container_partner h2 {

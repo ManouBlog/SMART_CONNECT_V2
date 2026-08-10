@@ -53,7 +53,7 @@ export default {
 
 .conteneur_rows_hexagons {
     display: flex;
-    gap: 1em;
+    gap: 0.4em;
     flex-wrap: wrap;
 }
 </style>

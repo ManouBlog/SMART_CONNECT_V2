@@ -19,13 +19,13 @@ const partnerInstitutionnelMargin = computed(() => {
   if (isDesktop.value) {
     return {
       marginLeft: '-0.1px',
-      marginRight: '45px',
+      marginRight: '60px',
     }
   }
 
   return {
     marginLeft: '-0.1px',
-    marginRight: '20px',
+    marginRight: '10px',
   }
 })
 
