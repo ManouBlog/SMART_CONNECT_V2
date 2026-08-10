@@ -59,7 +59,18 @@ const dataInstitutions = ref([
     image: '/images/partenaire2.png'
   }
 ]);
-const dataEcoles = ref([]);
+const dataEcoles = ref([
+  {
+    id: 1,
+    name: 'Partenaire 1',
+    image: '/images/partenaire1.png'
+  },
+  {
+    id: 2,
+    name: 'Partenaire 2',
+    image: '/images/partenaire2.png'
+  }
+]);
 </script>
 <template>
   <div class="container_partenaire">

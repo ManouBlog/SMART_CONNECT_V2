@@ -45,7 +45,7 @@ export default {
         <HexagonGrid 
         v-for="(items,index) in dataPartenaires"
         :key="index"
-        :style="index == 1 ? stylemargin:null"
+        :style="index % 2 !== 0 ? stylemargin:null"
         />
         <a @click.prevent="voirPlus(title)">Voir plus...</a>
     </div>
