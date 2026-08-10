@@ -51,14 +51,19 @@ const partnerEcoleMargin = computed(() => {
   <div class="container_partenaire">
     <!-- Bannière -->
    <div class="container_baniere">
-  <div class="partenaire-banner">
-    Nos partenaires de confiance
-  </div>
 
-  <div class="conteneurs_partner_section">
-    ...
+    <!-- Image de la bannière -->
+    <img
+      src="/baniere_partenaires.png"
+      alt="Nos partenaires de confiance"
+      class="baniere_image"
+    />
+
+    <!-- Texte sur l'image -->
+    <div class="partenaire_banner">
+      Nos partenaires <br> de confiance
+    </div>
   </div>
-</div>
     <div class="overLay_container"></div>
     <div class="container_header">
       <!-- En-tête -->
@@ -85,8 +90,8 @@ const partnerEcoleMargin = computed(() => {
 .container_partenaire {
   min-height: 100vh;
   background-color: #FFF8F0;
-  padding: 4em 2em;
-  margin-top: 6em;
+  padding: 4em 0;
+  margin-top: 2.65em;
   position: relative;
 }
 
@@ -141,25 +146,57 @@ header p {
   flex-wrap: wrap;
 }
 .container_baniere {
-  min-height: 350px;
-
-  background-image: url('../../public/baniere_partenaires.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
+  width: 100%;
 }
 
+/* Image */
+.baniere_image {
+  display: block;
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Texte */
+.partenaire_banner {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  padding: 12px 25px;
+  color: #FF9900;
+  font-size: 28px;
+  font-weight: 600;
+  z-index: 2;
+}
+
+/* Tablette */
 @media (max-width: 768px) {
-  .container_baniere {
-    min-height: 280px;
-    background-position: center;
+  .baniere_image {
+    height: 260px;
+  }
+
+  .partenaire_banner {
+    top: 20px;
+    right: 20px;
+    padding: 10px 18px;
+    font-size: 16px;
   }
 }
 
+/* Mobile */
 @media (max-width: 560px) {
-  .container_baniere {
-    min-height: 220px;
-    background-position: center;
+  .baniere_image {
+    height: 200px;
+  }
+
+  .partenaire_banner {
+    top: 15px;
+    right: 15px;
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: 0 0 0 14px;
   }
 }
 
