@@ -29,10 +29,36 @@ export default {
 </template>
 <style scoped>
 .conteneur_hexagon {
-    width: 50px;
-    height: 80px;
+    width: 60px;
+    height: 70px;
     background-color: #1E3A5F;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+     clip-path: polygon(
+    45% 1%,
+    50% 0%,
+    55% 1%,
+
+    94% 22%,
+    98% 25%,
+    100% 30%,
+
+    100% 70%,
+    98% 75%,
+    94% 78%,
+
+    55% 99%,
+    50% 100%,
+    45% 99%,
+
+    6% 78%,
+    2% 75%,
+    0% 70%,
+
+    0% 30%,
+    2% 25%,
+    6% 22%
+  );
+
+    border-radius: 12px;
     margin: 0 10px;
     display: flex;
     align-items: center;
