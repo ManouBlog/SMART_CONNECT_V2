@@ -47,8 +47,8 @@ export default {
 </template>
 <style scoped>
 .conteneur_logo_container{
-    width: 200px;
-    height: 250px;
+    width: 180px;
+    height: 220px;
     background-color: #1E3A5F;
     clip-path: polygon(45% 1%,
             50% 0%,

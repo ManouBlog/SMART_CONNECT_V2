@@ -62,20 +62,10 @@ const partnerEcoleMargin = computed(() => {
 
       <!-- Conteneur des partenaires -->
       <div class="conteneurs_partner_section">
-        <PartnerSection 
-        title="Partenaires institutionnels" 
-        :rows="3" 
-        :cols="3" 
-        :size="80" 
-         :stylemargin="partnerInstitutionnelMargin"
-        />
+        <PartnerSection title="Partenaires institutionnels" :rows="3" :cols="3" :size="80"
+          :stylemargin="partnerInstitutionnelMargin" />
         <Logo />
-        <PartnerSection title="Partenaires écoles" 
-        :rows="3"
-         :cols="3" 
-         :size="80" 
-         :stylemargin="partnerEcoleMargin"
-         />
+        <PartnerSection title="Partenaires écoles" :rows="3" :cols="3" :size="80" :stylemargin="partnerEcoleMargin" />
       </div>
     </div>
   </div>
@@ -96,7 +86,8 @@ const partnerEcoleMargin = computed(() => {
   right: 0;
   height: 400px;
   background: linear-gradient(to bottom,
-      rgba(255, 235, 205, 0.3),
+      rgba(255, 165, 0, 0.25),
+      rgba(30, 58, 95, 0.15),
       transparent);
   z-index: -1;
 }
