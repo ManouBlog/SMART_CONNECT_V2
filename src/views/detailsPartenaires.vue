@@ -32,7 +32,7 @@ const closeModal = () => {
 </script>
 <template>
     <HeaderDashboard TitleHeader="Partenaires" :subTitleHeader="this.$route.params.title" />
-    <h1 style="text-align: center;color:#FF9900">{{ this.$route.params.title }}</h1>
+    <h1 style="text-align: center;color:#ff9900">{{ this.$route.params.title }}</h1>
     <div class="grid-container">
         <div v-for="partenaire in data" :key="partenaire.id" class="partner-item">
             <Hexagon @select="handlePartnerSelect(partenaire)" :stylehexagon="{
@@ -77,6 +77,7 @@ const closeModal = () => {
     align-items: center;
     gap: 0.1em;
     padding: 1em 0;
+    flex-wrap: wrap;
 }
 
 .partner-modal-overlay {
@@ -105,8 +106,8 @@ const closeModal = () => {
 
     padding: 35px;
 
-    background: #FFF8F0;
-
+    background: #25525F;
+    color:#FFFFFF;
     border-radius: 20px;
 
     box-shadow:
@@ -142,12 +143,11 @@ const closeModal = () => {
 
 .partner-modal h2 {
     margin: 10px 0;
-
-    color: #1E3A5F;
+    color:#FFFFFF;
 }
 
 .partner-modal p {
-    color: #1E3A5F;
+    color:#FFFFFF;
     line-height: 1.6;
 }
 </style>
