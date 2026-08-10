@@ -49,6 +49,16 @@ const partnerEcoleMargin = computed(() => {
 </script>
 <template>
   <div class="container_partenaire">
+    <!-- Bannière -->
+   <div class="container_baniere">
+  <div class="partenaire-banner">
+    Nos partenaires de confiance
+  </div>
+
+  <div class="conteneurs_partner_section">
+    ...
+  </div>
+</div>
     <div class="overLay_container"></div>
     <div class="container_header">
       <!-- En-tête -->
@@ -71,6 +81,7 @@ const partnerEcoleMargin = computed(() => {
   </div>
 </template>
 <style scoped>
+
 .container_partenaire {
   min-height: 100vh;
   background-color: #FFF8F0;
@@ -128,6 +139,28 @@ header p {
   place-content: center;
   gap: 1em;
   flex-wrap: wrap;
+}
+.container_baniere {
+  min-height: 350px;
+
+  background-image: url('../../public/baniere_partenaires.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+  .container_baniere {
+    min-height: 280px;
+    background-position: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .container_baniere {
+    min-height: 220px;
+    background-position: center;
+  }
 }
 
 @media (max-width: 560px) {
