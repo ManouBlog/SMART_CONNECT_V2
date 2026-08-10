@@ -77,10 +77,13 @@ const partnerEcoleMargin = computed(() => {
 
       <!-- Conteneur des partenaires -->
       <div class="conteneurs_partner_section">
-        <PartnerSection title="Partenaires institutionnels" :rows="3" :cols="3" :size="80"
-          :stylemargin="partnerInstitutionnelMargin" />
+        <PartnerSection title="Partenaires institutionnels" 
+        :rows="3" :cols="3" :size="80"
+        :stylemargin="partnerInstitutionnelMargin"
+          />
         <Logo />
-        <PartnerSection title="Partenaires écoles" :rows="3" :cols="3" :size="80" :stylemargin="partnerEcoleMargin" />
+        <PartnerSection title="Partenaires écoles" 
+        :rows="3" :cols="3" :size="80" :stylemargin="partnerEcoleMargin" />
       </div>
     </div>
   </div>

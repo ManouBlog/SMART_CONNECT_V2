@@ -4,10 +4,6 @@ export default {
     name: 'HexagonGrid',
     components: { Hexagon },
     props: {
-        title: {
-            type: String,
-            required: true
-        },
         rows: {
             type: Number,
             default: 3
@@ -30,11 +26,11 @@ export default {
 <template>
     <div class="conteneur_hexagon">
         <div class="conteneur_rows_hexagons">
-            <Hexagon :key="'hex-' + rowIndex + '-' + colIndex" :size="size" />
-            <Hexagon :key="'hex-' + rowIndex + '-' + colIndex" :size="size" />
-            <Hexagon :key="'hex-' + rowIndex + '-' + colIndex" :size="size" />
-            <Hexagon :key="'hex-' + rowIndex + '-' + colIndex" :size="size" />
-            <Hexagon :key="'hex-' + rowIndex + '-' + colIndex" :size="size" />
+            <Hexagon :size="size" />
+            <Hexagon :size="size" />
+            <Hexagon :size="size" />
+            <Hexagon :size="size" />
+            <Hexagon :size="size" />
         </div>
     </div>
 </template>

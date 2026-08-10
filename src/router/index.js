@@ -70,7 +70,11 @@ const routes = [
         name: 'Partenaires',
         component: () => import( '../views/Partenaires.vue')
       },
-      
+       {
+        path: '/details/partenaires/:title',
+        name: 'detail_partenaires',
+        component: () => import( '../views/detailsPartenaires.vue')
+      }, 
       {
         path: '/CGU',
         name: 'politiques',

@@ -21,16 +21,29 @@ export default {
             type: Number,
             default: 80
         },
-        stylemargin:{
-            type:String,
-            default:null
+        stylemargin: {
+            type: String,
+            default: null
         }
     },
     data() {
         return {
-            COLORS: COLORS
+            COLORS: COLORS,
         };
     },
+    computed: {
+        titlePartenaire() {
+            return `${this.title}`
+        }
+    },
+    methods: {
+        voirPlus() {
+            this.$router.push({
+                name: 'detail_partenaires',
+                params: { title: this.titlePartenaire }
+            })
+        }
+    }
 
 };
 </script>
@@ -38,10 +51,9 @@ export default {
     <div class="container_partner">
         <h2>{{ title }}</h2>
         <HexagonGrid :rows="rows" :cols="cols" :size="size" />
-        <HexagonGrid :rows="rows" :cols="cols" :size="size" 
-        :style="stylemargin" />
+        <HexagonGrid :rows="rows" :cols="cols" :size="size" :style="stylemargin" />
         <HexagonGrid :rows="rows" :cols="cols" :size="size" />
-        <a>Voir plus...</a>
+        <a @click.prevent="voirPlus(title)">Voir plus...</a>
     </div>
 </template>
 <style scoped>
