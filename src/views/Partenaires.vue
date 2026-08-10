@@ -89,7 +89,6 @@ const partnerEcoleMargin = computed(() => {
   margin-top: 2.65em;
   position: relative;
 }
-
 .overLay_container {
   position: absolute;
   top: 0;
