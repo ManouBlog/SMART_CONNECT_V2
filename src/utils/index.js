@@ -101,3 +101,11 @@ splitFilename(filename) {
 
 
   };
+export const COLORS = {
+  primaryOrange: '#FFA500',
+  lightOrange: 'rgba(255, 235, 205, 0.3)',
+  hexagonBlue: '#1E3A5F',
+  textDark: '#1E3A5F',
+  textLight: '#FFFFFF',
+  background: '#FFF8F0',
+};
