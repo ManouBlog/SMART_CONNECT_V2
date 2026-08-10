@@ -19,33 +19,13 @@ export default {
     }">
         <div class="conteneur_logo_container">
             <div style="text-align: center">
-                <div :style="{
-                    width: '60px',
-                    height: '60px',
-                    backgroundColor: COLORS.primaryOrange,
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '0.5rem',
-                }">
-                    <span style="font-size: 2rem; color: white">👤</span>
-                </div>
-                <div :style="{
-                    color: COLORS.textLight,
-                    fontSize: '1.5rem',
-                    fontWeight: 'bold',
-                    fontFamily: 'Arial, sans-serif',
-                    textAlign: 'center',
-                    lineHeight: '1.2',
-                }">
-                    mon<br>brobroli
-                </div>
+               <img src="/broboli_footer_1.png" style="width: 100px;height: 100px;object-fit: cover;" alt="MONBROBROLI" />
             </div>
         </div>
     </div>
 </template>
 <style scoped>
+
 .conteneur_logo_container{
     width: 180px;
     height: 220px;
