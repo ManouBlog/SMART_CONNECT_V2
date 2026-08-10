@@ -49,7 +49,7 @@ export default {
 .conteneur_logo_container{
     width: 180px;
     height: 220px;
-    background-color: #1E3A5F;
+    background-color: #25525F;
     clip-path: polygon(45% 1%,
             50% 0%,
             55% 1%,

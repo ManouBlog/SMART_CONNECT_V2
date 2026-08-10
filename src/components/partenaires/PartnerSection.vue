@@ -55,9 +55,9 @@ export default {
 }
 
 .container_partner h2 {
-    font-size: 1.5rem;
+    font-size: 1em;
     font-weight: bold;
-    color: #1E3A5F;
+    color: black;
     margin-bottom: 1.5rem;
     font-family: Arial, sans-serif;
 }

@@ -125,15 +125,17 @@ h1 {
   font-weight: bold;
   color: #FFA500;
   margin-bottom: 1em;
+  padding: 1em 0 0 0;
   font-family: Arial, sans-serif;
 }
 
 header p {
   font-size: 1.2em;
-  color: #1E3A5F;
+  color: #030404;
   margin-bottom: 3em;
   font-family: Arial, sans-serif;
   max-width: 800px;
+  font-weight: bold;
   margin-left: auto;
   margin-right: auto;
 }

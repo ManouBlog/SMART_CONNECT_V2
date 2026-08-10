@@ -31,7 +31,7 @@ export default {
 .conteneur_hexagon {
     width: 60px;
     height: 70px;
-    background-color: #1E3A5F;
+    background-color: #25525F;
      clip-path: polygon(
     45% 1%,
     50% 0%,
