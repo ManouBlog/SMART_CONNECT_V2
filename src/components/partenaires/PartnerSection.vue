@@ -1,16 +1,16 @@
 <script>
-import HexagonGrid from './HexagonGrid.vue';
+import Hexagon from './Hexagon.vue';
 import { COLORS } from '../../utils';
 export default {
     name: 'PartnerSection',
-    components: { HexagonGrid },
+    components: { Hexagon },
     props: {
         title: {
             type: String,
             required: true
         },
-        dataPartenaires:{
-           type: Array,
+        dataPartenaires: {
+            type: Array,
             required: true
         },
         stylemargin: {
@@ -26,7 +26,36 @@ export default {
     computed: {
         titlePartenaire() {
             return `${this.title}`
+        },
+      styleHexagon() {
+        const count = this.dataPartenaires.length
+
+        if (count === 1) {
+            return {
+                width: '120px',
+                height: '130px',
+            }
         }
+
+        if (count === 2) {
+            return {
+                width: '100px',
+                height: '100px',
+            }
+        }
+
+        if (count === 3) {
+            return {
+                width: '50px',
+                height: '60px',
+            }
+        }
+
+        return {
+            width: '60px',
+            height: '70px',
+        }
+    }
     },
     methods: {
         voirPlus() {
@@ -42,11 +71,13 @@ export default {
 <template>
     <div class="container_partner">
         <h2>{{ title }}</h2>
-        <HexagonGrid 
-        v-for="(items,index) in dataPartenaires"
-        :key="index"
-        :style="index % 2 !== 0 ? stylemargin:null"
-        />
+        <div style="display: flex;justify-content: center;align-items: center;">
+            <Hexagon v-for="(items, index) in dataPartenaires" :key="index"
+             :stylehexagon="styleHexagon"
+                 />
+                 <!-- :style="index % 2 !== 0 ? stylemargin : null" -->
+        </div>
+
         <a @click.prevent="voirPlus(title)">Voir plus...</a>
     </div>
 </template>

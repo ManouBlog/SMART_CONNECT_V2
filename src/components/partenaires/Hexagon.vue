@@ -3,10 +3,6 @@ import { COLORS } from '../../utils';
 export default {
     name: 'Hexagon',
     props: {
-        size: {
-            type: Number,
-            default: 80
-        },
         color: {
             type: String,
             default: COLORS.hexagonBlue
