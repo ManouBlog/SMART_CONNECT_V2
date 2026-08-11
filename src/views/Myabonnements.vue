@@ -159,7 +159,7 @@
               date_expiration:this.configUtils.getFormatDateFr(detailsAbonnement?.echeance),
               validite:`${detailsAbonnement?.abonement?.periode} ${detailsAbonnement?.mode_payment === 'year' ? 'an':'mois'}`,
               transaction:detailsAbonnement?.transaction_id,
-              dataTable:''
+              dataTable:detailsAbonnement
             }"
             
             />

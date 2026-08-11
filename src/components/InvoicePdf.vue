@@ -53,14 +53,16 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="formula-name">BROBROLI PRO</td>
-                            <td>Abonnement annuel - Espace...</td>
-                            <td class="amount">25 000 FCFA</td>
+                            <td class="formula-name">{{ detailsInvoice?.dataTable?.abonement?.libelle }}</td>
+                            <td>
+                                <div :v-html="detailsInvoice?.dataTable?.description"></div>
+                            </td>
+                            <td class="amount">{{ new Intl.NumberFormat('fr-FR').format(detailsInvoice?.dataTable?.abonement?.prix) }} FCFA</td>
                         </tr>
                         <tr class="total-row">
                             <td>TOTAL</td>
                             <td></td>
-                            <td class="total-amount">25 000 FCFA</td>
+                            <td class="total-amount">{{ new Intl.NumberFormat('fr-FR').format(detailsInvoice?.dataTable?.abonement?.prix) }} FCFA</td>
                         </tr>
                     </tbody>
                 </table>
@@ -80,7 +82,9 @@
     </div>
     <div class="text-center mt-4">
 
-        <button class="btn btn-warning" @click="downloadPdf">
+        <button class="btn btn-warning" @click="downloadPdf"
+        :disabled="loadingPdf"
+        >
 
             {{ !loadingPdf ? 'Télécharger la facture' : 'Veuillez patienter...' }}
 
@@ -281,6 +285,7 @@ const downloadPdf = async () => {
 .amount {
     font-weight: bold;
     color: var(--text-dark);
+    text-align: center;
 }
 
 .total-row {
@@ -291,6 +296,7 @@ const downloadPdf = async () => {
 .total-amount {
     font-weight: bold;
     color: #F5A623;
+     text-align: center;
 }
 
 /* Pied de page */
