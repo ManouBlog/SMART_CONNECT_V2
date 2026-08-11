@@ -50,57 +50,15 @@ import { useLoadingSpinner } from '../store-pinia/LoadingSpinner/useLoadingSpinn
 // })
 const storeLoading = useLoadingSpinner();
 
-
-const dataInstitutions = ref([
-  {
-    id: 1,
-    name: 'Partenaire 1',
-    image: '/images/partenaire1.png'
-  },
-  {
-    id: 2,
-    name: 'Partenaire 2',
-    image: '/images/partenaire2.png'
-  }
-]);
-const dataEcoles = ref([
-  {
-    id: 1,
-    name: 'Partenaire 1',
-    image: '/images/partenaire1.png'
-  },
-  {
-    id: 2,
-    name: 'Partenaire 2',
-    image: '/images/partenaire2.png'
-  }
-  , {
-    id: 3,
-    name: 'Partenaire 2',
-    image: '/images/partenaire2.png'
-  }, {
-    id: 4,
-    name: 'Partenaire 2',
-    image: '/images/partenaire2.png'
-  },
-  {
-    id: 5,
-    name: 'Partenaire 2',
-    image: '/images/partenaire2.png'
-  },
-  {
-    id: 6,
-    name: 'Partenaire 2',
-    image: '/images/partenaire2.png'
-  }
-]);
+const dataInstitutions = ref([]);
+const dataEcoles = ref([]);
 const getPartenaires = async () => {
   storeLoading.launchLoading(true);
   try {
     const responsePartenaires = await instance.get("allPartenaire");
     console.log("responsePartenaires", responsePartenaires.data.data)
-    dataInstitutions.value = responsePartenaires.data.data.filter(item=>item.type_partenaire == 'institution');
-    dataEcoles.value = responsePartenaires.data.data.filter(item=>item.type_partenaire == 'ecole');
+    dataInstitutions.value = responsePartenaires.data.data.filter(item => item.type_partenaire == 'institution');
+    dataEcoles.value = responsePartenaires.data.data.filter(item => item.type_partenaire == 'ecole');
   } catch (error) {
     console.error(error)
   } finally {

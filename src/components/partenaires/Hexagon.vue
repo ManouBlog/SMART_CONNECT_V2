@@ -1,8 +1,13 @@
 <script>
 import { COLORS } from '../../utils';
+import { lienPhoto } from '../../api/api';
 export default {
     name: 'Hexagon',
     props: {
+        item:{
+          type: Object,
+          required:true
+        },
         color: {
             type: String,
             default: COLORS.hexagonBlue
@@ -22,7 +27,8 @@ export default {
     emits: ['select'],
     data() {
         return {
-            COLORS: COLORS
+            COLORS: COLORS,
+            lienPhoto:lienPhoto
         };
     },
     methods: {
@@ -34,13 +40,27 @@ export default {
 };
 </script>
 <template>
-    <div class="conteneur_hexagon" :style="stylehexagon"
-    @click="handleClick"
-    ></div>
+    <div class="conteneur_hexagon" :style="stylehexagon" @click="handleClick">
+        <img  
+        :src="lienPhoto+item.partenaire" :alt="item.partenaire" />
+    </div>
 </template>
 <style scoped>
+.conteneur_hexagon img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    bottom: 0;
+    object-fit: contain;
+}
 .conteneur_hexagon {
-
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
     background-color: #25525F;
     clip-path: polygon(45% 1%,
             50% 0%,

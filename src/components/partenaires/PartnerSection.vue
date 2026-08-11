@@ -72,8 +72,9 @@ export default {
     <div class="container_partner">
         <h2>{{ title }}</h2>
         <div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;">
-            <Hexagon v-for="(items, index) in dataPartenaires" :key="index"
+            <Hexagon v-for="(partner, index) in dataPartenaires" :key="index"
              :stylehexagon="styleHexagon"
+             :item="partner"
                  />
                  <!-- :style="index % 2 !== 0 ? stylemargin : null" -->
         </div>
