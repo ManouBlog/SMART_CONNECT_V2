@@ -145,6 +145,7 @@
                 </table>
               </div>
             </div>
+            <InvoicePdf ref="invoice" />
               <!-- <div class="row my-3" v-if="detailsAbonnement.status_user == 'Entreprise'">
               <h5>Factures :</h5>
               <InvoicePdf ref="invoice" 
@@ -300,7 +301,7 @@ import HeaderDashboard from "../Shared/Compoments/HeaderDashboard.vue";
 import { useEntreprisesStore } from "../store-pinia/Entreprise/useEntreprisesStore";
 import { useTranslateStore } from "../store-pinia/Translate/useTranslateStore";
 import { useWindowSize } from "@vueuse/core";
-// import InvoicePdf from "../components/InvoicePdf.vue";
+import InvoicePdf from "../components/InvoicePdf.vue";
 
 const STATUTABONNEMENT = { success: "Actif", expired: "Non Actif" };
 
@@ -308,7 +309,7 @@ export default {
   name: "Myabonnements",
   components: { DataTable, Column, HeaderDashboard,
      IconField, InputIcon, InputText,
-    //  InvoicePdf 
+     InvoicePdf 
     },
   data() {
     return {
