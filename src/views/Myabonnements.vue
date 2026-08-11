@@ -146,7 +146,19 @@
               </div>
             </div>
             <InvoicePdf ref="invoice" 
-            
+            :detailsInvoice="{
+              nom:this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.nom: this.$store.state.infoUserConnected.nom_particulier,
+              ville:this.$store.state.infoUserConnected.ville,
+              commune:'',
+              status:this.$store.state.infoUserConnected.forme_juridique,
+              NCC:'',
+              date_paiement:'',
+              mode_paiement:'',
+              date_expiration:'',
+              validite:'',
+              transaction:detailsAbonnement.transaction_id,
+              dataTable:''
+            }"
             
             />
               <!-- <div class="row my-3" v-if="detailsAbonnement.status_user == 'Entreprise'">

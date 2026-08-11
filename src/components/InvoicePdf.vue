@@ -22,21 +22,21 @@
             <!-- Informations du client -->
             <div class="client-info">
                 <p style="font-size: 14px;color:gray;">REÇU DE</p>
-                <h3>2A BATIMENT</h3>
-                <p style="font-size: 14px;">Abidjan - Yopougon</p>
-                <p style="font-size: 14px;">Entreprise individuelle</p>
-                <p style="font-size: 14px;"> <span style="color:gray;">NCC:</span> XXXXXXXX</p>
+                <h3>{{ detailsInvoice?.nom }}</h3>
+                <p style="font-size: 14px;">{{ detailsInvoice?.ville }}-{{ detailsInvoice?.commune }}</p>
+                <p style="font-size: 14px;">{{ detailsInvoice?.status }}</p>
+                <p style="font-size: 14px;"> <span style="color:gray;">NCC:</span> {{ detailsInvoice?.NCC }}</p>
                 <div style="display: flex;align-items: center;gap:0.4em">
                     <div class="payment-details">
-                        <p>Date de paiement: <strong>20/03/2026</strong></p>
-                        <p>Mode de paiement: <strong>Orange Money</strong></p>
+                        <p>Date de paiement: <strong>{{ detailsInvoice?.date_paiement }}</strong></p>
+                        <p>Mode de paiement: <strong>{{ detailsInvoice?.mode_paiement }}</strong></p>
                     </div>
                     <div class="payment-details">
-                        <p>Date d'expiration: <strong>20/03/2027</strong></p>
-                        <p>Validité: <strong>1 an</strong></p>
+                        <p>Date d'expiration: <strong>{{ detailsInvoice?.date_expiration }}</strong></p>
+                        <p>Validité: <strong>{{ detailsInvoice?.validite }}</strong></p>
                     </div>
                     <div class="payment-details">
-                        <p>N° de transaction: <strong>OM-2026-08-05-XXXX</strong></p>
+                        <p>N° de transaction: <strong>{{ detailsInvoice?.transaction }}</strong></p>
                     </div>
                 </div>
             </div>
