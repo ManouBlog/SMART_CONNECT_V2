@@ -145,7 +145,6 @@
                 </table>
               </div>
             </div>
-           {{ detailsAbonnement }}
             <div class="row my-3" v-if="detailsAbonnement?.status_user == 'Entreprise'">
         <InvoicePdf ref="invoice" 
             :detailsInvoice="{

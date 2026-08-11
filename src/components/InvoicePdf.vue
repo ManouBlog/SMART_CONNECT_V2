@@ -4,15 +4,15 @@
         <header class="header">
             <div class="logo-section">
                 <!-- <h1 class="logo">MonBrobroli</h1> -->
-                 <img src="/monbrobroliLogoWhite.png" alt="monbrobroliLogoWhite" 
-                 style="width: 170px;height: 130px;
-                 position: absolute;top: -60px;"/>
+                <img src="/monbrobroliLogoWhite.png" alt="monbrobroliLogoWhite" style="width: 170px;height: 130px;
+                 position: absolute;top: -60px;" />
                 <span class="tagline">La marketplace de l'emploi qui connecte en un clic</span>
             </div>
             <div class="receipt-title">
                 <span class="receipt-badge">
                     <span style="font-size: 0.8em;">REÇU D'ABONNEMENT</span>
-                    <span style="font-size: 0.6em;display:block;">{{ `MB-${new Date().getFullYear()}-ENT-00001` }}</span>
+                    <span style="font-size: 0.6em;display:block;">{{ `MB-${new Date().getFullYear()}-ENT-00001`
+                        }}</span>
                 </span>
             </div>
         </header>
@@ -25,7 +25,7 @@
                 <h3>{{ detailsInvoice?.nom }}</h3>
                 <p style="font-size: 14px;">{{ detailsInvoice?.ville }}-{{ detailsInvoice?.commune }}</p>
                 <p style="font-size: 14px;">{{ detailsInvoice?.status }}</p>
-                <p style="font-size: 14px;"> <span style="color:gray;">NCC:</span> {{ detailsInvoice?.NCC }}</p>
+                <p style="font-size: 14px;" v-if="detailsInvoice?.NCC"> <span style="color:gray;">NCC:</span> {{ detailsInvoice?.NCC }}</p>
                 <div style="display: flex;align-items: center;gap:0.4em">
                     <div class="payment-details">
                         <p>Date de paiement: <strong>{{ detailsInvoice?.date_paiement }}</strong></p>
@@ -45,24 +45,29 @@
             <div class="formula-table">
                 <table>
                     <thead>
-                        <tr>
-                            <th>FORMULE</th>
-                            <th>DESCRIPTION</th>
-                            <th>MONTANT (FCFA)</th>
+                        <tr class="flex-row">
+                            <th class="flex-cell">FORMULE</th>
+                            <th class="flex-cell">DESCRIPTION</th>
+                            <th class="flex-cell">MONTANT (FCFA)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="formula-name">{{ detailsInvoice?.dataTable?.abonement?.libelle }}</td>
-                            <td>
-                                <div :v-html="detailsInvoice?.dataTable?.description"></div>
+                        <tr class="flex-row">
+                            <td class="formula-name flex-cell">{{ detailsInvoice?.dataTable?.abonement?.libelle }}</td>
+                            <td class="flex-cell min-w-0">
+                                <div class="truncate-single-line"
+                                    v-html="detailsInvoice?.dataTable?.abonement?.description"></div>
                             </td>
-                            <td class="amount">{{ new Intl.NumberFormat('fr-FR').format(detailsInvoice?.dataTable?.abonement?.prix) }} FCFA</td>
+                            <td class="amount flex-cell">{{ new
+                                Intl.NumberFormat('fr-FR').format(detailsInvoice?.dataTable?.abonement?.prix ?? 0) }}
+                                FCFA</td>
                         </tr>
-                        <tr class="total-row">
-                            <td>TOTAL</td>
-                            <td></td>
-                            <td class="total-amount">{{ new Intl.NumberFormat('fr-FR').format(detailsInvoice?.dataTable?.abonement?.prix) }} FCFA</td>
+                        <tr class="total-row flex-row">
+                            <td class="flex-cell">TOTAL</td>
+                            <td class="flex-cell"></td>
+                            <td class="total-amount flex-cell">{{ new
+                                Intl.NumberFormat('fr-FR').format(detailsInvoice?.dataTable?.abonement?.prix) }} FCFA
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -82,9 +87,7 @@
     </div>
     <div class="text-center mt-4">
 
-        <button class="btn btn-warning" @click="downloadPdf"
-        :disabled="loadingPdf"
-        >
+        <button class="btn btn-warning" @click="downloadPdf" :disabled="loadingPdf">
 
             {{ !loadingPdf ? 'Télécharger la facture' : 'Veuillez patienter...' }}
 
@@ -94,13 +97,13 @@
 </template>
 
 <script setup>
-import { ref, useTemplateRef,defineProps } from 'vue';
+import { ref, useTemplateRef, defineProps } from 'vue';
 import html2pdf from "html2pdf.js";
 
 defineProps({
-    detailsInvoice:{
-        type:Object,
-        required:true
+    detailsInvoice: {
+        type: Object,
+        required: true
     }
 })
 
@@ -150,6 +153,36 @@ const downloadPdf = async () => {
 </script>
 
 <style scoped>
+/* 1. Force the row to behave like a flexbox container */
+.flex-row {
+    display: flex;
+    width: 100%;
+}
+
+/* 2. Make all table cells distribute space equally */
+.flex-cell {
+    flex: 1;
+}
+
+/* 3. CRITICAL: Prevent the middle cell from expanding past its boundaries */
+.min-w-0 {
+    flex: 1;
+    min-width: 0;
+}
+
+.truncate-single-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    /* Change this number to stop at 2, 3, or 4 lines */
+    overflow: hidden;
+
+}
+
+:deep(.my-custom-paragraph) {
+    font-size: 0.9em !important;
+}
+
 /* Styles globaux */
 .receipt-container {
     font-family: 'Arial', sans-serif;
@@ -267,7 +300,7 @@ const downloadPdf = async () => {
 .formula-table th,
 .formula-table td {
     padding: 12px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #E0E0E0;
 }
 
@@ -296,7 +329,7 @@ const downloadPdf = async () => {
 .total-amount {
     font-weight: bold;
     color: #F5A623;
-     text-align: center;
+    text-align: center;
 }
 
 /* Pied de page */
