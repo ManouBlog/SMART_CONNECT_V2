@@ -145,7 +145,10 @@
                 </table>
               </div>
             </div>
-            <InvoicePdf ref="invoice" />
+            <InvoicePdf ref="invoice" 
+            
+            
+            />
               <!-- <div class="row my-3" v-if="detailsAbonnement.status_user == 'Entreprise'">
               <h5>Factures :</h5>
               <InvoicePdf ref="invoice" 

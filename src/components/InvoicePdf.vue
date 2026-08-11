@@ -12,7 +12,7 @@
             <div class="receipt-title">
                 <span class="receipt-badge">
                     <span style="font-size: 0.8em;">REÇU D'ABONNEMENT</span>
-                    <span style="font-size: 0.6em;display:block;">MB-2026-ENT-00001</span>
+                    <span style="font-size: 0.6em;display:block;">{{ `MB-${new Date().getFullYear()}-ENT-00001` }}</span>
                 </span>
             </div>
         </header>
