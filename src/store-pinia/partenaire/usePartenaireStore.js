@@ -4,6 +4,7 @@ import instance from "../../api/api";
 export const usePartenaireStore = defineStore('partenaires', {
     state: () => ({
         partenaires: [],
+        partnerChoose:[],
     }),
     actions: {
        async getAllPartenaires() {
@@ -17,6 +18,8 @@ export const usePartenaireStore = defineStore('partenaires', {
                 console.log(error)
             }
           },
-         
+       showPartnerChosen(payload){
+        this.partnerChoose = payload;
+       }
     },
   })

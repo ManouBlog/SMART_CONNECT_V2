@@ -2,41 +2,29 @@
 import { defineProps, ref } from 'vue';
 import Hexagon from '../components/partenaires/Hexagon.vue';
 import HeaderDashboard from '../Shared/Compoments/HeaderDashboard.vue';
+import { usePartenaireStore } from '../store-pinia/partenaire/usePartenaireStore.js';
 defineProps({
     data: {
         type: Array,
-        default: () => [
-            {
-                id: 1,
-                name: 'Partenaire 1',
-                image: '/images/partenaire1.png'
-            },
-            {
-                id: 2,
-                name: 'Partenaire 2',
-                image: '/images/partenaire2.png'
-            }
-        ]
+        default: () => []
     }
 })
-const selectedPartner = ref(null)
+const STOREPARTNER = usePartenaireStore();
 const showModal = ref(false)
-const handlePartnerSelect = (partenaire) => {
-    selectedPartner.value = partenaire
+const handlePartnerSelect = () => {
     showModal.value = true
 }
 const closeModal = () => {
     showModal.value = false
-    selectedPartner.value = null
 }
 </script>
 <template>
     <HeaderDashboard TitleHeader="Partenaires" :subTitleHeader="$route.params.title" />
     <h1 style="text-align: center;color:#ff9900">{{ $route.params.title }}</h1>
-    <div class="grid-container">
-        <div v-for="partenaire in data" :key="partenaire.id" class="partner-item">
+    <div class="grid-container" v-if="STOREPARTNER?.partnerChoose.length">
+        <div v-for="partenaire in STOREPARTNER?.partnerChoose" :key="partenaire.id" class="partner-item">
             <Hexagon 
-            @select="handlePartnerSelect(partenaire)" 
+            @select="handlePartnerSelect()" 
             @closeModal="closeModal"
             :showModal="showModal"
             :item="partenaire"

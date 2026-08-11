@@ -1,6 +1,7 @@
 <script>
 import Hexagon from './Hexagon.vue';
 import { COLORS } from '../../utils';
+import { usePartenaireStore } from '../../store-pinia/partenaire/usePartenaireStore.js';
 export default {
     name: 'PartnerSection',
     components: { Hexagon },
@@ -22,6 +23,7 @@ export default {
         return {
             COLORS: COLORS,
             showModal: false,
+            STOREPARTENAIRE: usePartenaireStore(),
         };
     },
     computed: {
@@ -60,6 +62,7 @@ export default {
     },
     methods: {
         voirPlus() {
+            this.STOREPARTENAIRE.showPartnerChosen(this.dataPartenaires);
             this.$router.push({
                 name: 'detail_partenaires',
                 params: { title: this.titlePartenaire }
