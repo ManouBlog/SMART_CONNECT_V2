@@ -37,7 +37,7 @@ const dateActive = ref(null);
 // const handleListeFavoris = (token) => listeFavorisStore.handleListeFavoris(token);
 
 const getDateAbonementActive = () => {
-  if (store.state.user && store.state.user.user.abonement) {
+  if (store.state.user && store.state.user?.user?.abonement) {
     store.state.user.user.abonement.forEach((item) => {
       if (item.statut === "success") {
         dateActive.value = item.echeance;

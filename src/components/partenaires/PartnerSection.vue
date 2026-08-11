@@ -21,41 +21,42 @@ export default {
     data() {
         return {
             COLORS: COLORS,
+            showModal: false,
         };
     },
     computed: {
         titlePartenaire() {
             return `${this.title}`
         },
-      styleHexagon() {
-        const count = this.dataPartenaires.length
+        styleHexagon() {
+            const count = this.dataPartenaires.length
 
-        if (count === 1) {
+            if (count === 1) {
+                return {
+                    width: '180px',
+                    height: '220px',
+                }
+            }
+
+            if (count === 2) {
+                return {
+                    width: '150px',
+                    height: '160px',
+                }
+            }
+
+            if (count === 3) {
+                return {
+                    width: '100px',
+                    height: '90px',
+                }
+            }
+
             return {
-                width: '180px',
-                height: '220px',
+                width: '60px',
+                height: '70px',
             }
         }
-
-        if (count === 2) {
-            return {
-                width: '150px',
-                height: '160px',
-            }
-        }
-
-        if (count === 3) {
-            return {
-                width: '100px',
-                height: '90px',
-            }
-        }
-
-        return {
-            width: '60px',
-            height: '70px',
-        }
-    }
     },
     methods: {
         voirPlus() {
@@ -63,6 +64,12 @@ export default {
                 name: 'detail_partenaires',
                 params: { title: this.titlePartenaire }
             })
+        },
+        handlePartnerSelect() {
+            this.showModal = true
+        },
+        closeModal() {
+            this.showModal = false
         }
     }
 
@@ -72,11 +79,13 @@ export default {
     <div class="container_partner">
         <h2>{{ title }}</h2>
         <div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;">
-            <Hexagon v-for="(partner, index) in dataPartenaires" :key="index"
-             :stylehexagon="styleHexagon"
-             :item="partner"
-                 />
-                 <!-- :style="index % 2 !== 0 ? stylemargin : null" -->
+            <Hexagon v-for="(partner, index) in dataPartenaires" :key="index" 
+               :stylehexagon="styleHexagon"
+                :showModal="showModal" 
+                :item="partner" 
+                @select="handlePartnerSelect()"
+                 @closeModal="closeModal()" />
+            <!-- :style="index % 2 !== 0 ? stylemargin : null" -->
         </div>
 
         <a @click.prevent="voirPlus(title)">Voir plus...</a>
