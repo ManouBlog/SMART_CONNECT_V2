@@ -146,22 +146,19 @@
               </div>
             </div>
             <div class="row my-3" v-if="detailsAbonnement?.status_user == 'Entreprise'">
-        <InvoicePdf ref="invoice" 
-            :detailsInvoice="{
-              nom:this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.nom: this.$store.state.infoUserConnected.nom_particulier,
-              ville:this.$store.state.infoUserConnected.ville,
-              commune:this.$store.state.infoUserConnected.commune,
-              status:this.$store.state.infoUserConnected.forme_juridique,
-              NCC:this.$store.state.infoUserConnected.NCC,
-              date_paiement:this.configUtils.getFormatDateFr(detailsAbonnement?.created_at),
-              mode_paiement:detailsAbonnement?.moyen_paiement ,
-              date_expiration:this.configUtils.getFormatDateFr(detailsAbonnement?.echeance),
-              validite:`${detailsAbonnement?.abonement?.periode} ${detailsAbonnement?.mode_payment === 'year' ? 'an':'mois'}`,
-              transaction:detailsAbonnement?.transaction_id,
-              dataTable:detailsAbonnement
-            }"
-            
-            />
+              <InvoicePdf ref="invoice" :detailsInvoice="{
+                nom: this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.nom : this.$store.state.infoUserConnected.nom_particulier,
+                ville: this.$store.state.infoUserConnected.ville,
+                commune: this.$store.state.infoUserConnected.commune,
+                status: this.$store.state.infoUserConnected.forme_juridique,
+                NCC: this.$store.state.infoUserConnected.NCC,
+                date_paiement: this.configUtils.getFormatDateFr(detailsAbonnement?.created_at),
+                mode_paiement: detailsAbonnement?.moyen_paiement,
+                date_expiration: this.configUtils.getFormatDateFr(detailsAbonnement?.echeance),
+                validite: `${detailsAbonnement?.abonement?.periode} ${detailsAbonnement?.mode_payment === 'year' ? 'an' : 'mois'}`,
+                transaction: detailsAbonnement?.transaction_id,
+                dataTable: detailsAbonnement
+              }" />
             </div>
           </div>
         </div>
@@ -303,10 +300,11 @@ const STATUTABONNEMENT = { success: "Actif", expired: "Non Actif" };
 
 export default {
   name: "Myabonnements",
-  components: { DataTable, Column, HeaderDashboard,
-     IconField, InputIcon, InputText,
-     InvoicePdf 
-    },
+  components: {
+    DataTable, Column, HeaderDashboard,
+    IconField, InputIcon, InputText,
+    InvoicePdf
+  },
   data() {
     return {
       texte0: "",
@@ -458,8 +456,8 @@ export default {
 @media (max-width: 768px) {
   .table-container {
     border-radius: 10px;
-      overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .profil-hybride-table {

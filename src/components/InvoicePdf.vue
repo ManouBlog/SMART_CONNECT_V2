@@ -11,7 +11,7 @@
             <div class="receipt-title">
                 <span class="receipt-badge">
                     <span style="font-size: 0.8em;">REÇU D'ABONNEMENT</span>
-                    <span style="font-size: 0.6em;display:block;">{{ `MB-${new Date().getFullYear()}-ENT-00001`
+                    <span style="font-size: 0.6em;display:block;">{{ `MB-${new Date().getFullYear()}-ENT-${detailsInvoice?.dataTable?.abonement_id}`
                         }}</span>
                 </span>
             </div>
