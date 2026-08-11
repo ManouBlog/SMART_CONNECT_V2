@@ -1,7 +1,7 @@
 <script>
 import Hexagon from './Hexagon.vue';
 import { COLORS } from '../../utils';
-import { usePartenaireStore } from '../../store-pinia/partenaire/usePartenaireStore.js';
+
 export default {
     name: 'PartnerSection',
     components: { Hexagon },
@@ -23,7 +23,6 @@ export default {
         return {
             COLORS: COLORS,
             showModal: false,
-            STOREPARTENAIRE: usePartenaireStore(),
         };
     },
     computed: {
@@ -62,10 +61,9 @@ export default {
     },
     methods: {
         voirPlus() {
-            this.STOREPARTENAIRE.showPartnerChosen(this.dataPartenaires);
             this.$router.push({
                 name: 'detail_partenaires',
-                params: { title: this.titlePartenaire }
+                params: { title: this.titlePartenaire },
             })
         },
         handlePartnerSelect() {
@@ -82,12 +80,8 @@ export default {
     <div class="container_partner">
         <h2>{{ title }}</h2>
         <div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;">
-            <Hexagon v-for="(partner, index) in dataPartenaires" :key="index" 
-               :stylehexagon="styleHexagon"
-                :showModal="showModal" 
-                :item="partner" 
-                @select="handlePartnerSelect()"
-                 @closeModal="closeModal()" />
+            <Hexagon v-for="(partner, index) in dataPartenaires" :key="index" :stylehexagon="styleHexagon"
+                :showModal="showModal" :item="partner" @select="handlePartnerSelect()" @closeModal="closeModal()" />
             <!-- :style="index % 2 !== 0 ? stylemargin : null" -->
         </div>
 
