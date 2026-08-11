@@ -95,10 +95,18 @@ onMounted(async () => {
 
       <!-- Conteneur des partenaires -->
       <div class="conteneurs_partner_section">
-        <PartnerSection v-if="dataInstitutions.length" title="Partenaires institutionnels"
-          :dataPartenaires="dataInstitutions" />
+        <PartnerSection 
+        v-if="dataInstitutions.length" 
+        title="Partenaires institutionnels"
+        :dataPartenaires="dataInstitutions" 
+        :detail="'institution'"
+        />
         <Logo />
-        <PartnerSection v-if="dataEcoles.length" title="Partenaires écoles" :dataPartenaires="dataEcoles" />
+        <PartnerSection v-if="dataEcoles.length" 
+        title="Partenaires écoles" 
+        :dataPartenaires="dataEcoles"
+        :detail="'ecole'"
+        />
       </div>
     </div>
   </div>

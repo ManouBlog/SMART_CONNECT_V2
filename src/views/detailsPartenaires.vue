@@ -1,21 +1,34 @@
 <script setup>
-import { defineProps, ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import Hexagon from '../components/partenaires/Hexagon.vue';
 import HeaderDashboard from '../Shared/Compoments/HeaderDashboard.vue';
-defineProps({
-    data: {
-        type: Array,
-        default: () => []
-    }
-})
+import instance from '../api/api.js';
+import { useLoadingSpinner } from '../store-pinia/LoadingSpinner/useLoadingSpinner.js';
 
-const showModal = ref(false)
+const showModal = ref(false);
+const storeLoading = useLoadingSpinner();
 const handlePartnerSelect = () => {
     showModal.value = true
 }
 const closeModal = () => {
     showModal.value = false
 }
+const data = ref([]);
+const getPartenaires = async () => {
+  storeLoading.launchLoading(true);
+  try {
+    const responsePartenaires = await instance.get("allPartenaire");
+    console.log("responsePartenaires", responsePartenaires.data.data)
+    data.value = responsePartenaires.data.data.filter(item => item.type_partenaire == 'institution');
+  } catch (error) {
+    console.error(error)
+  } finally {
+    storeLoading.launchLoading(false);
+  }
+}
+onMounted(async () => {
+  await getPartenaires()
+})
 </script>
 <template>
     <HeaderDashboard TitleHeader="Partenaires" :subTitleHeader="$route.params.title" />

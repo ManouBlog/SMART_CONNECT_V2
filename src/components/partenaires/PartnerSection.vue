@@ -17,6 +17,10 @@ export default {
         stylemargin: {
             type: String,
             default: null
+        },
+        detail:{
+            type:String,
+            required:true
         }
     },
     data() {
@@ -72,16 +76,22 @@ export default {
         closeModal() {
             this.showModal = false
         }
-    }
-
+    },
+   
 };
 </script>
 <template>
     <div class="container_partner">
         <h2>{{ title }}</h2>
         <div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;">
-            <Hexagon v-for="(partner, index) in dataPartenaires" :key="index" :stylehexagon="styleHexagon"
-                :showModal="showModal" :item="partner" @select="handlePartnerSelect()" @closeModal="closeModal()" />
+            <Hexagon v-for="(partner, index) in dataPartenaires" 
+                :key="index" 
+                :stylehexagon="styleHexagon"
+                :showModal="showModal" 
+                :item="partner" 
+                @select="handlePartnerSelect()" 
+                @closeModal="closeModal()" 
+                />
             <!-- :style="index % 2 !== 0 ? stylemargin : null" -->
         </div>
 
