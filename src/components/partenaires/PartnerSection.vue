@@ -32,22 +32,22 @@ export default {
 
         if (count === 1) {
             return {
-                width: '120px',
-                height: '130px',
+                width: '180px',
+                height: '220px',
             }
         }
 
         if (count === 2) {
             return {
-                width: '100px',
-                height: '100px',
+                width: '150px',
+                height: '160px',
             }
         }
 
         if (count === 3) {
             return {
-                width: '50px',
-                height: '60px',
+                width: '100px',
+                height: '90px',
             }
         }
 
@@ -71,7 +71,7 @@ export default {
 <template>
     <div class="container_partner">
         <h2>{{ title }}</h2>
-        <div style="display: flex;justify-content: center;align-items: center;">
+        <div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;">
             <Hexagon v-for="(items, index) in dataPartenaires" :key="index"
              :stylehexagon="styleHexagon"
                  />

@@ -1,7 +1,9 @@
 <script setup>
 import Logo from '../components/partenaires/Logo.vue';
 import PartnerSection from '../components/partenaires/PartnerSection.vue';
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue';
+import instance from '../api/api.js';
+import { useLoadingSpinner } from '../store-pinia/LoadingSpinner/useLoadingSpinner.js';
 // import { useBreakpoints } from '@vueuse/core'
 // const breakpoints = useBreakpoints({
 //   mobile: 560,
@@ -46,6 +48,8 @@ import { ref } from 'vue'
 //     marginLeft: '20px',
 //   }
 // })
+const storeLoading = useLoadingSpinner();
+
 
 const dataInstitutions = ref([
   {
@@ -70,7 +74,42 @@ const dataEcoles = ref([
     name: 'Partenaire 2',
     image: '/images/partenaire2.png'
   }
+  , {
+    id: 3,
+    name: 'Partenaire 2',
+    image: '/images/partenaire2.png'
+  }, {
+    id: 4,
+    name: 'Partenaire 2',
+    image: '/images/partenaire2.png'
+  },
+  {
+    id: 5,
+    name: 'Partenaire 2',
+    image: '/images/partenaire2.png'
+  },
+  {
+    id: 6,
+    name: 'Partenaire 2',
+    image: '/images/partenaire2.png'
+  }
 ]);
+const getPartenaires = async () => {
+  storeLoading.launchLoading(true);
+  try {
+    const responsePartenaires = await instance.get("allPartenaire");
+    console.log("responsePartenaires", responsePartenaires.data.data)
+    dataInstitutions.value = responsePartenaires.data.data.filter(item=>item.type_partenaire == 'institution');
+    dataEcoles.value = responsePartenaires.data.data.filter(item=>item.type_partenaire == 'ecole');
+  } catch (error) {
+    console.error(error)
+  } finally {
+    storeLoading.launchLoading(false);
+  }
+}
+onMounted(async () => {
+  await getPartenaires()
+})
 </script>
 <template>
   <div class="container_partenaire">
@@ -99,11 +138,9 @@ const dataEcoles = ref([
       <!-- Conteneur des partenaires -->
       <div class="conteneurs_partner_section">
         <PartnerSection v-if="dataInstitutions.length" title="Partenaires institutionnels"
-          :dataPartenaires="dataInstitutions" 
-           />
+          :dataPartenaires="dataInstitutions" />
         <Logo />
-        <PartnerSection v-if="dataEcoles.length" title="Partenaires écoles" :dataPartenaires="dataEcoles"
-           />
+        <PartnerSection v-if="dataEcoles.length" title="Partenaires écoles" :dataPartenaires="dataEcoles" />
       </div>
     </div>
   </div>
