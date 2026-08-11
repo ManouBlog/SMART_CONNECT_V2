@@ -90,8 +90,15 @@
 </template>
 
 <script setup>
-import { ref, useTemplateRef } from 'vue';
+import { ref, useTemplateRef,defineProps } from 'vue';
 import html2pdf from "html2pdf.js";
+
+defineProps({
+    detailsInvoice:{
+        type:Object,
+        required:true
+    }
+})
 
 const loadingPdf = ref(false);
 const invoice = useTemplateRef('invoice');

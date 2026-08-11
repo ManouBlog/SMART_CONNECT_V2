@@ -119,7 +119,7 @@
                     </tr>
                   </thead>
                   <tbody style="border: 2px solid #dee2e6; border-top: none;">
-                    <tr v-for="(item, index) in detailsAbonnement.add_profil_hybrides" :key="index"
+                    <tr v-for="(item, index) in detailsAbonnement?.add_profil_hybrides" :key="index"
                       style="border-bottom: 1px solid #e9ecef;">
                       <td style="padding: 10px;text-align: center;">
                         <span>
@@ -145,43 +145,25 @@
                 </table>
               </div>
             </div>
-            <InvoicePdf ref="invoice" 
+           {{ detailsAbonnement }}
+            <div class="row my-3" v-if="detailsAbonnement?.status_user == 'Entreprise'">
+        <InvoicePdf ref="invoice" 
             :detailsInvoice="{
               nom:this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.nom: this.$store.state.infoUserConnected.nom_particulier,
               ville:this.$store.state.infoUserConnected.ville,
-              commune:'',
+              commune:this.$store.state.infoUserConnected.commune,
               status:this.$store.state.infoUserConnected.forme_juridique,
-              NCC:'',
-              date_paiement:'',
-              mode_paiement:'',
-              date_expiration:'',
-              validite:'',
-              transaction:detailsAbonnement.transaction_id,
+              NCC:this.$store.state.infoUserConnected.NCC,
+              date_paiement:this.configUtils.getFormatDateFr(detailsAbonnement?.created_at),
+              mode_paiement:detailsAbonnement?.moyen_paiement ,
+              date_expiration:this.configUtils.getFormatDateFr(detailsAbonnement?.echeance),
+              validite:`${detailsAbonnement?.abonement?.periode} ${detailsAbonnement?.mode_payment === 'year' ? 'an':'mois'}`,
+              transaction:detailsAbonnement?.transaction_id,
               dataTable:''
             }"
             
             />
-              <!-- <div class="row my-3" v-if="detailsAbonnement.status_user == 'Entreprise'">
-              <h5>Factures :</h5>
-              <InvoicePdf ref="invoice" 
-              :details="detailsAbonnement" 
-              :company="{
-                name: this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.nom: this.$store.state.infoUserConnected.nom_particulier,
-                logo: logo,
-                address: this.$store.state.infoUserConnected.ville,
-                phone: this.$store.state.infoUserConnected.contact,
-                email: this.$store.state.infoUserConnected.email,
-                forme_juridique:this.$store.state.infoUserConnected.forme_juridique,
-                Profilhybride:detailsAbonnement.add_profil_hybrides
-              }" 
-              :customer="{
-      fullname: detailsAbonnement.user?.nom + ' ' + detailsAbonnement.user?.prenom,
-      email: 'contact@entreprise.ci',
-      phone: detailsAbonnement.user?.phone
-         }" 
-    :invoice-number="detailsAbonnement.transaction_id" 
-    />
-            </div> -->
+            </div>
           </div>
         </div>
 
