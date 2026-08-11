@@ -64,10 +64,11 @@ export default {
         }
     },
     methods: {
-        voirPlus() {
+        voirPlus(payload) {
+            console.log("payload_voirplus",payload)
             this.$router.push({
                 name: 'detail_partenaires',
-                params: { title: this.titlePartenaire },
+                params: { title: this.titlePartenaire},
             })
         },
         handlePartnerSelect() {
@@ -95,7 +96,7 @@ export default {
             <!-- :style="index % 2 !== 0 ? stylemargin : null" -->
         </div>
 
-        <a @click.prevent="voirPlus(title)">Voir plus...</a>
+        <a @click.prevent="voirPlus(title,detail)">Voir plus...</a>
     </div>
 </template>
 <style scoped>
