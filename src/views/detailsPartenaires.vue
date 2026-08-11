@@ -37,7 +37,7 @@ const getPartenaires = async () => {
 }
 
 onMounted(async () => {
-    await getPartenaires()
+    await getPartenaires();
 })
 </script>
 <template>
