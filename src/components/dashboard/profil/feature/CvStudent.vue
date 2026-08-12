@@ -4,9 +4,7 @@
       <!-- En-tête avec photo et infos personnelles -->
       <div class="header">
         <div class="photo-placeholder" v-if="photo">
-          <img :src="photo" 
-          alt="Photo de profil" class="profile_photo" 
-          />
+          <img :src="photo" alt="Photo de profil" class="profile_photo" />
         </div>
         <div class="personal-info">
           <h1>{{ nom }}</h1>
@@ -14,63 +12,67 @@
       </div>
       <!-- Coordonnées -->
       <div class="contact-info">
-  <p><span class="icon">☎</span> {{ telephone }}</p>
-  <p><span class="icon">✉</span> {{ email }}</p>
-  <p><span class="icon">⚑</span> {{ nationalite }}</p>
-</div>
+        <p><span class="icon">☎</span> {{ telephone }}</p>
+        <p><span class="icon">✉</span> {{ email }}</p>
+        <p><span class="icon">⚑</span> {{ nationalite }}</p>
+      </div>
 
       <!-- Description -->
       <div class="section">
-        <h3 style="text-transform: uppercase" v-if="titreCv">
+        <h4 style="text-transform: uppercase" v-if="titreCv">
           {{
-            titreCv && titreCv != 'null' && isbtnPdf ? titreCv : description != 'null' ? "Profil":null
+            titreCv && titreCv != 'null' && isbtnPdf ? titreCv : description != 'null' ? "Profil" : null
           }}
-        </h3>
-        <p style="border-bottom: 3px solid black;padding-bottom:10px" v-if="description != null && description !== '' && description !== 'null'">{{ description }}</p>
+        </h4>
+        <p style="border-bottom: 3px solid black;padding-bottom:10px"
+          v-if="description != null && description !== '' && description !== 'null'">{{ description }}</p>
       </div>
-       <!-- Compétences -->
+      <!-- Expériences professionnelles -->
+      <div class="section" v-if="experiences.length">
+        <h4>EXPÉRIENCES PROFESSIONNELLES</h4>
+        
+        <ul style="padding:0.5em 1em">
+          <li v-for="(exp, i) in experiences" :key="i" style="padding:0.5em">
+            <span style="font-weight:bold;" v-if="exp.periode">{{ exp.periode }} :</span> {{ exp.detail }}
+          </li>
+        </ul>
+
+      </div>
+      <!-- Compétences -->
       <div class="section" style="margin:1em 0;" v-if="competences.length">
-        <h3>COMPÉTENCES</h3>
+        <h4>COMPÉTENCES</h4>
         <ul style="padding:1em">
           <li v-for="(c, i) in competences" :key="i">{{ c.comp }}</li>
         </ul>
       </div>
-       <!-- Expériences professionnelles -->
-      <div class="section" v-if="experiences.length">
-        <h3>EXPÉRIENCES PROFESSIONNELLES</h3>
-        <ul style="padding:0.5em 1em">
-         <li v-for="(exp, i) in experiences" :key="i" style="padding:0.5em">
-          <span style="font-weight:bold;" v-if="exp.periode">{{ exp.periode }} :</span> {{ exp.objet }}
-        </li>
-        </ul>
-        
-      </div>
+
       <!-- Qualifications -->
       <div class="section" v-if="qualifications.length">
-        <h3>QUALIFICATIONS</h3>
+        <h4>QUALIFICATIONS</h4>
         <ul style="padding:1em">
-        <li v-for="(q, i) in qualifications" :key="i">
-          
-          <span style="display:block;margin-bottom:0.5em"><span style="font-weight:bold;">{{ q.periode }}</span>: {{ q.objet }}</span>
-          <span style="display:block;margin-bottom:0.5em" v-if="q.detail !== null && q.detail !== '' && q.detail !== 'null'"><strong>Détail :</strong> {{ q.detail }}</span>
-        </li>
+          <li v-for="(q, i) in qualifications" :key="i">
+
+            <span style="display:block;margin-bottom:0.5em"><span style="font-weight:bold;">{{ q.periode }}</span>: {{
+              q.objet }}</span>
+            <span style="display:block;margin-bottom:0.5em"
+              v-if="q.detail !== null && q.detail !== '' && q.detail !== 'null'"><strong>Détail :</strong> {{ q.detail
+              }}</span>
+          </li>
         </ul>
       </div>
     </div>
     <!-- Bouton de téléchargement -->
-    <button @click="downloadCV"
-    :disabled="isLoading"
-    v-if="isbtnPdf" class="download-button">
+    <button @click="downloadCV" :disabled="isLoading" v-if="isbtnPdf" class="download-button">
       {{ isLoading ? "Téléchargement en cours..." : "Télécharger le CV" }}
     </button>
   </div>
 </template>
 <script setup>
 import html2canvas from "html2canvas";
-import { defineProps,ref } from "vue";
+import { defineProps, ref } from "vue";
 import { jsPDF } from "jspdf";
 
-const isLoading=ref(false);
+const isLoading = ref(false);
 const props = defineProps({
   isbtnPdf: { type: Boolean, required: false, default: false },
   nom: { type: String, required: true },
@@ -86,48 +88,48 @@ const props = defineProps({
 });
 const downloadCV = async () => {
   isLoading.value = true;
-  try{
-const cvContent = document.getElementById("cv-content");
-  if (!cvContent) return;
+  try {
+    const cvContent = document.getElementById("cv-content");
+    if (!cvContent) return;
 
-  // capture du DOM
-  const canvas = await html2canvas(cvContent, {
-    scale: 2,
-    useCORS: true, // autoriser CORS
-    allowTaint: true, // autoriser rendu d’images cross-domain
-    logging: false,
-  });
+    // capture du DOM
+    const canvas = await html2canvas(cvContent, {
+      scale: 2,
+      useCORS: true, // autoriser CORS
+      allowTaint: true, // autoriser rendu d’images cross-domain
+      logging: false,
+    });
 
-  const imgData = canvas.toDataURL("image/png");
-  const pdf = new jsPDF("p", "mm", "a4");
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
 
-  const pdfWidth = pdf.internal.pageSize.getWidth();
-  const pdfHeight = pdf.internal.pageSize.getHeight();
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
 
-  // calcul de dimensions de l’image pour garder le ratio
-  const imgWidth = pdfWidth;
-  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    // calcul de dimensions de l’image pour garder le ratio
+    const imgWidth = pdfWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-  let heightLeft = imgHeight;
-  let position = 0;
+    let heightLeft = imgHeight;
+    let position = 0;
 
-  // première page
-  pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-  heightLeft -= pdfHeight;
-
-  // Ajoutez les pages si nécessaire
-  while (heightLeft > 0) {
-    position = heightLeft - imgHeight;
-    pdf.addPage();
+    // première page
     pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
     heightLeft -= pdfHeight;
-  }
 
-  // téléchargement
-  pdf.save(`CV_${props.nom.replace(/\s+/g, "_")}.pdf`);
-  }catch(error){
-  console.log(error);
-  }finally{
+    // Ajoutez les pages si nécessaire
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pdfHeight;
+    }
+
+    // téléchargement
+    pdf.save(`CV_${props.nom.replace(/\s+/g, "_")}.pdf`);
+  } catch (error) {
+    console.log(error);
+  } finally {
     isLoading.value = false;
   }
 };
@@ -145,7 +147,7 @@ const cvContent = document.getElementById("cv-content");
   background: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   position: relative;
-  overflow:auto;
+  overflow: auto;
   padding: 20px;
   padding-right: 50px;
 }
@@ -183,18 +185,18 @@ const cvContent = document.getElementById("cv-content");
   justify-content: space-between;
   margin-bottom: 20px;
   padding: 10px 0;
-  border-top:2px solid black;
-  border-bottom:2px solid black;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
 }
 
 .section {
   margin-bottom: 10px;
-  padding-bottom:1em;
+  padding-bottom: 1em;
 }
 
-.section h3 {
+.section h4 {
   color: #000000;
-  font-weight:bold;
+  font-weight: bold;
 }
 
 .bottom-sections {
@@ -235,7 +237,7 @@ const cvContent = document.getElementById("cv-content");
 
 
 @media (max-width: 500px) {
- 
+
   .teal-sidebar {
     width: 15px;
     right: -0.5em;
