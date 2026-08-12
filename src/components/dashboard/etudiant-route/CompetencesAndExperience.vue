@@ -707,12 +707,12 @@ export default {
 
                         <span class="text-start d-block my-2">
                           <span style="font-weight: bold;font-size: 0.8em;">Entreprise:</span>
-                          <span>{{ item?.entreprise }}</span>
+                          <span style="font-size: 0.7em;">{{ item?.entreprise }}</span>
                         </span>
 
                         <span class="d-block my-2">
                           <span style="font-weight: bold;font-size: 0.8em;">Poste:</span>
-                          <span>{{
+                          <span style="font-size: 0.7em;">{{
                             item.poste
                           }}</span>
                         </span>
@@ -739,7 +739,7 @@ export default {
                         <p class="text-start ms-2" v-if="item.experience !== null ||
                           item.experience !== 'null'">
                           <span style="font-weight: bold;font-size: 0.8em;">Description:</span>
-                          <span class="d-block">{{ item.experience }}</span>
+                          <span class="d-block" style="font-size: 0.7em;">{{ item.experience }}</span>
                         </p>
                       </div>
                     </div>
