@@ -95,16 +95,26 @@ onMounted(async () => {
 
       <!-- Conteneur des partenaires -->
       <div class="conteneurs_partner_section">
-        <PartnerSection 
-        v-if="dataInstitutions.length" 
-        title="Partenaires institutionnels"
-        :dataPartenaires="dataInstitutions" 
-        />
-        <Logo />
-        <PartnerSection v-if="dataEcoles.length" 
-        title="Partenaires écoles" 
-        :dataPartenaires="dataEcoles"
-        />
+        <PartnerSection subTitle="Votre voix porte. Ensemble, nous œuvrons à l'amélioration du quotidien des citoyens."
+          title="Partenaires institutionnels" :dataPartenaires="dataInstitutions"
+          :stylePartner="{
+            backgroundColor:'#25525F',
+            color:'white',
+            borderRadius: '10px 0px 0px 10px'
+          }"
+          />
+          <div style="position: absolute;z-index: 9999;">
+           <Logo />
+          </div>
+        
+        <PartnerSection subTitle="Vous offrez à vos étudiants une longueur d'avance." title="Partenaires écoles"
+          :dataPartenaires="dataEcoles"
+          :stylePartner="{
+            backgroundColor:'#FF9900',
+            color:'white',
+            borderRadius: '0px 10px 10px 0px'
+          }"
+          />
       </div>
     </div>
   </div>
@@ -165,11 +175,12 @@ header p {
 
 .conteneurs_partner_section {
   display: flex;
+  position: relative;
   align-items: center;
   justify-items: center;
   place-content: center;
-  gap: 1em;
   flex-wrap: wrap;
+  padding: 0 1em;
 }
 
 .container_baniere {
