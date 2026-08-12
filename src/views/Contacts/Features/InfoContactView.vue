@@ -24,7 +24,7 @@ export default {
 <template>
   <section class="main-container-footer">
     <CardFooter :icone_name="'bi bi-building'" :title="texte"
-      :listLien="['Cocody Angre Nouveau CHU Immeuble Bissié 1er Etage Porte D']" />
+      :listLien="['Angré 7e tranche , Avenue Robert Beugre Mambe']" />
     <CardFooter :icone_name="'bi bi-envelope'" :title="texte2" :listLien="['contact@monbrobroli.com']" />
     <CardFooter :icone_name="'bi bi-person'" :title="texte3" :listLien="['+225 0707969672 / 0546667766']" />
   </section>
