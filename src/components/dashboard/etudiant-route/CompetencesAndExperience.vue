@@ -78,6 +78,10 @@ export default {
   },
   methods: {
     ...mapActions(useTranslateStore, ["handleTranslate"]),
+     triggerFileSelect() {
+      // Simule un clic sur l'input masqué
+      this.$refs.fileInputRef.click();
+    },
     onFileProof(e) {
       this.fileProofAttestation = e.target.files[0];
     },
@@ -402,14 +406,14 @@ export default {
     this.texte3 = await this.handleTranslate('Lieu');
     this.texte4 = await this.handleTranslate('Date début');
     this.texte5 = await this.handleTranslate('Date fin');
-    this.texte6 = await this.handleTranslate('Fichier');
+    this.texte6 = await this.handleTranslate('Justificatif');
     this.texte7 = await this.handleTranslate('Description');
     this.texte8 = await this.handleTranslate('Enregistrer');
     this.texte9 = await this.handleTranslate("Modifier l'experience");
     this.texte10 = await this.handleTranslate('Poste');
     this.texte11 = await this.handleTranslate("Nom de l'entreprise");
     this.texte12 = await this.handleTranslate('Lieu');
-    this.texte13 = await this.handleTranslate('Fichier chargé');
+    this.texte13 = await this.handleTranslate('Justificatif chargé');
     this.texte14 = await this.handleTranslate('Ajoutez un fichier');
     this.texte15 = await this.handleTranslate('Description (facultatif)');
     this.texte16 = await this.handleTranslate('Voulez-vous vraiment supprimer la compétence?');
@@ -468,14 +472,27 @@ export default {
               </div>
             </div>
 
-            <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
+             <div class="col-md-4 my-2 text-start">
               <label>{{ texte6 }}</label>
-              <input type="file" style="height: 45px;border:none !important" 
-              accept="image/*" @change="onFileProof" />
+              <input 
+              ref="fileInputRef"
+              type="file" 
+              style="height: 45px;border:none !important;display: none;" 
+              accept="image/*,application/pdf"
+               @change="onFileProof" />
+               <div>
+              <button 
+              @click.prevent="triggerFileSelect" 
+              style="background-color: orange;font-size:0.9em;
+              border: none;display: block;padding:0.6em;color: white;"
+              >Ajouter un justificatif</button>
+              <span v-if="this.fileProofAttestation">{{ this.fileProofAttestation.name }}</span>
+               </div>
             </div>
-            <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start" style="padding:0 !important">
+            <div class="col-lg-8 my-2 col-md-8 text-start" style="padding:0 !important">
               <label>{{ texte7 }}</label>
-              <textarea name="expereience" id="experience" cols="20" v-model="experience" rows="10"></textarea>
+              <textarea name="expereience" id="experience"  
+              v-model="experience" cols="20" rows="10"></textarea>
             </div>
           </div>
           <div class="text-center my-5">
