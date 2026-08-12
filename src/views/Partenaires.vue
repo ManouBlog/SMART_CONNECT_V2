@@ -79,18 +79,15 @@ onMounted(async () => {
 
       <!-- Texte sur l'image -->
       <div class="partenaire_banner">
-        Nos partenaires <br> de confiance
+        Nos Partenaires <br> de confiance
       </div>
     </div>
     <div class="overLay_container"></div>
     <div class="container_header">
       <!-- En-tête -->
       <header>
-        <h1>Bienvenue dans votre espace partenaires</h1>
-        <p>
-          Grâce à nos partenaires, nous construisons chaque jour des passerelles
-          entre les jeunes talents et le monde professionnel.
-        </p>
+        <h1>Bienvenue dans votre espace Partenaires</h1>
+       
       </header>
 
       <!-- Conteneur des partenaires -->
@@ -107,7 +104,8 @@ onMounted(async () => {
            <Logo />
           </div>
         
-        <PartnerSection subTitle="Vous offrez à vos étudiants une longueur d'avance." title="Partenaires écoles"
+        <PartnerSection subTitle="Vous offrez à vos étudiants une longueur d'avance." 
+        title="Partenaires Académiques"
           :dataPartenaires="dataEcoles"
           :stylePartner="{
             backgroundColor:'#FF9900',

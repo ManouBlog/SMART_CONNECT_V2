@@ -143,7 +143,7 @@ export default {
 }
 
 .container_partner h2 {
-    font-size: 1em;
+    font-size: 2em;
     font-weight: bold;
     color: rgb(255, 255, 255);
     margin-bottom: 1.5rem;
@@ -162,6 +162,10 @@ export default {
 p {
   font-size: clamp(0.9em, 1vw + 0.5rem, 1.25em);
   text-align: center;
-  font-size: 1em;
+  font-size: 0.9em;
+  width: 300px;
+   overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 }
 </style>
