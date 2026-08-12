@@ -67,7 +67,7 @@ export default {
     async handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
-
+        
         const reponse = await this.updateCompteUser({
           photo_profil: file,
         });

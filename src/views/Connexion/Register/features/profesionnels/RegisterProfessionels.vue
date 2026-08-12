@@ -213,7 +213,6 @@ export default {
         qualifications: [],
         disponibiliteValid: false,
         experiences: [
-
         ]
       },
     };

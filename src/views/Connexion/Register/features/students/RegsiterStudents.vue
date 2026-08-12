@@ -121,6 +121,7 @@ export default {
         { label: "Sierra Leone", value: "+232", length: 8 },
         { label: "Togo", value: "+228", length: 8 },
       ],
+    
       formState: {
         profiles: [],
         answerAssistance: "non",
@@ -152,7 +153,8 @@ export default {
         countryCode: "+225",
         qualifications: [],
         disponibiliteValid: false,
-
+        experiences: [
+        ]
       },
     };
   },
@@ -202,7 +204,10 @@ export default {
           !this.getTableauDays.length) {
           return true;
         }
+      }
 
+      if (this.currentStep == 2 && this.formState.experiences.length) {
+        return this.formState.experiences.some(exp => !exp.poste || !exp.entreprise || !exp.lieu || !exp.dateDebut || !exp.experience);
       }
 
       // Autres steps
@@ -283,6 +288,30 @@ export default {
   },
 
   methods: {
+    triggerFileSelect() {
+      // Simule un clic sur l'input masqué
+      this.$refs.fileInputRef.click();
+    },
+    onFileProof(event, index) {
+
+      const file = event.target.files[0];
+
+      if (!file) return;
+
+      this.formState.experiences[index].proof = file;
+  
+    },
+    createExperience() {
+      return {
+        poste: "",
+        entreprise: "",
+        lieu: "",
+        dateDebut: "",
+        dateFin: "",
+        experience: "",
+        proof: null,
+      };
+    },
     onCreateOther() {
       return null
     },
@@ -622,6 +651,7 @@ export default {
   }" :current="currentStep" class="mb-4">
     <a-step title="Profil Hybride" description="" />
     <a-step title="Profil" description="Renseignez vos informations de base pour créer votre compte." />
+    <a-step title="Expériences" description="Ajoutez vos expériences." />
     <a-step title="Compétences" description="Sélectionnez vos compétences." />
     <a-step title="Qualifications" description="Ajoutez vos qualifications pour valoriser votre profil." />
     <a-step title="Disponibilités"
@@ -631,7 +661,7 @@ export default {
 
 
   <a-form layout="vertical" :model="formState" @finish="onFinish" @finishFailed="onHandleFailed">
-    <!-- STEP 1 -->
+    <!-- STEP 0 -->
     <div v-show="currentStep === 0">
       <div>
         <label style="color: rgba(0, 0, 0, 0.88); font-size: 14px;">
@@ -670,7 +700,7 @@ export default {
       </transition>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- STEP 1 -->
     <div v-show="currentStep === 1">
 
       <a-row :gutter="[16, 24]">
@@ -777,8 +807,120 @@ export default {
 
     </div>
 
-    <!-- STEP 3 -->
+    <!-- STEP 2 -->
     <div v-show="currentStep === 2">
+      <n-dynamic-input v-model:value="formState.experiences" :on-create="createExperience">
+        <template #create-button-default>
+          Ajouter une expérience
+        </template>
+        <template #default="{ value, index }">
+          <div :class="{
+            'experience_border': index >= 1
+          }">
+            <a-row :gutter="[16, 24]">
+
+              <a-col :xs="24" :md="12">
+
+                <a-form-item label="Poste" :name="['experiences', index, 'poste']" :rules="[
+                  {
+                    required: true,
+                    message: 'Le poste est obligatoire.',
+                    trigger: 'blur',
+                  },
+                ]">
+                  <a-input v-model:value="value.poste" size="large" />
+                </a-form-item>
+
+              </a-col>
+              <a-col :xs="24" :md="12">
+                <a-form-item label="Entreprise" :name="['experiences', index, 'entreprise']" :rules="[
+                  {
+                    required: true,
+                    message: 'Le nom de l’entreprise est obligatoire.',
+                    trigger: 'blur',
+                  },
+                ]">
+                  <a-input v-model:value="value.entreprise" size="large" />
+                </a-form-item>
+
+              </a-col>
+
+              <a-col :xs="24" :md="12">
+
+                <a-form-item label="lieu" :name="['experiences', index, 'lieu']" :rules="[
+                  {
+                    required: true,
+                    message: 'Le lieu est obligatoire.',
+                    trigger: 'blur',
+                  },
+                ]">
+                  <a-input v-model:value="value.lieu" size="large" />
+                </a-form-item>
+
+              </a-col>
+
+              <a-col :xs="24" :md="6">
+
+                <a-form-item label="Date de début" :name="['experiences', index, 'dateDebut']" :rules="[
+                  {
+                    required: true,
+                    message: 'La date de début est obligatoire.',
+                    trigger: 'change',
+                  },
+                ]">
+                  <a-input type="date" v-model:value="value.dateDebut" size="large"
+                    :max="new Date().toISOString().split('T')[0]" />
+                </a-form-item>
+
+              </a-col>
+
+              <a-col :xs="24" :md="6">
+
+                <a-form-item label="Date de fin" :name="['experiences', index, 'dateFin']">
+                  <a-input type="date" v-model:value="value.dateFin" :min="value.dateDebut"
+                    :max="new Date().toISOString().split('T')[0]" size="large" />
+                </a-form-item>
+
+              </a-col>
+
+              <a-col :xs="24" :md="12">
+
+                <a-form-item label="Justificatif" :name="['experiences', index, 'proof']">
+                  <a-button type="primary" @click="triggerFileSelect">
+                    Ajouter un justificatif
+                  </a-button>
+                  <input ref="fileInputRef" type="file" style="display: none;" accept="image/*,application/pdf"
+                    @change="(event) => onFileProof(event, index)" />
+                   <span v-if="formState?.experiences[index]?.proof"
+                    style="display: block;font-weight: bold;">
+                    {{ formState?.experiences[index]?.proof?.name }}</span>
+                </a-form-item>
+
+              </a-col>
+
+              <a-col :xs="24">
+
+                <a-form-item label="Description" :name="['experiences', index, 'experience']" :rules="[
+                  {
+                    required: true,
+                    message: 'Veuillez décrire votre expérience.',
+                    trigger: 'blur',
+                  },
+                ]">
+
+                  <a-textarea v-model:value="value.experience" :rows="6" />
+
+                </a-form-item>
+
+              </a-col>
+            </a-row>
+          </div>
+        </template>
+      </n-dynamic-input>
+    </div>
+
+    <!-- STEP 3 -->
+    <div v-show="currentStep === 3">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="24">
           <a-form-item :label="texte7">
@@ -801,7 +943,7 @@ export default {
     </div>
 
     <!-- STEP 4 -->
-    <div v-show="currentStep === 3">
+    <div v-show="currentStep === 4">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item :label="texte8" name="niveauEtude" :rules="[{ required: true, message: texte13 }]">
@@ -822,12 +964,12 @@ export default {
     </div>
 
     <!-- STEP 5 -->
-    <div v-show="currentStep === 4">
+    <div v-show="currentStep === 5">
       <CreateDisponibilite />
     </div>
 
     <!-- STEP 6 -->
-    <div v-show="currentStep === 5">
+    <div v-show="currentStep === 6">
       <a-row :gutter="[16, 24]">
         <a-col :xs="24" :md="12">
           <a-form-item name="uploadPhotoProfil" label="Photo de profil">
@@ -903,13 +1045,11 @@ export default {
     <div class="d-flex justify-content-between" style="padding: 1.5em">
       <a-button v-if="currentStep > 0" @click="prevStep"> Précédent </a-button>
 
-      <a-button v-if="currentStep < 5" type="primary" 
-      @click.prevent="nextStep" 
-      :disabled="isNextDisabled">
+      <a-button v-if="currentStep < 6" type="primary" @click.prevent="nextStep" :disabled="isNextDisabled">
         Suivant
       </a-button>
 
-      <a-button v-if="currentStep === 5" type="primary" html-type="submit"
+      <a-button v-if="currentStep === 6" type="primary" html-type="submit"
         :disabled="!isCurrentStepValid || isPasswordDisabled || isCommercialAssitance">
         {{ texte11 }}
       </a-button>
