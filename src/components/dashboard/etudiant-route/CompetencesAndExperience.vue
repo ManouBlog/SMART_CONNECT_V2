@@ -470,7 +470,8 @@ export default {
 
             <div class="col-lg-6 my-2 col-md-6 col-sm-6 text-start">
               <label>{{ texte6 }}</label>
-              <input type="file" style="height: 45px;border:none !important" accept="image/*" @change="onFileProof" />
+              <input type="file" style="height: 45px;border:none !important" 
+              accept="image/*" @change="onFileProof" />
             </div>
             <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start" style="padding:0 !important">
               <label>{{ texte7 }}</label>
