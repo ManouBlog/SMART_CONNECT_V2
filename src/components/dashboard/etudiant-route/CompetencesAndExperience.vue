@@ -546,19 +546,15 @@ export default {
                     <n-button @click="showPdf(updateExperience.proof)">
                       {{ selectedPdf === updateExperience.proof ? 'Cacher' : ' Voir le PDF' }}
                     </n-button>
-                    <div style="position: relative;" 
-                    v-if="selectedPdf === updateExperience.proof">
-                     <iframe  :src="getAbsoluteUrl(updateExperience.proof)"
-                      width="100%" height="500" style="border:1px solid #ddd;
+                    <div style="position: relative;" v-if="selectedPdf === updateExperience.proof">
+                      <iframe :src="getAbsoluteUrl(updateExperience.proof)" width="100%" height="500" style="border:1px solid #ddd;
                       margin-top:10px;"></iframe>
                     </div>
-                   
+
                   </div>
                 </div>
                 <label class="d-block">{{ texte14 }}</label>
-                <input type="file" accept="image/*,application/pdf" 
-                @change="onFileProof"
-                  style="height: 45px;" />
+                <input type="file" accept="image/*,application/pdf" @change="onFileProof" style="height: 45px;" />
               </div>
               <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start">
                 <label>{{ texte15 }}</label>
