@@ -86,7 +86,7 @@ onMounted(async () => {
     <div class="container_header">
       <!-- En-tête -->
       <header>
-        <h1>Un écosystème de partenaires engagés</h1>
+        <h1>Bienvenue dans votre espace partenaires</h1>
         <p>
           Grâce à nos partenaires, nous construisons chaque jour des passerelles
           entre les jeunes talents et le monde professionnel.
@@ -99,13 +99,11 @@ onMounted(async () => {
         v-if="dataInstitutions.length" 
         title="Partenaires institutionnels"
         :dataPartenaires="dataInstitutions" 
-        
         />
         <Logo />
         <PartnerSection v-if="dataEcoles.length" 
         title="Partenaires écoles" 
         :dataPartenaires="dataEcoles"
-      
         />
       </div>
     </div>

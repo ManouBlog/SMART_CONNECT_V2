@@ -183,9 +183,17 @@ export default {
       return this.$store.state.First_heure_end_to;
     },
     isNextDisabled() {
+       if (this.currentStep === 3) {
+        if (this.formState.otherCompetence.length) {
+          return this.formState.otherCompetence.some((competence) => !competence)
+        }
+        if (this.formState.myCompetence.length) {
+          return !this.formState.myCompetence.length;
+        }
+      }
 
       // STEP 2 – Qualifications
-      if (this.currentStep === 3) {
+      if (this.currentStep === 4) {
         // au moins une qualification
         if (!this.formState.qualifications.length) {
           return true;
@@ -198,7 +206,7 @@ export default {
       }
 
       // STEP 3 – Disponibilités
-      if (this.currentStep === 4) {
+      if (this.currentStep === 5) {
         if (!this.getFirstHeureStartFrom ||
           !this.getFirstHeureFinFrom ||
           !this.getTableauDays.length) {
@@ -220,17 +228,17 @@ export default {
         // STEP 0 – Infos personnelles
         1: ["nom", "prenoms", "phone", "email"],
 
-        // STEP 1 – Profil & compétences
-        // 2: ["myCompetence"],
+        // STEP 3 – Competences
+        3: ["otherCompetence", "myCompetence"],
 
         // STEP 2 – Qualifications
-        3: ["qualifications", "niveauEtude", "filiere"],
+        4: ["qualifications", "niveauEtude", "filiere"],
 
         // STEP 3 – Disponibilités
         // 3: ["disponibiliteValid"],
 
         // STEP 4 – Validation finale
-        5: ["upload", "password"],
+        6: ["upload", "password"],
       };
     },
     isCurrentStepValid() {
@@ -344,8 +352,7 @@ export default {
     },
 
     nextStep() {
-      // console.log("this.currentStep",this.currentStep)
-
+  
       if (this.currentStep === 0 && this.formState.optionsAnswer === 'oui' && !this.formState.profilHybride.length) {
         // console.log("this.formState.profilHybride",this.formState.profilHybride)
         this.SWALPOPUP.declencheSwalPopup(
@@ -364,6 +371,7 @@ export default {
           );
           return;
         }
+        
         if (this.formState.profilHybride.some(el => el == 7) && !this.formState.statut_professionnel_artisan) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
@@ -371,12 +379,10 @@ export default {
           );
           return;
         }
-
       }
 
-      if (this.currentStep === 3) {
+      if (this.currentStep === 4) {
         const invalid = this.formState.qualifications.some((q) => !q.objet);
-
         if (invalid) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
@@ -386,7 +392,7 @@ export default {
         }
       }
 
-      if (this.currentStep === 4) {
+      if (this.currentStep === 5) {
         // console.log("this.currentStep4",this.getFirstHeureStartFrom)
         if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
           this.SWALPOPUP.declencheSwalPopup(
@@ -396,12 +402,8 @@ export default {
           return;
         }
       }
-      if (this.currentStep === 4) {
-        // console.log("this.currentStep5",this.currentStep)
-
-      }
-
-      if (this.currentStep !== 4 && !this.isCurrentStepValid) {
+     
+      if (this.currentStep !== 6 && !this.isCurrentStepValid) {
         this.SWALPOPUP.declencheSwalPopup(
           "warning",
           "Veuillez remplir les champs requis avant de continuer"
