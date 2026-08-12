@@ -211,6 +211,7 @@ header p {
 
 /* Tablette */
 @media (max-width: 768px) {
+  
   .baniere_image {
     height: 260px;
   }
@@ -225,6 +226,9 @@ header p {
 
 /* Mobile */
 @media (max-width: 560px) {
+  .conteneurs_partner_section{
+    gap: 8em;
+  }
   .baniere_image {
     height: 200px;
   }
