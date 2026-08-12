@@ -77,6 +77,12 @@ export default {
     };
   },
   methods: {
+    handleCloseModalCreateExperience(){
+this.toogleNouvelleExperience = !this.toogleNouvelleExperience
+this.$refs.fileInputRef.value = null;
+this.fileProofAttestation = null;
+console.log("fileInputRef",this.$refs.fileInputRef)
+},
     ...mapActions(useTranslateStore, ["handleTranslate"]),
      triggerFileSelect() {
       // Simule un clic sur l'input masqué
@@ -414,8 +420,8 @@ export default {
     this.texte11 = await this.handleTranslate("Nom de l'entreprise");
     this.texte12 = await this.handleTranslate('Lieu');
     this.texte13 = await this.handleTranslate('Justificatif chargé');
-    this.texte14 = await this.handleTranslate('Ajoutez un fichier');
-    this.texte15 = await this.handleTranslate('Description (facultatif)');
+    this.texte14 = await this.handleTranslate('Ajoutez un justificatif');
+    this.texte15 = await this.handleTranslate('Description');
     this.texte16 = await this.handleTranslate('Voulez-vous vraiment supprimer la compétence?');
     this.texte17 = await this.handleTranslate('Supprimer');
     this.texte18 = await this.handleTranslate('Annuler');
@@ -433,10 +439,11 @@ export default {
 };
 </script>
 
+
 <template>
   <section>
     <div class="add_nouvelle_experience" v-show="toogleNouvelleExperience"
-      @click.self="toogleNouvelleExperience = !toogleNouvelleExperience">
+      @click.self="handleCloseModalCreateExperience">
       <div class="conteneur_nouvelle_experience">
         <div class="conteneur-experience">
           <em class="bi bi-x-lg" @click="toogleNouvelleExperience = !toogleNouvelleExperience"></em>
