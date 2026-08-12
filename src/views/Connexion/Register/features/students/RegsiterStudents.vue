@@ -194,12 +194,10 @@ export default {
 
       // STEP 2 – Qualifications
       if (this.currentStep === 4) {
-        // au moins une qualification
         if (!this.formState.qualifications.length) {
           return true;
         }
 
-        // chaque qualification doit avoir une date_debut
         return this.formState.qualifications.some(
           (q) => !q.objet || !q.date_debut || !q.date_fin
         );
@@ -232,10 +230,8 @@ export default {
         3: ["otherCompetence", "myCompetence"],
 
         // STEP 2 – Qualifications
-        4: ["qualifications", "niveauEtude", "filiere"],
+        5: ["qualifications", "niveauEtude", "filiere"],
 
-        // STEP 3 – Disponibilités
-        // 3: ["disponibiliteValid"],
 
         // STEP 4 – Validation finale
         6: ["upload", "password"],
@@ -288,8 +284,6 @@ export default {
         if (value === 'non') {
           this.resetData()
         }
-        // console.log("formState.optionsAnswer", value);
-
       },
       immediate: true,
     }
@@ -307,7 +301,6 @@ export default {
       if (!file) return;
 
       this.formState.experiences[index].proof = file;
-  
     },
     createExperience() {
       return {
@@ -346,8 +339,6 @@ export default {
       }
     },
     handleQualifications(payload) {
-
-
       this.formState.qualifications = payload;
     },
 
@@ -371,8 +362,9 @@ export default {
           );
           return;
         }
-        
-        if (this.formState.profilHybride.some(el => el == 7) && !this.formState.statut_professionnel_artisan) {
+
+        if (this.formState.profilHybride.some(el => el == 7) 
+        && !this.formState.statut_professionnel_artisan) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
             "Ajoutez votre statut professionnel."
@@ -392,8 +384,8 @@ export default {
         }
       }
 
-      if (this.currentStep === 5) {
-        // console.log("this.currentStep4",this.getFirstHeureStartFrom)
+      if (this.currentStep === 6) {
+        
         if (!this.getFirstHeureStartFrom || !this.getTableauDays.length) {
           this.SWALPOPUP.declencheSwalPopup(
             "warning",
@@ -403,15 +395,16 @@ export default {
         }
       }
      
-      if (this.currentStep !== 6 && !this.isCurrentStepValid) {
-        this.SWALPOPUP.declencheSwalPopup(
-          "warning",
-          "Veuillez remplir les champs requis avant de continuer"
-        );
-        return;
-      }
+      // if (this.currentStep !== 6 && !this.isCurrentStepValid) {
+      //   this.SWALPOPUP.declencheSwalPopup(
+      //     "warning",
+      //     "Veuillez remplir les champs requis avant de continuer"
+      //   );
+      //   return;
+      // }
 
       this.currentStep++;
+      console.log('this.currentStep',this.currentStep);
     },
 
     prevStep() {
