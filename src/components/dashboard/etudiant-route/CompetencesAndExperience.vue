@@ -77,36 +77,36 @@ export default {
     };
   },
   methods: {
-    handleCloseModalCreateExperience(){
-this.toogleNouvelleExperience = !this.toogleNouvelleExperience
-this.$refs.fileInputRef.value = null;
-this.fileProofAttestation = null;
-console.log("fileInputRef",this.$refs.fileInputRef)
-},
+    handleCloseModalCreateExperience() {
+      this.toogleNouvelleExperience = !this.toogleNouvelleExperience
+      this.$refs.fileInputRef.value = null;
+      this.fileProofAttestation = null;
+      console.log("fileInputRef", this.$refs.fileInputRef)
+    },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
-     triggerFileSelect() {
+    triggerFileSelect() {
       // Simule un clic sur l'input masqué
       this.$refs.fileInputRef.click();
     },
     onFileProof(e) {
       this.fileProofAttestation = e.target.files[0];
     },
-     isPdf(file) {
-    if (!file) return false;
+    isPdf(file) {
+      if (!file) return false;
 
-    return file
-      .split(".")
-      .pop()
-      ?.toLowerCase() === "pdf";
-  },
+      return file
+        .split(".")
+        .pop()
+        ?.toLowerCase() === "pdf";
+    },
 
-  showPdf(file) {
-    this.selectedPdf = this.selectedPdf === file ? null : file;
-  },
+    showPdf(file) {
+      this.selectedPdf = this.selectedPdf === file ? null : file;
+    },
 
-  getAbsoluteUrl(file) {
-    return `${this.lienPhoto}${file}`;
-  },
+    getAbsoluteUrl(file) {
+      return `${this.lienPhoto}${file}`;
+    },
     getAllCompetencesByStudents() {
       instance
         .get("getCompetenceByStudents")
@@ -253,10 +253,10 @@ console.log("fileInputRef",this.$refs.fileInputRef)
         .catch((error) => {
           console.log(error.response);
           Swal.fire({
-              icon: "info",
-              title: error.response.data.message,
-              showConfirmButton: true,
-            });
+            icon: "info",
+            title: error.response.data.message,
+            showConfirmButton: true,
+          });
         })
         .finally(() => {
           loadingSpinner.launchLoading(false);
@@ -479,27 +479,19 @@ console.log("fileInputRef",this.$refs.fileInputRef)
               </div>
             </div>
 
-             <div class="col-md-4 my-2 text-start">
+            <div class="col-md-4 my-2 text-start">
               <label>{{ texte6 }}</label>
-              <input 
-              ref="fileInputRef"
-              type="file" 
-              style="height: 45px;border:none !important;display: none;" 
-              accept="image/*,application/pdf"
-               @change="onFileProof" />
-               <div>
-              <button 
-              @click.prevent="triggerFileSelect" 
-              style="background-color: orange;font-size:0.9em;
-              border: none;display: block;padding:0.6em;color: white;"
-              >Ajouter un justificatif</button>
-              <span v-if="this.fileProofAttestation">{{ this.fileProofAttestation.name }}</span>
-               </div>
+              <input ref="fileInputRef" type="file" style="height: 45px;border:none !important;display: none;"
+                accept="image/*,application/pdf" @change="onFileProof" />
+              <div>
+                <button @click.prevent="triggerFileSelect" style="background-color: orange;font-size:0.9em;
+              border: none;display: block;padding:0.6em;color: white;">Ajouter un justificatif</button>
+                <span v-if="this.fileProofAttestation">{{ this.fileProofAttestation.name }}</span>
+              </div>
             </div>
             <div class="col-lg-8 my-2 col-md-8 text-start" style="padding:0 !important">
               <label>{{ texte7 }}</label>
-              <textarea name="expereience" id="experience"  
-              v-model="experience" cols="20" rows="10"></textarea>
+              <textarea name="expereience" id="experience" v-model="experience" cols="20" rows="10"></textarea>
             </div>
           </div>
           <div class="text-center my-5">
@@ -547,10 +539,25 @@ console.log("fileInputRef",this.$refs.fileInputRef)
               <div class="col-lg-3 my-2 col-md-6 col-sm-3 text-start">
                 <div v-if="updateExperience.proof">
                   <label class="d-block">{{ texte13 }}</label>
-                  <n-image width="200" :src="lienPhoto + updateExperience.proof" />
+
+                  <n-image v-if="!isPdf(updateExperience.proof)" width="200"
+                    :src="lienPhoto + updateExperience.proof" />
+                  <div v-else>
+                    <n-button @click="showPdf(updateExperience.proof)">
+                      {{ selectedPdf === updateExperience.proof ? 'Cacher' : ' Voir le PDF' }}
+                    </n-button>
+                    <div style="position: relative;" 
+                    v-if="selectedPdf === updateExperience.proof">
+                     <iframe  :src="getAbsoluteUrl(updateExperience.proof)"
+                      width="100%" height="500" style="border:1px solid #ddd;
+                      margin-top:10px;"></iframe>
+                    </div>
+                   
+                  </div>
                 </div>
                 <label class="d-block">{{ texte14 }}</label>
-                <input type="file" accept="image/*" @change="onFileProof" placeholder="Ex :Cocody angré"
+                <input type="file" accept="image/*,application/pdf" 
+                @change="onFileProof"
                   style="height: 45px;" />
               </div>
               <div class="col-lg-12 my-2 col-md-12 col-sm-12 text-start">
@@ -697,8 +704,8 @@ console.log("fileInputRef",this.$refs.fileInputRef)
                           {{
                             `${new Date(item.dateDebut).toLocaleDateString()} - ${item.dateFin
                               ? new Date(item.dateFin).toLocaleDateString()
-                          : "Présent"
-                          }`
+                              : "Présent"
+                            }`
                           }}
                         </span>
 
@@ -713,34 +720,25 @@ console.log("fileInputRef",this.$refs.fileInputRef)
                             item.poste
                           }}</span>
                         </span>
-                  <span class="d-block my-2" v-if="item.proof">
+                        <span class="d-block my-2" v-if="item.proof">
 
-    <span class="d-block" style="font-weight: bold;font-size: 0.8em;">
-      Fichier chargé :
-    </span>
+                          <span class="d-block" style="font-weight: bold;font-size: 0.8em;">
+                            Fichier chargé :
+                          </span>
 
-    <!-- Image -->
-    <n-image
-      v-if="!isPdf(item.proof)"
-      width="100"
-      :src="lienPhoto + item.proof"
-    />
-    <!-- PDF -->
-    <div v-else>
-      <n-button @click="showPdf(item.proof)">
-        {{ selectedPdf === item.proof ? 'Cacher' : ' Voir le PDF' }}
-      </n-button>
+                          <!-- Image -->
+                          <n-image v-if="!isPdf(item.proof)" width="100" :src="lienPhoto + item.proof" />
+                          <!-- PDF -->
+                          <div v-else>
+                            <n-button @click="showPdf(item.proof)">
+                              {{ selectedPdf === item.proof ? 'Cacher' : ' Voir le PDF' }}
+                            </n-button>
 
-      <iframe
-        v-if="selectedPdf === item.proof"
-        :src="getAbsoluteUrl(item.proof)"
-        width="100%"
-        height="500"
-        style="border:1px solid #ddd;margin-top:10px;"
-      ></iframe>
-    </div>
+                            <iframe v-if="selectedPdf === item.proof" :src="getAbsoluteUrl(item.proof)" width="100%"
+                              height="500" style="border:1px solid #ddd;margin-top:10px;"></iframe>
+                          </div>
 
-  </span>
+                        </span>
 
                         <p class="text-start ms-2" v-if="item.experience !== null ||
                           item.experience !== 'null'">
