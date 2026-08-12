@@ -232,9 +232,12 @@ export default {
                     <em class="bi bi-cash-stack"></em>
                     Rémuneration :
                     <span style="color:orange;margin:0.5em;">
+
                       {{ !isNaN(Number(Offre.salaire)) ? `${Offre.salaire} Fcfa`
-                        : Offre.salaire }}
-                      <span v-if="Offre.pointage"> / {{ Offre.pointage }}</span></span>
+                        : Offre.salaire }} {{ Offre.pointage ? `/${Offre.pointage}` : null }}
+
+
+                    </span>
                   </h4>
                   <h4 class="my-5" v-else>
                     <em class="bi bi-cash-stack"></em> {{ texte }}
@@ -242,7 +245,7 @@ export default {
                 </div>
                 <h4 class="my-5" v-if="Offre.nbre_person">
                   <span style="font-weight: 400 !important; color: white">{{ texte1 }}</span>
-                  {{ Offre.nbre_person }}
+                 <span style="color: orange;">{{ Offre.nbre_person }}</span> 
                 </h4>
               </section>
               <section>
@@ -261,9 +264,9 @@ export default {
                   Heure de fin : {{ Offre.hour_fin }}
                 </h4>
                 <h4 v-if="Offre.job_debut">
-                
-                  {{ texte2 }} : {{ Offre.job_debut }} 
-                  
+
+                  {{ texte2 }} : {{ Offre.job_debut }}
+
                   <!-- {{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0]) }} -->
 
                 </h4>
@@ -301,10 +304,9 @@ export default {
         </div>
       </div>
     </div>
-    <div v-else class="container main-container shimmer-text" 
-    style="padding: 8em;
+    <div v-else class="container main-container shimmer-text" style="padding: 8em;
     display: flex;justify-content: center;font-size:1.5em;">
-    chargement...</div>
+      chargement...</div>
   </div>
 </template>
 <style scoped>
