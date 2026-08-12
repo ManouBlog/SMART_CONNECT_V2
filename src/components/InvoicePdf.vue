@@ -29,7 +29,7 @@
                 <div style="display: flex;align-items: center;gap:0.4em">
                     <div class="payment-details">
                         <p>Date de paiement: <strong>{{ detailsInvoice?.date_paiement }}</strong></p>
-                        <p>Mode de paiement: <strong>{{ detailsInvoice?.mode_paiement }}</strong></p>
+                        <p v-if="detailsInvoice?.mode_paiement != 'undefined'">Mode de paiement: <strong>{{ detailsInvoice?.mode_paiement }}</strong></p>
                     </div>
                     <div class="payment-details">
                         <p>Date d'expiration: <strong>{{ detailsInvoice?.date_expiration }}</strong></p>
@@ -63,7 +63,7 @@
                                 FCFA</td>
                         </tr>
                         <tr class="total-row flex-row">
-                            <td class="flex-cell">TOTAL</td>
+                            <td class="flex-cell">TOTAL (TTC)</td>
                             <td class="flex-cell"></td>
                             <td class="total-amount flex-cell">{{ new
                                 Intl.NumberFormat('fr-FR').format(detailsInvoice?.dataTable?.abonement?.prix) }} FCFA

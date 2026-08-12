@@ -73,7 +73,6 @@ export default {
       "getStatistiqueDashboardStudent",
     ]),
     handleData(year) {
-    
      if (this.isStudentProfile){
         this.getStatistiqueDashboardStudent({ annee: this.date_filter.$y });
       } else{
@@ -107,13 +106,13 @@ if (!user.competences.length || !user.qualifications.length) {
 
   isStudentProfile() {
     return this.userStatuses.some(item =>
-      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran','Particulier'].includes(item.statut)
+      ['Etudiant', 'Professionnel', 'Artisan', 'Vétéran'].includes(item.statut)
     );
   },
 
   isEntrepriseProfile() {
     return this.userStatuses.some(item =>
-      ['Entreprise'].includes(item.statut)
+      ['Entreprise','Particulier'].includes(item.statut)
     );
   },
 

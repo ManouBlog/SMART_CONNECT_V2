@@ -145,7 +145,7 @@
                 </table>
               </div>
             </div>
-            <div class="row my-3" v-if="detailsAbonnement?.status_user == 'Entreprise'">
+            <div class="row my-3" v-if="detailsAbonnement?.status_user == 'Entreprise' || 'entreprise'">
               <InvoicePdf ref="invoice" :detailsInvoice="{
                 nom: this.$store.state.infoUserConnected.matricule_cc ? this.$store.state.infoUserConnected.nom : this.$store.state.infoUserConnected.nom_particulier,
                 ville: this.$store.state.infoUserConnected.ville,
