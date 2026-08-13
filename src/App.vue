@@ -3,7 +3,6 @@
   <a-modal v-model:open="showModal" title="Connexion" :ok-button-props="{ style: { display: 'none' } }"
     :cancel-text="'Fermer'" :closable="false">
     <p style="color:red;">Vous êtes hors ligne. Veuillez vérifier votre connexion internet.</p>
-
   </a-modal>
   <div>
     <!-- Si la date de lancement est passée, on montre le router-view -->
