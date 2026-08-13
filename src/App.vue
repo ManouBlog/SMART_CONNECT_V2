@@ -11,7 +11,7 @@
     <!-- <updateProfiIfNot /> -->
     <!-- Sinon, on affiche le countdown -->
     <!-- <CountDownView v-else :targetDate="lancementDate" /> -->
-    <WhatsAppButton phone="2250707969672" />
+    <WhatsAppButton phone="2250546667766" />
   </div>
   <div v-if="isDatePassed && !spinnerLoading">
     <PromotionModal v-if="shouldShowPromo" v-model:visible="showPromo" :ctaAction="handleCta"
