@@ -87,7 +87,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        
+
         })
         .finally(() => {
           this.isDisabled = false;
@@ -192,36 +192,36 @@ export default {
       const data =
         this.chooseAnOptionPeriode !== "weekly"
           ? {
-              categorie_id:
-                year && categories
-                  ? categories[0].id
-                  : Number(
-                      this.categorieSelected
-                        ? this.categorieSelected
-                        : categories[0].id
-                    ),
-              value_periode:
-                year && categories ? this.currentYear : this.valueSubmit,
-              periode:
-                year && categories
-                  ? PERIODE[0].value
-                  : this.chooseAnOptionPeriode,
-            }
+            categorie_id:
+              year && categories
+                ? categories[0].id
+                : Number(
+                  this.categorieSelected
+                    ? this.categorieSelected
+                    : categories[0].id
+                ),
+            value_periode:
+              year && categories ? this.currentYear : this.valueSubmit,
+            periode:
+              year && categories
+                ? PERIODE[0].value
+                : this.chooseAnOptionPeriode,
+          }
           : {
-              categorie_id:
-                year && categories
-                  ? categories[0].id
-                  : Number(
-                      this.categorieSelected
-                        ? this.categorieSelected
-                        : categories[0].id
-                    ),
-              value_periode: this.weekDay,
-              periode:
-                year && categories
-                  ? PERIODE[0].value
-                  : this.chooseAnOptionPeriode,
-            };
+            categorie_id:
+              year && categories
+                ? categories[0].id
+                : Number(
+                  this.categorieSelected
+                    ? this.categorieSelected
+                    : categories[0].id
+                ),
+            value_periode: this.weekDay,
+            periode:
+              year && categories
+                ? PERIODE[0].value
+                : this.chooseAnOptionPeriode,
+          };
       console.log("DATA", data);
       axios
         .post(
@@ -244,7 +244,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          
+
         })
         .finally(() => {
           this.isLoading = false;
@@ -260,49 +260,25 @@ export default {
 <template>
   <div class="card py-4">
     <h3 class="text-start p-1">{{ this.title }}</h3>
-    <div
-      class="chart-loading d-flex gap-2 flex-wrap align-items-center px-2 py-3"
-    >
-      <MySelect
-        v-if="
-          categories.length && this.title === 'Offres & Candidatures & Contrat'
-        "
-        :allItems="
-          categories.length
+    <div class="chart-loading d-flex gap-2 flex-wrap align-items-center px-2 py-3">
+      <MySelect v-if="
+        categories.length && this.title === 'Offres & Candidatures & Contrat'
+      " :allItems="categories.length
             ? categories.map((item) => {
-                return {
-                  value: item.id,
-                  libelle: item.categorie,
-                };
-              })
+              return {
+                value: item.id,
+                libelle: item.categorie,
+              };
+            })
             : []
-        "
-        @handleSelect="handleCategorieSelect"
-      />
+          " @handleSelect="handleCategorieSelect" />
       <MySelect :allItems="PERIODE" @handleSelect="handleSelect" />
       <div>
-        <input
-          v-model="valueSubmit"
-          v-if="chooseAnOptionPeriode === 'daily'"
-          type="date"
-        />
-        <input
-          v-if="chooseAnOptionPeriode === 'weekly'"
-          v-model="valueSubmit"
-          @change="getDayOfWeek"
-          type="week"
-        />
-        <input
-          v-if="chooseAnOptionPeriode === 'monthly'"
-          v-model="valueSubmit"
-          type="month"
-        />
+        <input v-model="valueSubmit" v-if="chooseAnOptionPeriode === 'daily'" type="date" />
+        <input v-if="chooseAnOptionPeriode === 'weekly'" v-model="valueSubmit" @change="getDayOfWeek" type="week" />
+        <input v-if="chooseAnOptionPeriode === 'monthly'" v-model="valueSubmit" type="month" />
 
-        <input
-          v-if="chooseAnOptionPeriode === 'annually'"
-          v-model="valueSubmit"
-          type="number"
-        />
+        <input v-if="chooseAnOptionPeriode === 'annually'" v-model="valueSubmit" type="number" />
         <!-- <div
           v-if="chooseAnOptionPeriode === 'periodly'"
           class="d-flex align-items-center gap-2 px-2 w-100"
@@ -313,35 +289,27 @@ export default {
       </div>
     </div>
     <div class="text-end mb-4 mx-3">
-      <button
-        :disabled="isDisabled || !valueSubmit"
-        class="btn bg-primary"
-        @click="submitStatistiques(null, categories)"
-      >
+      <button :disabled="isDisabled || !valueSubmit" class="btn bg-primary"
+        @click="submitStatistiques(null, categories)">
         Filtrer
       </button>
     </div>
     <div v-if="isLoading" style="height: 300px">Chargement...</div>
-    <Chart
-      v-else
-      type="bar"
-      :height="300"
-      
-      :data="chartData"
-      :options="chartOptions"
-    />
+    <Chart v-else type="bar" :height="300" :data="chartData" :options="chartOptions" />
   </div>
 </template>
 <style scoped>
 input {
   width: auto;
 }
-.card{
-  flex:1;
+
+.card {
+  flex: 1;
 }
-@media only screen and (max-width: 900px){
-.card{
-  flex:none;
-}
+
+@media only screen and (max-width: 900px) {
+  .card {
+    flex: none;
+  }
 }
 </style>

@@ -31,7 +31,7 @@ export default {
         })
         .then((res) => {
           this.users = res.data.data;
-          console.log("get_users234",this.users)
+          console.log("get_users234", this.users)
           this.$nextTick(() => {
             this.initializeDataTables();
           });
@@ -44,8 +44,8 @@ export default {
 
         })
         .finally(() => {
-                 this.$store.commit("TOOGLESPINNER", false);
-               });
+          this.$store.commit("TOOGLESPINNER", false);
+        });
     },
     initializeDataTables() {
       const tables = ["#MyTableData", "#MyTableData1"];
@@ -128,27 +128,14 @@ export default {
         <div class="social-tab">
           <ul class="nav nav-tabs" id="top-tab" role="tablist">
             <li class="nav-item">
-              <a
-                class="nav-link active"
-                id="top-timeline"
-                data-bs-toggle="tab"
-                href="#admis_personnel"
-                role="tab"
-                aria-controls="admis_personnel"
-                aria-selected="true"
-                ><i data-feather="clock"></i>Admins(personnel monbrobroli)
+              <a class="nav-link active" id="top-timeline" data-bs-toggle="tab" href="#admis_personnel" role="tab"
+                aria-controls="admis_personnel" aria-selected="true"><i data-feather="clock"></i>Admins(personnel
+                monbrobroli)
               </a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                id="top-timeline"
-                data-bs-toggle="tab"
-                href="#clients"
-                role="tab"
-                aria-controls="clients"
-                aria-selected="true"
-                ><i data-feather="clock"></i>Utilisateurs
+              <a class="nav-link" id="top-timeline" data-bs-toggle="tab" href="#clients" role="tab"
+                aria-controls="clients" aria-selected="true"><i data-feather="clock"></i>Utilisateurs
               </a>
             </li>
           </ul>
@@ -157,12 +144,7 @@ export default {
     </div>
     <!-- Container-fluid starts-->
     <div class="tab-content" id="top-tabContent">
-      <div
-        class="tab-pane fade show active"
-        id="admis_personnel"
-        role="tabpanel"
-        aria-labelledby="admis_personnel"
-      >
+      <div class="tab-pane fade show active" id="admis_personnel" role="tabpanel" aria-labelledby="admis_personnel">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12 card py-3 px-2">
@@ -173,22 +155,20 @@ export default {
                     <th class="bg-light">email</th>
                     <th class="bg-light">Statut</th>
 
-                    <th class="bg-light" v-if=" this.$store.state.user?.statuses?.some(item=>item.statut === 'admin') ">Détails</th>
+                    <th class="bg-light" v-if="this.$store.state.user?.statuses?.some(item => item.statut === 'admin')">
+                      Détails</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(item, index) in users.filter(
-                      (person) => person.statut.statut == 'admin'
-                    )"
-                    :key="index"
-                  >
+                  <tr v-for="(item, index) in users.filter(
+                    (person) => person.statut.statut == 'admin'
+                  )" :key="index">
                     <td>{{ item.nom }} {{ item.prenoms }}</td>
                     <td>{{ item.email }}</td>
                     <td>
                       <span class="badge bg-danger">Admin</span>
                     </td>
-                    <td v-if="this.$store.state.user?.statuses?.some(item=>item.statut === 'admin')">
+                    <td v-if="this.$store.state.user?.statuses?.some(item => item.statut === 'admin')">
                       <i class="bi bi-eye" @click="seeDetailsUserPersonnel(item.id)"></i>
                     </td>
                   </tr>
@@ -211,27 +191,20 @@ export default {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(item, index) in users.filter(
-                      (person) => person.statuses?.some(item=>item.statut !=='admin') || person.statut.statut != 'admin'
-                    )"
-                    :key="index"
-                  >
+                  <tr v-for="(item, index) in users.filter(
+                    (person) => person.statuses?.some(item => item.statut !== 'admin') || person.statut.statut != 'admin'
+                  )" :key="index">
                     <td>{{ item.nom }} {{ item.prenoms }}</td>
                     <td>{{ item.email }}</td>
                     <td v-if="item?.user?.statuses.length">
-                      <span
-  v-for="status in item?.statuses"
-  :key="status.id"
-      class="badge bg-primary"
-    >
-  {{ status.statut }}
-  </span>
+                      <span v-for="status in item?.statuses" :key="status.id" class="badge bg-primary">
+                        {{ status.statut }}
+                      </span>
                     </td>
                     <td v-else>
-             <span class="badge bg-primary">
-              {{ item.statut.statut }}
-           </span>
+                      <span class="badge bg-primary">
+                        {{ item.statut.statut }}
+                      </span>
                     </td>
                   </tr>
                 </tbody>
@@ -249,13 +222,16 @@ export default {
   font-size: 1.5em !important;
   cursor: pointer;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;

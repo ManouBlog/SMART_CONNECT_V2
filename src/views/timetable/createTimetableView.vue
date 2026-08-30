@@ -252,7 +252,7 @@ export default {
         axios
           .put(
             "https://backend.monbrobroli.com/api/modify_schedule/" +
-              this.id_timetable_update,
+            this.id_timetable_update,
             {
               First_horaire: this.firstPlageHoraire.replace(",", "-"),
               Second_horaire: this.SecondPlageHoraire.replace(",", "-"),
@@ -609,7 +609,7 @@ export default {
       axios
         .delete(
           "https://backend.monbrobroli.com/api/deleteCompetencesOfStudents/" +
-            this.id_for_delete,
+          this.id_for_delete,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -694,10 +694,7 @@ export default {
     <div class="spinner-border text-primary" role="status"></div>
   </div>
   <div class="page-body position-relative">
-    <div
-      class="ecran_for_delete delete_article"
-      v-show="confirmation_for_delete"
-    >
+    <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
       <div class="card p-5">
         <p class="h3 my-2">Voulez-vous vraiment supprimer?</p>
         <div>
@@ -725,147 +722,82 @@ export default {
                       <div class="row">
                         <div class="col-lg-12">
                           <div class="mb-3">
-                            <button
-                              v-for="date in newDatePickerForUpdate"
-                              :key="date"
-                              class="button"
-                              disabled
-                            >
+                            <button v-for="date in newDatePickerForUpdate" :key="date" class="button" disabled>
                               {{ date }}
                             </button>
                             <div class="position-relative datepickrs">
-                              <DatePicker
-                                v-model="selectedJourForUpadte.date"
-                                class="datePicker"
-                                :min-date="new Date()"
-                              >
-                                <template
-                                  #default="{ togglePopover, hidePopover }"
-                                >
-                                  <div
-                                    class="flex d-flex flex-wrap justify-content-start ps-4"
-                                  >
-                                    <button
-                                      v-for="date in dates"
-                                      :key="date.date"
-                                      @click.prevent="
-                                        dateSelectedForUpadte(
-                                          $event,
-                                          date,
-                                          togglePopover
-                                        )
-                                      "
-                                      ref="button"
-                                      class="button"
-                                    >
+                              <DatePicker v-model="selectedJourForUpadte.date" class="datePicker"
+                                :min-date="new Date()">
+                                <template #default="{ togglePopover, hidePopover }">
+                                  <div class="flex d-flex flex-wrap justify-content-start ps-4">
+                                    <button v-for="date in dates" :key="date.date" @click.prevent="
+                                      dateSelectedForUpadte(
+                                        $event,
+                                        date,
+                                        togglePopover
+                                      )
+                                      " ref="button" class="button">
                                       {{ date.date.toLocaleDateString("fr") }}
-                                      <em
-                                        href="#"
-                                        class="bi bi-x text-danger"
-                                        @click.prevent="
-                                          removeDateForUpdate(date, hidePopover)
-                                        "
-                                      ></em>
+                                      <em href="#" class="bi bi-x text-danger" @click.prevent="
+                                        removeDateForUpdate(date, hidePopover)
+                                        "></em>
                                     </button>
                                   </div>
                                 </template>
                               </DatePicker>
-                              <button
-                                class="btn btnAdd"
-                                :class="dates.length === 1 ? 'd-none' : ''"
-                                @click.prevent="addDateForUpdate"
-                              >
+                              <button class="btn btnAdd" :class="dates.length === 1 ? 'd-none' : ''"
+                                @click.prevent="addDateForUpdate">
                                 + Ajouter une date
                               </button>
                             </div>
                           </div>
                         </div>
-                        <label class="badge bg-info"
-                          >Premier plage horaire</label
-                        >
+                        <label class="badge bg-info">Premier plage horaire</label>
                         <div class="col-lg-6" v-if="Horaire_Fisrt != null">
                           <div class="mb-3">
                             <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Horaire_Fisrt[0]"
-                              required
-                            />
+                            <input class="form-control" type="time" v-model="Horaire_Fisrt[0]" required />
                           </div>
                         </div>
                         <div class="col-lg-6" v-if="Horaire_Fisrt != null">
                           <div class="mb-3">
                             <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Horaire_Fisrt[1]"
-                              required
-                            />
+                            <input class="form-control" type="time" v-model="Horaire_Fisrt[1]" required />
                           </div>
                         </div>
-                        <label class="badge bg-warning"
-                          >Deuxieme plage horaire</label
-                        >
+                        <label class="badge bg-warning">Deuxieme plage horaire</label>
                         <div class="col-lg-6" v-if="Horaire_Second != null">
                           <div class="mb-3">
                             <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Horaire_Second[0]"
-                              required
-                            />
+                            <input class="form-control" type="time" v-model="Horaire_Second[0]" required />
                           </div>
                         </div>
                         <div class="col-lg-6" v-else>
                           <div class="mb-3">
                             <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Second_heure_start_from"
-                              required
-                            />
+                            <input class="form-control" type="time" v-model="Second_heure_start_from" required />
                           </div>
                         </div>
                         <div class="col-lg-6" v-if="Horaire_Second != null">
                           <div class="mb-3">
                             <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Horaire_Second[1]"
-                              required
-                            />
+                            <input class="form-control" type="time" v-model="Horaire_Second[1]" required />
                           </div>
                         </div>
                         <div class="col-lg-6" v-else>
                           <div class="mb-3">
                             <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Second_heure_end_to"
-                              required
-                            />
+                            <input class="form-control" type="time" v-model="Second_heure_end_to" required />
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col">
                           <div class="text-end">
-                            <button
-                              class="btn btn-danger me-3"
-                              @click.prevent="show_modify"
-                            >
+                            <button class="btn btn-danger me-3" @click.prevent="show_modify">
                               Annuler
                             </button>
-                            <button
-                              @click.prevent="update_timetable"
-                              class="btn btn-secondary"
-                            >
+                            <button @click.prevent="update_timetable" class="btn btn-secondary">
                               Modifier
                             </button>
                           </div>
@@ -899,27 +831,14 @@ export default {
         <div class="social-tab">
           <ul class="nav nav-tabs" id="top-tab" role="tablist">
             <li class="nav-item">
-              <a
-                class="nav-link active"
-                id="top-timeline"
-                data-bs-toggle="tab"
-                href="#voir_emploi_temps"
-                role="tab"
-                aria-controls="voir_emploi_temps"
-                aria-selected="true"
-                ><i data-feather="clock"></i>Voir mon emploi du temps</a
-              >
+              <a class="nav-link active" id="top-timeline" data-bs-toggle="tab" href="#voir_emploi_temps" role="tab"
+                aria-controls="voir_emploi_temps" aria-selected="true"><i data-feather="clock"></i>Voir mon emploi du
+                temps</a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                id="top-about"
-                data-bs-toggle="tab"
-                href=" #timetable"
-                role="tab"
-                aria-controls="timetable"
-                aria-selected="false"
-                ><em data-feather="alert-circle"></em>Créer une disponibilité
+              <a class="nav-link" id="top-about" data-bs-toggle="tab" href=" #timetable" role="tab"
+                aria-controls="timetable" aria-selected="false"><em data-feather="alert-circle"></em>Créer une
+                disponibilité
               </a>
             </li>
           </ul>
@@ -927,12 +846,7 @@ export default {
       </div>
     </div>
     <div class="tab-content" id="top-tabContent">
-      <div
-        class="tab-pane fade"
-        id="timetable"
-        role="tabpanel"
-        aria-labelledby="timetable"
-      >
+      <div class="tab-pane fade" id="timetable" role="tabpanel" aria-labelledby="timetable">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12">
@@ -1012,32 +926,16 @@ export default {
                           </div>
                         </div> -->
                         <div class="position-relative datepickrs">
-                          <DatePicker
-                            v-model="selecteDatepickers.date"
-                            class="datePicker"
-                            :min-date="new Date()"
-                          >
+                          <DatePicker v-model="selecteDatepickers.date" class="datePicker" :min-date="new Date()">
                             <template #default="{ togglePopover, hidePopover }">
-                              <div
-                                class="flex d-flex flex-wrap justify-content-start ps-4"
-                              >
-                                <button
-                                  v-for="date in datesPickers"
-                                  :key="date.date"
-                                  @click.prevent="
-                                    dateSelected($event, date, togglePopover)
-                                  "
-                                  ref="button"
-                                  class="button"
-                                >
+                              <div class="flex d-flex flex-wrap justify-content-start ps-4">
+                                <button v-for="date in datesPickers" :key="date.date" @click.prevent="
+                                  dateSelected($event, date, togglePopover)
+                                  " ref="button" class="button">
                                   {{ date.date.toLocaleDateString() }}
-                                  <em
-                                    href="#"
-                                    class="bi bi-x text-danger"
-                                    @click.prevent="
-                                      removeDate(date, hidePopover)
-                                    "
-                                  ></em>
+                                  <em href="#" class="bi bi-x text-danger" @click.prevent="
+                                    removeDate(date, hidePopover)
+                                    "></em>
                                 </button>
                               </div>
                             </template>
@@ -1046,58 +944,33 @@ export default {
                             + Ajouter une date
                           </button>
                         </div>
-                        <label class="badge bg-info"
-                          >Premier plage horaire</label
-                        >
+                        <label class="badge bg-info">Premier plage horaire</label>
                         <div class="col-lg-6">
                           <div class="mb-3">
                             <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="First_heure_start_from"
-                              required
-                              min="06:00"
-                            />
+                            <input class="form-control" type="time" v-model="First_heure_start_from" required
+                              min="06:00" />
                           </div>
                         </div>
                         <div class="col-lg-6">
                           <div class="mb-3">
                             <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="First_heure_end_to"
-                              required
-                              max="23:59"
-                              min="06:00"
-                            />
+                            <input class="form-control" type="time" v-model="First_heure_end_to" required max="23:59"
+                              min="06:00" />
                           </div>
                         </div>
-                        <label class="badge bg-warning"
-                          >Deuxieme plage horaire</label
-                        >
+                        <label class="badge bg-warning">Deuxieme plage horaire</label>
                         <div class="col-lg-6">
                           <div class="mb-3">
                             <label>Heure de début</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Second_heure_start_from"
-                              min="06:00"
-                            />
+                            <input class="form-control" type="time" v-model="Second_heure_start_from" min="06:00" />
                           </div>
                         </div>
                         <div class="col-lg-6">
                           <div class="mb-3">
                             <label>Heure de fin</label>
-                            <input
-                              class="form-control"
-                              type="time"
-                              v-model="Second_heure_end_to"
-                              max="23:00"
-                              min="06:00"
-                            />
+                            <input class="form-control" type="time" v-model="Second_heure_end_to" max="23:00"
+                              min="06:00" />
                           </div>
                         </div>
                       </div>
@@ -1105,10 +978,7 @@ export default {
                       <div class="row">
                         <div class="col">
                           <div class="text-end">
-                            <button
-                              class="btn btn-secondary me-3"
-                              type="submit"
-                            >
+                            <button class="btn btn-secondary me-3" type="submit">
                               Créer
                             </button>
                           </div>
@@ -1123,12 +993,7 @@ export default {
         </div>
       </div>
 
-      <div
-        class="tab-pane fade show active"
-        id="voir_emploi_temps"
-        role="tabpanel"
-        aria-labelledby="voir_emploi_temps"
-      >
+      <div class="tab-pane fade show active" id="voir_emploi_temps" role="tabpanel" aria-labelledby="voir_emploi_temps">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12 card py-3 px-2">
@@ -1149,17 +1014,9 @@ export default {
                       {{ item.Second_horaire.replace("-", " à ") }}
                     </td>
                     <td v-else>Pas de plage horaire</td>
-                    <td
-                      class="d-flex justify-content-center align-items-center"
-                    >
-                      <em
-                        class="bi bi-pencil"
-                        @click="show_timetable(item.id)"
-                      ></em>
-                      <em
-                        class="bi bi-trash"
-                        @click="show_box_confirmation_delete(item.id)"
-                      ></em>
+                    <td class="d-flex justify-content-center align-items-center">
+                      <em class="bi bi-pencil" @click="show_timetable(item.id)"></em>
+                      <em class="bi bi-trash" @click="show_box_confirmation_delete(item.id)"></em>
                     </td>
                   </tr>
                 </tbody>
@@ -1168,27 +1025,13 @@ export default {
           </div>
         </div>
       </div>
-      <div
-        class="tab-pane fade show"
-        id="competence"
-        role="tabpanel"
-        aria-labelledby="competence"
-      >
+      <div class="tab-pane fade show" id="competence" role="tabpanel" aria-labelledby="competence">
         <div class="container-fluid">
           <div class="row">
             <div>
-              <VueMultiselect
-                v-model="competence"
-                :options="competencesPredf"
-                :multiple="true"
-                :taggable="true"
-                :tag="addTag"
-                @update:model-value="addTag"
-                label="competence"
-                track-by="competence"
-                placeholder="selectionne une competence"
-                class="vuemulti"
-              >
+              <VueMultiselect v-model="competence" :options="competencesPredf" :multiple="true" :taggable="true"
+                :tag="addTag" @update:model-value="addTag" label="competence" track-by="competence"
+                placeholder="selectionne une competence" class="vuemulti">
               </VueMultiselect>
               <button class="btn bg-primary" @click="addCompetences">
                 Ajouter
@@ -1205,17 +1048,12 @@ export default {
                 <tbody>
                   <tr v-for="(item, index) in competences" :key="index">
                     <td>{{ item.competence }}</td>
-                    <td
-                      class="d-flex justify-content-center align-items-center"
-                    >
-                      <em
-                        class="bi bi-trash"
-                        @click="
-                          showBoxConfirmationDeleteCompetences(
-                            item.pivot.competence_id
-                          )
-                        "
-                      ></em>
+                    <td class="d-flex justify-content-center align-items-center">
+                      <em class="bi bi-trash" @click="
+                        showBoxConfirmationDeleteCompetences(
+                          item.pivot.competence_id
+                        )
+                        "></em>
                     </td>
                   </tr>
                 </tbody>
@@ -1232,12 +1070,15 @@ export default {
 .flex {
   padding: 1em 0;
 }
+
 h3 {
   text-transform: none !important;
 }
+
 label {
   text-align: left !important;
 }
+
 .btn-secondary {
   background: rgb(5, 35, 73) !important;
   border: 1px solid rgb(5, 35, 73) !important;
@@ -1246,10 +1087,12 @@ label {
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -1262,6 +1105,7 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .delete_article {
   position: fixed;
   left: 0;
@@ -1274,6 +1118,7 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .ecran {
   position: absolute;
   left: 0;
@@ -1285,6 +1130,7 @@ td {
   background: transparent;
   z-index: 99;
 }
+
 .plan-modify {
   position: fixed;
   left: 0;
@@ -1297,27 +1143,32 @@ td {
   place-items: center;
   justify-content: center;
 }
+
 .modify-form {
   margin-left: 50%;
   transform: translateX(-35%);
 }
+
 .bi {
   font-size: 1.3em !important;
   margin: 0 0.5em;
   cursor: pointer;
 }
+
 .btnAdd {
   position: absolute;
   left: 0;
   bottom: 0;
   font-weight: bold;
 }
+
 .datepickrs {
   padding: 1em 0;
   background: rgba(98, 98, 231, 0.108);
   margin: 0 0 2em 0;
   border-radius: 5px;
 }
+
 .button {
   width: auto !important;
   padding: 0.2em !important;

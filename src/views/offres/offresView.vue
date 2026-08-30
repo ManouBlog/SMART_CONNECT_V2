@@ -55,7 +55,7 @@ export default {
       axios
         .put(
           "https://backend.monbrobroli.com/api/modify_offre_entreprise/" +
-            this.id_offre_update,
+          this.id_offre_update,
           {
             nom_offre: this.offre_id.nom_offre,
             description: this.offre_id.description,
@@ -84,7 +84,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        
+
         });
     },
     get_offres() {
@@ -135,7 +135,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          
+
         });
     },
     async show_offre_id(id) {
@@ -158,7 +158,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          
+
         });
     },
     create_offre() {
@@ -238,7 +238,7 @@ export default {
       axios
         .delete(
           "https://backend.monbrobroli.com/api/delete_offre_entreprise/" +
-            this.id_for_delete,
+          this.id_for_delete,
           {
             headers: {
               Authorization: "Bearer " + this.$store.state.token,
@@ -345,10 +345,7 @@ export default {
               <div class="card">
                 <div class="card-body position-relative">
                   <div class="Myspinner" v-show="spinnerModify">
-                    <div
-                      class="spinner-border text-primary"
-                      role="status"
-                    ></div>
+                    <div class="spinner-border text-primary" role="status"></div>
                   </div>
                   <h1 class="badge bg-primary h3 my-2">Modifier l'offre</h1>
                   <div class="form theme-form projectcreate">
@@ -357,25 +354,15 @@ export default {
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>Nom de l'offre</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              v-model="offre_id.nom_offre"
-                              placeholder="ex:serveuse,barman,pianiste"
-                              required
-                            />
+                            <input class="form-control" type="text" v-model="offre_id.nom_offre"
+                              placeholder="ex:serveuse,barman,pianiste" required />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>Prime</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              v-model.number="offre_id.salaire"
-                              placeholder="ex:35.000 Fcfa"
-                              required
-                            />
+                            <input class="form-control" type="text" v-model.number="offre_id.salaire"
+                              placeholder="ex:35.000 Fcfa" required />
                           </div>
                         </div>
                         <div class="col-lg-4">
@@ -383,11 +370,7 @@ export default {
                             <label>Payer</label>
                             <select v-model="offre_id.pointage">
                               <option value="" disabled>Payer Par</option>
-                              <option
-                                :value="item.libelle"
-                                v-for="(item, index) in OptionsOfpointage"
-                                :key="index"
-                              >
+                              <option :value="item.libelle" v-for="(item, index) in OptionsOfpointage" :key="index">
                                 {{ item.libelle }}
                               </option>
                             </select>
@@ -397,35 +380,20 @@ export default {
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>lieu</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              v-model="offre_id.lieu"
-                              placeholder="ex:Angré"
-                              required
-                            />
+                            <input class="form-control" type="text" v-model="offre_id.lieu" placeholder="ex:Angré"
+                              required />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>Debut</label>
-                            <input
-                              class="form-control"
-                              type="date"
-                              v-model="offre_id.debut"
-                              required
-                            />
+                            <input class="form-control" type="date" v-model="offre_id.debut" required />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>Fin</label>
-                            <input
-                              class="form-control"
-                              type="date"
-                              v-model="offre_id.fin"
-                              required
-                            />
+                            <input class="form-control" type="date" v-model="offre_id.fin" required />
                           </div>
                         </div>
                         <div class="col-lg-12">
@@ -449,16 +417,10 @@ export default {
                       <div class="row">
                         <div class="col">
                           <div class="text-end">
-                            <button
-                              class="btn btn-danger me-3"
-                              @click.prevent="show_offre_modify"
-                            >
+                            <button class="btn btn-danger me-3" @click.prevent="show_offre_modify">
                               Annuler
                             </button>
-                            <button
-                              class="btn btn-secondary"
-                              @click.prevent="update_offre"
-                            >
+                            <button class="btn btn-secondary" @click.prevent="update_offre">
                               Modifier
                             </button>
                           </div>
@@ -474,10 +436,7 @@ export default {
       </div>
     </div>
 
-    <div
-      class="ecran_for_delete delete_article"
-      v-show="confirmation_for_delete"
-    >
+    <div class="ecran_for_delete delete_article" v-show="confirmation_for_delete">
       <div class="card p-5">
         <p class="h3 my-2">Voulez-vous vraiment supprimer?</p>
         <div>
@@ -506,27 +465,13 @@ export default {
         <div class="social-tab">
           <ul class="nav nav-tabs" id="top-tab" role="tablist">
             <li class="nav-item">
-              <a
-                class="nav-link active"
-                id="top-timeline"
-                data-bs-toggle="tab"
-                href="#voir_emploi_temps"
-                role="tab"
-                aria-controls=" voir_emploi_temps"
-                aria-selected="true"
-                ><em data-feather="clock"></em>Voir mes offres</a
-              >
+              <a class="nav-link active" id="top-timeline" data-bs-toggle="tab" href="#voir_emploi_temps" role="tab"
+                aria-controls=" voir_emploi_temps" aria-selected="true"><em data-feather="clock"></em>Voir mes
+                offres</a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                id="top-about"
-                data-bs-toggle="tab"
-                href=" #timetable "
-                role="tab"
-                aria-controls="timetable"
-                aria-selected="false"
-                ><em data-feather="alert-circle"></em>Créer une offre
+              <a class="nav-link" id="top-about" data-bs-toggle="tab" href=" #timetable " role="tab"
+                aria-controls="timetable" aria-selected="false"><em data-feather="alert-circle"></em>Créer une offre
               </a>
             </li>
           </ul>
@@ -534,12 +479,7 @@ export default {
       </div>
     </div>
     <div class="tab-content" id="top-tabContent">
-      <div
-        class="tab-pane fade"
-        id="timetable"
-        role="tabpanel"
-        aria-labelledby="timetable"
-      >
+      <div class="tab-pane fade" id="timetable" role="tabpanel" aria-labelledby="timetable">
         <div class="container-fluid">
           <div class="Myspinner" v-show="spinner">
             <div class="spinner-border text-primary" role="status"></div>
@@ -558,11 +498,7 @@ export default {
                               <option value="" disabled>
                                 Sélectionner une catégorie
                               </option>
-                              <option
-                                :value="item.id"
-                                v-for="(item, index) in categories"
-                                :key="index"
-                              >
+                              <option :value="item.id" v-for="(item, index) in categories" :key="index">
                                 {{ item.categorie }}
                               </option>
                             </select>
@@ -571,26 +507,15 @@ export default {
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>Nom de l'offre</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              v-model="offre"
-                              placeholder="ex:serveuse,barman,pianiste"
-                              required
-                              pattern="[A-Za-zÀ-ȕ(),-_., ]*"
-                            />
+                            <input class="form-control" type="text" v-model="offre"
+                              placeholder="ex:serveuse,barman,pianiste" required pattern="[A-Za-zÀ-ȕ(),-_., ]*" />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>Prime</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              v-model="salaire"
-                              placeholder="ex:35.000 Fcfa"
-                              pattern="[0-9]*"
-                            />
+                            <input class="form-control" type="text" v-model="salaire" placeholder="ex:35.000 Fcfa"
+                              pattern="[0-9]*" />
                           </div>
                         </div>
                         <div class="col-lg-4" v-if="salaire">
@@ -598,11 +523,7 @@ export default {
                             <label>Payer</label>
                             <select v-model="pointage">
                               <option value="" disabled>Payer Par</option>
-                              <option
-                                :value="item.libelle"
-                                v-for="(item, index) in OptionsOfpointage"
-                                :key="index"
-                              >
+                              <option :value="item.libelle" v-for="(item, index) in OptionsOfpointage" :key="index">
                                 {{ item.libelle }}
                               </option>
                             </select>
@@ -612,39 +533,21 @@ export default {
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>lieu</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              v-model="lieu"
-                              placeholder="ex:Angré"
-                              required
-                              pattern="[A-Za-zÀ-ȕ(),-_., ]*"
-                            />
+                            <input class="form-control" type="text" v-model="lieu" placeholder="ex:Angré" required
+                              pattern="[A-Za-zÀ-ȕ(),-_., ]*" />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label>Début du contrat</label>
-                            <input
-                              class="form-control"
-                              type="date"
-                              v-model="debut"
-                              required
-                              :min="Today"
-                            />
+                            <input class="form-control" type="date" v-model="debut" required :min="Today" />
                           </div>
                         </div>
                         <div class="col-lg-4" v-if="debut">
                           <div class="mb-3">
                             <label> Fin du contrat</label>
-                            <input
-                              class="form-control"
-                              :class="debut != null ? '' : 'disabled'"
-                              type="date"
-                              v-model="fin"
-                              required
-                              :min="debut"
-                            />
+                            <input class="form-control" :class="debut != null ? '' : 'disabled'" type="date"
+                              v-model="fin" required :min="debut" />
                           </div>
                         </div>
 
@@ -670,16 +573,9 @@ export default {
                       <div class="row">
                         <div class="col">
                           <div class="text-end">
-                            <button
-                              class="btn btn-secondary me-3"
-                              type="submit"
-                            >
-                              <span
-                                class="spinner-border w-20"
-                                role="status"
-                                v-show="loading"
-                              ></span
-                              ><span v-show="creer">Créer</span>
+                            <button class="btn btn-secondary me-3" type="submit">
+                              <span class="spinner-border w-20" role="status" v-show="loading"></span><span
+                                v-show="creer">Créer</span>
                             </button>
                           </div>
                         </div>
@@ -693,12 +589,7 @@ export default {
         </div>
       </div>
 
-      <div
-        class="tab-pane fade show active"
-        id="voir_emploi_temps"
-        role="tabpanel"
-        aria-labelledby="voir_emploi_temps"
-      >
+      <div class="tab-pane fade show active" id="voir_emploi_temps" role="tabpanel" aria-labelledby="voir_emploi_temps">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12 card py-3 px-2">
@@ -718,46 +609,33 @@ export default {
                   <tr v-for="(item, index) in offres" :key="index">
                     <td>
                       {{ item.nom_offre }}
-                      <span
-                        v-if="
-                          JSON.stringify(
-                            new Date().toISOString().substring(0, 10)
-                          ) > JSON.stringify(new Date(item.fin))
-                        "
-                        class="badge bg-danger"
-                        >Expirée</span
-                      >
+                      <span v-if="
+                        JSON.stringify(
+                          new Date().toISOString().substring(0, 10)
+                        ) > JSON.stringify(new Date(item.fin))
+                      " class="badge bg-danger">Expirée</span>
                       <span v-else-if="new Date() == new Date(item.fin)"></span>
                     </td>
                     <td>{{ item.lieu }}</td>
                     <td v-if="item.salaire != null">
                       {{ !isNaN(Number(item.salaire)) ? `${moneyFormat.format(item.salaire)} Fcfa`
-            : item.salaire }}
-            <span v-if="item.pointage">/{{ item.pointage }}</span>
+                        : item.salaire }}
+                      <span v-if="item.pointage">/{{ item.pointage }}</span>
                     </td>
                     <td v-else>pas de prime</td>
-                    <td>{{ item.fin ? new Date(item.fin).toLocaleDateString("fr"):'-' }}</td>
+                    <td>{{ item.fin ? new Date(item.fin).toLocaleDateString("fr") : '-' }}</td>
 
                     <td class="details">
-                      <em
-                        v-if="
-                          JSON.stringify(
-                            new Date().toISOString().substring(0, 10)
-                          ) < JSON.stringify(new Date(item.fin))
-                        "
-                        class="bi bi-pencil mx-2"
-                        @click="show_offre_id(item.id)"
-                      ></em>
-                      <em
-                        class="bi bi-trash"
-                        @click="show_box_confirmation_delete(item.id)"
-                      ></em>
-                      <router-link
-                        :to="{
-                          name: 'detailsOffreEntreprise',
-                          params: { id: item.id },
-                        }"
-                        ><em class="bi bi-eye"></em>
+                      <em v-if="
+                        JSON.stringify(
+                          new Date().toISOString().substring(0, 10)
+                        ) < JSON.stringify(new Date(item.fin))
+                      " class="bi bi-pencil mx-2" @click="show_offre_id(item.id)"></em>
+                      <em class="bi bi-trash" @click="show_box_confirmation_delete(item.id)"></em>
+                      <router-link :to="{
+                        name: 'detailsOffreEntreprise',
+                        params: { id: item.id },
+                      }"><em class="bi bi-eye"></em>
                       </router-link>
                     </td>
                   </tr>
@@ -775,6 +653,7 @@ export default {
 .mb-3 {
   text-align: left;
 }
+
 .conteneur_editor {
   border: 1px solid black;
   color: black !important;
@@ -782,32 +661,40 @@ export default {
   padding: 0 0 2em 0;
   height: auto;
 }
+
 label {
   font-weight: bold;
 }
+
 .btn-secondary {
   background: rgb(5, 35, 73) !important;
   border: 1px solid rgb(5, 35, 73) !important;
 }
+
 input,
 textarea,
 select {
   border: 2px solid rgb(86, 86, 86) !important;
 }
+
 select {
   border-radius: 5px !important;
   width: 100%;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 th {
   text-align: center;
 }
+
 .Myspinner {
   position: fixed;
   left: 0;
@@ -820,6 +707,7 @@ th {
   place-items: center;
   justify-content: center;
 }
+
 .plan-modify {
   position: fixed;
   left: 0;
@@ -832,6 +720,7 @@ th {
   place-items: center;
   justify-content: center;
 }
+
 .delete_article {
   position: fixed;
   left: 0;
@@ -844,6 +733,7 @@ th {
   place-items: center;
   justify-content: center;
 }
+
 .ecran {
   position: absolute;
   left: 0;
@@ -855,10 +745,12 @@ th {
   background: transparent;
   z-index: 99;
 }
+
 .modify-form {
   margin-left: 50%;
   transform: translateX(-35%);
 }
+
 .bi {
   font-size: 1.3em !important;
   margin: 0 0.5em;

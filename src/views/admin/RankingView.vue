@@ -284,6 +284,7 @@ const top4Data = computed(() => {
   height: 50px;
   object-fit: contain;
 }
+
 .rank-card {
   display: flex;
   align-items: center;
