@@ -1,6 +1,6 @@
 <script>
 /* eslint-disable */
-import axios from "axios";
+// import axios from "axios";
 // import Swal from "sweetalert2";
 import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
