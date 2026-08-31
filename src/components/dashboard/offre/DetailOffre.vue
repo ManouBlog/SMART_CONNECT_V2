@@ -156,7 +156,54 @@ export default {
             trigger: "change"
           }
         ],
+        debut: [
+          {
+            required: true,
+            message: "Veuillez ajouter une date de début",
+            trigger: "blur"
+          },
+          // {
+          //   validator: async (_rule, value) => {
 
+          //     if (!this.formState.hour_debut || !value) {
+          //       return Promise.resolve();
+          //     }
+
+          //     if (value <= this.formState.hour_debut) {
+          //       return Promise.reject(
+          //         "L'heure de fin doit être supérieure à l'heure de début"
+          //       );
+          //     }
+
+          //     return Promise.resolve();
+          //   },
+          //   trigger: "change",
+          // },
+        ],
+        fin: [
+          {
+            required: true,
+            message: "Veuillez ajouter une date de fin",
+            trigger: "blur"
+          },
+          // {
+          //   validator: async (_rule, value) => {
+
+          //     if (!this.formState.hour_debut || !value) {
+          //       return Promise.resolve();
+          //     }
+
+          //     if (value <= this.formState.hour_debut) {
+          //       return Promise.reject(
+          //         "L'heure de fin doit être supérieure à l'heure de début"
+          //       );
+          //     }
+
+          //     return Promise.resolve();
+          //   },
+          //   trigger: "change",
+          // },
+        ],
         competence_id: [
           {
             required: true,
@@ -744,7 +791,9 @@ export default {
           <a-row :gutter="[16, 16]">
             <a-col :xs="24" :md="8">
               <a-form-item name="debut" label="Date de début">
-                <a-input type="date" v-model:value="formState.debut" @change="(e) => {
+                <a-input type="date" v-model:value="formState.debut"
+                :min="formState.debut || Today"
+                @change="(e) => {
                   //  console.log(e.target.value)
                   if (e.target.value) formState.fin = null
                 }" style="height:30px !important;border:1px solid #cdcccc !important" />
