@@ -135,6 +135,9 @@ export default {
   {{ statuChoosen.statut }}
 </span>
         </div>
+        <div v-if="item.fieldName === 'job_debut'">
+         <span>{{ slotProps.data.job_debut ? slotProps.data.job_debut:"-" }}</span>
+        </div>
         <span v-if="item.fieldName === 'fin'">
          <span v-if="slotProps.data.fin">{{ configUtils.getFormatDateFr(slotProps.data.fin?.split(' ')[0]) }}</span>
          <span v-else>-</span> 
