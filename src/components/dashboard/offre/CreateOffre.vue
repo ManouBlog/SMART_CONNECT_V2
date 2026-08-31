@@ -72,7 +72,7 @@ export default {
             trigger: "blur"
           }
         ],
-        job_debut: [
+        debut: [
           {
             required: true,
             message: "Veuillez ajouter une date de début",
@@ -96,7 +96,7 @@ export default {
           //   trigger: "change",
           // },
         ],
-        job_fin: [
+        fin: [
           {
             required: true,
             message: "Veuillez ajouter une date de fin",
@@ -131,8 +131,8 @@ export default {
         description: "",
         categorie_offre_id: "",
         competence_id: "",
-        job_debut: "",
-        job_fin: "",
+        debut: "",
+        fin: "",
         status_id: [7]
       },
       countries: [],
@@ -249,8 +249,8 @@ export default {
         !this.formState.salaire ||
         !this.formState.lieu ||
         !this.formState.pointage ||
-        !this.formState.job_debut ||
-        !this.formState.job_fin ||
+        !this.formState.debut ||
+        !this.formState.fin ||
         !this.formState.description ||
         !this.formState.categorie_offre_id
         || !this.formState.competence_id
@@ -491,49 +491,48 @@ export default {
         this.formState.nom_offre = this.formState.otherPoste
       }
       if (this.formState.competence_id) {
-        this.formState.nom_offre = this.competenceWithCategorie.find(item=>item.id == this.formState.competence_id).competence
+        this.formState.nom_offre = this.competenceWithCategorie.find(item => item.id == this.formState.competence_id).competence
       }
       console.log("this.formState", this.formState);
-      
 
-      //   try {
-      //     const res = await instance.post("create_offre", this.formState);
+      try {
+        const res = await instance.post("create_offre", this.formState);
 
-      //     this.spinner = true;
-      //     this.loading = false;
+        this.spinner = true;
+        this.loading = false;
 
-      //     if (res.data.status === true) {
-      //       Swal.fire({
-      //         icon: "success",
-      //         title: res.data.message,
-      //         showConfirmButton: false,
-      //         timer: 1500,
-      //       });
-      //       this.resetDataFormState();
-      //     }
+        if (res.data.status === true) {
+          Swal.fire({
+            icon: "success",
+            title: res.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.resetDataFormState();
+        }
 
-      //     if (res.data.status === false) {
-      //   Swal.fire({
-      //     icon: "info",
-      //     title: res.data.message,
-      //     confirmButtonText: "Okay",
-      //     confirmButtonColor: "#f97316", // orange
-      //   }).then((result) => {
-      //     if (result.isConfirmed) {
-      //       this.$router.push("/abonnements"); // remplace par ta route
-      //     }
-      //   });
-      // }
-      //   } catch (error) {
-      //     Swal.fire({
-      //       icon: "error",
-      //       title: error.response?.data?.message,
-      //       showConfirmButton: true,
-      //     });
-      //   } finally {
-      //     this.loading = false; // ou toute autre chose à systématiquement faire
-      //     this.StoreLoading.launchLoading(false);
-      //   }
+        if (res.data.status === false) {
+          Swal.fire({
+            icon: "info",
+            title: res.data.message,
+            confirmButtonText: "Okay",
+            confirmButtonColor: "#f97316", // orange
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$router.push("/abonnements"); // remplace par ta route
+            }
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: error.response?.data?.message,
+          showConfirmButton: true,
+        });
+      } finally {
+        this.loading = false; // ou toute autre chose à systématiquement faire
+        this.StoreLoading.launchLoading(false);
+      }
     },
     async lister_statut() {
       try {
@@ -648,8 +647,8 @@ export default {
       this.formState.description = "";
       this.formState.categorie_offre_id = "";
       this.formState.competence_id = "";
-      this.formState.job_debut = "";
-      this.formState.job_fin = ""
+      this.formState.debut = "";
+      this.formState.fin = ""
       this.formState.enable_urgent = false
     },
     chooseCompetenceFormState(value) {
@@ -957,18 +956,15 @@ export default {
             <!-- Type mission -->
             <a-row :gutter="[16, 16]">
               <a-col :xs="24" :md="8">
-                <a-form-item name="job_debut" label="Date de début">
-                  <a-input type="date" v-model:value="formState.job_debut"
-                    style="height:30px 
+                <a-form-item name="debut" label="Date de début">
+                  <a-input type="date" v-model:value="formState.debut" style="height:30px 
                     !important;
-                    border:1px solid #cdcccc !important" 
-                    :min="Today"
-                    />
+                    border:1px solid #cdcccc !important" :min="Today" />
                 </a-form-item>
               </a-col>
               <a-col :xs="24" :md="8">
-                <a-form-item name="job_fin" label="Date de fin">
-                  <a-input type="date" :min="formState.job_debut" v-model:value="formState.job_fin"
+                <a-form-item name="fin" label="Date de fin">
+                  <a-input type="date" :min="formState.debut" v-model:value="formState.fin"
                     style="height:30px !important;border:1px solid #cdcccc !important" />
                 </a-form-item>
               </a-col>
