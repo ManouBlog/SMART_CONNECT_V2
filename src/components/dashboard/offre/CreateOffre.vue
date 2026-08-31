@@ -72,30 +72,54 @@ export default {
             trigger: "blur"
           }
         ],
-        // hour_fin: [
-        //   {
-        //     required: false,
-        //     message: "Veuillez sélectionner une heure de fin",
-        //     trigger: "change",
-        //   },
-        //   {
-        //     validator: async (_rule, value) => {
+        job_debut: [
+          {
+            required: true,
+            message: "Veuillez ajouter une date de début",
+            trigger: "blur"
+          },
+          // {
+          //   validator: async (_rule, value) => {
 
-        //       if (!this.formState.hour_debut || !value) {
-        //         return Promise.resolve();
-        //       }
+          //     if (!this.formState.hour_debut || !value) {
+          //       return Promise.resolve();
+          //     }
 
-        //       if (value <= this.formState.hour_debut) {
-        //         return Promise.reject(
-        //           "L'heure de fin doit être supérieure à l'heure de début"
-        //         );
-        //       }
+          //     if (value <= this.formState.hour_debut) {
+          //       return Promise.reject(
+          //         "L'heure de fin doit être supérieure à l'heure de début"
+          //       );
+          //     }
 
-        //       return Promise.resolve();
-        //     },
-        //     trigger: "change",
-        //   },
-        // ],
+          //     return Promise.resolve();
+          //   },
+          //   trigger: "change",
+          // },
+        ],
+        job_fin: [
+          {
+            required: true,
+            message: "Veuillez ajouter une date de fin",
+            trigger: "blur"
+          },
+          // {
+          //   validator: async (_rule, value) => {
+
+          //     if (!this.formState.hour_debut || !value) {
+          //       return Promise.resolve();
+          //     }
+
+          //     if (value <= this.formState.hour_debut) {
+          //       return Promise.reject(
+          //         "L'heure de fin doit être supérieure à l'heure de début"
+          //       );
+          //     }
+
+          //     return Promise.resolve();
+          //   },
+          //   trigger: "change",
+          // },
+        ],
       },
       formState: {
         offre_mode_travail: null,
@@ -225,6 +249,8 @@ export default {
         !this.formState.salaire ||
         !this.formState.lieu ||
         !this.formState.pointage ||
+        !this.formState.job_debut ||
+        !this.formState.job_fin ||
         !this.formState.description ||
         !this.formState.categorie_offre_id
         || !this.formState.competence_id
@@ -619,15 +645,11 @@ export default {
       this.formState.offre = "";
       this.formState.salaire = "";
       this.formState.lieu = "";
-      this.formState.typeMission = null;
-      this.formState.dateMission = null;
       this.formState.description = "";
       this.formState.categorie_offre_id = "";
       this.formState.competence_id = "";
       this.formState.job_debut = "";
       this.formState.job_fin = ""
-      this.formState.hour_debut = null;
-      this.formState.hour_fin = null;
       this.formState.enable_urgent = false
     },
     chooseCompetenceFormState(value) {
