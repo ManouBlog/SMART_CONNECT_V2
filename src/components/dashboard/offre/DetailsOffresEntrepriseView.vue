@@ -135,9 +135,7 @@ export default {
             : entreprise?.salaire }}
             <b v-if="entreprise.pointage">/{{ entreprise.pointage }}</b>
             
-            </span
-          >
-
+            </span>
           <span
             v-else
             class="d-block text-light badge bg-primary w-25 text-align-start h5"

@@ -920,22 +920,15 @@ export default {
                     <a-select-option value="Semaine">
                       Semaine
                     </a-select-option>
+                    <a-select-option value="Quinzaine">
+                      Quinzaine
+                    </a-select-option>
 
                     <a-select-option value="Mois">
                       Mois
                     </a-select-option>
 
-                    <a-select-option value="Trimestre">
-                      Trimestre
-                    </a-select-option>
 
-                    <a-select-option value="Semestre">
-                      Semestre
-                    </a-select-option>
-
-                    <a-select-option value="Année">
-                      Année
-                    </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
