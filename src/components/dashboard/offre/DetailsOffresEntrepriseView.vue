@@ -124,7 +124,7 @@ export default {
             {{ texte1 }} : <strong style="color: orange"> {{ entreprise?.lieu }}</strong>
             
           </h4>
-           <h4 class="fw-bold my-4" style="color: white">Mode de travail : <strong style="color: orange">{{ entreprise?.offre_mode_travail}}</strong></h4>
+           <h4 class="fw-bold my-4" style="color: white" v-if="entreprise?.offre_mode_travail">Mode de travail : <strong style="color: orange">{{ entreprise?.offre_mode_travail}}</strong></h4>
           <div class="d-flex align-items-center flex-wrap">
 
             <span
@@ -186,15 +186,15 @@ export default {
         </div>
    
         <div class="px-5">
-          <span v-if="entreprise?.fin">{{ texte5 }} : {{ entreprise?.fin }}</span>
+          <span v-if="entreprise?.fin">{{ texte5 }} : {{ entreprise?.fin?.split(' ')[0] }}</span>
         </div>
           <div class="px-5 flex g-5">
           <span  v-if="entreprise?.hour_debut">Heure de début : {{ entreprise?.hour_debut }}</span>
           <span  v-if="entreprise?.hour_fin">Heure de fin : {{ entreprise?.hour_fin }}</span>
         </div>
         <div class="px-3">
-          <span class="d-block px-3">{{ texte8 }}: {{ entreprise?.job_debut }}</span>
-          <span class="px-3" v-if="entreprise?.job_fin">{{ texte9 }} : {{ entreprise?.job_fin }}</span>
+          <span class="d-block px-3" v-if="entreprise?.job_debut">{{ texte8 }}: {{ entreprise?.job_debut?.split(' ')[0] }}</span>
+          <span class="px-3" v-if="entreprise?.job_fin">{{ texte9 }} : {{ entreprise?.job_fin?.split(' ')[0] }}</span>
           <span class="d-block px-3"
             >{{ texte6 }}:
             {{ diffForHumans(new Date(entreprise?.created_at).toISOString()) }}</span
