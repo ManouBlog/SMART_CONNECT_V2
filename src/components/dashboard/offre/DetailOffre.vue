@@ -359,7 +359,7 @@ export default {
         this.formState.description = offre.description
         this.formState.otherDomaine = offre.otherDomaine || ''
         this.formState.otherPoste = offre.otherPoste || ''
-        this.formState.enable_urgent = offre.enable_urgent ? true : false;
+        this.formState.enable_urgent = offre.enable_urgent ? 1 : 0;
         this.formState.hour_debut = offre.hour_debut;
         this.formState.hour_fin = offre.hour_fin;
         this.formState.pointage = offre.pointage;
