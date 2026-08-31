@@ -906,16 +906,15 @@ export default {
             </a-row>
             <!-- Offre + Salaire -->
             <a-row :gutter="[16, 16]">
-              <a-col :xs="24" :md="12">
+              <a-col :xs="24" :md="8">
                 <a-form-item name="salaire" :label="'Prix de la mission'">
                   <a-input v-model:value="formState.salaire" min="1" type="number"
                     style="height:30px !important;border:1px solid #cdcccc !important" />
                 </a-form-item>
               </a-col>
-              <a-col :xs="24" :md="12">
+              <a-col :xs="24" :md="8">
                 <a-form-item name="payment_term" label="Termes de paiement">
-                  <a-select v-model:value="formState.payment_term" 
-                  placeholder="Sélectionner un terme de paiement"
+                  <a-select v-model:value="formState.payment_term" placeholder="Sélectionner un terme de paiement"
                     style="height: 30px !important">
                     <a-select-option value="day">
                       Jour
@@ -943,68 +942,36 @@ export default {
                   </a-select>
                 </a-form-item>
               </a-col>
-            </a-row>
-
-            <!-- Lieu -->
-            <a-row :gutter="[16, 16]">
-              <a-col :xs="24" :md="12">
+              <a-col :xs="24" :md="8">
                 <a-form-item name="lieu" :label="'Lieu de la mission'">
                   <a-input v-model:value="formState.lieu"
                     style="height:30px !important;border:1px solid #cdcccc !important" />
                 </a-form-item>
               </a-col>
-              <a-col :xs="24" :md="12">
-                <a-form-item name="typeMission" label="Besoin">
-                  <a-select v-model:value="formState.typeMission">
-                    <a-select-option value="immediat">Immédiat</a-select-option>
-                    <a-select-option value="date">Choisir une date</a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
             </a-row>
-
             <!-- Type mission -->
             <a-row :gutter="[16, 16]">
-              <a-col :xs="24" :md="12" v-if="formState.typeMission === 'date'">
+              <a-col :xs="24" :md="8">
                 <a-form-item name="job_debut" label="Date de début">
                   <a-input type="date" v-model:value="formState.job_debut"
                     style="height:30px !important;border:1px solid #cdcccc !important" />
                 </a-form-item>
               </a-col>
-              <a-col :xs="24" :md="12" v-if="formState.typeMission === 'date'">
+              <a-col :xs="24" :md="8">
                 <a-form-item name="job_fin" label="Date de fin">
                   <a-input type="date" :min="formState.job_debut" v-model:value="formState.job_fin"
                     style="height:30px !important;border:1px solid #cdcccc !important" />
                 </a-form-item>
               </a-col>
-            </a-row>
-
-            <a-row :gutter="[16, 16]">
-              <a-col :xs="24" :md="12">
-                <a-form-item name="hour_debut" label="Heure de début">
-                  <a-input type="time" v-model:value="formState.hour_debut"
-                    style="height:30px !important;border:1px solid #cdcccc !important" />
-                </a-form-item>
-              </a-col>
-              <a-col :xs="24" :md="12">
-                <a-form-item name="hour_fin" label="Heure de fin">
-                  <a-input type="time" v-model:value="this.formState.hour_fin"
-                    style="height:30px !important;border:1px solid #cdcccc !important" />
-                </a-form-item>
-              </a-col>
-            </a-row>
-            <a-row :gutter="[16, 16]">
-              <a-col :xs="24" :md="12">
+              <a-col :xs="24" :md="8">
                 <a-form-item label="Urgente">
                   <a-switch v-model:checked="formState.enable_urgent" :style="{
                     backgroundColor: formState.enable_urgent ? 'green' : ''
                   }" />
                 </a-form-item>
               </a-col>
-
             </a-row>
-
-
+            
             <!-- Description -->
             <a-row :gutter="[16, 16]">
               <a-col :span="24">
