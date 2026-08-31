@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       rules: {
-        payment_term: [
+        pointage: [
           {
             required: true,
             message: "Le terme de paiemen est obligatoire",
@@ -102,7 +102,7 @@ export default {
         offre: "",
         salaire: "",
         lieu: "",
-        payment_term: "day",
+        pointage: "Jour",
         enable_urgent: false,
         description: "",
         categorie_offre_id: "",
@@ -224,7 +224,7 @@ export default {
         this.loading ||
         !this.formState.salaire ||
         !this.formState.lieu ||
-        !this.formState.typeMission ||
+        !this.formState.pointage ||
         !this.formState.description ||
         !this.formState.categorie_offre_id
         || !this.formState.competence_id
@@ -242,13 +242,13 @@ export default {
     }
 
   },
-  watch: {
-    "formState.typeMission"(newValue) {
-      if (newValue === "immediat") {
-        this.formState.job_fin = null;
-      }
-    }
-  },
+  // watch: {
+  //   "formState.typeMission"(newValue) {
+  //     if (newValue === "immediat") {
+  //       this.formState.job_fin = null;
+  //     }
+  //   }
+  // },
   methods: {
     filterOption(input, option) {
 
@@ -465,9 +465,10 @@ export default {
         this.formState.nom_offre = this.formState.otherPoste
       }
       if (this.formState.competence_id) {
-        this.formState.nom_offre = this.formState.competence_id
+        this.formState.nom_offre = this.competenceWithCategorie.find(item=>item.id == this.formState.competence_id).competence
       }
       console.log("this.formState", this.formState);
+      
 
       //   try {
       //     const res = await instance.post("create_offre", this.formState);
@@ -895,30 +896,30 @@ export default {
                 </a-form-item>
               </a-col>
               <a-col :xs="24" :md="8">
-                <a-form-item name="payment_term" label="Termes de paiement">
-                  <a-select v-model:value="formState.payment_term" placeholder="Sélectionner un terme de paiement"
+                <a-form-item name="pointage" label="Termes de paiement">
+                  <a-select v-model:value="formState.pointage" placeholder="Sélectionner un terme de paiement"
                     style="height: 30px !important">
-                    <a-select-option value="day">
+                    <a-select-option value="Jour">
                       Jour
                     </a-select-option>
 
-                    <a-select-option value="week">
+                    <a-select-option value="Semaine">
                       Semaine
                     </a-select-option>
 
-                    <a-select-option value="month">
+                    <a-select-option value="Mois">
                       Mois
                     </a-select-option>
 
-                    <a-select-option value="quarter">
+                    <a-select-option value="Trimestre">
                       Trimestre
                     </a-select-option>
 
-                    <a-select-option value="semester">
+                    <a-select-option value="Semestre">
                       Semestre
                     </a-select-option>
 
-                    <a-select-option value="year">
+                    <a-select-option value="Année">
                       Année
                     </a-select-option>
                   </a-select>
@@ -936,7 +937,11 @@ export default {
               <a-col :xs="24" :md="8">
                 <a-form-item name="job_debut" label="Date de début">
                   <a-input type="date" v-model:value="formState.job_debut"
-                    style="height:30px !important;border:1px solid #cdcccc !important" />
+                    style="height:30px 
+                    !important;
+                    border:1px solid #cdcccc !important" 
+                    :min="Today"
+                    />
                 </a-form-item>
               </a-col>
               <a-col :xs="24" :md="8">
