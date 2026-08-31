@@ -136,7 +136,7 @@ export default {
 </span>
         </div>
         <span v-if="item.fieldName === 'fin'">
-         <span v-if="slotProps.data.fin">{{ configUtils.getFormatDateFr(slotProps.data.fin) }}</span>
+         <span v-if="slotProps.data.fin">{{ configUtils.getFormatDateFr(slotProps.data.fin?.split(' ')[0]) }}</span>
          <span v-else>-</span> 
         </span>
         <span v-else-if="item.fieldName === 'salaire'">
