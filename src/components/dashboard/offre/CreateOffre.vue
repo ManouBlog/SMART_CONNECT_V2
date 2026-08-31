@@ -13,117 +13,105 @@ export default {
   components: {
     Editor,
     HeaderDashboard,
-    VueMultiselect, 
+    VueMultiselect,
   },
   data() {
     return {
       rules: {
-  nom_offre: [
-    {
-      required: true,
-      message: "Le nom de la mission est obligatoire",
-      trigger: "blur"
-    }
-  ],
+        payment_term: [
+          {
+            required: true,
+            message: "Le terme de paiemen est obligatoire",
+            trigger: "blur"
+          }
+        ],
+        salaire: [
+          {
+            required: true,
+            message: "Le prix est obligatoire",
+            trigger: "blur"
+          },
+          {
+            pattern: /^[0-9]+$/,
+            message: "Le prix doit contenir uniquement des chiffres",
+            trigger: "blur"
+          }
+        ],
+        lieu: [
+          {
+            required: true,
+            message: "Le lieu est obligatoire",
+            trigger: "blur"
+          }
+        ],
+        categorie_offre_id: [
+          {
+            required: true,
+            message: "Veuillez sélectionner une catégorie",
+            trigger: "change"
+          }
+        ],
 
-  salaire: [
-    {
-      required: true,
-      message: "Le prix est obligatoire",
-      trigger: "blur"
-    },
-    {
-      pattern: /^[0-9]+$/,
-      message: "Le prix doit contenir uniquement des chiffres",
-      trigger: "blur"
-    }
-  ],
+        competence_id: [
+          {
+            required: true,
+            message: "Veuillez sélectionner une compétence",
+            trigger: "change"
+          }
+        ],
 
-  lieu: [
-    {
-      required: true,
-      message: "Le lieu est obligatoire",
-      trigger: "blur"
-    }
-  ],
+        description: [
+          {
+            required: true,
+            message: "La description est obligatoire",
+            trigger: "blur"
+          },
+          {
+            min: 10,
+            message: "La description doit contenir au moins 10 caractères",
+            trigger: "blur"
+          }
+        ],
+        // hour_fin: [
+        //   {
+        //     required: false,
+        //     message: "Veuillez sélectionner une heure de fin",
+        //     trigger: "change",
+        //   },
+        //   {
+        //     validator: async (_rule, value) => {
 
-  typeMission: [
-    {
-      required: true,
-      message: "Veuillez choisir la disponibilité",
-      trigger: "change"
-    }
-  ],
+        //       if (!this.formState.hour_debut || !value) {
+        //         return Promise.resolve();
+        //       }
 
-  categorie_offre_id: [
-    {
-      required: true,
-      message: "Veuillez sélectionner une catégorie",
-      trigger: "change"
-    }
-  ],
+        //       if (value <= this.formState.hour_debut) {
+        //         return Promise.reject(
+        //           "L'heure de fin doit être supérieure à l'heure de début"
+        //         );
+        //       }
 
-  competence_id: [
-    {
-      required: true,
-      message: "Veuillez sélectionner une compétence",
-      trigger: "change"
-    }
-  ],
-
-  description: [
-    {
-      required: true,
-      message: "La description est obligatoire",
-      trigger: "blur"
-    },
-    {
-      min: 10,
-      message: "La description doit contenir au moins 10 caractères",
-      trigger: "blur"
-    }
-  ],
-  hour_fin: [
-    {
-      required: false,
-      message: "Veuillez sélectionner une heure de fin",
-      trigger: "change",
-    },
-    {
-      validator: async (_rule, value) => {
-
-        if (!this.formState.hour_debut || !value) {
-          return Promise.resolve();
-        }
-
-        if (value <= this.formState.hour_debut) {
-          return Promise.reject(
-            "L'heure de fin doit être supérieure à l'heure de début"
-          );
-        }
-
-        return Promise.resolve();
+        //       return Promise.resolve();
+        //     },
+        //     trigger: "change",
+        //   },
+        // ],
       },
-      trigger: "change",
-    },
-  ],
-},
       formState: {
-  offre_mode_travail:null,
-  offre: "",
-  salaire: "",
-  lieu: "",
-  hour_debut:null,
-  hour_fin:null,
-  enable_urgent:false,
-  description: "",
-  categorie_offre_id:"",
-  competence_id:"",
-  job_debut:"",
-  job_fin:"",
-  status_id:[7]
-},
-       countries: [],
+        offre_mode_travail: null,
+        offre: "",
+        salaire: "",
+        lieu: "",
+        payment_term: "day",
+        enable_urgent: false,
+        description: "",
+        categorie_offre_id: "",
+        competence_id: "",
+        job_debut: "",
+        job_fin: "",
+        status_id: [7]
+      },
+      countries: [],
       texte0: "",
       StoreLoading: useLoadingSpinner(),
       texte2: "",
@@ -131,10 +119,10 @@ export default {
       texte1: "",
       texte4: "",
       texte5: "",
-      chooseStatut:[],
-      allStatuses:[],
-      offre_mode_travail:null,
-      offre_pays:[],
+      chooseStatut: [],
+      allStatuses: [],
+      offre_mode_travail: null,
+      offre_pays: [],
       texte6: "",
       texte7: "",
       texte8: "",
@@ -166,7 +154,7 @@ export default {
       description: null,
       offres: null,
       spinner: false,
-      isLoadingUser:true,
+      isLoadingUser: true,
       competences: [],
       competence: "",
       offre_id: null,
@@ -203,7 +191,7 @@ export default {
           libelle: "Trimestre",
         },
       ],
-      userInfo:"",
+      userInfo: "",
       otherDomaine: "",
       otherPoste: "",
       pointage: null,
@@ -231,71 +219,72 @@ export default {
         this.chooseStatut.length > 0
       );
     },
-     isDisabledPosterMissionParticulier() {
-    return (
-      this.loading ||
-      !this.formState.salaire ||
-      !this.formState.lieu ||
-      !this.formState.typeMission ||
-      !this.formState.description ||
-       !this.formState.categorie_offre_id 
-      || !this.formState.competence_id
-    )},
-     filteredOptions() {
-    // Si "TOUS" est sélectionné, n'affiche que "TOUS"
-    if (this.chooseStatut.some(item => item.statut === 'Tous')) {
-      return this.allStatuses.filter(item => item.statut === 'Tous');
+    isDisabledPosterMissionParticulier() {
+      return (
+        this.loading ||
+        !this.formState.salaire ||
+        !this.formState.lieu ||
+        !this.formState.typeMission ||
+        !this.formState.description ||
+        !this.formState.categorie_offre_id
+        || !this.formState.competence_id
+      )
+    },
+    filteredOptions() {
+      // Si "TOUS" est sélectionné, n'affiche que "TOUS"
+      if (this.chooseStatut.some(item => item.statut === 'Tous')) {
+        return this.allStatuses.filter(item => item.statut === 'Tous');
+      }
+      if (this.chooseStatut.some(item => item.statut !== 'Tous')) {
+        return this.allStatuses.filter(item => item.statut !== 'Tous');
+      }
+      return this.allStatuses;
     }
-    if (this.chooseStatut.some(item => item.statut !== 'Tous')) {
-      return this.allStatuses.filter(item => item.statut !== 'Tous');
-    }
-    return this.allStatuses;
-  }
-    
+
   },
   watch: {
-  "formState.typeMission"(newValue) {
-    if (newValue === "immediat") {
-      this.formState.job_fin = null;
+    "formState.typeMission"(newValue) {
+      if (newValue === "immediat") {
+        this.formState.job_fin = null;
+      }
     }
-  }
-},
+  },
   methods: {
     filterOption(input, option) {
-     
-    return (option?.categorie ?? '').toLowerCase().includes(input.toLowerCase());
-  },
-  async listerCountries() {
-    try {
-      const response = await instance.get("countries");
-      this.countries = response.data;
-   
-    } catch (error) {
-      console.log(error);
-    }
-  },
-    async getInfoUser() {
-      try{
- if (this.$store.state.token) {
-        await instance
-          .get("voirInfoUserConnect")
-          .then((resp) => {
-            if (resp.data.status === true) {
-              this.userInfo = resp.data.user;
-              window.localStorage.setItem("user", JSON.stringify(resp.data.user));
-             
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+
+      return (option?.categorie ?? '').toLowerCase().includes(input.toLowerCase());
+    },
+    async listerCountries() {
+      try {
+        const response = await instance.get("countries");
+        this.countries = response.data;
+
+      } catch (error) {
+        console.log(error);
       }
-      }catch(error){
+    },
+    async getInfoUser() {
+      try {
+        if (this.$store.state.token) {
+          await instance
+            .get("voirInfoUserConnect")
+            .then((resp) => {
+              if (resp.data.status === true) {
+                this.userInfo = resp.data.user;
+                window.localStorage.setItem("user", JSON.stringify(resp.data.user));
+
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      } catch (error) {
         console.log(error)
-      }finally{
+      } finally {
         this.isLoadingUser = false
       }
-     
+
     },
     ...mapActions(useTranslateStore, ["handleTranslate"]),
     ...mapActions(useOffreStore, ["get_categorie", "getAllCompetences"]),
@@ -375,21 +364,21 @@ export default {
         fin: this.fin,
         lieu: this.lieu,
         pointage: this.pointage,
-        offre_mode_travail:this.offre_mode_travail?.label,
-        offre_pays:this.offre_pays?.map(item=>item.id),
+        offre_mode_travail: this.offre_mode_travail?.label,
+        offre_pays: this.offre_pays?.map(item => item.id),
         categorie_offre_id: !categorienew ? this.categorie : categorienew,
         competence_id: !competencenew ? this.competence : competencenew,
         nbre_person: this.nbre_person,
         job_fin: this.job_fin,
         job_debut: this.job_debut,
-        status_id:this.chooseStatut.some(item=>item.statut === 'Tous') ? this.allStatuses.filter(item=>item.statut !== 'Tous').map(item=>item.id) : this.chooseStatut.map(item=>item.id)
+        status_id: this.chooseStatut.some(item => item.statut === 'Tous') ? this.allStatuses.filter(item => item.statut !== 'Tous').map(item => item.id) : this.chooseStatut.map(item => item.id)
       };
       await instance
         .post("create_offre", data)
         .then((res) => {
           this.spinner = true;
           this.loading = false;
-       
+
           if (res.data.status === true) {
             Swal.fire({
               icon: "success",
@@ -410,7 +399,7 @@ export default {
             this.competence = null;
             this.creer = true;
             this.job_debut = null;
-              this.job_fin = null;
+            this.job_fin = null;
           }
           if (res.data.status === false) {
             Swal.fire({
@@ -424,7 +413,7 @@ export default {
           }
         })
         .catch((res) => {
-          
+
           Swal.fire({
             icon: "error",
             title: res.response.data.message,
@@ -470,84 +459,84 @@ export default {
     },
     async post_mission() {
 
-  this.StoreLoading.launchLoading(true);
+      this.StoreLoading.launchLoading(true);
 
-  if(this.formState.otherPoste){
-    this.formState.nom_offre = this.formState.otherPoste
-  }
-  if(this.formState.competence_id){
-     this.formState.nom_offre = this.formState.competence_id
-  }
-  console.log("this.formState",this.formState);
+      if (this.formState.otherPoste) {
+        this.formState.nom_offre = this.formState.otherPoste
+      }
+      if (this.formState.competence_id) {
+        this.formState.nom_offre = this.formState.competence_id
+      }
+      console.log("this.formState", this.formState);
 
-//   try {
-//     const res = await instance.post("create_offre", this.formState);
+      //   try {
+      //     const res = await instance.post("create_offre", this.formState);
 
-//     this.spinner = true;
-//     this.loading = false;
+      //     this.spinner = true;
+      //     this.loading = false;
 
-//     if (res.data.status === true) {
-//       Swal.fire({
-//         icon: "success",
-//         title: res.data.message,
-//         showConfirmButton: false,
-//         timer: 1500,
-//       });
-//       this.resetDataFormState();
-//     }
+      //     if (res.data.status === true) {
+      //       Swal.fire({
+      //         icon: "success",
+      //         title: res.data.message,
+      //         showConfirmButton: false,
+      //         timer: 1500,
+      //       });
+      //       this.resetDataFormState();
+      //     }
 
-//     if (res.data.status === false) {
-//   Swal.fire({
-//     icon: "info",
-//     title: res.data.message,
-//     confirmButtonText: "Okay",
-//     confirmButtonColor: "#f97316", // orange
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       this.$router.push("/abonnements"); // remplace par ta route
-//     }
-//   });
-// }
-//   } catch (error) {
-//     Swal.fire({
-//       icon: "error",
-//       title: error.response?.data?.message,
-//       showConfirmButton: true,
-//     });
-//   } finally {
-//     this.loading = false; // ou toute autre chose à systématiquement faire
-//     this.StoreLoading.launchLoading(false);
-//   }
-},
-    async lister_statut(){
+      //     if (res.data.status === false) {
+      //   Swal.fire({
+      //     icon: "info",
+      //     title: res.data.message,
+      //     confirmButtonText: "Okay",
+      //     confirmButtonColor: "#f97316", // orange
+      //   }).then((result) => {
+      //     if (result.isConfirmed) {
+      //       this.$router.push("/abonnements"); // remplace par ta route
+      //     }
+      //   });
+      // }
+      //   } catch (error) {
+      //     Swal.fire({
+      //       icon: "error",
+      //       title: error.response?.data?.message,
+      //       showConfirmButton: true,
+      //     });
+      //   } finally {
+      //     this.loading = false; // ou toute autre chose à systématiquement faire
+      //     this.StoreLoading.launchLoading(false);
+      //   }
+    },
+    async lister_statut() {
       try {
-        const response =  await instance.get("listStatut")
-        
-          if (response.data.status) {
-  
-  
-  let allStatuses = [];
-  
-  // Statut connecté
-  const monStatut = this.userInfo?.user?.statut?.statut.toLowerCase() || '';
-  
-  if (monStatut === 'entreprise') {
-    // ✅ Entreprise voit TOUS sauf admin/entreprise/particulier
-    allStatuses = response.data.data.filter(item => 
-      item.statut?.toLowerCase() !== 'admin' &&
-      item.statut?.toLowerCase() !== 'entreprise' &&
-      item.statut?.toLowerCase() !== 'particulier'
-    );
-    allStatuses.push({ id: "Tous", statut: "Tous" });
-  } else if (monStatut === 'particulier' || this.userInfo?.user.statuses.some(itm=>itm.statut == 'Particulier') ) {
-    // ✅ Particulier voit SEULEMENT artisans
-    allStatuses = response.data.data.filter(item => 
-      item.statut?.toLowerCase() === 'artisan'
-    );
-  }
-   
-  this.allStatuses = allStatuses;
+        const response = await instance.get("listStatut")
+
+        if (response.data.status) {
+
+
+          let allStatuses = [];
+
+          // Statut connecté
+          const monStatut = this.userInfo?.user?.statut?.statut.toLowerCase() || '';
+
+          if (monStatut === 'entreprise') {
+            // ✅ Entreprise voit TOUS sauf admin/entreprise/particulier
+            allStatuses = response.data.data.filter(item =>
+              item.statut?.toLowerCase() !== 'admin' &&
+              item.statut?.toLowerCase() !== 'entreprise' &&
+              item.statut?.toLowerCase() !== 'particulier'
+            );
+            allStatuses.push({ id: "Tous", statut: "Tous" });
+          } else if (monStatut === 'particulier' || this.userInfo?.user.statuses.some(itm => itm.statut == 'Particulier')) {
+            // ✅ Particulier voit SEULEMENT artisans
+            allStatuses = response.data.data.filter(item =>
+              item.statut?.toLowerCase() === 'artisan'
+            );
           }
+
+          this.allStatuses = allStatuses;
+        }
 
       } catch (error) {
         console.log(error);
@@ -556,7 +545,7 @@ export default {
     show_box_confirmation_delete(id) {
       this.confirmation_for_delete = !this.confirmation_for_delete;
       this.id_for_delete = id;
-     
+
     },
     not_delete() {
       this.confirmation_for_delete = !this.confirmation_for_delete;
@@ -569,7 +558,7 @@ export default {
         .delete("delete_offre_entreprise/" + this.id_for_delete)
 
         .then((res) => {
-        
+
 
           if (res.data.status === true) {
             Swal.fire({
@@ -605,8 +594,8 @@ export default {
       this.otherPoste = "";
     },
     selectCategorie(e) {
-      console.log('selectCategorie',e)
-      console.log('selectPoste',this.$refs.selectPoste)
+      console.log('selectCategorie', e)
+      console.log('selectPoste', this.$refs.selectPoste)
       this.otherDomaine = "";
       this.otherPoste = "";
       this.competence = "";
@@ -615,42 +604,42 @@ export default {
       );
     },
     selectCategorieFormState(value) {
-  this.formState.categorie = value;
+      this.formState.categorie = value;
 
-  this.formState.otherDomaine = "";
-  this.formState.otherPoste = "";
-  this.formState.competence_id = "";
-  this.competenceWithCategorie = this.allCompetences.filter(
+      this.formState.otherDomaine = "";
+      this.formState.otherPoste = "";
+      this.formState.competence_id = "";
+      this.competenceWithCategorie = this.allCompetences.filter(
         (item) => item.categorie.id === Number(value)
       );
 
-},
-resetDataFormState(){
-  this.formState.offre= "";
-  this.formState.salaire= "";
-  this.formState.lieu= "";
-  this.formState.typeMission= null;   
-  this.formState.dateMission= null;
-  this.formState.description= "";
-  this.formState.categorie_offre_id="";
-  this.formState.competence_id="";
-  this.formState.job_debut="";
-  this.formState.job_fin=""
-   this.formState.hour_debut = null;
-    this.formState.hour_fin = null;
-     this.formState.enable_urgent=false
-},
-chooseCompetenceFormState(value) {
-  
-  this.formState.competence = value;
-  this.formState.otherPoste = "";
-}
+    },
+    resetDataFormState() {
+      this.formState.offre = "";
+      this.formState.salaire = "";
+      this.formState.lieu = "";
+      this.formState.typeMission = null;
+      this.formState.dateMission = null;
+      this.formState.description = "";
+      this.formState.categorie_offre_id = "";
+      this.formState.competence_id = "";
+      this.formState.job_debut = "";
+      this.formState.job_fin = ""
+      this.formState.hour_debut = null;
+      this.formState.hour_fin = null;
+      this.formState.enable_urgent = false
+    },
+    chooseCompetenceFormState(value) {
+
+      this.formState.competence = value;
+      this.formState.otherPoste = "";
+    }
   },
   async created() {
     await this.getInfoUser();
     await this.get_categorie();
     await this.getAllCompetences();
-    await  this.lister_statut();
+    await this.lister_statut();
     await this.listerCountries();
     this.texte0 = await this.handleTranslate("Enregistrer une Offre");
     this.texte1 = await this.handleTranslate("Domaines");
@@ -678,193 +667,171 @@ chooseCompetenceFormState(value) {
 </script>
 <template>
 
-<div v-if="!isLoadingUser && userInfo && categoriesOffres.length && countries.length">
-  <section>
-    <div class="page-body position-relative">
-      <HeaderDashboard :TitleHeader="userInfo.user?.statut?.statut === 'Entreprise' ? texte0:'Poster une mission'" :subTitleHeader="userInfo.user?.statut?.statut === 'Entreprise' ? texte0:'Poster une mission'" />
-      <p style="text-align: center; color: red">
-        Les champs avec astérisque (*) sont obligatoires.
-      </p>
-      <div v-if="userInfo && userInfo.user?.statut?.statut === 'Entreprise'">
-       <form 
-       @submit.prevent="create_offre"
-        class="container"
-        v-if="competenceWithCategorie.length || categoriesOffres.length || countries.length"
-        >
-  <!-- Ligne 1 : Catégorie + Compétence -->
-  <div class="row g-3">
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label><span style="color: red">*</span>{{ texte1 }}</label>
-      <select v-model="categorie" @change="selectCategorie">
-        <option value="" disabled>{{ texte2 }}</option>
-        <option :value="item.id" v-for="(item, index) in categoriesOffres" :key="index">
-          {{ item.categorie }}
-        </option>
-        <option value="autre">Autre</option>
-      </select>
-      <div style="margin: 0.5em 0" v-if="categorie === 'autre'">
-        <label for="otherDomaine">Autre domaine</label>
-        <input id="otherDomaine" class="form-control" type="text" v-model="otherDomaine" />
-      </div>
-    </div>
+  <div v-if="!isLoadingUser && userInfo && categoriesOffres.length && countries.length">
+    <section>
+      <div class="page-body position-relative">
+        <HeaderDashboard :TitleHeader="userInfo.user?.statut?.statut === 'Entreprise' ? texte0 : 'Poster une mission'"
+          :subTitleHeader="userInfo.user?.statut?.statut === 'Entreprise' ? texte0 : 'Poster une mission'" />
+        <p style="text-align: center; color: red">
+          Les champs avec astérisque (*) sont obligatoires.
+        </p>
+        <div v-if="userInfo && userInfo.user?.statut?.statut === 'Entreprise'">
+          <form @submit.prevent="create_offre" class="container"
+            v-if="competenceWithCategorie.length || categoriesOffres.length || countries.length">
+            <!-- Ligne 1 : Catégorie + Compétence -->
+            <div class="row g-3">
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label><span style="color: red">*</span>{{ texte1 }}</label>
+                <select v-model="categorie" @change="selectCategorie">
+                  <option value="" disabled>{{ texte2 }}</option>
+                  <option :value="item.id" v-for="(item, index) in categoriesOffres" :key="index">
+                    {{ item.categorie }}
+                  </option>
+                  <option value="autre">Autre</option>
+                </select>
+                <div style="margin: 0.5em 0" v-if="categorie === 'autre'">
+                  <label for="otherDomaine">Autre domaine</label>
+                  <input id="otherDomaine" class="form-control" type="text" v-model="otherDomaine" />
+                </div>
+              </div>
 
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label id="select_comp" v-if="categorie !== 'autre'">
-        <span style="color: red">*</span>{{ texte3 }}</label>
-      <select 
-         ref="selectPoste"
-          v-if="categorie !== 'autre'" 
-              :class="{ 'select-disabled': !categorie || categorie === 'autre' }"
-              v-model="competence" 
-              name="select_comp" 
-              id="select_comp" 
-              @change="chooseCompetence">
-        <option value="" disabled style="color: brown">{{ texte4 }}</option>
-        <option :value="item.id" 
-        v-for="(item, index) in competenceWithCategorie" :key="index">
-          {{ item.competence }}
-        </option>
-        <option style="color: brown" v-if="!competenceWithCategorie.length && !categorie" disabled>
-          {{ texte5 }}
-        </option>
-        <option style="color: brown; font-size: 0.9em" v-if="!competenceWithCategorie.length && categorie" disabled>
-          {{ texte6 }}
-        </option>
-        <option value="autre" :disabled="!categorie">Autre</option>
-      </select>
-      <div style="margin: 0.5em 0" v-if="categorie === 'autre' || (categorie && competence == 'autre')">
-        <label for="otherPoste">Autre poste</label>
-        <input id="otherPoste" class="form-control" type="text" v-model="otherPoste" />
-      </div>
-    </div>
-  </div>
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label id="select_comp" v-if="categorie !== 'autre'">
+                  <span style="color: red">*</span>{{ texte3 }}</label>
+                <select ref="selectPoste" v-if="categorie !== 'autre'"
+                  :class="{ 'select-disabled': !categorie || categorie === 'autre' }" v-model="competence"
+                  name="select_comp" id="select_comp" @change="chooseCompetence">
+                  <option value="" disabled style="color: brown">{{ texte4 }}</option>
+                  <option :value="item.id" v-for="(item, index) in competenceWithCategorie" :key="index">
+                    {{ item.competence }}
+                  </option>
+                  <option style="color: brown" v-if="!competenceWithCategorie.length && !categorie" disabled>
+                    {{ texte5 }}
+                  </option>
+                  <option style="color: brown; font-size: 0.9em" v-if="!competenceWithCategorie.length && categorie"
+                    disabled>
+                    {{ texte6 }}
+                  </option>
+                  <option value="autre" :disabled="!categorie">Autre</option>
+                </select>
+                <div style="margin: 0.5em 0" v-if="categorie === 'autre' || (categorie && competence == 'autre')">
+                  <label for="otherPoste">Autre poste</label>
+                  <input id="otherPoste" class="form-control" type="text" v-model="otherPoste" />
+                </div>
+              </div>
+            </div>
 
-  <!-- Ligne 2 : Offre + Salaire -->
-  <div class="row g-3">
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label><span style="color: red">*</span>{{ texte7 }}</label>
-      <input class="form-control" type="text" v-model="offre" placeholder="" required />
-    </div>
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label><span style="color: red">*</span>{{ texte8 }}</label>
-      <input class="form-control" type="text" v-model="salaire" placeholder="ex:35000 Fcfa" />
-    </div>
-  </div>
+            <!-- Ligne 2 : Offre + Salaire -->
+            <div class="row g-3">
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label><span style="color: red">*</span>{{ texte7 }}</label>
+                <input class="form-control" type="text" v-model="offre" placeholder="" required />
+              </div>
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label><span style="color: red">*</span>{{ texte8 }}</label>
+                <input class="form-control" type="text" v-model="salaire" placeholder="ex:35000 Fcfa" />
+              </div>
+            </div>
 
-  <!-- Ligne 3 : Pointage + Lieu -->
-  <div class="row g-3">
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label><span style="color: red">*</span>{{ texte9 }}</label>
-      <select :class="{ 'select-disabled': !salaire }" v-model="pointage" :disabled="salaire ? false : true">
-        <option value="" disabled>{{ texte10 }}</option>
-        <option :value="item.libelle" v-for="(item, index) in OptionsOfpointage" :key="index">
-          {{ item.libelle }}
-        </option>
-      </select>
-      <span class="text-danger" :class="!salaire ? 'd-block' : 'd-none'">*{{ texte11 }}</span>
-    </div>
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label><span style="color: red">*</span>{{ texte12 }}</label>
-      <input class="form-control" type="text" v-model="lieu" placeholder="ex:Angré" required />
-    </div>
-  </div>
+            <!-- Ligne 3 : Pointage + Lieu -->
+            <div class="row g-3">
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label><span style="color: red">*</span>{{ texte9 }}</label>
+                <select :class="{ 'select-disabled': !salaire }" v-model="pointage" :disabled="salaire ? false : true">
+                  <option value="" disabled>{{ texte10 }}</option>
+                  <option :value="item.libelle" v-for="(item, index) in OptionsOfpointage" :key="index">
+                    {{ item.libelle }}
+                  </option>
+                </select>
+                <span class="text-danger" :class="!salaire ? 'd-block' : 'd-none'">*{{ texte11 }}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label><span style="color: red">*</span>{{ texte12 }}</label>
+                <input class="form-control" type="text" v-model="lieu" placeholder="ex:Angré" required />
+              </div>
+            </div>
 
-  <!-- Ligne 4 : Nb Personnes + Date début -->
-  <div class="row g-3">
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label><span style="color: red">*</span>{{ texte13 }}</label>
-      <input class="form-control" type="number" v-model="nbre_person" placeholder="ex:5 ou 10" required min="1" />
-    </div>
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label for="calendar-12h" class="date_heure"><span style="color: red">*</span>{{ texte14 }}</label>
-      <input class="form-control" type="datetime-local" v-model="debut" required :min="new Date().toISOString().slice(0, 16)" />
-    </div>
-  </div>
+            <!-- Ligne 4 : Nb Personnes + Date début -->
+            <div class="row g-3">
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label><span style="color: red">*</span>{{ texte13 }}</label>
+                <input class="form-control" type="number" v-model="nbre_person" placeholder="ex:5 ou 10" required
+                  min="1" />
+              </div>
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label for="calendar-12h" class="date_heure"><span style="color: red">*</span>{{ texte14 }}</label>
+                <input class="form-control" type="datetime-local" v-model="debut" required
+                  :min="new Date().toISOString().slice(0, 16)" />
+              </div>
+            </div>
 
-  <!-- Ligne 5 : Date fin + Job début -->
-  <div class="row g-3">
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label for="calendar-12" class="date_heure"><span style="color: red">*</span>{{ texte15 }}</label>
-      <input class="form-control" type="datetime-local" :disabled="debut != null ? false : true" v-model="fin" required :min="debut" />
-    </div>
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label>{{ texte16 }}</label>
-      <input class="form-control" 
-      type="datetime-local" 
-      v-model="job_debut" 
-      :min="debut"
-       />
-    </div>
-  </div>
+            <!-- Ligne 5 : Date fin + Job début -->
+            <div class="row g-3">
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label for="calendar-12" class="date_heure"><span style="color: red">*</span>{{ texte15 }}</label>
+                <input class="form-control" type="datetime-local" :disabled="debut != null ? false : true" v-model="fin"
+                  required :min="debut" />
+              </div>
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label>{{ texte16 }}</label>
+                <input class="form-control" type="datetime-local" v-model="job_debut" :min="debut" />
+              </div>
+            </div>
 
-  <!-- Ligne 6 : Job fin + Profil -->
-  <div class="row g-3">
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-      <label>{{ texte17 }}</label>
-      <input class="form-control" type="datetime-local" 
-      v-model="job_fin" 
-      :min="job_debut"
-      />
-    </div>
-    <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
-      <label><span style="color: red">*</span>Choisissez un profil 
-        <span style="font-size:0.5em;">(ceci vous permet de cibler les offres par profil)</span>
-      </label>
-      <VueMultiselect 
-      v-model="chooseStatut" 
-      :options="filteredOptions" 
-      placeholder="Choix multiples" 
-      :multiple="true" 
-      label="statut" 
-      track-by="statut"
-       />
-    </div>
-  </div>
+            <!-- Ligne 6 : Job fin + Profil -->
+            <div class="row g-3">
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3">
+                <label>{{ texte17 }}</label>
+                <input class="form-control" type="datetime-local" v-model="job_fin" :min="job_debut" />
+              </div>
+              <div class="col-lg-6 col-md-6 col-12 text-left my-3" v-if="userInfo">
+                <label><span style="color: red">*</span>Choisissez un profil
+                  <span style="font-size:0.5em;">(ceci vous permet de cibler les offres par profil)</span>
+                </label>
+                <VueMultiselect v-model="chooseStatut" :options="filteredOptions" placeholder="Choix multiples"
+                  :multiple="true" label="statut" track-by="statut" />
+              </div>
+            </div>
 
-  <!-- Ligne 7 : Mode travail (centré)+ PAYS -->
-  <div class="row g-3">
-    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3"
-    v-if="userInfo?.user?.statut?.statut === 'Entreprise'"
-    >
-      <label>Choisir un mode de travail</label>
-      <VueMultiselect v-model="offre_mode_travail" 
-                      :options="[{value:'Présentiel',label:'Présentiel'},{value:'Télétravail',label:'Télétravail'},{value:'Hybride',label:'Hybride'}]" 
-                      label="label" track-by="label" />
-    </div>
-    <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3" v-if="countries.length > 0">
-      <label><span style="color: red">*</span>Choisir un pays</label>
-      <!-- {{ countries }} -->
-      <VueMultiselect v-model="offre_pays" 
-                      :options="countries.filter(item=>item.label === 'Côte d’Ivoire')" 
-                      label="label" 
-                      multiple
-                      track-by="label" />
-    </div>
-  </div>
+            <!-- Ligne 7 : Mode travail (centré)+ PAYS -->
+            <div class="row g-3">
+              <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3"
+                v-if="userInfo?.user?.statut?.statut === 'Entreprise'">
+                <label>Choisir un mode de travail</label>
+                <VueMultiselect v-model="offre_mode_travail"
+                  :options="[{ value: 'Présentiel', label: 'Présentiel' }, { value: 'Télétravail', label: 'Télétravail' }, { value: 'Hybride', label: 'Hybride' }]"
+                  label="label" track-by="label" />
+              </div>
+              <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3" v-if="countries.length > 0">
+                <label><span style="color: red">*</span>Choisir un pays</label>
+                <!-- {{ countries }} -->
+                <VueMultiselect v-model="offre_pays" :options="countries.filter(item => item.label === 'Côte d’Ivoire')"
+                  label="label" multiple track-by="label" />
+              </div>
+            </div>
 
-  <!-- Description pleine largeur -->
-  <div class="row g-3">
-    <div class="col-12 text-left my-3">
-      <label><span style="color: red">*</span>{{ texte18 }}</label>
-      <div class="conteneur_editor">
-        <editor v-model="description" />
-      </div>
-    </div>
-  </div>
+            <!-- Description pleine largeur -->
+            <div class="row g-3">
+              <div class="col-12 text-left my-3">
+                <label><span style="color: red">*</span>{{ texte18 }}</label>
+                <div class="conteneur_editor">
+                  <editor v-model="description" />
+                </div>
+              </div>
+            </div>
 
-  <!-- Bouton centré -->
-  <div class="row g-3 my-5">
-    <div class="col-12 text-center">
-      <button class="btn btn-warning btn-designer" 
-      type="submit" :disabled="verifIfAllField">
-        {{ loading ? texte20 : texte19 }}
-      </button>
-    </div>
-  </div>
-      </form>
-  
-      </div>
-       <div v-else>
+            <!-- Bouton centré -->
+            <div class="row g-3 my-5">
+              <div class="col-12 text-center">
+                <button class="btn btn-warning btn-designer" type="submit" :disabled="verifIfAllField">
+                  {{ loading ? texte20 : texte19 }}
+                </button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+        <div v-else>
           <a-form :model="formState" :rules="rules" layout="vertical" @finish="post_mission" class="container">
             <a-row :gutter="[16, 16]">
               <!-- Catégorie -->
@@ -1000,37 +967,33 @@ chooseCompetenceFormState(value) {
             <!-- Bouton -->
             <a-row :gutter="[16, 16]" class="my-5">
               <a-col :span="24" style="text-align: center">
-                <button class="btn btn-warning btn-designer" type="submit" 
-                :disabled="isDisabledPosterMissionParticulier">
+                <button class="btn btn-warning btn-designer" type="submit"
+                  :disabled="isDisabledPosterMissionParticulier">
                   {{ loading ? texte20 : 'Poster' }}
                 </button>
               </a-col>
             </a-row>
           </a-form>
         </div>
-       </div>
-      </section>
+      </div>
+    </section>
   </div>
-   <div v-else 
-   style="
+  <div v-else style="
    text-align:center;
    padding:1em;
    font-size: 1.5em;
    height: 50vh;
-   margin-top:9em;"
-   class="shimmer-text">
-      Chargement...
-      </div>
+   margin-top:9em;" class="shimmer-text">
+    Chargement...
+  </div>
 </template>
 <style scoped>
 .shimmer-text {
   font-weight: 600;
-  background: linear-gradient(
-    90deg,
-    #999 0%,
-    #fff 50%,
-    #999 100%
-  );
+  background: linear-gradient(90deg,
+      #999 0%,
+      #fff 50%,
+      #999 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1041,15 +1004,18 @@ chooseCompetenceFormState(value) {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
 }
+
 .select-disabled {
   background-color: #e5e5e5;
   color: #666;
   cursor: not-allowed;
 }
+
 .date_heure {
   display: block !important;
 }
@@ -1062,6 +1028,7 @@ form label,
 form select option {
   font-size: 1.2em;
 }
+
 input,
 .form-control {
   padding: 1.3em !important;
@@ -1071,6 +1038,7 @@ input,
 .mb-3 {
   text-align: left;
 }
+
 .conteneur_editor {
   border: 1.5px solid orange;
   color: black !important;
@@ -1078,30 +1046,37 @@ input,
   padding: 0 1em;
   height: auto;
 }
+
 label {
   font-weight: bold;
 }
+
 .btn-secondary {
   background: rgb(5, 35, 73) !important;
   border: 1px solid rgb(5, 35, 73) !important;
 }
+
 input,
 textarea,
 select {
   border: 2px solid orange;
 }
+
 select {
   border-radius: 5px !important;
   width: 100%;
   padding: 1em;
 }
+
 .table {
   border: thin solid rgba(139, 139, 139, 0.63) !important;
 }
+
 th,
 td {
   border: thin solid rgba(141, 140, 140, 0.692) !important;
 }
+
 th {
   text-align: center;
 }
@@ -1118,6 +1093,7 @@ th {
   place-items: center;
   justify-content: center;
 }
+
 .delete_article {
   position: fixed;
   left: 0;
@@ -1130,6 +1106,7 @@ th {
   place-items: center;
   justify-content: center;
 }
+
 .ecran {
   position: absolute;
   left: 0;
@@ -1141,30 +1118,35 @@ th {
   background: transparent;
   z-index: 99;
 }
+
 .modify-form {
   margin-left: 50%;
   transform: translateX(-35%);
 }
+
 .bi {
   font-size: 1.3em !important;
   margin: 0 0.5em;
   cursor: pointer;
 }
+
 .mt-5 {
   margin-top: 101px !important;
 }
+
 :deep(.card) {
   background: transparent !important;
   color: black !important;
 }
-:deep(.multiselect__tags){
-    min-height: 40px;
-    display: block;
-    padding: 8px 40px 0 8px;
-    border-radius: 3px !important;
-    border: 1.4px solid #fa8d26 !important;
-    background: #fff;
-    font-size: 14px;
+
+:deep(.multiselect__tags) {
+  min-height: 40px;
+  display: block;
+  padding: 8px 40px 0 8px;
+  border-radius: 3px !important;
+  border: 1.4px solid #fa8d26 !important;
+  background: #fff;
+  font-size: 14px;
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
