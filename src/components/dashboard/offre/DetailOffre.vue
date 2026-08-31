@@ -134,6 +134,13 @@ export default {
             trigger: "blur"
           }
         ],
+        pointage: [
+          {
+            required: true,
+            message: "Le terme de paiemen est obligatoire",
+            trigger: "blur"
+          }
+        ],
 
         lieu: [
           {
@@ -256,28 +263,6 @@ export default {
     },
     async update_mission() {
       this.loadingSpinner.launchLoading(true);
-
-      if (this.formState.typeMission === 'date') {
-        if (!this.formState.job_debut || !this.formState.job_fin) {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Dates obligatoires',
-            text: 'Veuillez renseigner la date de début et la date de fin.'
-          })
-          return
-        }
-      }
-      // Si mission immédiate → date du jour
-      if (this.formState.typeMission === "immediat") {
-        const today = new Date();
-
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, "0");
-        const dd = String(today.getDate()).padStart(2, "0");
-
-        this.formState.job_debut = `${yyyy}-${mm}-${dd}`;
-      }
-
       try {
         const res = await instance.put("modify_offre_entreprise/" + this.$route.params.id, this.formState);
         if (res.data.status === true) {
@@ -330,6 +315,7 @@ export default {
         this.formState.enable_urgent = offre.enable_urgent ? true : false;
         this.formState.hour_debut = offre.hour_debut;
         this.formState.hour_fin = offre.hour_fin;
+        this.formState.pointage = offre.pointage;
         this.selectCategorieFormState(offre.categorie_offre_id);
         this.chooseCompetenceFormState(offre.competence_id);
       } catch (error) {
@@ -710,48 +696,53 @@ export default {
           </a-row>
           <!-- Offre + Salaire -->
           <a-row :gutter="[16, 16]">
-            <!-- <a-col :xs="24" :md="12">
-      <a-form-item name="nom_offre" :label="'Nom de la mission'">
-        <a-input v-model:value="formState.nom_offre" style="height:30px !important;border:1px solid #cdcccc !important" />
-      </a-form-item>
-    </a-col> -->
-
-            <a-col :xs="24" :md="12">
+            <a-col :xs="24" :md="8">
               <a-form-item name="salaire" :label="'Prix de la mission'">
                 <a-input v-model:value="formState.salaire" min="1" type="number"
                   style="height:30px !important;border:1px solid #cdcccc !important" />
               </a-form-item>
             </a-col>
-          </a-row>
+            <a-col :xs="24" :md="8">
+                <a-form-item name="pointage" label="Termes de paiement">
+                  <a-select v-model:value="formState.pointage" placeholder="Sélectionner un terme de paiement"
+                    style="height: 30px !important">
+                    <a-select-option value="Jour">
+                      Jour
+                    </a-select-option>
 
-          <!-- Lieu -->
-          <a-row :gutter="[16, 16]">
-            <a-col :xs="24" :md="12">
+                    <a-select-option value="Semaine">
+                      Semaine
+                    </a-select-option>
+
+                    <a-select-option value="Mois">
+                      Mois
+                    </a-select-option>
+
+                    <a-select-option value="Trimestre">
+                      Trimestre
+                    </a-select-option>
+
+                    <a-select-option value="Semestre">
+                      Semestre
+                    </a-select-option>
+
+                    <a-select-option value="Année">
+                      Année
+                    </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :xs="24" :md="8">
               <a-form-item name="lieu" :label="'Lieu de la mission'">
                 <a-input v-model:value="formState.lieu"
                   style="height:30px !important;border:1px solid #cdcccc !important" />
               </a-form-item>
             </a-col>
-            <!-- <a-col :xs="24" :md="12">
-      <a-form-item name="typeMission" label="Besoin">
-        <a-select v-model:value="formState.typeMission"
-        @change="()=>{
-         if(formState.typeMission === 'immediat'){
-          formState.job_fin = null;
-          formState.job_debut = null;
-         }
-        }"
-        >
-          <a-select-option value="immediat">Immédiat</a-select-option>
-          <a-select-option value="date">Choisir une date</a-select-option>
-        </a-select>
-      </a-form-item>
-    </a-col> -->
           </a-row>
 
           <!-- Type mission -->
           <a-row :gutter="[16, 16]">
-            <a-col :xs="24" :md="12">
+            <a-col :xs="24" :md="8">
               <a-form-item name="debut" label="Date de début">
                 <a-input type="date" v-model:value="formState.debut" @change="(e) => {
                   //  console.log(e.target.value)
@@ -759,39 +750,22 @@ export default {
                 }" style="height:30px !important;border:1px solid #cdcccc !important" />
               </a-form-item>
             </a-col>
-            <a-col :xs="24" :md="12">
+            <a-col :xs="24" :md="8">
               <a-form-item name="fin" label="Date de fin">
                 <a-input type="date" :min="formState.debut" v-model:value="formState.fin"
                   style="height:30px !important;border:1px solid #cdcccc !important" />
               </a-form-item>
             </a-col>
-          </a-row>
-
-          <a-row :gutter="[16, 16]">
-            <a-col :xs="24" :md="12" v-if="formState.hour_debut">
-              <a-form-item name="hour_debut" label="Heure de début">
-                <a-input type="time" v-model:value="formState.hour_debut"
-                  style="height:30px !important;border:1px solid #cdcccc !important" />
-              </a-form-item>
-            </a-col>
-            <a-col :xs="24" :md="12" v-if="formState.hour_fin">
-              <a-form-item name="hour_fin" label="Heure de fin">
-                <a-input type="time" v-model:value="this.formState.hour_fin"
-                  style="height:30px !important;border:1px solid #cdcccc !important" />
-              </a-form-item>
-            </a-col>
-          </a-row>
-          <a-row :gutter="[16, 16]">
-            <a-col :xs="24" :md="12">
+            <a-col :xs="24" :md="8">
               <a-form-item label="Urgente">
                 <a-switch v-model:checked="formState.enable_urgent" :style="{
                   backgroundColor: formState.enable_urgent ? 'green' : ''
                 }" />
               </a-form-item>
             </a-col>
-
           </a-row>
 
+        
           <!-- Description -->
           <a-row :gutter="[16, 16]">
             <a-col :span="24">
