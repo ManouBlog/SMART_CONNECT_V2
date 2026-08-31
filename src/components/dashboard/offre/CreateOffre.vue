@@ -268,13 +268,6 @@ export default {
     }
 
   },
-  // watch: {
-  //   "formState.typeMission"(newValue) {
-  //     if (newValue === "immediat") {
-  //       this.formState.job_fin = null;
-  //     }
-  //   }
-  // },
   methods: {
     filterOption(input, option) {
 
