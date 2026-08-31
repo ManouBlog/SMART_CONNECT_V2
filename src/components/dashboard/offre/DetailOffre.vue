@@ -344,7 +344,7 @@ export default {
         const id = this.$route.params.id
         const { data } = await instance.get(`detail_offre/${id}`)
         const offre = data.data
-        console.log("loadDetailOffre",offre)
+        console.log("loadDetailOffre", offre)
         this.offre_detaiId = offre;
         this.formState.categorie_offre_id = offre.categorie_offre_id
         this.formState.competence_id = offre.competence_id
@@ -352,9 +352,9 @@ export default {
         this.formState.salaire = offre.salaire
         this.formState.lieu = offre.lieu
         this.formState.typeMission = offre.job_fin ? 'date' : 'immediat'
-        this.formState.job_debut = offre.job_debut 
+        this.formState.job_debut = offre.job_debut
         this.formState.job_fin = offre.job_fin
-         this.formState.debut = offre.debut.split(' ')[0] || offre.debut.split('T')[0] 
+        this.formState.debut = offre.debut.split(' ')[0] || offre.debut.split('T')[0]
         this.formState.fin = offre.fin.split(' ')[0] || offre.fin.split('T')[0]
         this.formState.description = offre.description
         this.formState.otherDomaine = offre.otherDomaine || ''
@@ -750,36 +750,28 @@ export default {
               </a-form-item>
             </a-col>
             <a-col :xs="24" :md="8">
-                <a-form-item name="pointage" label="Termes de paiement">
-                  <a-select v-model:value="formState.pointage" placeholder="Sélectionner un terme de paiement"
-                    style="height: 30px !important">
-                    <a-select-option value="Jour">
-                      Jour
-                    </a-select-option>
+              <a-form-item name="pointage" label="Termes de paiement">
+                <a-select v-model:value="formState.pointage" placeholder="Sélectionner un terme de paiement"
+                  style="height: 30px !important">
+                  <a-select-option value="Jour">
+                    Jour
+                  </a-select-option>
 
-                    <a-select-option value="Semaine">
-                      Semaine
-                    </a-select-option>
+                  <a-select-option value="Semaine">
+                    Semaine
+                  </a-select-option>
+                  <a-select-option value="Quinzaine">
+                    Quinzaine
+                  </a-select-option>
 
-                    <a-select-option value="Mois">
-                      Mois
-                    </a-select-option>
+                  <a-select-option value="Mois">
+                    Mois
+                  </a-select-option>
 
-                    <a-select-option value="Trimestre">
-                      Trimestre
-                    </a-select-option>
-
-                    <a-select-option value="Semestre">
-                      Semestre
-                    </a-select-option>
-
-                    <a-select-option value="Année">
-                      Année
-                    </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :xs="24" :md="8">
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :xs="24" :md="8">
               <a-form-item name="lieu" :label="'Lieu de la mission'">
                 <a-input v-model:value="formState.lieu"
                   style="height:30px !important;border:1px solid #cdcccc !important" />
@@ -791,9 +783,7 @@ export default {
           <a-row :gutter="[16, 16]">
             <a-col :xs="24" :md="8">
               <a-form-item name="debut" label="Date de début">
-                <a-input type="date" v-model:value="formState.debut"
-                :min="formState.debut || Today"
-                @change="(e) => {
+                <a-input type="date" v-model:value="formState.debut" :min="formState.debut || Today" @change="(e) => {
                   //  console.log(e.target.value)
                   if (e.target.value) formState.fin = null
                 }" style="height:30px !important;border:1px solid #cdcccc !important" />
@@ -814,7 +804,7 @@ export default {
             </a-col>
           </a-row>
 
-        
+
           <!-- Description -->
           <a-row :gutter="[16, 16]">
             <a-col :span="24">
