@@ -236,6 +236,8 @@ export default {
       return (
         !this.salaire ||
         !this.description ||
+        !this.debut || 
+        !this.fin ||
         !this.lieu ||
         (this.competence && !this.competence) ||
         !this.chooseStatut.length > 0
