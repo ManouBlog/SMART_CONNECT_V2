@@ -233,14 +233,12 @@ export default {
   computed: {
     ...mapState(useOffreStore, ["categoriesOffres", "allCompetences"]),
     verifIfAllField() {
-      return !(
-        this.salaire &&
-        this.description &&
-        this.debut &&
-        this.fin &&
-        this.lieu &&
-        this.competence &&
-        this.chooseStatut.length > 0
+      return (
+        !this.salaire ||
+        !this.description ||
+        !this.lieu ||
+        (this.competence && !this.competence) ||
+        !this.chooseStatut.length > 0
       );
     },
     isDisabledPosterMissionParticulier() {
@@ -774,7 +772,8 @@ export default {
                   min="1" />
               </div>
               <div class="col-lg-6 col-md-6 col-12 text-left my-3">
-                <label for="calendar-12h" class="date_heure"><span style="color: red">*</span>{{ texte14 }}</label>
+                <label for="calendar-12h" class="date_heure">
+                  <span style="color: red">*</span>{{ texte14 }}</label>
                 <input class="form-control" type="datetime-local" v-model="debut" required
                   :min="new Date().toISOString().slice(0, 16)" />
               </div>
@@ -784,12 +783,16 @@ export default {
             <div class="row g-3">
               <div class="col-lg-6 col-md-6 col-12 text-left my-3">
                 <label for="calendar-12" class="date_heure"><span style="color: red">*</span>{{ texte15 }}</label>
-                <input class="form-control" type="datetime-local" :disabled="debut != null ? false : true" v-model="fin"
-                  required :min="debut" />
+                <input class="form-control" type="datetime-local" 
+                :disabled="debut != null ? false : true" v-model="fin"
+                  required 
+                  :min="debut" />
               </div>
               <div class="col-lg-6 col-md-6 col-12 text-left my-3">
                 <label>{{ texte16 }}</label>
-                <input class="form-control" type="datetime-local" v-model="job_debut" :min="debut" />
+                <input class="form-control" 
+                type="datetime-local" v-model="job_debut" 
+                :min="debut" />
               </div>
             </div>
 
@@ -803,7 +806,8 @@ export default {
                 <label><span style="color: red">*</span>Choisissez un profil
                   <span style="font-size:0.5em;">(ceci vous permet de cibler les offres par profil)</span>
                 </label>
-                <VueMultiselect v-model="chooseStatut" :options="filteredOptions" placeholder="Choix multiples"
+                <VueMultiselect v-model="chooseStatut" 
+                :options="filteredOptions" placeholder="Choix multiples"
                   :multiple="true" label="statut" track-by="statut" />
               </div>
             </div>
@@ -820,7 +824,8 @@ export default {
               <div class="col-lg-6 col-md-6 col-12 mx-auto text-left my-3" v-if="countries.length > 0">
                 <label><span style="color: red">*</span>Choisir un pays</label>
                 <!-- {{ countries }} -->
-                <VueMultiselect v-model="offre_pays" :options="countries.filter(item => item.label === 'Côte d’Ivoire')"
+                <VueMultiselect v-model="offre_pays" 
+                :options="countries.filter(item => item.label === 'Côte d’Ivoire')"
                   label="label" multiple track-by="label" />
               </div>
             </div>
@@ -838,7 +843,8 @@ export default {
             <!-- Bouton centré -->
             <div class="row g-3 my-5">
               <div class="col-12 text-center">
-                <button class="btn btn-warning btn-designer" type="submit" :disabled="verifIfAllField">
+                <button class="btn btn-warning btn-designer" 
+                type="submit" :disabled="verifIfAllField">
                   {{ loading ? texte20 : texte19 }}
                 </button>
               </div>
