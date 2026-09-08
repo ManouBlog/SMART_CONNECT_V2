@@ -53,7 +53,34 @@ export default {
     } catch (e) {
       return null;
     }
-  }
+  },
+    displayName() {
+    const user = this.$store.state.user;
+    const statuses = user?.user?.statuses || [];
+
+    const entreprise = statuses.find(
+      s => s.statut === "Entreprise"
+    );
+
+    // Entreprise informelle
+    if (
+      entreprise &&
+      user.statut_entreprise === "Informelle"
+    ) {
+      return user?.nom_particulier;
+    }
+
+    // Entreprise formelle
+    if (
+      entreprise &&
+      user.statut_entreprise === "Formelle"
+    ) {
+      return user?.nom;
+    }
+
+    // Particulier ou autre statut
+    return `${user?.nom ?? ''} ${user?.prenoms ?? ''}`.trim();
+  },
   },
   methods: {
     ...mapActions(useMenuMobile, ["changeValueForshowMenuMobile"]),
@@ -211,8 +238,8 @@ if (
           }}</span>
         </span>
         <span style="color: black !important;text-transform: capitalize;"
-          >{{ this.$store.state.user.nom }} 
-          {{ this.$store.state.user.prenoms }} 
+          >
+          <span>{{ displayName }}</span>
           <div 
           v-if="this.$store.state.user"
           style="display: flex; flex-wrap: wrap; gap: 6px; margin:0.5em 0">
