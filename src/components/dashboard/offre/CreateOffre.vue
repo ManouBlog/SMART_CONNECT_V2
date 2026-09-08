@@ -241,7 +241,9 @@ export default {
         !this.fin ||
         !this.lieu ||
         (this.competence && !this.competence) ||
-        !this.chooseStatut.length > 0
+        !this.chooseStatut.length > 0 || 
+        !this.offre_pays.length > 0 || 
+        !this.offre_mode_travail
       );
     },
     isDisabledPosterMissionParticulier() {
