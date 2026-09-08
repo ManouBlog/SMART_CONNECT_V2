@@ -237,6 +237,7 @@ export default {
         !this.salaire ||
         !this.description ||
         !this.debut || 
+        !this.nbre_person ||
         !this.fin ||
         !this.lieu ||
         (this.competence && !this.competence) ||
