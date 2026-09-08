@@ -155,6 +155,25 @@ export default {
           console.log(err);
         });
     },
+    getOwnerName(owner) {
+    if (!owner) return '';
+    // Entreprise informelle
+    if (
+      owner.statut_entreprise === 'Informelle'
+    ) {
+      return owner?.nom_particulier;
+    }
+
+    // Entreprise formelle
+    if (
+    owner.statut_entreprise === 'Formelle'
+    ) {
+      return owner?.nom;
+    }
+
+    // Particulier ou autre statut
+    return `${owner?.nom ?? ''} ${owner?.prenoms ?? ''}`.trim();
+  },
   },
   async created() {
     this.get_list_offre();
@@ -225,7 +244,7 @@ export default {
                   <em class="bi bi-geo"></em> Lieu : {{ Offre.lieu }}
                 </h4>
                 <h4 class="my-5">
-                  <em class="bi bi-building"></em> Recruteur : {{ Offre?.owner?.nom }}
+                  <em class="bi bi-building"></em> Recruteur : {{ getOwnerName(Offre?.owner) }}
                 </h4>
                 <div>
                   <h4 class="my-5" v-if="Offre.salaire != null">
@@ -266,8 +285,6 @@ export default {
 
                   {{ texte2 }} : {{ Offre.job_debut }}
 
-                  <!-- {{ configUtils.getFormatDateFr(Offre.job_debut.split(' ')[0]) }} -->
-
                 </h4>
                 <h4 v-if="Offre.job_fin">
                   {{ texte3 }} : {{ Offre.job_fin }}
@@ -284,20 +301,7 @@ export default {
                   <em class="bi bi-send"></em>
                 </button>
               </section>
-              <!-- <section v-else>
-                <h5 class="text-danger d-flex justify-content-center my-5">
-                  {{ texte7 }}
-                </h5>
-                <div>
-                  <button
-                    class="btn bg-warning"
-                    style="width: auto !important; padding: 1em"
-                    @click="handleNouvelAbonnement"
-                  >
-                    {{ texte8 }}
-                  </button>
-                </div>
-              </section> -->
+              
             </div>
           </div>
         </div>
