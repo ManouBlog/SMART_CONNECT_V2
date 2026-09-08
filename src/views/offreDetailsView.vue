@@ -236,7 +236,6 @@ export default {
                       {{ !isNaN(Number(Offre.salaire)) ? `${Offre.salaire} Fcfa`
                         : Offre.salaire }} {{ Offre.pointage ? `/${Offre.pointage}` : null }}
 
-
                     </span>
                   </h4>
                   <h4 class="my-5" v-else>

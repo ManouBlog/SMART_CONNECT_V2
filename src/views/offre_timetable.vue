@@ -374,7 +374,7 @@ export default {
   ">
                     {{ offre.nom_offre }}
                   </h1>
-                  <span v-if="offre.enable_urgent" class="badge bg-danger">Urgente</span>
+                  <span v-if="offre?.enable_urgent" class="badge bg-danger">Urgente</span>
                 </div>
 
                 <h1 style="font-size: 0.9em; margin: 0.5em 0"><span style="color:orange">{{
@@ -401,7 +401,6 @@ export default {
             </div>
           </div>
         </section>
-
         <div v-if="!list_offre.length"
           class="text-center fw-bold py-5 my-5 d-flex flex-column align-items-center justify-content-center">
           <h2 class="mb-4 fs-4 fs-md-3">Pas d'offres</h2>
