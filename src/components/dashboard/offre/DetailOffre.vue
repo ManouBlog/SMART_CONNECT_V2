@@ -344,7 +344,7 @@ export default {
         const id = this.$route.params.id
         const { data } = await instance.get(`detail_offre/${id}`)
         const offre = data.data
-        console.log("loadDetailOffre", offre)
+        // console.log("loadDetailOffre", offre)
         this.offre_detaiId = offre;
         this.formState.categorie_offre_id = offre.categorie_offre_id
         this.formState.competence_id = offre.competence_id
